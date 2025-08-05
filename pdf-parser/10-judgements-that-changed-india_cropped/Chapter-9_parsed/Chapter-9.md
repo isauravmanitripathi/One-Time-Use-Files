@@ -1,0 +1,117 @@
+Nine
+
+وبالمجزه
+
+# All in a Day's Work: Sexual Harassment at the Workplace
+
+**Vishaka v. State of Rajasthan (1997)**
+
+*Innovating jurisprudence to prevent sexual harassment at the workplace*
+
+![](_page_1_Picture_0.jpeg)
+
+IN AN EMERGING Indian economy, as more and more women have started to work, the malady of sexual harassment at the workplace has reared its ugly head in several fields. From the police and the army to business process outsourcing set-ups, from multinational corporations to professional sport—it's regrettable that no sector or discipline has been spared. As has been the case with many other pressing issues, it was a Supreme Court decision that first brought this issue under sustained public scrutiny. Since the judgement, there have been several attempts (one pending, others failed) to make definitive laws on the subject.
+
+In the context of sexual harassment, judicial activism reached its pinnacle in *Vishaka v. State of Rajasthan* 1 (*Vishaka*). The judgement was unprecedented for several reasons: the Supreme Court acknowledged and relied to a great extent on international treaties that had not been transformed into municipal law; the Supreme Court provided the first authoritative definition of 'sexual harassment' in India; and confronted with a statutory vacuum, it went creative and proposed the route of 'judicial legislation'.
+
+## Gang Rape of Bhanwari Devi
+
+The trigger that led to a public interest litigation (PIL) being filed in respect of the *Vishaka* case was the gang rape of a social worker in Rajasthan. Bhanwari Devi was a *saathin*, a grass-roots worker and activist, employed in the Women's Development Project (WDP) of the government of Rajasthan. In 1992, the Rajasthan government launched a campaign against child marriage, in connection with which WDP employees persuaded villagers to abandon the practice, which was and still is rampant in Rajasthan. Bhanwari Devi made a spirited effort to prevent the marriage of a one-year-old girl, but in vain. What ensued was a complete breakdown of the institutional machinery in Rajasthan. The villagers harassed, threatened and socially boycotted Bhanwari Devi. <sup>2</sup> Then, in September 1992, five villagers raped her in the presence of her husband. She sought justice, but faced innumerable hurdles from police authorities. The trial court in Rajasthan went ahead and acquitted the five accused.
+
+This spurred a group of five NGOs, under the name 'Vishaka', to file a PIL in the Supreme Court seeking detailed directions on how sexual harassment of women at the workplace could be prevented through a judicial process.
+
+Thinking Global, Acting Local: Reference to International Treaties
+
+The Constitution of India does not have a precise stand on the value of international treaties that have been signed or ratified by the government, but not implemented via legislation. 3 In *Vishaka*, the court moved towards a more purposive understanding of fundamental rights by affirming that '[a]ny International Convention not inconsistent with the fundamental rights and in harmony with its spirit must be read into these provisions [the fundamental rights] to enlarge the meaning and content thereof, to promote the object of the constitutional guarantee'. <sup>4</sup> Since there was no legislation in India related to sexual harassment at the workplace, the court stated that it was free to rely on the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW—signed by India in 1980) in interpreting Articles 14, 15, 19 and 21 <sup>5</sup> of the Constitution. To justify its decision the court referred to several sources including the Beijing Statement of Principles of the Independence of the Judiciary, 6 a decision of the High Court of Australia<sup>7</sup> and its own earlier decisions.<sup>8</sup>
+
+*Vishaka* also reflected a productive interaction between international covenants and municipal courts. <sup>9</sup> Since *Vishaka*, the Supreme Court has (had to) increasingly rely upon multilateral treaties, particularly those forming a part of the International Bill of Rights,<sup>10</sup> because of the long periods of legislative inactivity in spheres of contemporary relevance. Given that all decisions of the Supreme Court are treated as law under Article  $141<sup>11</sup>$  of the Constitution, the guidelines issued by the court in *Vishaka* plugged a legislative vacuum.
+
+#### Guidelines or Legislation?
+
+The Supreme Court then issued a series of 'guidelines' (based on CEDAW) to protect women from sexual harassment at the workplace. These guidelines were to be 'strictly observed in all workplaces' (whether in the private or public sector) and would be 'binding and enforceable in law' until suitable laws were made on the issue. 12
+
+The Supreme Court set out the following significant guidelines:
+
+- 1. The employer and/or other responsible people in a workplace are duty-bound to prevent or deter sexual harassment and set up processes to resolve, settle, or prosecute in such cases.
+- 2. For the first time in India, 'sexual harassment' was defined authoritatively. The Supreme Court stated that it includes 'such unwelcome sexually determined behaviour (whether directly or by implication) such as: physical contact and advances, a demand or request for sexual favours, sexually coloured remarks, showing pornography, and any other unwelcome physical, verbal or non-verbal conduct of sexual nature'.<sup>13</sup>
+- 3. All employers or persons in charge of workplaces must strive to prevent sexual harassment and, if any act amounts to a specific offence under the Indian Penal Code,  $1860<sup>14</sup>$  (the IPC) or any other law, they must take appropriate action to punish the guilty.
+- 4. Even if the act is not considered a legal offence or a breach of service rules, the employer should create appropriate mechanisms so that the complaint is addressed and redressed in a time-bound manner.
+- 5. This complaint mechanism must, if necessary, provide a complaints committee, a special counsellor or other support service, such as assuring confidentiality. The complaints committee should be headed by a woman, and at least half its members must be women. Also, to pre-empt any undue pressure from senior levels, the complaints committee must involve a third party (such as an NGO) familiar with the challenges of sexual harassment.
+- 6. The employer must sensitize female employees to their rights and prominently notify the court's guidelines.
+- 7. Even if a third party is responsible for sexual harassment, the employer must take allsteps necessary to support the victim.
+
+8. The central and state governments should adopt suitable measures to ensure that private sector employers implement the guidelines.
+
+Some authors have correctly observed that *Vishaka* has 'institutionalized judicial lawmaking'. 15 Although they are susceptible to euphemism,  $16$  the court's guidelines are as good as laws and the court intended that they would be operated, at least in theory, in the same manner as statutes. This is reinforced by the fact that the Supreme Court's decisions are 'law' and are legally binding on all other Indian courts, under Article 141 of the Constitution. <sup>17</sup> The mere fact that the guidelines were transitory does not affect this deduction; after all, the legislation that Parliament enacts itself operates until Parliament decides that it should not.<sup>18</sup> Therefore, rather than temporarily filling a legislative void, what the Supreme Court really did was redress a democratic deficit. One wonders whether this is what Cardozo envisioned when he posited that 'judges don't discover law, they create it'!<sup>19</sup>
+
+#### Horizontal Application of Fundamental Rights
+
+Recently, it has been argued<sup>20</sup> that *Vishaka* represents the 'horizontal' application of fundamental rights.<sup>21</sup> Under the Constitution, fundamental rights are usually enforced only 'vertically'<sup>22</sup> against the state, except certain rights, such as the right against untouchability,<sup>23</sup> which also operate 'horizontally' against other citizens.<sup>24</sup> Having said that, it is also a fact that most fundamental rights are worded ambiguously—it is unclear whether they can be invoked in case non-state actors violate them. The *Vishaka* decision fits perfectly within what noted Harvard law professor and constitutional jurist Mark Tushnet calls 'residual State-action horizontality'—the 'horizontal' application of fundamental rights in cases where there is a legislative vacuum, <sup>25</sup> as was the case in *Vishaka*.
+
+# Developments after *Vishaka*
+
+Dozens of cases have cropped up across high courts (and occasionally in the Supreme Court too) with reference to the *Vishaka* guidelines; these seek the establishment of complaints committees, dispute the constitution of complaints committees where they have already been in place, or challenge orders of dismissal based on the decisions of these committees.
+
+*Apparel Export Promotion Council v. A.K. Chopra* 26 (*Chopra*) was the first case, in 1999, where the Supreme Court found an opportunity to follow its judgement in *Vishaka*. The council's chairman was accused of sexually harassing his secretary; though he made repeated attempts, the chairman never actually molested her. On her complaint, however, his services were terminated. When he filed a writ petition against 'his employer', the Delhi High Court found that since the chairman did not make any physical contact with his secretary, he did actually not molest her.<sup>27</sup> In appeal by the council, the Supreme Court reversed the Delhi High Court's judgement, recognizing that physical contact was not a prerequisite of sexual harassment, given its broad definition in *Vishaka*. It asserted
+
+that sexual harassment compromised the dignity of women and cannot be condoned. In addition to the international sources referred to in *Vishaka*, the court also cited the International Covenant on Economic, Social and Cultural Rights and the International Labour Organization's seminar on combating sexual harassment at work. 28
+
+The Supreme Court's refreshingly progressive approach in *Chopra* marked a transition in the usual stance of Indian courts. The apex court acknowledged that harassment transcends physical barriers and that the effects of mental harassment can be equally damaging. And yet the courts' deep-seated insensitivity to women's issues still shows up occasionally; the most recent example was a case where the Supreme Court was severely criticized for referring to an unmarried partner as a 'keep' in a case under the Protection of Women from Domestic Violence Act, 2005.<sup>29</sup>
+
+In *D.S. Grewal v. Vimmi Joshi*, <sup>30</sup> a colonel of the Indian Army made advances at and wrote inappropriate letters to the principal of an army public school. The principal was apprehensive that if she objected to his conduct, he would create a hostile working environment and hinder her employment, including her promotion. Her fears did come true as her services were terminated. The Supreme Court ordered the school management to constitute a three-member complaints committee (as mandated in the *Vishaka* guidelines) to ascertain if there were a prima facie case against the army officer. If the committee found such a case, it would submit its report to the army, which would then initiate disciplinary proceedings.
+
+The court also affirmed that the school management was bound to bear the legal costs incurred by the principal (with counsel fee assessed at 50,000 rupees), for it had not complied with the *Vishaka* guidelines to begin with. In the absence of laws on sexual harassment at the workplace, perhaps imposing additional real-time costs would catalyse employers into adhering to the *Vishaka* guidelines, apart from the loss of reputation that they may face if they fail to do so.
+
+Courts have emphasized that all employers must strictly comply with the *Vishaka* guidelines and have not viewed alternative mechanisms (in lieu of complaints committees) very kindly. In a case where a public company appointed an advocate as an inquiry officer to investigate a complaint of sexual harassment, the Bombay High Court refused to accept the efficacy of the procedure and held that the complaints mechanism postulated in *Vishaka* was mandatory. 31
+
+Courts have been quite sensitive to issues arising from the *Vishaka* guidelines. Recognizing that the guidelines apply to all cooperative societies and private institutions, the Kerala High Court observed that 'the quality of womanhood does not change by the place where she works, be it public or private.<sup>32</sup> In yet another shift of stance, the Madras High Court held that even in cases where the allegation of harassment appeared baseless and seemed like an afterthought, the proper course would be to refer the matter to the complaints committee.<sup>33</sup>
+
+On analysing Indian jurisprudence after *Vishaka*, it is clear that the Indian judicial system has treated sexual harassment with seriousness; it has defined harassment inclusively and covers any behaviour that denies a person employment-related benefits due to rejection of sexual demands (quid pro quo harassment) or creates a hostile work environment (without directly impacting on economic and other benefits).
+
+#### A Double-Edged Weapon
+
+Any measure that aims to protect disadvantaged sections of society or minorities is likely to be abused, and *Vishaka* is no exception. In the case of *Usha C.S. v. Madras Refineries* 34 (*Madras Refineries*), the Madras High Court heard a complaint of sexual harassment made by an employee of Madras Refineries Ltd, a public sector undertaking. The employee alleged that she was denied her study-leave with pay, salary and promotion because she rejected the advances of the general manager of her department. After examining the facts the court held that the employee's allegations regarding her promotion and study-leave were baseless, as both decisions appeared to have been taken in accordance with company policy. Further, a complaints committee had been properly constituted, but the employee had persistently delayed the inquiry; therefore, her allegation of sexual harassment was merely a weapon to bargain for a promotion and study-leave with pay, contrary to company policy. Highlighting and condemning the misuse of the Supreme Court's judgement in *Vishaka*, the court held:
+
+The employer, who is supposed to keep a vigilant eye on the victim and the delinquent, is not expected to allow the women to use the shield so presented by the apex court as a weapon to wreak vengeance. It is true that we are bound by the directions of the apex court, but that does not mean that they can be allowed to be interpreted to suit the convenience of the woman like the petitioner, for personal gain.<sup>35</sup>
+
+The court thereafter described *Vishaka* as a 'double-edged weapon'. In keeping with other decisions on the subject, it affirmed that the court cannot assume that an allegation of harassment is correct unless it is first referred to a complaints committee.
+
+Though the court's ultimate view was sound, one of its observations is questionable:
+
+The petitioner/appellant before us is not an ordinary working woman; instead she was carrying on the Research by joining the Ph.D. course. Had there been any harassment, much less a sexual harassment, a woman like the petitioner would not have kept quiet for a period of about six years.<sup>36</sup>
+
+The argument that a woman pursuing a research degree would face less pressure in making a complaint as opposed to an 'ordinary working woman' is not at all convincing. Well-educated women are also hesitant to report harassment as they are equally prone to any vengeful act that the 'harasser' may resort to.
+
+# Can the Judiciary be an Interim Parliament?
+
+Many argue that the Supreme Court encroached on the legislature's jurisdiction in *Vishaka*. What the court essentially did was frame a set of guidelines that would operate until laws were made, since neither the legislature nor the executive exercised its constitutional duty to do so. Interestingly, a twojudge bench of the Supreme Court was diametrically opposed on whether judges can play parliamentarians in *University of Kerala v. Council, Principals', Colleges, Kerala and Ors.* 37 (*University of Kerala*). Justice Markandey Katju opined that there were 'hundreds of pressing social
+
+#### needs', but it was not within the court's domain to address them just because there were no laws related to them. He also made some striking observations on the Supreme Court's role in *Vishaka*:
+
+In *Vishaka v. State of Rajasthan* . . . a three-judge bench of this court has issued various directives and as stated therein these will be treated as law under Article 141 of the Constitution . . . While we fully agree that working women should be protected against sexual harassment, the constitutional question remains whether such directives by this court are constitutionally valid? In substance the court has said . . . that it will become an interim Parliament and legislate on the subject until Parliament makes a law . . . Is this constitutionally valid? Can the court convert itself into an interim Parliament and make law until Parliament makes a law on the subject? I have grave doubts about this. $38$ 
+
+On the other hand, Justice Ashok Kumar Ganguly said that judicial intervention is permissible in situations where there is a legislative void, that accomplished jurists share this opinion,<sup>39</sup> and that the cases where the Supreme Court played such a proactive role were 'applauded internationally'.<sup>40</sup> He also cited examples of how the court had eschewed technicalities<sup>41</sup> (such as the strict rule of standing).
+
+As the bench was divided on the validity of 'judicial legislation' and as it involved a substantial question of law, related to interpreting the Constitution itself, the matter was placed before the Chief Justice of India for reference to a Constitution Bench of the Supreme Court. The judgement of Justice Katju and Justice Ganguly referring the matter to a Constitution Bench was passed on 11 November 2009. The reference before the Chief Justice is still pending.
+
+A question that is bound to arise is whether the Supreme Court is competent to frame binding guidelines as it did in *Vishaka*. If the Supreme Court answers in the negative, India may once again find itself without a law relating to sexual harassment at the workplace, considering that a number of bills on the subject have been drafted in the last decade, but to no avail.
+
+One aspect the Supreme Court overlooked when delivering its judgement in *University of Kerala* was that in its earlier decision in *Vishaka*, the court did not impose its own views but applied the doctrine of incorporation, under which international law becomes a part of municipal law if they are not at odds. This was not the case in the facts before the Supreme Court in *University of Kerala*. The Constitution Bench can demarcate between the legislative realm and the judicial realm based on the finding that when confronted with a legislative vacuum, the court can apply only the established rules of international law—not its own conception of what the law should be—until laws are framed by the legislature.
+
+# Legislative Inaction
+
+*Vishaka* was intended to be an interim measure which would apply until the Parliament enacted laws to protect women from being sexually harassed at workplaces. Since the judgement, the National Commission for Women (NCW) has prepared a Code of Conduct for the Workplace<sup>42</sup> as well as draft bills on the subject in 2000, 2003, 2004, 2006 <sup>43</sup> and 2010.
+
+In December 2010, the Protection of Women against Sexual Harassment at Workplace Bill, 2010 was tabled in Parliament.<sup>44</sup> The bill features many progressive measures to redress sexual
+
+harassment: monetary penalty for employers, interim relief for complainants and compulsory reporting procedures for organizations. Interestingly, the bill does not necessitate an employer– employee relationship; so, it actually protects not only employees but also clients, customers, apprentices, daily wagers, students and hospital patients. Initially, the bill did not include the domestic workforce—among the most vulnerable segments of the unorganized sector in India—and was sharply criticized for failing to do so; it has now been amended to overcome this lacuna. Yet, even as the bill addresses the more pressing issue of sexual harassment against women at the workplace, it is still non-inclusive because it does not take into account such harassment against men. This category of harassment is rare, but not unheard of. On the whole, the bill is a step in the right direction—it has been passed by both houses of Parliament <sup>45</sup> and received Presidential assent on 25 April 2013. 46
+
+### Why We Need Comprehensive Legislation
+
+*Vishaka* was a seminal judgement because the Supreme Court's ruling ended the debate over whether sexual harassment of women at the workplace was a real problem. *Vishaka* is still the only pan-India law on this specific issue.
+
+A writ petition currently pending in the Supreme Court seeks proper enforcement of the *Vishaka* guidelines by private and public institutions. <sup>47</sup> The Supreme Court has passed several orders in this petition—a significant one directing the labour commissioners of all states to take steps to implement the guidelines. Not much has changed at the grass roots though.<sup>48</sup>
+
+A recent survey by the Centre for Transforming India suggests that nearly 88 per cent of the female workforce in information technology as well as business/knowledge process outsourcing companies have reported facing some form of workplace sexual harassment.<sup>49</sup> What is worrying is that 47 per cent of the employees did not know where to report this harassment, 91 per cent did not report for fear of being victimized and 77 per cent said that they were not sensitized to sexual harassment policies as part of their hiring process. Recent reports indicate that paramilitary forces do not adhere to guidelines on sexual harassment either. 50
+
+Unfortunately, despite the strides made by *Vishaka*, most employers are yet to constitute complaints committees. Experience shows that such committees are often constituted only when a court orders so in a particular case. Hence, the *Vishaka* guidelines have operated as a remedial rather than preventive measure. A recent statistic revealed that most women are not aware of the Supreme Court's judgement in *Vishaka*. <sup>51</sup> This underscores how important it is to make laws on the subject as that would provide machinery for the systematic prevention and redressal of sexual harassment of women at the workplace. While *Vishaka* is only enforced from case to case, a law would be enforced in all cases. Only when there is comprehensive legislation can the workplace be truly and completely gender-sensitized to meet the aspiration of a harassment-free work environment.
