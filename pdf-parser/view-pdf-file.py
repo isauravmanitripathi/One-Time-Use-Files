@@ -6,6 +6,7 @@ import os
 import sys
 from io import BytesIO
 from datetime import datetime
+import re
 
 class PDFEPUBViewer:
     def __init__(self, root, output_folder=None):
@@ -26,6 +27,9 @@ class PDFEPUBViewer:
         self.crop_start_page = None
         self.crop_end_page = None
         self.is_cropping = False
+        
+        # Chapter counter for automatic naming
+        self.chapter_counter = 1
         
         self.setup_ui()
         
@@ -63,7 +67,7 @@ class PDFEPUBViewer:
         crop_frame.pack(fill=tk.X, pady=(0, 5))
         
         # Crop status label
-        self.crop_status_label = ttk.Label(crop_frame, text="Keys: 1=Previous, 2=Next, B=Start crop, N=Finish crop (saves as PDF)", 
+        self.crop_status_label = ttk.Label(crop_frame, text="Keys: 1=Previous, 2=Next, B=Start crop, N=Finish crop, ESC=Cancel crop", 
                                          foreground="blue", font=("Arial", 10, "bold"))
         self.crop_status_label.pack(side=tk.LEFT)
         
@@ -71,6 +75,18 @@ class PDFEPUBViewer:
         self.file_type_label = ttk.Label(crop_frame, text="", 
                                        foreground="purple", font=("Arial", 9, "italic"))
         self.file_type_label.pack(side=tk.RIGHT)
+        
+        # Chapter counter info frame
+        counter_frame = ttk.Frame(main_frame)
+        counter_frame.pack(fill=tk.X, pady=(0, 5))
+        
+        # Chapter counter label
+        self.chapter_counter_label = ttk.Label(counter_frame, text=f"Next chapter: Chapter {self.chapter_counter}", 
+                                             foreground="darkblue", font=("Arial", 9, "bold"))
+        self.chapter_counter_label.pack(side=tk.LEFT)
+        
+        # Reset counter button
+        ttk.Button(counter_frame, text="Reset Counter", command=self.reset_chapter_counter).pack(side=tk.RIGHT, padx=(10, 0))
         
         # Output folder info frame
         folder_frame = ttk.Frame(main_frame)
@@ -103,6 +119,46 @@ class PDFEPUBViewer:
         self.root.bind("<Configure>", self.on_window_resize)  # Handle window resize
         self.root.focus_set()  # Enable key bindings
         
+    def reset_chapter_counter(self):
+        """Reset chapter counter to 1"""
+        self.chapter_counter = 1
+        self.update_chapter_counter_display()
+        messagebox.showinfo("Counter Reset", "Chapter counter has been reset to 1.")
+    
+    def update_chapter_counter_display(self):
+        """Update the chapter counter display"""
+        self.chapter_counter_label.config(text=f"Next chapter: Chapter {self.chapter_counter}")
+    
+    def get_next_chapter_number(self):
+        """Get the next available chapter number by scanning existing files"""
+        if not self.output_folder or not os.path.exists(self.output_folder):
+            return self.chapter_counter
+        
+        # Get all PDF files in the output folder
+        existing_files = [f for f in os.listdir(self.output_folder) if f.lower().endswith('.pdf')]
+        
+        # Extract chapter numbers from existing files
+        chapter_numbers = []
+        for filename in existing_files:
+            # Look for "Chapter X" pattern (case insensitive)
+            match = re.search(r'chapter\s*(\d+)', filename, re.IGNORECASE)
+            if match:
+                chapter_numbers.append(int(match.group(1)))
+        
+        if not chapter_numbers:
+            return self.chapter_counter
+        
+        # Find the next available chapter number
+        chapter_numbers.sort()
+        next_number = 1
+        for num in chapter_numbers:
+            if num == next_number:
+                next_number += 1
+            elif num > next_number:
+                break
+        
+        return max(next_number, self.chapter_counter)
+    
     def calculate_fit_zoom(self):
         """Calculate zoom level to fit page in window"""
         if not self.document:
@@ -166,6 +222,9 @@ class PDFEPUBViewer:
         if folder:
             self.output_folder = folder
             self.folder_label.config(text=f"Output folder: {self.output_folder}")
+            # Update chapter counter based on existing files
+            self.chapter_counter = self.get_next_chapter_number()
+            self.update_chapter_counter_display()
         
     def open_file(self):
         """Open and load a PDF or EPUB file"""
@@ -221,6 +280,10 @@ class PDFEPUBViewer:
             # Create output folder if not set
             if not self.output_folder:
                 self.create_default_output_folder()
+            
+            # Update chapter counter based on existing files in output folder
+            self.chapter_counter = self.get_next_chapter_number()
+            self.update_chapter_counter_display()
             
             # Calculate initial fit zoom and display first page
             self.root.after(100, self.fit_to_window)  # Small delay to ensure canvas is ready
@@ -325,6 +388,21 @@ class PDFEPUBViewer:
             self.zoom_level = max(self.zoom_level / 1.2, 0.2)  # Min zoom 0.2x
             self.display_page()
     
+    def cancel_crop(self):
+        """Cancel current cropping selection"""
+        if not self.is_cropping:
+            return
+            
+        # Reset cropping variables
+        self.crop_start_page = None
+        self.crop_end_page = None
+        self.is_cropping = False
+        self.update_crop_status()
+        self.display_page()  # Refresh to remove visual indicators
+        
+        # Show cancellation message
+        messagebox.showinfo("Crop Cancelled", "Cropping selection has been cancelled.")
+    
     def start_crop(self):
         """Start cropping from current page"""
         if not self.document:
@@ -349,28 +427,28 @@ class PDFEPUBViewer:
             messagebox.showerror("Error", "End page must be after start page!")
             return
         
-        # Ask user for filename with better duplicate handling
+        # Ask user for filename with automatic chapter naming
         self.ask_filename_and_save()
         
     def ask_filename_and_save(self):
-        """Ask user for filename and save the cropped pages as PDF with better duplicate handling"""
-        # Generate default filename
-        default_name = f"{self.filename}_pages_{self.crop_start_page+1}_to_{self.crop_end_page+1}"
+        """Ask user for filename and save the cropped pages as PDF with automatic chapter naming"""
+        # Get the next chapter number (ensures proper sequential order)
+        next_chapter = self.get_next_chapter_number()
+        default_name = f"Chapter {next_chapter}"
         
         while True:
-            # Ask user for custom filename
+            # Ask user for custom filename with chapter name pre-filled
             custom_name = simpledialog.askstring(
                 "Save Cropped PDF",
-                f"Enter filename for the cropped PDF:\n(Pages {self.crop_start_page+1} to {self.crop_end_page+1} from {self.file_type.upper()})\n\nWill be saved as PDF to:\n{self.output_folder}",
+                f"Enter filename for the cropped PDF:\n(Pages {self.crop_start_page+1} to {self.crop_end_page+1} from {self.file_type.upper()})\n\nPress Enter to use suggested name or modify as needed.\nWill be saved as PDF to:\n{self.output_folder}",
                 initialvalue=default_name
             )
             
             if custom_name is None:  # User cancelled
                 return
                 
-            if not custom_name.strip():  # Empty name
-                messagebox.showwarning("Warning", "Please enter a valid filename!")
-                continue
+            if not custom_name.strip():  # Empty name - use default
+                custom_name = default_name
                 
             # Clean the filename (remove invalid characters)
             invalid_chars = '<>:"/\\|?*'
@@ -395,6 +473,9 @@ class PDFEPUBViewer:
             else:
                 # File doesn't exist, proceed with saving
                 self.save_cropped_pdf(custom_name)
+                # Update chapter counter for next use
+                self.chapter_counter = self.get_next_chapter_number()
+                self.update_chapter_counter_display()
                 break
         
     def save_cropped_pdf(self, filename):
@@ -436,10 +517,10 @@ class PDFEPUBViewer:
     def update_crop_status(self):
         """Update the crop status label"""
         if not self.is_cropping:
-            self.crop_status_label.config(text="Keys: 1=Previous, 2=Next, B=Start crop, N=Finish crop (saves as PDF)", 
+            self.crop_status_label.config(text="Keys: 1=Previous, 2=Next, B=Start crop, N=Finish crop, ESC=Cancel crop", 
                                         foreground="blue")
         else:
-            self.crop_status_label.config(text=f"Cropping started at page {self.crop_start_page+1}. Use 1/2 to navigate, press 'N' to finish (will save as PDF).", 
+            self.crop_status_label.config(text=f"Cropping started at page {self.crop_start_page+1}. Use 1/2 to navigate, press 'N' to finish or ESC to cancel.", 
                                         foreground="red")
     
     def on_mousewheel(self, event):
@@ -470,6 +551,8 @@ class PDFEPUBViewer:
             self.start_crop()
         elif event.keysym.lower() == "n":
             self.finish_crop()
+        elif event.keysym == "Escape":
+            self.cancel_crop()
 
 def get_user_choice():
     """Ask user how they want to provide the file path"""
@@ -573,8 +656,10 @@ def main():
     print("- Auto-fit pages to window size")
     print("- 'Fit' button to manually fit page")
     print("- Press 'F' key for quick fit")
+    print("- Automatic chapter naming in sequential order")
     print("- Cropped pages always saved as PDF")
     print("- Better duplicate filename handling")
+    print("- Reset counter button for starting over")
     
     # Start the GUI
     root.mainloop()
