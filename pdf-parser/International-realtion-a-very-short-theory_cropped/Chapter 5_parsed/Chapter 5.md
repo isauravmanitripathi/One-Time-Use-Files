@@ -1,0 +1,23 @@
+## **Conclusion**
+
+It would be entirely understandable if the reader felt somewhat depressed at this stage in this short introduction. A brief survey of some of the major problems and challenges of international relations reveals that we live in a very dangerous world, and that many of the most serious threats to our peace, security, and economic and social well-being are the result of human actions.
+
+The 'New World Order', which President George W. Bush's father hoped to usher in at the end of the cold war now appears to have been a hopelessly overoptimistic notion. Most sensible observers today realize that there are severe limits to what can be achieved by unilateral foreign policy initiatives. Big international changes such as the reform of the UN can only be achieved when there is agreement among the major powers. Even the reform of the EU has to be agreed by 25 member states.
+
+One of the key lessons one can draw from the recent history of international relations is the importance of skilful, patient diplomacy, building cooperation not only with states but also with IGOs and non-state organizations. We should bear in mind that there have been huge achievements through peaceful diplomacy over the past half-century. Most of the day-to-day work of the Foreign and Commonwealth Office and our ambassadors abroad involves relations with states which are basically friendly and
+
+cooperative and whose governments abide by international agreements, conduct trade and diplomacy according to the rules, and so on.
+
+This not only applies to small and medium-sized powers. The successive leaders of the world's sole superpower have learnt from experience that unilateralism does not work. There are limits to their power and influence and as they cannot control international relations, they have to rely on the diplomacy of multilateralists, including the imperfect yet indispensable UN.
+
+It follows that in a world where states possess weapons of mass destruction, international statesmanship and leadership cannot be measured purely in terms of the use, or threat of use, of military power as a regular tool of foreign policy. Of course, in the last resort, when your national security is *genuinely* at risk, you must be prepared to use military force, but overdependence on military 'solutions' is highly dangerous and potentially counterproductive. Even a superpower cannot remake the entire international system in its own image. It has to learn to *manage* tensions and disputes and prevent conflict, because the risks of escalating inter-state conflict are so great that it is not in the national security interest to get dragged into so-called 'pre-emptive wars' against all the brutal undemocratic regimes in the world.
+
+It is important to bear in mind that only a small minority of states have democratic political systems. The international system is very far from being a democracy. But that does not mean that our foreign policy should be conducted without reference to certain underlying principles.
+
+I stressed earlier the vital contribution of outstanding international statesmen and national political leaders in resolving problems and challenges. What key principles should guide our current policy makers, parliaments, and publics in making foreign policy in a democracy? They should be, above all, committed to
+
+international peace and security, because without this we could so swiftly bring to an end human life on this planet. We should also expect them to be genuine internationalists with a commitment to serving the good of humanity and not simply a narrow national or sectional interest. They should seek to promote multi-religious and multi-ethnic tolerance not only within our democracies but also globally, through policies on human rights and development assistance to the Global South.
+
+It goes almost without saying that they should be fully committed to upholding the basic rights and freedoms enshrined in such documents as the UN Declaration of Human Rights (1948) and the European Convention for the Protection of Human Rights and Fundamental Freedoms (1950).
+
+Last but not least, we should expect our democratic political leaders to be committed to spreading the principles and practice of democratic governance and observance of the rule of law, while recognizing that this is inevitably a difficult task which needs to be pursued by example and quiet persuasion and not imposed by force. This is most accurately characterized as a liberal democratic response to the challenges and dangers which confront both democracies and undemocratic states in an international system of states which is now all too capable of destroying itself.
