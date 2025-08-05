@@ -82,6 +82,7 @@ In a parliamentary system whether in India or Britain, the role of the Prime Min
 
 # **6. Synthesis of Parliamentary Sovereignty and Judicial Supremacy**
 
+
 The doctrine of sovereignty of Parliament is associated with the British Parliament, while the principle of judicial supremacy with that of the American Supreme Court.
 
 Just as the Indian parliamentary system differs from the British system, the scope of judicial review power of the Supreme Court in India is narrower than that of what exists in US. This is because the American Constitution provides for 'due process of law' against that of 'procedure established by law' contained in the Indian Constitution (Article 21).

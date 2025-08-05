@@ -14,6 +14,7 @@ The commission had no agenda before it. On its own, it identified the eleven are
 
 2. Electoral reforms; standards in political life.
 
+
 3. Pace of socio-economic change and development under the Constitution (assurance of social and economic rights: how fair? how fast? how equal?).
 
 4. Promoting literacy; generating employment; ensuring social security; alleviation of poverty.
