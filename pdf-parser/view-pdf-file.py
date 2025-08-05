@@ -7,19 +7,20 @@ import sys
 from io import BytesIO
 from datetime import datetime
 
-class PDFViewer:
+class PDFEPUBViewer:
     def __init__(self, root, output_folder=None):
         self.root = root
-        self.root.title("PDF Viewer & Cropper")
+        self.root.title("PDF & EPUB Viewer & Cropper")
         self.root.geometry("800x900")
         
-        self.pdf_document = None
+        self.document = None
         self.current_page = 0
         self.total_pages = 0
         self.zoom_level = 1.0
         self.base_zoom = 1.0  # Auto-calculated base zoom for page fitting
         self.output_folder = output_folder
-        self.pdf_filename = None
+        self.filename = None
+        self.file_type = None  # 'pdf' or 'epub'
         
         # Cropping variables
         self.crop_start_page = None
@@ -37,15 +38,15 @@ class PDFViewer:
         control_frame = ttk.Frame(main_frame)
         control_frame.pack(fill=tk.X, pady=(0, 10))
         
-        # Open PDF button
-        ttk.Button(control_frame, text="Open PDF", command=self.open_pdf).pack(side=tk.LEFT, padx=(0, 10))
+        # Open file button
+        ttk.Button(control_frame, text="Open PDF/EPUB", command=self.open_file).pack(side=tk.LEFT, padx=(0, 10))
         
         # Navigation buttons
         ttk.Button(control_frame, text="Previous (1)", command=self.prev_page).pack(side=tk.LEFT, padx=(0, 5))
         ttk.Button(control_frame, text="Next (2)", command=self.next_page).pack(side=tk.LEFT, padx=(0, 10))
         
         # Page info label
-        self.page_label = ttk.Label(control_frame, text="No PDF loaded")
+        self.page_label = ttk.Label(control_frame, text="No file loaded")
         self.page_label.pack(side=tk.LEFT, padx=(0, 10))
         
         # Zoom controls
@@ -62,9 +63,14 @@ class PDFViewer:
         crop_frame.pack(fill=tk.X, pady=(0, 5))
         
         # Crop status label
-        self.crop_status_label = ttk.Label(crop_frame, text="Keys: 1=Previous, 2=Next, B=Start crop, N=Finish crop", 
+        self.crop_status_label = ttk.Label(crop_frame, text="Keys: 1=Previous, 2=Next, B=Start crop, N=Finish crop (saves as PDF)", 
                                          foreground="blue", font=("Arial", 10, "bold"))
         self.crop_status_label.pack(side=tk.LEFT)
+        
+        # File type indicator
+        self.file_type_label = ttk.Label(crop_frame, text="", 
+                                       foreground="purple", font=("Arial", 9, "italic"))
+        self.file_type_label.pack(side=tk.RIGHT)
         
         # Output folder info frame
         folder_frame = ttk.Frame(main_frame)
@@ -75,7 +81,7 @@ class PDFViewer:
                                     foreground="darkgreen", font=("Arial", 9))
         self.folder_label.pack(side=tk.LEFT)
         
-        # Create scrollable frame for PDF display
+        # Create scrollable frame for document display
         self.canvas_frame = ttk.Frame(main_frame)
         self.canvas_frame.pack(fill=tk.BOTH, expand=True)
         
@@ -99,12 +105,12 @@ class PDFViewer:
         
     def calculate_fit_zoom(self):
         """Calculate zoom level to fit page in window"""
-        if not self.pdf_document:
+        if not self.document:
             return 1.0
             
         try:
             # Get current page dimensions
-            page = self.pdf_document[self.current_page]
+            page = self.document[self.current_page]
             page_rect = page.rect
             page_width = page_rect.width
             page_height = page_rect.height
@@ -137,7 +143,7 @@ class PDFViewer:
     
     def fit_to_window(self):
         """Reset zoom to fit page in window"""
-        if self.pdf_document:
+        if self.document:
             self.base_zoom = self.calculate_fit_zoom()
             self.zoom_level = self.base_zoom
             self.display_page()
@@ -145,13 +151,13 @@ class PDFViewer:
     def on_window_resize(self, event):
         """Handle window resize event"""
         # Only respond to canvas resize events, not all widget resize events
-        if event.widget == self.root and self.pdf_document:
+        if event.widget == self.root and self.document:
             # Add a small delay to avoid too many rapid recalculations
             self.root.after(100, self.auto_fit_if_needed)
     
     def auto_fit_if_needed(self):
         """Auto-fit page if zoom is at base level"""
-        if self.pdf_document and abs(self.zoom_level - self.base_zoom) < 0.1:
+        if self.document and abs(self.zoom_level - self.base_zoom) < 0.1:
             self.fit_to_window()
         
     def set_output_folder(self):
@@ -161,22 +167,27 @@ class PDFViewer:
             self.output_folder = folder
             self.folder_label.config(text=f"Output folder: {self.output_folder}")
         
-    def open_pdf(self):
-        """Open and load a PDF file"""
+    def open_file(self):
+        """Open and load a PDF or EPUB file"""
         file_path = filedialog.askopenfilename(
-            title="Select PDF file",
-            filetypes=[("PDF files", "*.pdf"), ("All files", "*.*")]
+            title="Select PDF or EPUB file",
+            filetypes=[
+                ("PDF and EPUB files", "*.pdf;*.epub"),
+                ("PDF files", "*.pdf"), 
+                ("EPUB files", "*.epub"),
+                ("All files", "*.*")
+            ]
         )
         
         if file_path:
-            self.load_pdf(file_path)
+            self.load_file(file_path)
             
-    def load_pdf(self, file_path):
-        """Load a PDF file from given path"""
+    def load_file(self, file_path):
+        """Load a PDF or EPUB file from given path"""
         try:
             # Close previous document if any
-            if self.pdf_document:
-                self.pdf_document.close()
+            if self.document:
+                self.document.close()
             
             # Reset cropping variables
             self.crop_start_page = None
@@ -184,17 +195,28 @@ class PDFViewer:
             self.is_cropping = False
             self.update_crop_status()
             
-            # Open new PDF
-            self.pdf_document = fitz.open(file_path)
-            self.total_pages = len(self.pdf_document)
+            # Determine file type
+            file_extension = os.path.splitext(file_path)[1].lower()
+            if file_extension == '.pdf':
+                self.file_type = 'pdf'
+            elif file_extension == '.epub':
+                self.file_type = 'epub'
+            else:
+                messagebox.showerror("Error", "Unsupported file format. Please select a PDF or EPUB file.")
+                return
+            
+            # Open document (PyMuPDF handles both PDF and EPUB)
+            self.document = fitz.open(file_path)
+            self.total_pages = len(self.document)
             self.current_page = 0
             
             # Store filename for folder creation
-            self.pdf_filename = os.path.splitext(os.path.basename(file_path))[0]
+            self.filename = os.path.splitext(os.path.basename(file_path))[0]
             
-            # Update window title
+            # Update window title and file type indicator
             filename = os.path.basename(file_path)
-            self.root.title(f"PDF Viewer & Cropper - {filename}")
+            self.root.title(f"PDF & EPUB Viewer & Cropper - {filename}")
+            self.file_type_label.config(text=f"File type: {self.file_type.upper()}")
             
             # Create output folder if not set
             if not self.output_folder:
@@ -204,13 +226,13 @@ class PDFViewer:
             self.root.after(100, self.fit_to_window)  # Small delay to ensure canvas is ready
             
         except Exception as e:
-            messagebox.showerror("Error", f"Failed to open PDF: {str(e)}")
+            messagebox.showerror("Error", f"Failed to open file: {str(e)}")
     
     def create_default_output_folder(self):
-        """Create default output folder based on PDF filename"""
+        """Create default output folder based on filename"""
         try:
             script_dir = os.path.dirname(os.path.abspath(__file__))
-            folder_name = f"{self.pdf_filename}_cropped"
+            folder_name = f"{self.filename}_cropped"
             self.output_folder = os.path.join(script_dir, folder_name)
             
             # Create folder if it doesn't exist
@@ -228,12 +250,12 @@ class PDFViewer:
     
     def display_page(self):
         """Display the current page"""
-        if not self.pdf_document:
+        if not self.document:
             return
             
         try:
             # Get the current page
-            page = self.pdf_document[self.current_page]
+            page = self.document[self.current_page]
             
             # Create transformation matrix for zoom
             mat = fitz.Matrix(self.zoom_level, self.zoom_level)
@@ -261,9 +283,9 @@ class PDFViewer:
             # Update scroll region
             self.canvas.configure(scrollregion=self.canvas.bbox("all"))
             
-            # Update page label with zoom info
+            # Update page label with zoom info and file type
             zoom_percent = int(self.zoom_level * 100)
-            page_text = f"Page {self.current_page + 1} of {self.total_pages} ({zoom_percent}%)"
+            page_text = f"Page {self.current_page + 1} of {self.total_pages} ({zoom_percent}%) [{self.file_type.upper()}]"
             if self.is_cropping:
                 page_text += f" | Cropping: {self.crop_start_page + 1} to ?"
             self.page_label.config(text=page_text)
@@ -273,7 +295,7 @@ class PDFViewer:
     
     def next_page(self):
         """Go to next page"""
-        if self.pdf_document and self.current_page < self.total_pages - 1:
+        if self.document and self.current_page < self.total_pages - 1:
             self.current_page += 1
             # Auto-fit if we're at base zoom level
             if abs(self.zoom_level - self.base_zoom) < 0.1:
@@ -283,7 +305,7 @@ class PDFViewer:
     
     def prev_page(self):
         """Go to previous page"""
-        if self.pdf_document and self.current_page > 0:
+        if self.document and self.current_page > 0:
             self.current_page -= 1
             # Auto-fit if we're at base zoom level
             if abs(self.zoom_level - self.base_zoom) < 0.1:
@@ -293,20 +315,20 @@ class PDFViewer:
     
     def zoom_in(self):
         """Increase zoom level"""
-        if self.pdf_document:
+        if self.document:
             self.zoom_level = min(self.zoom_level * 1.2, 5.0)  # Max zoom 5x
             self.display_page()
     
     def zoom_out(self):
         """Decrease zoom level"""
-        if self.pdf_document:
+        if self.document:
             self.zoom_level = max(self.zoom_level / 1.2, 0.2)  # Min zoom 0.2x
             self.display_page()
     
     def start_crop(self):
         """Start cropping from current page"""
-        if not self.pdf_document:
-            messagebox.showwarning("Warning", "Please open a PDF first!")
+        if not self.document:
+            messagebox.showwarning("Warning", "Please open a PDF or EPUB file first!")
             return
             
         self.crop_start_page = self.current_page
@@ -331,15 +353,15 @@ class PDFViewer:
         self.ask_filename_and_save()
         
     def ask_filename_and_save(self):
-        """Ask user for filename and save the cropped PDF with better duplicate handling"""
+        """Ask user for filename and save the cropped pages as PDF with better duplicate handling"""
         # Generate default filename
-        default_name = f"{self.pdf_filename}_pages_{self.crop_start_page+1}_to_{self.crop_end_page+1}"
+        default_name = f"{self.filename}_pages_{self.crop_start_page+1}_to_{self.crop_end_page+1}"
         
         while True:
             # Ask user for custom filename
             custom_name = simpledialog.askstring(
                 "Save Cropped PDF",
-                f"Enter filename for the cropped PDF:\n(Pages {self.crop_start_page+1} to {self.crop_end_page+1})\n\nWill be saved to:\n{self.output_folder}",
+                f"Enter filename for the cropped PDF:\n(Pages {self.crop_start_page+1} to {self.crop_end_page+1} from {self.file_type.upper()})\n\nWill be saved as PDF to:\n{self.output_folder}",
                 initialvalue=default_name
             )
             
@@ -381,9 +403,9 @@ class PDFViewer:
             # Create new PDF document
             new_pdf = fitz.open()
             
-            # Copy selected pages
+            # Copy selected pages (this works for both PDF and EPUB)
             for page_num in range(self.crop_start_page, self.crop_end_page + 1):
-                new_pdf.insert_pdf(self.pdf_document, from_page=page_num, to_page=page_num)
+                new_pdf.insert_pdf(self.document, from_page=page_num, to_page=page_num)
             
             # Use the set output folder
             output_path = os.path.join(self.output_folder, filename)
@@ -393,8 +415,10 @@ class PDFViewer:
             new_pdf.close()
             
             # Show success message
+            source_type = self.file_type.upper()
             messagebox.showinfo("Success", 
                               f"Cropped PDF saved successfully!\n\n"
+                              f"Source: {source_type} file\n"
                               f"Pages {self.crop_start_page+1} to {self.crop_end_page+1}\n"
                               f"Saved as: {filename}\n"
                               f"Location: {self.output_folder}")
@@ -412,10 +436,10 @@ class PDFViewer:
     def update_crop_status(self):
         """Update the crop status label"""
         if not self.is_cropping:
-            self.crop_status_label.config(text="Keys: 1=Previous, 2=Next, B=Start crop, N=Finish crop", 
+            self.crop_status_label.config(text="Keys: 1=Previous, 2=Next, B=Start crop, N=Finish crop (saves as PDF)", 
                                         foreground="blue")
         else:
-            self.crop_status_label.config(text=f"Cropping started at page {self.crop_start_page+1}. Use 1/2 to navigate, press 'N' to finish.", 
+            self.crop_status_label.config(text=f"Cropping started at page {self.crop_start_page+1}. Use 1/2 to navigate, press 'N' to finish (will save as PDF).", 
                                         foreground="red")
     
     def on_mousewheel(self, event):
@@ -448,10 +472,10 @@ class PDFViewer:
             self.finish_crop()
 
 def get_user_choice():
-    """Ask user how they want to provide the PDF path"""
-    print("PDF Viewer & Cropper")
+    """Ask user how they want to provide the file path"""
+    print("PDF & EPUB Viewer & Cropper")
     print("=" * 30)
-    print("How would you like to provide the PDF file?")
+    print("How would you like to provide the PDF or EPUB file?")
     print("1. Type the file path in terminal")
     print("2. Browse and select file")
     
@@ -461,15 +485,17 @@ def get_user_choice():
             return int(choice)
         print("Please enter 1 or 2")
 
-def get_pdf_path_from_terminal():
-    """Get PDF path from user input"""
+def get_file_path_from_terminal():
+    """Get file path from user input"""
     while True:
-        pdf_path = input("\nEnter the full path to your PDF file: ").strip().strip('"')
+        file_path = input("\nEnter the full path to your PDF or EPUB file: ").strip().strip('"')
         
-        if os.path.exists(pdf_path) and pdf_path.lower().endswith('.pdf'):
-            return pdf_path
-        elif os.path.exists(pdf_path):
-            print("Error: File exists but is not a PDF file!")
+        if os.path.exists(file_path):
+            file_ext = file_path.lower()
+            if file_ext.endswith('.pdf') or file_ext.endswith('.epub'):
+                return file_path
+            else:
+                print("Error: File must be a PDF or EPUB file!")
         else:
             print("Error: File not found!")
         
@@ -477,14 +503,19 @@ def get_pdf_path_from_terminal():
         if retry != 'y':
             return None
 
-def get_pdf_path_from_dialog():
-    """Get PDF path using file dialog"""
+def get_file_path_from_dialog():
+    """Get file path using file dialog"""
     root = tk.Tk()
     root.withdraw()  # Hide the root window
     
     file_path = filedialog.askopenfilename(
-        title="Select PDF file to open",
-        filetypes=[("PDF files", "*.pdf"), ("All files", "*.*")]
+        title="Select PDF or EPUB file to open",
+        filetypes=[
+            ("PDF and EPUB files", "*.pdf;*.epub"),
+            ("PDF files", "*.pdf"), 
+            ("EPUB files", "*.epub"),
+            ("All files", "*.*")
+        ]
     )
     
     root.destroy()
@@ -494,7 +525,7 @@ def get_output_folder():
     """Ask user for output folder"""
     print("\nOutput folder options:")
     print("1. Select a custom output folder")
-    print("2. Auto-create folder (based on PDF name)")
+    print("2. Auto-create folder (based on file name)")
     
     while True:
         choice = input("Enter your choice (1 or 2): ").strip()
@@ -509,19 +540,19 @@ def get_output_folder():
         print("Please enter 1 or 2")
 
 def main():
-    print("PDF Viewer & Cropper Starting...")
+    print("PDF & EPUB Viewer & Cropper Starting...")
     
-    # Get user choice for PDF input method
+    # Get user choice for file input method
     choice = get_user_choice()
     
-    # Get PDF path based on user choice
+    # Get file path based on user choice
     if choice == 1:
-        pdf_path = get_pdf_path_from_terminal()
+        file_path = get_file_path_from_terminal()
     else:
-        pdf_path = get_pdf_path_from_dialog()
+        file_path = get_file_path_from_dialog()
     
-    if not pdf_path:
-        print("No PDF file selected. Exiting...")
+    if not file_path:
+        print("No file selected. Exiting...")
         return
     
     # Get output folder choice
@@ -529,18 +560,20 @@ def main():
     
     # Create and start the GUI
     root = tk.Tk()
-    viewer = PDFViewer(root, output_folder)
+    viewer = PDFEPUBViewer(root, output_folder)
     
-    # Load the selected PDF
-    viewer.load_pdf(pdf_path)
+    # Load the selected file
+    viewer.load_file(file_path)
     
-    print(f"\nPDF loaded: {os.path.basename(pdf_path)}")
+    print(f"\nFile loaded: {os.path.basename(file_path)}")
     print(f"Output folder: {viewer.output_folder}")
     print("\nGUI started. Use the application window for navigation and cropping.")
-    print("New features:")
+    print("Features:")
+    print("- Supports both PDF and EPUB files")
     print("- Auto-fit pages to window size")
     print("- 'Fit' button to manually fit page")
     print("- Press 'F' key for quick fit")
+    print("- Cropped pages always saved as PDF")
     print("- Better duplicate filename handling")
     
     # Start the GUI
