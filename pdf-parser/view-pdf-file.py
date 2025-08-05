@@ -17,6 +17,7 @@ class PDFViewer:
         self.current_page = 0
         self.total_pages = 0
         self.zoom_level = 1.0
+        self.base_zoom = 1.0  # Auto-calculated base zoom for page fitting
         self.output_folder = output_folder
         self.pdf_filename = None
         
@@ -50,6 +51,7 @@ class PDFViewer:
         # Zoom controls
         ttk.Label(control_frame, text="Zoom:").pack(side=tk.LEFT, padx=(10, 5))
         ttk.Button(control_frame, text="-", command=self.zoom_out).pack(side=tk.LEFT, padx=(0, 2))
+        ttk.Button(control_frame, text="Fit", command=self.fit_to_window).pack(side=tk.LEFT, padx=(0, 2))
         ttk.Button(control_frame, text="+", command=self.zoom_in).pack(side=tk.LEFT, padx=(0, 10))
         
         # Output folder button
@@ -92,7 +94,65 @@ class PDFViewer:
         # Bind mouse wheel for scrolling
         self.canvas.bind("<MouseWheel>", self.on_mousewheel)
         self.root.bind("<Key>", self.on_key_press)
+        self.root.bind("<Configure>", self.on_window_resize)  # Handle window resize
         self.root.focus_set()  # Enable key bindings
+        
+    def calculate_fit_zoom(self):
+        """Calculate zoom level to fit page in window"""
+        if not self.pdf_document:
+            return 1.0
+            
+        try:
+            # Get current page dimensions
+            page = self.pdf_document[self.current_page]
+            page_rect = page.rect
+            page_width = page_rect.width
+            page_height = page_rect.height
+            
+            # Get canvas dimensions (subtract some padding for scrollbars)
+            canvas_width = self.canvas.winfo_width() - 20
+            canvas_height = self.canvas.winfo_height() - 20
+            
+            # Ensure minimum dimensions
+            if canvas_width < 100:
+                canvas_width = 600
+            if canvas_height < 100:
+                canvas_height = 700
+            
+            # Calculate scale factors for width and height
+            width_scale = canvas_width / page_width
+            height_scale = canvas_height / page_height
+            
+            # Use the smaller scale factor to ensure page fits completely
+            fit_zoom = min(width_scale, height_scale, 3.0)  # Cap at 3x max
+            
+            # Set minimum zoom to ensure readability
+            fit_zoom = max(fit_zoom, 0.3)
+            
+            return fit_zoom
+            
+        except Exception as e:
+            print(f"Error calculating fit zoom: {e}")
+            return 1.0
+    
+    def fit_to_window(self):
+        """Reset zoom to fit page in window"""
+        if self.pdf_document:
+            self.base_zoom = self.calculate_fit_zoom()
+            self.zoom_level = self.base_zoom
+            self.display_page()
+    
+    def on_window_resize(self, event):
+        """Handle window resize event"""
+        # Only respond to canvas resize events, not all widget resize events
+        if event.widget == self.root and self.pdf_document:
+            # Add a small delay to avoid too many rapid recalculations
+            self.root.after(100, self.auto_fit_if_needed)
+    
+    def auto_fit_if_needed(self):
+        """Auto-fit page if zoom is at base level"""
+        if self.pdf_document and abs(self.zoom_level - self.base_zoom) < 0.1:
+            self.fit_to_window()
         
     def set_output_folder(self):
         """Let user select output folder"""
@@ -140,8 +200,8 @@ class PDFViewer:
             if not self.output_folder:
                 self.create_default_output_folder()
             
-            # Display first page
-            self.display_page()
+            # Calculate initial fit zoom and display first page
+            self.root.after(100, self.fit_to_window)  # Small delay to ensure canvas is ready
             
         except Exception as e:
             messagebox.showerror("Error", f"Failed to open PDF: {str(e)}")
@@ -201,8 +261,9 @@ class PDFViewer:
             # Update scroll region
             self.canvas.configure(scrollregion=self.canvas.bbox("all"))
             
-            # Update page label
-            page_text = f"Page {self.current_page + 1} of {self.total_pages}"
+            # Update page label with zoom info
+            zoom_percent = int(self.zoom_level * 100)
+            page_text = f"Page {self.current_page + 1} of {self.total_pages} ({zoom_percent}%)"
             if self.is_cropping:
                 page_text += f" | Cropping: {self.crop_start_page + 1} to ?"
             self.page_label.config(text=page_text)
@@ -214,12 +275,20 @@ class PDFViewer:
         """Go to next page"""
         if self.pdf_document and self.current_page < self.total_pages - 1:
             self.current_page += 1
+            # Auto-fit if we're at base zoom level
+            if abs(self.zoom_level - self.base_zoom) < 0.1:
+                self.base_zoom = self.calculate_fit_zoom()
+                self.zoom_level = self.base_zoom
             self.display_page()
     
     def prev_page(self):
         """Go to previous page"""
         if self.pdf_document and self.current_page > 0:
             self.current_page -= 1
+            # Auto-fit if we're at base zoom level
+            if abs(self.zoom_level - self.base_zoom) < 0.1:
+                self.base_zoom = self.calculate_fit_zoom()
+                self.zoom_level = self.base_zoom
             self.display_page()
     
     def zoom_in(self):
@@ -258,39 +327,53 @@ class PDFViewer:
             messagebox.showerror("Error", "End page must be after start page!")
             return
         
-        # Ask user for filename
+        # Ask user for filename with better duplicate handling
         self.ask_filename_and_save()
         
     def ask_filename_and_save(self):
-        """Ask user for filename and save the cropped PDF"""
+        """Ask user for filename and save the cropped PDF with better duplicate handling"""
         # Generate default filename
         default_name = f"{self.pdf_filename}_pages_{self.crop_start_page+1}_to_{self.crop_end_page+1}"
         
-        # Ask user for custom filename
-        custom_name = simpledialog.askstring(
-            "Save Cropped PDF",
-            f"Enter filename for the cropped PDF:\n(Pages {self.crop_start_page+1} to {self.crop_end_page+1})\n\nWill be saved to:\n{self.output_folder}",
-            initialvalue=default_name
-        )
-        
-        if custom_name is None:  # User cancelled
-            return
+        while True:
+            # Ask user for custom filename
+            custom_name = simpledialog.askstring(
+                "Save Cropped PDF",
+                f"Enter filename for the cropped PDF:\n(Pages {self.crop_start_page+1} to {self.crop_end_page+1})\n\nWill be saved to:\n{self.output_folder}",
+                initialvalue=default_name
+            )
             
-        if not custom_name.strip():  # Empty name
-            messagebox.showwarning("Warning", "Please enter a valid filename!")
-            return
+            if custom_name is None:  # User cancelled
+                return
+                
+            if not custom_name.strip():  # Empty name
+                messagebox.showwarning("Warning", "Please enter a valid filename!")
+                continue
+                
+            # Clean the filename (remove invalid characters)
+            invalid_chars = '<>:"/\\|?*'
+            for char in invalid_chars:
+                custom_name = custom_name.replace(char, '_')
             
-        # Clean the filename (remove invalid characters)
-        invalid_chars = '<>:"/\\|?*'
-        for char in invalid_chars:
-            custom_name = custom_name.replace(char, '_')
-        
-        # Add .pdf extension if not present
-        if not custom_name.lower().endswith('.pdf'):
-            custom_name += '.pdf'
+            # Add .pdf extension if not present
+            if not custom_name.lower().endswith('.pdf'):
+                custom_name += '.pdf'
             
-        # Save the cropped PDF
-        self.save_cropped_pdf(custom_name)
+            # Check if file already exists
+            output_path = os.path.join(self.output_folder, custom_name)
+            if os.path.exists(output_path):
+                # Show error and ask for different name
+                messagebox.showerror(
+                    "File Already Exists", 
+                    f"A file named '{custom_name}' already exists in the output folder.\n\nPlease choose a different filename."
+                )
+                # Set the existing name as default for next attempt, so user can modify it
+                default_name = custom_name.replace('.pdf', '') if custom_name.endswith('.pdf') else custom_name
+                continue
+            else:
+                # File doesn't exist, proceed with saving
+                self.save_cropped_pdf(custom_name)
+                break
         
     def save_cropped_pdf(self, filename):
         """Save the selected pages as a new PDF with custom filename"""
@@ -304,16 +387,6 @@ class PDFViewer:
             
             # Use the set output folder
             output_path = os.path.join(self.output_folder, filename)
-            
-            # Check if file already exists
-            if os.path.exists(output_path):
-                response = messagebox.askyesno(
-                    "File Exists", 
-                    f"File '{filename}' already exists in the output folder. Do you want to overwrite it?"
-                )
-                if not response:
-                    new_pdf.close()
-                    return
             
             # Save the new PDF
             new_pdf.save(output_path)
@@ -366,6 +439,8 @@ class PDFViewer:
             self.zoom_in()
         elif event.keysym == "minus":
             self.zoom_out()
+        elif event.keysym.lower() == "f":
+            self.fit_to_window()
         # Cropping controls
         elif event.keysym.lower() == "b":
             self.start_crop()
@@ -462,6 +537,11 @@ def main():
     print(f"\nPDF loaded: {os.path.basename(pdf_path)}")
     print(f"Output folder: {viewer.output_folder}")
     print("\nGUI started. Use the application window for navigation and cropping.")
+    print("New features:")
+    print("- Auto-fit pages to window size")
+    print("- 'Fit' button to manually fit page")
+    print("- Press 'F' key for quick fit")
+    print("- Better duplicate filename handling")
     
     # Start the GUI
     root.mainloop()
