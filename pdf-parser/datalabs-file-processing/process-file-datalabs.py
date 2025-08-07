@@ -27,14 +27,14 @@ class DatalabPDFParser:
         self.base_url = "https://www.datalab.to/api/v1"
         self.headers = {"X-Api-Key": api_key}
     
-    def parse_pdf(self, pdf_path, output_format="markdown", use_llm=False, 
+    def parse_pdf(self, pdf_path, output_format="markdown,json", use_llm=False, 
                   force_ocr=False, save_images=True, output_dir=None):
         """
         Parse a PDF file using Datalab.to Marker API
         
         Args:
             pdf_path (str): Path to the PDF file
-            output_format (str): Output format (markdown, html, json)
+            output_format (str): Output format - can be comma-separated (e.g., "markdown,json")
             use_llm (bool): Use LLM for enhanced accuracy
             force_ocr (bool): Force OCR on all pages
             save_images (bool): Save extracted images
@@ -50,7 +50,7 @@ class DatalabPDFParser:
             raise ValueError("File must be a PDF")
         
         print(f"📄 Processing PDF: {pdf_path.name}")
-        print(f"🔧 Output format: {output_format}")
+        print(f"🔧 Output format(s): {output_format}")
         print(f"🤖 Using LLM: {'Yes' if use_llm else 'No'}")
         print(f"👁️  Force OCR: {'Yes' if force_ocr else 'No'}")
         print("-" * 50)
@@ -123,22 +123,33 @@ class DatalabPDFParser:
         
         saved_files = []
         
-        # Save main content
-        output_format = result.get('output_format', 'markdown')
-        if output_format in result:
-            content = result[output_format]
-            if content:
-                file_ext = 'md' if output_format == 'markdown' else output_format
+        # Save all available output formats
+        output_formats = ['markdown', 'html', 'json', 'chunks']
+        
+        for format_type in output_formats:
+            if format_type in result and result[format_type]:
+                content = result[format_type]
+                
+                # Determine file extension
+                if format_type == 'markdown':
+                    file_ext = 'md'
+                elif format_type == 'json':
+                    file_ext = 'json'
+                elif format_type == 'chunks':
+                    file_ext = 'chunks.json'
+                else:
+                    file_ext = format_type
+                
                 output_file = output_dir / f"{pdf_path.stem}.{file_ext}"
                 
                 with open(output_file, 'w', encoding='utf-8') as f:
-                    if output_format == 'json':
+                    if format_type in ['json', 'chunks']:
                         json.dump(content, f, indent=2, ensure_ascii=False)
                     else:
                         f.write(content)
                 
                 saved_files.append(output_file)
-                print(f"💾 Saved {output_format}: {output_file}")
+                print(f"💾 Saved {format_type}: {output_file}")
         
         # Save images
         images = result.get('images', {})
@@ -416,9 +427,10 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Process single PDF
+  # Process single PDF (default: markdown + json)
   python pdf_parser.py document.pdf
   python pdf_parser.py document.pdf --format html --use-llm
+  python pdf_parser.py document.pdf --format markdown,json,html
   
   # Process folder of PDFs (interactive mode)
   python pdf_parser.py --folder ./my_pdfs/
@@ -426,7 +438,7 @@ Examples:
   
   # Process folder of PDFs (automatic mode)  
   python pdf_parser.py --folder ./my_pdfs/ --auto
-  python pdf_parser.py --folder /path/to/pdfs --auto --use-llm
+  python pdf_parser.py --folder /path/to/pdfs --auto --use-llm --format markdown,json
         """
     )
     
@@ -439,9 +451,8 @@ Examples:
                        default=os.environ.get('DATALABS_PDF_KEY'),
                        help='Datalab.to API key (or set DATALABS_PDF_KEY in .env file)')
     parser.add_argument('--format', 
-                       choices=['markdown', 'html', 'json'], 
-                       default='markdown',
-                       help='Output format (default: markdown)')
+                       default='markdown,json',  # Changed default to include both
+                       help='Output format(s): markdown, html, json, chunks, or comma-separated (default: markdown,json)')
     parser.add_argument('--use-llm', 
                        action='store_true',
                        help='Use LLM for enhanced accuracy (slower, costs more)')
