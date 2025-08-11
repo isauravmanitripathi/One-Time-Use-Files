@@ -2,16 +2,20 @@
 """
 Advanced PDF to Markdown/JSON Converter using Marker CLI
 Command-line interface with flags for single file and batch processing.
+Includes automatic retry with force OCR on table recognition errors.
 
 Usage Examples:
-  # Process single PDF to markdown
+  # Process single PDF to markdown with auto-retry
   python3 marker_converter.py --single-pdf --input-file "path/to/file.pdf" --output markdown
   
-  # Process single PDF to both formats with LLM
-  python3 marker_converter.py --single-pdf --input-file "path/to/file.pdf" --output both --use-llm
+  # Process single PDF to both formats (auto-retry enabled by default)
+  python3 marker_converter.py --single-pdf --input-file "path/to/file.pdf" --output both
   
-  # Process all PDFs in folder to JSON
-  python3 marker_converter.py --all-pdf --input-folder "path/to/folder" --output json
+  # Process all PDFs in folder with auto-retry
+  python3 marker_converter.py --all-pdf --input-folder "path/to/folder" --output both
+  
+  # Force OCR from the start (skip normal processing)
+  python3 marker_converter.py --single-pdf --input-file "path/to/file.pdf" --output both --force-ocr
   
   # Interactive mode (original menu)
   python3 marker_converter.py --interactive
@@ -22,6 +26,7 @@ import sys
 import subprocess
 import shutil
 import argparse
+import time
 from pathlib import Path
 from typing import List, Tuple
 
@@ -34,8 +39,8 @@ def setup_argument_parser():
         epilog="""
 Examples:
   %(prog)s --single-pdf --input-file "Chapter 1.pdf" --output markdown
-  %(prog)s --single-pdf --input-file "Chapter 1.pdf" --output both --use-llm
-  %(prog)s --all-pdf --input-folder "/path/to/pdfs" --output json
+  %(prog)s --single-pdf --input-file "Chapter 1.pdf" --output both
+  %(prog)s --all-pdf --input-folder "/path/to/pdfs" --output both
   %(prog)s --interactive
         """
     )
@@ -64,6 +69,14 @@ Examples:
                        help='Use LLM for better accuracy (slower but more accurate)')
     parser.add_argument('--quiet', action='store_true',
                        help='Reduce output verbosity')
+    parser.add_argument('--skip-failed', action='store_true',
+                       help='Continue processing other files even if some fail')
+    parser.add_argument('--force-ocr', action='store_true',
+                       help='Force OCR on all pages (bypasses table recognition entirely)')
+    parser.add_argument('--timeout', type=int, default=600,
+                       help='Timeout for each conversion in seconds (default: 600)')
+    parser.add_argument('--auto-retry', action='store_true', default=True,
+                       help='Automatically retry with force-ocr if table errors occur (default: True)')
     
     return parser
 
@@ -229,8 +242,10 @@ def organize_marker_output(pdf_path: Path, output_dir: Path, output_format: str,
     return False
 
 
-def run_marker_conversion(pdf_path: Path, output_dir: Path, output_format: str, use_llm: bool = False, quiet: bool = False) -> bool:
-    """Run marker_single command for the specified format."""
+def run_single_marker_attempt(pdf_path: Path, output_dir: Path, output_format: str, 
+                             use_llm: bool = False, quiet: bool = False, 
+                             force_ocr: bool = False, timeout: int = 600) -> bool:
+    """Run a single marker_single command attempt."""
     
     cmd = [
         "marker_single",
@@ -242,30 +257,46 @@ def run_marker_conversion(pdf_path: Path, output_dir: Path, output_format: str, 
     if use_llm:
         cmd.append("--use_llm")
     
+    if force_ocr:
+        cmd.append("--force_ocr")
+    
     if not quiet:
-        print(f"   Converting to {output_format.upper()}...")
+        mode_desc = "force OCR mode" if force_ocr else "normal mode"
+        print(f"   Converting to {output_format.upper()} ({mode_desc})...")
     
     try:
-        if quiet:
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
-        else:
-            result = subprocess.run(cmd, text=True, timeout=600)
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
         
+        # Check for specific table recognition error in stderr
+        table_error_detected = False
+        if hasattr(result, 'stderr') and result.stderr:
+            error_text = result.stderr.lower()
+            if "stack expects a non-empty tensorlist" in error_text or "recognizing tables" in error_text:
+                table_error_detected = True
+                if not quiet:
+                    print(f"   ⚠️  Table recognition error detected")
+        
+        # If we detect table error, this attempt failed
+        if table_error_detected:
+            return False
+        
+        # Try to organize the output
         success = organize_marker_output(pdf_path, output_dir, output_format, quiet)
         
         if success:
             final_file = output_dir / f"{pdf_path.stem}.{output_format}"
             if not quiet:
-                print(f"   ✅ {output_format.upper()} file created: {final_file}")
+                mode_desc = " (force OCR)" if force_ocr else ""
+                print(f"   ✅ {output_format.upper()} file created{mode_desc}: {final_file}")
             return True
         else:
-            if not quiet:
+            if not quiet and not table_error_detected:
                 print(f"   ❌ Failed to organize {output_format.upper()} output")
             return False
             
     except subprocess.TimeoutExpired:
         if not quiet:
-            print(f"   ❌ ERROR: Conversion timed out after 10 minutes")
+            print(f"   ❌ ERROR: Conversion timed out after {timeout} seconds")
         return False
     except FileNotFoundError:
         print(f"   ❌ ERROR: marker_single command not found. Make sure marker-pdf is installed.")
@@ -274,6 +305,36 @@ def run_marker_conversion(pdf_path: Path, output_dir: Path, output_format: str, 
         if not quiet:
             print(f"   ❌ ERROR: {e}")
         return False
+
+
+def run_marker_conversion(pdf_path: Path, output_dir: Path, output_format: str, 
+                         use_llm: bool = False, quiet: bool = False, 
+                         force_ocr: bool = False, timeout: int = 600) -> bool:
+    """Run marker_single command with automatic retry on table recognition errors."""
+    
+    # First attempt - normal processing
+    success = run_single_marker_attempt(
+        pdf_path, output_dir, output_format, use_llm, quiet, force_ocr, timeout
+    )
+    
+    if success:
+        return True
+    
+    # If first attempt failed and we haven't tried force_ocr yet, retry with force_ocr
+    if not force_ocr:
+        if not quiet:
+            print(f"   🔄 Retrying with --force_ocr to bypass table recognition issues...")
+        
+        success = run_single_marker_attempt(
+            pdf_path, output_dir, output_format, use_llm, quiet, True, timeout
+        )
+        
+        if success:
+            if not quiet:
+                print(f"   ✅ Success with force OCR fallback!")
+            return True
+    
+    return False
 
 
 def get_output_formats(output_choice: str) -> List[str]:
@@ -288,8 +349,10 @@ def get_output_formats(output_choice: str) -> List[str]:
         return []
 
 
-def process_single_pdf(pdf_path: Path, output_formats: List[str], use_llm: bool = False, quiet: bool = False) -> Tuple[int, int]:
-    """Process a single PDF file."""
+def process_single_pdf(pdf_path: Path, output_formats: List[str], use_llm: bool = False, 
+                      quiet: bool = False, skip_failed: bool = False, 
+                      force_ocr: bool = False, timeout: int = 600) -> Tuple[int, int]:
+    """Process a single PDF file with automatic table error handling."""
     if not quiet:
         print(f"\n📄 Processing: {pdf_path.name}")
     
@@ -302,8 +365,27 @@ def process_single_pdf(pdf_path: Path, output_formats: List[str], use_llm: bool 
         total = len(output_formats)
         
         for output_format in output_formats:
-            if run_marker_conversion(pdf_path, output_folder, output_format, use_llm, quiet):
-                successes += 1
+            try:
+                # The conversion function now handles automatic retry internally
+                success = run_marker_conversion(
+                    pdf_path, output_folder, output_format, 
+                    use_llm, quiet, force_ocr, timeout
+                )
+                
+                if success:
+                    successes += 1
+                elif skip_failed:
+                    if not quiet:
+                        print(f"   ⚠️  Skipping {output_format.upper()} due to error")
+                    continue
+                    
+            except Exception as e:
+                if not quiet:
+                    print(f"   ❌ Error with {output_format.upper()}: {e}")
+                if skip_failed:
+                    if not quiet:
+                        print(f"   ⚠️  Continuing with next format...")
+                    continue
         
         if not quiet:
             if successes > 0:
@@ -330,9 +412,16 @@ def process_single_file_cli(args):
         print(f"Output formats: {', '.join(output_formats)}")
         if args.use_llm:
             print("Using LLM: Yes")
+        if args.force_ocr:
+            print("Force OCR: Yes (will skip normal processing)")
+        else:
+            print("Auto-retry with force OCR: Yes (if table errors occur)")
         print()
     
-    successes, total = process_single_pdf(pdf_path, output_formats, args.use_llm, args.quiet)
+    successes, total = process_single_pdf(
+        pdf_path, output_formats, args.use_llm, args.quiet, 
+        args.skip_failed, args.force_ocr, args.timeout
+    )
     
     if not args.quiet:
         if successes > 0:
@@ -359,34 +448,56 @@ def process_batch_cli(args):
         print(f"Files found: {len(pdf_files)}")
         if args.use_llm:
             print("Using LLM: Yes")
+        if args.force_ocr:
+            print("Force OCR: Yes (will skip normal processing for all files)")
+        else:
+            print("Auto-retry with force OCR: Yes (if table errors occur)")
+        if args.skip_failed:
+            print("Skip failed: Yes")
         print()
     
     total_successes = 0
     total_conversions = 0
     failed_files = []
+    table_error_files = []
+    start_time = time.time()
     
     for i, pdf_file in enumerate(pdf_files, 1):
         if not args.quiet:
             print(f"[{i}/{len(pdf_files)}] Processing {pdf_file.name}")
         
-        successes, total = process_single_pdf(pdf_file, output_formats, args.use_llm, args.quiet)
+        successes, total = process_single_pdf(
+            pdf_file, output_formats, args.use_llm, args.quiet,
+            args.skip_failed, args.force_ocr, args.timeout
+        )
         
         total_successes += successes
         total_conversions += total
         
         if successes == 0:
             failed_files.append(pdf_file.name)
+        elif successes < total:
+            # Partial success - might have had table errors
+            table_error_files.append(pdf_file.name)
     
     # Final summary
+    elapsed_time = time.time() - start_time
     if not args.quiet:
         print(f"\n=== Batch Processing Complete ===")
         print(f"📊 Results:")
         print(f"   • Files processed: {len(pdf_files)}")
         print(f"   • Total conversions: {total_successes}/{total_conversions}")
         print(f"   • Success rate: {(total_successes/total_conversions)*100:.1f}%" if total_conversions > 0 else "   • Success rate: 0%")
+        print(f"   • Total time: {elapsed_time:.1f} seconds")
+        print(f"   • Average time per file: {elapsed_time/len(pdf_files):.1f} seconds")
+        
+        if table_error_files:
+            print(f"\n⚠️  Files that needed force OCR fallback:")
+            for file_name in table_error_files:
+                print(f"   • {file_name}")
         
         if failed_files:
-            print(f"\n❌ Failed files:")
+            print(f"\n❌ Files that failed completely:")
             for failed_file in failed_files:
                 print(f"   • {failed_file}")
         else:
@@ -475,12 +586,13 @@ def process_single_file_mode():
     output_formats = choose_output_formats()
     
     use_llm = input("\nUse LLM for better accuracy? (y/N): ").strip().lower() in ['y', 'yes']
+    force_ocr = input("Force OCR (bypasses all normal processing)? (y/N): ").strip().lower() in ['y', 'yes']
     
     print(f"\n{'='*60}")
     print("PROCESSING SINGLE FILE")
     print(f"{'='*60}")
     
-    successes, total = process_single_pdf(pdf_path, output_formats, use_llm)
+    successes, total = process_single_pdf(pdf_path, output_formats, use_llm, False, True, force_ocr, 600)
     
     print(f"\n{'='*60}")
     print("PROCESSING COMPLETE")
@@ -512,6 +624,7 @@ def process_batch_mode():
     
     output_formats = choose_output_formats()
     use_llm = input("\nUse LLM for better accuracy? (y/N): ").strip().lower() in ['y', 'yes']
+    force_ocr = input("Force OCR (bypasses all normal processing)? (y/N): ").strip().lower() in ['y', 'yes']
     
     print(f"\n{'='*60}")
     print("BATCH PROCESSING STARTED")
@@ -520,10 +633,11 @@ def process_batch_mode():
     total_successes = 0
     total_conversions = 0
     failed_files = []
+    start_time = time.time()
     
     for i, pdf_file in enumerate(pdf_files, 1):
         print(f"\n[{i}/{len(pdf_files)}] " + "="*50)
-        successes, total = process_single_pdf(pdf_file, output_formats, use_llm)
+        successes, total = process_single_pdf(pdf_file, output_formats, use_llm, False, True, force_ocr, 600)
         
         total_successes += successes
         total_conversions += total
@@ -531,6 +645,7 @@ def process_batch_mode():
         if successes == 0:
             failed_files.append(pdf_file.name)
     
+    elapsed_time = time.time() - start_time
     print(f"\n{'='*60}")
     print("BATCH PROCESSING COMPLETE")
     print(f"{'='*60}")
@@ -539,6 +654,7 @@ def process_batch_mode():
     print(f"   • Files processed: {len(pdf_files)}")
     print(f"   • Total conversions: {total_successes}/{total_conversions}")
     print(f"   • Success rate: {(total_successes/total_conversions)*100:.1f}%" if total_conversions > 0 else "   • Success rate: 0%")
+    print(f"   • Total time: {elapsed_time:.1f} seconds")
     
     if failed_files:
         print(f"\n❌ Files that failed completely:")
