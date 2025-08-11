@@ -23,6 +23,9 @@ class PDFEPUBViewer:
         self.filename = None
         self.file_type = None  # 'pdf' or 'epub'
         
+        # Custom base directory for output folders
+        self.base_output_directory = "/Volumes/hard-drive/miscellaneous-files/pdf-parser/Books"
+        
         # Cropping variables
         self.crop_start_page = None
         self.crop_end_page = None
@@ -292,13 +295,18 @@ class PDFEPUBViewer:
             messagebox.showerror("Error", f"Failed to open file: {str(e)}")
     
     def create_default_output_folder(self):
-        """Create default output folder based on filename"""
+        """Create default output folder in the custom base directory"""
         try:
-            script_dir = os.path.dirname(os.path.abspath(__file__))
+            # Use the custom base directory instead of script directory
             folder_name = f"{self.filename}_cropped"
-            self.output_folder = os.path.join(script_dir, folder_name)
+            self.output_folder = os.path.join(self.base_output_directory, folder_name)
             
-            # Create folder if it doesn't exist
+            # Create the base directory if it doesn't exist
+            if not os.path.exists(self.base_output_directory):
+                os.makedirs(self.base_output_directory)
+                print(f"Created base directory: {self.base_output_directory}")
+            
+            # Create the specific output folder if it doesn't exist
             if not os.path.exists(self.output_folder):
                 os.makedirs(self.output_folder)
                 
@@ -306,10 +314,19 @@ class PDFEPUBViewer:
             print(f"Created output folder: {self.output_folder}")
             
         except Exception as e:
-            # Fallback to script directory
-            self.output_folder = os.path.dirname(os.path.abspath(__file__))
-            self.folder_label.config(text=f"Output folder: {self.output_folder} (fallback)")
-            print(f"Warning: Could not create folder, using script directory: {e}")
+            # Fallback to base directory if folder creation fails
+            try:
+                # Try to use just the base directory
+                if not os.path.exists(self.base_output_directory):
+                    os.makedirs(self.base_output_directory)
+                self.output_folder = self.base_output_directory
+                self.folder_label.config(text=f"Output folder: {self.output_folder} (base directory - fallback)")
+                print(f"Warning: Could not create specific folder, using base directory: {e}")
+            except Exception as e2:
+                # Final fallback to script directory
+                self.output_folder = os.path.dirname(os.path.abspath(__file__))
+                self.folder_label.config(text=f"Output folder: {self.output_folder} (script directory - final fallback)")
+                print(f"Warning: Could not create folder in custom location, using script directory: {e2}")
     
     def display_page(self):
         """Display the current page"""
@@ -608,7 +625,7 @@ def get_output_folder():
     """Ask user for output folder"""
     print("\nOutput folder options:")
     print("1. Select a custom output folder")
-    print("2. Auto-create folder (based on file name)")
+    print("2. Auto-create folder (in /Volumes/hard-drive/miscellaneous-files/pdf-parser/Books)")
     
     while True:
         choice = input("Enter your choice (1 or 2): ").strip()
@@ -619,11 +636,12 @@ def get_output_folder():
             root.destroy()
             return folder if folder else None
         elif choice == '2':
-            return None  # Will auto-create
+            return None  # Will auto-create in custom directory
         print("Please enter 1 or 2")
 
 def main():
     print("PDF & EPUB Viewer & Cropper Starting...")
+    print("Custom output directory: /Volumes/hard-drive/miscellaneous-files/pdf-parser/Books")
     
     # Get user choice for file input method
     choice = get_user_choice()
@@ -660,6 +678,7 @@ def main():
     print("- Cropped pages always saved as PDF")
     print("- Better duplicate filename handling")
     print("- Reset counter button for starting over")
+    print("- Custom output directory: /Volumes/hard-drive/miscellaneous-files/pdf-parser/Books")
     
     # Start the GUI
     root.mainloop()
