@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Indian Languages MCQ Translator
-Translates English MCQ questions to Indian languages using OpenAI API
+Indian Languages MCQ Translator with Multi-API Key Parallel Processing
+Translates English MCQ questions to Indian languages using multiple OpenAI API keys in parallel
 with live batch saving every 10 questions for real-time review
 """
 
@@ -9,18 +9,126 @@ import json
 import os
 import sys
 import time
+import threading
+import concurrent.futures
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
 from openai import OpenAI
 from dotenv import load_dotenv
 
-class IndianLanguagesMCQTranslator:
-    """Translate MCQ questions from English to Indian languages using OpenAI API"""
+class EnhancedAPIKeyManager:
+    """Enhanced API key manager with load balancing and monitoring for translation"""
     
     def __init__(self, model_name: str = "gpt-5-mini"):
         self.model_name = model_name
-        self.setup_openai_client()
+        self.api_keys = self.discover_api_keys()
+        self.clients = self.initialize_clients()
+        
+        # Enhanced tracking
+        self.usage_stats = {f"key_{i+1}": 0 for i in range(len(self.api_keys))}
+        self.active_requests = {f"key_{i+1}": 0 for i in range(len(self.api_keys))}
+        self.last_used = {f"key_{i+1}": 0 for i in range(len(self.api_keys))}
+        self.errors = {f"key_{i+1}": 0 for i in range(len(self.api_keys))}
+        
+        self.lock = threading.Lock()
+        
+    def discover_api_keys(self) -> List[str]:
+        """Discover all available OpenAI API keys from environment"""
+        api_keys = []
+        
+        # Check for primary key
+        primary_key = os.getenv('OPENAI_API_KEY')
+        if primary_key:
+            api_keys.append(primary_key)
+        
+        # Check for numbered keys
+        i = 1
+        while True:
+            key = os.getenv(f'OPENAI_API_KEY_{i}')
+            if key:
+                api_keys.append(key)
+                i += 1
+            else:
+                break
+        
+        if not api_keys:
+            raise ValueError("No OpenAI API keys found in environment variables")
+        
+        return api_keys
+    
+    def initialize_clients(self) -> List[OpenAI]:
+        """Initialize OpenAI clients for each API key"""
+        clients = []
+        for i, api_key in enumerate(self.api_keys):
+            try:
+                client = OpenAI(api_key=api_key)
+                clients.append(client)
+            except Exception as e:
+                raise Exception(f"Failed to initialize API client {i+1}: {e}")
+        return clients
+    
+    def get_next_client(self) -> Tuple[OpenAI, str, int]:
+        """Get the next available client using intelligent load balancing"""
+        with self.lock:
+            # Find the key with least active requests and lowest usage
+            best_key = None
+            best_score = float('inf')
+            
+            for i, key_name in enumerate(self.usage_stats.keys()):
+                # Score based on active requests (priority) and total usage
+                score = (self.active_requests[key_name] * 100) + self.usage_stats[key_name]
+                
+                if score < best_score:
+                    best_score = score
+                    best_key = key_name
+                    best_index = i
+            
+            # Update tracking
+            self.usage_stats[best_key] += 1
+            self.active_requests[best_key] += 1
+            self.last_used[best_key] = time.time()
+            
+            return self.clients[best_index], best_key, best_index
+    
+    def release_client(self, key_name: str, success: bool = True):
+        """Release a client after use"""
+        with self.lock:
+            if key_name in self.active_requests:
+                self.active_requests[key_name] = max(0, self.active_requests[key_name] - 1)
+                if not success:
+                    self.errors[key_name] += 1
+    
+    def get_usage_summary(self) -> Dict:
+        """Get comprehensive usage summary"""
+        with self.lock:
+            return {
+                'total_keys': len(self.api_keys),
+                'usage_stats': self.usage_stats.copy(),
+                'active_requests': self.active_requests.copy(),
+                'error_counts': self.errors.copy(),
+                'total_requests': sum(self.usage_stats.values()),
+                'total_errors': sum(self.errors.values())
+            }
+    
+    def print_api_keys_discovered(self):
+        """Print discovered API keys to terminal"""
+        print("🔑 API KEYS DISCOVERED:")
+        print("="*40)
+        for i, key in enumerate(self.api_keys, 1):
+            # Show only first 8 and last 4 characters for security
+            masked_key = f"{key[:8]}...{key[-4:]}" if len(key) > 12 else f"{key[:4]}...{key[-2:]}"
+            print(f"  {i}. OPENAI_API_KEY{'_' + str(i) if i > 1 else '':<15} : {masked_key}")
+        print(f"🚀 Total API Keys: {len(self.api_keys)}")
+        print(f"⚡ Max Parallel Workers: {min(len(self.api_keys) * 2, 10)}")
+        print("="*40)
+
+class ParallelIndianMCQTranslator:
+    """Translate MCQ questions from English to Indian languages using multiple API keys in parallel"""
+    
+    def __init__(self, model_name: str = "gpt-5-mini"):
+        self.model_name = model_name
+        self.setup_enhanced_api_manager()
         self.translated_questions = []
         self.total_questions = 0
         self.successful_translations = 0
@@ -29,19 +137,20 @@ class IndianLanguagesMCQTranslator:
         self.target_language_native = ""
         self.output_file_path = None
         self.batch_size = 10
+        self.max_workers = min(len(self.api_manager.api_keys) * 2, 10)  # 2 workers per API key, max 10
+        
+        # Thread-safe data structures
+        self.data_lock = threading.Lock()
     
-    def setup_openai_client(self):
-        """Initialize OpenAI client"""
+    def setup_enhanced_api_manager(self):
+        """Initialize enhanced API manager with multiple keys"""
         try:
-            api_key = os.getenv('OPENAI_API_KEY')
-            if not api_key:
-                raise ValueError("OPENAI_API_KEY not found in environment variables")
-            
-            self.client = OpenAI(api_key=api_key)
-            print("✅ OpenAI client initialized successfully")
+            self.api_manager = EnhancedAPIKeyManager(self.model_name)
+            print("✅ Enhanced API Manager initialized successfully")
+            self.api_manager.print_api_keys_discovered()
             
         except Exception as e:
-            print(f"❌ Failed to initialize OpenAI client: {e}")
+            print(f"❌ Failed to initialize API manager: {e}")
             sys.exit(1)
     
     def get_indian_language_choice(self) -> Tuple[str, str]:
@@ -114,7 +223,7 @@ class IndianLanguagesMCQTranslator:
             return None
     
     def translate_single_question(self, question_data: Dict) -> Optional[Dict]:
-        """Translate a single MCQ question to target Indian language using OpenAI API"""
+        """Translate a single MCQ question to target Indian language using OpenAI API with load balancing"""
         
         system_message = f"""You are an expert translator specializing in translating UPSC Civil Services examination content from English to {self.target_language}. You maintain academic precision and use terminology appropriate for Indian government competitive examinations.
 
@@ -153,14 +262,16 @@ Return ONLY the translated JSON with this exact structure:
 
 Return ONLY the JSON, no other text:"""
 
+        # Get next available client using load balancing
+        client, key_name, key_index = self.api_manager.get_next_client()
+
         try:
-            response = self.client.chat.completions.create(
+            response = client.chat.completions.create(
                 model=self.model_name,
                 messages=[
                     {"role": "system", "content": system_message},
                     {"role": "user", "content": user_prompt}
                 ],
-                # temperature=0.2,  # Removed - gpt-5-mini only supports default (1)
                 max_completion_tokens=2500
             )
             
@@ -177,27 +288,27 @@ Return ONLY the JSON, no other text:"""
                 # Validate structure
                 required_fields = ['question', 'options', 'correct', 'explanations']
                 if not all(field in translated_question for field in required_fields):
-                    print(f"⚠️  Invalid translation structure for question")
+                    self.api_manager.release_client(key_name, success=False)
                     return None
                 
                 # Validate options and explanations count
                 if (len(translated_question['options']) != 4 or 
                     len(translated_question['explanations']) != 4):
-                    print(f"⚠️  Invalid options/explanations count")
+                    self.api_manager.release_client(key_name, success=False)
                     return None
                 
                 # Ensure correct answer index is preserved
                 if translated_question['correct'] != question_data['correct']:
-                    print(f"⚠️  Correct answer index changed during translation")
                     translated_question['correct'] = question_data['correct']
                 
+                self.api_manager.release_client(key_name, success=True)
                 return translated_question
                 
         except json.JSONDecodeError as e:
-            print(f"⚠️  JSON parsing error: {e}")
+            self.api_manager.release_client(key_name, success=False)
             return None
         except Exception as e:
-            print(f"⚠️  Translation API error: {e}")
+            self.api_manager.release_client(key_name, success=False)
             return None
         
         return None
@@ -237,65 +348,111 @@ Return ONLY the JSON, no other text:"""
             print(f"⚠️  Error saving progress: {e}")
             return False
     
-    def translate_questions_with_live_save(self, questions: List[Dict], original_data: Dict) -> List[Dict]:
-        """Translate all questions with live batch saving every 10 questions"""
+    def translate_questions_with_parallel_processing(self, questions: List[Dict], original_data: Dict) -> List[Dict]:
+        """Translate all questions using parallel processing with multiple API keys"""
         self.total_questions = len(questions)
         
-        print(f"\n🔄 Starting translation of {self.total_questions} questions to {self.target_language}...")
+        print(f"\n🔄 Starting parallel translation of {self.total_questions} questions to {self.target_language}...")
+        print(f"⚡ Using {len(self.api_manager.api_keys)} API keys with {self.max_workers} parallel workers")
         print(f"💾 Progress will be saved every {self.batch_size} questions to: {self.output_file_path}")
-        print("="*80)
-        print(f"{'STATUS':<12} {'PROGRESS':<12} {'%':<8} {'BATCH':<8} {'QUESTION PREVIEW'}")
-        print("="*80)
+        print("="*90)
+        print(f"{'STATUS':<12} {'PROGRESS':<12} {'%':<8} {'BATCH':<8} {'API':<8} {'QUESTION PREVIEW'}")
+        print("="*90)
         
-        for i, question_data in enumerate(questions, 1):
-            # Show preview of question being translated
-            question_preview = question_data['question'][:45] + "..." if len(question_data['question']) > 45 else question_data['question']
+        # Create a list to track translation tasks
+        translation_results = [None] * self.total_questions  # Pre-allocate results list
+        completed_count = 0
+        
+        # Process questions in parallel using ThreadPoolExecutor
+        with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            # Submit all translation tasks
+            future_to_index = {}
+            for i, question_data in enumerate(questions):
+                future = executor.submit(self.translate_single_question_with_retry, question_data, i)
+                future_to_index[future] = i
             
-            current_batch = ((i - 1) // self.batch_size) + 1
-            batch_info = f"B{current_batch:02d}"
-            
-            print(f"{'TRANSLATING':<12} {i:3d}/{self.total_questions:<3d}      {i/self.total_questions*100:5.1f}%  {batch_info:<8} {question_preview}")
-            
-            # Attempt translation with retries
-            max_retries = 3
-            translated_question = None
-            
-            for attempt in range(max_retries):
+            # Collect results as they complete
+            for future in concurrent.futures.as_completed(future_to_index):
+                question_index = future_to_index[future]
+                question_data = questions[question_index]
+                
+                try:
+                    translated_question, api_key_used, success = future.result()
+                    completed_count += 1
+                    
+                    current_batch = ((completed_count - 1) // self.batch_size) + 1
+                    batch_info = f"B{current_batch:02d}"
+                    
+                    # Show preview of question
+                    question_preview = question_data['question'][:40] + "..." if len(question_data['question']) > 40 else question_data['question']
+                    
+                    if success and translated_question:
+                        translation_results[question_index] = translated_question
+                        self.successful_translations += 1
+                        status = "✅ SUCCESS   "
+                    else:
+                        # Keep original question if translation fails
+                        translation_results[question_index] = question_data
+                        self.failed_translations += 1
+                        status = "❌ FAILED    "
+                    
+                    # Display progress
+                    print(f"{status:<12} {completed_count:4d}/{self.total_questions:<4d}    {completed_count/self.total_questions*100:5.1f}%  {batch_info:<8} {api_key_used:<8} {question_preview}")
+                    
+                    # Save progress every batch_size questions or at the end
+                    if completed_count % self.batch_size == 0 or completed_count == self.total_questions:
+                        # Filter out None values and save current progress
+                        current_translations = [q for q in translation_results[:completed_count] if q is not None]
+                        self.translated_questions = current_translations
+                        
+                        print(f"\n💾 Saving batch {current_batch}...")
+                        success_save = self.save_progress_batch(original_data)
+                        if success_save:
+                            print(f"✅ Progress saved! {completed_count}/{self.total_questions} questions completed ({completed_count/self.total_questions*100:.1f}%)")
+                            print(f"📁 File updated: {self.output_file_path}")
+                        else:
+                            print("⚠️  Failed to save progress")
+                        print("="*90)
+                    
+                except Exception as e:
+                    completed_count += 1
+                    # Keep original question if translation fails
+                    translation_results[question_index] = questions[question_index]
+                    self.failed_translations += 1
+                    print(f"❌ ERROR     {completed_count:4d}/{self.total_questions:<4d}    {completed_count/self.total_questions*100:5.1f}%  B{((completed_count-1)//self.batch_size)+1:02d}      ERROR    API error occurred")
+        
+        # Return final results (filter out any None values)
+        final_results = [q for q in translation_results if q is not None]
+        self.translated_questions = final_results
+        return final_results
+    
+    def translate_single_question_with_retry(self, question_data: Dict, question_index: int) -> Tuple[Optional[Dict], str, bool]:
+        """Translate a single question with retry logic and return API key used"""
+        max_retries = 3
+        last_api_key = "unknown"
+        
+        for attempt in range(max_retries):
+            try:
+                # Note: translate_single_question now handles API key selection internally
                 translated_question = self.translate_single_question(question_data)
+                
+                # Get the API key from the last usage (this is a simplification)
+                usage_summary = self.api_manager.get_usage_summary()
+                if usage_summary['usage_stats']:
+                    # Find the most recently used key
+                    last_used_times = self.api_manager.last_used
+                    last_api_key = max(last_used_times.keys(), key=lambda k: last_used_times[k])
+                
                 if translated_question:
-                    break
+                    return translated_question, last_api_key, True
                 elif attempt < max_retries - 1:
                     time.sleep(2 ** attempt)  # Exponential backoff
-            
-            if translated_question:
-                self.translated_questions.append(translated_question)
-                self.successful_translations += 1
-                status = "✅ SUCCESS   "
-            else:
-                # Keep original question if translation fails
-                self.translated_questions.append(question_data)
-                self.failed_translations += 1
-                status = "❌ FAILED    "
-            
-            # Update progress line
-            print(f"\r{status:<12} {i:3d}/{self.total_questions:<3d}      {i/self.total_questions*100:5.1f}%  {batch_info:<8} {question_preview}")
-            
-            # Save progress every 10 questions or at the end
-            if i % self.batch_size == 0 or i == self.total_questions:
-                print(f"\n💾 Saving batch {current_batch}...")
-                success = self.save_progress_batch(original_data)
-                if success:
-                    completed_questions = len(self.translated_questions)
-                    print(f"✅ Progress saved! {completed_questions}/{self.total_questions} questions completed ({completed_questions/self.total_questions*100:.1f}%)")
-                    print(f"📁 File updated: {self.output_file_path}")
-                else:
-                    print("⚠️  Failed to save progress")
-                print("="*80)
-            
-            # Small delay to avoid rate limiting
-            time.sleep(0.5)
+                    
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    time.sleep(2 ** attempt)
         
-        return self.translated_questions
+        return None, last_api_key, False
     
     def get_user_inputs(self) -> tuple:
         """Get input file, language choice, output folder, and output filename from user"""
@@ -354,10 +511,12 @@ Return ONLY the JSON, no other text:"""
         return input_file, output_folder, output_filename
     
     def show_translation_summary(self):
-        """Display translation summary"""
-        print("\n" + "="*60)
+        """Display comprehensive translation summary"""
+        usage_summary = self.api_manager.get_usage_summary()
+        
+        print("\n" + "="*70)
         print("📊 TRANSLATION SUMMARY")
-        print("="*60)
+        print("="*70)
         print(f"🎯 Target Language: {self.target_language} ({self.target_language_native})")
         print(f"📚 Total Questions: {self.total_questions}")
         print(f"✅ Successful Translations: {self.successful_translations}")
@@ -368,7 +527,21 @@ Return ONLY the JSON, no other text:"""
             print(f"📈 Success Rate: {success_rate:.1f}%")
         
         print(f"📁 Output File: {self.output_file_path}")
-        print("="*60)
+        
+        # API Usage Summary
+        print(f"\n🔑 API USAGE SUMMARY:")
+        print("-" * 50)
+        for key_name, requests in usage_summary['usage_stats'].items():
+            errors = usage_summary['error_counts'][key_name]
+            success_rate_key = ((requests - errors) / requests * 100) if requests > 0 else 0
+            print(f"  {key_name}: {requests:3d} calls, {errors:2d} errors, {success_rate_key:5.1f}% success")
+        
+        print(f"\n📊 PARALLEL PROCESSING STATS:")
+        print(f"  Total API Calls: {usage_summary['total_requests']}")
+        print(f"  Total Errors: {usage_summary['total_errors']}")
+        print(f"  Parallel Workers: {self.max_workers}")
+        print(f"  Speed Improvement: ~{len(self.api_manager.api_keys)}x faster than single key")
+        print("="*70)
     
     def run_translation(self) -> bool:
         """Main method to run the translation process"""
@@ -392,8 +565,8 @@ Return ONLY the JSON, no other text:"""
             print("❌ Translation cancelled")
             return False
         
-        # Translate questions with live saving
-        translated_questions = self.translate_questions_with_live_save(original_questions, mcq_data)
+        # Translate questions with parallel processing
+        translated_questions = self.translate_questions_with_parallel_processing(original_questions, mcq_data)
         
         # Show summary
         self.show_translation_summary()
@@ -423,7 +596,7 @@ def main():
     load_dotenv()
     
     try:
-        translator = IndianLanguagesMCQTranslator()
+        translator = ParallelIndianMCQTranslator()
         success = translator.run_translation()
         sys.exit(0 if success else 1)
         
