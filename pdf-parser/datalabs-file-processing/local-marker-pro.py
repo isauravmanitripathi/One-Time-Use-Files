@@ -1,17 +1,399 @@
 #!/usr/bin/env python3
 """
 Advanced PDF to Markdown/JSON Converter using Marker CLI
-Supports single file and batch folder processing with intelligent folder management.
+Command-line interface with flags for single file and batch processing.
+
+Usage Examples:
+  # Process single PDF to markdown
+  python3 marker_converter.py --single-pdf --input-file "path/to/file.pdf" --output markdown
+  
+  # Process single PDF to both formats with LLM
+  python3 marker_converter.py --single-pdf --input-file "path/to/file.pdf" --output both --use-llm
+  
+  # Process all PDFs in folder to JSON
+  python3 marker_converter.py --all-pdf --input-folder "path/to/folder" --output json
+  
+  # Interactive mode (original menu)
+  python3 marker_converter.py --interactive
 """
 
 import os
 import sys
 import subprocess
 import shutil
+import argparse
 from pathlib import Path
 from typing import List, Tuple
 
 
+def setup_argument_parser():
+    """Set up command line argument parser."""
+    parser = argparse.ArgumentParser(
+        description="Advanced PDF to Markdown/JSON Converter using Marker",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s --single-pdf --input-file "Chapter 1.pdf" --output markdown
+  %(prog)s --single-pdf --input-file "Chapter 1.pdf" --output both --use-llm
+  %(prog)s --all-pdf --input-folder "/path/to/pdfs" --output json
+  %(prog)s --interactive
+        """
+    )
+    
+    # Processing mode (mutually exclusive)
+    mode_group = parser.add_mutually_exclusive_group(required=True)
+    mode_group.add_argument('--single-pdf', action='store_true',
+                           help='Process a single PDF file')
+    mode_group.add_argument('--all-pdf', action='store_true',
+                           help='Process all PDFs in a folder')
+    mode_group.add_argument('--interactive', action='store_true',
+                           help='Run in interactive mode with menu')
+    
+    # Input options
+    parser.add_argument('--input-file', type=str,
+                       help='Path to the PDF file (required for --single-pdf)')
+    parser.add_argument('--input-folder', type=str,
+                       help='Path to folder containing PDFs (required for --all-pdf)')
+    
+    # Output format
+    parser.add_argument('--output', choices=['markdown', 'json', 'both'],
+                       help='Output format: markdown, json, or both')
+    
+    # Optional flags
+    parser.add_argument('--use-llm', action='store_true',
+                       help='Use LLM for better accuracy (slower but more accurate)')
+    parser.add_argument('--quiet', action='store_true',
+                       help='Reduce output verbosity')
+    
+    return parser
+
+
+def validate_arguments(args):
+    """Validate command line arguments."""
+    errors = []
+    
+    if args.single_pdf:
+        if not args.input_file:
+            errors.append("--input-file is required when using --single-pdf")
+        elif not Path(args.input_file).exists():
+            errors.append(f"Input file does not exist: {args.input_file}")
+        elif not Path(args.input_file).suffix.lower() == '.pdf':
+            errors.append(f"Input file is not a PDF: {args.input_file}")
+        
+        if not args.output:
+            errors.append("--output is required when using --single-pdf")
+    
+    elif args.all_pdf:
+        if not args.input_folder:
+            errors.append("--input-folder is required when using --all-pdf")
+        elif not Path(args.input_folder).exists():
+            errors.append(f"Input folder does not exist: {args.input_folder}")
+        elif not Path(args.input_folder).is_dir():
+            errors.append(f"Input path is not a directory: {args.input_folder}")
+        
+        if not args.output:
+            errors.append("--output is required when using --all-pdf")
+    
+    if errors:
+        for error in errors:
+            print(f"Error: {error}", file=sys.stderr)
+        sys.exit(1)
+
+
+def find_pdf_files(folder_path: Path) -> List[Path]:
+    """Find all PDF files in the given folder."""
+    pdf_files = []
+    for file_path in folder_path.iterdir():
+        if file_path.is_file() and file_path.suffix.lower() == '.pdf':
+            pdf_files.append(file_path)
+    
+    pdf_files.sort()  # Sort alphabetically
+    return pdf_files
+
+
+def create_output_folder(pdf_path: Path) -> Path:
+    """Create output folder next to the PDF file with the same name as the PDF."""
+    pdf_directory = pdf_path.parent
+    folder_name = pdf_path.stem
+    output_folder = pdf_directory / folder_name
+    
+    try:
+        output_folder.mkdir(exist_ok=True)
+        return output_folder
+    except Exception as e:
+        print(f"Error creating output folder '{output_folder}': {e}")
+        raise
+
+
+def find_files_recursively(directory: Path, pdf_stem: str, output_format: str) -> List[Path]:
+    """Find files recursively in directory and subdirectories."""
+    found_files = []
+    
+    if not directory.exists() or not directory.is_dir():
+        return found_files
+    
+    for item in directory.rglob("*"):
+        if item.is_file():
+            if output_format == "markdown":
+                if (item.suffix.lower() in ['.md', '.markdown'] or 
+                    item.name == pdf_stem or 
+                    item.name.startswith(pdf_stem)):
+                    found_files.append(item)
+            elif output_format == "json":
+                if (item.suffix.lower() == '.json' and 
+                    not item.name.endswith('_meta.json') and
+                    (item.name == f"{pdf_stem}.json" or item.name == pdf_stem)):
+                    found_files.append(item)
+    
+    return found_files
+
+
+def cleanup_empty_directories(base_dir: Path, quiet: bool = False):
+    """Remove empty directories recursively."""
+    if not base_dir.exists() or not base_dir.is_dir():
+        return
+    
+    subdirs = [d for d in base_dir.iterdir() if d.is_dir()]
+    
+    for subdir in subdirs:
+        cleanup_empty_directories(subdir, quiet)
+        
+        try:
+            subdir.rmdir()
+            if not quiet:
+                print(f"   🗑️  Removed empty directory: {subdir.name}")
+        except OSError:
+            pass
+
+
+def organize_marker_output(pdf_path: Path, output_dir: Path, output_format: str, quiet: bool = False) -> bool:
+    """Intelligently organize Marker's output files."""
+    if not quiet:
+        print("   📁 Organizing output files...")
+    
+    found_files = find_files_recursively(output_dir, pdf_path.stem, output_format)
+    
+    if not found_files:
+        if not quiet:
+            print(f"   ❌ No {output_format} files found")
+        return False
+    
+    target_file = output_dir / f"{pdf_path.stem}.{output_format}"
+    
+    # Find the best file to use
+    best_file = None
+    for file_path in found_files:
+        if file_path.suffix.lower() in [f'.{output_format}', '.md', '.markdown']:
+            best_file = file_path
+            break
+    
+    if not best_file and found_files:
+        best_file = found_files[0]
+    
+    if best_file:
+        try:
+            if best_file == target_file:
+                if not quiet:
+                    print(f"   ✅ File already properly located: {target_file}")
+                return True
+            
+            if target_file.exists():
+                target_file.unlink()
+            
+            shutil.move(str(best_file), str(target_file))
+            if not quiet:
+                print(f"   📄 Moved: {best_file.name} → {target_file.name}")
+            
+            # Move metadata files
+            for item in output_dir.rglob("*_meta.json"):
+                if item.parent != output_dir:
+                    target_meta = output_dir / item.name
+                    try:
+                        if target_meta.exists():
+                            target_meta.unlink()
+                        shutil.move(str(item), str(target_meta))
+                        if not quiet:
+                            print(f"   📄 Moved metadata: {item.name}")
+                    except Exception as e:
+                        if not quiet:
+                            print(f"   ⚠️  Could not move metadata {item.name}: {e}")
+            
+            cleanup_empty_directories(output_dir, quiet)
+            return True
+            
+        except Exception as e:
+            if not quiet:
+                print(f"   ❌ Error moving file: {e}")
+            return False
+    
+    return False
+
+
+def run_marker_conversion(pdf_path: Path, output_dir: Path, output_format: str, use_llm: bool = False, quiet: bool = False) -> bool:
+    """Run marker_single command for the specified format."""
+    
+    cmd = [
+        "marker_single",
+        str(pdf_path),
+        "--output_format", output_format,
+        "--output_dir", str(output_dir)
+    ]
+    
+    if use_llm:
+        cmd.append("--use_llm")
+    
+    if not quiet:
+        print(f"   Converting to {output_format.upper()}...")
+    
+    try:
+        if quiet:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+        else:
+            result = subprocess.run(cmd, text=True, timeout=600)
+        
+        success = organize_marker_output(pdf_path, output_dir, output_format, quiet)
+        
+        if success:
+            final_file = output_dir / f"{pdf_path.stem}.{output_format}"
+            if not quiet:
+                print(f"   ✅ {output_format.upper()} file created: {final_file}")
+            return True
+        else:
+            if not quiet:
+                print(f"   ❌ Failed to organize {output_format.upper()} output")
+            return False
+            
+    except subprocess.TimeoutExpired:
+        if not quiet:
+            print(f"   ❌ ERROR: Conversion timed out after 10 minutes")
+        return False
+    except FileNotFoundError:
+        print(f"   ❌ ERROR: marker_single command not found. Make sure marker-pdf is installed.")
+        return False
+    except Exception as e:
+        if not quiet:
+            print(f"   ❌ ERROR: {e}")
+        return False
+
+
+def get_output_formats(output_choice: str) -> List[str]:
+    """Convert output choice to list of formats."""
+    if output_choice == "markdown":
+        return ["markdown"]
+    elif output_choice == "json":
+        return ["json"]
+    elif output_choice == "both":
+        return ["markdown", "json"]
+    else:
+        return []
+
+
+def process_single_pdf(pdf_path: Path, output_formats: List[str], use_llm: bool = False, quiet: bool = False) -> Tuple[int, int]:
+    """Process a single PDF file."""
+    if not quiet:
+        print(f"\n📄 Processing: {pdf_path.name}")
+    
+    try:
+        output_folder = create_output_folder(pdf_path)
+        if not quiet:
+            print(f"📁 Output folder: {output_folder}")
+        
+        successes = 0
+        total = len(output_formats)
+        
+        for output_format in output_formats:
+            if run_marker_conversion(pdf_path, output_folder, output_format, use_llm, quiet):
+                successes += 1
+        
+        if not quiet:
+            if successes > 0:
+                print(f"✅ Completed {pdf_path.name} ({successes}/{total} formats successful)")
+            else:
+                print(f"❌ Failed {pdf_path.name} (0/{total} formats successful)")
+        
+        return successes, total
+        
+    except Exception as e:
+        if not quiet:
+            print(f"❌ Error processing {pdf_path.name}: {e}")
+        return 0, len(output_formats)
+
+
+def process_single_file_cli(args):
+    """Handle single file processing from command line."""
+    pdf_path = Path(args.input_file)
+    output_formats = get_output_formats(args.output)
+    
+    if not args.quiet:
+        print("=== Processing Single File ===")
+        print(f"Input: {pdf_path}")
+        print(f"Output formats: {', '.join(output_formats)}")
+        if args.use_llm:
+            print("Using LLM: Yes")
+        print()
+    
+    successes, total = process_single_pdf(pdf_path, output_formats, args.use_llm, args.quiet)
+    
+    if not args.quiet:
+        if successes > 0:
+            print(f"\n🎉 Successfully converted {successes}/{total} format(s)")
+        else:
+            print("\n💥 All conversions failed!")
+
+
+def process_batch_cli(args):
+    """Handle batch processing from command line."""
+    folder_path = Path(args.input_folder)
+    output_formats = get_output_formats(args.output)
+    
+    pdf_files = find_pdf_files(folder_path)
+    
+    if not pdf_files:
+        print(f"❌ No PDF files found in '{folder_path}'")
+        return
+    
+    if not args.quiet:
+        print("=== Batch Processing ===")
+        print(f"Input folder: {folder_path}")
+        print(f"Output formats: {', '.join(output_formats)}")
+        print(f"Files found: {len(pdf_files)}")
+        if args.use_llm:
+            print("Using LLM: Yes")
+        print()
+    
+    total_successes = 0
+    total_conversions = 0
+    failed_files = []
+    
+    for i, pdf_file in enumerate(pdf_files, 1):
+        if not args.quiet:
+            print(f"[{i}/{len(pdf_files)}] Processing {pdf_file.name}")
+        
+        successes, total = process_single_pdf(pdf_file, output_formats, args.use_llm, args.quiet)
+        
+        total_successes += successes
+        total_conversions += total
+        
+        if successes == 0:
+            failed_files.append(pdf_file.name)
+    
+    # Final summary
+    if not args.quiet:
+        print(f"\n=== Batch Processing Complete ===")
+        print(f"📊 Results:")
+        print(f"   • Files processed: {len(pdf_files)}")
+        print(f"   • Total conversions: {total_successes}/{total_conversions}")
+        print(f"   • Success rate: {(total_successes/total_conversions)*100:.1f}%" if total_conversions > 0 else "   • Success rate: 0%")
+        
+        if failed_files:
+            print(f"\n❌ Failed files:")
+            for failed_file in failed_files:
+                print(f"   • {failed_file}")
+        else:
+            print(f"\n🎉 All files processed successfully!")
+
+
+# Interactive mode functions (keeping the original menu system)
 def show_menu():
     """Display the main menu."""
     print("=== Advanced PDF to Markdown/JSON Converter using Marker ===\n")
@@ -87,223 +469,6 @@ def get_folder_input():
         return folder_path
 
 
-def find_pdf_files(folder_path: Path) -> List[Path]:
-    """Find all PDF files in the given folder."""
-    pdf_files = []
-    for file_path in folder_path.iterdir():
-        if file_path.is_file() and file_path.suffix.lower() == '.pdf':
-            pdf_files.append(file_path)
-    
-    pdf_files.sort()  # Sort alphabetically
-    return pdf_files
-
-
-def create_output_folder(pdf_path: Path) -> Path:
-    """Create output folder next to the PDF file with the same name as the PDF."""
-    # Get the folder where the PDF is located
-    pdf_directory = pdf_path.parent
-    
-    # Create folder name (PDF name without extension)
-    folder_name = pdf_path.stem
-    
-    # Create the output folder path
-    output_folder = pdf_directory / folder_name
-    
-    # Create the folder
-    try:
-        output_folder.mkdir(exist_ok=True)
-        return output_folder
-    except Exception as e:
-        print(f"Error creating output folder '{output_folder}': {e}")
-        raise
-
-
-def find_files_recursively(directory: Path, pdf_stem: str, output_format: str) -> List[Path]:
-    """Find files recursively in directory and subdirectories."""
-    found_files = []
-    
-    if not directory.exists() or not directory.is_dir():
-        return found_files
-    
-    # Search in current directory and all subdirectories
-    for item in directory.rglob("*"):
-        if item.is_file():
-            # Check if this is the file we're looking for
-            if output_format == "markdown":
-                # Look for .md files or files with the PDF name
-                if (item.suffix.lower() in ['.md', '.markdown'] or 
-                    item.name == pdf_stem or 
-                    item.name.startswith(pdf_stem)):
-                    found_files.append(item)
-            elif output_format == "json":
-                # Look for .json files (but not metadata files)
-                if (item.suffix.lower() == '.json' and 
-                    not item.name.endswith('_meta.json') and
-                    (item.name == f"{pdf_stem}.json" or item.name == pdf_stem)):
-                    found_files.append(item)
-    
-    return found_files
-
-
-def cleanup_empty_directories(base_dir: Path):
-    """Remove empty directories recursively."""
-    if not base_dir.exists() or not base_dir.is_dir():
-        return
-    
-    # Get all subdirectories
-    subdirs = [d for d in base_dir.iterdir() if d.is_dir()]
-    
-    for subdir in subdirs:
-        # First, recursively clean subdirectories
-        cleanup_empty_directories(subdir)
-        
-        # Then try to remove this directory if it's empty
-        try:
-            subdir.rmdir()
-            print(f"   🗑️  Removed empty directory: {subdir.name}")
-        except OSError:
-            # Directory not empty, that's fine
-            pass
-
-
-def organize_marker_output(pdf_path: Path, output_dir: Path, output_format: str) -> bool:
-    """
-    Intelligently organize Marker's output files.
-    Finds files anywhere in the directory structure and moves them to the main output folder.
-    """
-    print("   📁 Organizing output files...")
-    
-    # Find all relevant files
-    found_files = find_files_recursively(output_dir, pdf_path.stem, output_format)
-    
-    if not found_files:
-        print(f"   ❌ No {output_format} files found")
-        return False
-    
-    # Target file path
-    target_file = output_dir / f"{pdf_path.stem}.{output_format}"
-    
-    # Find the best file to use (prefer files with correct extension)
-    best_file = None
-    for file_path in found_files:
-        if file_path.suffix.lower() in [f'.{output_format}', '.md', '.markdown']:
-            best_file = file_path
-            break
-    
-    # If no file with extension found, use the first one
-    if not best_file and found_files:
-        best_file = found_files[0]
-    
-    if best_file:
-        try:
-            # If the file is already in the right place with the right name, we're done
-            if best_file == target_file:
-                print(f"   ✅ File already properly located: {target_file}")
-                return True
-            
-            # Remove target file if it exists
-            if target_file.exists():
-                target_file.unlink()
-            
-            # Move the file to the correct location
-            shutil.move(str(best_file), str(target_file))
-            print(f"   📄 Moved: {best_file.name} → {target_file.name}")
-            
-            # Also move any metadata files
-            for item in output_dir.rglob("*_meta.json"):
-                if item.parent != output_dir:
-                    target_meta = output_dir / item.name
-                    try:
-                        if target_meta.exists():
-                            target_meta.unlink()
-                        shutil.move(str(item), str(target_meta))
-                        print(f"   📄 Moved metadata: {item.name}")
-                    except Exception as e:
-                        print(f"   ⚠️  Could not move metadata {item.name}: {e}")
-            
-            # Clean up empty directories
-            cleanup_empty_directories(output_dir)
-            
-            return True
-            
-        except Exception as e:
-            print(f"   ❌ Error moving file: {e}")
-            return False
-    
-    return False
-
-
-def run_marker_conversion(pdf_path: Path, output_dir: Path, output_format: str, use_llm: bool = False) -> bool:
-    """Run marker_single command for the specified format."""
-    
-    cmd = [
-        "marker_single",
-        str(pdf_path),
-        "--output_format", output_format,
-        "--output_dir", str(output_dir)
-    ]
-    
-    if use_llm:
-        cmd.append("--use_llm")
-    
-    print(f"   Converting to {output_format.upper()}...")
-    
-    try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
-        
-        # Organize the output files
-        success = organize_marker_output(pdf_path, output_dir, output_format)
-        
-        if success:
-            final_file = output_dir / f"{pdf_path.stem}.{output_format}"
-            print(f"   ✅ {output_format.upper()} file created: {final_file}")
-            return True
-        else:
-            print(f"   ❌ Failed to organize {output_format.upper()} output")
-            if result.stderr:
-                print(f"   Error output: {result.stderr}")
-            return False
-            
-    except subprocess.TimeoutExpired:
-        print(f"   ❌ ERROR: Conversion timed out after 10 minutes")
-        return False
-    except FileNotFoundError:
-        print(f"   ❌ ERROR: marker_single command not found. Make sure marker-pdf is installed.")
-        return False
-    except Exception as e:
-        print(f"   ❌ ERROR: {e}")
-        return False
-
-
-def process_single_pdf(pdf_path: Path, output_formats: List[str], use_llm: bool = False) -> Tuple[int, int]:
-    """Process a single PDF file."""
-    print(f"\n📄 Processing: {pdf_path.name}")
-    
-    try:
-        # Create output folder
-        output_folder = create_output_folder(pdf_path)
-        print(f"📁 Output folder: {output_folder}")
-        
-        successes = 0
-        total = len(output_formats)
-        
-        # Convert to each requested format
-        for output_format in output_formats:
-            if run_marker_conversion(pdf_path, output_folder, output_format, use_llm):
-                successes += 1
-        
-        if successes > 0:
-            print(f"✅ Completed {pdf_path.name} ({successes}/{total} formats successful)")
-        else:
-            print(f"❌ Failed {pdf_path.name} (0/{total} formats successful)")
-        
-        return successes, total
-        
-    except Exception as e:
-        print(f"❌ Error processing {pdf_path.name}: {e}")
-        return 0, len(output_formats)
-
-
 def process_single_file_mode():
     """Handle single file processing mode."""
     pdf_path = get_single_file_input()
@@ -330,8 +495,6 @@ def process_single_file_mode():
 def process_batch_mode():
     """Handle batch processing mode."""
     folder_path = get_folder_input()
-    
-    # Find PDF files
     pdf_files = find_pdf_files(folder_path)
     
     if not pdf_files:
@@ -342,7 +505,6 @@ def process_batch_mode():
     for i, pdf_file in enumerate(pdf_files, 1):
         print(f"   {i}. {pdf_file.name}")
     
-    # Confirm processing
     confirm = input(f"\nProcess all {len(pdf_files)} PDF files? (y/N): ").strip().lower()
     if confirm not in ['y', 'yes']:
         print("Batch processing cancelled.")
@@ -359,7 +521,6 @@ def process_batch_mode():
     total_conversions = 0
     failed_files = []
     
-    # Process each PDF
     for i, pdf_file in enumerate(pdf_files, 1):
         print(f"\n[{i}/{len(pdf_files)}] " + "="*50)
         successes, total = process_single_pdf(pdf_file, output_formats, use_llm)
@@ -370,7 +531,6 @@ def process_batch_mode():
         if successes == 0:
             failed_files.append(pdf_file.name)
     
-    # Final summary
     print(f"\n{'='*60}")
     print("BATCH PROCESSING COMPLETE")
     print(f"{'='*60}")
@@ -388,8 +548,8 @@ def process_batch_mode():
         print(f"\n🎉 All files processed successfully!")
 
 
-def main():
-    """Main function."""
+def run_interactive_mode():
+    """Run the interactive menu mode."""
     try:
         while True:
             choice = show_menu()
@@ -408,12 +568,37 @@ def main():
                 print("\n❌ Invalid choice. Please enter 1, 2, or 3.")
                 continue
             
-            # Ask if user wants to continue
             if choice in ["1", "2"]:
                 continue_choice = input("\nDo you want to process more files? (y/N): ").strip().lower()
                 if continue_choice not in ['y', 'yes']:
                     print("\nGoodbye! 👋")
                     break
+    
+    except KeyboardInterrupt:
+        print("\n\nOperation cancelled by user. Goodbye! 👋")
+        sys.exit(0)
+
+
+def main():
+    """Main function."""
+    parser = setup_argument_parser()
+    args = parser.parse_args()
+    
+    # If no arguments provided, show help
+    if len(sys.argv) == 1:
+        parser.print_help()
+        return
+    
+    try:
+        if args.interactive:
+            run_interactive_mode()
+        else:
+            validate_arguments(args)
+            
+            if args.single_pdf:
+                process_single_file_cli(args)
+            elif args.all_pdf:
+                process_batch_cli(args)
     
     except KeyboardInterrupt:
         print("\n\nOperation cancelled by user. Goodbye! 👋")
