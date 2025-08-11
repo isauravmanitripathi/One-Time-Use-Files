@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-MCQ Question Extractor
+MCQ Question Extractor with Guaranteed Randomization
 Extracts questions from the cluster MCQ generator output and creates clean test files
+with guaranteed randomization of correct answer positions
 """
 
 import json
@@ -10,9 +11,10 @@ import sys
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any
+import random
 
 class MCQExtractor:
-    """Extract and format MCQ questions from generator output"""
+    """Extract and format MCQ questions from generator output with guaranteed randomization"""
     
     def __init__(self):
         self.extracted_questions = []
@@ -55,13 +57,16 @@ class MCQExtractor:
                 for question_data in bp_questions:
                     # Validate question structure
                     if self.validate_question(question_data):
+                        # Randomize options to prevent bias towards option 0
+                        randomized_question = self.randomize_question_options(question_data)
+                        
                         # Extract and format question
                         formatted_question = {
                             "question_number": question_number,
-                            "question": question_data.get('question', '').strip(),
-                            "options": question_data.get('options', []),
-                            "correct": question_data.get('correct', 0),
-                            "explanations": question_data.get('explanations', {}),
+                            "question": randomized_question.get('question', '').strip(),
+                            "options": randomized_question.get('options', []),
+                            "correct": randomized_question.get('correct', 0),
+                            "explanations": randomized_question.get('explanations', {}),
                             "source_info": {
                                 "chapter": chapter_name,
                                 "section": section_name,
@@ -109,6 +114,75 @@ class MCQExtractor:
             return False
         
         return True
+    
+    def randomize_question_options(self, question_data: Dict) -> Dict:
+        """
+        Randomize the order of options while ensuring the correct answer moves to a DIFFERENT position
+        Explanations will ALWAYS have keys "0","1","2","3" with content matching the option at each position
+        """
+        try:
+            # Get original data
+            original_options = question_data['options'].copy()
+            original_explanations = question_data['explanations'].copy()
+            original_correct_index = question_data['correct']
+            
+            # Create a shuffle that ensures correct answer moves to different position
+            indices = list(range(4))
+            attempts = 0
+            
+            # Keep shuffling until correct answer is in a different position
+            while attempts < 20:
+                random.shuffle(indices)
+                new_correct_position = indices.index(original_correct_index)
+                if new_correct_position != original_correct_index:
+                    break
+                attempts += 1
+            
+            # If still same position, force it to be different
+            if new_correct_position == original_correct_index:
+                # Swap with next position
+                swap_pos = (original_correct_index + 1) % 4
+                indices[original_correct_index], indices[swap_pos] = indices[swap_pos], indices[original_correct_index]
+                new_correct_position = indices.index(original_correct_index)
+            
+            # Build new options based on shuffle
+            new_options = [None] * 4
+            for new_pos, original_pos in enumerate(indices):
+                new_options[new_pos] = original_options[original_pos]
+            
+            # Build explanations with CORRECT keys "0", "1", "2", "3"
+            # Each explanation matches the option at that position
+            new_explanations = {}
+            for new_pos, original_pos in enumerate(indices):
+                # Key is the NEW position (0, 1, 2, 3)
+                # Content is the explanation for the option that moved to this position
+                new_explanations[str(new_pos)] = original_explanations[str(original_pos)]
+            
+            # Find final correct position
+            final_correct_position = new_correct_position
+            
+            # Verify we have all keys and no None values
+            for i in range(4):
+                if str(i) not in new_explanations or new_options[i] is None:
+                    raise Exception(f"Missing data at position {i}")
+            
+            # Return properly formatted question
+            return {
+                'question': question_data['question'],
+                'options': new_options,
+                'correct': final_correct_position,
+                'explanations': new_explanations
+            }
+            
+        except Exception as e:
+            print(f"⚠️  Warning: Failed to randomize question options: {e}")
+            # Return original question if randomization fails
+            return {
+                'question': question_data['question'],
+                'options': question_data['options'],
+                'correct': question_data['correct'],
+                'explanations': question_data['explanations']
+            }
     
     def create_test_file(self, questions: List[Dict], timer: int, instructions: str, output_path: str) -> bool:
         """Create the final test file in the required format"""
@@ -208,6 +282,30 @@ class MCQExtractor:
         for chapter, count in sorted(chapter_counts.items()):
             print(f"  • {chapter}: {count} questions")
         
+        # Show correct answer distribution to verify randomization
+        correct_distribution = {0: 0, 1: 0, 2: 0, 3: 0}
+        position_changes = 0  # Track how many questions had their correct answer moved
+        
+        for q in questions:
+            correct_idx = q.get('correct', 0)
+            if correct_idx in correct_distribution:
+                correct_distribution[correct_idx] += 1
+        
+        print("\n🎲 Correct Answer Distribution (after randomization):")
+        total_q = len(questions)
+        for option, count in correct_distribution.items():
+            percentage = (count / total_q * 100) if total_q > 0 else 0
+            print(f"  • Option {option}: {count} questions ({percentage:.1f}%)")
+        
+        # Check if distribution is more balanced now
+        max_percentage = max(correct_distribution.values()) / total_q * 100 if total_q > 0 else 0
+        min_percentage = min(correct_distribution.values()) / total_q * 100 if total_q > 0 else 0
+        
+        if max_percentage - min_percentage < 20:  # If difference is less than 20%
+            print("  ✅ Good distribution - randomization successful!")
+        else:
+            print("  ⚠️  Uneven distribution - check randomization logic")
+        
         print("="*60)
     
     def run_extraction(self):
@@ -217,6 +315,7 @@ class MCQExtractor:
         print("="*60)
         print("This tool extracts questions from MCQ generator output files")
         print("and creates clean test files for UPSC preparation.")
+        print("🎲 OPTIONS ARE AUTOMATICALLY RANDOMIZED to prevent bias!")
         print("="*60)
         
         # Get input file path
