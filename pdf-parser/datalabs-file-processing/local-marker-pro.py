@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
 Advanced PDF to Markdown/JSON Converter using Marker CLI
-Supports single file and batch folder processing with custom output formats.
+Supports single file and batch folder processing with intelligent folder management.
 """
 
 import os
 import sys
 import subprocess
+import shutil
 from pathlib import Path
 from typing import List, Tuple
 
@@ -117,6 +118,121 @@ def create_output_folder(pdf_path: Path) -> Path:
         raise
 
 
+def find_files_recursively(directory: Path, pdf_stem: str, output_format: str) -> List[Path]:
+    """Find files recursively in directory and subdirectories."""
+    found_files = []
+    
+    if not directory.exists() or not directory.is_dir():
+        return found_files
+    
+    # Search in current directory and all subdirectories
+    for item in directory.rglob("*"):
+        if item.is_file():
+            # Check if this is the file we're looking for
+            if output_format == "markdown":
+                # Look for .md files or files with the PDF name
+                if (item.suffix.lower() in ['.md', '.markdown'] or 
+                    item.name == pdf_stem or 
+                    item.name.startswith(pdf_stem)):
+                    found_files.append(item)
+            elif output_format == "json":
+                # Look for .json files (but not metadata files)
+                if (item.suffix.lower() == '.json' and 
+                    not item.name.endswith('_meta.json') and
+                    (item.name == f"{pdf_stem}.json" or item.name == pdf_stem)):
+                    found_files.append(item)
+    
+    return found_files
+
+
+def cleanup_empty_directories(base_dir: Path):
+    """Remove empty directories recursively."""
+    if not base_dir.exists() or not base_dir.is_dir():
+        return
+    
+    # Get all subdirectories
+    subdirs = [d for d in base_dir.iterdir() if d.is_dir()]
+    
+    for subdir in subdirs:
+        # First, recursively clean subdirectories
+        cleanup_empty_directories(subdir)
+        
+        # Then try to remove this directory if it's empty
+        try:
+            subdir.rmdir()
+            print(f"   🗑️  Removed empty directory: {subdir.name}")
+        except OSError:
+            # Directory not empty, that's fine
+            pass
+
+
+def organize_marker_output(pdf_path: Path, output_dir: Path, output_format: str) -> bool:
+    """
+    Intelligently organize Marker's output files.
+    Finds files anywhere in the directory structure and moves them to the main output folder.
+    """
+    print("   📁 Organizing output files...")
+    
+    # Find all relevant files
+    found_files = find_files_recursively(output_dir, pdf_path.stem, output_format)
+    
+    if not found_files:
+        print(f"   ❌ No {output_format} files found")
+        return False
+    
+    # Target file path
+    target_file = output_dir / f"{pdf_path.stem}.{output_format}"
+    
+    # Find the best file to use (prefer files with correct extension)
+    best_file = None
+    for file_path in found_files:
+        if file_path.suffix.lower() in [f'.{output_format}', '.md', '.markdown']:
+            best_file = file_path
+            break
+    
+    # If no file with extension found, use the first one
+    if not best_file and found_files:
+        best_file = found_files[0]
+    
+    if best_file:
+        try:
+            # If the file is already in the right place with the right name, we're done
+            if best_file == target_file:
+                print(f"   ✅ File already properly located: {target_file}")
+                return True
+            
+            # Remove target file if it exists
+            if target_file.exists():
+                target_file.unlink()
+            
+            # Move the file to the correct location
+            shutil.move(str(best_file), str(target_file))
+            print(f"   📄 Moved: {best_file.name} → {target_file.name}")
+            
+            # Also move any metadata files
+            for item in output_dir.rglob("*_meta.json"):
+                if item.parent != output_dir:
+                    target_meta = output_dir / item.name
+                    try:
+                        if target_meta.exists():
+                            target_meta.unlink()
+                        shutil.move(str(item), str(target_meta))
+                        print(f"   📄 Moved metadata: {item.name}")
+                    except Exception as e:
+                        print(f"   ⚠️  Could not move metadata {item.name}: {e}")
+            
+            # Clean up empty directories
+            cleanup_empty_directories(output_dir)
+            
+            return True
+            
+        except Exception as e:
+            print(f"   ❌ Error moving file: {e}")
+            return False
+    
+    return False
+
+
 def run_marker_conversion(pdf_path: Path, output_dir: Path, output_format: str, use_llm: bool = False) -> bool:
     """Run marker_single command for the specified format."""
     
@@ -135,58 +251,15 @@ def run_marker_conversion(pdf_path: Path, output_dir: Path, output_format: str, 
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
         
-        # Marker seems to create files in different ways, let's check multiple possible locations
-        possible_files = [
-            output_dir / f"{pdf_path.stem}.{output_format}",  # Expected location
-            output_dir / f"{pdf_path.stem}",  # Without extension (as seen in logs)
-            output_dir / pdf_path.stem / f"{pdf_path.stem}.{output_format}",  # Nested folder
-            output_dir / pdf_path.stem / f"{pdf_path.stem}",  # Nested without extension
-        ]
+        # Organize the output files
+        success = organize_marker_output(pdf_path, output_dir, output_format)
         
-        # Find which file was actually created
-        created_file = None
-        for possible_file in possible_files:
-            if possible_file.exists():
-                created_file = possible_file
-                break
-        
-        if created_file:
-            # If file was created in a nested folder, move it to the main output directory
-            if created_file.parent != output_dir:
-                target_file = output_dir / f"{pdf_path.stem}.{output_format}"
-                try:
-                    # Move/copy the file to the correct location
-                    import shutil
-                    shutil.move(str(created_file), str(target_file))
-                    created_file = target_file
-                    
-                    # Clean up empty nested folder if it exists
-                    nested_folder = output_dir / pdf_path.stem
-                    if nested_folder.exists() and nested_folder.is_dir():
-                        try:
-                            nested_folder.rmdir()  # Only removes if empty
-                        except:
-                            pass  # Ignore if folder is not empty
-                except Exception as e:
-                    print(f"   Warning: Could not move file: {e}")
-            
-            # Ensure the file has the correct extension
-            if not created_file.name.endswith(f".{output_format}"):
-                correct_name = output_dir / f"{pdf_path.stem}.{output_format}"
-                try:
-                    import shutil
-                    shutil.move(str(created_file), str(correct_name))
-                    created_file = correct_name
-                except Exception as e:
-                    print(f"   Warning: Could not rename file: {e}")
-            
-            print(f"   ✅ {output_format.upper()} file created: {created_file}")
+        if success:
+            final_file = output_dir / f"{pdf_path.stem}.{output_format}"
+            print(f"   ✅ {output_format.upper()} file created: {final_file}")
             return True
         else:
-            print(f"   ❌ {output_format.upper()} file not found in any expected location")
-            print(f"   Checked locations:")
-            for pf in possible_files:
-                print(f"     - {pf}")
+            print(f"   ❌ Failed to organize {output_format.upper()} output")
             if result.stderr:
                 print(f"   Error output: {result.stderr}")
             return False
