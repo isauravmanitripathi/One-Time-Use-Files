@@ -2,7 +2,7 @@
 """
 Indian Languages MCQ Translator with Multi-API Key Parallel Processing
 Translates English MCQ questions to Indian languages using multiple OpenAI API keys in parallel
-with live batch saving every 10 questions for real-time review
+with live batch saving every 10 questions and detailed error reporting
 """
 
 import json
@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 class EnhancedAPIKeyManager:
     """Enhanced API key manager with load balancing and monitoring for translation"""
     
-    def __init__(self, model_name: str = "gpt-5-mini"):
+    def __init__(self, model_name: str = "gpt-4o-mini"):
         self.model_name = model_name
         self.api_keys = self.discover_api_keys()
         self.clients = self.initialize_clients()
@@ -126,7 +126,7 @@ class EnhancedAPIKeyManager:
 class ParallelIndianMCQTranslator:
     """Translate MCQ questions from English to Indian languages using multiple API keys in parallel"""
     
-    def __init__(self, model_name: str = "gpt-5-mini"):
+    def __init__(self, model_name: str = "gpt-4o-mini"):
         self.model_name = model_name
         self.setup_enhanced_api_manager()
         self.translated_questions = []
@@ -222,7 +222,7 @@ class ParallelIndianMCQTranslator:
             print(f"❌ Error reading file: {e}")
             return None
     
-    def translate_single_question(self, question_data: Dict) -> Optional[Dict]:
+    def translate_single_question(self, question_data: Dict) -> Tuple[Optional[Dict], str, str]:
         """Translate a single MCQ question to target Indian language using OpenAI API with load balancing"""
         
         system_message = f"""You are an expert translator specializing in translating UPSC Civil Services examination content from English to {self.target_language}. You maintain academic precision and use terminology appropriate for Indian government competitive examinations.
@@ -264,6 +264,7 @@ Return ONLY the JSON, no other text:"""
 
         # Get next available client using load balancing
         client, key_name, key_index = self.api_manager.get_next_client()
+        failure_reason = "Unknown error"
 
         try:
             response = client.chat.completions.create(
@@ -283,35 +284,116 @@ Return ONLY the JSON, no other text:"""
                     content = content.replace('```json', '').replace('```', '').strip()
                 
                 # Parse JSON
-                translated_question = json.loads(content)
+                try:
+                    translated_question = json.loads(content)
+                except json.JSONDecodeError as e:
+                    failure_reason = f"JSON Parse Error: {str(e)[:60]}..."
+                    self.api_manager.release_client(key_name, success=False)
+                    return None, key_name, failure_reason
                 
                 # Validate structure
                 required_fields = ['question', 'options', 'correct', 'explanations']
-                if not all(field in translated_question for field in required_fields):
+                missing_fields = [field for field in required_fields if field not in translated_question]
+                if missing_fields:
+                    failure_reason = f"Missing fields: {', '.join(missing_fields)}"
                     self.api_manager.release_client(key_name, success=False)
-                    return None
+                    return None, key_name, failure_reason
                 
                 # Validate options and explanations count
-                if (len(translated_question['options']) != 4 or 
-                    len(translated_question['explanations']) != 4):
+                if len(translated_question.get('options', [])) != 4:
+                    failure_reason = f"Invalid options count: {len(translated_question.get('options', []))} (expected 4)"
                     self.api_manager.release_client(key_name, success=False)
-                    return None
+                    return None, key_name, failure_reason
+                
+                if len(translated_question.get('explanations', {})) != 4:
+                    failure_reason = f"Invalid explanations count: {len(translated_question.get('explanations', {}))} (expected 4)"
+                    self.api_manager.release_client(key_name, success=False)
+                    return None, key_name, failure_reason
+                
+                # Check if explanations have correct keys
+                expected_keys = {'0', '1', '2', '3'}
+                actual_keys = set(str(k) for k in translated_question.get('explanations', {}).keys())
+                if expected_keys != actual_keys:
+                    failure_reason = f"Invalid explanation keys: {actual_keys} (expected: {expected_keys})"
+                    self.api_manager.release_client(key_name, success=False)
+                    return None, key_name, failure_reason
+                
+                # Check for empty content
+                if not translated_question.get('question', '').strip():
+                    failure_reason = "Empty question text after translation"
+                    self.api_manager.release_client(key_name, success=False)
+                    return None, key_name, failure_reason
+                
+                if any(not str(opt).strip() for opt in translated_question.get('options', [])):
+                    failure_reason = "One or more empty options after translation"
+                    self.api_manager.release_client(key_name, success=False)
+                    return None, key_name, failure_reason
                 
                 # Ensure correct answer index is preserved
-                if translated_question['correct'] != question_data['correct']:
+                if translated_question.get('correct') != question_data['correct']:
                     translated_question['correct'] = question_data['correct']
                 
                 self.api_manager.release_client(key_name, success=True)
-                return translated_question
+                return translated_question, key_name, "Success"
+            else:
+                failure_reason = "Empty response from API"
+                self.api_manager.release_client(key_name, success=False)
+                return None, key_name, failure_reason
                 
-        except json.JSONDecodeError as e:
-            self.api_manager.release_client(key_name, success=False)
-            return None
         except Exception as e:
+            failure_reason = f"API Error: {str(e)[:60]}..."
             self.api_manager.release_client(key_name, success=False)
-            return None
+            return None, key_name, failure_reason
         
-        return None
+        return None, key_name, failure_reason
+    
+    def print_failure_box(self, question_index: int, failure_reason: str, api_key: str, question_preview: str):
+        """Print a nice formatted box showing why a translation failed"""
+        box_width = 80
+        
+        print("\n" + "┌" + "─" * (box_width - 2) + "┐")
+        print(f"│{'🚨 TRANSLATION FAILURE':^{box_width - 2}}│")
+        print("├" + "─" * (box_width - 2) + "┤")
+        print(f"│ Question #{question_index:<{box_width - 15}} │")
+        print(f"│ API Key: {api_key:<{box_width - 12}} │")
+        print("├" + "─" * (box_width - 2) + "┤")
+        print(f"│ Reason: {failure_reason:<{box_width - 11}} │")
+        print("├" + "─" * (box_width - 2) + "┤")
+        print(f"│ Question: {question_preview[:box_width - 13]:<{box_width - 13}} │")
+        if len(question_preview) > box_width - 13:
+            print(f"│           {question_preview[box_width - 13:box_width - 13 + box_width - 13]:<{box_width - 13}} │")
+        print("├" + "─" * (box_width - 2) + "┤")
+        print(f"│{'⚠️  Original English question will be kept in output':^{box_width - 2}}│")
+        print("└" + "─" * (box_width - 2) + "┘")
+    
+    def translate_single_question_with_retry(self, question_data: Dict, question_index: int) -> Tuple[Optional[Dict], str, bool]:
+        """Translate a single question with retry logic and detailed error reporting"""
+        max_retries = 3
+        last_api_key = "unknown"
+        last_failure_reason = "Unknown error"
+        
+        for attempt in range(max_retries):
+            try:
+                translated_question, api_key_used, result_status = self.translate_single_question(question_data)
+                last_api_key = api_key_used
+                
+                if translated_question and result_status == "Success":
+                    return translated_question, api_key_used, True
+                else:
+                    last_failure_reason = result_status
+                    if attempt < max_retries - 1:
+                        time.sleep(2 ** attempt)  # Exponential backoff
+                    
+            except Exception as e:
+                last_failure_reason = f"Exception: {str(e)[:50]}..."
+                if attempt < max_retries - 1:
+                    time.sleep(2 ** attempt)
+        
+        # Show detailed failure information in a box
+        question_preview = question_data.get('question', '')[:60] + "..." if len(question_data.get('question', '')) > 60 else question_data.get('question', '')
+        self.print_failure_box(question_index + 1, last_failure_reason, last_api_key, question_preview)
+        
+        return None, last_api_key, False
     
     def save_progress_batch(self, original_data: Dict) -> bool:
         """Save current progress to file (called every 10 questions)"""
@@ -390,14 +472,15 @@ Return ONLY the JSON, no other text:"""
                         translation_results[question_index] = translated_question
                         self.successful_translations += 1
                         status = "✅ SUCCESS   "
+                        # Display progress normally
+                        print(f"{status:<12} {completed_count:4d}/{self.total_questions:<4d}    {completed_count/self.total_questions*100:5.1f}%  {batch_info:<8} {api_key_used:<8} {question_preview}")
                     else:
                         # Keep original question if translation fails
                         translation_results[question_index] = question_data
                         self.failed_translations += 1
                         status = "❌ FAILED    "
-                    
-                    # Display progress
-                    print(f"{status:<12} {completed_count:4d}/{self.total_questions:<4d}    {completed_count/self.total_questions*100:5.1f}%  {batch_info:<8} {api_key_used:<8} {question_preview}")
+                        # Display minimal progress (detailed error already shown in box)
+                        print(f"{status:<12} {completed_count:4d}/{self.total_questions:<4d}    {completed_count/self.total_questions*100:5.1f}%  {batch_info:<8} {api_key_used:<8} {question_preview}")
                     
                     # Save progress every batch_size questions or at the end
                     if completed_count % self.batch_size == 0 or completed_count == self.total_questions:
@@ -425,34 +508,6 @@ Return ONLY the JSON, no other text:"""
         final_results = [q for q in translation_results if q is not None]
         self.translated_questions = final_results
         return final_results
-    
-    def translate_single_question_with_retry(self, question_data: Dict, question_index: int) -> Tuple[Optional[Dict], str, bool]:
-        """Translate a single question with retry logic and return API key used"""
-        max_retries = 3
-        last_api_key = "unknown"
-        
-        for attempt in range(max_retries):
-            try:
-                # Note: translate_single_question now handles API key selection internally
-                translated_question = self.translate_single_question(question_data)
-                
-                # Get the API key from the last usage (this is a simplification)
-                usage_summary = self.api_manager.get_usage_summary()
-                if usage_summary['usage_stats']:
-                    # Find the most recently used key
-                    last_used_times = self.api_manager.last_used
-                    last_api_key = max(last_used_times.keys(), key=lambda k: last_used_times[k])
-                
-                if translated_question:
-                    return translated_question, last_api_key, True
-                elif attempt < max_retries - 1:
-                    time.sleep(2 ** attempt)  # Exponential backoff
-                    
-            except Exception as e:
-                if attempt < max_retries - 1:
-                    time.sleep(2 ** attempt)
-        
-        return None, last_api_key, False
     
     def get_user_inputs(self) -> tuple:
         """Get input file, language choice, output folder, and output filename from user"""
@@ -543,6 +598,19 @@ Return ONLY the JSON, no other text:"""
         print(f"  Speed Improvement: ~{len(self.api_manager.api_keys)}x faster than single key")
         print("="*70)
     
+    def run_translation(self) -> bool:
+        """Main method to run the translation process"""
+        
+        # Get user inputs
+        input_file, output_folder, output_filename = self.get_user_inputs()
+        
+        # Load English MCQ file
+        print(f"\n🔍 Loading English MCQ file: {input_file}")
+        mcq_data = self.load_mcq_file(input_file)
+        
+        if mcq_data is None:
+            return False
+        
     def run_translation(self) -> bool:
         """Main method to run the translation process"""
         

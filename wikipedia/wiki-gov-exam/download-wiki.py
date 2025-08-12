@@ -341,7 +341,7 @@ if __name__ == '__main__':
     
     # Define the input file path directly.
     # This assumes 'dataset_final.csv' is in the same folder as the script.
-    input_csv_path = 'dataset_final.csv'
+    input_csv_path = '/Users/sauravtripathi/Desktop/pdfs/business-books/international-org.csv'
     
     # Define the column name that contains the Wikipedia URLs.
     # ** If your column name is different, change 'url' to the correct name here. **
