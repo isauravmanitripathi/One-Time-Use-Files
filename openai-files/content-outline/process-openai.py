@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Dual Manager Content Generation System V11
+Dual Manager Content Generation System V11 - SIMPLE PYTHON OUTPUT
 - TWO-MANAGER ARCHITECTURE WITH SPECIALIZED RESPONSIBILITIES
 
 Manager 1: API Processing Manager - Handles all API operations, load balancing, and content processing
 Manager 2: Database Logging Manager - Handles all database operations, logging, and state management
 
 Processes Wikipedia-generated JSON files with intelligent API key management and comprehensive logging.
+Enhanced with detailed error reporting, diagnostics, and connectivity testing.
+Uses simple Python output formatting (no Rich library).
 """
 import json
 import os
@@ -34,24 +36,39 @@ try:
 except ImportError:
     OpenAI = None
 
-# --- Rich library integration (optional) ---
-try:
-    from rich.console import Console
-    from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn, TimeRemainingColumn
-    from rich.table import Table
-    from rich.panel import Panel
-    from rich.live import Live
-    rich_available = True
-except ImportError:
-    rich_available = False
-    class SimpleConsole:
-        def print(self, message, **kwargs):
-            message = re.sub(r'\x1b\[[0-9;]*[mK]', '', str(message))
-            message = re.sub(r'\[(bold|italic|cyan|green|yellow|red|grey).*?\]', '', message)
-            message = re.sub(r'\[/.*?\]', '', message)
-            print(message)
+# === Simple Console Output Functions ===
+def print_header(text: str, char: str = "=", width: int = 70):
+    """Print a header with decorative characters"""
+    print("\n" + char * width)
+    print(f" {text} ")
+    print(char * width)
 
-console = Console() if rich_available else SimpleConsole()
+def print_section(text: str, char: str = "-", width: int = 50):
+    """Print a section header"""
+    print(f"\n{char * width}")
+    print(f"{text}")
+    print(char * width)
+
+def print_success(text: str):
+    """Print success message"""
+    print(f"✓ {text}")
+
+def print_error(text: str):
+    """Print error message"""
+    print(f"✗ {text}")
+
+def print_warning(text: str):
+    """Print warning message"""
+    print(f"⚠ {text}")
+
+def print_info(text: str):
+    """Print info message"""
+    print(f"ℹ {text}")
+
+def print_progress(current: int, total: int, item: str = "items"):
+    """Print progress information"""
+    percentage = (current / total * 100) if total > 0 else 0
+    print(f"Progress: {current}/{total} ({percentage:.1f}%) {item}")
 
 # === Data Classes ===
 @dataclass
@@ -232,7 +249,7 @@ class DatabaseLoggingManager:
             except Empty:
                 continue
             except Exception as e:
-                console.print(f"[red]Error processing event: {e}[/red]")
+                print_error(f"Error processing event: {e}")
     
     def _handle_event(self, event: ProcessingEvent):
         """Handle a single event from the API Manager"""
@@ -259,7 +276,7 @@ class DatabaseLoggingManager:
                 
             except Exception as e:
                 self.connection.rollback()
-                console.print(f"[red]Database error: {e}[/red]")
+                print_error(f"Database error: {e}")
     
     def _handle_file_started(self, cursor, event):
         """Handle file started event"""
@@ -439,7 +456,7 @@ class DatabaseLoggingManager:
 class APIProcessingManager:
     """Handles all API operations, load balancing, and content processing"""
     
-    def __init__(self, model_name: str = "gpt-4o-mini", logging_manager: DatabaseLoggingManager = None):
+    def __init__(self, model_name: str = "gpt-5-mini", logging_manager: DatabaseLoggingManager = None):
         self.model_name = model_name
         self.logging_manager = logging_manager
         
@@ -455,7 +472,7 @@ class APIProcessingManager:
         
         self.lock = threading.Lock()
         
-        console.print(f"[green]✓ Initialized API Processing Manager with {len(self.api_keys)} keys[/green]")
+        print_success(f"Initialized API Processing Manager with {len(self.api_keys)} keys")
     
     def _discover_api_keys(self) -> List[str]:
         """Discover all available OpenAI API keys"""
@@ -496,7 +513,7 @@ class APIProcessingManager:
         
         return clients
     
-    def _get_best_api_key(self) -> Tuple[OpenAI, str, int]:
+    def _get_best_api_key(self) -> Tuple[OpenAI, str, int, str]:
         """Get the best available API key using intelligent load balancing"""
         with self.lock:
             # Find the key with the lowest load score
@@ -509,7 +526,7 @@ class APIProcessingManager:
             stats.active_requests += 1
             stats.last_used = time.time()
             
-            return self.clients[best_index], best_key, best_index
+            return self.clients[best_index], best_key, best_index, self.api_keys[best_index]
     
     def _release_api_key(self, key_name: str, success: bool, response_time: float = 0):
         """Release an API key after use"""
@@ -605,8 +622,9 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
     
     def _call_openai_api(self, client: OpenAI, prompt: str, response_type: str = "json", 
                         retries: int = 3, temperature: float = 0.5) -> Tuple[bool, Any, float]:
-        """Make API call to OpenAI with retries"""
+        """Make API call to OpenAI with retries and detailed error reporting"""
         start_time = time.time()
+        last_error = None
         
         for attempt in range(retries + 1):
             try:
@@ -618,8 +636,7 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
                         {"role": "system", "content": system_content},
                         {"role": "user", "content": prompt}
                     ],
-                    temperature=temperature,
-                    max_tokens=8192
+                    max_completion_tokens=8192
                 )
                 
                 response_time = time.time() - start_time
@@ -638,26 +655,56 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
                         if start_brace != -1 and end_brace != -1:
                             content = content[start_brace:end_brace + 1]
                         
-                        return True, json.loads(content), response_time
+                        try:
+                            parsed_json = json.loads(content)
+                            return True, parsed_json, response_time
+                        except json.JSONDecodeError as json_err:
+                            last_error = f"JSON Parse Error: {json_err} | Raw content: {content[:200]}..."
+                            if attempt == retries:
+                                print_error(f"JSON Parse Failed: {last_error}")
+                                return False, last_error, response_time
                     else:
                         return True, content, response_time
+                else:
+                    last_error = "Empty response from OpenAI API"
+                    if attempt == retries:
+                        print_error(f"Empty Response: {last_error}")
+                        return False, last_error, response_time
                 
-            except json.JSONDecodeError as e:
-                if attempt == retries:
-                    return False, f"JSON parsing failed: {e}", time.time() - start_time
             except Exception as e:
+                last_error = f"API Error: {type(e).__name__}: {str(e)}"
+                if "rate_limit" in str(e).lower():
+                    print_warning(f"Rate Limit Hit (attempt {attempt + 1}): {e}")
+                    if attempt < retries:
+                        time.sleep(random.uniform(5, 10))  # Longer wait for rate limits
+                        continue
+                elif "invalid" in str(e).lower() and "model" in str(e).lower():
+                    print_error(f"Invalid Model Error: {e}")
+                    print_error(f"Model used: {self.model_name}")
+                    print_info("Check OpenAI documentation for current valid models")
+                    print_info("https://platform.openai.com/docs/models")
+                    return False, last_error, time.time() - start_time
+                elif "authentication" in str(e).lower() or "api_key" in str(e).lower():
+                    print_error(f"Authentication Error: {e}")
+                    print_info("Tip: Check your OPENAI_API_KEY environment variables")
+                    return False, last_error, time.time() - start_time
+                else:
+                    print_error(f"API Error (attempt {attempt + 1}): {e}")
+                
                 if attempt == retries:
-                    return False, f"API call failed: {e}", time.time() - start_time
+                    print_error(f"Final API Error: {last_error}")
+                    return False, last_error, time.time() - start_time
             
             if attempt < retries:
-                time.sleep(random.uniform(1, 3))
+                wait_time = random.uniform(1, 3) * (attempt + 1)  # Exponential backoff
+                time.sleep(wait_time)
         
-        return False, "Failed after all retries", time.time() - start_time
+        return False, last_error or "Unknown error after all retries", time.time() - start_time
     
     def process_section_task(self, task: SectionTask) -> bool:
-        """Process a single section task (outline or content)"""
+        """Process a single section task (outline or content) with detailed error reporting"""
         # Get best available API key
-        client, key_name, key_index = self._get_best_api_key()
+        client, key_name, key_index, actual_key = self._get_best_api_key()
         
         # Log section started
         if self.logging_manager:
@@ -692,6 +739,8 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
                 
                 if success:
                     task.section_data['section_outline_response'] = result
+                else:
+                    print_error(f"Outline failed for {task.section_number}: {result}")
                 
             elif task.stage == 'content':
                 # Generate content
@@ -699,6 +748,7 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
                 if not outline or isinstance(outline, dict) and outline.get('error'):
                     success, result = False, "No valid outline available"
                     response_time = 0
+                    print_error(f"Content failed for {task.section_number}: {result}")
                 else:
                     prompt = self._generate_content_prompt(
                         task.chapter_name,
@@ -713,6 +763,8 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
                     
                     if success:
                         task.section_data['enhanced_section_content_md'] = result
+                    else:
+                        print_error(f"Content failed for {task.section_number}: {result}")
             
             processing_time = time.time() - start_time
             
@@ -762,6 +814,9 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
             return success
             
         except Exception as e:
+            error_msg = f"Exception in process_section_task: {type(e).__name__}: {str(e)}"
+            print_error(f"Critical error for {task.section_number}: {error_msg}")
+            
             # Release API key on exception
             self._release_api_key(key_name, False)
             
@@ -773,7 +828,7 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
                     data={
                         'section_number': task.section_number,
                         'stage': task.stage,
-                        'error': str(e)
+                        'error': error_msg
                     }
                 )
                 self.logging_manager.log_event(event)
@@ -815,7 +870,7 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
                       stage: str, max_workers: int) -> bool:
         """Process a single stage (outline or content) for all sections"""
         
-        console.print(f"\n[bold blue]Starting {stage} stage for {Path(file_path).name}[/bold blue]")
+        print_section(f"Starting {stage} stage for {Path(file_path).name}")
         
         # Get already processed sections
         if self.logging_manager:
@@ -849,10 +904,10 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
             tasks.append(task)
         
         if not tasks:
-            console.print(f"[green]All sections already processed for {stage} stage[/green]")
+            print_success(f"All sections already processed for {stage} stage")
             return True
         
-        console.print(f"Processing {len(tasks)} sections with {max_workers} workers")
+        print_info(f"Processing {len(tasks)} sections with {max_workers} workers")
         
         # Process tasks in parallel
         successful_tasks = 0
@@ -872,14 +927,14 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
                     success = future.result()
                     if success:
                         successful_tasks += 1
-                        console.print(f"[green]✓[/green] {stage.title()}: {task.section_number}")
+                        print_success(f"{stage.title()}: {task.section_number}")
                     else:
                         failed_tasks += 1
-                        console.print(f"[red]✗[/red] {stage.title()}: {task.section_number}")
+                        print_error(f"{stage.title()}: {task.section_number}")
                         
                 except Exception as e:
                     failed_tasks += 1
-                    console.print(f"[red]✗[/red] Exception in {stage}: {task.section_number} - {e}")
+                    print_error(f"Exception in {stage}: {task.section_number} - {e}")
         
         # Log stage completion
         if self.logging_manager:
@@ -896,7 +951,7 @@ Understand the outline, each aspect of it, then turn this outline into a detaile
             )
             self.logging_manager.log_event(event)
         
-        console.print(f"{stage.title()} stage: {successful_tasks} successful, {failed_tasks} failed")
+        print_info(f"{stage.title()} stage: {successful_tasks} successful, {failed_tasks} failed")
         return failed_tasks == 0
     
     def get_api_usage_summary(self) -> Dict:
@@ -937,13 +992,13 @@ def load_json_file(file_path: str) -> Optional[List[Dict]]:
         with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
             if not isinstance(data, list):
-                console.print(f"[bold red]Error:[/bold red] Input file {file_path} is not a JSON list of objects.")
+                print_error(f"Input file {file_path} is not a JSON list of objects.")
                 return None
             return data
     except json.JSONDecodeError as e:
-        console.print(f"[bold red]Error:[/bold red] Invalid JSON in file: {file_path}\n{e}")
+        print_error(f"Invalid JSON in file: {file_path}\n{e}")
     except Exception as e:
-        console.print(f"[bold red]Error:[/bold red] Could not load JSON file: {file_path}\n{e}")
+        print_error(f"Could not load JSON file: {file_path}\n{e}")
     return None
 
 def save_json_file(data: List[Dict], file_path: str):
@@ -955,7 +1010,7 @@ def save_json_file(data: List[Dict], file_path: str):
             json.dump(data, file, indent=2, ensure_ascii=False)
         os.replace(temp_file_path, file_path)
     except Exception as e:
-        console.print(f"[bold red]Error:[/bold red] Could not save JSON file: {file_path}\n{e}")
+        print_error(f"Could not save JSON file: {file_path}\n{e}")
 
 def save_text_file(content: str, file_path: str):
     """Save text content to a file with error handling."""
@@ -966,7 +1021,7 @@ def save_text_file(content: str, file_path: str):
             file.write(content)
         os.replace(temp_file_path, file_path)
     except Exception as e:
-        console.print(f"[bold red]Error:[/bold red] Could not save text file: {file_path}\n{e}")
+        print_error(f"Could not save text file: {file_path}\n{e}")
 
 def discover_json_files(folder_path: Path) -> List[Path]:
     """Discover JSON files in the input folder"""
@@ -974,14 +1029,14 @@ def discover_json_files(folder_path: Path) -> List[Path]:
         json_files = list(folder_path.glob("*.json"))
         return sorted(json_files)
     except Exception as e:
-        console.print(f"[bold red]Error discovering files: {e}[/bold red]")
+        print_error(f"Error discovering files: {e}")
         return []
 
 # === Main Content Processing System ===
 class DualManagerContentSystem:
     """Main content processing system with dual manager architecture"""
     
-    def __init__(self, input_folder: str, output_folder: str, model_name: str = "gpt-4o-mini", max_workers: int = None):
+    def __init__(self, input_folder: str, output_folder: str, model_name: str = "gpt-5-mini", max_workers: int = None):
         self.input_folder = Path(input_folder)
         self.output_folder = Path(output_folder)
         self.output_folder.mkdir(parents=True, exist_ok=True)
@@ -997,49 +1052,52 @@ class DualManagerContentSystem:
         # Set max workers
         self.max_workers = max_workers or min(len(self.api_manager.api_keys) * 2, 8)
         
-        console.print(f"[green]✓ Dual Manager System initialized[/green]")
-        console.print(f"[blue]Max workers: {self.max_workers}[/blue]")
+        print_success("Dual Manager System initialized")
+        print_info(f"Max workers: {self.max_workers}")
     
     def show_startup_info(self):
-        """Display startup information"""
-        if rich_available:
-            startup_panel = Panel.fit(
-                f"[bold]Dual Manager Content Generation System[/bold]\n"
-                f"Model: [cyan]{self.model_name}[/cyan]\n"
-                f"API Keys: [green]{len(self.api_manager.api_keys)}[/green]\n"
-                f"Max Workers: [yellow]{self.max_workers}[/yellow]\n"
-                f"Input Folder: [blue]{self.input_folder}[/blue]\n"
-                f"Output Folder: [magenta]{self.output_folder}[/magenta]\n"
-                f"Database: [white]{self.output_folder / 'dual_manager_processing.db'}[/white]",
-                title="System Configuration",
-                border_style="blue"
-            )
-            console.print(startup_panel)
-        else:
-            print("="*70)
-            print("Dual Manager Content Generation System")
-            print(f"Model: {self.model_name}")
-            print(f"API Keys: {len(self.api_manager.api_keys)}")
-            print(f"Max Workers: {self.max_workers}")
-            print(f"Input Folder: {self.input_folder}")
-            print(f"Output Folder: {self.output_folder}")
-            print("="*70)
+        """Display startup information without API test"""
+        print_header("Dual Manager Content Generation System")
+        
+        print(f"Model: {self.model_name}")
+        print(f"API Keys: {len(self.api_manager.api_keys)}")
+        print(f"Max Workers: {self.max_workers}")
+        print(f"Input Folder: {self.input_folder}")
+        print(f"Output Folder: {self.output_folder}")
+        print(f"Database: {self.output_folder / 'dual_manager_processing.db'}")
+        
+        print_success("System ready to start processing")
+        return True
+    
+    def show_error_diagnostics(self):
+        """Show diagnostic information when errors occur"""
+        print_section("Error Diagnostics")
+        print(f"Model being used: {self.model_name}")
+        print(f"Number of API keys: {len(self.api_manager.api_keys)}")
+        
+        print_info("Common Solutions:")
+        print(f"1. Check model name: '{self.model_name}' - verify it exists in OpenAI docs")
+        print("2. Visit: https://platform.openai.com/docs/models")
+        print("3. Verify API keys are set: echo $OPENAI_API_KEY")
+        print("4. Check rate limits: Wait 60 seconds and try again")
+        print("5. Reduce workers: --workers 2")
+        print("6. Check account billing: Ensure OpenAI account has credits")
     
     def discover_and_validate_files(self) -> List[Path]:
         """Discover and validate JSON files"""
         json_files = discover_json_files(self.input_folder)
         
         if not json_files:
-            console.print(f"[red]✗ No JSON files found in {self.input_folder}[/red]")
+            print_error(f"No JSON files found in {self.input_folder}")
             return []
         
-        console.print(f"[green]Found {len(json_files)} JSON files to process[/green]")
+        print_success(f"Found {len(json_files)} JSON files to process")
         
         # Validate file structures
         valid_files = []
         for file_path in json_files:
             if not self.logging_manager.should_process_file(str(file_path)):
-                console.print(f"[yellow]⚠ {file_path.name}: Already completed, skipping[/yellow]")
+                print_warning(f"{file_path.name}: Already completed, skipping")
                 continue
                 
             data = load_json_file(str(file_path))
@@ -1047,11 +1105,11 @@ class DualManagerContentSystem:
                 sections_with_content = [s for s in data if s.get("generated_section_content_md", "").strip()]
                 if sections_with_content:
                     valid_files.append(file_path)
-                    console.print(f"[blue]✓ {file_path.name}: {len(sections_with_content)} sections with content[/blue]")
+                    print_success(f"{file_path.name}: {len(sections_with_content)} sections with content")
                 else:
-                    console.print(f"[yellow]⚠ {file_path.name}: No sections with content found[/yellow]")
+                    print_warning(f"{file_path.name}: No sections with content found")
             else:
-                console.print(f"[red]✗ {file_path.name}: Invalid JSON structure[/red]")
+                print_error(f"{file_path.name}: Invalid JSON structure")
         
         return valid_files
     
@@ -1069,13 +1127,13 @@ class DualManagerContentSystem:
         # Load and validate input data
         input_data = load_json_file(str(file_path))
         if not input_data:
-            console.print(f"[bold red]Failed to load {filename}[/bold red]")
+            print_error(f"Failed to load {filename}")
             return False
         
         # Count valid sections
         valid_sections = [s for s in input_data if s.get("generated_section_content_md", "").strip()]
         if not valid_sections:
-            console.print(f"[yellow]No valid sections found in {filename}[/yellow]")
+            print_warning(f"No valid sections found in {filename}")
             return False
         
         # Register file with logging manager
@@ -1088,8 +1146,8 @@ class DualManagerContentSystem:
             str(final_article_path)
         )
         
-        console.print(f"\n[bold blue]Processing file: {filename} (ID: {file_id})[/bold blue]")
-        console.print(f"[cyan]Found {len(valid_sections)} sections to process[/cyan]")
+        print_section(f"Processing file: {filename} (ID: {file_id})")
+        print_info(f"Found {len(valid_sections)} sections to process")
         
         try:
             # Process both stages through API manager
@@ -1103,7 +1161,7 @@ class DualManagerContentSystem:
                 save_json_file(input_data, str(stage2_output_path))
                 
                 # Assemble final article
-                console.print("Assembling final article...")
+                print_info("Assembling final article...")
                 enhanced_sections = [s.get('enhanced_section_content_md', '') 
                                    for s in input_data 
                                    if s.get('enhanced_section_content_md')]
@@ -1118,7 +1176,7 @@ class DualManagerContentSystem:
                 )
                 self.logging_manager.log_event(event)
                 
-                console.print(f"[bold green]✓ Successfully completed {filename}[/bold green]")
+                print_success(f"Successfully completed {filename}")
                 return True
             else:
                 # Log file failure
@@ -1129,11 +1187,11 @@ class DualManagerContentSystem:
                 )
                 self.logging_manager.log_event(event)
                 
-                console.print(f"[bold red]✗ Failed to complete {filename}[/bold red]")
+                print_error(f"Failed to complete {filename}")
                 return False
                 
         except Exception as e:
-            console.print(f"[bold red]Error processing {filename}: {e}[/bold red]")
+            print_error(f"Error processing {filename}: {e}")
             
             # Log file failure
             event = ProcessingEvent(
@@ -1150,71 +1208,32 @@ class DualManagerContentSystem:
         api_summary = self.api_manager.get_api_usage_summary()
         processing_stats = self.logging_manager.get_processing_stats()
         
-        if rich_available:
-            # API Usage Table
-            console.print("\n" + "="*80)
-            console.print("[bold]API Usage Summary[/bold]")
-            console.print("="*80)
-            
-            table = Table()
-            table.add_column("API Key", style="cyan")
-            table.add_column("Requests", style="green", justify="right")
-            table.add_column("Success", style="green", justify="right")
-            table.add_column("Failed", style="red", justify="right")
-            table.add_column("Success Rate", style="yellow", justify="right")
-            table.add_column("Avg Response", style="blue", justify="right")
-            
-            for key_name, stats in api_summary['key_stats'].items():
-                table.add_row(
-                    key_name,
-                    str(stats['total_requests']),
-                    str(stats['successful_requests']),
-                    str(stats['failed_requests']),
-                    f"{stats['success_rate']:.1f}%",
-                    f"{stats['average_response_time']:.2f}s"
-                )
-            
-            console.print(table)
-            
-            # Processing Summary
-            summary_panel = Panel.fit(
-                f"[bold green]✓ Processing Complete[/bold green]\n\n"
-                f"[bold]Files Processed:[/bold] {processing_stats['files_processed']}\n"
-                f"[bold]Files Failed:[/bold] {processing_stats['files_failed']}\n"
-                f"[bold]Sections Processed:[/bold] {processing_stats['sections_processed']}\n"
-                f"[bold]Sections Failed:[/bold] {processing_stats['sections_failed']}\n"
-                f"[bold]Total API Calls:[/bold] {api_summary['total_requests']}\n"
-                f"[bold]Overall Success Rate:[/bold] {api_summary['overall_success_rate']:.1f}%\n\n"
-                f"[bold]Output Directory:[/bold] {self.output_folder}",
-                title="Final Summary",
-                border_style="green"
-            )
-            console.print(summary_panel)
-        else:
-            print("\n" + "="*80)
-            print("API Usage Summary")
-            print("="*80)
-            for key_name, stats in api_summary['key_stats'].items():
-                print(f"{key_name}: {stats['total_requests']} requests, "
-                      f"{stats['success_rate']:.1f}% success, "
-                      f"{stats['average_response_time']:.2f}s avg response")
-            
-            print("\n" + "="*80)
-            print("Processing Summary")
-            print("="*80)
-            print(f"Files Processed: {processing_stats['files_processed']}")
-            print(f"Files Failed: {processing_stats['files_failed']}")
-            print(f"Sections Processed: {processing_stats['sections_processed']}")
-            print(f"Sections Failed: {processing_stats['sections_failed']}")
-            print(f"Total API Calls: {api_summary['total_requests']}")
-            print(f"Overall Success Rate: {api_summary['overall_success_rate']:.1f}%")
-            print(f"Output Directory: {self.output_folder}")
-            print("="*80)
+        print_header("Final Processing Summary")
+        
+        # API Usage Summary
+        print_section("API Usage Summary")
+        for key_name, stats in api_summary['key_stats'].items():
+            print(f"{key_name:8} | Requests: {stats['total_requests']:4} | "
+                  f"Success: {stats['successful_requests']:4} | "
+                  f"Failed: {stats['failed_requests']:3} | "
+                  f"Rate: {stats['success_rate']:5.1f}% | "
+                  f"Avg Time: {stats['average_response_time']:5.2f}s")
+        
+        print_section("Processing Summary")
+        print(f"Files Processed: {processing_stats['files_processed']}")
+        print(f"Files Failed: {processing_stats['files_failed']}")
+        print(f"Sections Processed: {processing_stats['sections_processed']}")
+        print(f"Sections Failed: {processing_stats['sections_failed']}")
+        print(f"Total API Calls: {api_summary['total_requests']}")
+        print(f"Overall Success Rate: {api_summary['overall_success_rate']:.1f}%")
+        print(f"Output Directory: {self.output_folder}")
     
     def process_all_files(self, force_rerun: bool = False) -> bool:
         """Process all files in the input folder"""
         
-        self.show_startup_info()
+        # Show startup info (no API test)
+        if not self.show_startup_info():
+            return False
         
         # Discover and validate files
         valid_files = self.discover_and_validate_files()
@@ -1233,21 +1252,25 @@ class DualManagerContentSystem:
         failed_files = 0
         
         try:
-            for file_path in valid_files:
+            for i, file_path in enumerate(valid_files, 1):
                 try:
+                    print_progress(i, len(valid_files), "files")
                     success = self.process_single_file(file_path)
                     
                     if success:
                         processed_files += 1
                     else:
                         failed_files += 1
+                        # Show diagnostics for failed files
+                        if failed_files == 1:  # Only show once per batch
+                            self.show_error_diagnostics()
                         
                 except KeyboardInterrupt:
-                    console.print("\n[yellow]⚠ Process interrupted by user[/yellow]")
+                    print_warning("Process interrupted by user")
                     return False
                     
                 except Exception as e:
-                    console.print(f"[red]Critical error processing {file_path.name}: {e}[/red]")
+                    print_error(f"Critical error processing {file_path.name}: {e}")
                     failed_files += 1
                     continue
             
@@ -1266,13 +1289,13 @@ def main():
     load_dotenv()
     
     parser = argparse.ArgumentParser(
-        description='Dual Manager Content Generation System for Wikipedia JSON files',
+        description='Dual Manager Content Generation System for Wikipedia JSON files - SIMPLE OUTPUT',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   python script.py /path/to/json/folder
-  python script.py /path/to/json/folder --model gpt-4o
-  python script.py /path/to/json/folder --workers 6
+  python script.py /path/to/json/folder --model gpt-5-mini
+  python script.py /path/to/json/folder --workers 4
   python script.py /path/to/json/folder --force-rerun
 
 Environment Variables:
@@ -1281,18 +1304,24 @@ Environment Variables:
   OPENAI_API_KEY_2    - Additional API key 2
   ... and so on (no limit)
 
-Architecture:
-  - Manager 1 (API Processing): Handles API calls, load balancing, content processing
-  - Manager 2 (Database Logging): Handles all database operations, logging, state tracking
+Features:
+  - Enhanced error reporting and diagnostics
   - Intelligent load balancing across multiple API keys
   - Perfect resume functionality with detailed logging
   - Two-stage processing: Outline Generation → Content Enhancement
+  - Simple Python output (no Rich library dependencies)
+
+Common Issues & Solutions:
+  1. Invalid Model: Use 'gpt-5-mini' or 'gpt-4o' instead of custom models
+  2. Rate Limits: Reduce --workers or wait between runs
+  3. API Keys: Ensure OPENAI_API_KEY environment variables are set
+  4. Authentication: Check OpenAI account has sufficient credits
         """
     )
     
     parser.add_argument('input_folder', help='Path to folder containing Wikipedia JSON files')
     parser.add_argument('--output-folder', help='Output folder (default: input_folder/results)')
-    parser.add_argument('--model', default='gpt-4o-mini', help='OpenAI model to use (default: gpt-4o-mini)')
+    parser.add_argument('--model', default='gpt-5-mini', help='OpenAI model to use (default: gpt-5-mini)')
     parser.add_argument('--workers', type=int, help='Maximum number of parallel workers (default: API keys * 2)')
     parser.add_argument('--force-rerun', action='store_true', help='Force rerun of already completed files')
     
@@ -1301,11 +1330,11 @@ Architecture:
     # Validate input folder
     input_folder = Path(args.input_folder)
     if not input_folder.exists():
-        console.print(f"[red]❌ Error: Folder not found: {input_folder}[/red]")
+        print_error(f"Folder not found: {input_folder}")
         sys.exit(1)
     
     if not input_folder.is_dir():
-        console.print(f"[red]❌ Error: Path is not a directory: {input_folder}[/red]")
+        print_error(f"Path is not a directory: {input_folder}")
         sys.exit(1)
     
     # Setup output folder
@@ -1325,10 +1354,10 @@ Architecture:
         sys.exit(0 if success else 1)
         
     except KeyboardInterrupt:
-        console.print("\n[yellow]⚠️ Process interrupted by user[/yellow]")
+        print_warning("Process interrupted by user")
         sys.exit(1)
     except Exception as e:
-        console.print(f"[red]❌ Critical error: {e}[/red]")
+        print_error(f"Critical error: {e}")
         traceback.print_exc()
         sys.exit(1)
 
