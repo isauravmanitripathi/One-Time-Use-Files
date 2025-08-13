@@ -553,18 +553,14 @@ class APIProcessingManager:
         return f"""
 # Expert Persona
 
-You are a distinguished expert on India's Strategic Culture and National Security Policy with decades of experience analyzing Indian strategic thinking from a historical-civilizational perspective. You approach security analysis through the lens of India as a 'civilization-state' rather than just a nation-state.
+You are a distinguished expert on International organisation. Organisation where different countries comes and takes part in. You task is to analyse the input content, and then break it down and write in bullet points, what is being talked in the input text. Apart from breaking down, you can tell more things about the things being talked in input, just by adding more bullet point. Like relevant information regarding text.
 
-# Your Analytical Framework
-
-As an expert in Indian strategic culture, you understand that:
-- India's strategic worldview is born from a predominant historical-civilizational perspective
-- Strategic thinking must be analyzed through cultural, geopolitical, socio-economic, and historical factors
-- India's approach engages with security from a global rather than purely national viewpoint
-- Strategic culture draws from political culture and civilizational ethos
-- Analysis should identify continuity and change in strategic thinking across different eras
 
 # Current Analysis Task
+
+- You always respond in json structure. 
+- The number of bullet points should be directly propotional to the length of input text. Break down each thing said in input, remove the clutter and keep the important parts.
+- After breaking down, add important/relevant information on what you think is important to know about this. 
 
 Document Subject: {paper_title}
 Current Chapter: {chapter_name}
@@ -583,13 +579,9 @@ Breakdown the text, tell me what it is talking, the idea behind the text, what i
 ```json
 {{
     "section_analysis": {{
-        "main_themes": [],
-        "key_concepts": [],
-        "strategic_implications": [],
-        "civilizational_context": "",
-        "policy_relevance": ""
+       
     }},
-    "professor_summary": "Brief summary of the analysis"
+    
 }}
 ```
 """
@@ -601,23 +593,14 @@ Breakdown the text, tell me what it is talking, the idea behind the text, what i
         
         return f"""
 # Expert Author Persona
-You are a distinguished expert and author specializing in India's Strategic Culture and National Security Policy. You are writing a comprehensive academic book that analyzes Indian strategic thinking through a historical-civilizational lens. Your writing style is scholarly yet accessible, combining deep analytical insight with clear exposition.
-
-# Your Writing Approach
-Your expertise allows you to:
-
-- Analyze strategic culture through the framework of India as a 'civilization-state'
-- Connect historical precedents to contemporary strategic thinking
-- Examine the interplay between cultural ethos and security policy
-- Identify patterns of continuity and change in strategic approaches
-- Contextualize strategic decisions within broader geopolitical frameworks
+You are a distinguished expert and author specializing in international org, where different countries around the world comes together. You have indepth knowledge of thier working, why they were setup and why they exists, there rules and regulations. You are writing a comprehensive academic book on these orgs. Your writing style is scholarly yet accessible, combining deep analytical insight with clear exposition.
 
 # Your Expert Analysis (Outline) to Transform into Content
 {outline_str}
 
 # What you need to do:
 
-Understand the outline, each aspect of it, then turn this outline into a detailed, well-structured Markdown section that's a part of book, expand on each of topic, idea, and everything which is being talked in the outline, and write it in a way that is suitable for an academic book on India's Strategic Culture and National Security Policy.
+Understand the outline, each aspect of it, then turn this outline into a detailed, well-structured Markdown section that's a part of book, expand on each of topic, idea, and everything which is being talked in the outline, and write it in a way that is suitable for an academic book on India's Strategic Culture and National Security Policy. no need to produce long content everything. Instead focus on quality, include all of the points mentioned in outline.
 """
     
     def _call_openai_api(self, client: OpenAI, prompt: str, response_type: str = "json", 
@@ -1119,10 +1102,14 @@ class DualManagerContentSystem:
         filename = file_path.name
         file_stem = file_path.stem
         
-        # Setup output paths
-        stage1_output_path = self.output_folder / f"outlined_{file_stem}.json"
-        stage2_output_path = self.output_folder / f"enhanced_{file_stem}.json"
-        final_article_path = self.output_folder / f"final_article_{file_stem}.md"
+        # Create individual folder for this file
+        file_output_folder = self.output_folder / file_stem
+        file_output_folder.mkdir(parents=True, exist_ok=True)
+        
+        # Setup output paths within the file's folder
+        stage1_output_path = file_output_folder / "outline.json"
+        stage2_output_path = file_output_folder / "content.json"
+        final_article_path = file_output_folder / "final_article.md"
         
         # Load and validate input data
         input_data = load_json_file(str(file_path))
@@ -1147,6 +1134,7 @@ class DualManagerContentSystem:
         )
         
         print_section(f"Processing file: {filename} (ID: {file_id})")
+        print_info(f"Output folder: {file_output_folder}")
         print_info(f"Found {len(valid_sections)} sections to process")
         
         try:
@@ -1156,7 +1144,7 @@ class DualManagerContentSystem:
             )
             
             if outline_success and content_success:
-                # Save outputs
+                # Save outputs in the file's dedicated folder
                 save_json_file(input_data, str(stage1_output_path))
                 save_json_file(input_data, str(stage2_output_path))
                 
@@ -1168,6 +1156,21 @@ class DualManagerContentSystem:
                 final_article = "\n\n---\n\n".join(enhanced_sections)
                 save_text_file(final_article, str(final_article_path))
                 
+                # Also save a metadata file with processing info
+                metadata = {
+                    "source_file": filename,
+                    "processed_at": datetime.now().isoformat(),
+                    "total_sections": len(valid_sections),
+                    "successful_sections": len(enhanced_sections),
+                    "output_files": {
+                        "outline": "outline.json",
+                        "content": "content.json", 
+                        "final_article": "final_article.md"
+                    }
+                }
+                metadata_path = file_output_folder / "processing_metadata.json"
+                save_json_file([metadata], str(metadata_path))
+                
                 # Log file completion
                 event = ProcessingEvent(
                     event_type='file_completed',
@@ -1177,6 +1180,7 @@ class DualManagerContentSystem:
                 self.logging_manager.log_event(event)
                 
                 print_success(f"Successfully completed {filename}")
+                print_info(f"All outputs saved in: {file_output_folder}")
                 return True
             else:
                 # Log file failure
