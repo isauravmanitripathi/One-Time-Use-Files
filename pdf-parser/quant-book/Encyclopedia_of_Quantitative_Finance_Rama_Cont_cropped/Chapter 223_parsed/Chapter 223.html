@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    CMS Spread Products
+   </b>
+  </h1>
+  <p block-type="Text">
+   According to recent estimates, the volume of traded contracts involving euro-denominated options on the spread between two
+   <i>
+    constant maturity swap
+   </i>
+   (CMS) rates (see Constant Maturity Swap) amounted to €240 billions in 2007 in the interbank market alone. This makes CMS spread options the most rapidly growing interest-rate derivatives market.
+  </p>
+  <p block-type="TextInlineMath">
+   The underlying of any option on CMS spread is the CMS rate. By definition, the CMS rate that fixes and settles at a generic time
+   <math display="inline">
+    T
+   </math>
+   (associated to a swap of maturity
+   <math display="inline">
+    T_n
+   </math>
+   and starting at T) is equal to the swap rate of the associated swap. At any time prior to
+   <math display="inline">
+    T
+   </math>
+   , the value of that rate is then formally given by
+   <math display="inline">
+    CMS(t) = E_t^T(S(T, T_n))
+   </math>
+   , by absence of arbitrage. Here, the expectation
+   <math display="inline">
+    E_t^T(\cdot)
+   </math>
+   is intended at time
+   <math display="inline">
+    t
+   </math>
+   with respect to the
+   <math display="inline">
+    T
+   </math>
+   —forward measure
+   <math display="inline">
+    Q^T
+   </math>
+   (see Forward and Swap Measures), where the zero coupon bond
+   <math display="inline">
+    B(t, T)
+   </math>
+   is the associated
+   <i>
+    numéraire
+   </i>
+   . The variable leg of a CMS swap pays a stream of CMS rates at any settlement date. In turn, the payout
+   <math display="inline">
+    f_T = f(CMS_1(T), CMS_2(T); K)
+   </math>
+   of a European call (respectively, put) option on a CMS spread expiring at time T reads as
+   <math display="inline">
+    f_T =
+   </math>
+   <math display="inline">
+    (CMS_1(T) - CMS_2(T) - K)^{+}
+   </math>
+   , (respectively
+   <math display="inline">
+    f_T =
+   </math>
+   <math display="inline">
+    (K - CMS_1(T) + CMS_2(T))^+
+   </math>
+   , where we have defined, as usual,
+   <math display="inline">
+    (\cdot)^{+} = Max(\cdot, 0)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Generally speaking, CMS spread options are simple and liquid financial instruments that allow to take a view on the future shape of the yield curve (or immunizing a portfolio against it). In the most commonly traded combination, we have that
+   <math display="inline">
+    CMS_{1,2}(T) = CMS_{10Y,2Y}(T)
+   </math>
+   (i.e., the two CMS rates are associated with a 10Y and 2Y swap, respectively). The buyer of a call (respectively, put) CMS spread option will then benefit from a future curve steepening (respectively, flattening) scenario. More complex option strategies involving CMS spreads are actively traded in the over-the-counter (OTC) market, as well. They include, to name a few, digitals, barrier options, and Bermudan-style derivatives.
+  </p>
+  <h4>
+   <b>
+    Option Pricing without Smiles
+   </b>
+  </h4>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The fair value at time
+   <math display="inline">
+    t
+   </math>
+   of the most generic call option is formally given by
+   <math display="inline">
+    C(t, T; K) = B(t, T)E_t^T
+   </math>
+   <math display="inline">
+    (\alpha_1 CMS_1(T) - \alpha_2 CMS_2(T) - K)^{+}
+   </math>
+   , by arbitrage,
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \alpha_1
+   </math>
+   and
+   <math display="inline">
+    \alpha_2
+   </math>
+   being constants. This expression is obviously reminiscent of an option on the spread between two assets and reduces to a simple
+   <i>
+    exchange option
+   </i>
+   (see
+   <b>
+    Exchange Options
+   </b>
+   ) when
+   <math display="inline">
+    K = 0
+   </math>
+   . In the simplest case, one assumes that each CMS rate follows a simple arithmetic or geometric Brownian motion under the relevant martingale measure. In the former case, a closed-form formula for
+   <math display="inline">
+    C(t)
+   </math>
+   =
+   <math display="inline">
+    C(t, T; K)
+   </math>
+   can be given [3], while in the latter the price can be only expressed in integral form unless
+   <math display="inline">
+    K = 0
+   </math>
+   , in which case a closed-form formula can be exhibited [9]. Some authors propose to use the first approach as an approximation for the second one [3, 11] for a generic
+   <math display="inline">
+    K \neq 0
+   </math>
+   . One must be, however, warned against these oversimplifications as market bid/offer spreads are relatively tight. Further risk sensitivities are very different in the two settings with profound implications as long as portfolio replication quality is concerned.
+  </p>
+  <p block-type="TextInlineMath">
+   Differently from the single asset case, the process difference of two asset prices is now allowed to take negative values. Therefore, the arithmetic Brownian motion framework is generally considered as the simplest viable approach. Since, by definition, the CMS rate is a
+   <math display="inline">
+    Q^T
+   </math>
+   -martingale, we assume that the two rates
+   <math display="inline">
+    CMS_{1,2} = X_{1,2}
+   </math>
+   evolve according to the following Gaussian processes under
+   <math display="inline">
+    Q^T
+   </math>
+   :
+   <math display="inline">
+    dX_{1,2}(t) = \sigma_{1,2} dW_{1,2}^T(t)
+   </math>
+   with constant volatility
+   <math display="inline">
+    \sigma_{1,2}
+   </math>
+   and where
+   <math display="inline">
+    d\langle W_{1}^{T}, W_{2}^{T} \rangle_{t} = \rho dt
+   </math>
+   for some constant correlation coefficient
+   <math display="inline">
+    \rho
+   </math>
+   . In this case, it is easy to verify that the price of the option
+   <math display="inline">
+    C(t)
+   </math>
+   is given by the modified Bachelier formula (see Bachelier, Louis
+   <math display="inline">
+    (1870-1946)
+   </math>
+   <math display="inline">
+    C(t) = B(t, T) \lfloor \sigma \sqrt{\tau} n(\mathrm{d}(F_t, \tau)) + \sigma \sqrt{\tau} n(\mathrm{d}(F_t, \tau)) \rfloor
+   </math>
+   <math display="inline">
+    (F_t - K)N(d(F_\tau, \tau))
+   </math>
+   where
+   <math display="inline">
+    \tau = T - t, F_t = \alpha_1
+   </math>
+   <math display="inline">
+    X_1(t) - \alpha_2 X_2(t), \sigma^2 = {\alpha_1}^2 {\sigma_1}^2 - 2\rho \alpha_1 \alpha_2 \sigma_1 \sigma_2 + {\alpha_2}^2
+   </math>
+   <math display="inline">
+    \sigma_2^2
+   </math>
+   and
+   <math display="inline">
+    d(F_1, \tau) = (F_t - K)/(\sigma\sqrt{\tau})
+   </math>
+   . Here,
+   <math display="inline">
+    n(\cdot)
+   </math>
+   and
+   <math display="inline">
+    N(\cdot)
+   </math>
+   stand for the standard Gaussian density and cumulative distribution function, respectively. In the lognormal case, one has to resort to a quasi-closed form formula (see
+   <math display="inline">
+    [3]
+   </math>
+   for a review).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The advantage of the above formula, similarly to Black-Scholes (BS) model (see Black-Scholes For
+   <b>
+    mula
+   </b>
+   ) for European options on single assets, is its simplicity. However, while in the BS case inverting the market price provides a unique
+   <i>
+    implied volatility
+   </i>
+   , here the situation is more complex. There are now three (as opposed to one) free parameters of the theory, that is,
+   <math display="inline">
+    \rho
+   </math>
+   ,
+   <math display="inline">
+    \sigma_1
+   </math>
+   , and
+   <math display="inline">
+    \sigma_2
+   </math>
+   . In a perfectly liquid market, one could, in principle, infer
+   <math display="inline">
+    \sigma_1
+   </math>
+   and
+   <math display="inline">
+    \sigma_2
+   </math>
+   by inverting the Bachelier formula for the two respective
+  </p>
+  <p block-type="Text">
+   options on
+   <i>
+    CMS
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    ,
+   </i>
+   2, and then use the correlation as the unique free parameter of the theory. Interestingly, this indicates that buying or selling spread options is, in principle, equivalent to trading
+   <i>
+    implied spread correlation
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Unfortunately, the above approach relies on the assumption that CMS rates dynamics are well modeled by an arithmetic Brownian motion. In practice, this is not the case. The main reason has to do with the presence of the volatility smile rather than with the request of positivity of CMS rates. As it is well known, a CMS rate settling at time
+   <i>
+    T
+   </i>
+   , and associated to a swap of length
+   <i>
+    τ
+   </i>
+   , can be statically replicated through a linear combination of European swaptions (of different strike) expiring at
+   <i>
+    T
+   </i>
+   to enter into a swap of length
+   <i>
+    τ
+   </i>
+   . The sum is actually infinite, that is, it is an integral over all possible swaptions for that given maturity [1, 6]. Because it is well known that implied swaption volatilities are different at different strikes (i.e., a volatility smile is present) it means that the swaption underlying—the forward swap rate—cannot follow a simple Gaussian process in the relevant martingale measure. Consequently, the CMS rate, viewed as a linear combination of swaptions, must evolve accordingly. Needless to say that using a model for spread options where the underlying process is inconsistent with the market available information on plain-vanilla instruments has important consequences on the quality of the risk management [4, 5].
+  </p>
+  <h3>
+   <b>
+    Option Pricing with Smiles
+   </b>
+  </h3>
+  <p block-type="Text">
+   There are essentially three possible ways to quote CMS spread options so as to ensure partial or full consistency with the underlying (CMS) implied dynamics.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Stochastic volatility models are very popular among academics and practitioners as they provide a simple and often effective mechanism of static generation as well as dynamic smile evolution [10]. The first approach consists of assuming that each CMS rate in the spread follows a diffusion with its own stochastic volatility. The Stochastic Alpha Beta Rho (SABR) model, for instance, has become the market standard for European options on interest rates [7]. By coupling two SABR diffusions, one can easily calibrate each parameter set on the respective marketimplied CMS smile. The method has, however, two
+  </p>
+  <p block-type="Text">
+   major drawbacks. First, neither known formula nor simple approximation exists on options for multivariate SABR models. Second, there are six independent correlations to specify and several among them are not directly observable (e.g., the correlation between the first CMS rate and the volatility of the second one). In addition, it is easy to verify that some of those parameters are fully degenerate with respect to the price of a spread option of given strike.
+  </p>
+  <p block-type="Text">
+   The second approach resorts to using arbitragefree dynamic models for the whole yield curve dynamics, in the Heath-Jarrow-Morton (HJM) sense ([8],
+   <i>
+    see
+   </i>
+   <b>
+    Heath–Jarrow–Morton Approach
+   </b>
+   ). Dynamics of the spread between any two CMS rates is then inferred from dynamics of the whole curve. This second method allows pricing and risk managing all spread options on different pairs (e.g., 10Y–2Y, 10Y–5Y, 30Y–10Y, etc.) within a unique modeling setup rather than treating them as separate problems. This offers the great advantage of measuring and aggregating correlation exposures across all pairs at once and correlation risk diversification can be achieved. Also, exotic derivatives can be priced in this framework. On the negative side, it is very difficult to reproduce the implied smile of each CMS rate unless very complex models are introduced (e.g., a multifactor HJM model with possibly multivariate stochastic volatility).
+  </p>
+  <p block-type="Text">
+   Finally, a third possibility consists of disentangling the marginal behavior and the dependence structure between the two CMS rates. One can infer the marginal probability density from plain-vanilla swaptions, that is, match their respective individual smiles, and then "recombine" them
+   <i>
+    via
+   </i>
+   a
+   <i>
+    copula-based method
+   </i>
+   [2], and references therein) to get the bivariate distribution function. In [2], a simple numerical trick to reduce the dimensionality of the necessary integration routines is also described. The great advantage of this approach is its simplicity and the guarantee that, by construction, the price of the spread option is, at a given time, consistent with the current swaption market. On the negative side, the approach is purely static, since no simple method exists to assign a dynamics on a bivariate process such that the associated density is consistent with the chosen copula function at any time. In addition, the choice of the copula itself is, to a large extent, arbitrary.
+  </p>
+  <h2>
+   <b>
+    Implied Correlation and Normal Spread Volatility
+   </b>
+  </h2>
+  <p block-type="Text">
+   Similar to the BS case, practitioners often prefer to measure and compare spread option prices through homogeneous quantities. For simple options, people use implied volatility. For spread options, the natural equivalent is the concept of implied correlation.
+  </p>
+  <p block-type="Text">
+   Assume that a spread option is being priced through a Gaussian copula-based method. Put simply, this amounts to inferring the two CMS marginal densities from each respective swaption market and then coupling them
+   <i>
+    via
+   </i>
+   a Gaussian copula function. It should be mentioned that a Gaussian copula is parameterized by a single correlation
+   <i>
+    ρ
+   </i>
+   and that a spread option price is monotonically decreasing as a function of
+   <i>
+    ρ
+   </i>
+   . Therefore, given the market price of a generic call spread option
+   <i>
+    C(t, T
+   </i>
+   ;
+   <i>
+    K)
+   </i>
+   struck at
+   <i>
+    K
+   </i>
+   , and given the two marginal CMS underlying densities, there exists a unique
+   <i>
+    ρ(K)
+   </i>
+   such that the market price is matched by a copula method with correlation
+   <i>
+    ρ(K)
+   </i>
+   . This unique number is termed
+   <i>
+    implied copula correlation
+   </i>
+   . As for simple options, the function
+   <i>
+    ρ(K)
+   </i>
+   displays a significant dependence on the strike. This is the correlation smile phenomenon (Figure 1).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Interestingly, it is possible to analyze the situation from a different, albeit similar, angle. In a previous
+  </p>
+  <p block-type="TextInlineMath">
+   section, we showed that the simplest way to price options on CMS spread consists of coupling two simple Gaussian processes. The resulting closed-form formula is of Bachelier type with a modified normal volatility given by
+   <i>
+    σ
+   </i>
+   <sup>
+    2
+   </sup>
+   =
+   <i>
+    α
+   </i>
+   <sup>
+    1
+   </sup>
+   <sup>
+    2
+   </sup>
+   <i>
+    σ
+   </i>
+   <sup>
+    1
+   </sup>
+   <sup>
+    2
+   </sup>
+   − 2
+   <i>
+    ρα
+   </i>
+   1
+   <i>
+    α
+   </i>
+   2
+   <i>
+    σ
+   </i>
+   1
+   <i>
+    σ
+   </i>
+   <sup>
+    2
+   </sup>
+   +
+   <i>
+    α
+   </i>
+   1
+   <sup>
+    2
+   </sup>
+   <i>
+    σ
+   </i>
+   <sup>
+    1
+   </sup>
+   2. Given the option price
+   <i>
+    C(t, T
+   </i>
+   ;
+   <i>
+    K)
+   </i>
+   , one can then invert the Bachelier-like formula to get a unique
+   <i>
+    implied normal spread volatility σ (K)
+   </i>
+   . Once more, function
+   <i>
+    σ (K)
+   </i>
+   displays a smile. This alternative approach is still very popular among some practitioners.
+  </p>
+  <p block-type="Text">
+   It must be noticed, however, that the two above smile generation methods are not equivalent. In fact, only the first one is fully consistent with the underlying swaption smile observed in the market. In addition, the former approach concentrates on correlation, while the latter on the normal spread volatility that corresponds to the covariance of the joint process. Therefore, the first method is better suited if one considers volatility and correlation markets as evolving separately so that correlation movements are partly unrelated to price changes for swaptions. On the other side, the second method assumes that correlation and volatility markets are essentially indistinguishable to the extent that only the product of volatility and correlation (i.e., the
+  </p>
+  <p>
+   <img src="_page_2_Figure_7.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   The figures displays the typical pattern of the implied copula correlation smile associated to a contract on the 10Y–2Y CMS spread. Volatility is associated to a 7 × 10 cap on CMS spread, starting 7 years from today and maturing 10 years from today. [
+   <i>
+    Source
+   </i>
+   : BNP Paribas]
+  </p>
+  <p block-type="Text">
+   covariance) is the relevant quantity as far as risk management is concerned.
+  </p>
+  <h4>
+   <b>
+    CMS Spread Derivatives
+   </b>
+  </h4>
+  <p block-type="Text">
+   In recent times, a whole range of financial products has been introduced where the underlying is a spread between two CMS rates. In the broker market, option on CMS spreads are usually quoted as a cap/floor comprising a given number of caplets/floorlets with quarterly frequency. This is completely equivalent to caps/floors written on LIBOR rates. Plain options on spreads are also commonly traded in the interbank market (mainly on maturities less than three years). These are referred to as
+   <i>
+    single-look
+   </i>
+   (or
+   <i>
+    one-look
+   </i>
+   )
+   <i>
+    options
+   </i>
+   on CMS spread.
+  </p>
+  <p block-type="Text">
+   Investors can benefit by taking a view on the future evolution of the difference between two swap rates, that is, by taking a view on the shape of the yield curve. This can be best captured by structuring financial derivatives written on the spread. Here, we limit ourselves to briefly mention a few important examples.
+  </p>
+  <p block-type="Text">
+   A digital option on a CMS spread gives the purchaser the right to receive one unit of notional should the spread exceed the strike price at expiry and nothing otherwise. For instance, an investor who believes that the level of the current 10Y swap rate will always be larger than the 2Y, one can buy a digital (call) option on the 10Y–2Y CMS spread with strike set to 0. Similarly, a range accrual option on the same spread gives the holder the right to receive one unit of notional times the number of days the 10Y swap exceeds the 2Y swap between two given dates. Both digital and range accrual options are relatively simple instruments. More complex derivatives written on CMS spreads have also appeared in the market and enjoyed vast success: Bermudan options, target redemption notes (TARNs), knockout options as well as multiple underlying derivatives, to name a few. A simple example of multiple underlying derivatives is a digital option that pays a variable coupon (e.g., a LIBOR rate) if the spread between two CMS rates fixes above a given strike.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   It is worth reminding that the pricing and risk management of all structured derivatives on CMS spreads are, by construction, heavily dependent on the correlation smile. Further, for Bermudan and
+  </p>
+  <p block-type="Text">
+   path-dependent derivatives, they also depend on the yield curve/forward volatility assumptions that are associated to a given model for interest rates dynamics.
+  </p>
+  <h4>
+   <b>
+    Acknowledgments
+   </b>
+  </h4>
+  <p block-type="Text">
+   Author Olivier Scaillet thanks the Swiss NSF for financial support through the NCCR Finrisk.
+  </p>
+  <h4>
+   <b>
+    References
+   </b>
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Amblard, G. &amp; Lebuchoux, J. (1999).
+     <i>
+      Smile-Consistent Pricing of CMS Contracts
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [2] Berrahoui, M. (2004). Pricing CMS spread options and digital CMS spread options with smile,
+     <i>
+      Wilmott Magazine
+     </i>
+     , 63–69.
+    </li>
+    <li block-type="ListItem">
+     [3] Carmona, R. &amp; Durrleman, V. (2003). Pricing and hedging spread options,
+     <i>
+      SIAM Review
+     </i>
+     <b>
+      45
+     </b>
+     , 627–685.
+    </li>
+    <li block-type="ListItem">
+     [4] Galluccio, S. &amp; Di Graziano, G. (2007). On model selection and its impact on the hedging of financial derivatives, in
+     <i>
+      Advances in Risk Management
+     </i>
+     , G. Gregoriou, ed, Palgrave MacMillan.
+    </li>
+    <li block-type="ListItem">
+     [5] Galluccio, S. &amp; Di Graziano G. (2007).
+     <i>
+      Model Misspecification for General Processes: Theory and Practice
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [6] Hagan, P. (2003). Convexity conundrums: pricing CMS swaps, caps and floors,
+     <i>
+      Wilmott Magazine
+     </i>
+     , 38–44.
+    </li>
+    <li block-type="ListItem">
+     [7] Hagan, P., Lesniewski, A., Kumar, D. &amp; Woodward, D. (2002). Managing smile risk,
+     <i>
+      Wilmott Magazine
+     </i>
+     , 84–108.
+    </li>
+    <li block-type="ListItem">
+     [8] Heath, D., Jarrow, R. &amp; Morton, A. (1992). Bond pricing and the term structure of interest rates: a new methodology for contingent claims valuation,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      60
+     </b>
+     , 77–105.
+    </li>
+    <li block-type="ListItem">
+     [9] Margrabe, W. (1978). The value of an option to exchange one asset for another,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      33
+     </b>
+     , 177–186.
+    </li>
+    <li block-type="ListItem">
+     [10] Musiela, M. &amp; Rutkowski, M. (2004).
+     <i>
+      Martingale Methods in Financial Modelling
+     </i>
+     , 2nd Edition, Springer-Verlag, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [11] Poitras, G. (1998). Spread options, exchange options and arithmetic Brownian motion,
+     <i>
+      Journal of Futures Markets
+     </i>
+     ,
+     <b>
+      18
+     </b>
+     , 487–517.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Related Articles
+   </b>
+  </h4>
+  <h4>
+   <b>
+    Bermudan Swaptions and Callable Libor Exotics
+   </b>
+   ;
+   <b>
+    LIBOR Rate
+   </b>
+   ;
+   <b>
+    Swap Market Models
+   </b>
+   .
+  </h4>
+  <p block-type="Text">
+   STEFANO GALLUCCIO &amp; OLIVIER SCAILLET
+  </p>
+ </body>
+</html>

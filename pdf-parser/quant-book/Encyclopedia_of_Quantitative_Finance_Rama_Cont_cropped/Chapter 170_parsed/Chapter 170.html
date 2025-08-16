@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Saddlepoint Approximation
+  </h1>
+  <p block-type="Text">
+   The classical method known variously as the
+   <i>
+    saddlepoint approximation
+   </i>
+   , the
+   <i>
+    method of steepest descents
+   </i>
+   , the
+   <i>
+    method of stationary phase
+   </i>
+   , or the
+   <i>
+    Laplace method
+   </i>
+   , applies to contour integrals that can be written in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I(s) = \int_{\mathcal{C}} e^{sf(\zeta)} d\zeta \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    f
+   </math>
+   , an analytic function, has a real part that goes to minus infinity at both ends of the contour
+   <math display="inline">
+    C
+   </math>
+   . The fundamental idea is that the value of the integral when
+   <math display="inline">
+    s &gt; 0
+   </math>
+   is large should be dominated by contributions from the neighborhoods of points where the real part of
+   <math display="inline">
+    f
+   </math>
+   has a saddlepoint. Early use was made of the method by Debye to produce asymptotics of Bessel functions, as reviewed in, for example, [8]. Daniels [3] wrote a definitive work on the saddlepoint approximation in statistics. Later, these ideas evolved into the theory of large deviations, initiated by Varadhan in [7], which seeks to determine rigorous asymptotics for the probability of rare events.
+  </p>
+  <p block-type="TextInlineMath">
+   If we write
+   <math display="inline">
+    \zeta = x + iy
+   </math>
+   , elementary complex analysis implies that the surface over the
+   <math display="inline">
+    (x, y)
+   </math>
+   plane with graph
+   <math display="inline">
+    \Re f
+   </math>
+   has zero mean curvature, so any critical point
+   <math display="inline">
+    \zeta^*
+   </math>
+   (a point where
+   <math display="inline">
+    f' = 0
+   </math>
+   ) will be a saddlepoint of the modulus
+   <math display="inline">
+    |e_{f(\zeta)}^s|
+   </math>
+   . The level curves of
+   <math display="inline">
+    \Re f
+   </math>
+   and
+   <math display="inline">
+    \Im f
+   </math>
+   form families of orthogonal trajectories: the curves of steepest descent of
+   <math display="inline">
+    \Re f
+   </math>
+   are the level curves of
+   <math display="inline">
+    \Im f
+   </math>
+   , and
+   <i>
+    vice versa
+   </i>
+   . Thus the curve of steepest descent of the function
+   <math display="inline">
+    \Re f
+   </math>
+   through
+   <math display="inline">
+    \zeta^*
+   </math>
+   is also a curve on which
+   <math display="inline">
+    \Im f
+   </math>
+   is constant. In other words, it is a curve of "stationary phase". On such a curve, the modulus of
+   <math display="inline">
+    e^{sf(\zeta)}
+   </math>
+   will have a sharp maximum at
+   <math display="inline">
+    \zeta^*
+   </math>
+   . If the contour
+   <math display="inline">
+    C
+   </math>
+   can be deformed to follow the curve of steepest descent through a unique critical point
+   <math display="inline">
+    \zeta^*
+   </math>
+   , and the modulus of
+   <math display="inline">
+    e^{sf(\zeta)}
+   </math>
+   is negligible elsewhere, the dominant contribution to the integral for large
+   <math display="inline">
+    s
+   </math>
+   can be computed by a local computation in the neighborhood of
+   <math display="inline">
+    \zeta^*
+   </math>
+   . In more complex applications, several critical points may need to be accounted for.
+  </p>
+  <p block-type="Text">
+   The tangent line to the steepest descent curve at
+   <math display="inline">
+    \zeta^*
+   </math>
+   can be parameterized by
+   <math display="inline">
+    w \in \mathbb{R}
+   </math>
+   by the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (s f^{(2)}(\zeta^*))^{1/2}(\zeta - \zeta^*) = \mathrm{i} w \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   (care is needed here to select the correct sign of the complex square root), and on this line, the Taylor expansion of
+   <math display="inline">
+    f
+   </math>
+   about
+   <math display="inline">
+    \zeta^*
+   </math>
+   implies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(z) = f(\zeta^*) + \sum_{n \ge 2} \frac{1}{n!} f^{(n)}(\zeta^*) \left(\frac{\mathrm{i}w}{s(f^{(2)}(\zeta^*))^{1/2}}\right)^n \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   One can write the integrand in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{sf(z)} \sim e^{sf(\zeta^*) - w^2/2} \left[ 1 - i s^{-1/2} \frac{f^{(3)}(\zeta^*)}{3! (f^{(2)}(\zeta^*))^{3/2}} w^3 + s^{-1} \left( \frac{f^{(4)}(\zeta^*)}{4! (f^{(2)}(\zeta^*))^2} w^4 - \frac{(f^{(3)}(\zeta^*))^2}{2! (3!)^2 (f^{(2)}(\zeta^*))^3} w^6 \right) + \cdots \right]
+   </math>
+   (4)
+  </p>
+  <p block-type="Text">
+   Now approximating the integral over
+   <math display="inline">
+    \mathcal{C}
+   </math>
+   by the integral over the tangent line parameterized by
+   <math display="inline">
+    w
+   </math>
+   leads to a series of Gaussian integrals, each of which can be computed explicitly. The terms with an odd power of
+   <math display="inline">
+    w
+   </math>
+   all vanish, leading to the result
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I(s) \sim \mathbf{i} \left(\frac{2\pi}{sf^{(2)}(\zeta^*)}\right)^{1/2} e^{sf(\zeta^*)}
+   </math>
+   <math display="block">
+    \times \left[1 + s^{-1} \left(\frac{3f^{(4)}(\zeta^*)}{4!(f^{(2)}(\zeta^*))^2} - \frac{5 \cdot 3 \cdot (f^{(3)}(\zeta^*))^2}{2!(3!)^2 (f^{(2)}(\zeta^*))^3}\right) + \dots\right] \tag{5}
+   </math>
+  </p>
+  <h4>
+   <b>
+    Daniels' Application to Statistics
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Daniels [3] presented an asymptotic expansion for the probability density function (pdf)
+   <math display="inline">
+    f_n(x)
+   </math>
+   of the mean
+   <math display="inline">
+    \bar{X}_n
+   </math>
+   of
+   <i>
+    n
+   </i>
+   i.i.d. copies of a continuous random variable X with cumulative probability function
+   <math display="inline">
+    F(x)
+   </math>
+   and pdf
+   <math display="inline">
+    f(x) = F'(x)
+   </math>
+   . Assuming that the moment generating function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M(\tau) = e^{\Psi(\tau)} = \int_{-\infty}^{\infty} e^{\tau x} f(x) dx \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is finite for
+   <math display="inline">
+    \tau
+   </math>
+   in an open interval
+   <math display="inline">
+    (-c_1, c_2)
+   </math>
+   containing the origin, the Fourier inversion theorem implies that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_n(x) = \frac{n}{2\pi i} \int_{\alpha - i\infty}^{\alpha + i\infty} e^{n(\Psi(\tau) - \tau x)} d\tau \qquad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for any real
+   <math display="inline">
+    \alpha \in (-c_1, c_2)
+   </math>
+   . This integral is now amenable to a saddlepoint treatment as follows.
+  </p>
+  <p block-type="Text">
+   For each
+   <math display="inline">
+    x
+   </math>
+   in the support of
+   <math display="inline">
+    f
+   </math>
+   , one can show that the saddlepoint condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi'(\tau) - x = 0 \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   has a unique real solution
+   <math display="inline">
+    \tau^* = \tau^*(x)
+   </math>
+   . One now evaluates the integral given by equation (7) with
+   <math display="inline">
+    \alpha =
+   </math>
+   <math display="inline">
+    \tau^*
+   </math>
+   , and uses Taylor expansion and the substitution
+   <math display="inline">
+    w = -i\sqrt{n\Psi''(\tau^*)}(\tau - \tau^*)
+   </math>
+   to write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_n(x) \sim \frac{\sqrt{n}}{2\pi\sqrt{\Psi''(\tau^*)}} \int_{-\infty}^{\infty} e^{n(\Psi(\tau^*) - \tau^* x) - w^2/2} \times \left[1 + i n^{-1/2} (\Psi''(\tau^*))^{-3/2} \Psi^{(3)}(\tau^*) w^3/3! + n^{-1} (\Psi''(\tau^*))^{-2} \Psi^{(4)}(\tau^*) w^4/4! + \ldots\right] \mathrm{d}w
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   Each term in this expansion is a Gaussian integral that can be evaluated in closed form. The odd terms all vanish, leaving an expansion in powers of
+   <math display="inline">
+    n^{-1}
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_n(x) \sim g_n(x) \left[ 1 + n^{-1} \left( \frac{\Psi^{(4)}(\tau^*)}{8(\Psi''(\tau^*))^2} - \frac{5(\Psi^{(3)}(\tau^*))^2}{24(\Psi''(\tau^*))^3} \right) + O(n^{-2}) \right]
+   </math>
+   (10)
+  </p>
+  <p block-type="Text">
+   where the leading term (called the
+   <i>
+    saddlepoint approximation
+   </i>
+   ) is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g_n(x) = \left(\frac{n}{2\pi \Psi''(\tau^*)}\right)^{1/2} e^{n(\Psi(\tau^*) - \tau^* x)} \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The function
+   <math display="inline">
+    I(x) = \sup_{\tau} \tau x - \Psi(\tau) = \tau^* x - \Psi(\tau)
+   </math>
+   <math display="inline">
+    \Psi(\tau^*)
+   </math>
+   that appears in this expression is the Legendre transform of the cumulant generating function
+   <math display="inline">
+    \Psi
+   </math>
+   , and is known as the rate function or Cramér function of the random variable X. The
+   <i>
+    large deviation principle
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} \frac{1}{n} \log P(\bar{X}_n &gt; x) = -I(x) \quad \text{for } x &gt; E[X]
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   holds for very general
+   <math display="inline">
+    X
+   </math>
+   . Another observation is that the Edgeworth expansion of statistics comes out in a similar way, but takes 0 instead of
+   <math display="inline">
+    \tau^*
+   </math>
+   as the center of the Taylor expansion.
+  </p>
+  <p block-type="Text">
+   One can show, using a lemma due to Watson [8], that equation
+   <math display="inline">
+    (10)
+   </math>
+   is an
+   <i>
+    asymptotic expansion
+   </i>
+   ,
+  </p>
+  <p block-type="TextInlineMath">
+   which means roughly that when truncated at any order of
+   <math display="inline">
+    n^{-1}
+   </math>
+   , the remainder is of the same magnitude as the first omitted term. A more precise statement of the magnitude of the remainder is difficult to establish: the lack of a general error analysis is an acknowledged deficiency of the saddlepoint method.
+  </p>
+  <h3>
+   Applications to Portfolio Credit Risk
+  </h3>
+  <p block-type="Text">
+   The problem of portfolio credit risk measures and the problem of evaluating arbitrage-free pricing of collateralized debt obligations (CDOs) both boil down to computation of the probability distribution of the portfolio loss at a set of times, and can be amenable to a saddlepoint treatment. To illustrate this fact, we consider a simple portfolio of credit risky instruments (e.g., corporate loans or credit default swaps), and investigate the properties of the losses caused by default of the obligors. Let
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathcal{F}, P)
+   </math>
+   be a filtered probability space that contains all of the random elements:
+   <math display="inline">
+    P
+   </math>
+   may be either the physical or the riskneutral probability measure. The portfolio is defined by the following basic quantities:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      \bullet
+     </math>
+     <i>
+      M
+     </i>
+     reference obligors with notional amounts
+     <math display="inline">
+      N_i, j = 1, 2, \ldots, M;
+     </math>
+    </li>
+    <li block-type="ListItem">
+     the default time
+     <math display="inline">
+      \tau_i
+     </math>
+     of the
+     <i>
+      j
+     </i>
+     th credit, an
+     <math display="inline">
+      \mathcal{F}_t
+     </math>
+     stopping time;
+    </li>
+    <li block-type="ListItem">
+     the fractional recovery
+     <math display="inline">
+      R_i
+     </math>
+     after default of the jth . obligor;
+    </li>
+    <li block-type="ListItem">
+     the loss
+     <math display="inline">
+      l_i = (1  R_i)N_i/N
+     </math>
+     caused by default of the
+     <i>
+      j
+     </i>
+     th obligor as a fraction of the total notional
+     <math display="inline">
+      N = \sum_{i} N_{i};
+     </math>
+    </li>
+    <li block-type="ListItem">
+     the cumulative portfolio loss
+     <math display="inline">
+      L(t) = \sum_{j} l_{j} I(\tau_{j} \leq t)
+     </math>
+     <math display="inline">
+      \bullet
+     </math>
+     <math display="inline">
+      t)
+     </math>
+     up to time
+     <math display="inline">
+      t
+     </math>
+     as a fraction of the total notional.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   For simplicity, we make the following assumptions:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. The discount factor is
+     <math display="inline">
+      v(t) = e^{-rt}
+     </math>
+     for a constant interest rate
+     <math display="inline">
+      r \geq 0
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     The fractional recovery values
+     <math display="inline">
+      R_i
+     </math>
+     and hence
+     <math display="inline">
+      l_i
+     </math>
+     2. are deterministic constants.
+    </li>
+    <li block-type="ListItem">
+     3. There is a sub
+     <math display="inline">
+      \sigma
+     </math>
+     -algebra
+     <math display="inline">
+      \mathcal{H} \subset \mathcal{F}
+     </math>
+     generated by a
+     <i>
+      d
+     </i>
+     -dimensional random variable
+     <math display="inline">
+      Y
+     </math>
+     , the "condition", such that the default times
+     <math display="inline">
+      \tau_i
+     </math>
+     are mutually conditionally independent under
+     <math display="inline">
+      \mathcal{H}
+     </math>
+     . The marginal distribution of Y is denoted by
+     <math display="inline">
+      P_Y
+     </math>
+     and has pdf
+     <math display="inline">
+      \rho_Y(y), y \in \mathbb{R}^d
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   The most important consequence of these assumptions is that, conditioned on
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   , the fractional loss
+   <math display="inline">
+    L(t)
+   </math>
+   is a sum of independent (but not identical) Bernoulli random variables. For fixed values of the time
+   <math display="inline">
+    t
+   </math>
+   and conditioning random variable
+   <math display="inline">
+    Y
+   </math>
+   , we note that
+   <math display="inline">
+    \hat{L} := L(t)|_{Y} \sim \sum_{j} l_{j}X_{j}
+   </math>
+   where
+   <math display="inline">
+    X_{j} \sim
+   </math>
+   <math display="inline">
+    \text{Bern}(p_i(t, y)), \ p_i = \text{Prob}(\tau_i \le t | Y = y).
+   </math>
+   The following functions are associated with the random variable
+   <math display="inline">
+    \hat{L}
+   </math>
+   :
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. the pdf
+     <math display="inline">
+      \rho(x) := F^{(-1)}(x)
+     </math>
+     (in our simple example, it is a sum of delta functions supported on the interval
+     <math display="inline">
+      [0, 1]
+     </math>
+     ;
+    </li>
+    <li block-type="ListItem">
+     2. the
+     <i>
+      cumulative distribution function
+     </i>
+     (CDF)
+     <math display="inline">
+      F^{(0)}
+     </math>
+     <math display="inline">
+      (x) = E[I(\hat{L} \le x)];
+     </math>
+    </li>
+    <li block-type="ListItem">
+     3. the higher conditional moment functions
+     <math display="inline">
+      F^{(m)}(x)
+     </math>
+     <math display="inline">
+      =(m!)^{-1}E[((x-\hat{L})^+)^m], m=1,2,\ldots;
+     </math>
+    </li>
+    <li block-type="ListItem">
+     the
+     <i>
+      cumulant generating function
+     </i>
+     (CGF)
+     <math display="inline">
+      \Psi(u) =
+     </math>
+     4.
+     <math display="inline">
+      \log(E[e^{u\hat{L}}]).
+     </math>
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   When we need to make explicit the dependence on t, v we write
+   <math display="inline">
+    F^{(m)}(x|t, v)
+   </math>
+   . The unconditional versions of these functions are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{(m)}(x|t) = E[F^{(m)}(x|t,Y)] = \int_{\mathbb{R}}^{d} F^{(m)}(x|t,y)
+   </math>
+   <math display="block">
+    \times \rho_Y(\mathrm{d}y), \ m = -1, 0, \dots \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   According to these definitions, for all
+   <math display="inline">
+    m = 0, 1, \ldots
+   </math>
+   we have the integration formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{(m)}(x) = \int_0^x F^{(m-1)}(z) \, \mathrm{d}z \tag{14}
+   </math>
+  </p>
+  <h4>
+   Credit Risk Measures
+  </h4>
+  <p block-type="TextInlineMath">
+   In risk management, the key quantities that determine the economic capital requirement for such a credit risky portfolio are the Value at Risk (VaR) and Conditional Value at Risk (CVaR) for a fixed time horizon T and a fixed confidence level
+   <math display="inline">
+    \alpha
+   </math>
+   &lt; 1. These are defined as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{VaR}_{\alpha}(L_T) = \inf\{x|F^{(0)}(x|T) &gt; \alpha\} \tag{15}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{CVaR}_{\alpha}(L_T) = \frac{E[(L_T - x)^+]}{1 - \alpha}
+   </math>
+   <math display="block">
+    = \frac{F^{(1)}(x|T) + E[L_T] - x}{1 - \alpha} \quad (16)
+   </math>
+  </p>
+  <p block-type="Text">
+   Here, we need to take
+   <math display="inline">
+    P
+   </math>
+   to be the physical measure.
+  </p>
+  <h2>
+   CDO Pricing
+  </h2>
+  <p block-type="Text">
+   CDOs are portfolio credit swaps that can be schematically decomposed into two types of basic contingent claims whose cash flows depend on the portfolio loss
+   <math display="inline">
+    L_t
+   </math>
+   . These cash flows are analogous to insurance and premium payments paid periodically (typically, quarterly) on dates
+   <math display="inline">
+    t_k
+   </math>
+   ,
+   <math display="inline">
+    k = 1, \ldots, K
+   </math>
+   , to cover default losses within a "tranche" that occurred during that period.
+  </p>
+  <p block-type="TextInlineMath">
+   The writer (the
+   <i>
+    insurer
+   </i>
+   ) of one unit of a default leg for a tranche with attachment levels
+   <math display="inline">
+    0 \le a &lt; b \le 1
+   </math>
+   pays the holder (the
+   <i>
+    buyer of insurance
+   </i>
+   ) at each date
+   <math display="inline">
+    t_k
+   </math>
+   all default losses within the interval [a, b] that occurred over
+   <math display="inline">
+    [t_{k-1}, t_k]
+   </math>
+   . The time 0 arbitrage price of such a contract is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W_{a,b} = \sum_{k} e^{-rt_{k}} E\left[ (b - L_{t_{k}})^{+} - (b - L_{t_{k-1}})^{+} - (a - L_{t_{k}})^{+} + (a - L_{t_{k-1}})^{+} \right]
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    E
+   </math>
+   is now the expectation with respect to some risk-neutral measure. The writer of one unit of a premium leg for a tranche with attachment levels
+   <math display="inline">
+    a &lt; b
+   </math>
+   (the insured) pays the holder (the insurer) on each date
+   <math display="inline">
+    t_k
+   </math>
+   an amount jointly proportional to the year fraction
+   <math display="inline">
+    t_k - t_{k-1}
+   </math>
+   and the amount remaining in the tranche. We ignore a possible "accrual term" that account for defaults between payment dates. The time 0 arbitrage price of such a contract is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{a,b} = \sum_{k} e^{-rt_{k}} (t_{k} - t_{k-1}) E\left[ (b - L_{t_{k}})^{+} - (a - L_{t_{k}})^{+} \right]
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   The
+   <i>
+    CDO rate
+   </i>
+   <math display="inline">
+    s_{a,b}
+   </math>
+   for this contract at time 0 is the number of units of the premium leg that has the same value as one unit of the default leg, that is,
+   <math display="inline">
+    s_{a,b} = W_{a,b}/V_{a,b}.
+   </math>
+  </p>
+  <h1>
+   Saddlepoint Approximations for
+   <math display="inline">
+    F^{(m)}
+   </math>
+  </h1>
+  <p block-type="TextInlineMath" class="has-continuation">
+   We see that the credit risk management problem and the CDO pricing problem both boil down to finding an efficient method to compute
+   <math display="inline">
+    E[F^{(m)}(x|t, y)]
+   </math>
+   for
+   <math display="inline">
+    m = 0
+   </math>
+   , 1 and a large but finite set of values
+   <math display="inline">
+    (x, t, y)
+   </math>
+   . For the conditional loss
+   <math display="inline">
+    \hat{L} = L_t | Y = y
+   </math>
+   , the CGF is
+  </p>
+  <p block-type="Text">
+   explicit
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(u) = \sum_{j=1}^{M} \log \left[1 - p_j + p_j \, \mathrm{e}^{u l_j}\right] \qquad (19)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We suppose that the conditional default probabilities
+   <math display="inline">
+    p_i = p_i(t, y)
+   </math>
+   are known. A number of different strategies can be used to compute this distribution accurately:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. In the fully homogeneous case when
+     <math display="inline">
+      p_i =
+     </math>
+     <math display="inline">
+      p, l_i = l
+     </math>
+     , the distribution is binomial.
+    </li>
+    <li block-type="ListItem">
+     2. When
+     <math display="inline">
+      l_i = l
+     </math>
+     , but
+     <math display="inline">
+      p_i
+     </math>
+     are variable (the homogeneous notional case), these probabilities can be computed highly efficiently by a recursive algorithm in
+     <math display="inline">
+      [1, 5]
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     3. When both
+     <math display="inline">
+      l_i
+     </math>
+     ,
+     <math display="inline">
+      p_i
+     </math>
+     are variable, it has been noted in
+     <math display="inline">
+      [2, 4, 6, 9]
+     </math>
+     that a saddlepoint treatment of these problems offer superior performance over a naive Edgeworth expansion.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   We now consider the fully nonhomogeneous case and begin by using the Laplace inversion theorem to write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho(x) = F^{(-1)}(x) = \frac{1}{2\pi} \int_{\alpha - i\infty}^{\alpha + i\infty} e^{\Psi(\tau) - \tau x} d\tau \quad (20)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <math display="inline">
+    \rho
+   </math>
+   is a sum of delta functions, this formula must be understood in the distributional sense, and holds for any real
+   <math display="inline">
+    \alpha
+   </math>
+   . When
+   <math display="inline">
+    \alpha &lt; 0
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{(0)}(x) = \frac{1}{2\pi} \int_{\alpha - i\infty}^{\alpha + i\infty} e^{\Psi(\tau)} \frac{1 - e^{-\tau x}}{\tau} d\tau
+   </math>
+   <math display="block">
+    = -\frac{1}{2\pi} \int_{\alpha - i\infty}^{\alpha + i\infty} \tau^{-1} e^{\Psi(\tau) - \tau x} d\tau \quad (21)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the last step in this argument, one term is zero because
+   <math display="inline">
+    e^{\Psi(\tau)}
+   </math>
+   is analytic and decays rapidly as
+   <math display="inline">
+    \Re \tau \rightarrow
+   </math>
+   <math display="inline">
+    -\infty
+   </math>
+   . Similarly, for
+   <math display="inline">
+    m = 1, 2, \ldots
+   </math>
+   one can show that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{(m)}(x) = (-1)^{m+1} \frac{1}{2\pi} \int_{\alpha - i\infty}^{\alpha + i\infty} \tau^{-m-1} e^{\Psi(\tau) - \tau x} d\tau \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   provided
+   <math display="inline">
+    \alpha &lt; 0
+   </math>
+   . It is also useful to consider the functions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G^{(m)}(x) := (-1)^{m+1} \frac{1}{2\pi} \int_{\alpha - \mathbf{i}\infty}^{\alpha + \mathbf{i}\infty} \tau^{-m-1} e^{\Psi(\tau) - \tau x} \, d\tau \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   defined when
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . One can show by evaluating the residue at
+   <math display="inline">
+    \tau = 0
+   </math>
+   that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{(0)}(x) = G^{(m)}(x) - 1 \tag{24}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{(1)}(x) = G^{(1)}(x) - E[L] + x \tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with similar formulas relating
+   <math display="inline">
+    F^{(m)}
+   </math>
+   and
+   <math display="inline">
+    G^{(m)}
+   </math>
+   for
+   <math display="inline">
+    m = 2, 3, \ldots
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Since the conditional portfolio loss is a sum of similar, but not identical, independent random variables, we can follow the argument of Daniels to produce an expansion for the functions
+   <math display="inline">
+    F^{(m)}
+   </math>
+   . Some extra features are involved: the cumulant generating function is not
+   <math display="inline">
+    N
+   </math>
+   times something, but rather a sum of
+   <math display="inline">
+    N
+   </math>
+   (easily computed) terms: we must deal with the factor
+   <math display="inline">
+    \tau^{-m-1}
+   </math>
+   ; we must deal with the fact that critical points of the exponent in these integrals may be on the positive or negative real axis and there is a pole at
+   <math display="inline">
+    \tau = 0
+   </math>
+   . To treat the most general case, we move the factor
+   <math display="inline">
+    \tau^{-m-1}
+   </math>
+   into the exponent and consider the saddlepoint condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi'(\tau) - (m+1)/\tau - x = 0 \tag{26}
+   </math>
+  </p>
+  <p block-type="Text">
+   Proposition 5.1 from
+   <math display="inline">
+    [9]
+   </math>
+   shows that a choice of two real saddlepoints solving this equation is typically available:
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 1
+   </b>
+   Suppose that
+   <math display="inline">
+    p_j
+   </math>
+   ,
+   <math display="inline">
+    l_j &gt; 0
+   </math>
+   for all j. Then
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. There is a solution
+     <math display="inline">
+      \tau^*
+     </math>
+     , unique if it exists, of
+     <math display="inline">
+      \Psi'(\tau) - x = 0
+     </math>
+     if and only if
+     <math display="inline">
+      0 &lt; x &lt; \sum_j l_j
+     </math>
+     . If
+     <math display="inline">
+      E[\hat{L}] &gt; x &gt; 0
+     </math>
+     , then
+     <math display="inline">
+      \tau^* &gt; 0
+     </math>
+     and if
+     <math display="inline">
+      E[\hat{L}] &lt; x &lt;
+     </math>
+     <math display="inline">
+      \sum_{j} l_{j}
+     </math>
+     , then
+     <math display="inline">
+      \tau^* &lt; 0
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     2. For each
+     <math display="inline">
+      m \ge 0
+     </math>
+     , there is exactly one solution
+     <math display="inline">
+      \tau_m^
+     </math>
+     of equation (26) on
+     <math display="inline">
+      (-\infty, 0)
+     </math>
+     , if
+     <math display="inline">
+      x &lt; \sum_i l_i
+     </math>
+     and no solution on
+     <math display="inline">
+      (-\infty, 0)
+     </math>
+     , if
+     <math display="inline">
+      x \ge \sum_j l_j
+     </math>
+     . Moreover, when
+     <math display="inline">
+      x &lt; \sum_j l_j
+     </math>
+     , the sequence
+     <math display="inline">
+      \{\tau_m^{\perp}\}_{m \ge 0}
+     </math>
+     is monotonically decreasing in m.
+    </li>
+    <li block-type="ListItem">
+     3. For each
+     <math display="inline">
+      m \ge 0
+     </math>
+     , there is exactly one solution
+     <math display="inline">
+      \tau_{m}^{+}
+     </math>
+     of equation (26) on
+     <math display="inline">
+      (0,\infty)
+     </math>
+     , if
+     <math display="inline">
+      x&gt;0
+     </math>
+     and no solution on
+     <math display="inline">
+      (0, \infty)
+     </math>
+     , if
+     <math display="inline">
+      x \leq 0
+     </math>
+     . Moreover, when
+     <math display="inline">
+      x &gt; 0
+     </math>
+     the sequence
+     <math display="inline">
+      \{\tau_m^+\}_{m\geq 0}
+     </math>
+     is monotonically increasing in m.
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   At this point, the methods in [2] and [9] differ. We consider first the method in [9] for computing
+   <math display="inline">
+    F^{(m)}
+   </math>
+   ,
+   <math display="inline">
+    m = 0, 1
+   </math>
+   . The argument of Daniels directly is applied, but with the following strategy for choosing the saddlepoint. Whenever
+   <math display="inline">
+    x &lt; E[L]
+   </math>
+   ,
+   <math display="inline">
+    \tau_m^-
+   </math>
+   is chosen as the center of the Taylor expansion for the integral in equation (22). Whenever
+   <math display="inline">
+    x &gt; E[\hat{L}]
+   </math>
+   , instead,
+   <math display="inline">
+    \tau_{m}^{+}
+   </math>
+   is chosen as the center of the Taylor expansion for the integral in equation
+   <math display="inline">
+    (23)
+   </math>
+   , and either of equations
+   <math display="inline">
+    (24)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   or (25) is used. Thus for example, when
+   <math display="inline">
+    x &gt; E[L]
+   </math>
+   , the approximation for
+   <math display="inline">
+    m = 1
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{(1)}(x) \sim x - E[L] + \frac{e^{\tau_1^+ x + \Psi(\tau_1^+)}}{\sqrt{2\pi \Psi^{(2)}(\tau_1^+)}}
+   </math>
+   <math display="block">
+    \times \left[ 1 + \frac{\Psi^{(4)}(\tau_1^+)}{8(\Psi^{(2)}(\tau_1^+))^2} - \frac{5(\Psi^{(3)}(\tau_1^+))^2}{24(\Psi^{(2)}(\tau_1^+))^3} + \cdots \right] \quad (27)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In [2], the
+   <math display="inline">
+    m = -1
+   </math>
+   solution
+   <math display="inline">
+    \tau^*
+   </math>
+   , suggested by large deviation theory, is chosen as the center of the Taylor expansion, even for
+   <math display="inline">
+    m \neq -1
+   </math>
+   . The factor
+   <math display="inline">
+    \tau^{-m-1}
+   </math>
+   is then included with the other nonexponentiated terms, leading to an asymptotic expansion with terms of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{-\infty}^{\infty} e^{-w^2/2} (w + w_0)^{-m-1} w^k \, \mathrm{d}w w_0 = \tau^* / \sqrt{\Psi^{(2)}(\tau^*)}
+   </math>
+   (28)
+  </p>
+  <p block-type="Text">
+   These integrals can be evaluated in closed form, but are somewhat complicated, and more terms are needed for a given order of accuracy.
+  </p>
+  <p block-type="Text">
+   Numerical implementation of the saddlepoint method for portfolio credit problems thus boils down to efficient computation of the appropriate solutions of the saddlepoint condition given by equation (26). This is a relatively straightforward application of onedimensional Newton-Raphson iteration, but must be done for a large number of values of
+   <math display="inline">
+    (x, t, y)
+   </math>
+   . For typical parameter values and up to
+   <math display="inline">
+    2^{10}
+   </math>
+   obligors, [9] report that saddlepoints were usually found in under 10 iterations, which suggests that a saddlepoint expansion will run no more than about 10 times
+  </p>
+  <p block-type="Text">
+   slower than the Edgeworth expansion with the same number of terms. However, both [2] and [9] observe that the accuracy of the saddlepoint expansion is often far greater.
+  </p>
+  <h4>
+   Acknowledgments
+  </h4>
+  <p block-type="Text">
+   Research underlying this article was supported by the Natural Sciences and Engineering Research Council of Canada and MITACS, Canada.
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Andersen, L., Sidenius, J. &amp; Basu, S. (2003). All your hedges in one basket, Risk 16, 67-72.
+    </li>
+    <li block-type="ListItem">
+     [2] Antonov, A., Mechkov, S. &amp; Misirpashaev, T. (2005). Analytical Techniques for Synthetic CDOs and Credit Default Risk Measures, Numerix Preprint http://www. defaultrisk.com/pp_crdry_77.htm.
+    </li>
+    <li block-type="ListItem">
+     [3] Daniels, H.E. (1954). Saddlepoint approximations in statistics. Annals of Mathematical Statistics 25, 631–650.
+    </li>
+    <li block-type="ListItem">
+     [4] Gordy, M. (2002). Saddlepoint approximation of credit risk, Journal of Banking Finance 26(2), 1335-1353.
+    </li>
+    <li block-type="ListItem">
+     [5] Hull, J. &amp; White, A. (2004). Valuation of a CDO and an
+     <math display="inline">
+      n
+     </math>
+     th to default CDS without Monte Carlo simulation, Journal of Derivatives 2, 8-23.
+    </li>
+    <li block-type="ListItem">
+     [6] Martin, R., Thompson, K. &amp; Browne, C. (2003). Taking to the saddle, in Credit Risk Modelling: The Cutting-edge Collection, M. Gordy, ed, Riskbooks, London.
+    </li>
+    <li block-type="ListItem">
+     [7] Varadhan, S.R.S. (1966). Asymptotic probabilities and differential equations, Communications on Pure and Applied Mathematics 19, 261–286.
+    </li>
+    <li block-type="ListItem">
+     [8] Watson, G.N. (1995). A Treatise on the Theory of Bessel Functions, 2nd Edition, Cambridge University Press, Cambridge, reprint of the second (1944) edition.
+    </li>
+    <li block-type="ListItem">
+     [9] Yang, J.P., Hurd, T.R. &amp; Zhang, X.P. (2006). Saddlepoint approximation method for pricing CDOs, Journal of Computational Finance
+     <math display="inline">
+      10
+     </math>
+     , 1–20.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   THOMAS R. HURD
+  </p>
+ </body>
+</html>

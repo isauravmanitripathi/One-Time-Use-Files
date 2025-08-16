@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Rating Transition
+   </b>
+   Matrices
+  </h1>
+  <p block-type="Text">
+   Rating transition matrices play an important role in credit risk management both as a method for summarizing the empirical behavior of a rating system and as a tool for computing probabilities of rating migrations in, for example, a portfolio of risky loans. Analysis of statistical properties of rating transition matrices is intimately linked with Markov chains. Even if rating processes in general are not Markovian, statistical analysis of rating systems often focuses on assessing a particular deviation from Markovian behavior. Furthermore, the tractability of the Markovian setting can be preserved in some simple extensions.
+  </p>
+  <h2>
+   <b>
+    Discrete-time Markov Chains
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Let the rating process
+   <math display="inline">
+    \eta = (\eta_0, \eta_1, \ldots)
+   </math>
+   be a discretetime stochastic process taking values in a finite state space
+   <math display="inline">
+    \{1, \ldots, K\}
+   </math>
+   . If the rating process is a Markov chain, the probability of making a particular transition between time t and time
+   <math display="inline">
+    t + 1
+   </math>
+   does not depend on the history before time
+   <math display="inline">
+    t
+   </math>
+   , and one-step transition probabilities of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{ij}(t; t+1) = Pr(\eta_{t+1} = j \mid \eta_t = i) \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   describes the evolution of the chain. If the one-step transition probabilities are independent of time, we call the chain time homogeneous and write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{ij} = Pr(\eta_{t+1} = j \mid \eta_t = i) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   The one-period transition matrix of the chain is then given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P = \begin{pmatrix} p_{11} &amp; \cdots &amp; p_{1K} \\ \vdots &amp; &amp; \vdots \\ p_{K1} &amp; \cdots &amp; p_{KK} \end{pmatrix} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sum_{j=1}^{K} p_{ij} = 1
+   </math>
+   for all
+   <i>
+    i
+   </i>
+   .&lt;br&gt;Consider a sample of
+   <i>
+    N
+   </i>
+   firms whose transitions between different states are observed at discrete dates
+   <math display="inline">
+    t = 0, \ldots, T
+   </math>
+   . Now introduce the following notation:
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    n_i(t)
+   </math>
+   = number of firms in state
+   <i>
+    i
+   </i>
+   at date
+   <i>
+    t
+   </i>
+   .
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      n_{ii}(t)
+     </math>
+     = number of firms that went from
+     <i>
+      i
+     </i>
+     at . date
+     <math display="inline">
+      t-1
+     </math>
+     to j at date t.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      N_i(t) = \sum_{t=0}^{T-1} n_i(t)
+     </math>
+     = number of firm exposures recorded at the beginning of transition periods.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      N_{ij}(T) = \sum_{t=1}^{T} n_{ij}(t)
+     </math>
+     = total number of transi-٠ tions observed from
+     <math display="inline">
+      i
+     </math>
+     to
+     <math display="inline">
+      j
+     </math>
+     over the entire period.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   If we do not assume time homogeneity, we can estimate each element of the one-step transition probability matrix using the maximum-likelihood estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{p_{ij}}(t-1;t) = \frac{n_{ij}(t)}{n_i(t-1)}
+   </math>
+   (4)
+  </p>
+  <p block-type="Text">
+   which simply is the fraction of firms that made the transition divided by the number of firms which could have made the transition.
+  </p>
+  <p block-type="Text">
+   Assuming time homogeneity, the maximumlikelihood estimator of the transition probabilities matrix is
+   <math display="inline">
+    \sim 10^{-1}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{p}_{ij} = \frac{N_{ij}(T)}{N_i(T)}\tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for all
+   <math display="inline">
+    i, j \in K
+   </math>
+   . This estimator is different from the estimator obtained by estimating a sequence of
+   <math display="inline">
+    1
+   </math>
+   -year transition matrices and then computing the average of each element at a time. The latter method will weigh years with few observations as heavily as years with many observations. If the viewpoint is that there is variation in 1-year transition probabilities over time due to, for example, business cycle fluctuations, the averaging can be justified as a way of obtaining an unconditional 1-year default probability over the cycle.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Rating agencies often form a cohort of firms at a particular date, say January 1, 1980, and record transition frequencies over a fixed time horizon, say 5 years. This can be done in a straightforward way using only information on the initial rating and final rating after 5 years, assuming that all companies that are in the cohort, to begin with, stay in the sample. In practice, rating withdrawals occur, that is, firms or debt issues cease to have a rating. According to [4], the vast majority of withdrawals are due to debt maturing, being redeemed or called. It is traditional in the rating literature to view these events as "noninformative" censoring. One way to deal with withdrawals is to eliminate the firms from the sample and in essence use only those firms that do not have their rating withdrawn in the 5-year period. Another way is to estimate a sequence of
+  </p>
+  <p block-type="Text">
+   1-year transition probability matrices using the 1-year estimator and then estimate the 5-year matrix as the product of 1-year matrices. In this case, information of a firm whose rating is withdrawn is used for the years where it is still present in the sample. Both methods rely on the assumption of withdrawals being noninformative.
+  </p>
+  <h2>
+   <b>
+    Continuous-time Markov Chains
+   </b>
+  </h2>
+  <p block-type="Text">
+   When one has access to full rating histories and therefore knows the exact dates of transitions, the continuous-time formulation offers significant advantages in terms of tractability. Recall that the family of transition matrices for a time-homogeneous Markov chain in continuous time on a finite state space can be described by an associated generator matrix, that is, a
+   <math display="inline">
+    K \times K
+   </math>
+   matrix
+   <math display="inline">
+    \Lambda
+   </math>
+   , whose elements satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lambda_{ij} \ge 0 \text{ for } i \ne j
+   </math>
+   <br/>
+   <math display="block">
+    \lambda_{ii} = -\Sigma_{j \ne i} \lambda_{ij}
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    P(t)
+   </math>
+   denote the
+   <math display="inline">
+    K \times K
+   </math>
+   matrix of transition probabilities, that is,
+   <math display="inline">
+    p_{ij}(t) = P(\eta_t = j | \eta_0 = i)
+   </math>
+   . Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t) = \exp(\Lambda t) \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the right hand side is the matrix exponential of the matrix
+   <math display="inline">
+    \Lambda t
+   </math>
+   obtained by multiplying all entries of
+   <math display="inline">
+    \Lambda
+   </math>
+   by t.
+  </p>
+  <p block-type="Text">
+   In case a row consists of all zeros, the chain is absorbed in that state when it hits it. It is convenient to work with the default states as absorbing states even if firms in practice may recover and leave the default state. If we ask what the probability is that a firm will default before time
+   <math display="inline">
+    T
+   </math>
+   then this can be read from the transition matrix
+   <math display="inline">
+    P(T)
+   </math>
+   when we have defined default to be an absorbing state. If the state is not absorbing, but
+   <math display="inline">
+    P
+   </math>
+   allows the chain to jump back into the nondefault rating categories, then the transition probability matrix for time
+   <math display="inline">
+    T
+   </math>
+   will only give the probability of being in default
+   <math display="inline">
+    at
+   </math>
+   time
+   <math display="inline">
+    T
+   </math>
+   and this (smaller) probability is typically not the one we are interested in for risk management purposes.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Assume that we have observed a collection of firms between time
+   <math display="inline">
+    0
+   </math>
+   and time
+   <math display="inline">
+    T
+   </math>
+   . The maximumlikelihood estimator for the off-diagonal elements of
+  </p>
+  <p block-type="Text">
+   the generator matrix is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\lambda}_{ij} = \frac{N_{ij}(T)}{\int_0^T Y_i(s) \, \mathrm{d}s} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    Y_i(s)
+   </math>
+   is the number of firms in rating class i at time s and
+   <math display="inline">
+    N_{ii}(T)
+   </math>
+   is the total number of direct transitions over the period from i to j, where
+   <math display="inline">
+    i \neq j
+   </math>
+   <math display="inline">
+    i
+   </math>
+   . The denominator counts the number of "firmyears" spent in state
+   <math display="inline">
+    i
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Any period a firm spends in a state will be picked up through the denominator. In this sense all information is being used. Note also how (noninformative) censoring is handled automatically: When a firm leaves the sample, it simply stops contributing to the denominator. Also, this method will produce estimates of transition probabilities for "rare transitions", even if the rare transitions have not been observed in the sample. For more on this, see [9].
+  </p>
+  <h4>
+   Nonhomogeneous Chains
+  </h4>
+  <p block-type="Text">
+   For statistical specifications and applications to pricing, the concept of a nonhomogeneous chain is useful. In complete analogy with the discrete-time case, the definition of the Markov property does not change when we drop the assumption of time homogeneity, but the description of the family of transition matrices requires that we keep track of calendar dates instead of just time lengths.
+  </p>
+  <p block-type="Text">
+   For each pair of states i, j with
+   <math display="inline">
+    i \neq j
+   </math>
+   , let
+   <math display="inline">
+    A_{ij}
+   </math>
+   be a nondecreasing right-continuous (and with left limits) function, which is zero at time zero. Let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_{ii}(t) = -\sum_{j \neq i} A_{ij}(t) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   and assume that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta A_{ii}(t) \ge -1 \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   Then there exists a Markov process with state space
+   <math display="inline">
+    1, \ldots, K
+   </math>
+   whose transition matrix is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(s,t) = \Pi_{[s,t]}(I + dA)
+   </math>
+   <br/>
+   <math display="block">
+    \equiv \lim_{\max|t_i - t_{i-1}| \to 0} \Pi_i(I + A(t_i) - A(t_{i-1}))
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    s \le t_1 \le t_n \le t
+   </math>
+   . One can think of the probabilistic behavior as follows: Given that the chain is in state
+   <math display="inline">
+    i
+   </math>
+   at time
+   <math display="inline">
+    s
+   </math>
+   the probability that it remains in that state at least until t (assuming that
+   <math display="inline">
+    \Delta A_{ii}(u)
+   </math>
+   &gt;
+   <math display="inline">
+    -1
+   </math>
+   for
+   <math display="inline">
+    u \le t
+   </math>
+   ) is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(\Delta \eta_u = 0 \text{ for } s &lt; u \le t | \eta_s = i)
+   </math>
+   <br/>
+   =
+   <math>
+    \exp(-(A_{ii}(t) - A_{ii}(s)))
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   We are interested in testing assumptions on the intensity measure when it can be represented through integrated intensities, that is, we assume that there exists integrable functions (or transition intensities)
+   <math display="inline">
+    \lambda_{ii}(\cdot)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_{ij}(t) = \int_0^t \lambda_{ij}(s) \, \mathrm{d}s \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for every pair of states i, j with
+   <math display="inline">
+    i \neq j
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In this case, given that the chain jumps away from
+   <i>
+    i
+   </i>
+   at date
+   <math display="inline">
+    t
+   </math>
+   , the probability that it jumps to state
+   <i>
+    j
+   </i>
+   is given by
+   <math display="inline">
+    \frac{\lambda_{ij}(t)}{\sum_{k\neq i}\lambda_{iK}(t)}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   A homogeneous Markov chain with intensity matrix
+   <math display="inline">
+    \Lambda
+   </math>
+   has
+   <math display="inline">
+    A_{ij}(t) = \lambda_{ij}t
+   </math>
+   and in this special case we can write
+   <math display="inline">
+    P(s, t) = \exp(\Lambda(t - s)).
+   </math>
+  </p>
+  <p block-type="Text">
+   For a method for estimating the continuous-time transition probabilities nonparametrically using the so-called Aalen-Johansen estimator, see, for example, [2]. The specification of individual transition intensities allows us to use hazard regressions on specific rating transitions. For an example of nonparametric techniques, see [5]. A Cox regression approach can be found in [9].
+  </p>
+  <h4>
+   <b>
+    Empirical Observations
+   </b>
+  </h4>
+  <p block-type="Text">
+   There is a large literature on the statistical properties of the observed rating transitions, mainly for firms rated by Moody's and Standard and Poors. It has been acknowledged for a long time that the observed processes are not time homogeneous and not Markov. This is consistent with stated objectives of rating agencies of trying to avoid rating reversals and seeking to change ratings only when the change in credit quality is seen as enduring—a property sometimes referred to as "rating through the cycle". This is in contrast to "point-in-time" rating. The distinction between the two approaches is not rigorous, but a rough indication of the difference is that
+  </p>
+  <p block-type="Text">
+   a primary concern of through-the-cycle rating is the correct ranking of the firm's default probabilities (or expected loss) over a longer time horizon, whereas a point-in-time is more concerned with following actual, shorter-term default probabilities seeking to maintain a constant meaning of riskiness associated with each rating category.
+  </p>
+  <p block-type="TextInlineMath">
+   The degree to which transition probabilities depend on the previous rating history, business cycle variables, and the sector or country to which the rated companies belong has been investigated, for example, in papers
+   <math display="inline">
+    [1, 9, 10]
+   </math>
+   . A good entry into the literature is in the special journal issue introduced by Cantor [3].
+  </p>
+  <p block-type="Text">
+   Rating agencies have a system of modifiers that effectively enlarge the state space. For example, Moody's operates with a watchlist and long-term outlooks. Being on a watchlist signals a high likelihood of rating action in a particular direction in the near future, and outlooks signal longer term likely rating directions. Hamilton and Cantor [7] investigate the performance of ratings when the state space is enlarged with these modifiers and conclude that they go a long way in reducing dependence on rating history.
+  </p>
+  <h2>
+   <b>
+    Correlated Transitions
+   </b>
+  </h2>
+  <p block-type="Text">
+   In risk management, the risk of loan portfolios and exposures to different counterparties in derivatives contracts depends critically on the extent to which the credit ratings of different loans and counterparties are correlated.
+  </p>
+  <p block-type="TextInlineMath">
+   We finish by briefly outlining two ways of incorporating dependence into rating migrations. For the first approach, see, for example, [6]; we map rating probabilities into thresholds. The idea is easily illustrated through an example. If firm 1 is currently rated
+   <math display="inline">
+    i
+   </math>
+   and we know the (say) 1-year transition probabilities
+   <math display="inline">
+    p_{i1}, \ldots, p_{iK}
+   </math>
+   , then we can model the transition to the various categories using a standard Gaussian random variable
+   <math display="inline">
+    \epsilon_1
+   </math>
+   and defining thresholds
+   <math display="inline">
+    a_1 &gt; a_2 &gt; \ldots &gt; a_{K-1}
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{iK} = P(\epsilon_1 \le a_{K-1}) = \Phi(a_{K-1}) \qquad (14)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{i,K-1} = P(a_{K-1} \le \epsilon_1 \le a_{K-2})
+   </math>
+   <br/>
+   =
+   <math>
+    \Phi(a_{K-2}) - \Phi(a_{K-1})
+   </math>
+   (15)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{i1} = P(a_1 &lt; \epsilon_1) = 1 - \Phi(a_1) \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Similarly, for firm 2, we can define thresholds
+   <i>
+    b
+   </i>
+   1
+   <i>
+    ,...,bK
+   </i>
+   <sup>
+    −
+   </sup>
+   <sup>
+    1
+   </sup>
+   and a standard random normal variable
+   <sup>
+    2
+   </sup>
+   so that the transition probabilities are matched as earlier. Letting
+   <sup>
+    1
+   </sup>
+   and
+   <sup>
+    2
+   </sup>
+   be correlated with correlation coefficient
+   <i>
+    ρ
+   </i>
+   induces correlation into the migration patterns of the two firms. This can be extended to a large collection of firms using a full correlation matrix obtained, for example, by looking at equity return correlations.
+  </p>
+  <p block-type="TextInlineMath">
+   A second approach, which makes it possible to link up rating dynamics with continuous-time pricing models, is proposed in [8]. The idea here is to model the "conditional generator" of a Markov process as the product of a constant generator
+   <i>
+   </i>
+   and a strictly positive affine process
+   <i>
+    µ,
+   </i>
+   that is, conditionally on a realization of the process
+   <i>
+    µ,
+   </i>
+   the Markov chain is time non-homogeneous with the transition intensity
+   <i>
+    λij (s)
+   </i>
+   =
+   <i>
+    µ(s)λij .
+   </i>
+   This framework allows for closed form computation of transition probabilities in a setting where rating migrations are correlated through dependence on state variables.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="Text">
+   [1] Altman, E. &amp; Kao, D.L. (1992). The implications of corporate bond rating drift,
+   <i>
+    Financial Analysts Journal
+   </i>
+   <b>
+    48
+   </b>
+   (3), 64–75.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Andersen, P.K., Borgan, O., Gill, R. &amp; Keiding, N. (1993).
+     <i>
+      Statistical Models Based on Counting Processes
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [3] Cantor, R. (2004). An introduction to recent research on credit ratings,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      28
+     </b>
+     , 2565–2573.
+    </li>
+    <li block-type="ListItem">
+     [4] Cantor, R. (2008).
+     <i>
+      Moody's Guidelines for the Withdrawal of Ratings
+     </i>
+     , Rating Methodology, Moody's Investors Service, New York.
+    </li>
+    <li block-type="ListItem">
+     [5] Fledelius, P., Lando, D. &amp; Nielsen, J. (2004). Nonparametric analysis of rating transition and default data,
+     <i>
+      Journal of Investment Management
+     </i>
+     <b>
+      2
+     </b>
+     (2), 71–85.
+    </li>
+    <li block-type="ListItem">
+     [6] Gupton, G., Finger, C. &amp; Bhatia, M. (1997).
+     <i>
+      Credit-Metrics—Technical Document
+     </i>
+     , Morgan Guaranty Trust Company.
+    </li>
+    <li block-type="ListItem">
+     [7] Hamilton, D. &amp; Cantor, R. (2004).
+     <i>
+      Rating Transitions and Defaults Conditional on Watchlists, Outlook and Rating History
+     </i>
+     , Special comment, Moody's Investors Service, New York.
+    </li>
+    <li block-type="ListItem">
+     [8] Lando, D. (1998). On Cox processes and credit risky securities,
+     <i>
+      Review of Derivatives Research
+     </i>
+     <b>
+      2
+     </b>
+     , 99–120.
+    </li>
+    <li block-type="ListItem">
+     [9] Lando, D. &amp; Skødeberg, T. (2002). Analyzing rating transitions and rating drift with continuous observations,
+     <i>
+      The Journal of Banking and Finance
+     </i>
+     <b>
+      26
+     </b>
+     , 423–444.
+    </li>
+    <li block-type="ListItem">
+     [10] Nickell, P., Perraudin, W. &amp; Varotto, S. (2000). Stability of ratings transitions,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      24
+     </b>
+     , 203–227.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   DAVID LANDO
+  </p>
+ </body>
+</html>

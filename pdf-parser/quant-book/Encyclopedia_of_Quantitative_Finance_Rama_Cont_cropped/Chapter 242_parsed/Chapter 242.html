@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Alternating Direction
+   </b>
+   Implicit (ADI) Method
+  </h1>
+  <p block-type="Text">
+   In the Black-Scholes model, option values are characterized as solutions of certain partial differential equations (PDEs) for European options or partial differential inequalities for American options (see Partial Differential Equations). In general, these option values have to be evaluated numerically, for example using the finite difference method (see Finite Difference Methods for Barrier Options; Finite Difference Methods for Early Exercise Options). Unfortunately, when considering the pricing of options depending on several assets, the finite difference method suffers from the curse of dimensionality. The alternating direction implicit (ADI) algorithm of Peaceman-Rachford [8], first proposed for the numerical solution of heat equation in two space dimensions, is to reduce the numerical solution of higher dimensional PDEs to a sequence of steps involving only one-dimensional finite difference operators, involving a simple tridiagonal matrix. The resulting algorithms are memory efficient and easy to parallelize. We illustrate this method in a Black-Scholes model with two risky assets.
+  </p>
+  <h2>
+   <b>
+    Black–Scholes Equation for Multiasset
+   </b>
+   Options
+  </h2>
+  <p block-type="TextInlineMath">
+   Consider a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathcal{F}_t, \mathbb{I}P)
+   </math>
+   and let
+   <math display="inline">
+    (W_t)_{t\geq 0}
+   </math>
+   be a standard bidimensional
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   Brownian motion on it. We consider options written on two dividend-paying stocks whose price
+   <math display="inline">
+    S_t^1
+   </math>
+   ,
+   <math display="inline">
+    S_t^2
+   </math>
+   satisfies the stochastic differential equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_t^i}{S_t^i} = (r - \delta_i) \,\mathrm{d}t + \sum_{j=1}^2 \sigma_{ij} \,\mathrm{d}W_t^j, \quad i = 1, 2 \quad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where r is the interest rate,
+   <math display="inline">
+    \delta_i
+   </math>
+   is the dividend rate of the stock
+   <i>
+    i
+   </i>
+   , and the matrix
+   <math display="inline">
+    \Sigma = (\sigma_{ij})_{1 \le i,j \le n}
+   </math>
+   is assumed to be invertible, which ensures that the market is complete. In this setting, the value at time
+   <math display="inline">
+    t
+   </math>
+   of an European option with maturity
+   <math display="inline">
+    T
+   </math>
+   and payoff function
+   <math display="inline">
+    \psi
+   </math>
+   is given by
+   <math display="inline">
+    U(t, S_t)
+   </math>
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(t,x) = I\!E \left( e^{-r(T-t)} \psi \left( S_T^{t,x} \right) \right) \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   while the value at time
+   <math display="inline">
+    t
+   </math>
+   of an American option with maturity T and payoff function
+   <math display="inline">
+    \psi
+   </math>
+   is given by
+   <math display="inline">
+    U_{am}(t, S_t)
+   </math>
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U_{am}(t,x) = \sup_{\tau \in \mathcal{T}_{0,T-t}} I\!E \left( e^{-r\tau} \psi \left( S^x_{\tau} \right) \right) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathcal{T}_{0,T-t}
+   </math>
+   is the set of all stopping times with values in
+   <math display="inline">
+    [0, T - t]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   To see this, we shall use the following notation:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      \mu
+     </math>
+     is the vector with components
+     <math display="inline">
+      (r  \delta_i  \frac{1}{2} \sum_{j=1}^{2} \sigma_{ij}^{2} \big)_{i=1,2}.
+     </math>
+     &lt;br&gt;
+• for
+     <math display="inline">
+      x = (x_1, x_2) \in \mathbb{R}^2
+     </math>
+     ;
+     <math display="inline">
+      \exp(x) = (e^{x_1}, e^{x_2})
+     </math>
+    </li>
+    <li block-type="ListItem">
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   Hence, if we denote by
+   <math display="inline">
+    S_t^{\exp(x)}
+   </math>
+   the solution of equation (1) with
+   <math display="inline">
+    S_0 = \exp(x)
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t^{\exp(x)} = \exp(x + \mu t + \Sigma W_t) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We make the following change in variables,
+   <math display="inline">
+    \alpha =
+   </math>
+   <math display="inline">
+    \Sigma^{-1}\mu
+   </math>
+   ,
+   <math display="inline">
+    \rho = r + (||\alpha||^2/2)
+   </math>
+   . The Girsanov theorem (Equivalence of Probability Measures) ensures that there exists a probability measure
+   <math display="inline">
+    \mathbb{I}^{P^{(\alpha)}}
+   </math>
+   &lt;br&gt;defined on
+   <math display="inline">
+    (\Omega, \mathcal{F}_T)
+   </math>
+   by
+   <math display="inline">
+    \frac{\mathrm{d}P^{(\alpha)}}{\mathrm{d}P} = M_T^{(\alpha)}
+   </math>
+   , where
+   <math display="inline">
+    M_T^{(\alpha)} =
+   </math>
+   <math display="inline">
+    e^{-\alpha.W_T - \frac{|\alpha|^2}{2}T}
+   </math>
+   such that
+   <math display="inline">
+    (W_t^{(\alpha)} = W_t + \alpha t)_{0 \le t \le T}
+   </math>
+   is a standard
+   <math display="inline">
+    \mathbb{P}^{(\alpha)}
+   </math>
+   -Brownian motion. Therefore, we have for
+   <math display="inline">
+    x \in \mathbb{R}^2
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(t, \exp(x)) = I\!\!E \Big( e^{-r(T-t)} M_{T-t}^{(\alpha)}
+   </math>
+   <math display="block">
+    \times e^{(\alpha.W_{T-t} + |\alpha|^2/2(T-t))} \psi \big( \exp\big(x + \Sigma W_{T-t}^{(\alpha)}\big) \big) \Big)
+   </math>
+   <math display="block">
+    = I\!\!E^{(\alpha)} \big( e^{-\rho(T-t)} e^{\alpha.W_{T-t}^{(\alpha)}} \psi \big( \exp\big(x + \Sigma W_{T-t}^{(\alpha)}\big) \big) \big) \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Define for
+   <math display="inline">
+    y \in \mathbb{R}^2
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(t, y) = I\!E^{(\alpha)} \left( e^{-\rho(T-t)} \phi \left( y + W_{T-t}^{(\alpha)} \right) \right) \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \phi(y) = e^{\alpha y} \psi(\exp(\Sigma y))
+   </math>
+   . We have
+   <math display="inline">
+    U(t,
+   </math>
+   <math display="inline">
+    \exp(\Sigma y) = e^{-\alpha y} V(t, y)
+   </math>
+   , the valuation of an European option is now reduced to the computation of
+   <math display="inline">
+    V.
+   </math>
+   By means of the same transformation, we have
+   <math display="inline">
+    U_{am}(t, \exp(\Sigma y)) = e^{-\alpha y} V_{am}(t, y)
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{am}(t, y) = \sup_{\tau \in \mathcal{T}_{0, T - t}} I\!E^{(\alpha)} \left( e^{-\rho \tau} \phi \left( y + W_{\tau}^{(\alpha)} \right) \right) \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   Introduce the parabolic operator
+   <math display="inline">
+    \mathcal{L}
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}v = \frac{\partial v}{\partial t} + \frac{1}{2}\Delta v - \rho v \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \Delta
+   </math>
+   stands for the Laplacian. Then the function
+   <math display="inline">
+    V
+   </math>
+   is the solution of the following PDE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\mathcal{L}v = 0 \\
+v(T,.) = \phi\n\end{cases} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   while the function
+   <math display="inline">
+    V_{am}
+   </math>
+   satisfies the following obstacle problem on
+   <math display="inline">
+    [0, T] \times \mathbb{R}^2
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \max(\mathcal{L}v, \phi - v) = 0\\ v(T,.) = \phi \end{cases} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   either in the sense of variational inequalities [7] or in the sense of viscosity solutions
+   <math display="inline">
+    [9, \text{Prop } 1.2]
+   </math>
+   (see Monotone Schemes).
+  </p>
+  <h3>
+   <b>
+    ADI Methods
+   </b>
+  </h3>
+  <p block-type="Text">
+   The idea of Peaceman-Rachford ADI methods can be outlined as follows: consider a two-dimensional PDE arising from the valuation of a European option
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial u}{\partial t} + \mathcal{A}u = 0 \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the operator
+   <math display="inline">
+    \mathcal{A}
+   </math>
+   can be decomposed into
+   <math display="inline">
+    \mathcal{A} =
+   </math>
+   <math display="inline">
+    A_1 + A_2
+   </math>
+   where each term acts on one variable. The ADI methods consist in splitting each time interval of length
+   <math display="inline">
+    \Delta t
+   </math>
+   in two subintervals and applying the implicit scheme for
+   <math display="inline">
+    A_1
+   </math>
+   and the explicit scheme for
+   <math display="inline">
+    \mathcal{A}_2
+   </math>
+   on the time interval
+   <math display="inline">
+    [t_n, t_{n+1/2}]
+   </math>
+   and the implicit scheme for
+   <math display="inline">
+    A_2
+   </math>
+   and the explicit scheme for
+   <math display="inline">
+    A_1
+   </math>
+   on the time interval
+   <math display="inline">
+    [t_{n+1/2}, t_{n+1}]
+   </math>
+   . If we denote by
+   <math display="inline">
+    u_n
+   </math>
+   the vector
+   <math display="inline">
+    u(t_n, .)
+   </math>
+   , the ADI methods compute
+   <math display="inline">
+    u_n
+   </math>
+   from
+   <math display="inline">
+    u_{n+1}
+   </math>
+   in two steps as follows: first we compute an intermediate value function
+   <math display="inline">
+    u_{n+1/2}
+   </math>
+   applying the implicit scheme for the differential operator
+   <math display="inline">
+    \mathcal{A}_1
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{n+1} - u_{n+1/2} + \frac{\Delta t}{2} \left( \mathcal{A}_1 u_{n+1/2} + \mathcal{A}_2 u_{n+1} \right) = 0
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   next, we compute
+   <math display="inline">
+    u_n
+   </math>
+   from
+   <math display="inline">
+    u_{n+1/2}
+   </math>
+   applying an implicit scheme to
+   <math display="inline">
+    \mathcal{A}_2
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{n+1/2} - u_n + \frac{\Delta t}{2} \left( \mathcal{A}_1 u_{n+1/2} + \mathcal{A}_2 u_n \right) = 0 \quad (13)
+   </math>
+  </p>
+  <p block-type="Text">
+   Each intermediate equation are afterwards discretized in space using finite difference approximation.
+  </p>
+  <h4>
+   <b>
+    ADI Methods for American Options
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   We now treat the example of pricing of two-asset American options. The first step is to formulate
+   <math display="inline">
+    (10)
+   </math>
+   in a bounded domain, for example on
+   <math display="inline">
+    Q_l = [0, T] \times
+   </math>
+   <math display="inline">
+    \Omega_l
+   </math>
+   where
+   <math display="inline">
+    \Omega_l = ] - l, l[^2]
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \max(\mathcal{L}v_{am}, \phi - v_{am}) = 0\\ v_{am}(T, .) = \phi \end{cases} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with a Dirichlet boundary condition
+   <math display="inline">
+    v_{am} = \phi
+   </math>
+   on
+   <math display="inline">
+    ]0,T[\times \partial \Omega_l.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For the numerical resolution of the obstacle problem
+   <math display="inline">
+    (14)
+   </math>
+   by finite difference methods, we shall introduce a grid of mesh points
+   <math display="inline">
+    (nk, ih, jh)
+   </math>
+   where h, k are mesh parameters that are thought of as tending to zero. Denote by
+   <math display="inline">
+    N = \lceil T/k \rceil
+   </math>
+   and M the greatest integer such that
+   <math display="inline">
+    (M + \frac{1}{2}) h \leq l
+   </math>
+   . For each point
+   <math display="inline">
+    x_{ij} = (ih, jh)
+   </math>
+   , consider a square
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_{ij}^{(h)} = \left] (i - 1/2)h, (i + 1/2)h \right[ \times \left] (j - 1/2)h, (j + 1/2)h \right[ \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   and define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Omega_h = \left\{ x_{ij} \; ; \; C_{ij}^{(h)} \subset \Omega_l \right\}\n
+   </math>
+   <math display="block">
+    \n= \left\{ x_{ij} \; ; \; -M \le i, \, j \le M \right\} \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the sequel,
+   <math display="inline">
+    V_h
+   </math>
+   is the space generated by
+   <math display="inline">
+    \chi_{ij}^{(h)}
+   </math>
+   where
+   <math display="inline">
+    \chi_{ij}^{(h)}
+   </math>
+   is the indicator function of the squares
+   <math display="inline">
+    C_{ij}^{(h)}
+   </math>
+   . If
+   <math display="inline">
+    u_h \in V_h
+   </math>
+   , we write
+   <math display="inline">
+    u_h(x) = \sum_{i,j=-M}^M u_{ij} \chi_{ij}^{(h)}(x)
+   </math>
+   . Note that
+   <math display="inline">
+    u_{ii} = u(ih, jh)
+   </math>
+   . Moreover, we denote by
+   <math display="inline">
+    \phi_{h,k}
+   </math>
+   the approximation of the payoff function
+   <math display="inline">
+    \phi
+   </math>
+   in the grid defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{h,k}(t,x) = \sum_{n=0}^{N} \phi_h(x) \mathbf{1}_{[nk,(n+1)k[}(t))
+   </math>
+   <math display="block">
+    = \sum_{n=0}^{N} \left( \sum_{i,j=-M}^{M} \phi_{ij} \chi_{ij}^{(h)}(x) \right) \mathbf{1}_{[nk,(n+1)k[}(t))}
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \phi_{ij} = \phi(x_{ij})
+   </math>
+   and
+   <math display="inline">
+    \mathbf{1}_I
+   </math>
+   is the indicator function of the interval
+   <math display="inline">
+    I
+   </math>
+   . We replace the Laplacian operator by a finite difference approximation and denote throughout
+  </p>
+  <p block-type="TextInlineMath">
+   the paper A, B the linear operators defined on
+   <math display="inline">
+    V_h
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (Au_h)(x) = \sum_{i,j=-M}^{M} (Au_h)_{ij} \chi_{ij}^{(h)}(x) \qquad (18)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (Bu_h)(x) = \sum_{i,j=-M}^{M} (Bu_h)_{ij} \chi_{ij}^{(h)}(x) \qquad (19)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (Au_h)_{ij} = 1/2(u_{i+1,j} - 2u_{ij} + u_{i-1,j}) \quad (20)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (Bu_h)_{ij} = 1/2(u_{i,j+1} - 2u_{ij} + u_{i,j-1}) \quad (21)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with the convention
+   <math display="inline">
+    u_{ij} = 0
+   </math>
+   if
+   <math display="inline">
+    |i| \geq M + 1
+   </math>
+   and
+   <math display="inline">
+    |j| \geq
+   </math>
+   <math display="inline">
+    M + 1
+   </math>
+   . Finally, we shall denote by
+   <math display="inline">
+    (.,.)_l
+   </math>
+   the inner product on
+   <math display="inline">
+    \Omega_l
+   </math>
+   and
+   <math display="inline">
+    |.|_l = \sqrt{(\cdot,\cdot)_l}
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Dynamic Programming and ADI Method
+   </b>
+  </h2>
+  <p block-type="Text">
+   Barles
+   <i>
+    et al.
+   </i>
+   [1] discuss a splitting method, which can be viewed as an analytic version of the dynamic programming principle: one builds the approximate solution
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{h,k} = \sum_{n=0}^{N} u_h^n(x) \mathbf{1}_{[nk,(n+1)k[}(t))
+   </math>
+   (22)
+  </p>
+  <p block-type="TextInlineMath">
+   in a recursive way, starting from
+   <math display="inline">
+    u_h^N = \phi
+   </math>
+   and computing
+   <math display="inline">
+    u_h^n
+   </math>
+   for
+   <math display="inline">
+    0 &lt; n &lt; N
+   </math>
+   in two steps:
+  </p>
+  <p block-type="Text">
+   <i>
+    First step
+   </i>
+   : One solves the following Cauchy problem on
+   <math display="inline">
+    [nk, (n + 1)k] \times \Omega_l
+   </math>
+   with Dirichlet boundary conditions.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\mathcal{L}v = 0 \\
+v(n+1, .) = u_h^{n+1}(.)\n\end{cases} \n
+   </math>
+   (23)
+  </p>
+  <p block-type="TextInlineMath">
+   and denote the solution by
+   <math display="inline">
+    S(k)[u_h^{n+1}]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <i>
+    Second step
+   </i>
+   : One computes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(n,.) = \max\left(\phi_h(.), S(k)[u_h^{n+1}]\right) \tag{24}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The ADI method consists in splitting the initial system into two intermediate unidimensional linear systems:
+   <math display="inline">
+    u^{n+1}
+   </math>
+   given in
+   <math display="inline">
+    V_h
+   </math>
+   with
+   <math display="inline">
+    u_{ij}^{n+1} = \phi_{ij}
+   </math>
+   if
+   <math display="inline">
+    |i| =
+   </math>
+   <math display="inline">
+    M + 1
+   </math>
+   or
+   <math display="inline">
+    |j| = M + 1
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   One computes an intermediate value function
+   <math display="inline">
+    v_h^{n+1/2} = (v_{ij}^{n+1/2})_{-M \leq i, j \leq M}
+   </math>
+   by
+  </p>
+  <p block-type="TextInlineMath">
+   • for
+   <math display="inline">
+    |i| \leq M - 1
+   </math>
+   and
+   <math display="inline">
+    |j| \leq M - 1
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{u_{ij}^{n+1} - v_{ij}^{n+1/2}}{\frac{k}{2}} + \frac{v_{i+1,j}^{n+1/2} - 2v_{ij}^{n+1/2} + v_{i-1,j}^{n+1/2}}{2h^2} + \frac{u_{i,j+1}^{n+1} - 2u_{ij}^{n+1} + u_{i,j-1}^{n+1}}{2h^2} - \frac{\rho}{2} \left( u_{ij}^{n+1} + v_{ij}^{n+1/2} \right) = 0 \quad (25)
+   </math>
+  </p>
+  <p block-type="Text">
+   for
+   <math display="inline">
+    i = M
+   </math>
+   and
+   <math display="inline">
+    |j| \leq M - 1
+   </math>
+   (right boundary conditions).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{u_{M,j}^{n+1} - v_{M,j}^{n+1/2}}{\frac{k}{2}} + \frac{\phi_{M+1,j} - 2v_{M,j}^{n+1/2} + v_{M-1,j}^{n+1/2}}{2h^2} + \frac{u_{M,j+1}^{n+1} - 2u_{M,j}^{n+1} + u_{M,j-1}^{n+1}}{2h^2} - \frac{\rho}{2} \left( u_{Mj}^{n+1} + v_{Mj}^{n+1/2} \right) = 0 \quad (26)
+   </math>
+  </p>
+  <p block-type="Text">
+   for
+   <math display="inline">
+    i = -M
+   </math>
+   and
+   <math display="inline">
+    |j| \leq M - 1
+   </math>
+   (left boundary con-
+   <math display="inline">
+    \bullet
+   </math>
+   ditions),
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{u_{-M,j}^{n+1} - v_{-M,j}^{n+1/2}}{\frac{k}{2}} + \frac{\phi_{-M-1,j} - 2v_{M,j}^{n+1/2} + v_{-M+1,j}^{n+1/2}}{2h^2} + \frac{u_{-M,j+1}^{n+1} - 2u_{-M,j}^{n+1} + u_{-M,j-1}^{n+1}}{2h^2} - \frac{\rho}{2} \left( u_{-Mj}^{n+1} + v_{-Mj}^{n+1/2} \right) = 0 \quad (27)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the symmetric equations for
+   <math display="inline">
+    |j| = M
+   </math>
+   . In a more compact form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{u^{n+1} - v^{n+1/2}}{\frac{k}{2}} + \frac{Av^{n+1/2} + a}{h^2} + \frac{Bu^{n+1} + b}{h^2} - \frac{\rho}{2} \left( u^{n+1} + v^{n+1/2} \right) = 0 \qquad (28)
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a_{Mj} = \frac{1}{2}\phi_{M+1,j}, \quad a_{-Mj} = \frac{1}{2}\phi_{-M-1,j}
+   </math>
+   <br/>
+   <math display="block">
+    a_{ij} = 0 \quad \text{for } |i| \le M - 1 \tag{29}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    b_{iM} = \frac{1}{2}\phi_{i,M+1}, \quad b_{i,-M} = \frac{1}{2}\phi_{i,-M-1}
+   </math>
+   <math display="block">
+    b_{ij} = 0 \quad \text{for } |j| \le M-1 \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the same
+   <math display="inline">
+    v_{h}^{n} =
+   </math>
+   manner, one computes
+   <math display="inline">
+    (v_{ij}^n)_{-M \leq i,j \leq M}
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{v^{n+1/2} - v^n}{\frac{k}{2}} + \frac{Av^{n+1/2} + a}{h^2} + \frac{Bv^n + b}{h^2} - \frac{\rho}{2} \left( v^n + v^{n+1/2} \right) = 0 \tag{31}
+   </math>
+  </p>
+  <p block-type="Text">
+   Equations
+   <math display="inline">
+    (28)
+   </math>
+   and
+   <math display="inline">
+    (31)
+   </math>
+   give
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left[ \left( 1 + \frac{\rho k}{4} \right) I - \frac{k}{2h^2} A \right] v_h^{n+1/2}
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \left[ \left( 1 - \frac{\rho k}{4} \right) I + \frac{k}{2h^2} B \right] u^{n+1} + \frac{k}{2h^2} (a+b) \quad (32)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left[ \left( 1 + \frac{\rho k}{4} \right) I - \frac{k}{2h^2} B \right] v_h^n\n
+   </math>
+   <math display="block">
+    \n= \left[ \left( 1 - \frac{\rho k}{4} \right) I + \frac{k}{2h^2} A \right] v_h^{n+1/2} + \frac{k}{2h^2} (a+b) \quad (33)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If we set
+   <math display="inline">
+    \eta_{h,k} = \frac{k}{2h^2}(a+b)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_{h,k}^{+} = \left(1 + \frac{\rho k}{4}\right)I - \frac{k}{2h^{2}}A
+   </math>
+   <math display="block">
+    A_{h,k}^{-} = \left(1 - \frac{\rho k}{4}\right)I + \frac{k}{2h^{2}}A \tag{34}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B_{h,k}^{+} = \left(1 + \frac{\rho k}{4}\right)I - \frac{k}{2h^{2}}B
+   </math>
+   <math display="block">
+    B_{h,k}^{-} = \left(1 - \frac{\rho k}{4}\right)I + \frac{k}{2h^{2}}B \tag{35}
+   </math>
+  </p>
+  <p block-type="Text">
+   one obtains
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\nA_{h,k}^{+}v^{n+1/2} = B_{h,k}^{-}u^{n+1} + \eta_{h,k} \\
+B_{h,k}^{+}v^{n} = A_{h,k}^{-}v^{n+1/2} + \eta_{h,k}\n\end{cases} \n\tag{36}
+   </math>
+  </p>
+  <p block-type="Text">
+   Finally, the computation of
+   <math display="inline">
+    u_h^n
+   </math>
+   may be summarized by:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_h^n = \max\left(\phi_h, T_{h,k}[u_h^{n+1}]\right)
+   </math>
+  </p>
+  <p block-type="Text">
+   where the operator
+   <math display="inline">
+    T_{h,k}
+   </math>
+   is defined on
+   <math display="inline">
+    V_h
+   </math>
+   by:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_{h,k}[u_h] = (A_{h,k}^+)^{-1} (B_{h,k}^+)^{-1} A_{h,k}^- B_{h,k}^- [u_h]
+   </math>
+   <br/>
+   <math display="block">
+    + (A_{h,k}^+)^{-1} (B_{h,k}^+)^{-1} A_{h,k}^- \eta_{h,k}
+   </math>
+   (37)
+   <br/>
+   <math display="block">
+    + (B_{h,k}^+)^{-1} \eta_{h,k}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   in which one implicitly used the fact that
+   <math display="inline">
+    (A_{h,k}^+)^{-1}
+   </math>
+   ,
+   <math display="inline">
+    (B_{h,k}^+)^{-1}, A_{h,k}^- \text{ and } B_{h,k}^- \text{ commute.}
+   </math>
+  </p>
+  <p block-type="Text">
+   Villeneuve and Zanette have proved the stability and the convergence of this scheme (see [9, Proposition 2.4 and Theorem 2.1]). Under a condition on the mesh parameters of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{h,k\downarrow 0} \frac{k}{h^2} = 0\tag{38}
+   </math>
+  </p>
+  <p block-type="Text">
+   From a numerical viewpoint, the systems (28) and (31) involve a tridiagonal matrix. Therefore, each intermediate system can be easily solved by Gaussian elimination, which takes part in the accuracy of the ADI method.
+  </p>
+  <h1>
+   <b>
+    Linear Complementarity Problem
+   </b>
+   and ADI Method
+  </h1>
+  <p block-type="Text">
+   In this section, we describe a second numerical method, which adapts the ADI algorithm to solve the linear complementarity problem (LCP) arising from the discretization of the parabolic variational inequalities related to the pricing of American options.
+  </p>
+  <p block-type="Text">
+   When the American option value is computed using standard finite differences approximation, one obtains finite dimensional LCP as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    AU \leq b
+   </math>
+   <br/>
+   <math display="block">
+    U \geq \psi
+   </math>
+   <br/>
+   <math display="block">
+    (U - \psi)^{\mathrm{T}} (AU - b) = 0
+   </math>
+   (39)
+  </p>
+  <p block-type="TextInlineMath">
+   where U is the
+   <math display="inline">
+    (M + 1)^2
+   </math>
+   vector of American option values on the space grid and
+   <math display="inline">
+    A
+   </math>
+   is a block tridiagonal matrix.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   There is an extensive literature on the resolution of LCPs and a complete survey can be found in [3]. In particular, the matrix
+   <math display="inline">
+    A
+   </math>
+   of the LCP arising from a variational inequality exhibits special properties like sparseness, which make it possible to use efficient
+  </p>
+  <p block-type="Text">
+   algorithms including projected SOR [4] or direct pivoting methods [5].
+  </p>
+  <p block-type="Text">
+   Once again, the idea of the ADI method is to exploit the rapid
+   <math display="inline">
+    LU
+   </math>
+   decomposition algorithm for tridiagonal matrices by solving recursively a sequence of
+   <i>
+    one-dimensional
+   </i>
+   linear complementarity problems involving a tridiagonal matrix. Speed and flexibility of ADI methods come again from this decomposition:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{h,k}(t,x) = \sum_{n=0}^{N-1} \left( u_h^n(x) \mathbf{1}_{[nk,(n+1/2)k]}(t) + u_h^{n+1/2}(x) \mathbf{1}_{[(n+1/2)k,(n+1)k]}(t) \right) + u_h^N \mathbf{1}_{[Nk,(N+1/2)k]}(t) \tag{40}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    u_h^0, u_h^{1/2}, \ldots, u_h^N
+   </math>
+   are the elements of the vector space
+   <math display="inline">
+    V_h
+   </math>
+   satisfying the variational inequalities:
+  </p>
+  <p block-type="TextInlineMath">
+   complementarity problems (see the next proposition): pivoting methods (algorithms of Cryer [5], Brennan-Schwartz [2]) and iterative methods (e.g., PSOR [4]) (see Finite Difference Methods for Early Exercise
+   <b>
+    Options
+   </b>
+   ). In the sequel, we specify the computational treatment of equation (41). The inner product in
+   <math display="inline">
+    R^{d^2}
+   </math>
+   is denoted by
+   <math display="inline">
+    (u, v)
+   </math>
+   and we write
+   <math display="inline">
+    u &gt; v
+   </math>
+   if
+   <math display="inline">
+    u_i &gt; v_i
+   </math>
+   for all
+   <math display="inline">
+    i \in \{1, \ldots, d^2\}
+   </math>
+   . The variational inequality (41) becomes a linear complementarity problem in finite dimensions:
+  </p>
+  <p block-type="TextInlineMath">
+   Proposition 1 (Linear complementarity problem [3, 7]). Let A a
+   <math display="inline">
+    d^2 \times d^2
+   </math>
+   matrix and
+   <math display="inline">
+    u, \theta, \phi \in R^{d^2}
+   </math>
+   . The following systems are equivalent:
+  </p>
+  <p block-type="Equation">
+   •
+   <math display="block">
+    (S)Au \ge \theta, \quad u \ge \phi
+   </math>
+   <br/>
+   <math>
+    (Au - \theta, \phi - u) = 0
+   </math>
+   (44)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n u_{h}^{N} = \phi_{h} \text{ and } \forall n \leq N - 1 \\
+\forall v_{h} \geq \phi_{h} \quad \left( \frac{u_{h}^{n+1} - u_{h}^{n+1/2}}{\frac{k}{2}} + \frac{1}{h^{2}} A u_{h}^{n+1/2} + \frac{1}{h^{2}} B u_{h}^{n+1} - \frac{\rho}{2} \left( u_{h}^{n+1/2} + u_{h}^{n+1} \right), v_{h} - u_{h}^{n+1/2} \right)_{l} \leq 0 \\
+\forall v_{h} \geq \phi_{h} \quad \left( \frac{u_{h}^{n+1/2} - u_{h}^{n}}{\frac{k}{2}} + \frac{1}{h^{2}} A u_{h}^{n+1/2} + \frac{1}{h^{2}} B u_{h}^{n} - \frac{\rho}{2} \left( u_{h}^{n+1/2} + u_{h}^{n} \right), v_{h} - u_{h}^{n} \right)_{l} \leq 0\n\end{cases} \tag{41}
+   </math>
+  </p>
+  <p block-type="Text">
+   with the Dirichlet conditions
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \sim N
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \forall n \quad u_h^n(x_{ij}) = u_h^{n+1/2}(x_{ij}) = \phi_{ij}
+   </math>
+   <br/>
+   for
+   <math>
+    |i| = M
+   </math>
+   and
+   <math>
+    |j| = M
+   </math>
+   (42)
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \sim
+   </math>
+   <math display="inline">
+    \sim
+   </math>
+  </p>
+  <p block-type="Text">
+   As usual, we had rather write the system in the following more compact form:
+  </p>
+  <p block-type="Text">
+   ...
+  </p>
+  <p block-type="Equation">
+   •
+   <math display="block">
+    (S')u \ge \phi, \quad \forall v \ge \phi
+   </math>
+   <br/>
+   <math>
+    (Au - \theta, v - u) \ge 0
+   </math>
+   (45)
+  </p>
+  <p block-type="TextInlineMath">
+   For any matrix
+   <math display="inline">
+    u = (u_{ij})_{1 \le i, j \le d}
+   </math>
+   , we choose one of the most obvious methods of ordering
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u = [u_{11}, \dots, u_{d1}, \dots, u_{1d}, \dots, u_{dd}] \tag{46}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} u_{h}^{n} = \phi_{h} \text{ and } \forall n \leq N - 1\\ \forall v_{h} \geq \phi_{h} \quad \left( \left( I + \frac{k}{2h^{2}} B - \frac{\rho}{2} \right) u^{n+1} - \left( I - \frac{k}{2h^{2}} A + \frac{\rho}{2} \right) u_{h}^{n+1/2}, v_{h} - u_{h}^{n+1/2} \right)_{l} \leq 0\\ \forall v_{h} \geq \phi_{h} \quad \left( \left( I + \frac{k}{2h^{2}} B - \frac{\rho}{2} \right) u^{n} - \left( I - \frac{k}{2h^{2}} A + \frac{\rho}{2} \right) u_{h}^{n+1/2}, v_{h} - u_{h}^{n} \right)_{l} \leq 0 \end{cases} \tag{43}
+   </math>
+  </p>
+  <p block-type="Text">
+   From a theoretical viewpoint, Villeneuve and Zanette
+   <math display="inline">
+    [9, Theorem 3.2]
+   </math>
+   have proved the convergence of this approximation procedure, using the weaker notion of quadratic convergence.
+  </p>
+  <p block-type="Text">
+   From a numerical viewpoint, there are mainly two families for solving variational inequalities in finite dimension by exploiting their link with linear
+  </p>
+  <p block-type="TextInlineMath">
+   The ADI scheme (41) consists in approximating
+   <math display="inline">
+    u(nk, ih, jh)_{0 \le n \le N; -M \le i, j \le M}
+   </math>
+   by
+   <math display="inline">
+    (u_{ij}^n)
+   </math>
+   ordered in the way defined above by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{ij}^{N} = \phi(ih, jh) = \phi_{ij} \qquad \text{for } -M \le i, j \le M \tag{47}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and for
+   <math display="inline">
+    0 \le n \le N-1
+   </math>
+   and
+   <math display="inline">
+    -M \le i, j \le M
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} u_{ij}^{n+1/2} \geq \phi_{ij} \text{ and } u_{ij}^{n} \geq \phi_{ij} \\ u_{ij}^{n+1/2} = \phi_{ij} \text{ and } u_{ij}^{n} = \phi_{ij} \text{ for } |i| = M+1 \text{ or } |j| = M+1 \\ \frac{-1}{2} u_{i+1,j}^{n+1/2} + \alpha u_{ij}^{n+1/2} - \frac{1}{2} u_{i-1,j}^{n+1/2} \geq \frac{-1}{2} u_{i+1,j}^{n+1} + \alpha u_{ij}^{n+1} - \frac{1}{2} u_{i-1,j}^{n+1} \\ \left( \left( \frac{-1}{2} u_{i+1,j}^{n+1/2} + \alpha u_{ij}^{n+1/2} - \frac{1}{2} u_{i-1,j}^{n+1/2} \right) - \frac{1}{2} u_{i+1,j}^{n+1} - \alpha u_{ij}^{n+1} + \frac{1}{2} u_{i-1,j}^{n+1} u_{ij}^{n+1/2} - \phi_{ij} \right) = 0 \\ \frac{-1}{2} u_{i,j+1}^{n} + \alpha u_{ij}^{n} - \frac{1}{2} u_{i,j-1}^{n} \geq \frac{-1}{2} u_{i,j+1}^{n+1/2} + \alpha u_{ij}^{n+1/2} - \frac{1}{2} u_{i,j-1}^{n+1/2} \\ \left( \left( \frac{-1}{2} u_{i,j+1}^{n} + \alpha u_{ij}^{n} - \frac{1}{2} u_{i,j-1}^{n} \right) - \left( \frac{-1}{2} u_{i,j+1}^{n+1/2} + \alpha u_{ij}^{n+1/2} - \frac{1}{2} u_{i,j-1}^{n+1/2} \right), u_{ij}^{n} - \phi_{ij} \right) = 0 \end{cases} \tag{48}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \alpha = \left(1 + \frac{\rho k}{4} - \frac{k}{2h^2}\right)
+   </math>
+   . The Kronecker product of two matrices
+   <math display="inline">
+    M, N \in \mathcal{M}_d(R)
+   </math>
+   is the
+   <math display="inline">
+    d^2 \times d^2
+   </math>
+   matrix denoted by
+   <math display="inline">
+    M \otimes N
+   </math>
+   with entries
+   <math display="inline">
+    (M \otimes N)_{ij} = M_{ij}N
+   </math>
+   for
+   <math display="inline">
+    1 \leq i, j \leq d
+   </math>
+   . To take into account the boundary conditions, for
+   <math display="inline">
+    u \in \mathcal{M}_{d^2}(R)
+   </math>
+   with
+   <math display="inline">
+    d = 2M + 1
+   </math>
+   , we define
+   <math display="inline">
+    \bar{u} \in \mathcal{M}_{d^2}(R)
+   </math>
+   with components
+   <math display="inline">
+    i = 1
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \bar{u}_{11} = u_{11} - \frac{k}{h^2} (\phi(-(M+1)h, -Mh) + \phi(-Mh, -(M+1)h)) \\ \bar{u}_{1j} = u_{1j} - \frac{k}{h^2} (\phi(-(M+1)h, (-M+1) + j)h)) \quad 2 \le j \le d-1 \\ \bar{u}_{1d} = u_{1d} - \frac{k}{h^2} (\phi(-(M+1)h, Mh) + \phi(-Mh, (M+1)h)) \end{cases} \tag{49}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    2 \le i \le d-1
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \bar{u}_{i1} = u_{i1} - \frac{k}{h^2} (\phi((-(M+1)+i)h, -(M+1)h))
+   </math>
+   <br/>
+   <math display="block">
+    \bar{u}_{ij} = u_{ij}\bar{u}_{id} = u_{id} - \frac{k}{h^2} (\phi((-(M+1)+i)h, (M+1)h))
+   </math>
+   <br/>
+   (50)
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    i = d
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \bar{u}_{d1} = u_{d1} - \frac{k}{h^2} (\phi((M+1)h, -Mh) + \phi(Mh, -(M+1)h))
+   </math>
+   <br/>
+   <math display="block">
+    \bar{u}_{dj} = u_{dj} - \frac{k}{h^2} (\phi((M+1)h, -(M+1) + j)h)) \quad 2 \le j \le d-1
+   </math>
+   <br/>
+   <math display="block">
+    \bar{u}_{dd} = u_{dd} - \frac{k}{h^2} (\phi((M+1)h, Mh) + \phi(Mh, (M+1)h))
+   </math>
+   <br/>
+   (51)
+  </p>
+  <p block-type="Text">
+   Then, the linear complementary problem can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n u^{n+1/2} \geq \phi_{h} \text{ and } u^{n} \geq \phi_{h} \\
+ \left[ I \otimes \left( I + \frac{\rho k}{2} I - \frac{k}{2h^{2}} T \right) \right] u^{n+1/2} \geq \left[ I \otimes \left( I - \frac{\rho k}{2} I + \frac{k}{2h^{2}} T \right) \right] \bar{u}^{n+1} \\
+ \left( I \otimes \left( I + \frac{\rho k}{2} I - \frac{k}{2h^{2}} T \right) u^{n+1/2} - I \otimes \left( I - \frac{\rho k}{2} I + \frac{k}{2h^{2}} T \right) \bar{u}^{n+1}, u^{n+1/2} - \phi \right) = 0 \\
+ \left[ \left( I + \frac{\rho k}{2} I - \frac{k}{2h^{2}} T \right) \otimes I \right] u^{n} \geq \left[ \left( I - \frac{\rho k}{2} I + \frac{k}{2h^{2}} T \right) \otimes I \right] \bar{u}^{n+1/2} \\
+ \left( \left[ \left( I + \frac{\rho k}{2} I - \frac{k}{2h^{2}} T \right) \otimes I \right] u^{n} - \left[ \left( I - \frac{\rho k}{2} I + \frac{k}{2h^{2}} T \right) \otimes I \right] \bar{u}^{n+1/2}, u^{n} - \phi \right) = 0\n\end{cases} \tag{52}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T = \begin{pmatrix} -2 &amp; 1 &amp; \cdots &amp; \cdots &amp; 0 \\ 1 &amp; -2 &amp; 1 &amp; \cdots &amp; 0 \\ \vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\ \vdots &amp; \vdots &amp; 1 &amp; -2 &amp; 1 \\ 0 &amp; \cdots &amp; \cdots &amp; 1 &amp; -2 \end{pmatrix} \tag{53}
+   </math>
+  </p>
+  <p block-type="Text">
+   Hence, the pricing of the American option defined by
+   <math display="inline">
+    \phi
+   </math>
+   is now reduced to the computation of the bidimensional linear complementarity problem (52), which has been split in two intermediate unidimensional linear complementarity problems involving a tridiagonal matrix.
+  </p>
+  <p block-type="Text">
+   To summarize, ADI methods
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     are competitive in terms of speed of computation . in comparison with standard iterative methods used in financial literature for solving linear complementarity problems;
+    </li>
+    <li block-type="ListItem">
+     lead to algorithms that are very easy to implement . in the Black-Scholes setting; and
+    </li>
+    <li block-type="ListItem">
+     are unconditionally stable for the
+     <math display="inline">
+      L^2
+     </math>
+     norm [6], which simplifies their implementation in practice.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="Text">
+   [1] Barles, G., Daher, Ch. &amp; Romano, M. (1995). Convergence of numerical Schemes for problems arising in Finance theory, Mathematical Models and Methods in Applied sciences
+   <math display="inline">
+    5(1)
+   </math>
+   ,
+   <math display="inline">
+    125-143
+   </math>
+   .
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Brennan, M.J. &amp; Schwartz, E. (1977). The valuation of the American put option, Journal of Finance 32, 449–462.
+    </li>
+    <li block-type="ListItem">
+     [3] Cottle, R.W., Pang, J.S. &amp; Stone, R.E. (1992). The Linear Complementarity Problem, Academic Press.
+    </li>
+    <li block-type="ListItem">
+     [4] Cryer, C.W. (1971). The solution of a quadratic programming problem using systematic overrelaxation, SIAM Journal on Control and Optimization 9, 385–392.
+    </li>
+    <li block-type="ListItem">
+     [5] Cryer, C.W. (1983). The efficient solution of linear complementarity problems for tridiagonal Minkowski matrices, ACM Transactions on Mathematical Software 9, 199-214.
+    </li>
+    <li block-type="ListItem">
+     [6] Hout, K.J. &amp; Welfert, B.D. (2007). Stability of ADI schemes applied to convestion-diffusion equations with mixed derivative terms, Applied Numerical Mathematics 57, 19-35.
+    </li>
+    <li block-type="ListItem">
+     [7] Jaillet, P., Lamberton, D. &amp; Lapeyre, B. (1990). Variational inequalities and the pricing of the American options, Acta Applicandae Mathematicae 21, 263-289.
+    </li>
+    <li block-type="ListItem">
+     [8] Peaceman, P.W. &amp; Rachford, H.H. (1955). The numerical solution of Parabolic and Elliptic differential equation, Journal of the Society for Industrial and Applied Mathematics 3, 28-42.
+    </li>
+    <li block-type="ListItem">
+     [9] Villeneuve, S. &amp; Zanette, A. (2002). Parabolic A.D.I. methods for pricing American options on two stocks, Mathematics of Operation Research 27(1), 121-149.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   STÉPHANE VILLENEUVE
+  </p>
+ </body>
+</html>

@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    LIBOR Market Models:
+   </b>
+   Simulation
+  </h1>
+  <p block-type="Text">
+   The Libor market (LM) model (see LIBOR Market Model) involves a large number of Markov state variables—namely, the full number of Libor forward rates on the yield curve plus any additional variables such as stochastic volatility—so finite difference methods are rarely applicable, and securities pricing will nearly always require Monte Carlo methods. The specific form of the stochastic differential equations (SDEs) governing the dynamics of forward Libor rates gives rise to some specialized approaches, as well as to particular challenges, that are covered in this article. The notation used throughout is that of LIBOR Market Model.
+  </p>
+  <h2>
+   <b>
+    Euler-type Schemes
+   </b>
+  </h2>
+  <h2>
+   Basic Stepping Method
+  </h2>
+  <p block-type="TextInlineMath">
+   Assume that we stand at time
+   <math display="inline">
+    t
+   </math>
+   , and Libor forwards
+   <math display="inline">
+    (L)
+   </math>
+   maturing at all dates in the tenor structure are known. We wish to devise a scheme to advance time to
+   <math display="inline">
+    t + \Delta
+   </math>
+   and construct a sample&lt;sup&gt;a&lt;/sup&gt; of
+   <math display="inline">
+    L_{q(t+\Delta)}(t + \Delta)
+   </math>
+   <math display="inline">
+    \Delta
+   </math>
+   ),...,
+   <math display="inline">
+    L_{N-1}(t+\Delta)
+   </math>
+   . Notice that
+   <math display="inline">
+    q(t+\Delta)
+   </math>
+   may or may not exceed
+   <math display="inline">
+    q(t)
+   </math>
+   ; if it does, some of the front-end forward rates expire and "drop off" the curve in the move to
+   <math display="inline">
+    t + \Delta
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Under the spot measure
+   <math display="inline">
+    \mathbf{P}^B
+   </math>
+   , general LM model dynamics are of the form (see LIBOR Market Model)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dL_n(t) = \sigma_n(t)^{\top} \left(\mu_n(t) dt + dW_B(t)\right),
+   </math>
+   <br/>
+   <math display="block">
+    \mu_n(t) = \sum_{j=q(t)}^n \frac{\tau_j \sigma_j(t)}{1 + \tau_j L_j(t)} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma_n(t)
+   </math>
+   are adapted vector-valued volatility functions and
+   <math display="inline">
+    W_B
+   </math>
+   is an
+   <i>
+    m
+   </i>
+   -dimensional Brownian motion in measure
+   <math display="inline">
+    \mathbf{P}^B
+   </math>
+   . The simplest way of drawing an approximate sample
+   <math display="inline">
+    \hat{L}_n(t + \Delta)
+   </math>
+   for
+   <math display="inline">
+    L_n(t + \Delta)
+   </math>
+   would be to apply a first-order Euler-type scheme,&lt;sup&gt;b&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   Euler :
+   <math display="block">
+    \hat{L}_n(t + \Delta)
+   </math>
+   <br/>
+   =
+   <math>
+    \hat{L}_n(t) + \sigma_n(t)^{\top} \left(\mu_n(t)\Delta + \sqrt{\Delta}z\right)
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   log-Euler :
+   <math display="inline">
+    \hat{L}_n(t+\Delta)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = \hat{L}_n(t) \exp\left\{\frac{\sigma_n(t)^{\top}}{\hat{L}_n(t)} \left(\mu_n(t)\Delta - \frac{1}{2}\frac{\sigma_n(t)}{\hat{L}_n(t)}\Delta + \sqrt{\Delta}z\right)\right\}
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   where z is a vector of m independent
+   <math display="inline">
+    \mathcal{N}(0, 1)
+   </math>
+   Gaussian draws. For specifications of
+   <math display="inline">
+    \sigma_n(t)^\top
+   </math>
+   that are close to proportional in
+   <math display="inline">
+    L_n(t)
+   </math>
+   (e.g., the lognormal LM model), the log-Euler scheme
+   <math display="inline">
+    (3)
+   </math>
+   can be expected to produce lower biases than the Euler scheme (2). The log-Euler scheme will keep forward rates positive, whereas the Euler scheme will not.
+  </p>
+  <p block-type="Text">
+   As shown, both schemes
+   <math display="inline">
+    (2)
+   </math>
+   and
+   <math display="inline">
+    (3)
+   </math>
+   advance time only by a single time step, but creation of a full path of forward curve evolution through time is merely a matter of repeated application of the single-period stepping schemes on a (possibly nonequidistant) time line
+   <math display="inline">
+    t_0, t_1, \ldots
+   </math>
+  </p>
+  <p block-type="Text">
+   While Euler-type schemes such as
+   <math display="inline">
+    (2)
+   </math>
+   and
+   <math display="inline">
+    (3)
+   </math>
+   are not very sophisticated and result in rather slow convergence of the discretization bias
+   <math display="inline">
+    (O(\Delta))
+   </math>
+   , these schemes are appealing in their straightforwardness and universal applicability.
+  </p>
+  <h2>
+   Iterative Drift Calculations
+  </h2>
+  <p block-type="TextInlineMath">
+   In the straight Euler scheme (2), the computational effort involved in advancing
+   <math display="inline">
+    L_n
+   </math>
+   is dominated by the computation of
+   <math display="inline">
+    \mu_n(t)
+   </math>
+   which, in a direct implementation of equation (1), involves
+   <math display="inline">
+    m \cdot (n - q(t) + 1) =
+   </math>
+   <math display="inline">
+    O(mn)
+   </math>
+   operations for a given value of n. To advance all
+   <math display="inline">
+    N - q(t + \Delta)
+   </math>
+   forwards, it follows that the computational effort is
+   <math display="inline">
+    O(mN^2)
+   </math>
+   for a single time step. Generation of a full path of forward curve scenarios from time 0 to time
+   <math display="inline">
+    T_{N-1}
+   </math>
+   will thus require a total computational effort of
+   <math display="inline">
+    O(mN^3)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   A simple observation allows one to substantially reduce the computational effort. Invoking the recursive relationship
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu_n(t) = \mu_{n-1}(t) + \frac{\tau_n \sigma_n(t)}{1 + \tau_n \hat{L}_n(t)} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   allows one to compute all
+   <math display="inline">
+    \mu_n
+   </math>
+   ,
+   <math display="inline">
+    n = q(t+\Delta)
+   </math>
+   , ...,
+   <math display="inline">
+    N-1
+   </math>
+   , by an
+   <math display="inline">
+    O(N)
+   </math>
+   -step iteration starting from
+   <math display="inline">
+    \mu_{q(t+\Delta)}(t)
+   </math>
+   <math display="inline">
+    = \sum_{j=q(t)}^{q(t+\Delta)} \tau_j \sigma_j(t) / (1+\tau_j \hat{L}_j(t)).
+   </math>
+   In total, the computational effort of advancing the full curve one-
+  </p>
+  <p block-type="TextInlineMath">
+   time step will be
+   <i>
+    O(mN )
+   </i>
+   , and the cost of taking
+   <i>
+    N
+   </i>
+   such time steps will be
+   <i>
+    O(mN
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    )
+   </i>
+   —and not
+   <i>
+    O(mN
+   </i>
+   <sup>
+    3
+   </sup>
+   <i>
+    )
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   This reduction in effort is discussed, in considerable level of detail, in [6]. It can be verified to hold for any of the probability measures used in LM modeling; the starting point of recursions would depend on which measure is used.
+  </p>
+  <h2>
+   <i>
+    Long Time Steps
+   </i>
+  </h2>
+  <p block-type="Text">
+   Most exotic interest rate derivatives involve revolving cash flows paid on a tightly spaced schedule (e.g., quarterly). Hence, the average time spacing used in path generation will thus normally, by necessity, be quite small. In certain cases, however, there may be large gaps between cash flow dates, for example, when a security is forward-starting or has an initial lockout period. One may want, then, to be able to take a "large" time step in the simulation; here "large" is defined as spanning more than one period in the tenor structure.
+  </p>
+  <p block-type="Text">
+   When taking large time steps in simulation, not all probability measures are equally useful. In particular, the usage of the spot measure
+   <b>
+    P
+   </b>
+   <i>
+    <sup>
+     B
+    </sup>
+   </i>
+   is inconvenient, as skipping over points in the tenor structure will preclude one from "rolling"
+   <i>
+    B(t)
+   </i>
+   correctly. Circumventing this issue, however, is merely a matter of changing the numeraire from
+   <i>
+    B
+   </i>
+   to an asset that involves no rollover in the time step in question. For instance, we could use the discount bond
+   <i>
+    P (t, TN )
+   </i>
+   , the choice of which corresponds to running simulated paths in the terminal measure. Model dynamics under this measure are given in
+   <b>
+    LIBOR Market Model
+   </b>
+   .
+  </p>
+  <h1>
+   <b>
+    Other Simulation Schemes
+   </b>
+  </h1>
+  <p block-type="Text">
+   When simulating on a reasonably tight time schedule, the performance of the Euler scheme is often sufficiently accurate to serve as the default scheme for many types of LM models. However, as discussed above, in some cases, it could be beneficial to use coarse time steps in some parts of the path-generation algorithm, requiring one to pay more attention to the discretization scheme.
+  </p>
+  <p block-type="Text">
+   <i>
+    Special-purpose Schemes with Drift Predictor–Corrector
+   </i>
+  </p>
+  <p block-type="Text">
+   In integrated form, the general LM dynamics in equation (1) become
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_n(t + \Delta) = L_n(t) + \int_t^{t+\Delta} \sigma_n(u)^\top \mu_n(u) \, du
+   </math>
+   <math display="block">
+    + \int_t^{t+\Delta} \sigma_n(u)^\top \, dW_B(u)
+   </math>
+   <math display="block">
+    \equiv L_n(t) + D_n(t + \Delta) + M_n(t + \Delta) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    Mn
+   </i>
+   and
+   <i>
+    Dn
+   </i>
+   is a martingale and a predictable process, respectively, on the interval [
+   <i>
+    t,t
+   </i>
+   + ]. In many cases of practical interest, high-performance special-purpose schemes exist for simulation of the martingale process
+   <i>
+    Mn
+   </i>
+   . A simple approach is to use Euler stepping for the predictable part,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{L}_n(t+\Delta) = \hat{L}_n(t) + \sigma_n(t)^\top \mu_n(t) \Delta + \hat{M}_n(t+\Delta)
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    M
+   </i>
+   ˆ
+   <i>
+    n(t
+   </i>
+   +
+   <i>
+    )
+   </i>
+   is generated by a special-purpose scheme.
+  </p>
+  <p block-type="Text">
+   The drift adjustments in equation (6) are explicit in nature, as they are based only on the forward curve at time
+   <i>
+    t
+   </i>
+   . To incorporate information from time
+   <i>
+    t
+   </i>
+   + , one can use the
+   <i>
+    predictor–corrector
+   </i>
+   scheme, see [8] and
+   <b>
+    Monte Carlo Simulation for Stochastic Differential Equations
+   </b>
+   , which for equation (6) takes the two-step form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \bar{L}_n(t+\Delta) \\ &amp;= \hat{L}_n(t) + \sigma_n\big(t; \big\{\hat{L}_i(t)\big\}\big)^\top \mu_n\big(t; \big\{\hat{L}_i(t)\big\}\big) \,\Delta \\ &amp;+ \hat{M}_n(t+\Delta) \end{split} \tag{7}
+   </math>
+   <math display="block">
+    \begin{split} \hat{L}_n(t+\Delta) \\ &amp;= \hat{L}_n(t) + \theta \sigma_n\big(t; \big\{\hat{L}_i(t)\big\}\big)^\top \mu_n\big(t; \big\{\hat{L}_i(t)\big\}\big) \,\Delta \\ &amp;+ (1-\theta)\sigma_n\left(t+\Delta; \big\{\bar{L}_i(t+\Delta)\big\}\right)^\top \\ &amp;\times \mu_n\left(t+\Delta; \big\{\bar{L}_i(t+\Delta)\big\}\right) \,\Delta + \hat{M}_n(t+\Delta) \end{split} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   where
+   <i>
+    θ
+   </i>
+   is a parameter in [0
+   <i>
+    ,
+   </i>
+   1] that determines the degree of implicitness in the scheme (
+   <i>
+    θ
+   </i>
+   = 1: fully explicit;
+   <i>
+    θ
+   </i>
+   = 0: fully implicit). In practice, one would
+  </p>
+  <p block-type="TextInlineMath">
+   nearly always make the balanced choice of
+   <math display="inline">
+    \theta = 1/2
+   </math>
+   . In equations
+   <math display="inline">
+    (7)
+   </math>
+   and
+   <math display="inline">
+    (8)
+   </math>
+   the short-hand notation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu_n\left(t;\left\{\hat{L}_i(t)\right\}\right)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is used to indicate that
+   <math display="inline">
+    \mu_n
+   </math>
+   (and
+   <math display="inline">
+    \sigma_n
+   </math>
+   ) may depend on the state of the entire forward curve at time
+   <math display="inline">
+    t
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Clearly, the same idea could be developed with the log-Euler scheme
+   <math display="inline">
+    (3)
+   </math>
+   as a starting point.
+  </p>
+  <p block-type="Text">
+   While the weak convergence order of simulation schemes may not be affected by predictor-corrector schemes, experiments show that equations
+   <math display="inline">
+    (7)
+   </math>
+   and
+   <math display="inline">
+    (8)
+   </math>
+   often will reduce the bias significantly relative to a fully explicit Euler scheme. Some results (and further refinements) can be found in
+   <math display="inline">
+    [4, 9]
+   </math>
+   and
+   <math display="inline">
+    [10]
+   </math>
+   . As the computational effort of computing the predictorstep is not insignificant, the speed-accuracy trade-off must be evaluated on a case-by-case basis.
+  </p>
+  <h2>
+   Further Refinements of Drift Estimation
+  </h2>
+  <p block-type="Text">
+   For large time steps, it may be useful to explicitly integrate the time-dependent parts of the drift, rather than rely on pure Euler-type approximations. Focusing on, say, equation (6), assume that one can write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_n(u)^{\top} \mu_n(u) \approx f\left(u, \{L_i(t)\}\right), \quad u \ge t \qquad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   for a function
+   <math display="inline">
+    f
+   </math>
+   that depends on time as well as the state of the forward curve frozen at time
+   <math display="inline">
+    t
+   </math>
+   . Then,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D_n(t + \Delta) = \int_t^{t+\Delta} \sigma_n(u)^\top \mu_n(u) \, \mathrm{d}u
+   </math>
+   <math display="block">
+    \approx \int_t^{t+\Delta} f\left(u, \{L_i(t)\}\right) \, \mathrm{d}u \qquad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   As f evolves deterministically for
+   <math display="inline">
+    u &gt; t
+   </math>
+   , the integral on the right-hand side can be evaluated either analytically (if
+   <math display="inline">
+    f
+   </math>
+   is simple enough) or by numerical quadrature.
+  </p>
+  <p block-type="Text">
+   The approach in equation
+   <math display="inline">
+    (10)
+   </math>
+   easily combines with predictor-corrector logic, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D_n(t+\Delta) \approx \theta \int_t^{t+\Delta} f\left(u, \{L_i(t)\}\right) \, \mathrm{d}u
+   </math>
+   <br/>
+   <math display="block">
+    +(1-\theta) \int_t^{t+\Delta} f\left(u, \{\bar{L}_i(t+\Delta)\}\right) \, \mathrm{d}u
+   </math>
+   <br/>
+   (11)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \bar{L}_i(t + \Delta)
+   </math>
+   has been found in a predictor step using equation
+   <math display="inline">
+    (10)
+   </math>
+   in equation
+   <math display="inline">
+    (6)
+   </math>
+   .
+  </p>
+  <h4>
+   Brownian Bridge Schemes and Other Ideas
+  </h4>
+  <p block-type="TextInlineMath">
+   As a variation on the predictor-corrector scheme, a further refinement to take into account variance of the Libor curve between the sampling dates
+   <math display="inline">
+    t
+   </math>
+   and
+   <math display="inline">
+    t + \Delta
+   </math>
+   could be made. Schemes attempting to do so by application of Brownian bridge techniques were proposed in [9], among others. While performance of these schemes vary—tests in
+   <math display="inline">
+    [7]
+   </math>
+   show rather mixed results in comparison to simpler predictor-corrector schemes—the basic idea is sufficiently simple and instructive to merit a brief mention. In a nutshell, the Brownian bridge approach aims to replace in equation (10) all forward rates
+   <math display="inline">
+    \{L_i(t)\}\
+   </math>
+   with their expected values at time
+   <math display="inline">
+    u
+   </math>
+   ,
+   <i>
+    conditional
+   </i>
+   upon the forward rates ending up at
+   <math display="inline">
+    \{\bar{L}_i(t+\Delta)\}\
+   </math>
+   , with
+   <math display="inline">
+    \{\bar{L}_i(t+\Delta)\}\
+   </math>
+   generated in a predictor step. Under simplifying assumptions on the dynamics of
+   <math display="inline">
+    L_n(t)
+   </math>
+   , a closed-form expression is possible for this expectation. For example, if we assume that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}L_n(t) \approx \sigma_n(t)^\top \,\mathrm{d}W(t) \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma_n
+   </math>
+   is
+   <i>
+    deterministic
+   </i>
+   and
+   <math display="inline">
+    W(t)
+   </math>
+   is an
+   <i>
+    m
+   </i>
+   dimensional Brownian motion in some probability measure
+   <b>
+    P
+   </b>
+   , then, for
+   <math display="inline">
+    u \in [t, t + \Delta]
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(L_n(u)|L_n(t), L_n(t+\Delta))
+   </math>
+   <br/>
+   =
+   <math>
+    L_n(t) + \frac{\Sigma_1}{\Sigma_2} (L_n(t+\Delta) - L_n(t))
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Sigma_1 = \int_t^u |\sigma_n(s)|^2 \, \mathrm{d}s, \quad \Sigma_2 = \int_t^{t+\Delta} |\sigma_n(s)|^2 \, \mathrm{d}s \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   If it is more appropriate to assume that
+   <math display="inline">
+    L_n
+   </math>
+   is roughly lognormal, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}L_n(t)/L_n(t) \approx \sigma_n(t)^\top \,\mathrm{d}W(t) \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for a deterministic volatility
+   <math display="inline">
+    \sigma_n
+   </math>
+   , then, for
+   <math display="inline">
+    u \in
+   </math>
+   <math display="inline">
+    [t, t + \Delta],
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(L_n(u)|L_n(t), L_n(t+\Delta))
+   </math>
+   <br/>
+   =
+   <math>
+    L_n(t) \left(\frac{L_n(t+\Delta)}{L_n(t)}\right)^{\Sigma_1 \Sigma_2^{-1}}
+   </math>
+   <br/>
+   <math>
+    \times \exp\left(\frac{1}{2}\Sigma_2^{-1}\Sigma_1(\Sigma_2-\Sigma_1)\right)
+   </math>
+   (16)
+  </p>
+  <p block-type="Text">
+   The article [7] investigates a number of other possible discretization schemes for the drift term in the LM model, including those that attempt to incorporate information about the correlation between various forward rates. In general, many of these schemes will result in some improvement of the discretization error, but at the cost of more computational complexity and effort—effort that in some instances might be better spent on just using a finer time discretization in a simpler discretization scheme.
+  </p>
+  <h4>
+   High-order Schemes
+  </h4>
+  <p block-type="Text">
+   Higher order schemes (such as the Milstein scheme and similar Taylor-based approaches, see Monte Carlo Simulation for Stochastic Differential Equations and Stochastic Taylor Expansions) are cumbersome to use for LM modeling due to the high dimensionality of the model. Consequently, there are very few empirical results on their relative performance. Andersen and Andreasen [1] list some results for Richardson extrapolation (see [8]), the effect of which seems to be rather modest.
+  </p>
+  <h2>
+   <b>
+    Martingale Discretization
+   </b>
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   It is possible to select a measure such that a particular zero-coupon bond and a particular forward rate agreement (FRA) will be priced bias-free&lt;sup&gt;c&lt;/sup&gt; by Monte Carlo simulation, even when using a simple Euler scheme. While one is rarely interested in pricing zero-coupon bonds by Monte Carlo methods, this observation can, nevertheless, occasionally help guide the choice of simulation measure, particularly if, say, a security can be argued to depend primarily on a single forward rate (e.g., caplet-like securities). In practice, matters are rarely this clear-cut, and one wonders whether perhaps simulation schemes exist that will simultaneously price all zero-coupon bonds
+   <math display="inline">
+    P(\cdot, T_1)
+   </math>
+   ,
+   <math display="inline">
+    P(\cdot, T_2), \ldots, P(\cdot, T_N)
+   </math>
+   bias-free. It should be obvious that this cannot be accomplished by a simple measure
+  </p>
+  <p block-type="Text">
+   shift, but will require a more fundamental change in simulation strategy.
+  </p>
+  <h3>
+   Deflated Bond Price Discretization
+  </h3>
+  <p block-type="Text">
+   To develop a simulation scheme, which, by construction, will ensure that all numeraire-deflated bond prices are martingales, one can follow the suggestion offered in [3]: instead of discretizing the dynamics for Libor rates directly, simply discretize the deflated bond prices themselves. Consider the spot measure, and define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(t, T_{n+1}) = \frac{P(t, T_{n+1})}{B(t)}
+   </math>
+   (17)
+  </p>
+  <p block-type="Text">
+   The dynamics for deflated zero-coupon bond prices
+   <math display="inline">
+    (17)
+   </math>
+   are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}U(t,T_{n+1})}{U(t,T_{n+1})} = -\sum_{j=q(t)}^{n} \tau_j \frac{U(t,T_{j+1})}{U(t,T_j)} \sigma_j(t)^{\top} \mathrm{d}W_B(t),
+   </math>
+   <br/>
+   <math display="block">
+    n = q(t), \dots, N-1 \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   Discretization schemes for equation (18), which preserve the martingale property, are easy to construct. For instance, the log-Euler scheme
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{U}(t + \Delta, T_{n+1}) = \hat{U}(t, T_{n+1})
+   </math>
+   <math display="block">
+    \times \exp\left(-\frac{1}{2} |\eta_{n+1}(t)|^2 \Delta + \eta_{n+1}(t)^\top z \sqrt{\Delta}\right) \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   has this property where, as before,
+   <math display="inline">
+    z
+   </math>
+   is an
+   <math display="inline">
+    m
+   </math>
+   dimensional standard Gaussian variable, and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \eta_{n+1}(t) \stackrel{\Delta}{=} -\sum_{j=q(t)}^{n} \tau_j \frac{\hat{U}(t, T_{j+1})}{\hat{U}(t, T_j)} \sigma_j(t) \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   One can replace equation (19) with another discretization of equation (18), or one can try to discretize a quantity other than the deflated bonds
+   <math display="inline">
+    U(t, T_n)
+   </math>
+   . The latter idea is pursued in [3], where several suggestions for discretization variables are considered. For instance, one can consider the differences
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(t, T_n) - U(t, T_{n+1})
+   </math>
+   (21)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   which are martingales, since the
+   <math display="inline">
+    Us
+   </math>
+   are. Discretizing
+   <math display="inline">
+    U(t, T_n) - U(t, T_{n+1})
+   </math>
+   is, in a sense, close to discretizing
+   <math display="inline">
+    L_n
+   </math>
+   itself, which may be advantageous. [7]
+  </p>
+  <p block-type="Text">
+   contains some tests of discretization schemes based on equation
+   <math display="inline">
+    (21)
+   </math>
+   , in a lognormal model setting.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;We recall from
+   <b>
+    LIBOR Market Model
+   </b>
+   that
+   <math display="inline">
+    q(t)
+   </math>
+   is an index function, indicating which bucket of a tenor structure
+   <math display="inline">
+    \{T_n\}_{n=0}^N
+   </math>
+   time
+   <i>
+    t
+   </i>
+   belongs to.
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \mathbf{b}
+   </math>
+   . In the interest of brevity and conciseness, the simulation schemes discussed in this article omit a number of real-life details, such as proper rate fixing conventions, interpolation techniques and introduction of stochasticity in the front stub, that is, in the bucket
+   <math display="inline">
+    [t, T_{a(t)}]
+   </math>
+   . Interpolation and propagation of "nonstandard" rates, that is, rates with dates not aligned with the tenor structure
+   <math display="inline">
+    \{T_n\}
+   </math>
+   , are covered in, for example, [2], and a simple representative technique for stochastic front stubs can be found in [5].
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;c.&lt;/sup&gt;But not error-free, obviously—there will still be a statistical mean-zero error on the simulation results.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Andersen, L.B.G. &amp; Andreasen, J. (2000). Volatil-
+     <math display="inline">
+      [1]
+     </math>
+     ity skews and extensions of the Libor market model, Applied Mathematical Finance 7, 1-32.
+    </li>
+    <li block-type="ListItem">
+     [2] Brigo, D. &amp; Mercurio, F. (2001). Interest-Rate Models—Theory and Practice, Springer Verlag.
+    </li>
+    <li block-type="ListItem">
+     Glasserman, P. &amp; Zhao, X. (2000). Arbitrage-free dis-[3] cretization of lognormal forward Libor and swap rate models, Finance and Stochastics 4, 35-68.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Hunter, C.J., Jäckel, P. &amp; Joshi, M.S. (2001). Getting [4] the drift, Risk 14(7), 81-84.
+    </li>
+    <li block-type="ListItem">
+     Jäckel, P. (2005). The Practicalities of Libor Market [5]
+     <i>
+      Models
+     </i>
+     . Training course notes, http://www.jaeckel.org/
+     <math display="inline">
+      The Practicalities Of Libor Market Models.pdf.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Joshi, M.S. (2003). Rapid Drift Computations in the [6] Libor Market Model, Wilmott.
+    </li>
+    <li block-type="ListItem">
+     [7] Joshi, M.S. &amp; Stacey, A.M. (2008). New and robust drift approximations for the Libor market model, Quantitative Finance 8, 427-434.
+    </li>
+    <li block-type="ListItem">
+     [8] Kloeden, P.E. &amp; Platen E. (2000). Numerical Solution of Stochastic Differential Equations, Stochastic Modelling and Applied Probability, Springer.
+    </li>
+    <li block-type="ListItem">
+     [9] Pietersz, R., Pelsser, A. &amp; van Regenmortel, M. (2004). Fast drift approximated pricing in the BGM model, Journal of Computational Finance 8, 93-124.
+    </li>
+    <li block-type="ListItem">
+     [10] Rebonato, R. (2002). Modern Pricing of Interest Rate Derivatives: The Libor Market Model and Beyond, Princeton University Press.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   LIBOR Market Model; Monte Carlo Simulation for Stochastic Differential Equations; Stochastic Taylor Expansions.
+  </p>
+  <blockquote>
+   <p block-type="Text">
+    LEIF B.G. ANDERSEN &amp; VLADIMIR V. PITERBARG
+   </p>
+  </blockquote>
+ </body>
+</html>

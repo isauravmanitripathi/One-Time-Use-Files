@@ -1,0 +1,2518 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Monotone Schemes
+   </b>
+  </h1>
+  <p block-type="Text">
+   Monotone numerical schemes are particularly relevant for partial differential equations (PDEs) occurring in finance, for example, in the pricing of American options, exotic options, and in portfolio problems [4]. Although naive numerical schemes for such problems may not converge, or if they converge, may converge to an incorrect solution, monotone schemes converge to the correct solution under very weak assumptions on the schemes, equations, and boundary conditions. The drawback is that these schemes may converge slowly, as they are only firstor second-order accurate.
+  </p>
+  <p block-type="Text">
+   result. Finally, we discuss error estimates for convex problems.
+  </p>
+  <h1>
+   <b>
+    Viscosity Solutions
+   </b>
+  </h1>
+  <p block-type="Text">
+   The concept of viscosity solution was introduced by Crandall and Lions in 1983. A general reference on the subject is the User's Guide [14]. Several books have also been written on the subject, see for example,
+   <math display="inline">
+    [1-3, 19, 21]
+   </math>
+   . Viscosity solutions are particularly important for nonlinear or degenerate PDEs of first and second order. There are many such problems in finance, we show some examples taken from [4]. Lower indices denote partial derivatives.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} -u_t - \frac{1}{2}\sigma^2 S^2 u_{SS} - r S u_S + r u - \frac{S}{T} u_Z = 0 &amp; \text{in } \mathbb{R}^+ \times \mathbb{R}^+ \times (0, T) \\ u(S, Z, T) = (Z - S)^+ &amp; \text{in } \mathbb{R}^+ \times \mathbb{R}^+ \end{cases} \tag{1}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \min\{-u_t - \frac{1}{2}\sigma^2 S^2 u_{SS} - r S u_S + r u, u - (K - S)^+\} = 0 &amp; \text{in } \mathbb{R}^+ \times (0, T) \\ u(S, T) = (K - S)^+ &amp; \text{in } \mathbb{R}^+ \end{cases} \tag{2}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \min\left\{\inf_{c\geq 0} \left[ -v_t - \frac{1}{2}\sigma^2 y^2 u_{yy} - (rx - c)u_x - byv_y - U(c) + \beta v \right], \right.
+   </math>
+   <br/>
+   <math display="block">
+    \left. -v_y + (1+\lambda)v_x, -(1-\mu)v_x + v_y \right\} = 0 \qquad (3)
+   </math>
+   <br/>
+   <math display="block">
+    \ln \left\{ (x,y) : x + (1-\mu)y \geq 0, x + (1+\lambda)y \geq 0 \right\} \times (0,T)
+   </math>
+  </p>
+  <p block-type="Text">
+   Convergence results and error estimates for monotone schemes can be obtained using the concept of viscosity solution. The main goal of this survey is to introduce these methods and describe the results they lead to. The main results are (i) a general convergence theorem and (ii) error estimates for convex problems.
+  </p>
+  <p block-type="Text">
+   Viscosity solutions are (very) weak solutions of linear and nonlinear first- and second-order equations. They are closely related to the maximum (comparison) principle from which uniqueness of solutions follows. Viscosity solutions are useful for proving convergence of numerical schemes, because they are stable under very weak continuity assumptions: if a sequence of equations and their viscosity solutions converge locally uniformly, then the limit solution is a viscosity solution of the limit equation. The general convergence results is an extension of this statement.
+  </p>
+  <p block-type="Text">
+   We first motivate and define viscosity solutions and discuss basic facts about them. Then we discuss monotone schemes and give the general convergence
+  </p>
+  <p block-type="Text">
+   and in the last case we also impose state-constrained boundary conditions. The first two problems are related to the pricing of Asian and American options. The first equation is degenerate in the
+   <math display="inline">
+    Z
+   </math>
+   -direction and at
+   <math display="inline">
+    S = 0
+   </math>
+   (meaning there is no diffusion here), the second equation is an obstacle problem with degeneracy at
+   <math display="inline">
+    S = 0
+   </math>
+   . The last one, related to an investmentconsumption model by Tourin and Zariphopoulou, is nonlinear, degenerate, and has difficult boundary conditions.
+  </p>
+  <p block-type="Text">
+   Note that to solve these problems numerically, we must reduce to bounded domains and hence we need to impose further boundary conditions. All of these equations are
+   <i>
+    degenerate elliptic
+   </i>
+   equations that can be written in the following abstract form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x, u(x), Du(x), D2u(x)) = 0 \quad \text{in} \quad \Omega \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some domain (open connected set)
+   <math display="inline">
+    \Omega
+   </math>
+   in
+   <math display="inline">
+    \mathbb{R}^N
+   </math>
+   and function
+   <math display="inline">
+    F(x, r, p, X)
+   </math>
+   on
+   <math display="inline">
+    \Omega \times \mathbb{R} \times \mathbb{R}^N \times S_N
+   </math>
+   where
+   <math display="inline">
+    \mathcal{S}_N
+   </math>
+   is the space of all real symmetric
+   <math display="inline">
+    N \times N
+   </math>
+   matrices,
+  </p>
+  <p block-type="Text">
+   and where
+   <i>
+    F
+   </i>
+   satisfies the condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x, r, p, X) \le F(x, s, p, Y)
+   </math>
+   whenever
+   <math>
+    r \le s
+   </math>
+   <br/>
+   and
+   <math>
+    X \ge Y
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <i>
+    X
+   </i>
+   ≥ 0 means that
+   <i>
+    X
+   </i>
+   is a positive semidefinite matrix. The assumption that
+   <i>
+    F
+   </i>
+   is nonincreasing in
+   <i>
+    X
+   </i>
+   is called
+   <i>
+    degenerate ellipticity
+   </i>
+   . Note that assumption (5) rules out many quasi-linear equations like, for example, conservation laws, and that we represent both time-dependent and time-independent problems in the form (4). In the time-dependent case, we take
+   <i>
+    x
+   </i>
+   =
+   <i>
+    (t, x )
+   </i>
+   for
+   <i>
+    t
+   </i>
+   ≥ 0,
+   <i>
+    x
+   </i>
+   ∈
+   <i>
+    <sup>
+     N
+    </sup>
+   </i>
+   −
+   <sup>
+    1
+   </sup>
+   . It is an instructive exercise to check that the above equations satisfy equation (5). This abstract formulation will help us formulate results in an economical way.
+  </p>
+  <p block-type="TextInlineMath">
+   A
+   <i>
+    classical solution
+   </i>
+   of equation (4) is a function
+   <i>
+    u
+   </i>
+   in
+   <i>
+    C
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    ()
+   </i>
+   (twice continuous differentiable functions on ) satisfying equation (4) in every point in . We now define viscosity solution for equation (4) starting with the following observation: if
+   <i>
+    u
+   </i>
+   is a classical solution of equation (4),
+   <i>
+    φ
+   </i>
+   belongs to
+   <i>
+    C
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    ()
+   </i>
+   , and
+   <i>
+    u
+   </i>
+   −
+   <i>
+    φ
+   </i>
+   has local maximum at
+   <i>
+    x
+   </i>
+   <sup>
+    0
+   </sup>
+   ∈ , then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Du(x_0) = D\phi(x_0)
+   </math>
+   and
+   <math>
+    D^2u(x_0) \le D^2\phi(x_0)
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   and hence by equations (4) and (5) we must have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x_0, u(x_0), D\phi(x_0), D^2\phi(x_0)) \le 0 \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   On the other hand, if
+   <i>
+    x
+   </i>
+   <sup>
+    0
+   </sup>
+   is a local minimum point of
+   <i>
+    u
+   </i>
+   −
+   <i>
+    φ
+   </i>
+   , then we get the opposite inequality. If these inequalities hold for
+   <i>
+    all test functions φ
+   </i>
+   and
+   <i>
+    all maximum/minimum points x
+   </i>
+   <sup>
+    0
+   </sup>
+   of
+   <i>
+    u
+   </i>
+   −
+   <i>
+    φ
+   </i>
+   and the function
+   <i>
+    u
+   </i>
+   belongs to
+   <i>
+    C
+   </i>
+   2, then it easily follows that
+   <i>
+    u
+   </i>
+   is a classical solution of equation (4).
+  </p>
+  <p block-type="Text">
+   This second definition of classical solutions can be used to define viscosity solutions simply by relaxing the regularity assumption on
+   <i>
+    u
+   </i>
+   from
+   <i>
+    C
+   </i>
+   <sup>
+    2
+   </sup>
+   to continuous. Note that in this definition, only test functions need to be differentiated.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 1
+   </b>
+   <i>
+    A viscosity solution of equation (4) is a continuous function u on satisfying
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x_0, u(x_0), D\phi(x_0), D^2\phi(x_0)) \le 0 \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    for all C
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    test functions φ and all maximum points x
+   </i>
+   <sup>
+    0
+   </sup>
+   <i>
+    of u
+   </i>
+   −
+   <i>
+    φ, and
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x_1, u(x_1), D\phi(x_1), D^2\phi(x_1)) \ge 0 \qquad (9)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    for all C
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    test functions φ and all minimum points x
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    of u
+   </i>
+   −
+   <i>
+    φ.
+   </i>
+  </p>
+  <p block-type="TextInlineMath">
+   By the previous discussion, we see that all classical solutions are viscosity solutions and that all
+   <i>
+    C
+   </i>
+   <sup>
+    2
+   </sup>
+   viscosity solutions are classical solutions.
+  </p>
+  <p block-type="Text">
+   A problem that is often encountered when you study nonlinear equations is that classical solutions may not exist and weak solutions are not unique [2, 18]. To pick out the physically relevant solution (and solve the nonuniqueness problem), we often have to require that additional (entropy) inequalities are satisfied by the solution. One of the main strengths of viscosity solutions is that they are unique under very general assumptions—in some sense the additional constraints are built into the definition.
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 1
+   </b>
+   Consider the following initial value problem,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_t + |u_x| = 0 \text{ in } \mathbb{R} \times (0, +\infty),
+   </math>
+   <br/>
+   <math display="block">
+    u(0, x) = |x| \text{ in } \mathbb{R}
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   It has
+   <i>
+    no
+   </i>
+   classical solutions,
+   <i>
+    infinitely many
+   </i>
+   generalized solutions (functions satisfying the equation a.e.), and one
+   <i>
+    unique
+   </i>
+   viscosity solution. Two generalized solutions are |
+   <i>
+    x
+   </i>
+   | −
+   <i>
+    t
+   </i>
+   and
+   <i>
+    (
+   </i>
+   |
+   <i>
+    x
+   </i>
+   | −
+   <i>
+    t)
+   </i>
+   <sup>
+    +
+   </sup>
+   , and the last one is also the viscosity solution.
+  </p>
+  <p block-type="Text">
+   Now we explain how to impose boundary conditions for degenerate equations satisfying equation (5). Consider
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} F(x, u(x), Du(x), D^2u(x)) = 0 &amp; \text{in} \\ G(x, u, Du) = 0 &amp; \text{in} \\ \end{cases} \quad \begin{cases} \Omega \\ \partial \Omega \end{cases} \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    G
+   </i>
+   gives the boundary conditions. Dirichlet and Neumann boundary conditions are obtained by choosing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(x, r, p) = r - g(x)
+   </math>
+   <br/>
+   and
+   <math display="block">
+    G(x, r, p) = p \cdot n(x) - h(x) \qquad (12)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   respectively, where
+   <i>
+    n(x)
+   </i>
+   is the exterior unit normal vector field of
+   <i>
+    ∂
+   </i>
+   . The problem here is that under assumption (5), the equation may be degenerate on all or a part of the boundary
+   <i>
+    ∂
+   </i>
+   . This part of the boundary may not be
+   <i>
+    regular
+   </i>
+   with respect to the
+  </p>
+  <p block-type="TextInlineMath">
+   equation, meaning that boundary conditions imposed here do not influence the solution of equation
+   <math display="inline">
+    (11)
+   </math>
+   in
+   <math display="inline">
+    \nΩ\n
+   </math>
+   . In
+   <math display="inline">
+    \nΩ\n
+   </math>
+   , a solution of equation (11) is determined only by the equation and the boundary conditions on
+   <math display="inline">
+    \partial\Omega_{\text{reg}}
+   </math>
+   , the regular part of the boundary. Imposing boundary conditions in
+   <math display="inline">
+    \partial\Omega_{irreg} = \partial\Omega \setminus \partial\Omega_{reg}
+   </math>
+   therefore makes the solution
+   <i>
+    discontinuous
+   </i>
+   in
+   <math display="inline">
+    \partial \Omega_{irreg}
+   </math>
+   in general. We refer to [5, 14, 28] for a more detailed
+  </p>
+  <p block-type="TextInlineMath">
+   Note that the continuous extension
+   <math display="inline">
+    \tilde{u}
+   </math>
+   of the solution u from
+   <math display="inline">
+    \Omega
+   </math>
+   to
+   <math display="inline">
+    \overline{\Omega}
+   </math>
+   , satisfies by continuity
+   <math display="inline">
+    F=0
+   </math>
+   also in
+   <math display="inline">
+    \partial \Omega_{irreg}
+   </math>
+   (under suitable assumptions). Hence at any boundary point,
+   <math display="inline">
+    \tilde{u}
+   </math>
+   satisfies either the boundary condition
+   <math display="inline">
+    or
+   </math>
+   the equation.
+  </p>
+  <p block-type="Text">
+   discussion.
+  </p>
+  <p block-type="Text">
+   Now we give the precise definition of discontinuous viscosity solutions. This concept is crucial for the main convergence result of this survey, and as we have just seen, the boundary value problem (11) is well posed in general only if solutions can be discontinuous on the boundary. To this end, we define the upper and lower semicontinuous envelopes of u,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u^*(x) = \limsup_{\Omega \ni y \to x} u(y) \quad \text{and} \quad u_*(x) = \liminf_{\Omega \ni y \to x} u(y)
+   </math>
+   (13)
+  </p>
+  <p block-type="TextInlineMath">
+   A function
+   <math display="inline">
+    u
+   </math>
+   is upper semicontinuous, lower semicontinuous, or continuous at
+   <math display="inline">
+    x \in \Omega
+   </math>
+   if and only if
+   <math display="inline">
+    u(x) = u^*(x)
+   </math>
+   ,
+   <math display="inline">
+    u(x) = u_*(x)
+   </math>
+   , or
+   <math display="inline">
+    u(x) = u^*(x) =
+   </math>
+   <math display="inline">
+    u_*(x)
+   </math>
+   , respectively. At a boundary point, the definition requires that either the boundary condition or the equation holds.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 2
+   </b>
+   A discontinuous viscosity subsolution of equation (11) is a locally bounded function u on
+   <math display="inline">
+    \bar{\Omega}
+   </math>
+   satisfying for all
+   <math display="inline">
+    \phi \in C^2(\bar{\Omega})
+   </math>
+   and all local maximum points
+   <math display="inline">
+    x_0 \in \bar{\Omega}
+   </math>
+   of
+   <math display="inline">
+    u^* - \phi
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\nF(x_0, u^*(x_0), D\phi(x_0), D^2\phi(x_0)) \le 0 &amp; \text{if } x_0 \in \Omega \\
+\min \left\{ F(x_0, u^*(x_0), D\phi(x_0), D^2\phi(x_0)), \\
+G(x_0, u^*(x_0), D\phi(x_0)) \right\} \le 0 &amp; \text{if } x_0 \in \partial\Omega\n\end{cases}\n
+   </math>
+   (14)
+  </p>
+  <p block-type="TextInlineMath">
+   A discontinuous viscosity supersolution of equation (11) is a locally bounded function u on
+   <math display="inline">
+    \overline{\Omega}
+   </math>
+   satisfying for all
+   <math display="inline">
+    \phi \in C^2(\overline{\Omega})
+   </math>
+   and all local minimum points
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x_0 \in \bar{\Omega} \text{ of } u_* - \phi
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\nF(x_0, u_*(x_0), D\phi(x_0), D^2\phi(x_0)) \ge 0 &amp; \text{if } x_0 \in \Omega \\
+\max \left\{ F(x_0, u_*(x_0), D\phi(x_0), D^2\phi(x_0)), \\
+G(x_0, u_*(x_0), D\phi(x_0)) \right\} \ge 0 &amp; \text{if } x_0 \in \partial\Omega\n\end{cases}\n
+   </math>
+   (15)
+  </p>
+  <p block-type="TextInlineMath">
+   A discontinuous viscosity solution of equation
+   <math display="inline">
+    (11)
+   </math>
+   is sub and supersolution at the same time.
+  </p>
+  <p block-type="Text">
+   Viscosity solutions are unique under very weak assumptions and stable under continuous perturbations of the equation. From the strong comparison result (a uniqueness result) and Perron's method, interior continuity and existence follows. We refer to
+   <math display="inline">
+    [14]
+   </math>
+   for precise statements and a wider discussion.
+  </p>
+  <p block-type="TextInlineMath">
+   A classical way to compute the solution of degenerate boundary value problem is via elliptic/parabolic regularization. This method is called the
+   <i>
+    vanishing viscosity method
+   </i>
+   : if
+   <math display="inline">
+    u^{\epsilon}
+   </math>
+   ,
+   <math display="inline">
+    \epsilon &gt; 0
+   </math>
+   , are classical (or viscosity) solutions of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} -\epsilon \Delta u + F(x, u, \\ Du, D^2 u) = 0 \quad \text{in} \quad \Omega \\ G(x, u, Du) = 0 \quad \text{in} \quad \partial\Omega \end{cases} \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   then
+   <math display="inline">
+    u_{\epsilon}
+   </math>
+   converge pointwise as
+   <math display="inline">
+    \epsilon \to 0
+   </math>
+   to the discontinuous viscosity solution of equation (11) under mild assumptions [14]. In the regularized problem, boundary conditions are assumed continuously, but as
+   <math display="inline">
+    \epsilon \to 0
+   </math>
+   there will be formation of boundary layers near
+   <math display="inline">
+    \partial\Omega_{irreg}
+   </math>
+   , and in the limit the solution will be discontinuous here.
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 2
+   </b>
+   Let
+   <math display="inline">
+    \epsilon &gt; 0
+   </math>
+   and consider the boundary value problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} -\epsilon u''(x) + u'(x) - 1 = 0, &amp; x \in (0, 1) \\ u(x) = 0, &amp; x \in \{0, 1\} \end{cases}
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   Here, the unique (classical) solution
+   <math display="inline">
+    u_{\epsilon}
+   </math>
+   converges pointwise (but not uniformly) as
+   <math display="inline">
+    \epsilon \to 0
+   </math>
+   to a discontinuous function
+   <math display="inline">
+    u
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{\epsilon}(x) = x - \frac{1 - e^{-\frac{1}{\epsilon}x}}{1 - e^{-\frac{1}{\epsilon}}}
+   </math>
+   <math display="block">
+    \longrightarrow \qquad u = \begin{cases} 0, &amp; x = 0\\ x - 1, &amp; x \in (0, 1] \end{cases} \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   By formally taking the limit in equation
+   <math display="inline">
+    (17)
+   </math>
+   , we get the following boundary value problem,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n u'(x) - 1 = 0, &amp; x \in (0, 1) \\
+ u(x) = 0, &amp; x \in \{0, 1\}\n\end{cases} \n
+   </math>
+   (19)
+  </p>
+  <p block-type="TextInlineMath">
+   We write this problem in the form
+   <math display="inline">
+    (11)
+   </math>
+   by taking
+   <math display="inline">
+    F(p) \equiv p - 1
+   </math>
+   and
+   <math display="inline">
+    G(r) \equiv r
+   </math>
+   . Then, since
+   <math display="inline">
+    u^* \equiv u
+   </math>
+   and
+   <math display="inline">
+    u_* \equiv x - 1
+   </math>
+   in [0, 1], it is easy to see that in the viscosity sense,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\nF\left(\frac{\mathrm{d}u^*}{\mathrm{d}x}\right) \le 0, &amp; x \in (0, 1), \\
+G(u^*) \le 0, &amp; x = 0, \\
+G(u^*) \le 0, &amp; x = 1,\n\end{cases}\n
+   </math>
+   and
+   <math display="block">
+    \n\begin{cases}\nF\left(\frac{\mathrm{d}u_*}{\mathrm{d}x}\right) \ge 0, &amp; x \in (0, 1) \\
+F\left(\frac{\mathrm{d}u_*}{\mathrm{d}x}\right) \ge 0, &amp; x = 0 \\
+G(u_*) \ge 0, &amp; x = 1\n\end{cases} \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Hence,
+   <math display="inline">
+    u
+   </math>
+   is a viscosity solution of equation (19) according to Definition 2.
+  </p>
+  <p block-type="Text">
+   To have an even more compact notation, we define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H(x, r, p, X) = \begin{cases} F(x, r, p, X) &amp; \text{if } x \in \Omega \\ G(x, r, p) &amp; \text{if } x \in \partial\Omega \end{cases} (21)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and note that
+   <math display="inline">
+    H^*
+   </math>
+   ,
+   <math display="inline">
+    H_*
+   </math>
+   equals
+   <math display="inline">
+    H
+   </math>
+   in
+   <math display="inline">
+    \Omega
+   </math>
+   and
+   <math display="inline">
+    \max(F, G)
+   </math>
+   ,
+   <math display="inline">
+    \min(F, G)
+   </math>
+   , respectively, on
+   <math display="inline">
+    \partial\Omega
+   </math>
+   . Hence, by the above discussion,
+   <math display="inline">
+    u
+   </math>
+   is viscosity solution of equation (11), or equivalently, of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H(x, u, Du, D^2u) = 0 \quad \text{in} \quad \bar{\Omega} \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   if the following inequalities hold in the viscosity sense:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_*(x, u, Du, D^2 u) \le 0 \quad \text{in} \quad \bar{\Omega} \tag{23}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H^*(x, u, Du, D^2u) \ge 0 \quad \text{in} \quad \bar{\Omega} \tag{24}
+   </math>
+  </p>
+  <h1>
+   <b>
+    Monotone Schemes and Convergence
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   <i>
+    Monotone
+   </i>
+   schemes, or schemes of
+   <i>
+    positive type
+   </i>
+   , were introduced by Motzkin and Wasow [26] for linear equations and later extended to nonlinear equations (see [27]). Monotone schemes satisfy the discrete maximum principle (under natural assumptions) and the principal error term in the formal error expansion is elliptic. Hence, the schemes produce "smooth" and
+  </p>
+  <p block-type="Text">
+   monotone approximations to a regularized version of the original problem.
+  </p>
+  <p block-type="Text">
+   The main advantage of monotone schemes is that they "always" converge to the physically relevant solution [10]. For nonlinear or degenerate elliptic/parabolic equations, weak solutions are not unique in general, and extra conditions are needed to select the physically relevant solution. Nonmonotone schemes do not converge in general [27], and can even produce nonphysical solutions [29].
+  </p>
+  <p block-type="Text">
+   The main
+   <i>
+    disadvantage
+   </i>
+   of monotone schemes is the low order of convergence: first order for firstorder PDEs and at most second order for secondorder PDEs [27].
+  </p>
+  <p block-type="Text">
+   The main result of this section is the general convergence result of Barles and Souganidis for monotone, consistent, and stable schemes. We write a numerical scheme for the boundary value problem
+   <math display="inline">
+    (22)
+   </math>
+   or
+   <math display="inline">
+    (11)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S(h, x, u_h(x), u_h) = 0 \quad \text{on} \quad \Omega_h \tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where S is a real-valued function defined on
+   <math display="inline">
+    \mathbb{R}^+ \times
+   </math>
+   <math display="inline">
+    \n\Omega_h \times \mathbb{R} \times B(\Omega_h)\n
+   </math>
+   where
+   <math display="inline">
+    B(\Omega_h)
+   </math>
+   is the set of bounded functions on
+   <math display="inline">
+    \Omega_h
+   </math>
+   . Typically,
+   <math display="inline">
+    \{u_h(x), u_h\}
+   </math>
+   is the stencil of the method and
+   <math display="inline">
+    u_h
+   </math>
+   denotes the values at the neighbors of x. The "grid"
+   <math display="inline">
+    \Omega_h
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Omega_h \subset \Omega \text{ is closed}\n
+   </math>
+   and
+   <br/>
+   <math>
+    \n\lim_{h \to 0} \Omega_h = \{x : \exists \{x_h\}, x_h \in \Omega_h, x_h \to x\} = \bar{\Omega} \quad (26)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   that is, any point in
+   <math display="inline">
+    \overline{\Omega}
+   </math>
+   can be reached by a sequence of grid points. This assumption is satisfied for any natural family of grids, and it is necessary to have convergence. The grid
+   <math display="inline">
+    \Omega_h
+   </math>
+   may be discrete or continuous (
+   <math display="inline">
+    \Omega_h = \bar{\Omega}
+   </math>
+   ) depending on the scheme. We assume that the scheme
+   <math display="inline">
+    (25)
+   </math>
+   is
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Monotone:
+   </b>
+   For any
+   <math display="inline">
+    h &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    x \in \Omega_h
+   </math>
+   ,
+   <math display="inline">
+    r
+   </math>
+   , and
+   <math display="inline">
+    u, v \in
+   </math>
+   <math display="inline">
+    B(\Omega_h)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u \ge v \implies S(h, x, r, u) \le S(h, x, r, v) \quad (27)
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Consistent:
+   </b>
+   For any smooth function
+   <math display="inline">
+    \phi
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{array}{ll} \liminf_{h \to 0, \ \xi \to 0} S(h, x_h, \phi(x_h) + \xi, \phi + \xi) \\ \Omega_h \ni x_h \to x \end{array}
+   </math>
+   <br/>
+   <math display="block">
+    \geq H_*(x, \phi(x), D\phi(x), D^2\phi(x)) \quad \text{and}
+   </math>
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Monotone explicit and implicit finite-difference schemes
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Equation
+     </th>
+     <th>
+      Scheme
+     </th>
+     <th>
+      <math>
+       \text{CFL}
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <math display="block">
+       u_t = \sigma^2 u_{xx}
+      </math>
+      <br/>
+      <math display="block">
+       \frac{2\sigma^2 \Delta t}{\Delta x^2} \le 1
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       \begin{cases} u_m^{n+1} = u_m^n + \frac{\sigma^2 \Delta t}{\Delta x^2} \Big[ u_{m+1}^n - 2u_m^n + u_{m-1}^n \Big] \\ u_m^{n+1} = u_m^n + \frac{\sigma^2 \Delta t}{\Delta x^2} \Big[ u_{m+1}^{n+1} - 2u_m^{n+1} + u_{m-1}^{n+1} \Big] \end{cases}
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       u_t = H(u_x)
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       u_{m}^{n+1} = u_{m}^{n} + \Delta t \left| H\left(\frac{u_{m+1}^{n} - u_{m-1}^{n}}{\Delta x}\right) + \|H'\|\frac{u_{m+1}^{n} - 2u_{m}^{n} + u_{m-1}^{n}}{\Delta x}\right|
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       \frac{2\|H'\|\Delta t}{\Delta x} \le 1
+      </math>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \limsup S(h, x_h, \phi(x_h) + \xi, \phi + \xi)
+   </math>
+   <math display="inline">
+    h \rightarrow 0, \xi \rightarrow 0
+   </math>
+   <math display="inline">
+    \Omega_h \ni x_h \to x
+   </math>
+   <math display="inline">
+    &lt; H^*(x, \phi(x), D\phi(x), D^2\phi(x))
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \leq H^*(x,\phi(x),D\phi(x),D^2\phi(x))\tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Stable
+   </b>
+   (
+   <math display="inline">
+    L^{\infty}
+   </math>
+   stable): For any
+   <math display="inline">
+    h &gt; 0
+   </math>
+   , there is a solution
+   <math display="inline">
+    u_h
+   </math>
+   of equation (25). Moreover,
+   <math display="inline">
+    u_h
+   </math>
+   is uniformly bounded, that is, there is a constant
+   <math display="inline">
+    K &gt; 0
+   </math>
+   such that for any
+   <math display="inline">
+    h &gt; 0
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |u_h| \le K \qquad \text{in} \qquad \Omega_h \tag{29}
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 3
+   </b>
+   Monotone, consistent, and stable schemes are given in Table 1. Note that an explicit scheme is monotone (and stable) only when a CFL condition hold.
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    u_m^n \approx u(x_m, t_n)
+   </math>
+   and
+   <math display="inline">
+    \|\cdot\| = \|\cdot\|_{L^{\infty}}
+   </math>
+   . The second equation is a Hamilton-Jacobi equation and the corresponding scheme is called the
+   <i>
+    Lax-Friedrich
+   </i>
+   scheme [15].
+  </p>
+  <p block-type="Text">
+   We assume that the boundary value problem
+   <math display="inline">
+    (22)
+   </math>
+   satisfies the following:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Strong Comparison Result:
+   </b>
+   If
+   <math display="inline">
+    u, v \in B(\overline{\Omega})
+   </math>
+   are upper and lower semicontinuous respectively,
+   <math display="inline">
+    u
+   </math>
+   is a subsolution of equation (22), and
+   <math display="inline">
+    v
+   </math>
+   is a supersolution of equation
+   <math display="inline">
+    (22)
+   </math>
+   , then
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    u \le v
+   </math>
+   in
+   <math display="inline">
+    \Omega \cup \Gamma
+   </math>
+   where
+   <math display="inline">
+    \n\Gamma \subset \partial\Omega\n
+   </math>
+   (30)
+  </p>
+  <p block-type="Text">
+   Under the above assumptions, we have the following convergence result:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   The solution
+   <math display="inline">
+    u_h
+   </math>
+   of equation (25) converge locally uniformly (uniformly on compact subsets) in
+   <math display="inline">
+    \Omega \cup \Gamma
+   </math>
+   to the unique viscosity solution of
+   <math display="inline">
+    equation (22)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The result is due to Barles and Souganidis and it gives sufficient conditions for locally uniform convergence of approximations. It applies to a very large class of equations, initial/boundary conditions, and (monotone) schemes, see for example, [4, 10, 19]. The only regularity required of the approximating sequence is uniform boundedness. The proof makes use of the Barles-Perthame method of "half relaxed limits" and can be found in
+   <math display="inline">
+    [10]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Outline of proof: Define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \underline{u}(x) = \liminf_{\substack{h \to 0 \\ \Omega_h \ni x_h \to x}} u_h(x_h)\n
+   </math>
+   and
+   <math display="block">
+    \n\overline{u}(x) = \limsup_{\substack{h \to 0 \\ \Omega_h \ni x_h \to x}} u_h(x_h)\n
+   </math>
+   (31)
+  </p>
+  <p block-type="TextInlineMath">
+   These functions are upper and lower semicontinuous in
+   <math display="inline">
+    \overline{\Omega}
+   </math>
+   , and by monotonicity and consistency they are respectively sub- and supersolutions of the limiting equation (22). Then, by the strong comparison result it follows that
+   <math display="inline">
+    \overline{u} &lt; u
+   </math>
+   in
+   <math display="inline">
+    \Omega \cup \Gamma
+   </math>
+   . But by definition
+   <math display="inline">
+    \overline{u} \geq u
+   </math>
+   in
+   <math display="inline">
+    \Omega
+   </math>
+   , and hence we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{u} = u \quad \text{in} \quad \Omega \cup \Gamma \tag{32}
+   </math>
+  </p>
+  <p block-type="Text">
+   This immediately implies pointwise convergence. Locally, uniform convergence is followed by a variation of Dini's theorem.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <b>
+    Remark 1
+   </b>
+   In Theorem 1 and the strong comparison result, the set
+   <math display="inline">
+    \Gamma
+   </math>
+   always contains all regular points on the boundary
+   <math display="inline">
+    (\partial \Omega_{\text{reg}} \subset \Gamma)
+   </math>
+   and may equal
+   <math display="inline">
+    \emptyset
+   </math>
+   ,
+   <math display="inline">
+    \partial\Omega
+   </math>
+   , or a proper subset of
+   <math display="inline">
+    \partial\Omega
+   </math>
+   . It is equal to
+   <math display="inline">
+    \partial\Omega
+   </math>
+   for Neumann problems or when
+   <math display="inline">
+    \partial\Omega_{\text{reg}} = \partial\Omega
+   </math>
+   . For Dirichlet problems, we refer to papers given in Table 2 below for the precise definition of
+   <math display="inline">
+    \Gamma
+   </math>
+   . When
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \Gamma \neq \partial \Omega
+   </math>
+   , then the solution of equation (22) may be discontinuous in
+   <math display="inline">
+    \partial\Omega \setminus \Gamma
+   </math>
+   , see the discussion in the section Viscosity Solutions. In this case, there will be formation of boundary layers in the numerical solutions that prevents (locally) uniform convergence in
+   <math display="inline">
+    \partial \Omega \setminus \Gamma
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 4
+   </b>
+   A boundary value problem for a heat equation on
+   <math display="inline">
+    (0, 1)
+   </math>
+   and its finite-difference approximation may be written in the forms
+   <math display="inline">
+    (22)
+   </math>
+   and
+   <math display="inline">
+    (25)
+   </math>
+   choosing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(u, u_t, u_{xx}) = \begin{cases} u_t - \sigma^2 u_{xx} + bu_x, &amp; t &gt; 0, \ x \in (0, 1) \\ u, &amp; t &gt; 0, \ x \in \{0, 1\} \end{cases}
+   </math>
+   (33)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    b \ge 0
+   </math>
+   , and for
+   <math display="inline">
+    \Delta x = 1/N
+   </math>
+   ,
+   <math display="inline">
+    (0, 1)_{\Delta x}
+   </math>
+   &lt;br&gt;=
+   <math display="inline">
+    \{m\Delta x\}_{m=1}^{N-1}
+   </math>
+   , and
+   <math display="inline">
+    \Delta t = c\Delta x^2
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S(\Delta x, u_{m}^{n+1}, \{u_{m}^{n}, u_{m\pm 1}^{n}\})
+   </math>
+   <math display="block">
+    = \begin{cases} \frac{u_{m}^{n+1} - u_{m}^{n}}{c\Delta x^{2}} - \sigma^{2} \frac{u_{m+1}^{n} - 2u_{m}^{n} + u_{m-1}^{n}}{\Delta x^{2}} \\ + b \frac{u_{m}^{n} - u_{m-1}^{n}}{\Delta x}, &amp; x_{m} \in (0, 1)_{\Delta x} \\ u_{m}^{n+1}, &amp; x_{m} \in \{0, 1\} \end{cases}
+   </math>
+   (34)
+  </p>
+  <p block-type="TextInlineMath">
+   The (explicit) scheme is monotone if
+   <math display="inline">
+    c \le (1/2\sigma^2)
+   </math>
+   <math display="inline">
+    +b\Delta x
+   </math>
+   ), and consistent:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} |G[\phi] - S[\phi]| &amp;\leq \\ \left\{ \begin{aligned} \left[ \|\phi_{tt}\|c + \frac{\sigma^2}{12} \|\phi_{xxxx}\| \right] \Delta x^2 \\ &amp;+ \frac{b}{2} \|\phi_{xx}\| \Delta x, \end{aligned} \right. &amp; \text{at } x_m \in (0, 1)_{\Delta x} \\ 0, &amp; \text{at } x_m \in \{0, 1\} \end{aligned} \tag{35}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The scheme is also stable if
+   <math display="inline">
+    c \leq (1/2\sigma^2 + b\Delta x)
+   </math>
+   and
+   <math display="inline">
+    \max_{m} |u_{m}^{n+1}| \leq \max_{m} |u_{m}^{0}|
+   </math>
+   . If
+   <math display="inline">
+    \sigma \neq 0, b \geq 0
+   </math>
+   are constants,
+   <math display="inline">
+    u(x, 0)
+   </math>
+   is continuous, and
+   <math display="inline">
+    u(0, 0) = 0 =
+   </math>
+   <math display="inline">
+    u(1,0)
+   </math>
+   , then the strong comparison result holds in
+   <math display="inline">
+    [0, 1]
+   </math>
+   [13]. Hence by Theorem 1, the finite-difference solution converge locally uniformly as
+   <math display="inline">
+    \Delta x \rightarrow 0
+   </math>
+   to the solution of the equation.
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 5
+   </b>
+   (Degeneracy, boundary layers). In Example 4, we replace
+   <math display="inline">
+    \sigma
+   </math>
+   , b by functions, either
+  </p>
+  <p block-type="Equation">
+   (i)
+   <math display="block">
+    b = 0, \ \sigma(x) = \begin{cases} \frac{1}{4} - x, &amp; x \in \left(0, \frac{1}{4}\right) \\ 0, &amp; x \in \left(\frac{1}{4}, \frac{3}{4}\right) \\ x - \frac{3}{4}, &amp; x \in \left(\frac{3}{4}, 1\right) \end{cases}
+   </math>
+   <br/>
+   r (ii)
+   <math>
+    b = 1, \ \sigma(x) = x
+   </math>
+   (36)
+  </p>
+  <p block-type="Text">
+   In both cases, the strong comparison result follows from [13], see also [5, 14].
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \Omega
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In case (i), the equation degenerates for
+   <math display="inline">
+    x \in \left(\frac{1}{4}, \frac{3}{4}\right)
+   </math>
+   and the solution is not more than continuous here. But there are no degeneracies at the boundary (it is regular) so the comparison result holds on
+   <math display="inline">
+    [0, 1]
+   </math>
+   and Theorem 1 implies uniform convergence of the numerical solution in
+   <math display="inline">
+    [0, 1]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In case (ii), the equation degenerates only at the boundary
+   <math display="inline">
+    x = 0
+   </math>
+   . At this point, the exact solution will be discontinuous for
+   <math display="inline">
+    t &gt; 0
+   </math>
+   , and the strong comparison result holds only on
+   <math display="inline">
+    (0, 1]
+   </math>
+   . This is also where the numerical solution will converge by Theorem 1.
+   <i>
+    Uniform
+   </i>
+   convergence in
+   <math display="inline">
+    x = 0
+   </math>
+   is not possible because of formation of boundary layers as the numerical solution is refined, see also Example 2.
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 2
+   </b>
+   (The strong comparison result). A main difficulty in applying Theorem 1 is that the boundary value problem must satisfy the strong comparison result. There are general results that cover most (but probably not all) applications in finance, see Table 2.
+  </p>
+  <p block-type="Text">
+   In particular, the results of [13] cover Dirichlet (and state constrained) problems for linear and convex second-order PDEs (with or without time) when the domain satisfies an outer ball condition. This includes, for example, all box and convex polyhedral domains in
+   <math display="inline">
+    \mathbb{R}^n
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 3
+   </b>
+   (Assumptions on the scheme). See also the discussion in
+   <math display="inline">
+    [4, 27]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Monotonicity: This condition is analogous to ellipticity of the equation [4, 10, 27], see the discussion at the beginning of this section. For approximations
+  </p>
+  <p>
+   <b>
+    Table 2
+   </b>
+   Strong comparison results
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      BC
+     </th>
+     <th>
+      Equation
+     </th>
+     <th>
+      Domain
+     </th>
+     <th>
+      Paper
+     </th>
+    </tr>
+    <tr>
+     <td rowspan="4">
+      Dirichlet
+     </td>
+     <td>
+      Linear in second
+      <br/>
+      derivatives
+     </td>
+     <td>
+      Smooth
+     </td>
+     <td>
+      [5]
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Convex fully
+      <br/>
+      nonlinear
+     </td>
+     <td>
+      Smooth
+     </td>
+     <td>
+      [8]
+     </td>
+    </tr>
+    <tr>
+     <td>
+      (includes linear
+      <br/>
+      equations)
+     </td>
+     <td>
+      Nonsmooth
+     </td>
+     <td>
+      [13]
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Second-order
+      <br/>
+      quasilinear
+     </td>
+     <td>
+      Smooth
+     </td>
+     <td>
+      [9]
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Neumann/
+      <br/>
+      Robin
+     </td>
+     <td>
+      Second-order
+      <br/>
+      quasi/fully
+      <br/>
+      nonlinear
+     </td>
+     <td>
+     </td>
+     <td>
+      see
+      <math>
+       [14]
+      </math>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   of stationary linear equations on a grid
+   <math display="inline">
+    \{x_m\}_m
+   </math>
+   , monotonicity means [26]:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_m = \sum_{k \neq 0} a_k u_{m+k} \quad \text{for} \quad a_k \ge 0 \qquad (u_m \approx u(x_m))
+   </math>
+   (37)
+  </p>
+  <p block-type="Text">
+   Consistency: The strange formulation above is necessary since we consider the equation and the boundary conditions at the same time, see Example 4.
+  </p>
+  <p block-type="TextInlineMath">
+   Stability: The type of stability required here is
+   <math display="inline">
+    L^{\infty}
+   </math>
+   stability and it is more restrictive than
+   <math display="inline">
+    L^2
+   </math>
+   or von Neumann stability. For example, the Crank-Nicolson scheme is unconditionally von Neumann stable but not
+   <math display="inline">
+    L^{\infty}
+   </math>
+   stable in general [7].
+  </p>
+  <p block-type="TextInlineMath">
+   Generally speaking, stability (in
+   <math display="inline">
+    L^{\infty}
+   </math>
+   ) follows if
+   <math display="inline">
+    S(h, x, r, v)
+   </math>
+   defined in equation (25) is monotone and
+   <i>
+    strictly
+   </i>
+   increasing in
+   <math display="inline">
+    r
+   </math>
+   . This is typically the case for approximations of
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     parabolic problems;
+    </li>
+    <li block-type="ListItem">
+     degenerate elliptic problems where
+     <math display="inline">
+      F
+     </math>
+     def. in equation (4) is strictly increasing in
+     <math display="inline">
+      u
+     </math>
+     ;
+    </li>
+    <li block-type="ListItem">
+     uniformly elliptic problems.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Some very general stability results can be found in [7, 27] for whole space problems, while [17, 25, 26] deal with more particular problems on domains.
+  </p>
+  <h4>
+   <b>
+    Error Estimates for Convex Equations
+   </b>
+  </h4>
+  <p block-type="Text">
+   For linear and nondegenerate problems satisfying condition (5), error estimates follow from classical
+   <math display="inline">
+    (L^2)
+   </math>
+   methods that can be found in most advanced textbooks on numerical solutions of PDEs. For degenerate and/or nonlinear problems these methods do not
+  </p>
+  <p block-type="Text">
+   apply, and there exists no general theory today. For equations
+   <math display="inline">
+    (4)
+   </math>
+   satisfying condition
+   <math display="inline">
+    (5)
+   </math>
+   there are results in the following cases:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. General first-order equations [15];
+    </li>
+    <li block-type="ListItem">
+     Convex or concave second-order equations 2. [7, 17];
+    </li>
+    <li block-type="ListItem">
+     3. Nondegenerate second-order equations [12].
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   In the first case, and to some degree also in the second case, there are rather satisfactory and extensive results. In the rest of this section, we concentrate on the case (ii), since most PDEs in finance belong to this category (including linear ones). The first result in this direction came in two papers of Krylov [22, 23], and his ideas have been developed and improved by several authors since, we refer to
+   <math display="inline">
+    [7, 17]
+   </math>
+   for the most general results at this time.
+  </p>
+  <p block-type="Text">
+   In what follows, we rewrite the available results in a framework inspired by Barles and Jakobsen [6, 7] and present them in the context of the following possibly degenerate, fully nonlinear, convex model equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{t} + \sup_{\vartheta \in \Theta} \left\{ -\text{tr}[\sigma^{\vartheta} \sigma^{\vartheta} T D^{2} u] - b^{\vartheta} Du + c^{\vartheta} u + f^{\vartheta} \right\}
+   </math>
+   <math display="block">
+    = 0 \quad \text{in} \quad \mathbb{R}^{N} \times (0, T) \tag{38}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma
+   </math>
+   (matrix), b (vector), c, f are functions of
+   <math display="inline">
+    t, x, \vartheta
+   </math>
+   , and &lt;sup&gt;T&lt;/sup&gt;/tr denotes transpose/trace of matrices. Note that equation (38) is linear if
+   <math display="inline">
+    \Theta
+   </math>
+   is a singleton. All the results in this section requires that the initial value problem for equation
+   <math display="inline">
+    (38)
+   </math>
+   has a unique solution, which is Lipschitz continuous in
+   <math display="inline">
+    x
+   </math>
+   uniformly in
+   <math display="inline">
+    t
+   </math>
+   . This is the case
+   <math display="inline">
+    [7]
+   </math>
+   if, for example,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |u(\cdot, 0)|_1 + |\sigma^{\vartheta}|_1 + |b^{\vartheta}|_1 + |c^{\vartheta}|_1 + |f^{\vartheta}|_1 \le K
+   </math>
+   <br/>
+   for some
+   <i>
+    K
+   </i>
+   independent of
+   <math>
+    \vartheta
+   </math>
+   (39)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    |\phi|_1 = \sup_{x,t} |\phi(x,t)| + \sup_{x \neq y,t} (|\phi(x,t)|
+   </math>
+   <math display="inline">
+    -\phi(y, t)/|x - y|
+   </math>
+   ). Without loss of generality we also assume that
+   <math display="inline">
+    c^{\theta} \geq 0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   We approximate equation
+   <math display="inline">
+    (38)
+   </math>
+   by a scheme
+   <math display="inline">
+    (25)
+   </math>
+   , which we assume to be as follows:
+  </p>
+  <p block-type="TextInlineMath">
+   Monotone and parabolic:
+   <math display="inline">
+    \phi(t) \in C^1
+   </math>
+   ,
+   <math display="inline">
+    u \le v
+   </math>
+   in
+   <math display="inline">
+    \Omega_h
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \implies S(h, t, x, r + \phi(t), u + \phi) \ge S(h, t, x, r, v)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    +\phi'(t) - \frac{Kh^2}{2} \|\phi''\|_{\infty} \tag{40}
+   </math>
+  </p>
+  <p block-type="Text">
+   Consistent:
+   <math display="inline">
+    \phi(t, x) \in C^{\infty}
+   </math>
+  </p>
+  <p block-type="Text">
+   Continuous:
+   <math display="inline">
+    S(h, t, x, r, u)
+   </math>
+   uniformly continuous in r uniformly in
+   <math display="inline">
+    t, x
+   </math>
+   .
+  </p>
+  <blockquote>
+   <p block-type="Text">
+    <math display="inline">
+     \implies
+    </math>
+    <math display="inline">
+     |F(t,x,\phi,\partial_t\phi,D_x\phi,D_x^2\phi)
+    </math>
+    <math display="inline">
+     - S(h, t, x, \phi(t, x), \phi)
+    </math>
+    <math display="inline">
+     \leq \sum_{i,j} K_{i,j} \|\partial_t^i D_x^j \phi\|_{\infty} h^{\alpha_{i,j}}
+    </math>
+    <math display="inline">
+     (41)
+    </math>
+   </p>
+  </blockquote>
+  <p block-type="TextInlineMath">
+   Here
+   <math display="inline">
+    K, K_{ij}, \alpha_{ij} \geq 0
+   </math>
+   are constants independent of h and
+   <math display="inline">
+    (t, x)
+   </math>
+   . Under all of the previously mentioned assumptions, we have the following upper bound on the error:
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 2
+   </b>
+   (Upper bound).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u - u_{h} \leq C_{u} \min_{\epsilon &gt; 0} \left\{ \epsilon + \sum_{i,j} K_{i,j} \epsilon^{1 - 2i - j} h^{\alpha_{i,j}} \right\} \quad \text{in} \quad \Omega_{h}
+   </math>
+   <math display="block">
+    (42)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This result was first proved in [23], and we refer to [7] for a discussion on the present formulation. For the most common monotone finite-difference schemes, this result produces the upper bound
+   <math display="inline">
+    Kh^{1/2}
+   </math>
+   [20, 24], which is optimal [16] in this setting.
+  </p>
+  <p block-type="Text">
+   To get a lower bound, we need additional assumptions as follows:
+  </p>
+  <p block-type="TextInlineMath">
+   Convexity:
+   <math display="inline">
+    S(h, t, x, r, u)
+   </math>
+   is convex in
+   <math display="inline">
+    (r, u)
+   </math>
+   and commutes with translations in
+   <math display="inline">
+    x
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Approximation and regularity: For
+   <math display="inline">
+    h
+   </math>
+   small enough and
+   <math display="inline">
+    0 \leq \epsilon &lt; 1
+   </math>
+   , there is unique solution
+   <math display="inline">
+    u_h^{\epsilon}
+   </math>
+   of the scheme
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \max_{0 \le s \le \epsilon^2, |e| \le \epsilon} S(h, t+s, x+\mathsf{e}, u_h^{\epsilon}(x), u_h^{\epsilon}) = 0 \quad \text{on} \quad \Omega_h
+   </math>
+   (43)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    u_h := u_h^0
+   </math>
+   solves equation (25), and there is a constant C such that for all s, t, x, y, h,
+   <math display="inline">
+    \epsilon
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |u_h^{\epsilon}(t,x) - u_h^{\epsilon}(s,y)| \le C(|t-s|^{1/2} + |x-y|),
+   </math>
+   <br/>
+   <math display="block">
+    |u_h^0(t,x) - u_h^{\epsilon}(t,x)| \le C\epsilon \tag{44}
+   </math>
+  </p>
+  <p block-type="Text">
+   Under all of the above assumptions, we have the first lower bound:
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 3
+   </b>
+   (Lower bound I).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u - u_{h} \geq -C_{l_{1}} \min_{\epsilon &gt; 0} \left\{ \epsilon + \sum_{i,j} K_{i,j} \epsilon^{1 - 2i - j} h^{\alpha_{i,j}} \right\}
+   </math>
+   <br/>
+   in
+   <math>
+    \Omega_{h}
+   </math>
+   (45)
+  </p>
+  <p block-type="Text">
+   Alternatively, we may replace the last two assumptions on the scheme
+   <math display="inline">
+    (25)
+   </math>
+   by slightly stronger assumptions on the equation
+   <math display="inline">
+    (38)
+   </math>
+   :
+  </p>
+  <p block-type="TextInlineMath">
+   Continuity in
+   <math display="inline">
+    \vartheta
+   </math>
+   :
+   <math display="inline">
+    \Theta
+   </math>
+   is a separable metric space, and
+   <math display="inline">
+    \sigma, b, c, f
+   </math>
+   are continuous in
+   <math display="inline">
+    \vartheta
+   </math>
+   for every
+   <math display="inline">
+    (t, x)
+   </math>
+   . Then we have the second lower bound:
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 4
+   </b>
+   (Lower bound II).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u - u_h \geq -C_{l_2} \min_{\epsilon &gt; 0} \left\{ \epsilon^{1/3} + \sum_{i,j} K_{i,j} \epsilon^{1 - 2i - j} h^{\alpha_{i,j}} \right\}
+   </math>
+   <br/>
+   in
+   <math>
+    \Omega_h
+   </math>
+   (46)
+  </p>
+  <p block-type="TextInlineMath">
+   The typical lower bounds produced by Theorems 3 and 4 are
+   <math display="inline">
+    Kh^{1/2}
+   </math>
+   ,
+   <math display="inline">
+    Kh^{1/5}
+   </math>
+   , respectively. The first bound is again optimal, but the result applies only to particular schemes and equations
+   <math display="inline">
+    [6, 20, 22, 24]
+   </math>
+   . The second result is not optimal in general, but it applies to any consistent monotone scheme, see
+   <math display="inline">
+    [7]
+   </math>
+   for the most general results and a wider discussion. Theorem 3 was (essentially) stated in the present general form in [6, 20] and follows from arguments of [22, 23]. Theorem 4 was stated and proved in [6].
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Remark 4
+   </b>
+   (Approximation and regularity). Under quite general assumptions, see [24], it is possible to show that the "Approximation and regularity" assumption of Theorem 3 holds for any
+   <math display="inline">
+    \epsilon \in [0, 1)
+   </math>
+   whenever it holds for
+   <math display="inline">
+    \epsilon = 0
+   </math>
+   , that is, what we need is a uniform in h Hölder estimate on the solution of
+   <math display="inline">
+    u_h
+   </math>
+   of the scheme
+   <math display="inline">
+    (25)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 5
+   </b>
+   (Proofs). There are
+   <math display="inline">
+    3-4
+   </math>
+   main ideas.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. Mollification of the equation produce a smooth subsolution by convexity. An upper bound on the error then follows from classical
+     <math display="inline">
+      L^{\infty}
+     </math>
+     -argument using monotonicity and consistency [22].
+    </li>
+    <li block-type="ListItem">
+     The method of shaking the coefficients allows 2. to treat general problems with variable coefficients [23].
+    </li>
+    <li block-type="ListItem">
+     3. The lower bound. Either you (i) interchange the role of the scheme and the equation in
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   part (1) to get bound I, or (ii) you introduce additional approximations to avoid working with the scheme and get a type II bound [7, 23]. In case (i), you need a uniform Lipschitz bound on the solutions of the scheme, which is very difficult to obtain in general.
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 6
+   </b>
+   (Extensions). Stationary problems have been considered in several papers, including some boundary value problems, see [7, 17]. There have been papers treating more general equations like parabolic obstacle problems, impulse control problems, and integro-differential problems (see Partial Integro-differential Equations (PIDEs)). When solutions are less regular (Hölder continuous), lower rates have been obtained in
+   <math display="inline">
+    [6, 7]
+   </math>
+   and in some cases when solutions are more regular, higher order of convergence can be obtained
+   <math display="inline">
+    [16]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 6
+   </b>
+   Consider a special case of equation (38),
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{t} + \sup_{\vartheta \in \Theta} \Big\{ -\sum_{\beta} \Big[ (\bar{\sigma}_{\beta}^{\vartheta})^{2} D_{\beta}^{2} + \bar{b}^{\vartheta} D_{\beta} \Big] u + c^{\vartheta} u + f^{\vartheta} \Big\}
+   </math>
+   <math display="block">
+    = 0 \quad \text{in} \quad \mathbb{R}^{N} \times (0, T) \tag{47}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \bar{b} \geq 0
+   </math>
+   ,
+   <math display="inline">
+    \bar{\sigma}
+   </math>
+   are scalar functions,
+   <math display="inline">
+    D_{\beta} = \beta \cdot D
+   </math>
+   is a directional derivative, and
+   <math display="inline">
+    \{\beta\}
+   </math>
+   is a finite collection of vectors in
+   <math display="inline">
+    \mathbb{Z}^N
+   </math>
+   . We approximate on a uniform grid
+   <math display="inline">
+    \Omega_h = h\mathbb{Z} \times ch^2\mathbb{Z}^+
+   </math>
+   by an implicit finite-difference scheme proposed in
+   <math display="inline">
+    [11, 24]
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{\alpha}^{n+1} = u_{\alpha}^{n} + \Delta t \sup_{\theta \in \Theta} \left\{ -\sum_{\beta} \left[ (\bar{\sigma}_{\beta}^{\vartheta})^{2} \Delta_{h\beta} + \bar{b}^{\vartheta} \delta_{\beta h}^{+} \right] \right.
+   </math>
+   <math display="block">
+    \left. \times u_{\alpha}^{n+1} + c^{\theta} u_{\alpha}^{n+1} - f^{\theta} \right\} = 0 \tag{48}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \times u_{\alpha}^{++} + c^* u_{\alpha}^{++} - f^* \} = 0 \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    n \in \mathbb{Z}^+
+   </math>
+   ,
+   <math display="inline">
+    \alpha \in \mathbb{Z}^n
+   </math>
+   , and where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{h\beta}w(x) = \frac{w(x+h\beta) - 2w(x) + w(x-h\beta)}{h^2|\beta|^2}
+   </math>
+  </p>
+  <p block-type="Equation">
+   and
+   <math display="block">
+    \delta_{h\beta}^+ w(x) = \frac{w(x+\beta h) - w(x)}{h|\beta|} \tag{49}
+   </math>
+  </p>
+  <p block-type="Text">
+   This scheme is obviously monotone and a Taylor expansion shows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |F(t, x, \phi, \partial_t \phi D\phi, D^2\phi) - S(h, t, x, \phi(t, x), \phi)|
+   </math>
+   <br/>
+   <math display="block">
+    \leq C(ch^2|\phi_{tt}|_0 + h|D^2\phi|_0 + h^2|D^4\phi|_0)
+   </math>
+   (50)
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \bar{\sigma}, \bar{b}, c, f, u(0, \cdot)
+   </math>
+   are uniformly x-Lipschitz, then
+   <math display="inline">
+    u_h
+   </math>
+   is also uniformly x-Lipschitz [24], and by Theorems 2 and 3 we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |u - u_{\alpha}^{n}| \le Ch^{1/2} \tag{51}
+   </math>
+  </p>
+  <p block-type="Text">
+   From a practical or probabilistic point of view,
+   <math display="inline">
+    \bar{\sigma}
+   </math>
+   need not be Lipschitz. In this case, Theorems 2 and 4 vield a worse bound:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |u - u_{\alpha}^{n}| \le Ch^{1/5} \tag{52}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that we have imposed the CFL condition
+   <math display="inline">
+    \Delta t =
+   </math>
+   <math display="inline">
+    c\Delta x^2
+   </math>
+   (
+   <math display="inline">
+    \Delta x = h
+   </math>
+   ). If this condition is not satisfied, then the rates will be reduced. We refer to [7] for more general explicit and implicit schemes of this kind.
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bardi, M. &amp; Capuzzo-Dolcetta, I. (1997). Optimal Control and Viscosity Solutions of Hamilton-Jacobi-Bellman Equations, Birkhäuser.
+    </li>
+    <li block-type="ListItem">
+     [2] Bardi, M., Crandall, M.G., Evans, L.C., Soner, H.M. &amp; Souganidis, P.E. (1997). Viscosity solutions and applications, Lecture Notes in Mathematics, Springer-Verlag, Berlin, pp. 1660.
+    </li>
+    <li block-type="ListItem">
+     [3] Barles, G. (1994). Solutions de Viscosite des Equations de Hamilton-Jacobi, Mathematiques &amp; Applications, Springer-Verlag, Paris, p. 17.
+    </li>
+    <li block-type="ListItem">
+     Barles, G. (1997). Convergence of numerical schemes [4] for degenerate parabolic equations arising in finance theory, in Numerical Methods in Finance, Newton Institute, Cambridge University Press, Cambridge, pp. 1-21.
+    </li>
+    <li block-type="ListItem">
+     [5] Barles, G. &amp; Burdeau, J. (1995). The Dirichlet problem for semilinear second-order degenerate elliptic equations and applications to stochastic exit time control problems. Communications in Partial Differential Equations
+     <math display="inline">
+      20(1-2), 129-178.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [6] Barles, G. &amp; Jakobsen, E.R. (2002). On the convergence rate of approximation schemes for Hamilton-Jacobi-Bellman equations, M2AN Mathematical Modelling and Numerical Analysis 36(1), 33-54.
+    </li>
+    <li block-type="ListItem">
+     Barles, G. &amp; Jakobsen, E.R. (2007). Error bounds [7] for monotone approximation schemes for parabolic Hamilton-Jacobi-Bellman equations, Mathematics of Computation 76(260), 1861-1893.
+    </li>
+    <li block-type="ListItem">
+     Barles, G. &amp; Rouy, E. (1998). A strong comparison [8] result for the Bellman equation arising in stochastic exit time control problems and its applications, Communications in Partial Differential Equations 23(11-12), 1995-2033.
+    </li>
+    <li block-type="ListItem">
+     [9] Barles, G., Rouy, E. &amp; Souganidis, P.E. (1999). Remarks on the Dirichlet problem for quasilinear elliptic and parabolic equations, in Stochastic Analysis, Control, Optimization and Applications, W.M. McEneaney, G.G. Yin &amp; Q. Zhang, eds, Systems &amp; Control Foundations &amp; Applications, Birkhäuser, Boston, pp. 209-222.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [10] Barles, G. &amp; Souganidis, P.E. (1991). Convergence of approximation schemes for fully nonlinear second order equations,
+     <i>
+      Asymptotic Analysis
+     </i>
+     <b>
+      4
+     </b>
+     (3), 271–283.
+    </li>
+    <li block-type="ListItem">
+     [11] Bonnans, F. &amp; Zidani, H. (2003). Consistency of generalized finite difference schemes for the stochastic HJB equation,
+     <i>
+      SIAM Journal of Numerical Analysis
+     </i>
+     <b>
+      41
+     </b>
+     (3), 1008–1021.
+    </li>
+    <li block-type="ListItem">
+     [12] Caffarelli, L.A. &amp; Souganidis, P.E. (2008). A rate of convergence for monotone finite difference approximations to fully nonlinear, uniformly elliptic PDEs.
+     <i>
+      Communications on Pure Applied Mathematics
+     </i>
+     <b>
+      61
+     </b>
+     (1), 1–17.
+    </li>
+    <li block-type="ListItem">
+     [13] Chaumont, S. (2004). Uniqueness to elliptic and parabolic Hamilton–Jacobi–Bellman equations with non-smooth boundary,
+     <i>
+      C. R. Mathematical Academy of Science, Paris
+     </i>
+     <b>
+      339
+     </b>
+     (8), 555–560.
+    </li>
+    <li block-type="ListItem">
+     [14] Crandall, M.G., Ishii, H. &amp; Lions, P.-L. (1992). User's guide to viscosity solutions of second order partial differential equations,
+     <i>
+      Bulletin of the American Mathematical Society (N.S.)
+     </i>
+     <b>
+      27
+     </b>
+     (1), 1–67.
+    </li>
+    <li block-type="ListItem">
+     [15] Crandall, M.G. &amp; Lions, P.-L. (1984). Two approximations of solutions of Hamilton–Jacobi equations,
+     <i>
+      Mathematics of Computation
+     </i>
+     <b>
+      43
+     </b>
+     (167), 1–19.
+    </li>
+    <li block-type="ListItem">
+     [16] Dong, H. &amp; Krylov, N.V. (2005). Rate of convergence of finite-difference approximations for degenerate linear parabolic equations with
+     <i>
+      C
+     </i>
+     <sup>
+      1
+     </sup>
+     and
+     <i>
+      C
+     </i>
+     <sup>
+      2
+     </sup>
+     coefficients,
+     <i>
+      Electronic Journal of Differential Equations
+     </i>
+     <b>
+      2005
+     </b>
+     (102), 1–25.
+    </li>
+    <li block-type="ListItem">
+     [17] Dong, H. &amp; Krylov, N.V. (2007). The rate of convergence of finite-difference approximations for parabolic Bellman equations with Lipschitz coefficients in cylindrical domains,
+     <i>
+      Applied Mathematics and Optimization
+     </i>
+     <b>
+      56
+     </b>
+     (1), 37–66.
+    </li>
+    <li block-type="ListItem">
+     [18] Evans, L.C. (1998).
+     <i>
+      Partial Differential Equations
+     </i>
+     ,
+     <i>
+      Graduate Studies in Mathematics
+     </i>
+     , American Mathematical Society, Providence, p. 19.
+    </li>
+    <li block-type="ListItem">
+     [19] Fleming, W.H. &amp; Soner, H.M. (1993).
+     <i>
+      Controlled Markov Processes and Viscosity Solutions
+     </i>
+     , Springer-Verlag, New York.
+    </li>
+    <li block-type="ListItem">
+     [20] Jakobsen, E.R. (2003). On the rate of convergence of approximation schemes for Bellman equations associated with optimal stopping time problems,
+     <i>
+      Mathematical Models and Methods in Applied Science (M3AS)
+     </i>
+     <b>
+      13
+     </b>
+     (5), 613–644.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [21] Koike, S. (2004).
+     <i>
+      A Beginner's Guide to the Theory of Viscosity Solutions
+     </i>
+     ,
+     <i>
+      MSJ Memoirs
+     </i>
+     , Mathematical Society of Japan, Tokyo, p. 13.
+    </li>
+    <li block-type="ListItem">
+     [22] Krylov, N.V. (1997). On the rate of convergence of finite-difference approximations for Bellman's equations,
+     <i>
+      St. Petersburg Mathematical Journal
+     </i>
+     <b>
+      9
+     </b>
+     (3), 639–650.
+    </li>
+    <li block-type="ListItem">
+     [23] Krylov, N.V. (2000). On the rate of convergence of finite-difference approximations for Bellman's equations with variable coefficients,
+     <i>
+      Probability Theory and Related Fields
+     </i>
+     <b>
+      117
+     </b>
+     , 1–16.
+    </li>
+    <li block-type="ListItem">
+     [24] Krylov, N.V. (2005). On the rate of convergence of finite-difference approximations for Bellman equations with Lipschitz coefficients,
+     <i>
+      Applied Mathematics and Optimization
+     </i>
+     <b>
+      52
+     </b>
+     (2), 365–399.
+    </li>
+    <li block-type="ListItem">
+     [25] Kuo, H. &amp; Trudinger, N.S. (1995). Local estimates for parabolic difference operators,
+     <i>
+      Journal of Differential Equations
+     </i>
+     <b>
+      122
+     </b>
+     (2), 398–413.
+    </li>
+    <li block-type="ListItem">
+     [26] Motzkin, T.S. &amp; Wasow, W. (1953). On the approximation of linear elliptic differential equations by difference equations with positive coefficients,
+     <i>
+      Journal of Mathematical Physics
+     </i>
+     <b>
+      31
+     </b>
+     , 253–259.
+    </li>
+    <li block-type="ListItem">
+     [27] Oberman, A.M. (2006). Convergent difference schemes for degenerate elliptic and parabolic equations: Hamilton-Jacobi equations and free boundary problems,
+     <i>
+      SIAM Journal of Numerical Analysis
+     </i>
+     <b>
+      44
+     </b>
+     (2), 879–895.
+    </li>
+    <li block-type="ListItem">
+     [28] Oleinik, O.A. &amp; Radkevic, E.V. (1973).
+     <i>
+      Second Order Equations with Nonnegative Characteristic Form
+     </i>
+     , Plenum Press, New York-London.
+    </li>
+    <li block-type="ListItem">
+     [29] Pooley, D.M., Forsyth, P.A. &amp; Vetzal, K.R. (2003). Numerical convergence properties of option pricing PDEs with uncertain volatility,
+     <i>
+      IMA Journal of Numerical Analysis
+     </i>
+     <b>
+      23
+     </b>
+     (2), 241–267.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Kushner, H.J. &amp; Dupuis, P. (2001).
+   <i>
+    Numerical Methods for Stochastic Control Problems in Continuous Time
+   </i>
+   , Springer-Verlag, New York.
+  </p>
+  <p block-type="Text">
+   ESPEN R. JAKOBSEN
+  </p>
+ </body>
+</html>

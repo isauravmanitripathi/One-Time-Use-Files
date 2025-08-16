@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    CDO Square
+   </b>
+  </h1>
+  <p block-type="Text">
+   A CDO-of-CDO, or CDO square (CDO2), is a type of collateralized debt obligation (CDO) that has CDO tranches as reference assets. The CDO2 market is a natural extension of the CDO market. The concept of CDO
+   <sup>
+    2
+   </sup>
+   was pioneered by the ZAIS group, when they launched ZING I in 1999, focusing on Euro CDO assets [2]. Recognizable growth of the CDO
+   <sup>
+    2
+   </sup>
+   market, particularly in the United States, was fueled by the excessive volume growth of the CDO market in the new millennium. In 2004, the situation of tightening credit spreads and a stable credit outlook shifted investor and dealer interest toward more structured credit basket products in the search for yield and tailored risk-return profiles. The repackaging of CDO tranches
+   <i>
+    via
+   </i>
+   the CDO
+   <sup>
+    2
+   </sup>
+   technology allows the dealer to manage the risk and capital cost of (residual) trading book positions. As in the case of CDOs, the dealer can exploit the rating alchemy, that is, the difference between traded and historical default probabilities as well as default correlations, to generate positive carry strategies. The investor will benefit from a more diversified reference portfolio, generally higher yield than similarly rated corporate debt, and the double-layer subordination effect.
+  </p>
+  <p block-type="Text">
+   We distinguish three main CDO2 transaction types: cash CDO2, synthetic CDO2, and hybrid CDO2. All transaction types can either refer to a static portfolio of CDOs or can be combined with an active management of the reference CDO portfolio. In a cash or cash-flow CDO2, the reference assets are existing cash CDOs, which typically provide the funds to pay CDO
+   <sup>
+    2
+   </sup>
+   investors. In a synthetic CDO2, the credit risk is generated synthetically, for example,
+   <i>
+    via
+   </i>
+   unfunded CDO tranche swaps. Hybrid CDO2s appeared with the rise of the structured finance CDO market and comprise both elements. Typically, in such transactions, the major portion (ca. 80–90%) of the reference portfolio is cash asset-backed security (ABS) exposure and the remainder is synthetic CDOs. It is quite common to use a special purpose vehicle (SPV) overlay for cash CDO
+   <sup>
+    2
+   </sup>
+   and hybrid CDO2.
+  </p>
+  <h2>
+   <b>
+    Mechanics of a Synthetic CDO2
+   </b>
+  </h2>
+  <p block-type="Text">
+   A synthetic CDO
+   <sup>
+    2
+   </sup>
+   tranche follows the same mechanics as an ordinary CDO tranche (
+   <i>
+    see
+   </i>
+   <b>
+    Collateralized Debt Obligations (CDO)
+   </b>
+   ), with the only difference that its reference portfolio is made up of CDO tranches. This portfolio is called the
+   <i>
+    outer or master portfolio
+   </i>
+   . CDO tranches are determined by their corresponding reference portfolio plus an attachment (or subordination) level and detachment (or exhaustion) level with regard to aggregated credit losses. Hence, we refer to the loss attachment and detachment of the outer portfolio as
+   <i>
+    outer attachment
+   </i>
+   and
+   <i>
+    outer detachment
+   </i>
+   . Similarly, each CDO tranche of the outer portfolio is described by a corresponding inner reference portfolio and an inner attachment and detachment level (compare with Figure 1 for a schematic description). The inner reference portfolios often overlap and include some of the same reference assets.
+  </p>
+  <p block-type="Text">
+   Inner attachment and detachment levels as well as the reference notional of assets in inner portfolios are quite often of comparable size. Typically, we find ca. 50–150 assets per inner portfolio and ca. 5–10 inner CDO tranches, which generally translate into a total of ca. 250–500 different reference assets.
+  </p>
+  <p block-type="Text">
+   CDO
+   <sup>
+    2
+   </sup>
+   investors benefit from two layers of subordination. First, we must have a considerable number of default events with associated loss rates to exceed the subordination of at least one inner CDO tranche. This will trigger losses on the outer portfolio. However, only if the subordination of the outer CDO tranche is exhausted, we will recognize CDO
+   <sup>
+    2
+   </sup>
+   losses. The mathematical description of the aggregated CDO
+   <sup>
+    2
+   </sup>
+   loss
+   <i>
+    L
+   </i>
+   out
+   <i>
+    (t)
+   </i>
+   for any future date
+   <i>
+    t
+   </i>
+   during the contract term reflects the double-layer effect.
+  </p>
+  <p block-type="Text">
+   First, the inner portfolio losses
+   <i>
+    Lj (t)
+   </i>
+   have to be determined
+   <i>
+    via
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_j(t) = \sum_{i=1}^{N} N_{ij} \cdot (1 - R_i) \cdot 1_{\{\tau_i \le t\}} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    Nij
+   </i>
+   is the notional of assets
+   <i>
+    i
+   </i>
+   = 1
+   <i>
+    ,...,N
+   </i>
+   in the inner reference portfolios
+   <i>
+    j
+   </i>
+   = 1
+   <i>
+    ,...,M
+   </i>
+   ,
+   <i>
+    Ri
+   </i>
+   denotes the asset-specific recovery rate and 1{
+   <i>
+    τi
+   </i>
+   ≤
+   <i>
+    t
+   </i>
+   } is the (stochastic) default indicator function for the default time
+   <i>
+    τi
+   </i>
+   of reference asset
+   <i>
+    i
+   </i>
+   . Second, the inner portfolio losses
+   <i>
+    Lj (t)
+   </i>
+   have to be transformed into
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Schematic
+   <math display="inline">
+    \text{CDO}^2
+   </math>
+   description
+  </p>
+  <p block-type="TextInlineMath">
+   inner CDO tranche losses
+   <math display="inline">
+    L_{\text{inn},j}(t)
+   </math>
+   (see Collateralized Debt Obligations (CDO))
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_{\text{inn},j}(t) = \min[D_j - A_j, \max[L_j(t) - A_j, 0]]
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    A_i
+   </math>
+   and
+   <math display="inline">
+    D_i
+   </math>
+   denote the inner attachment and exhaustion level of the corresponding inner reference portfolio
+   <i>
+    j
+   </i>
+   . Third, the outer tranche or
+   <math display="inline">
+    \text{CDO}^2
+   </math>
+   tranche loss can be computed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_{\text{out}}(t) = \min \left[ D_{\text{out}} - A_{\text{out}}, \max \left[ L_{\text{tot}}(t) - A_{\text{out}}, 0 \right] \right]
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    A_{\text{out}}
+   </math>
+   and
+   <math display="inline">
+    D_{\text{out}}
+   </math>
+   denote the attachment and exhaustion points of the outer tranche and
+   <math display="inline">
+    L_{\text{tot}}(t)
+   </math>
+   =
+   <math display="inline">
+    \sum_{i=1}^{M} L_{\text{inn},j}(t)
+   </math>
+   the sum of inner tranche losses.
+  </p>
+  <h4>
+   <b>
+    Risk Analysis and Pricing
+   </b>
+  </h4>
+  <p block-type="Text">
+   The limited universe of liquid and actively traded reference assets naturally yields overlaps in inner reference portfolios; in other words, reference assets tend to occur in more than one real-life inner reference portfolio. This causes the
+   <math display="inline">
+    \text{CDO}^2
+   </math>
+   loss distribution to display fatter tails on both ends, since the
+  </p>
+  <p block-type="Text">
+   (non)occurrence of an isolated default event might simultaneously affect several inner reference portfolios, thereby displaying a leveraged effect [1]. This impact is even more pronounced in case of thin tranches and understood as cliff risk of CDO&lt;sup&gt;2&lt;/sup&gt;s. Moreover, the double-layer tranche technology generally amplifies correlation sensitivities: an increase in the asset correlation yields a higher increase of correlation between affected inner CDO tranches. In summary, overlap and correlation are the main risk drivers of a
+   <math display="inline">
+    \text{CDO}^2
+   </math>
+   tranche. In addition, the described effects considerably increase the impact of other risk drivers such as changing credit spreads (respectively, changing default probabilities) and changing recovery rates.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The key ingredient to pricing is the stochastic evaluation of the accumulated CDO&lt;sup&gt;2&lt;/sup&gt; tranche loss
+   <math display="inline">
+    L_{\text{out}}(t)
+   </math>
+   as determined in the previous paragraph. This requires the consistent use of a multivariate credit (default) model. Since no market standard has been developed yet owing to the lack of truly observable correlation information, the necessity and benefit of appropriate scenario models are highlighted in this article. The rating agencies Moody's, Standard &amp; Poor's, and Fitch have consistently adapted their
+  </p>
+  <p block-type="Text">
+   CDO rating technology to the CDO
+   <sup>
+    2
+   </sup>
+   case. In particular, the rating technology comes with a look-through capability to underlying assets of inner reference portfolios. However, the look-through capacity stops with ABS-type assets that are modeled as a single asset.
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Kakodkar, A., Galiani, S., Jonsson, J.G. &amp; Gallo, A. (2006).
+     <i>
+      Credit Derivatives Handbook 2006—Vol. 2 A Guide to the Exotics Credit Derivatives Market, Credit Derivatives Strategy
+     </i>
+     , Merrill Lynch, New York.
+    </li>
+    <li block-type="ListItem">
+     [2] Smith, D. (2003). CDOs of CDOs: art eating itself? in
+     <i>
+      Credit Derivatives: The Definite Guide
+     </i>
+     , J. Gregory, ed, Risk Books, London, pp. 257–279.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <h4>
+   <b>
+    Collateralized Debt Obligations (CDO)
+   </b>
+   ;
+   <b>
+    Managed CDO
+   </b>
+   ;
+   <b>
+    Structured Finance Rating Methodologies
+   </b>
+   .
+  </h4>
+  <p block-type="Text">
+   HANS-JURGEN ¨ BRASCH
+  </p>
+ </body>
+</html>

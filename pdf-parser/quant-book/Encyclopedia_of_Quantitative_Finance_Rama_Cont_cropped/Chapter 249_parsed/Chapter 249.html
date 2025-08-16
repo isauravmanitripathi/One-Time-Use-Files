@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Sparse Grids
+   </b>
+  </h1>
+  <p block-type="Text">
+   The sparse grid method is a general numerical discretization technique for multivariate function representation, integration and partial differential equations. This approach, first introduced by the Russian mathematician Smolyak in 1963 [26], constructs a multidimensional multilevel basis by a special truncation of the tensor product expansion of a one-dimensional multilevel basis (see Figure 1 for an example of a sparse grid).
+  </p>
+  <p block-type="Text">
+   Discretizations on sparse grids involve only
+   <math display="inline">
+    O(N(\log N)^{d-1})
+   </math>
+   degrees of freedom, where d is the problem dimension and
+   <math display="inline">
+    N
+   </math>
+   denotes the number of degrees of freedom in one coordinate direction. The accuracy obtained this way is comparable to one using a full tensor product basis involving
+   <math display="inline">
+    O(N^d)
+   </math>
+   degrees of freedom, if the underlying problem is smooth enough, that is, if the solution has bounded mixed derivatives.
+  </p>
+  <p block-type="Text">
+   This way, the curse of dimension, that is, the exponential dependence of conventional approaches on the dimension
+   <math display="inline">
+    d
+   </math>
+   , can be overcome to a certain extent. This makes the sparse grid approach particularly attractive for the numerical solution of moderate and higher dimensional problems. Still, the classical sparse grid method is not completely independent of the dimension due to the above logarithmic term in the complexity.
+  </p>
+  <p block-type="Text">
+   Sparse grid methods are known under various names, such as hyperbolic cross points, discrete blending, Boolean interpolation, or splitting extrapolation. For a comprehensive introduction to sparse grids, see [5].
+  </p>
+  <p block-type="Text">
+   In computational finance, sparse grid methods have been employed for the valuation of
+   <i>
+    multiasset
+   </i>
+   options such as basket [24] (see Basket Options) or outperformance options [12], various types of pathdependent derivatives, due to the high dimension of the arising partial differential equations, or integration problems.
+  </p>
+  <h3>
+   <b>
+    One-dimensional Multilevel Basis
+   </b>
+  </h3>
+  <p block-type="Text">
+   The first ingredient of a sparse grid method is a onedimensional multilevel basis. In the classical sparse grid approach, a hierarchical basis based on standard
+  </p>
+  <p block-type="Text">
+   hat functions,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi(x) := \begin{cases}\n1 - |x| &amp; \text{if } x \in [-1, 1], \\
+0 &amp; \text{otherwise}\n\end{cases} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is used. Then, a set of equidistant grids
+   <math display="inline">
+    \Omega_l
+   </math>
+   of level l on the unit interval
+   <math display="inline">
+    \bar{\Omega} = [0, 1]
+   </math>
+   and mesh width
+   <math display="inline">
+    2^{-l}
+   </math>
+   is considered. The grid points
+   <math display="inline">
+    x_{l,i}
+   </math>
+   are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x_{l,i} := i \cdot h_l, 0 \le i \le 2^l \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The standard hat function is then taken to generate a family of basis functions
+   <math display="inline">
+    \phi_{l,i}(x)
+   </math>
+   having support
+   <math display="inline">
+    [x_{l,i} - h_l, x_{l,i} + h_l]
+   </math>
+   by dilation and translation, that is.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{l,i}(x) := \phi\left(\frac{x - i \cdot h_l}{h_l}\right) \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   Thereby, the index
+   <math display="inline">
+    i
+   </math>
+   indicates the location of a basis function or a grid point. This basis is usually termed as nodal basis or Lagrange basis (see Figure 2, bottom). These basis functions are then used to define function spaces
+   <math display="inline">
+    V_l
+   </math>
+   consisting of piecewise linear functions&lt;sup&gt;a&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{l} := \text{span} \left\{ \phi_{l,i} : 1 \le i \le 2^{l} - 1 \right\} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   With these function spaces, the hierarchical increment spaces
+   <math display="inline">
+    W_l
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W_l := \text{span}\left\{\phi_{l,i} : i \in I_l\right\} \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   using the index set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_l = \{i \in \mathbb{N} : 1 \le i \le 2^l - 1, i \text{ odd}\}\tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   are defined. These increment spaces satisfy the relation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_l = \bigoplus_{k \le l} W_k \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The basis corresponding to
+   <math display="inline">
+    W_l
+   </math>
+   is hierarchical basis (see Figure 2, top) and any function
+   <math display="inline">
+    u \in V_l
+   </math>
+   can be uniquely represented as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x) = \sum_{k=1}^{l} \sum_{i \in I_k} v_{k,i} \cdot \phi_{k,i}(x) \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   with coefficient values
+   <math display="inline">
+    v_{k,i} \in \mathbb{R}
+   </math>
+   . Note that the supports of all basis functions
+   <math display="inline">
+    \phi_{k,i}
+   </math>
+   spanning
+   <math display="inline">
+    W_k
+   </math>
+   are mutually disjoint.
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      ٠
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      ٠.
+      <br/>
+      <math>
+       \bullet
+      </math>
+     </td>
+     <td>
+      ٠
+     </td>
+    </tr>
+    <tr>
+     <th>
+     </th>
+     <th>
+      . .
+      <br/>
+      ٠
+     </th>
+     <th>
+      ٠
+      <br/>
+      <math>
+       \cdot
+      </math>
+      <math>
+       \cdot
+      </math>
+      <br/>
+      ٠
+     </th>
+     <th>
+      <math>
+       \cdot \cdot \cdot \cdot
+      </math>
+      <br/>
+      . .
+      <br/>
+      ٠
+      <br/>
+      ٠
+     </th>
+     <th>
+      <math>
+       \cdot
+      </math>
+      <math>
+       \cdot
+      </math>
+      <math>
+       \cdot
+      </math>
+      <br/>
+      ٠
+      <br/>
+      ٠
+     </th>
+    </tr>
+    <tr>
+     <th>
+     </th>
+     <th>
+      ٠
+      <br/>
+      ٠
+     </th>
+     <th>
+      :
+      <br/>
+      ٠
+     </th>
+     <th>
+      :
+      <br/>
+      ٠.
+     </th>
+     <th>
+      <math>
+       \mathbf{.}
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+      i
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      ٠
+     </th>
+     <th>
+      ٠
+      <br/>
+      ٠
+      <br/>
+      <math>
+       \cdot
+      </math>
+     </th>
+     <th>
+      .
+      <br/>
+      ٠
+     </th>
+     <th>
+      ٠
+      <br/>
+      ٠
+     </th>
+     <th>
+      ٠
+      <br/>
+      ٠
+      <br/>
+      ٠
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      ٠
+     </td>
+     <td>
+      ٠
+      <br/>
+      :
+      <br/>
+      ٠
+     </td>
+     <td>
+      :
+     </td>
+     <td>
+      ٠
+      <br/>
+      . .
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      ٠
+     </td>
+     <td>
+      ٠
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      ٠
+     </td>
+     <td>
+      ٠
+      <br/>
+      ٠
+      <br/>
+      <math>
+       \cdot
+      </math>
+     </td>
+     <td>
+      <math>
+       \bullet
+      </math>
+     </td>
+     <td>
+      ٠
+     </td>
+     <td>
+      ٠
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      ĺ
+      <br/>
+      <math>
+       \cdot
+      </math>
+      <br/>
+      . .
+     </td>
+     <td>
+      ٠
+      <br/>
+      ٠
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      ٠
+     </td>
+     <td>
+      ٠
+     </td>
+     <td>
+      ٠
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   A regular two-dimensional sparse grid of level 7
+  </p>
+  <p>
+   <img src="_page_1_Figure_3.jpeg"/>
+  </p>
+  <p>
+   Figure 2 Piecewise linear hierarchical basis (a) versus nodal basis (b) of level 4
+  </p>
+  <h2>
+   <b>
+    Tensor Product Construction
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   From this one-dimensional hierarchical basis, a multidimensional basis on the
+   <math display="inline">
+    d
+   </math>
+   -dimensional unit cube
+   <math display="inline">
+    \bar{\Omega} := [0, 1]^d
+   </math>
+   is obtained by a tensor product construction. With the multiindex
+   <math display="inline">
+    \mathbf{l} = (l_1, \ldots, l_d) \in \mathbb{N}^d
+   </math>
+   , which indicates the level in a multivariate sense, the set of d-dimensional standard rectangular grids
+   <math display="inline">
+    \Omega_l
+   </math>
+   on
+   <math display="inline">
+    \bar{\Omega}
+   </math>
+   with mesh size
+   <math display="inline">
+    \mathbf{h}_{\mathbf{l}} := (h_{l_1}, \ldots, h_{l_d}) := 2^{-\mathbf{l}}
+   </math>
+   are
+  </p>
+  <p block-type="Text">
+   considered. Each grid
+   <math display="inline">
+    \Omega_{l}
+   </math>
+   is equidistant with respect to each individual coordinate direction, but, in general, may have varying mesh sizes in the different directions. The grid points
+   <math display="inline">
+    x_{l,i}
+   </math>
+   of the grid
+   <math display="inline">
+    \Omega_l
+   </math>
+   are the points
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{x}_{\mathbf{l},\mathbf{i}} := (x_{l_1,i_1}, \dots, x_{l_d,i_d}), \mathbf{1} \le \mathbf{i} \le 2^{\mathbf{l}} - \mathbf{1} \qquad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   where for the above multiindices, all arithmetic operations are to be understood component-wise.
+  </p>
+  <p block-type="TextInlineMath">
+   Then, for each grid point
+   <math display="inline">
+    \mathbf{x}_{l,i}
+   </math>
+   , an associated piecewise
+   <i>
+    d
+   </i>
+   -linear basis function
+   <math display="inline">
+    \phi_{l,i}(x)
+   </math>
+   (see Figure 3) is defined as the product of the one-dimensional basis functions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{\mathbf{l},\mathbf{i}}(\mathbf{x}) := \prod_{j=1}^{a} \phi_{l_j,i_j}(x_j) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   Each of the multidimensional (nodal) basis functions
+   <math display="inline">
+    \phi_{\text{L,i}}
+   </math>
+   has a support of size
+   <math display="inline">
+    2 \cdot \mathbf{h}_{\text{L}}
+   </math>
+   . These basis functions are again used to define function spaces
+   <math display="inline">
+    V_1
+   </math>
+   consisting of piecewise
+   <math display="inline">
+    d
+   </math>
+   -linear functions, which are 0 on the boundary of
+   <math display="inline">
+    \bar{\Omega}
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\mathbf{l}} := \operatorname{span} \left\{ \phi_{\mathbf{l},\mathbf{i}} : \mathbf{1} \le \mathbf{i} \le 2^{\mathbf{l}} - \mathbf{1} \right\} \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   Similar to the one-dimensional case, the hierarchical increments
+   <math display="inline">
+    W_1
+   </math>
+   are defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W_{\mathbf{l}} := \text{span}\left\{\phi_{\mathbf{l},\mathbf{i}} : \mathbf{i} \in \mathbf{I}_{\mathbf{l}}\right\} \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   with the index set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{I}_{\mathbf{l}} := \left\{ \mathbf{i} \in \mathbb{N}^{d} : \mathbf{1} \le \mathbf{i} \le 2^{\mathbf{l}} - \mathbf{1}, \atop i_{j} \text{ odd for all } 1 \le j \le d \right\}
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   This way, the hierarchical increment spaces
+   <math display="inline">
+    W_1
+   </math>
+   are related to the nodal spaces
+   <math display="inline">
+    V_1
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\mathbf{l}} = \bigoplus_{\mathbf{k} \le \mathbf{l}} W_{\mathbf{k}} \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   Again, the supports of all multidimensional hierarchical basis functions
+   <math display="inline">
+    \phi_{\text{Li}}
+   </math>
+   spanning
+   <math display="inline">
+    W_{\text{I}}
+   </math>
+   are mutually disjoint. Also, again each function
+   <math display="inline">
+    u \in V_1
+   </math>
+   can uniquely be represented by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{\mathbf{l}}(\mathbf{x}) = \sum_{\mathbf{k}=\mathbf{1}}^{l} \sum_{\mathbf{i} \in \mathbf{I}_{\mathbf{k}}} v_{\mathbf{k},\mathbf{i}} \cdot \phi_{\mathbf{k},\mathbf{i}}(\mathbf{x}) \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   with hierarchical coefficients
+   <math display="inline">
+    v_{k,i} \in \mathbb{R}
+   </math>
+   .
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 3
+   </b>
+   Tensor product approach to generate the piecewise bilinear basis functions
+   <math display="inline">
+    \phi_{(2,1),(1,1)}
+   </math>
+   and
+   <math display="inline">
+    \phi_{(2,1),(1,1)}
+   </math>
+   from the one-dimensional basis functions
+   <math display="inline">
+    \phi_{2,1}, \phi_{2,2}
+   </math>
+   and
+   <math display="inline">
+    \phi_{1,1}
+   </math>
+  </p>
+  <h2>
+   <b>
+    Classical Sparse Grids
+   </b>
+  </h2>
+  <p block-type="Text">
+   The classical sparse grid construction arises from a cost-to-benefit analysis in function approximation. Thereby, functions
+   <math display="inline">
+    u: \Omega \to \mathbb{R}
+   </math>
+   which have bounded mixed second derivatives
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D^{\alpha}u := \frac{\partial^{|\alpha|_1}u}{\partial x_1^{\alpha_1}\dots\partial x_d^{\alpha_d}}\tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    |\alpha|_{\infty} \leq 2
+   </math>
+   are considered. These functions belong to the Sobolev space
+   <math display="inline">
+    H_2^{\text{mix}}(\bar{\Omega})
+   </math>
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_2^{\text{mix}}(\bar{\Omega}) := \{ u : \bar{\Omega} \to \mathbf{R} : D^{\alpha}u \in L_2(\Omega), \newline \times |\boldsymbol{\alpha}|_{\infty} \le 2, u|_{\partial\Omega} = 0 \}
+   </math>
+   (17)
+  </p>
+  <p block-type="Text">
+   Here, the two norms
+   <math display="inline">
+    |\pmb{\alpha}|_1
+   </math>
+   and
+   <math display="inline">
+    |\pmb{\alpha}|_{\infty}
+   </math>
+   for multiindices are defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |\boldsymbol{\alpha}|_1 := \sum_{j=1}^d \alpha_j \text{ and } |\boldsymbol{\alpha}|_{\infty} := \max_{1 \le j \le d} \alpha_j
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   For functions
+   <math display="inline">
+    u \in H_2^{\text{mix}}(\bar{\Omega})
+   </math>
+   , the hierarchical coefficients
+   <math display="inline">
+    v_{\mathbf{l},i}
+   </math>
+   decay as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |v_{\mathbf{l},\mathbf{i}}| = O\left(2^{-2|\mathbf{l}|_1}\right) \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   On the other hand, the size (i.e., the number of degrees of freedom) of the subspaces
+   <math display="inline">
+    W_1
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |W_{\mathbf{l}}| = O\left(2^{|\mathbf{l}|_1}\right) \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   An optimization with respect to the number of degrees of freedom and the resulting approximation accuracy directly leads to
+   <i>
+    sparse grid
+   </i>
+   spaces
+   <math display="inline">
+    \hat{V}_n
+   </math>
+   of level
+   <math display="inline">
+    n
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{V}_n := \bigoplus_{|\mathbf{l}|_1 \le n + d - 1} W_{\mathbf{l}} \tag{21}
+   </math>
+  </p>
+  <p>
+   <img src="_page_2_Figure_16.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 4
+   </b>
+   All subspaces
+   <math display="inline">
+    W_1
+   </math>
+   for levels
+   <math display="inline">
+    |l|_{\infty} \leq 3
+   </math>
+   which together form the full grid space
+   <math display="inline">
+    V_3
+   </math>
+   . The corresponding sparse grid space
+   <math display="inline">
+    \hat{V}_3
+   </math>
+   consists of all subspaces above the dashed line (
+   <math display="inline">
+    |\mathbf{l}|_1 \le 4
+   </math>
+   )
+  </p>
+  <p block-type="Text">
+   In comparison to the standard full grid space
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_n := V_{(n,\ldots,n)} = \bigoplus_{|\mathbf{l}|_{\infty} \le n} W_{\mathbf{l}} \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   which corresponds to cubic sectors of subspaces, sparse grids use triangular or simplicial sectors, see Figure 4. The dimension of the space
+   <math display="inline">
+    \hat{V}_n
+   </math>
+   , that is, the number of degrees of freedom or grid points is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left| \hat{V}_n \right| = \sum_{i=0}^{n-1} 2^i \cdot \binom{d-1+i}{d-1}
+   </math>
+   <br/>
+   =
+   <math>
+    O(h_n^{-1} \cdot |\log_2 h_n|^{d-1})
+   </math>
+   (23)
+  </p>
+  <p block-type="Text" class="has-continuation">
+   This shows the order
+   <math display="inline">
+    O(2^n n^{d-1})
+   </math>
+   , which is a significant reduction of the number of degrees of freedom
+  </p>
+  <p block-type="TextInlineMath">
+   and, thus, of the computational and storage requirement compared to the order
+   <math display="inline">
+    O(2^{nd})
+   </math>
+   of the dimension of the full grid space
+   <math display="inline">
+    |V_n|
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   On the other hand, the approximation accuracy of the sparse grid spaces for functions
+   <math display="inline">
+    u \in H_2^{\text{mix}}(\bar{\Omega})
+   </math>
+   is in the
+   <math display="inline">
+    L_p
+   </math>
+   norms for
+   <math display="inline">
+    1 \le p \le \infty
+   </math>
+   given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ||u - \hat{u}_n||_p = O(h_n^2 \cdot n^{d-1}) \tag{24}
+   </math>
+  </p>
+  <p block-type="Text">
+   For the corresponding full grid spaces, the accuracy is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ||u - u_n||_p = O(h_n^2)
+   </math>
+   (25)
+  </p>
+  <p block-type="Text">
+   This shows the crucial advantage of the sparse grid space
+   <math display="inline">
+    \hat{V}_n
+   </math>
+   in comparison with the full grid space
+   <math display="inline">
+    V_n
+   </math>
+   : the number of degrees of freedom is significantly reduced, whereas the accuracy is only slightly deteriorated. This way, the curse of dimensionality can be overcome, at least to some extent. The dimension still enters through logarithmic terms both in the computational cost and the accuracy estimate as well as in the constants hidden in the order notation.
+  </p>
+  <h4>
+   <b>
+    Extensions and Applications
+   </b>
+  </h4>
+  <p block-type="Text">
+   The classical sparse grid concept has been generalized in various ways. First, there are special sparse grids, which are optimized with respect to the energy seminorm [4]. These energy-based sparse grids are further sparsified and possess a cost complexity of
+   <math display="inline">
+    O(h_n^{-1})
+   </math>
+   for an accuracy of
+   <math display="inline">
+    O(h_n)
+   </math>
+   . Thus, the dependence on the dimension
+   <math display="inline">
+    d
+   </math>
+   in the order is completely removed (but is still present in the hidden constants [8]). A generalization to sparse grids, which is optimal with respect to other Sobolev norms, can be found in
+   <math display="inline">
+    [13]
+   </math>
+   . In case the underlying space is not known
+   <i>
+    a priori
+   </i>
+   , dimension-adaptive methods [11] can be applied to find optimized sparse grids.
+  </p>
+  <p block-type="Text">
+   The sparse grid approach based on piecewise linear interpolation can be generalized to higher order polynomial [5] or wavelet discretizations (e.g., interpolets or prewavelets) [15, 25], which allows to utilize additional properties (such as higher polynomial exactness or vanishing moments) of the basis.
+  </p>
+  <p block-type="Text">
+   Furthermore, sparse grid methods can be applied to nonsmooth problems by using spatially adaptive refinement methods [2], see Figure 5 for an adaptively refined sparse grid. Spatial adaptivity helps if the original smoothness conditions for the sparse grid approach are not fulfilled. This is the case in nearly
+  </p>
+  <p>
+   <img src="_page_3_Figure_11.jpeg"/>
+  </p>
+  <p>
+   Figure 5 An at-a-corner singularity adaptively refined three-dimensional sparse grid
+  </p>
+  <p block-type="Text">
+   all option pricing problems since they lead to discontinuities in the initial conditions, which can, in some cases, extend into the interior of the domain. Here, adaptive refinement methods can often attain the same convergence rates as for smooth problems, which can be shown using approximation theory in Besov spaces [20]. Additionally, transformations that align areas of discontinuities with coordinate axes can significantly enhance the efficiency of sparse grid methods, as was shown in
+   <math display="inline">
+    [24]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Sparse grids have been applied for the solution of different kinds of low- and moderate-dimensional partial differential equations, such as elliptic [5, 27], parabolic [1, 14], and hyperbolic [17] problems. In this context, finite element methods [2], finite difference methods [7], and finite volume methods [19] have been used in the discretization process.
+  </p>
+  <p block-type="Text">
+   For the solution of partial differential equations, often the so-called combination technique [9] is employed. Here, a sparse grid solution is obtained by a combination of anisotropic full grid solutions according to the combination formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{u}_{n}(\mathbf{x}) = \sum_{n \leq |\mathbf{l}|_{1} \leq n+d-1} (-1)^{n+d-|\mathbf{l}|_{1}-1} \begin{pmatrix} d-1 \\ |\mathbf{l}|_{1}-n \end{pmatrix} u_{1}(\mathbf{x})
+   </math>
+   (26)
+  </p>
+  <p>
+   <img src="_page_4_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 6 The combination technique in two dimensions for level
+   <math display="inline">
+    n = 3
+   </math>
+   : combine coarse full grids
+   <math display="inline">
+    \Omega_{\mathbf{l}}, |\mathbf{l}|_{1} \in \{3, 4\},\
+   </math>
+   with mesh widths
+   <math display="inline">
+    2^{-l_1}
+   </math>
+   and
+   <math display="inline">
+    2^{-l_2}
+   </math>
+   to get a sparse grid
+   <math display="inline">
+    \hat{\Omega}_n
+   </math>
+   corresponding to
+   <math display="inline">
+    \hat{V}_n
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    u_1(\mathbf{x})
+   </math>
+   is a full grid solution on an anisotropic grid with mesh width
+   <math display="inline">
+    2^{-l}
+   </math>
+   , see Figure 6 for a twodimensional example. The combination technique can be further optimized with respect to the underlying differential operator
+   <math display="inline">
+    [18]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The sparse grid approach can also be used for numerical integration, for example, for the computation of expectations [10, 23]. Thereby, the classical sparse grid construction starts with a sequence of onedimensional quadrature formulas
+   <math display="inline">
+    Q_1 f
+   </math>
+   using
+   <math display="inline">
+    n_1
+   </math>
+   points to integrate a function
+   <math display="inline">
+    f
+   </math>
+   on the unit interval [0, 1],
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q_l f := \sum_{i=1}^{n_l} w_{li} \cdot f(x_{li})
+   </math>
+   (27)
+  </p>
+  <p block-type="Text">
+   Using the difference quadrature formulas
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_k f := (Q_k - Q_{k-1})f \text{ with } Q_0 f := 0 \qquad (28)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   the sparse grid quadrature formula
+   <math display="inline">
+    Q_n f
+   </math>
+   of level n for a d-dimensional function f on the cube
+   <math display="inline">
+    [0, 1]^d
+   </math>
+   is then defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{Q}_n f := \sum_{\|\mathbf{l}\|_1 \le n + d - 1} (\Delta_{l_1} \otimes \cdots \otimes \Delta_{l_d}) f \qquad (29)
+   </math>
+  </p>
+  <p block-type="Text">
+   Again, this construction can be improved by using spatially adaptive or dimension-adaptive refinement [3, 11].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The sparse grid methodology has also been successfully applied to the solution of integral equations
+  </p>
+  <p block-type="Text">
+   [16], interpolation and approximation [21], and data analysis
+   <math display="inline">
+    [6, 22]
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;In order to simplify this exposition, we assume that the functions in
+   <math display="inline">
+    V_l
+   </math>
+   are 0 on the boundary of
+   <math display="inline">
+    \bar{\Omega}
+   </math>
+   . This restriction can be overcome by adding appropriate boundary basis functions.
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Balder, R. &amp; Zenger, C. (1996). The solution of the multidimensional real Helmholtz equation on sparse grids, SIAM Journal on Scientific Computing 17, 631-646.
+    </li>
+    <li block-type="ListItem">
+     [2] Bungartz, H. (1992). An adaptive Poisson solver using hierarchical bases and sparse grids, in Iterative Methods in Linear Algebra, R. Beauwens, ed, North-Holland, рр. 293-310.
+    </li>
+    <li block-type="ListItem">
+     [3] Bungartz, H. &amp; Dirnstorfer, S. (2003). Multivariate quadrature on adaptive sparse grids, Computing 71,
+     <math display="inline">
+      89 - 114
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [4] Bungartz, H. &amp; Griebel, M. (1999). A note on the complexity of solving Poisson's equation for spaces of bounded mixed derivatives, Journal of Complexity 15,
+     <math display="inline">
+      1 - 121
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [5] Bungartz, H. &amp; Griebel, M. (2004). Sparse grids, Acta Numerica 13, 147-269.
+    </li>
+    <li block-type="ListItem">
+     Garcke, J., Griebel, M. &amp; Thess, M. (2001). Data mining [6] with sparse grids, Computing 67, 225-253.
+    </li>
+    <li block-type="ListItem">
+     [7] Griebel, M. (1998). Adaptive sparse grid multilevel methods for elliptic PDEs based on finite differences, Computing 61, 151-179.
+    </li>
+    <li block-type="ListItem">
+     Griebel, M. (2006). Sparse grids and related approx-[8] imation schemes for higher dimensional problems, in Proceedings of FoCM05, L. Pardo, A. Pinkus, E. Suli &amp; M. Todd, eds, Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [9] Griebel, M., Schneider, M. &amp; Zenger, C. (1992). A combination technique for the solution of sparse grid problems, in Iterative Methods in Linear Algebra, P. de Groen &amp; R. Beauwens, eds, Elsevier, pp. 263-281.
+    </li>
+    <li block-type="ListItem">
+     [10] Gerstner, T. &amp; Griebel, M. (1998). Numerical integration using sparse grids, Numerical Algorithms 18, 209-232.
+    </li>
+    <li block-type="ListItem">
+     [11] Gerstner, T. &amp; Griebel, M. (2003). Dimension-adaptive tensor-product quadrature,
+     <i>
+      Computing
+     </i>
+     <b>
+      71
+     </b>
+     , 65–87.
+    </li>
+    <li block-type="ListItem">
+     Gerstner, T. &amp; Holtz, M. (2008). Valuation of perfor-[12] mance-dependent options, Applied Mathematical Finance
+     <math display="inline">
+      15
+     </math>
+     , 1–20.
+    </li>
+    <li block-type="ListItem">
+     [13] Griebel, M. &amp; Knapek, S. (2000). Optimized tensorproduct approximation spaces, Constructive Approximation 16, 525-540.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      [14]
+     </math>
+     Griebel, M. &amp; Oeltz, D. (2007). A sparse grid space-time discretization scheme for parabolic problems, Computing
+     <math display="inline">
+      81
+     </math>
+     , 1–34.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [15] Griebel, M. &amp; Oswald, P. (1995). Tensor product type subspace splitting and multilevel iterative methods for anisotropic problems, Advances in Computational Mathematics 4, 171-206.
+    </li>
+    <li block-type="ListItem">
+     [16] Griebel, M., Oswald, P. &amp; Schiekofer, T. (1999). Sparse grids for boundary integral equations, Numerishche Mathematik 83, 279-312.
+    </li>
+    <li block-type="ListItem">
+     [17] Griebel, M. &amp; Zumbusch, G. (1999). Adaptive sparse grids for hyperbolic conservation laws, in
+     <i>
+      Hyperbolic
+     </i>
+     Problems: Theory, Numerics, Applications, M. Fey &amp; R. Jeltsch, eds, Birkhäuser, pp. 411-422.
+    </li>
+    <li block-type="ListItem">
+     [18] Hegland, M., Garcke, J. &amp; Challis, V. (2007). The combination technique and some generalisations, Linear Algebra and Its Applications 420, 249-275.
+    </li>
+    <li block-type="ListItem">
+     [19] Hemker, P. (1995). Sparse-grid finite-volume multigrid for 3D-problems, Advances in Computational Mathematics 4,
+     <math display="inline">
+      83-110
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     [20] Hochmuth, R. (2001). Wavelet characterizations of anisotropic Besov spaces, Applied and Computational Harmonic Analysis 12, 179-208.
+    </li>
+    <li block-type="ListItem">
+     [21] Klimke, A. &amp; Wohlmuth, B. (2005). Algorithm 847: Spinterp: piecewise multilinear hierarchical sparse grid interpolation in MATLAB, ACM Transactions on Mathematical Software 31, 561-579.
+    </li>
+    <li block-type="ListItem">
+     [22] Laffan, S., Nielsen, O., Silcock, H. &amp; Hegland, M. (2005). Sparse grids: a new predictive modelling method for the analysis of geographical data,
+     <i>
+      International Jour
+     </i>
+     nal of Geographical Information Science 19, 267-292.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [23] Novak, E. &amp; Ritter, K. (1996). High dimensional integration of smooth functions over cubes, Numerische Mathematik 75, 79-97.
+    </li>
+    <li block-type="ListItem">
+     [24] Reisinger, C. &amp; Wittum, G. (2007). Efficient hierarchical approximation of high-dimensional option pricing problems, SIAM Journal on Scientific Computing 29,
+     <math display="inline">
+      440 - 458.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [25] Schwab, C. &amp; Todor, R. (2003). Sparse finite elements for stochastic elliptic problems: higher order moments, Computing 71, 43-63.
+    </li>
+    <li block-type="ListItem">
+     [26] Smolyak, S. (1963). Interpolation and quadrature formulas for the classes
+     <math display="inline">
+      W_s^a
+     </math>
+     and
+     <math display="inline">
+      E_s^a
+     </math>
+     , Soviet Mathematics Doklady 4, 240-243.
+    </li>
+    <li block-type="ListItem">
+     [27] Zenger, C. (1991). Sparse grids, in
+     <i>
+      Parallel Algorithms
+     </i>
+     for Partial Differential Equations, W. Hackbusch, ed, Vieweg, pp. 241–251.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   Finite Difference Methods for Barrier Options; Finite Difference Methods for Early Exercise Options; Finite Element Methods; Wavelet Galerkin Method.
+  </p>
+  <p block-type="Text">
+   THOMAS GERSTNER &amp; MICHAEL GRIEBEL
+  </p>
+ </body>
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Term Structure Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   <i>
+    Term structure models
+   </i>
+   describe the behavior of interest rates as a function of time and term (time to maturity). As a function of time, rates behave as stochastic processes (see Figure 1). As a function of term, interest rates on a given date form a
+   <i>
+    yield curve
+   </i>
+   (see Figure 2).
+  </p>
+  <p block-type="Text">
+   Interest rates of different maturities behave as a joint stochastic process. Not all joint processes, however, can describe interest-rate behavior in an efficient market. For instance, suppose that a term structure model postulates that rates of all maturities change in time by equal amounts, that is, that yield curves move by parallel shifts (which, empirically, appears to be a reasonable first-order approximation). It can be shown that in this case a portfolio consisting of a long bond and a short bond would always outperform a medium-term bond with the same Macaulay duration (
+   <i>
+    see
+   </i>
+   <b>
+    Bond
+   </b>
+   ). In an efficient market, supply and demand would drive the price of the medium maturity bond down and the prices of the long and short bonds up. As this would cause the yield on the medium bond to increase and the yields on the long and short bonds to decrease, the yield curves would not stay parallel. This model therefore cannot describe interest-rate behavior.
+  </p>
+  <p block-type="Text">
+   In order that riskless arbitrage opportunities are absent, the joint process of interest-rate behavior must satisfy some conditions. Determining these conditions and finding processes that satisfy them is the purpose of term structure models.
+  </p>
+  <p block-type="Text">
+   The joint stochastic process will be driven by a number of sources of uncertainty. For continuous processes, the sources of uncertainty are often specified as Wiener processes. If the evolution of the yield curve can be represented by Markovian state variables, these variables are called
+   <i>
+    factors
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Let
+   <i>
+    B(t, T )
+   </i>
+   be the price at time
+   <i>
+    t
+   </i>
+   of a defaultfree zero-coupon bond maturing at time
+   <i>
+    T
+   </i>
+   with unit maturity value.
+   <i>
+    Yield to maturity R(t, s)
+   </i>
+   at time
+   <i>
+    t
+   </i>
+   with term
+   <i>
+    s
+   </i>
+   is defined as the continuously compounded rate of return on the bond,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t,s) = -\frac{1}{s} \log B(t,t+s) \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   The instantaneous interest rate will be called the
+   <i>
+    short rate
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r(t) = \lim_{s \to 0} R(t, s) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   An asset accumulating interest at the short rate will be called the
+   <i>
+    money market account
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \beta(t) = \exp\left(\int_0^t r(\tau) \,\mathrm{d}\tau\right) \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   <i>
+    Forward rates f (t, T )
+   </i>
+   are defined by the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B(t,T) = \exp\left(-\int_{t}^{T} f(t,\tau) \,\mathrm{d}\tau\right) \tag{4}
+   </math>
+  </p>
+  <h1>
+   <b>
+    One-factor Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   A general theory of one-factor term structure models was given by Vasicek [9]. He assumed the following:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. The short rate follows a continuous Markov process.
+    </li>
+    <li block-type="ListItem">
+     2. The price
+     <i>
+      B(t, T )
+     </i>
+     of a bond is determined by the assessment at time
+     <i>
+      t
+     </i>
+     of the segment {
+     <i>
+      r(τ ), t
+     </i>
+     ≤
+     <i>
+      τ
+     </i>
+     ≤
+     <i>
+      T
+     </i>
+     } of the short-rate process over the term of the bond.
+    </li>
+    <li block-type="ListItem">
+     3. The market is efficient; that is, there are no transaction costs, information is available to all investors simultaneously, and every investor acts rationally (prefers more wealth to less, and uses all available information).
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Assumption 3 implies that investors have homogeneous expectations and that no profitable riskless arbitrage is possible.
+  </p>
+  <p block-type="TextInlineMath">
+   By assumption 1, the development of the short rate over an interval (
+   <i>
+    t,T
+   </i>
+   ),
+   <i>
+    t
+   </i>
+   ≤
+   <i>
+    T
+   </i>
+   , given its values prior to time
+   <i>
+    t
+   </i>
+   , depends only on the current value
+   <i>
+    r(t)
+   </i>
+   . Assumption 2 then implies that the price
+   <i>
+    B(t, T )
+   </i>
+   is a function of
+   <i>
+    r(t)
+   </i>
+   . Thus, the value of the short rate is the only state variable for the whole term structure.
+  </p>
+  <p block-type="Text">
+   Let the dynamics of the short rate be given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr(t) = \zeta(r, t) dt + \varphi(r, t) dW(t)
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    W (t)
+   </i>
+   is a Wiener process. Denote the mean and variance of the instantaneous rate of return on the bond with price
+   <i>
+    B(t, T )
+   </i>
+   by
+   <i>
+    µ(t, T )
+   </i>
+   and
+   <i>
+    σ
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    (t, T )
+   </i>
+   , respectively,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}B(t,T)}{B(t,T)} = \mu(t,T)\,\mathrm{d}t - \sigma(t,T)\,\mathrm{d}W(t) \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   Consider an investor who at time
+   <i>
+    t
+   </i>
+   issues an amount
+   <i>
+    w
+   </i>
+   <sup>
+    1
+   </sup>
+   of a bond with maturity date
+   <i>
+    T
+   </i>
+   1, and
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 1 US Treasury Yields
+  </p>
+  <p>
+   <img src="_page_1_Figure_3.jpeg"/>
+  </p>
+  <p>
+   Figure 2 US Treasury Yield Curves
+  </p>
+  <p block-type="TextInlineMath">
+   simultaneously buys an amount
+   <math display="inline">
+    w_2
+   </math>
+   of a bond with maturity date
+   <math display="inline">
+    T_2
+   </math>
+   . Suppose the amounts
+   <math display="inline">
+    w_1
+   </math>
+   and
+   <math display="inline">
+    w_2
+   </math>
+   are chosen to be proportional to
+   <math display="inline">
+    \sigma(t, T_2)
+   </math>
+   and
+   <math display="inline">
+    \sigma(t, T_1)
+   </math>
+   , respectively. Then the position is instantaneously riskless, and should realize the short rate of return
+   <math display="inline">
+    r(t)
+   </math>
+   . It follows that the ratio
+   <math display="inline">
+    (\mu(t, T) - r(t))/\sigma(t, T)
+   </math>
+   is independent of T. Its common value
+   <math display="inline">
+    \lambda(t)
+   </math>
+   is called the market price of risk, as it specifies the increase in the expected rate of return on a bond per an additional unit of risk. We thus have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu(t,T) = r(t) + \lambda(t)\sigma(t,T) \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Applying Ito's lemma to the price
+   <math display="inline">
+    B(t, T) =
+   </math>
+   <math display="inline">
+    B(t, T, r)
+   </math>
+   and comparing with equation (6) yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial B}{\partial t} + (\zeta + \varphi \lambda) \frac{\partial B}{\partial r} + \frac{1}{2} \varphi^2 \frac{\partial^2 B}{\partial r^2} - rB = 0 \qquad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The bond price is subject to the boundary condition
+   <math display="inline">
+    B(T, T) = 1
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The solution to equation
+   <math display="inline">
+    (8)
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B(t,T) = E_t \exp\left(-\int_t^T r(\tau) \, \mathrm{d}\tau - \frac{1}{2} \int_t^T \lambda^2(\tau) \, \mathrm{d}\tau + \int_t^T \lambda(\tau) \, \mathrm{d}W(\tau)\right) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   This equation, called the
+   <i>
+    fundamental bond pricing
+   </i>
+   equation (the Vasicek equation), fully describes the term structure and its behavior.
+  </p>
+  <h4>
+   <b>
+    Model Examples
+   </b>
+  </h4>
+  <p block-type="Text">
+   Various specific cases have been proposed in the literature. Vasicek [9] gives an example of a term structure model in which the short rate follows a mean reverting random walk (the Ornstein-Uhlenbeck process, see Ornstein-Uhlenbeck Processes)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr = \alpha(\theta - r) dt + \varphi dW \qquad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the market price of risk
+   <math display="inline">
+    \lambda(t, r) = \lambda
+   </math>
+   is constant. In that case, the expectation in equation
+   <math display="inline">
+    (9)
+   </math>
+   can be evaluated explicitly to give
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B(t,T) = \exp\left(\frac{1}{\alpha}\left(1 - e^{-\alpha(T-t)}\right)(R(\infty) - r) - (T-t)R(\infty) - \frac{\varphi^2}{4\alpha^3}\left(1 - e^{-\alpha(T-t)}\right)^2\right)
+   </math>
+   (11)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(\infty) = \theta + \lambda \varphi / \alpha - \frac{1}{2} \varphi^2 / \alpha^2 \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   Interest rates are Gaussian. The advantage of this specification is its tractability. A drawback is that interest rates can become negative.
+  </p>
+  <p block-type="Text">
+   Cox
+   <i>
+    et al.
+   </i>
+   [3] derive a model in which
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr = \alpha(\theta - r) dt + \varphi \sqrt{r} dW \qquad (13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the market price of risk
+   <math display="inline">
+    \lambda(t,r) = \eta \sqrt{r}
+   </math>
+   . In this case, the bond prices can also be explicitly given (see Cox-Ingersoll-Ross (CIR) Model). They have the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B(t,T) = A(t,T) \exp(-D(t,T)r(t)) \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   Interest rates are always nonnegative.
+  </p>
+  <p block-type="Text">
+   Hull and White [8] extended these two models by allowing the parameters in equations
+   <math display="inline">
+    (10)
+   </math>
+   and
+   <math display="inline">
+    (13)
+   </math>
+   , as well as the market price of risk, to be time dependent. This has the advantage that the model can be made consistent with initial data. For instance, by making
+   <math display="inline">
+    \theta
+   </math>
+   a function of time, the model can be made to exactly fit the initial term structure of interest rates (which is not possible with time-homogeneous models). Similarly, making the volatility
+   <math display="inline">
+    \varphi
+   </math>
+   a function of time allows calibration of the model to the term structure of swaption volatilities. Hull and White give closed-form solutions for bond prices for what they call the extended Vasicek and the extended Cox-Ingersoll-Ross models. These cases belong to the class of models that Duffie and Kan [4] call the affine term structure models (see Affine Models), in which bond prices have the form
+   <math display="inline">
+    (14)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Black et al. [1] and Black and Karasinski [2] give a model with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d \log r = \alpha(t) (\log \theta(t) - \log r) dt + \varphi(t) dW \quad (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   In this model, bond prices cannot be given in closed-form formulas, but can be calculated numerically. Interest rates are lognormal. Lognormal models have regularity issues, for example, they produce infinite Eurodollar future prices (see
+   <b>
+    Eurodollar
+   </b>
+   Futures and Options).
+  </p>
+  <p block-type="Text">
+   The term structure theory generalizes easily to multiple factors and multiple sources of uncertainty. In fact, the bond pricing equation (9) is universally valid for any arbitrage-free term structure model. If
+   <math display="inline">
+    W, \varphi, \lambda
+   </math>
+   are vectors, their products are interpreted as inner products.
+  </p>
+  <h1>
+   <b>
+    Contingent Claim Pricing
+   </b>
+  </h1>
+  <p block-type="Text">
+   One of the main tasks of term structure models in applications is pricing of
+   <i>
+    interest-rate-contingent
+   </i>
+   claims (interest-rate derivatives). This could be approached in several ways. For one-factor models it can be shown, by means of an arbitrage argument similar to that above for bonds, that the price
+   <math display="inline">
+    P(t)
+   </math>
+   of any interest-rate derivative satisfies the partial differential equation
+   <math display="inline">
+    (8)
+   </math>
+   . The valuation of the derivative is then accomplished by solving that equation subject to boundary conditions that describe the derivative asset payouts. If a closed-form solution cannot be given, the equation can be solved numerically in a tree or a finite difference lattice. A more general method is to realize that such a solution has the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t) = E_t P(s) \exp\left(-\int_t^s r(\tau) \, \mathrm{d}\tau - \frac{1}{2} \int_t^s \lambda^2(\tau) \, \mathrm{d}\tau + \int_t^s \lambda(\tau) \, \mathrm{d}W(\tau)\right) \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   This equation holds even in the cases where there are no Markovian state variables. To calculate the expectation in equation
+   <math display="inline">
+    (16)
+   </math>
+   , however, is typically more difficult than solving a partial differential equation.
+  </p>
+  <p block-type="Text">
+   The modern theory of derivative asset pricing (see Harrison and Kreps [5]) introduces a change of probability measure as the basic pricing tool. There exists an equivalent probability measure
+   <math display="inline">
+    P^*
+   </math>
+   , called the risk-neutral measure, such that the value of any asset expressed in units of the money market account
+   <math display="inline">
+    \beta(t)
+   </math>
+   follows a martingale under that measure.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{P(t)}{\beta(t)} = E_t^* \frac{P(s)}{\beta(s)}
+   </math>
+   (17)
+  </p>
+  <p block-type="Text">
+   The process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W^*(t) = W(t) - \int_0^t \lambda(\tau) d\tau \qquad (18)
+   </math>
+  </p>
+  <p block-type="Text">
+   is a Wiener process under the risk-neutral probability measure
+   <math display="inline">
+    P^*
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   If current bond prices are considered given, interest-rate derivatives can be priced without knowing the market price of risk
+   <math display="inline">
+    \lambda(t)
+   </math>
+   by writing the dynamics of interest rates directly in terms of the process
+   <math display="inline">
+    W^*(t)
+   </math>
+   . From equations (6) and (7), bond
+  </p>
+  <p block-type="Text">
+   prices are subject to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}B(t,T)}{B(t,T)} = r(t)\,\mathrm{d}t - \sigma(t,T)\,\mathrm{d}W^*(t) \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   Integrating equation (19) with respect to
+   <i>
+    t
+   </i>
+   and differentiating with respect to
+   <i>
+    T
+   </i>
+   yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t,T) - f(0,T)
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \int_0^t \varphi(\tau,T)\sigma(\tau,T) d\tau + \int_0^t \varphi(\tau,T) dW^*(\tau)
+   </math>
+   <br/>
+   (20)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    ϕ(t, T )
+   </i>
+   is the volatility of the forward rate
+   <i>
+    f (t, T )
+   </i>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma(\tau, T) = \int_{\tau}^{T} \varphi(\tau, s) \, \mathrm{d}s \tag{21}
+   </math>
+  </p>
+  <p block-type="Text">
+   Thus, knowledge of the initial term structure
+   <i>
+    f (
+   </i>
+   0
+   <i>
+    ,T)
+   </i>
+   ,
+   <i>
+    T
+   </i>
+   ≥ 0 and of the forward-rate volatilities is sufficient for pricing interest-rate-contingent claims. This was proposed in essence by Ho and Lee [7] and later formalized by Heath
+   <i>
+    et al.
+   </i>
+   [6] (
+   <i>
+    see
+   </i>
+   <b>
+    Heath–Jarrow–Morton Approach
+   </b>
+   ).
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="Text">
+   [1] Black, F., Derman, E. &amp; Toy, W. (1990). A one-factor model of interest rates and its application to Treasury bond options,
+   <i>
+    Financial Analysts Journal
+   </i>
+   January-February, 33–39.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Black, F. &amp; Karasinski, P. (1991). Bond and option pricing when interest rates are lognormal,
+     <i>
+      Financial Analysts Journal
+     </i>
+     July-August, 52–59.
+    </li>
+    <li block-type="ListItem">
+     [3] Cox, J., Ingersoll, J. Jr. &amp; Ross, S. (1985). A theory of the term structure of interest rates,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      53
+     </b>
+     , 385–407.
+    </li>
+    <li block-type="ListItem">
+     [4] Duffie, D. &amp; Kan, R. (1996). A yield-factor model of interest rates,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      6
+     </b>
+     , 379–406.
+    </li>
+    <li block-type="ListItem">
+     [5] Harrison, J.M. &amp; Kreps, D.M. (1979). Martingales and arbitrage in multiperiod security markets,
+     <i>
+      Journal of Economic Theory
+     </i>
+     <b>
+      20
+     </b>
+     , 381–408.
+    </li>
+    <li block-type="ListItem">
+     [6] Heath, D., Jarrow, R. &amp; Morton, A. (1992). Bond pricing and the term structure of interest rates: a new methodology for contingent claims valuation,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      60
+     </b>
+     , 77–105.
+    </li>
+    <li block-type="ListItem">
+     [7] Ho, T.S.Y. &amp; Lee, S.-B. (1986). Term structure movements and pricing interest rate contingent claims,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      41
+     </b>
+     , 1011–1028.
+    </li>
+    <li block-type="ListItem">
+     [8] Hull, J. &amp; White, A. (1990). Pricing interest-rate derivative securities,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      3
+     </b>
+     , 573–592.
+    </li>
+    <li block-type="ListItem">
+     [9] Vasicek, O.A. (1977). An equilibrium characterization of the term structure,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      5
+     </b>
+     , 177–188.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Affine Models
+   </b>
+   ;
+   <b>
+    Bond
+   </b>
+   ;
+   <b>
+    Caps and Floors
+   </b>
+   ;
+   <b>
+    Cox–Ingersoll–Ross (CIR) Model
+   </b>
+   ;
+   <b>
+    Heath–Jarrow–Morton Approach
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   OLDRICH ALFONS VASICEK
+  </p>
+ </body>
+</html>

@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Partial Differential Equations
+   </b>
+  </h1>
+  <p block-type="Text">
+   In their seminal 1973 article [3], Black and Scholes derived a partial differential equation (PDE) for the call option price by considering a portfolio containing the option and the underlying asset and using absence of arbitrage arguments. Later, in the 1980s, Harrison, Kreps, and Pliska [10, 11] pioneered the use of stochastic calculus in mathematical finance and introduced martingale methods for option pricing in continuous time. This article is an overview of various contexts in finance where PDEs arise, in particular, for option pricing, portfolio optimization, and calibration. The PDE approach of Black-Scholes and the martingale method are related through the Feynman-Kac formula (see Markov Processes).
+  </p>
+  <p block-type="Text">
+   First, we recall the basic derivation of the Black-Scholes PDE and then present the PDEs for various exotic options and, in particular, American options. A paragraph is devoted to Hamilton-Jacobi-Bellman (HJB) equations, which are nonlinear PDEs arising from stochastic control and portfolio optimization. Finally, we discuss some PDEs associated with calibration problems. Computational aspects are treated in companion entries (see
+   <b>
+    Finite
+   </b>
+   Difference Methods for Barrier Options; Finite Difference Methods for Early Exercise Options; Finite Element Methods).
+  </p>
+  <h2>
+   The Black-Scholes PDE
+  </h2>
+  <p block-type="TextInlineMath">
+   We recall the original arguments in the derivation of the Black-Scholes PDE for option pricing [3, 14]. In the Black-Scholes model, we consider a market with a risk-free bond of constant interest rate
+   <math display="inline">
+    r
+   </math>
+   , and a stock with a price process
+   <math display="inline">
+    S
+   </math>
+   evolving according to a geometric Brownian motion:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = bS_t dt + \sigma S_t dW_t \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where the drift rate b and the volatility
+   <math display="inline">
+    \sigma &gt; 0
+   </math>
+   are assumed to be constant and
+   <math display="inline">
+    W
+   </math>
+   is a standard Brownian motion. We now consider a European call option, characterized by its payoff
+   <math display="inline">
+    (S_T - K)_+
+   </math>
+   at the maturity
+   <math display="inline">
+    T
+   </math>
+   , and with strike
+   <math display="inline">
+    K
+   </math>
+   . We denote by
+   <math display="inline">
+    V
+   </math>
+   the value of the call option:
+   <math display="inline">
+    V = V(t, S_t)
+   </math>
+   is a function of the spot
+  </p>
+  <p block-type="TextInlineMath">
+   price of the underlying asset
+   <math display="inline">
+    S_t
+   </math>
+   at time t. At the expiry date of the option, we have
+   <math display="inline">
+    V(T, S_T) = (S_T - K)_+
+   </math>
+   , and for
+   <math display="inline">
+    t &lt; T
+   </math>
+   , by assuming that the function V is smooth, we get by Itô's formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathrm{d}V &amp;= \frac{\partial V}{\partial t} \,\mathrm{d}t + \frac{\partial V}{\partial S} \,\mathrm{d}S + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} \,\mathrm{d}t \\ &amp;= \left(\frac{\partial V}{\partial t} + bS \frac{\partial V}{\partial S} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}\right) \,\mathrm{d}t \\ &amp;+ \sigma S \frac{\partial V}{\partial S} \,\mathrm{d}W \end{split} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Now consider a portfolio consisting of the option and a short position
+   <math display="inline">
+    \Delta
+   </math>
+   in the asset: the portfolio value is then equal to
+   <math display="inline">
+    \Pi = V - \Delta S
+   </math>
+   , and its self-financed dynamics is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathrm{d}\Pi &amp;= \mathrm{d}V - \Delta \,\mathrm{d}S \\ &amp;= \left(\frac{\partial V}{\partial t} + bS\frac{\partial V}{\partial S} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} - \Delta bS\right) \,\mathrm{d}t \\ &amp;+ \sigma S \left(\frac{\partial V}{\partial S} - \Delta\right) \,\mathrm{d}W \end{split} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   The random component in the evolution of the portfolio
+   <math display="inline">
+    \Pi
+   </math>
+   may be eliminated by choosing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta = \frac{\partial V}{\partial S} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   This results in a portfolio with deterministic increment:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\Pi = \left(\frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}\right) dt \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   Now, by arbitrage-free arguments, the rate of return of the riskless portfolio
+   <math display="inline">
+    \Pi
+   </math>
+   must be equal to the interest rate
+   <math display="inline">
+    r
+   </math>
+   of the bond, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} = r\,\Pi\tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and recalling that
+   <math display="inline">
+    \Pi = V - (\partial V/\partial S)S
+   </math>
+   , this leads to the
+   <i>
+    Black–Scholes partial differential equation
+   </i>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    rV - \frac{\partial V}{\partial t} - rS\frac{\partial V}{\partial S} - \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} = 0 \qquad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This PDE together with the terminal condition
+   <math display="inline">
+    V(T, S) = (S - K)_{+}
+   </math>
+   is a linear parabolic Cauchy
+  </p>
+  <p block-type="Text">
+   problem, whose solution is analytically known, and this is the celebrated Black-Scholes formula. Moreover, this formula can also be computed as an expectation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(t, S) = \mathbb{E}^{\mathbb{Q}} \left[ e^{-r(T-t)} (S_T - K)_+ \middle| S_t = S \right] \quad (8)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \mathbb{E}^{\mathbb{Q}}
+   </math>
+   denotes the expectation under which the drift rate
+   <math display="inline">
+    b
+   </math>
+   in equation (1) is replaced by the interest rate r.
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   is called
+   <i>
+    risk-neutral probability
+   </i>
+   .
+  </p>
+  <h2>
+   <b>
+    Linear PDEs for European Options
+   </b>
+  </h2>
+  <p block-type="Text">
+   The derivation presented in the previous paragraph is prototypical. Besides the absence of arbitrage argument, the key points for the derivation of the PDE satisfied by the option price is the Markov property of the stochastic processes describing the market factors. The relation with risk-neutral probability is achieved through the Feynman-Kac formula (see Markov
+   <b>
+    Processes
+   </b>
+   ). In its basic (multidimensional) version, the Feynman-Kac representation is formulated as follows: let us consider the stochastic differential equation on
+   <math display="inline">
+    \mathbb{R}^n
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_s = b(X_s) ds + \sigma(X_s) dW_s \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    b
+   </math>
+   and
+   <math display="inline">
+    \sigma
+   </math>
+   are measurable functions valued, respectively, on
+   <math display="inline">
+    \mathbb{R}^n
+   </math>
+   and
+   <math display="inline">
+    \mathbb{R}^{n \times d}
+   </math>
+   , and W is a
+   <math display="inline">
+    n
+   </math>
+   -dimensional Brownian motion. Consider the Cauchy problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    rv - \frac{\partial v}{\partial t} - b(x)D_x v - \frac{1}{2}\text{tr}(\sigma\sigma'(t,x)D_x^2 v) = 0
+   </math>
+   <br/>
+   on
+   <math>
+    [0,T) \times \mathbb{R}^n
+   </math>
+   (10)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(T, x) = g(x) \quad \text{on } \mathbb{R}^n \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    D_x v
+   </math>
+   is the gradient,
+   <math display="inline">
+    D_x^2 v
+   </math>
+   is the Hessian matrix of v, with respect to the x variable,
+   <math display="inline">
+    \sigma'
+   </math>
+   is the transpose of
+   <math display="inline">
+    \sigma
+   </math>
+   , and tr denotes the trace of a matrix. Then, the solution to this Cauchy problem may be represented as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t,x) = \mathbb{E}\left[e^{-\int_t^T r(u, X_u^{t,x}) \mathrm{d}s} g(X_T^{t,x})\right] \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    X_s^{t,x}
+   </math>
+   is the solution to equation (9) starting from x at
+   <math display="inline">
+    s = t
+   </math>
+   . The Feynman-Kac formula is a
+  </p>
+  <p block-type="TextInlineMath">
+   probabilistic interpretation of the integral representation of the solution using the
+   <i>
+    Green's function
+   </i>
+   , which is in this case the density of the underlying asset. The Black-Scholes price is a particular case with r constant,
+   <math display="inline">
+    b(t, x) = rx
+   </math>
+   ,
+   <math display="inline">
+    \sigma(t, x) = \sigma x
+   </math>
+   , and
+   <math display="inline">
+    g(x) =
+   </math>
+   <math display="inline">
+    (x - K)_{\perp}
+   </math>
+   . More generally, the interest rate r and the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   may depend on time and spot price.
+  </p>
+  <p block-type="Text">
+   In the general case, we do not have analytical expression for
+   <math display="inline">
+    v
+   </math>
+   , and we have to resort to numerical methods for option pricing. The probabilistic representation
+   <math display="inline">
+    (12)
+   </math>
+   is the basis for Monte Carlo methods in option pricing while deterministic numerical methods (finite differences and finite elements) are based on the PDE (11).
+  </p>
+  <h2>
+   Barrier Options
+  </h2>
+  <p block-type="TextInlineMath">
+   The payoff of these options depends on the fact that the underlying asset crossed or not, some given barriers during the time interval
+   <math display="inline">
+    [0, T]
+   </math>
+   (see
+   <b>
+    Barrier Options
+   </b>
+   ). For example, a down-and-out call option has a payoff
+   <math display="inline">
+    (S_T - K)_+ 1_{\inf_{t \in [0,T]} S_t &gt; L}
+   </math>
+   . Its price
+   <math display="inline">
+    v(t, x)
+   </math>
+   at time t for a spot price
+   <math display="inline">
+    S_t = x
+   </math>
+   , satisfies the boundary value problem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    rv - \frac{\partial v}{\partial t} - rx \frac{\partial v}{\partial x} - \frac{1}{2} \sigma^2 x^2 \frac{\partial^2 v}{\partial x^2} = 0,
+   </math>
+   <br/>
+   <math display="block">
+    (t, x) \in [0, T) \times (L, \infty)
+   </math>
+   <br/>
+   <math display="block">
+    v(t, L) = 0
+   </math>
+   <br/>
+   <math display="block">
+    v(T, x) = (x - K)_+
+   </math>
+   <br/>
+   (13)
+  </p>
+  <h2>
+   Lookback Options
+  </h2>
+  <p block-type="TextInlineMath">
+   The payoff of these options involve the maximum or minimum of the underlying asset (see
+   <b>
+    Lookback Options
+   </b>
+   ). For instance, the floating strike lookback put option pays at maturity
+   <math display="inline">
+    M_T - S_T
+   </math>
+   where
+   <math display="inline">
+    M_t =
+   </math>
+   <math display="inline">
+    \sup_{0 \le t \le T} S_t
+   </math>
+   . The pair
+   <math display="inline">
+    (S_t, M_t)
+   </math>
+   is a Markov process, and the price at time
+   <math display="inline">
+    t
+   </math>
+   of this lookback option is equal to
+   <math display="inline">
+    v(t, S_t, M_t)
+   </math>
+   where the function v is defined for
+   <math display="inline">
+    t \in [0, T], (S, M) \in \{(S, M) \in \mathbb{R}^2 : 0 &lt;
+   </math>
+   <math display="inline">
+    S \leq M
+   </math>
+   , and satisfies the Neumann problem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    rv - \frac{\partial v}{\partial t} - rS\frac{\partial v}{\partial S} - \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 v}{\partial S^2} = 0
+   </math>
+   <math display="block">
+    \frac{\partial v}{\partial M}(t, M, M) = 0
+   </math>
+   <math display="block">
+    v(T, S, M) = M - S \qquad (14)
+   </math>
+  </p>
+  <h2>
+   Asian Options
+  </h2>
+  <p block-type="TextInlineMath">
+   These options involve the average of the risky asset (see Asian Options). For example, the payoff of an Asian call option is
+   <math display="inline">
+    (A_T - K)_+
+   </math>
+   where
+   <math display="inline">
+    A_t =
+   </math>
+   <math display="inline">
+    \frac{1}{t} \int_0^t S_u \, \mathrm{d}u
+   </math>
+   . The pair
+   <math display="inline">
+    (S_t, A_t)
+   </math>
+   is a Markov process, and the price at time
+   <math display="inline">
+    t
+   </math>
+   of this Asian option is equal to
+   <math display="inline">
+    v(t, S_t, A_t)
+   </math>
+   where the function v is defined for
+   <math display="inline">
+    t \in [0, T], (S, A) \in \mathbb{R}^2_+,
+   </math>
+   and satisfies the Cauchy problem (see, e.g., [16]):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    rv - \frac{\partial v}{\partial t} - rS\frac{\partial v}{\partial S} - \frac{1}{t}(S - A)\frac{\partial v}{\partial A}
+   </math>
+   <math display="block">
+    -\frac{1}{2}\sigma^2 S^2 \frac{\partial^2 v}{\partial S^2} = 0
+   </math>
+   <math display="block">
+    v(T, S, A) = (A - K)_+ \tag{15}
+   </math>
+  </p>
+  <h1>
+   <b>
+    American Options and Free Boundary
+   </b>
+   Problems
+  </h1>
+  <p block-type="TextInlineMath">
+   With respect to European options presented so far, American options give the holder the right to exercise his/her right at any time up to maturity (see American Options). For an American put option of payoff
+   <math display="inline">
+    (K - S_t)_+, 0 \le t \le T
+   </math>
+   , its price at time t and for a spot stock price
+   <math display="inline">
+    S_t = x
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t,x) = \sup_{\tau \in \mathcal{T}_{t,T}} \mathbb{E}^{\mathbb{Q}} \left[ e^{-r(\tau - t)} (K - S_{\tau})_{+} \middle| S_{t} = x \right]
+   </math>
+   (16)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathcal{T}_{t,T}
+   </math>
+   denotes the set of stopping times valued in
+   <math display="inline">
+    [t, T]
+   </math>
+   . In terms of PDE, and within the Black-Scholes framework, this leads via the dynamic programming principle (see
+   <math display="inline">
+    [7]
+   </math>
+   ) to a variational inequality:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \min \left[ rv - \frac{\partial v}{\partial t} - rx \frac{\partial v}{\partial x} - \frac{1}{2} \sigma^2 x^2 \frac{\partial^2 v}{\partial x^2}, \right.
+   </math>
+   <math display="block">
+    \left. v(t, x) - (K - x)_+ \right] = 0 \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   together with the terminal condition:
+   <math display="inline">
+    v(T, x) = (K  (x)_{+}
+   </math>
+   . This variational inequality maybe written equivalently as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    rv - \frac{\partial v}{\partial t} - rx\frac{\partial v}{\partial x} - \frac{1}{2}\sigma^2 x^2 \frac{\partial^2 v}{\partial x^2} \ge 0 \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which corresponds to the supermartingale property of the discounted price process
+   <math display="inline">
+    e^{-rt}v(t, S_t)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t,x) \ge (K - x)_{+} \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   which results directly from the fact that by exercising his/her right immediately, one receives the option payoff, and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    rv - \frac{\partial v}{\partial t} - rx \frac{\partial v}{\partial x} - \frac{1}{2}\sigma^2 x^2 \frac{\partial^2 v}{\partial x^2} = 0,
+   </math>
+   <br/>
+   for
+   <math>
+    (t, x) \in \mathcal{C} = \{v(t, x) &gt; (K - x)_+\}
+   </math>
+   (20)
+  </p>
+  <p block-type="TextInlineMath">
+   which means that as long as we are in the continuation region
+   <math display="inline">
+    C
+   </math>
+   , that is, the value of the American option price is strictly greater than its payoff, the holder does not exercise his/her right early. The formulation
+   <math display="inline">
+    (18-20)
+   </math>
+   is also called a
+   <i>
+    free-boundary problem
+   </i>
+   , and in the case of the American put, there is an increasing function
+   <math display="inline">
+    x^*(t)
+   </math>
+   , the free-boundary or critical price, which is smaller than
+   <math display="inline">
+    K
+   </math>
+   , and such that
+   <math display="inline">
+    C = \{(t, x) : x &gt; x^*(t)\}
+   </math>
+   . This free boundary is an unknown part of the PDE and separates the continuation region from the exercise region where the option is exercised, that is,
+   <math display="inline">
+    v(t, x) = (K - x)_{+}
+   </math>
+   . The above conditions do not determine the unknown free boundary
+   <math display="inline">
+    x^*(t)
+   </math>
+   . An additional condition is required, which is the continuous differentiability of the option price across the boundary
+   <math display="inline">
+    x^*(t)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t, x^*(t)) = K - x^*(t), \quad \frac{\partial v}{\partial x}(t, x^*(t)) = -1
+   </math>
+   (21)
+  </p>
+  <p block-type="Text" class="has-continuation">
+   This general property is known in optimal stopping theory as the
+   <i>
+    smooth fit principle
+   </i>
+   . However, the American option price
+   <math display="inline">
+    v
+   </math>
+   is not
+   <math display="inline">
+    C^2
+   </math>
+   , and the nonlinear PDE (17) should be interpreted in a weak sense by means of distributions (see [2] or [12]), or in the viscosity sense (see [5]). Notice that the main difference between PDE for American options and European options is the nonlinearity of the equation
+  </p>
+  <p block-type="Text">
+   in the former case. This makes the theory and the numerical implementation more difficult than for the European options.
+  </p>
+  <h4>
+   <b>
+    Stochastic Control and Bellman Equations
+   </b>
+  </h4>
+  <p block-type="Text">
+   Stochastic control problems arise in continuous-time portfolio management. This may be formulated in a roughly general framework as follows: we consider a controlled diffusion process in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_s = b(X_s, \alpha_s) ds + \sigma(X_s, \alpha_s) dW_s, \quad \text{in } \mathbb{R}^n
+   </math>
+   (22)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    W
+   </math>
+   is a
+   <math display="inline">
+    d
+   </math>
+   -dimensional Brownian motion on some filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{F} = (\mathcal{F}_t), \mathbb{P}),
+   </math>
+   and
+   <math display="inline">
+    \alpha = (\alpha_t)
+   </math>
+   is an adapted process valued in a Borel set
+   <math display="inline">
+    A \subset \mathbb{R}^m
+   </math>
+   , the so-called control process, which influences the dynamics of the state process
+   <math display="inline">
+    X
+   </math>
+   through the drift coefficient
+   <math display="inline">
+    b
+   </math>
+   and the diffusion coefficient
+   <math display="inline">
+    \sigma
+   </math>
+   . A stochastic control problem (in a finite horizon) consists of maximizing over the control processes a functional objective in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[\int_{0}^{\mathrm{T}}f(X_{t},\alpha_{t})\,\mathrm{d}t + g(X_{T})\right] \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    f
+   </math>
+   and
+   <math display="inline">
+    g
+   </math>
+   are real-valued measurable functions. The method used to solve this problem, and initiated by Richard Bellman in the 1950s, is to introduce the value function
+   <math display="inline">
+    v(t, x)
+   </math>
+   , that is the maximum of the objective when starting from state
+   <math display="inline">
+    x
+   </math>
+   at time
+   <math display="inline">
+    t
+   </math>
+   , and to apply the dynamic programming principle (DPP). The DPP formally states that if a control is optimal from time
+   <math display="inline">
+    t
+   </math>
+   until
+   <math display="inline">
+    T
+   </math>
+   , then it is also optimal from time
+   <math display="inline">
+    t + h
+   </math>
+   until T for any
+   <math display="inline">
+    t + h &gt; t
+   </math>
+   . Mathematically, the DPP relates the value functions at two different dates t and
+   <math display="inline">
+    t + h
+   </math>
+   , and by studying the behavior of the value functions when
+   <math display="inline">
+    h
+   </math>
+   tends to zero, one obtains a PDE satisfied by
+   <math display="inline">
+    v
+   </math>
+   , the so-called Hamilton-Jacobi-Bellman equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\frac{\partial v}{\partial t} - \sup_{a \in A} \left[ b(x,a) D_x v + \frac{1}{2} \text{tr}(\sigma \sigma'(x,a) D_x^2 v) + f(x,a) \right] = 0, \quad \text{on } [0,T) \times \mathbb{R}^n \tag{24}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   together with the terminal condition
+   <math display="inline">
+    v(T, x) = g(x)
+   </math>
+   . Here, and in the sequel, the prime symbol "" is
+  </p>
+  <p block-type="TextInlineMath">
+   for the transpose. The most famous application of Bellman equation in finance is the portfolio selection of Merton [13]. In this problem, an investor can choose to invest at any time between a riskless bond of interest rate
+   <math display="inline">
+    r
+   </math>
+   or a stock with Black-Scholes dynamics of rate of return
+   <math display="inline">
+    \beta
+   </math>
+   and volatility
+   <math display="inline">
+    \nu
+   </math>
+   . By denoting
+   <math display="inline">
+    \alpha_t
+   </math>
+   , the proportion of wealth
+   <math display="inline">
+    X_t
+   </math>
+   invested in the stock, this corresponds to a controlled wealth process X in equation (22) with
+   <math display="inline">
+    b(x, a) = ax(\beta - r) +
+   </math>
+   rx and
+   <math display="inline">
+    \sigma(x, a) = ax\gamma
+   </math>
+   . The objective of the investor is to maximize his/her expected utility from terminal wealth, which corresponds to a functional objective of the form (23) with
+   <math display="inline">
+    f = 0
+   </math>
+   , and g an increasing, concave function. A usual choice of utility function is
+   <math display="inline">
+    g(x) = x^p
+   </math>
+   , with
+   <math display="inline">
+    0 &lt; p &lt; 1
+   </math>
+   , in which case, there is an explicit solution to the corresponding HJB equation
+   <math display="inline">
+    (24)
+   </math>
+   . Moreover, the optimal control attaining the argument maximum in equation
+   <math display="inline">
+    (24)
+   </math>
+   is a constant equal to
+   <math display="inline">
+    b - r/(1-p)\gamma^2
+   </math>
+   . In the general case, there is no explicit solution to the HJB equation. Moreover, the solution is not smooth
+   <math display="inline">
+    C^2
+   </math>
+   and one proves actually that the value function is characterized as the unique weak solution to the HJB equation in the viscosity sense. We refer to the books [9] and [15] for an overview of stochastic control and viscosity solutions in finance.
+  </p>
+  <p block-type="Text">
+   Related nonlinear PDEs also arise in the uncertain volatility model, where one computes the cost of (super)hedging an option when the volatility is only known to be inside a band (
+   <i>
+    see Uncertain Volatility
+   </i>
+   Model).
+  </p>
+  <h2>
+   <b>
+    Diffusion Models and the Dupire PDE
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   It is well known that the constant coefficient Black– Scholes model is not consistent with empirical observations in the markets. Indeed, given a call option with quoted price
+   <math display="inline">
+    C_M
+   </math>
+   on the market, one may associate the so-called
+   <i>
+    implied volatility
+   </i>
+   , that is, the volatility
+   <math display="inline">
+    \sigma_{\text{imp}}
+   </math>
+   such that the price given by the Black-Scholes formula coincides with
+   <math display="inline">
+    C_M
+   </math>
+   . If the Black-Scholes model was sharp, then the implied volatility would not depend on the strike and maturity of the option. However, it is often observed that the implied volatility is far from constant and is actually a convex function of the strike price, a phenomenon known as the volatility smile. Several extensions of the Black-Scholes model have been proposed in the literature. We focus here on local volatility models
+  </p>
+  <p block-type="Text">
+   (see Local Volatility Model) where the volatility is a function
+   <math display="inline">
+    \sigma(t, S_t)
+   </math>
+   of time and the spot price. In this model, the price
+   <math display="inline">
+    C(t, S_t)
+   </math>
+   of a call option of strike K and maturity
+   <math display="inline">
+    T
+   </math>
+   satisfies the PDE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    rC - \frac{\partial C}{\partial t} - rS\frac{\partial C}{\partial S} - \frac{1}{2}\sigma^{2}(t, S)S^{2}\frac{\partial^{2} C}{\partial S^{2}} = 0,
+   </math>
+   <br/>
+   <math display="block">
+    (t, S) \in [0, T) \times (0, \infty)
+   </math>
+   <br/>
+   <math display="block">
+    C(T, S) = (S - K)_{+}
+   </math>
+   <br/>
+   (25)
+  </p>
+  <p block-type="TextInlineMath">
+   The calibration problem in this local volatility model consists of finding a function
+   <math display="inline">
+    \sigma(t, S)
+   </math>
+   , which reproduces the observed call option prices on the market for all strikes and maturities. In other words, we want to determine
+   <math display="inline">
+    \sigma(t, S)
+   </math>
+   in such a way that the prices computed, for example, with the above PDE coincide with the observed prices. The solution to this problem has been provided by Dupire [6]. By fixing the date
+   <math display="inline">
+    t
+   </math>
+   and the spot price
+   <math display="inline">
+    S
+   </math>
+   , and by denoting
+   <math display="inline">
+    C(t, S, T, K)
+   </math>
+   the call option price with strike K and maturity
+   <math display="inline">
+    T &gt; t
+   </math>
+   , Dupire showed that it satisfies the forward (with initial condition) parabolic PDE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial C}{\partial T} + rK \frac{\partial C}{\partial K} - \frac{1}{2}\sigma^2(T, K)K^2 \frac{\partial^2 C}{\partial K^2} = 0,
+   </math>
+   <br/>
+   <math display="block">
+    (T, K) \in [t, \infty) \times \mathbb{R}_+
+   </math>
+   (26)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(t, S, t, K) = (S - K)_{+}
+   </math>
+   (27)
+  </p>
+  <p block-type="TextInlineMath">
+   This PDE may be obtained by at least two methods. The first one is based on Itô-Tanaka formula on the risk-neutral expectation representation of the call option price, while the second one is derived by PDE arguments based on the Fokker-Planck equation for the diffusion process
+   <math display="inline">
+    (S_t)
+   </math>
+   (see, e.g., [1]). The PDE (26) can be used, in principle, to compute the local volatility function from the call options prices observed at various strikes
+   <math display="inline">
+    K
+   </math>
+   and maturities
+   <math display="inline">
+    T
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma^{2}(T,K) = 2\frac{\frac{\partial C}{\partial T} + rK\frac{\partial C}{\partial K}}{K^{2}\frac{\partial^{2}C}{\partial K^{2}}}
+   </math>
+   (28)
+  </p>
+  <p block-type="Text">
+   This is known as Dupire's formula (see Dupire Equation). Notice that equation (28) cannot be used directly since only a finite number of options are quoted on the market. We refer to [1] or [4] for a more advanced discussion of such PDEs.
+  </p>
+  <h1>
+   <b>
+    Semilinear PDEs
+   </b>
+  </h1>
+  <p block-type="Text">
+   We have presented so far three types of PDE in finance: linear PDEs arising from European options and Feynman-Kac formulas, variational inequalities arising from American options and optimal stopping, and nonlinear HJB arising from stochastic control problems. Semilinear PDEs the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\frac{\partial v}{\partial t} - b(x)D_x v - \frac{1}{2}\text{tr}(\sigma\sigma'(x)D_x^2 v)
+   </math>
+   <math display="block">
+    -f(x, v, D_x v'\sigma) = 0, \quad (t, x) \in [0, T) \times \mathbb{R}^n
+   </math>
+   <math display="block">
+    v(T, x) = g(x), \quad x \in \mathbb{R}^n \tag{29}
+   </math>
+  </p>
+  <p block-type="Text">
+   Such PDEs arise, for instance, in finance in option pricing with large investor models or in indifference pricing (see
+   <b>
+    Expected Utility Maximization
+   </b>
+   ). Backward stochastic differential equations [8] provide probabilistic approaches for solving such PDEs arising in finance (see Backward Stochastic Differential Equations).
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Achdou, Y. &amp; Pironneau, O. (2005). Computational Methods for Option Pricing, Frontiers in Applied Mathematics. SIAM.
+    </li>
+    <li block-type="ListItem">
+     [2] Bensoussan, A. &amp; Lions, J.L. (1982). Applications of Variational Inequalities in Stochastic Control, North Holland, Amsterdam.
+    </li>
+    <li block-type="ListItem">
+     [3] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities, Journal of Political Economy, 81, 637-654.
+    </li>
+    <li block-type="ListItem">
+     [4] Cont, R. &amp; BenHamida, S. (2005). Recovering volatility from option prices by evolutionary optimization, Journal of Computational Finance
+     <math display="inline">
+      \mathbf{8}(3)
+     </math>
+     , 1–34.
+    </li>
+    <li block-type="ListItem">
+     [5] Crandall, M., Ishii, H. &amp; Lions, P.L. (1992). User's guide to viscosity solutions of second order partial differential equations, Bulletin of the American Mathematical Society 27, 1-167.
+    </li>
+    <li block-type="ListItem">
+     Dupire, B. (1994). Pricing with a smile, Risk 7, 18-20. [6]
+    </li>
+    <li block-type="ListItem">
+     El Karoui, N. (1981). Les aspects probabilistes du [7] contrôle stochastique, Lecture Notes in Mathematics 876, 73-238.
+    </li>
+    <li block-type="ListItem">
+     [8] El Karoui, N., Peng, S. &amp; Quenez, M.C. (1997). Backward stochastic differential equations in finance, Mathematical Finance,
+     <math display="inline">
+      7, 1-71
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     [9] Fleming, W. &amp; Soner, M. (1993). Controlled Markov Processes and Viscosity Solutions, Springer Verlag.
+    </li>
+    <li block-type="ListItem">
+     [10] Harrison, M. &amp; Kreps, D. (1979). Martingales and arbitrage in multiperiod securities markets, Journal of Economic Theory, 20, 381-408.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    6 Partial Differential Equations
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [11] Harrison, M. &amp; Pliska, S. (1981). Martingales and Stochastic integrals in the theory of continuous trading,
+     <i>
+      Stochastic Processes and Applications
+     </i>
+     ,
+     <b>
+      11
+     </b>
+     , 215–260.
+    </li>
+    <li block-type="ListItem">
+     [12] Jaillet, P., Lamberton, D. &amp; Lapeyre, B. (1990). Variational inequalities and the pricing of American options,
+     <i>
+      Acta Applicandae Mathematicae
+     </i>
+     <b>
+      21
+     </b>
+     , 263–289.
+    </li>
+    <li block-type="ListItem">
+     [13] Merton, R. (1973). Optimum consumption and portfolio rules in a continuous-time model,
+     <i>
+      Journal of Economic Theory
+     </i>
+     <b>
+      3
+     </b>
+     , 373–413.
+    </li>
+    <li block-type="ListItem">
+     [14] Merton, R.C. (1973). Theory of rational option pricing,
+     <i>
+      Bell Journal of Economics and Management Science
+     </i>
+     ,
+     <b>
+      4
+     </b>
+     (1), 141–183.
+    </li>
+    <li block-type="ListItem">
+     [15] Pham, H. (2007).
+     <i>
+      Optimisation et contrˆole stochastique appliqu´es `a la finance
+     </i>
+     , Springer Verlag.
+    </li>
+    <li block-type="ListItem">
+     [16] Rogers, C. &amp; Shi, Z. (1995). The value of an Asian option,
+     <i>
+      Journal of Applied Probability
+     </i>
+     ,
+     <b>
+      32
+     </b>
+     , 1077–1088.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   HUYENˆ PHAM
+  </p>
+ </body>
+</html>

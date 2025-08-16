@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Monte Carlo Simulation
+   </b>
+  </h1>
+  <h2>
+   <b>
+    The History of the Monte Carlo Method
+   </b>
+  </h2>
+  <p block-type="Text">
+   The history of Monte Carlo methods goes back a long time. The generic idea of random, or "stochastic", sampling is straightforward and appealing in its elegance and has been used for centuries. Possibly, the first systematic application of statistical sampling techniques in science and engineering was by Enrico Fermi in the early 1930s to predict the results of experiments related to the properties of the neutron [11], which had recently been discovered by James Chadwick in 1932. In 1947, Stanislaw Ulam suggested to John von Neumann that the newly developed ENIAC computer would give them the means to carry out calculations based on statistical sampling with hitherto unattained efficiency and comparative ease [17]. Their coworker Nicholas Metropolis dubbed the numerical technique the
+   <i>
+    Monte Carlo method
+   </i>
+   partly inspired by Ulam's anecdotes of his gambling uncle who "just had to go to Monte Carlo".
+  </p>
+  <p block-type="Text">
+   Since the deployment of the ENIAC, which could do about 5000 additions or 400 multiplications per second and which occupied the size of a large room, computing power has grown dramatically. In the early 1970s, a computer design was introduced that had at its heart an electronic component first introduced in 1958, a so-called "integrated circuit". All of a sudden, a computer's
+   <i>
+    central processing unit
+   </i>
+   (CPU) shrank from the size of a domestic refrigerator to that of a fingernail. The number of transistors in a single integrated circuit kept growing at an almost constant exponential rate since then,a and with it grew the computing power of the computer. In addition to that, miniaturization and the introduction of new materials allowed for equally dramatic increases in the clock speeds of computers. At the time of this writing, on a CPU that trades for £ 25 to retail customers, over 2 billion double-precision floating-point multiplications can be carried out per second,b which means that the kind of hardware used these days as a wordprocessor can do in one second what used to take the ENIAC over two months.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   It is no surprise, then, that by now the use of Monte Carlo methods has become ubiquitous in science, technology, and business. Simulation techniques are used in oil well exploration; stellar evolution; electronic chip design; reactor design; quantum
+  </p>
+  <p block-type="Text">
+   chromo dynamics; material sciences; physical chemistry; nanostructure, protein, and polymer research; operations research, for example, when designing the relationships and control mechanisms between raw materials input, manufacturing, and delivery; ground and air traffic control systems design; communication and computer system design and testing, for example, network theory; biomolecular research, for example, cancer drug design; all areas of finance and insurance; weather forecasting (where it is referred to as
+   <i>
+    ensemble forecasting
+   </i>
+   <sup>
+    c
+   </sup>
+   ); and local authorities planning and commissioning.d
+  </p>
+  <p block-type="Text">
+   Today, the comparative ease of implementation, in combination with the readily available required computer power, makes the use of Monte Carlo techniques more often than not the method of choice. This has gone to the extent where it is deployed (almost) as a black-box tool. As an example for this, we give a quote from the local authority planning and commissioning site mentioned above:
+  </p>
+  <p block-type="Text">
+   This spreadsheet based tool gives local authorities access to Monte Carlo statistical modelling techniques. The technique allows local authorities to take account of the different factors which may affect spend levels. This will give authorities the ability to more accurately estimate expenditure to take account of uncertainty.
+  </p>
+  <p block-type="Text">
+   Monte Carlo is a recognised statistical technique, which is recommended by the Treasury.
+  </p>
+  <h2>
+   <b>
+    Basic Ideas
+   </b>
+  </h2>
+  <p block-type="Text">
+   The key defining feature of a Monte Carlo simulation may be stated as follows.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 1
+   </b>
+   <i>
+    A Monte Carlo method is any technique whose purpose it is to approximate a specific measure defined on a given domain by the aid of sampling according to a predetermined distributional law.
+   </i>
+  </p>
+  <p block-type="Text">
+   Note that this definition does
+   <i>
+    not
+   </i>
+   involve any of the following:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. randomness
+    </li>
+    <li block-type="ListItem">
+     2. expectations or moments
+    </li>
+    <li block-type="ListItem">
+     3. stochastic processes.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   It may come as a surprise that randomness is not included. It is true that randomness of some of the
+  </p>
+  <p block-type="Text">
+   input numbers is often associated with Monte Carlo methods. In truth, however, and this was already known to the pioneers of Monte Carlo methods, all that is really needed for a Monte Carlo method to succeed is
+   <i>
+    asymptotic adherence
+   </i>
+   to the desired predetermined distributional law on the given domain that is sampled upon. For the sake of explanation, but without loss of generality, we shall assume in the following that the domain is a hypercube
+   <math display="inline">
+    H_m = (0, 1)^m
+   </math>
+   for some
+   <math display="inline">
+    m \in \mathbb{N}
+   </math>
+   and that the desired distribution is uniform in
+   <math display="inline">
+    H_m
+   </math>
+   . Any "draw" in the simulation sequence is thus naturally best to be seen as an
+   <i>
+    m
+   </i>
+   -tuple, or a vector
+   <math display="inline">
+    \mathbf{u} \in H_m
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Randomness is predominantly used in conceptual considerations for its convenience of guaranteeing uniform coverage as a consequence of serial independence of draws (Figure 1). Obviously, if one vector-valued sample drawn from
+   <math display="inline">
+    H_m
+   </math>
+   is, in a statistical sense, completely independent from the next draw, and so on, then, asymptotically, the set of all draws will cover
+   <math display="inline">
+    H_m
+   </math>
+   uniformly. However, it is both intuitive, as well as readily demonstrable, that it is fairly easy to achieve a more uniform coverage with a deliberate strategy that takes into account all the points that are already part of the simulation. It is, in fact, possible to prove that at least asymptotically (i.e., in the limit of large numbers of draws), by any self-consistent measure, any strategy (algorithm) to generate numbers that attempts to "avoid"
+  </p>
+  <p>
+   <img src="_page_1_Picture_3.jpeg"/>
+  </p>
+  <p>
+   The ENIAC. Smithsonian Institution Photo No. 53192 reproduced from [4] with kind permission by Paul Ceruzzi
+  </p>
+  <p block-type="Text">
+   points already drawn gives more uniform coverage of the sampling domain than random numbers. In this asymptotic sense, among all number sequences one can construct, random numbers are the worst possible category of numbers one could use for Monte Carlo simulation purposes. In practical applications, though, a Monte Carlo simulation is hardly ever carried out with the intent to determine some kind of asymptotic behavior. What matters for real calculations is to have
+  </p>
+  <p>
+   <img src="_page_1_Figure_6.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   One thousand (a) random and (b) strategic draws from
+   <math display="inline">
+    (0, 1)^2
+   </math>
+   . Note the significantly more uniform coverage of the unit square in
+   <math display="inline">
+    (b)
+   </math>
+  </p>
+  <p block-type="Text">
+   a result as accurate as possible with the fewest necessary iterations, and it is this latter part that makes the use of nonrandom numbers (also known as low
+   <i>
+    discrepancy
+   </i>
+   or
+   <i>
+    quasi-random
+   </i>
+   numbers) slightly more delicate, and this is discussed in article
+   <b>
+    Quasi-Monte
+   </b>
+   Carlo Methods by one of the most accomplished researchers in this field, H. Niederreiter. Unfortunately, in the 1940s, no algorithms for the generation of usable nonrandom numbers were available when Monte Carlo simulations on the ENIAC commenced. despite the fact that the theoretical foundations for such number sequences had already been laid in 1916 by Hermann Weyl [18]. As a consequence, practically used Monte Carlo simulations relied on the generation of pseudorandom numbers for the first few decades. The term
+   <i>
+    pseudorandom
+   </i>
+   is commonly used to indicate that these are computer-generated numbers, as opposed to random numbers as we assume them to occur in natural phenomena such as radioactive decay. The distinction is somewhat philosophical, but noteworthy nevertheless, since it is, after all, not actually possible to generate randomness on a machine that is designed to give
+   <i>
+    deterministic
+   </i>
+   results. This is summarized in John von Neumann's famous words [9]:
+  </p>
+  <p block-type="Text">
+   Anyone who considers arithmetical methods of producing random numbers is, of course, in a state of sin.
+  </p>
+  <p block-type="Text">
+   As it turns out, algorithms for the generation of number sequences that can be considered random enough for practical use, in some sense, can be devised, though, by the aid of modern number theory, and this is the subject of article Pseudorandom Number Generators by P. L'Ecuyer.
+  </p>
+  <p block-type="TextInlineMath">
+   At a mathematical level, Monte Carlo methods have a wide range of applicability. Of course, they can be used simply to compute an approximation for the expectation of a given function, say,
+   <math display="inline">
+    E[f(\mathbf{u})]
+   </math>
+   , and in finance, this is probably the most common application: draw N vectors
+   <math display="inline">
+    \mathbf{u}_1
+   </math>
+   to
+   <math display="inline">
+    \mathbf{u}_N
+   </math>
+   , and evaluate the equally weighted
+   <math display="inline">
+    N
+   </math>
+   -iteration estimator:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\mathsf{E}}_{N}\big[f(\mathbf{u})\big] := \frac{1}{N} \sum_{i=1}^{N} f(\mathbf{u}_{i}) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   They can, however, also be used for calculations that do not fit well into the format
+   <math display="inline">
+    \mathsf{E}[f(\mathbf{u})]
+   </math>
+   . A common use of Monte Carlo methods is to find a local or global extremum of a given function. Examples
+  </p>
+  <p block-type="TextInlineMath">
+   for this application are the so-called Metropolis algorithm, and the related
+   <i>
+    simulated annealing
+   </i>
+   procedure, which, in finance, is sometimes used for model calibration. Another frequent application of Monte Carlo methods in finance is the calculation of a
+   <i>
+    quantile level
+   </i>
+   , that is, to find
+   <math display="inline">
+    f_q
+   </math>
+   such that the probability that
+   <math display="inline">
+    f(\mathbf{u}) &lt; f_q
+   </math>
+   is q, or, in other words,
+   <math display="inline">
+    f_q
+   </math>
+   is implicitly defined by:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathsf{E}\left[\mathbf{1}_{\{f(\mathbf{u}) &lt; f_q\}}\right] = q \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The simplest algorithm to estimate
+   <math display="inline">
+    f_q
+   </math>
+   given
+   <math display="inline">
+    q
+   </math>
+   is to draw a number of, say
+   <math display="inline">
+    N
+   </math>
+   , iterations for
+   <math display="inline">
+    \mathbf{u}
+   </math>
+   , evaluate
+   <math display="inline">
+    f(\cdot)
+   </math>
+   for all the drawn vectors, order the so generated
+   <math display="inline">
+    f
+   </math>
+   values by decreasing size, and pick the value at position
+   <math display="inline">
+    |q \cdot N|
+   </math>
+   . The quantile level is only one of various measures for extreme events, which are discussed in article
+   <b>
+    Rare-event Simulation
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   The Monte Carlo method is widely accepted as the designated method of choice for the following two types of calculations:
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Mathematical problems that are not posed as
+   <math display="inline">
+    \bullet
+   </math>
+   a set of concise equations, but instead are only described as a procedure, or algorithm, or
+   <i>
+    process
+   </i>
+   . An example is the estimation of statistics for trafficflow problems where the reaction of individual traffic constituents (e.g., cars) on ambient conditions is known, but, because of their nonlinearity, the net effect of many such constituents reacting to the (re-)actions of all other constituents is hard to predict. Some of the problems Fermi, von Neumann, Metropolis, and Ulam originally worked on also belong to this category: they investigated the statistics of neutrons passing through matter by simulating repeated impacts with and deflections by atoms. Some problems are given in the form of stochastic differential equations (SDEs) for which we have no analytical solutions but which can be integrated numerically. Numerical integration of an SDE is mathematically the design of a numerical algorithm that has starting values and an iterative procedure involving numbers to be sampled from a certain domain. Standard Euler integration, for instance, of a simple SDE, over
+   <math display="inline">
+    k
+   </math>
+   time steps, typically becomes a sampling problem on
+   <math display="inline">
+    \mathbb{R}^k
+   </math>
+   , which is usually transformed to
+   <math display="inline">
+    (0, 1)^k
+   </math>
+   . Note that the numerical integration is composed only by the step that is the conversion of the SDE into a sampling problem. Numerical integration of SDEs is technically not a Monte Carlo technique. It is, in principle, possible, though rarely done, to evaluate the
+  </p>
+  <p block-type="Text">
+   resulting sampling problem with other means such as multidimensional quadratures, and so on. In practice, however, numerical integration of SDEs is usually combined with a Monte Carlo simulation of the integration procedure. Articles
+   <b>
+    Monte Carlo Simulation for Stochastic Differential Equations
+   </b>
+   and
+   <b>
+    Stochastic Differential Equations: Scenario Simulation
+   </b>
+   by Platen are dedicated to the subject of numerical integration of SDEs, and how it interacts with the embedding Monte Carlo simulation. The mathematical background behind the design of many of these numerical integration schemes is the equivalent to Taylor's expansion for SDEs, and these
+   <i>
+    stochastic Taylor expansions
+   </i>
+   are explained in article
+   <b>
+    Stochastic Taylor Expansions
+   </b>
+   .
+  </p>
+  <h3>
+   <b>
+    • Mathematical problems that require the evaluation of an expectation on a high-dimensional domain.
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   The alternative to a Monte Carlo simulation for such problems is to employ lattice methods. The commonly used error measure for lattice techniques is a term proportional to the square of the lattice discretization, say,
+   <i>
+    h
+   </i>
+   2. The number of nodes (i.e., sampling points) in a lattice scales like
+   <i>
+    N
+   </i>
+   =
+   <i>
+    h
+   </i>
+   <sup>
+    −
+   </sup>
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   with the dimensionality
+   <i>
+    d
+   </i>
+   . Putting this together shows that the error of a lattice algorithm relates to the number of evaluated points like ∼ 1
+   <i>
+    /N(
+   </i>
+   2
+   <i>
+    /d)
+   </i>
+   . As
+   <i>
+    d
+   </i>
+   increases, the relationship between a lattice method error and
+   <i>
+    N
+   </i>
+   becomes hopelessly inefficient, and this fact is sometimes referred to as the
+   <i>
+    curse of dimensionality
+   </i>
+   . When using random numbers, the commonly used error measure of a Monte Carlo estimator for
+   <i>
+    N
+   </i>
+   iterations scales like 1
+   <i>
+    /
+   </i>
+   <sup>
+    √
+   </sup>
+   <i>
+    N
+   </i>
+   , irrespective of the dimensionality of the domain. A straightforward scale comparison indicates that the Monte Carlo error estimator is asymptotically superior in its behavior as a function of
+   <i>
+    N
+   </i>
+   as soon as
+   <i>
+    d &gt;
+   </i>
+   4. For low-discrepancy numbers, as explained in detail in article
+   <b>
+    Quasi-Monte Carlo Methods
+   </b>
+   , the error measure scales closer to 1
+   <i>
+    /N
+   </i>
+   , which indicates that lattice methods are (asymptotically) superior to those (used within a Monte Carlo simulation) only when the dimensionality
+   <i>
+    d
+   </i>
+   is 1.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Beyond these two categories, there are many other applications of Monte Carlo techniques, often associated with bespoke Monte Carlo algorithms. Many of these algorithms belong to the family of
+   <i>
+    Monte Carlo Markov Chain
+   </i>
+   methods [3, 5, 10]. These methods are, to date, less commonly used in
+  </p>
+  <p block-type="Text">
+   finance. An exception is perhaps the Robbins–Monro algorithm [1] whose basic purpose is to find the root of a function that is defined as an expectation (and can practically be evaluated only by the aid of a Monte Carlo simulation itself). The Robbins–Monro algorithm is designed to avoid having to nest a Monte Carlo simulation as an objective function inside a numerical root finding procedure. It has been used in the context of variance reduction methods which are discussed in article
+   <b>
+    Variance Reduction
+   </b>
+   .
+  </p>
+  <h2>
+   <b>
+    Monte Carlo Methods in Quantitative Finance
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   The starting point of the use of the Monte Carlo method in quantitative finance, or specifically, in financial engineering, was probably the suggestion by P. Boyle to use it for the valuation of options [2]. Despite the fact that Monte Carlo methods, initially, had the reputation of being
+   <i>
+    slow
+   </i>
+   , they started to become popular rather quickly, probably primarily owing to the enormous ease with which they could be implemented. For the valuation of exotic financial contracts, especially in the world of equity and foreign exchange derivatives, and particularly when multiple underlyings were involved, a Monte Carlo method could be implemented directly from the contract's term sheet, without the need for any further mathematics other than a model for the dynamics of the financial underlyings. This made it possible to combine multipurpose financial models, which only describe the (stochastic) dynamics of the financial underlyings, with
+   <i>
+    product description language
+   </i>
+   engines, that allowed any trader, or even structurer, to price, and risk-manage, entirely new financial products within minutes, without any new model development or any code recompilation. The use of Monte Carlo simulations is made particularly easy in this context by the fact that most financial contracts' term sheets are written in a language close to an investor's perception of the evolution of the financial contract
+   <i>
+    forward in time
+   </i>
+   , making term sheet definitions intrinsically well compatible with the Monte Carlo method's forward looking nature:
+   <i>
+    if you can describe it on a term sheet, you can probably implement it as a payoff
+   </i>
+   . Over time, computers became faster, reducing concerns some people may have had with respect to Monte Carlo methods. Eventually, multicore computers became commonplace in the financial industry,
+  </p>
+  <p block-type="Text">
+   and since Monte Carlo methods are so extremely easily amenable to multithreading, possibly more so than any other numerical technique, they could readily be adapted to take advantage of the extra computing power.
+  </p>
+  <p block-type="Text">
+   The adoption of Monte Carlo methods as a standard technique was helped not only by pure technological progress of computers, though. A whole range of mathematical developments and discoveries provided improvements both in terms of robustness and relative speed that made it possible to carry out Monte Carlo simulations much faster than before. Many of these methods are known as
+   <i>
+    variance reduction methods
+   </i>
+   , which is the subject of article
+   <b>
+    Variance Reduction
+   </b>
+   . A very important generic relative speedup technique is the use of low-discrepancy, as opposed to pseudorandom, numbers, such as the Niederreiter'88 [12], Niederreiter-Xing [13], and Sobol' [7, 14–16] numbers, and article
+   <b>
+    Quasi-Monte Carlo Methods
+   </b>
+   is dedicated to the theory behind these number sequences. We say
+   <i>
+    relative
+   </i>
+   speedup to indicate that the use of these numbers does not necessarily make the execution of
+   <i>
+    N
+   </i>
+   iterations actually faster (albeit that these numbers are usually faster to generate than pseudorandom numbers). They provide a relative speedup due to the fact that, for approximately the same residual numerical error, one may need only of the order
+   <sup>
+    √
+   </sup>
+   <i>
+    <sup>
+     N
+    </sup>
+   </i>
+   iterations in comparison to the use of pseudorandom numbers. Another type of speedup is associated with bespoke simulation algorithms for specific mathematical problems such as the numerical integration and simulation of square root processes described by SDEs such as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}X = \sigma\sqrt{X} \cdot \mathrm{d}W \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   which is discussed in article
+   <b>
+    Simulation of Squareroot Processes
+   </b>
+   . Simulations of numerical integrations of SDEs with jumps are described in article
+   <b>
+    Stochastic Differential Equations with Jumps: Simulation
+   </b>
+   . The simulations required for the important LIBOR market model for interest rate derivative valuation are particularly challenging because of their intrinsic high dimensionality, and are elaborated in article
+   <b>
+    LIBOR Market Models: Simulation
+   </b>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   As Monte Carlo methods started being used with financial models, practitioners invented further techniques for specific purposes that are nowadays considered part of the standard toolbox. The handling
+  </p>
+  <p block-type="Text">
+   of sensitivity calculations, in the context of Monte Carlo simulations, can be tricky, owing to the inherent nature of a numerical sensitivity calculation to amplify noise. In the article
+   <b>
+    Monte Carlo Greeks
+   </b>
+   , the most common techniques to deal with this issue are covered. A mathematically elegant, though, in practice, perhaps less frequently used, framework that can help address the same issues is the method known as
+   <i>
+    integration by parts for stochastic functionals
+   </i>
+   and is presented in the article
+   <b>
+    Sensitivity Computations: Integration by Parts
+   </b>
+   . A particularly interesting development is the family of
+   <i>
+    weighted Monte Carlo
+   </i>
+   methods, which provide means for noise-reduced sensitivity calculation and noisereduced model calibration. This framework gives a generic mathematical analysis that encompasses a proof that the popular
+   <i>
+    control variates
+   </i>
+   technique for variance reduction is, in fact, just a special case of a weighted Monte Carlo method, as discussed in article
+   <b>
+    Weighted Monte Carlo
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   Finally, we should mention that a lot has been done with respect to the handling of early exercise opportunities that may be given within financial contracts. Apart from simple one-dimensional American equity or FX options, these are very common among exotic fixed income derivatives. Since most of these exotic contracts require rather complex and highdimensional models for realistic risk-management and hedging, it became desirable to find techniques that can be used to evaluate early exercise rights within a simulation setting. In this section of the encyclopedia, we present four articles on the most important techniques for Bermudan options:
+   <b>
+    Bermudan Options
+   </b>
+   deals with basis function regression methods for Bermudan options; in
+   <b>
+    Stochastic Mesh Method
+   </b>
+   , the Broadie–Glasserman stochastic mesh technique is discussed; article
+   <b>
+    Exercise Boundary Optimization Methods
+   </b>
+   explains Bermudan Monte Carlo methods based on exercise boundary optimization; and article
+   <b>
+    Early Exercise Options: Upper Bounds
+   </b>
+   is on upper bound methods for callable products.
+  </p>
+  <p block-type="Text">
+   There is much more one could say about Monte Carlo methods in finance, some of it highly applicable in many situations, some of it bespoke for specific applications, and some of it merely for the sake of its mathematical elegance. We believe, though, that all of the most important aspects of Monte Carlo methods in quantitative finance are covered in this section of the encyclopedia. For further details beyond this, we recommend the books [7, 8] and [6].
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   This phenomenon was surprisingly accurately predicted by Gordon Moore in 1965, whence it is often referred to as
+   <i>
+    Moore's law
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   This figure is
+   <i>
+    per se
+   </i>
+   , of course, misleading since any realistic calculation involves more than the multiplication of the same two numbers over and over again. It does help, though, to highlight the scale of speed improvements in hardware since the days of the ENIAC.
+  </p>
+  <p block-type="Text">
+   c
+   <i>
+    .
+   </i>
+   According to the UK Meteorological Office (www.metoffice.gov.uk/science/creating/daysahead/ensembles), "an ensemble forecasting system samples the uncertainty inherent in weather prediction to provide more information about possible future weather conditions." In other words, it is a mini Monte Carlo simulation consisting of a comparatively small number (∼ 24) of individually deterministic weather forecast calculations, each primed with slightly differing input scenarios based on the currently known weather system status.
+  </p>
+  <p block-type="Text">
+   d
+   <i>
+    .
+   </i>
+   see, e.g., www.everychildmatters.gov.uk/resources-andpractice/IG00215.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Arouna, B. (2003). Robbins-Monro algorithms and variance reduction in finance,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      7
+     </b>
+     (2), 35–61.
+    </li>
+    <li block-type="ListItem">
+     [2] Boyle, P. (1977). Options: a Monte Carlo approach,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      4
+     </b>
+     , 323–338.
+    </li>
+    <li block-type="ListItem">
+     [3] Bremaud, P. (1999).
+     <i>
+      Markov Chains: Gibbs Fields, Monte Carlo Simulation and Queues
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [4] Ceruzzi, P.E. (1983).
+     <i>
+      Reckoners, the Prehistory of the Digital Computer, from Relays to the Stored Program Concept, 1935-1945
+     </i>
+     , Greenwood Press. ISBN 0-313- 23382-9.
+    </li>
+    <li block-type="ListItem">
+     [5] Gilks, W.R., Richardson, S. &amp; Spiegelhalter, D. (eds) (1996).
+     <i>
+      Markov Chain Monte Carlo in Practice
+     </i>
+     , Chapman &amp; Hall.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [6] Glasserman, P. (2003).
+     <i>
+      Monte Carlo Methods in Financial Engineering
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [7] Jackel, P. (2002). ¨
+     <i>
+      Monte Carlo Methods in Finance
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [8] Kloeden, P.E. &amp; Platen, E. (1992,1995,1999).
+     <i>
+      Numerical Solution of Stochastic Differential Equations
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [9] Knuth, D. (1969,1981).
+     <i>
+      The Art of Computer Programming: Seminumerical Algorithms
+     </i>
+     , Addison-Wesley, Vol. 2.
+    </li>
+    <li block-type="ListItem">
+     [10] Liu, J.S. (2001).
+     <i>
+      Monte Carlo Strategies in Scientific Computing
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [11] Metropolis, N. (1987).
+     <i>
+      The Beginning of the Monte Carlo Method
+     </i>
+     , Los Alamos Science, Special Issue 15.
+    </li>
+    <li block-type="ListItem">
+     [12] Niederreiter, H. (1988). Low-discrepancy and lowdispersion sequences,
+     <i>
+      Journal of Number Theory
+     </i>
+     <b>
+      30
+     </b>
+     , 51–70.
+    </li>
+    <li block-type="ListItem">
+     [13] Niederreiter, H. &amp; Xing, C.P. (1995). Low-discrepancy sequences obtained from algebraic function fields over finite fields,
+     <i>
+      Acta Arithmetica
+     </i>
+     <b>
+      72
+     </b>
+     , 281–298.
+    </li>
+    <li block-type="ListItem">
+     [14] Press, W.H., Teukolsky, S.A., Vetterling, W.T. &amp; Flannery, B.P. (1992).
+     <i>
+      Numerical Recipes in C
+     </i>
+     , Cambridge University Press, www.library.cornell.edu/nr/cbookcpdf. html.
+    </li>
+    <li block-type="ListItem">
+     [15] Sobol', I.M. (1967). On the distribution of points in a cube and the approximate evaluation of integrals,
+     <i>
+      USSR Computational Mathematics and Mathematical Physics
+     </i>
+     <b>
+      7
+     </b>
+     , 86–112.
+    </li>
+    <li block-type="ListItem">
+     [16] Sobol', I.M. (1976). Uniformly distributed sequences with an additional uniform property,
+     <i>
+      USSR Computational Mathematics and Mathematical Physics
+     </i>
+     <b>
+      16
+     </b>
+     (5), 236–242.
+    </li>
+    <li block-type="ListItem">
+     [17] Ulam, S.M., Richtmyer, R.D. &amp; von Neumann, J. (1947).
+     <i>
+      Statistical Methods in Neutron Diffusion
+     </i>
+     . Technical report, Los Alamos Scientific Laboratory report LAMS-551.
+    </li>
+    <li block-type="ListItem">
+     [18] Weyl, H. (1916). Uber die Gleichverteilung von Zahlen ¨ mod. eins,
+     <i>
+      Mathematische Annalen
+     </i>
+     <b>
+      77
+     </b>
+     , 313–352.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   PETER JACKEL ¨ &amp; ECKHARD PLATEN
+  </h4>
+ </body>
+</html>

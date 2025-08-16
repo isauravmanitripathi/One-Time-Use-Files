@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Intensity-based Credit Risk Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Reduced-form credit risk models
+   </b>
+   have become standard tools for pricing credit derivatives and for providing a link between credit spreads and default probabilities. In structural models, following the Merton approach [1, 12], default is defined by a firm value hitting a certain barrier. In such an approach, the concept of credit spread is rather abstract since it is not modeled explicitly and therefore is not directly accessible and may also have dynamics that are not completely pleasing. Reduced-form models, however, concentrate on modeling the hazard rate or intensity of default, which is directly linked to the credit spread process. In contrast to a structural approach, the event of default in a reduced-form model comes about as a sudden unanticipated event (although the likelihood of this event may have been changing).
+  </p>
+  <h2>
+   <b>
+    Deterministic Hazard Rates
+   </b>
+  </h2>
+  <h2>
+   <i>
+    Risk-neutral Default Probability
+   </i>
+  </h2>
+  <p block-type="Text">
+   The basic idea around pricing default sensitive products is that of considering a risky zero-coupon bond of unit notional and maturity
+   <i>
+    T
+   </i>
+   . We write the payoff at maturity as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(T,T) = \begin{cases} 1 &amp; \text{default} \\ \delta &amp; \text{no default} \end{cases} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    δ
+   </i>
+   is an assumed recovery fraction paid immediately in the event of default. The price of a risky cash flow due at time
+   <i>
+    T
+   </i>
+   is then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(t,T) = [S(t,T) + [1 - S(t,T)]\delta]B(t,T) \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <i>
+    B(t, T )
+   </i>
+   denoting the risk-free discount factor for time
+   <i>
+    T
+   </i>
+   as seen from time
+   <i>
+    t
+   </i>
+   ,
+   <i>
+    S(t, T )
+   </i>
+   is the risk-neutral survival (no default) probability (
+   <i>
+    see
+   </i>
+   <b>
+    Hazard Rate
+   </b>
+   ) in the interval [
+   <i>
+    t,T
+   </i>
+   ] or, equivalently, 1 −
+   <i>
+    S(t, T )
+   </i>
+   is the risk-neutral default probability. This style of approach was developed by Jarrow and Turnbull [8, 9].
+  </p>
+  <h2>
+   <i>
+    Pricing a Credit Default Swap (CDS)
+   </i>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   A credit default swap (CDS) (
+   <i>
+    see
+   </i>
+   <b>
+    Credit Default Swaps
+   </b>
+   ) has become a benchmark product for trading
+  </p>
+  <p block-type="Text">
+   credit risk and hence we base most of our analysis around CDS pricing. Standard assumptions used in pricing CDS include deterministic default probabilities, interest rates, and recovery values (or at least independence between these three quantities). In a CDS contract, the protection buyer will typically pay a fixed periodic premium,
+   <i>
+    X
+   </i>
+   CDS, to the protection seller until the maturity date or the default (credit event) time (
+   <i>
+    T
+   </i>
+   ). The present value of these premiums at time
+   <i>
+    t
+   </i>
+   can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\text{premium}}(t, T) = \sum_{i=1}^{m} S(t, t_i) B(t, t_i) \Delta_{i-1,i} X_{\text{CDS}} \quad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    m
+   </i>
+   is the number of premium payments and
+   <i>
+    <sup>
+     i
+    </sup>
+   </i>
+   −1
+   <i>
+    ,i
+   </i>
+   represents the day count fraction.
+  </p>
+  <p block-type="Text">
+   The protection seller in a CDS contract will undertake in the event of a default to compensate the buyer for the loss of notional less some recovery value,
+   <i>
+    δ
+   </i>
+   . The value of the default component obtained by integrating over all possible default times is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\text{default}}(t, T) = (1 - \delta) \int_{t}^{T} B(t, u) \, \mathrm{d}S(t, u) \qquad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that due to the required negative slope of
+   <i>
+    S(t, u)
+   </i>
+   , this term will be negative; hence, the sum of equations (3) and (4) defines the value of a CDS from a protection provider's point of view.
+  </p>
+  <h2>
+   <i>
+    Defining the Hazard Rate
+   </i>
+  </h2>
+  <p block-type="TextInlineMath">
+   In pricing a CDS, the main issue is to define
+   <i>
+    S(t, u)
+   </i>
+   for all relevant times in the future,
+   <i>
+    t
+   </i>
+   ≤
+   <i>
+    u
+   </i>
+   ≤
+   <i>
+    T
+   </i>
+   . If we consider default to be a Poisson process driven by a constant intensity of default, then the survival probability is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S(t, u) = \exp[-h(u - t)] \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    h
+   </i>
+   is the intensity of default, often described as the hazard rate. We can interpret
+   <i>
+    h
+   </i>
+   as a forward instantaneous default probability; the probability of default in a small period d
+   <i>
+    t
+   </i>
+   conditional on no prior default is
+   <i>
+    h
+   </i>
+   d
+   <i>
+    t
+   </i>
+   . Default is a sudden unanticipated event (although it may, of course, have been partly anticipated due to a high value of
+   <i>
+    h
+   </i>
+   ).
+  </p>
+  <h2>
+   <i>
+    Link from Hazard Rate to Credit Spread
+   </i>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   If we assume that CDS premiums are paid continuously,a then the value of the premium
+  </p>
+  <p block-type="Text">
+   payments can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\text{premium}}(t, T) \approx X_{\text{CDS}} \int_{t}^{T} B(t, u) S(t, u) \, \text{d}u \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Under the assumption of a constant hazard rate of default, we can write d
+   <i>
+    S(t, u)
+   </i>
+   = −
+   <i>
+    hS(t, u)
+   </i>
+   d
+   <i>
+    u
+   </i>
+   and the default payment leg becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\text{default}}(t, T) = -(1 - \delta)h \int_{t}^{T} B(t, u)S(t, u) \, \mathrm{d}u \quad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The CDS spread will be such that the total value of these components is zero. Hence from
+   <i>
+    V
+   </i>
+   premium
+   <i>
+    (t, T )
+   </i>
+   +
+   <i>
+    V
+   </i>
+   default
+   <i>
+    (t, T )
+   </i>
+   = 0 we have the simple relationship
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h \approx \frac{X_{\text{CDS}}}{(1-\delta)}\tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   The above close relationship between the hazard rate and CDS premium (credit spread) is important in that the underlying variable in our model is directly linked to credit spreads observed in the market. This is a key advantage over structural models whose underlying variables are rather abstract and hard to observe.
+  </p>
+  <h2>
+   <i>
+    Simple Formulas
+   </i>
+  </h2>
+  <p block-type="TextInlineMath">
+   Suppose we define the risk-free discount factors
+   <i>
+    via
+   </i>
+   a constant continuously compounded interest rate
+   <i>
+    B(t, u)
+   </i>
+   = exp[−
+   <i>
+    r(u
+   </i>
+   −
+   <i>
+    t)
+   </i>
+   ]. We then have closed-form expressions for quantities such as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\text{premium}}(t, T) / X_{\text{CDS}}
+   </math>
+   <br/>
+   <math display="block">
+    \approx \int_{t}^{T} \exp[-(r+h)(u-t)] du
+   </math>
+   <br/>
+   <math display="block">
+    = \frac{1 - \exp[-(r+h)(T-t)]}{r+h}
+   </math>
+   (9)
+  </p>
+  <p block-type="Text">
+   The above expression and equation (8) allow a quick calculation for the value of a CDS, or equivalently a risky annuity or DV01 for a particular credit.
+  </p>
+  <h2>
+   <i>
+    Incorporating Term Structure
+   </i>
+  </h2>
+  <p block-type="Text">
+   For a nonconstant intensity of default, the survival probability is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S(t, u) = \exp\left[-\int_{t}^{u} h(x) \, \mathrm{d}x\right] \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   To allow for a term structure of credit (e.g., CDS premia at different maturities) and indeed a term structure of interest rates, we must choose some functional form for
+   <i>
+    h
+   </i>
+   . Such an approach is the credit equivalent of yield curve stripping, although due to the illiquidity of credit spreads much less refined, and was first suggested by Li [10]. The single-name CDS market is mainly based around 5-year instruments and other maturities will be rather illiquid. A standard approach is to choose a piecewise constant representation of the hazard rate to coincide with the maturity dates of the individual CDS quotes.
+  </p>
+  <h2>
+   <b>
+    Extensions
+   </b>
+  </h2>
+  <h2>
+   <i>
+    Bonds and Basis Issues
+   </i>
+  </h2>
+  <p block-type="Text">
+   Within a reduced-form framework, bonds can be priced in a similar way to CDS:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\text{bond}}(t, T) = \sum_{i=1}^{m} S(t, t_i) B(t, t_i) \Delta_{i-1, i} X_{\text{bond}}
+   </math>
+   <math display="block">
+    + S(t, T) B(t, T) - \delta \int_{t}^{T} B(t, u) \, \mathrm{d}S(t, u) \tag{11}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The first term above is similar to the default payment on a CDS but the assumption here is that the bond will be worth a fraction
+   <i>
+    δ
+   </i>
+   in default. The second and third terms represent the coupon and principal payments on the bond, respectively. It is therefore possible to price bonds
+   <i>
+    via
+   </i>
+   the CDS market (or
+   <i>
+    vice versa
+   </i>
+   ) and indeed to calibrate a credit curve
+   <i>
+    via
+   </i>
+   bonds of different maturities from the same issuer. However, the treatment of bonds and CDS within the same modeling framework must be done with caution. Components such as funding, the CDS delivery option, delivery squeezes, and counterparty risk mean that CDS and bonds of the same issuer will trade with a basis representing nonequal riskneutral default probabilities. In the context of the
+  </p>
+  <p block-type="Text">
+   formulas, the components creating such a basis would represent different recovery values as well as discount factors when pricing CDS and bonds of the same issuer.
+  </p>
+  <h2>
+   <i>
+    Stochastic Default Intensity
+   </i>
+  </h2>
+  <p block-type="Text">
+   The deterministic reduced-form approach can be extended to accommodate stochastic hazard rates and leads to the following expression for survival probabilities:-
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S(t, u) = E^{\mathcal{Q}} \left[ \exp \left[ - \int_{t}^{u} h(x) \, \mathrm{d}x \right] \right] \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   This has led to various specifications for modeling a hazard rate process with parallels with interest-rate models for modeling products sensitive to credit spread volatility with examples to be found in [4, 5, 11]. Jarrow
+   <i>
+    et al.
+   </i>
+   [7] (
+   <i>
+    see
+   </i>
+   <b>
+    Jarrow–Lando–Turnbull Model
+   </b>
+   ) have extended such an approach to have a Markovian structure to model credit migration or discrete changes in credit quality that would lead to jump in the credit spread. Furthermore, credit hybrid models with hazard rates correlated to other market variables, such as interest rates, have been introduced. For example, see [13].
+  </p>
+  <h2>
+   <i>
+    Portfolio Approaches
+   </i>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   The first attempts at modeling portfolio credit products, such as basket default swaps and CDOs, involved multidimensional hazard rate models. However, it was soon realized that introducing the level of default correlation required to price such products realistically was far from trivial. This point is easily understood by considering that two perfectly correlated hazard rates will not produce perfectly correlated default events and more complex dynamics are required such as those considered by Duffie [3]. Most portfolio credit models have instead followed structural approaches (commonly referred to as
+   <i>
+    copula models
+   </i>
+   with the so-called Gaussian copula model becoming the market standard for pricing CDOs;
+   <i>
+    see
+   </i>
+   <b>
+    Gaussian Copula Model
+   </b>
+   ) for reasons of simplicity. Schonbucher and Schubert [14] have shown how to combine intensity and copula models. More recently, the search for
+  </p>
+  <p block-type="Text">
+   more sophisticated portfolio credit risk modeling approaches is largely based around reduced-form models as in [2] and [6] (
+   <i>
+    see
+   </i>
+   <b>
+    Multiname Reduced Form Models
+   </b>
+   ).
+  </p>
+  <h2>
+   <b>
+    Conclusions
+   </b>
+  </h2>
+  <p block-type="Text">
+   We have outlined the specification and usage of reduced-form models for modeling a default process and described the link between the underlying in such a model and market observed credit spreads. We have described the application of such models to vanilla credit derivative structures such as CDS and also more sophisticated structures such as credit spread options, credit hybrid instrument, and portfolio credit products.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   CDS premiums are typically paid quarterly in arrears but an accrued premium is paid in the event of default to compensate the protection seller for the period for which a premium has been paid. Hence the continuous premium assumption is only a mild approximation.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Black, F. &amp; Cox, J. (1976). Valuing corporate securities: some effects of bond indenture provisions,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      31
+     </b>
+     , 351–367.
+    </li>
+    <li block-type="ListItem">
+     [2] Chapovsky, D., Rennie, A. &amp; Tavares, P. (2006).
+     <i>
+      Stochastic Intensity Modelling for Structured Credit Exotics
+     </i>
+     , working paper, Merrill Lynch.
+    </li>
+    <li block-type="ListItem">
+     [3] Duffie, D. (1998).
+     <i>
+      First-to-Default Valuation
+     </i>
+     , Institut de Finance, University of Paris, Dauphine, and Graduate School of Business, Stanford University.
+    </li>
+    <li block-type="ListItem">
+     [4] Duffie, D. (1999). Credit swap valuation,
+     <i>
+      Financial Analysts Journal
+     </i>
+     January/February, 73–87.
+    </li>
+    <li block-type="ListItem">
+     [5] Duffie, D. &amp; Singleton, K. (1999). Modeling term structures of defaultable bonds,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      12
+     </b>
+     (4), 687–720.
+    </li>
+    <li block-type="ListItem">
+     [6] Inglis, S. &amp; Lipton, A. (2007). Factor models for credit correlation,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      20
+     </b>
+     , 110–115.
+    </li>
+    <li block-type="ListItem">
+     [7] Jarrow, R.A., Lando, D. &amp; Turnbull, S.M. (1997). A Markov model for the term structure of credit spreads,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      10
+     </b>
+     , 481–523.
+    </li>
+    <li block-type="ListItem">
+     [8] Jarrow, R.A. &amp; Turnbull, S.M. (1992). Credit risk: drawing the analogy,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      5
+     </b>
+     (9), 63–70.
+    </li>
+    <li block-type="ListItem">
+     [9] Jarrow, R.A. &amp; Turnbull, S.M. (1995). Pricing derivatives with credit risk,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      50
+     </b>
+     , 53–85.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [10] Li, D.X. (1998).
+     <i>
+      Constructing a Credit Curve, Credit Risk
+     </i>
+     , A RISK Special report (November 1998), pp. 40–44.
+    </li>
+    <li block-type="ListItem">
+     [11] Longstaff, F. &amp; Schwartz, E. (1995). Valuing risky debt: a new approach,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      50
+     </b>
+     , 789–820.
+    </li>
+    <li block-type="ListItem">
+     [12] Merton, R.C. (1974). On the pricing of corporate debt: the risk structure of interest rates,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      29
+     </b>
+     , 449–470.
+    </li>
+    <li block-type="ListItem">
+     [13] Schonbucher, P.A. (2002/3). Tree implementation of a credit spread model for credit derivatives,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      6
+     </b>
+     (2), 1–38.
+    </li>
+    <li block-type="ListItem">
+     [14] Schonbucher, P. &amp; Schubert, D. (2001).
+     <i>
+      Copula Dependant Default Risk in Intensity Models
+     </i>
+     , working paper, Bonn University.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <b>
+    Related Articles
+   </b>
+  </p>
+  <p block-type="Text">
+   <b>
+    Credit Default Swaps
+   </b>
+   ;
+   <b>
+    Duffie–Singleton Model
+   </b>
+   ;
+   <b>
+    Hazard Rate
+   </b>
+   ;
+   <b>
+    Multiname Reduced Form Models
+   </b>
+   ;
+   <b>
+    Nested Simulation
+   </b>
+   ;
+   <b>
+    Reduced Form Credit Risk Models
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   JON GREGORY
+  </p>
+ </body>
+</html>

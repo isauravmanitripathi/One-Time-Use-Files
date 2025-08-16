@@ -1,0 +1,3398 @@
+{
+  "blocks": [
+    {
+      "id": "/page/0/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>LIBOR Market Models: </b>Simulation</h1>",
+      "page": 229,
+      "polygon": [
+        [
+          73.4379746835443,
+          70.45328031809146
+        ],
+        [
+          269.0227848101266,
+          70.45328031809146
+        ],
+        [
+          269.0227848101266,
+          108.42431640625
+        ],
+        [
+          73.4379746835443,
+          108.42431640625
+        ]
+      ],
+      "bbox": [
+        73.4379746835443,
+        70.45328031809146,
+        269.0227848101266,
+        108.42431640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The Libor market (LM) model (see LIBOR Market Model) involves a large number of Markov state variables—namely, the full number of Libor forward rates on the yield curve plus any additional variables such as stochastic volatility—so finite difference methods are rarely applicable, and securities pricing will nearly always require Monte Carlo methods. The specific form of the stochastic differential equations (SDEs) governing the dynamics of forward Libor rates gives rise to some specialized approaches, as well as to particular challenges, that are covered in this article. The notation used throughout is that of LIBOR Market Model.</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          131.16302186878727
+        ],
+        [
+          286.31640625,
+          131.16302186878727
+        ],
+        [
+          286.31640625,
+          278.7001953125
+        ],
+        [
+          74.1873417721519,
+          278.7001953125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        131.16302186878727,
+        286.31640625,
+        278.7001953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Euler-type Schemes </b></h2>",
+      "page": 229,
+      "polygon": [
+        [
+          74.9367088607595,
+          302.0497017892644
+        ],
+        [
+          173.10379746835443,
+          302.0497017892644
+        ],
+        [
+          173.10379746835443,
+          312.5712890625
+        ],
+        [
+          74.9367088607595,
+          312.5712890625
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        302.0497017892644,
+        173.10379746835443,
+        312.5712890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/3",
+      "block_type": "SectionHeader",
+      "html": "<h2>Basic Stepping Method</h2>",
+      "page": 229,
+      "polygon": [
+        [
+          74.9367088607595,
+          323.0357852882704
+        ],
+        [
+          172.35443037974684,
+          323.0357852882704
+        ],
+        [
+          172.35443037974684,
+          333.37255859375
+        ],
+        [
+          74.9367088607595,
+          333.37255859375
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        323.0357852882704,
+        172.35443037974684,
+        333.37255859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Assume that we stand at time <math display=\"inline\">t</math>, and Libor forwards <math display=\"inline\">(L)</math> maturing at all dates in the tenor structure are known. We wish to devise a scheme to advance time to <math display=\"inline\">t + \\Delta</math> and construct a sample&lt;sup&gt;a&lt;/sup&gt; of <math display=\"inline\">L_{q(t+\\Delta)}(t + \\Delta)</math><math display=\"inline\">\\Delta</math>),..., <math display=\"inline\">L_{N-1}(t+\\Delta)</math>. Notice that <math display=\"inline\">q(t+\\Delta)</math> may or may not exceed <math display=\"inline\">q(t)</math>; if it does, some of the front-end forward rates expire and \"drop off\" the curve in the move to <math display=\"inline\">t + \\Delta</math>.</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.9367088607595,
+          344.02186878727633
+        ],
+        [
+          286.2582278481013,
+          344.02186878727633
+        ],
+        [
+          286.2582278481013,
+          433.697265625
+        ],
+        [
+          74.9367088607595,
+          433.697265625
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        344.02186878727633,
+        286.2582278481013,
+        433.697265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Under the spot measure <math display=\"inline\">\\mathbf{P}^B</math>, general LM model dynamics are of the form (see LIBOR Market Model)</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          433.96222664015903
+        ],
+        [
+          285.50886075949364,
+          433.96222664015903
+        ],
+        [
+          285.50886075949364,
+          467.9365234375
+        ],
+        [
+          74.1873417721519,
+          467.9365234375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        433.96222664015903,
+        285.50886075949364,
+        467.9365234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">dL_n(t) = \\sigma_n(t)^{\\top} \\left(\\mu_n(t) dt + dW_B(t)\\right),</math><br/><math display=\"block\">\\mu_n(t) = \\sum_{j=q(t)}^n \\frac{\\tau_j \\sigma_j(t)}{1 + \\tau_j L_j(t)} \\tag{1}</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          102.544921875,
+          484.8720703125
+        ],
+        [
+          284.1484375,
+          484.8720703125
+        ],
+        [
+          284.1484375,
+          530.5244140625
+        ],
+        [
+          102.544921875,
+          530.5244140625
+        ]
+      ],
+      "bbox": [
+        102.544921875,
+        484.8720703125,
+        284.1484375,
+        530.5244140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/7",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\sigma_n(t)</math> are adapted vector-valued volatility functions and <math display=\"inline\">W_B</math> is an <i>m</i>-dimensional Brownian motion in measure <math display=\"inline\">\\mathbf{P}^B</math>. The simplest way of drawing an approximate sample <math display=\"inline\">\\hat{L}_n(t + \\Delta)</math> for <math display=\"inline\">L_n(t + \\Delta)</math> would be to apply a first-order Euler-type scheme,&lt;sup&gt;b&lt;/sup&gt;</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          540.3916500994036
+        ],
+        [
+          286.2582278481013,
+          540.3916500994036
+        ],
+        [
+          286.2582278481013,
+          596.42578125
+        ],
+        [
+          74.1873417721519,
+          596.42578125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        540.3916500994036,
+        286.2582278481013,
+        596.42578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\">Euler : <math display=\"block\">\\hat{L}_n(t + \\Delta)</math><br/>= <math>\\hat{L}_n(t) + \\sigma_n(t)^{\\top} \\left(\\mu_n(t)\\Delta + \\sqrt{\\Delta}z\\right)</math> (2)</p>",
+      "page": 229,
+      "polygon": [
+        [
+          104.3515625,
+          612.2568359375
+        ],
+        [
+          285.3046875,
+          612.2568359375
+        ],
+        [
+          285.3046875,
+          648.3369140625
+        ],
+        [
+          104.3515625,
+          648.3369140625
+        ]
+      ],
+      "bbox": [
+        104.3515625,
+        612.2568359375,
+        285.3046875,
+        648.3369140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/9",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">log-Euler : <math display=\"inline\">\\hat{L}_n(t+\\Delta)</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          331.22025316455694,
+          72.70178926441352
+        ],
+        [
+          420.39493670886077,
+          72.70178926441352
+        ],
+        [
+          420.39493670886077,
+          83.205078125
+        ],
+        [
+          331.22025316455694,
+          83.205078125
+        ]
+      ],
+      "bbox": [
+        331.22025316455694,
+        72.70178926441352,
+        420.39493670886077,
+        83.205078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">= \\hat{L}_n(t) \\exp\\left\\{\\frac{\\sigma_n(t)^{\\top}}{\\hat{L}_n(t)} \\left(\\mu_n(t)\\Delta - \\frac{1}{2}\\frac{\\sigma_n(t)}{\\hat{L}_n(t)}\\Delta + \\sqrt{\\Delta}z\\right)\\right\\} </math>(3)</p>",
+      "page": 229,
+      "polygon": [
+        [
+          334.4453125,
+          92.22509765625
+        ],
+        [
+          511.9296875,
+          92.22509765625
+        ],
+        [
+          511.9296875,
+          159.046875
+        ],
+        [
+          334.4453125,
+          159.046875
+        ]
+      ],
+      "bbox": [
+        334.4453125,
+        92.22509765625,
+        511.9296875,
+        159.046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/11",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where z is a vector of m independent <math display=\"inline\">\\mathcal{N}(0, 1)</math>Gaussian draws. For specifications of <math display=\"inline\">\\sigma_n(t)^\\top</math> that are close to proportional in <math display=\"inline\">L_n(t)</math> (e.g., the lognormal LM model), the log-Euler scheme <math display=\"inline\">(3)</math> can be expected to produce lower biases than the Euler scheme (2). The log-Euler scheme will keep forward rates positive, whereas the Euler scheme will not.</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          163.3916500994036
+        ],
+        [
+          513.375,
+          163.3916500994036
+        ],
+        [
+          513.375,
+          242.6201171875
+        ],
+        [
+          301.24556962025315,
+          242.6201171875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        163.3916500994036,
+        513.375,
+        242.6201171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">As shown, both schemes <math display=\"inline\">(2)</math> and <math display=\"inline\">(3)</math> advance time only by a single time step, but creation of a full path of forward curve evolution through time is merely a matter of repeated application of the single-period stepping schemes on a (possibly nonequidistant) time line <math display=\"inline\">t_0, t_1, \\ldots</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          244.33797216699801
+        ],
+        [
+          513.3164556962025,
+          244.33797216699801
+        ],
+        [
+          513.3164556962025,
+          311.466796875
+        ],
+        [
+          301.24556962025315,
+          311.466796875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        244.33797216699801,
+        513.3164556962025,
+        311.466796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">While Euler-type schemes such as <math display=\"inline\">(2)</math> and <math display=\"inline\">(3)</math>are not very sophisticated and result in rather slow convergence of the discretization bias <math display=\"inline\">(O(\\Delta))</math>, these schemes are appealing in their straightforwardness and universal applicability.</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          312.5427435387674
+        ],
+        [
+          513.3164556962025,
+          312.5427435387674
+        ],
+        [
+          513.3164556962025,
+          368.71630859375
+        ],
+        [
+          301.24556962025315,
+          368.71630859375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        312.5427435387674,
+        513.3164556962025,
+        368.71630859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/14",
+      "block_type": "SectionHeader",
+      "html": "<h2>Iterative Drift Calculations</h2>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          388.24254473161034
+        ],
+        [
+          416.6481012658228,
+          388.24254473161034
+        ],
+        [
+          416.6481012658228,
+          398.353515625
+        ],
+        [
+          301.24556962025315,
+          398.353515625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        388.24254473161034,
+        416.6481012658228,
+        398.353515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/15",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">In the straight Euler scheme (2), the computational effort involved in advancing <math display=\"inline\">L_n</math> is dominated by the computation of <math display=\"inline\">\\mu_n(t)</math> which, in a direct implementation of equation (1), involves <math display=\"inline\">m \\cdot (n - q(t) + 1) =</math><math display=\"inline\">O(mn)</math> operations for a given value of n. To advance all <math display=\"inline\">N - q(t + \\Delta)</math> forwards, it follows that the computational effort is <math display=\"inline\">O(mN^2)</math> for a single time step. Generation of a full path of forward curve scenarios from time 0 to time <math display=\"inline\">T_{N-1}</math> will thus require a total computational effort of <math display=\"inline\">O(mN^3)</math>.</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          408.479125248509
+        ],
+        [
+          513.3164556962025,
+          408.479125248509
+        ],
+        [
+          513.3164556962025,
+          523.1611328125
+        ],
+        [
+          301.24556962025315,
+          523.1611328125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        408.479125248509,
+        513.3164556962025,
+        523.1611328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">A simple observation allows one to substantially reduce the computational effort. Invoking the recursive relationship</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          523.8974609375
+        ],
+        [
+          513.3164556962025,
+          523.8974609375
+        ],
+        [
+          513.3164556962025,
+          557.0322265625
+        ],
+        [
+          301.24556962025315,
+          557.0322265625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        523.8974609375,
+        513.3164556962025,
+        557.0322265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mu_n(t) = \\mu_{n-1}(t) + \\frac{\\tau_n \\sigma_n(t)}{1 + \\tau_n \\hat{L}_n(t)} \\tag{4}</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          343.984375,
+          566.6044921875
+        ],
+        [
+          512.21875,
+          566.6044921875
+        ],
+        [
+          512.21875,
+          589.4306640625
+        ],
+        [
+          343.984375,
+          589.4306640625
+        ]
+      ],
+      "bbox": [
+        343.984375,
+        566.6044921875,
+        512.21875,
+        589.4306640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/18",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">allows one to compute all <math display=\"inline\">\\mu_n</math>, <math display=\"inline\">n = q(t+\\Delta)</math>, ..., <math display=\"inline\">N-1</math>, by an <math display=\"inline\">O(N)</math>-step iteration starting from <math display=\"inline\">\\mu_{q(t+\\Delta)}(t)</math><math display=\"inline\">= \\sum_{j=q(t)}^{q(t+\\Delta)} \\tau_j \\sigma_j(t) / (1+\\tau_j \\hat{L}_j(t)).</math> In total, the computational effort of advancing the full curve one-</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          598.8528827037774
+        ],
+        [
+          513.3164556962025,
+          598.8528827037774
+        ],
+        [
+          513.3164556962025,
+          645.3916015625
+        ],
+        [
+          301.24556962025315,
+          645.3916015625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        598.8528827037774,
+        513.3164556962025,
+        645.3916015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 603,
+      "polygon": [
+        [
+          78.841796875,
+          45.49365234375
+        ],
+        [
+          258.8328552246094,
+          45.49365234375
+        ],
+        [
+          258.8328552246094,
+          56.70166015625
+        ],
+        [
+          78.841796875,
+          56.70166015625
+        ]
+      ],
+      "bbox": [
+        78.841796875,
+        45.49365234375,
+        258.8328552246094,
+        56.70166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">time step will be <i>O(mN )</i>, and the cost of taking <i>N</i> such time steps will be <i>O(mN</i><sup>2</sup><i>)</i>—and not <i>O(mN</i><sup>3</sup><i>)</i>.</p>",
+      "page": 603,
+      "polygon": [
+        [
+          78.9140625,
+          71.89556884765625
+        ],
+        [
+          289.640625,
+          71.89556884765625
+        ],
+        [
+          289.640625,
+          104.881103515625
+        ],
+        [
+          78.9140625,
+          104.881103515625
+        ]
+      ],
+      "bbox": [
+        78.9140625,
+        71.89556884765625,
+        289.640625,
+        104.881103515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/2",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">This reduction in effort is discussed, in considerable level of detail, in [6]. It can be verified to hold for any of the probability measures used in LM modeling; the starting point of recursions would depend on which measure is used.</p>",
+      "page": 603,
+      "polygon": [
+        [
+          78.697265625,
+          106.80731201171875
+        ],
+        [
+          289.0625,
+          106.80731201171875
+        ],
+        [
+          289.0625,
+          163.0198974609375
+        ],
+        [
+          78.697265625,
+          163.0198974609375
+        ]
+      ],
+      "bbox": [
+        78.697265625,
+        106.80731201171875,
+        289.0625,
+        163.0198974609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/3",
+      "block_type": "SectionHeader",
+      "html": "<h2><i>Long Time Steps</i></h2>",
+      "page": 603,
+      "polygon": [
+        [
+          78.3359375,
+          191.88397216796875
+        ],
+        [
+          148.72265625,
+          191.88397216796875
+        ],
+        [
+          148.72265625,
+          202.30615234375
+        ],
+        [
+          78.3359375,
+          202.30615234375
+        ]
+      ],
+      "bbox": [
+        78.3359375,
+        191.88397216796875,
+        148.72265625,
+        202.30615234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Most exotic interest rate derivatives involve revolving cash flows paid on a tightly spaced schedule (e.g., quarterly). Hence, the average time spacing used in path generation will thus normally, by necessity, be quite small. In certain cases, however, there may be large gaps between cash flow dates, for example, when a security is forward-starting or has an initial lockout period. One may want, then, to be able to take a \"large\" time step in the simulation; here \"large\" is defined as spanning more than one period in the tenor structure.</p>",
+      "page": 603,
+      "polygon": [
+        [
+          78.986328125,
+          216.78753662109375
+        ],
+        [
+          290.21875,
+          216.78753662109375
+        ],
+        [
+          290.21875,
+          342.77880859375
+        ],
+        [
+          78.986328125,
+          342.77880859375
+        ]
+      ],
+      "bbox": [
+        78.986328125,
+        216.78753662109375,
+        290.21875,
+        342.77880859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">When taking large time steps in simulation, not all probability measures are equally useful. In particular, the usage of the spot measure <b>P</b><i><sup>B</sup></i> is inconvenient, as skipping over points in the tenor structure will preclude one from \"rolling\" <i>B(t)</i> correctly. Circumventing this issue, however, is merely a matter of changing the numeraire from <i>B</i> to an asset that involves no rollover in the time step in question. For instance, we could use the discount bond <i>P (t, TN</i> <i>)</i>, the choice of which corresponds to running simulated paths in the terminal measure. Model dynamics under this measure are given in <b>LIBOR Market</b> <b>Model</b>.</p>",
+      "page": 603,
+      "polygon": [
+        [
+          79.05859375,
+          344.7050476074219
+        ],
+        [
+          289.78515625,
+          344.7050476074219
+        ],
+        [
+          289.78515625,
+          493.9201965332031
+        ],
+        [
+          79.05859375,
+          493.9201965332031
+        ]
+      ],
+      "bbox": [
+        79.05859375,
+        344.7050476074219,
+        289.78515625,
+        493.9201965332031
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/6",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Other Simulation Schemes</b></h1>",
+      "page": 603,
+      "polygon": [
+        [
+          78.76953125,
+          527.713623046875
+        ],
+        [
+          209.251220703125,
+          527.713623046875
+        ],
+        [
+          209.251220703125,
+          538.921630859375
+        ],
+        [
+          78.76953125,
+          538.921630859375
+        ]
+      ],
+      "bbox": [
+        78.76953125,
+        527.713623046875,
+        209.251220703125,
+        538.921630859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">When simulating on a reasonably tight time schedule, the performance of the Euler scheme is often sufficiently accurate to serve as the default scheme for many types of LM models. However, as discussed above, in some cases, it could be beneficial to use coarse time steps in some parts of the path-generation algorithm, requiring one to pay more attention to the discretization scheme.</p>",
+      "page": 603,
+      "polygon": [
+        [
+          79.275390625,
+          553.6275634765625
+        ],
+        [
+          289.640625,
+          553.6275634765625
+        ],
+        [
+          289.640625,
+          644.7595977783203
+        ],
+        [
+          79.275390625,
+          644.7595977783203
+        ]
+      ],
+      "bbox": [
+        79.275390625,
+        553.6275634765625,
+        289.640625,
+        644.7595977783203
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><i>Special-purpose Schemes with Drift</i> <i>Predictor–Corrector</i></p>",
+      "page": 603,
+      "polygon": [
+        [
+          306.6953125,
+          71.88397216796875
+        ],
+        [
+          455.2734375,
+          71.88397216796875
+        ],
+        [
+          455.2734375,
+          94.0362548828125
+        ],
+        [
+          306.6953125,
+          94.0362548828125
+        ]
+      ],
+      "bbox": [
+        306.6953125,
+        71.88397216796875,
+        455.2734375,
+        94.0362548828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In integrated form, the general LM dynamics in equation (1) become</p>",
+      "page": 603,
+      "polygon": [
+        [
+          305.828125,
+          104.40740966796875
+        ],
+        [
+          516.265625,
+          104.40740966796875
+        ],
+        [
+          516.265625,
+          125.72802734375
+        ],
+        [
+          305.828125,
+          125.72802734375
+        ]
+      ],
+      "bbox": [
+        305.828125,
+        104.40740966796875,
+        516.265625,
+        125.72802734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">L_n(t + \\Delta) = L_n(t) + \\int_t^{t+\\Delta} \\sigma_n(u)^\\top \\mu_n(u) \\, du</math><math display=\"block\">+ \\int_t^{t+\\Delta} \\sigma_n(u)^\\top \\, dW_B(u)</math><math display=\"block\">\\equiv L_n(t) + D_n(t + \\Delta) + M_n(t + \\Delta) \\tag{5}</math></p>",
+      "page": 603,
+      "polygon": [
+        [
+          318.47979736328125,
+          139.6343994140625
+        ],
+        [
+          516.056396484375,
+          139.6343994140625
+        ],
+        [
+          516.056396484375,
+          227.94134521484375
+        ],
+        [
+          318.47979736328125,
+          227.94134521484375
+        ]
+      ],
+      "bbox": [
+        318.47979736328125,
+        139.6343994140625,
+        516.056396484375,
+        227.94134521484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <i>Mn</i> and <i>Dn</i> is a martingale and a predictable process, respectively, on the interval [<i>t,t</i> + ]. In many cases of practical interest, high-performance special-purpose schemes exist for simulation of the martingale process <i>Mn</i>. A simple approach is to use Euler stepping for the predictable part,</p>",
+      "page": 603,
+      "polygon": [
+        [
+          306.1171875,
+          238.5155029296875
+        ],
+        [
+          517.1328125,
+          238.5155029296875
+        ],
+        [
+          517.1328125,
+          305.76025390625
+        ],
+        [
+          306.1171875,
+          305.76025390625
+        ]
+      ],
+      "bbox": [
+        306.1171875,
+        238.5155029296875,
+        517.1328125,
+        305.76025390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/12",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{L}_n(t+\\Delta) = \\hat{L}_n(t) + \\sigma_n(t)^\\top \\mu_n(t) \\Delta + \\hat{M}_n(t+\\Delta)</math>\n(6)</p>",
+      "page": 603,
+      "polygon": [
+        [
+          311.160888671875,
+          319.9053955078125
+        ],
+        [
+          516.0562744140625,
+          319.9053955078125
+        ],
+        [
+          516.0562744140625,
+          349.80126953125
+        ],
+        [
+          311.160888671875,
+          349.80126953125
+        ]
+      ],
+      "bbox": [
+        311.160888671875,
+        319.9053955078125,
+        516.0562744140625,
+        349.80126953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/13",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <i>M</i>ˆ <i>n(t</i> + <i>)</i> is generated by a special-purpose scheme.</p>",
+      "page": 603,
+      "polygon": [
+        [
+          306.8399353027344,
+          357.8253479003906
+        ],
+        [
+          516.265625,
+          357.8253479003906
+        ],
+        [
+          516.265625,
+          381.6610107421875
+        ],
+        [
+          306.8399353027344,
+          381.6610107421875
+        ]
+      ],
+      "bbox": [
+        306.8399353027344,
+        357.8253479003906,
+        516.265625,
+        381.6610107421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The drift adjustments in equation (6) are explicit in nature, as they are based only on the forward curve at time <i>t</i>. To incorporate information from time <i>t</i> + , one can use the <i>predictor–corrector</i> scheme, see [8] and <b>Monte Carlo Simulation for Stochastic</b> <b>Differential Equations</b>, which for equation (6) takes the two-step form</p>",
+      "page": 603,
+      "polygon": [
+        [
+          306.8401184082031,
+          383.40753173828125
+        ],
+        [
+          517.421875,
+          383.40753173828125
+        ],
+        [
+          517.421875,
+          461.88177490234375
+        ],
+        [
+          306.8401184082031,
+          461.88177490234375
+        ]
+      ],
+      "bbox": [
+        306.8401184082031,
+        383.40753173828125,
+        517.421875,
+        461.88177490234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{split} \\bar{L}_n(t+\\Delta) \\\\ &amp;= \\hat{L}_n(t) + \\sigma_n\\big(t; \\big\\{\\hat{L}_i(t)\\big\\}\\big)^\\top \\mu_n\\big(t; \\big\\{\\hat{L}_i(t)\\big\\}\\big) \\,\\Delta \\\\ &amp;+ \\hat{M}_n(t+\\Delta) \\end{split} \\tag{7}</math><math display=\"block\">\\begin{split} \\hat{L}_n(t+\\Delta) \\\\ &amp;= \\hat{L}_n(t) + \\theta \\sigma_n\\big(t; \\big\\{\\hat{L}_i(t)\\big\\}\\big)^\\top \\mu_n\\big(t; \\big\\{\\hat{L}_i(t)\\big\\}\\big) \\,\\Delta \\\\ &amp;+ (1-\\theta)\\sigma_n\\left(t+\\Delta; \\big\\{\\bar{L}_i(t+\\Delta)\\big\\}\\right)^\\top \\\\ &amp;\\times \\mu_n\\left(t+\\Delta; \\big\\{\\bar{L}_i(t+\\Delta)\\big\\}\\right) \\,\\Delta + \\hat{M}_n(t+\\Delta) \\end{split} \\tag{8}</math></p>",
+      "page": 603,
+      "polygon": [
+        [
+          304.671875,
+          473.458984375
+        ],
+        [
+          516.265625,
+          473.458984375
+        ],
+        [
+          516.265625,
+          602.31640625
+        ],
+        [
+          304.671875,
+          602.31640625
+        ]
+      ],
+      "bbox": [
+        304.671875,
+        473.458984375,
+        516.265625,
+        602.31640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">where <i>θ</i> is a parameter in [0<i>,</i> 1] that determines the degree of implicitness in the scheme (<i>θ</i> = 1: fully explicit; <i>θ</i> = 0: fully implicit). In practice, one would</p>",
+      "page": 603,
+      "polygon": [
+        [
+          306.40625,
+          612.07568359375
+        ],
+        [
+          516.84375,
+          612.07568359375
+        ],
+        [
+          516.84375,
+          645.0234375
+        ],
+        [
+          306.40625,
+          645.0234375
+        ]
+      ],
+      "bbox": [
+        306.40625,
+        612.07568359375,
+        516.84375,
+        645.0234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 215,
+      "polygon": [
+        [
+          331.22025316455694,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          55.868896484375
+        ],
+        [
+          331.22025316455694,
+          55.868896484375
+        ]
+      ],
+      "bbox": [
+        331.22025316455694,
+        45.71968190854871,
+        513.3164556962025,
+        55.868896484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">nearly always make the balanced choice of <math display=\"inline\">\\theta = 1/2</math>. In equations <math display=\"inline\">(7)</math> and <math display=\"inline\">(8)</math> the short-hand notation</p>",
+      "page": 215,
+      "polygon": [
+        [
+          74.9367088607595,
+          71.2027833001988
+        ],
+        [
+          285.50886075949364,
+          71.2027833001988
+        ],
+        [
+          285.50886075949364,
+          92.96142578125
+        ],
+        [
+          74.9367088607595,
+          92.96142578125
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        71.2027833001988,
+        285.50886075949364,
+        92.96142578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mu_n\\left(t;\\left\\{\\hat{L}_i(t)\\right\\}\\right)</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          148.578125,
+          102.993896484375
+        ],
+        [
+          212.75,
+          102.993896484375
+        ],
+        [
+          212.75,
+          122.322509765625
+        ],
+        [
+          148.578125,
+          122.322509765625
+        ]
+      ],
+      "bbox": [
+        148.578125,
+        102.993896484375,
+        212.75,
+        122.322509765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">is used to indicate that <math display=\"inline\">\\mu_n</math> (and <math display=\"inline\">\\sigma_n</math>) may depend on the state of the entire forward curve at time <math display=\"inline\">t</math>.</p>",
+      "page": 215,
+      "polygon": [
+        [
+          74.9367088607595,
+          128.16500994035786
+        ],
+        [
+          286.2582278481013,
+          128.16500994035786
+        ],
+        [
+          286.2582278481013,
+          149.15109343936382
+        ],
+        [
+          74.9367088607595,
+          149.15109343936382
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        128.16500994035786,
+        286.2582278481013,
+        149.15109343936382
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Clearly, the same idea could be developed with the log-Euler scheme <math display=\"inline\">(3)</math> as a starting point.</p>",
+      "page": 215,
+      "polygon": [
+        [
+          74.9367088607595,
+          150.65009940357854
+        ],
+        [
+          286.2582278481013,
+          150.65009940357854
+        ],
+        [
+          286.2582278481013,
+          173.037109375
+        ],
+        [
+          74.9367088607595,
+          173.037109375
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        150.65009940357854,
+        286.2582278481013,
+        173.037109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">While the weak convergence order of simulation schemes may not be affected by predictor-corrector schemes, experiments show that equations <math display=\"inline\">(7)</math> and <math display=\"inline\">(8)</math>often will reduce the bias significantly relative to a fully explicit Euler scheme. Some results (and further refinements) can be found in <math display=\"inline\">[4, 9]</math> and <math display=\"inline\">[10]</math>. As the computational effort of computing the predictorstep is not insignificant, the speed-accuracy trade-off must be evaluated on a case-by-case basis.</p>",
+      "page": 215,
+      "polygon": [
+        [
+          74.1873417721519,
+          173.88469184890656
+        ],
+        [
+          286.2582278481013,
+          173.88469184890656
+        ],
+        [
+          286.2582278481013,
+          276.4912109375
+        ],
+        [
+          74.1873417721519,
+          276.4912109375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        173.88469184890656,
+        286.2582278481013,
+        276.4912109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/6",
+      "block_type": "SectionHeader",
+      "html": "<h2>Further Refinements of Drift Estimation</h2>",
+      "page": 215,
+      "polygon": [
+        [
+          74.9367088607595,
+          295.3041749502982
+        ],
+        [
+          242.04556962025316,
+          295.3041749502982
+        ],
+        [
+          242.04556962025316,
+          305.39208984375
+        ],
+        [
+          74.9367088607595,
+          305.39208984375
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        295.3041749502982,
+        242.04556962025316,
+        305.39208984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">For large time steps, it may be useful to explicitly integrate the time-dependent parts of the drift, rather than rely on pure Euler-type approximations. Focusing on, say, equation (6), assume that one can write</p>",
+      "page": 215,
+      "polygon": [
+        [
+          74.1873417721519,
+          316.2902584493042
+        ],
+        [
+          286.2582278481013,
+          316.2902584493042
+        ],
+        [
+          286.2582278481013,
+          360.24853515625
+        ],
+        [
+          74.1873417721519,
+          360.24853515625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        316.2902584493042,
+        286.2582278481013,
+        360.24853515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\sigma_n(u)^{\\top} \\mu_n(u) \\approx f\\left(u, \\{L_i(t)\\}\\right), \\quad u \\ge t \\qquad (9)</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          100.3046875,
+          370.55712890625
+        ],
+        [
+          284.7265625,
+          370.55712890625
+        ],
+        [
+          284.7265625,
+          381.7861328125
+        ],
+        [
+          100.3046875,
+          381.7861328125
+        ]
+      ],
+      "bbox": [
+        100.3046875,
+        370.55712890625,
+        284.7265625,
+        381.7861328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">for a function <math display=\"inline\">f</math> that depends on time as well as the state of the forward curve frozen at time <math display=\"inline\">t</math>. Then,</p>",
+      "page": 215,
+      "polygon": [
+        [
+          74.9367088607595,
+          391.9900596421471
+        ],
+        [
+          286.2582278481013,
+          391.9900596421471
+        ],
+        [
+          286.2582278481013,
+          413.080078125
+        ],
+        [
+          74.9367088607595,
+          413.080078125
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        391.9900596421471,
+        286.2582278481013,
+        413.080078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">D_n(t + \\Delta) = \\int_t^{t+\\Delta} \\sigma_n(u)^\\top \\mu_n(u) \\, \\mathrm{d}u</math><math display=\"block\">\\approx \\int_t^{t+\\Delta} f\\left(u, \\{L_i(t)\\}\\right) \\, \\mathrm{d}u \\qquad (10)</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          105.580078125,
+          426.333984375
+        ],
+        [
+          286.2582278481013,
+          426.333984375
+        ],
+        [
+          286.2582278481013,
+          484.50390625
+        ],
+        [
+          105.580078125,
+          484.50390625
+        ]
+      ],
+      "bbox": [
+        105.580078125,
+        426.333984375,
+        286.2582278481013,
+        484.50390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">As f evolves deterministically for <math display=\"inline\">u &gt; t</math>, the integral on the right-hand side can be evaluated either analytically (if <math display=\"inline\">f</math> is simple enough) or by numerical quadrature.</p>",
+      "page": 215,
+      "polygon": [
+        [
+          74.1873417721519,
+          491.67395626242546
+        ],
+        [
+          286.75,
+          491.67395626242546
+        ],
+        [
+          286.75,
+          535.6787109375
+        ],
+        [
+          74.1873417721519,
+          535.6787109375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        491.67395626242546,
+        286.75,
+        535.6787109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The approach in equation <math display=\"inline\">(10)</math> easily combines with predictor-corrector logic, that is,</p>",
+      "page": 215,
+      "polygon": [
+        [
+          74.9367088607595,
+          538.1431411530815
+        ],
+        [
+          285.73828125,
+          538.1431411530815
+        ],
+        [
+          285.73828125,
+          558.873046875
+        ],
+        [
+          74.9367088607595,
+          558.873046875
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        538.1431411530815,
+        285.73828125,
+        558.873046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">D_n(t+\\Delta) \\approx \\theta \\int_t^{t+\\Delta} f\\left(u, \\{L_i(t)\\}\\right) \\, \\mathrm{d}u</math><br/> <math display=\"block\">+(1-\\theta) \\int_t^{t+\\Delta} f\\left(u, \\{\\bar{L}_i(t+\\Delta)\\}\\right) \\, \\mathrm{d}u</math><br/>(11)</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.1796875,
+          572.4951171875
+        ],
+        [
+          285.50886075949364,
+          572.4951171875
+        ],
+        [
+          285.50886075949364,
+          643.0735586481113
+        ],
+        [
+          77.1796875,
+          643.0735586481113
+        ]
+      ],
+      "bbox": [
+        77.1796875,
+        572.4951171875,
+        285.50886075949364,
+        643.0735586481113
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">\\bar{L}_i(t + \\Delta)</math> has been found in a predictor step using equation <math display=\"inline\">(10)</math> in equation <math display=\"inline\">(6)</math>.</p>",
+      "page": 215,
+      "polygon": [
+        [
+          301.99493670886073,
+          71.95228628230616
+        ],
+        [
+          513.375,
+          73.44873046875
+        ],
+        [
+          513.375,
+          94.894287109375
+        ],
+        [
+          301.99493670886073,
+          94.894287109375
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        71.95228628230616,
+        513.375,
+        94.894287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/15",
+      "block_type": "SectionHeader",
+      "html": "<h4>Brownian Bridge Schemes and Other Ideas</h4>",
+      "page": 215,
+      "polygon": [
+        [
+          301.99493670886073,
+          118.42147117296223
+        ],
+        [
+          483.34177215189874,
+          118.42147117296223
+        ],
+        [
+          483.34177215189874,
+          127.660888671875
+        ],
+        [
+          301.99493670886073,
+          127.660888671875
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        118.42147117296223,
+        483.34177215189874,
+        127.660888671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/16",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">As a variation on the predictor-corrector scheme, a further refinement to take into account variance of the Libor curve between the sampling dates <math display=\"inline\">t</math> and <math display=\"inline\">t + \\Delta</math> could be made. Schemes attempting to do so by application of Brownian bridge techniques were proposed in [9], among others. While performance of these schemes vary—tests in <math display=\"inline\">[7]</math> show rather mixed results in comparison to simpler predictor-corrector schemes—the basic idea is sufficiently simple and instructive to merit a brief mention. In a nutshell, the Brownian bridge approach aims to replace in equation (10) all forward rates <math display=\"inline\">\\{L_i(t)\\}\\</math> with their expected values at time <math display=\"inline\">u</math>, <i>conditional</i> upon the forward rates ending up at <math display=\"inline\">\\{\\bar{L}_i(t+\\Delta)\\}\\</math>, with <math display=\"inline\">\\{\\bar{L}_i(t+\\Delta)\\}\\</math> generated in a predictor step. Under simplifying assumptions on the dynamics of <math display=\"inline\">L_n(t)</math>, a closed-form expression is possible for this expectation. For example, if we assume that</p>",
+      "page": 215,
+      "polygon": [
+        [
+          301.24556962025315,
+          140.15705765407554
+        ],
+        [
+          514.0658227848102,
+          140.15705765407554
+        ],
+        [
+          514.0658227848102,
+          345.337890625
+        ],
+        [
+          301.24556962025315,
+          345.337890625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        140.15705765407554,
+        514.0658227848102,
+        345.337890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathrm{d}L_n(t) \\approx \\sigma_n(t)^\\top \\,\\mathrm{d}W(t) \\tag{12}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          362.1953125,
+          358.9599609375
+        ],
+        [
+          512.5078125,
+          358.9599609375
+        ],
+        [
+          512.5078125,
+          370.373046875
+        ],
+        [
+          362.1953125,
+          370.373046875
+        ]
+      ],
+      "bbox": [
+        362.1953125,
+        358.9599609375,
+        512.5078125,
+        370.373046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/18",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\sigma_n</math> is <i>deterministic</i> and <math display=\"inline\">W(t)</math> is an <i>m</i>dimensional Brownian motion in some probability measure <b>P</b>, then, for <math display=\"inline\">u \\in [t, t + \\Delta]</math>,</p>",
+      "page": 215,
+      "polygon": [
+        [
+          301.24556962025315,
+          383.7455268389662
+        ],
+        [
+          513.3164556962025,
+          383.7455268389662
+        ],
+        [
+          513.3164556962025,
+          415.6572265625
+        ],
+        [
+          301.24556962025315,
+          415.6572265625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        383.7455268389662,
+        513.3164556962025,
+        415.6572265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/19",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">E(L_n(u)|L_n(t), L_n(t+\\Delta))</math><br/>= <math>L_n(t) + \\frac{\\Sigma_1}{\\Sigma_2} (L_n(t+\\Delta) - L_n(t))</math> (13)</p>",
+      "page": 215,
+      "polygon": [
+        [
+          328.953125,
+          435.90625
+        ],
+        [
+          512.21875,
+          435.90625
+        ],
+        [
+          512.21875,
+          476.404296875
+        ],
+        [
+          328.953125,
+          476.404296875
+        ]
+      ],
+      "bbox": [
+        328.953125,
+        435.90625,
+        512.21875,
+        476.404296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/20",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where</p>",
+      "page": 215,
+      "polygon": [
+        [
+          302.7443037974684,
+          484.92842942345925
+        ],
+        [
+          327.473417721519,
+          484.92842942345925
+        ],
+        [
+          327.473417721519,
+          495.9169921875
+        ],
+        [
+          302.7443037974684,
+          495.9169921875
+        ]
+      ],
+      "bbox": [
+        302.7443037974684,
+        484.92842942345925,
+        327.473417721519,
+        495.9169921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/21",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\Sigma_1 = \\int_t^u |\\sigma_n(s)|^2 \\, \\mathrm{d}s, \\quad \\Sigma_2 = \\int_t^{t+\\Delta} |\\sigma_n(s)|^2 \\, \\mathrm{d}s \\tag{14}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          313.0546875,
+          511.3798828125
+        ],
+        [
+          511.9296875,
+          511.3798828125
+        ],
+        [
+          511.9296875,
+          551.1416015625
+        ],
+        [
+          313.0546875,
+          551.1416015625
+        ]
+      ],
+      "bbox": [
+        313.0546875,
+        511.3798828125,
+        511.9296875,
+        551.1416015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/22",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">If it is more appropriate to assume that <math display=\"inline\">L_n</math> is roughly lognormal, that is,</p>",
+      "page": 215,
+      "polygon": [
+        [
+          301.24556962025315,
+          563.6262425447317
+        ],
+        [
+          513.3164556962025,
+          563.6262425447317
+        ],
+        [
+          513.3164556962025,
+          585.7490234375
+        ],
+        [
+          301.24556962025315,
+          585.7490234375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        563.6262425447317,
+        513.3164556962025,
+        585.7490234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/23",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathrm{d}L_n(t)/L_n(t) \\approx \\sigma_n(t)^\\top \\,\\mathrm{d}W(t) \\tag{15}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          347.7421875,
+          598.2666015625
+        ],
+        [
+          511.9296875,
+          598.2666015625
+        ],
+        [
+          511.9296875,
+          609.3115234375
+        ],
+        [
+          347.7421875,
+          609.3115234375
+        ]
+      ],
+      "bbox": [
+        347.7421875,
+        598.2666015625,
+        511.9296875,
+        609.3115234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/24",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">for a deterministic volatility <math display=\"inline\">\\sigma_n</math>, then, for <math display=\"inline\">u \\in</math><math display=\"inline\">[t, t + \\Delta],</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          300.3359375,
+          622.8369781312127
+        ],
+        [
+          512.5670886075949,
+          622.8369781312127
+        ],
+        [
+          512.5670886075949,
+          645.0234375
+        ],
+        [
+          300.3359375,
+          645.0234375
+        ]
+      ],
+      "bbox": [
+        300.3359375,
+        622.8369781312127,
+        512.5670886075949,
+        645.0234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 165,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          259.28101265822784,
+          45.71968190854871
+        ],
+        [
+          259.28101265822784,
+          55.868896484375
+        ],
+        [
+          77.93417721518988,
+          55.868896484375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        259.28101265822784,
+        55.868896484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/1",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">E(L_n(u)|L_n(t), L_n(t+\\Delta))</math><br/>= <math>L_n(t) \\left(\\frac{L_n(t+\\Delta)}{L_n(t)}\\right)^{\\Sigma_1 \\Sigma_2^{-1}}</math><br/><math>\\times \\exp\\left(\\frac{1}{2}\\Sigma_2^{-1}\\Sigma_1(\\Sigma_2-\\Sigma_1)\\right)</math> (16)</p>",
+      "page": 165,
+      "polygon": [
+        [
+          113.095703125,
+          71.6539306640625
+        ],
+        [
+          289.0625,
+          71.6539306640625
+        ],
+        [
+          289.0625,
+          147.6337890625
+        ],
+        [
+          113.095703125,
+          147.6337890625
+        ]
+      ],
+      "bbox": [
+        113.095703125,
+        71.6539306640625,
+        289.0625,
+        147.6337890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/2",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The article [7] investigates a number of other possible discretization schemes for the drift term in the LM model, including those that attempt to incorporate information about the correlation between various forward rates. In general, many of these schemes will result in some improvement of the discretization error, but at the cost of more computational complexity and effort—effort that in some instances might be better spent on just using a finer time discretization in a simpler discretization scheme.</p>",
+      "page": 165,
+      "polygon": [
+        [
+          77.93417721518988,
+          154.39761431411532
+        ],
+        [
+          290.00506329113927,
+          154.39761431411532
+        ],
+        [
+          290.00506329113927,
+          268.3916015625
+        ],
+        [
+          77.93417721518988,
+          268.3916015625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        154.39761431411532,
+        290.00506329113927,
+        268.3916015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/3",
+      "block_type": "SectionHeader",
+      "html": "<h4>High-order Schemes</h4>",
+      "page": 165,
+      "polygon": [
+        [
+          77.93417721518988,
+          289.7451171875
+        ],
+        [
+          164.86075949367088,
+          289.7451171875
+        ],
+        [
+          164.86075949367088,
+          299.3173828125
+        ],
+        [
+          77.93417721518988,
+          299.3173828125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        289.7451171875,
+        164.86075949367088,
+        299.3173828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/3/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Higher order schemes (such as the Milstein scheme and similar Taylor-based approaches, see Monte Carlo Simulation for Stochastic Differential Equations and Stochastic Taylor Expansions) are cumbersome to use for LM modeling due to the high dimensionality of the model. Consequently, there are very few empirical results on their relative performance. Andersen and Andreasen [1] list some results for Richardson extrapolation (see [8]), the effect of which seems to be rather modest.</p>",
+      "page": 165,
+      "polygon": [
+        [
+          77.93417721518988,
+          311.04373757455267
+        ],
+        [
+          290.00506329113927,
+          311.04373757455267
+        ],
+        [
+          290.00506329113927,
+          424.125
+        ],
+        [
+          77.93417721518988,
+          424.125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        311.04373757455267,
+        290.00506329113927,
+        424.125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/2/SectionHeader/6",
+        "4": "/page/3/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/5",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Martingale Discretization </b></h2>",
+      "page": 165,
+      "polygon": [
+        [
+          77.93417721518988,
+          450.4512922465209
+        ],
+        [
+          204.5772151898734,
+          450.4512922465209
+        ],
+        [
+          204.5772151898734,
+          460.9443339960239
+        ],
+        [
+          77.93417721518988,
+          460.9443339960239
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        450.4512922465209,
+        204.5772151898734,
+        460.9443339960239
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/6",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">It is possible to select a measure such that a particular zero-coupon bond and a particular forward rate agreement (FRA) will be priced bias-free&lt;sup&gt;c&lt;/sup&gt; by Monte Carlo simulation, even when using a simple Euler scheme. While one is rarely interested in pricing zero-coupon bonds by Monte Carlo methods, this observation can, nevertheless, occasionally help guide the choice of simulation measure, particularly if, say, a security can be argued to depend primarily on a single forward rate (e.g., caplet-like securities). In practice, matters are rarely this clear-cut, and one wonders whether perhaps simulation schemes exist that will simultaneously price all zero-coupon bonds <math display=\"inline\">P(\\cdot, T_1)</math>, <math display=\"inline\">P(\\cdot, T_2), \\ldots, P(\\cdot, T_N)</math> bias-free. It should be obvious that this cannot be accomplished by a simple measure</p>",
+      "page": 165,
+      "polygon": [
+        [
+          77.93417721518988,
+          472.93638170974157
+        ],
+        [
+          290.00506329113927,
+          472.93638170974157
+        ],
+        [
+          290.00506329113927,
+          643.9189453125
+        ],
+        [
+          77.93417721518988,
+          643.9189453125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        472.93638170974157,
+        290.00506329113927,
+        643.9189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">shift, but will require a more fundamental change in simulation strategy.</p>",
+      "page": 165,
+      "polygon": [
+        [
+          305.7417721518987,
+          71.2027833001988
+        ],
+        [
+          517.0632911392405,
+          71.2027833001988
+        ],
+        [
+          517.0632911392405,
+          92.8233642578125
+        ],
+        [
+          305.7417721518987,
+          92.8233642578125
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        71.2027833001988,
+        517.0632911392405,
+        92.8233642578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/8",
+      "block_type": "SectionHeader",
+      "html": "<h3>Deflated Bond Price Discretization</h3>",
+      "page": 165,
+      "polygon": [
+        [
+          305.7417721518987,
+          111.67594433399603
+        ],
+        [
+          452.61772151898737,
+          111.67594433399603
+        ],
+        [
+          452.61772151898737,
+          121.586181640625
+        ],
+        [
+          305.7417721518987,
+          121.586181640625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        111.67594433399603,
+        452.61772151898737,
+        121.586181640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">To develop a simulation scheme, which, by construction, will ensure that all numeraire-deflated bond prices are martingales, one can follow the suggestion offered in [3]: instead of discretizing the dynamics for Libor rates directly, simply discretize the deflated bond prices themselves. Consider the spot measure, and define</p>",
+      "page": 165,
+      "polygon": [
+        [
+          305.7417721518987,
+          131.91252485089464
+        ],
+        [
+          517.421875,
+          131.91252485089464
+        ],
+        [
+          517.421875,
+          211.326171875
+        ],
+        [
+          305.7417721518987,
+          211.326171875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        131.91252485089464,
+        517.421875,
+        211.326171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">U(t, T_{n+1}) = \\frac{P(t, T_{n+1})}{B(t)}</math>(17)</p>",
+      "page": 165,
+      "polygon": [
+        [
+          360.75,
+          219.24169921875
+        ],
+        [
+          516.265625,
+          219.24169921875
+        ],
+        [
+          516.265625,
+          240.96337890625
+        ],
+        [
+          360.75,
+          240.96337890625
+        ]
+      ],
+      "bbox": [
+        360.75,
+        219.24169921875,
+        516.265625,
+        240.96337890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The dynamics for deflated zero-coupon bond prices <math display=\"inline\">(17)</math> are given by</p>",
+      "page": 165,
+      "polygon": [
+        [
+          305.7417721518987,
+          248.83499005964217
+        ],
+        [
+          517.0632911392405,
+          248.83499005964217
+        ],
+        [
+          517.0632911392405,
+          270.78466796875
+        ],
+        [
+          305.7417721518987,
+          270.78466796875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        248.83499005964217,
+        517.0632911392405,
+        270.78466796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/12",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}U(t,T_{n+1})}{U(t,T_{n+1})} = -\\sum_{j=q(t)}^{n} \\tau_j \\frac{U(t,T_{j+1})}{U(t,T_j)} \\sigma_j(t)^{\\top} \\mathrm{d}W_B(t),</math><br/><math display=\"block\">n = q(t), \\dots, N-1 \\tag{18}</math></p>",
+      "page": 165,
+      "polygon": [
+        [
+          312.4765625,
+          287.5361328125
+        ],
+        [
+          516.5546875,
+          287.5361328125
+        ],
+        [
+          516.5546875,
+          335.3974609375
+        ],
+        [
+          312.4765625,
+          335.3974609375
+        ]
+      ],
+      "bbox": [
+        312.4765625,
+        287.5361328125,
+        516.5546875,
+        335.3974609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Discretization schemes for equation (18), which preserve the martingale property, are easy to construct. For instance, the log-Euler scheme</p>",
+      "page": 165,
+      "polygon": [
+        [
+          305.7417721518987,
+          342.52286282306164
+        ],
+        [
+          517.0632911392405,
+          342.52286282306164
+        ],
+        [
+          517.0632911392405,
+          375.8955078125
+        ],
+        [
+          305.7417721518987,
+          375.8955078125
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        342.52286282306164,
+        517.0632911392405,
+        375.8955078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/14",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{U}(t + \\Delta, T_{n+1}) = \\hat{U}(t, T_{n+1})</math><math display=\"block\">\\times \\exp\\left(-\\frac{1}{2} |\\eta_{n+1}(t)|^2 \\Delta + \\eta_{n+1}(t)^\\top z \\sqrt{\\Delta}\\right) \\tag{19}</math></p>",
+      "page": 165,
+      "polygon": [
+        [
+          308.4296875,
+          392.462890625
+        ],
+        [
+          516.5546875,
+          392.462890625
+        ],
+        [
+          516.5546875,
+          435.90625
+        ],
+        [
+          308.4296875,
+          435.90625
+        ]
+      ],
+      "bbox": [
+        308.4296875,
+        392.462890625,
+        516.5546875,
+        435.90625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/15",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">has this property where, as before, <math display=\"inline\">z</math> is an <math display=\"inline\">m</math>dimensional standard Gaussian variable, and</p>",
+      "page": 165,
+      "polygon": [
+        [
+          304.99240506329113,
+          440.70775347912524
+        ],
+        [
+          517.0632911392405,
+          440.70775347912524
+        ],
+        [
+          517.0632911392405,
+          462.0458984375
+        ],
+        [
+          304.99240506329113,
+          462.0458984375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        440.70775347912524,
+        517.0632911392405,
+        462.0458984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/16",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\eta_{n+1}(t) \\stackrel{\\Delta}{=} -\\sum_{j=q(t)}^{n} \\tau_j \\frac{\\hat{U}(t, T_{j+1})}{\\hat{U}(t, T_j)} \\sigma_j(t) \\tag{20}</math></p>",
+      "page": 165,
+      "polygon": [
+        [
+          330.6875,
+          471.6181640625
+        ],
+        [
+          515.6875,
+          471.6181640625
+        ],
+        [
+          515.6875,
+          503.2802734375
+        ],
+        [
+          330.6875,
+          503.2802734375
+        ]
+      ],
+      "bbox": [
+        330.6875,
+        471.6181640625,
+        515.6875,
+        503.2802734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/17",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">One can replace equation (19) with another discretization of equation (18), or one can try to discretize a quantity other than the deflated bonds <math display=\"inline\">U(t, T_n)</math>. The latter idea is pursued in [3], where several suggestions for discretization variables are considered. For instance, one can consider the differences</p>",
+      "page": 165,
+      "polygon": [
+        [
+          305.7417721518987,
+          510.41153081510936
+        ],
+        [
+          517.0632911392405,
+          510.41153081510936
+        ],
+        [
+          517.0632911392405,
+          589.0625
+        ],
+        [
+          305.7417721518987,
+          589.0625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        510.41153081510936,
+        517.0632911392405,
+        589.0625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/18",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">U(t, T_n) - U(t, T_{n+1}) </math> (21)</p>",
+      "page": 165,
+      "polygon": [
+        [
+          367.109375,
+          591.271484375
+        ],
+        [
+          515.6875,
+          591.271484375
+        ],
+        [
+          515.6875,
+          601.580078125
+        ],
+        [
+          367.109375,
+          601.580078125
+        ]
+      ],
+      "bbox": [
+        367.109375,
+        591.271484375,
+        515.6875,
+        601.580078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/19",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">which are martingales, since the <math display=\"inline\">Us</math> are. Discretizing <math display=\"inline\">U(t, T_n) - U(t, T_{n+1})</math> is, in a sense, close to discretizing <math display=\"inline\">L_n</math> itself, which may be advantageous. [7]</p>",
+      "page": 165,
+      "polygon": [
+        [
+          304.99240506329113,
+          611.5944333996024
+        ],
+        [
+          517.0632911392405,
+          611.5944333996024
+        ],
+        [
+          517.0632911392405,
+          644.6552734375
+        ],
+        [
+          304.99240506329113,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        611.5944333996024,
+        517.0632911392405,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 160,
+      "polygon": [
+        [
+          331.22025316455694,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          55.500732421875
+        ],
+        [
+          331.22025316455694,
+          55.500732421875
+        ]
+      ],
+      "bbox": [
+        331.22025316455694,
+        45.71968190854871,
+        513.3164556962025,
+        55.500732421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">contains some tests of discretization schemes based on equation <math display=\"inline\">(21)</math>, in a lognormal model setting.</p>",
+      "page": 160,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.2027833001988
+        ],
+        [
+          287.328125,
+          71.2027833001988
+        ],
+        [
+          287.328125,
+          92.685302734375
+        ],
+        [
+          74.1873417721519,
+          92.685302734375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.2027833001988,
+        287.328125,
+        92.685302734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/3/SectionHeader/5",
+        "3": "/page/3/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>End Notes </b></h2>",
+      "page": 160,
+      "polygon": [
+        [
+          74.1873417721519,
+          110.92644135188867
+        ],
+        [
+          126.64303797468354,
+          110.92644135188867
+        ],
+        [
+          126.64303797468354,
+          120.94189453125
+        ],
+        [
+          74.1873417721519,
+          120.94189453125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        110.92644135188867,
+        126.64303797468354,
+        120.94189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/4/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">&lt;sup&gt;a.&lt;/sup&gt;We recall from <b>LIBOR Market Model</b> that <math display=\"inline\">q(t)</math> is an index function, indicating which bucket of a tenor structure <math display=\"inline\">\\{T_n\\}_{n=0}^N</math> time <i>t</i> belongs to.</p>",
+      "page": 160,
+      "polygon": [
+        [
+          74.1873417721519,
+          135.66003976143142
+        ],
+        [
+          286.2582278481013,
+          135.66003976143142
+        ],
+        [
+          286.2582278481013,
+          166.389662027833
+        ],
+        [
+          74.1873417721519,
+          166.389662027833
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        135.66003976143142,
+        286.2582278481013,
+        166.389662027833
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/4/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><math display=\"inline\">\\mathbf{b}</math>. In the interest of brevity and conciseness, the simulation schemes discussed in this article omit a number of real-life details, such as proper rate fixing conventions, interpolation techniques and introduction of stochasticity in the front stub, that is, in the bucket <math display=\"inline\">[t, T_{a(t)}]</math>. Interpolation and propagation of \"nonstandard\" rates, that is, rates with dates not aligned with the tenor structure <math display=\"inline\">\\{T_n\\}</math>, are covered in, for example, [2], and a simple representative technique for stochastic front stubs can be found in [5].</p>",
+      "page": 160,
+      "polygon": [
+        [
+          74.1873417721519,
+          164.14115308151094
+        ],
+        [
+          287.0390625,
+          166.389662027833
+        ],
+        [
+          287.0390625,
+          254.08151093439363
+        ],
+        [
+          74.1873417721519,
+          254.08151093439363
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        164.14115308151094,
+        287.0390625,
+        254.08151093439363
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/4/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">&lt;sup&gt;c.&lt;/sup&gt;But not error-free, obviously—there will still be a statistical mean-zero error on the simulation results.</p>",
+      "page": 160,
+      "polygon": [
+        [
+          74.1873417721519,
+          255.58051689860835
+        ],
+        [
+          286.02734375,
+          256.05810546875
+        ],
+        [
+          286.02734375,
+          273.72998046875
+        ],
+        [
+          74.1873417721519,
+          273.72998046875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        255.58051689860835,
+        286.02734375,
+        273.72998046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/4/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/SectionHeader/6",
+      "block_type": "SectionHeader",
+      "html": "<h2>References</h2>",
+      "page": 160,
+      "polygon": [
+        [
+          74.9367088607595,
+          291.5566600397614
+        ],
+        [
+          128.89113924050633,
+          291.5566600397614
+        ],
+        [
+          128.89113924050633,
+          302.2626953125
+        ],
+        [
+          74.9367088607595,
+          302.2626953125
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        291.5566600397614,
+        128.89113924050633,
+        302.2626953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/4/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/ListGroup/159",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\" class=\"has-continuation\"><ul><li block-type=\"ListItem\">Andersen, L.B.G. &amp; Andreasen, J. (2000). Volatil-<math display=\"inline\">[1]</math>ity skews and extensions of the Libor market model, Applied Mathematical Finance 7, 1-32.</li><li block-type=\"ListItem\">[2] Brigo, D. &amp; Mercurio, F. (2001). Interest-Rate Models—Theory and Practice, Springer Verlag.</li><li block-type=\"ListItem\">Glasserman, P. &amp; Zhao, X. (2000). Arbitrage-free dis-[3] cretization of lognormal forward Libor and swap rate models, Finance and Stochastics 4, 35-68.</li></ul></p>",
+      "page": 160,
+      "polygon": [
+        [
+          74.1873417721519,
+          317.03976143141153
+        ],
+        [
+          286.31640625,
+          317.03976143141153
+        ],
+        [
+          286.31640625,
+          395.0400390625
+        ],
+        [
+          74.1873417721519,
+          395.0400390625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        317.03976143141153,
+        286.31640625,
+        395.0400390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/4/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/ListGroup/160",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">Hunter, C.J., Jäckel, P. &amp; Joshi, M.S. (2001). Getting [4] the drift, Risk 14(7), 81-84.</li><li block-type=\"ListItem\">Jäckel, P. (2005). The Practicalities of Libor Market [5] <i>Models</i>. Training course notes, http://www.jaeckel.org/ <math display=\"inline\">The Practicalities Of Libor Market Models.pdf.</math></li><li block-type=\"ListItem\">Joshi, M.S. (2003). Rapid Drift Computations in the [6] Libor Market Model, Wilmott.</li><li block-type=\"ListItem\">[7] Joshi, M.S. &amp; Stacey, A.M. (2008). New and robust drift approximations for the Libor market model, Quantitative Finance 8, 427-434.</li><li block-type=\"ListItem\">[8] Kloeden, P.E. &amp; Platen E. (2000). Numerical Solution of Stochastic Differential Equations, Stochastic Modelling and Applied Probability, Springer.</li><li block-type=\"ListItem\">[9] Pietersz, R., Pelsser, A. &amp; van Regenmortel, M. (2004). Fast drift approximated pricing in the BGM model, Journal of Computational Finance 8, 93-124.</li><li block-type=\"ListItem\">[10] Rebonato, R. (2002). Modern Pricing of Interest Rate Derivatives: The Libor Market Model and Beyond, Princeton University Press.</li></ul></p>",
+      "page": 160,
+      "polygon": [
+        [
+          301.24556962025315,
+          70.45328031809146
+        ],
+        [
+          513.3164556962025,
+          70.45328031809146
+        ],
+        [
+          513.3164556962025,
+          259.32803180914516
+        ],
+        [
+          301.24556962025315,
+          259.32803180914516
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        70.45328031809146,
+        513.3164556962025,
+        259.32803180914516
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/6",
+        "2": "/page/4/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/SectionHeader/17",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Related Articles </b></h1>",
+      "page": 160,
+      "polygon": [
+        [
+          301.24556962025315,
+          277.31610337972165
+        ],
+        [
+          382.17721518987344,
+          277.31610337972165
+        ],
+        [
+          382.17721518987344,
+          288.640625
+        ],
+        [
+          301.24556962025315,
+          288.640625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        277.31610337972165,
+        382.17721518987344,
+        288.640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/17"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/18",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">LIBOR Market Model; Monte Carlo Simulation for Stochastic Differential Equations; Stochastic Taylor Expansions.</p>",
+      "page": 160,
+      "polygon": [
+        [
+          301.24556962025315,
+          304.2982107355865
+        ],
+        [
+          513.3164556962025,
+          304.2982107355865
+        ],
+        [
+          513.3164556962025,
+          336.68603515625
+        ],
+        [
+          301.24556962025315,
+          336.68603515625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        304.2982107355865,
+        513.3164556962025,
+        336.68603515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/17"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/19",
+      "block_type": "Text",
+      "html": "<blockquote><p block-type=\"Text\">LEIF B.G. ANDERSEN &amp; VLADIMIR V. PITERBARG</p></blockquote>",
+      "page": 160,
+      "polygon": [
+        [
+          346.95696202531644,
+          347.01988071570577
+        ],
+        [
+          501.326582278481,
+          347.01988071570577
+        ],
+        [
+          501.326582278481,
+          367.97998046875
+        ],
+        [
+          346.95696202531644,
+          367.97998046875
+        ]
+      ],
+      "bbox": [
+        346.95696202531644,
+        347.01988071570577,
+        501.326582278481,
+        367.97998046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/17"
+      },
+      "images": {}
+    }
+  ],
+  "page_info": {
+    "0": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "1": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "2": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "3": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "4": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    }
+  }
+}

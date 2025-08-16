@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Implied Volatility: Long
+   <b>
+    Maturity Behavior
+   </b>
+  </h1>
+  <p block-type="Text">
+   We discuss some properties of implied volatility surfaces (see Implied Volatility Surface) for large times to maturity. The key result is that the implied volatility smile flattens at long maturities, independently of the model of the underlying asset price, so long as there exists an equivalent martingale measure. An asymptotic formula for the long implied volatility is given and illustrated by examples from stochastic volatility models. The dynamics of the long implied volatility are shown to be almost surely nondecreasing as a function of calendar time, in complete analogy with the Dybvig et al. [2] theorem for long interest rates. For a more in-depth treatment of these issues, consult [3, 4], and [7].
+  </p>
+  <h4>
+   Flattening of the Smile
+  </h4>
+  <p block-type="Text">
+   To set up notation and present the main result, we consider in this section a market in which the riskless interest rate is zero, and the underlying stock pays no dividends. The results described here are valid for price processes with either continuous or discontinuous sample paths, or even discrete-time models.
+  </p>
+  <p block-type="TextInlineMath">
+   We let
+   <math display="inline">
+    S = (S_t)_{t \ge 0}
+   </math>
+   be a nonnegative martingale with
+   <math display="inline">
+    S_0 &gt; 0
+   </math>
+   modeling the price of a given stock under a fixed risk-neutral measure. All calculations will be performed with respect to this measure, so we do not include it in the notation.
+  </p>
+  <p block-type="TextInlineMath">
+   Introduce a function
+   <math display="inline">
+    C_{\text{BS}} : \mathbb{R} \times [0, \infty) \to [0, \infty)
+   </math>
+   1) by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_{\text{BS}}(k, v) = \begin{cases} \Phi\left(-\frac{k}{\sqrt{v}} + \frac{\sqrt{v}}{2}\right) - e^{k}\Phi\left(-\frac{k}{\sqrt{v}} - \frac{\sqrt{v}}{2}\right) &amp; \text{if } v &gt; 0\\ (1 - e^{k})^{+} &amp; \text{if } v = 0 \end{cases}
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    a^+ = \max\{a, 0\}
+   </math>
+   denotes the positive part of the real number a as usual. Since
+   <math display="inline">
+    v \mapsto C_{\text{BS}}(k, v)
+   </math>
+   is strictly increasing for each
+   <math display="inline">
+    k \in \mathbb{R}
+   </math>
+   , we now define the Black-Scholes implied volatility
+   <math display="inline">
+    \Sigma(k, T)
+   </math>
+   for
+   <math display="inline">
+    \log
+   </math>
+   moneyness
+   <math display="inline">
+    k
+   </math>
+   and maturity
+   <math display="inline">
+    T
+   </math>
+   as the unique
+  </p>
+  <p block-type="Text">
+   nonnegative solution to the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[\left(\frac{S_T}{S_0} - e^k\right)^+\right] = C_{\text{BS}}(k, T\Sigma(k, T)^2) \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that we are using the convention that the log moneyness k corresponds to the strike
+   <math display="inline">
+    K = S_0 e^k
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The main result is that the implied volatility smile flattens at long maturities:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   For any
+   <math display="inline">
+    M &gt; 0
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{T \to \infty} \sup_{k_1, k_2 \in [-M, M]} |\Sigma(k_2, T) - \Sigma(k_1, T)| = 0 \quad (3)
+   </math>
+  </p>
+  <p block-type="Text">
+   That the implied volatility smile flattens at long maturities seems to be a folk theorem, and has been verified for various models for which the long implied volatility can be calculated explicitly. The result is sometimes attributed erroneously to the central limit theorem, but it is true in complete generality without any notion of mean reversion of the spot volatility process. Indeed, Theorem 1 contains no assumption on the dynamics of the stock price other than that it is a nonnegative martingale. Also note that we have not even assumed that
+   <math display="inline">
+    \lim_{T\to\infty} \Sigma(k,T)
+   </math>
+   exists for any
+   <math display="inline">
+    k
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   A proof of the flattening of the implied volatility smile under some mild regularity assumptions appears in [1]. A proof of Theorem 1 in the form that it appears here can be found in
+   <math display="inline">
+    [9]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   It turns out that the rate of flattening can be precisely bounded:
+  </p>
+  <h4>
+   Theorem 2
+  </h4>
+  <p block-type="Text">
+   1. For any
+   <math display="inline">
+    0 \le k_1 &lt; k_2
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\Sigma(k_2, T)^2 - \Sigma(k_1, T)^2}{k_2 - k_1} \le \frac{4}{T} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   2. For any
+   <math display="inline">
+    k_1 &lt; k_2 \le 0
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\Sigma(k_2, T)^2 - \Sigma(k_1, T)^2}{k_2 - k_1} \ge -\frac{4}{T} \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   3. If
+   <math display="inline">
+    S_t \rightarrow 0
+   </math>
+   in probability as
+   <math display="inline">
+    t \rightarrow \infty
+   </math>
+   , for any
+   <math display="inline">
+    M &gt; 0
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \limsup_{T \to \infty} \sup_{\substack{k_1, k_2 \in [-M, M] \\ k_1 \neq k_2}} T \left| \frac{\Sigma(k_2, T)^2 - \Sigma(k_1, T)^2}{k_2 - k_1} \right| \le 4
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   The inequality in part 3 of Theorem 2 is sharp, as there exists a martingale
+   <math display="inline">
+    (S_t)_{t&gt;0}
+   </math>
+   such that
+   <math display="inline">
+    S_t \to 0
+   </math>
+   in probability and such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T\frac{\partial}{\partial k}\Sigma(k,T)^2 \to -4\tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   as
+   <math display="inline">
+    T \to \infty
+   </math>
+   uniformly for
+   <math display="inline">
+    k \in [-M, M]
+   </math>
+   . A proof of Theorem 2 is in [9].
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Remark
+   </b>
+   The condition
+   <math display="inline">
+    S_t \rightarrow 0
+   </math>
+   in probability appearing in part 3 of Theorem 2 has a natural financial interpretation. Indeed, we have
+   <math display="inline">
+    S_t \rightarrow 0
+   </math>
+   in probability (equivalently, almost surely) if and only if
+   <math display="inline">
+    C(K,T) \to S_0
+   </math>
+   as
+   <math display="inline">
+    T \to \infty
+   </math>
+   for some
+   <math display="inline">
+    K &gt; 0
+   </math>
+   (equivalently, for all
+   <math display="inline">
+    K &gt; 0
+   </math>
+   ) where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(K,T) = \mathbb{E}[(S_T - K)^{+}] \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is the price of a European call option. Since the long maturity call prices converge to stock price in many models of interest (including, of course, the Black-Scholes model), we see that the assumption
+   <math display="inline">
+    S_t \rightarrow 0
+   </math>
+   is not particularly onerous.
+  </p>
+  <p block-type="TextInlineMath">
+   In fact, since
+   <math display="inline">
+    (S_t)_{t\geq 0}
+   </math>
+   is a nonnegative martingale, it must converge almost surely to some random variable
+   <math display="inline">
+    S_{\infty}
+   </math>
+   by the martingale convergence theorem. If
+   <math display="inline">
+    S_{\infty} &gt; 0
+   </math>
+   with positive probability, then
+   <math display="inline">
+    \lim_{T\to\infty}\sqrt{T}\Sigma(k,T)
+   </math>
+   exists and is finite for each k, and hence
+   <math display="inline">
+    \lim_{T\to\infty} \Sigma(k,T) = 0
+   </math>
+   .
+  </p>
+  <h2>
+   A Representation Formula
+  </h2>
+  <p block-type="Text">
+   Now that we know that the volatility smile flattens in the limit as the maturity goes to infinity, we can study the behavior of the long implied volatility.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 3
+   </b>
+   For any
+   <math display="inline">
+    M &gt; 0
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{T \to \infty} \sup_{k \in [-M,M]} \left| \Sigma(k,T) - \left( -\frac{8}{T} \log \mathbb{E}[S_T \wedge 1] \right)^{1/2} \right| = 0 \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    a \wedge b = \min\{a, b\}
+   </math>
+   as usual. In particular, we have the following representation formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Sigma(\infty) = \lim_{T \to \infty} \left( -\frac{8}{T} \log \mathbb{E}[S_T \wedge 1] \right)^{1/2} \quad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   whenever the limit exists.
+  </p>
+  <p block-type="Text">
+   Formula (10) of Theorem 3 can be found, for instance, in [8]. It can be used to calculate the long implied volatility for some examples.
+  </p>
+  <p block-type="Text">
+   <b>
+    Example
+   </b>
+   (Exponential Lévy Models (see Exp
+   <b>
+    onential Lévy Models
+   </b>
+   )). The simple inequality
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{1}_{[1,\infty)}(x) \le x \wedge 1 \le x^p \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which holds for all
+   <math display="inline">
+    0 &lt; p &lt; 1
+   </math>
+   and
+   <math display="inline">
+    x &gt; 0
+   </math>
+   , gives the bound
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;\limsup_{T \to \infty} \sup_{p \in [0,1]} \left( -\frac{8}{T} \log \mathbb{E}[S_T^p] \right)^{1/2} \\ &amp;\leq \Sigma(\infty) \leq \liminf_{T \to \infty} \left( -\frac{8}{T} \log \mathbb{P}[S_T \geq 1] \right)^{1/2} \tag{12} \end{split}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    (\log(S_t))_{t&gt;0}
+   </math>
+   has independent identically distributed increments, then the above bounds hold with equality by the large deviation principle. Indeed, let
+   <math display="inline">
+    (L_t)_{t&gt;0}
+   </math>
+   be a Lévy process with cumulant-generating function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Lambda(p) = \log \mathbb{E}(e^{pL_1}) \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   such that
+   <math display="inline">
+    \Lambda(1) &lt; \infty
+   </math>
+   , and model the stock price by the martingale
+   <math display="inline">
+    S_t = e^{L_t - t\Lambda(1)}
+   </math>
+   . Then the long implied volatility satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Sigma(\infty)^{2} = 8 \sup_{p \in [0,1]} \{ p \Lambda(1) - \Lambda(p) \} \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   which is eight times the Legendre transform of the cumulant generating function evaluated at
+   <math display="inline">
+    \Lambda(1)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Example
+   </b>
+   (
+   <i>
+    Stochastic volatility model.
+   </i>
+   ) Lewis [8] has proposed a saddle-point approximation method for calculating long implied volatility in stochastic volatility models. For instance, suppose that the asset price satisfies the following system of stochastic differential equations:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t \sqrt{V} \, dW_t \tag{15}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dV_t = \kappa (\theta - V_t) dt + \eta \sqrt{V_t} dZ_t \qquad (16)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \kappa
+   </math>
+   ,
+   <math display="inline">
+    \theta
+   </math>
+   , and
+   <math display="inline">
+    \eta
+   </math>
+   are real constants, and
+   <math display="inline">
+    (W_t)_{t&gt;0}
+   </math>
+   and
+   <math display="inline">
+    (Z_t)_{t&gt;0}
+   </math>
+   are correlated standard Wiener processes with
+   <math display="inline">
+    \langle W, Z \rangle_t = \rho t
+   </math>
+   . Lewis [8] has shown that the long implied volatility is given by the following formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Sigma(\infty)^{2} = \frac{4\kappa\theta}{(1-\rho^{2})\eta^{2}}
+   </math>
+   <math display="block">
+    \times \left[\sqrt{(2\kappa-\rho\eta)^{2}+(1-\rho^{2})\eta^{2}}-(2\kappa-\rho\eta)\right] \quad (17)
+   </math>
+  </p>
+  <p block-type="Text">
+   See [5] for further asymptotics of stochastic volatility models based on this method, and see [4] for asymptotics based on perturbation methods.
+  </p>
+  <h2>
+   <b>
+    Long Implied Volatility Cannot Fall
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   In many models of interest, the long implied volatility, if it exists, is constant as a function of the calendar time. However, the long implied volatility need not be a constant in general. In this section, we consider the dynamics of the long implied volatility, and in fact, we will see that the long implied volatility can never fall. In this section, we also assume that the stock price is strictly positive, rather than merely nonnegative. We define the implied volatility
+   <math display="inline">
+    \Sigma_t(k,\tau)
+   </math>
+   for log moneyness k and time to maturity
+   <math display="inline">
+    \tau
+   </math>
+   as the unique nonnegative
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -measurable random variable that satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[\left(\frac{S_{t+\tau}}{S_t} - \mathrm{e}^k\right)^+\right] = C_{\mathrm{BS}}(k, \,\tau\,\Sigma_t(k,\,\tau)^2) \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   The following theorem was proved in [9].
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 4
+   </b>
+   For all
+   <math display="inline">
+    k_1, k_2
+   </math>
+   and
+   <math display="inline">
+    0 \le s \le t
+   </math>
+   we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \limsup_{\tau \to \infty} \Sigma_t(k_1, \tau) - \Sigma_s(k_2, \tau) \ge 0 \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   almost surely.
+  </p>
+  <p block-type="Text">
+   This result is an exact analog of the Dybvig-Ingersoll-Ross theorem that long zero-coupon rates never fall. See [6] for a nice proof of this fact.
+  </p>
+  <h2>
+   Extensions
+  </h2>
+  <p block-type="Text">
+   The previous discussion has considered the case where the stock pays no dividend and the risk-free interest rate is zero. In the general case, a stock pays a dividend and there is a cost to borrow money. The situation is usually modeled as follows. Let
+   <math display="inline">
+    S_t
+   </math>
+   be the stock price, let
+   <math display="inline">
+    D_t
+   </math>
+   be the cumulative dividends, and let
+   <math display="inline">
+    B_t
+   </math>
+   be the price of a numéraire asset such as a bank account at time
+   <math display="inline">
+    t
+   </math>
+   . There is no arbitrage if there exists a probability measure such that the process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{S_t}{B_t} + \int_0^t \frac{\mathrm{d}D_s}{B_s} \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   is a martingale. In the case of proportional continuous dividends
+   <math display="inline">
+    dD_t = \delta S_t dt
+   </math>
+   and constant interest rate
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    dB_t = r B_t dt
+   </math>
+   , there is no arbitrage if
+   <math display="inline">
+    \tilde{S}_t = S_t e^{(\delta - r)t}
+   </math>
+   defines a martingale. In this case, everything from above applies if we define the implied volatilitv bv
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[\left(\frac{\tilde{S}_T}{\tilde{S}_0} - \mathrm{e}^k\right)^+\right] = C_{\mathrm{BS}}(k, T\Sigma(k, T)^2) \quad (21)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the log-moneyness parameter
+   <math display="inline">
+    k
+   </math>
+   now corresponds to the strike
+   <math display="inline">
+    K = S_0 e^{k + (r - \delta)T}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   However, it is unclear which of the above results can be suitably extended to the general case with arbitrary increasing adapted processes
+   <math display="inline">
+    (D_t)_{t&gt;0}
+   </math>
+   and
+   <math display="inline">
+    (B_t)_{t&gt;0}
+   </math>
+   .
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Carr, P. &amp; Wu, L. (2003). The finite moment log stable process and option pricing,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      58
+     </b>
+     (2), 753-778.
+    </li>
+    <li block-type="ListItem">
+     [2] Dybvig, P., Ingersoll, J. &amp; Ross, S. (1996). Long forward and zero-coupon rates can never fall, Journal of Business 60.
+     <math display="inline">
+      1-25
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     [3] Gatheral, J. (2006). The Volatility Surface: A Practitioner's Guide, John Wiley &amp; Sons, Hoboken, NJ.
+    </li>
+    <li block-type="ListItem">
+     [4] Fouque, J.-P., Papanicolaou, G. &amp; Sircar, K.R. (2000). Derivatives in Financial Markets with Stochastic Volatility, Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [5] Jacquier, A. (2007). Asymptotic Skew Under Stochastic Volatility, Pre-print, Birkbeck College, University of London.
+    </li>
+    <li block-type="ListItem">
+     [6] Hubalek, F., Klein, I. &amp; Teichmann, J. (2002). A general proof of the Dybvig-Ingersoll-Ross theorem: long forward rates can never fall, Mathematical Finance 12(4),
+     <math display="inline">
+      447 - 451.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [7] Lee, R. (2004). Implied volatility: statics, dynamics, and probabilistic interpretation, in Recent Advances in Applied Probability, R. Baeza-Yates, et al., eds, Springer-Verlag, Springer, New York, 241-268.
+    </li>
+    <li block-type="ListItem">
+     [8] Lewis, A. (2000).
+     <i>
+      Option Valuation Under Stochastic
+     </i>
+     Volatility, Finance Press, Newport Beach.
+    </li>
+    <li block-type="ListItem">
+     [9] Rogers, L.C.G. &amp; Tehranchi, M.R. (2008). Can the Implied Volatility Surface Move by Parallel Shifts? Preprint, University of Cambridge.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <h2>
+   Exponential Lévy Models; Heston Model; Implied Volatility Surface; Moment Explosions.
+  </h2>
+  <p block-type="Text">
+   MICHAEL R. TEHRANCHI
+  </p>
+ </body>
+</html>

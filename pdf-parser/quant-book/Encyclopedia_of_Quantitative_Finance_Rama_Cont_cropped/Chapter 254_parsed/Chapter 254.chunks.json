@@ -1,0 +1,3448 @@
+{
+  "blocks": [
+    {
+      "id": "/page/0/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Tikhonov Regularization </b></h1>",
+      "page": 271,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.6539306640625
+        ],
+        [
+          272.76962025316453,
+          71.6539306640625
+        ],
+        [
+          272.76962025316453,
+          87.8531494140625
+        ],
+        [
+          74.1873417721519,
+          87.8531494140625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.6539306640625,
+        272.76962025316453,
+        87.8531494140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">An important issue in quantitative finance is <i>model </i><i>calibration</i>. The calibration problem is the <i>inverse </i>of the pricing problem. Instead of computing prices in a model with given values for its parameters, one wishes to compute the values of the model parameters that are consistent with observed prices (up to the bid-ask spread).</p>",
+      "page": 271,
+      "polygon": [
+        [
+          74.1873417721519,
+          119.17097415506959
+        ],
+        [
+          286.2582278481013,
+          119.17097415506959
+        ],
+        [
+          286.2582278481013,
+          198.072265625
+        ],
+        [
+          74.1873417721519,
+          198.072265625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        119.17097415506959,
+        286.2582278481013,
+        198.072265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/2",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Many examples of such inverse problems are illposed. Recall that a problem is <i>well posed</i> (as defined by Hadamard) if its solution exists, is unique, and depends continuously on its input data. Thus there are three reasons for which a problem might be ill posed:</p>",
+      "page": 271,
+      "polygon": [
+        [
+          74.1873417721519,
+          199.36779324055667
+        ],
+        [
+          286.2582278481013,
+          199.36779324055667
+        ],
+        [
+          286.2582278481013,
+          255.68994140625
+        ],
+        [
+          74.1873417721519,
+          255.68994140625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        199.36779324055667,
+        286.2582278481013,
+        255.68994140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/ListGroup/269",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">٠ It admits no solution.</li><li block-type=\"ListItem\">It admits more than one solution.</li><li block-type=\"ListItem\">The solution/solutions to the inverse problem does/do not depend on the input data in a continuous way.</li></ul></p>",
+      "page": 271,
+      "polygon": [
+        [
+          74.9367088607595,
+          266.8230616302187
+        ],
+        [
+          286.4609375,
+          266.8230616302187
+        ],
+        [
+          286.4609375,
+          322.32763671875
+        ],
+        [
+          74.9367088607595,
+          322.32763671875
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        266.8230616302187,
+        286.4609375,
+        322.32763671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In the case of calibration problems in finance. except for trivial situations, there exists typically <i>no </i>instance of a given class of models that is exactly consistent with a full calibration data set, including a number of option prices, a zero-coupons curve, an expected dividend yield curve on the underlying, and so on. However, there are often various instances of a given class of models that fit the data within the <i>bid-ask spread.</i> In such cases, if one perturbs the data (e.g., if the observed prices change by some small amount between today and tomorrow), it is quite typical that a numerically determined best fit solution of the calibration problem switches from one \"basin of attraction\" to the other, and thus the numerically determined solution is <i>not stable</i> either.</p>",
+      "page": 271,
+      "polygon": [
+        [
+          74.1873417721519,
+          332.779324055666
+        ],
+        [
+          286.75,
+          332.779324055666
+        ],
+        [
+          286.75,
+          503.6484375
+        ],
+        [
+          74.1873417721519,
+          503.6484375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        332.779324055666,
+        286.75,
+        503.6484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">To get a well-posed problem, we need to introduce some regularization. The most widely known and applicable regularization method is the Tikhonov(-<i>Phillips</i>) regularization method [9, 14, 16].</p>",
+      "page": 271,
+      "polygon": [
+        [
+          74.9367088607595,
+          505.91451292246524
+        ],
+        [
+          286.2582278481013,
+          505.91451292246524
+        ],
+        [
+          286.2582278481013,
+          551.1416015625
+        ],
+        [
+          74.9367088607595,
+          551.1416015625
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        505.91451292246524,
+        286.2582278481013,
+        551.1416015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/8",
+      "block_type": "SectionHeader",
+      "html": "<h2>Tikhonov Regularization of Nonlinear <b>Inverse Problems </b></h2>",
+      "page": 271,
+      "polygon": [
+        [
+          74.1873417721519,
+          575.6182902584493
+        ],
+        [
+          262.27848101265823,
+          575.6182902584493
+        ],
+        [
+          262.27848101265823,
+          599.37109375
+        ],
+        [
+          74.1873417721519,
+          599.37109375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        575.6182902584493,
+        262.27848101265823,
+        599.37109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">We consider a Hilbert space <math display=\"inline\">\\mathcal{H}</math>, a closed convex nonvoid subset <math display=\"inline\">\\mathcal{A}</math> of <math display=\"inline\">\\mathcal{H}</math>, a direct operator (\"pricing functional\")</p>",
+      "page": 271,
+      "polygon": [
+        [
+          74.1873417721519,
+          610.844930417495
+        ],
+        [
+          285.8828125,
+          610.844930417495
+        ],
+        [
+          285.8828125,
+          645.0234375
+        ],
+        [
+          74.1873417721519,
+          645.0234375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        610.844930417495,
+        285.8828125,
+        645.0234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathcal{H} \\supseteq \\mathcal{A} \\ni a \\xrightarrow{\\Pi} \\Pi(a) \\in \\mathbb{R}^d \\tag{1}</math></p>",
+      "page": 271,
+      "polygon": [
+        [
+          347.1640625,
+          73.724853515625
+        ],
+        [
+          512.5078125,
+          73.724853515625
+        ],
+        [
+          512.5078125,
+          89.4638671875
+        ],
+        [
+          347.1640625,
+          89.4638671875
+        ]
+      ],
+      "bbox": [
+        347.1640625,
+        73.724853515625,
+        512.5078125,
+        89.4638671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/11",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">(so <math display=\"inline\">a</math> corresponds to the set of model parameters), noisy data (\"observed prices\") <math display=\"inline\">\\pi^{\\delta}</math>, and a <i>prior</i> <math display=\"inline\">a_0 \\in \\mathcal{H}</math>(<math display=\"inline\">a</math> priori guess for <math display=\"inline\">a</math>). The Tikhonov regularization method for <i>inverting</i> <math display=\"inline\">\\prod</math> at <math display=\"inline\">\\pi^{\\delta}</math>, or estimating the model parameter <i>a</i> given the observation <math display=\"inline\">\\pi^{\\delta}</math>, consists in</p>",
+      "page": 271,
+      "polygon": [
+        [
+          301.24556962025315,
+          98.93439363817097
+        ],
+        [
+          513.3164556962025,
+          98.93439363817097
+        ],
+        [
+          513.3164556962025,
+          165.48974609375
+        ],
+        [
+          301.24556962025315,
+          165.48974609375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        98.93439363817097,
+        513.3164556962025,
+        165.48974609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/271",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">reformulating the inverse problem as the following nonlinear least squares problem:</p>",
+      "page": 271,
+      "polygon": [
+        [
+          302.9375,
+          174.63419483101393
+        ],
+        [
+          513.3164556962025,
+          174.63419483101393
+        ],
+        [
+          513.3164556962025,
+          196.04736328125
+        ],
+        [
+          302.9375,
+          196.04736328125
+        ]
+      ],
+      "bbox": [
+        302.9375,
+        174.63419483101393,
+        513.3164556962025,
+        196.04736328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\min_{a \\in \\mathcal{A}} \\left\\| \\Pi \\left( a \\right) - \\pi^{\\delta} \\right\\|^2 \\tag{2}</math></p>",
+      "page": 271,
+      "polygon": [
+        [
+          378.9609375,
+          206.5400390625
+        ],
+        [
+          512.5078125,
+          206.5400390625
+        ],
+        [
+          512.5078125,
+          224.9482421875
+        ],
+        [
+          378.9609375,
+          224.9482421875
+        ]
+      ],
+      "bbox": [
+        378.9609375,
+        206.5400390625,
+        512.5078125,
+        224.9482421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">to ensure <i>existence</i> of a solution;</p>",
+      "page": 271,
+      "polygon": [
+        [
+          318.546875,
+          232.34592445328033
+        ],
+        [
+          452.61772151898737,
+          232.34592445328033
+        ],
+        [
+          452.61772151898737,
+          242.6201171875
+        ],
+        [
+          318.546875,
+          242.6201171875
+        ]
+      ],
+      "bbox": [
+        318.546875,
+        232.34592445328033,
+        452.61772151898737,
+        242.6201171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/ListGroup/270",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">selecting the solutions of the previous nonlinear <math display=\"inline\">\\bullet</math>least squares problem that minimize <math display=\"inline\">\\|a - a_0\\|^2</math>over the set of all solutions; and</li><li block-type=\"ListItem\">introducing a trade-off between accuracy and reg-<math display=\"inline\">\\bullet</math>ularity, parameterized by a level of regularization <math display=\"inline\">\\alpha &gt; 0</math>, to ensure <i>stability</i>.</li></ul></p>",
+      "page": 271,
+      "polygon": [
+        [
+          301.99493670886073,
+          243.58846918489067
+        ],
+        [
+          513.3164556962025,
+          243.58846918489067
+        ],
+        [
+          513.3164556962025,
+          310.54638671875
+        ],
+        [
+          301.99493670886073,
+          310.54638671875
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        243.58846918489067,
+        513.3164556962025,
+        310.54638671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/17",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">More precisely, we introduce the following <i>cost </i>criterion:</p>",
+      "page": 271,
+      "polygon": [
+        [
+          301.24556962025315,
+          321.53677932405566
+        ],
+        [
+          513.3164556962025,
+          321.53677932405566
+        ],
+        [
+          513.3164556962025,
+          343.4970703125
+        ],
+        [
+          301.24556962025315,
+          343.4970703125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        321.53677932405566,
+        513.3164556962025,
+        343.4970703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/18",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">J_{\\alpha}^{\\delta}(a) \\equiv \\left\\| \\Pi(a) - \\pi^{\\delta} \\right\\|^{2} + \\alpha \\left\\| a - a_{0} \\right\\|^{2} \\quad (3)</math></p>",
+      "page": 271,
+      "polygon": [
+        [
+          332.421875,
+          355.646484375
+        ],
+        [
+          513.375,
+          355.646484375
+        ],
+        [
+          513.375,
+          374.791015625
+        ],
+        [
+          332.421875,
+          374.791015625
+        ]
+      ],
+      "bbox": [
+        332.421875,
+        355.646484375,
+        513.375,
+        374.791015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/19",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Given <math display=\"inline\">\\alpha</math>, <math display=\"inline\">\\delta</math>, and a further parameter <math display=\"inline\">\\eta</math>, where <math display=\"inline\">\\eta</math>represents an error tolerance on the minimization, we define a regularized solution to the inverse problem for <math display=\"inline\">\\Pi</math> at <math display=\"inline\">\\pi^{\\delta}</math> as any model parameter <math display=\"inline\">a_{\\alpha}^{\\delta,\\eta} \\in \\mathcal{A}</math> such that</p>",
+      "page": 271,
+      "polygon": [
+        [
+          300.49620253164557,
+          379.99801192842943
+        ],
+        [
+          513.3164556962025,
+          379.99801192842943
+        ],
+        [
+          513.3164556962025,
+          435.169921875
+        ],
+        [
+          300.49620253164557,
+          435.169921875
+        ]
+      ],
+      "bbox": [
+        300.49620253164557,
+        379.99801192842943,
+        513.3164556962025,
+        435.169921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/20",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">J_{\\alpha}^{\\delta} \\left( a_{\\alpha}^{\\delta,\\eta} \\right) \\leq J_{\\alpha}^{\\delta} \\left( a \\right) + \\eta, \\quad a \\in \\mathcal{A} \\tag{4}</math></p>",
+      "page": 271,
+      "polygon": [
+        [
+          341.3828125,
+          435.90625
+        ],
+        [
+          513.0859375,
+          435.90625
+        ],
+        [
+          513.0859375,
+          449.896484375
+        ],
+        [
+          341.3828125,
+          449.896484375
+        ]
+      ],
+      "bbox": [
+        341.3828125,
+        435.90625,
+        513.0859375,
+        449.896484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/21",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Under suitable assumptions, one can show that the regularized inverse problem is well posed, as follows. We first postulate that the direct operator <math display=\"inline\">\\Pi</math> satisfies the following regularity assumption.</p>",
+      "page": 271,
+      "polygon": [
+        [
+          301.24556962025315,
+          457.1968190854871
+        ],
+        [
+          513.3164556962025,
+          457.1968190854871
+        ],
+        [
+          513.3164556962025,
+          502.5439453125
+        ],
+        [
+          301.24556962025315,
+          502.5439453125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        457.1968190854871,
+        513.3164556962025,
+        502.5439453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/22",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><b>Assumption 1 (Compactness)</b> <math display=\"inline\">\\prod (a_n)</math> <i>converges to </i><math display=\"inline\">\\n\\Pi\\n</math> (a) in <math display=\"inline\">\\mathbb{R}^d</math> if <math display=\"inline\">a_n</math> weakly converges to a in <math display=\"inline\">\\mathcal{H}</math>.</p>",
+      "page": 271,
+      "polygon": [
+        [
+          301.99493670886073,
+          511.91053677932405
+        ],
+        [
+          513.3164556962025,
+          511.91053677932405
+        ],
+        [
+          513.3164556962025,
+          534.57421875
+        ],
+        [
+          301.99493670886073,
+          534.57421875
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        511.91053677932405,
+        513.3164556962025,
+        534.57421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/23",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">We then have the following <i>stability</i> result.</p>",
+      "page": 271,
+      "polygon": [
+        [
+          313.98481012658226,
+          544.8886679920478
+        ],
+        [
+          487.8379746835443,
+          544.8886679920478
+        ],
+        [
+          487.8379746835443,
+          555.5595703125
+        ],
+        [
+          313.98481012658226,
+          555.5595703125
+        ]
+      ],
+      "bbox": [
+        313.98481012658226,
+        544.8886679920478,
+        487.8379746835443,
+        555.5595703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/24",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><b>Theorem 1 (Stability)</b> Let <math display=\"inline\">\\pi^{\\delta_n} \\to \\pi^{\\delta}</math>, <math display=\"inline\">\\eta_n \\to 0</math> when <math display=\"inline\">n \\to \\infty</math>. Then any sequence of regularized solutions <math display=\"inline\">a_{\\alpha}^{\\delta_n,\\eta_n}</math> admits a subsequence that converges toward a regularized solution <math display=\"inline\">a_{\\alpha}^{\\delta,\\eta=0}</math>.</p>",
+      "page": 271,
+      "polygon": [
+        [
+          301.203125,
+          566.624254473161
+        ],
+        [
+          513.3164556962025,
+          566.624254473161
+        ],
+        [
+          513.3164556962025,
+          611.5205078125
+        ],
+        [
+          301.203125,
+          612.3439363817098
+        ]
+      ],
+      "bbox": [
+        301.203125,
+        566.624254473161,
+        513.3164556962025,
+        612.3439363817098
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/25",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">Assuming further that the data lie in the range of the model leads to <i>convergence</i> properties of</p>",
+      "page": 271,
+      "polygon": [
+        [
+          301.24556962025315,
+          622.8369781312127
+        ],
+        [
+          513.375,
+          622.8369781312127
+        ],
+        [
+          513.375,
+          643.9189453125
+        ],
+        [
+          301.24556962025315,
+          643.9189453125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        622.8369781312127,
+        513.375,
+        643.9189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          213.56962025316454,
+          45.71968190854871
+        ],
+        [
+          213.56962025316454,
+          55.868896484375
+        ],
+        [
+          77.93417721518988,
+          55.868896484375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        213.56962025316454,
+        55.868896484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">regularized solutions to (unregularized) solutions of the inverse problem as <math display=\"inline\">midi \\rightarrow 0</math>. Let us then make the following additional assumption on <math display=\"inline\">\\Pi</math>.</p>",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.2027833001988
+        ],
+        [
+          290.5078125,
+          71.2027833001988
+        ],
+        [
+          290.5078125,
+          103.43141153081511
+        ],
+        [
+          77.93417721518988,
+          103.43141153081511
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.2027833001988,
+        290.5078125,
+        103.43141153081511
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h4>Assumption 2 (Range Property) <math display=\"inline\">\\pi \\in \\Pi(\\mathcal{A})</math>.</h4>",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          115.42345924453281
+        ],
+        [
+          266.0253164556962,
+          115.42345924453281
+        ],
+        [
+          266.0253164556962,
+          124.62353515625
+        ],
+        [
+          77.93417721518988,
+          124.62353515625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        115.42345924453281,
+        266.0253164556962,
+        124.62353515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><b>Definition 1</b> By an <math display=\"inline\">a_0</math>-solution to the inverse problem for <math display=\"inline\">\\Pi</math> at <math display=\"inline\">\\pi</math>, we mean any <math display=\"inline\">a \\in \\operatorname*{Argmin}</math> <math display=\"inline\">\\|\\mathbf{a} - \\mathbf{a}_0\\|</math>. Note that the set of <math display=\"inline\">a_0</math>-solutions is non-empty, by Assumption 2.</p>",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          135.66003976143142
+        ],
+        [
+          290.00506329113927,
+          135.66003976143142
+        ],
+        [
+          290.00506329113927,
+          179.940185546875
+        ],
+        [
+          77.93417721518988,
+          179.940185546875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        135.66003976143142,
+        290.00506329113927,
+        179.940185546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Theorem 2 (Convergence; see, for instance, Theorem 2.3 of Engl et al [10]) Let the perturbed parameters <math display=\"inline\">\\alpha_n</math>, <math display=\"inline\">\\delta_n</math>, <math display=\"inline\">\\eta_n</math> and the perturbed data <math display=\"inline\">\\pi_n \\in \\mathbb{R}^d</math>satisfy</p>",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          191.8727634194831
+        ],
+        [
+          290.00506329113927,
+          191.8727634194831
+        ],
+        [
+          290.00506329113927,
+          235.625
+        ],
+        [
+          77.93417721518988,
+          235.625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        191.8727634194831,
+        290.00506329113927,
+        235.625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/5",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{array}{lll}\\n(n \\in \\mathbb{N}) &amp; \\|\\pi - \\pi_n\\| \\le \\delta_n &amp; (5) \\\\\n(n \\to \\infty) &amp; \\alpha_n, \\quad \\delta_n^2/\\alpha_n, \\quad \\eta_n/\\alpha_n &amp; \\longrightarrow &amp; 0\\n\\end{array}</math></p>",
+      "page": 249,
+      "polygon": [
+        [
+          91.34375,
+          251.4560546875
+        ],
+        [
+          289.3515625,
+          251.4560546875
+        ],
+        [
+          289.3515625,
+          282.5626242544732
+        ],
+        [
+          91.34375,
+          281.06361829025843
+        ]
+      ],
+      "bbox": [
+        91.34375,
+        251.4560546875,
+        289.3515625,
+        282.5626242544732
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/6",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Then any sequence of regularized solutions <math display=\"inline\">a_{\\alpha}^{\\delta_n,\\eta_n}</math>admits a subsequence that converges toward an <math display=\"inline\">a_0</math>solution a of the inverse problem for <math display=\"inline\">\\Pi</math> at <math display=\"inline\">\\pi</math>. In particular, in the case when this problem admits a unique <math display=\"inline\">a_0</math>-solution <math display=\"inline\">a</math>, <math display=\"inline\">a_{\\alpha_n}^{\\delta_n,\\eta_n}</math> converges to <math display=\"inline\">a</math>.</p>",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          290.05765407554674
+        ],
+        [
+          290.00506329113927,
+          290.05765407554674
+        ],
+        [
+          290.00506329113927,
+          347.7693836978131
+        ],
+        [
+          77.93417721518988,
+          347.7693836978131
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        290.05765407554674,
+        290.00506329113927,
+        347.7693836978131
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Remark 1</b> In the special case where the direct operator <math display=\"inline\">\\Pi</math> is linear, Tikhonov regularization thus appears as an approximating scheme for the pseudoinverse of <math display=\"inline\">\\Pi</math>.</p>",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          359.01192842942345
+        ],
+        [
+          290.00506329113927,
+          359.01192842942345
+        ],
+        [
+          290.00506329113927,
+          402.4033203125
+        ],
+        [
+          77.93417721518988,
+          402.4033203125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        359.01192842942345,
+        290.00506329113927,
+        402.4033203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Finally, assuming further regularity of <math display=\"inline\">\\Pi</math>, one can get convergence rates estimates, uniform over all data <math display=\"inline\">\\pi \\in \\Pi(\\mathcal{A})</math> sufficiently close and smooth with respect to the prior <math display=\"inline\">a_0</math> (so that the additional <i>source condition </i>12 is satisfied). Let us thus make the following additional assumption on <math display=\"inline\">\\Pi</math>.</p>",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          411.9755859375
+        ],
+        [
+          290.00506329113927,
+          411.9755859375
+        ],
+        [
+          290.00506329113927,
+          478.2451171875
+        ],
+        [
+          77.93417721518988,
+          478.2451171875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        411.9755859375,
+        290.00506329113927,
+        478.2451171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/9",
+      "block_type": "SectionHeader",
+      "html": "<h4>Assumption 3 (Twice Gateaux Differentiability)</h4>",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          489.4254473161034
+        ],
+        [
+          281.0126582278481,
+          489.4254473161034
+        ],
+        [
+          281.0126582278481,
+          499.23046875
+        ],
+        [
+          77.93417721518988,
+          499.23046875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        489.4254473161034,
+        281.0126582278481,
+        499.23046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">There exist linear and bilinear forms <math display=\"inline\">d\\Pi(a)</math> on <math display=\"inline\">\\mathcal{H}</math>and <math display=\"inline\">d^2\\Pi(a)</math> on <math display=\"inline\">\\mathcal{H}^2</math> such that</p>",
+      "page": 249,
+      "polygon": [
+        [
+          77.93417721518988,
+          500.3349609375
+        ],
+        [
+          290.00506329113927,
+          500.3349609375
+        ],
+        [
+          290.00506329113927,
+          522.4248046875
+        ],
+        [
+          77.93417721518988,
+          522.4248046875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        500.3349609375,
+        290.00506329113927,
+        522.4248046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{aligned} \\Pi\\left(a+\\varepsilon h\\right) &amp;= \\Pi\\left(a\\right) + \\varepsilon d\\Pi\\left(a\\right) \\cdot h \\\\ &amp;+ \\frac{\\varepsilon^2}{2} d^2 \\Pi\\left(a\\right) \\cdot \\left(h, h\\right) + \\mathsf{o}\\left(\\varepsilon^2\\right); \\\\ a, a+h \\in \\mathcal{A} \\qquad (6) \\\\ \\|d\\Pi\\left(a\\right) \\cdot h\\| &amp;\\leq C \\left\\|h\\right\\|, \\\\ \\|d^2 \\Pi\\left(a\\right) \\cdot \\left(h, h'\\right)\\| &amp;\\leq C \\left\\|h\\right\\| \\left\\|h'\\right\\|; \\end{aligned}</math></p>",
+      "page": 249,
+      "polygon": [
+        [
+          109.482421875,
+          536.783203125
+        ],
+        [
+          287.6171875,
+          536.783203125
+        ],
+        [
+          287.6171875,
+          633.978515625
+        ],
+        [
+          109.482421875,
+          633.978515625
+        ]
+      ],
+      "bbox": [
+        109.482421875,
+        536.783203125,
+        287.6171875,
+        633.978515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/12",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">a \\in \\mathcal{A} \\ , \\quad h, h' \\in \\mathcal{H} </math> (7)</p>",
+      "page": 249,
+      "polygon": [
+        [
+          120.97265625,
+          631.033203125
+        ],
+        [
+          287.18359375,
+          631.033203125
+        ],
+        [
+          287.18359375,
+          646.49609375
+        ],
+        [
+          120.97265625,
+          646.49609375
+        ]
+      ],
+      "bbox": [
+        120.97265625,
+        631.033203125,
+        287.18359375,
+        646.49609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where C is a constant independent of <math display=\"inline\">a \\in A</math>.</p>",
+      "page": 249,
+      "polygon": [
+        [
+          307.8515625,
+          71.7919921875
+        ],
+        [
+          487.0886075949367,
+          71.7919921875
+        ],
+        [
+          487.0886075949367,
+          81.18017578125
+        ],
+        [
+          307.8515625,
+          81.18017578125
+        ]
+      ],
+      "bbox": [
+        307.8515625,
+        71.7919921875,
+        487.0886075949367,
+        81.18017578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In the following theorem, the operator</p>",
+      "page": 249,
+      "polygon": [
+        [
+          316.98227848101266,
+          92.18886679920477
+        ],
+        [
+          472.328125,
+          92.18886679920477
+        ],
+        [
+          472.328125,
+          101.889404296875
+        ],
+        [
+          316.98227848101266,
+          101.889404296875
+        ]
+      ],
+      "bbox": [
+        316.98227848101266,
+        92.18886679920477,
+        472.328125,
+        101.889404296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">d\\Pi(a)^* : \\mathbb{R}^d \\ni \\lambda \\mapsto d\\Pi(a)^* \\lambda \\in \\mathcal{H}^1 \\tag{8}</math></p>",
+      "page": 249,
+      "polygon": [
+        [
+          330.109375,
+          114.406982421875
+        ],
+        [
+          515.6875,
+          114.406982421875
+        ],
+        [
+          515.6875,
+          124.347412109375
+        ],
+        [
+          330.109375,
+          124.347412109375
+        ]
+      ],
+      "bbox": [
+        330.109375,
+        114.406982421875,
+        515.6875,
+        124.347412109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">denotes the <i>adjoint</i> of</p>",
+      "page": 249,
+      "polygon": [
+        [
+          305.7417721518987,
+          135.66003976143142
+        ],
+        [
+          394.91645569620255,
+          135.66003976143142
+        ],
+        [
+          394.91645569620255,
+          145.24072265625
+        ],
+        [
+          305.7417721518987,
+          145.24072265625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        135.66003976143142,
+        394.91645569620255,
+        145.24072265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">d\\Pi(a) : \\mathcal{H}^1 \\ni h \\mapsto d\\Pi(a) \\, h \\in \\mathbb{R}^d \\tag{9}</math></p>",
+      "page": 249,
+      "polygon": [
+        [
+          340.8046875,
+          155.365234375
+        ],
+        [
+          517.1328125,
+          155.365234375
+        ],
+        [
+          517.1328125,
+          166.22607421875
+        ],
+        [
+          340.8046875,
+          166.22607421875
+        ]
+      ],
+      "bbox": [
+        340.8046875,
+        155.365234375,
+        517.1328125,
+        166.22607421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/18",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">in the sense that (see <math display=\"inline\">[9]</math>)</p>",
+      "page": 249,
+      "polygon": [
+        [
+          304.99240506329113,
+          176.882703777336
+        ],
+        [
+          408.40506329113924,
+          176.882703777336
+        ],
+        [
+          408.40506329113924,
+          186.567138671875
+        ],
+        [
+          304.99240506329113,
+          186.567138671875
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        176.882703777336,
+        408.40506329113924,
+        186.567138671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/19",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\langle h, \\mathrm{d}\\Pi(a)^{\\star}\\lambda\\rangle_{\\mathcal{H}^{1}} = \\lambda' \\mathrm{d}\\Pi(a).h \\; ; \\quad (h,\\lambda) \\in \\mathcal{H}^{1} \\times \\mathbb{R}^{d} </math>(10)</p>",
+      "page": 249,
+      "polygon": [
+        [
+          308.140625,
+          195.31103515625
+        ],
+        [
+          516.265625,
+          195.31103515625
+        ],
+        [
+          516.265625,
+          217.76904296875
+        ],
+        [
+          308.140625,
+          217.76904296875
+        ]
+      ],
+      "bbox": [
+        308.140625,
+        195.31103515625,
+        516.265625,
+        217.76904296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/20",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Theorem 3 (Convergence Rates; see, for instance, Theorem 10.4 of Engl et al [9]) Assume</p>",
+      "page": 249,
+      "polygon": [
+        [
+          305.7417721518987,
+          228.59840954274355
+        ],
+        [
+          516.3139240506329,
+          228.59840954274355
+        ],
+        [
+          516.3139240506329,
+          251.087890625
+        ],
+        [
+          305.7417721518987,
+          251.087890625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        228.59840954274355,
+        516.3139240506329,
+        251.087890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/21",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{array}{cc} (n \\in \\mathbb{N}) &amp; \\|\\pi - \\pi_n\\| \\le \\delta_n, \\\\\\\\ (n \\to \\infty) &amp; \\alpha_n \\longrightarrow 0, \\quad \\alpha_n \\sim \\delta_n, \\quad \\eta_n = \\mathcal{O}\\left(\\delta_n^2\\right) \\end{array} \\tag{11}</math></p>",
+      "page": 249,
+      "polygon": [
+        [
+          314.7890625,
+          259.5556640625
+        ],
+        [
+          516.5546875,
+          259.5556640625
+        ],
+        [
+          516.5546875,
+          308.521484375
+        ],
+        [
+          314.7890625,
+          308.521484375
+        ]
+      ],
+      "bbox": [
+        314.7890625,
+        259.5556640625,
+        516.5546875,
+        308.521484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/22",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Then <math display=\"inline\">\\|a_{\\alpha_n}^{\\delta_n,\\eta_n}-a\\| = O(\\sqrt{\\delta_n})</math>, for any <math display=\"inline\">a_0</math>-solution a of the inverse problem for <math display=\"inline\">\\Pi</math> at <math display=\"inline\">\\pi</math> such that</p>",
+      "page": 249,
+      "polygon": [
+        [
+          305.7417721518987,
+          319.2882703777336
+        ],
+        [
+          516.265625,
+          319.2882703777336
+        ],
+        [
+          516.265625,
+          341.2880859375
+        ],
+        [
+          305.7417721518987,
+          341.2880859375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        319.2882703777336,
+        516.265625,
+        341.2880859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/23",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">a - a_0 = d\\Pi \\left( a \\right)^* \\lambda \\tag{12}</math></p>",
+      "page": 249,
+      "polygon": [
+        [
+          369.7109375,
+          357.30322265625
+        ],
+        [
+          515.9765625,
+          357.30322265625
+        ],
+        [
+          515.9765625,
+          367.61181640625
+        ],
+        [
+          369.7109375,
+          367.61181640625
+        ]
+      ],
+      "bbox": [
+        369.7109375,
+        357.30322265625,
+        515.9765625,
+        367.61181640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/24",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">for some <math display=\"inline\">\\lambda</math> sufficiently small in <math display=\"inline\">\\mathbb{R}^d</math> (in particular, there exists at most one such <math display=\"inline\">a_0</math>-solution a).</p>",
+      "page": 249,
+      "polygon": [
+        [
+          305.7417721518987,
+          376.25049701789266
+        ],
+        [
+          516.3139240506329,
+          375.5009940357853
+        ],
+        [
+          516.3139240506329,
+          399.08984375
+        ],
+        [
+          305.7417721518987,
+          399.08984375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        375.5009940357853,
+        516.3139240506329,
+        399.08984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/25",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Remark 2</b> An interesting feature of Tikhonov regularization is that the data set <math display=\"inline\">\\pi</math> does not need to belong to the range of the direct operator for applicability of the method-even if Assumption 2 is the simplest assumption for the previous results regarding convergence and convergence rates (in fact, a minimal assumption for such results is the existence of a least squares solution to the inverse problem; see Proposition 3.2 of Binder et al [2]).</p>",
+      "page": 249,
+      "polygon": [
+        [
+          304.99240506329113,
+          409.97813121272367
+        ],
+        [
+          517.0632911392405,
+          409.97813121272367
+        ],
+        [
+          517.0632911392405,
+          511.01171875
+        ],
+        [
+          304.99240506329113,
+          511.01171875
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        409.97813121272367,
+        517.0632911392405,
+        511.01171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/26",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">An important issue, in practice, is the choice of the <i>regularization parameter</i> <math display=\"inline\">\\alpha</math> that determines the tradeoff between accuracy and regularity in the method. To set <math display=\"inline\">\\alpha</math>, the two main approaches are</p>",
+      "page": 249,
+      "polygon": [
+        [
+          305.7417721518987,
+          523.1530815109344
+        ],
+        [
+          516.3139240506329,
+          523.1530815109344
+        ],
+        [
+          516.3139240506329,
+          566.6044921875
+        ],
+        [
+          305.7417721518987,
+          566.6044921875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        523.1530815109344,
+        516.3139240506329,
+        566.6044921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/ListGroup/249",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\"><i>a priori</i> methods, in which the choice of <math display=\"inline\">\\alpha</math> only depends on <math display=\"inline\">\\delta</math>, the level of noise on the data (such as the size of the bid-ask spread, in the case of market prices data in finance);</li><li block-type=\"ListItem\">more general <i>a posteriori</i> methods, in which <math display=\"inline\">\\alpha</math>may depend on the data in a less specific way.</li></ul></p>",
+      "page": 249,
+      "polygon": [
+        [
+          305.828125,
+          577.6494140625
+        ],
+        [
+          516.3139240506329,
+          577.6494140625
+        ],
+        [
+          516.3139240506329,
+          644.6552734375
+        ],
+        [
+          305.828125,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        305.828125,
+        577.6494140625,
+        516.3139240506329,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/PageHeader/7",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 251,
+      "polygon": [
+        [
+          378.43037974683546,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          56.1910400390625
+        ],
+        [
+          378.43037974683546,
+          56.1910400390625
+        ]
+      ],
+      "bbox": [
+        378.43037974683546,
+        45.71968190854871,
+        513.3164556962025,
+        56.1910400390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/0",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">In applications to calibration problems in finance, the most commonly used method for choosing <math display=\"inline\">\\alpha</math>is the <i>a posteriori</i> method based on the so-called discrepancy principle, which consists in choosing the greatest level of <math display=\"inline\">\\alpha</math> for which the \"distance\" <math display=\"inline\">\\|\\Pi(a_{\\alpha}^{\\delta,\\eta}) - \\pi^{\\delta}\\|</math> (for given <math display=\"inline\">\\delta, \\eta</math>) does not exceed the level of noise <math display=\"inline\">\\delta</math> on the observations (as measured by the bid-ask spread).</p>",
+      "page": 251,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.2027833001988
+        ],
+        [
+          286.4609375,
+          71.2027833001988
+        ],
+        [
+          286.4609375,
+          161.14314115308153
+        ],
+        [
+          74.1873417721519,
+          161.14314115308153
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.2027833001988,
+        286.4609375,
+        161.14314115308153
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/8",
+        "4": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/1",
+      "block_type": "SectionHeader",
+      "html": "<h2>Implementation</h2>",
+      "page": 251,
+      "polygon": [
+        [
+          74.1873417721519,
+          179.13121272365805
+        ],
+        [
+          140.33984375,
+          179.13121272365805
+        ],
+        [
+          140.33984375,
+          189.42041015625
+        ],
+        [
+          74.1873417721519,
+          189.42041015625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        179.13121272365805,
+        140.33984375,
+        189.42041015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/2",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">For implementation purposes, the minimization problem 3 is discretized, and thus it effectively becomes a nonlinear minimization problem on (some subset of) <math display=\"inline\">\\mathbb{R}^k</math> (see, e.g., [13]), where k is the number of model parameters to be estimated.</p>",
+      "page": 251,
+      "polygon": [
+        [
+          74.1873417721519,
+          198.61829025844932
+        ],
+        [
+          286.2582278481013,
+          198.61829025844932
+        ],
+        [
+          286.2582278481013,
+          254.4013671875
+        ],
+        [
+          74.1873417721519,
+          254.4013671875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        198.61829025844932,
+        286.2582278481013,
+        254.4013671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">In the case of a strictly convex cost criterion <math display=\"inline\">J = J_{\\alpha}^{\\delta}</math> in equation 3, and if, additionally, J is differentiable, one can prove the convergence to the (unique) minimum of various gradient descent algorithms. These consist, at each iteration, in making a step of a certain length (fixed-step descent vs. optimal step descent) in a direction defined by the gradient <math display=\"inline\">\\nabla J</math> in the current step of the algorithm, in combination with, in some variants of the method (conjugate gradient method, quasi-Newton algorithms, etc.), the <math display=\"inline\">gradient(s) \\nabla J</math> in the previous step(s).</p>",
+      "page": 251,
+      "polygon": [
+        [
+          74.1873417721519,
+          256.3300198807157
+        ],
+        [
+          286.75,
+          255.58051689860835
+        ],
+        [
+          286.75,
+          381.7861328125
+        ],
+        [
+          74.1873417721519,
+          381.7861328125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        255.58051689860835,
+        286.75,
+        381.7861328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In the <i>nonstrictly convex</i> case, (actually, in the context of calibration problems in finance, <math display=\"inline\">J</math> is typically not even convex with respect to <math display=\"inline\">a</math>), or if the cost criterion is only almost everywhere differentiable (as in the American calibration problem, see Remark 3 (i)), such algorithms can still be used, in which case, they typically converge to one among many <math display=\"inline\">local \\ minima \\ of \\ J</math>.</p>",
+      "page": 251,
+      "polygon": [
+        [
+          74.1873417721519,
+          382.2465208747515
+        ],
+        [
+          287.6171875,
+          382.2465208747515
+        ],
+        [
+          287.6171875,
+          471.6181640625
+        ],
+        [
+          74.1873417721519,
+          471.6181640625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        382.2465208747515,
+        287.6171875,
+        471.6181640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">When there are no constraints (the case when <math display=\"inline\">\\mathcal{A} =</math><math display=\"inline\">\\mathcal{H}</math>), the minimization problem is, in practice, much easier, and many implementations of the related gradient descent algorithms are available (e.g., in [15]). As for constrained problems, a state-of-the-art opensource implementation of the quasi-Newton method for minimizing a function in a box, the L-BFGS algorithm, is available on www.ece.northwestern. edu/~nocedal/lbfgsb.html.</p>",
+      "page": 251,
+      "polygon": [
+        [
+          74.1873417721519,
+          473.6858846918489
+        ],
+        [
+          286.2582278481013,
+          473.6858846918489
+        ],
+        [
+          286.2582278481013,
+          575.4404296875
+        ],
+        [
+          74.1873417721519,
+          575.4404296875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        473.6858846918489,
+        286.2582278481013,
+        575.4404296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">When the gradient <math display=\"inline\">\\nabla J</math> is neither computable in closed form nor computable numerically with the required accuracy, an alternative to gradient descent methods is to use the nonlinear simplex method (not to be confused with the simplex algorithm for solving linear programming problems, see [15]). As</p>",
+      "page": 251,
+      "polygon": [
+        [
+          74.1873417721519,
+          577.8667992047714
+        ],
+        [
+          286.2582278481013,
+          577.8667992047714
+        ],
+        [
+          286.2582278481013,
+          643.8230616302187
+        ],
+        [
+          74.1873417721519,
+          643.8230616302187
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        577.8667992047714,
+        286.2582278481013,
+        643.8230616302187
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">opposed to gradient descent methods, the nonlinear simplex algorithm only uses the <i>values</i> (and not the <i>gradient</i>) of <math display=\"inline\">J</math>, but the convergence of the algorithm is not proved in general, and there are known counterexamples in which it does not converge.</p>",
+      "page": 251,
+      "polygon": [
+        [
+          301.24556962025315,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          126.66600397614314
+        ],
+        [
+          301.24556962025315,
+          126.66600397614314
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        71.2027833001988,
+        513.3164556962025,
+        126.66600397614314
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/9",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Application: Extracting Local Volatility </b></h2>",
+      "page": 251,
+      "polygon": [
+        [
+          301.203125,
+          150.65009940357854
+        ],
+        [
+          496.83037974683543,
+          150.65009940357854
+        ],
+        [
+          496.83037974683543,
+          161.531982421875
+        ],
+        [
+          301.203125,
+          161.531982421875
+        ]
+      ],
+      "bbox": [
+        301.203125,
+        150.65009940357854,
+        496.83037974683543,
+        161.531982421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In the case of <i>parametric</i> models in finance, namely, models with a small number of scalar parameters, such as Heston's stochastic volatility model or Merton's jump-diffusion model (as opposed to models with <i>functional</i>, e.g., time-dependent, parameters), the choice of a suitable regularization term is generally not obvious. In this case, the calibration industry standard rather consists in solving the unregularized nonlinear least squares problem 2. So Tikhonov regularization is rather used for calibrating <i>nonparametric </i>financial models.</p>",
+      "page": 251,
+      "polygon": [
+        [
+          301.24556962025315,
+          173.1351888667992
+        ],
+        [
+          513.3164556962025,
+          173.1351888667992
+        ],
+        [
+          513.3164556962025,
+          296.3720703125
+        ],
+        [
+          301.24556962025315,
+          296.3720703125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        173.1351888667992,
+        513.3164556962025,
+        296.3720703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In this section, we consider the problem of inferring a <i>local volatility function</i> <math display=\"inline\">\\sigma(t, S)</math> (see [7]) from observed option prices, namely, European vanilla calls and/or puts with various strikes and maturities on the underlying <math display=\"inline\">S</math>. The local volatility function thus inferred may then be used to price exotic options and/or compute Greeks, consistently with the market (e.g., [5]).</p>",
+      "page": 251,
+      "polygon": [
+        [
+          301.24556962025315,
+          298.30218687872764
+        ],
+        [
+          513.953125,
+          298.30218687872764
+        ],
+        [
+          513.953125,
+          389.517578125
+        ],
+        [
+          301.24556962025315,
+          389.517578125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        298.30218687872764,
+        513.953125,
+        389.517578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/12",
+      "block_type": "SectionHeader",
+      "html": "<h3>The Ill-posed Local Volatility Calibration Problem</h3>",
+      "page": 251,
+      "polygon": [
+        [
+          301.99493670886073,
+          407.7296222664016
+        ],
+        [
+          513.3164556962025,
+          407.7296222664016
+        ],
+        [
+          513.3164556962025,
+          417.8662109375
+        ],
+        [
+          301.99493670886073,
+          417.8662109375
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        407.7296222664016,
+        513.3164556962025,
+        417.8662109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The local volatility calibration problem, however, is underdetermined (since the set of observed prices is finite whereas the nonparametric function <math display=\"inline\">\\sigma</math> has an infinite degrees of freedom) and ill posed. So a naive approach based on numerical differentiation using the so-called <i>Dupire's formula</i> [7] gives a local volatility that is highly oscillatory (Figure 1), and thus unstable, for instance when performing a dayto-day calibration.</p>",
+      "page": 251,
+      "polygon": [
+        [
+          301.24556962025315,
+          427.9662027833002
+        ],
+        [
+          513.953125,
+          427.9662027833002
+        ],
+        [
+          513.953125,
+          529.0517578125
+        ],
+        [
+          301.24556962025315,
+          529.0517578125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        427.9662027833002,
+        513.953125,
+        529.0517578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">To address this issue, the first idea that comes to mind is to seek for <math display=\"inline\">\\sigma</math> within a parameterized family of functions. However, finding classes of functions with all the flexibility required for fitting implied volatility surfaces with several hundred implied volatility points and a variety of shapes turns out to be a very challenging task (unless a large family of splines is considered, see Coleman et al. [3], in which case, the ill-posedness of the problem shows up again).</p>",
+      "page": 251,
+      "polygon": [
+        [
+          301.24556962025315,
+          530.892578125
+        ],
+        [
+          513.6640625,
+          530.892578125
+        ],
+        [
+          513.6640625,
+          644.287109375
+        ],
+        [
+          301.24556962025315,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        530.892578125,
+        513.6640625,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 159,
+      "polygon": [
+        [
+          78.68354430379746,
+          45.71968190854871
+        ],
+        [
+          213.56962025316454,
+          45.71968190854871
+        ],
+        [
+          213.56962025316454,
+          55.77685546875
+        ],
+        [
+          78.68354430379746,
+          55.77685546875
+        ]
+      ],
+      "bbox": [
+        78.68354430379746,
+        45.71968190854871,
+        213.56962025316454,
+        55.77685546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/FigureGroup/157",
+      "block_type": "FigureGroup",
+      "html": "<p><img src='/page/3/Figure/1'></p><p><b>Figure 1</b> Local Variance <math display=\"inline\">\\sigma(t, S)^2</math> obtained by application of Dupire's formula on the DAX index, May 2, 2001</p>",
+      "page": 159,
+      "polygon": [
+        [
+          77.93417721518988,
+          59.3020263671875
+        ],
+        [
+          485.5898734177215,
+          59.3020263671875
+        ],
+        [
+          485.5898734177215,
+          298.30218687872764
+        ],
+        [
+          77.93417721518988,
+          298.30218687872764
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        59.3020263671875,
+        485.5898734177215,
+        298.30218687872764
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12"
+      },
+      "images": {
+        "/page/3/Figure/1": "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"
+      }
+    },
+    {
+      "id": "/page/3/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The best way to proceed is to stay nonparametric, and to use regularization methods to stabilize the calibration procedure. Since we use a nonparametric local volatility, the model contains sufficient number of degrees of freedom to provide a perfect fit to virtually any market smile. Furthermore, the regularization method guarantees that the local volatility thus calibrated is nice and smooth.</p>",
+      "page": 159,
+      "polygon": [
+        [
+          77.93417721518988,
+          317.7892644135189
+        ],
+        [
+          290.00506329113927,
+          317.7892644135189
+        ],
+        [
+          290.00506329113927,
+          408.2939453125
+        ],
+        [
+          77.93417721518988,
+          408.2939453125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        317.7892644135189,
+        290.00506329113927,
+        408.2939453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/4",
+      "block_type": "SectionHeader",
+      "html": "<h4>Approach by Tikhonov Regularization</h4>",
+      "page": 159,
+      "polygon": [
+        [
+          77.93417721518988,
+          429.4652087475149
+        ],
+        [
+          236.8,
+          429.4652087475149
+        ],
+        [
+          236.8,
+          438.4833984375
+        ],
+        [
+          77.93417721518988,
+          438.4833984375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        429.4652087475149,
+        236.8,
+        438.4833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Among the various regularization methods at hand, the most popular one is the Tikhonov regularization method described in the section Tikhonov Regularization of Nonlinear Inverse Problems. One thus rewrites the local volatility calibration problem as the following nonlinear minimization problem:</p>",
+      "page": 159,
+      "polygon": [
+        [
+          77.93417721518988,
+          449.70178926441355
+        ],
+        [
+          290.00506329113927,
+          449.70178926441355
+        ],
+        [
+          290.00506329113927,
+          516.5341796875
+        ],
+        [
+          77.93417721518988,
+          516.5341796875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        449.70178926441355,
+        290.00506329113927,
+        516.5341796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\min_{\\{\\sigma \\equiv \\sigma(t,S); \\underline{\\sigma} \\le \\sigma \\le \\overline{\\sigma}\\}} J(\\sigma)</math><br/>= <math>\\|\\Pi(\\sigma) - \\pi\\|^2 + \\alpha \\|\\sigma - \\sigma_0\\|_{\\mathcal{H}^1}^2</math> (13)</p>",
+      "page": 159,
+      "polygon": [
+        [
+          113.890625,
+          534.2060546875
+        ],
+        [
+          289.0625,
+          534.2060546875
+        ],
+        [
+          289.0625,
+          571.7587890625
+        ],
+        [
+          113.890625,
+          571.7587890625
+        ]
+      ],
+      "bbox": [
+        113.890625,
+        534.2060546875,
+        289.0625,
+        571.7587890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where</p>",
+      "page": 159,
+      "polygon": [
+        [
+          77.93417721518988,
+          581.6143141153082
+        ],
+        [
+          103.845703125,
+          581.6143141153082
+        ],
+        [
+          103.845703125,
+          591.6396484375
+        ],
+        [
+          77.93417721518988,
+          591.6396484375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        581.6143141153082,
+        103.845703125,
+        591.6396484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/159",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">the bounds <math display=\"inline\">\\underline{\\sigma}</math> and <math display=\"inline\">\\overline{\\sigma}</math> are given positive constants specifying the abstract set <math display=\"inline\">\\mathcal{A}</math> in the section Tikhonov Regularization of Nonlinear Inverse Problems;</p>",
+      "page": 159,
+      "polygon": [
+        [
+          81.154296875,
+          600.4755859375
+        ],
+        [
+          290.00506329113927,
+          600.4755859375
+        ],
+        [
+          290.00506329113927,
+          644.6552734375
+        ],
+        [
+          81.154296875,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        81.154296875,
+        600.4755859375,
+        290.00506329113927,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/ListGroup/158",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\"><math display=\"inline\">\\pi</math> is the vector of market prices observed at the calibration time; <math display=\"inline\">\\Pi(\\sigma)</math> is the related vector of prices in the Dupire model with volatility function <math display=\"inline\">\\sigma</math>;</li><li block-type=\"ListItem\"><math display=\"inline\">\\sigma_0</math> is a suitable prior (<i>a</i> priori guess on <math display=\"inline\">\\sigma</math>), and for <math display=\"inline\">u \\equiv u(t, S)</math>,</li></ul></p>",
+      "page": 159,
+      "polygon": [
+        [
+          306.984375,
+          317.7892644135189
+        ],
+        [
+          517.0632911392405,
+          317.7892644135189
+        ],
+        [
+          517.0632911392405,
+          385.8359375
+        ],
+        [
+          306.984375,
+          385.8359375
+        ]
+      ],
+      "bbox": [
+        306.984375,
+        317.7892644135189,
+        517.0632911392405,
+        385.8359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\|u\\|_{\\mathcal{H}^{1}}^{2} = \\int_{t_{0}}^{\\infty} \\int_{0}^{\\infty} \\left[ u(t, S)^{2} + (\\partial_{t} u(t, S))^{2} + (\\partial_{S} u(t, S))^{2} \\right] dt dS \\quad (14)</math></p>",
+      "page": 159,
+      "polygon": [
+        [
+          333.46835443037975,
+          405.3486328125
+        ],
+        [
+          515.3984375,
+          405.3486328125
+        ],
+        [
+          515.3984375,
+          450.2646484375
+        ],
+        [
+          333.46835443037975,
+          450.2646484375
+        ]
+      ],
+      "bbox": [
+        333.46835443037975,
+        405.3486328125,
+        515.3984375,
+        450.2646484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Problem 13 and a related gradient descent approach to solve it numerically (cf. the section Implementation) were introduced in [12]. Crépey [6] (see also [8]) further showed that the general conditions of the section Tikhonov Regularization of Nonlinear Inverse Problems are satisfied in this case. Stability and convergence of the method follow.</p>",
+      "page": 159,
+      "polygon": [
+        [
+          305.7417721518987,
+          460.205078125
+        ],
+        [
+          517.0632911392405,
+          460.205078125
+        ],
+        [
+          517.0632911392405,
+          539.728515625
+        ],
+        [
+          305.7417721518987,
+          539.728515625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        460.205078125,
+        517.0632911392405,
+        539.728515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/13",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">In [5] an efficient trinomial tree implementation of this approach was presented, based on an exact computation of the gradient of the (discretized) cost criterion <math display=\"inline\">J</math> in equation 13. Figure 2 displays the local variance surface <math display=\"inline\">\\sigma(t, S)^2</math> (to be compared with that of Figure 1), the corresponding implied volatility surface, and the accuracy of the calibration, obtained by running this algorithm on the DAX index European options data set of May 2, 2001 (consisting</p>",
+      "page": 159,
+      "polygon": [
+        [
+          304.99240506329113,
+          541.8906560636183
+        ],
+        [
+          517.8126582278481,
+          541.8906560636183
+        ],
+        [
+          517.8126582278481,
+          644.6552734375
+        ],
+        [
+          304.99240506329113,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        541.8906560636183,
+        517.8126582278481,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 162,
+      "polygon": [
+        [
+          378.43037974683546,
+          44.970178926441356
+        ],
+        [
+          513.3164556962025,
+          44.970178926441356
+        ],
+        [
+          513.3164556962025,
+          55.684814453125
+        ],
+        [
+          378.43037974683546,
+          55.684814453125
+        ]
+      ],
+      "bbox": [
+        378.43037974683546,
+        44.970178926441356,
+        513.3164556962025,
+        55.684814453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/FigureGroup/149",
+      "block_type": "FigureGroup",
+      "html": "<p><img src='/page/4/Figure/1'></p><p>Figure 2 (a) Local variance, (b) implied volatility, and (c) calibration accuracy obtained by application of the Tikhonov regularization method on the DAX index, May 2, 2001</p>",
+      "page": 162,
+      "polygon": [
+        [
+          68.447265625,
+          56.421142578125
+        ],
+        [
+          516.615234375,
+          56.421142578125
+        ],
+        [
+          516.615234375,
+          405.716796875
+        ],
+        [
+          68.447265625,
+          405.716796875
+        ]
+      ],
+      "bbox": [
+        68.447265625,
+        56.421142578125,
+        516.615234375,
+        405.716796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {
+        "/page/4/Figure/1": "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"
+      }
+    },
+    {
+      "id": "/page/4/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">of about 300 European vanilla option prices distributed throughout six maturities with moneyness <math display=\"inline\">K/S_0 \\in [0.8, 1.2]</math>). At the initiation of the algorithm, the norm of the gradient of the cost criterion <math display=\"inline\">J</math> in equation 13 was equal to <math display=\"inline\">5.73E - 02</math>, and upon convergence after 65 iterations of the gradient descent algorithm, a local minimum of the cost criterion was found, with related value of the norm of the gradient of the cost criterion equal to <math display=\"inline\">6.83E - 07</math>. In the accuracy graph, implied volatility mismatch refers to the difference between the Black-Scholes implied volatility corresponding to the market price of an option and its price in the calibrated local volatility model, for each option in the calibration data set.</p>",
+      "page": 162,
+      "polygon": [
+        [
+          74.1873417721519,
+          424.9681908548708
+        ],
+        [
+          286.2582278481013,
+          424.9681908548708
+        ],
+        [
+          286.2582278481013,
+          583.5400390625
+        ],
+        [
+          74.1873417721519,
+          583.5400390625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        424.9681908548708,
+        286.2582278481013,
+        583.5400390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Such calibration procedures are typically computationally intensive; however, it is possible to make them faster by resorting to parallel computing (see Table 1 and [5]).</p>",
+      "page": 162,
+      "polygon": [
+        [
+          74.1873417721519,
+          600.84375
+        ],
+        [
+          286.2582278481013,
+          600.84375
+        ],
+        [
+          286.2582278481013,
+          644.5725646123261
+        ],
+        [
+          74.1873417721519,
+          644.5725646123261
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        600.84375,
+        286.2582278481013,
+        644.5725646123261
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TableGroup/150",
+      "block_type": "TableGroup",
+      "html": "<p><b>Table 1</b> Calibration CPU times on a cluster of <i>nproc </i>1.3-GHz processors connected on a fast Myrinet network. using a calibration tree with <i>n</i> time steps (thus <math display=\"inline\">n^2/2</math> nodes in the tree)</p><table><tbody><tr><th><math>n \\times n \\n</math>proc</th><th></th><th></th><th></th></tr><tr><td>54</td><td>25s</td><td>9s</td><td>10s</td></tr><tr><td>101</td><td><math>4 \\text{m} 30 \\text{s}</math></td><td><math>1 \\text{m} 57 \\text{s}</math></td><td><math>1 \\text{m} 36 \\text{s}</math></td></tr></tbody></table>",
+      "page": 162,
+      "polygon": [
+        [
+          301.24556962025315,
+          424.9681908548708
+        ],
+        [
+          513.3164556962025,
+          424.9681908548708
+        ],
+        [
+          513.3164556962025,
+          511.01171875
+        ],
+        [
+          301.24556962025315,
+          511.01171875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        424.9681908548708,
+        513.3164556962025,
+        511.01171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Remark 3</b> (1) This approach by Tikhonov regularization can be extended to the problem of calibrating a local volatility function using American observed option prices as input data [5], or to the problem of calibrating a <i>Lévy model with local jump measure </i>(see <math display=\"inline\">[4]</math> and <math display=\"inline\">[11]</math>).</p>",
+      "page": 162,
+      "polygon": [
+        [
+          301.24556962025315,
+          531.3976143141153
+        ],
+        [
+          513.3164556962025,
+          531.3976143141153
+        ],
+        [
+          513.3164556962025,
+          598.10337972167
+        ],
+        [
+          301.24556962025315,
+          598.10337972167
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        531.3976143141153,
+        513.3164556962025,
+        598.10337972167
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><math display=\"inline\">(2)</math> An alternative approach for this problem is to use entropic regularization, rewriting the local volatility calibration problem as a related stochastic control problem [1].</p>",
+      "page": 162,
+      "polygon": [
+        [
+          301.24556962025315,
+          601.1013916500995
+        ],
+        [
+          513.375,
+          601.1013916500995
+        ],
+        [
+          513.375,
+          644.5725646123261
+        ],
+        [
+          301.24556962025315,
+          644.5725646123261
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        601.1013916500995,
+        513.375,
+        644.5725646123261
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 282,
+      "polygon": [
+        [
+          79.05859375,
+          45.49365234375
+        ],
+        [
+          212.2852783203125,
+          45.49365234375
+        ],
+        [
+          212.2852783203125,
+          56.70166015625
+        ],
+        [
+          79.05859375,
+          56.70166015625
+        ]
+      ],
+      "bbox": [
+        79.05859375,
+        45.49365234375,
+        212.2852783203125,
+        56.70166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/9",
+        "3": "/page/2/SectionHeader/12",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/SectionHeader/1",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>References</b></h2>",
+      "page": 282,
+      "polygon": [
+        [
+          78.625,
+          71.5936279296875
+        ],
+        [
+          132.53515625,
+          71.5936279296875
+        ],
+        [
+          132.53515625,
+          82.8016357421875
+        ],
+        [
+          78.625,
+          82.8016357421875
+        ]
+      ],
+      "bbox": [
+        78.625,
+        71.5936279296875,
+        132.53515625,
+        82.8016357421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/ListGroup/281",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\" class=\"has-continuation\"><ul><li block-type=\"ListItem\">[1] Avellaneda, M., Friedman, C., Holmes, R. &amp; Samperi, D. (1997). Calibrating volatility surfaces via relativeentropy minimization, <i>Applied Mathematical Finance</i> <b>41</b>, 37–64.</li><li block-type=\"ListItem\">[2] Binder, A., Engl, H.W., Groetsch, C.W., Neubauer, A. &amp; Scherzer, O. (1994). Weakly closed nonlinear operators and parameter identification in parabolic equations by Tikhonov regularization, <i>Applicable Analysis</i> <b>55</b>, 13–25.</li><li block-type=\"ListItem\">[3] Coleman, T., Li, Y. &amp; Verma, A. (1999). Reconstructing the unknown volatility function, <i>Journal of Computa</i><i>tional Finance</i> <b>2</b>(3), 77–102.</li><li block-type=\"ListItem\">[4] Cont, R. &amp; Rouis, M.(2006). <i>Estimating Exponential</i> <i>L´evy Models from Option Prices via Tikhonov Regular</i><i>ization</i>, Working Paper.</li><li block-type=\"ListItem\">[5] Crepey, S. (2003). Calibration of the local volatility in ´ a trinomial tree using Tikhonov regularization, <i>Inverse</i> <i>Problems</i> <b>19</b>, 91–127.</li><li block-type=\"ListItem\">[6] Crepey, S. (2003). Calibration of the local volatility ´ in a generalized Black–Scholes model using Tikhonov regularization, <i>SIAM Journal on Mathematical Analysis</i> <b>34</b>(5), 1183–1206.</li><li block-type=\"ListItem\">[7] Dupire, B. (1994). Pricing with a smile, <i>Risk</i> <b>7</b>, 18–20.</li><li block-type=\"ListItem\">[8] Egger, H. &amp; Engl, H.W. (2005). Tikhonov regularization applied to the inverse problem of option pricing: convergence analysis and rates, <i>Inverse Problems</i> <b>21</b>, 1027–1045.</li><li block-type=\"ListItem\">[9] Engl, H.W., Hanke, M. &amp; Neubauer, A. (1996). <i>Regu</i><i>larization of Inverse Problems</i>, Kluwer, Dordrecht.</li><li block-type=\"ListItem\">[10] Engl, H.W. Kunisch, K. &amp; Neubauer, A. (1989). Convergence rates for Tikhonov regularisation of nonlinear ill-posed problems, <i>Inverse Problems</i> <b>5</b>(4), 523–540.</li></ul></p>",
+      "page": 282,
+      "polygon": [
+        [
+          78.263671875,
+          97.807861328125
+        ],
+        [
+          289.640625,
+          97.807861328125
+        ],
+        [
+          289.640625,
+          404.98046875
+        ],
+        [
+          78.263671875,
+          404.98046875
+        ]
+      ],
+      "bbox": [
+        78.263671875,
+        97.807861328125,
+        289.640625,
+        404.98046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/ListGroup/282",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">[11] Kindermann, S., Mayer, P., Albrecher, H. &amp; Engl, H.W. (2008). Identification of the local speed function in a Levy model for option pricing, ´ <i>Journal of Integral</i> <i>Equations and Applications</i> <b>20</b>(2), 161–200.</li><li block-type=\"ListItem\">[12] Lagnado, R. &amp; Osher, S. (1997). A technique for calibrating derivative security pricing models: numerical solution of an inverse problem, <i>Journal of Computa</i><i>tional Finance</i> <b>1</b>(1), 13–25.</li><li block-type=\"ListItem\">[13] Nocedal, J. &amp; Wright, S.J. (2006). <i>Numerical Optimiza</i><i>tion</i>, 2nd Edition, Springer.</li><li block-type=\"ListItem\">[14] Phillips, D. (1962). A technique for the numerical solution of certain integral equations of the first kind, <i>Journal of the ACM</i> <b>9</b>, 84–97.</li><li block-type=\"ListItem\">[15] Press, W.H., Flannery, B.P., Teukolsky, S.A. &amp; Vetterling, W.T. (1992). <i>Numerical Recipes in C: The Art of</i> <i>Scientific Computing</i>, 2nd Edition, Cambridge University Press.</li><li block-type=\"ListItem\">[16] Tikhonov, A. (1963). Solution of incorrectly formulated problems and the regularization method, <i>Soviet Math</i><i>ematics Doklady</i> <b>4</b>, 1035–1038, English translation of <i>Doklady Akademii Nauk SSSR</i> <b>151</b>, 501–504, 1963.</li></ul></p>",
+      "page": 282,
+      "polygon": [
+        [
+          304.671875,
+          71.7919921875
+        ],
+        [
+          516.5546875,
+          71.7919921875
+        ],
+        [
+          516.5546875,
+          279.4266357421875
+        ],
+        [
+          304.671875,
+          279.4266357421875
+        ]
+      ],
+      "bbox": [
+        304.671875,
+        71.7919921875,
+        516.5546875,
+        279.4266357421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/SectionHeader/18",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Related Articles</b></h2>",
+      "page": 282,
+      "polygon": [
+        [
+          305.25,
+          297.49365234375
+        ],
+        [
+          385.609375,
+          297.49365234375
+        ],
+        [
+          385.609375,
+          308.7016296386719
+        ],
+        [
+          305.25,
+          308.7016296386719
+        ]
+      ],
+      "bbox": [
+        305.25,
+        297.49365234375,
+        385.609375,
+        308.7016296386719
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/5/SectionHeader/18"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/19",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Conjugate Gradient Methods</b>; <b>Dupire Equation</b>; <b>Local Volatility Model</b>; <b>Model Calibration</b>; <b>Tree</b> <b>Methods</b>.</p>",
+      "page": 282,
+      "polygon": [
+        [
+          305.828125,
+          323.9091796875
+        ],
+        [
+          516.265625,
+          323.9091796875
+        ],
+        [
+          516.265625,
+          356.641357421875
+        ],
+        [
+          305.828125,
+          356.641357421875
+        ]
+      ],
+      "bbox": [
+        305.828125,
+        323.9091796875,
+        516.265625,
+        356.641357421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/5/SectionHeader/18"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/20",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">STEPHANE ´ CREPEY ´</p>",
+      "page": 282,
+      "polygon": [
+        [
+          427.234375,
+          367.6274719238281
+        ],
+        [
+          504.1741638183594,
+          367.6274719238281
+        ],
+        [
+          504.1741638183594,
+          377.341064453125
+        ],
+        [
+          427.234375,
+          377.341064453125
+        ]
+      ],
+      "bbox": [
+        427.234375,
+        367.6274719238281,
+        504.1741638183594,
+        377.341064453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/5/SectionHeader/18"
+      },
+      "images": {}
+    }
+  ],
+  "page_info": {
+    "0": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "1": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "2": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "3": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "4": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "5": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    }
+  }
+}

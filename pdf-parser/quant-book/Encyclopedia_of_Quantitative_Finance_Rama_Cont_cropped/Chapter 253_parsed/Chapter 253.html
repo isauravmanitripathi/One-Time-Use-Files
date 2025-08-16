@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Integral Equation Methods for Free
+   </b>
+   Boundaries
+  </h1>
+  <p block-type="Text">
+   Free boundary problems (FBPs) are ubiquitous in modern mathematical finance. They arise as early exercise boundaries for American style options (arguably the first example in finance, introduced by McKean [15] in 1965), as default barriers in structural (value-of-firm) models of credit default [7], as the optimal strategies for refinancing mortgages [13, 21], exercising employee stock options [14] (see
+   <b>
+    Employee Stock Options
+   </b>
+   ) and callable convertible bonds [20], and so on. There are many methods for treating the FBPs that arise as mathematical models of these finance problems, including variational inequalities [11], viscosity solutions [8], and the classical partial differential equations (PDE) approach [10, 16]. In this article, we focus on an integral equation (IE) approach that is particularly suited for the types of FBPs that arise in finance.
+  </p>
+  <p block-type="Text">
+   In the section Free Boundary Problems as Integral Equations, we sketch the method in the context of the American put option, perhaps the most widely known and best understood FBP in finance. After deriving an IE problem mathematically equivalent to the original Black, Scholes, and Merton (BSM) PDE FBP for the American put, we outline how the IE problem can be used to prove existence and uniqueness for the original problem and to derive analytical and numerical estimates for the location of the early exercise boundary [4, 5]. In the section Application of the IE Method to Other FBPs, we sketch how this IE approach can be carried over to other FBPs in finance [7, 21] with the goal of indicating that this is a unified approach to a diverse collection of problems.
+  </p>
+  <h2>
+   <b>
+    Free Boundary Problems as Integral
+   </b>
+   Equations
+  </h2>
+  <p block-type="Text">
+   In this section, we outline the IE approach in the context of an American put option on a geometric Brownian motion underlier (
+   <i>
+    see
+   </i>
+   <b>
+    American Options
+   </b>
+   ). The BSM risk-neutral pricing theory says that the
+  </p>
+  <p block-type="Text">
+   option value,
+   <math display="inline">
+    p(S, t)
+   </math>
+   , satisfies the FBP
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{t} + \frac{\sigma^{2} S^{2}}{2} p_{SS} + r S p_{S} - r p = 0,
+   </math>
+   <br/>
+   <math display="block">
+    S_{f}(t) &lt; S &lt; \infty, 0 &lt; t &lt; T \qquad (1)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p(S, t) = K - S \text{ on } S = S_f(t), \quad 0 &lt; t &lt; T \quad (2)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_S(S, t) = -1
+   </math>
+   on
+   <math>
+    S = S_f(t), \quad 0 &lt; t &lt; T
+   </math>
+   (3)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p(S, t) \to 0 \text{ as } S \to \infty
+   </math>
+   (4)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p(S, T) = \max(K - S, 0), \quad K = S_f(T) &lt; S &lt; \infty
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    r, \sigma, K, T
+   </math>
+   have the conventional meanings and
+   <math display="inline">
+    S_f(t)
+   </math>
+   is the location of the early exercise, free boundary to be determined along with
+   <math display="inline">
+    p(S, t)
+   </math>
+   . Letting
+   <math display="inline">
+    \tau = \frac{\sigma^2}{2}(T - t)
+   </math>
+   (the scaled time to expiry) and
+   <math display="inline">
+    x = ln(S/K)
+   </math>
+   , then the scaled option price
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_{\text{new}} = \begin{cases} 1 - S/K &amp; S &lt; S_f(t) \\ p/K &amp; S &gt; S_f(t) \end{cases} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   satisfies the transformed problem (dropping the subscript) in
+   <math display="inline">
+    -\infty &lt; x &lt; \infty
+   </math>
+   ,
+   <math display="inline">
+    0 &lt; \tau &lt; \sigma^2 T/2
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{\tau} - \{p_{xx} + (k-1)p_x - kp\} = kH(x_f(\tau) - x)
+   </math>
+   (7)
+   <math display="block">
+    p(x, 0) = \max(1 - e^x, 0)
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    k = 2r/\sigma^2
+   </math>
+   ,
+   <i>
+    H
+   </i>
+   is the Heaviside function.
+   <math display="inline">
+    x_f(\tau) = \ln(S_f/S)
+   </math>
+   , and the coefficient k appears on the right-hand side (rhs) of equation (7) because the intrinsic payoff,
+   <math display="inline">
+    p_0(x) = 1 - e^x
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{0\tau} - \{p_{0xx} + (k-1)p_{0x} - kp_0\} = k \qquad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   The solution to problems
+   <math display="inline">
+    (7)
+   </math>
+   and
+   <math display="inline">
+    (8)
+   </math>
+   can be written in terms of the free boundary,
+   <math display="inline">
+    x_f(\tau)
+   </math>
+   , using the fundamental solution of the pdo on the left-hand side (lhs) of equation
+   <math display="inline">
+    (7)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Gamma(x,\,\tau) = \frac{e^{-k\tau}}{2\sqrt{\pi\tau}} e^{-(x+(k-1)\tau)^2/4\tau} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p(x,\tau) = \int_{-\infty}^{0} (1 - e^{y}) \Gamma(x - y, \tau) \, \mathrm{d}y
+   </math>
+   <math display="block">
+    + k \int_{0}^{\tau} \int_{-\infty}^{x_{f}(u)} \Gamma(x - y, \tau - u) \, \mathrm{d}y \, \mathrm{d}u \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   The first term is the price of the European style put while the second is the premium for the American optionality. Integral representations of this sort have been discussed in the finance literature for some time (see, e.g., [3]).
+  </p>
+  <p block-type="TextInlineMath">
+   For the representation
+   <math display="inline">
+    (11)
+   </math>
+   to be useful, one must first determine the unknown location of the boundary,
+   <math display="inline">
+    x_f(\tau)
+   </math>
+   , which appears in the second integral on the
+   <math display="inline">
+    \text{rhs of equation (11)}
+   </math>
+   . The usual approach in the free boundary literature proceeds by starting with equation (11) and evaluating the lhs at
+   <math display="inline">
+    x = x_f(\tau)
+   </math>
+   using one or other of the conditions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p(x_f(\tau), \tau) = 1 - e^{x_f(\tau)}
+   </math>
+   (12)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_x(x_f(\tau), \tau) = -e^{x_f(\tau)} \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which are the transformed versions of the smooth pasting conditions
+   <math display="inline">
+    (2)
+   </math>
+   and
+   <math display="inline">
+    (3)
+   </math>
+   . Instead, we use a trick here, based on financial considerations, to notice that
+   <math display="inline">
+    p_{\tau}(x_f(\tau), \tau) = 0
+   </math>
+   . Thus, from equation (11),
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{\tau}(x,\tau) = \Gamma(x,\tau) + k \int_0^{\tau} \Gamma(x - x_f(u), \tau - u)
+   </math>
+   <math display="block">
+    \times \dot{x}_f(u) \, \mathrm{d}u \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which, upon evaluation on the early exercise boundary, provides the following nonlinear IE for
+   <math display="inline">
+    x_f(\tau)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Gamma(x_f(\tau), \tau) = -k \int_0^{\tau} \Gamma(x_f(\tau) - x_f(u), \tau - u)
+   </math>
+   <math display="block">
+    \times \dot{x}_f(u) \, du \tag{15}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   This equation has proved, in our experience, to be much more effective in the mathematical analysis of this problem than the versions obtainable from equations
+   <math display="inline">
+    (12)
+   </math>
+   and
+   <math display="inline">
+    (13)
+   </math>
+   . In addition, we have obtained still other versions, also derivable from the representation
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    (11)
+   </math>
+   , whose particular forms have proven useful in various situations
+   <math display="inline">
+    [5]
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^{\tau} \{\Gamma_x(x_f(\tau), u) + k\Gamma(x_f(\tau), u)\} du
+   </math>
+   <br/>
+   =
+   <math>
+    k \int_0^{\tau} \Gamma(x_f(\tau) - x_f(u), \tau - u) du
+   </math>
+   (16)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Gamma(x_f(\tau), \tau) = \frac{k}{2} + k \int_0^\tau \{ \Gamma(x_f(\tau) - x_f(u), \tau - u) - \Gamma_x(x_f(\tau) - x_f(u), \tau - u) \} du
+   </math>
+   (17)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \dot{x}_f(\tau) = \frac{-2\Gamma_x(x_f(\tau), \tau)}{k}
+   </math>
+   <math display="block">
+    + 2\int_0^t \Gamma_x(x_f(\tau) - x_f(u), \tau - u)
+   </math>
+   <math display="block">
+    \times \dot{x}_f(u) \, \mathrm{d}u \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Using the representation (11) to compute
+   <math display="inline">
+    p_x
+   </math>
+   ,
+   <math display="inline">
+    p_{xx}
+   </math>
+   and
+   <math display="inline">
+    p_{x\tau}
+   </math>
+   , the above IEs for
+   <math display="inline">
+    x_f(\tau)
+   </math>
+   follow (after some rearrangement of terms) by evaluation on the boundary.
+  </p>
+  <p block-type="TextInlineMath">
+   The underlying theoretical rationale for using this IE approach to treat the original FBPs
+   <math display="inline">
+    (1)
+   </math>
+   –
+   <math display="inline">
+    (5)
+   </math>
+   or
+   <math display="inline">
+    (7)
+   </math>
+   , (8), is summarized in the following result.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   (Theorem 3.2 and Sections 4, 5, 6 of [5]). Suppose that
+   <math display="inline">
+    x_f \in C^1((0,\infty)) \cap C^0([0,\infty))
+   </math>
+   and
+   <math display="inline">
+    \alpha(\tau) = x_f(\tau)^2/4\tau
+   </math>
+   . Assume that as
+   <math display="inline">
+    \tau \searrow 0
+   </math>
+   ,
+   <math display="inline">
+    \alpha(\tau) =
+   </math>
+   <math display="inline">
+    [-1+0(1)]\ln\sqrt{\tau}
+   </math>
+   , and
+   <math display="inline">
+    \tau\dot{\alpha}(\tau)=0(1)
+   </math>
+   . Then
+   <math display="inline">
+    x_f
+   </math>
+   , together with
+   <math display="inline">
+    p
+   </math>
+   defined by equation (11), solves the (equivalent) FBPs
+   <math display="inline">
+    (1-5)
+   </math>
+   or
+   <math display="inline">
+    (7, 8)
+   </math>
+   , if and only if
+   <math display="inline">
+    x_f
+   </math>
+   satisfies any of the equivalent integro-differential equations (IODEs)
+   <math display="inline">
+    (15-18)
+   </math>
+   . Finally, equation (18) has a unique solution with the properties listed above.
+  </p>
+  <p block-type="Text">
+   The equivalence of the IODEs
+   <math display="inline">
+    (15-18)
+   </math>
+   is established in Lemma 3.1 of [6] and the required estimates on
+   <math display="inline">
+    \alpha
+   </math>
+   are rigorously derived from equation
+   <math display="inline">
+    (15)
+   </math>
+   . The proof that equation
+   <math display="inline">
+    (18)
+   </math>
+   has a solution with the required properties is a highly technical analysis [6] based on Schauder's fixed point theorem. Peskir [18] used the IE obtained from equation
+   <math display="inline">
+    (11)
+   </math>
+   with equation (12), along with local time-space arguments, to prove uniqueness in the class of continuous boundaries.
+  </p>
+  <p block-type="TextInlineMath">
+   Analytical and numerical estimates for the location of the early exercise boundary, that might be useful to practitioners, can also be obtained from the IODEs
+   <math display="inline">
+    (15-18)
+   </math>
+   . For example, if we make the change of variables
+   <math display="inline">
+    \eta = (x_f(\tau) - x_f(u))/2\sqrt{\tau - u}
+   </math>
+   in equation (15), the rhs for small
+   <math display="inline">
+    \tau
+   </math>
+   (near expiry) behaves like
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -k\int_0^{\alpha(\tau)} \left[1 - \frac{x_f(\tau) - x_f(u)}{2\dot{x}_f(u)(\tau - u)}\right]^{-1} \frac{e^{-\eta^2}}{\sqrt{\pi}} d\eta \quad (19)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which tends to k because
+   <math display="inline">
+    \alpha(\tau) \rightarrow -\infty
+   </math>
+   (from the above theorem) and
+   <math display="inline">
+    [\cdots]^{-1} \rightarrow 1/2
+   </math>
+   uniformly in u because of the convexity of
+   <math display="inline">
+    x_f
+   </math>
+   (proved separately in [6] using the method of Friedman and Jensen [12]); an independent proof of convexity was obtained by Ekstrom [9]. Thus, from equation (15) with small
+   <math display="inline">
+    \tau
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Gamma(x_f(\tau), \tau) = \frac{e^{-k\tau}}{2\sqrt{\pi\tau}} e^{-(x_f(\tau) + (k-1)\tau)^2/4\tau} \cong
+   </math>
+   <math display="block">
+    = \frac{e^{-x_f(\tau)^2/4\tau}}{2\sqrt{\pi}} \cong k \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   which leads to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x_f(\tau) \approx 2\sqrt{\tau} \sqrt{-\ln(4\pi k^2 \tau)^{1/2}} \text{ as } \tau \to 0 \quad (21)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This implies the first rigorous estimate for the near-expiry behavior of the early exercise boundary obtained by Barles et al. [2]
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_f(t) \simeq k \bigg[ 1 - \sigma \sqrt{-(T-t)\ln(T-t)} \bigg], t \sim T \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   In addition, it provides the first estimate for
+   <math display="inline">
+    \alpha(\tau)
+   </math>
+   in the above existence theorem. Specifically,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha(\tau) = x_f(\tau)^2 4\tau \approx -\ln(4\pi k^2 \tau)^{1/2} = -\frac{\xi}{2} \quad (23)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \xi = \ln(4\pi k^2 \tau)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   More precise analytical and numerical estimates can be obtained for
+   <math display="inline">
+    \alpha(\tau)
+   </math>
+   (equivalently
+   <math display="inline">
+    x_f(\tau)
+   </math>
+   and
+   <math display="inline">
+    S_{f}(t)
+   </math>
+   , valid for intermediate and large times as well
+   <math display="inline">
+    [5]
+   </math>
+   , by using Mathematica to iterate equation (23) through equation (15). Perhaps even more importantly, a very fast, accurate numerical scheme can be obtained from the IODE (18), which can be written in the equivalent form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \dot{x}_f(\tau) = \frac{x_f(\tau)}{2k\tau} \Gamma(x_f(\tau), \tau) [1 + m(\tau)] \qquad (24)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    m(\tau) = k \int_0^{\tau} \left[ \frac{2\tau}{x_f(\tau)} \left( \frac{x_f(\tau) - x_f(u)}{\tau - u} \right) - 1 \right] \times \frac{\Gamma(x_f(\tau) - x_f(u), \tau - u)}{\Gamma(x_f(\tau), \tau)} \dot{x}_f(u) \, \mathrm{d}u \tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   that is to be solved with initial data
+   <math display="inline">
+    x_f(0) = 0
+   </math>
+   . Solving this iteratively with
+   <math display="inline">
+    m(\tau) = m_0(\tau) \equiv 0
+   </math>
+   initially provides the fastest and most accurate approximation among all our estimates [5].
+  </p>
+  <p block-type="TextInlineMath">
+   The above IE formalism can be carried over to the American put with a continuous dividend rate,
+   <math display="inline">
+    d
+   </math>
+   . The analog of equations
+   <math display="inline">
+    (24)
+   </math>
+   and
+   <math display="inline">
+    (25)
+   </math>
+   was used to show numerically that for a small interval of dividend rates,
+   <math display="inline">
+    r &lt; d &lt; (1 + \epsilon)r
+   </math>
+   , the early exercise boundary loses convexity near maturity (see Figure 1). This agrees qualitatively with the folklore on this problem generally attributed to M. Broadie.
+  </p>
+  <h4>
+   Application of the IE Method to Other
+   <math display="inline">
+    FBPs
+   </math>
+  </h4>
+  <p block-type="Text">
+   In the previous section, we described how to formulate the American put FBP in terms of IODEs for the early exercise boundary and how to use this
+  </p>
+  <p>
+   <img src="_page_2_Figure_20.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Graph of the early exercise boundary,
+   <math display="inline">
+    S_f(t)
+   </math>
+   , near expiry for a dividend paying stock with
+   <math display="inline">
+    r = 0.05, d = 0.51, K = 100, T = 0.1
+   </math>
+   . A numerical scheme based on the analog of equation (26) was used with
+   <math display="inline">
+    x_f(0) = ln(r/d)
+   </math>
+   and the first time step computed from the well- known
+   <math display="inline">
+    \sqrt{T-t}
+   </math>
+   behavior near expiry
+  </p>
+  <p block-type="Text">
+   formulation to establish theoretical results (existence, uniqueness) as well as analytical and numerical estimates for the original problem. In this section, we indicate the wider applicability of the method by briefly discussing several other problems arising from finance.
+  </p>
+  <h4>
+   Jump-diffusion Processes
+  </h4>
+  <p block-type="TextInlineMath">
+   These IE methods can be extended to jump-diffusion models (see Lévy Processes; Poisson Process). Specifically, letting
+   <math display="inline">
+    x = ln(S/K)
+   </math>
+   , we now assume that the transformed asset price follows the process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X(t) = (\mu - \sigma^2/2)t + \sigma W(t) + N(t) \qquad (26)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    N(t)
+   </math>
+   is a Poisson process with rate
+   <math display="inline">
+    \lambda t
+   </math>
+   and has jumps of size
+   <math display="inline">
+    \pm \epsilon
+   </math>
+   with equal probability. In this case, the transformed PDEs analogous to equations (7) and
+   <math display="inline">
+    (8)
+   </math>
+   are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}p = \mathcal{L}(1 - e^x)H(x_f(\tau) - x) \tag{27}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p(x, 0) = \max(1 - e^x, 0) \tag{28}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \mathcal{L}
+   </math>
+   is the nonlocal pdo
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}p = p_{\tau} - \{p_{xx} + (k-1)p_x - kp\}
+   </math>
+   <math display="block">
+    + \lambda \{p(x+\epsilon,\tau) - 2p + p(x-\epsilon,\tau)\}
+   </math>
+   (29)
+  </p>
+  <p block-type="Text">
+   This problem is amenable by the methods outlined above because the fundamental solution can be explicitly calculated. Specifically,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Gamma(x,\tau) = \sum_{u=0}^{\infty} \frac{(\lambda\tau)^n}{2^n n!} e^{-\lambda\tau}
+   </math>
+   <math display="block">
+    \times \left(\sum_{j=0}^n \binom{n}{j} \Gamma_{\text{BS}}((2j-u)\epsilon + x,\tau)\right)
+   </math>
+   (30)
+  </p>
+  <p block-type="Text" class="has-continuation">
+   where
+   <math display="inline">
+    \Gamma_{\text{BS}}
+   </math>
+   is the BSM fundamental solution in equation (10). Proceeding as in the section Free Boundary
+  </p>
+  <p block-type="Text">
+   Problems as Integral Equations, one obtains the ana-
+   <math display="inline">
+    \log
+   </math>
+   to equation (15) in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Gamma(x_f(\tau), \tau) = -\int_0^\tau [k + \lambda \{2 - e^{\epsilon} - e^{-\epsilon}\} e^{x_f(u)} \times \Gamma(x_f(\tau) - x_f(u), \tau - u) \cdot \times \dot{x}_f(u)] du + \lambda \int_0^\epsilon (1 - e^{y - \epsilon}) \times \Gamma(x_f(\tau) - y, \tau) dy \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   from which we obtain the near-expiry estimate for
+   <math display="inline">
+    \alpha(\tau) = x_f(\tau)^2/4\tau
+   </math>
+   (see analog (23) with no jumps)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sqrt{\tau}e^{\alpha} \approx 1/\sqrt{4\pi\tilde{k}^2} \text{ as } \tau \to 0
+   </math>
+   (32)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tilde{k} = k + \lambda (1 - e^{-\epsilon})
+   </math>
+   , agreeing with the result of Pham [19] using other methods.
+  </p>
+  <h4>
+   Interest Rate Processes
+  </h4>
+  <p block-type="Text">
+   These IE methods can also be used to study American style contracts on other underliers. For example, a mortgage prepayment option provides the holder with the right to prepay the outstanding balance of a fixedrate mortgage
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M(t) = \frac{m}{c}(1 - e^{-c(T-t)})
+   </math>
+   (33)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    T
+   </math>
+   is the maturity,
+   <math display="inline">
+    c
+   </math>
+   is the (continuous) fixed mortgage rate, and
+   <math display="inline">
+    m
+   </math>
+   is the (continuous) rate of payment of the mortgage (i.e.,
+   <math display="inline">
+    m
+   </math>
+   d
+   <math display="inline">
+    t
+   </math>
+   is the premium paid in any time interval
+   <math display="inline">
+    dt
+   </math>
+   ). Clearly, the value of the prepayment option depends on
+   <math display="inline">
+    M(t)
+   </math>
+   and also on the rate of return,
+   <math display="inline">
+    r(t)
+   </math>
+   , that the mortgage holder (borrower) can obtain by investing
+   <math display="inline">
+    M(t)
+   </math>
+   . If this shortterm rate is assumed to follow the Vasicek model (see
+   <b>
+    Term Structure Models)
+   </b>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr = (\eta - \theta r) dt + \sigma dW \tag{34}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   in a risk-neutral world, then the value of the prepayment option,
+   <math display="inline">
+    V(r, t)
+   </math>
+   , satisfies [13, 21]
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t + \frac{\sigma^2}{2} V_{rr} + (\eta - \theta r) V_r + m - rV
+   </math>
+   <br/>
+   = 0,
+   <math>
+    R(t) &lt; r &lt; \infty, 0 &lt; t &lt; T
+   </math>
+   (35)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(r, t) = M(t), r = R(t), 0 &lt; t &lt; T \t(36)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_r(r,t) = 0, \ r = R(t), \ 0 &lt; t &lt; T \tag{37}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(r, t) \to 0
+   </math>
+   , as
+   <math>
+    r \to \infty
+   </math>
+   ,
+   <math>
+    0 &lt; t &lt; T
+   </math>
+   (38)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(r,T) = 0, \ c = R(0) &lt; r &lt; \infty \tag{39}
+   </math>
+  </p>
+  <p block-type="Text">
+   The optimal strategy for the mortgage holder is to exercise the option to pay off the mortgage the first time that the rate r falls below
+   <math display="inline">
+    R(t)
+   </math>
+   at time t. Existence and uniqueness for this FBP was proved using variational methods [13].
+  </p>
+  <p block-type="TextInlineMath">
+   Because the fundamental solution for the Vasicek "bond pricing equation"—equation (35)—can be explicitly calculated, its form suggests a sequence of changes of dependent and independent variables (not relevant for this summary) that reduces the FBPs
+   <math display="inline">
+    (35-39)
+   </math>
+   to the following analog of equations (7) and (8) in
+   <math display="inline">
+    -\infty &lt; x &lt; \infty, s &gt; 1
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_s - \frac{1}{4}u_{xx} = f(x,s)H(x - x_f(s)) \qquad (40)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x,1) = 0 \tag{41}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    f(x, s)
+   </math>
+   is a specific function resulting from the transformations and
+   <math display="inline">
+    x_f(s)
+   </math>
+   is the transformed free boundary with
+   <math display="inline">
+    u(x_f(s), s) = 0 = u_x(x_f(s), s)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In this form, the procedure outlined in the previous section can be followed to obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x,s) = \int_1^s \left[ \int_{x_f(u)}^\infty \Gamma(x-y,s-u) f(y,u) \, \mathrm{d}y \right] \mathrm{d}u \tag{42}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Gamma
+   </math>
+   is the fundamental solution of the heat operator
+   <math display="inline">
+    \partial_s - \frac{1}{4} \partial_{xx}
+   </math>
+   , and the free boundary can be obtained by solving the IE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{1}^{s} \left[ \int_{x_{f}(u)}^{\infty} \Gamma(x_{f}(s) - y, s - u) f(y, u) \, \mathrm{d}y \right] \mathrm{d}u = 0 \tag{43}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In [21], Dejun Xie used the integral representations
+   <math display="inline">
+    (42)
+   </math>
+   and
+   <math display="inline">
+    (43)
+   </math>
+   to obtain near-expiry estimates for the critical rate as well as to obtain a numerical scheme to determine
+   <math display="inline">
+    x_f(s)
+   </math>
+   globally. Specifically, if
+   <math display="inline">
+    Q(x, s)
+   </math>
+   denotes the integral on the rhs of equation
+  </p>
+  <p block-type="TextInlineMath">
+   (42), he showed that the Newton-Raphson iterative scheme to solve equation (43),
+   <math display="inline">
+    Q(x_f(s), s) = 0
+   </math>
+   , can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x_f(s)^{\text{new}} = x_f(s)^{\text{old}} + \frac{Q(x_f(s)^{\text{old}}, s)}{2f(x_f(s)^{\text{old}}, s)}
+   </math>
+   (44)
+  </p>
+  <p block-type="Text">
+   where, in the denominator,
+   <math display="inline">
+    Q_x(x_f(s), s)
+   </math>
+   is approximated by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{2} \left\{ Q_x(x_f(s) + s) + Q_x(x_f(s) - s) \right\}
+   </math>
+   <math display="block">
+    = \frac{1}{2} u_{xx}(x_f(s), s) = -2f(x_f(s), s) \quad (45)
+   </math>
+  </p>
+  <h4>
+   Default Barrier Models
+  </h4>
+  <p block-type="Text">
+   As a final example, we outline how these methods can be used to obtain an IE formulation for the inverse first-crossing problem in a value-of-firm (structural) model for credit default (see Structural Default Risk
+   <b>
+    Models
+   </b>
+   ). Suppose the default index of a company,
+   <math display="inline">
+    X(t)
+   </math>
+   , is a Brownian motion with drift following
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX(t) = a dt + \sigma dW(t), \quad X(0) = x_0 \quad (46)
+   </math>
+  </p>
+  <p block-type="Text">
+   (equivalently, the log of such an index that originally satisfied a geometric Brownian motion). Default of the firm is said to occur the first time
+   <math display="inline">
+    \tau
+   </math>
+   that
+   <math display="inline">
+    X(t)
+   </math>
+   falls below a preassigned value,
+   <math display="inline">
+    b(t)
+   </math>
+   . The survival pdf,
+   <math display="inline">
+    u(x, t)
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x, t) dx = Pr[x &lt; x(t) &lt; x + dx|t &lt; \tau]
+   </math>
+  </p>
+  <p block-type="Text">
+   is known to satisfy the following problem for the forward Kolmogorov equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_t = \frac{\sigma^2}{2} u_{xx} - au_x, b(t) &lt; x &lt; \infty, 0 &lt; t &lt; T
+   </math>
+   (47)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x,t) = 0, \ x = b(t), 0 &lt; t &lt; T \tag{48}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x, t) \to 0 \ x \to \infty, 0 &lt; t &lt; T \tag{49}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x,0) = \delta(x - x_0), b(0) &lt; x &lt; \infty \tag{50}
+   </math>
+  </p>
+  <p block-type="Text">
+   and the resulting survival probability is given, in terms of the solution
+   <i>
+    u(x, t)
+   </i>
+   , by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Pr(\tau &gt; t) = P(t) = \int_{b(t)}^{\infty} u(x, t) \, \mathrm{d}x \tag{51}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Motivated by the work of Avellaneda and Zhu [1], Lan Cheng, studied the inverse first-crossing problem [7]: given the survival probability
+   <i>
+    P (t)
+   </i>
+   for 0
+   <i>
+    &lt;t&lt; T
+   </i>
+   , find the time-dependent absorbing boundary
+   <i>
+    b(t)
+   </i>
+   in equation (48), including
+   <i>
+    b(
+   </i>
+   0
+   <i>
+    )
+   </i>
+   , such that equations (47)– (51) are satisfied. The more usual extra Neumann boundary condition appearing in FBPs can be obtained by differentiating equation (51):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P'(t) = -u(b(t), t)b'(t) + \int_{b(t)}^{\infty} u_t(x, t) dx
+   </math>
+   <br/>
+   =
+   <math>
+    \frac{-\sigma^2}{2} u_x(b(t), t)
+   </math>
+   (52)
+  </p>
+  <p block-type="TextInlineMath">
+   using the PDE (47) and the boundary conditions. With −
+   <i>
+    P (t)
+   </i>
+   =
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    P (t))
+   </i>
+   =
+   <i>
+    Q (t)
+   </i>
+   =
+   <i>
+    q(t)
+   </i>
+   denoting the default pdf, the extra boundary condition becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_x(x,t) = \frac{2}{\sigma^2}q(t), x = b(t), 0 &lt; t &lt; T \qquad (53)
+   </math>
+  </p>
+  <p block-type="Text">
+   Following the outline in the section Free Boundary Problems as Integral Equations, one can derive IEs for
+   <i>
+    b(t)
+   </i>
+   in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Gamma(b(t),t) = \int_0^t \Gamma(b(t) - b(s), t - s)q(s) \, \mathrm{d}s
+   </math>
+   <math display="block">
+    \frac{1}{2}q(t) = \Gamma_x(b(t), t)
+   </math>
+   <math display="block">
+    -\int_0^t \Gamma_x(b(t) - b(s), t - s)q(s) \, \mathrm{d}s
+   </math>
+   (55)
+  </p>
+  <p block-type="Text">
+   where  is the fundamental solution of the pdo in equation (47). A fast and accurate numerical scheme for solving
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x, t) = \Gamma(x, t) - \int_0^t \Gamma(x - b(s), t - s)q(s) \, ds = 0
+   </math>
+   (56)
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <i>
+    x
+   </i>
+   =
+   <i>
+    b(t)
+   </i>
+   (i.e., solving equation (54)) is the Newton—Raphson iteration
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    b(t)^{\text{new}} = b(t)^{\text{old}} - \frac{F(b(t)^{\text{old}}, t)}{q(t)/2} \qquad (57)
+   </math>
+  </p>
+  <p block-type="Text">
+   where, in computing
+   <i>
+    Fx
+   </i>
+   in the denominator, we have used
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{2}q(t) = F_x(b(t), t) \simeq F_x(b(t)^{\text{old}}, t)
+   </math>
+   <math display="block">
+    = \simeq \Gamma_x(b(t)^{\text{old}}, t) - \int_0^t \Gamma_x(b(t)^{\text{old}} - b(s)^{\text{old}}, t - s)q(s) \, \text{d}s \tag{58}
+   </math>
+  </p>
+  <p block-type="Text">
+   Finally, we mention that an IEs formulation of the first passage problem for Brownian motion was given by Peskir [17] but the inverse problem described here was not treated. In [7], the proof of existence and uniqueness used viscosity solution methods. A proof using integral equations is still an open question for this problem as well as the two others listed in this section.
+  </p>
+  <h3>
+   <b>
+    Acknowledgments
+   </b>
+  </h3>
+  <p block-type="Text">
+   The author acknowledges support by NSF award DMS 0707953.
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Avellaneda, M. &amp; Zhu, J. (2001). Modeling the distanceto-default of a firm,
+     <i>
+      Risk
+     </i>
+     <b>
+      14
+     </b>
+     , 125–129.
+    </li>
+    <li block-type="ListItem">
+     [2] Barles, G., Burdeau, J., Romano, M. &amp; Samsoen, N. (1995). Critical stock price near expiration,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      5
+     </b>
+     , 77–95.
+    </li>
+    <li block-type="ListItem">
+     [3] Carr, P., Jarrow, J. &amp; Myneni, R. (1992). Alternative characterizations of American put option,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 87–105.
+    </li>
+    <li block-type="ListItem">
+     [4] Chen, X. &amp; Chadam, J. (2003). Analytical and numerical approximations for the early exercise boundary for American put options,
+     <i>
+      Continuous, Discrete and Impulsive Systems, Series A: Mathematical Analysis
+     </i>
+     <b>
+      10
+     </b>
+     , 649–660.
+    </li>
+    <li block-type="ListItem">
+     [5] Chen, X. &amp; Chadam, J. (2006). A mathematical analysis for the optimal exercise boundary of American put options,
+     <i>
+      SIAM Journal of Mathematical Analysis
+     </i>
+     <b>
+      38
+     </b>
+     , 1613–1641.
+    </li>
+    <li block-type="ListItem">
+     [6] Chen, X., Chadam, J., Jiang, L. &amp; Zheng, W. (2008). Convexity of the exercise boundary of the American put
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   option on a zero dividend asset,
+   <i>
+    Mathematical Finance
+   </i>
+   <b>
+    18
+   </b>
+   , 185–197.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [7] Cheng, L., Chen, X., Chadam, J. &amp; Saunders, D. (2006). Analysis of an inverse first passage problem from risk management,
+     <i>
+      SIAM Journal of Mathematical Analysis
+     </i>
+     <b>
+      38
+     </b>
+     , 845–873.
+    </li>
+    <li block-type="ListItem">
+     [8] Crandall, M., Iskii, H. &amp; Lions, P.L. (1992). User's guide to viscosity solutions of second order partial differential equations,
+     <i>
+      Bulletin of AMS
+     </i>
+     <b>
+      27
+     </b>
+     , 1–67.
+    </li>
+    <li block-type="ListItem">
+     [9] Ekstrom, E. (2004). Convexity of the optimal stopping time for the American put option,
+     <i>
+      Journal of Mathematical Analysis and Applications
+     </i>
+     <b>
+      299
+     </b>
+     , 147–156.
+    </li>
+    <li block-type="ListItem">
+     [10] Friedman, A. (1964).
+     <i>
+      Partial Differential Equations of Parabolic Type
+     </i>
+     , Prentice Hall.
+    </li>
+    <li block-type="ListItem">
+     [11] Friedman, A. (1983).
+     <i>
+      Variational Principles and Free Boundary Problems Lems
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [12] Friedman, A. &amp; Jensen, R. (1978). Convexity of the free boundary in the Stefan problem and in the dam problem,
+     <i>
+      Archive for Rational Mechanics and Analysis
+     </i>
+     <b>
+      67
+     </b>
+     , 1–24.
+    </li>
+    <li block-type="ListItem">
+     [13] Jiang, L., Bian, B. &amp; Yi, F. (2005). A parabolic variational inequality arising from the valuation of fixed rate mortgages,
+     <i>
+      European Journal of Applied Mathematics
+     </i>
+     <b>
+      16
+     </b>
+     , 361–383.
+    </li>
+    <li block-type="ListItem">
+     [14] Leung, T. &amp; Sircar, R. (2009). Accounting for risk aversion, vesting, job termination risk and multiple exercises in valuation of employee stock options,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      19
+     </b>
+     , 99–128.
+    </li>
+    <li block-type="ListItem">
+     [15] McKean, H.P. Jr. (1965). A free boundary problem for the heat equation arising from a problem of mathematical economics,
+     <i>
+      Industrial Management Review
+     </i>
+     <b>
+      6
+     </b>
+     , 32–39.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [16] Ockendon, J., Howison, S., Lacey, A. &amp; Movchan, A. (2003).
+     <i>
+      Applied Partial Differential Equations
+     </i>
+     , Oxford University Press.
+    </li>
+    <li block-type="ListItem">
+     [17] Peskir, G. (2002). On integral equations arising in the first-passage problem for Brownian motion,
+     <i>
+      The Journal of Integral Equations and Applications
+     </i>
+     <b>
+      14
+     </b>
+     , 397–423.
+    </li>
+    <li block-type="ListItem">
+     [18] Peskir, G. (2005). On the American option problem,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      15
+     </b>
+     , 169–181.
+    </li>
+    <li block-type="ListItem">
+     [19] Pham, H. (1997). Optimal stopping, free boundary and American option in a jump-diffusion model,
+     <i>
+      Applied Mathematics Optimization
+     </i>
+     <b>
+      35
+     </b>
+     , 145–164.
+    </li>
+    <li block-type="ListItem">
+     [20] Sirbu, M. &amp; Shreve, S. (2006). A two-person game for pricing convertible bonds,
+     <i>
+      SIAM Journal of Control and Optimization
+     </i>
+     <b>
+      45
+     </b>
+     , 1508–1639.
+    </li>
+    <li block-type="ListItem">
+     [21] Xie, D., Chen, X. &amp; Chadam, J. (2007). Optimal prepayment of mortgages,
+     <i>
+      European Journal of Applied Mathematics
+     </i>
+     <b>
+      18
+     </b>
+     , 363–388.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   <b>
+    American Options
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Early Exercise Options
+   </b>
+   ;
+   <b>
+    Structural Default Risk Models
+   </b>
+   ;
+   <b>
+    Term Structure Models
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   JOHN CHADAM
+  </p>
+ </body>
+</html>

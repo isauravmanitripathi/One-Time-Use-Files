@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Stochastic Volatility Interest Rate Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   Stochastic volatility has been widely used to model implied volatility smiles for European caps and swaptions. We discuss models of the yield curve that incorporate stochastic volatility, defined as randomness in the volatility of the bond prices that is not spanned by movements in the yield curve. We argue that it is difficult to specify short rate models that exhibit unspanned stochastic volatility and that a more natural choice for construction of stochastic volatility models is the Heath, Jarrow, and Morton (HJM) or Libor Market Model framework. We then consider the specification of stochastic volatility interest rate models and survey some of the stochastic volatility models found in the literature.
+  </p>
+  <h2>
+   <b>
+    "Unspanned" Stochastic Volatility
+   </b>
+  </h2>
+  <p block-type="Text">
+   S
+   <i>
+    tochastic volatility
+   </i>
+   interest-rate models are models that prescribe moves in the volatility of rates that cannot directly be inferred from the shape or the level of the yield curve. Let
+   <i>
+    P (t, T )
+   </i>
+   be the time
+   <i>
+    t
+   </i>
+   price of a zero-coupon bond maturing at time
+   <i>
+    T
+   </i>
+   and let the time
+   <i>
+    t
+   </i>
+   continuously compounded forward rate for deposit over the interval [
+   <i>
+    T,T
+   </i>
+   +
+   <i>
+    dT
+   </i>
+   ] be given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t,T) = -\frac{\partial \ln P(t,T)}{\partial T}, t \le T \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   Assume that interest rates evolve continuously. As shown by Heath
+   <i>
+    et al.
+   </i>
+   [9], absence of arbitrage implies that the forward rates have to evolve according to (
+   <i>
+    see
+   </i>
+   <b>
+    Heath–Jarrow–Morton Approach
+   </b>
+   for the HJM model)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    df(t,T) = \sigma(t,T) \cdot \left(\int_t^T \sigma(t,s) \, ds\right) dt
+   </math>
+   <br/>
+   +
+   <math>
+    \sigma(t,T) \cdot dW(t)
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    W
+   </i>
+   is a vector Brownian motion under the risk-neutral measure, and {
+   <i>
+    σ (t, T )
+   </i>
+   }
+   <i>
+    t
+   </i>
+   ≤
+   <i>
+    <sup>
+     T
+    </sup>
+   </i>
+   some family of vector processes.
+  </p>
+  <p block-type="Text">
+   A "true" stochastic volatility model has the property that there exists some stochastic process
+   <i>
+    z
+   </i>
+   and at least one maturity
+   <i>
+    U
+   </i>
+   , so that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial \sigma(t, U)}{\partial z(t)} \neq 0 \tag{3a}
+   </math>
+  </p>
+  <p block-type="Text">
+   <i>
+    and
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f(t,T)}{\partial z(t)} = 0 \tag{3b}
+   </math>
+  </p>
+  <p block-type="Text">
+   for all
+   <i>
+    T
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   In other words, "true" or "unspanned" stochastic volatility is when there is uncertainty in the volatility of the rates, which cannot be fully hedged by taking positions in bonds. There is considerable empirical evidence of unspanned stochastic volatility in interest rates and interest rate options markets (see, e.g., Casassus
+   <i>
+    et al.
+   </i>
+   [5]).
+  </p>
+  <p block-type="Text">
+   It is very difficult to specify a traditional shortrate model that can be categorized as a true stochastic volatility model. This is so because stochastic shortrate volatility will tend to show up as a second factor that the bond prices will depend on. Consider, for example, the model by Fong and Vasicek [7]:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr(t) = \kappa(\theta - r(t)) dt + \sqrt{v(t)} dW_1(t)
+   </math>
+   <br/>
+   <math display="block">
+    dv(t) = \beta(\alpha - v(t)) dt + \varepsilon \sqrt{v(t)} dW_2(t) \quad (4)
+   </math>
+   <br/>
+   <math display="block">
+    dW_1(t) \cdot dW_2(t) = \rho dt
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    κ, θ , β, α, ε, ρ
+   </i>
+   are constants, and
+   <i>
+    W
+   </i>
+   <sup>
+    1
+   </sup>
+   and
+   <i>
+    W
+   </i>
+   <sup>
+    2
+   </sup>
+   Brownian motions under the risk-neutral measure. In this model, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t,T) = E_t \left[ e^{-\int_t^T r(u) du} \right]
+   </math>
+   <br/>
+   =
+   <math>
+    E \left[ e^{-\int_t^T r(u) du} |r(t), v(t) \right]
+   </math>
+   (5)
+   <br/>
+   <math>
+    \equiv P(t,T; r(t), v(t))
+   </math>
+  </p>
+  <p block-type="Text">
+   So the bond price becomes a function of two stochastic variables. Hence, we can invert the system and infer the level of both the short rate and the short rate volatility from any two points on the yield curve. Thus, the model is not a true stochastic volatility model. This is also the case for the Longstaff and Schwartz [13] model and other early attempts to produce stochastic volatility yield curve model.
+  </p>
+  <p block-type="Text">
+   In fact, it is also the case for attempts to formulate a stochastic volatility yield curve model in the context of the Markov functional approach by Hunt
+   <i>
+    et al.
+   </i>
+   [12] (
+   <i>
+    see
+   </i>
+   <b>
+    Markov Functional Models
+   </b>
+   for the Markov functional models).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   So, as observed by Andreasen
+   <i>
+    et al.
+   </i>
+   [4], the most straightforward way of formulating a stochastic volatility yield curve model is to directly use the
+  </p>
+  <p block-type="TextInlineMath">
+   HJM approach, or equivalently the Libor market model approach, and directly specify the stochastic nature of the bond or forward rate volatility structure (see LIBOR Market Model for the Libor market model). In the HJM modeling approach, we see that it is easy to specify a volatility structure satisfying equation (3a,b). We could, for example, set
+   <math display="inline">
+    \sigma(t, T)
+   </math>
+   =
+   <math display="inline">
+    c \cdot \sqrt{z(t)}
+   </math>
+   for some constant c and some Markov process
+   <math display="inline">
+    z
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Intuitively, if the volatility is nondeterministic, then the minimal number of state variables in a HJM model is two, so with the addition of stochastic volatility the number of state variables in a "true" stochastic volatility HJM model is at least three. In fact, Dufresne and Goldstein [6] provide a partial differential equation (PDE)-based argument to justify that the minimal number of state variables for a "true" stochastic volatility interest rate model is three.
+  </p>
+  <h4>
+   <b>
+    Model Specifications
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   In the following, we present some examples of stochastic volatility interest-rate models. A Libor market model is based on a discrete time grid
+   <math display="inline">
+    0 =
+   </math>
+   <math display="inline">
+    t_0 &lt; t_1 &lt; \dots
+   </math>
+   Let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_k(t) = \frac{1}{t_{k+1} - t_k} \left( \frac{P(t, t_k)}{P(t, t_{k+1})} - 1 \right) \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   be the forward Libor rate over the period
+   <math display="inline">
+    [t_k, t_{k+1}]
+   </math>
+   . Under absence of arbitrage, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}L_{k}(t) = \vartheta_{k}(t) \cdot \sum_{j=i+1}^{k} \frac{\delta_{j} \vartheta_{j}(t)}{1 + \delta_{j} L_{j}(t)} \,\mathrm{d}t
+   </math>
+   <math display="block">
+    + \vartheta_{k}(t) \cdot \mathrm{d}\widetilde{W}(t), t_{i-1} \le t &lt; t_{i} \qquad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for a discrete set of vector processes
+   <math display="inline">
+    \{\vartheta_k(t)\}_{t \leq t_k}
+   </math>
+   and
+   <math display="inline">
+    \widetilde{W}
+   </math>
+   being a vector Brownian motion under the martingale measure with
+   <math display="inline">
+    B(t) = \left(\prod_{j=0}^{n-1} P(t_j, t_{j+1})\right)
+   </math>
+   <math display="inline">
+    \times P(t, t_{n+1}), t_n \le t &lt; t_{n+1}
+   </math>
+   as numeraire.
+  </p>
+  <p block-type="TextInlineMath">
+   Andersen and Brotherton-Ratcliffe [3] consider an uncorrelated stochastic volatility extended constant elasticity of variance (CEV) Libor market model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \|\vartheta_k(t)\| &amp;= \sqrt{z(t)}\lambda_k(t)L_k(t)^{\beta} \\ \mathrm{d}z(t) &amp;= \theta(1-z(t))\,\mathrm{d}t + \varepsilon\sqrt{z(t)}\,\mathrm{d}Z(t) \\ \mathrm{d}L_k(t) \cdot \mathrm{d}z(t) &amp;= 0 \end{aligned} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where Z is a Brownian motion,
+   <math display="inline">
+    \lambda_k
+   </math>
+   is a timedependent function, and
+   <math display="inline">
+    \theta
+   </math>
+   ,
+   <math display="inline">
+    \varepsilon
+   </math>
+   are constants. Andersen and Brotherton-Ratcliffe suggest asymptotic expansions for solving for European swaption prices based on approximation of the swap rate dynamics.
+  </p>
+  <p block-type="Text">
+   Piterbarg [16] replaces the CEV assumption for the forward rate volatility with a linear one:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \|\vartheta_k(t)\| &amp;= \sqrt{z(t)}\lambda_k(t)[\beta_k(t)L_k(t) \\ &amp;+ (1 - \beta_k(t))L_k(0)] \\ \mathrm{d}z(t) &amp;= \theta(1 - z(t))\,\mathrm{d}t + \varepsilon\sqrt{z(t)}\,\mathrm{d}Z(t) \\ \mathrm{d}L_k(t) \cdot \mathrm{d}z(t) &amp;= 0 \end{aligned} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   Piterbarg shows that using time- and tenordependent skew coefficients
+   <math display="inline">
+    (\beta_k(t))
+   </math>
+   improves the simultaneous fit to implied cap and swaption skews and smiles. Piterbarg solves for European swaption prices using Markovian projection techniques applied to the process for the swap rate.
+  </p>
+  <p block-type="Text">
+   Andersen and Andreasen [2] present a one-factor Markov HJM model with uncorrelated stochastic volatility:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t,T) = \frac{P(0,T)}{P(0,t)} e^{-G(t,T)x(t) - \frac{1}{2}G(t,T)^2 y(t)}
+   </math>
+   <math display="block">
+    G(t,T) = \frac{1 - e^{-\kappa(T-t)}}{\kappa}
+   </math>
+   <math display="block">
+    dx(t) = (-\kappa x(t) + y(t)) dt + \eta(t) dW(t)
+   </math>
+   <math display="block">
+    dy(t) = (\eta(t)^2 - 2\kappa y(t)) dt
+   </math>
+   <math display="block">
+    \eta(t) = \lambda(t) \sqrt{z(t)} [\beta R(t,s,T) + (1-\beta)R(0,s,T)]
+   </math>
+   <math display="block">
+    dz(t) = \theta(1-z(t)) dt + \varepsilon \sqrt{z(t)} dZ(t)
+   </math>
+   <math display="block">
+    dW(t) \cdot dZ(t) = 0 \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    W, Z
+   </math>
+   are Brownian motions under the riskneutral measure and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t,s,T) = -\frac{1}{T-s} \ln \frac{P(t,T)}{P(t,s)}
+   </math>
+   (11)
+  </p>
+  <p block-type="Text">
+   is a continuously compounded zero-coupon forward rate that is linked to the choice of calibration instruments. Piterbarg's Markovian projection techniques are used for calibration of the model. Owing to the limited number of state variables (equation 3), the model allows for finite difference solution and efficient simulations.
+  </p>
+  <p block-type="Text">
+   Andreasen [1] presents a multifactor Markov HJM model that extends equation
+   <math display="inline">
+    (10)
+   </math>
+   and allows for time- and tenor-dependent skew as in equation (9). For a selected set of (continuously compounded) forward rates with tenors, the dynamics are similar to the forward rate dynamics in equation
+   <math display="inline">
+    (9)
+   </math>
+   (see also Markovian Term Structure Models).
+  </p>
+  <p block-type="Text">
+   The models discussed so far are all based on zero correlation between the interest rates and the stochastic volatility process. The reason for this choice is mainly technical: if it were not the case, then the stochastic volatility process would be different for different annuity measures (see Forward and Swap Measures) and it would often include complicated terms in its drift. This would, in turn, make approximation of the swaption prices and thereby calibration more complicated.
+  </p>
+  <p block-type="Text">
+   The reason for the choice of square-root process for the stochastic volatility is also tractability. The square-root process admits computation of exponential moments in closed form and this can either be used for approximation of at-the-money option prices as in Piterbarg [16] or for direct computation of option prices via numerical inversion of Fourier transforms. An example of the latter is the model in equation (10) with level independent but correlated volatility:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \eta(t) = \lambda(t)\sqrt{z(t)}
+   </math>
+   <br/>
+   dW(t) \cdot dZ(t) = \rho(t) dt (12)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \rho
+   </math>
+   is a time-dependent function. For this model, the processes for the maturity
+   <math display="inline">
+    U
+   </math>
+   forward bond price
+   <math display="inline">
+    P(t, U)/P(t, T)
+   </math>
+   and the stochastic volatility factor, z, are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}(P(t,U)/P(t,T))}{(P(t,U)/P(t,T))} = \lambda(t)\sqrt{z(t)}(G(t,T))
+   </math>
+   <math display="block">
+    -G(t,U)\,\mathrm{d}W^{T}(t)
+   </math>
+   <math display="block">
+    \mathrm{d}z(t) = \theta(1-z(t))\,\mathrm{d}t + \varepsilon\sqrt{z(t)}\,\mathrm{d}Z^{T}(t)
+   </math>
+   <math display="block">
+    -\rho\varepsilon z(t)\lambda(t)G(t,T)\,\mathrm{d}t \quad (13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    W^T
+   </math>
+   ,
+   <math display="inline">
+    Z^T
+   </math>
+   are correlated Brownian motions under the maturity
+   <math display="inline">
+    T
+   </math>
+   forward measure. So, essentially, the processes in equation
+   <math display="inline">
+    (13)
+   </math>
+   are similar to the single-asset stochastic volatility model of Heston [11] but with time-dependent parameters. So, as shown by Dufresne and Goldstein [6], this means that the prices of caplets and options on zero-coupon bonds can be
+  </p>
+  <p block-type="Text">
+   found by numerical inversion of Fourier transforms in the same way as for the Heston model. Swaption prices can, in turn, be found by approximating swaptions as options on zero-coupon bonds by duration matching as suggested by Munk [14].
+  </p>
+  <p block-type="Text">
+   As an alternative to the square-root process for the stochastic volatility, Rebonato [15] and Henry-Labordere [10] consider the SABR-based stochastic volatility Libor market models with correlated stochastic volatility of the form (see [8] for the SABR model).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}L_k(t) &amp;= z\lambda_k(t)L_k(t)^{\beta_k}\,\mathrm{d}W_k(t) + O(\,\mathrm{d}t),\\ k &amp;= 1,\dots,n\\ \mathrm{d}z(t) &amp;= vz(t)\,\mathrm{d}W_{n+1}(t) \end{aligned} \tag{14}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}W_i(t)\cdot\mathrm{d}W_j(t)=\rho_{ij}(t)\,\mathrm{d}t,
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    i, j = 1, \ldots, n + 1
+   </math>
+  </p>
+  <p block-type="Text">
+   where v is a constant and
+   <math display="inline">
+    \{\rho_{ii}(t)\}\
+   </math>
+   is time dependent. Henry-Labordere provides asymptotic expansion results for the prices of caplets and swaptions based on hyperbolic geometry methods.
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Andreasen, J. (2005). Back to the future, Risk 18(9),
+     <math display="inline">
+      72 - 78
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Andersen, L. &amp; Andreasen, J. (2002). Volatile volatili-[2] ties, Risk 15(12), 65-71.
+    </li>
+    <li block-type="ListItem">
+     Andersen, L. &amp; Brotherton-Ratcliffe, R. (2005). [3] Extended libor market models with stochastic volatility,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      9
+     </b>
+     , 1–40.
+    </li>
+    <li block-type="ListItem">
+     [4] Andreasen, J., Dufresne, P. &amp; Shi, W. (1994). An arbitrage term Structure model of interest rates with stochastic volatility.
+    </li>
+    <li block-type="ListItem">
+     Casassus, J., Dufresne, P. &amp; Goldstein, R. (2005). [5] Unspanned stochastic volatility and fixed income derivatives pricing, Journal of Banking and Finance 29, 2723-2749.
+    </li>
+    <li block-type="ListItem">
+     [6] Dufresne, P. &amp; Goldstein, R. (2002). Do bonds span the fixed income markets? Theory and evidence for unspanned stochastic volatility, Journal of Finance 57,
+     <math display="inline">
+      1685 - 1730.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Fong, H. &amp; Vasicek, O. (1991). Fixed income volatility [7] management, The Journal of Portfolio Management,
+     <math display="inline">
+      41 - 46
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Hagan, P., Kumar, D., Lesniewski, A. &amp; Woodward, D. [8] (2002). Managing smile risk, Wilmott Magazine 2(7),
+     <math display="inline">
+      84 - 108.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Heath, D., Jarrow, R. &amp; Morton, A. (1992). Bond pricing [9] and the term structure of interest rates: a new methodology for contingent claims valuation,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      60
+     </b>
+     , 77-106.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    4 Stochastic Volatility Interest Rate Models
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [10] Henry-Labordere, P. (2007). Combining the SABR and LMM models,
+     <i>
+      Risk
+     </i>
+     <b>
+      20
+     </b>
+     (10), 102–107.
+    </li>
+    <li block-type="ListItem">
+     [11] Heston, S. (1993). A closed-form solution for options with stochastic volatility with applications to bond and currency options,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      6
+     </b>
+     , 327–344.
+    </li>
+    <li block-type="ListItem">
+     [12] Hunt, P., Kennedy, J. &amp; Pelsser, A. (1998). Fit and run,
+     <i>
+      Risk
+     </i>
+     <b>
+      10
+     </b>
+     (11), 65–67.
+    </li>
+    <li block-type="ListItem">
+     [13] Longstaff, F. &amp; Schwartz, E. (1992). Interest rate volatility and the term structure: a two-factor general equilibrium model,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      47
+     </b>
+     , 1259–1282.
+    </li>
+    <li block-type="ListItem">
+     [14] Munk, C. (1999). Stochastic duration and fast coupon bond option pricing in multi-factor models,
+     <i>
+      Review of Derivatives Research
+     </i>
+     <b>
+      3
+     </b>
+     , 157–181.
+    </li>
+    <li block-type="ListItem">
+     [15] Rebonato, R. (2001). The stochastic volatility LIBOR market model,
+     <i>
+      Risk
+     </i>
+     <b>
+      13
+     </b>
+     (10), 105–110.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   [16] Piterbarg, V. (2003).
+   <i>
+    A Stochastic Volatility Forward Libor Model with a Term Structure of Volatility Smiles
+   </i>
+   . Bank of America working paper. Available from http:// papers.ssrn.com/sol3/papers.cfm?abstract−id=472061.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Heath–Jarrow–Morton Approach
+   </b>
+   ;
+   <b>
+    Heston Model
+   </b>
+   ;
+   <b>
+    LIBOR Market Model
+   </b>
+   ;
+   <b>
+    Markovian Term Structure Models
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   JESPER ANDREASEN
+  </p>
+ </body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Credit Default Swaption
+   </b>
+  </h1>
+  <p block-type="Text">
+   Credit default swap (CDS) options, also known as single name credit default swaptions, allow an investor to buy protection on a reference name by entering a CDS (see Credit Default Swaps) at a previously set CDS spread. CDS options may knock out if the reference entity defaults before the exercise date. Usually, the buyer of protection will also receive the default payment in that case. Such a cash flow simply corresponds to the default leg of a CDS with maturity equal to the exercise date. We will thereafter assume cancellation of the contract if the underlying name defaults before the exercise date. We refer to Credit Default Swap Index Options for the extensions to the portfolio case.
+  </p>
+  <p block-type="TextInlineMath">
+   Denote the default time associated with the underlying name by
+   <math display="inline">
+    \tau
+   </math>
+   . This is usually the date of a credit event; we refer to ISDA master agreement for further details, given that this notion may vary through time and differ across geographical regions. For
+   <math display="inline">
+    t &lt; s
+   </math>
+   , we denote by
+   <math display="inline">
+    B(t, s)
+   </math>
+   the time t price of a defaultable discount bond, paying one at time
+   <math display="inline">
+    s
+   </math>
+   if
+   <math display="inline">
+    \tau &gt; s
+   </math>
+   and zero otherwise. Clearly,
+   <math display="inline">
+    B(t, s)
+   </math>
+   collapses to zero at the default of the underlying name if it occurs before
+   <math display="inline">
+    s
+   </math>
+   , since no payment will eventually be received by the discount bond holder.
+   <math display="inline">
+    T_1, \ldots, T_N
+   </math>
+   denote the payment dates on the premium leg of the underlying CDS. For simplicity, we will further neglect effects of accrued premiums.
+   <math display="inline">
+    T
+   </math>
+   is the exercise date of the European credit spread call option and
+   <math display="inline">
+    p
+   </math>
+   the strike. We can write the payoff at time
+   <math display="inline">
+    T
+   </math>
+   as
+   <math display="inline">
+    (p_T - p)^+ \sum_{T_k &gt; T} \tilde{B}(T, T_k)
+   </math>
+   .
+   <math display="inline">
+    p_T
+   </math>
+   is the CDS par spread at time
+   <math display="inline">
+    T
+   </math>
+   . There is also usually a multiplica-
+  </p>
+  <p block-type="Text">
+   tive adjustment to take into account the premium payment frequency, which is quarterly in most cases and which is not dealt with here for notational simplicity. For the same reason, we do not account for a possible up-front payment associated with the CDS, which is likely to be applied after the implementation of the "big bang" CDS protocol. That will result in some small adjustments to the payoff function and thus to the pricing formulas, which will be neglected thereafter. Clearly,
+   <math display="inline">
+    p_T
+   </math>
+   is not defined if the option has already cancelled out, that is, if
+   <math display="inline">
+    \tau &lt; T
+   </math>
+   , but the option payoff is equal to zero in that case.
+  </p>
+  <h2>
+   <b>
+    Pricing Approaches
+   </b>
+  </h2>
+  <p block-type="Text">
+   With some adaptations due to the cancellation feature of the CDS option, the pricing methodology parallels the well-known approaches in interest rate swaptions. One may consider a suitable distribution of the forward CDS spread under an appropriate riskneutral measure. This readily leads to a Black-type pricing formula and is dealt with first. In another approach, one can rather model the "instantaneous" CDS spread, which is related to the "intensity" of the default time.
+  </p>
+  <h3>
+   Black Formula for Credit Default Swap Options
+  </h3>
+  <p block-type="TextInlineMath">
+   As usual
+   <math display="inline">
+    r
+   </math>
+   denotes the default-free short rate and
+   <math display="inline">
+    Q
+   </math>
+   is the usual risk-neutral probability associated with the savings account. We consider
+   <math display="inline">
+    G = (G_t)
+   </math>
+   , a filtration such that
+   <math display="inline">
+    \tau
+   </math>
+   is a stopping time and r is an adapted process.
+  </p>
+  <p block-type="TextInlineMath">
+   The idea of using "survival measures" was introduced in
+   <math display="inline">
+    [9]
+   </math>
+   and further developed in
+   <math display="inline">
+    [4, 6, 7, 10]
+   </math>
+   , among others (see also Credit Default Swap Index
+   <b>
+    Options
+   </b>
+   ). We will denote by
+   <math display="inline">
+    \sum \tilde{B}(t, T_k)
+   </math>
+   the "risky level" which corresponds to the time
+   <math display="inline">
+    t
+   </math>
+   price of a unitary premium leg associated with the forward CDS starting at T. We consider the probability measure
+   <math display="inline">
+    \hat{O}
+   </math>
+   associated with the previous risky level numéraire (see also Change of Numeraire about change of numéraire techniques) defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\hat{Q}}{\mathrm{d}Q} = \frac{\sum_{T_k&gt;T} \tilde{B}(T, T_k)}{\sum_{T_k&gt;T} \tilde{B}(0, T_k)} \exp{-\int_0^T r(u) \,\mathrm{d}u} \qquad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let us remark that
+   <math display="inline">
+    \frac{\mathrm{d}\hat{Q}}{\mathrm{d}O} = 0
+   </math>
+   on the set
+   <math display="inline">
+    \{\tau \leq T\}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Thus
+   <math display="inline">
+    \hat{Q}
+   </math>
+   is absolutely continuous but not equivalent to
+   <math display="inline">
+    Q. \hat{Q}(\tau &gt; T) = 1
+   </math>
+   which leads to the terminology "survival measure". We can then readily express the value of the credit spread option at
+   <math display="inline">
+    t = 0
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(\sum_{T_k&gt;T}\tilde{B}(0,T_k)\right)E^{\hat{Q}}\left[(p_T-p)^+\right] \qquad (2)
+   </math>
+  </p>
+  <p block-type="Text">
+   We can get around the issue of the CDS premium
+   <math display="inline">
+    p_T
+   </math>
+   not being defined
+   <i>
+    after default
+   </i>
+   by considering
+   <math display="inline">
+    p_T 1_{\{\tau&gt;T\}}
+   </math>
+   , which we assume to be a random variable
+  </p>
+  <p block-type="TextInlineMath">
+   with respect to
+   <math display="inline">
+    G_T
+   </math>
+   . This does not change the computation in the previous equation since
+   <math display="inline">
+    \hat{Q}(\tau &gt; T) = 1
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Let us first remark that for the forward CDS to be priced normally, we must have
+   <math display="inline">
+    E^{Q}[p_{T}1_{\{\tau&gt;T\}}] = p_{0,T}
+   </math>
+   where
+   <math display="inline">
+    p_{0,T}
+   </math>
+   denotes the forward CDS premium. In the case where
+   <math display="inline">
+    p_T 1_{\{\tau&gt;T\}}
+   </math>
+   is lognormal under
+   <math display="inline">
+    \hat{Q}
+   </math>
+   , with volatility parameter
+   <math display="inline">
+    \sigma
+   </math>
+   , we readily get a Black formula for the price of the CDS option:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(\sum_{T_k&gt;T}\tilde{B}(0,T_k)\right)\times(p_{0,T}N(d_1)-pN(d_2))\quad(3)
+   </math>
+  </p>
+  <p block-type="Equation">
+   where
+   <math display="block">
+    d_1 = \frac{\ln\left(\frac{p_{0,T}}{p}\right) + \frac{\sigma^2}{2}T}{\sigma\sqrt{T}}
+   </math>
+   and
+   <math>
+    d_2 = d_1 - \sigma\sqrt{T}
+   </math>
+   .
+  </p>
+  <h4>
+   Intensity Approaches
+  </h4>
+  <p block-type="Text">
+   Another approach consists in specifying the intensity of the default time. This is the path followed in
+   <math display="inline">
+    [2-4]
+   </math>
+   . To circumvent the difficulty with default intensity dropping down to zero after default and the various mathematical issues related to enlargement of filtrations, the easiest way is to model the default time through a Cox process. We thus define the default time
+   <math display="inline">
+    \tau
+   </math>
+   associated with the underlying name as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau = \inf \left\{ t, \int_{0}^{t} \lambda(s) \, \mathrm{d}s \ge -\ln U \right\} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    \lambda
+   </math>
+   is a positive process adapted to some filtration
+   <math display="inline">
+    \Im = (\Im_t)
+   </math>
+   and U follows a standard uniform variable independent of
+   <math display="inline">
+    \Im
+   </math>
+   . For simplicity, we will further assume that
+   <math display="inline">
+    (\Im, Q)
+   </math>
+   is a Brownian filtration. Following [1] or [8], we define as
+   <math display="inline">
+    H = (H_t)
+   </math>
+   the filtration generated by the counting process
+   <math display="inline">
+    N_t = 1_{\{\tau &lt; t\}}
+   </math>
+   and we denote by
+   <math display="inline">
+    G_t = \mathfrak{F}_t \vee H_t
+   </math>
+   , the relevant information at time
+   <math display="inline">
+    t
+   </math>
+   , incorporating knowledge about occurrence of default prior to
+   <math display="inline">
+    t
+   </math>
+   and current and past values of financial variables such as interest rates or credit spreads of the reference entity (see Filtrations for mathematical details about filtrations in finance). Up to default time,
+   <math display="inline">
+    \lambda(t)
+   </math>
+   is the default intensity of
+   <math display="inline">
+    \tau
+   </math>
+   (we refer to
+   <b>
+    Point Processes
+   </b>
+   regarding point processes and to
+   <b>
+    Compensators
+   </b>
+   about compensators and intensities). While the default intensity drops to zero after
+   <math display="inline">
+    \tau
+   </math>
+   , we can remark that
+   <math display="inline">
+    \lambda(t)
+   </math>
+   is still well defined, thanks to the above Cox modeling framework. For instance, one can consider shifted Cox-Ingersoll-Ross (CIR) processes for the
+  </p>
+  <p block-type="Text">
+   short rate r and the pseudodefault intensity
+   <math display="inline">
+    \lambda
+   </math>
+   (see Cox-Ingersoll-Ross (CIR) Model).
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    p_{t,T}
+   </math>
+   will further denote the time t forward CDS premium. Though
+   <math display="inline">
+    p_{t,T}
+   </math>
+   has a financial meaning only on the set
+   <math display="inline">
+    \{\tau &gt; t\}
+   </math>
+   , its computation can be extended to the complete set of events in the previous Cox modeling framework (see [4] for further discussion).
+   <math display="inline">
+    p_{t,T}
+   </math>
+   solves for the following equation where, once again, we do not take into account accrued premium or up-front payments effects
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{t,T} \times \sum_{T_k &gt; T} E\left[\left(\exp - \int_t^{T_k} (r+\lambda)(u) \, \mathrm{d}u\right) | \Im_t\right]
+   </math>
+   <br/>
+   <math display="block">
+    = \int_T^{T_N} E\left[\left(\exp - \int_t^s (r+\lambda)(u) \, \mathrm{d}u\right) \times (1-\delta)\lambda(s) | \Im_t\right] \mathrm{d}s \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Prior to default, the left-hand term corresponds to the value at time
+   <math display="inline">
+    t
+   </math>
+   of the premium leg of the underlying forward default swap, while the righthand term is associated with the default leg. Clearly
+   <math display="inline">
+    p_{t,T}
+   </math>
+   is
+   <math display="inline">
+    \Im_t
+   </math>
+   -measurable and we can prove that it is both a
+   <math display="inline">
+    (\Im, \hat{Q})
+   </math>
+   and a
+   <math display="inline">
+    (G, \hat{Q})
+   </math>
+   martingale. Thus, the forward default swap premium shares the properties of a "true" price. It can be checked that
+   <math display="inline">
+    p_{T,T}
+   </math>
+   <math display="inline">
+    p_T
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Using an extended version of Girsanov theorem (see Equivalence of Probability Measures) for point processes (see Point Processes), it can be shown that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}p_{t,T}}{p_{t,T}} = \sigma \mathrm{d}\hat{W}_t \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \hat{W}
+   </math>
+   is a
+   <math display="inline">
+    (\Im, \hat{Q})
+   </math>
+   Brownian motion.
+  </p>
+  <p block-type="Text">
+   Let us also assume that there exists some specification of r and
+   <math display="inline">
+    \lambda
+   </math>
+   such that the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   is constant. Then, the forward CDS spread has a lognormal dynamics under
+   <math display="inline">
+    \hat{O}
+   </math>
+   . This readily leads to the already stated Black formula for the price of the CDS option. The most obvious advantage is the simplicity of the outcome. The drawbacks are also rather obvious. The lognormal assumption for the forward spreads is questionable since jumps are often included in the dynamics of
+   <math display="inline">
+    \lambda
+   </math>
+   as in the affine specification within
+   <math display="inline">
+    [5]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The intensity approach is easy to understand and is consistent across strikes, maturity of the option, and maturity of the CDS. However, it entails dealing with extra parameters and is numerically more involved. In the more general setting involving correlation between
+   <i>
+    r
+   </i>
+   and
+   <i>
+    λ
+   </i>
+   , Monte Carlo simulation is usually required. In special cases, such as deterministic default-free rates, analytical formulas can be derived. Fortunately enough, in most examples, the correlation parameter has little impact on option prices and analytical approximations of the implied volatility in the Black formula can be derived. Let us remark that in these approximations
+   <i>
+    σ
+   </i>
+   depends on the exercise date and the maturity of the underlying CDS.
+  </p>
+  <h1>
+   <b>
+    Acknowledgments
+   </b>
+  </h1>
+  <p block-type="Text">
+   The author thanks A. Cousin, L. Cousot, A. Godet and C. Pedersen and the editors for helpful remarks. The usual disclaimer applies.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bielecki, T.R. &amp; Rutkowski, M. (2002).
+     <i>
+      Credit Risk: Modeling, Valuation and Hedging
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [2] Brigo, D. &amp; Alfonsi, A. (2005). Credit default swap calibration and derivatives pricing with the SSRD stochastic intensity model,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      9
+     </b>
+     (1), 29–42.
+    </li>
+    <li block-type="ListItem">
+     [3] Brigo, D. &amp; Cousot, L. (2006). The stochastic intensity SSRD implied volatility patterns for credit default
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   swap options and the impact of correlation,
+   <i>
+    International Journal of Theoretical and Applied Finance
+   </i>
+   <b>
+    9
+   </b>
+   (3), 315–339.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [4] Brigo, D. &amp; Matteotti, C. (2005).
+     <i>
+      Candidate Market Models and the Calibrated CIR
+     </i>
+     ++
+     <i>
+      Stochastic Intensity Model for Credit Default Swap Options and Callable Floaters
+     </i>
+     . Working paper, Credit Models, Banca IMI.
+    </li>
+    <li block-type="ListItem">
+     [5] Duffie, D. &amp; Garleanu, N. (2001). Risk and valuation ˆ of collateralized debt obligations,
+     <i>
+      Financial Analysts Journal
+     </i>
+     <b>
+      57
+     </b>
+     (1), 41–59.
+    </li>
+    <li block-type="ListItem">
+     [6] Hull, J. &amp; White, A. (2003). The valuation of credit default swap options,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      10
+     </b>
+     (3), 40–50.
+    </li>
+    <li block-type="ListItem">
+     [7] Jamshidian, F. (2004). Valuation of credit default swaps and swaptions,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      8
+     </b>
+     (3), 343–371.
+    </li>
+    <li block-type="ListItem">
+     [8] Jeanblanc, M. &amp; Rutkowski, M. (2000). Modelling of default risk: an overview, in
+     <i>
+      Mathematical Finance: Theory and Practice
+     </i>
+     , J. Yong &amp; R. Cont, eds, Higher Education Press, Beijing. pp. 171–269.
+    </li>
+    <li block-type="ListItem">
+     [9] Schonbucher, P.J. (2000). ¨
+     <i>
+      A Libor Market Model with Default Risk
+     </i>
+     . Working paper, University of Bonn.
+    </li>
+    <li block-type="ListItem">
+     [10] Schonbucher, P.J. (2003). ¨
+     <i>
+      A Note on Survival Measures and the Pricing of Options on Credit Default Swaps
+     </i>
+     . Working paper, ETH Zurich.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Change of Numeraire
+   </b>
+   ;
+   <b>
+    Compensators
+   </b>
+   ;
+   <b>
+    Cox–Ingersoll–Ross (CIR) Model
+   </b>
+   ;
+   <b>
+    Credit Default Swap Index Options
+   </b>
+   ;
+   <b>
+    Credit Default Swaps
+   </b>
+   ;
+   <b>
+    Filtrations
+   </b>
+   ;
+   <b>
+    Point Processes
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   JEAN–PAUL LAURENT
+  </p>
+ </body>
+</html>

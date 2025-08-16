@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Trigger Swaps
+   </b>
+  </h1>
+  <p block-type="Text">
+   We discuss two classes of exotic interest rate derivatives: trigger swaps and targeted accrual redemption notes (TARNs). Subsequently, we outline possible valuation methodologies and assess the impact on the quality of risk estimates.
+  </p>
+  <p block-type="Text">
+   A trigger swap features an underlying swap. Cash flows of this underlying swap only start to be exchanged from the moment that a certain trigger condition is met. An example trigger condition is that some trigger index should be within a prespecified range. These are barrier type options,
+   <i>
+    see
+   </i>
+   <b>
+    Barrier Options
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   The above-described trigger swap is of
+   <i>
+    knock-in
+   </i>
+   type, as opposed to a
+   <i>
+    knock-out
+   </i>
+   feature with which a swap is cancelled when the trigger index ends up in a prespecified range. There is a simple relation between an underlying swap and its knock-in and knock-out variants:
+  </p>
+  <p block-type="TextInlineMath">
+   value of swap = value of knock-in swap
+  </p>
+  <p block-type="Text">
+   + value of knock-out swap
+  </p>
+  <p block-type="Text">
+   The above relation shows that the ability to value knock-out swaps also yields the ability to value knock-in swaps. Hence in the remainder of the article, we restrict the discussion to knock-out swaps.
+  </p>
+  <p block-type="Text">
+   A TARN is a trigger swap where the trigger index is the cumulative sum of structured coupons paid, typically of knock-out type. In this case, the barrier is referred to as a
+   <i>
+    lifetime cap
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Example term sheets of a knock-in swap and a TARN are displayed in Tables 1 and 2, respectively. Both term sheets feature structured coupons that are exchanged for IBOR plus spread—this is more or less the general rule. There are several variations often applied to the basic TARN design:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. The form in Table 2 is referred to as
+     <i>
+      partial final coupon
+     </i>
+     in order to exactly attain the lifetime cap.
+    </li>
+    <li block-type="ListItem">
+     2. The latter is in contrast to a
+     <i>
+      full-final coupon
+     </i>
+     where an excess over the lifetime cap is allowed.
+    </li>
+    <li block-type="ListItem">
+     3. If the sum of coupons is below target at maturity, then a
+     <i>
+      lifetime floor
+     </i>
+     dictates that a make up coupon be paid to attain the target.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <i>
+    Valuation
+   </i>
+  </h4>
+  <p block-type="Text">
+   We focus the discussion primarily on valuation methods, such as a Markovian grid or Monte Carlo simulation. The presentation is more or less independent of model choice, unless explicitly mentioned otherwise.
+  </p>
+  <p block-type="Text">
+   It is well known that simulation-based risk estimates for derivatives with discontinuous payoff are less efficient than for those with continuous payoff. In contrast, a Markovian grid naturally provides high-quality risk estimates, as the backward induction expectation operator has a smoothing effect—as long as interpolation is dealt with properly. Knock-out features can be easily valued on a grid as the value of a knock-out swap is simply 0 for those state nodes for which the trigger index is within the knock-out range. Path-dependent aspects such as the cumulative coupon trigger index of TARNs may be incorporated by adding a dimension to the Markovian grid that keeps track of the cumulative coupon.
+  </p>
+  <p block-type="Text">
+   Although a Markovian grid has excellent credentials, the alternative of simulation may also successfully be applied. Its drawback—as mentioned above—lies in less than efficient estimates of risk sensitivities. The remainder of the article outlines four techniques to improve risk estimates for trigger swaps in a simulation framework: (i) large shifts, (ii) importance sampling (IS), (iii) conditioning, and (iv) smoothing.
+  </p>
+  <p block-type="Text">
+   All of the described methods may also be found in the article overview paper of Piterbarg (2004, [1]).
+  </p>
+  <h4>
+   <i>
+    Large Shift Sizes
+   </i>
+  </h4>
+  <p block-type="Text">
+   Ordinary simulation, without further enhancements, remains a viable technique of obtaining risk estimates. In the general case, risk sensitivities are calculated
+   <i>
+    via
+   </i>
+   finite differences, for which we must specify a shift size. For continuous payoffs, it is more efficient to use "smaller" shift sizes (say of the order 10
+   <sup>
+    −
+   </sup>
+   8). However, for discontinuous payoffs, this is not the case as small shift sizes mostly ignore the risk component due to the digital option embedded in the knock-out structure. With discontinuous payoffs, it is more efficient to use somewhat larger shift sizes, say of the order of 1 basis point.
+  </p>
+  <h3>
+   <i>
+    Importance Sampling (IS)
+   </i>
+  </h3>
+  <p block-type="Text">
+   IS is typically used to reduce the variance of the simulation estimate. (For an overview of variance
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Product
+     </th>
+     <th>
+      CMS spread knock-out
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Currency
+     </td>
+     <td>
+      CCY
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Maturity
+     </td>
+     <td>
+      <math>
+       X
+      </math>
+      years
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Receive
+     </td>
+     <td>
+      Float funding plus margin
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Pay
+     </td>
+     <td>
+      <math>
+       Y \times
+      </math>
+      (CCY CMS10-CMS2)
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      Annually, floor at
+      <math>
+       0\%
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      If on any day the spread
+     </td>
+    </tr>
+    <tr>
+     <td rowspan="2">
+     </td>
+     <td>
+      CCY CMS10-CMS2
+      <math>
+       \geq
+      </math>
+      B% then from
+     </td>
+    </tr>
+    <tr>
+     <td>
+      the next coupon period onwards a
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      fixed rate of
+      <math>
+       Z\%
+      </math>
+      knocks in until
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      maturity of the trade
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Table 1
+     </th>
+     <th>
+      Example knock-in swap
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+   </tbody>
+  </table>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Example TARN
+      <br/>
+      Table 2
+     </th>
+     <th>
+     </th>
+    </tr>
+   </tbody>
+  </table>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Product
+     </th>
+     <th>
+      Guaranteed inverse floater swap
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Currency
+     </td>
+     <td>
+      CCY
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Maturity
+     </td>
+     <td>
+      <math>
+       X
+      </math>
+      years
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Receive
+     </td>
+     <td>
+      Float funding plus margin
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Pay
+     </td>
+     <td>
+      <math>
+       Y - Z \times
+      </math>
+      CCY 6M IBOR in arrears
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      Semi-annually, floor at
+      <math>
+       0\%
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      If on any day the sum of
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      structured coupons
+      <math>
+       \geq B\%
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      then pay
+      <math>
+       B\%
+      </math>
+      -[sum of coupons]
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      and the trade cancels thereafter
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   reduction techniques, see Variance Reduction.) For knock-outs; however, the simulation value estimate is usually of desirable quality. It is, however, a side effect of IS that we are interested in. With IS, we sample conditional on knocking out or in. Realizations of these conditional samples then need to be multiplied by the likelihood ratio, which is a measure for the probability of the conditional event. These likelihood ratios smoothen the valuation and cause the discontinuity to disappear. Hence, we obtain efficient risk. See Glasserman and Staum [2].
+  </p>
+  <h4>
+   Conditioning
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   Conditioning is specifically geared toward TARNs. With TARNs, each cash flow is contingent on a sum of index rates being within range. We focus on the valuation of one TARN cash flow, since we may value the whole TARN if we can value all cash flows. We halt the simulation when the penultimate index rate is determined. Subsequently, the remaining cash flow is a digital option with underlying rate the final index rate that determines whether or not we obtain the TARN cash flow. This digital option may
+  </p>
+  <p block-type="Text">
+   be valued analytically with a Black-type formulathe latter provides smoothing, from which we obtain more efficient risk estimates.
+  </p>
+  <h4>
+   Smoothing
+  </h4>
+  <p block-type="Text">
+   For knock-outs, we observe a trigger index
+   <math display="inline">
+    x
+   </math>
+   . If the trigger is outside of the survival range
+   <math display="inline">
+    [L, U]
+   </math>
+   , then the trade knocks out. We assume
+   <math display="inline">
+    L \leq U
+   </math>
+   . We consider the survival ratio
+   <math display="inline">
+    A_i
+   </math>
+   for each cash flow
+   <i>
+    i
+   </i>
+   . The survival ratio
+   <math display="inline">
+    A_i
+   </math>
+   is either 0 or 1. It evolves from cash flow to cash flow as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_{i+1} = A_i \times \left(1 - R_i^{\text{KO}}\right) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The quantity
+   <math display="inline">
+    R_i^{\text{KO}}
+   </math>
+   is the knock-out ratio. For the remainder of the presentation, we omit the cash flow index
+   <i>
+    i
+   </i>
+   for convenience. The knock-out ratio
+   <math display="inline">
+    R^{\text{KO}}
+   </math>
+   is either
+   <math display="inline">
+    0
+   </math>
+   or
+   <math display="inline">
+    1
+   </math>
+   , and is given by:
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \sim
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R^{\text{KO}} = 1\{x &lt; L\} + 1\{x &gt; U\} \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   A smoothed version of the function in equation
+   <math display="inline">
+    (2)
+   </math>
+   is easily devised. An example is given in Figure 1. The smoothed function may be parameterized. For "small" parameters, the smoothed version is hardly distinguishable from the original discontinuous function. The use of "large" parameters leads to an intolerable bias in the derivative value. Experience and testing may provide guidance in selecting a parameter that bares acceptable bias yet sufficiently improves risk sensitivity estimates.
+  </p>
+  <p block-type="TextInlineMath">
+   We test smoothing for a trade such as given in Table 1. We use
+   <math display="inline">
+    10^{-6}
+   </math>
+   bps ("small") shift for smooth and 0.5 bps ("large") for nonsmooth. The terminology
+  </p>
+  <p>
+   <img src="_page_1_Figure_16.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Knock-out ratio
+   <i>
+    versus
+   </i>
+   trigger index
+   <math display="inline">
+    x
+   </math>
+   , with lower and upper knock-out barriers
+   <math display="inline">
+    L
+   </math>
+   and
+   <math display="inline">
+    U
+   </math>
+   . Discontinuous, according to contract (full line) and smoothed (dotted line)
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Table 3
+     </th>
+     <th>
+     </th>
+     <th>
+      P&amp;L prediction results
+     </th>
+     <th>
+     </th>
+    </tr>
+   </tbody>
+  </table>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      −10 bps
+     </th>
+     <th>
+      −1 bps
+     </th>
+     <th>
+      0 bps
+     </th>
+     <th>
+      1 bps
+     </th>
+     <th>
+      10 bps
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1 005 251
+      <br/>
+      −1266
+      <br/>
+      −1597
+      <br/>
+      331
+     </td>
+     <td>
+      994 113
+      <br/>
+      −1519
+      <br/>
+      −2042
+      <br/>
+      523
+     </td>
+     <td>
+      992 594
+     </td>
+     <td>
+      990 804
+      <br/>
+      −1790
+      <br/>
+      −1871
+      <br/>
+      82
+     </td>
+     <td>
+      981 537
+      <br/>
+      −1106
+      <br/>
+      −1772
+      <br/>
+      667
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1 002 928
+      <br/>
+      −1227
+      <br/>
+      −1226
+      <br/>
+      −1
+     </td>
+     <td>
+      991 884
+      <br/>
+      −1228
+      <br/>
+      −1228
+      <br/>
+      0
+     </td>
+     <td>
+      990 656
+     </td>
+     <td>
+      989 429
+      <br/>
+      −1227
+      <br/>
+      −1227
+      <br/>
+      0
+     </td>
+     <td>
+      978 420
+      <br/>
+      −1224
+      <br/>
+      −1223
+      <br/>
+      −1
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      Nonsmooth, large shifts
+      <br/>
+      Smooth, small shifts
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   "Pred" means predicted P&amp;L. Market data and other data used for this test may be obtained from the author upon request
+  </p>
+  <p block-type="Text">
+   is as follows: NPV, trade value. P&amp;L, realized profit and loss per basis point up-shift. Predicted P&amp;L: the average of the delta at two points: at the associated shift size and for the unperturbed case. Gap: predictability gap, P&amp;L − Predicted P&amp;L. The results are displayed in Table 3.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Piterbarg, V.V. (2004). TARNs: models, valuation, risk sensitivities,
+     <i>
+      Wilmott
+     </i>
+     <b>
+      14
+     </b>
+     , 62–71.
+    </li>
+    <li block-type="ListItem">
+     [2] Glasserman, P. &amp; Staum, J. (2001). Conditioning on onestep survival for barrier option simulations,
+     <i>
+      Operations Research
+     </i>
+     <b>
+      49
+     </b>
+     , 923–937.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   RAOUL PIETERSZ
+  </p>
+ </body>
+</html>

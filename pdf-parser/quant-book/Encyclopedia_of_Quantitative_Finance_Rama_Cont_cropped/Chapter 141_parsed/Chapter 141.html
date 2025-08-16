@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Implied Volatility in
+   <b>
+    Stochastic Volatility
+   </b>
+   Models
+  </h1>
+  <p block-type="Text">
+   Given the geometric Brownian motion (hence constant volatility) dynamics of an underlying share price, the Black-Scholes formula finds the no-arbitrage prices of call or put options. Given, on the other hand, the price of a call or put, the Black-Scholes implied volatility is by definition the unique volatility parameter such that the Black-Scholes formula recovers the given option price.
+  </p>
+  <p block-type="Text">
+   If the share price truly follows geometric Brownian motion, then the Black-Scholes implied volatility matches the constant realized volatility of the shares. Empirically, however, stock prices do not exhibit constant volatility, which explains the description in [23] of implied volatility as "the wrong number to put in the wrong formula to obtain the right price". Nonetheless, the Black-Scholes implied volatility remains, at the very least, a language/scale/metric by which option prices may be quoted and compared across strikes, expiries, underliers, and observation times, as noted in
+   <math display="inline">
+    [17]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Moreover, even under stochastic volatility dynamics, Black-Scholes implied volatility is not only a language but indeed carries meaningful information about realized volatility. This article surveys those relationships between implied and realized stochastic volatility, in particular, the following:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Expected realized variance equals the weighted average of implied variance across strikes, with "implied normal" weights.
+    </li>
+    <li block-type="ListItem">
+     Implied volatility of an option is the breakeven realized volatility for "business-time delta hedging" of that option.
+    </li>
+    <li block-type="ListItem">
+     Implied volatility at-the-money approximates expected realized volatility, under an independence condition.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Aside from Black–Scholes implied volatility, alternative notions of options-implied volatility have robust relationships to realized volatility. We define and discuss two notions of model-free implied volatility (MFIV):
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     "VIX-style" MFIV equals the square root of expected variance.
+    </li>
+    <li block-type="ListItem">
+     "Synthetic volatility swap (SVS) style" MFIV equals expected volatility under an independence condition, and approximates expected volatility under perturbations of that condition.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Unless otherwise noted, the only assumptions on the underlying price process are positivity and continuity.
+  </p>
+  <p block-type="TextInlineMath">
+   Specifically, on a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F},
+   </math>
+   <math display="inline">
+    \{\mathcal{F}_t\}, \mathbb{P}
+   </math>
+   ), let S be a positive continuous martingale. Regard
+   <math display="inline">
+    S
+   </math>
+   as the share price of an underlying tradable asset, and
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   as risk-neutral measure, with respect to a bond having price 1 at all times. Extensions to arbitrary deterministic interest rates are straightforward. Let
+   <math display="inline">
+    \mathbb{E}_t
+   </math>
+   denote
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -conditional expectation, with respect to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   . Let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t := \log(S_t/S_0) \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   denote the log returns process, and let
+   <math display="inline">
+    \langle X \rangle_t
+   </math>
+   denote its
+   <i>
+    quadratic variation
+   </i>
+   process, which may be regarded as the unannualized running total of the squared realized returns of S continuously monitored on
+   <math display="inline">
+    [0, t]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Fixing a time horizon
+   <math display="inline">
+    T &gt; 0
+   </math>
+   , define
+   <i>
+    realized
+   </i>
+   variance to be
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \langle X \rangle_T
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and define realized volatility to be the square root
+   <math display="inline">
+    \sqrt{\langle X \rangle_T}
+   </math>
+   of realized variance. For example, if S has dynamics
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}S_t = \sigma_t S_t \, \mathrm{d}W_t \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with respect to Brownian motion W, then
+   <math display="inline">
+    \langle X \rangle_T =
+   </math>
+   <math display="inline">
+    \int_0^T \sigma_t^2 dt
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Black–Scholes Implied Volatility
+   </b>
+  </h4>
+  <p block-type="Text">
+   Fix a time horizon
+   <math display="inline">
+    T &gt; 0
+   </math>
+   . Define the Black-Scholes [3] function, for S, K, and
+   <math display="inline">
+    \sigma
+   </math>
+   positive, by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C^{\text{bs}}(\sigma, S, K) := SN\left(\frac{\log(S/K)}{\sigma} + \frac{\sigma}{2}\right) - KN\left(\frac{\log(S/K)}{\sigma} - \frac{\sigma}{2}\right) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where N is the standard normal cdf. Define
+   <math display="inline">
+    C^{bs}(0, S,
+   </math>
+   <math display="inline">
+    K) := (S - K)^{+}.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For each
+   <math display="inline">
+    K &gt; 0
+   </math>
+   , define the time-0 dimensionless Black-Scholes
+   <i>
+    implied volatility
+   </i>
+   <math display="inline">
+    IV_0(K)
+   </math>
+   to be the unique solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C^{\text{bs}}(\text{IV}_0(K), S_0, K) = \mathbb{E}_0(S_T - K)^+ =: C(K)
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   Dividing IV&lt;sub&gt;0&lt;/sub&gt;(K) by
+   <math display="inline">
+    \sqrt{T}
+   </math>
+   produces the usual annualized implied volatility.
+  </p>
+  <p block-type="Text">
+   Often, it is more convenient to regard the Black-Scholes formula as a function of dimensionless variance instead of dimensionless volatility, so define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C^{\text{BS}}(V, S, K) := C^{\text{bs}}(\sqrt{V}, S, K) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   Moreover, it may be convenient to regard the Black-Scholes implied volatility as a function of log strike instead of strike, so define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    IV_0(k) := IV_0(S_0 e^k) \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We survey how the realized volatility
+   <math display="inline">
+    \sqrt{\langle X \rangle_T}
+   </math>
+   (or realized variance
+   <math display="inline">
+    \langle X \rangle_T
+   </math>
+   ) relates to the time-0 implied volatility (or its square, the
+   <i>
+    implied variance
+   </i>
+   ).
+  </p>
+  <h1>
+   Expected Realized Variance Equals Weighted Average Implied Variance Across Strikes
+  </h1>
+  <p block-type="Text">
+   Black-Scholes implied variance at one strike does not determine the risk-neutral expectation of realized variance, but the weighted average of implied variance at all strikes does so. This result facilitates, for instance, analysis [14] of how the implied volatility skew's slope and convexity relate to expected variance.
+  </p>
+  <p block-type="TextInlineMath">
+   The "implied normal" weights are given by the standard normal distribution, applied to the log strike standardized by "implied standard deviations". Specifically, assuming
+   <math display="inline">
+    IV_0(k) &gt; 0
+   </math>
+   , define the standardized log strike by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    z(k) := -d_2(k) := \frac{k}{IV_0(k)} + \frac{IV_0(k)}{2} \qquad (7)
+   </math>
+  </p>
+  <p block-type="Text">
+   The result
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_0 \langle X \rangle_T = \int_{-\infty}^{\infty} I V_0^2(k) \, \mathrm{d}N(z(k)) \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   follows from relating each side to the value of a log contract.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Expected Realized Variance Equals Log Contract Value. Realized variance admits replication
+  </p>
+  <p block-type="Text">
+   by holding a log contract and dynamically trading shares, via the strategy developed in [7, 10, 21], and [9]. Specifically,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = d \log S_t = \frac{1}{S_t} dS_t - \frac{1}{2S_t^2} d\langle S \rangle_t
+   </math>
+   <math display="block">
+    = \frac{1}{S_t} dS_t - \frac{1}{2} d\langle X \rangle_t \qquad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   hence,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \langle X \rangle_T = -2\log(S_T/S_0) + \int_0^T \frac{2}{S_t} \, \mathrm{d}S_t \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, the log contract payoff
+   <math display="inline">
+    -2\log(S_T/S_0)
+   </math>
+   , plus the profit/loss from a dynamic position long
+   <math display="inline">
+    2/S_t
+   </math>
+   shares, replicates
+   <math display="inline">
+    \langle X \rangle_T
+   </math>
+   . A corollary is that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_0 \langle X \rangle_T = \mathbb{E}_0(-2X_T) \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   if they are finite.
+  </p>
+  <p block-type="TextInlineMath">
+   Log Contract Value Equals Weighted Average Implied Variance. In turn, the expectation of
+   <math display="inline">
+    -2X_T
+   </math>
+   equals weighted average implied variance. Proofs appear in [19] and [22]. The following is due to [22]. Let
+   <math display="inline">
+    P(K) := \mathbb{E}_0(K - S_T)^+
+   </math>
+   . Assuming differentiability of
+   <math display="inline">
+    IV_0
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_0(-2X_T) = \int_0^{S_0} \frac{2}{K^2} P(K) \, \mathrm{d}K + \int_{S_0}^\infty \frac{2}{K^2} C(K) \, \mathrm{d}K \tag{12}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = \int_0^{S_0} \frac{2}{K} P'(K) \, \mathrm{d}K + \int_{S_0}^\infty \frac{2}{K} C'(K) \, \mathrm{d}K \tag{13}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = 2 \int_{-\infty}^{0} \left( N'(d_2) + N(-d_2)IV'_0 \right) dk
+   </math>
+   <math display="block">
+    + 2 \int_{0}^{\infty} \left( N'(d_2)IV'_0 - N(d_2) \right) dk \tag{14}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = 2 \int_{-\infty}^{\infty} kN'(d_2)d_2' dk + 2 \int_{-\infty}^{\infty} N'(d_2)IV'_0 dk \quad (15)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    =2\int_{-\infty}^{\infty}kN'(d_2)d_2' + N'(d_2)d_2d_2'IV_0 \, \mathrm{d}k \tag{16}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    =\int_{-\infty}^{\infty} IV_0^2(k) N'(z(k)) z'(k) \,\mathrm{d}k \tag{17}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   where
+   <math display="inline">
+    '
+   </math>
+   denotes derivative (unambiguously, as
+   <math display="inline">
+    C, P
+   </math>
+   ,
+   <math display="inline">
+    d_2
+   </math>
+   ,
+   <math display="inline">
+    IV_0
+   </math>
+   ,
+   <math display="inline">
+    N
+   </math>
+   are defined as single-variable functions).
+  </p>
+  <p block-type="TextInlineMath">
+   For brevity, we suppress the argument
+   <math display="inline">
+    (k)
+   </math>
+   of
+   <math display="inline">
+    d_2
+   </math>
+   and
+   <math display="inline">
+    IV_0
+   </math>
+   and their derivatives.
+  </p>
+  <p block-type="TextInlineMath">
+   To justify the integration by parts in equations
+   <math display="inline">
+    (15,
+   </math>
+   16), it suffices to assume the existence of
+   <math display="inline">
+    \varepsilon &gt; 0
+   </math>
+   such that
+   <math display="inline">
+    \mathbb{E}S_T^{1+\varepsilon} &lt; \infty
+   </math>
+   and
+   <math display="inline">
+    \mathbb{E}S_T^{-\varepsilon} &lt; \infty
+   </math>
+   . Then the
+   <i>
+    moment formula
+   </i>
+   [18] implies that for some
+   <math display="inline">
+    \beta &lt; 2
+   </math>
+   and all
+   <math display="inline">
+    |k|
+   </math>
+   sufficiently large, we have
+   <math display="inline">
+    IV_0^2(k) &lt; \beta |k|
+   </math>
+   ; hence
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    kN(d_2)|_{-\infty}^0 - kN(-d_2)|_0^{\infty} = 0
+   </math>
+   <br/>
+   and
+   <math>
+    N'(d_2)IV_0|_{-\infty}^{\infty} = 0
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   Combining equations
+   <math display="inline">
+    (11)
+   </math>
+   and
+   <math display="inline">
+    (17)
+   </math>
+   gives the conclusion in equation
+   <math display="inline">
+    (8)
+   </math>
+   .
+  </p>
+  <h4>
+   Implied Volatility Equals Break-even Realized Volatility
+  </h4>
+  <p block-type="TextInlineMath">
+   Suppose that we buy at time 0 a
+   <math display="inline">
+    T
+   </math>
+   -expiry
+   <math display="inline">
+    K
+   </math>
+   -strike call or put; to be definite, let us say a call. We pay a premium of
+   <math display="inline">
+    C_0 := C^{BS}(IV_0^2(K), S_0, K)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Dynamically, delta hedging this option using shares, we have, in principle, a position that is delta neutral and "long vega". Indeed, the implied volatility is the option's
+   <i>
+    break-even realized volatility
+   </i>
+   in the following sense: There exists a model-independent share trading strategy
+   <math display="inline">
+    N_t
+   </math>
+   , such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P\&amp;L := -C_0 + \int_0^T N_t \, \mathrm{d}S_t + (S_T - K)^+
+   </math>
+   <br/>
+   &lt; 0 in the event
+   <math>
+    \sqrt{\langle X \rangle_T} &lt; \mathrm{IV}_0(K)
+   </math>
+   (19)
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    P\&amp;L \ge 0
+   </math>
+   in the event
+   <math display="inline">
+    \sqrt{\langle X \rangle_T} \ge \text{IV}_0(K)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In other words, total profit/loss (from the time-0 option purchase, the trading in shares, and the time-
+   <math display="inline">
+    T
+   </math>
+   option payout) is negative if and only if volatility realizes to less than the initial implied volatility.
+  </p>
+  <p block-type="Text">
+   Implied Volatility is Break-even Realized Volatility for Business-time Delta Hedging. Define the business-time delta hedging strategy by letting
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau := \inf\{t : \langle X \rangle_t = \mathrm{IV}_0^2(K)\}\tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and holding
+   <math display="inline">
+    N_t
+   </math>
+   shares at each time
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N_{t} := -\frac{\partial C^{\text{BS}}}{\partial S} (\text{IV}_{0}^{2}(K) - \langle X \rangle_{t}, S_{t}, K)
+   </math>
+   <br/>
+   <math display="block">
+    t \in [0, \tau \wedge T]
+   </math>
+   (21)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N_t := -\mathbb{I}(S_\tau &gt; K), \quad t \in (\tau \wedge T, T] \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   The break-even property follows from applying Ito's rule to the process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_t := C^{\text{BS}}(\text{IV}_0^2(K) - \langle X \rangle_t, S_t, K), \quad t \in [0, \tau \wedge T]
+   </math>
+   (23)
+  </p>
+  <p block-type="Text">
+   to obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathrm{d}C_{t} &amp;= \ -\ \frac{\partial C^{\mathrm{BS}}}{\partial V} \, \mathrm{d}\langle X \rangle_{t} + \frac{\partial C^{\mathrm{BS}}}{\partial S} \, \mathrm{d}S_{t} \\ &amp;+ \frac{1}{2} \frac{\partial^{2} C^{\mathrm{BS}}}{\partial S^{2}} \, \mathrm{d}\langle S \rangle_{t} \\ &amp;= \left(\frac{1}{2} S_{t}^{2} \frac{\partial^{2} C^{\mathrm{BS}}}{\partial S^{2}} - \frac{\partial C^{\mathrm{BS}}}{\partial V}\right) \mathrm{d}\langle X \rangle_{t} \\ &amp;+ \frac{\partial C^{\mathrm{bs}}}{\partial S} \, \mathrm{d}S_{t} = \frac{\partial C^{\mathrm{BS}}}{\partial S} \, \mathrm{d}S_{t} \end{split} \tag{24}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the partials of
+   <math display="inline">
+    C^{\text{BS}}
+   </math>
+   are evaluated at
+   <math display="inline">
+    (IV_0^2(K)  \langle X \rangle_t
+   </math>
+   ,
+   <math display="inline">
+    S_t
+   </math>
+   ,
+   <math display="inline">
+    K
+   </math>
+   ). Therefore,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -C_{\tau \wedge T} = -C_0 - \int_0^{\tau \wedge T} \frac{\partial C^{\text{BS}}}{\partial S} \, \text{d}S_t \qquad (25)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   as shown in [2, 11, 20].
+  </p>
+  <p block-type="TextInlineMath">
+   In the event
+   <math display="inline">
+    \langle X \rangle_T &lt; \text{IV}_0^2(K)
+   </math>
+   , hence
+   <math display="inline">
+    T &lt; \tau
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P&amp;L = (S_T - K)^+ - C_T
+   </math>
+   <br/>
+   =
+   <math>
+    (S_T - K)^+ - C^{BS}(\text{IV}_0^2(K) - \langle X \rangle_T, S_T, K)
+   </math>
+   <br/>
+   &lt; 0 (26)
+  </p>
+  <p block-type="TextInlineMath">
+   and in the event
+   <math display="inline">
+    \langle X \rangle_T \geq \mathrm{IV}_0^2(K)
+   </math>
+   , hence
+   <math display="inline">
+    \tau \leq T
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P&amp;L = (S_T - K)^+ - C_\tau - \int_\tau^T \mathbb{I}(S_\tau &gt; K) \, dS_t
+   </math>
+   <br/>
+   =
+   <math>
+    (S_T - K)^+ - (S_\tau - K)^+
+   </math>
+   <br/>
+   <math>
+    - \mathbb{I}(S_\tau &gt; K)(S_T - S_\tau) \ge 0
+   </math>
+   (27)
+  </p>
+  <p block-type="Text">
+   as claimed. This break-even result is a special case of a proposition in
+   <math display="inline">
+    [6]
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Implied Volatility is Not Break-even Realized Volatility for Standard Delta Hedging. The breakeven property of the previous section does not extend
+  </p>
+  <p block-type="Text">
+   to standard "calendar time" delta hedging, defined by share holdings
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\frac{\partial C^{\text{BS}}}{\partial S}((T-t)\bar{\text{IV}}_0^2, S_t, K), \quad t \in [0, T] \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \text{I}\overline{\text{V}}_0^2 := \text{IV}_0^2(K)/\textit{T}
+   </math>
+   denotes the time-0 annualized implied variance.
+  </p>
+  <p block-type="TextInlineMath">
+   This strategy guarantees neither a profit in the event that
+   <math display="inline">
+    \langle X \rangle_T &gt; \mathrm{IV}_0^2(K)
+   </math>
+   nor a loss in the opposite event. To see this, under the dynamics (2), let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = C^{\text{BS}}((T-t)\bar{\text{IV}}_0^2, S_t, K) \tag{29}
+   </math>
+  </p>
+  <p block-type="Text">
+   and apply Ito's rule to obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathrm{d}Y_{t} &amp;= -\frac{\partial C^{\mathrm{BS}}}{\partial V} \bar{\mathrm{I}} \bar{\mathrm{V}}_{0}^{2} \, \mathrm{d}t + \frac{\partial C^{\mathrm{BS}}}{\partial S} \, \mathrm{d}S_{t} \\ &amp;+ \frac{1}{2} \frac{\partial^{2} C^{\mathrm{BS}}}{\partial S^{2}} \, \mathrm{d}\langle S \rangle_{t} \\ &amp;= -\frac{1}{2} \bar{\mathrm{I}} \bar{\mathrm{V}}_{0}^{2} S_{t}^{2} \frac{\partial^{2} C^{\mathrm{BS}}}{\partial S^{2}} \, \mathrm{d}t + \frac{\partial C^{\mathrm{BS}}}{\partial S} \, \mathrm{d}S_{t} \\ &amp;+ \frac{1}{2} \sigma_{t}^{2} S_{t}^{2} \frac{\partial^{2} C^{\mathrm{BS}}}{\partial S^{2}} \, \mathrm{d}t \end{split} \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the partial derivatives of
+   <math display="inline">
+    C^{BS}
+   </math>
+   are evaluated at
+   <math display="inline">
+    ((T-t)\overline{\mathrm{IV}}_0^2, S_t, K)
+   </math>
+   . Hence,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P\&amp;L = Y_T - Y_0 - \int_0^T \frac{\partial C^{\text{BS}}}{\partial S} \, \text{d}S_t
+   </math>
+   <math display="block">
+    = \int_0^T \frac{1}{2} (\sigma_t^2 - \bar{\text{IV}}_0^2) S_t^2 \frac{\partial^2 C^{\text{BS}}}{\partial S^2} \, \text{d}t \qquad (31)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which is half the time-integrated cash-gamma
+   <i>
+    weighted
+   </i>
+   difference of instantaneous variance
+   <math display="inline">
+    \sigma_t^2
+   </math>
+   and implied variance
+   <math display="inline">
+    \bar{IV}_0^2
+   </math>
+   , as shown in [7] and [12]. So if, along some trajectory,
+   <math display="inline">
+    \sigma_t &gt; \overline{\text{IV}}_0
+   </math>
+   at points where gamma is low, but
+   <math display="inline">
+    \sigma_t &lt; \bar{IV}_0
+   </math>
+   at points where gamma is high, then it can occur that realized variance
+   <math display="inline">
+    \int_0^T \sigma_t^2 dt
+   </math>
+   exceeds implied variance
+   <math display="inline">
+    IV_0^2
+   </math>
+   , yet this long-vega strategy incurs a loss.
+  </p>
+  <p block-type="Text">
+   In conclusion, implied volatility is the option's break-even realized volatility for business-time delta hedging, but not for calendar-time delta hedging.
+  </p>
+  <h1>
+   Implied Volatility ATM Approximates Expected Realized Volatility, Under an Independence Condition
+  </h1>
+  <p block-type="Text">
+   In this section, we specialize to dynamics (2) such that
+   <math display="inline">
+    \sigma
+   </math>
+   and W are
+   <i>
+    independent
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    K_{\text{atm}} := S_0
+   </math>
+   be the at-the-money (ATM) strike. Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(S_T - K_{\text{atm}})^+ = \mathbb{E}C^{\text{bs}}(\sqrt{\langle X \rangle_T}, S_0, K_{\text{atm}}) \qquad (32)
+   </math>
+   <math display="block">
+    \leq C^{\text{bs}}(\mathbb{E}\sqrt{\langle X \rangle_T}, S_0, K_{\text{atm}}) \qquad (33)
+   </math>
+  </p>
+  <p block-type="Text">
+   by the conditioning argument of
+   <math display="inline">
+    [15]
+   </math>
+   , independence, and the concavity of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v \mapsto C^{\text{bs}}(v, S_0, K_{\text{atm}}) \tag{34}
+   </math>
+  </p>
+  <p block-type="Text">
+   It follows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    IV_0(K_{\text{atm}}) \le \mathbb{E}\sqrt{\langle X \rangle_T} \tag{35}
+   </math>
+  </p>
+  <p block-type="Text">
+   The function (34), while concave, is nearly linear for small
+   <math display="inline">
+    v
+   </math>
+   ; indeed, its second derivative vanishes at
+   <math display="inline">
+    v = 0
+   </math>
+   , as observed in [4]. Therefore, the inequalities
+   <math display="inline">
+    (33)
+   </math>
+   and
+   <math display="inline">
+    (35)
+   </math>
+   are nearly equalities, as shown in [13]. In that sense,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    IV_0(K_{\text{atm}}) \approx \mathbb{E}\sqrt{\langle X \rangle_T} \tag{36}
+   </math>
+  </p>
+  <p block-type="Text">
+   assuming the independence of
+   <math display="inline">
+    \sigma
+   </math>
+   and W.
+  </p>
+  <h2>
+   Model-free Implied Volatility (MFIV)
+  </h2>
+  <p block-type="Text">
+   Inverting Black-Scholes is not the only way to extract an implied volatility from option prices. While the ATM Black-Scholes implied volatility approximates expected volatility under the independence assumption, alternative definitions of MFIV use call/put data at all strikes, in order to reflect the expected variance or volatility under more general conditions.
+  </p>
+  <h4>
+   VIX-style MFIV Equals the Square Root of Expected Realized Variance
+  </h4>
+  <p block-type="Text">
+   Motivated by equation (11), define the VIX-style model-free implied volatility by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \textit{VIXIV}_{0} &amp;:= \sqrt{\mathbb{E}_{0}[-2X_{T}]} \\ &amp;:= \sqrt{\mathbb{E}_{0}[-2\log(S_{T}/S_{0}) + 2(S_{T}/S_{0}) - 2]} \end{aligned} \tag{37}
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    VIXIV_0
+   </math>
+   is an observable function of option prices, specifically the square root of the time-0 value of the portfolio
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    2/K^2 dK
+   </math>
+   calls at strikes
+   <math>
+    K &gt; S_0
+   </math>
+   <br/>
+   <math>
+    2/K^2 dK
+   </math>
+   puts at strikes
+   <math>
+    K &lt; S_0
+   </math>
+   (38)
+  </p>
+  <p block-type="Text">
+   Indeed in 2003, the Chicago board options exchange (CBOE) [8] adopted an implementation of equation
+   <math display="inline">
+    (38)
+   </math>
+   to define the VIX volatility index (but due to the availability of only finitely many strikes in practice, the CBOE VIX is not precisely identical to
+   <math display="inline">
+    VIXIV_0
+   </math>
+   ; see [16]).
+  </p>
+  <p block-type="Text">
+   By equation (11), the square of VIX-style MFIV equals expected realized variance:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    VIXIV_{0} = \sqrt{\mathbb{E}_{0} \langle X \rangle_{T}} \tag{39}
+   </math>
+  </p>
+  <p block-type="Text">
+   However, by Jensen's inequality, for random
+   <math display="inline">
+    \langle X \rangle_T
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    VIXIV_0 &gt; \mathbb{E}_0 \sqrt{\langle X \rangle_T} \tag{40}
+   </math>
+  </p>
+  <p block-type="Text">
+   thus, VIX-style MFIV differs from expected realized volatility, due to convexity.
+  </p>
+  <h4>
+   SVS-style MFIV Equals Expected Realized Volatility
+  </h4>
+  <p block-type="TextInlineMath">
+   For nonconstant
+   <math display="inline">
+    \langle X \rangle_T
+   </math>
+   , the VIX-style MFIV never equals
+   <math display="inline">
+    \mathbb{E}_0\sqrt{\langle X\rangle_T}
+   </math>
+   ; in contrast, the SVS-style MFIV will equal
+   <math display="inline">
+    \mathbb{E}_0\sqrt{\langle X\rangle_T}
+   </math>
+   exactly under an independence condition, and approximately under perturbations of that condition. Define SVS-style model-free implied volatility (where SVS stands for "synthetic volatility swap") by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    SVSIV_0 := \mathbb{E}_0 \sqrt{\frac{\pi}{2}} e^{X_T/2}
+   </math>
+   <math display="block">
+    \times \left| X_T I_0(X_T/2) - X_T I_1(X_T/2) \right| \quad (41)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    X_T := \log(S_T/S_0)
+   </math>
+   and
+   <math display="inline">
+    I_\nu
+   </math>
+   is the modified Bessel function of order
+   <math display="inline">
+    \nu
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    SVSIV_0
+   </math>
+   is observable from option prices, as the time-0 value of the portfolio
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sqrt{\pi/2}/S_0
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   straddles at strike
+   <math display="inline">
+    K = S_0
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sqrt{\frac{\pi}{8K^{3}S_{0}}} \Big[ I_{1} \big( \log \sqrt{K/S_{0}} \big) - I_{0} \big( \log \sqrt{K/S_{0}} \big) \Big] \mathrm{d}K
+   </math>
+   <br/>
+   calls at strikes
+   <math>
+    K &gt; S_{0}
+   </math>
+   ,
+   <br/>
+   <math display="block">
+    \sqrt{\frac{\pi}{8K^{3}S_{0}}} \Big[ I_{0} \big( \log \sqrt{K/S_{0}} \big) - I_{1} \big( \log \sqrt{K/S_{0}} \big) \Big] \mathrm{d}K
+   </math>
+   <br/>
+   puts at strikes
+   <math>
+    K &lt; S_{0}
+   </math>
+   (42)
+  </p>
+  <p block-type="Text">
+   Under the dynamics (2) with
+   <math display="inline">
+    \sigma
+   </math>
+   and W independent, the exact equality
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    SVSIV_0 = \mathbb{E}_0 \sqrt{\langle X \rangle_T} \tag{43}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is proved in [5]. Moreover, it still holds approximately, under perturbations of the independence assumption. To be precise, consider a family of processes
+   <math display="inline">
+    S^{[\rho]}
+   </math>
+   , indexed by parameters
+   <math display="inline">
+    \rho \in [-1, 1]
+   </math>
+   , and defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t^{[\rho]} = \sqrt{1 - \rho^2} \sigma_t S_t^{[\rho]} dW_{1t} + \rho \sigma_t S_t^{[\rho]} dW_{2t}
+   </math>
+   <br/>
+   <math display="block">
+    S_0^{[\rho]} = S_0 \tag{44}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    W_1
+   </math>
+   and
+   <math display="inline">
+    W_2
+   </math>
+   are
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -Brownian motions, and
+   <math display="inline">
+    \sigma
+   </math>
+   and
+   <math display="inline">
+    W_2
+   </math>
+   are adapted to some filtration
+   <math display="inline">
+    \mathcal{H}_t \subseteq \mathcal{F}_t
+   </math>
+   ,&lt;br&gt;where
+   <math display="inline">
+    \mathcal{H}_T
+   </math>
+   and
+   <math display="inline">
+    \mathcal{F}_T^{W_1}
+   </math>
+   are independent. This includes all the standard stochastic volatility models of the form
+   <math display="inline">
+    d\sigma_t = \alpha(\sigma_t) dt + \beta(\sigma_t) dW_{2t}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Changing the
+   <math display="inline">
+    \rho
+   </math>
+   parameter does not affect the
+   <math display="inline">
+    \sigma
+   </math>
+   dynamics, and hence cannot affect
+   <math display="inline">
+    \mathbb{E}_0\sqrt{\langle X\rangle_T}
+   </math>
+   . However, changing
+   <math display="inline">
+    \rho
+   </math>
+   does change the S dynamics, and hence may change option prices,
+   <math display="inline">
+    IV_0(K_{\text{atm}})
+   </math>
+   , and
+   <math display="inline">
+    SVSIV_0
+   </math>
+   . Thus, the relationships (36, 43) below
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{IV}_0(K_{\text{atm}}) \approx \mathbb{E}_0 \sqrt{\langle X \rangle_T}, \quad \text{SVSIV}_0 = \mathbb{E}_0 \sqrt{\langle X \rangle_T}
+   </math>
+   (45)
+  </p>
+  <p block-type="TextInlineMath">
+   that are valid for the uncorrelated case
+   <math display="inline">
+    S = S^{[0]}
+   </math>
+   , may not hold for
+   <math display="inline">
+    S = S^{[\rho]}
+   </math>
+   where
+   <math display="inline">
+    \rho \neq 0
+   </math>
+   . Unlike IV&lt;sub&gt;0&lt;/sub&gt;(
+   <math display="inline">
+    K_{\text{atm}}
+   </math>
+   ), the
+   <math display="inline">
+    SVSIV_0
+   </math>
+   has the robustness property of being
+   <i>
+    immunized
+   </i>
+   against perturbations of
+   <math display="inline">
+    \rho
+   </math>
+   around
+   <math display="inline">
+    \rho = 0
+   </math>
+   , meaning that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left. \frac{\partial}{\partial \rho} \right|_{\rho=0} SV\!SIV_0 = 0 \tag{46}
+   </math>
+  </p>
+  <p block-type="Text">
+   can be verified. This suggests that SVS-style implied volatility
+   <i>
+    SVSIV
+   </i>
+   <sup>
+    0
+   </sup>
+   should outperform Black–Scholes implied volatility IV0, as an approximation to the expected realized volatility, at least for
+   <i>
+    ρ
+   </i>
+   not too large.
+  </p>
+  <p block-type="Text">
+   This is confirmed in [5] for Heston dynamics with parameters from [1], and
+   <i>
+    T
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   5. Across essentially all correlation assumptions, the SVS notion of implied volatility exhibited the smallest bias, relative to the true expected annualized volatility. For example, in the case
+   <i>
+    ρ
+   </i>
+   = −0
+   <i>
+    .
+   </i>
+   64, the VIX-style implied volatility had bias +98 bp, the Black–Scholes implied volatility had bias −30 bp, and the SVS-style implied volatility had the smallest bias, −6 bp.
+  </p>
+  <h2>
+   <b>
+    Acknowledgments
+   </b>
+  </h2>
+  <p block-type="Text">
+   This article benefited from the comments of Peter Carr.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bakshi, G., Cao, C. &amp; Chen, Z. (1997). Empirical performance of alternative option pricing models,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      52
+     </b>
+     , 2003–2049.
+    </li>
+    <li block-type="ListItem">
+     [2] Bick, A. (1995). Quadratic-variation-based dynamic strategies,
+     <i>
+      Management Science
+     </i>
+     <b>
+      41
+     </b>
+     , 722–732.
+    </li>
+    <li block-type="ListItem">
+     [3] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities,
+     <i>
+      Journal of Political Economy
+     </i>
+     <b>
+      81
+     </b>
+     , 637–659.
+    </li>
+    <li block-type="ListItem">
+     [4] Brenner, M. &amp; Subrahmanyam, M. (1988). A simple formula to compute the implied standard deviation,
+     <i>
+      Financial Analysts Journal
+     </i>
+     <b>
+      44
+     </b>
+     , 80–83.
+    </li>
+    <li block-type="ListItem">
+     [5] Carr, P. &amp; Lee, R. (2008).
+     <i>
+      Robust Replication of Volatility Derivatives
+     </i>
+     , Bloomberg LP, University of Chicago.
+    </li>
+    <li block-type="ListItem">
+     [6] Carr, P. &amp; Lee, R. (2008).
+     <i>
+      Hedging Variance Options on Continuous Semimartingales
+     </i>
+     , Forthcoming in Finance and Stochastics.
+    </li>
+    <li block-type="ListItem">
+     [7] Carr, P. &amp; Madan, D. (1998). Towards a theory of volatility trading, in
+     <i>
+      Volatility
+     </i>
+     , R. Jarrow, ed, Risk Publications, pp. 417–427.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [8] CBOE. (2003). The VIX White Paper, Chicago Board Options Exchange.
+    </li>
+    <li block-type="ListItem">
+     [9] Derman, E., Demeterfi, K., Kamal, M. &amp; Zou, J. (1999). A guide to volatility and variance swaps,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      6
+     </b>
+     , 9–32.
+    </li>
+    <li block-type="ListItem">
+     [10] Dupire, B. (1992).
+     <i>
+      Arbitrage pricing with stochastic volatility
+     </i>
+     ,
+     <i>
+      Soc´et´e G´en´erale
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [11] Dupire, B. (2005).
+     <i>
+      Volatility Derivatives Modeling
+     </i>
+     , Bloomberg LP.
+    </li>
+    <li block-type="ListItem">
+     [12] El Karoui, N., Jeanblanc-Picque, M. &amp; Shreve, S. ´ (1998). Robustness of the Black and Scholes formula,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 93–126.
+    </li>
+    <li block-type="ListItem">
+     [13] Feinstein, S.P. (1989).
+     <i>
+      The Black–Scholes Formula is Nearly Linear in Sigma for At-the-Money Options: Therefore Implied Volatilities from At-the-Money Options are Virtually Unbiased
+     </i>
+     , Federal Reserve Bank of Atlanta.
+    </li>
+    <li block-type="ListItem">
+     [14] Gatheral, J. (2006).
+     <i>
+      The Volatility Surface: A Practitioner's Guide
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [15] Hull, J. &amp; White, A. (1987). The pricing of options on assets with stochastic volatilities,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      42
+     </b>
+     , 281–300.
+    </li>
+    <li block-type="ListItem">
+     [16] Jiang, G.J. &amp; Tian, Y.S. (2005). The model-free implied volatility and its information content,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      18
+     </b>
+     , 1305–1342.
+    </li>
+    <li block-type="ListItem">
+     [17] Lee, R. (2004). Implied volatility: statics, dynamics, and probabilistic interpretation,
+     <i>
+      Recent Advances in Applied Probability
+     </i>
+     , Springer, pp. 241–268.
+    </li>
+    <li block-type="ListItem">
+     [18] Lee, R. (2004). The moment formula for implied volatility at extreme strikes,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     , 469–480.
+    </li>
+    <li block-type="ListItem">
+     [19] Matytsin, A. (2000).
+     <i>
+      Perturbative Analysis of Volatility Smiles
+     </i>
+     , Merrill Lynch.
+    </li>
+    <li block-type="ListItem">
+     [20] Mykland, P. (2000). Conservative delta hedging,
+     <i>
+      Annals of Applied Probability
+     </i>
+     <b>
+      10
+     </b>
+     , 664–683.
+    </li>
+    <li block-type="ListItem">
+     [21] Neuberger, A. (1994). The log contract,
+     <i>
+      Journal of Portfolio Management
+     </i>
+     <b>
+      20
+     </b>
+     , 74–80.
+    </li>
+    <li block-type="ListItem">
+     [22] Polishchuk, A. (2007).
+     <i>
+      Variance swap voluation
+     </i>
+     , Bloomberg LP.
+    </li>
+    <li block-type="ListItem">
+     [23] Rebonato, R. (1999).
+     <i>
+      Volatility and Correlation in the Pricing of Equity, FX and Interest Rate Options
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   PETER CARR &amp; ROGER LEE
+  </p>
+ </body>
+</html>

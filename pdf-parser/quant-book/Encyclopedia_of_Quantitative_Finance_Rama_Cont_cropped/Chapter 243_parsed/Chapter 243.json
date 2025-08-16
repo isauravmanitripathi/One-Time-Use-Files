@@ -1,0 +1,3835 @@
+{
+  "children": [
+    {
+      "id": "/page/0/Page/242",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/0/SectionHeader/0'></content-ref><content-ref src='/page/0/Text/1'></content-ref><content-ref src='/page/0/Equation/2'></content-ref><content-ref src='/page/0/TextInlineMath/3'></content-ref><content-ref src='/page/0/Text/4'></content-ref><content-ref src='/page/0/Text/5'></content-ref><content-ref src='/page/0/Text/6'></content-ref><content-ref src='/page/0/SectionHeader/7'></content-ref><content-ref src='/page/0/Text/8'></content-ref><content-ref src='/page/0/TextInlineMath/9'></content-ref><content-ref src='/page/0/Equation/10'></content-ref><content-ref src='/page/0/TextInlineMath/11'></content-ref><content-ref src='/page/0/TextInlineMath/12'></content-ref><content-ref src='/page/0/SectionHeader/13'></content-ref><content-ref src='/page/0/Text/14'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/0/SectionHeader/0",
+          "block_type": "SectionHeader",
+          "html": "<h1><b>Conjugate Gradient </b>Methods</h1>",
+          "polygon": [
+            [
+              73.4379746835443,
+              71.0556640625
+            ],
+            [
+              236.453125,
+              71.0556640625
+            ],
+            [
+              236.453125,
+              108.700439453125
+            ],
+            [
+              73.4379746835443,
+              108.700439453125
+            ]
+          ],
+          "bbox": [
+            73.4379746835443,
+            71.0556640625,
+            236.453125,
+            108.700439453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">In option pricing on the basis of the Black-Scholes model [3], the value of an option is governed by a partial differential equation (PDE) (see Partial Dif<b>ferential Equations</b>). Except for special cases, analytic solutions generally do not exist and numerical methods are necessary to approximate the solution. For instance, finite difference methods [20] approximate the solution on a mesh of discrete asset prices. An implicit discretization of the PDE then requires in each time step solving a linear system:</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              132.66202783300199
+            ],
+            [
+              286.2582278481013,
+              132.66202783300199
+            ],
+            [
+              286.2582278481013,
+              245.93359375
+            ],
+            [
+              74.1873417721519,
+              245.93359375
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            132.66202783300199,
+            286.2582278481013,
+            245.93359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Equation/2",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">Ax = b \\tag{1}</math></p>",
+          "polygon": [
+            [
+              165.0546875,
+              257.71484375
+            ],
+            [
+              283.859375,
+              257.71484375
+            ],
+            [
+              283.859375,
+              267.287109375
+            ],
+            [
+              165.0546875,
+              267.287109375
+            ]
+          ],
+          "bbox": [
+            165.0546875,
+            257.71484375,
+            283.859375,
+            267.287109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/TextInlineMath/3",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">x</math> is the solution of next time step, <math display=\"inline\">b</math> is the right-hand side, and A is an <math display=\"inline\">N \\times N</math> matrix (see <b>Finite </b>Difference Methods for Barrier Options; Finite <b>Difference Methods for Early Exercise Options). </b>It is interesting to note that matrices arising from option pricing PDEs are often sparse and typically have <math display=\"inline\">O(N)</math> nonzeros.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              278.8151093439364
+            ],
+            [
+              286.2582278481013,
+              278.8151093439364
+            ],
+            [
+              286.2582278481013,
+              357.67138671875
+            ],
+            [
+              74.1873417721519,
+              357.67138671875
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            278.8151093439364,
+            286.2582278481013,
+            357.67138671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/4",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The solution time and storage for solving large linear systems can be very significant. Gaussian elimination is a standard method for solving linear systems, but owing to the issue of fill-in [5], it is usually deemed too expensive in practice when the underlying has more than two assets. Iterative methods [10, 18], for example, Jacobi, Gauss-Seidel, and successive over-relaxation (SOR), on the other hand, are simple to apply. However, their convergence rates, typically depending on the mesh size, are very slow for large problems. The ADI method [16] (see Alternating Direction Implicit (ADI) Method) has been used in option pricing. While it can be made efficient for some linear PDEs, it is not clear how it can be easily extended to more general and nonlinear equations.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              359.51220703125
+            ],
+            [
+              286.89453125,
+              359.51220703125
+            ],
+            [
+              286.89453125,
+              540.46484375
+            ],
+            [
+              74.1873417721519,
+              540.46484375
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            359.51220703125,
+            286.89453125,
+            540.46484375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/5",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">One way to improve on the classical iterative methods is to use dynamically computed parameters based on the current (and previous) iteration information. The hope is that the appropriately selected parameters would compute \"optimal\" solutions in some sense. Ideally, it would be desirable to have an iterative method, which (i) is simple to implement, (ii) takes advantage of sparsity structure of <math display=\"inline\">A</math>, and (iii) generates solutions whose errors are minimized</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              542.6401590457257
+            ],
+            [
+              287.0390625,
+              542.6401590457257
+            ],
+            [
+              287.0390625,
+              644.287109375
+            ],
+            [
+              74.1873417721519,
+              644.287109375
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            542.6401590457257,
+            287.0390625,
+            644.287109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/6",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">in some way. It turns out that such a method can be developed, which is known as the <i>conjugate gradi</i>ent (CG) method [11]. We begin the discussion for symmetric matrices and then generalize the idea to general nonsymmetric cases.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              71.95228628230616
+            ],
+            [
+              513.3164556962025,
+              71.95228628230616
+            ],
+            [
+              513.3164556962025,
+              127.0166015625
+            ],
+            [
+              301.24556962025315,
+              127.0166015625
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            71.95228628230616,
+            513.3164556962025,
+            127.0166015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/SectionHeader/7",
+          "block_type": "SectionHeader",
+          "html": "<h2><b>Symmetric Case </b></h2>",
+          "polygon": [
+            [
+              301.24556962025315,
+              149.15109343936382
+            ],
+            [
+              382.926582278481,
+              149.15109343936382
+            ],
+            [
+              382.926582278481,
+              160.1513671875
+            ],
+            [
+              301.24556962025315,
+              160.1513671875
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            149.15109343936382,
+            382.926582278481,
+            160.1513671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/7"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/8",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Consider the linear system (1) and assume for now that <math display=\"inline\">A</math> is symmetric positive definite (i.e., all eigenvalues are positive). To search the solution <math display=\"inline\">x</math> in the N-dimensional space <math display=\"inline\">\\mathbb{R}^N</math> is generally difficult when <math display=\"inline\">N</math> is large. A simpler problem would be to search an approximate solution <math display=\"inline\">x^k</math> from a low-dimensional subspace <math display=\"inline\">S_k</math> where the dimension k is typically much smaller than <math display=\"inline\">N</math>.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              170.13717693836978
+            ],
+            [
+              513.375,
+              170.13717693836978
+            ],
+            [
+              513.375,
+              259.5556640625
+            ],
+            [
+              301.24556962025315,
+              259.5556640625
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            170.13717693836978,
+            513.375,
+            259.5556640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/7"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/TextInlineMath/9",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">There are different ways to select <math display=\"inline\">x^k</math> from <math display=\"inline\">S_k</math>. Intuitively, <math display=\"inline\">x^k</math> is \"optimal\" if <math display=\"inline\">||x - x^k||</math> is minimized. Geometrically, it is equivalent to saying that the error <math display=\"inline\">e^k \\equiv x - x^k</math> is orthogonal to <math display=\"inline\">S_k</math>, that is, <math display=\"inline\">\\langle e^k, s \\rangle \\equiv</math><math display=\"inline\">\\sum_{i=1}^N e_i^k s_i = 0</math> for all <math display=\"inline\">s \\in S_k</math>. To enforce this condition, one would need <math display=\"inline\">e^k</math>, which is not known. To address this issue, the A-inner product, defined as <math display=\"inline\">\\langle u, v \\rangle_A \\equiv \\langle Au, v \\rangle</math>, is used instead. The orthogonality condition then becomes</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              260.0775347912525
+            ],
+            [
+              513.3164556962025,
+              260.0775347912525
+            ],
+            [
+              513.3164556962025,
+              363.74609375
+            ],
+            [
+              301.24556962025315,
+              363.74609375
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            260.0775347912525,
+            513.3164556962025,
+            363.74609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/7"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Equation/10",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">0 = \\langle e^k, s \\rangle_A = \\langle A e^k, s \\rangle = \\langle r^k, s \\rangle \\quad \\forall s \\in S_k \\quad (2)</math></p>",
+          "polygon": [
+            [
+              314.5,
+              373.87060546875
+            ],
+            [
+              511.640625,
+              373.87060546875
+            ],
+            [
+              511.640625,
+              384.7314453125
+            ],
+            [
+              314.5,
+              384.7314453125
+            ]
+          ],
+          "bbox": [
+            314.5,
+            373.87060546875,
+            511.640625,
+            384.7314453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/7"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/TextInlineMath/11",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">r^k \\equiv b - Ax^k</math> is the residual vector, which is computable. What it does is to minimize <math display=\"inline\">\\langle e^k, e^k \\rangle_A \\equiv</math><math display=\"inline\">||e^k||_A^2</math>, the A-norm of the error.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              391.2405566600398
+            ],
+            [
+              513.3164556962025,
+              391.2405566600398
+            ],
+            [
+              513.3164556962025,
+              426.4671968190855
+            ],
+            [
+              301.24556962025315,
+              426.4671968190855
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            391.2405566600398,
+            513.3164556962025,
+            426.4671968190855
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/7"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/TextInlineMath/12",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">Different choices of <math display=\"inline\">S</math> lead to different methods. For instance, the method of Steepest descent (SD) [9, 18] chooses the one-dimensional subspace <math display=\"inline\">S = \\text{span}\\{p\\}</math>, where p is the residual vector of the current approximation. A new approximate solution is obtained by enforcing the orthogonality condition (2). The procedure is repeated with another search direction. Note that SD does not increase the dimension of the search subspace <math display=\"inline\">S</math> but rather changes <math display=\"inline\">S</math>from every iteration. The main drawback of SD is slow convergence in practice, typically because the search directions may repeat and so SD may end up searching in the same direction again and again [10].</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              426.4671968190855
+            ],
+            [
+              513.3164556962025,
+              426.4671968190855
+            ],
+            [
+              513.3164556962025,
+              586.853515625
+            ],
+            [
+              301.24556962025315,
+              586.853515625
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            426.4671968190855,
+            513.3164556962025,
+            586.853515625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/7"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/SectionHeader/13",
+          "block_type": "SectionHeader",
+          "html": "<h2>Conjugate Gradient</h2>",
+          "polygon": [
+            [
+              301.78125,
+              603.3499005964214
+            ],
+            [
+              386.673417721519,
+              603.3499005964214
+            ],
+            [
+              386.673417721519,
+              613.7294921875
+            ],
+            [
+              301.78125,
+              613.7294921875
+            ]
+          ],
+          "bbox": [
+            301.78125,
+            603.3499005964214,
+            386.673417721519,
+            613.7294921875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/14",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\" class=\"has-continuation\">To avoid unnecessary duplicated search effort as in SD, the conjugate gradient (CG) method [11, 18]</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              623.5864811133201
+            ],
+            [
+              513.3164556962025,
+              623.5864811133201
+            ],
+            [
+              513.3164556962025,
+              644.287109375
+            ],
+            [
+              301.24556962025315,
+              644.287109375
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            623.5864811133201,
+            513.3164556962025,
+            644.287109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/1/Page/246",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/1/PageHeader/0'></content-ref><content-ref src='/page/1/TextInlineMath/1'></content-ref><content-ref src='/page/1/TextInlineMath/2'></content-ref><content-ref src='/page/1/Equation/3'></content-ref><content-ref src='/page/1/TextInlineMath/4'></content-ref><content-ref src='/page/1/Equation/5'></content-ref><content-ref src='/page/1/TextInlineMath/6'></content-ref><content-ref src='/page/1/Equation/7'></content-ref><content-ref src='/page/1/Text/8'></content-ref><content-ref src='/page/1/TextInlineMath/9'></content-ref><content-ref src='/page/1/Equation/10'></content-ref><content-ref src='/page/1/TextInlineMath/11'></content-ref><content-ref src='/page/1/TextInlineMath/12'></content-ref><content-ref src='/page/1/Equation/13'></content-ref><content-ref src='/page/1/Text/14'></content-ref><content-ref src='/page/1/Equation/15'></content-ref><content-ref src='/page/1/TextInlineMath/16'></content-ref><content-ref src='/page/1/Equation/17'></content-ref><content-ref src='/page/1/Text/18'></content-ref><content-ref src='/page/1/SectionHeader/19'></content-ref><content-ref src='/page/1/Equation/20'></content-ref><content-ref src='/page/1/Text/21'></content-ref><content-ref src='/page/1/Text/22'></content-ref><content-ref src='/page/1/SectionHeader/23'></content-ref><content-ref src='/page/1/TextInlineMath/24'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/1/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              77.93417721518988,
+              45.71968190854871
+            ],
+            [
+              231.55443037974683,
+              45.71968190854871
+            ],
+            [
+              231.55443037974683,
+              55.9609375
+            ],
+            [
+              77.93417721518988,
+              55.9609375
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            45.71968190854871,
+            231.55443037974683,
+            55.9609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/1",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">is used to find an optimal solution <math display=\"inline\">x^k</math> from a set of search directions <math display=\"inline\">\\{p^i\\}</math>, which are A-orthogonal; that is, <math display=\"inline\">\\langle p^i, p^j \\rangle_A = 0</math> if <math display=\"inline\">i \\neq j</math>. The A-orthogonality property guarantees that each of the <math display=\"inline\">p^k</math> searches in a unique subspace and one never has to look in that subspace again.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              72.70178926441352
+            ],
+            [
+              290.00506329113927,
+              72.70178926441352
+            ],
+            [
+              290.00506329113927,
+              141.098876953125
+            ],
+            [
+              77.93417721518988,
+              141.098876953125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            72.70178926441352,
+            290.00506329113927,
+            141.098876953125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/2",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">The basic idea of CG is to start with an initial guess <math display=\"inline\">x^0</math> and then find an approximate solution in a subspace S. It first begins with a small (dimension 1) subspace and then increases the dimension one by one to obtain better approximation. More precisely, at the <math display=\"inline\">k</math>th step, the search subspace is</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              140.90656063618292
+            ],
+            [
+              290.00506329113927,
+              140.15705765407554
+            ],
+            [
+              290.00506329113927,
+              208.93310546875
+            ],
+            [
+              77.93417721518988,
+              208.93310546875
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            140.15705765407554,
+            290.00506329113927,
+            208.93310546875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/3",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">S_k = \\text{span}\\{p^0, p^1, \\dots, p^{k-1}\\}</math> (3)</p>",
+          "polygon": [
+            [
+              128.416015625,
+              217.5849609375
+            ],
+            [
+              289.3515625,
+              217.5849609375
+            ],
+            [
+              289.3515625,
+              231.943359375
+            ],
+            [
+              128.416015625,
+              231.943359375
+            ]
+          ],
+          "bbox": [
+            128.416015625,
+            217.5849609375,
+            289.3515625,
+            231.943359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/4",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\{p^i\\}_{i=1}^{k-1}</math> are search vectors computed from previous steps. CG then looks for the best approximate solution <math display=\"inline\">x^k \\in x^0 + S_k</math>, that is,</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              236.84294234592446
+            ],
+            [
+              290.00506329113927,
+              237.59244532803183
+            ],
+            [
+              290.00506329113927,
+              272.0732421875
+            ],
+            [
+              77.18481012658228,
+              272.0732421875
+            ]
+          ],
+          "bbox": [
+            77.18481012658228,
+            236.84294234592446,
+            290.00506329113927,
+            272.0732421875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/5",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">x^{k} = x^{0} + \\sum_{i=0}^{k-1} \\alpha_{i} p^{i} </math> (4)</p>",
+          "polygon": [
+            [
+              143.953125,
+              279.8046875
+            ],
+            [
+              288.484375,
+              279.8046875
+            ],
+            [
+              288.484375,
+              312.203125
+            ],
+            [
+              143.953125,
+              312.203125
+            ]
+          ],
+          "bbox": [
+            143.953125,
+            279.8046875,
+            288.484375,
+            312.203125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/6",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">The orthogonality condition <math display=\"inline\">(2)</math> and the A-orthogonality property of <math display=\"inline\">\\{p^i\\}</math> yield <math display=\"inline\">\\alpha_i = \\langle p^i, r^0 \\rangle / \\langle p^i, p^i \\rangle_A</math>. Note that <math display=\"inline\">\\alpha_i</math> does not depend on k. Hence,</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              319.2882703777336
+            ],
+            [
+              289.2556962025316,
+              319.2882703777336
+            ],
+            [
+              289.2556962025316,
+              352.3330078125
+            ],
+            [
+              77.93417721518988,
+              352.3330078125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            319.2882703777336,
+            289.2556962025316,
+            352.3330078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/7",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">x^{k} = x^{0} + \\sum_{i=0}^{k-2} \\alpha_{i} p^{i} + \\alpha_{k-1} p^{k-1} = x^{k-1} + \\alpha_{k-1} p^{k-1}</math>\n(5)</p>",
+          "polygon": [
+            [
+              80.21484375,
+              360.4326171875
+            ],
+            [
+              288.62890625,
+              360.4326171875
+            ],
+            [
+              288.62890625,
+              399.4580078125
+            ],
+            [
+              80.21484375,
+              399.4580078125
+            ]
+          ],
+          "bbox": [
+            80.21484375,
+            360.4326171875,
+            288.62890625,
+            399.4580078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/8",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Thus, only the last search direction needs to be stored to update <math display=\"inline\">x^k</math> from <math display=\"inline\">x^{k-1}</math>.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              402.771484375
+            ],
+            [
+              289.2556962025316,
+              402.771484375
+            ],
+            [
+              289.2556962025316,
+              424.125
+            ],
+            [
+              77.93417721518988,
+              424.125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            402.771484375,
+            289.2556962025316,
+            424.125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/9",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">Once <math display=\"inline\">x^k</math> is known, SD would use the residual <math display=\"inline\">r^k</math>as the new search direction. CG, however, makes <math display=\"inline\">r^k</math>A-orthogonalized against all previous <math display=\"inline\">\\{p^i\\}</math> to obtain <math display=\"inline\">p^k</math>, that is,</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              425.7176938369781
+            ],
+            [
+              289.2556962025316,
+              425.7176938369781
+            ],
+            [
+              289.2556962025316,
+              470.1455078125
+            ],
+            [
+              77.93417721518988,
+              470.1455078125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            425.7176938369781,
+            289.2556962025316,
+            470.1455078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/10",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">p^{k} = r^{k} + \\sum_{i=0}^{k-1} \\beta_{i} p^{i} </math> (6)</p>",
+          "polygon": [
+            [
+              144.38671875,
+              471.986328125
+            ],
+            [
+              288.33984375,
+              471.986328125
+            ],
+            [
+              288.33984375,
+              504.384765625
+            ],
+            [
+              144.38671875,
+              504.384765625
+            ]
+          ],
+          "bbox": [
+            144.38671875,
+            471.986328125,
+            288.33984375,
+            504.384765625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/11",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\beta_i = -\\langle r^k, p^i \\rangle_A / \\langle p^i, p^i \\rangle_A</math> given by the Aorthogonality condition. The new search subspace is then defined as <math display=\"inline\">S_{k+1} = \\text{span}\\{p^0, \\ldots, p^k\\}</math> and the new approximate solution <math display=\"inline\">x^{k+1}</math> is computed until it is sufficiently accurate.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              510.41153081510936
+            ],
+            [
+              290.00506329113927,
+              510.41153081510936
+            ],
+            [
+              290.00506329113927,
+              567.3408203125
+            ],
+            [
+              77.93417721518988,
+              567.3408203125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            510.41153081510936,
+            290.00506329113927,
+            567.3408203125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/12",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">A potential drawback of CG is to store all <math display=\"inline\">\\{p^i\\}</math> for computing <math display=\"inline\">p^k</math>. Simplification is necessary to make the method practical. An important observation in deriving CG is that <math display=\"inline\">S_k</math> is the same as the Krylov subspace [9, 10, 18], defined as</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              568.1232604373757
+            ],
+            [
+              290.00506329113927,
+              568.1232604373757
+            ],
+            [
+              290.00506329113927,
+              624.0380859375
+            ],
+            [
+              77.93417721518988,
+              624.0380859375
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            568.1232604373757,
+            290.00506329113927,
+            624.0380859375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/13",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathcal{K}_k \\equiv \\text{span}\\{r^0, Ar^0, \\dots, A^{k-1}r^0\\} \\tag{7}</math></p>",
+          "polygon": [
+            [
+              118.2265625,
+              632.505859375
+            ],
+            [
+              288.1953125,
+              632.505859375
+            ],
+            [
+              288.1953125,
+              645.0234375
+            ],
+            [
+              118.2265625,
+              645.0234375
+            ]
+          ],
+          "bbox": [
+            118.2265625,
+            632.505859375,
+            288.1953125,
+            645.0234375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/14",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">As a result,</p>",
+          "polygon": [
+            [
+              305.7417721518987,
+              71.95228628230616
+            ],
+            [
+              353.7012658227848,
+              71.95228628230616
+            ],
+            [
+              353.7012658227848,
+              82.4227294921875
+            ],
+            [
+              305.7417721518987,
+              82.4227294921875
+            ]
+          ],
+          "bbox": [
+            305.7417721518987,
+            71.95228628230616,
+            353.7012658227848,
+            82.4227294921875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/15",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">p' \\in \\text{span}\\{p^0, \\dots, p^i\\} = S_{i+1} = \\mathcal{K}_{i+1}</math><br/>= <math>\\text{span}\\{r^0, \\dots, A^i r^0\\}</math> (8)</p>",
+          "polygon": [
+            [
+              322.9772151898734,
+              92.18886679920477
+            ],
+            [
+              515.109375,
+              92.18886679920477
+            ],
+            [
+              515.109375,
+              121.218017578125
+            ],
+            [
+              322.9772151898734,
+              121.218017578125
+            ]
+          ],
+          "bbox": [
+            322.9772151898734,
+            92.18886679920477,
+            515.109375,
+            121.218017578125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/16",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\"><math display=\"inline\">Ap^i \\in \\text{span}\\{Ar^0, \\ldots, A^{i+1}r^0\\} \\subset \\mathcal{K}_{i+2} =</math>Hence, <math display=\"inline\">S_{i+2}</math>. By equation (2), <math display=\"inline\">r^k \\perp S_j</math>, <math display=\"inline\">j = 1, \\ldots, k</math> and hence, <math display=\"inline\">r^k \\perp S_{i+2}</math> for any <math display=\"inline\">i \\leq k-2</math>. Thus, <math display=\"inline\">\\langle Ap^i, r^k \\rangle =</math><math display=\"inline\">0 = \\beta_i</math>, <math display=\"inline\">i \\leq k - 2</math>, and equation (6) is simplified to</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              128.16500994035786
+            ],
+            [
+              516.84375,
+              128.16500994035786
+            ],
+            [
+              516.84375,
+              175.706298828125
+            ],
+            [
+              304.99240506329113,
+              175.706298828125
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            128.16500994035786,
+            516.84375,
+            175.706298828125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/17",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">p^{k} = r^{k} + \\beta_{k-1} p^{k-1} \\tag{9}</math></p>",
+          "polygon": [
+            [
+              370.578125,
+              184.08203125
+            ],
+            [
+              516.265625,
+              184.08203125
+            ],
+            [
+              516.265625,
+              196.9677734375
+            ],
+            [
+              370.578125,
+              196.9677734375
+            ]
+          ],
+          "bbox": [
+            370.578125,
+            184.08203125,
+            516.265625,
+            196.9677734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/18",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Thus, as for <math display=\"inline\">x^k</math>, only the last search vector needs to be stored. Besides, more convenient formulas for <math display=\"inline\">\\alpha_k</math> and <math display=\"inline\">\\beta_k</math> can be derived by applying the various orthogonality properties. Finally, the CG algorithm is given as follows:</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              205.3638170974155
+            ],
+            [
+              517.0632911392405,
+              205.3638170974155
+            ],
+            [
+              517.0632911392405,
+              262.68505859375
+            ],
+            [
+              304.99240506329113,
+              262.68505859375
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            205.3638170974155,
+            517.0632911392405,
+            262.68505859375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/0/SectionHeader/13"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/SectionHeader/19",
+          "block_type": "SectionHeader",
+          "html": "<h2>Algorithm: Conjugate Gradient</h2>",
+          "polygon": [
+            [
+              305.7417721518987,
+              272.0695825049702
+            ],
+            [
+              442.126582278481,
+              272.0695825049702
+            ],
+            [
+              442.126582278481,
+              282.56591796875
+            ],
+            [
+              305.7417721518987,
+              282.56591796875
+            ]
+          ],
+          "bbox": [
+            305.7417721518987,
+            272.0695825049702,
+            442.126582278481,
+            282.56591796875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/20",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">x^{0} = \\text{initial guess}</math><br/>\n<math display=\"block\">r^{0} = b - Ax^{0}</math><br/>\n<math display=\"block\">(p^{-1} = 0, \\ \\beta_{-1} = 0)</math><br/>\nfor <math>k = 0, 1, 2, \\dots</math>, until convergence<br/>\n<math display=\"block\">p^{k} = r^{k} + \\beta_{k-1} p^{k-1}</math><br/>\n<math display=\"block\">\\alpha_{k} = \\langle r^{k}, r^{k} \\rangle / \\langle p^{k}, Ap^{k} \\rangle</math><br/>\n<math display=\"block\">x^{k+1} = x^{k} + \\alpha_{k} p^{k}</math><br/>\n<math display=\"block\">r^{k+1} = r^{k} - \\alpha_{k} A p^{k}</math><br/>\n<math display=\"block\">\\beta_{k} = \\langle r^{k+1}, r^{k+1} \\rangle / \\langle r^{k}, r^{k} \\rangle</math></p>",
+          "polygon": [
+            [
+              306.984375,
+              287.5361328125
+            ],
+            [
+              457.296875,
+              287.5361328125
+            ],
+            [
+              457.296875,
+              394.671875
+            ],
+            [
+              306.984375,
+              394.671875
+            ]
+          ],
+          "bbox": [
+            306.984375,
+            287.5361328125,
+            457.296875,
+            394.671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/21",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">end</p>",
+          "polygon": [
+            [
+              304.09375,
+              390.990234375
+            ],
+            [
+              326.640625,
+              390.990234375
+            ],
+            [
+              326.640625,
+              400.234592445328
+            ],
+            [
+              304.09375,
+              400.234592445328
+            ]
+          ],
+          "bbox": [
+            304.09375,
+            390.990234375,
+            326.640625,
+            400.234592445328
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/22",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Note that the CG algorithm only involves simple vector operations and matrix-vector multiply, and hence the sparsity structure of <math display=\"inline\">A</math> can be fully and easily explored. Moreover, two-term recurrence formulas exist for the updates of <math display=\"inline\">x^k</math> and other variables. As such, the work and storage for one CG iteration are <math display=\"inline\">O(N)</math>. Note also that the matrix A is not really needed as long as one can compute the matrix-vector product. This property is particularly useful when <math display=\"inline\">A</math>is not available explicitly; see the section Application.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              412.22664015904576
+            ],
+            [
+              517.421875,
+              412.22664015904576
+            ],
+            [
+              517.421875,
+              525.4015904572565
+            ],
+            [
+              304.99240506329113,
+              525.4015904572565
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            412.22664015904576,
+            517.421875,
+            525.4015904572565
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/SectionHeader/23",
+          "block_type": "SectionHeader",
+          "html": "<h4>Convergence of CG</h4>",
+          "polygon": [
+            [
+              305.5390625,
+              545.6381709741551
+            ],
+            [
+              388.92151898734176,
+              545.6381709741551
+            ],
+            [
+              388.92151898734176,
+              554.8232421875
+            ],
+            [
+              305.5390625,
+              554.8232421875
+            ]
+          ],
+          "bbox": [
+            305.5390625,
+            545.6381709741551,
+            388.92151898734176,
+            554.8232421875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19",
+            "4": "/page/1/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/24",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">Compared to other iterative methods, CG has the desirable property that <math display=\"inline\">x^k</math> is the \"best\" approximation from <math display=\"inline\">S_k</math>. Thus, the CG solution <math display=\"inline\">x^k</math> improves as the dimension of <math display=\"inline\">S_k</math> increases. When <math display=\"inline\">k = N</math>, then <math display=\"inline\">S_N = \\mathbb{R}^N</math> and so <math display=\"inline\">e^N = 0</math>. Hence, CG obtains the exact solution in at most <math display=\"inline\">N</math> iterations (known as the finite termination property [18]). In practice,</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              565.8747514910536
+            ],
+            [
+              517.0632911392405,
+              565.8747514910536
+            ],
+            [
+              517.0632911392405,
+              643.8230616302187
+            ],
+            [
+              304.99240506329113,
+              643.8230616302187
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            565.8747514910536,
+            517.0632911392405,
+            643.8230616302187
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19",
+            "4": "/page/1/SectionHeader/23"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19",
+        "4": "/page/1/SectionHeader/23"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/2/Page/248",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/2/PageHeader/0'></content-ref><content-ref src='/page/2/TextInlineMath/1'></content-ref><content-ref src='/page/2/Text/2'></content-ref><content-ref src='/page/2/Equation/3'></content-ref><content-ref src='/page/2/TextInlineMath/4'></content-ref><content-ref src='/page/2/SectionHeader/5'></content-ref><content-ref src='/page/2/TextInlineMath/6'></content-ref><content-ref src='/page/2/Text/7'></content-ref><content-ref src='/page/2/Equation/8'></content-ref><content-ref src='/page/2/Text/9'></content-ref><content-ref src='/page/2/TextInlineMath/10'></content-ref><content-ref src='/page/2/TextInlineMath/11'></content-ref><content-ref src='/page/2/Equation/12'></content-ref><content-ref src='/page/2/TextInlineMath/13'></content-ref><content-ref src='/page/2/Text/14'></content-ref><content-ref src='/page/2/SectionHeader/15'></content-ref><content-ref src='/page/2/Text/16'></content-ref><content-ref src='/page/2/Equation/17'></content-ref><content-ref src='/page/2/TextInlineMath/18'></content-ref><content-ref src='/page/2/Text/19'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/2/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              359.69620253164555,
+              45.71968190854871
+            ],
+            [
+              513.3164556962025,
+              45.71968190854871
+            ],
+            [
+              513.3164556962025,
+              55.7308349609375
+            ],
+            [
+              359.69620253164555,
+              55.7308349609375
+            ]
+          ],
+          "bbox": [
+            359.69620253164555,
+            45.71968190854871,
+            513.3164556962025,
+            55.7308349609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19",
+            "4": "/page/1/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/1",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">however, CG is often treated as an iterative method in the sense that only a small number of iterations are performed. In many cases, the approximate solution <math display=\"inline\">x^k</math> is sufficiently accurate for <math display=\"inline\">k \\ll N</math>.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              71.2027833001988
+            ],
+            [
+              286.2582278481013,
+              71.2027833001988
+            ],
+            [
+              286.2582278481013,
+              114.67395626242545
+            ],
+            [
+              74.1873417721519,
+              114.67395626242545
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            71.2027833001988,
+            286.2582278481013,
+            114.67395626242545
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19",
+            "4": "/page/1/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The number of CG iterations needed depends on the rate of convergence, which is very complex in general. A well-known estimate [9, 18] is given as follows:</p>",
+          "polygon": [
+            [
+              74.9367088607595,
+              116.17296222664017
+            ],
+            [
+              286.2582278481013,
+              116.17296222664017
+            ],
+            [
+              286.2582278481013,
+              161.531982421875
+            ],
+            [
+              74.9367088607595,
+              161.531982421875
+            ]
+          ],
+          "bbox": [
+            74.9367088607595,
+            116.17296222664017,
+            286.2582278481013,
+            161.531982421875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19",
+            "4": "/page/1/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/3",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\|e^{k}\\|_{A} \\le 2\\left(\\frac{\\sqrt{\\kappa}-1}{\\sqrt{\\kappa}+1}\\right)^{k} \\|e^{0}\\|_{A}</math> (10)</p>",
+          "polygon": [
+            [
+              120.322265625,
+              169.447509765625
+            ],
+            [
+              284.7265625,
+              169.447509765625
+            ],
+            [
+              284.7265625,
+              197.3359375
+            ],
+            [
+              120.322265625,
+              197.3359375
+            ]
+          ],
+          "bbox": [
+            120.322265625,
+            169.447509765625,
+            284.7265625,
+            197.3359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19",
+            "4": "/page/1/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/4",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\kappa</math> is the condition number [8] of A. For a parabolic PDE, with timestep size <math display=\"inline\">O(h)</math>, <math display=\"inline\">\\kappa =</math><math display=\"inline\">O(h^{-1})</math>, where h is the mesh size of the discrete asset prices. The rates of convergence for Jacobi, Gauss-Seidel, and SD are <math display=\"inline\">1 - O(h)</math>, whereas the rate for CG, based on the above error bound, is <math display=\"inline\">1 - O(\\sqrt{h})</math>, an order of magnitude improvement. SOR also has the same asymptotic convergence rate as CG, but it would require the knowledge of the optimal over-relaxation parameter. In practice, the CG error bound is often too pessimistic and the actual CG convergence is considerably much faster than the classical iterative methods.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              203.11530815109344
+            ],
+            [
+              286.2582278481013,
+              203.11530815109344
+            ],
+            [
+              286.2582278481013,
+              351.228515625
+            ],
+            [
+              74.1873417721519,
+              351.228515625
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            203.11530815109344,
+            286.2582278481013,
+            351.228515625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/1/SectionHeader/19",
+            "4": "/page/1/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/SectionHeader/5",
+          "block_type": "SectionHeader",
+          "html": "<h2>Nonsymmetric Case</h2>",
+          "polygon": [
+            [
+              74.9367088607595,
+              373.2524850894632
+            ],
+            [
+              173.853164556962,
+              373.2524850894632
+            ],
+            [
+              173.853164556962,
+              383.9951171875
+            ],
+            [
+              74.9367088607595,
+              383.9951171875
+            ]
+          ],
+          "bbox": [
+            74.9367088607595,
+            373.2524850894632,
+            173.853164556962,
+            383.9951171875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/6",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">CG computes an optimal approximation <math display=\"inline\">x^k</math> (<math display=\"inline\">||e^k||_A</math> is minimized) using short (two-term) recurrence update formulas for <math display=\"inline\">x^k</math> and other quantities. Could one do the same for nonsymmetric matrices, such as the discretized Black–Scholes equation? Unfortunately, the answer is provably no [6]. Thus, when generalizing CG to the nonsymmetric case, one keeps some desirable properties of CG and sacrifices the others. There are many different possibilities, which yield numerous methods collectively known as the Krylov subspace methods [1]. Here, we describe two of these methods commonly used in practice.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              395.7375745526839
+            ],
+            [
+              286.2582278481013,
+              394.2385685884692
+            ],
+            [
+              286.2582278481013,
+              530.892578125
+            ],
+            [
+              74.1873417721519,
+              530.892578125
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            394.2385685884692,
+            286.2582278481013,
+            530.892578125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The generalized minimal residual (GMRES) method [17] minimizes the norm of the residual vector:</p>",
+          "polygon": [
+            [
+              74.9367088607595,
+              532.89662027833
+            ],
+            [
+              286.2582278481013,
+              532.89662027833
+            ],
+            [
+              286.2582278481013,
+              565.8681640625
+            ],
+            [
+              74.9367088607595,
+              565.8681640625
+            ]
+          ],
+          "bbox": [
+            74.9367088607595,
+            532.89662027833,
+            286.2582278481013,
+            565.8681640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/8",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\min_{x^k} \\|b - Ax^k\\|_2, \\quad x^k \\in x^0 + \\mathcal{K}_k \\tag{11}</math></p>",
+          "polygon": [
+            [
+              105.07421875,
+              573.9677734375
+            ],
+            [
+              285.44921875,
+              573.9677734375
+            ],
+            [
+              285.44921875,
+              593.1123046875
+            ],
+            [
+              105.07421875,
+              593.1123046875
+            ]
+          ],
+          "bbox": [
+            105.07421875,
+            573.9677734375,
+            285.44921875,
+            593.1123046875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\" class=\"has-continuation\">As a result, the residual norm is nonincreasing. Furthermore, convergence is guaranteed for a wide class of matrices. However, it needs to store all the basis vectors for <math display=\"inline\">\\mathcal{K}_k</math>. Thus, work and storage increase</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              600.3518886679921
+            ],
+            [
+              286.2582278481013,
+              600.3518886679921
+            ],
+            [
+              286.2582278481013,
+              644.287109375
+            ],
+            [
+              74.1873417721519,
+              644.287109375
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            600.3518886679921,
+            286.2582278481013,
+            644.287109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/10",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">with iteration. A remedy is to restart GMRES every <math display=\"inline\">m</math> iterations (<math display=\"inline\">m</math> small constant). The convergence of the restarted GMRES, however, may stagnate, that is, <math display=\"inline\">||r^k|| \\approx ||r^{k-1}||</math> for many iterations.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              71.2027833001988
+            ],
+            [
+              513.375,
+              71.2027833001988
+            ],
+            [
+              513.375,
+              115.05126953125
+            ],
+            [
+              301.24556962025315,
+              115.05126953125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            71.2027833001988,
+            513.375,
+            115.05126953125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/11",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">The other method is BiCGSTAB [23], which is derived from the biconjugate gradient (BCG) method [7]. BCG enforces a similar orthogonality condition on <math display=\"inline\">r^k</math> as in equation (2) but allows two different Krylov subspaces to be used: more precisely.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              116.17296222664017
+            ],
+            [
+              513.3164556962025,
+              116.17296222664017
+            ],
+            [
+              513.3164556962025,
+              172.6689453125
+            ],
+            [
+              301.24556962025315,
+              172.6689453125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            116.17296222664017,
+            513.3164556962025,
+            172.6689453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/12",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">r^k \\perp \\tilde{\\mathcal{K}}_k \\quad \\text{and} \\quad x^k \\in x^0 + \\mathcal{K}_k </math> (12)</p>",
+          "polygon": [
+            [
+              349.4765625,
+              182.9775390625
+            ],
+            [
+              511.3515625,
+              182.9775390625
+            ],
+            [
+              511.3515625,
+              195.4951171875
+            ],
+            [
+              349.4765625,
+              195.4951171875
+            ]
+          ],
+          "bbox": [
+            349.4765625,
+            182.9775390625,
+            511.3515625,
+            195.4951171875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/13",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\tilde{\\mathcal{K}}_k = \\text{span}\\{\\tilde{r}^0, A^T \\tilde{r}^0, \\dots, (A^T)^{k-1} \\tilde{r}^0\\}</math> for some vector <math display=\"inline\">\\tilde{r}^0</math>. By enforcing the so-called bi-orthogonality condition, which makes the basis vectors <math display=\"inline\">\\{v^j\\}</math> for <math display=\"inline\">\\mathcal{K}_k</math> and the basis vectors <math display=\"inline\">\\{w^j\\}</math> for <math display=\"inline\">\\tilde{\\mathcal{K}}_k</math> orthogonal to each other, two-term recurrence formulas for updating <math display=\"inline\">x^k</math> and other quantities can be found. It has an advantage over GMRES in terms of storage. However, since it does not have the minimization property as GMRES, the residual norm can be very irregular as iterations continue. BiCGSTAB essentially is a \"smooth\" variant of BCG and its convergence is much more stabilized.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              203.8648111332008
+            ],
+            [
+              513.3164556962025,
+              203.8648111332008
+            ],
+            [
+              513.3164556962025,
+              343.12890625
+            ],
+            [
+              301.24556962025315,
+              343.12890625
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            203.8648111332008,
+            513.3164556962025,
+            343.12890625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/14",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">A more comprehensive overview of various Krylov subspace methods can be found in [1]. Similar to CG, the algorithms of the nonsymmetric methods involve only simple vector operations and matrix-vector products.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              344.77137176938373
+            ],
+            [
+              513.3164556962025,
+              344.77137176938373
+            ],
+            [
+              513.3164556962025,
+              400.9306640625
+            ],
+            [
+              301.24556962025315,
+              400.9306640625
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            344.77137176938373,
+            513.3164556962025,
+            400.9306640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/SectionHeader/15",
+          "block_type": "SectionHeader",
+          "html": "<h4>Preconditioning</h4>",
+          "polygon": [
+            [
+              301.24556962025315,
+              421.220675944334
+            ],
+            [
+              369.4379746835443,
+              421.220675944334
+            ],
+            [
+              369.4379746835443,
+              431.1201171875
+            ],
+            [
+              301.24556962025315,
+              431.1201171875
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            421.220675944334,
+            369.4379746835443,
+            431.1201171875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5",
+            "4": "/page/2/SectionHeader/15"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/16",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">CG methods would not have been so popular without the powerful technique called <i>preconditioning</i>, which can accelerate convergence drastically. Consider a nonsingular matrix <math display=\"inline\">M</math>. The main idea is that the preconditioned system</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              442.20675944334
+            ],
+            [
+              513.3164556962025,
+              442.20675944334
+            ],
+            [
+              513.3164556962025,
+              497.7578125
+            ],
+            [
+              301.24556962025315,
+              497.7578125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            442.20675944334,
+            513.3164556962025,
+            497.7578125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5",
+            "4": "/page/2/SectionHeader/15"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/17",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">M^{-1}Ax = M^{-1}b \\t\\t(13)</math></p>",
+          "polygon": [
+            [
+              372.3125,
+              508.4345703125
+            ],
+            [
+              512.21875,
+              508.4345703125
+            ],
+            [
+              512.21875,
+              518.7431640625
+            ],
+            [
+              372.3125,
+              518.7431640625
+            ]
+          ],
+          "bbox": [
+            372.3125,
+            508.4345703125,
+            512.21875,
+            518.7431640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5",
+            "4": "/page/2/SectionHeader/15"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/18",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">is equivalent to equation <math display=\"inline\">(1)</math> but the convergence of CG now depends on <math display=\"inline\">M^{-1}A</math> instead. The key is to construct a preconditioner M such that <math display=\"inline\">\\kappa(M^{-1}A) \\ll</math><math display=\"inline\">\\kappa(A)</math> in order to obtain fast convergence. It is clear that if <math display=\"inline\">M \\approx A</math>, then <math display=\"inline\">M^{-1}A \\approx I</math>, which has condition number 1. On the other hand, <math display=\"inline\">M</math> should be simple enough that the matrix-vector product by <math display=\"inline\">M^{-1}</math> is easy to compute.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              530.6481113320079
+            ],
+            [
+              514.0658227848102,
+              530.6481113320079
+            ],
+            [
+              514.0658227848102,
+              620.724609375
+            ],
+            [
+              301.24556962025315,
+              620.724609375
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            530.6481113320079,
+            514.0658227848102,
+            620.724609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5",
+            "4": "/page/2/SectionHeader/15"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/19",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\" class=\"has-continuation\">Generally speaking, it is difficult to determine what the optimal <math display=\"inline\">M</math> is. Often it is problem specific. A</p>",
+          "polygon": [
+            [
+              301.99493670886073,
+              622.8369781312127
+            ],
+            [
+              513.3164556962025,
+              622.8369781312127
+            ],
+            [
+              513.3164556962025,
+              644.6552734375
+            ],
+            [
+              301.99493670886073,
+              644.6552734375
+            ]
+          ],
+          "bbox": [
+            301.99493670886073,
+            622.8369781312127,
+            513.3164556962025,
+            644.6552734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5",
+            "4": "/page/2/SectionHeader/15"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/5",
+        "4": "/page/2/SectionHeader/15"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/3/Page/233",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/3/PageHeader/0'></content-ref><content-ref src='/page/3/Text/1'></content-ref><content-ref src='/page/3/SectionHeader/2'></content-ref><content-ref src='/page/3/Text/3'></content-ref><content-ref src='/page/3/Equation/4'></content-ref><content-ref src='/page/3/TextInlineMath/5'></content-ref><content-ref src='/page/3/Text/6'></content-ref><content-ref src='/page/3/Text/7'></content-ref><content-ref src='/page/3/SectionHeader/8'></content-ref><content-ref src='/page/3/Text/9'></content-ref><content-ref src='/page/3/SectionHeader/10'></content-ref><content-ref src='/page/3/Text/11'></content-ref><content-ref src='/page/3/SectionHeader/12'></content-ref><content-ref src='/page/3/ListGroup/233'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/3/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              77.93417721518988,
+              45.71968190854871
+            ],
+            [
+              232.30379746835442,
+              45.71968190854871
+            ],
+            [
+              232.30379746835442,
+              55.9609375
+            ],
+            [
+              77.93417721518988,
+              55.9609375
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            45.71968190854871,
+            232.30379746835442,
+            55.9609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5",
+            "4": "/page/2/SectionHeader/15"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">general class of preconditioners widely used in practice is called <i>incomplete LU</i> (ILU) factorization [14, 18]. A full LU would result in Gaussian elimination, which is expensive. An approximate LU factorization trades-off between efficiency and accuracy. Other effective preconditioners include multigrid [15, 22], domain decomposition [19], and sparse approximation inverse [2]. Once a preconditioner is chosen, to incorporate preconditioning into any CG algorithms only requires changing a few lines of code.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              71.2027833001988
+            ],
+            [
+              290.00506329113927,
+              71.2027833001988
+            ],
+            [
+              290.00506329113927,
+              184.542236328125
+            ],
+            [
+              77.93417721518988,
+              184.542236328125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            71.2027833001988,
+            290.00506329113927,
+            184.542236328125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/2/SectionHeader/5",
+            "4": "/page/2/SectionHeader/15"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/SectionHeader/2",
+          "block_type": "SectionHeader",
+          "html": "<h2>Application</h2>",
+          "polygon": [
+            [
+              77.93417721518988,
+              206.11332007952288
+            ],
+            [
+              136.38481012658227,
+              206.11332007952288
+            ],
+            [
+              136.38481012658227,
+              217.40087890625
+            ],
+            [
+              77.93417721518988,
+              217.40087890625
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            206.11332007952288,
+            136.38481012658227,
+            217.40087890625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/2"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/3",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">CG methods have been used for pricing different options, for instance, American options [12], options with stochastic volatility [25], and options on Lévy driven assets [13]. Comparisons of SOR and CG methods for multiasset problem can be found in [21]. As an example, we consider pricing European options in a rather general exponential Lévy model (cf. [24] for more details in the special case of CGMY). The option value, <math display=\"inline\">V(S, \\tau)</math>, satisfies a partial integro-differential equation (see Partial Integrodifferential Equations (PIDEs)), which is similar to the Black-Scholes equation [3] but with an extra integral term for the jump process:</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              227.84890656063618
+            ],
+            [
+              290.00506329113927,
+              227.84890656063618
+            ],
+            [
+              290.00506329113927,
+              374.791015625
+            ],
+            [
+              77.93417721518988,
+              374.791015625
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            227.84890656063618,
+            290.00506329113927,
+            374.791015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/2"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Equation/4",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{split} \\frac{\\partial V}{\\partial \\tau} &amp;= \\frac{1}{2} \\sigma^2 S^2 \\frac{\\partial^2 V}{\\partial S^2} + rS \\frac{\\partial V}{\\partial S} - rV \\\\ &amp;+ \\int_{-\\infty}^{\\infty} v(y) \\bigg[ V(Se^y, \\tau) - V(S, \\tau) \\\\ &amp;- S(e^y - 1) \\frac{\\partial V}{\\partial S} \\bigg] \\mathrm{d}y \\end{split} \\tag{14}</math></p>",
+          "polygon": [
+            [
+              103.412109375,
+              383.626953125
+            ],
+            [
+              288.7734375,
+              383.626953125
+            ],
+            [
+              288.7734375,
+              466.83203125
+            ],
+            [
+              103.412109375,
+              466.83203125
+            ]
+          ],
+          "bbox": [
+            103.412109375,
+            383.626953125,
+            288.7734375,
+            466.83203125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/2"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/TextInlineMath/5",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where S is the value of the underlying asset, <math display=\"inline\">\\tau</math> the time from expiry, <math display=\"inline\">\\sigma</math> the volatility, r the interest rate, and <math display=\"inline\">v(y)</math> a Lévy measure. Let <math display=\"inline\">\\{S_i\\}_{i=1}^N</math> be a set of discrete asset prices. Also, let <math display=\"inline\">V^n = (V_1^n, \\ldots, V_N^n)</math>, where <math display=\"inline\">V_i^n</math> is an approximation of <math display=\"inline\">V(S_i, \\tau^n)</math> at time <math display=\"inline\">\\tau^n</math>. Then a fully implicit finite difference discretization requires solving a linear system (1) at each timestep with <math display=\"inline\">x = V^{n+1}</math> and <math display=\"inline\">b = V^n</math>. (The second order Crank-Nicolson discretization results in a similar matrix and right-hand side.) The matrix <math display=\"inline\">A</math> can be written as a sum of two matrices: <math display=\"inline\">A = L + B</math>, where <math display=\"inline\">L</math> corresponds to the discretization of the differential term (which is similar to the Black-Scholes matrix) and <math display=\"inline\">B</math> corresponds to the discretization of the integral term. While L is sparse, B is not; it has <math display=\"inline\">O(N^2)</math></p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              475.18489065606366
+            ],
+            [
+              290.21875,
+              475.18489065606366
+            ],
+            [
+              290.21875,
+              643.9189453125
+            ],
+            [
+              77.93417721518988,
+              643.9189453125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            475.18489065606366,
+            290.21875,
+            643.9189453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/2"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/6",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">nonzeros. Since <math display=\"inline\">A</math> is dense because of <math display=\"inline\">B</math>, it is not practical (time and storage) to form <math display=\"inline\">A</math> explicitly even for moderate size <math display=\"inline\">N</math>. In this case, Gaussian elimination and the classical iterative methods would not be easily applicable.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              71.699951171875
+            ],
+            [
+              517.0632911392405,
+              71.699951171875
+            ],
+            [
+              517.0632911392405,
+              128.029052734375
+            ],
+            [
+              304.99240506329113,
+              128.029052734375
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            71.699951171875,
+            517.0632911392405,
+            128.029052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/2"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">CG methods, on the other hand, can be used with ease. Note that <math display=\"inline\">B</math> has a special convolution structure so that matrix-vector multiply can be computed efficiently using an FFT [4]. Thus, while <math display=\"inline\">A</math>may not be available explicitly, the matrix-vector product by <math display=\"inline\">A</math> can be computed, which is all CG methods require. In this problem, <math display=\"inline\">A</math> is nonsymmetric and BiCGSTAB is used to solve the linear system [24]. Mesh-independent convergence is obtained for the infinite activity and finite variation case and there is a slight increase in iteration numbers for the infinite variation case. In both the cases, it shows an improvement of factor 4 in CPU times over another iterative method on the basis of a fixed point iteration.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              128.9145129224652
+            ],
+            [
+              517.0632911392405,
+              128.9145129224652
+            ],
+            [
+              517.0632911392405,
+              287.0596421471173
+            ],
+            [
+              304.99240506329113,
+              287.0596421471173
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            128.9145129224652,
+            517.0632911392405,
+            287.0596421471173
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/2"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/SectionHeader/8",
+          "block_type": "SectionHeader",
+          "html": "<h2>Summary</h2>",
+          "polygon": [
+            [
+              305.7417721518987,
+              313.29224652087476
+            ],
+            [
+              355.2,
+              313.29224652087476
+            ],
+            [
+              355.2,
+              323.80029296875
+            ],
+            [
+              305.7417721518987,
+              323.80029296875
+            ]
+          ],
+          "bbox": [
+            305.7417721518987,
+            313.29224652087476,
+            355.2,
+            323.80029296875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/8"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">CG methods generate \"optimal\" approximate solutions by performing simple vector operations and matrix-vector multiply. More importantly, by combining with the right choice of preconditioners, CG methods have been shown to be robust and efficient for solving option pricing PDEs. The discussion has been mainly focused on linear problems. In more general cases, one can apply preconditioned CG methods to the linearized equations from nonlinear problems without making any special modification.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              334.27833001988074
+            ],
+            [
+              517.0632911392405,
+              334.27833001988074
+            ],
+            [
+              517.0632911392405,
+              448.0556640625
+            ],
+            [
+              304.99240506329113,
+              448.0556640625
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            334.27833001988074,
+            517.0632911392405,
+            448.0556640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/8"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/SectionHeader/10",
+          "block_type": "SectionHeader",
+          "html": "<h2>Acknowledgments</h2>",
+          "polygon": [
+            [
+              305.25,
+              471.4373757455269
+            ],
+            [
+              394.91645569620255,
+              471.4373757455269
+            ],
+            [
+              394.91645569620255,
+              481.9267578125
+            ],
+            [
+              305.25,
+              481.9267578125
+            ]
+          ],
+          "bbox": [
+            305.25,
+            471.4373757455269,
+            394.91645569620255,
+            481.9267578125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/10"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The author was supported by the Natural Sciences and Engineering Research Council of Canada.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              492.4234592445328
+            ],
+            [
+              517.0632911392405,
+              492.4234592445328
+            ],
+            [
+              517.0632911392405,
+              512.1162109375
+            ],
+            [
+              304.99240506329113,
+              512.1162109375
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            492.4234592445328,
+            517.0632911392405,
+            512.1162109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/10"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/SectionHeader/12",
+          "block_type": "SectionHeader",
+          "html": "<h3>References</h3>",
+          "polygon": [
+            [
+              305.5390625,
+              529.8986083499007
+            ],
+            [
+              359.8828125,
+              529.8986083499007
+            ],
+            [
+              359.8828125,
+              540.0966796875
+            ],
+            [
+              305.5390625,
+              540.0966796875
+            ]
+          ],
+          "bbox": [
+            305.5390625,
+            529.8986083499007,
+            359.8828125,
+            540.0966796875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/10",
+            "3": "/page/3/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/ListGroup/233",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup' class='has-continuation'><ul><content-ref src='/page/3/ListItem/13'></content-ref><content-ref src='/page/3/ListItem/14'></content-ref></ul></p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              555.3817097415507
+            ],
+            [
+              517.8126582278481,
+              555.3817097415507
+            ],
+            [
+              517.8126582278481,
+              644.6552734375
+            ],
+            [
+              304.99240506329113,
+              644.6552734375
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            555.3817097415507,
+            517.8126582278481,
+            644.6552734375
+          ],
+          "children": [
+            {
+              "id": "/page/3/ListItem/13",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">Barret, R., Berry, M., Chan, T.F., Demmel, J., Donato, J., [1] Dongarra, J., Eijkhout, V., Pozo, R., Romine, C. &amp; Van der Vorst, H. (1994). Templates for the Solution of Linear Systems: Building Blocks for Iterative Methods, 2nd Edition, SIAM, Philadelphia.</li>",
+              "polygon": [
+                [
+                  304.99240506329113,
+                  555.3817097415507
+                ],
+                [
+                  517.8126582278481,
+                  555.3817097415507
+                ],
+                [
+                  517.8126582278481,
+                  604.1572265625
+                ],
+                [
+                  304.99240506329113,
+                  604.1572265625
+                ]
+              ],
+              "bbox": [
+                304.99240506329113,
+                555.3817097415507,
+                517.8126582278481,
+                604.1572265625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/3/ListItem/14",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[2] Benzi, M., Meyer, C.D. &amp; Tuma, M. (1996). A sparse approximate inverse preconditioner for the conjugate gradient method, SIAM Journal on Scientific Computing 17, 1135-1149.</li>",
+              "polygon": [
+                [
+                  305.7417721518987,
+                  605.5984095427435
+                ],
+                [
+                  517.0632911392405,
+                  605.5984095427435
+                ],
+                [
+                  517.0632911392405,
+                  644.6552734375
+                ],
+                [
+                  305.7417721518987,
+                  644.6552734375
+                ]
+              ],
+              "bbox": [
+                305.7417721518987,
+                605.5984095427435,
+                517.0632911392405,
+                644.6552734375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/10",
+            "3": "/page/3/SectionHeader/12"
+          },
+          "images": null
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/10",
+        "3": "/page/3/SectionHeader/12"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/4/Page/348",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/4/PageHeader/0'></content-ref><content-ref src='/page/4/ListGroup/347'></content-ref><content-ref src='/page/4/ListGroup/348'></content-ref><content-ref src='/page/4/Text/24'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/4/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              360.171875,
+              45.49365234375
+            ],
+            [
+              512.3060302734375,
+              45.49365234375
+            ],
+            [
+              512.3060302734375,
+              56.70166015625
+            ],
+            [
+              360.171875,
+              56.70166015625
+            ]
+          ],
+          "bbox": [
+            360.171875,
+            45.49365234375,
+            512.3060302734375,
+            56.70166015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/10",
+            "3": "/page/3/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/ListGroup/347",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup' class='has-continuation'><ul><content-ref src='/page/4/ListItem/1'></content-ref><content-ref src='/page/4/ListItem/2'></content-ref><content-ref src='/page/4/ListItem/3'></content-ref><content-ref src='/page/4/ListItem/4'></content-ref><content-ref src='/page/4/ListItem/5'></content-ref><content-ref src='/page/4/ListItem/6'></content-ref><content-ref src='/page/4/ListItem/7'></content-ref><content-ref src='/page/4/ListItem/8'></content-ref><content-ref src='/page/4/ListItem/9'></content-ref><content-ref src='/page/4/ListItem/10'></content-ref><content-ref src='/page/4/ListItem/11'></content-ref><content-ref src='/page/4/ListItem/12'></content-ref></ul></p>",
+          "polygon": [
+            [
+              74.794921875,
+              72.00787353515625
+            ],
+            [
+              287.328125,
+              72.00787353515625
+            ],
+            [
+              287.328125,
+              472.72265625
+            ],
+            [
+              74.794921875,
+              472.72265625
+            ]
+          ],
+          "bbox": [
+            74.794921875,
+            72.00787353515625,
+            287.328125,
+            472.72265625
+          ],
+          "children": [
+            {
+              "id": "/page/4/ListItem/1",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[3] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities, <i>Journal of Political Economy</i> <b>81</b>, 637–654.</li>",
+              "polygon": [
+                [
+                  75.951171875,
+                  72.00787353515625
+                ],
+                [
+                  286.171875,
+                  72.00787353515625
+                ],
+                [
+                  286.171875,
+                  100.3271484375
+                ],
+                [
+                  75.951171875,
+                  100.3271484375
+                ]
+              ],
+              "bbox": [
+                75.951171875,
+                72.00787353515625,
+                286.171875,
+                100.3271484375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/2",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[4] d'Halluin, Y., Forsyth, P.A. &amp; Vetzal, K. (2005). Robust numerical methods for contingent claims under jump diffusion processes, <i>IMA Journal on Numerical Analysis</i> <b>25</b>, 87–112.</li>",
+              "polygon": [
+                [
+                  75.806640625,
+                  102.18792724609375
+                ],
+                [
+                  287.328125,
+                  102.18792724609375
+                ],
+                [
+                  287.328125,
+                  140.914794921875
+                ],
+                [
+                  75.806640625,
+                  140.914794921875
+                ]
+              ],
+              "bbox": [
+                75.806640625,
+                102.18792724609375,
+                287.328125,
+                140.914794921875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/3",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[5] Duff, I.S., Erisman, A.M. &amp; Reid, J.K. (1986). <i>Direct</i> <i>Methods for Sparse Matrices</i>, Oxford Press, UK.</li>",
+              "polygon": [
+                [
+                  75.517578125,
+                  142.36480712890625
+                ],
+                [
+                  285.8828125,
+                  142.36480712890625
+                ],
+                [
+                  285.8828125,
+                  160.979736328125
+                ],
+                [
+                  75.517578125,
+                  160.979736328125
+                ]
+              ],
+              "bbox": [
+                75.517578125,
+                142.36480712890625,
+                285.8828125,
+                160.979736328125
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/4",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[6] Faber, V. &amp; Manteuffel, T. (1984). Necessary and sufficient conditions for the existence of a conjugate gradient method, <i>SIAM Journal on Numerical Analysis</i> <b>21</b>, 352–362.</li>",
+              "polygon": [
+                [
+                  75.58984375,
+                  162.548095703125
+                ],
+                [
+                  286.60546875,
+                  162.548095703125
+                ],
+                [
+                  286.60546875,
+                  200.94744873046875
+                ],
+                [
+                  75.58984375,
+                  200.94744873046875
+                ]
+              ],
+              "bbox": [
+                75.58984375,
+                162.548095703125,
+                286.60546875,
+                200.94744873046875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/5",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[7] Fletcher, R. (1975). Conjugate gradient methods for indefinite systems, in <i>The Dundee Biennial Conference</i> <i>on Numerical Analysis, 1974</i>, G.A. Watson, ed, Springer-Verlag, New York, pp. 73–89.</li>",
+              "polygon": [
+                [
+                  75.662109375,
+                  202.8082275390625
+                ],
+                [
+                  285.59375,
+                  202.8082275390625
+                ],
+                [
+                  285.59375,
+                  241.20758056640625
+                ],
+                [
+                  75.662109375,
+                  241.20758056640625
+                ]
+              ],
+              "bbox": [
+                75.662109375,
+                202.8082275390625,
+                285.59375,
+                241.20758056640625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/6",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[8] Golub, G. &amp; Van Loan, C. (1996). <i>Matrix Computations</i>, The Johns Hopkins University Press, Baltimore.</li>",
+              "polygon": [
+                [
+                  75.517578125,
+                  242.985107421875
+                ],
+                [
+                  286.171875,
+                  242.985107421875
+                ],
+                [
+                  286.171875,
+                  261.3675842285156
+                ],
+                [
+                  75.517578125,
+                  261.3675842285156
+                ]
+              ],
+              "bbox": [
+                75.517578125,
+                242.985107421875,
+                286.171875,
+                261.3675842285156
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/7",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[9] Greenbaum, A. (1997). <i>Iterative Methods for Solving</i> <i>Linear Systems</i>, SIAM, Philadelphia.</li>",
+              "polygon": [
+                [
+                  75.30078125,
+                  263.0851745605469
+                ],
+                [
+                  285.16015625,
+                  263.0851745605469
+                ],
+                [
+                  285.16015625,
+                  281.4676818847656
+                ],
+                [
+                  75.30078125,
+                  281.4676818847656
+                ]
+              ],
+              "bbox": [
+                75.30078125,
+                263.0851745605469,
+                285.16015625,
+                281.4676818847656
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/8",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[10] Hackbusch, W. (1994). <i>Iterative Solution of Large</i> <i>Sparse Systems of Equations</i>, Springer-Verlag, New York.</li>",
+              "polygon": [
+                [
+                  75.30078125,
+                  283.2452392578125
+                ],
+                [
+                  285.44921875,
+                  283.2452392578125
+                ],
+                [
+                  285.44921875,
+                  311.6477355957031
+                ],
+                [
+                  75.30078125,
+                  311.6477355957031
+                ]
+              ],
+              "bbox": [
+                75.30078125,
+                283.2452392578125,
+                285.44921875,
+                311.6477355957031
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/9",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[11] Hestenes, M.R. &amp; Stiefel, E.L. (1952). Methods of conjugate gradients for solving linear systems, <i>Journal</i> <i>of Research of the National Bureau of Standards, Section</i> <i>B</i> <b>49</b>, 409–436.</li>",
+              "polygon": [
+                [
+                  75.58984375,
+                  313.5085754394531
+                ],
+                [
+                  286.02734375,
+                  313.5085754394531
+                ],
+                [
+                  286.02734375,
+                  351.9078674316406
+                ],
+                [
+                  75.58984375,
+                  351.9078674316406
+                ]
+              ],
+              "bbox": [
+                75.58984375,
+                313.5085754394531,
+                286.02734375,
+                351.9078674316406
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/10",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[12] Khaliq, A.Q.M., Voss, D.A. &amp; Kazmi, S.H.K. (2006). A linearly implicit predictor-corrector scheme for pricing American options using a penalty method approach, <i>Journal of Banking and Finance</i> <b>30</b>, 489–502.</li>",
+              "polygon": [
+                [
+                  74.939453125,
+                  353.7686767578125
+                ],
+                [
+                  286.171875,
+                  353.7686767578125
+                ],
+                [
+                  286.171875,
+                  392.1679382324219
+                ],
+                [
+                  74.939453125,
+                  392.1679382324219
+                ]
+              ],
+              "bbox": [
+                74.939453125,
+                353.7686767578125,
+                286.171875,
+                392.1679382324219
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/11",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[13] Matache, A.M., von Petersdorff, T. &amp; Schwab, C. (2004). Fast deterministic pricing of options on Levy ´ driven assets, <i>Mathematical Modelling and Numerical</i> <i>Analysis</i> <b>38</b>, 37–72.</li>",
+              "polygon": [
+                [
+                  74.794921875,
+                  394.0287780761719
+                ],
+                [
+                  285.59375,
+                  394.0287780761719
+                ],
+                [
+                  285.59375,
+                  432.4280090332031
+                ],
+                [
+                  74.794921875,
+                  432.4280090332031
+                ]
+              ],
+              "bbox": [
+                74.794921875,
+                394.0287780761719,
+                285.59375,
+                432.4280090332031
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/12",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[14] Meijerink, J.A. &amp; Van der Vorst, H. (1977). An iterative solution method for linear systems of which the coefficient matrix is a symmetric M-matrix, <i>Mathematics of</i> <i>Computation</i> <b>31</b>, 148–162.</li>",
+              "polygon": [
+                [
+                  74.794921875,
+                  434.2888488769531
+                ],
+                [
+                  285.8828125,
+                  434.2888488769531
+                ],
+                [
+                  285.8828125,
+                  472.72265625
+                ],
+                [
+                  74.794921875,
+                  472.72265625
+                ]
+              ],
+              "bbox": [
+                74.794921875,
+                434.2888488769531,
+                285.8828125,
+                472.72265625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/10",
+            "3": "/page/3/SectionHeader/12"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/4/ListGroup/348",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup'><ul><content-ref src='/page/4/ListItem/13'></content-ref><content-ref src='/page/4/ListItem/14'></content-ref><content-ref src='/page/4/ListItem/15'></content-ref><content-ref src='/page/4/ListItem/16'></content-ref><content-ref src='/page/4/ListItem/17'></content-ref><content-ref src='/page/4/ListItem/18'></content-ref><content-ref src='/page/4/ListItem/19'></content-ref><content-ref src='/page/4/ListItem/20'></content-ref><content-ref src='/page/4/ListItem/21'></content-ref><content-ref src='/page/4/ListItem/22'></content-ref><content-ref src='/page/4/ListItem/23'></content-ref></ul></p>",
+          "polygon": [
+            [
+              300.625,
+              72.00701904296875
+            ],
+            [
+              512.796875,
+              72.00701904296875
+            ],
+            [
+              512.796875,
+              439.2197265625
+            ],
+            [
+              300.625,
+              439.2197265625
+            ]
+          ],
+          "bbox": [
+            300.625,
+            72.00701904296875,
+            512.796875,
+            439.2197265625
+          ],
+          "children": [
+            {
+              "id": "/page/4/ListItem/13",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[15] Oosterlee, C.W. (2003). On multigrid for linear complementarity problems with applications to American-style options, <i>Electronic Transactions on Numerical Analysis</i> <b>15</b>, 165–185.</li>",
+              "polygon": [
+                [
+                  300.9140625,
+                  72.00701904296875
+                ],
+                [
+                  512.3173217773438,
+                  72.00701904296875
+                ],
+                [
+                  512.3173217773438,
+                  110.1063232421875
+                ],
+                [
+                  300.9140625,
+                  110.1063232421875
+                ]
+              ],
+              "bbox": [
+                300.9140625,
+                72.00701904296875,
+                512.3173217773438,
+                110.1063232421875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/14",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[16] Peaceman, D. &amp; Rachford, H. (1955). The numerical solution of elliptic and parabolic differential equations, <i>Journal of SIAM</i> <b>3</b>, 28–41.</li>",
+              "polygon": [
+                [
+                  301.203125,
+                  111.84710693359375
+                ],
+                [
+                  512.3082885742188,
+                  111.84710693359375
+                ],
+                [
+                  512.3082885742188,
+                  139.98638916015625
+                ],
+                [
+                  301.203125,
+                  139.98638916015625
+                ]
+              ],
+              "bbox": [
+                301.203125,
+                111.84710693359375,
+                512.3082885742188,
+                139.98638916015625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/15",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[17] Saad, Y. &amp; Schultz, M.H. (1986). GMRES: a generalized minimal residual algorithm for solving nonsymmetric linear systems, <i>SIAM Journal on Scientific and Statistical</i> <i>Computing</i> <b>7</b>, 856–869.</li>",
+              "polygon": [
+                [
+                  300.625,
+                  141.7271728515625
+                ],
+                [
+                  512.796875,
+                  141.7271728515625
+                ],
+                [
+                  512.796875,
+                  180.21630859375
+                ],
+                [
+                  300.625,
+                  180.21630859375
+                ]
+              ],
+              "bbox": [
+                300.625,
+                141.7271728515625,
+                512.796875,
+                180.21630859375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/16",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[18] Saad, Y. (2003). <i>Iterative Methods for Sparse Linear</i> <i>Systems</i>, 2nd Edition, SIAM, Philadelphia.</li>",
+              "polygon": [
+                [
+                  300.625,
+                  181.4840087890625
+                ],
+                [
+                  512.22607421875,
+                  181.4840087890625
+                ],
+                [
+                  512.22607421875,
+                  199.74658203125
+                ],
+                [
+                  300.625,
+                  199.74658203125
+                ]
+              ],
+              "bbox": [
+                300.625,
+                181.4840087890625,
+                512.22607421875,
+                199.74658203125
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/17",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[19] Smith, B., Bjørstad, P. &amp; Gropp, W. (1996). <i>Domain</i> <i>Decomposition: Parallel Multilevel Methods for Elliptic</i> <i>Partial Differential Equations</i>, Cambridge University Press, Cambridge.</li>",
+              "polygon": [
+                [
+                  301.4921875,
+                  201.404052734375
+                ],
+                [
+                  512.5078125,
+                  201.404052734375
+                ],
+                [
+                  512.5078125,
+                  239.586669921875
+                ],
+                [
+                  301.4921875,
+                  239.586669921875
+                ]
+              ],
+              "bbox": [
+                301.4921875,
+                201.404052734375,
+                512.5078125,
+                239.586669921875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/18",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[20] Strikwerda, J. (2004). <i>Finite Difference Schemes and</i> <i>Partial Differential Equations</i>, 2nd Edition, SIAM, Philadelphia.</li>",
+              "polygon": [
+                [
+                  301.4921875,
+                  241.24420166015625
+                ],
+                [
+                  512.5078125,
+                  241.24420166015625
+                ],
+                [
+                  512.5078125,
+                  269.4667053222656
+                ],
+                [
+                  301.4921875,
+                  269.4667053222656
+                ]
+              ],
+              "bbox": [
+                301.4921875,
+                241.24420166015625,
+                512.5078125,
+                269.4667053222656
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/19",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[21] Tavella, D. &amp; Randall, C. (2000). <i>Pricing Financial</i> <i>Instruments: The Finite Difference Method</i>, John Wiley &amp; Sons, USA.</li>",
+              "polygon": [
+                [
+                  300.9140625,
+                  271.124267578125
+                ],
+                [
+                  512.5078125,
+                  271.124267578125
+                ],
+                [
+                  512.5078125,
+                  299.50146484375
+                ],
+                [
+                  300.9140625,
+                  299.50146484375
+                ]
+              ],
+              "bbox": [
+                300.9140625,
+                271.124267578125,
+                512.5078125,
+                299.50146484375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/20",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[22] Trottenbery, U., Oosterlee, C. &amp; Schuller, A. (2001). ¨ <i>Multigrid</i>, Academic Press.</li>",
+              "polygon": [
+                [
+                  301.203125,
+                  301.1476135253906
+                ],
+                [
+                  512.2474365234375,
+                  301.1476135253906
+                ],
+                [
+                  512.2474365234375,
+                  319.3268127441406
+                ],
+                [
+                  301.203125,
+                  319.3268127441406
+                ]
+              ],
+              "bbox": [
+                301.203125,
+                301.1476135253906,
+                512.2474365234375,
+                319.3268127441406
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/21",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[23] Van der Vorst, H.A. (1992). Bi-CGSTAB: a fast and smoothly converging variant of Bi-CG for the solution of non-symmetric linear systems, <i>SIAM Journal on</i> <i>Scientific and Statistical Computing</i> <b>13</b>, 631–644.</li>",
+              "polygon": [
+                [
+                  301.203125,
+                  321.0676574707031
+                ],
+                [
+                  512.3264770507812,
+                  321.0676574707031
+                ],
+                [
+                  512.3264770507812,
+                  359.1669006347656
+                ],
+                [
+                  301.203125,
+                  359.1669006347656
+                ]
+              ],
+              "bbox": [
+                301.203125,
+                321.0676574707031,
+                512.3264770507812,
+                359.1669006347656
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/22",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[24] Wang, I.R., Wan, J.W.L. &amp; Forsyth, P.A. (2007). Robust numerical valuation of European and American options under the CGMY process, <i>Journal of Computational</i> <i>Finance</i> <b>10</b>, 31–69.</li>",
+              "polygon": [
+                [
+                  301.78125,
+                  360.9077453613281
+                ],
+                [
+                  512.2244873046875,
+                  360.9077453613281
+                ],
+                [
+                  512.2244873046875,
+                  399.0069885253906
+                ],
+                [
+                  301.78125,
+                  399.0069885253906
+                ]
+              ],
+              "bbox": [
+                301.78125,
+                360.9077453613281,
+                512.2244873046875,
+                399.0069885253906
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/4/ListItem/23",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[25] Zvan, R., Forsyth, P.A. &amp; Vetzal, K.R. (1998). Penalty methods for American options with stochastic volatility, <i>Journal of Computational</i> <i>and Applied Mathematics</i> <b>91</b>, 199–218.</li>",
+              "polygon": [
+                [
+                  302.0703125,
+                  400.7478332519531
+                ],
+                [
+                  512.3115234375,
+                  400.7478332519531
+                ],
+                [
+                  512.3115234375,
+                  439.2197265625
+                ],
+                [
+                  302.0703125,
+                  439.2197265625
+                ]
+              ],
+              "bbox": [
+                302.0703125,
+                400.7478332519531,
+                512.3115234375,
+                439.2197265625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/0",
+                "2": "/page/3/SectionHeader/10",
+                "3": "/page/3/SectionHeader/12"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/10",
+            "3": "/page/3/SectionHeader/12"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/4/Text/24",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">JUSTIN W.L. WAN</p>",
+          "polygon": [
+            [
+              427.0799865722656,
+              447.6875
+            ],
+            [
+              501.234375,
+              447.6875
+            ],
+            [
+              501.234375,
+              457.6210632324219
+            ],
+            [
+              427.0799865722656,
+              457.6210632324219
+            ]
+          ],
+          "bbox": [
+            427.0799865722656,
+            447.6875,
+            501.234375,
+            457.6210632324219
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0",
+            "2": "/page/3/SectionHeader/10",
+            "3": "/page/3/SectionHeader/12"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/10",
+        "3": "/page/3/SectionHeader/12"
+      },
+      "images": null
+    }
+  ],
+  "block_type": "Document"
+}

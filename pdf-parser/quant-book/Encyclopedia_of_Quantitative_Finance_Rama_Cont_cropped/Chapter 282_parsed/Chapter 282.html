@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Sharpe Ratio
+   </b>
+  </h1>
+  <p block-type="Text">
+   The Sharpe ratio (SR) is a popular measure of portfolio performance that was introduced as the reward-to-variability ratio in [6]. For a given set of returns during an evaluation period, portfolio
+   <i>
+    p
+   </i>
+   's
+   <i>
+    ex post
+   </i>
+   SR is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    SR_p = \frac{\overline{R}_p - \overline{R}_f}{s_p} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    Rp
+   </i>
+   and
+   <i>
+    sp
+   </i>
+   denote, respectively, the historical average and standard deviation of
+   <i>
+    p
+   </i>
+   's returns;
+   <i>
+    Rf
+   </i>
+   denotes the average risk-free return.a A portfolio's SR is typically compared to a market index
+   <i>
+    m
+   </i>
+   's SR:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    SR_m = \frac{\overline{R}_m - \overline{R}_f}{s_m} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Figure 1 shows that
+   <i>
+    SR
+    <sup>
+     p
+    </sup>
+   </i>
+   represents the slope of a line originating at the average risk-free rate and extending to point
+   <i>
+    p
+   </i>
+   where the portfolio is located. Similarly,
+   <i>
+    SR
+    <sup>
+     m
+    </sup>
+   </i>
+   represents the slope of a line extending to point
+   <i>
+    m
+   </i>
+   where the index is located. This line is a proxy for the
+   <i>
+    ex post
+   </i>
+   capital market line (CML) in [5]. Portfolio
+   <i>
+    p
+   </i>
+   has had superior performance relative to
+   <i>
+    m
+   </i>
+   since
+   <i>
+    SR
+    <sup>
+     p
+    </sup>
+    &gt; SRm
+   </i>
+   , resulting in it plotting above the CML; if it had plotted below, then
+   <i>
+    SR
+    <sup>
+     p
+    </sup>
+    &lt; SR
+    <sup>
+     m
+    </sup>
+   </i>
+   and it would have had inferior performance.
+  </p>
+  <p>
+   <img src="_page_0_Figure_6.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Evaluating the performance of portfolio
+   <i>
+    p
+   </i>
+   with the Sharpe ratio
+  </p>
+  <p block-type="Text">
+   The SR can also be used to make portfolio construction decisions as in [7]. For a given holding period, portfolio
+   <i>
+    p
+   </i>
+   's
+   <i>
+    ex ante
+   </i>
+   SR is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{E}[R_p] - R_f}{\sigma[R_p]} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    E
+   </i>
+   [
+   <i>
+    Rp
+   </i>
+   ] and
+   <i>
+    σ
+   </i>
+   [
+   <i>
+    Rp
+   </i>
+   ] denote, respectively, the expected value and standard deviation of
+   <i>
+    p
+   </i>
+   's future return, and
+   <i>
+    Rf
+   </i>
+   denotes the risk-free return. In frictionless markets with a risk-free security, the tangency portfolio in [10] has the highest SR (in absolute value). Optimal portfolios of investors using mean–variance analysis consist of combinations of the risk-free security and the tangency portfolio, which is the market portfolio in [5].
+  </p>
+  <p block-type="Text">
+   The SR has limitations. First, it assumes that either (i) investors' objective functions are defined solely over the first two moments of portfolio return distributions or (ii) such distributions are characterized by only these moments. Second, proper use of the SR requires knowledge of investors' investment horizons. Levy [4] shows that a bias emerges when using it with a horizon that is different from that of investors. Cvitanic´
+   <i>
+    et al.
+   </i>
+   [2] find that maximizing the short-term
+   <i>
+    ex ante
+   </i>
+   SR is suboptimal for long-term investors. Third, the SR can be manipulated by using derivatives. Ingersoll
+   <i>
+    et al.
+   </i>
+   [3] define and characterize a manipulation-proof performance measure. Their measure resembles the average value of a power utility function defined over portfolio returns.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   For other reward-to-risk ratios of portfolio performance that use VaR and beta instead of standard deviation as risk measures in the denominator of equation (1), see references [1] and [11], respectively. Also see references [8] and [9].
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Alexander, G.J. &amp; Baptista, A.M. (2003). Portfolio performance evaluation using Value-at-Risk,
+     <i>
+      Journal of Portfolio Management
+     </i>
+     <b>
+      29
+     </b>
+     , 93–102.
+    </li>
+    <li block-type="ListItem">
+     [2] Cvitanic, J., Lazrak, A. &amp; Wang, T. (2008). Implications ´ of the Sharpe ratio as a performance measure in multiperiod settings,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      32
+     </b>
+     , 1622–1649.
+    </li>
+    <li block-type="ListItem">
+     [3] Ingersoll, J., Spiegel, M., Goetzmann, W. &amp; Welch, I. (2007). Portfolio performance manipulation and manipulation-proof performance measures,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      20
+     </b>
+     , 1503–1546.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [4] Levy, H. (1972). Portfolio performance and the investment horizon,
+     <i>
+      Management Science
+     </i>
+     <b>
+      18
+     </b>
+     , B645–B653.
+    </li>
+    <li block-type="ListItem">
+     [5] Sharpe, W.F. (1964). Capital asset prices: a theory of market equilibrium under conditions of risk,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      19
+     </b>
+     , 425–442.
+    </li>
+    <li block-type="ListItem">
+     [6] Sharpe, W.F. (1966). Mutual fund performance,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      39
+     </b>
+     , 119–138.
+    </li>
+    <li block-type="ListItem">
+     [7] Sharpe, W.F. (1975). The Sharpe ratio,
+     <i>
+      Journal of Portfolio Management
+     </i>
+     <b>
+      21
+     </b>
+     , 49–58.
+    </li>
+    <li block-type="ListItem">
+     [8] Sortino, F., van der Meer, R. &amp; Plantinga, A. (1999). The Dutch triangle,
+     <i>
+      Journal of Portfolio Management
+     </i>
+     <b>
+      26
+     </b>
+     , 50–58.
+    </li>
+    <li block-type="ListItem">
+     [9] Stutzer, M. (2000). A portfolio performance index,
+     <i>
+      Financial Analysts Journal
+     </i>
+     <b>
+      56
+     </b>
+     , 52–61.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [10] Tobin, J. (1958). Liquidity preference as behavior towards risk,
+     <i>
+      Review of Economic Studies
+     </i>
+     <b>
+      25
+     </b>
+     , 65–86.
+    </li>
+    <li block-type="ListItem">
+     [11] Treynor, J. (1965). How to rate management of investment funds,
+     <i>
+      Harvard Business Review
+     </i>
+     <b>
+      43
+     </b>
+     , 63–75.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <h4>
+   <b>
+    Capital Asset Pricing Model
+   </b>
+   ;
+   <b>
+    Performance Measures
+   </b>
+   ;
+   <b>
+    Sharpe, William F
+   </b>
+   .
+  </h4>
+  <p block-type="Text">
+   GORDON J. ALEXANDER &amp; ALEXANDRE M. BAPTISTA
+  </p>
+ </body>
+</html>

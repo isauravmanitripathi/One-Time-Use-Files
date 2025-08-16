@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Finite Difference Methods
+   </b>
+   for Barrier Options
+  </h1>
+  <p block-type="Text">
+   Barrier options, options that cease to exist (knockout barrier options) or that only come into existence (knock-in barrier options) when some observable market parameter crosses a designated level (the barrier), have become ubiquitous in financial contracts for virtually all asset classes, including equities, foreign exchange, fixed income, and commodities.
+  </p>
+  <p block-type="Text">
+   Pricing of continuously monitored barrier options using partial differential equations (PDEs) enables the use of coordinate transformations to obtain smooth, rapid convergence, highly desirable properties that are difficult to obtain using traditional lattice methods. The finite difference method is perhaps the most straight forward and intuitive approach to the numerical solution of PDEs. Yet even in this seemingly simple approach, there exist subtleties that can be exploited for tremendous gains in accuracy and/or computational efficiency [7]. We explore several ways in which finite difference pricing models for barrier options may be designed for increased accuracy and performance.
+  </p>
+  <p block-type="Text">
+   Pricing models in which the monitoring of the barrier knockout or knock-in condition is approximated as being continuous have been popular principally because they may yield analytic solutions, at least for simple underlying processes (e.g., Black-Scholes.) Even for underlying process for which numerical PDE solution methods are required (e.g., stochastic volatility models with correlation of the underlying level and its instantaneous variance), the continuously monitored barrier condition is often easier to treat with simple numerical methods.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   However, in the vast majority of barrier option contracts, the barrier conditions are monitored at discrete times or dates. For the volatilities observed in most markets, even barrier monitoring as frequently as daily yields barrier option prices surprisingly far from those yielded by a continuous monitoring approximation. Broadie et al. [2] derive a formula for shifting a discrete barrier so that pricing with continuously monitored barrier yields the discretely monitored barrier price to lowest order in the monitoring interval for a lognormal process. In many cases of interest, however, direct numerical solution of the discretely monitored barrier pricing
+  </p>
+  <p block-type="Text">
+   problem is required. Therefore, in this article, the continuously monitored barrier case is discussed fairly briefly, while the majority of space is devoted to the discretely monitored barrier case.
+  </p>
+  <p block-type="Text">
+   For simplicity of notation, we focus on a simple Black-Scholes [1] pricing PDE but none of the methods discussed require that PDE coefficients be constant, so the methods are directly applicable to local volatility models. When methods of conforming finite difference grids to barrier and/or strike positions are discussed, they apply only to the coordinate representing the financial factor subject to a barrier. Other coordinate grids, for example, the instantaneous volatility in a stochastic volatility model [5], or a second or third asset in a basket model are unaffected. Therefore, the methods presented are applicable to these problems as well.
+  </p>
+  <p block-type="Text">
+   The case of jump-diffusion models requires further analysis and is discussed in [3] (see Partial Integrodifferential Equations (PIDEs)).
+  </p>
+  <h3>
+   <b>
+    Continuous Monitoring
+   </b>
+  </h3>
+  <p block-type="Text">
+   The simplest pricing partial differential equations (PDEs) typically encountered is the Black-Scholes equation [1], written in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} + (r - q)S \frac{\partial V}{\partial S} - rV = 0 \quad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    V
+   </math>
+   is the option value,
+   <math display="inline">
+    S
+   </math>
+   is the underlying asset price,
+   <math display="inline">
+    r
+   </math>
+   and
+   <math display="inline">
+    q
+   </math>
+   are the forward rate and continuous dividend yield, respectively, and
+   <math display="inline">
+    \sigma
+   </math>
+   is the volatility.
+  </p>
+  <p block-type="Text">
+   A simple up-out call option is used for illustration. In this case, the payoff condition at option expiration
+   <math display="inline">
+    t = T
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(S, T) = \max(S - K, 0) : S &lt; B \tag{2}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(S,T) = R: \quad S \ge B \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    B
+   </math>
+   is the up-out barrier,
+   <math display="inline">
+    K
+   </math>
+   is the option strike, and
+   <math display="inline">
+    R
+   </math>
+   is a rebate paid immediately upon knockout. The upper grid boundary can be placed at
+   <math display="inline">
+    S = B
+   </math>
+   with boundary condition
+   <math display="inline">
+    V(B, t) = R
+   </math>
+   , while that for the lower boundary
+   <math display="inline">
+    S_{\text{Min}}
+   </math>
+   is not well defined unless
+   <math display="inline">
+    S_{\text{Min}} = 0
+   </math>
+   . Terminating the grid at
+   <math display="inline">
+    S_{\text{Min}} = 0
+   </math>
+   may be a quite inefficient use of finite difference grid points, since the option value may be very small over most
+  </p>
+  <p block-type="Text">
+   of the grid. Rather, one may choose a simple rule of thumb such as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_{\text{Min}} = S_0 e^{-N\sigma\sqrt{T}} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which places the lower boundary
+   <math display="inline">
+    N
+   </math>
+   standard deviations below the initial asset price
+   <math display="inline">
+    S_0
+   </math>
+   , so that for
+   <math display="inline">
+    N \ge 4
+   </math>
+   there is only a minuscule chance of the asset price reaching the strike price before expiration to yield a positive payoff. Then
+   <math display="inline">
+    V(S_{\text{Min}}, t) = 0
+   </math>
+   becomes an accurate boundary condition.
+  </p>
+  <p block-type="TextInlineMath">
+   The commonly used coordinate transformation
+   <math display="inline">
+    x = \log(S)
+   </math>
+   is avoided here for three reasons: (i) since the volatility may have a dependence on
+   <math display="inline">
+    S
+   </math>
+   (local volatility), it does not necessarily yield a PDE with constant coefficients. (ii) In a fully numerical PDE solution, constant coefficients are of marginal benefit. (iii) It is far more useful to employ other, more general coordinate transformations.
+  </p>
+  <p block-type="TextInlineMath">
+   In particular, the transformation used here is a slight warping of an otherwise uniform grid. The grid is warped so that the strike
+   <math display="inline">
+    K
+   </math>
+   is "pinned" midway between two grid points independent of
+   <math display="inline">
+    S_{\text{Min}}
+   </math>
+   or the number of grid points, while keeping the grid spacing as uniform as possible. The benefit of doing so is that smooth monotonic convergence—superior to that typical of lattice methods—is obtained as demonstrated by Tavella and Randall [7]. In the transformed coordinates, the PDE becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 \frac{S^2(x)}{J(x)} \frac{\partial}{\partial x} \left(\frac{1}{J(x)} \frac{\partial V}{\partial x}\right) + (r-q) \frac{S(x)}{J(x)} \frac{\partial V}{\partial x} - rV = 0 \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    J(x) = \partial S(x)/\partial x
+   </math>
+   is the Jacobian of the transformation. The new coordinate
+   <math display="inline">
+    x
+   </math>
+   is by convention equally spaced on a grid,
+   <math display="inline">
+    x_0 \le x_i \le x_I
+   </math>
+   , where
+   <math display="inline">
+    0 \le i \le I
+   </math>
+   and subject to the boundary conditions,
+   <math display="inline">
+    S(x_0) = S_{\text{Min}}, S(x_1) = B
+   </math>
+   , and the "pinning condition"
+   <math display="inline">
+    K = (S_p + S_{p+1})/2
+   </math>
+   , where p is the index of the grid point just below
+   <math display="inline">
+    K
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   A method for numerically computing a smoothly varying coordinate transformation
+   <math display="inline">
+    S(x)
+   </math>
+   so as to place particular "pinning" points (e.g.,
+   <math display="inline">
+    K
+   </math>
+   ) either exactly on grid points or exactly midway between grid points through the use of spline interpolation, is also discussed in detail in [7].
+  </p>
+  <p block-type="Text">
+   Table 1 shows the convergence of the numerical results versus the number of grid points
+   <math display="inline">
+    I
+   </math>
+   for an
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Finite difference results for a continuously monitored up-out barrier call. Parameters:
+   <math display="inline">
+    T = 1, K = 100, B =
+   </math>
+   110,
+   <math display="inline">
+    R = 0.5
+   </math>
+   ,
+   <math display="inline">
+    r = 0.05
+   </math>
+   ,
+   <math display="inline">
+    q = 0.03
+   </math>
+   ,
+   <math display="inline">
+    \sigma = 0.1
+   </math>
+   , and
+   <math display="inline">
+    \Delta_0 = 100
+   </math>
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      <math>
+       V(S_0)
+      </math>
+     </th>
+     <th>
+      Error
+     </th>
+     <th>
+      Ratio
+     </th>
+    </tr>
+    <tr>
+     <td>
+      50
+     </td>
+     <td>
+      0.8493291
+     </td>
+     <td>
+      <math>
+       -0.0006945
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      100
+     </td>
+     <td>
+      0.8498746
+     </td>
+     <td>
+      <math>
+       -0.0001491
+      </math>
+     </td>
+     <td>
+      4.65
+     </td>
+    </tr>
+    <tr>
+     <td>
+      200
+     </td>
+     <td>
+      0.8499891
+     </td>
+     <td>
+      <math>
+       -0.0000345
+      </math>
+     </td>
+     <td>
+      4.32
+     </td>
+    </tr>
+    <tr>
+     <td>
+      400
+     </td>
+     <td>
+      0.8500147
+     </td>
+     <td>
+      <math>
+       -0.0000086
+      </math>
+     </td>
+     <td>
+      3.85
+     </td>
+    </tr>
+    <tr>
+     <td>
+      800
+     </td>
+     <td>
+      0.8500214
+     </td>
+     <td>
+      <math>
+       -0.0000022
+      </math>
+     </td>
+     <td>
+      4.07
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1600
+     </td>
+     <td>
+      0.8500231
+     </td>
+     <td>
+      <math>
+       -0.0000005
+      </math>
+     </td>
+     <td>
+      3.96
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3200
+     </td>
+     <td>
+      0.8500235
+     </td>
+     <td>
+      <math>
+       -0.0000001
+      </math>
+     </td>
+     <td>
+      3.95
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   at-the-money up-out call option. The option and market parameters are given in the caption. The column labeled
+   <math display="inline">
+    V(S_0)
+   </math>
+   is the present value, that labeled
+   <i>
+    Error
+   </i>
+   is the finite difference result minus the converged result, and that column labeled
+   <i>
+    Ratio
+   </i>
+   is the ratio of
+   <i>
+    Errors
+   </i>
+   for grid
+   <math display="inline">
+    I
+   </math>
+   and grid
+   <math display="inline">
+    I/2
+   </math>
+   . The numerical solution converges smoothly and monotonically because the option strike (where the payoff has a discontinuity of slope) always has a fixed relationship to the grid, namely it is always midway between two grid points. The convergence is almost exactly quadratic, that is,
+   <i>
+    Ratio
+   </i>
+   is very close to 4 when
+   <math display="inline">
+    I
+   </math>
+   is doubled. In order to make time discretization error negligible so that the spatial grid discretization effects of interest could be examined in isolation,
+   <math display="inline">
+    50\,000
+   </math>
+   time steps have been used with a Rannacher [4] time discretization scheme. Time discretization effects with practical numbers of time steps are discussed later.
+  </p>
+  <p block-type="Text">
+   (One of the benefits of full or partially implicit PDE methods like Crank-Nicolson or Rannacher is that the number of spatial grid points and time steps are independent, whereas in lattice methods they are closely coupled.)
+  </p>
+  <h3>
+   <b>
+    Discrete Monitoring
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   In modeling continuously monitored barrier options, as in the previous section, it is sufficient to place the barrier(s) on the grid boundaries and enforce a boundary condition
+   <math display="inline">
+    V(B, t) = R
+   </math>
+   . It is of no consequence that gradient of option value
+   <math display="inline">
+    V(S)
+   </math>
+   (the option
+   <math display="inline">
+    \Delta
+   </math>
+   ) is discontinuous at the barriers because the pricing PDE (which includes second derivative terms that become singular) is not solved at the barriers. Boundary conditions are enforced instead.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   When modeling discretely sampled barriers, however, the barriers appear inside the solution region,
+  </p>
+  <p block-type="Text">
+   allowing the option value
+   <math display="inline">
+    V(S)
+   </math>
+   to "diffuse" across the barriers between monitoring times. The knockout conditions are enforced only at the monitoring times. Consequently, the pricing PDE is solved at the barrier position, and the grid must resolve the very strong gradients that are periodically created there by the discrete monitoring. To do this efficiently, it is convenient to use a coordinate transformation that results in a concentration of grid points near a specified set of points, for example, the strike
+   <math display="inline">
+    K
+   </math>
+   and barrier
+   <math display="inline">
+    B
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   A transformation useful for this purpose can be obtained as the solution of the ordinary differential
+   <math display="inline">
+    \text{equation (ODE)}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S}{\mathrm{d}x} = \frac{A}{\left[\sum_{i} \frac{\alpha^{2} + (S - P_{i})^{2}}{\alpha^{2} \beta^{2} + (S - P_{i})^{2}}\right]^{1/2}}
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    A
+   </math>
+   is a constant to be determined through the boundary conditions
+   <math display="inline">
+    S(x_{\text{Min}}) = S_{\text{Min}}
+   </math>
+   and
+   <math display="inline">
+    S(x_{\text{Max}}) =
+   </math>
+   <math display="inline">
+    S_{\text{Max}}
+   </math>
+   , and the summation is over the set of specified points
+   <math display="inline">
+    P_i
+   </math>
+   ,
+   <math display="inline">
+    0 \le i \le n_p
+   </math>
+   . The properties of the transformation are easiest to see in the special case of a single specified point, where the ODE simplifies to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\text{d}S}{\text{d}x} = A \left[ \frac{\alpha^2 \beta^2 + (S - P)^2}{\alpha^2 + (S - P)^2} \right]^{1/2} \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Thus, far from the specified point,
+   <math display="inline">
+    |S - P| &gt; \alpha
+   </math>
+   ,
+   <math display="inline">
+    dS/dx = A
+   </math>
+   is a constant. If x is uniformly spaced, then far from the specified point
+   <math display="inline">
+    P
+   </math>
+   ,
+   <math display="inline">
+    S
+   </math>
+   is uniformly spaced as well. In the neighborhood of the specified point
+   <math display="inline">
+    S = P
+   </math>
+   ,
+   <math display="inline">
+    dS/dx = \beta A
+   </math>
+   is minimized
+   <math display="inline">
+    (\beta &lt; 1)
+   </math>
+   , and the
+   <i>
+    S
+   </i>
+   grid is finer by the ratio
+   <math display="inline">
+    \beta
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   To compute that transformation in equation
+   <math display="inline">
+    (6)
+   </math>
+   , a uniform grid is first created in the underlying coordinate
+   <math display="inline">
+    x
+   </math>
+   and an initial guess for the constant
+   <math display="inline">
+    A
+   </math>
+   is made. After enforcing the left boundary condition
+   <math display="inline">
+    S(x_{\text{Min}}) = S_{\text{Min}}
+   </math>
+   , a simple ODE solver such as Runge-Kutta can be used to step through the
+   <math display="inline">
+    x
+   </math>
+   grid, computing
+   <math display="inline">
+    S(x)
+   </math>
+   . If, at the right end of the grid, the boundary condition
+   <math display="inline">
+    S(x_{\text{Max}}) = S_{\text{Max}}
+   </math>
+   is not satisfied to a given precision, then the constant
+   <math display="inline">
+    A
+   </math>
+   is adjusted via a Newton's method and the ODE solution repeated until the right boundary condition is satisfied. Convergence is typically rapid. Finally, a secondary transformation is applied, slightly warping the computed
+   <math display="inline">
+    S
+   </math>
+   grid so as to place the set of specified points either exactly at grid points or at grid midpoints as described in [7].
+  </p>
+  <p>
+   Table 2 Finite difference results for a discretely monitored up-out barrier call. Parameters:
+   <math display="inline">
+    T = 1, K = 100, B =
+   </math>
+   110,
+   <math display="inline">
+    R = 0.5
+   </math>
+   ,
+   <math display="inline">
+    r = 0.05
+   </math>
+   ,
+   <math display="inline">
+    q = 0.03
+   </math>
+   ,
+   <math display="inline">
+    \sigma = 0.1
+   </math>
+   ,
+   <math display="inline">
+    S_0 = 100
+   </math>
+   , 250 monitoring dates, 50 000 time steps,
+   <math display="inline">
+    \alpha = 20
+   </math>
+   ,
+   <math display="inline">
+    \beta = 0.1
+   </math>
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      <math>
+       V(S_0)
+      </math>
+     </th>
+     <th>
+      Error
+     </th>
+     <th rowspan="2">
+      Ratio
+     </th>
+    </tr>
+    <tr>
+     <td>
+      50
+     </td>
+     <td>
+      0.9244337
+     </td>
+     <td>
+      0.0052293
+     </td>
+    </tr>
+    <tr>
+     <td>
+      100
+     </td>
+     <td>
+      0.9203730
+     </td>
+     <td>
+      0.0011686
+     </td>
+     <td>
+      4.47
+     </td>
+    </tr>
+    <tr>
+     <td>
+      200
+     </td>
+     <td>
+      0.9194832
+     </td>
+     <td>
+      0.0002788
+     </td>
+     <td>
+      4.19
+     </td>
+    </tr>
+    <tr>
+     <td>
+      400
+     </td>
+     <td>
+      0.9192736
+     </td>
+     <td>
+      0.0000692
+     </td>
+     <td>
+      4.02
+     </td>
+    </tr>
+    <tr>
+     <td>
+      800
+     </td>
+     <td>
+      0.9192216
+     </td>
+     <td>
+      0.0000172
+     </td>
+     <td>
+      4.03
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1600
+     </td>
+     <td>
+      0.9192087
+     </td>
+     <td>
+      0.0000043
+     </td>
+     <td>
+      4.04
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3200
+     </td>
+     <td>
+      0.9192055
+     </td>
+     <td>
+      0.0000011
+     </td>
+     <td>
+      4.01
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="TextInlineMath">
+   Table 2 shows the convergence of option value with the number of grid points
+   <math display="inline">
+    I
+   </math>
+   for an at-the-money up-out call option, discretely monitored 250 times per year. The option and market parameters are given in the caption. The column labeled
+   <math display="inline">
+    V(S_0)
+   </math>
+   is the present value, that labeled
+   <i>
+    Error
+   </i>
+   is the finite difference result minus the analytic result, and that column labeled
+   <i>
+    Ratio
+   </i>
+   is the ratio of
+   <i>
+    Errors
+   </i>
+   for grid I and grid
+   <math display="inline">
+    I/2
+   </math>
+   . Even in this case of frequent discrete monitoring of the barrier, in which discontinuities of option value
+   <math display="inline">
+    V
+   </math>
+   are created periodically throughout the integration of the PDE, the numerical solution converges smoothly and monotonically. This is possible because the option strike and the barrier both always have a fixed relationship to the grid, namely, they are always midway between two grid points. The convergence is again almost exactly quadratic, that is, Ratio is very close to 4 when the number of grid points is doubled. Again, a very large number of time steps
+   <math display="inline">
+    (50\,000)
+   </math>
+   have been used in order to isolate spatial grid discretization effects.
+  </p>
+  <p block-type="Text">
+   Smooth convergence according to a known scaling law also allows fairly robust extrapolation to the continuum result from several computationally inexpensive sparse grid computations.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(I \to \infty) \approx \frac{4V(2I) - V(I)}{3} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For example, using
+   <math display="inline">
+    I = 100
+   </math>
+   in equation (8), the estimated continuum result is 0.919187, which is very close to the presumed converged result 0.919204. Thus, one extrapolates to very near the converged value from two very cheap and fast sparse grid computations. Robust extrapolation from lattice computations of barrier option value is typically not possible.
+  </p>
+  <p block-type="Text">
+   The converged values of the continuously monitored and daily monitored options differ by over 8%
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Option value (a), option  (b), and grid spacing (c) for a discretely monitored up-out barrier call. Parameters:
+   <i>
+    T
+   </i>
+   = 1
+   <i>
+    , K
+   </i>
+   = 100
+   <i>
+    , B
+   </i>
+   = 110
+   <i>
+    , R
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   5
+   <i>
+    , r
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   05
+   <i>
+    , q
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   03
+   <i>
+    , σ
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   1
+   <i>
+    , S
+   </i>
+   <sup>
+    0
+   </sup>
+   = 100, 250 monitoring dates, 50 000 time steps,
+   <i>
+    α
+   </i>
+   = 20
+   <i>
+    , β
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   1
+   <i>
+    , I
+   </i>
+   = 100 grid points
+  </p>
+  <p block-type="TextInlineMath">
+   even for this relatively low volatility case. The continuity correction formula in [2] yields an option value of 0.9217721, which is much closer to the converged value of the daily monitored option, but still too large by approximately 0.3%. Since the formula is basically an expansion in
+   <i>
+    σ
+   </i>
+   <sup>
+    √
+   </sup>
+   <i>
+    tB
+   </i>
+   , where
+   <i>
+    tB
+   </i>
+   is the monitoring interval, the accuracy of the correction will degrade for larger volatilities and/or less frequent monitoring. The accuracy of the formula also depends on the proximity of
+   <i>
+    S
+   </i>
+   <sup>
+    0
+   </sup>
+   and
+   <i>
+    B
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The grids used in the computations of Table 2 were concentrated about the option strike and barrier, with coordinate transformation parameters
+   <i>
+    α
+   </i>
+   = 20,
+   <i>
+    β
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   1. Figure 1 displays the present
+   <i>
+    (t
+   </i>
+   = 0
+   <i>
+    )
+   </i>
+   option value
+   <i>
+    V (S)
+   </i>
+   , option delta =
+   <i>
+    ∂V (S)/∂S
+   </i>
+   , and the grid spacing
+   <i>
+    S(S)
+   </i>
+   =
+   <i>
+    J (S)x
+   </i>
+   when
+   <i>
+    I
+   </i>
+   = 100. With the next barrier monitoring date one day hence, the option has significantly larger value at the barrier
+   <i>
+    S
+   </i>
+   =
+   <i>
+    B
+   </i>
+   = 110 than the discounted rebate value of approximately
+   <i>
+    R
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   5. The option  changes rapidly in
+  </p>
+  <p block-type="Text">
+   the neighborhood of the barrier, but remains continuous. The grid spacing
+   <i>
+    S
+   </i>
+   is minimized near the two designated points
+   <i>
+    K
+   </i>
+   = 100 and
+   <i>
+    B
+   </i>
+   = 110 yielding a ratio of largest to smallest spacing on the grid of about a factor of 7. Even with just
+   <i>
+    I
+   </i>
+   = 100 grid points, the small grid spacing near the barrier resolves the rapid change of  through the region. Similarly, the small spacing near the strike helps resolve the rapid variation of  in the region close to option expiration.
+  </p>
+  <p block-type="Text">
+   Table 3 compares the accuracy of the solution for an up-out call option for three finite difference grids. Grid A is equally spaced
+   <i>
+    (β
+   </i>
+   = 1
+   <i>
+    )
+   </i>
+   with the barrier exactly on a grid point. (The strike remains at a grid midpoint.) Grid B is also equally spaced, but with the barrier at a midpoint. Finally, Grid C is the nonuniform grid of Table 2, whose data is simply reproduced for comparison.
+  </p>
+  <p block-type="Text">
+   In the case of Grid A, the fixed relationship of the strike and barrier to the grid yields smooth monotonic
+  </p>
+  <p>
+   <b>
+    Table 3
+   </b>
+   Finite difference results for a discretely monitored up-out barrier call using three finite difference grids. Parameters:
+   <i>
+    T
+   </i>
+   = 1
+   <i>
+    , K
+   </i>
+   = 100
+   <i>
+    , B
+   </i>
+   = 110
+   <i>
+    , R
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   5
+   <i>
+    , r
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   05
+   <i>
+    , q
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   03
+   <i>
+    , σ
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   1
+   <i>
+    , S
+   </i>
+   <sup>
+    0
+   </sup>
+   = 100, 250 monitoring dates, 50 000 time steps. The three grids are described in the text
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Grid I
+     </th>
+     <th>
+      V (S0)
+     </th>
+     <th>
+      Error
+     </th>
+     <th>
+      Ratio
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Grid A
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      50
+     </td>
+     <td>
+      0.8638922
+     </td>
+     <td>
+      −0.0553122
+     </td>
+     <td>
+      —
+     </td>
+    </tr>
+    <tr>
+     <td>
+      100
+     </td>
+     <td>
+      0.878615
+     </td>
+     <td>
+      −0.0405894
+     </td>
+     <td>
+      1.36
+     </td>
+    </tr>
+    <tr>
+     <td>
+      200
+     </td>
+     <td>
+      0.8958347
+     </td>
+     <td>
+      −0.0233697
+     </td>
+     <td>
+      1.73
+     </td>
+    </tr>
+    <tr>
+     <td>
+      400
+     </td>
+     <td>
+      0.9066875
+     </td>
+     <td>
+      −0.0125169
+     </td>
+     <td>
+      1.87
+     </td>
+    </tr>
+    <tr>
+     <td>
+      800
+     </td>
+     <td>
+      0.9127664
+     </td>
+     <td>
+      −0.0064380
+     </td>
+     <td>
+      1.94
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1600
+     </td>
+     <td>
+      0.9159481
+     </td>
+     <td>
+      −0.0032563
+     </td>
+     <td>
+      1.98
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3200
+     </td>
+     <td>
+      0.9175651
+     </td>
+     <td>
+      −0.0016393
+     </td>
+     <td>
+      1.99
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Grid B
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      50
+     </td>
+     <td>
+      0.969642
+     </td>
+     <td>
+      0.0504376
+     </td>
+     <td>
+      —
+     </td>
+    </tr>
+    <tr>
+     <td>
+      100
+     </td>
+     <td>
+      0.9321862
+     </td>
+     <td>
+      0.0129818
+     </td>
+     <td>
+      3.88
+     </td>
+    </tr>
+    <tr>
+     <td>
+      200
+     </td>
+     <td>
+      0.9220514
+     </td>
+     <td>
+      0.0028470
+     </td>
+     <td>
+      4.55
+     </td>
+    </tr>
+    <tr>
+     <td>
+      400
+     </td>
+     <td>
+      0.9199134
+     </td>
+     <td>
+      0.0007090
+     </td>
+     <td>
+      4.01
+     </td>
+    </tr>
+    <tr>
+     <td>
+      800
+     </td>
+     <td>
+      0.9193805
+     </td>
+     <td>
+      0.0001761
+     </td>
+     <td>
+      4.02
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1600
+     </td>
+     <td>
+      0.9192481
+     </td>
+     <td>
+      0.0000438
+     </td>
+     <td>
+      4.02
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3200
+     </td>
+     <td>
+      0.9192153
+     </td>
+     <td>
+      0.0000109
+     </td>
+     <td>
+      4.00
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Grid C
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      50
+     </td>
+     <td>
+      0.9244337
+     </td>
+     <td>
+      0.0052293
+     </td>
+     <td>
+      —
+     </td>
+    </tr>
+    <tr>
+     <td>
+      100
+     </td>
+     <td>
+      0.9203730
+     </td>
+     <td>
+      0.0011686
+     </td>
+     <td>
+      4.47
+     </td>
+    </tr>
+    <tr>
+     <td>
+      200
+     </td>
+     <td>
+      0.9194832
+     </td>
+     <td>
+      0.0002788
+     </td>
+     <td>
+      4.19
+     </td>
+    </tr>
+    <tr>
+     <td>
+      400
+     </td>
+     <td>
+      0.9192736
+     </td>
+     <td>
+      0.0000692
+     </td>
+     <td>
+      4.02
+     </td>
+    </tr>
+    <tr>
+     <td>
+      800
+     </td>
+     <td>
+      0.9192216
+     </td>
+     <td>
+      0.0000172
+     </td>
+     <td>
+      4.03
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1600
+     </td>
+     <td>
+      0.9192087
+     </td>
+     <td>
+      0.0000043
+     </td>
+     <td>
+      4.04
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3200
+     </td>
+     <td>
+      0.9192055
+     </td>
+     <td>
+      0.0000011
+     </td>
+     <td>
+      4.01
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   convergence, but it is only linear (
+   <i>
+    Ratio
+   </i>
+   is close to 2 when
+   <i>
+    I
+   </i>
+   is doubled) and the observed error is 1–3 orders of magnitude larger than that of Grid C.
+  </p>
+  <p block-type="Text">
+   In the case of Grid B, the barrier is at a grid midpoint and quadratic convergence (
+   <i>
+    Ratio
+   </i>
+   ∼ 4) is restored, but because the grid is still uniform, the spacing near the barrier is roughly three times larger than it is for Grid C. As a result, the observed error, while far superior to that of Grid A, is about an order of magnitude larger than that of the nonuniform Grid C. Clearly, use of a nonuniform grid, while taking care to place a discretely sampled barrier at a grid midpoint yields superior convergence. The computational effort involved in computing such a grid is generally negligible compared to the PDE solution itself and obviously worth the effort.
+  </p>
+  <p block-type="Text">
+   Continuously monitored barriers are optimally priced when the barrier(s) coincide with grid points, while the foregoing numerical results seem to establish that a discretely sampled barrier option is optimally priced when the barrier is midway between two grid points. Of course, as the monitoring frequency is increased, a discretely monitored barrier becomes a continuously monitored one. Therefore, a dimensionless parameter is needed, one that, given a monitoring frequency, determines the optimal grid style to be used. An obvious choice is the ratio of characteristic grid diffusion time near the barrier to the monitoring interval:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R_{\Delta t} = \frac{\Delta t_{\text{Grid}}}{\Delta t_B}
+   </math>
+   <math display="block">
+    \Delta t_{\text{Grid}} = \frac{(\Delta S/B)^2}{\sigma^2/2}
+   </math>
+   <math display="block">
+    \Delta t_B = \frac{T}{n_B} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    T
+   </i>
+   is option expiration and
+   <i>
+    nB
+   </i>
+   is the number of monitoring dates. One expects that for
+   <i>
+    Rt &gt;
+   </i>
+   1, the discretely monitored barrier is effectively continuously monitored to the resolution of the grid, and the barrier should be placed at a grid point. Conversely, when
+   <i>
+    Rt &lt;
+   </i>
+   1 then the barrier should be midway between grid points for optimal accuracy.
+  </p>
+  <p block-type="Text">
+   This criterion, which is easy to verify numerically, can be used to choose where to place a discretely sampled barrier for optimal accuracy. However, it is easy to see that for almost any discretely sampled barrier option with typical parameters, the barrier(s)
+  </p>
+  <p>
+   <img src="_page_5_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Option
+   <math display="inline">
+    \Delta
+   </math>
+   in the neighborhood of the barrier for two time discretizations for a discretely monitored up-out barrier call: Rannacher (a), and Crank-Nicolson (b). Parameters:
+   <math display="inline">
+    T = 1, K = 100, B = 110, R = 0.5, r = 0.5
+   </math>
+   <math display="inline">
+    0.05, q = 0.03, \sigma = 0.1, S_0 = 100, 250
+   </math>
+   monitoring dates, 1000 time steps,
+   <math display="inline">
+    \alpha = 20, \beta = 0.1, I = 100
+   </math>
+   grid points
+  </p>
+  <p block-type="TextInlineMath">
+   are optimally at grid midpoints. For example, choosing the nonuniform grid with
+   <math display="inline">
+    I = 100
+   </math>
+   in Figure 1, one computes
+   <math display="inline">
+    \Delta t_{\text{Grid}} \approx 0.00066
+   </math>
+   . Since the approximate daily sampling interval is
+   <math display="inline">
+    \Delta t_B \approx 0.004
+   </math>
+   , the ratio is
+   <math display="inline">
+    R_{\Delta t} \approx 0.16
+   </math>
+   and best results are achieved with the barrier midway between grid points. For finer grids, the ratio
+   <math display="inline">
+    R_{\Delta t}
+   </math>
+   is even smaller. Thus, for fairly typical parameters, the monitoring interval for which placing barriers on grid points becomes optimal is so small that simply modeling the option as continuously monitored to begin with is probably sufficiently accurate. It is surely much more efficient, because the time steps can be much larger than
+   <math display="inline">
+    \Delta t_{\text{Grid}}
+   </math>
+   when semi-implicit time-stepping
+  </p>
+  <p block-type="Text">
+   methods like Crank-Nicolson or Rannacher [4] are used.
+  </p>
+  <h3>
+   <b>
+    Time Discretization
+   </b>
+  </h3>
+  <p block-type="Text">
+   In the examples thus far, very large numbers of time steps have been used (far in excess of what is practical or desirable), to eliminate time discretization error and isolate spatial discretization error. Considering for the moment the simple heat equation (written in reverse time as it might be in the context of finance),
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V}{\partial t} + \kappa \frac{\partial^2 V}{\partial x^2} = 0 \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   the following partially implicit time discretization can be proposed:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{V^{n+1} - V^n}{\Delta t} + \theta \kappa \frac{\partial^2 V^{n+1}}{\partial x^2} + (1 - \theta) \kappa \frac{\partial^2 V^n}{\partial x^2} = 0
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   to advance the solution from
+   <math display="inline">
+    t^{n+1}
+   </math>
+   to
+   <math display="inline">
+    t^n
+   </math>
+   , where
+   <math display="inline">
+    \theta
+   </math>
+   is the "implicitness" parameter.
+  </p>
+  <p block-type="TextInlineMath">
+   The Crank-Nicolson method, which is often recommended because its truncation error is
+   <math display="inline">
+    O(\Delta t^2)
+   </math>
+   , corresponds to
+   <math display="inline">
+    \theta = 0.5
+   </math>
+   . As is well known [5, 6], a Fourier analysis of equation (11) shows that the Crank-Nicolson method is also unconditionally stable. No individual Fourier mode grows exponentially as
+   <math display="inline">
+    n \to \infty
+   </math>
+   no matter the size of
+   <math display="inline">
+    \Delta t
+   </math>
+   relative to the characteristic diffusion time of the grid. However, the Nyquist modes, which change sign at alternate grid points, while stable for large time steps, do not diffuse away, but simply alternate sign on succeeding time steps. On the other hand, a fully implicit method
+   <math display="inline">
+    \theta = 1
+   </math>
+   has truncation error
+   <math display="inline">
+    O(\Delta t)
+   </math>
+   , but the Nyquist modes decay rapidly when
+   <math display="inline">
+    \Delta t
+   </math>
+   is large relative to the diffusion time of the grid.
+  </p>
+  <p block-type="Text">
+   In pricing discretely sampled barrier options, one enforces the knockout or knock-in conditions by simply changing the option value
+   <math display="inline">
+    V(S)
+   </math>
+   appropriately on monitoring dates. Doing so creates discontinuities that add energy to the Nyquist portion of the Fourier spectrum. Thus, while the Nyquist modes formally remain stable under Crank-Nicolson differencing, their amplitude can still grow with each periodic monitoring. The result can be oscillatory solutions near the barrier. And because the Nyquist modes are highly oscillatory, they have a much larger polluting effect on the Greeks
+   <math display="inline">
+    \Delta
+   </math>
+   and
+   <math display="inline">
+    \gamma
+   </math>
+   than on the value itself [6].
+  </p>
+  <p block-type="TextInlineMath">
+   In the Rannacher [4] method, several fully implicit time steps are taken after each barrier monitoring date (or more generally after any event that can result in value or
+   <math display="inline">
+    \Delta
+   </math>
+   becoming discontinuous), followed by Crank-Nicolson steps. If the number of implicit steps remains constant as the total number of time steps is increased, then the method is
+   <math display="inline">
+    O(\Delta t^2)
+   </math>
+   . However, it has superior performance when applied to solutions with discontinuities such as digital options or discretely monitored barrier options, since the fully implicit steps in Rannacher drastically reduce the Nyquist modes. An alternative three-level time discretization that likewise has truncation error
+  </p>
+  <p block-type="TextInlineMath">
+   of
+   <math display="inline">
+    O(\Delta t^2)
+   </math>
+   while eliminating Nyquist modes can also be formulated for the parabolic PDEs common in computation finance. See [7] for a detailed discussion of the three-level scheme for pricing discretely monitored barrier options. Here, the Rannacher scheme is used because of its simplicity.
+  </p>
+  <p block-type="TextInlineMath">
+   Figure 2 displays the present
+   <math display="inline">
+    (t = 0)
+   </math>
+   option delta
+   <math display="inline">
+    =\partial V(S)/\partial S
+   </math>
+   in the immediate neighborhood of the barrier for Grid C of Table 3 when
+   <math display="inline">
+    I = 200
+   </math>
+   , for both Rannacher discretization and Crank-Nicolson. However, the number of time steps is a more practical 1000. The accumulation of Nyquist mode energy near the barrier is evident for Crank-Nicolson differencing, but absent for Rannacher in which two fully implicit time steps were used after each monitoring date. With 250 monitoring dates and 1000 time steps, fully one half of the time steps were implicit. Hence, time discretization error is fairly large despite the stability. However, as the number of time steps is increased, the fraction of fully implicit steps decreases and convergence is quadratic in
+   <math display="inline">
+    \Delta t
+   </math>
+   as shown in Table 4.
+  </p>
+  <p block-type="TextInlineMath">
+   Comparing the results of Table 2 (
+   <math display="inline">
+    N = 50000
+   </math>
+   time steps) to those of Table 4,
+   <math display="inline">
+    (N \text{ varies with } I)
+   </math>
+   it is apparent that most of the error in Table 4 can be ascribed to time discretization, even with a scheme that is clearly quadratically convergent. This is expected for a barrier option with high frequency (approximately daily) monitoring. The monitoring periodically creates discontinuous option values
+   <math display="inline">
+    V(S)
+   </math>
+   in the neighborhood of the barrier, and sufficient time steps are required to resolve the evolution of the strong gradients (large
+   <math display="inline">
+    \Delta s
+   </math>
+   and
+   <math display="inline">
+    \gamma s
+   </math>
+   ) created.
+  </p>
+  <h4>
+   References
+  </h4>
+  <p>
+   Table 4 Finite difference results for a discretely monitored up-out barrier call.
+   <math display="inline">
+    I
+   </math>
+   is the number of grid points, N the number of time steps. Parameters:
+   <math display="inline">
+    T = 1, K = 100,
+   </math>
+   <math display="inline">
+    B = 110, R = 0.5, r = 0.05, q = 0.03, \sigma = 0.1, S_0 = 100,
+   </math>
+   250 monitoring dates,
+   <math display="inline">
+    \alpha = 20
+   </math>
+   ,
+   <math display="inline">
+    \beta = 0.1
+   </math>
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      N
+     </th>
+     <th>
+      <math>
+       V(S_0)
+      </math>
+     </th>
+     <th>
+      Error
+     </th>
+     <th>
+      Ratic
+     </th>
+    </tr>
+    <tr>
+     <td>
+      100
+     </td>
+     <td>
+      500
+     </td>
+     <td>
+      0.9284932
+     </td>
+     <td>
+      0.0092888
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      200
+     </td>
+     <td>
+      1000
+     </td>
+     <td>
+      0.9212974
+     </td>
+     <td>
+      0.0020930
+     </td>
+     <td>
+      4.44
+     </td>
+    </tr>
+    <tr>
+     <td>
+      400
+     </td>
+     <td>
+      2000
+     </td>
+     <td>
+      0.9197262
+     </td>
+     <td>
+      0.0005218
+     </td>
+     <td>
+      4.01
+     </td>
+    </tr>
+    <tr>
+     <td>
+      800
+     </td>
+     <td>
+      4000
+     </td>
+     <td>
+      0.9193361
+     </td>
+     <td>
+      0.0001317
+     </td>
+     <td>
+      3.96
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1600
+     </td>
+     <td>
+      8000
+     </td>
+     <td>
+      0.9192377
+     </td>
+     <td>
+      0.0000333
+     </td>
+     <td>
+      3.96
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3200
+     </td>
+     <td>
+      16000
+     </td>
+     <td>
+      0.9192129
+     </td>
+     <td>
+      0.0000085
+     </td>
+     <td>
+      3.91
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities,
+     <i>
+      Journal of Political Economy
+     </i>
+     <b>
+      81
+     </b>
+     , 637–659.
+    </li>
+    <li block-type="ListItem">
+     [2] Broadie, M., Glasserman, P. &amp; Kou, S.G. (1997). A continuity correction for discrete barrier options,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 325–349.
+    </li>
+    <li block-type="ListItem">
+     [3] Cont, R. &amp; Voltchkova, E. (2005). A finite difference scheme for option pricing in jump diffusion and exponential Levy models,
+     <i>
+      SIAM Journal on Numerical Analysis
+     </i>
+     <b>
+      43
+     </b>
+     (4), 1596–1626.
+    </li>
+    <li block-type="ListItem">
+     [4] Giles, M. &amp; Carter, R. (2006). Convergence of Crank– Nicolson and Rannacher time stepping,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      9
+     </b>
+     , 89–112.
+    </li>
+    <li block-type="ListItem">
+     [5] Heston, S. (1993). A closed-form solution for options with stochastic volatility with applications to bond and currency options,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      6
+     </b>
+     , 327–343.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [6] Shaw, W. (1998).
+     <i>
+      Modeling Financial Derivatives with Mathematica
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [7] Tavella, D. &amp; Randall, C. (2000).
+     <i>
+      Pricing Financial Instruments: The Finite Difference Method
+     </i>
+     , John Wiley &amp; Sons, New York.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Barrier Options
+   </b>
+   ;
+   <b>
+    Corridor Options
+   </b>
+   ;
+   <b>
+    Crank–Nicolson Scheme
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Early Exercise Options
+   </b>
+   ;
+   <b>
+    Partial Integro-differential Equations (PIDEs)
+   </b>
+   ;
+   <b>
+    Tree Methods
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   CURT RANDALL
+  </p>
+ </body>
+</html>

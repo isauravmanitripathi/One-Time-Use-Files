@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Equity–Credit Problem
+   </b>
+  </h1>
+  <p block-type="Text">
+   The equity–credit problem, perhaps the most significant problem of corporate finance, is the problem of linking the value of a firm's equity with that of its debt. Etymologically, the word "credit" is linked to credence, belief, faith, and confidence. As such it is passive and absolute; the only contingency that may affect it is default. One lends money to another on the faith that he/she will pay back the same. This introduces an asymmetry. The debtor may renege and the creditor will try to put his/her assets or company in bankruptcy. Equity, by contrast, is symmetric. Participating in somebody's equity is agreeing to share the profits, the losses, and the risks of the enterprise. Its only contingency is what action (not passion) the future has in stock for the shareholders. The word
+   <i>
+    equity
+   </i>
+   means "fairness" and the word for
+   <i>
+    share
+   </i>
+   , in French, is
+   <i>
+    action
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   The pricing and hedging of convertible bonds (
+   <i>
+    see
+   </i>
+   <b>
+    Convertible Bonds
+   </b>
+   ) is an example of equity-to-credit problem: the optimal conversion policy intimately fuses the two. Once the hazard rate (
+   <i>
+    see
+   </i>
+   <b>
+    Hazard Rate
+   </b>
+   ) is made explicit alongside the price process of the underlying stock, it is followed by the question what kind of correlation can prevail between the two. Trying to model this correlation is the quantitative side of the equity-to-credit problem.
+  </p>
+  <p block-type="Text">
+   Derivative pricing models are almost never used normatively, going from theoretical parameter to derivative theoretical value. They are used in reverse, going from derivative
+   <i>
+    market
+   </i>
+   price to implied parameters (
+   <i>
+    see
+   </i>
+   <b>
+    Implied Volatility Surface
+   </b>
+   ). From this, it becomes apparent that a single volatility parameter cannot explain the variety of prices of options of different strikes and different maturities (the volatility smile), not mentioning that credit default swaps (CDSs,
+   <i>
+    see
+   </i>
+   <b>
+    Credit Default Swaps
+   </b>
+   ) are also written on the company and traded. The equityto-credit problem, as it is understood today, is to find a unifying derivative pricing framework where the full volatility surface of equity options and the full term-structure of CDS spreads can be explained.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Corporate events, which may have been lost under the impassive writing of derivative payoffs, thus reemerge as the script, waiting for our examination, that the prices of equity derivatives and the prices of credit derivatives now
+   <i>
+    jointly
+   </i>
+   compose. The
+  </p>
+  <p block-type="Text">
+   volatility skew of out-of-the-money puts, the term structures of volatility and credit spread, all of which are commonly observed on single names, cannot be handled by Black–Scholes–Merton (BSM) or by any of the models that tried to improve on it simply by tweaking its assumptions (local volatility (
+   <i>
+    see
+   </i>
+   <b>
+    Local Volatility Model
+   </b>
+   ), Heston stochastic volatility model (
+   <i>
+    see
+   </i>
+   <b>
+    Heston Model
+   </b>
+   ), etc.). These price structures are best (and most robustly) explained by a
+   <i>
+    regimeswitching model
+   </i>
+   (
+   <i>
+    see
+   </i>
+   <b>
+    Regime-switching Models
+   </b>
+   ). In this model, the volatility of the underlying share and the hazard rate can suddenly switch between different and very dissimilar regimes, accompanied by substantial jumps of the underlying equity price. Default itself is one such regime, except that it is a regime of a very extreme sort. Takeover and restructuring are other regimes. Poisson processes trigger the various switches, and the regime changes then lend themselves naturally to a reinterpretation in terms of
+   <i>
+    corporate events
+   </i>
+   [1]. The equity-to-credit problem, when it is reinterpreted in terms of derivative pricing, imprints back corporate events on market prices.
+  </p>
+  <h1>
+   <b>
+    A Regime-switching Model
+   </b>
+  </h1>
+  <p block-type="Text">
+   There exist
+   <i>
+    K
+   </i>
+   volatility regimes, indexed from 1 to
+   <i>
+    K
+   </i>
+   , and one default regime, indexed by
+   <i>
+    d
+   </i>
+   . We assume that the regimes are observable and known at any time. By convention, regime 1 can be set as the present regime when we use the model, either to value contingent claims or to calibrate the model against their market prices. We let the discrete variable
+   <i>
+    ut
+   </i>
+   describe the current regime at time
+   <i>
+    t
+   </i>
+   . The dynamics of the regime is driven by a continuous time Markov process with a finite number of states or regimes. The important correlation between the stock price and its volatility, as well as between the stock price and the hazard rate, is captured by a possible jump on the stock price as a regime switch occurs. Here, we chose to model jumps by a very simple fixed percentage size jump; it would be possible to generalize to a density of jumps.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <i>
+      λ
+     </i>
+     ˆ
+     <i>
+      <sup>
+       k
+      </sup>
+     </i>
+     →
+     <i>
+      <sup>
+       l
+      </sup>
+     </i>
+     is the (risk neutral) intensity of going from regime
+     <i>
+      k
+     </i>
+     to regime
+     <i>
+      l
+     </i>
+     . This occurs with a percentage jump
+     <i>
+      yk
+     </i>
+     <sup>
+      →
+     </sup>
+     <i>
+      <sup>
+       l
+      </sup>
+     </i>
+     on the stock price.
+    </li>
+    <li block-type="ListItem">
+     <i>
+      λ
+     </i>
+     ˆ
+     <i>
+      <sup>
+       k
+      </sup>
+     </i>
+     →
+     <i>
+      <sup>
+       d
+      </sup>
+     </i>
+     is the (risk neutral) intensity of going from regime
+     <i>
+      k
+     </i>
+     to default. The corresponding jump on
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   the stock price is
+   <math display="inline">
+    y_{k\rightarrow d}
+   </math>
+   . When
+   <math display="inline">
+    y_{k\rightarrow d} = -1
+   </math>
+   , the stock goes to zero upon default.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     We let
+     <math display="inline">
+      v_k
+     </math>
+     and
+     <math display="inline">
+      v_d
+     </math>
+     be the volatility in regime k and in default, respectively. The jumps indexed from
+     <math display="inline">
+      i = K
+     </math>
+     to J correspond to stock price jumps inside a regime, which may be the default regime. Both the size and the intensity of the jumps depend on the regime.
+    </li>
+    <li block-type="ListItem">
+     In every regime, we index the jumps in the following way. For
+     <i>
+      i
+     </i>
+     between 1 and
+     <math display="inline">
+      (K-1)
+     </math>
+     , the jump corresponds to a regime switch, which is also denoted as
+     <math display="inline">
+      y_{k\rightarrow l}
+     </math>
+     if the current regime is k and if the jump goes into regime
+     <math display="inline">
+      l
+     </math>
+     . For
+     <math display="inline">
+      i
+     </math>
+     between
+     <math display="inline">
+      K
+     </math>
+     and
+     <math display="inline">
+      J
+     </math>
+     , the jump is a pure stock price jump within a regime. For
+     <math display="inline">
+      i = (J + 1)
+     </math>
+     , the jump corresponds to default, also denoted as
+     <math display="inline">
+      y_{k\rightarrow d}
+     </math>
+     if the current regime is
+     <math display="inline">
+      k
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     There is no recovery from the default regime so that
+     <math display="inline">
+      \hat{\lambda}_{d \to k} = 0
+     </math>
+     . However, there may be jumps in the stock price within the default regime.
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   For simplicity, we consider a nonstochastic riskfree term structure, and we denote the deterministic instantaneous forward rate at time t as
+   <math display="inline">
+    r_t
+   </math>
+   . We consider the most general setting with both continuous and discrete time dividends, although both are usually not present at the same time.
+   <math display="inline">
+    r_t^f
+   </math>
+   is the nonstochastic continuous dividend rate at time
+   <math display="inline">
+    t
+   </math>
+   (this notation stems from the foreign exchange market).
+  </p>
+  <h3>
+   <b>
+    Pricing Equations
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   We consider a general derivative instrument with value
+   <math display="inline">
+    F(t, S_t, u_t)
+   </math>
+   at time t when the stock price is
+   <math display="inline">
+    S_t
+   </math>
+   and the current regime is
+   <math display="inline">
+    u_t
+   </math>
+   . We have the following partial decoupling between the nondefault regimes and the default one.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     The value
+     <math display="inline">
+      F(t, S_t, d)
+     </math>
+     in the default regime can be computed on a stand-alone basis, without knowledge of
+     <math display="inline">
+      F
+     </math>
+     in the nondefault regimes.
+    </li>
+    <li block-type="ListItem">
+     The value of
+     <math display="inline">
+      F
+     </math>
+     in the nondefault regimes gives rise to
+     <math display="inline">
+      K
+     </math>
+     -coupled equations, which, in general, involve the value of
+     <math display="inline">
+      F
+     </math>
+     in the default regime, unless the derivative is a call and the stock goes to zero upon default.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   Stand-alone Default Regime
+  </h4>
+  <p block-type="Text">
+   We start by evaluating the value of the general derivative
+   <math display="inline">
+    F
+   </math>
+   in the default regime. It is given by
+  </p>
+  <p block-type="Text">
+   the following stand-alone equation, which does not depend on the value of
+   <math display="inline">
+    F
+   </math>
+   in the nondefault regimes:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial F}{\partial t} + \frac{1}{2} v_d^2 S_t^2 \frac{\partial^2 F}{\partial S_t^2} + \left(r - r^f - \sum_{j=K}^J \hat{\lambda}_j y_j\right) S_t \frac{\partial F}{\partial S_t}
+   </math>
+   <math display="block">
+    + \sum_{j=K}^J \hat{\lambda}_j \left(F(t, S_t(1+y_j), d) - F(t, S_t, d)\right) = rF
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   with appropriate boundary conditions. The sums
+   <math display="inline">
+    \sum_{j=K}^{J} \hat{\lambda}_{j}^{T} y_{j}
+   </math>
+   and
+   <math display="inline">
+    \sum_{j=K}^{J} \hat{\lambda}_{j} \Delta F
+   </math>
+   correspond to stock price jumps inside the default regime.
+  </p>
+  <h4>
+   Coupled Nondefault Regimes
+  </h4>
+  <p block-type="Text">
+   For every nondefault regime
+   <math display="inline">
+    u_t
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial F}{\partial t} + \frac{1}{2} v_{u_t}^2 S_t^2 \frac{\partial^2 F}{\partial S_t^2} + \left( r - r^f - \sum_{j=1}^{J+1} \hat{\lambda}_j y_j \right) S_t \frac{\partial F}{\partial S_t} \\
++ \sum_{j=K}^{J} \hat{\lambda}_j (F(t, S_t(1+y_j), u_t) - F(t, S_t, u_t)) \\
++ \sum_{l \neq u_t} \hat{\lambda}_{u_t \to l} (F(t, S_t(1+y_{u_t \to l}), l) \\
+- F(t, S_t, u_t)) \\
++ \hat{\lambda}_{u_t \to d} (F(t, S_t(1+y_{u_t \to d}), d) \\
+- F(t, S_t, u_t)) = rF \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   again with appropriate boundary conditions. A few remarks concerning this equation are given below:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     We note that in the general case the value of
+     <math display="inline">
+      F
+     </math>
+     in the default regime is needed here.
+    </li>
+    <li block-type="ListItem">
+     The sum
+     <math display="inline">
+      \sum_{j=1}^{J+1} \hat{\lambda}_j y_j
+     </math>
+     corresponds to a sum on all stock price jumps that may occur from the current regime
+     <math display="inline">
+      u_t
+     </math>
+     , both inside the regime and from the regime
+     <math display="inline">
+      u_t
+     </math>
+     to another one, including default. Although the notation is not explicit, the terms of this sum depend on the current regime
+     <math display="inline">
+      u_t
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     The sum
+     <math display="inline">
+      \sum_{i=K}^{J} \hat{\lambda}_j \Delta F
+     </math>
+     corresponds to the stock price jumps inside the current regime
+     <math display="inline">
+      u_t
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     The sum
+     <math display="inline">
+      \sum_{l\neq u_{t}} \ddot{\lambda}_{u_{t}\rightarrow l} \Delta F
+     </math>
+     corresponds to the changes in regime, from the current regime
+     <math display="inline">
+      u_t
+     </math>
+     to the other nondefault regimes indexed by
+     <math display="inline">
+      l
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   • The last term
+   <i>
+    λ
+   </i>
+   ˆ
+   <i>
+    ut
+   </i>
+   <sup>
+    →
+   </sup>
+   <i>
+    dF
+   </i>
+   corresponds to a jump from the current regime
+   <i>
+    ut
+   </i>
+   to the default.
+  </p>
+  <h3>
+   <i>
+    Dividends
+   </i>
+  </h3>
+  <p block-type="Text">
+   In the absence of arbitrage, the derivative must be continuous across the payment of dividends. At a time
+   <i>
+    ti
+   </i>
+   when a fixed dividend
+   <i>
+    di(Sti
+   </i>
+   −
+   <i>
+    )
+   </i>
+   is paid by the company, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(t_i-, S_{t_i-}, u_{t_i}) = F(t_i, S_{t_i}, u_{t_i})
+   </math>
+   <br/>
+   =
+   <math>
+    F(t_i, S_{t_i-} - d_i(S_{t_i-}), u_{t_i})
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    uti
+   </i>
+   can be any regime, including default.
+  </p>
+  <p block-type="TextInlineMath">
+   The same reasoning applies for proportional dividends. At a time
+   <i>
+    tj
+   </i>
+   when a proportional dividend
+   <i>
+    δjStj
+   </i>
+   <sup>
+    −
+   </sup>
+   is paid by the company, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(t_j-, S_{t_j-}, u_{t_j}) = F(t_j, S_{t_j}, u_{t_j})
+   </math>
+   <br/>
+   =
+   <math>
+    F(t_j, (1 - \delta_j)S_{t_j-}, u_{t_j})
+   </math>
+   (4)
+  </p>
+  <p block-type="Text">
+   where again
+   <i>
+    utj
+   </i>
+   can be any regime, including default.
+  </p>
+  <h1>
+   <b>
+    Credit Default Swaps
+   </b>
+  </h1>
+  <h3>
+   <i>
+    Definitions
+   </i>
+  </h3>
+  <p block-type="Text">
+   We describe the contingent cash flows of the CDS, when the current time is
+   <i>
+    t
+   </i>
+   and the current nondefault regime is
+   <i>
+    ut
+   </i>
+   .
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     The nominal of the CDS is 1.
+    </li>
+    <li block-type="ListItem">
+     The payment frequency of the premium is
+     <i>
+      t
+     </i>
+     , a fraction of a year, which can be 1 for one year, 1
+     <i>
+      /
+     </i>
+     2 for a semester, 1
+     <i>
+      /
+     </i>
+     4 for a quarter, or 1
+     <i>
+      /
+     </i>
+     12 for one month.
+    </li>
+    <li block-type="ListItem">
+     We let
+     <i>
+      N
+     </i>
+     ≥ 1 be the number of remaining premium payments, assuming no default up to maturity of the CDS.
+    </li>
+    <li block-type="ListItem">
+     The first premium payment occurs at time
+     <i>
+      t
+     </i>
+     1, with the constraint that 0
+     <i>
+      &lt; (t
+     </i>
+     <sup>
+      1
+     </sup>
+     −
+     <i>
+      t)
+     </i>
+     ≤
+     <i>
+      t
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     The remaining premium payments occur after
+     <i>
+      t
+     </i>
+     <sup>
+      1
+     </sup>
+     with a constant interval
+     <i>
+      t
+     </i>
+     , which means that the dates of premium payments are denoted as
+     <i>
+      ti
+     </i>
+     =
+     <i>
+      t
+     </i>
+     <sup>
+      1
+     </sup>
+     +
+     <i>
+      (i
+     </i>
+     − 1
+     <i>
+      )t
+     </i>
+     for
+     <i>
+      i
+     </i>
+     between 1 and
+     <i>
+      N
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     The maturity
+     <i>
+      T
+     </i>
+     of the CDS is the last premium payment, that is,
+     <i>
+      T
+     </i>
+     =
+     <i>
+      tN
+     </i>
+     =
+     <i>
+      t
+     </i>
+     <sup>
+      1
+     </sup>
+     +
+     <i>
+      (N
+     </i>
+     − 1
+     <i>
+      )t
+     </i>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     We define
+     <i>
+      t
+     </i>
+     <sup>
+      0
+     </sup>
+     =
+     <i>
+      t
+     </i>
+     <sup>
+      1
+     </sup>
+     −
+     <i>
+      t
+     </i>
+     , which is either the date of the last premium payment before
+     <i>
+      t
+     </i>
+     or the issue date of the CDS.
+    </li>
+    <li block-type="ListItem">
+     <i>
+      S
+     </i>
+     is the premium of the CDS paid until default with the payment frequency
+     <i>
+      t
+     </i>
+     after the first payment date
+     <i>
+      t
+     </i>
+     1. If default occurs at time
+     <i>
+      τ
+     </i>
+     and the last premium payment was at time
+     <i>
+      ti
+     </i>
+     , then the buyer of insurance still owes the accrued premium, defined as the linear fraction of the next premium payment, that is,
+     <i>
+      S(τ
+     </i>
+     −
+     <i>
+      ti)/t
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     Let
+     <i>
+      R
+     </i>
+     be the recovery, between 0 and 1. Upon default, the party insured receives
+     <i>
+      (
+     </i>
+     1 −
+     <i>
+      R)
+     </i>
+     at the time
+     <i>
+      τ
+     </i>
+     of default, if default occurs before maturity
+     <i>
+      T
+     </i>
+     , and nothing otherwise.
+    </li>
+    <li block-type="ListItem">
+     For a time
+     <i>
+      t
+     </i>
+     and a regime
+     <i>
+      ut
+     </i>
+     , we let
+     <i>
+      <sup>
+       F
+      </sup>
+     </i>
+     CDS
+     <i>
+      (t, ut
+     </i>
+     ;
+     <i>
+      <sup>
+       t
+      </sup>
+     </i>
+     1
+     <i>
+      , t, N , S, R)
+     </i>
+     be the value at time
+     <i>
+      t
+     </i>
+     when the regime is
+     <i>
+      ut
+     </i>
+     of the CDS with premium
+     <i>
+      S
+     </i>
+     and recovery
+     <i>
+      R
+     </i>
+     , whose sequence of premium payment dates is described by
+     <i>
+      t
+     </i>
+     1, the date of the first one,
+     <i>
+      t
+     </i>
+     the constant time between two premium payments after the first one, and
+     <i>
+      N
+     </i>
+     the total number of premium payments. Its maturity is
+     <i>
+      T
+     </i>
+     =
+     <i>
+      t
+     </i>
+     <sup>
+      1
+     </sup>
+     +
+     <i>
+      (N
+     </i>
+     − 1
+     <i>
+      )t
+     </i>
+     . This value assumes the point of view of the holder of the CDS. He/she is the party who seeks insurance against default risk and who pays the streams of premia in exchange for a compensation in the case of default. When
+     <i>
+      ut
+     </i>
+     =
+     <i>
+      d
+     </i>
+     , we assume that default occurred at time
+     <i>
+      <sup>
+       t
+      </sup>
+     </i>
+     exactly, and
+     <i>
+      <sup>
+       F
+      </sup>
+     </i>
+     CDS
+     <i>
+      (t, d
+     </i>
+     ;
+     <i>
+      <sup>
+       t
+      </sup>
+     </i>
+     1
+     <i>
+      , t, N , S, R)
+     </i>
+     values the benefit of the insurance upon default. At a time
+     <i>
+      ti
+     </i>
+     of premium payment, we assume that
+     <i>
+      <sup>
+       F
+      </sup>
+     </i>
+     CDS
+     <i>
+      (ti, ut
+     </i>
+     ;
+     <i>
+      <sup>
+       t
+      </sup>
+     </i>
+     1
+     <i>
+      , t, N , S, R)
+     </i>
+     corresponds to the value ex premium payment, that is, just after the payment of the premium
+     <i>
+      S
+     </i>
+     . When
+     <i>
+      (t
+     </i>
+     1
+     <i>
+      , t, N )
+     </i>
+     , the maturity
+     <i>
+      T
+     </i>
+     , the premium
+     <i>
+      S
+     </i>
+     , and the recovery
+     <i>
+      R
+     </i>
+     are understood, we simply write
+     <i>
+      <sup>
+       F
+      </sup>
+     </i>
+     CDS
+     <i>
+      (t, ut)
+     </i>
+     .
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <i>
+    Value in Default
+   </i>
+  </h3>
+  <p block-type="TextInlineMath">
+   Let
+   <i>
+    F
+   </i>
+   CDS
+   <i>
+    (t, d)
+   </i>
+   be the value of the CDS at time
+   <i>
+    t
+   </i>
+   assuming that default has occurred at time
+   <i>
+    t
+   </i>
+   . It is the difference between the compensation immediately received and the accrued premium still owed:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{\text{CDS}}(t, d) = 1 - R - S \frac{(t - [t])}{\Delta t}
+   </math>
+   (5)
+  </p>
+  <h4>
+   <b>
+    Backward Equation
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   We derive a backward equation for the value
+   <math display="inline">
+    F^{\text{CDS}}(t, u_t)
+   </math>
+   of the CDS. At maturity T and for every nondefault regime
+   <math display="inline">
+    k
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{\text{CDS}}(T,k) = 0 \tag{6}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{\text{CDS}}(T-,k) = -S \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   since maturity
+   <math display="inline">
+    T
+   </math>
+   corresponds to the last premium payment. At a time
+   <math display="inline">
+    t
+   </math>
+   different from any premium payment date and for every nondefault regime
+   <math display="inline">
+    k
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \frac{\partial F^{\text{CDS}}}{\partial t}(t,k) &amp;+ \sum_{l \neq k} \hat{\lambda}_{k \rightarrow l} \\ &amp;\times \left( F^{\text{CDS}}(t,l) - F^{\text{CDS}}(t,k) \right) \\ &amp;+ \hat{\lambda}_{k \rightarrow d} \left( F^{\text{CDS}}(t,d) - F^{\text{CDS}}(t,k) \right) \\ &amp;= r F^{\text{CDS}}(t,k) \end{split} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the value in default
+   <math display="inline">
+    F^{\text{CDS}}(t, d)
+   </math>
+   has been derived in equation (5). At a time
+   <math display="inline">
+    t_i = t_1 + (i - 1)\Delta t
+   </math>
+   where the premium
+   <math display="inline">
+    S
+   </math>
+   is paid, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{\text{CDS}}(t_i-, k) = F^{\text{CDS}}(t_i, k) - S \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   which means that the value of the CDS increases by S after each premium payment. This yields a system of
+   <i>
+    K
+   </i>
+   -coupled backward equations.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The regime-switching model represents
+   <i>
+    corporate events
+   </i>
+   in terms of jumps. The volatility parameters
+   <math display="inline">
+    v_k
+   </math>
+   and
+   <math display="inline">
+    v_d
+   </math>
+   , the regime-switching intensities
+   <math display="inline">
+    \lambda_{k\rightarrow l}
+   </math>
+   and
+   <math display="inline">
+    \lambda_{k\rightarrow d}
+   </math>
+   , and the corresponding jump sizes
+   <math display="inline">
+    y_{k\rightarrow l}
+   </math>
+   and
+   <math display="inline">
+    y_{k\rightarrow d}
+   </math>
+   are all inferred by calibration of the model to the market prices of equity options and CDS spreads. This is achieved by solving an inverse problem characterized by the pricing equations above. For this reason, the regime-switching model is perfectly suited
+  </p>
+  <p block-type="Text">
+   for pricing the convertible bond (see Convertible Bonds).
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="Text">
+   [1] Ayache, E. (2004). The Equity-to-Credit Problem. The Best of Wilmott 1, Incorporating the Quantitative Finance Review, 2004, John Wiley &amp; Sons, Chichester, West Sussex, pp. 79-107.
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Ayache, E., Forsyth, P.A. &amp; Vetzal, K.R. (2002). Next generation models for convertible bonds with credit risk, Wilmott December
+     <math display="inline">
+      68-77
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Ayache, E., Forsyth, P.A. &amp; Vetzal, K.R. (2003). The valuation of convertible bonds with credit risk, Journal of Derivatives
+     <math display="inline">
+      11 \ 9 - 29
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities, Journal of Political Economy 81, 637-654.
+    </li>
+    <li block-type="ListItem">
+     Ferguson, N. (2008). The Ascent of Money: A Financial History of the World, Allen Lane, Penguin Books, London, 119–175. Goldman, S. (1994). Valuing Convertible Bonds as Derivatives.
+    </li>
+    <li block-type="ListItem">
+     Quantitative Strategies Research Notes, Goldman Sachs.
+    </li>
+    <li block-type="ListItem">
+     Hull, J. (2008). Options, Futures, and Other Derivatives, 7th Edition, Prentice-Hall, Englewood Cliffs, New Jersey.
+    </li>
+    <li block-type="ListItem">
+     MacKenzie, D. (2003). An equation and its worlds: bricolage, exemplars, disunity and performativity in financial economics, Social Studies of Science 33, 831-868.
+    </li>
+    <li block-type="ListItem">
+     Smith, C.W. (2007). Markets as definitional practices, The Canadian Journal of Sociology
+     <math display="inline">
+      32(1)
+     </math>
+     , 1–39.
+    </li>
+    <li block-type="ListItem">
+     Thorp, E.O. &amp; Kassouf, S.T. (1967). Beat the Market, Random House, New York.
+    </li>
+    <li block-type="ListItem">
+     Tsiveriotis, K. &amp; Fernandes, C. (1998). Valuing convertible bonds with credit risk, Journal of Fixed Income 8, 95–102.
+    </li>
+    <li block-type="ListItem">
+     Wilmott, P. (2006). Paul Wilmott on Quantitative Finance, 2nd Edition, John Wiley &amp; Sons, London.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   Convertible Bonds; Credit Default Swaps; Hazard Rate; Regime-switching Models; Structural
+   <b>
+    Default Risk Models.
+   </b>
+  </p>
+  <p block-type="Text">
+   ÉLIE AYACHE
+  </p>
+ </body>
+</html>

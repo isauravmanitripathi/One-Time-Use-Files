@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Ouantization Methods
+   </b>
+  </h1>
+  <p block-type="Text">
+   The origin of optimal vector quantization goes back to the early
+   <math display="inline">
+    1950s
+   </math>
+   as a way to discretize a (stationary) signal so that it could be transmitted for a given cost with the lowest possible degradation. The starting idea is to consider the best approximation in the mean quadratic sense—or, more generally, in an
+   <math display="inline">
+    L^p
+   </math>
+   -sense—of an
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued random vector X by a random variable
+   <math display="inline">
+    q(X)
+   </math>
+   taking at most N values (with respect to a given norm on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , usually the canonical Euclidean norm).
+  </p>
+  <p block-type="Text">
+   More recently (in the late 1990s), it has been introduced as an efficient tool in numerical probability—first, for numerical integration in medium dimensions [15, 16], and soon as a method for the computation of conditional expectations. The main motivation was the pricing and hedging of multiasset American-style options [2, 4] and more generally to devise some realistic numerical schemes for the reflected backward stochastic differential equations (SDEs) (see Backward Stochastic Differen
+   <b>
+    tial Equations
+   </b>
+   and
+   <math display="inline">
+    [1, 3]
+   </math>
+   ). Presently, this ability to compute conditional expectations has led to tackling other nonlinear problems like stochastic control (portfolio management [18], pricing of swing options [5, 6]), nonlinear filtering with some applications to stochastic volatility models [20], and some classes of stochastic partial differential equations (PDEs) like stochastic Zakai and McKean-Vlasov equations [8]. In all these problems, quantization is used to produce a space discretization of the underlying (Markov) dynamics at the time discretization instants (see also [19]).
+  </p>
+  <h1>
+   <b>
+    Optimal Vector Quantization: A Short
+   </b>
+   Background
+  </h1>
+  <p block-type="TextInlineMath">
+   Assume
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   is equipped with the Euclidean norm
+   <math display="inline">
+    |.|
+   </math>
+   . Let
+   <math display="inline">
+    X : (\Omega, \mathcal{A}, \mathbb{P}) \to \mathbb{R}^d
+   </math>
+   be a random vector. For a given set
+   <math display="inline">
+    \Gamma = \{x_1, \ldots, x_N\} \subset \mathbb{R}^d, N \ge 1
+   </math>
+   , any (Borel) projection
+   <math display="inline">
+    \widehat{X}^{\Gamma}
+   </math>
+   of X on
+   <math display="inline">
+    \Gamma
+   </math>
+   following the nearest neighbor rule provides an optimal solution
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |X - \widehat{X}^{\Gamma}| = d(X, \Gamma) = \min_{1 \le i \le N} |X - x_i| \qquad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The projection is essentially unique if all hyperplanes have 0-mass for the distribution of X. If
+   <math display="inline">
+    X \in L^2(\mathbb{P})
+   </math>
+   ,
+  </p>
+  <p block-type="TextInlineMath">
+   the induced mean quadratic error
+   <math display="inline">
+    ||X - \widehat{X}^{\Gamma}||
+   </math>
+   , reaches a minimum as
+   <math display="inline">
+    \Gamma
+   </math>
+   runs over all subsets of
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   of size at most N. Any such minimizer
+   <math display="inline">
+    \Gamma^{N,*}
+   </math>
+   is called an
+   <i>
+    optimal quadratic N-quantizer
+   </i>
+   of
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    \widehat{X}^{\Gamma^{N,*}}
+   </math>
+   is called an
+   <i>
+    optimal quadratic N-quantization
+   </i>
+   of
+   <math display="inline">
+    X
+   </math>
+   . Using the property that conditional expectation given a
+   <math display="inline">
+    \sigma
+   </math>
+   -field
+   <math display="inline">
+    \mathcal{B}
+   </math>
+   is the best
+   <math display="inline">
+    \mathcal{B}
+   </math>
+   -measurable quadratic approximation, one derives the result that an optimal quantizer satisfies the so-called
+   <i>
+    stationary property
+   </i>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(X|\widehat{X}) = \widehat{X}
+   </math>
+   with
+   <math>
+    \widehat{X} := \widehat{X}^{\Gamma^{N,*}}
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   It is easy to show that the minimal mean quantization error
+   <math display="inline">
+    \|\widehat{X} - \widehat{X}^{\Gamma^{N,*}}\|_{2}
+   </math>
+   is nonincreasing and goes to zero as
+   <math display="inline">
+    N \to \infty
+   </math>
+   (decreasing if the support of X is infinite). Optimal quantizers also exist with respect to the
+   <math display="inline">
+    L^r(\mathbb{P})
+   </math>
+   -norm,
+   <math display="inline">
+    r \neq 2
+   </math>
+   . The rate of convergence is ruled by the Zador Theorem.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   (a) Sharp rate [9]. Let
+   <math display="inline">
+    X \in L^{r+\eta}(\mathbb{P})
+   </math>
+   for some
+   <math display="inline">
+    r, \eta &gt; 0
+   </math>
+   . Let
+   <math display="inline">
+    \mathbb{P}_{v}(d\xi) = \varphi(\xi) d\xi + v(d\xi)
+   </math>
+   be the canonical decomposition of the distribution of
+   <math display="inline">
+    X
+   </math>
+   <math display="inline">
+    (v \text{ and the Lebesgue measure are singular}).
+   </math>
+   Then there exists a real constant
+   <math display="inline">
+    \tilde{J}_{r,d} \in (0,\infty)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;\lim_{N} N^{\frac{1}{d}} \min_{\Gamma \subset \mathbb{R}^{d}, \operatorname{card}(\Gamma) \leq N} \|X - \widehat{X}^{\Gamma}\|_{r} \sim \widetilde{J}_{r,d} \\ &amp;\quad \times \left(\int_{\mathbb{R}^{d}} \varphi^{\frac{d}{d+r}}(u) \, \mathrm{d}u\right)^{\frac{1}{d} + \frac{1}{r}} \quad \textit{as} \quad N \to +\infty \end{split} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (b) Nonasymptotic upper bound [13]. Let
+   <math display="inline">
+    d \in \mathbb{N}
+   </math>
+   . Let
+   <math display="inline">
+    r, \eta &gt; 0
+   </math>
+   . There exists
+   <math display="inline">
+    C_{d,r,\eta} \in (0,\infty)
+   </math>
+   such that, for every
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued random vector X,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \forall N \ge 1,
+   </math>
+   <br/>
+   <math display="block">
+    \min_{\Gamma \subset \mathbb{R}^d, |\Gamma| \le N} \|X - \widehat{X}^{\Gamma}\|_{r} \le C_{d,r,\eta} \|X\|_{r+\eta} N^{-\frac{1}{d}} \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The real constant
+   <math display="inline">
+    \tilde{J}_{r,d}
+   </math>
+   (which depends on the underlying norm on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   ) corresponds to the case of the uniform distribution over
+   <math display="inline">
+    [0, 1]^d
+   </math>
+   for which the above "
+   <math display="inline">
+    \lim_{N}
+   </math>
+   " also holds as an "
+   <math display="inline">
+    \inf_{N}
+   </math>
+   " as well. When
+   <math display="inline">
+    d = 1
+   </math>
+   ,
+   <math display="inline">
+    \widetilde{J}_{r,1} = (r+1)^{-\frac{1}{r}}/2
+   </math>
+   . When
+   <math display="inline">
+    d = 2
+   </math>
+   , with the canonical Euclidean norm,
+   <math display="inline">
+    \widetilde{J}_{2,d} = \sqrt{\frac{5}{18\sqrt{3}}}
+   </math>
+   . For
+   <math display="inline">
+    d \ge 3
+   </math>
+   one only knows that
+   <math display="inline">
+    \widetilde{J}_{2,d} \sim \sqrt{\frac{d}{2\pi e}} \approx \sqrt{\frac{d}{17.08}}
+   </math>
+   as
+   <math display="inline">
+    d \to
+   </math>
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   <math display="inline">
+    N
+   </math>
+   -quantizer (and its Voronoi diagram) of the normal distribution
+   <math display="inline">
+    \mathcal{N}(0; I_2)
+   </math>
+   on
+   <math display="inline">
+    \mathbb{R}^2
+   </math>
+   with
+   <math display="inline">
+    N = 500
+   </math>
+   (The Voronoi diagram never needs to be computed for numerics)
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    +\infty
+   </math>
+   . For more results on the theoretical aspects of vector quantization we refer to
+   <math display="inline">
+    [9]
+   </math>
+   and the references therein. Figure 1 shows a quantization of the bivariate normal distribution of size
+   <math display="inline">
+    N = 500
+   </math>
+   .
+  </p>
+  <h3>
+   Some Quantization-based Cubature Formulae
+  </h3>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    X
+   </math>
+   be an
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued random vector and
+   <math display="inline">
+    Y
+   </math>
+   an
+   <math display="inline">
+    \mathbb{R}^q
+   </math>
+   -valued random vector; let
+   <math display="inline">
+    \Gamma_X = \{x_1, \ldots, x_{N_X}\},\
+   </math>
+   <math display="inline">
+    \Gamma_Y = \{y_1, \ldots, y_{N_Y}\}\
+   </math>
+   be two quantizers of X and Y, respectively. Let
+   <math display="inline">
+    F: \mathbb{R}^d \longrightarrow \mathbb{R}
+   </math>
+   be a (continuous) function. It seems natural to approximate these quantities by their quantized version, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(F(\widehat{X}) \approx \mathbb{E}(F(\widehat{X}^{\Gamma_{X}})) \quad \text{and}
+   </math>
+   <math display="block">
+    \mathbb{E}(F(X)|Y) \approx \mathbb{E}(F(\widehat{X}^{\Gamma_{X}})|\widehat{Y}^{\Gamma_{Y}})
+   </math>
+   <math display="block">
+    \text{where } \mathbb{E}(F(\widehat{X}^{\Gamma_{X}})) = \sum_{1 \le i \le N_{X}} F(x_{i}) \mathbb{P}(\widehat{X}^{\Gamma_{X}} = x_{i}) \quad (5)
+   </math>
+   <math display="block">
+    \mathbb{E}(F(\widehat{X}^{\Gamma_{X}})|\widehat{Y}^{\Gamma_{Y}})
+   </math>
+   <math display="block">
+    = \sum_{1 \le i \le N_{X}} F(x_{i}) \mathbb{P}(\widehat{X}^{\Gamma^{X}} = x_{i}|\widehat{Y}^{\Gamma_{Y}} = y_{j}),
+   </math>
+   <math display="block">
+    1 \le j \le N_{Y} \quad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \mathbb{E}(F(\widehat{X}^{\Gamma_X}))
+   </math>
+   Numerical computation of and
+   <math display="inline">
+    \mathbb{E}(F(\widehat{X}^{\Gamma_X})|\widehat{Y}^{\Gamma_Y})
+   </math>
+   is possible as soon as
+   <math display="inline">
+    F(\xi)
+   </math>
+   is computable at any
+   <math display="inline">
+    \xi \in \mathbb{R}^d
+   </math>
+   and both the distribution
+   <math display="inline">
+    (\mathbb{P}(\widehat{X}^{\Gamma_X} = x_i))_{1 \le i \le N}
+   </math>
+   of
+   <math display="inline">
+    \widehat{X}^{\Gamma_X}
+   </math>
+   and the conditional distribution of
+   <math display="inline">
+    \widehat{X}^{\Gamma_X}
+   </math>
+   given
+   <math display="inline">
+    \widehat{Y}^{\Gamma_Y}
+   </math>
+   are made explicit.
+  </p>
+  <p block-type="TextInlineMath">
+   Likewise, one can consider
+   <i>
+    a priori
+   </i>
+   the
+   <math display="inline">
+    \sigma(\widehat{X}^{\Gamma_X})
+   </math>
+   measurable random variable
+   <math display="inline">
+    F(\widehat{X}^{\Gamma_X})
+   </math>
+   as a good approximation of the conditional expectation
+   <math display="inline">
+    \mathbb{E}(F(X)|\widehat{X}^{\Gamma_X})
+   </math>
+   . One shows (see, e.g., [25]) that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \|X - \widehat{X}^{\Gamma_X}\|_{_{1}} = \sup_{[F]_{\mathrm{Lip}} \le 1} |\mathbb{E}F(X) - \mathbb{E}F(\widehat{X}^{\Gamma_X})| \quad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    [F]_{\text{Lip}}
+   </math>
+   denotes the Lipschitz coefficient of
+   <math display="inline">
+    F
+   </math>
+   . If, furthermore,
+   <math display="inline">
+    \varphi_{\scriptscriptstyle F}:\mathbb{R}^q\to\mathbb{R}
+   </math>
+   , which is a (Borel) version of the conditional expectation, that is, satisfying
+   <math display="inline">
+    \mathbb{E}(F(X)|Y) = \varphi_{F}(Y)
+   </math>
+   turns out to be Lipschitz, then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \|\mathbb{E}(F(X)|Y) - \mathbb{E}(F(\widehat{X}^{\Gamma_{X}})|\widehat{Y}^{\Gamma_{Y}})\|_{2} \\ \leq [F]_{\text{Lip}} \|X - \widehat{X}^{\Gamma_{X}}\|_{2} + [\varphi_{F}]_{\text{Lip}} \|Y - \widehat{Y}^{\Gamma_{Y}}\|_{2} \end{split} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   When
+   <math display="inline">
+    F
+   </math>
+   is twice differentiable with a Lipschitz differential and
+   <math display="inline">
+    \Gamma_X
+   </math>
+   is a stationary quantizer, then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |\mathbb{E}F(X) - \mathbb{E}F(\widehat{X}^{\Gamma_X})| \leq [DF]_{\text{Lip}} \|X - \widehat{X}^{\Gamma_X}\|_{2}^{2} \quad (9)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Similar cubature formulas can be established for locally Lipschitz functions such that
+   <math display="inline">
+    |F(x)  |F(y)| \leq C|x-y|(1+g(x)+g(y))
+   </math>
+   where g is a nonnegative, nondecreasing, convex function (e.g.,
+   <math display="inline">
+    g(x) = e^{|a||x|}
+   </math>
+   . Finally, when F is convex and
+   <math display="inline">
+    \widehat{X}^{\Gamma_X}
+   </math>
+   is stationary, Jensen's inequality yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left(F(X)|\widehat{X}^{\Gamma_{X}}\right) \geq F(\mathbb{E}(X|\widehat{X}^{\Gamma_{X}}))
+   </math>
+   <math display="block">
+    = F(\widehat{X}^{\Gamma_{X}}) \quad \left(\text{so that } \mathbb{E}\left(F(\widehat{X}^{\Gamma_{X}})\right) \leq \mathbb{E}\left(F(X)\right)\right)
+   </math>
+   <math display="block">
+    (10)
+   </math>
+  </p>
+  <h1>
+   Example: Pricing a Bermuda Option
+   <b>
+    Using a Quantization Tree
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (X_k)_{0 \le k \le n}
+   </math>
+   be a Markov chain modeling the dynamics of
+   <math display="inline">
+    d
+   </math>
+   traded risky assets (interest rate is set to 0 for simplicity), assumed to be homogeneous for the sake of simplicity, with Lipschitz transition
+   <math display="inline">
+    P(x, dy) = \mathcal{L}(X_{k+1}|X_k = x)
+   </math>
+   , that is, satisfying the condition that for every Lipschitz continuous function
+   <math display="inline">
+    f
+   </math>
+   ,
+   <math display="inline">
+    [Pf]_{\text{Lip}} \leq [P]_{\text{Lip}}[f]_{\text{Lip}}
+   </math>
+   . Let
+   <math display="inline">
+    (\widehat{X}_k)_{0 \leq k \leq n}
+   </math>
+   be a sequence of quantizations (
+   <math display="inline">
+    \widehat{X}_k := \widehat{X}_k^{\Gamma_k}
+   </math>
+   where the grids
+   <math display="inline">
+    \Gamma_k := \{x_1^k, \ldots, x_{N_k}^k\} \subset \mathbb{R}^d
+   </math>
+   are optimal, see the section How to Get Optimal Quantization below). These grids (and the related quantized transition probability weights defined below) are called a
+   <i>
+    quantization tree
+   </i>
+   of the chain.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{V}_0 = \sup \left\{ \mathbb{E}(h(X_\tau)), \tau \mathcal{F}^X \text{-stopping time} \right\} \quad (11)
+   </math>
+  </p>
+  <p block-type="Text">
+   of the option by implementing a backward quantized dynamic programming formula as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{\mathcal{V}}_{n} = h(\widehat{X}_{n}),
+   </math>
+   <br/>
+   <math display="block">
+    \widehat{\mathcal{V}}_{k} = \max(h(\widehat{X}_{k}), \mathbb{E}(\widehat{\mathcal{V}}_{k+1}|\widehat{X}_{k})), \ k = 0, \dots, n-1
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   in which the Markov property is "forced" since
+   <math display="inline">
+    (\widehat{X}_k)_{0 \le k \le n}
+   </math>
+   has no reason to be a Markov chain. In practice, one shows that
+   <math display="inline">
+    \widehat{\mathcal{V}}_k = v_k(\widehat{X}_k)
+   </math>
+   where the functions
+   <math display="inline">
+    v_k
+   </math>
+   defined on
+   <math display="inline">
+    \Gamma_k
+   </math>
+   satisfy the following backward induction:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_n(x_i^n) = h(x_i^n), \quad i = 1, \dots, N_n
+   </math>
+   (13)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_k(x_i^k) = \max\left(h(x_i^k), \sum_{x_j \in \Gamma_{k+1}} \widehat{p}_k^{ij} v_{k+1}(x_j^{k+1})\right),\newline i = 1, \dots, N_k \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \widehat{p}_{k}^{ij} = \mathbb{P}\left(\widehat{X}_{k+1} = x_{j}^{k+1} | \widehat{X}_{k} = x_{i}^{k}\right)
+   </math>
+   <math display="inline">
+    (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   The point is that once the transitions
+   <math display="inline">
+    \widehat{p}_k^{ij}
+   </math>
+   have been computed (e.g., by a—possibly parallelized, see
+   <math display="inline">
+    [5]
+   </math>
+   —Monte Carlo simulation), the above backward induction can be applied to any (reasonable) payoff: the quantization-based approach is not payoff dependent as the regression-based simulation methods (see
+   <b>
+    Bermudan Options
+   </b>
+   ) are. The resulting error bound, combining equation
+   <math display="inline">
+    (8)
+   </math>
+   and the Zador Theorem
+   <math display="inline">
+    (b)
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |\mathcal{V}_0 - \mathbb{E}v_0(X_0)| \le C_{[P]_{\text{Lip}},d} \sum_{k=0}^n \|X_k - \widehat{X}_k\|_2
+   </math>
+   <math display="block">
+    = O\left(\frac{n}{\bar{N}^{\frac{1}{d}}}\right) \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \bar{N} := \frac{1}{n+1} \sum_{k=0}^{n} N_k
+   </math>
+   . First-order schemes have been devised involving the approximation
+   <math display="inline">
+    \widehat{Dv_k}
+   </math>
+   of the (space) differential of
+   <math display="inline">
+    Dv_k
+   </math>
+   of
+   <math display="inline">
+    v_k
+   </math>
+   in [3]. Other quantization-based schemes have been devised for many other problems (stochastic control, nonlinear filtering [20], etc.).
+  </p>
+  <h4>
+   <b>
+    How to Get Optimal Quantization
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   For this aspect, which is clearly critical for applications, we mainly refer to
+   <math display="inline">
+    [17, 21, 25]
+   </math>
+   and the references therein. We just say that the two main procedures are both based on the stationary equation
+   <math display="inline">
+    \widehat{X}^{\Gamma} = \mathbb{E}(X|\widehat{X}^{\Gamma}).
+   </math>
+   The randomized Lloyd's I is the induced fixed-point procedure whereas the
+   <i>
+    com
+   </i>
+   petitive learning vector quantization algorithm is a recursive stochastic gradient zero search procedure. Both are based on the massive simulation of independent and identically distributed (i.i.d.) copies of
+   <math display="inline">
+    X
+   </math>
+   and nearest neighbor search. Recent developments in the field of fast versions of such procedures
+   <math display="inline">
+    [7, 14]
+   </math>
+   clearly open new perspectives to the online implementation of quantization-based methods. Regarding the Gaussian distribution, a quantization process has been completed and some optimal grids are available on the website [23]: www.quantize.maths-fi.com.
+  </p>
+  <h2>
+   <b>
+    New Directions
+   </b>
+  </h2>
+  <p block-type="Text">
+   Although optimal quantization is an autonomous field of research at the intersection of approximation theory, information theory, and probability theory, which has its own life, it seems that it generates many ideas that can easily and efficiently be applied to numerical probability and computational finance.
+  </p>
+  <p block-type="Text">
+   One important direction, not developed here, is functional quantization where a stochastic process—for example, the Brownian motion, a Lévy process, or a diffusion-is quantized as a random variable taking values in its path space (see
+   <math display="inline">
+    [10-12]
+   </math>
+   ) or [17] for a survey, and the references therein). This has been applied to the pricing of path-dependent options in [22]. See also the website [23] to download optimal quadratic functional quantizers of the Brownian motion.
+  </p>
+  <p block-type="Text">
+   Another direction is variance reduction where quantization can be used either as a control variate or a stratification method, with, in both cases, the specificity being an optimal way to proceed among Lipschitz continuous functions/functionals [22, 24, 25].
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="Text">
+   Bally, V. &amp; Pagès, G. (2003). A quantization algorithm
+   <math display="inline">
+    [1]
+   </math>
+   for solving discrete time multidimensional optimal stopping problems, Bernoulli 9(6), 1003-1049.
+  </p>
+  <h2>
+   <b>
+    4 Quantization Methods
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [2] Bally, V., Pages, G. &amp; Printems, J. (2001). A stochastic ` quantization method for non-linear problems,
+     <i>
+      Monte Carlo Methods and Applications
+     </i>
+     <b>
+      7
+     </b>
+     (1), 21–34.
+    </li>
+    <li block-type="ListItem">
+     [3] Bally, V., Pages, G. &amp; Printems, J. (2003). First order ` schemes in the numerical quantization method,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      13
+     </b>
+     (1), 1–16.
+    </li>
+    <li block-type="ListItem">
+     [4] Bally, V., Pages, G. &amp; Printems, J. (2005). A quanti- ` zation tree method for pricing and hedging multidimensional American options,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      15
+     </b>
+     (1), 119–168.
+    </li>
+    <li block-type="ListItem">
+     [5] Bardou, O., Bouthemy, S. &amp; Pages, G. (2007). Pric- ` ing swing options using optimal quantization, preprint LPMA-1146, to appear in
+     <i>
+      Applied Mathematical Finance
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [6] Bardou, O., Bouthemy, S. &amp; Pages, G. (2007). When ` are swing option bang-bang and how to use it? pre-print LPMA-1141, submitted.
+    </li>
+    <li block-type="ListItem">
+     [7] Friedman, J.H., Bentley, J.L. &amp; Finkel, R.A. (1977). An algorithm for finding best matches in logarithmic expected time,
+     <i>
+      ACM Transactions on Mathematical Software
+     </i>
+     <b>
+      3
+     </b>
+     (3), 209–226.
+    </li>
+    <li block-type="ListItem">
+     [8] Gobet, E., Pages, G., Pham, H. &amp; Printems, J. (2007). ` Discretization and simulation of the Zakai equation,
+     <i>
+      SIAM Journal on Numerical Analysis
+     </i>
+     <b>
+      44
+     </b>
+     (6), 2505–2538. See also, Discretization and simulation for a class of SPDEs with applications to Zakai and McKean-Vlasov equations, Pre-pub. PMA-958, 2005. ´
+    </li>
+    <li block-type="ListItem">
+     [9] Graf, S. and Luschgy, H. (2000).
+     <i>
+      Foundations of Quantization for Probability Distributions
+     </i>
+     , Lecture Notes in Mathematics 1730, Springer, Berlin, 230.
+    </li>
+    <li block-type="ListItem">
+     [10] Luschgy, H. &amp; Pages, G. (2002). Functional quantization ` of Gaussian processes,
+     <i>
+      Journal of Functional Analysis
+     </i>
+     <b>
+      196
+     </b>
+     (2), 486–531.
+    </li>
+    <li block-type="ListItem">
+     [11] Luschgy, H. &amp; Pages, G. (2004). Sharp asymptotics ` of the functional quantization problem for Gaussian processes,
+     <i>
+      The Annals of Probability
+     </i>
+     <b>
+      32
+     </b>
+     (2), 1574–1599.
+    </li>
+    <li block-type="ListItem">
+     [12] Luschgy, H. &amp; Pages, G. (2006). Functional quantiza- ` tion of a class of Brownian diffusions: A constructive approach,
+     <i>
+      Stochastic Processes and Applications
+     </i>
+     <b>
+      116
+     </b>
+     , 310–336.
+    </li>
+    <li block-type="ListItem">
+     [13] Luschgy, H. &amp; Pages, G. (2008). Functional quantization ` rate and mean regularity of processes with an application to Levy processes, ´
+     <i>
+      Annals of Applied Probability
+     </i>
+     <b>
+      18
+     </b>
+     (2), 427–469.
+    </li>
+    <li block-type="ListItem">
+     [14] McNames, J. (2001). A fast nearest-neighbor algorithm based on a principal axis search tree,
+     <i>
+      IEEE Transactions on Pattern Analysis and Machine Intelligence
+     </i>
+     <b>
+      23
+     </b>
+     (9), 964–976.
+    </li>
+    <li block-type="ListItem">
+     [15] Pages, G. (1993). Voronoi tessellation, space quantiza- ` tion algorithm and numerical integration, in
+     <i>
+      Proceedings of the ESANN'93
+     </i>
+     , M. Verleysen, ed, Editions D Facto, Bruxelles, p. 221–228.
+    </li>
+    <li block-type="ListItem">
+     [16] Pages, G. (1998). A space vector quantization method ` for numerical integration,
+     <i>
+      Journal of Computational and Applied Mathematics
+     </i>
+     <b>
+      89
+     </b>
+     , 1–38.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [17] Pages, G. (2007). Quadratic optimal functional quantiza- ` tion methods and numerical applications, in
+     <i>
+      Proceedings of MCQMC, Ulm'06
+     </i>
+     , Springer, Berlin, p. 101–142.
+    </li>
+    <li block-type="ListItem">
+     [18] Pages, G. &amp; Pham, H. (2005). Optimal quantization ` methods for non-linear filtering with discrete-time observations,
+     <i>
+      Bernoulli
+     </i>
+     <b>
+      11
+     </b>
+     (5), 893–932.
+    </li>
+    <li block-type="ListItem">
+     [19] Pages, G., Pham, H. &amp; Printems, J. (2003). Opti- ` mal quantization methods and applications to numerical methods in finance in
+     <i>
+      Handbook of Computational and Numerical Methods in Finance
+     </i>
+     , S.T. Rachev, ed, Birkhauser, Boston, p. 429. ¨
+    </li>
+    <li block-type="ListItem">
+     [20] Pages, G., Pham, H. &amp; Printems, J. (2004). An optimal ` Markovian quantization algorithm for multidimensional stochastic control problems,
+     <i>
+      Stochastics and Dynamics
+     </i>
+     <b>
+      4
+     </b>
+     (4), 501–545.
+    </li>
+    <li block-type="ListItem">
+     [21] Pages, G. &amp; Printems, J. (2003). Optimal quadratic ` quantization for numerics: the Gaussian case,
+     <i>
+      Monte Carlo Methods and Applications
+     </i>
+     <b>
+      9
+     </b>
+     (2), 135–165.
+    </li>
+    <li block-type="ListItem">
+     [22] Pages, G. &amp; Printems, J. (2005). Functional quantization ` for numerics with an application to option pricing,
+     <i>
+      Monte Carlo Methods and Applications
+     </i>
+     <b>
+      11
+     </b>
+     (4), 407–446.
+    </li>
+    <li block-type="ListItem">
+     [23] Pages, G. &amp; Printems, J. (2005). Website devoted to `
+     <i>
+      vector and functional optimal quantization
+     </i>
+     , www.quantize. maths-fi.com.
+    </li>
+    <li block-type="ListItem">
+     [24] Pages, G. &amp; Printems, J. (2008). Reducing variance ` using quantization, pre-pub. LPMA, submitted.
+    </li>
+    <li block-type="ListItem">
+     [25] Pages, G. &amp; Printems, J. (2008). Optimal quantization ` for finance: from random vectors to stochastic processes, in
+     <i>
+      Handbook of Numerical Analysis
+     </i>
+     , P. G. Ciarlet, ed, special volume: Mathematical Modelling and Numerical Methods in Finance, A. Bensoussan &amp; Q. Zhang, (guest editors), North-Holland, Netherlands, Vol. XV pp. 595–648, ISBN: 978-0-444-51879-8.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Bally, V. &amp; Pages, G. (2003). Error analysis of the quantization ` algorithm for obstacle problems,
+     <i>
+      Stochastic Processes &amp; Their Applications
+     </i>
+     ,
+     <b>
+      106
+     </b>
+     (1), 1–40.
+    </li>
+    <li block-type="ListItem">
+     Pages, G. &amp; Sellami, A. (2007). Convergence of multi- ` dimensional quantized SDE's, Pre-print LPMA-1196, ´ submitted.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    American Options
+   </b>
+   ;
+   <b>
+    Bermudan Options
+   </b>
+   ;
+   <b>
+    Stochastic Mesh Method
+   </b>
+   ;
+   <b>
+    Tree Methods
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   GILLES PAGES`
+  </p>
+ </body>
+</html>

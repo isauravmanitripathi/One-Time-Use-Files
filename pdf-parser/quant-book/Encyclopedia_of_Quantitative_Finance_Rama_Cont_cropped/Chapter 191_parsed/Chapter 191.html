@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Leveraged Super-senior Tranche
+   </b>
+  </h1>
+  <p block-type="Text">
+   A leveraged super-senior (LSS) note is a structure that allows investors to take a leveraged exposure to the super-senior (SS) part of a collateralized debt obligation (CDO). This provides an enhanced level of return while typically maintaining a AAA rating. Leverage is achieved by posting an initial collateral amount that is less than the notional of the underlying SS tranche. All credit losses to the investor are capped at the collateral amount, but the coupon is paid on the full notional. Early unwind clauses are typically included in the trade to mitigate the risk to the issuer that losses exceed the collateral amount. Compared to a standard SS tranche the investor is exposed to markto-market (MTM) risk as well as credit risk, that is, for certain market moves his/her principal could be reduced even if no credit losses have occurred owing to a forced unwind. The issuer faces a so-called gap risk, the risk that the MTM of the tranche will fall below the initially posted collateral amount before a trade unwind can take place.
+  </p>
+  <h3>
+   <b>
+    Super-senior Swap
+   </b>
+  </h3>
+  <p block-type="Text">
+   In an (unleveraged) SS swap transaction an investor (protection seller) will take exposure to credit losses on the SS tranche of a CDO (
+   <i>
+    see
+   </i>
+   <b>
+    Collateralized Debt Obligations (CDO)
+   </b>
+   ). This means that in return for a regular fee (or coupon), the investor will make good all losses on the underlying reference portfolio that exceed the attachment amount, but are below the detachment amount. For an SS tranche the attachment point will be higher than what is required for achieving a AAA rating (
+   <i>
+    see
+   </i>
+   <b>
+    Credit Rating
+   </b>
+   ). The spread of the tranche is the fee that values the swap at 0.
+  </p>
+  <h3>
+   <b>
+    Leveraged Super-senior (LSS) Swap
+   </b>
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   Since the risk of experiencing any losses on an SS tranche is remote, the spread for a standard SS tranche is low. In particular, it is lower than for other AAArated securities, which limits the attractiveness of the transaction to investors. LSS structures became
+  </p>
+  <p block-type="Text">
+   popular in 2005, when spreads on the 22–100%, 5-year, iTraxx index (
+   <i>
+    see
+   </i>
+   <b>
+    Credit Default Swap (CDS) Indices
+   </b>
+   ) tranche were around 5 bps.
+  </p>
+  <p block-type="Text">
+   Issuers of LSS notes are typically investment banks. When arranging a CDO transaction the issuer needs to be able to sell the entire capital structure, as otherwise he/she will be left with the remaining risk. For the reasons mentioned above, it can be harder to sell SS risk than risk on mezzanine and senior tranches. The LSS transaction allows the issuer to repackage the SS risk in a way that is attractive to the investor.
+  </p>
+  <p block-type="Text">
+   In an LSS transaction, the investor will invest in an SS tranche with notional
+   <i>
+    N
+   </i>
+   (referred to as the
+   <i>
+    reference tranche
+   </i>
+   ). However, he/she will only post an initial collateral amount
+   <i>
+    X
+   </i>
+   (also referred to as the
+   <i>
+    participation amount
+   </i>
+   ) that is less than the notional amount of the tranche. Any credit losses to the investor will reduce the collateral and losses are thus capped at the collateral amount,
+   <i>
+    X
+   </i>
+   . However, the investor still receives a coupon on the full notional,
+   <i>
+    N
+   </i>
+   , of the reference SS tranche. The ratio,
+   <i>
+    N/X
+   </i>
+   , is referred to as the
+   <i>
+    leverage
+   </i>
+   . If losses reach the collateral amount, the trade will terminate without any further cash flows. The typical structure of the LSS trade can be seen in Figure 1. We compare credit losses on the LSS and a standard SS in Figure 2.
+  </p>
+  <p block-type="Text">
+   The LSS structure provides an increased coupon to the investor compared to investing the collateral amount
+   <i>
+    X
+   </i>
+   in a standard SS tranche. The reason for this is that the investor takes on MTM risk over and above his/her credit risk as is described below.
+  </p>
+  <p block-type="Text">
+   The issuer of an LSS note (protection buyer) is only covered for losses up to the collateral amount
+   <i>
+    X
+   </i>
+   . However, he/she will typically hedge his/her position by selling protection on the corresponding standard SS tranche (cf. the section Hedging and Risks) where he/she is liable for all the losses on the tranche up to the full notional amount
+   <i>
+    N
+   </i>
+   . Thus, the issuer needs to mitigate the risk that losses exceed the collateral level. This is done
+   <i>
+    via
+   </i>
+   the inclusion of a trigger mechanism: As soon as a predefined trigger level is reached the trade will unwind at the MTM of the reference tranche capped at
+   <i>
+    X
+   </i>
+   . The trigger should thus be set such that the MTM on unwind will be less than
+   <i>
+    X
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   We note that in some transactions the investor has the option of posting more collateral upon trigger to avoid an unwind. In this case, the investor will continue to be paid the coupon of the original
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   This figure shows the standard structure of cash flows in an LSS transaction
+  </p>
+  <p>
+   <img src="_page_1_Figure_3.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   This figure shows the credit losses to the investor and the risky fee notional,
+   <i>
+    N (t)
+   </i>
+   , as a function of the portfolio losses. The coupon amount paid to the investor at a coupon date
+   <i>
+    ti
+   </i>
+   is
+   <i>
+    s
+   </i>
+   ·
+   <i>
+    N (ti)
+   </i>
+   , where
+   <i>
+    s
+   </i>
+   is the spread. For comparison we include both the behavior of the LSS and the reference unleveraged super-senior (SS)
+  </p>
+  <p block-type="Text">
+   transaction. This means that it is never optimal for the investor to deliver since after posting more collateral he/she will be liable for more losses without receiving a higher coupon in compensation. It is more favorable to reinvest in a new LSS transaction.
+  </p>
+  <p block-type="Text">
+   We describe the three main types of trigger mechanisms below. There is a trade-off between how well the trigger can approximate the MTM of the trade and how easy it is to objectively assess whether the trigger has been breached.
+  </p>
+  <h2>
+   <b>
+    • Loss Trigger
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   A loss trigger is breached when the amount of portfolio notional lost owing to defaults exceeds the trigger level. This is the easiest trigger to monitor as the loss amounts can be objectively determined. However, the loss provides an imperfect approximation for the MTM of the tranche. In particular, if spreads
+  </p>
+  <p block-type="Text">
+   widen, the value of the LSS can drop severely from the point of view of the investor even in the absence of any defaults. This poses a risk to the issuer since at the time of trigger the MTM of the tranche could have dropped below the collateral amount.
+  </p>
+  <h2>
+   <b>
+    • Spread Trigger
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Spread triggers are based on the average spread of the underlying portfolio. Trigger levels can be defined as a function of the time to maturity and the level of losses in the portfolio. This provides a much better proxy to the MTM of the tranche than the loss trigger. For some standard portfolios, for example, iTraxx or CDX (
+   <i>
+    see
+   </i>
+   <b>
+    Credit Default Swap (CDS) Indices
+   </b>
+   ), the value of the average spread can also be assessed using publicly available information and is hence unambiguous. Often, however, the LSS is based on bespoke portfolios. In this case, the valuation of the
+  </p>
+  <p block-type="Text">
+   SS spreads will have to rely on models, for which there is no universally agreed methodology.
+  </p>
+  <h2>
+   <b>
+    • Mark-to-market Trigger
+   </b>
+  </h2>
+  <p block-type="Text">
+   The MTM trigger is based on the MTM of the reference (unleveraged) SS tranche. Clearly, if the MTM trigger is set below the collateral level the issuer ensures that the collateral will cover the unwind payment (up to gap risk, cf. the section Hedging and Risks). The disadvantage is that the MTM trigger is the hardest to asses objectively. Typically, the MTM for a tranche is not quoted, and hence one has to rely entirely on (complex) models for valuation.
+  </p>
+  <h3>
+   <b>
+    Hedging and Risks
+   </b>
+  </h3>
+  <p block-type="Text">
+   If the trigger mechanism guaranteed that upon unwind the issuer will receive the full MTM of the reference swap then this swap would provide a perfect hedge for the LSS. The coupon amount the investor would receive would be the same, as if he/she had invested the full notional amount
+   <i>
+    N
+   </i>
+   in an SS swap transaction.
+  </p>
+  <p block-type="Text">
+   However, there are two reasons why the trade can unwind without recovering the full MTM of the hedge:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Typically, there will be a delay between a trigger breach and the actual unwind of the hedge. In this period, there is the risk that the MTM will drop below the collateral amount. The issuer then has to make good the difference
+     <i>
+      (MT M
+     </i>
+     −
+     <i>
+      X)
+     </i>
+     . This is the so-called
+     <i>
+      gap risk
+     </i>
+     : The issuer is exposed to large and sudden increases in the value of SS protection or equivalently increases in the spread.
+    </li>
+    <li block-type="ListItem">
+     Even in the absence of a trigger breach, the LSS will unwind if the SS tranche losses have wiped out the collateral. Since the collateral is 0 in this case, the issuer will have to pay the full MTM of the hedge to unwind his/her position. However, this scenario is unlikely, since the trigger should be set so that a trigger event occurs before the collateral has been reduced to 0.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The investor in an LSS transaction faces MTM risks as well as credit risks associated with SS tranche losses. In the case of a trigger event, the investor will be forced to unwind his/her position and will lose part or all of his/her principal as he/she realizes his/her
+  </p>
+  <p block-type="Text">
+   MTM losses (unless he/she posts more collateral). Unless dealing with a loss trigger, a trigger breach can happen even if the investor has not incurred any actual credit losses, for example, if there is a dramatic rise in spreads.
+  </p>
+  <h3>
+   <b>
+    Valuation
+   </b>
+  </h3>
+  <p block-type="Text">
+   The valuation of LSS transactions poses additional challenges to that of pricing a standard SS tranche. This is because the unwind feature means that we need to be able to value the risk of possible MTM losses to the investor and the issuer. Hence, we need to model the joint behavior of MTM and the portfolio losses. This is a dynamic problem that requires more than knowledge of the marginal loss distributions needed for standard tranche pricing.
+  </p>
+  <p block-type="Text">
+   There are two main candidates for dynamic credit models that can, in principle, be used to value an LSS transaction:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     low-dimensional models of the portfolio loss process;
+    </li>
+    <li block-type="ListItem">
+     dynamic models of all single name spreads in the portfolio (
+     <i>
+      see
+     </i>
+     <b>
+      Duffie–Singleton Model
+     </b>
+     ;
+     <b>
+      Multiname Reduced Form Models
+     </b>
+     ).
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Modeling and valuation of the LSS product is not only important for the issuer and the investor but also for assessing the rating of the note. This depends not only on the probability of experiencing credit losses but also on the probability of having a trigger event. Rating agencies (
+   <i>
+    see
+   </i>
+   <b>
+    Credit Rating
+   </b>
+   ) use in-house models for this as described in, for example, [1, 2].
+  </p>
+  <h3>
+   <b>
+    Model-independent Bounds
+   </b>
+  </h3>
+  <p block-type="Text">
+   Some model-independent bounds for the value of the LSS can be derived. We discuss this from the perspective of the issuer who is long protection. Let us denote the spread of a standard tranche with attachment point
+   <i>
+    a
+   </i>
+   and detachment point
+   <i>
+    b
+   </i>
+   by
+   <i>
+    Sa,b
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The spread of the corresponding leveraged tranche with collateral amount
+   <i>
+    x
+   </i>
+   will be denoted by
+   <i>
+    Sa,b,x
+   </i>
+   . Note that the leverage amount
+   <i>
+    α
+   </i>
+   is given by
+   <i>
+    α
+   </i>
+   =
+   <i>
+    (b
+   </i>
+   −
+   <i>
+    a)/x
+   </i>
+   . The most basic bound we can then write down is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_{a,b} \le S_{a,b,x} \le \alpha \cdot S_{a,b} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   This means the following:
+  </p>
+  <p block-type="Text">
+   • The spread of the leveraged tranche is less than the leverage amount times the spread of the unleveraged tranche. This is because the issuer has additional unwind and gap risk. The difference
+   <i>
+    <sup>
+     α
+    </sup>
+   </i>
+   ·
+   <i>
+    Sa,b
+   </i>
+   <sup>
+    −
+   </sup>
+   <i>
+    Sa,b,x (
+   </i>
+   2
+   <i>
+    )
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha \cdot S_{a,b} - S_{a,b,x} \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   is the
+   <i>
+    gap charge
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   • The spread of the leveraged tranche is greater than that of the unleveraged tranche. This is because of the trigger mechanism, which allows the issuer to recover the MTM of the unleveraged tranche up to the collateral amount.
+  </p>
+  <p block-type="Text">
+   We can also give a more stringent floor for the LSS value. To this, we introduce the fee leg value
+   <i>
+    Fa,b
+   </i>
+   and contingent (or loss) leg value
+   <i>
+    Ca,b
+   </i>
+   of a tranche (
+   <i>
+    see
+   </i>
+   <b>
+    Collateralized Debt Obligations (CDO)
+   </b>
+   ). The (positive) value of the fee leg is the expected value of all coupon payments paid on the risky notional. The contingent leg is the (positive) expected value of any loss payments. We now have the following bounds:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_{a,a+x} \le C_{a,b,x} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This is because on the contingent leg, the issuer will at least recover losses up to
+   <i>
+    a
+   </i>
+   +
+   <i>
+    x
+   </i>
+   . He can effectively recover more on unwind since he/she receives the MTM of the unleveraged tranche.
+  </p>
+  <p block-type="Text">
+   We also have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{a,b} \ge F_{a,b,x} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   This corresponds to the fact that on the fee leg the issuer will at most pay the fees of the unleveraged reference tranche. He/she might effectively pay less if there is an unwind not due to the trigger such that no MTM exchange takes place.
+  </p>
+  <p block-type="Text">
+   For a more rigorous discussion we refer to [3].
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Chandler, C., Guadagnuolo, L. &amp; Jobst, N. (2005). CDO spotlight: Approach to rating super senior CDO notes, in
+     <i>
+      Standard &amp; Poors Structured Finance
+     </i>
+     , Standard &amp; Poor's a Division of the McGraw-Hill Companies, Inc., New York.
+    </li>
+    <li block-type="ListItem">
+     [2] Osako, C., Perkins, W. &amp; Kissina, I. (2005). Leveraged super-senior credit default swaps, Fitch Ratings Structured Finance July.
+    </li>
+    <li block-type="ListItem">
+     [3] Gregory, J. (2008). A trick of the credit tail,
+     <i>
+      Risk
+     </i>
+     <b>
+      21
+     </b>
+     (3), 88–92.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   <b>
+    Forward-starting CDO Tranche
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   MATTHIAS ARNSDORF
+  </p>
+ </body>
+</html>

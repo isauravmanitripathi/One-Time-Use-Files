@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Conjugate Gradient
+   </b>
+   Methods
+  </h1>
+  <p block-type="Text">
+   In option pricing on the basis of the Black-Scholes model [3], the value of an option is governed by a partial differential equation (PDE) (see Partial Dif
+   <b>
+    ferential Equations
+   </b>
+   ). Except for special cases, analytic solutions generally do not exist and numerical methods are necessary to approximate the solution. For instance, finite difference methods [20] approximate the solution on a mesh of discrete asset prices. An implicit discretization of the PDE then requires in each time step solving a linear system:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Ax = b \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    x
+   </math>
+   is the solution of next time step,
+   <math display="inline">
+    b
+   </math>
+   is the right-hand side, and A is an
+   <math display="inline">
+    N \times N
+   </math>
+   matrix (see
+   <b>
+    Finite
+   </b>
+   Difference Methods for Barrier Options; Finite
+   <b>
+    Difference Methods for Early Exercise Options).
+   </b>
+   It is interesting to note that matrices arising from option pricing PDEs are often sparse and typically have
+   <math display="inline">
+    O(N)
+   </math>
+   nonzeros.
+  </p>
+  <p block-type="Text">
+   The solution time and storage for solving large linear systems can be very significant. Gaussian elimination is a standard method for solving linear systems, but owing to the issue of fill-in [5], it is usually deemed too expensive in practice when the underlying has more than two assets. Iterative methods [10, 18], for example, Jacobi, Gauss-Seidel, and successive over-relaxation (SOR), on the other hand, are simple to apply. However, their convergence rates, typically depending on the mesh size, are very slow for large problems. The ADI method [16] (see Alternating Direction Implicit (ADI) Method) has been used in option pricing. While it can be made efficient for some linear PDEs, it is not clear how it can be easily extended to more general and nonlinear equations.
+  </p>
+  <p block-type="Text">
+   One way to improve on the classical iterative methods is to use dynamically computed parameters based on the current (and previous) iteration information. The hope is that the appropriately selected parameters would compute "optimal" solutions in some sense. Ideally, it would be desirable to have an iterative method, which (i) is simple to implement, (ii) takes advantage of sparsity structure of
+   <math display="inline">
+    A
+   </math>
+   , and (iii) generates solutions whose errors are minimized
+  </p>
+  <p block-type="Text">
+   in some way. It turns out that such a method can be developed, which is known as the
+   <i>
+    conjugate gradi
+   </i>
+   ent (CG) method [11]. We begin the discussion for symmetric matrices and then generalize the idea to general nonsymmetric cases.
+  </p>
+  <h2>
+   <b>
+    Symmetric Case
+   </b>
+  </h2>
+  <p block-type="Text">
+   Consider the linear system (1) and assume for now that
+   <math display="inline">
+    A
+   </math>
+   is symmetric positive definite (i.e., all eigenvalues are positive). To search the solution
+   <math display="inline">
+    x
+   </math>
+   in the N-dimensional space
+   <math display="inline">
+    \mathbb{R}^N
+   </math>
+   is generally difficult when
+   <math display="inline">
+    N
+   </math>
+   is large. A simpler problem would be to search an approximate solution
+   <math display="inline">
+    x^k
+   </math>
+   from a low-dimensional subspace
+   <math display="inline">
+    S_k
+   </math>
+   where the dimension k is typically much smaller than
+   <math display="inline">
+    N
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   There are different ways to select
+   <math display="inline">
+    x^k
+   </math>
+   from
+   <math display="inline">
+    S_k
+   </math>
+   . Intuitively,
+   <math display="inline">
+    x^k
+   </math>
+   is "optimal" if
+   <math display="inline">
+    ||x - x^k||
+   </math>
+   is minimized. Geometrically, it is equivalent to saying that the error
+   <math display="inline">
+    e^k \equiv x - x^k
+   </math>
+   is orthogonal to
+   <math display="inline">
+    S_k
+   </math>
+   , that is,
+   <math display="inline">
+    \langle e^k, s \rangle \equiv
+   </math>
+   <math display="inline">
+    \sum_{i=1}^N e_i^k s_i = 0
+   </math>
+   for all
+   <math display="inline">
+    s \in S_k
+   </math>
+   . To enforce this condition, one would need
+   <math display="inline">
+    e^k
+   </math>
+   , which is not known. To address this issue, the A-inner product, defined as
+   <math display="inline">
+    \langle u, v \rangle_A \equiv \langle Au, v \rangle
+   </math>
+   , is used instead. The orthogonality condition then becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 = \langle e^k, s \rangle_A = \langle A e^k, s \rangle = \langle r^k, s \rangle \quad \forall s \in S_k \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    r^k \equiv b - Ax^k
+   </math>
+   is the residual vector, which is computable. What it does is to minimize
+   <math display="inline">
+    \langle e^k, e^k \rangle_A \equiv
+   </math>
+   <math display="inline">
+    ||e^k||_A^2
+   </math>
+   , the A-norm of the error.
+  </p>
+  <p block-type="TextInlineMath">
+   Different choices of
+   <math display="inline">
+    S
+   </math>
+   lead to different methods. For instance, the method of Steepest descent (SD) [9, 18] chooses the one-dimensional subspace
+   <math display="inline">
+    S = \text{span}\{p\}
+   </math>
+   , where p is the residual vector of the current approximation. A new approximate solution is obtained by enforcing the orthogonality condition (2). The procedure is repeated with another search direction. Note that SD does not increase the dimension of the search subspace
+   <math display="inline">
+    S
+   </math>
+   but rather changes
+   <math display="inline">
+    S
+   </math>
+   from every iteration. The main drawback of SD is slow convergence in practice, typically because the search directions may repeat and so SD may end up searching in the same direction again and again [10].
+  </p>
+  <h2>
+   Conjugate Gradient
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   To avoid unnecessary duplicated search effort as in SD, the conjugate gradient (CG) method [11, 18]
+  </p>
+  <p block-type="TextInlineMath">
+   is used to find an optimal solution
+   <math display="inline">
+    x^k
+   </math>
+   from a set of search directions
+   <math display="inline">
+    \{p^i\}
+   </math>
+   , which are A-orthogonal; that is,
+   <math display="inline">
+    \langle p^i, p^j \rangle_A = 0
+   </math>
+   if
+   <math display="inline">
+    i \neq j
+   </math>
+   . The A-orthogonality property guarantees that each of the
+   <math display="inline">
+    p^k
+   </math>
+   searches in a unique subspace and one never has to look in that subspace again.
+  </p>
+  <p block-type="TextInlineMath">
+   The basic idea of CG is to start with an initial guess
+   <math display="inline">
+    x^0
+   </math>
+   and then find an approximate solution in a subspace S. It first begins with a small (dimension 1) subspace and then increases the dimension one by one to obtain better approximation. More precisely, at the
+   <math display="inline">
+    k
+   </math>
+   th step, the search subspace is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_k = \text{span}\{p^0, p^1, \dots, p^{k-1}\}
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \{p^i\}_{i=1}^{k-1}
+   </math>
+   are search vectors computed from previous steps. CG then looks for the best approximate solution
+   <math display="inline">
+    x^k \in x^0 + S_k
+   </math>
+   , that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x^{k} = x^{0} + \sum_{i=0}^{k-1} \alpha_{i} p^{i}
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   The orthogonality condition
+   <math display="inline">
+    (2)
+   </math>
+   and the A-orthogonality property of
+   <math display="inline">
+    \{p^i\}
+   </math>
+   yield
+   <math display="inline">
+    \alpha_i = \langle p^i, r^0 \rangle / \langle p^i, p^i \rangle_A
+   </math>
+   . Note that
+   <math display="inline">
+    \alpha_i
+   </math>
+   does not depend on k. Hence,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x^{k} = x^{0} + \sum_{i=0}^{k-2} \alpha_{i} p^{i} + \alpha_{k-1} p^{k-1} = x^{k-1} + \alpha_{k-1} p^{k-1}
+   </math>
+   (5)
+  </p>
+  <p block-type="Text">
+   Thus, only the last search direction needs to be stored to update
+   <math display="inline">
+    x^k
+   </math>
+   from
+   <math display="inline">
+    x^{k-1}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Once
+   <math display="inline">
+    x^k
+   </math>
+   is known, SD would use the residual
+   <math display="inline">
+    r^k
+   </math>
+   as the new search direction. CG, however, makes
+   <math display="inline">
+    r^k
+   </math>
+   A-orthogonalized against all previous
+   <math display="inline">
+    \{p^i\}
+   </math>
+   to obtain
+   <math display="inline">
+    p^k
+   </math>
+   , that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p^{k} = r^{k} + \sum_{i=0}^{k-1} \beta_{i} p^{i}
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \beta_i = -\langle r^k, p^i \rangle_A / \langle p^i, p^i \rangle_A
+   </math>
+   given by the Aorthogonality condition. The new search subspace is then defined as
+   <math display="inline">
+    S_{k+1} = \text{span}\{p^0, \ldots, p^k\}
+   </math>
+   and the new approximate solution
+   <math display="inline">
+    x^{k+1}
+   </math>
+   is computed until it is sufficiently accurate.
+  </p>
+  <p block-type="TextInlineMath">
+   A potential drawback of CG is to store all
+   <math display="inline">
+    \{p^i\}
+   </math>
+   for computing
+   <math display="inline">
+    p^k
+   </math>
+   . Simplification is necessary to make the method practical. An important observation in deriving CG is that
+   <math display="inline">
+    S_k
+   </math>
+   is the same as the Krylov subspace [9, 10, 18], defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{K}_k \equiv \text{span}\{r^0, Ar^0, \dots, A^{k-1}r^0\} \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   As a result,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p' \in \text{span}\{p^0, \dots, p^i\} = S_{i+1} = \mathcal{K}_{i+1}
+   </math>
+   <br/>
+   =
+   <math>
+    \text{span}\{r^0, \dots, A^i r^0\}
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    Ap^i \in \text{span}\{Ar^0, \ldots, A^{i+1}r^0\} \subset \mathcal{K}_{i+2} =
+   </math>
+   Hence,
+   <math display="inline">
+    S_{i+2}
+   </math>
+   . By equation (2),
+   <math display="inline">
+    r^k \perp S_j
+   </math>
+   ,
+   <math display="inline">
+    j = 1, \ldots, k
+   </math>
+   and hence,
+   <math display="inline">
+    r^k \perp S_{i+2}
+   </math>
+   for any
+   <math display="inline">
+    i \leq k-2
+   </math>
+   . Thus,
+   <math display="inline">
+    \langle Ap^i, r^k \rangle =
+   </math>
+   <math display="inline">
+    0 = \beta_i
+   </math>
+   ,
+   <math display="inline">
+    i \leq k - 2
+   </math>
+   , and equation (6) is simplified to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p^{k} = r^{k} + \beta_{k-1} p^{k-1} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   Thus, as for
+   <math display="inline">
+    x^k
+   </math>
+   , only the last search vector needs to be stored. Besides, more convenient formulas for
+   <math display="inline">
+    \alpha_k
+   </math>
+   and
+   <math display="inline">
+    \beta_k
+   </math>
+   can be derived by applying the various orthogonality properties. Finally, the CG algorithm is given as follows:
+  </p>
+  <h2>
+   Algorithm: Conjugate Gradient
+  </h2>
+  <p block-type="Equation">
+   <math display="block">
+    x^{0} = \text{initial guess}
+   </math>
+   <br/>
+   <math display="block">
+    r^{0} = b - Ax^{0}
+   </math>
+   <br/>
+   <math display="block">
+    (p^{-1} = 0, \ \beta_{-1} = 0)
+   </math>
+   <br/>
+   for
+   <math>
+    k = 0, 1, 2, \dots
+   </math>
+   , until convergence
+   <br/>
+   <math display="block">
+    p^{k} = r^{k} + \beta_{k-1} p^{k-1}
+   </math>
+   <br/>
+   <math display="block">
+    \alpha_{k} = \langle r^{k}, r^{k} \rangle / \langle p^{k}, Ap^{k} \rangle
+   </math>
+   <br/>
+   <math display="block">
+    x^{k+1} = x^{k} + \alpha_{k} p^{k}
+   </math>
+   <br/>
+   <math display="block">
+    r^{k+1} = r^{k} - \alpha_{k} A p^{k}
+   </math>
+   <br/>
+   <math display="block">
+    \beta_{k} = \langle r^{k+1}, r^{k+1} \rangle / \langle r^{k}, r^{k} \rangle
+   </math>
+  </p>
+  <p block-type="Text">
+   end
+  </p>
+  <p block-type="Text">
+   Note that the CG algorithm only involves simple vector operations and matrix-vector multiply, and hence the sparsity structure of
+   <math display="inline">
+    A
+   </math>
+   can be fully and easily explored. Moreover, two-term recurrence formulas exist for the updates of
+   <math display="inline">
+    x^k
+   </math>
+   and other variables. As such, the work and storage for one CG iteration are
+   <math display="inline">
+    O(N)
+   </math>
+   . Note also that the matrix A is not really needed as long as one can compute the matrix-vector product. This property is particularly useful when
+   <math display="inline">
+    A
+   </math>
+   is not available explicitly; see the section Application.
+  </p>
+  <h4>
+   Convergence of CG
+  </h4>
+  <p block-type="TextInlineMath">
+   Compared to other iterative methods, CG has the desirable property that
+   <math display="inline">
+    x^k
+   </math>
+   is the "best" approximation from
+   <math display="inline">
+    S_k
+   </math>
+   . Thus, the CG solution
+   <math display="inline">
+    x^k
+   </math>
+   improves as the dimension of
+   <math display="inline">
+    S_k
+   </math>
+   increases. When
+   <math display="inline">
+    k = N
+   </math>
+   , then
+   <math display="inline">
+    S_N = \mathbb{R}^N
+   </math>
+   and so
+   <math display="inline">
+    e^N = 0
+   </math>
+   . Hence, CG obtains the exact solution in at most
+   <math display="inline">
+    N
+   </math>
+   iterations (known as the finite termination property [18]). In practice,
+  </p>
+  <p block-type="TextInlineMath">
+   however, CG is often treated as an iterative method in the sense that only a small number of iterations are performed. In many cases, the approximate solution
+   <math display="inline">
+    x^k
+   </math>
+   is sufficiently accurate for
+   <math display="inline">
+    k \ll N
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The number of CG iterations needed depends on the rate of convergence, which is very complex in general. A well-known estimate [9, 18] is given as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \|e^{k}\|_{A} \le 2\left(\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}\right)^{k} \|e^{0}\|_{A}
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \kappa
+   </math>
+   is the condition number [8] of A. For a parabolic PDE, with timestep size
+   <math display="inline">
+    O(h)
+   </math>
+   ,
+   <math display="inline">
+    \kappa =
+   </math>
+   <math display="inline">
+    O(h^{-1})
+   </math>
+   , where h is the mesh size of the discrete asset prices. The rates of convergence for Jacobi, Gauss-Seidel, and SD are
+   <math display="inline">
+    1 - O(h)
+   </math>
+   , whereas the rate for CG, based on the above error bound, is
+   <math display="inline">
+    1 - O(\sqrt{h})
+   </math>
+   , an order of magnitude improvement. SOR also has the same asymptotic convergence rate as CG, but it would require the knowledge of the optimal over-relaxation parameter. In practice, the CG error bound is often too pessimistic and the actual CG convergence is considerably much faster than the classical iterative methods.
+  </p>
+  <h2>
+   Nonsymmetric Case
+  </h2>
+  <p block-type="TextInlineMath">
+   CG computes an optimal approximation
+   <math display="inline">
+    x^k
+   </math>
+   (
+   <math display="inline">
+    ||e^k||_A
+   </math>
+   is minimized) using short (two-term) recurrence update formulas for
+   <math display="inline">
+    x^k
+   </math>
+   and other quantities. Could one do the same for nonsymmetric matrices, such as the discretized Black–Scholes equation? Unfortunately, the answer is provably no [6]. Thus, when generalizing CG to the nonsymmetric case, one keeps some desirable properties of CG and sacrifices the others. There are many different possibilities, which yield numerous methods collectively known as the Krylov subspace methods [1]. Here, we describe two of these methods commonly used in practice.
+  </p>
+  <p block-type="Text">
+   The generalized minimal residual (GMRES) method [17] minimizes the norm of the residual vector:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \min_{x^k} \|b - Ax^k\|_2, \quad x^k \in x^0 + \mathcal{K}_k \tag{11}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   As a result, the residual norm is nonincreasing. Furthermore, convergence is guaranteed for a wide class of matrices. However, it needs to store all the basis vectors for
+   <math display="inline">
+    \mathcal{K}_k
+   </math>
+   . Thus, work and storage increase
+  </p>
+  <p block-type="TextInlineMath">
+   with iteration. A remedy is to restart GMRES every
+   <math display="inline">
+    m
+   </math>
+   iterations (
+   <math display="inline">
+    m
+   </math>
+   small constant). The convergence of the restarted GMRES, however, may stagnate, that is,
+   <math display="inline">
+    ||r^k|| \approx ||r^{k-1}||
+   </math>
+   for many iterations.
+  </p>
+  <p block-type="TextInlineMath">
+   The other method is BiCGSTAB [23], which is derived from the biconjugate gradient (BCG) method [7]. BCG enforces a similar orthogonality condition on
+   <math display="inline">
+    r^k
+   </math>
+   as in equation (2) but allows two different Krylov subspaces to be used: more precisely.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r^k \perp \tilde{\mathcal{K}}_k \quad \text{and} \quad x^k \in x^0 + \mathcal{K}_k
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tilde{\mathcal{K}}_k = \text{span}\{\tilde{r}^0, A^T \tilde{r}^0, \dots, (A^T)^{k-1} \tilde{r}^0\}
+   </math>
+   for some vector
+   <math display="inline">
+    \tilde{r}^0
+   </math>
+   . By enforcing the so-called bi-orthogonality condition, which makes the basis vectors
+   <math display="inline">
+    \{v^j\}
+   </math>
+   for
+   <math display="inline">
+    \mathcal{K}_k
+   </math>
+   and the basis vectors
+   <math display="inline">
+    \{w^j\}
+   </math>
+   for
+   <math display="inline">
+    \tilde{\mathcal{K}}_k
+   </math>
+   orthogonal to each other, two-term recurrence formulas for updating
+   <math display="inline">
+    x^k
+   </math>
+   and other quantities can be found. It has an advantage over GMRES in terms of storage. However, since it does not have the minimization property as GMRES, the residual norm can be very irregular as iterations continue. BiCGSTAB essentially is a "smooth" variant of BCG and its convergence is much more stabilized.
+  </p>
+  <p block-type="Text">
+   A more comprehensive overview of various Krylov subspace methods can be found in [1]. Similar to CG, the algorithms of the nonsymmetric methods involve only simple vector operations and matrix-vector products.
+  </p>
+  <h4>
+   Preconditioning
+  </h4>
+  <p block-type="Text">
+   CG methods would not have been so popular without the powerful technique called
+   <i>
+    preconditioning
+   </i>
+   , which can accelerate convergence drastically. Consider a nonsingular matrix
+   <math display="inline">
+    M
+   </math>
+   . The main idea is that the preconditioned system
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M^{-1}Ax = M^{-1}b \t\t(13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is equivalent to equation
+   <math display="inline">
+    (1)
+   </math>
+   but the convergence of CG now depends on
+   <math display="inline">
+    M^{-1}A
+   </math>
+   instead. The key is to construct a preconditioner M such that
+   <math display="inline">
+    \kappa(M^{-1}A) \ll
+   </math>
+   <math display="inline">
+    \kappa(A)
+   </math>
+   in order to obtain fast convergence. It is clear that if
+   <math display="inline">
+    M \approx A
+   </math>
+   , then
+   <math display="inline">
+    M^{-1}A \approx I
+   </math>
+   , which has condition number 1. On the other hand,
+   <math display="inline">
+    M
+   </math>
+   should be simple enough that the matrix-vector product by
+   <math display="inline">
+    M^{-1}
+   </math>
+   is easy to compute.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Generally speaking, it is difficult to determine what the optimal
+   <math display="inline">
+    M
+   </math>
+   is. Often it is problem specific. A
+  </p>
+  <p block-type="Text">
+   general class of preconditioners widely used in practice is called
+   <i>
+    incomplete LU
+   </i>
+   (ILU) factorization [14, 18]. A full LU would result in Gaussian elimination, which is expensive. An approximate LU factorization trades-off between efficiency and accuracy. Other effective preconditioners include multigrid [15, 22], domain decomposition [19], and sparse approximation inverse [2]. Once a preconditioner is chosen, to incorporate preconditioning into any CG algorithms only requires changing a few lines of code.
+  </p>
+  <h2>
+   Application
+  </h2>
+  <p block-type="Text">
+   CG methods have been used for pricing different options, for instance, American options [12], options with stochastic volatility [25], and options on Lévy driven assets [13]. Comparisons of SOR and CG methods for multiasset problem can be found in [21]. As an example, we consider pricing European options in a rather general exponential Lévy model (cf. [24] for more details in the special case of CGMY). The option value,
+   <math display="inline">
+    V(S, \tau)
+   </math>
+   , satisfies a partial integro-differential equation (see Partial Integrodifferential Equations (PIDEs)), which is similar to the Black-Scholes equation [3] but with an extra integral term for the jump process:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \frac{\partial V}{\partial \tau} &amp;= \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} + rS \frac{\partial V}{\partial S} - rV \\ &amp;+ \int_{-\infty}^{\infty} v(y) \bigg[ V(Se^y, \tau) - V(S, \tau) \\ &amp;- S(e^y - 1) \frac{\partial V}{\partial S} \bigg] \mathrm{d}y \end{split} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where S is the value of the underlying asset,
+   <math display="inline">
+    \tau
+   </math>
+   the time from expiry,
+   <math display="inline">
+    \sigma
+   </math>
+   the volatility, r the interest rate, and
+   <math display="inline">
+    v(y)
+   </math>
+   a Lévy measure. Let
+   <math display="inline">
+    \{S_i\}_{i=1}^N
+   </math>
+   be a set of discrete asset prices. Also, let
+   <math display="inline">
+    V^n = (V_1^n, \ldots, V_N^n)
+   </math>
+   , where
+   <math display="inline">
+    V_i^n
+   </math>
+   is an approximation of
+   <math display="inline">
+    V(S_i, \tau^n)
+   </math>
+   at time
+   <math display="inline">
+    \tau^n
+   </math>
+   . Then a fully implicit finite difference discretization requires solving a linear system (1) at each timestep with
+   <math display="inline">
+    x = V^{n+1}
+   </math>
+   and
+   <math display="inline">
+    b = V^n
+   </math>
+   . (The second order Crank-Nicolson discretization results in a similar matrix and right-hand side.) The matrix
+   <math display="inline">
+    A
+   </math>
+   can be written as a sum of two matrices:
+   <math display="inline">
+    A = L + B
+   </math>
+   , where
+   <math display="inline">
+    L
+   </math>
+   corresponds to the discretization of the differential term (which is similar to the Black-Scholes matrix) and
+   <math display="inline">
+    B
+   </math>
+   corresponds to the discretization of the integral term. While L is sparse, B is not; it has
+   <math display="inline">
+    O(N^2)
+   </math>
+  </p>
+  <p block-type="Text">
+   nonzeros. Since
+   <math display="inline">
+    A
+   </math>
+   is dense because of
+   <math display="inline">
+    B
+   </math>
+   , it is not practical (time and storage) to form
+   <math display="inline">
+    A
+   </math>
+   explicitly even for moderate size
+   <math display="inline">
+    N
+   </math>
+   . In this case, Gaussian elimination and the classical iterative methods would not be easily applicable.
+  </p>
+  <p block-type="Text">
+   CG methods, on the other hand, can be used with ease. Note that
+   <math display="inline">
+    B
+   </math>
+   has a special convolution structure so that matrix-vector multiply can be computed efficiently using an FFT [4]. Thus, while
+   <math display="inline">
+    A
+   </math>
+   may not be available explicitly, the matrix-vector product by
+   <math display="inline">
+    A
+   </math>
+   can be computed, which is all CG methods require. In this problem,
+   <math display="inline">
+    A
+   </math>
+   is nonsymmetric and BiCGSTAB is used to solve the linear system [24]. Mesh-independent convergence is obtained for the infinite activity and finite variation case and there is a slight increase in iteration numbers for the infinite variation case. In both the cases, it shows an improvement of factor 4 in CPU times over another iterative method on the basis of a fixed point iteration.
+  </p>
+  <h2>
+   Summary
+  </h2>
+  <p block-type="Text">
+   CG methods generate "optimal" approximate solutions by performing simple vector operations and matrix-vector multiply. More importantly, by combining with the right choice of preconditioners, CG methods have been shown to be robust and efficient for solving option pricing PDEs. The discussion has been mainly focused on linear problems. In more general cases, one can apply preconditioned CG methods to the linearized equations from nonlinear problems without making any special modification.
+  </p>
+  <h2>
+   Acknowledgments
+  </h2>
+  <p block-type="Text">
+   The author was supported by the Natural Sciences and Engineering Research Council of Canada.
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Barret, R., Berry, M., Chan, T.F., Demmel, J., Donato, J., [1] Dongarra, J., Eijkhout, V., Pozo, R., Romine, C. &amp; Van der Vorst, H. (1994). Templates for the Solution of Linear Systems: Building Blocks for Iterative Methods, 2nd Edition, SIAM, Philadelphia.
+    </li>
+    <li block-type="ListItem">
+     [2] Benzi, M., Meyer, C.D. &amp; Tuma, M. (1996). A sparse approximate inverse preconditioner for the conjugate gradient method, SIAM Journal on Scientific Computing 17, 1135-1149.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [3] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities,
+     <i>
+      Journal of Political Economy
+     </i>
+     <b>
+      81
+     </b>
+     , 637–654.
+    </li>
+    <li block-type="ListItem">
+     [4] d'Halluin, Y., Forsyth, P.A. &amp; Vetzal, K. (2005). Robust numerical methods for contingent claims under jump diffusion processes,
+     <i>
+      IMA Journal on Numerical Analysis
+     </i>
+     <b>
+      25
+     </b>
+     , 87–112.
+    </li>
+    <li block-type="ListItem">
+     [5] Duff, I.S., Erisman, A.M. &amp; Reid, J.K. (1986).
+     <i>
+      Direct Methods for Sparse Matrices
+     </i>
+     , Oxford Press, UK.
+    </li>
+    <li block-type="ListItem">
+     [6] Faber, V. &amp; Manteuffel, T. (1984). Necessary and sufficient conditions for the existence of a conjugate gradient method,
+     <i>
+      SIAM Journal on Numerical Analysis
+     </i>
+     <b>
+      21
+     </b>
+     , 352–362.
+    </li>
+    <li block-type="ListItem">
+     [7] Fletcher, R. (1975). Conjugate gradient methods for indefinite systems, in
+     <i>
+      The Dundee Biennial Conference on Numerical Analysis, 1974
+     </i>
+     , G.A. Watson, ed, Springer-Verlag, New York, pp. 73–89.
+    </li>
+    <li block-type="ListItem">
+     [8] Golub, G. &amp; Van Loan, C. (1996).
+     <i>
+      Matrix Computations
+     </i>
+     , The Johns Hopkins University Press, Baltimore.
+    </li>
+    <li block-type="ListItem">
+     [9] Greenbaum, A. (1997).
+     <i>
+      Iterative Methods for Solving Linear Systems
+     </i>
+     , SIAM, Philadelphia.
+    </li>
+    <li block-type="ListItem">
+     [10] Hackbusch, W. (1994).
+     <i>
+      Iterative Solution of Large Sparse Systems of Equations
+     </i>
+     , Springer-Verlag, New York.
+    </li>
+    <li block-type="ListItem">
+     [11] Hestenes, M.R. &amp; Stiefel, E.L. (1952). Methods of conjugate gradients for solving linear systems,
+     <i>
+      Journal of Research of the National Bureau of Standards, Section B
+     </i>
+     <b>
+      49
+     </b>
+     , 409–436.
+    </li>
+    <li block-type="ListItem">
+     [12] Khaliq, A.Q.M., Voss, D.A. &amp; Kazmi, S.H.K. (2006). A linearly implicit predictor-corrector scheme for pricing American options using a penalty method approach,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      30
+     </b>
+     , 489–502.
+    </li>
+    <li block-type="ListItem">
+     [13] Matache, A.M., von Petersdorff, T. &amp; Schwab, C. (2004). Fast deterministic pricing of options on Levy ´ driven assets,
+     <i>
+      Mathematical Modelling and Numerical Analysis
+     </i>
+     <b>
+      38
+     </b>
+     , 37–72.
+    </li>
+    <li block-type="ListItem">
+     [14] Meijerink, J.A. &amp; Van der Vorst, H. (1977). An iterative solution method for linear systems of which the coefficient matrix is a symmetric M-matrix,
+     <i>
+      Mathematics of Computation
+     </i>
+     <b>
+      31
+     </b>
+     , 148–162.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [15] Oosterlee, C.W. (2003). On multigrid for linear complementarity problems with applications to American-style options,
+     <i>
+      Electronic Transactions on Numerical Analysis
+     </i>
+     <b>
+      15
+     </b>
+     , 165–185.
+    </li>
+    <li block-type="ListItem">
+     [16] Peaceman, D. &amp; Rachford, H. (1955). The numerical solution of elliptic and parabolic differential equations,
+     <i>
+      Journal of SIAM
+     </i>
+     <b>
+      3
+     </b>
+     , 28–41.
+    </li>
+    <li block-type="ListItem">
+     [17] Saad, Y. &amp; Schultz, M.H. (1986). GMRES: a generalized minimal residual algorithm for solving nonsymmetric linear systems,
+     <i>
+      SIAM Journal on Scientific and Statistical Computing
+     </i>
+     <b>
+      7
+     </b>
+     , 856–869.
+    </li>
+    <li block-type="ListItem">
+     [18] Saad, Y. (2003).
+     <i>
+      Iterative Methods for Sparse Linear Systems
+     </i>
+     , 2nd Edition, SIAM, Philadelphia.
+    </li>
+    <li block-type="ListItem">
+     [19] Smith, B., Bjørstad, P. &amp; Gropp, W. (1996).
+     <i>
+      Domain Decomposition: Parallel Multilevel Methods for Elliptic Partial Differential Equations
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [20] Strikwerda, J. (2004).
+     <i>
+      Finite Difference Schemes and Partial Differential Equations
+     </i>
+     , 2nd Edition, SIAM, Philadelphia.
+    </li>
+    <li block-type="ListItem">
+     [21] Tavella, D. &amp; Randall, C. (2000).
+     <i>
+      Pricing Financial Instruments: The Finite Difference Method
+     </i>
+     , John Wiley &amp; Sons, USA.
+    </li>
+    <li block-type="ListItem">
+     [22] Trottenbery, U., Oosterlee, C. &amp; Schuller, A. (2001). ¨
+     <i>
+      Multigrid
+     </i>
+     , Academic Press.
+    </li>
+    <li block-type="ListItem">
+     [23] Van der Vorst, H.A. (1992). Bi-CGSTAB: a fast and smoothly converging variant of Bi-CG for the solution of non-symmetric linear systems,
+     <i>
+      SIAM Journal on Scientific and Statistical Computing
+     </i>
+     <b>
+      13
+     </b>
+     , 631–644.
+    </li>
+    <li block-type="ListItem">
+     [24] Wang, I.R., Wan, J.W.L. &amp; Forsyth, P.A. (2007). Robust numerical valuation of European and American options under the CGMY process,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      10
+     </b>
+     , 31–69.
+    </li>
+    <li block-type="ListItem">
+     [25] Zvan, R., Forsyth, P.A. &amp; Vetzal, K.R. (1998). Penalty methods for American options with stochastic volatility,
+     <i>
+      Journal of Computational and Applied Mathematics
+     </i>
+     <b>
+      91
+     </b>
+     , 199–218.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   JUSTIN W.L. WAN
+  </p>
+ </body>
+</html>

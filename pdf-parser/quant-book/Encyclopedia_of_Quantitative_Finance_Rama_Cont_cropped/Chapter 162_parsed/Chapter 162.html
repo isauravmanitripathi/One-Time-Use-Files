@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Exponential Lévy Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   Exponential Lévy models generalize the classical Black and Scholes model by allowing the stock prices to jump while preserving the independence and stationarity of returns. There are ample reasons for introducing jumps in financial modeling. First, asset prices exhibit jumps, and the associated risks cannot be handled within continuous-path models. Second, the well-documented phenomenon of implied volatility smile in option markets shows that the risk-neutral returns are non-Gaussian and leptokurtic, all the more so for short maturities, a clear indication of the presence of jumps. In continuous-path models, the law of returns for shorter maturities becomes closer to the Gaussian law, whereas in reality and in models with jumps, returns actually become less Gaussian as the horizon becomes shorter. Finally, jump processes correspond to genuinely incomplete markets, whereas all continuous-path models are either complete or can be made so with a small number of additional assets. This fundamental incompleteness makes it possible to carry out a rigorous analysis of the hedging errors in discontinuous models and find ways to improve the hedging performance using additional instruments such as liquid European options.
+  </p>
+  <h4>
+   Lévy Processes
+  </h4>
+  <p block-type="TextInlineMath">
+   Lévy processes (see Fundamental Theorem of Asset
+   <b>
+    Pricing
+   </b>
+   ) [1, 3, 17] are stochastic processes with stationary and independent increments. The only Lévy process with continuous trajectories is the Brownian motion with drift; all others have paths with discontinuities in finite or (countably) infinite number. The simplest example of a Lévy process is the Poisson process (see Poisson Process): the increasing piecewise constant process with jumps of size 1 only and exponential waiting times between jumps. If
+   <math display="inline">
+    (\tau_i)
+   </math>
+   is a sequence of independent exponential random variables with intensity
+   <math display="inline">
+    \lambda
+   </math>
+   and
+   <math display="inline">
+    T_k := \sum_{i=1}^k \tau_i
+   </math>
+   , then the process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_t := \sum_i 1_{T_i \le t} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   is called a
+   <i>
+    Poisson process
+   </i>
+   with intensity
+   <math display="inline">
+    \lambda
+   </math>
+   . A piecewise constant Lévy process with arbitrary jump sizes
+  </p>
+  <p block-type="Text">
+   is called
+   <i>
+    compound Poisson
+   </i>
+   and can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = \sum_{k=1}^{Z_t} Y_i \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   where Z is a Poisson process and
+   <math display="inline">
+    (Y_i)
+   </math>
+   is an i.i.d. sequence of random variables. In general, the number of jumps of a Lévy process in a given interval need not be finite, and the process can be represented as a sum of a Brownian motion with drift and a limit of processes of the form in equation
+   <math display="inline">
+    (2)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = \gamma t + B_t + N_t + \lim_{\varepsilon \downarrow 0} M_t^{\varepsilon} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    B
+   </i>
+   is a
+   <i>
+    d
+   </i>
+   -dimensional Brownian motion,
+   <math display="inline">
+    \gamma \in
+   </math>
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , N is a compound Poisson process that includes the jumps of X with
+   <math display="inline">
+    |\Delta X_t| &gt; 1
+   </math>
+   , and
+   <math display="inline">
+    M_t^{\varepsilon}
+   </math>
+   is a compensated compound Poisson process (compound Poisson minus its expectation) that includes the jumps of
+   <math display="inline">
+    X
+   </math>
+   with
+   <math display="inline">
+    \varepsilon &lt; |\Delta X_t| &lt; 1
+   </math>
+   . The law of a Lévy process is completely identified by its characteristic triplet—the positive definite matrix
+   <math display="inline">
+    A
+   </math>
+   (unit covariance of
+   <math display="inline">
+    B
+   </math>
+   ), the vector
+   <math display="inline">
+    \gamma
+   </math>
+   (drift), and the measure
+   <math display="inline">
+    \nu
+   </math>
+   on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , called the Lévy measure, which determines the intensity of jumps of different sizes.
+   <math display="inline">
+    \nu(A)
+   </math>
+   is the expected number of jumps on the time interval
+   <math display="inline">
+    [0, 1]
+   </math>
+   , whose sizes fall in
+   <math display="inline">
+    A
+   </math>
+   . The Lévy measure satisfies the integrability condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{\mathbb{R}^d} 1 \wedge \|x\|^2 \nu(\mathrm{d}x) &lt; \infty \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    \nu(\mathbb{R}) &lt; \infty
+   </math>
+   if the process has finite jump intensity. The law of
+   <math display="inline">
+    X_t
+   </math>
+   at all times t is determined by the triplet and, in particular, the Lévy-Khintchine formula gives the characteristic function
+   <math display="inline">
+    E[e^{iuX_t}] =
+   </math>
+   <math display="inline">
+    \exp[t\psi(u)]
+   </math>
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) = i \langle \gamma, u \rangle + \frac{1}{2} \langle Au, u \rangle + \int_{\mathbb{R}^d} (e^{i \langle u, x \rangle} - 1
+   </math>
+   <math display="block">
+    - i \langle u, x \rangle \mathbf{1}_{\|x\| &lt; 1}) \nu(dx) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   Conversely, any infinitely divisible law (see Infinite
+   <b>
+    Divisibility
+   </b>
+   ) has a Lévy–Khintchine representation as above, so modeling with Lévy processes allows to pick any infinitely divisible distribution for the law (say, at time
+   <math display="inline">
+    t = 1
+   </math>
+   ) of the process.
+  </p>
+  <h4>
+   Exponential Lévy Models
+  </h4>
+  <p block-type="Text">
+   The Black-Scholes model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_t}{S_t} = \mu \mathrm{d}t + \sigma \mathrm{d}W_t \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   can be equivalently rewritten in the exponential form
+   <math display="inline">
+    S_t = S_0 e^{(\mu - \sigma^2/2)t + \sigma W_t}
+   </math>
+   . This gives us two possibilities to construct an exponential Lévy model starting from a (one-dimensional) Lévy process
+   <math display="inline">
+    X
+   </math>
+   , using the stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_t}{S_{t-}} = \mathrm{d}X_t \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   or using the ordinary exponential
+   <math display="inline">
+    S_t = S_0 e^{X_t}
+   </math>
+   . The solution to equation (7) with initial condition
+   <math display="inline">
+    S_0 = 1
+   </math>
+   is called the
+   <i>
+    stochastic exponential
+   </i>
+   of
+   <math display="inline">
+    X
+   </math>
+   . It can become negative if the process
+   <math display="inline">
+    X
+   </math>
+   has a big negative jump:
+   <math display="inline">
+    \Delta X_s &lt; -1
+   </math>
+   for
+   <math display="inline">
+    s \leq t
+   </math>
+   . However, if X does not have jumps of size smaller than
+   <math display="inline">
+    -1
+   </math>
+   , then its stochastic exponential is positive, and the stochastic and the ordinary exponential yield the same class of positive processes. Given this result and the fact that ordinary exponentials are more tractable (in particular, we have the Lévy-Khintchine representation), they are more often used for modeling financial time series than the stochastic ones. In the rest of this article, we focus on the exponential Lévy model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = S_0 e^{rt + X_t} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    X
+   </math>
+   is a one-dimensional Lévy process with characteristic triplet
+   <math display="inline">
+    (\sigma^2, \nu, \gamma)
+   </math>
+   and r denotes the interest rate.
+  </p>
+  <h4>
+   Examples
+  </h4>
+  <p block-type="TextInlineMath">
+   Exponential Lévy models fall into two categories. In the first category, called jump-diffusion models, the "normal" evolution of prices is given by a diffusion process, punctuated by jumps at random intervals. Here the jumps represent rare events—crashes and large drawdowns. Such an evolution can be represented by a Lévy process with a nonzero Gaussian component and a jump part with finitely many jumps:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = \gamma t + \sigma W_t + \sum_{i=1}^{N_t} Y_i \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the
+   <i>
+    Merton model
+   </i>
+   (see
+   <b>
+    Jump-diffusion Models
+   </b>
+   ) [16], which is the first model of this type, suggested in the literature, jumps in the log price
+   <math display="inline">
+    X
+   </math>
+   are assumed to have a Gaussian distribution:
+   <math display="inline">
+    Y_i \sim N(\mu, \delta^2)
+   </math>
+   . In the risk-neutral version (i.e., with the choice of drift such that
+   <math display="inline">
+    e^{X}
+   </math>
+   becomes a martingale), the characteristic exponent of the log stock price takes the following form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) = -\frac{\sigma^2 u^2}{2} + \lambda \{e^{-\delta^2 u^2/2 + i\mu u} - 1\}
+   </math>
+   <math display="block">
+    -iu \left(\frac{\sigma^2}{2} + \lambda (e^{\delta^2/2 + \mu} - 1)\right) \qquad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   In the
+   <i>
+    Kou model
+   </i>
+   (see
+   <b>
+    Kou Model
+   </b>
+   ) [13], jump sizes are distributed according to an asymmetric Laplace law with a density of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \nu_0(x) = [p\lambda_+ e^{-\lambda_+ x} 1_{x&gt;0} + (1-p)\lambda_- e^{-\lambda_- |x|} 1_{x&lt;0}]
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \lambda_{+} &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    \lambda_{-} &gt; 0
+   </math>
+   governing the decay of the tails for the distribution of positive and negative jump sizes and
+   <math display="inline">
+    p \in [0, 1]
+   </math>
+   representing the probability of an upward jump. The probability distribution of returns in this model has semiheavy (exponential) tails.
+  </p>
+  <p block-type="Text">
+   The second category consists of models with an infinite number of jumps in every interval, which we call
+   <i>
+    infinite activity
+   </i>
+   or
+   <i>
+    infinite intensity
+   </i>
+   models. In these models, one does not need to introduce a Brownian component since the dynamics of jumps is already rich enough to generate nontrivial small time behavior
+   <math display="inline">
+    [4]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   There are several ways to define a parametric Lévy process with infinite jump intensity. The first approach is to obtain a Lévy process by subordinating a Brownian motion with an independent increasing Lévy process (called
+   <i>
+    subordinator
+   </i>
+   ). Two examples of models from this class are the variance gamma process and the normal inverse Gaussian process. The variance gamma process (see Variance-gamma Model) [5, 15] is obtained by time changing a Brownian motion with a gamma subordinator and has the characteristic exponent of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) = -\frac{1}{\kappa} \log \left( 1 + \frac{u^2 \sigma^2 \kappa}{2} - i \theta \kappa u \right) \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   The density of the Lévy measure of the variance gamma process is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \nu(x) = \frac{c}{|x|} e^{-\lambda_-|x|} 1_{x&lt;0} + \frac{c}{x} e^{-\lambda_+ x} 1_{x&gt;0} \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    c = 1/\kappa
+   </math>
+   ,
+   <math display="inline">
+    \lambda_{+} = \frac{\sqrt{\theta^2 + 2\sigma^2/\kappa}}{\sigma^2} - \frac{\theta}{\sigma^2}
+   </math>
+   and
+   <math display="inline">
+    \lambda_{-} =
+   </math>
+   <math display="inline">
+    \frac{\sqrt{\theta^2+2\sigma^2/\kappa}}{\sigma^2}+\frac{\theta}{\sigma^2}.
+   </math>
+  </p>
+  <p block-type="Text">
+   normal inverse Gaussian process (see Normal Inverse Gaussian Model) [2] is the result of time changing a Brownian motion with the inverse Gaussian subordinator and has the characteristic exponent
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) = \frac{1}{\kappa} - \frac{1}{\kappa} \sqrt{1 + u^2 \sigma^2 \kappa - 2i\theta u \kappa} \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   The second approach is to specify the Lévy measure directly. The main example of this category is the tempered stable process (see Tempered Stable
+   <b>
+    Process
+   </b>
+   ), introduced by Koponen [12] and also known under the name of CGMY model [4]. This process has a Lévy measure with density of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \nu(x) = \frac{c_{-}}{|x|^{1+\alpha_{-}}} e^{-\lambda_{-}|x|} 1_{x&lt;0} + \frac{c_{+}}{x^{1+\alpha_{+}}} e^{-\lambda_{+}x} 1_{x&gt;0}
+   </math>
+   (15)
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \alpha_{+} &lt; 2
+   </math>
+   and
+   <math display="inline">
+    \alpha_{-} &lt; 2
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The third approach is to specify the density of increments of the process at a given time scale, say
+   <math display="inline">
+    \Delta
+   </math>
+   , by taking an arbitrary infinitely divisible distribution. Generalized hyperbolic processes (see Generalized
+   <b>
+    Hyperbolic Models
+   </b>
+   ) [10] can be constructed in this way. In this approach, it is easy to simulate the increments of the process at the same time scale and to estimate parameters of the distribution if data are sampled with the same period
+   <math display="inline">
+    \Delta
+   </math>
+   , but, unless this distribution belongs to some parametric class closed under convolution, we do not know the law of the increments at other time scales.
+  </p>
+  <h1>
+   Market Incompleteness and Option Pricing
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   The exponential Lévy models correspond, in general, to arbitrage-free incomplete markets, meaning that options cannot be replicated exactly and,
+  </p>
+  <p block-type="TextInlineMath">
+   consequently, their price is not uniquely determined by the law of the underlying. This is good news: this means that the pricing model can be adjusted to take into account both the historical dynamics of the underlying and the market-quoted prices of European call and put options, a procedure known as
+   <i>
+    model
+   </i>
+   calibration (see Model Calibration). Once the riskneutral measure
+   <math display="inline">
+    Q
+   </math>
+   is calibrated, one can price an exotic option with payoff
+   <math display="inline">
+    H_T
+   </math>
+   at time T by taking the discounted expectation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_0 = e^{-rT} E^{\mathcal{Q}}[H_T] \tag{16}
+   </math>
+  </p>
+  <h2>
+   <b>
+    Fourier Transform Methods for Option Pricing and Model Calibration
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   In exponential Lévy models, and in all models where the characteristic function of the log stock price
+   <math display="inline">
+    \Phi_t(u) = E[e^{iuX_t}]
+   </math>
+   is known explicitly, Fourier inversion provides a very efficient algorithm for pricing European options. This method was introduced in [5] and later improved and generalized in [14].
+  </p>
+  <p block-type="TextInlineMath">
+   Consider a financial model of the form
+   <math display="inline">
+    S_t =
+   </math>
+   <math display="inline">
+    S_0e^{rt+X_t}
+   </math>
+   , where X is stochastic process whose characteristic function is known explicitly. To compute the price of a call option,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(k) = S_0 E[(e^{X_T} - e^k)^+]
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    k = \log(K/S_0) - rT
+   </math>
+   is the log forward moneyness, we would like to express its Fourier transform in terms of the characteristic function of
+   <math display="inline">
+    X_T
+   </math>
+   and then find the prices for a range of strikes by Fourier inversion. However, the Fourier transform of
+   <math display="inline">
+    C(k)
+   </math>
+   is not well defined because this function is not integrable, so we subtract the Black-Scholes call price with nonzero volatility
+   <math display="inline">
+    \Sigma
+   </math>
+   to obtain a function that is both integrable and smooth:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    z_T(k) = C(k) - C_{BS}^{\Sigma}(k) \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <i>
+    X
+   </i>
+   is a stochastic process such that
+   <math display="inline">
+    E[e^{X_T}] = 1
+   </math>
+   and
+   <math display="inline">
+    E[e^{(1+\alpha)X_T}] &lt; \infty
+   </math>
+   for some
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   , then the Fourier transform of
+   <math display="inline">
+    z_T(k)
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \zeta_T(v) = S_0 \frac{\Phi_T(v-i) - \Phi_T^{\Sigma}(v-i)}{iv(1+iv)} \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Phi_T^{\Sigma}(v) = \exp(-\frac{\Sigma^2 T}{2}(v^2 + iv))
+   </math>
+   is the characteristic function of log stock price in the Black-
+  </p>
+  <p block-type="Text">
+   Scholes model with volatility
+   <math display="inline">
+    \Sigma
+   </math>
+   . The exact value of
+   <math display="inline">
+    \Sigma
+   </math>
+   is not very important, and one can take, for example,
+   <math display="inline">
+    \Sigma = 0.2
+   </math>
+   for practical calculations.
+  </p>
+  <p block-type="Text">
+   Option prices are computed by evaluating numerically the inverse Fourier transform of
+   <math display="inline">
+    \zeta_T
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    z_T(k) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} e^{-ivk} \zeta_T(v) \, \mathrm{d}v \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   This integral can be efficiently computed for a range of strikes using the fast Fourier transform algorithm.
+  </p>
+  <p block-type="Text">
+   The Fourier-based fast deterministic algorithms for European option pricing can be used to calibrate exponential Lévy models to market-quoted option prices by penalized least squares as in [7]. Exponential Lévy models perform well for calibrating market option prices for a range of strikes and a single maturity, but fail to calibrate the entire implied volatility surface containing many maturities. This is due to the fact that the law of a Lévy process is completely determined by its distribution at a given date, so that if we know option prices for many strikes and a single maturity, we can readily reconstruct the law of the process at all dates, which may be incompatible with the other observations we may have. In particular, the implied volatility smile in exponential Lévy model flattens too fast for long-dated options (see Figure 1). Usually, a jump component can be included in a model to calibrate the short-maturity prices, and a stochastic volatility component is used to calibrate the skew at longer maturities.
+  </p>
+  <h4>
+   PIDE Methods for Exotic Options
+  </h4>
+  <p block-type="Text">
+   For contracts with barriers or American-style exercise, partial integro-differential equation (PIDE) methods provide an efficient alternative to Monte Carlo simulation. In diffusion models, the price of an option with payoff
+   <math display="inline">
+    h(S_T)
+   </math>
+   at time T solves the Black-Scholes partial differential equation (PDE)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial P}{\partial t} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 P}{\partial S^2} = rP - rS \frac{\partial P}{\partial S}
+   </math>
+   <math display="block">
+    P(T, S) = h(S) \tag{21}
+   </math>
+  </p>
+  <p block-type="Text">
+   In an exponential Lévy model, there is a similar equation for the option price
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t, S) = e^{-r(T-t)} E^{Q}[h(S_T)|S_t = S]
+   </math>
+   (22)
+  </p>
+  <p block-type="Text">
+   but due to the presence of jumps, an integral term appears in addition to the partial derivatives (see Partial Integro-differential Equations (PIDEs)):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \frac{\partial P}{\partial t} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 P}{\partial S^2} - rP + rS \frac{\partial P}{\partial S} \\ + \int_{\mathbb{R}} \nu(\mathrm{d}z) \Big\{ P(t, S\mathrm{e}^z) - P(t, S) \\ - S(\mathrm{e}^z - 1) \frac{\partial P}{\partial S}(t, S) \Big\} &amp;= 0, \quad P(T, S) = h(S) \end{split} \tag{23}
+   </math>
+  </p>
+  <p>
+   <img src="_page_3_Figure_13.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Implied volatility surface in the Kou model with diffusion volatility
+   <math display="inline">
+    \sigma = 0.2
+   </math>
+   and only negative jumps with intensity
+   <math display="inline">
+    \lambda = 10
+   </math>
+   and average size
+   <math display="inline">
+    \frac{1}{\lambda_{-}} = 0.05
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Different path-dependent characteristics of the payoff are translated into the boundary conditions of the equation: for example, for a down-and-out option with barrier
+   <i>
+    B
+   </i>
+   , we would impose
+   <i>
+    P (t, S)
+   </i>
+   = 0 for
+   <i>
+    S
+   </i>
+   ≤
+   <i>
+    B
+   </i>
+   and all
+   <i>
+    t
+   </i>
+   . This equation and its numerical solution using finite differences is discussed in detail in [9] (
+   <i>
+    see
+   </i>
+   <b>
+    Partial Integro-differential Equations (PIDEs)
+   </b>
+   ).
+  </p>
+  <h3>
+   <b>
+    Hedging
+   </b>
+  </h3>
+  <p block-type="Text">
+   In the Black–Scholes model, delta hedging is known to completely eliminate the risk of an option position. In the presence of jumps, delta hedging is no longer optimal: to hedge a jump of a given size, one should use the sensitivity to fluctuations of this particular size rather than the sensitivity to infinitesimal movements. Since the jump size is not known in advance, the risk associated with jumps cannot be hedged away completely. The model given by equation (8) therefore corresponds to an incomplete market except for the following two cases:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     no jumps in the stock price (
+     <i>
+      ν
+     </i>
+     ≡ 0, the Black– Scholes case) and
+    </li>
+    <li block-type="ListItem">
+     no diffusion component (
+     <i>
+      σ
+     </i>
+     = 0) and only one possible jump size (
+     <i>
+      ν
+     </i>
+     =
+     <i>
+      δz
+     </i>
+     <sup>
+      0
+     </sup>
+     <i>
+      (z)
+     </i>
+     ). In this case, the optimal hedging strategy is
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_t = \frac{P(S_t e^{z_0}) - P(S_t)}{S_t(e^{z_0} - 1)}
+   </math>
+   (24)
+  </p>
+  <p block-type="Text">
+   In all other cases, the hedging becomes an approximation problem: instead of
+   <i>
+    replicating
+   </i>
+   an option, one tries to
+   <i>
+    minimize
+   </i>
+   the residual hedging error. Many authors (see, e.g. [8, 11]) studied the quadratic hedging, where the optimal strategy is obtained by minimizing the expected squared hedging error. A particularly simple situation is when this error is computed under the martingale probability. The optimal hedge is then a weighted sum of the sensitivity of option price to infinitesimal stock movements, and the average sensitivity to jumps:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi^{*}(t, S_{t}) = \frac{\sigma^{2} \frac{\partial P}{\partial S} + \frac{1}{S_{t}} \int \nu(\mathrm{d}z)(\mathrm{e}^{z} - 1)(P(t, S_{t}\mathrm{e}^{z}) - P(t, S_{t}))}{\sigma^{2} + \int (\mathrm{e}^{z} - 1)^{2}\nu(\mathrm{d}z)}
+   </math>
+   (25)
+  </p>
+  <p block-type="Text">
+   For jump diffusions, if jumps are small, the Taylor decomposition of this formula gives
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_t \approx \frac{\partial P}{\partial S} + \frac{S_t}{2\Sigma^2} \frac{\partial^2 P}{\partial S^2} \int \nu(\mathrm{d}z) (\mathrm{e}^z - 1)^3
+   </math>
+   <math display="block">
+    \Sigma^2 = \sigma^2 + \int (\mathrm{e}^z - 1)^2 \nu(\mathrm{d}z) \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, the optimal strategy can be seen as a small and typically negative (since the jumps are mostly negative) correction to delta hedging. For pure-jump processes such as variance gamma,
+   <i>
+    (∂
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    P /∂S
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    )
+   </i>
+   may not be defined and the correction may be big.
+  </p>
+  <p block-type="Text">
+   Numerical studies of the performance of hedging strategies in the presence of jumps show that
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     If the jumps are small, delta hedging works well and its performance is close to optimal.
+    </li>
+    <li block-type="ListItem">
+     In the presence of a strong jump component, the optimal strategy is superior to delta hedging both in terms of hedge stability and residual error.
+    </li>
+    <li block-type="ListItem">
+     If jumps are strong, the residual hedging error can be further reduced by adding options to the hedging portfolio.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   To eliminate the remaining hedging error, a possible solution is to use liquid options as hedging instruments. Optimal quadratic hedge ratios in the case when the hedging portfolio may contain options can be found in [8].
+  </p>
+  <h3>
+   <b>
+    Additional Reading
+   </b>
+  </h3>
+  <p block-type="Text">
+   For a more in-depth treatment, the reader may refer to the monographs [6, 18].
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Appelbaum, D. (2004).
+     <i>
+      L´evy Processes and Stochastic Calculus
+     </i>
+     , Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [2] Barndorff-Nielsen, O. (1998). Processes of normal inverse Gaussian type,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      2
+     </b>
+     , 41–68.
+    </li>
+    <li block-type="ListItem">
+     [3] Bertoin, J. (1996).
+     <i>
+      L´evy Processes
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [4] Carr, P., Geman, H., Madan, D. &amp; Yor, M. (2002). The fine structure of asset returns: an empirical investigation,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      75
+     </b>
+     , 305–332.
+    </li>
+    <li block-type="ListItem">
+     [5] Carr, P. &amp; Madan, D. (1998). Option valuation using the fast Fourier transform,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 61–73.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    6 Exponential Levy Models ´
+   </b>
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [6] Cont, R. &amp; Tankov, P. (2004).
+     <i>
+      Financial Modelling with Jump Processes
+     </i>
+     , Chapman &amp; Hall/CRC Press.
+    </li>
+    <li block-type="ListItem">
+     [7] Cont, R. &amp; Tankov, P. (2006). Retrieving Levy processes ´ from option prices: regularization of an ill-posed inverse problem,
+     <i>
+      SIAM Journal on Control and Optimization
+     </i>
+     <b>
+      45
+     </b>
+     , 1–25.
+    </li>
+    <li block-type="ListItem">
+     [8] Cont, R., Tankov, P. &amp; Voltchkova, E. (2007). Hedging with options in models with jumps.
+     <i>
+      Proceedings of the 2005 Abel Symposium in Honor of Kiyosi Itˆo
+     </i>
+     , F.E. Benth, G. Di Nunno, T. Lindstrom, B. Øksendal &amp; T. Zhang, eds, Springer, pp. 197–218.
+    </li>
+    <li block-type="ListItem">
+     [9] Cont, R. &amp; Voltchkova E. (2005). A finite difference scheme for option pricing in jump-diffusion and exponential Levy models, ´
+     <i>
+      SIAM Journal on Numerical Analysis
+     </i>
+     <b>
+      43
+     </b>
+     , 1596–1626.
+    </li>
+    <li block-type="ListItem">
+     [10] Eberlein, E. (2001). Applications of generalized hyperbolic Levy motion to Finance, in ´
+     <i>
+      Levy Pro- ´ cesses—Theory and Applications
+     </i>
+     , O. Barndorff-Nielsen, T. Mikosch &amp; S. Resnick, eds, Birkhauser, Boston, pp. ¨ 319–336.
+    </li>
+    <li block-type="ListItem">
+     [11] Kallsen, J., Hubalek, F. &amp; Krawczyk, L. (2006). Variance-optimal hedging for processes with stationary independent increments,
+     <i>
+      The Annals of Applied Probability
+     </i>
+     <b>
+      16
+     </b>
+     , 853–885.
+    </li>
+    <li block-type="ListItem">
+     [12] Koponen, I. (1995). Analytic approach to the problem of convergence of truncated Levy flights towards the ´ Gaussian stochastic process,
+     <i>
+      Physical Review E
+     </i>
+     <b>
+      52
+     </b>
+     , 1197–1199.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [13] Kou, S. (2002). A jump-diffusion model for option pricing,
+     <i>
+      Management Science
+     </i>
+     <b>
+      48
+     </b>
+     , 1086–1101.
+    </li>
+    <li block-type="ListItem">
+     [14] Lee, R.W. (2004). Option pricing by transform methods: extensions, unification and error control,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 51–86.
+    </li>
+    <li block-type="ListItem">
+     [15] Madan, D., Carr, P. &amp; Chang, E. (1998),. The variance gamma process and option pricing,
+     <i>
+      European Finance Review
+     </i>
+     <b>
+      2
+     </b>
+     , 79–105.
+    </li>
+    <li block-type="ListItem">
+     [16] Merton, R. (1976). Option pricing when underlying stock returns are discontinuous,
+     <i>
+      Journal Financial Economics
+     </i>
+     <b>
+      3
+     </b>
+     , 125–144.
+    </li>
+    <li block-type="ListItem">
+     [17] Sato, K. (1999).
+     <i>
+      L´evy Processes and Infinitely Divisible Distributions
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [18] Schoutens, W. (2003).
+     <i>
+      L´evy Processes in Finance: Pricing Financial Derivatives
+     </i>
+     , Wiley, New York.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   <b>
+    Barndorff-Nielsen and Shephard (BNS) Models
+   </b>
+   ;
+   <b>
+    Fourier Transform
+   </b>
+   ;
+   <b>
+    Infinite Divisibility
+   </b>
+   ;
+   <b>
+    Jump Processes
+   </b>
+   ;
+   <b>
+    Jump-diffusion Models
+   </b>
+   ;
+   <b>
+    Kou Model
+   </b>
+   ;
+   <b>
+    Partial Integro-differential Equations (PIDEs)
+   </b>
+   ;
+   <b>
+    Tempered Stable Process
+   </b>
+   ;
+   <b>
+    Time-changed Levy ´ Process
+   </b>
+   ;
+   <b>
+    Tempered Stable Process
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   PETER TANKOV
+  </p>
+ </body>
+</html>

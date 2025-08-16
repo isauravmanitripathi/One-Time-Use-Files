@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Eurodollar Futures and
+   </b>
+   Options
+  </h2>
+  <p block-type="Text">
+   A Eurodollar rate is an interest rate on US dollar deposits that are held in banks outside the United States. The Eurodollar futures contract is a contract whose underlying is the three-month Eurodollar interest rate. When launched in 1981 at the Chicago Mercantile Exchange (CME), the Eurodollar futures were the world's first cash-settled futures contract. Since then, they have become the most actively traded short-term interest rate contract. At the time of writing, an average of more than 1.5 million contracts are traded each day and open interest exceeds 20 million positions (see
+   <math display="inline">
+    [2]
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   Each futures contract has a notional or "face value" of $1 000 000. On the expiry date of the contract, the futures price is determined by the London Interbank Offered Rate (LIBOR; see LIBOR Rate), which is applied to Eurodollar deposits for a threemonth period starting from the third Wednesday of the delivery month. If
+   <math display="inline">
+    R
+   </math>
+   is the fixing of the threemonth LIBOR at expiration, expressed with quarterly compounding, the futures final settlement price is defined as
+   <math display="inline">
+    100 - R
+   </math>
+   , and the payoff of one futures contract is
+   <math display="inline">
+    1000000 \times (1-0.25 \times R\%)
+   </math>
+   . This results in futures price dropping when yield rises.
+  </p>
+  <p block-type="Text">
+   Eurodollar futures are closely related to the forward rate agreements (FRAs; see LIBOR Rate). However, the futures are marked-to-market daily, and for a long Eurodollar futures position, the margin payments are financed at a higher cost when rates rise and invested at a lower rate when rates decline. To compensate for the disadvantage of being long Eurodollar futures against FRA, the futures price must be lower and the futures rate (
+   <math display="inline">
+    = 100 -
+   </math>
+   futures price) must be higher than the corresponding forward rates. Empirical study by Burghardt [1] shows that this difference, known as "convexity bias", may exceed 15 basis points for futures contracts with five years to expire. The exact magnitude of the bias is model dependent, for example, Hull [4] used the approximation
+   <math display="inline">
+    \frac{1}{2}\sigma^2 t_1 t_2
+   </math>
+   , where
+   <math display="inline">
+    \sigma
+   </math>
+   is the annualized standard deviation of the short-term interest rate,
+   <math display="inline">
+    t_1
+   </math>
+   is the time of maturity of the futures contract, and
+   <math display="inline">
+    t_2
+   </math>
+   is the time of maturity of the deposit. Readers should refer to [5, 6] for the theoretical framework (also see [8] and the reference therein for more results).
+  </p>
+  <p block-type="Text">
+   Eurodollar futures contracts are listed in a March quarterly expiration cycle. At any given time, there are forty quarterly expiries listed, spanning out 10 years, plus the four nearest serial months (non quarterly months). In addition to the outright individual contracts, the CME also lists a variety of products that enable one to initiate positions more efficiently on a particular segment of the yield curve. Some examples are orders known as
+   <i>
+    Packs and Bun
+   </i>
+   dles. Packs are the simultaneous purchase or sale of an equally weighted, consecutive series of four Eurodollar futures. Bundles are consecutive series of futures beginning with the front contract. Both packs and bundles are quoted by the average of net price changes from the previous day's close of the constituent contracts.
+  </p>
+  <p block-type="Text">
+   CME lists American-style call and put options on Eurodollar futures. There are several types of such options. Ouarterly Eurodollar options expire in the same month as the underlying futures. Serial options are listed for the two nearest serial months with the next quarterly futures as the underlying contracts. Midcurve options are options with short expiration on longer-dated futures. They expire one, two, or four years before the underlying quarterly futures expire. Option premiums are paid in full at the time of purchase, the so-called "
+   <i>
+    stock-type
+   </i>
+   " settlement.
+  </p>
+  <p block-type="Text">
+   Eurodollar options can be priced under the Black-Scholes model with dividend yield equal to the risk-free rate (see Black-Scholes Formula), and numerical methods are needed to evaluate the early exercise premium (see American Options). More complexity arises when considering the underlying futures that are highly correlated with the risk-free rate. We refer interested readers to [3] for a more detailed treatment of this subject.
+  </p>
+  <p block-type="Text">
+   Eurodollar futures and options are also traded at the Singapore Futures Exchange (SGX) and Euronext. The contracts traded at the CME and SGX are identical. Euronext adopts the "futures-type" settlement for options, where unlike the "stock-type", premium is not paid up front but marked to market. Oviedo [7] showed that early exercise is not optimal under "futures-type" settlement; therefore, Euronext options can be priced "as if" European-style.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="Text">
+   [1] Burghardt, G. (2003). The Eurodollar Futures and Options Handbook, McGraw-Hill.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Chicago Mercantile Exchange.
+     <i>
+      CME Eurodollar Future Brochure
+     </i>
+     , CME website, available at: http://www.cme. com/files/eurodollar futures.pdf
+    </li>
+    <li block-type="ListItem">
+     [3] Henrard, M. (2005).
+     <i>
+      Eurodollar Futures and Options: Convexity Adjustment in HJM One-Factor Model
+     </i>
+     , available at SSRN: http://ssrn.com/abstract=682343
+    </li>
+    <li block-type="ListItem">
+     [4] Hull, J.C. (2006).
+     <i>
+      Options, Futures, and Other Derivatives
+     </i>
+     , Pearson Prentice Hall.
+    </li>
+    <li block-type="ListItem">
+     [5] Hunt, P. &amp; Kennedy, J. (2000).
+     <i>
+      Financial Derivatives in Theory and Practice
+     </i>
+     , John Wiley and Sons.
+    </li>
+    <li block-type="ListItem">
+     [6] Musiela, M. &amp; Rutkowski, M. (2000).
+     <i>
+      Martingale Methods in Financial Modeling
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [7] Oviedo, R. (2006).
+     <i>
+      The Suboptimality of Early Exercise of Futures-Style Options: A Model-Free Result, Robust to Market Imperfections and Performance Bond Requirements
+     </i>
+     , available at SSRN: http://ssrn.com/abstract= 825104
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   [8] Piterbarg, V.V. &amp; Renedo, M.A. (2006). Eurodollar futures convexity adjustments in stochastic volatility models,
+   <i>
+    Journal of Computational Finance
+   </i>
+   <b>
+    9
+   </b>
+   (3), 71–94.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <h2>
+   <b>
+    American Options
+   </b>
+   ;
+   <b>
+    Black–Scholes Formula
+   </b>
+   ;
+   <b>
+    LIBOR Rate
+   </b>
+   .
+  </h2>
+  <p block-type="Text">
+   YUHUA YU
+  </p>
+ </body>
+</html>

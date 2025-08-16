@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Monte Carlo Greeks
+   </b>
+  </h1>
+  <p block-type="Text">
+   Monte Carlo simulation (see Monte Carlo Simulation) allows not only to compute option prices but can also be used to estimate their sensitivity parameters (delta, gamma, vega, etc.). The baseline estimator, the one which is to be improved, is known as the res
+   <i>
+    imulation estimator
+   </i>
+   . Resimulation consists of simply rerunning the simulation (using the same sequence of pseudorandom numbers) after perturbing the parameter or variable of interest. The corresponding estimator is then taken as the change in the value of the derivative divided by the magnitude of the perturbation. The purpose of most of the sophisticated methods that are discussed is primarily that resimulation can be very demanding computationally, while the desired information is in some way already contained in the original simulation data and can be extracted with much more modest amounts of computation than with resimulation. The focus of this article is on the two main such techniques, known as the pathwise and likelihood ratio methods.
+  </p>
+  <p block-type="Text">
+   The standard integration, or expectation, that represents the value of a derivative takes the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V = \int \pi(S)\psi(S) \, \mathrm{d}S \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \pi
+   </math>
+   (
+   <math display="inline">
+    \bullet
+   </math>
+   ) represents the payoff function and
+   <math display="inline">
+    \psi
+   </math>
+   (
+   <math display="inline">
+    \bullet
+   </math>
+   ) is the probability density of the underlying. The pathwise estimator is based on how the relevant parameter functionally enters into the payoff, whereas the likelihood ratio estimator is based on how the relevant parameter enters into the density function of the underlying(s), given the appropriate change of variable. We specialize this in what follows by assuming that normal variates are the drivers for all price changes and by including a vector of parameters
+   <math display="inline">
+    \alpha
+   </math>
+   , which may represent the initial prices of the underlying securities or rates, volatilities, time to expiration, dividend rates, and so on. In what follows, we give the specifics of the computation of these methods and give some examples of each.
+  </p>
+  <h4>
+   <b>
+    Pathwise Method
+   </b>
+  </h4>
+  <p block-type="Text">
+   The pathwise estimator is obtained with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V = \int \pi [S(z,\alpha)] \varphi(z) \, \mathrm{d}z \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \varphi(z)
+   </math>
+   is the standard normal density. The desired sensitivities are then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}V}{\mathrm{d}\alpha} = \frac{\mathrm{d}}{\mathrm{d}\alpha} \left\{ \int \pi [S(z,\alpha)] \varphi(z) \,\mathrm{d}z \right\} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   or, exchanging the differentiation and integral
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}V}{\mathrm{d}\alpha} = \int \frac{\mathrm{d}}{\mathrm{d}\alpha} \left( \pi [S(z,\alpha)] \right) \varphi(z) \, \mathrm{d}z \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   The corresponding (unbiased) pathwise estimator can then be computed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left\{\frac{\mathrm{d}V}{\mathrm{d}\alpha}\right\}_{P} = \frac{1}{N} \sum_{i=1}^{N} \frac{\mathrm{d}}{\mathrm{d}\alpha} \left(\pi \left[S^{i}(z_{i}, \alpha)\right]\right) \qquad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the summation is taken over
+   <math display="inline">
+    N
+   </math>
+   simulation paths indexed by
+   <i>
+    i
+   </i>
+   and the
+   <math display="inline">
+    z_i
+   </math>
+   are independent and identically distributed standard normal variates. As an application of the pathwise methodology, we consider computing an estimate of vega for a European call option under the Black-Scholes model where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t [(r - \delta) dt + \sigma dB_t]
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    S_t
+   </math>
+   is the underlying asset price at time t, r is the domestic interest rate,
+   <math display="inline">
+    \delta
+   </math>
+   is the dividend rate or foreign interest rate,
+   <math display="inline">
+    \sigma
+   </math>
+   is the volatility, and
+   <math display="inline">
+    B_t
+   </math>
+   is standard Brownian motion. A European call option with expiration
+   <math display="inline">
+    T
+   </math>
+   and strike price
+   <math display="inline">
+    K
+   </math>
+   has value equal to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V = E\left[e^{-rT}\left(S_T - K\right)^+\right] \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    E(\bullet)
+   </math>
+   is the risk-neutral expectation operator. In the Black-Scholes model we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_T = S_0 \exp\left[\left(r - \delta - \frac{\sigma^2}{2}\right)T + \sigma\sqrt{T}Z\right] \quad (8)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    Z
+   </math>
+   is a realization of a standard normal variate. Therefore
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_T}{\mathrm{d}\sigma} = S_T \left( -\sigma T + \sqrt{T}Z \right)
+   </math>
+   <math display="block">
+    = \frac{S_T}{\sigma} \left[ \ln \left( S_T / S_0 \right) - \left( r - \delta + \frac{\sigma^2}{2} \right) T \right] \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   Now we simply apply the chain rule
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}V}{\mathrm{d}\sigma} = E \left[ \frac{\mathrm{d}\pi}{\mathrm{d}S_T} \frac{\mathrm{d}S_T}{\mathrm{d}\sigma} \right] \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\pi}{\mathrm{d}S_T} = \mathrm{e}^{-rT}I\left(S_T &gt; K\right) \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+   <math display="inline">
+    I(\bullet)
+   </math>
+   is the indicator function that takes on the value
+   <math display="inline">
+    1
+   </math>
+   if the argument is true and
+   <math display="inline">
+    0
+   </math>
+   otherwise. That is, the call payoff responds one-to-one with the underlying at expiration provided that the option finishes in-the-money. We then replace the expectation with a summation, as before, to obtain the pathwise estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left\{\frac{\mathrm{d}V}{\mathrm{d}\sigma}\right\}_{P} = \frac{1}{N} \sum_{i=1}^{N} \mathrm{e}^{-rT} \mathbb{1} \left(S_{T}^{i} &gt; K\right) \frac{S_{T}^{i}}{\sigma}
+   </math>
+   <math display="block">
+    \times \left[\ln\left(S_{T}^{i}/S_{0}^{i}\right) - \left(r - \delta + \frac{\sigma^{2}}{2}\right)T\right] \tag{12}
+   </math>
+  </p>
+  <h3>
+   Likelihood Ratio Method
+  </h3>
+  <p block-type="Text">
+   For the likelihood ratio method, we perform a change of variables such that the dependence on
+   <math display="inline">
+    \alpha
+   </math>
+   in the integrand is put into the density function
+   <i>
+    via
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}V}{\mathrm{d}\alpha} = \int \pi \left( S \right) \frac{\mathrm{d}}{\mathrm{d}\alpha} \varphi(S;\alpha) \, \mathrm{d}S \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   or
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}V}{\mathrm{d}\alpha} = \int \pi \left( S \right) \frac{\frac{\mathrm{d}}{\mathrm{d}\alpha} \varphi(S;\alpha)}{\varphi(S;\alpha)} \varphi(S;\alpha) \, \mathrm{d}S \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   In this form, the calculation resembles the estimation of the price of a derivative with payoff
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \chi(S;\alpha) \equiv \pi(S)\omega(S;\alpha) \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \omega \equiv \frac{\frac{\mathrm{d}}{\mathrm{d}\alpha}\varphi(S;\alpha)}{\varphi(S;\alpha)}\tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   so that we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}V}{\mathrm{d}\alpha} = \int \chi(S;\alpha) \varphi(S,\alpha) \,\mathrm{d}S \tag{17}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   As with the pathwise method, we can convert this into a discrete sum suitable for a Monte Carlo
+  </p>
+  <p block-type="Text">
+   implementation to obtain an unbiased estimator of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left\{\frac{\mathrm{d}V}{\mathrm{d}\alpha}\right\}_{L} = \frac{1}{N} \sum_{i=1}^{N} \chi\left(S_{i}\left(z_{i}\right); \alpha\right) \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   In order to illustrate this technique, we again consider the vega calculation. For the normal density we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \omega = \frac{\mathrm{d}}{\mathrm{d}\alpha} \varphi(S;\alpha) \tag{19}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    =\frac{\ln\left(x/S_0\right) - \left(r - \delta - \sigma^2/2\right)T}{S_0\sigma^2T} \qquad (20)
+   </math>
+  </p>
+  <p block-type="Text">
+   and therefore the likelihood ratio estimator is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left\{ \frac{\mathrm{d}V}{\mathrm{d}\sigma} \right\}_{L} = \sum_{i=1}^{N} \mathrm{e}^{-rT} \left( S_{T}^{i} \left( z_{i} \right) - K \right)^{+} \times \left[ \frac{\ln \left( x / S_{0} \right) - \left( r - \delta - \sigma^{2} / 2 \right) T}{S_{0} \sigma^{2} T} \right]
+   </math>
+   (21)
+  </p>
+  <h4>
+   Comments
+  </h4>
+  <p block-type="Text">
+   The interchange of the differentiation and integral operators that both the pathwise and likelihood ratio methods entail requires smoothness in the payoff functions and density functions, respectively. As financial derivative payoffs are often not smooth while densities generally are, the likelihood ratio method is more advantageous. For example, the call option payoff is not differentiable in the underlying asset price. The problem with the likelihood ratio method, however, is that the parameter of interest may not appear in the density function even after transformations are considered, although this is a fairly rare occurrence. For programming systems, a very significant advantage of the likelihood ratio method is that it can be coded in a modular way in that prior knowledge of the payoff is not required as made clear by equations
+   <math display="inline">
+    (15-17)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   It should be noted that these methods can also be applied to path-dependent payoffs (which can complicate the application of the pathwise method) as well as non-Gaussian cases (which can complicate the application of the likelihood ratio method).
+  </p>
+  <p block-type="Text">
+   It may be mentioned that there are other methods, such as the equivalent entropy projection and Malliavin calculus approaches. The equivalent entropy projection method, instead of perturbing the parameters of interest, involves perturbing the probabilities of the simulated paths. The Malliavin calculus approach (
+   <i>
+    see
+   </i>
+   <b>
+    Sensitivity Computations: Integration by Parts
+   </b>
+   ) is a more elaborate or general version of, but arguably not superior, to the likelihood ratio method [1].
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="Text">
+   [1] Chen, N. &amp; Glasserman, P. (2007). Malliavin Greeks without Malliavin calculus,
+   <i>
+    Stochastic Processes and their Applications
+   </i>
+   <b>
+    117
+   </b>
+   , 1723.
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Avellaneda, M. &amp; Gamba, R. (2001). Conquering the Greeks in Monte Carlo: Efficient Calculation of the Market Sensitivities and Hedge Ratios of Financial Assets by Direct Numerical Simulation in
+   <i>
+    Quantitative Analysis in Financial Markets
+   </i>
+   , M. Avellaneda, ed., World Scientific, 336–364, Vol. III,
+  </p>
+  <p block-type="Text">
+   www.math.nyu.edu/faculty/avellane/Conquering TheGreeks. pdf.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Broadie, M. &amp; Glasserman, P. (1996). Estimating security price derivatives using simulation,
+     <i>
+      Management Science
+     </i>
+     <b>
+      42
+     </b>
+     (2), 269–285.
+    </li>
+    <li block-type="ListItem">
+     Dupire, B. (ed) (1998).
+     <i>
+      Monte Carlo: Methodologies and Applications for Pricing and Risk Management
+     </i>
+     , Risk Publications.
+    </li>
+    <li block-type="ListItem">
+     Fournie, E., Lasry, J.M., Lebuchoux, J., Lions, P.L. &amp; Touzi, N. (1999). Applications of Malliavin Calculus to Monte Carlo methods in finance,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      3
+     </b>
+     (4), 391–412.
+    </li>
+    <li block-type="ListItem">
+     Jackel, P. (2002). ¨
+     <i>
+      Monte Carlo methods in finance
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     Jackel, P. (2005). ¨
+     <i>
+      More Likely than Not
+     </i>
+     , www.jaeckel.org.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Delta Hedging
+   </b>
+   ;
+   <b>
+    Gamma Hedging
+   </b>
+   ;
+   <b>
+    Monte Carlo Simulation
+   </b>
+   ;
+   <b>
+    Monte Carlo Simulation for Stochastic Differential Equations
+   </b>
+   ;
+   <b>
+    Sensitivity Computations: Integration by Parts
+   </b>
+   ;
+   <b>
+    Stochastic Differential Equations: Scenario Simulation
+   </b>
+   ;
+   <b>
+    Variance Reduction
+   </b>
+   ;
+  </p>
+  <p block-type="Text">
+   MICHAEL CURRAN
+  </p>
+ </body>
+</html>

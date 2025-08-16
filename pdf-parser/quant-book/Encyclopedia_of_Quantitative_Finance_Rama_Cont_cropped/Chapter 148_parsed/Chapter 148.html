@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Constant Elasticity of
+   </b>
+   Variance (CEV) Diffusion Model
+  </h1>
+  <h2>
+   The CEV Process
+  </h2>
+  <p block-type="Text">
+   The constant elasticity of variance (CEV) model is a one-dimensional diffusion process that solves a stochastic differential equation (SDE)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = \mu S_t dt + aS_t^{\beta+1} dB_t \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with the instantaneous volatility
+   <math display="inline">
+    \sigma(S) = aS^{\beta}
+   </math>
+   specified to be a power function of the underlying spot price. The model has been introduced by Cox [7] as one of the early alternative processes to the geometric Brownian motion to model asset prices. Here
+   <math display="inline">
+    \beta
+   </math>
+   is the elasticity parameter of the local volatility,
+   <math display="inline">
+    d\sigma/dS = \beta \sigma/S
+   </math>
+   , and
+   <i>
+    a
+   </i>
+   is the volatility scale parameter. For
+   <math display="inline">
+    \beta = 0
+   </math>
+   , the CEV model reduces to the constant volatility geometric Brownian motion process employed in the Black, Scholes, and Merton model. When
+   <math display="inline">
+    \beta = -1
+   </math>
+   , the volatility specification is that of Bachelier (the asset price has the constant diffusion coefficient, while the logarithm of the asset price has the
+   <math display="inline">
+    a/S
+   </math>
+   volatility). For
+   <math display="inline">
+    \beta = -1/2
+   </math>
+   the model reduces to the square-root model of Cox and Ross [8].
+  </p>
+  <p block-type="Text">
+   Cox [7] originally studied the case
+   <math display="inline">
+    \beta &lt; 0
+   </math>
+   for which the volatility is a decreasing function of the asset price. This specification captures the leverage effect in the equity markets: the stock price volatility increases as the stock price declines. The result of this inverse relationship between the price and volatility is the implied volatility skew exhibited by options prices in the CEV model with negative elasticity. The elasticity parameter
+   <math display="inline">
+    \beta
+   </math>
+   controls the steepness of the skew (the larger the
+   <math display="inline">
+    |\beta|
+   </math>
+   , the steeper the skew), while the scale parameter
+   <math display="inline">
+    a
+   </math>
+   fixes the at-the-money volatility level. This ability to capture the skew has made the CEV model popular in equity options markets.
+  </p>
+  <p block-type="Text">
+   Emanuel and MacBeth [14] extended Cox's analysis to the positive elasticity case
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   , where the asset price volatility is an increasing function of the asset price. The driftless process with
+   <math display="inline">
+    \mu = 0
+   </math>
+   and with positive
+   <math display="inline">
+    \beta
+   </math>
+   is a strict local martingale. It has been applied to modeling commodity prices that exhibit increasing implied volatility skews with the volatility
+  </p>
+  <p block-type="Text">
+   increasing with the strike price, but care should be taken when working with this model (see the discussion below).
+  </p>
+  <p block-type="TextInlineMath">
+   The CEV diffusion has the following boundary characterization (see, e.g., [4] for Feller's boundary classification for one-dimensional diffusions). For
+   <math display="inline">
+    -1/2 &lt; \beta &lt; 0
+   </math>
+   , the origin is an exit boundary, and the process is killed the first time it hits the origin. For
+   <math display="inline">
+    \beta &lt; -1/2
+   </math>
+   , the origin is a regular boundary point. The SDE
+   <math display="inline">
+    (1)
+   </math>
+   does not uniquely specify the diffusion process, and a boundary condition is needed at the origin. In the CEV model, it is specified as a killing boundary. Thus, the CEV process with
+   <math display="inline">
+    \beta &lt; 0
+   </math>
+   naturally incorporates the possibility of bankruptcy—the stock price can hit zero with positive probability, at which time the bankruptcy occurs. For
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   , the origin is an inaccessible natural boundary.
+  </p>
+  <h2>
+   Reduction to Bessel Processes, Transition Density, and Probability of Default
+  </h2>
+  <p block-type="TextInlineMath">
+   The CEV process is analytically tractable. Its transition probability density and cumulative distribution function are known in closed form.&lt;sup&gt;a&lt;/sup&gt; It is closely related to Bessel processes and inherits their analytical tractability. The CEV process with drift (
+   <math display="inline">
+    \mu \neq 0
+   </math>
+   ) is obtained from the process without drift (
+   <math display="inline">
+    \mu = 0
+   </math>
+   ) via a scale and time change:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_{t}^{(\mu)} = e^{\mu t} S_{\tau(t)}^{(0)}, \ \tau(t) = \frac{\left(e^{2\mu\beta t} - 1\right)}{2\mu\beta} \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \left\{R_t^{(\nu)}, t \ge 0\right\}
+   </math>
+   be a Bessel process of index
+   <math display="inline">
+    \nu
+   </math>
+   .&lt;br&gt;Recall that for
+   <math display="inline">
+    \nu \ge 0
+   </math>
+   , zero is an unattainable entrance boundary. For
+   <math display="inline">
+    v \le -1
+   </math>
+   , zero is an exit boundary. For
+   <math display="inline">
+    \nu \in (-1, 0)
+   </math>
+   , zero is a regular boundary. In our application, we specify zero as a killing boundary to kill the process at the first hitting time of zero (see, e.g., [4, pp. 133–134], for a summary of Bessel processes). Before the first hitting time of zero, the CEV process without drift can be represented as a power of a Bessel process:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t^{(0)} = \left(a|\beta|R_t^{(\nu)}\right)^{-\frac{1}{\beta}}\tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \nu = 1/(2\beta)
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The CEV transition density is obtained from the well-known expression for the transition density of
+  </p>
+  <p block-type="Text">
+   the Bessel process (see [4, p. 115, 21, p. 446]). For the driftless process, it is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{(0)}(S_0, S_t; t) = \frac{S_t^{-2\beta - 3/2} S_0^{1/2}}{a^2 |\beta| t} I_{|\nu|} \left(\frac{S_0^{-\beta} S_t^{-\beta}}{a^2 \beta^2 t}\right) \times \exp\left(-\frac{S_0^{-2\beta} + S_t^{-2\beta}}{2a^2 \beta^2 t}\right) \quad (4)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    I_{\nu}
+   </math>
+   is the modified Bessel function of the first kind of order
+   <math display="inline">
+    \nu
+   </math>
+   . From equation (2), the transition density with drift is obtained from the density equa-
+   <math display="inline">
+    (4)
+   </math>
+   according to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{(\mu)}(S_0, S_t; t) = e^{-\mu t} p_{(0)}(S_0, e^{-\mu t} S_t; \tau(t))
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   The density
+   <math display="inline">
+    (5)
+   </math>
+   was originally obtained by Cox
+   <math display="inline">
+    [7]
+   </math>
+   for
+   <math display="inline">
+    \beta &lt; 0
+   </math>
+   and by Emanuel and MacBeth [14] for
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   on the basis of the result due to Feller [15].
+  </p>
+  <p block-type="TextInlineMath">
+   For
+   <math display="inline">
+    \beta
+   </math>
+   &lt; 0, in addition to the continuous transition density, we also have a positive probability for the process started at
+   <math display="inline">
+    S_0
+   </math>
+   at time zero to hit zero by time
+   <math display="inline">
+    t \ge 0
+   </math>
+   (probability of default or bankruptcy) that is given explicitly by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G\left(|\nu|, \frac{\mu S_0^{-2\beta}}{a^2 \beta \left(e^{2\mu\beta t} - 1\right)}\right) \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    G(v,x) = (1/\Gamma(v)) \int_x^{\infty} u^{v-1} e^{-u} du
+   </math>
+   is the complementary Gamma distribution function. This expression can be obtained by integrating the continuous density
+   <math display="inline">
+    (5)
+   </math>
+   from zero to infinity and observing that the result is less than one, that is, the density is defective. The defect is equal to the probability mass at zero equation
+   <math display="inline">
+    (6)
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   While killing the process at zero is desirable for stock price modeling, it may be undesirable in other contexts, where one would prefer the process that stays strictly positive (e.g., in stock index models). A regularized version of the CEV process that never hits zero has been constructed by Andersen and Andreasen [1] (see also [9]). The positive probability of hitting zero comes from the explosion of instantaneous volatility as the process falls toward zero. The regularized version of the CEV process fixes a small value
+   <math display="inline">
+    \epsilon &gt; 0
+   </math>
+   . For
+   <math display="inline">
+    S &gt; \epsilon
+   </math>
+   , the volatility is according to the CEV specification. For
+   <math display="inline">
+    S \leq \epsilon
+   </math>
+   , the volatility is fixed at the constant level
+   <math display="inline">
+    a\epsilon^{\beta}
+   </math>
+   . We thus have a sequence of regularized strictly positive processes
+  </p>
+  <p block-type="Text">
+   indexed by
+   <math display="inline">
+    \epsilon
+   </math>
+   that converge to the CEV process in the limit
+   <math display="inline">
+    \epsilon \to 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The CEV process with
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   can similarly be regularized to prevent the volatility explosion as the process tends to infinity by picking a large value
+   <math display="inline">
+    \mathcal{E} &gt; 0
+   </math>
+   and fixing the volatility above
+   <math display="inline">
+    \mathcal{E}
+   </math>
+   to equal
+   <math display="inline">
+    a\mathcal{E}^{\beta}
+   </math>
+   . The regularized processes with
+   <math display="inline">
+    \mu = 0
+   </math>
+   are true martingales, as opposed to the failure of the martingale property for the driftless CEV process with
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   and
+   <math display="inline">
+    \mu = 0
+   </math>
+   , which is only a strict local martingale. The failure of the martingale property for the nonregularized process with
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   can be explicitly illustrated by computing the expectation (using the transition density
+   <math display="inline">
+    (5)
+   </math>
+   ):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[S_t] = e^{\mu t} S_0 \left( 1 - G\left(\nu, \frac{\mu S_0^{-2\beta}}{a^2 \beta \left(e^{2\mu\beta t} - 1\right)}\right) \right) \tag{7}
+   </math>
+  </p>
+  <h2>
+   <b>
+    CEV Options Pricing
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   The closed-form CEV call option pricing formula with strike
+   <math display="inline">
+    K
+   </math>
+   , time to expiration
+   <math display="inline">
+    T
+   </math>
+   , and the initial asset price
+   <math display="inline">
+    S
+   </math>
+   can be obtained in closed form by integrating the call payoff with the risk-neutral CEV density (5) with the risk-neutral drift
+   <math display="inline">
+    \mu = r - q
+   </math>
+   (r is the risk-free interest rate and
+   <math display="inline">
+    q
+   </math>
+   is the dividend yield). The result can be expressed in terms of the complementary noncentral chi-square distribution function
+   <math display="inline">
+    Q(z; v, k)
+   </math>
+   ([7] for
+   <math display="inline">
+    \beta &lt; 0
+   </math>
+   , [14] for
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   ; see also [11, 22]):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(S; K, T) = e^{-rT} \mathbb{E} \left[ (S_T - K)^+ \right]
+   </math>
+   <math display="block">
+    = \begin{cases} e^{-qT} S Q \left( \xi; 2\nu, y_0 \right) &amp; \beta &gt; 0 \\ -e^{-rT} K \left( 1 - Q \left( y_0; 2(1+\nu), \xi \right) \right), \\ e^{-qT} S Q \left( y_0; 2(1+|\nu|), \xi \right) &amp; \beta &lt; 0 \\ -e^{-rT} K \left( 1 - Q \left( \xi; 2|\nu|, y_0 \right) \right), \end{cases}
+   </math>
+   (8)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \xi = \frac{2\mu S^{-2\beta}}{a^2 \beta \left(e^{2\mu\beta T} - 1\right)}, \ \ y_0 = \frac{2\mu K^{-2\beta}}{a^2 \beta \left(1 - e^{-2\mu\beta T}\right)} \ \ (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+   <math display="inline">
+    S = S_0
+   </math>
+   is the initial asset price at time zero. The price of the put option is obtained from the put-call parity relationship:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(S; K, T) = C(S; K, T) + Ke^{-rT} - Se^{-qT} \quad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   The complementary noncentral chi-square distribution function can be expressed as the series of complementary Gamma distribution functions ([22, pp. 214]):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q(z; v, k) = \sum_{n=0}^{\infty} e^{-k/2} \frac{(k/2)^n}{\Gamma(n+1)} G\left(n + \frac{v}{2}, \frac{z}{2}\right)
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    k, z &gt; 0
+   </math>
+   . Further efficient numerical methods to compute the noncentral chi-square cumulative distribution function (CDF) can be found in
+   <math display="inline">
+    [3, 12,
+   </math>
+   13, 221.
+  </p>
+  <p block-type="Text">
+   The first passage time problem for the CEV diffusion can be solved analytically and, hence, barrier and lookback options can be priced analytically under the CEV process. Davydov and Linetsky [9, 10] obtained the analytical expressions for the Laplace transforms of single- and double-barrier and lookback options pricing formulas in time to expiration. Davydov and Linetsky [10] and Linetsky [18] inverted the Laplace transforms for barrier options and lookback options in terms of eigenfunction expansions, respectively.
+  </p>
+  <p block-type="Text">
+   Other types of options under the CEV process, such as American options, require numerical treatment. The pricing partial differential equation (PDE) for European options reads as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{a^2}{2}S^{2\beta+2}\frac{\partial^2 V}{\partial S^2} + (r-q)S\frac{\partial V}{\partial S} + \frac{\partial V}{\partial t} = rV \quad (12)
+   </math>
+  </p>
+  <p block-type="Text">
+   The early exercise can be dealt with in the same way as for other diffusion models via dynamic programming, free boundary PDE formulations, or variational inequality formulations.
+  </p>
+  <h4>
+   Jump-to-Default Extended CEV Model
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   While the CEV process can hit zero and, as a result, the CEV equity model includes the positive probability of bankruptcy, the term structure of credit spreads in the CEV model is such that the instantaneous credit spread vanishes. There is no element of surprise—the event of default is a hitting time. Moreover, the probability of default is too small for practical applications of modeling stocks of firms other than the highest rated investment grades. Carr and Linetsky [6] extend the CEV model by allowing a jump to default to occur from a positive stock price. They introduce a default
+  </p>
+  <p block-type="Text">
+   intensity that is an affine function of the instantaneous variance:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lambda(S) = b + c\sigma^2(S) = b + ca^2 S^{2\beta} \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    b \ge 0
+   </math>
+   is the constant part of the default intensity and
+   <math display="inline">
+    c \ge 0
+   </math>
+   is the sensitivity of the default intensity to the instantaneous variance. The predefault stock price follows a diffusion process solving the SDE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = \left[\mu + \lambda(S_t)\right] S_t dt + a S_t^{\beta+1} dB_t \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   The addition of the default intensity in the drift compensates for the jump to default and makes the process with
+   <math display="inline">
+    \mu = 0
+   </math>
+   a martingale. The diffusion process with the modified drift
+   <math display="inline">
+    (14)
+   </math>
+   and killed at the rate (13) is called jump-to-default extended constant elasticity of variance (JDCEV) process. In the JDCEV model, the stock price evolves according to equation
+   <math display="inline">
+    (14)
+   </math>
+   until a jump to default arrives, at which time the stock price drops to zero and equity becomes worthless. The jump to default time has the intensity (13).
+  </p>
+  <p block-type="Text">
+   The JDCEV model can be reduced to Bessel processes similar to the standard CEV model. Consequently, it is also analytically tractable. Closed-form pricing formulas for call and put options and the probability of default can be found in [6]. The first passage time problem for the JDCEV process and the related problem of pricing equity default swaps are solved in [20]. Atlan and Leblanc [2] and Campi
+   <i>
+    et al.
+   </i>
+   [5] investigate related applications of the
+   <math display="inline">
+    CEV
+   </math>
+   model to hybrid credit-equity modeling.
+  </p>
+  <h4>
+   <b>
+    Volatility Skews and Credit Spreads
+   </b>
+  </h4>
+  <p block-type="Text">
+   Figure
+   <math display="inline">
+    1(a)
+   </math>
+   illustrates the shapes of the term structure of zero-coupon credit spreads in the CEV and JDCEV models, assuming zero recovery. The credit spread curves start at the instantaneous credit spread equal to the default intensity
+   <math display="inline">
+    b + c\sigma_*^2
+   </math>
+   (
+   <math display="inline">
+    \sigma_*
+   </math>
+   is the volatility at a reference level
+   <math display="inline">
+    S^*
+   </math>
+   ).&lt;sup&gt;b&lt;/sup&gt; The instantaneous credit spreads for the CEV model vanish, while they are positive for the JDCEV model. Figure
+   <math display="inline">
+    1(b)
+   </math>
+   plots the Black-Scholes implied volatility against the strike price in the CEV and JDCEV models (we calculate the implied volatility by equating the price of an option under the Black-Scholes model to the corresponding option price under the (JD)CEV model). One can observe the decreasing and convex implied
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   (a) Term structures of credit spreads. Parameter values:
+   <i>
+    S
+   </i>
+   =
+   <i>
+    S
+   </i>
+   <sup>
+    ∗
+   </sup>
+   = 50,
+   <i>
+    σ
+   </i>
+   <sup>
+    ∗
+   </sup>
+   = 0
+   <i>
+    .
+   </i>
+   2,
+   <i>
+    β
+   </i>
+   = −1
+   <i>
+    /
+   </i>
+   2
+   <i>
+    ,
+   </i>
+   −1
+   <i>
+    ,
+   </i>
+   −2
+   <i>
+    ,
+   </i>
+   −3,
+   <i>
+    r
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   05,
+   <i>
+    q
+   </i>
+   = 0. JDCEV:
+   <i>
+    b
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   02 and
+   <i>
+    c
+   </i>
+   = 1
+   <i>
+    /
+   </i>
+   2. CEV:
+   <i>
+    b
+   </i>
+   = 0 and
+   <i>
+    c
+   </i>
+   = 0. (b) Implied volatility skews. Parameter values:
+   <i>
+    S
+   </i>
+   =
+   <i>
+    S
+   </i>
+   <sup>
+    ∗
+   </sup>
+   = 50,
+   <i>
+    σ
+   </i>
+   <sup>
+    ∗
+   </sup>
+   = 0
+   <i>
+    .
+   </i>
+   2,
+   <i>
+    r
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   05,
+   <i>
+    q
+   </i>
+   = 0. For JDCEV model:
+   <i>
+    b
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   02,
+   <i>
+    c
+   </i>
+   = 1
+   <i>
+    /
+   </i>
+   2 and
+   <i>
+    β
+   </i>
+   = −1, the times to expiration are
+   <i>
+    T
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   25
+   <i>
+    ,
+   </i>
+   0
+   <i>
+    .
+   </i>
+   5
+   <i>
+    ,
+   </i>
+   1
+   <i>
+    ,
+   </i>
+   5 years. For CEV model:
+   <i>
+    b
+   </i>
+   =
+   <i>
+    c
+   </i>
+   = 0 ,
+   <i>
+    β
+   </i>
+   = −1
+   <i>
+    ,
+   </i>
+   −2 and times to expiration are
+   <i>
+    T
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   25
+   <i>
+    ,
+   </i>
+   5. Implied volatilities are plotted against the strike price
+  </p>
+  <p block-type="Text" class="has-continuation">
+   volatility skew with implied volatilities increasing for lower strikes, as the local volatility and the default intensity both increase as the stock price declines. The volatility elasticity
+   <i>
+    β
+   </i>
+   controls the slope of the
+  </p>
+  <p block-type="Text">
+   skew in the CEV model. The slope of the skew in the JDCEV model is steeper and is controlled by
+   <i>
+    β
+   </i>
+   , as well as the default intensity parameters
+   <i>
+    b
+   </i>
+   and
+   <i>
+    c
+   </i>
+   .
+  </p>
+  <h4>
+   Implied Volatility and the SABR model
+  </h4>
+  <p block-type="TextInlineMath">
+   By using singular perturbation techniques, Hagan and Woodward [17] obtained explicit asymptotic formulas for the Black-Scholes implied volatility
+   <math display="inline">
+    \sigma_{\text{BS}}
+   </math>
+   of European calls and puts on an asset whose forward price
+   <math display="inline">
+    F(t)
+   </math>
+   follows the CEV dynamics, that is,
+   <math display="inline">
+    \mathrm{d}F_t = aF_t^{\beta+1}\,\mathrm{d}B_t,
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{\rm BS} = a f_{\rm av}^{\beta} \left\{ 1 - \frac{\beta \left(\beta + 3\right)}{24} \left( \frac{F_0 - K}{f_{\rm av}} \right)^2 + \frac{\beta^2}{24} a^2 \tau f_{\rm av}^{2\beta} + \cdots \right\} \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tau
+   </math>
+   is time to expiration,
+   <math display="inline">
+    f_{\text{av}} = (F_0 + K)/2
+   </math>
+   and
+   <math display="inline">
+    F_0
+   </math>
+   is today's forward price (Hagan and Woodward's
+   <math display="inline">
+    \beta
+   </math>
+   is equal to our
+   <math display="inline">
+    \beta + 1
+   </math>
+   ). This asymptotics for the implied volatility approximates the exact CEV-implied volatilities well when the ratio
+   <math display="inline">
+    F_0/K
+   </math>
+   is not too far from one and when
+   <math display="inline">
+    K
+   </math>
+   and
+   <math display="inline">
+    F_0
+   </math>
+   are far away from zero. The accuracy tends to deteriorate when the values are close to zero since this asymptotic approximation does not take into account the killing boundary condition at zero.
+  </p>
+  <p block-type="Text">
+   Hagan et al. [16] introduced the SABR model, which is a CEV model with stochastic volatility. More precisely, the volatility scale parameter
+   <math display="inline">
+    a
+   </math>
+   is made stochastic, so that the forward asset price follows the dynamics:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF_t = a_t F_t^{\beta+1} dB_t^{(1)} \quad \text{and}
+   </math>
+   <br/>
+   <math display="block">
+    da_t = \eta a_t dB_t^{(2)} \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    dB_t^{(1)}, dB_t^{(2)} = \rho dt
+   </math>
+   . Hagan
+   <i>
+    et al.
+   </i>
+   derive the asymptotic expression for the implied volatility in the SABR model.
+  </p>
+  <h1>
+   Introducing Jumps and Stochastic Volatility into the CEV Model
+  </h1>
+  <p block-type="Text">
+   Mendoza
+   <i>
+    et al.
+   </i>
+   [19] introduce jumps and stochastic volatility into the JDCEV model by time changing the JDCEV process. Lévy subordinator time changes introduce state-dependent jumps into the process, while absolutely continuous time changes introduce stochastic volatility. The result is a flexible family of models that exhibit the leverage effect, default
+  </p>
+  <p block-type="Text">
+   intensity linked to the stock price volatility, jumps, and stochastic volatility. These models inherit the analytical tractability of the CEV and JDCEV models as long as the Laplace transform of the timechange process is analytically tractable. The stochastic volatility version of the CEV model obtained in this approach is different from the SABR model in two respects. The advantage of the time-change approach is that it preserves the analytical tractability for more realistic choices for the stochastic volatility process, such as the Cox-Ingersoll-Rand (CIR) process with mean-reversion. Another advantage is that jumps, including the jump to default, can also be incorporated. The weakness is that it is hard to incorporate the correlation between the price and volatility.
+  </p>
+  <h4>
+   <b>
+    End Notes
+   </b>
+  </h4>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;In this article we present the results for the CEV model with constant parameters. We note that the process remains analytically tractable when
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    a
+   </math>
+   are taken to be deterministic functions of time [6].
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;b.&lt;/sup&gt;It is convenient to parameterize the local volatility function as
+   <math display="inline">
+    \sigma(S) = aS^{\beta} = \sigma_*(S/S^*)^{\beta}
+   </math>
+   so that at some reference spot price level
+   <math display="inline">
+    S = S^*
+   </math>
+   (e.g., the at-the-money level at the time of model calibration) the volatility takes the reference value,
+   <math display="inline">
+    \sigma(S^*) = \sigma_*
+   </math>
+   . In the example presented here, the reference level is taken to equal the initial spot price level,
+   <math display="inline">
+    S^* = S_0
+   </math>
+   , and the volatility scale parameter is
+   <math display="inline">
+    a = \sigma_*/(S_0^\beta).
+   </math>
+  </p>
+  <h4>
+   Acknowledgments
+  </h4>
+  <p block-type="Text">
+   This research was supported by the National Science Foundation under grant DMS-0802720.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Andersen, L. &amp; Andreasen, J. (2000). Volatility skew [1] and extensions of the LIBOR market model, Applied Mathematical Finance 7, 1-32.
+    </li>
+    <li block-type="ListItem">
+     Atlan, M. &amp; Leblanc, B. (2005). Hybrid equity-credit [2] modelling, Risk Magazine 18, 8.
+    </li>
+    <li block-type="ListItem">
+     [3] Benton, D. &amp; Krishnamoorthy, K. (2003). Computing discrete mixtures of continuous distributions: noncentral chi-square, noncentral
+     <math display="inline">
+      t
+     </math>
+     and the distribution of the square of the sample multiple correlation coefficient, Computational Statistics and Data Analysis 43, 249-267.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    6 Constant Elasticity of Variance (CEV) Diffusion Model
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [4] Borodin, A. &amp; Salminen, P. (2002).
+     <i>
+      Handbook of Brownian Motion: Facts and Formulae
+     </i>
+     , Probability and Its Applications, 2nd rev Edition, Birkhauser Verlag AG.
+    </li>
+    <li block-type="ListItem">
+     [5] Campi, L., Sbuelz, A. &amp; Polbennikov, S. (2008). Systematic equity-based credit risk: A CEV model with jump to default,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      33
+     </b>
+     , 93–108.
+    </li>
+    <li block-type="ListItem">
+     [6] Carr, P. &amp; Linetsky, V. (2006). A jump to default extended CEV model: an application of Bessel processes,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      10
+     </b>
+     , 303–330.
+    </li>
+    <li block-type="ListItem">
+     [7] Cox, J.C. (1975, 1996). Notes on option pricing I: constant elasticity of variance diffusions,
+     <i>
+      Reprinted in The Journal of Portfolio Management
+     </i>
+     <b>
+      23
+     </b>
+     , 15–17.
+    </li>
+    <li block-type="ListItem">
+     [8] Cox, J.C. &amp; Ross, S.A. (1976). The valuation of options for alternative stochastic processes,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      3
+     </b>
+     , 145–166.
+    </li>
+    <li block-type="ListItem">
+     [9] Davydov, D. &amp; Linetsky, V. (2001). Pricing and hedging path-dependent options under the CEV process,
+     <i>
+      Management Science
+     </i>
+     <b>
+      47
+     </b>
+     , 949–965.
+    </li>
+    <li block-type="ListItem">
+     [10] Davydov, D. &amp; Linetsky, V. (2003). Pricing options on scalar DIFFUSIONS: an eigenfunction expansion approach,
+     <i>
+      Operations Research
+     </i>
+     <b>
+      51
+     </b>
+     , 185–209.
+    </li>
+    <li block-type="ListItem">
+     [11] Delbaen, F. &amp; Shirakawa, H. (2002). A note of option pricing for constant elasticity of variance model,
+     <i>
+      Asia-Pacific Financial Markets
+     </i>
+     <b>
+      9
+     </b>
+     , 85–99.
+    </li>
+    <li block-type="ListItem">
+     [12] Ding, C.G. (1992). Computing the non-central
+     <i>
+      χ
+     </i>
+     <sup>
+      2
+     </sup>
+     distribution function,
+     <i>
+      Applied Statistics
+     </i>
+     <b>
+      41
+     </b>
+     , 478–482.
+    </li>
+    <li block-type="ListItem">
+     [13] Dyrting, S. (2004). Evaluating the noncentral chi-square distribution for the Cox-Ingersoll-Ross process,
+     <i>
+      Computational Economics
+     </i>
+     <b>
+      24
+     </b>
+     , 35–50.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [14] Emanuel, D.C. &amp; MacBeth, J.D. (1982). Further results on the constant elasticity of variance call option pricing model,
+     <i>
+      The Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      17
+     </b>
+     , 533–554.
+    </li>
+    <li block-type="ListItem">
+     [15] Feller, W. (1951). Two singular diffusion problems,
+     <i>
+      The Annals of Mathematics
+     </i>
+     <b>
+      54
+     </b>
+     , 173–182.
+    </li>
+    <li block-type="ListItem">
+     [16] Hagan, P.S., Kumar, D., Lesniewski, A.S. &amp; Woodward, D.E. (2002). Managing smile risk,
+     <i>
+      Wilmott Magazine
+     </i>
+     <b>
+      1
+     </b>
+     , 84–108.
+    </li>
+    <li block-type="ListItem">
+     [17] Hagan, P. &amp; Woodward, D. (1999). Equivalent black volatilities,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      6
+     </b>
+     , 147–157.
+    </li>
+    <li block-type="ListItem">
+     [18] Linetsky, V. (2004). Lookback options and diffusion hitting times: a spectral expansion approach,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      8
+     </b>
+     , 343–371.
+    </li>
+    <li block-type="ListItem">
+     [19] Mendoza, R., Carr, P. &amp; Linetsky, V. (2007).
+     <i>
+      Time Changed Markov Processes in Credit-Equity Modeling
+     </i>
+     ,
+     <i>
+      Mathematical Finance
+     </i>
+     , to appear.
+    </li>
+    <li block-type="ListItem">
+     [20] Mendoza, R. &amp; Linetsky, V. (2008).
+     <i>
+      Equity Default Swaps under the Jump-to-Default Extended CEV Model
+     </i>
+     .
+     <i>
+      Working paper
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [21] Revuz, D. &amp; Yor, M. (1999).
+     <i>
+      Continuous Martingales and Brownian Motion
+     </i>
+     , Grundlehren Der Mathematischen Wissenschaften, Springer.
+    </li>
+    <li block-type="ListItem">
+     [22] Schroder, M. (1989). Computing the constant elasticity of variance option pricing formula,
+     <i>
+      The Journal of Finance
+     </i>
+     <b>
+      44
+     </b>
+     , 211–219.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   VADIM LINETSKY &amp; RAFAEL MENDOZA
+  </p>
+ </body>
+</html>

@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Finite Element Methods
+   </b>
+  </h1>
+  <p block-type="Text">
+   The finite element method (FEM) has been invented by engineers around 1950 for solving the partial differential equations arising in solid mechanics; the main idea was to use the principle of virtual work for designing discrete approximations of the boundary value problems. The most popular reference on FEM in solid mechanics is the book by Zienckienwicz [14]. Generalizations to other fields of physics or engineering have been done by applied mathematicians through the concept of variational formulations and weak forms of the partial differential equations (see, e.g. [4]).
+  </p>
+  <p block-type="Text">
+   In finance, partial differential equations (PDEs) or partial integro-differential equations (PIDEs) may be used for option pricing. For approximating their solutions, at least four classes of numerical methods can be used:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <i>
+      Finite difference methods
+     </i>
+     are by far the simplest, except when mesh adaptivity is required in which case it is rather difficult to control the numerical error.
+    </li>
+    <li block-type="ListItem">
+     Finite volume methods are not really natural, because these methods are better suited for hyperbolic PDEs. In finance, they may be useful, for example, for Asian options when the PDE becomes close to hyperbolic near maturity.
+    </li>
+    <li block-type="ListItem">
+     Spectral methods are Galerkin methods with Fourier series of high degree polynomials. They are ideal when the coefficients of the PDE are constant, which is rarely the case in financial engineering. For a very efficient adaptation of spectral methods to finance, see [10].
+    </li>
+    <li block-type="ListItem">
+     Finite element methods seem at first glance unnecessarily complex for finance where a large class of problems are one dimensional in space. Yet, they are very flexible for mesh adaptivity and the implementation difficulties are only apparent.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   A Simple Example
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Take the simplest case, the Black–Scholes model for a put option with a strike
+   <math display="inline">
+    K
+   </math>
+   and a maturity
+   <math display="inline">
+    T
+   </math>
+   . The price
+  </p>
+  <p block-type="Text">
+   of the underlying asset is assumed to be a geometric Brownian motion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t(\mu \, dt + \sigma \, dW_t) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   is allowed to depend on
+   <math display="inline">
+    S_t
+   </math>
+   and t. If the volatility function satisfies suitable regularity conditions, the Black-Scholes formula gives the option's price at time
+   <math display="inline">
+    t &lt; T
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_t = \mathbb{E}^* (\mathrm{e}^{-r(T-t)} (K - S_T)^+ | \mathcal{F}_t) \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbb{E}^*(|\mathcal{F}_t)
+   </math>
+   stands for the conditional expectation with respect to the risk neutral probability. It can be proved that with
+   <math display="inline">
+    \sigma = \sigma(S_t, T - t)
+   </math>
+   , then
+   <math display="inline">
+    P_{T-t} =
+   </math>
+   <math display="inline">
+    u(S_{T-t}, T-t)
+   </math>
+   , where u is the solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \partial_t u - \frac{\sigma^2 x^2}{2} \partial_{xx} u - rx \partial_x + ru = 0\\ \text{for } x &gt; 0, 0 &lt; t \le T\\ u(x, 0) = (K - x)^+ \end{cases} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   The variational formulation of equation
+   <math display="inline">
+    (3)
+   </math>
+   consists of finding a continuous function
+   <math display="inline">
+    u
+   </math>
+   defined on the time interval
+   <math display="inline">
+    [0, T]
+   </math>
+   with value in a Hilbert space V (see equation
+   <math display="inline">
+    (5)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}}{\mathrm{d}t}(u, w) + a_t(u, w) = 0
+   </math>
+   <br/>
+   for a.a.
+   <math>
+    t \in (0, T) \quad \forall w \in V
+   </math>
+   <br/>
+   <math display="block">
+    u(x, 0) = (K - x)^+ \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V = \left\{ v \in L^2(\mathbb{R}_+) : x \frac{\mathrm{d}v}{\mathrm{d}x} \in L^2(\mathbb{R}_+) \right\}
+   </math>
+   <math display="block">
+    \times a_t(u, w) = \left( \frac{\sigma^2 x^2}{2} \partial_x u, \partial_x w \right)
+   </math>
+   <math display="block">
+    + \left( x \partial_x u, (\sigma^2 + x \sigma \partial_x \sigma - r) w \right) + (ru, w)
+   </math>
+   <math display="block">
+    \times (u, w) = \int_0^\infty u(x) w(x) \, \mathrm{d}x \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Problem
+   <math display="inline">
+    (4)
+   </math>
+   is obtained by multiplying equation
+   <math display="inline">
+    (3)
+   </math>
+   by
+   <math display="inline">
+    w(x)
+   </math>
+   , integrate on
+   <math display="inline">
+    \mathbb{R}^+
+   </math>
+   , and integrate by part the term containing
+   <math display="inline">
+    \partial_{xx}u
+   </math>
+   . The precise meaning of equation
+   <math display="inline">
+    (4)
+   </math>
+   and the conditions for equation
+   <math display="inline">
+    (4)
+   </math>
+   to have a unique solution are subtle. The choice of the space
+   <math display="inline">
+    V
+   </math>
+   is dictated by the following: the integrals in equation (4) must exist, and the bilinear form
+   <math display="inline">
+    a_t
+   </math>
+   must be continuous on
+   <math display="inline">
+    V \times V
+   </math>
+   uniformly in time and
+  </p>
+  <p block-type="TextInlineMath">
+   satisfy Gårding's coercivity inequality, that is, that there exist constants c and
+   <math display="inline">
+    \lambda
+   </math>
+   ,
+   <math display="inline">
+    c &gt; 0
+   </math>
+   and
+   <math display="inline">
+    \lambda \ge 0
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a_t(v, v) \ge c \|v\|_V^2 - \lambda \|v\|_{L^2(\mathbb{R}_+)}^2 \quad \forall v \in V \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   If
+   <math display="inline">
+    \sigma
+   </math>
+   is a continuous function such that for all
+   <math display="inline">
+    x, t, \sigma(x, t) \in [\sigma_m, \sigma_M], \sigma_m &gt; 0
+   </math>
+   , and if
+   <math display="inline">
+    x \mapsto x\sigma
+   </math>
+   is Lipschitz continuous with a Lispschitz constant independent of
+   <math display="inline">
+    t
+   </math>
+   , then equation (4) has a unique solution.
+  </p>
+  <p block-type="TextInlineMath">
+   The simplest finite element methods are discrete versions of equation (4) obtained by replacing
+   <math display="inline">
+    V
+   </math>
+   with a finite dimensional space
+   <math display="inline">
+    V_h
+   </math>
+   , that is, finding a continuous function
+   <math display="inline">
+    u_h
+   </math>
+   defined on the time interval
+   <math display="inline">
+    [0, T]
+   </math>
+   with value in the finite dimensional space
+   <math display="inline">
+    V_h \subset V
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{d}{dt}(u_h, w_h) + a_t(u_h, w_h) = 0 \text{ for a.a. } t \in (0, T)
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \{w^i\}_1^N
+   </math>
+   is a basis of
+   <math display="inline">
+    V_h
+   </math>
+   , then equation (6) is equivalent to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}}{\mathrm{d}t} \left( \sum_{1}^{N} u_{j} w^{j}, w^{i} \right) + a_{t} \left( \sum_{1}^{N} u_{j} w^{j}, w^{i} \right) = 0
+   </math>
+   <br/>
+   <math display="block">
+    \forall i = 1, \dots, N \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   which is a system of differential equations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B\frac{\mathrm{d}U}{\mathrm{d}t} + A(t)U = 0 \quad \text{where } B_{ij} = (w^j, w^i)
+   </math>
+   <br/>
+   <math display="block">
+    A_{ij}(t) = a_t(w^j, w^i) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   A discrete time stepping scheme has still to be applied to equation (9), for instance, the Euler implicit scheme
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B\frac{U^{m+1} - U^m}{\delta t_m} + A^{m+1}U^{m+1} = 0 \qquad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    A^m = A(t_m)
+   </math>
+   . The easiest choice is to take
+   <math display="inline">
+    V_h
+   </math>
+   as a space of piecewise linear functions (linear finite elements), that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_h = \{v_h \text{ continuous, linear on each subinterval}
+   </math>
+   <br/>
+   <math>
+    [x_{i-1}, x_i], v_h(L) = 0\}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (x_i)_{i=1,\dots,N}
+   </math>
+   is an increasing sequence in the interval
+   <math display="inline">
+    [0, L] \approx \mathbb{R}^+
+   </math>
+   , with
+   <math display="inline">
+    x_1 = 0
+   </math>
+   and
+   <math display="inline">
+    x_N = L
+   </math>
+   . Then a good choice for
+   <math display="inline">
+    w^i
+   </math>
+   is to be the (hat) function of
+   <math display="inline">
+    V_h
+   </math>
+   , which is equal to one at
+   <math display="inline">
+    x_i
+   </math>
+   and zero at
+   <math display="inline">
+    x_j
+   </math>
+   ,
+   <math display="inline">
+    j \neq i
+   </math>
+   (see [2]). With this basis, called the
+   <i>
+    nodal basis
+   </i>
+   , the integrals
+   <math display="inline">
+    B_{ij}
+   </math>
+   and
+   <math display="inline">
+    A_{ij}
+   </math>
+   can be computed exactly.
+  </p>
+  <p block-type="Text">
+   It is easy to show that the matrices
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are tridiagonal so that a resolution of the linear system
+   <math display="inline">
+    (10)
+   </math>
+   at each time step is best done with a Gaussian elimination method or an LU factorization. In the end the computational complexity is the same as for a finite difference method with either an explicit or an implicit time scheme.
+  </p>
+  <p block-type="TextInlineMath">
+   Convergence in the
+   <math display="inline">
+    V
+   </math>
+   -norm can be proved to be of the order of
+   <math display="inline">
+    h + \delta t
+   </math>
+   (
+   <math display="inline">
+    h^2 + \delta t
+   </math>
+   in the
+   <math display="inline">
+    L^2
+   </math>
+   -norm); it is possible to improve it by using Crank-Nicolson scheme and higher order polynomials instead of the linear ones. Most interesting is the following
+   <math display="inline">
+    a
+   </math>
+   <i>
+    posteriori
+   </i>
+   estimate:
+  </p>
+  <h4>
+   <b>
+    Proposition 2
+   </b>
+  </h4>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;[[u - u_{h,\delta t}]](t_n) \le c(u_0)\delta t \\ &amp;+ c \frac{\mu}{\sigma_m^2} \left( \sum_{m=1}^n \eta_m^2 + (1+\rho)^2 \max(2, 1+\rho) \right. \\ &amp;\times \sum_{m=1}^n \frac{\delta t_m}{\sigma_m^2} \prod_{i=1}^{m-1} (1-2\lambda \delta t_i) \sum_{\omega \in \mathcal{T}_{mh}} \eta_{m,\omega}^2 \right)^{1/2} \end{split} \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mu
+   </math>
+   is the continuity constant of
+   <math display="inline">
+    a_t
+   </math>
+   ,
+   <math display="inline">
+    \rho =
+   </math>
+   <math display="inline">
+    \max_{2\leq n\leq N} \delta t_n/\delta t_{n-1}
+   </math>
+   ,
+   <math display="inline">
+    \mathcal{T}_{mh}
+   </math>
+   is the partition of
+   <math display="inline">
+    (0, L)
+   </math>
+   in small intervals
+   <math display="inline">
+    \omega
+   </math>
+   at time
+   <math display="inline">
+    t_m
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \eta_m^2 = \delta t_m e^{-2\lambda t_{m-1}} \frac{\sigma_m^2}{2} |u_h^m - u_h^{m-1}|_V^2
+   </math>
+   <br/>
+   <math display="block">
+    \eta_{m,\omega} = \frac{h_\omega}{x_{\text{max}}(\omega)} \left\| \frac{u_h^m - u_h^{m-1}}{\delta t_m} - rx \frac{\partial u_h^m}{\partial x} + ru_h^m \right\|_{L^2(\omega)}
+   </math>
+   <br/>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    h_{\omega}
+   </math>
+   is the diameter of
+   <math display="inline">
+    \omega
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Note that everything is known after the computation of
+   <math display="inline">
+    u_h
+   </math>
+   ; the mesh can then be adapted by using the error indicators
+   <math display="inline">
+    \eta_m
+   </math>
+   and
+   <math display="inline">
+    \eta_{m,\omega}
+   </math>
+   . Figure 1 shows the computed
+   <i>
+    a posteriori
+   </i>
+   error and the actual error for
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 1 (a) The graph displays the error between the computed solution on a uniform mesh and one computed with Black-Scholes formula. (b) The graph shows
+   <math display="inline">
+    \rho_{\delta t}
+   </math>
+   ; (c) the graphs show
+   <math display="inline">
+    \eta_{n,\omega}
+   </math>
+   as a function of x and t. The parameters are
+   <math display="inline">
+    K = 100, T = 0.5, r = 0, \sigma = 0.3, 50 \text{ time steps, and } 100 \text{ mesh points}
+   </math>
+  </p>
+  <p block-type="Text">
+   a vanilla put with constant volatility and comparison with the Black-Scholes analytic formula.
+  </p>
+  <h4>
+   <b>
+    Stochastic Volatility Models
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   We now discuss a more involved stochastic volatility model where
+   <math display="inline">
+    dS_t = S_t(\mu dt + \sigma_t dW_t)
+   </math>
+   , with
+   <math display="inline">
+    \sigma_t =
+   </math>
+   <math display="inline">
+    f(Y_t)
+   </math>
+   and
+   <math display="inline">
+    Y_t
+   </math>
+   is a mean-reverting Onrstein-Uhlenbeck process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = \alpha (m - Y_t) dt + \beta d\hat{Z}_t \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    \hat{Z}_t = \rho W_t + \sqrt{1 - \rho^2} Z_t
+   </math>
+   <math display="inline">
+    W_t
+   </math>
+   and
+   <math display="inline">
+    Z_t
+   </math>
+   are two uncorrelated Brownian motions. In the Stein-Stein model, see [12],
+   <math display="inline">
+    f(Y_t) = |Y_t|
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    P(S, y, T - t)
+   </math>
+   is the pricing function of a put option, it is convenient to introduce
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(S, y, t) = P(S, y, T - t)e^{-(1-\eta)(y-m)^2/2\nu^2} \quad (14)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \eta
+   </math>
+   is any parameter between 0 and 1 and
+   <math display="inline">
+    \nu^2 = \beta^2/(2\alpha).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A clever financial argument (see
+   <math display="inline">
+    [7]
+   </math>
+   ) shows that when
+   <math display="inline">
+    \rho = 0
+   </math>
+   for simplicity, the new unknown u satisfies, for all
+   <math display="inline">
+    x &gt; 0, y \in \mathbb{R}, t &gt; 0
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial u}{\partial t} - \frac{1}{2}y^2 x^2 \frac{\partial^2 u}{\partial x^2} - \frac{1}{2}\beta^2 \frac{\partial^2 u}{\partial y^2} - rx\frac{\partial u}{\partial x} + e\frac{\partial u}{\partial y} \\ + fu = 0 \\ u(x, y, 0) = (K - x)^+ \quad \text{for} \quad x &gt; 0, y \in \mathbb{R} \end{cases} \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   whereof
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e = -(1 - 2\eta)\alpha(y - m) + \beta\gamma
+   </math>
+   <br/>
+   <math display="block">
+    f = r + 2\frac{\alpha^2}{\beta^2}\eta(1 - \eta)(y - m)^2
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    +2(1-\eta)\frac{\alpha}{\beta}(y-m)\gamma-\alpha(1-\eta) \quad (16)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    \gamma
+   </math>
+   is a risk premium factor, possibly a function of
+   <math display="inline">
+    x, y, t
+   </math>
+   ; see [1] for the details.
+  </p>
+  <p block-type="TextInlineMath">
+   This parabolic equation is degenerate near the axis y = 0 because the coefficient in front of
+   <math display="inline">
+    x^2 \frac{\partial^2 P}{\partial x^2}
+   </math>
+   vanishes on
+   <math display="inline">
+    y = 0
+   </math>
+   . Following [1], see also [2, 3], let us consider the weighted Sobolev space
+   <math display="inline">
+    V
+   </math>
+   on
+   <math display="inline">
+    Q = \mathbb{R}^+ \times \mathbb{R}
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V = \left\{ v : \ v\sqrt{1+y^2}, \ \frac{\partial v}{\partial y}, x|y|\frac{\partial v}{\partial x} \in L^2(Q) \right\} \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   which is a Hilbert space such that all the properties needed by the variational arguments sketched earlier hold.
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 1
+   </b>
+   If the data are smooth (see [1, 3]) and if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r(t) \ge r_0 &gt; 0, \quad \alpha^2 &gt; 2\beta^2, \quad 2\alpha^2 \eta (1 - \eta) &gt; \beta^2
+   </math>
+   (18)
+  </p>
+  <p block-type="Text">
+   then equation
+   <math display="inline">
+    (15)
+   </math>
+   has a unique weak solution.
+  </p>
+  <h4>
+   Finite Element Solution
+  </h4>
+  <p block-type="TextInlineMath">
+   As usual, we localize the problem in
+   <math display="inline">
+    \Omega := (0, L_r) \times
+   </math>
+   <math display="inline">
+    (-L_{\rm v}, L_{\rm v})
+   </math>
+   . No boundary condition is needed on the axis
+   <math display="inline">
+    x = 0
+   </math>
+   since the PDE is degenerate there. Note also that
+   <math display="inline">
+    u
+   </math>
+   is expected to tend to zero as
+   <math display="inline">
+    x
+   </math>
+   tends to infinity. For large
+   <math display="inline">
+    y
+   </math>
+   , no arguments seem to give a boundary condition. However, if
+   <math display="inline">
+    L_{\nu}
+   </math>
+   is chosen such that
+   <math display="inline">
+    \alpha(L_{\rm v} \pm m) \gg \beta^2
+   </math>
+   , then for
+   <math display="inline">
+    y \sim \pm L_{\rm v}
+   </math>
+   , the coefficient of the advection term in the
+   <math display="inline">
+    y
+   </math>
+   direction, that is,
+   <math display="inline">
+    \alpha(y - m)
+   </math>
+   , is much larger in absolute value
+  </p>
+  <p block-type="TextInlineMath">
+   than the coefficient of the diffusion in the
+   <math display="inline">
+    y
+   </math>
+   direction, that is,
+   <math display="inline">
+    \frac{\beta^2}{2}
+   </math>
+   . Furthermore, near
+   <math display="inline">
+    y = \pm L_y
+   </math>
+   , the vertical velocity
+   <math display="inline">
+    \alpha(y - m)
+   </math>
+   is directed outward
+   <math display="inline">
+    \Omega
+   </math>
+   . Therefore, the error caused by an artificial condition on
+   <math display="inline">
+    y = \pm L_y
+   </math>
+   is damped away from the boundaries, and localized in boundary layers whose width is of the order of
+   <math display="inline">
+    \frac{\beta^2}{\alpha \bar{\nu}}
+   </math>
+   . We may thus apply a Neumann condition.
+  </p>
+  <p block-type="TextInlineMath">
+   Then one must write the problem in variational form: find u in
+   <math display="inline">
+    V_0
+   </math>
+   the subset of V of functions that are zero at
+   <math display="inline">
+    x = L_x
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\mathrm{d}}{\mathrm{d}t}(u,w) + a(u,w) = 0 \quad \forall w \in V_0 \\ u(x,y,0) \text{ given} \end{cases} \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a(u, w) = \int_{\Omega} \frac{y^2 x^2}{2} \partial_x u \partial_x w + \frac{\beta^2}{2} \partial_y u \partial_y w
+   </math>
+   <br/>
+   +
+   <math display="block">
+    (y^2 - r) x \partial_x u + (e + \beta \partial_y \beta) \partial_y u + f u) w
+   </math>
+   <br/>
+   (20)
+  </p>
+  <p block-type="TextInlineMath">
+   Now
+   <math display="inline">
+    \Omega
+   </math>
+   is triangulated into a set of nonintersecting triangles
+   <math display="inline">
+    \{\omega_k\}_1^K
+   </math>
+   in such a way that no vertices lie in the middle of an edge of another triangle.
+   <math display="inline">
+    V_0
+   </math>
+   is approximated by
+   <math display="inline">
+    V_{0h}
+   </math>
+   the space of continuous piecewise linear functions on the triangulation, which vanish at
+   <math display="inline">
+    x = L_x
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The functions of
+   <math display="inline">
+    V_{0h}
+   </math>
+   are completely determined by their values at the vertices of the triangles, so if we denote by
+   <math display="inline">
+    w^i
+   </math>
+   the function in
+   <math display="inline">
+    V_{0h}
+   </math>
+   , which takes the value zero at all vertices except the
+   <math display="inline">
+    i
+   </math>
+   th one where it is one, then
+   <math display="inline">
+    \{w^i\}_1^N
+   </math>
+   is a basis of
+   <math display="inline">
+    V_{0h}
+   </math>
+   if N is the number of vertices not on
+   <math display="inline">
+    x = L_x
+   </math>
+   (it is convenient for the presentation to number the nodes on the boundary last).
+  </p>
+  <p block-type="Text">
+   As in the one-dimensional case
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_h^m(x, y) = \sum_{1}^{N} u_i^m w^i(x, y) \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is an approximation of
+   <math display="inline">
+    u(t_m)
+   </math>
+   if the
+   <math display="inline">
+    u_i^{m+1}
+   </math>
+   are solutions of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B\frac{U^{m+1} - U^m}{\delta t_m} + AU^{m+1} = 0 \tag{22}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    B_{ij} = (w^j, w^i)
+   </math>
+   and
+   <math display="inline">
+    A_{ij} = a(w^j, w^i)
+   </math>
+   .
+  </p>
+  <h4>
+   <i>
+    Numerical Implementation
+   </i>
+  </h4>
+  <p block-type="Text">
+   Integrals of polynomial expressions of
+   <math display="inline">
+    x, y
+   </math>
+   can be evaluated exactly on triangles (formula
+   <math display="inline">
+    (4.19)
+   </math>
+   in [2]). The difficulty is in the strategy to solve the linear systems (22). Multigrid seems to give the best results in term of speed [11], but the computer program may not be so easy to write for an arbitrary triangulation. Since the number of vertices are not likely to exceed a few thousands, fast multifrontal libraries such as SuperLU [6] can be used with a minimum programming effort. Table 1 shows the gain in time over more classical algorithms.
+  </p>
+  <p block-type="Text">
+   Alternatively one could also use a preconditioned conjugate gradient-like iterative method (see Conjugate Gradient Methods). Another way is eqf12-005 to use FreeFem++ [9], which is a general twodimensional PDE solver particularly well suited to these option pricing models, where the coefficients are involved functions and one may want to try to change them often. Results for equation (22) obtained with the following FreeFem++ code are shown in Figure 2.
+  </p>
+  <p block-type="Text">
+   A similar program has been developed in 3D by S. Delpino: freefem3d. However, mesh refinement is not yet implemented. A basket option has been computed for illustration (Figure 3). The script that drives the program is self-explanatory and gives the values used.
+  </p>
+  <p>
+   &lt;table&gt;
+   <b>
+    Table 1
+   </b>
+   Comparison of CPU time for the LU algorithm and superLU for a product put option on
+     a uniform mesh and 200 step time (computed by N. Lantos)
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Mesh size
+     </th>
+     <th>
+      <math>
+       Gauss-LU(s)
+      </math>
+     </th>
+     <th>
+      Relative error
+      <math>
+       (\%)
+      </math>
+     </th>
+     <th>
+      <math>
+       \text{SuperLU (s)}
+      </math>
+     </th>
+     <th>
+      Relative error
+      <math>
+       (\%)
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       101 \times 101
+      </math>
+     </td>
+     <td>
+      10.094
+     </td>
+     <td>
+      3.532
+     </td>
+     <td>
+      2.39
+     </td>
+     <td>
+      3.076
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       126 \times 126
+      </math>
+     </td>
+     <td>
+      14.547
+     </td>
+     <td>
+      1.338
+     </td>
+     <td>
+      4.016
+     </td>
+     <td>
+      1.797
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       151 \times 151
+      </math>
+     </td>
+     <td>
+      22.313
+     </td>
+     <td>
+      0.751
+     </td>
+     <td>
+      6.203
+     </td>
+     <td>
+      0.489
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       176 \times 176
+      </math>
+     </td>
+     <td>
+      31.985
+     </td>
+     <td>
+      1.131
+     </td>
+     <td>
+      8.735
+     </td>
+     <td>
+      0.790
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       201 \times 201
+      </math>
+     </td>
+     <td>
+      43.938
+     </td>
+     <td>
+      0.432
+     </td>
+     <td>
+      12.109
+     </td>
+     <td>
+      0.670
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+  </p>
+  <pre>real T=1, K=100, r=0.05, alpha=1, beta=1 , m=0.2 , gamma=0, eta=0.5;
+int Lx=800, Ly=3, Nmax=50;
+real scale=100, dt =T/Nmax;
+mesh th = square(50,50,[x*Lx,(2*y-1)*Ly*scale]);
+fespace Vh(th,P1);
+func u0 = max(K-x,0.)*exp(-(1-eta)*(y/scale-m)^2 * alpha/(beta^2));
+func e = beta*gamma -(1-2*eta)*alpha*(y/scale-m);
+func f = r + 2*(alpha/beta)^2 * eta*(1-eta)*(y/scale-m)^2
+     + 2*(1-eta)*(alpha/beta)*(y/scale-m)*gamma - alpha*(1-eta);
+Vh uold=u0,u,v;
+problem stein(u,v,init=n) = int2d(th)( u*v*(f+1/dt)
+   + dx(u)*dx(v) *(x*y/scale)^2/2 + dy(u)*dy(v) *(beta*scale)^2/2
+   + dx(u)*v *x*((y/scale)^2-r) + dy(u)*v *e*scale
+   ) - int2d(th)(uold*v/dt) + on(2,u=0) ;
+for (int n=0; n&lt;Nmax ; n++){ stein; uold=u; };
+// call to keyword adaptmesh not shown..
+double N = 25; double L=200.0; double T=0.5;
+double dt = T / 15 ; double K=100; double r = 0.02;
+double s1 = 0.3; double s2 = 0.2; double s3 = 0.25;
+double q12 = -0.2*s1*s2; double q13 = -0.1*s1*s3;
+double q23 = -0.2*s2*s3; double s11 = s1*s1/2;
+double s22=s2*s2/2; double s33=s3*s3/2;
+vector n = (N,N,N);
+vector a = (0,0,0);
+vector b = (L,L,L);
+mesh M = structured(n,a,b);
+femfunction uold(M) = max(K-x-y-z,0);
+femfunction u(M);
+double t=0; do {
+   solve(u) in M cg(maxiter=900,epsilon=1E-10)
+   {
+pde(u) (1./dt+r)*u-dx(s11*x*x*dx(u))-dy(s22*y*y*dy(u))-dz(s33*z*z*dz(u))
+       - dx(q12*x*y*dy(u)) - dx(q13*x*z*dz(u)) - dy(q23*y*z*dz(u))
+       - r*x*dx(u) - r*y*dy(u) - r*z*dz(u) = uold/dt;
+      dnu(u)=0 on M;
+   }; t = t + dt;
+} while(t&lt;T);
+save(medit,"u",u,M); save(medit,"u",M);</pre>
+  <p>
+   <img src="_page_5_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Solution of equation
+   <math display="inline">
+    (15)
+   </math>
+   for a put with maturity
+   <math display="inline">
+    T = 1
+   </math>
+   , strike
+   <math display="inline">
+    K = 100
+   </math>
+   with
+   <math display="inline">
+    r = 0.02
+   </math>
+   ,
+   <math display="inline">
+    \beta = \alpha = 1
+   </math>
+   , and
+   <math display="inline">
+    m = 0.2
+   </math>
+   . We have used the automatic mesh adaptivity of FreeFem++; the contours and the triangulation are shown
+  </p>
+  <p>
+   <img src="_page_5_Figure_3.jpeg"/>
+  </p>
+  <p>
+   Figure 3 A put on a basket of three assets computed with freefem3d [5] with maturity
+   <math display="inline">
+    T = 0.5
+   </math>
+   , strike
+   <math display="inline">
+    K = 100
+   </math>
+   , and so on (see the listing). The visualization is done with medit also public domain [8]
+  </p>
+  <h1>
+   <b>
+    Asian Calls
+   </b>
+  </h1>
+  <p block-type="Text">
+   For the financial modeling of Asian options, we refer to
+   <math display="inline">
+    [13]
+   </math>
+   and the references therein.
+  </p>
+  <p block-type="TextInlineMath">
+   We consider an Asian put with fixed strike whose payoff is
+   <math display="inline">
+    P_0(S, y) = (y - K)_+
+   </math>
+   , calling y the average value of the asset in time,
+   <math display="inline">
+    y = 1/t \int_0^t S(\tau) d\tau
+   </math>
+   . The price of the option is found by solving for all
+  </p>
+  <p>
+   <img src="_page_5_Figure_8.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 4
+   </b>
+   Solution of equation (24) for an Asian option of maturity
+   <math display="inline">
+    T = 4
+   </math>
+   and strike
+   <math display="inline">
+    K = 100
+   </math>
+   when the interest rate is
+   <math display="inline">
+    0.03
+   </math>
+   and the volatility
+   <math display="inline">
+    0.3
+   </math>
+   . The figure shows the contours at times
+   <math display="inline">
+    0.96
+   </math>
+   (a),
+   <math display="inline">
+    1.96
+   </math>
+   (b), and
+   <math display="inline">
+    3.96
+   </math>
+   (c)
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \{x, y, t\} \in \mathbb{R}^+ \times \mathbb{R}^+ \times (0, T)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \partial_t u - \partial_x \left( \frac{\sigma^2 x^2}{2} \partial_x u \right) + (\sigma^2 - r) x \partial_x u
+   </math>
+   <math display="block">
+    + \frac{y - x}{2} \partial_x u + r u = 0 \tag{23}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    +\frac{y-x}{T-t}\partial_y u + ru = 0\tag{23}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x, y, 0) = (y - K)^{+}, \ \partial_{x}u|_{+\infty, y, t}
+   </math>
+   <br/>
+   <math display="block">
+    \approx \left| \frac{\frac{t}{T}e^{-rt} \text{if } y &lt; \frac{KT}{T - t}}{\frac{1 - re^{-rt}}{Tr}} \text{ otherwise} \right|
+   </math>
+   (24)
+  </p>
+  <p block-type="TextInlineMath">
+   The difficulties of this problem is that the secondorder part of the differential operator is incomplete and the convective velocity
+   <math display="inline">
+    v = \left((\sigma^2 - r)x, \frac{y-x}{T-t}\right)^T
+   </math>
+   tends to infinity as
+   <math display="inline">
+    t \rightarrow T
+   </math>
+   ; so great care must be taken for the upwinding of these first-order terms. One of the best upwinding is the characteristic finite element method, whereby
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \partial_t u + v \cdot \nabla u|_{x,y,t_{m+1}} \approx \frac{1}{\delta t} (u^{m+1}(q) - u^m(Q))
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q = q - \delta t v \left( q - v(q) \frac{\delta t}{2} \right) \text{ where } q = (x, y)^{\text{T}}
+   </math>
+   (25)
+  </p>
+  <p block-type="TextInlineMath">
+   The discontinuous
+   <math display="inline">
+    P^2
+   </math>
+   reconstruction with characteristic convection of the gradient and of the value at the center of gravity is applied. The domain is localized to
+   <math display="inline">
+    (0, L) \times (0, L)
+   </math>
+   , with
+   <math display="inline">
+    L = 250
+   </math>
+   , that is, greater than twice the contract price
+   <math display="inline">
+    K = 100
+   </math>
+   , in this example; the interest rate is
+   <math display="inline">
+    r = 3\%
+   </math>
+   and the volatility
+   <math display="inline">
+    \sigma = 0.3
+   </math>
+   . The square domain is triangulated by a uniform
+   <math display="inline">
+    50 \times 50
+   </math>
+   mesh and we have taken 50 time steps over the fouryears period of this example
+   <math display="inline">
+    (T = 4)
+   </math>
+   . The results are shown in Figure 4 at time
+   <math display="inline">
+    t = 0.96
+   </math>
+   , 1.96, and 3.96.
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Achdou, Y. &amp; Tchou, N. (2002). Variational analysis for [1] the Black and Scholes equation with stochastic volatility, M2AN Mathematical Modelling and Numerical Analysis 36(3), 373-395.
+    </li>
+    <li block-type="ListItem">
+     [2] Achdou, Y. &amp; Pironneau, O. (2005). Computational Methods For Option Pricing, Frontiers in Applied Math
+     <i>
+      ematics
+     </i>
+     , Society for Industrial and Applied Mathematics (SIAM), Philadelphia, PA.
+    </li>
+    <li block-type="ListItem">
+     [3] Achdou, Y. &amp; Pironneau, O. (2009). chapter Partial differential equations for option pricing. Handbook on
+     <i>
+      Mathematical Finance
+     </i>
+     , Elsevier, to appear.
+    </li>
+    <li block-type="ListItem">
+     [4] Ciarlet, P.G. (1991). Basic error estimates for elliptic problems, Handbook of Numerical Analysis, North-Holland, Amsterdam, Vol. II, pp. 17-351.
+    </li>
+    <li block-type="ListItem">
+     [5] Delpino, S. freefem3d, www.freefem.org.
+    </li>
+    <li block-type="ListItem">
+     [6] Demmel, J.W., Gilbert, J.R. &amp; Li, X.S. (1999). SuperLU Users' Guide, LBNL-44289, Ernest Orlando Lawrence Berkeley National Laboratory, Berkeley, CA.
+    </li>
+    <li block-type="ListItem">
+     Fouque, J.P., Papanicolaou, G. &amp; Sircar, K.R. (2000). [7] Derivatives in Financial Markets with Stochastic Volatility, Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [8] Frey, P. Medit a Visualization Software, www.ann. jussieu.fr/~frey/logiciels/medit.html.
+    </li>
+    <li block-type="ListItem">
+     [9] Hecht, F. &amp; Pironneau, O.
+     <i>
+      freefem++
+     </i>
+     , www.freefem. org.
+    </li>
+    <li block-type="ListItem">
+     [10] Huang, X. &amp; Cornelis, W. (2008).
+     <i>
+      Oosterlee Adaptive
+     </i>
+     integration for multi-factor portfolio credit loss models, Finance and Stochastics, to appear.
+    </li>
+    <li block-type="ListItem">
+     [11] Ikonen, S. &amp; Toivanen, J. (2008). Efficient numerical methods for pricing American options under stochastic volatility, Numerical Methods for Partial Differential Equations
+     <math display="inline">
+      24(1)
+     </math>
+     , 104-126.
+    </li>
+    <li block-type="ListItem">
+     [12] Stein, E. &amp; Stein, J. (1991). Stock price distributions with stochastic volatility : an analytic approach, The Review of Financial Studies 4(4), 727-752.
+    </li>
+    <li block-type="ListItem">
+     [13] Wilmott, P., Dewynne, J. &amp; Howison, S. (1993).
+     <i>
+      Option
+     </i>
+     Pricing. Oxford Financial Press, Oxford.
+    </li>
+    <li block-type="ListItem">
+     [14] Zienkiewicz, O.C. &amp; Taylor, R.L. (2000). The Finite Element Method, 5th Edition, Butterworth-Heinemann, Oxford, Vol. 1, The basis.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   YVES ACHDOU &amp; OLIVIER PIRONNEAU
+  </p>
+ </body>
+</html>

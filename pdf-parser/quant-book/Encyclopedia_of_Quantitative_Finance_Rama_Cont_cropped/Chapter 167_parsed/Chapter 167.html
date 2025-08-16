@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Structural Default Risk
+   </b>
+   Models
+  </h1>
+  <p block-type="Text">
+   Structural models of default risk for individual firms originate from the seminal work of Merton [25]. Default is linked to the economic fundamentals of the considered firm via the assumption that default occurs if the value of the firm's assets, modeled as a geometric Brownian motion, falls below some default threshold (the firm's liabilities) at some future point in time (the maturity of a zero-coupon bond). A significant extension of this methodology was proposed by Black and Cox [7], who continuously test for default. Hence, in their model, the time of default is a first-passage time. Further generalizations address stochastic interest rates, more general assumptions on the default threshold, the definition of the default event, and discontinuous processes as model for the firm's assets [10, 12, 20-22, 34]. On a high level, these innovations aim at making the model-induced term structure of default probabilities flexible enough to allow for a precise fit of the model to observed bond prices and credit default swap (CDS) spreads.
+  </p>
+  <p block-type="Text">
+   The growing popularity of derivatives on credit portfolios, for example, collateralized debt obligations (CDOs) and
+   <math display="inline">
+    n
+   </math>
+   th to default baskets, and advanced demands on risk-management solutions produced a need for portfolio models that simultaneously explain the credit quality of multiple firms. Since corporate defaults in a globalized economy are not independent, a multivariate default model has to explain univariate default probabilities and the dependence among the default events. A natural assumption for a multivariate structural-default model is to introduce dependence by assuming correlated asset values, leading to dependent default events. Zhou [33] motivates this approach by the observation: "The fortunes of individual companies are linked together via industry-specific and/or general economic conditions." The first portfolio model of this class was formulated by Vasicek [31] and can be classified as a multivariate generalization of the work by Merton [25]. This model is discussed in some detail in the section "The Model of Vasicek", as it constitutes the basis for most of today's generalizations and is used to asses the regulatory capital for loan portfolios within the Basel II framework.
+  </p>
+  <p block-type="Text">
+   A major advantage of (multivariate) structuraldefault models is the appealing economic interpretation of the definition of default. Additionally, comovements of the individual firm-value processes might also be interpreted as being the result of common risk factors. Moreover, modeling the evolution of the firm's values as some multivariate stochastic process naturally implies a dynamic model, which is highly desirable in risk-management and pricing applications. The downside of this class of models is the mathematical challenge of computing the portfolio-loss distribution or even bivariate default correlations. Hence, most of the proposed models rely on simplifying assumptions or can be solved only
+   <i>
+    via
+   </i>
+   a Monte Carlo simulation.
+  </p>
+  <h2>
+   <b>
+    Merton-type Models
+   </b>
+  </h2>
+  <h2>
+   The Model of Vasicek
+  </h2>
+  <p block-type="TextInlineMath">
+   In his short memo [31], Vasicek considers a portfolio of
+   <math display="inline">
+    n
+   </math>
+   loans with unit nominal and maturity
+   <math display="inline">
+    T
+   </math>
+   . Each individual firm-value process is modeled as a geometric Brownian motion defined by the stochastic differential equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}V_t^i &amp;= V_t^i(\gamma^i \mathrm{d}t + \sigma^i \mathrm{d}W_t^i), \\ V_0^i &amp;&gt; 0, \quad i \in \{1, \dots, n\} \end{aligned} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The first simplification, often referred to as
+   <i>
+    homo
+   </i>
+   geneous portfolio assumption, is to assume identical default probabilities for all firms. In the current setup, this assumption corresponds to identical parameters
+   <math display="inline">
+    V_0 \equiv V_0^i
+   </math>
+   ,
+   <math display="inline">
+    \sigma \equiv \sigma^i
+   </math>
+   , and
+   <math display="inline">
+    \gamma \equiv \gamma^i
+   </math>
+   . Moreover, an identical correlation across all bivariate pairs of Brownian motions
+   <math display="inline">
+    W^i
+   </math>
+   and
+   <math display="inline">
+    W^j
+   </math>
+   is assumed. Using Itô's formula and replacing the growth rate
+   <math display="inline">
+    \gamma
+   </math>
+   by the risk-free interest rate
+   <math display="inline">
+    r
+   </math>
+   , we find
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_T^i \stackrel{d}{=} V_0^i \exp((r - 0.5\sigma^2)T + \sigma\sqrt{T}X^i) \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    X^i := W^i_T / \sqrt{T}
+   </math>
+   follows a standard normal distribution. Given some default threshold
+   <math display="inline">
+    d_T \equiv d_T^i
+   </math>
+   , one can immediately compute the probability of default at time
+   <math display="inline">
+    T
+   </math>
+   , since the distribution of the firm value at time
+   <math display="inline">
+    T
+   </math>
+   is known explicitly. Moreover, since default can only happen at maturity, only the distribution of
+   <math display="inline">
+    V_T^i
+   </math>
+   is of importance and not the dynamic model leading to it. By scaling the
+  </p>
+  <p block-type="TextInlineMath">
+   original default threshold, default can alternatively be expressed in terms of the standard normally distributed variable
+   <math display="inline">
+    X^i
+   </math>
+   . More precisely, assuming the default probability of firm
+   <math display="inline">
+    i
+   </math>
+   at time
+   <math display="inline">
+    T
+   </math>
+   is given by
+   <math display="inline">
+    p^i
+   </math>
+   , the default threshold with respect to
+   <math display="inline">
+    X^i
+   </math>
+   is
+   <math display="inline">
+    K^{i} = \Phi^{-1}(p^{i})
+   </math>
+   , where
+   <math display="inline">
+    \Phi^{-1}
+   </math>
+   is the quantile function of the standard normal distribution.
+  </p>
+  <p block-type="TextInlineMath">
+   To incorporate correlation among the companies, one explains
+   <math display="inline">
+    X^i
+   </math>
+   by a common market factor M and an idiosyncratic risk factor
+   <math display="inline">
+    \epsilon^i
+   </math>
+   , that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X^{i} \stackrel{d}{=} \sqrt{\rho}M + \sqrt{1 - \rho}\epsilon^{i}, \quad \rho \in (0, 1) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    M
+   </math>
+   ,
+   <math display="inline">
+    \{\epsilon^i\}_{i=1}^n
+   </math>
+   are independent standard normally distributed random variables. Consequently,
+   <math display="inline">
+    \text{Cor}(X^i, X^j) = \rho
+   </math>
+   for
+   <math display="inline">
+    i \neq j
+   </math>
+   , and each
+   <math display="inline">
+    X^i
+   </math>
+   is again distributed according to the standard normal law. By conditioning on the common market factor
+   <math display="inline">
+    M
+   </math>
+   , the firm's values and default events are independent. The result is the so-called
+   <i>
+    conditionally independent model.
+   </i>
+   We denote this conditional default probability by
+   <math display="inline">
+    p^i(M)
+   </math>
+   and obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p^{i}(m) = \mathbb{P}(X^{i} &lt; K^{i}|M=m) = \Phi\left(\frac{K^{i} - \sqrt{\rho}m}{\sqrt{1-\rho}}\right)
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   Furthermore, all companies are assumed to have identical default probabilities
+   <math display="inline">
+    p \equiv p^i
+   </math>
+   . Now
+   <math display="inline">
+    \Omega
+   </math>
+   is defined as the random variable that describes the fraction of defaults in the portfolio up to time
+   <math display="inline">
+    t
+   </math>
+   . The distribution of
+   <math display="inline">
+    \Omega
+   </math>
+   depends on two parameters: the individual default probability
+   <math display="inline">
+    p
+   </math>
+   and the correlation
+   <math display="inline">
+    \rho
+   </math>
+   . In what follows, this distribution is denoted by
+   <math display="inline">
+    F_{p,0}^{(n)}(x) = \mathbb{P}(\Omega \leq x)
+   </math>
+   . It is crucial that firms are independent given
+   <math display="inline">
+    M
+   </math>
+   , since the probability that exactly
+   <math display="inline">
+    k
+   </math>
+   firms default can be derived by integrating out the market factor:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}(n\Omega = k) = \int_{-\infty}^{\infty} \mathbb{P}(n\,\Omega = k|M = m)
+   </math>
+   <math display="block">
+    \times \phi(m) \mathrm{d}m \qquad (5)
+   </math>
+   <math display="block">
+    = \int_{-\infty}^{\infty} {n \choose k} p(m)^{k} (1 - p(m))^{n-k}
+   </math>
+   <math display="block">
+    \times \phi(m) \mathrm{d}m \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    \phi
+   </math>
+   is the density of a standard normal distribution and
+   <math display="inline">
+    k \in \{0, \ldots, n\}
+   </math>
+   . For large portfolios, evaluating the binomial coefficient is numerically critical and
+  </p>
+  <p block-type="TextInlineMath">
+   can be avoided by applying the law of large numbers; this approach is called
+   <i>
+    large portfolio approximation
+   </i>
+   . The key observation is that
+   <math display="inline">
+    \mathbb{P}(\Omega \le x | M = m) \rightarrow
+   </math>
+   <math display="inline">
+    \mathbf{1}_{\{n(m)&lt;\kappa\}}
+   </math>
+   for
+   <math display="inline">
+    (n \to \infty)
+   </math>
+   . A straightforward calculation, see, for example, [29] for details, establishes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{p,\rho}^{(n)}(x)
+   </math>
+   <math display="block">
+    \to F_{p,\rho}^{\infty}(x) := \Phi\left(\frac{\sqrt{1-\rho}\,\Phi^{-1}(x) - \Phi^{-1}(p)}{\sqrt{\rho}}\right),\,
+   </math>
+   <math display="block">
+    (n \to \infty)
+   </math>
+   (7)
+  </p>
+  <p block-type="Text">
+   This approximation is continuous and strictly increasing in
+   <math display="inline">
+    x
+   </math>
+   . As it further maps the unit interval onto itself, it is a distribution function, too. It is also worth mentioning that the quality of this approximation is typically good; see [29] for a discussion.
+  </p>
+  <h4>
+   The IRB Approach in Basel II
+  </h4>
+  <p block-type="Text">
+   Vasicek's asymptotic loss distribution or, more precisely, its quantile function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{p,\rho}(y) := \Phi\left(\frac{\Phi^{-1}(y)\sqrt{\rho} + \Phi^{-1}(p)}{\sqrt{1-\rho}}\right) \quad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   plays a major role in today's regulatory world. The core of the first pillar of the Basel II accord [4] is the internal rating-based (IRB) approach for calculating capital requirements for loan portfolios. Within this framework, banks classify their loans by asset class and credit quality into homogeneous buckets and use their own internal rating systems to estimate risk characteristics such as loss-given default (LGD), the expected exposure at default (EAD), and the oneyear default probability (PD), that is,
+   <math display="inline">
+    PD = p_1
+   </math>
+   . It is worth mentioning that estimating LGD and PD independently contradicts the empirical observation that recovery rates and default rates are inversely related; see, for example, [2] and [11]. Still, banks are free to choose a certain internal rating system, as long as they can demonstrate its accuracy and meet certain data requirements. In the second step, these credit characteristics are used in the IRB formula to asses the minimum capital requirements for the unexpected loss via the factor
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{IRB}} = LGD \cdot \left( K_{PD,\rho}(99.9\%) - PD \right) \cdot MA \quad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   The risk-weighted assets
+   <math display="inline">
+    (RWA)
+   </math>
+   are then obtained by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    RWA = \frac{K_{\text{IRB}} \cdot EAD}{0.08} = 12.5 \cdot K_{\text{IRB}} \cdot EAD \quad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    0.08
+   </math>
+   corresponds to the
+   <math display="inline">
+    8\%
+   </math>
+   minimum capital ratio. The very conservative one-year 99.9%-quantile in equation (9) is part of the Basel II accord and might be interpreted as some cushion regarding the underlying simplifications in Vasicek's model. The factor MA is the
+   <i>
+    maturity adjustment
+   </i>
+   and calculated
+   <i>
+    via
+   </i>
+   (some exceptions apply)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    MA = \frac{1 + (M - 2.5) \cdot b(PD)}{1 - 1.5 \cdot b(PD)},
+   </math>
+   <math display="block">
+    M = \min\left\{\frac{\sum_{t} t \cdot CF_t}{\sum_{t} CF_t}, 5\right\} \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    b(PD) = (0.11852 - 0.05478 \cdot \log PD)^2
+   </math>
+   , where
+   <math display="inline">
+    CF_t
+   </math>
+   denotes the expected cash-flow at time t. M accounts for the fact that loans with longer (shorter) maturity than one year require a higher (lower) capital charge. Finally, the crucial correlation parameter needs to be specified. Basel II uses a convex combination between some lower
+   <math display="inline">
+    \rho^l
+   </math>
+   and upper
+   <math display="inline">
+    \rho^u
+   </math>
+   correlation whose weights depend on the default probability of the respective loan, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho = \rho^{l}a(PD) + \rho^{u}(1 - a(PD)),
+   </math>
+   <br/>
+   <math display="block">
+    a(x) = \frac{1 - e^{-50x}}{1 - e^{-50}}
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   For corporate credits, the correlation-adjustment factor
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    SM_{\text{ad}}(S) = -0.04 \cdot \left(1 - \frac{\max\{5, S\} - 5}{45}\right) \times \mathbb{1}_{\{S \le 50\}}
+   </math>
+   (13)
+  </p>
+  <p block-type="TextInlineMath">
+   is added to
+   <math display="inline">
+    \rho
+   </math>
+   for borrowers with reported annual sales
+   <math display="inline">
+    S \le 50
+   </math>
+   , measured in millions of Euros. The specific form of
+   <math display="inline">
+    a(x)
+   </math>
+   and the adjustment factor
+   <math display="inline">
+    SM_{ad}(S)
+   </math>
+   being negative stem from the empirical observation [23] that large firms that bear more systemic risk are more correlated compared to small firms that
+  </p>
+  <p block-type="TextInlineMath">
+   are more likely to default due to idiosyncratic reasons.
+   <math display="inline">
+    (\rho^l, \rho^u)
+   </math>
+   depend on the type of loan and are specified as
+   <math display="inline">
+    (0.12, 0.24)
+   </math>
+   for sovereign, corporate, and bank loans;
+   <math display="inline">
+    (0.12, 0.30)
+   </math>
+   for highly volatile commercial real estate loans;
+   <math display="inline">
+    \rho^l = \rho^u = 0.15
+   </math>
+   for residential mortgages;
+   <math display="inline">
+    \rho^l = \rho^u = 0.04
+   </math>
+   for revolving retail loans such as credit cards; and finally
+   <math display="inline">
+    (0.03, 0.16)
+   </math>
+   for other retail exposures, where in this case the weight function
+   <math display="inline">
+    a(x)
+   </math>
+   is computed with exponents
+   <math display="inline">
+    -35
+   </math>
+   instead of
+   <math display="inline">
+    -50
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The IRB approach is sometimes criticized for the strong assumptions that are required to derive Vasicek's distribution. However, one should recognize the IRB approach as a compromise that provides a common language for regulators, banks, and investors to communicate and establishes comparable risk estimates across banks. The IRB formula is discussed in depth in
+   <math display="inline">
+    [5, 30]
+   </math>
+   .
+  </p>
+  <h4>
+   Generalizations Using Other Distributions
+  </h4>
+  <p block-type="TextInlineMath">
+   It is well known that the model [31] does not yield a satisfactory fit to market quotes of tranches of CDOs. More precisely, an implied correlation smile is present when the model is inverted for the correlation parameter tranche by tranche. Especially tail events with multiple defaults are underrepresented in a Gaussian world, making a precise fit to senior tranches of a CDO impossible. To overcome this shortcoming, a natural assumption is to give up normality in equation (3) and consider other heavier tailed distributions. For the derivation leading to
+   <math display="inline">
+    F_{p,\rho}^{\infty}
+   </math>
+   in equation (7), the stability of the normal distribution under convolutions is essential in equation (3). Hence, natural choices for generalizations are other infinitely divisible distributions, which are connected to Lévy processes; see, for example, [8]. These generalizations add flexibility to the model and can additionally imply a dependence structure with tail dependence, making multiple defaults more likely. Specific models in this spirit include, for example, the NIG model of Kalemanova et al. [17], the VG model of Moosbrucker [27], and the BVG model of Baxter [6]. Following [1], we now derive a large homogeneous portfolio approximation in a general Lévy framework.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    X = \{X_t\}_{t \in [0,1]}
+   </math>
+   be a Lévy process (see Lévy
+   <b>
+    Processes
+   </b>
+   ) with
+   <math display="inline">
+    X_1 \sim H_1
+   </math>
+   for some infinitely divisible distribution
+   <math display="inline">
+    H_1
+   </math>
+   . Assume
+   <math display="inline">
+    X_1
+   </math>
+   to be standardized to zero mean and unit variance. Given a correlation
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \rho \in (0, 1)
+   </math>
+   , define in analogy to equation (3) for independent copies
+   <math display="inline">
+    \{X^i\}_{i=1}^n
+   </math>
+   of X the random variables
+   <math display="inline">
+    V^i
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V' := X_{\rho} + X'_{1-\rho}, \quad i \in \{1, \dots, n\} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here, the common market factor is represented by
+   <math display="inline">
+    X_{\rho}
+   </math>
+   , and the idiosyncratic risk of firm
+   <i>
+    i
+   </i>
+   is captured in
+   <math display="inline">
+    X_{1-o}^i
+   </math>
+   . Using the Lévy properties of X, each
+   <math display="inline">
+    V^i
+   </math>
+   is again distributed according to
+   <math display="inline">
+    H_1
+   </math>
+   and
+   <math display="inline">
+    \text{Cor}(V^i, V^j) = \rho
+   </math>
+   for
+   <math display="inline">
+    i \neq j
+   </math>
+   . In what follows, we denote by
+   <math display="inline">
+    H_t^{-1}
+   </math>
+   the inverse of the distribution function of
+   <math display="inline">
+    X_t
+   </math>
+   . The homogeneous portfolio assumption in the present setup translates to identical univariate default probabilities up to time
+   <math display="inline">
+    T
+   </math>
+   , abbreviated as
+   <math display="inline">
+    p \equiv p^{i}
+   </math>
+   , identical threshold levels
+   <math display="inline">
+    K_{T} = H_{1}^{-1}(p) \equiv
+   </math>
+   <math display="inline">
+    K_T^i
+   </math>
+   , and unit notional of each firm. The probability of exactly
+   <math display="inline">
+    k
+   </math>
+   defaults in the portfolio is then again obtained as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}(n\Omega = k) = \int_{-\infty}^{\infty} \mathbb{P}(n\,\Omega = k | X_{\rho} = m) \mathrm{d}H_{\rho}(m),
+   </math>
+   <br/>
+   <math display="block">
+    k \in \{0, \dots, n\}
+   </math>
+   (15)
+  </p>
+  <p block-type="TextInlineMath">
+   Similar to Vasicek's model, the conditional distribution of the number of defaults given
+   <math display="inline">
+    X_{\rho} = m
+   </math>
+   is a binomial distribution with
+   <math display="inline">
+    n
+   </math>
+   trials and success probability
+   <math display="inline">
+    p(m) = \mathbb{P}(V^i \leq K_T | X_\rho = m) = H_{1-\rho}(K_T - m)
+   </math>
+   <math display="inline">
+    m
+   </math>
+   ). The large portfolio assumption, that is, letting the number of firms
+   <math display="inline">
+    n
+   </math>
+   tend to infinity, then gives
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{p,\rho}^{\infty}(x) = 1 - H_{\rho}(H_1^{-1}(p) - H_{1-\rho}^{-1}(x)) \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   as distribution function of the fractional loss in an infinite granular portfolio; see [1] for a complete proof. Let us finally remark that evaluating
+   <math display="inline">
+    H_t
+   </math>
+   and
+   <math display="inline">
+    H_t^{-1}
+   </math>
+   requires numerical routines for most choices of
+   <math display="inline">
+    X_1 \sim H_1.
+   </math>
+  </p>
+  <h4>
+   The Model of Willemann
+  </h4>
+  <p block-type="Text">
+   The starting point for Willemann [32] is the univariate jump-diffusion model of Zhou [34]. This model assumes a discontinuous firm-value process of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dV_t = V_t((\gamma - \lambda \nu)dt + \sigma dW_t + (\Pi - 1)dN_t),
+   </math>
+   <br/>
+   <math display="block">
+    V_0 &gt; 0
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    N_t
+   </math>
+   is a Poisson process with intensity
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   and the jumps
+   <math display="inline">
+    \Pi
+   </math>
+   are log-normally distributed with
+  </p>
+  <p block-type="TextInlineMath">
+   expected jump size
+   <math display="inline">
+    \nu = \mathbb{E}[\Pi - 1]
+   </math>
+   . The advantage of supporting negative jumps on a univariate level is that default events are no longer predictable, which translates to positive short-term credit spreads. Willemann [32] incorporates dependence to the individual firm-value processes by the classical decomposition of each Brownian motion into a market factor and an idiosyncratic component. Moreover, it is assumed that all firm-value processes jump together, that is, all processes are driven by the same Poisson process
+   <math display="inline">
+    N_t
+   </math>
+   . Consequently, this construction allows for two layers of correlation: diffusion and jump correlation; the latter being the main innovation of this setup.
+  </p>
+  <p block-type="TextInlineMath">
+   The default threshold of firm
+   <i>
+    i
+   </i>
+   is set to
+   <math display="inline">
+    K_t^i =
+   </math>
+   <math display="inline">
+    e^{-\phi^{i}t}K_{0}^{i}
+   </math>
+   for some positive constants
+   <math display="inline">
+    \phi^{i}
+   </math>
+   and
+   <math display="inline">
+    K_{0}^{i}
+   </math>
+   . This declining form is chosen to increase short-term spreads, but might also imply that the fit to individual CDS gets worse with increase in time. To achieve semianalytical results for the portfolio-loss distribution, default is tested on a grid. The advantage of this simplification is that only the distribution of each firm-value process at the grid points is required, instead of functionals as
+   <math display="inline">
+    \inf_{s\in[0,t]} V_s
+   </math>
+   . Individual default probabilities up to time
+   <math display="inline">
+    t
+   </math>
+   can then be computed conditional on the number of jumps up to time
+   <math display="inline">
+    t
+   </math>
+   , which is a Poisson-distributed random variable. Since the specific choice of jump-size distribution is compatible to the Brownian motion of the model, this leads to an infinite sum of normally distributed random variables. Moreover, all default events are independent conditional on the market factor and the number of jumps. Hence, the portfolioloss distribution can be found by integrating out these common factors and using a recursion technique similar to [3, 16]. Willemann [32] demonstrates quite successfully how the model is simultaneously fitted (in seconds) to individual CDS spreads and the tranches of a CDO.
+  </p>
+  <h4>
+   A Remark on Asset and Default Correlation
+  </h4>
+  <p block-type="Text">
+   Modeling asset values as correlated stochastic processes introduces dependence to the resulting default times. Still, this relation is not trivial and deserves some caution, especially when it comes to estimating the model's asset-correlation parameter. We follow
+   <math display="inline">
+    [24]
+   </math>
+   in defining the default correlation of two firms (up to time
+   <math display="inline">
+    t
+   </math>
+   ) as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho_{t}^{D} := \text{Cor}(\mathbb{1}_{\{\tau^{1} \le t\}}, \mathbb{1}_{\{\tau^{2} \le t\}})\n
+   </math>
+   <math display="block">
+    \n= \frac{\mathbb{P}(P_{t}^{1}, P_{t}^{2}) - \mathbb{P}(P_{t}^{1}) \mathbb{P}(P_{t}^{2})}{\sqrt{\mathbb{P}(P_{t}^{1})(1 - \mathbb{P}(P_{t}^{1}))} \sqrt{\mathbb{P}(P_{t}^{2})(1 - \mathbb{P}(P_{t}^{2}))}}\n
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    P_t^i := \{\tau^i \le t\}, i \in \{1, 2\}.
+   </math>
+   Most structuraldefault models share the commanality that evaluating
+   <math display="inline">
+    \mathbb{P}(P_t^1, P_t^2)
+   </math>
+   , the probability of a joint default of both firms up to time
+   <math display="inline">
+    t
+   </math>
+   , is quite difficult; an exception being the case of two companies with Gaussian factors coupled as described in equation (3). This example is, therefore, used to illustrate the nonlinear relation of asset and default correlation. A joint default in this setup corresponds to a simultaneous drop of both factors
+   <math display="inline">
+    X^1
+   </math>
+   and
+   <math display="inline">
+    X^2
+   </math>
+   below their respective default threshold
+   <math display="inline">
+    K^i = \Phi^{-1}(p_t^i), i \in \{1, 2\}
+   </math>
+   . Since the vector
+   <math display="inline">
+    (X^1, X^2)
+   </math>
+   follows a two-dimensional normal distribution with mean vector
+   <math display="inline">
+    (0, 0)
+   </math>
+   and the assetcorrelation
+   <math display="inline">
+    \rho
+   </math>
+   as correlation parameter, we obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}(P_t^1, P_t^2) = \Phi_2(K^1, K^2; \rho) \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   which is used to produce Figure 1. This example illustrates that small asset correlations induce only a negligible default correlation.
+  </p>
+  <p>
+   <img src="_page_4_Figure_4.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Default correlation
+   <math display="inline">
+    \rho_t^D
+   </math>
+   as a function of asset correlation
+   <math display="inline">
+    \rho \in [0, 1]
+   </math>
+   , with
+   <math display="inline">
+    \mathbb{P}(P_t^1) = \mathbb{P}(P_t^1) = 0.05
+   </math>
+   and
+   <math display="inline">
+    t = 1
+   </math>
+  </p>
+  <p block-type="Text">
+   Being able to convert default to asset correlations (and
+   <i>
+    vice versa
+   </i>
+   ) opens the possibility of estimating the model's asset correlation using historical default correlations (and vice versa); see, for example, [14]. This approach is relevant since asset values are not directly observable, making an estimation of asset correlations delicate. It is an ongoing debate whether indirectly observed changes in asset values, computed from changes in the respective firm's equity, or observed defaults are the better source of data for the estimation of the model's correlation parameter. In both cases, pointing out the respective limitations is much simpler than providing theoretical evidence for the methodology. Empirically estimating default correlations (based on groups of firms with similar characteristics) requires a large set of observations, since corporate defaults are rare events. This makes the approach vulnerable to structural changes such as new bankruptcy rules. On the other hand, daily equity prices are readily available for most firms. When this latter source of data is used, the difficulty lies in transforming equity to asset returns, see, for example, [9], from which the correlation might be estimated. In addition, one should be aware that equity prices might change for reasons that are not related to credit risk.
+  </p>
+  <h2>
+   <b>
+    First-passage Time Models
+   </b>
+  </h2>
+  <p block-type="Text">
+   The starting point for most multivariate first passagetime models is equation (1). Compared to models in the spirit of the work by Merton [25], the time of default is now defined as suggested in
+   <math display="inline">
+    [7]
+   </math>
+   , that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau^{i} := \inf\{t \ge 0 : V^{i}_{t} \le d^{i}_{t}\}, \quad i \in \{1, \dots, n\} \quad (20)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    d_t^i
+   </math>
+   is the default threshold of firm
+   <i>
+    i
+   </i>
+   at time
+   <math display="inline">
+    t
+   </math>
+   . From a modeling perspective, this definition overcomes the unrealistic assumption of default being restricted to maturity. This observation is even more crucial in a portfolio environment when bonds with different maturities are monitored simultaneously. More precisely, a first-passage model naturally induces a dynamic model for the default correlation (since the firm-value processes evolve dynamically over time) and allows the computation of consistent default correlations over any time horizon.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   However, the main drawback of this model class is its computational intractability. This stems from
+  </p>
+  <p block-type="Text">
+   the fact that the joint distribution of the minimum of several firm-value processes is required, which is already a challenging problem for univariate marginals. The following section collects models where analytical results or numerical routines are available to overcome this problem.
+  </p>
+  <h3>
+   The Model of Zhou
+  </h3>
+  <p block-type="TextInlineMath">
+   Zhou studies [33] a portfolio of two firms whose asset-value processes are modeled as in equation (1) with correlated Brownian motions. The default thresholds are assumed to be exponential, that is,
+   <math display="inline">
+    d_t^i = e^{\lambda^i t} K^i
+   </math>
+   for
+   <math display="inline">
+    i \in \{1, 2\}
+   </math>
+   . The degree of dependence of both firms is measured in terms of their
+   <i>
+    default correlation
+   </i>
+   up to time
+   <i>
+    t
+   </i>
+   , that is, as
+   <math display="inline">
+    \text{Cor}(\mathbf{1}_{\{\tau^1 \le t\}}, \mathbf{1}_{\{\tau^2 \le t\}})
+   </math>
+   . The key observation is that results of Rebholz [28] can be applied to give an analytical representation of the default correlation in terms of an infinite sum of indefinite integrals over modified Bessel functions. Sensitivity analysis of the model parameters indicates that the model-induced default correlations for short maturities are close to zero. This observation needs to be considered when portfolio derivatives with short maturities are priced within such a framework.
+  </p>
+  <h3>
+   The Model of Giesecke
+  </h3>
+  <p block-type="Text">
+   Giesecke [13] considers a portfolio of
+   <math display="inline">
+    n
+   </math>
+   firms whose value processes evolve according to some vector-valued stochastic process
+   <math display="inline">
+    (V^1, \ldots, V^n)
+   </math>
+   , where default is again defined as in equation (20). The key innovation is to replace the vector of default thresholds by an initially unobservable random vector
+   <math display="inline">
+    (d^1,\ldots,d^n)
+   </math>
+   whose dependence structure is represented by some copula. It is shown that the modelinduced copula of default times is a function of the copula of default thresholds and the copula of the vector of historical lows of the firm-value processes.
+  </p>
+  <p block-type="Text">
+   On a univariate level, the assumption of an unobservable random threshold overcomes the predictability of individual defaults, which is responsible for vanishing credit spreads for short maturities; see [10] for a related model. Short-term spreads [13] are positive as long as the respective firm-value process is close to its historical low. The consequence of this construction on a portfolio level is also remarkable. Observing a corporate default
+   <math display="inline">
+    \tau^i
+   </math>
+   reveals the respective default threshold
+   <math display="inline">
+    d^i
+   </math>
+   to all investors. This
+  </p>
+  <p block-type="Text">
+   piece of information allows to update the knowledge on all other default thresholds, leading to contagious jumps in credit spreads of the remaining firms. Giesecke [13] also presents an explicit example of two firms with independent value processes modeled as geometric Brownian motions and default thresholds coupled via a Clayton copula. While this simplified example illustrates the desired contagion effect of the model, it also highlights the challenge of finding analytic results in a realistic framework.
+  </p>
+  <h4>
+   Models Relying on Monte Carlo Simulations
+  </h4>
+  <p block-type="Text">
+   This section briefly presents two first-passage time models that rely on Monte Carlo simulations for the pricing of CDOs.
+  </p>
+  <p block-type="Text">
+   The
+   <math display="inline">
+    n
+   </math>
+   firm-value processes [15] are defined as in equation (1): the model can therefore be considered as a generalization of Zhou's [33] bivariate model to larger portfolios. The default thresholds are rewritten in terms of the driving Brownian motions. Asset correlation is introduced by
+   <math display="inline">
+    n_F
+   </math>
+   risk factors, that is, the Brownian motion of firm
+   <math display="inline">
+    i
+   </math>
+   is replaced by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dW_t^i := \sum_{j=1}^{n_F} \alpha_{i,j} dF_t^j + (1 - \sum_{j=1}^{n_F} \alpha_{i,j}^2)^{\tfrac{1}{2}} dU_t^i,
+   </math>
+   <br/>
+   <math display="block">
+    i \in \{1, \dots, n\}
+   </math>
+   (21)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \alpha_{i,j}
+   </math>
+   is the sensitivity of firm
+   <i>
+    i
+   </i>
+   to changes of the risk factor
+   <math display="inline">
+    F^{j}
+   </math>
+   and
+   <math display="inline">
+    U^{i}
+   </math>
+   is the idiosyncratic risk of this firm. All processes
+   <math display="inline">
+    F^j
+   </math>
+   and
+   <math display="inline">
+    U^i
+   </math>
+   are independent Brownian motions. Hull et al. [15] also consider extensions to stochastic correlations, stochastic recovery rates, and stochastic volatilities and compare these in terms of their fitting capability to CDO tranches. An interesting conclusion that also applies to similar first-passage time models is drawn when the model is compared to a copula model. It is argued that the default environment in a copula model is static for the whole life of the model, while the dynamic nature of equation (21) allows to have bad default environments in one year, followed by good environments later. Hence, the use of one or more common risk factors implies a sound economic model for cyclical correlation.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Kiesel and Scherer [18] present another multivariate extension of the work by Zhou [34]. They model the firm-value process of the company
+   <math display="inline">
+    i
+   </math>
+   as
+  </p>
+  <p block-type="Text">
+   the exponential of a jump-diffusion process with twosided exponentially distributed jumps
+   <math display="inline">
+    Y_{ij}
+   </math>
+   , that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t^i = V_0^i \exp(X_t^i),
+   </math>
+   <br/>
+   <math display="block">
+    X_t^i = \gamma^i t + \sigma^i W_t^i + \sum_{j=1}^{N_t(b^i)} Y_{ij}, \quad V_0^i &gt; 0 \quad (22)
+   </math>
+  </p>
+  <p block-type="Text">
+   where the Brownian motions of different firms are again correlated
+   <i>
+    via
+   </i>
+   a factor decomposition. The novelty in their approach is the use of a Poisson process
+   <math display="inline">
+    N_t
+   </math>
+   as ticker for jumps in the market that is thinned-out with probability
+   <math display="inline">
+    (1-b^i)
+   </math>
+   to induce jumps in
+   <math display="inline">
+    V^i
+   </math>
+   . Consequently, some but not necessarily all firms jump (and possibly default) together. As a result of common jumps, the model allows for default clusters that extend the cyclical correlation induced by common continuous factors. For this choice of jump distribution, the marginals of the model can be calibrated to CDS quotes using the Laplace transform of first-passage times of
+   <math display="inline">
+    X^i
+   </math>
+   , which is derived in [19]. The multivariate model is solved via a Brownianbridge Monte Carlo simulation in the spirit of the work by Metwally and Atiya [26].
+  </p>
+  <h2>
+   Conclusion
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Structural-default models allow for an appealing interpretation of corporate default: companies operate as long as they have sufficient assets. A clear economic interpretation also holds for the way dependence is introduced to a portfolio of companies: comovements of the firm-value processes might be seen as the result of common risk factors, to which economic interpretations might also apply. This rationale can also be used to empirically estimate the correlation structure of the model from market data. Summarizing, the dependence structure and univariate marginals are simultaneously explained. Moreover, since each company is modeled explicitly, called
+   <i>
+    bottom-up approach
+   </i>
+   , it is also possible to price portfolio derivatives and individual risk consistently; a major advantage over
+   <i>
+    top-down models
+   </i>
+   that purely focus on the portfolio-loss process. In addition, the current asset level might be mapped to some credit rating, implying a dynamic model of rating changes including default. Finally, the dynamic nature of the modeled firm-value processes translates to a dynamic model for the default correlation and
+  </p>
+  <p block-type="Text">
+   the portfolio-loss process; a desired property in riskmanagement solutions and for the pricing of (exotic) credit-portfolio derivatives.
+  </p>
+  <p block-type="Text">
+   The downside of multivariate structural-default models lies in the difficulty of translating the model to analytical formulas for default correlations and the portfolio-loss distribution. This becomes especially apparent when the simplifying assumption in [31] and its generalizations are reconsidered; the bottomup nature of structural-default models is entirely given up in order to compute the portfolio-loss distribution in closed form. The price to pay for a more realistic framework typically is a Monte Carlo simulation. However, if such a simulation is efficiently implemented, a realistic dynamic model for a portfolio of credit-risky assets is available.
+  </p>
+  <h4>
+   Acknowledgments
+  </h4>
+  <p block-type="Text">
+   Research support by Daniela Neykova, Technische Universität München, is gratefully acknowledged.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      [1]
+     </math>
+     Albrecher, H., Ladoucette, S. &amp; Schoutens, W. (2007). A generic one-factor Lévy model for pricing synthetic CDOs, in Advances in Mathematical Finance, M.C. Fu. R.A. Jarrow, J.J. Yen &amp; R.J. Elliott, eds, Birkhaeuser.
+    </li>
+    <li block-type="ListItem">
+     [2] Altman, E., Resti, A. &amp; Sironi, A. (2004). Default recovery rates in credit risk modeling: a review of the literature and empirical evidence,
+     <i>
+      Economic Notes
+     </i>
+     <b>
+      33
+     </b>
+     (2), 183-208.
+    </li>
+    <li block-type="ListItem">
+     Andersen, L. &amp; Sidenius, J. (2004). Extensions of the [3] Gaussian copula: random recovery and random factor loadings, Journal of Credit Risk 1(1), 29-70.
+    </li>
+    <li block-type="ListItem">
+     Basel Committee on Banking Supervision (2004). Inter-[4] national Convergence of Capital Measurement and Capital Standards-A Revised Framework, retrieved from http://www.bis.org/publ/bcbs107.pdf.
+    </li>
+    <li block-type="ListItem">
+     [5] Basel Committee on Banking Supervision (2005). An Explanatory Note on the Basel II IRB Risk Weight Functions, retrieved from http://www.bis.org/bcbs/irbriskweight.pdf.
+    </li>
+    <li block-type="ListItem">
+     Baxter, M. (2006).
+     <i>
+      Dynamic Modelling of Single-name
+     </i>
+     [6] Credits and CDO Tranches. Working paper, Nomura Fixed Income Quant Group.
+    </li>
+    <li block-type="ListItem">
+     Black, F. &amp; Cox, J. (1976). Valuing corporate securities: [7] some effects of bond indenture provisions, Journal of Finance 31(2), 351-367.
+    </li>
+    <li block-type="ListItem">
+     [8] Cont, R. &amp; Tankov, P. (2004). Financial Modelling with Jump Processes, Financial Mathematics Series, Chapman and Hall/CRC.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    8 Structural Default Risk Models
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [9] Crosbie, P. &amp; Bohn, J.
+     <i>
+      Modeling Default Risk
+     </i>
+     , KMV Corporation, retrieved from http://www.moodyskmv. com/research/files/wp/ModelingDefaultRisk.pdf.
+    </li>
+    <li block-type="ListItem">
+     [10] Duffie, D. &amp; Lando, D. (2001). The term structure of credit spreads with incomplete accounting information,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      69
+     </b>
+     , 633–664.
+    </li>
+    <li block-type="ListItem">
+     [11] Frye, J. (2000). Depressing recoveries,
+     <i>
+      Risk
+     </i>
+     <b>
+      13
+     </b>
+     (11), 106–111.
+    </li>
+    <li block-type="ListItem">
+     [12] Geske, R. (1977). The valuation of corporate liabilities as compound options,
+     <i>
+      Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      12
+     </b>
+     (4), 541–552.
+    </li>
+    <li block-type="ListItem">
+     [13] Giesecke, K. (2004). Correlated default with incomplete information,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      28
+     </b>
+     (7), 1521–1545.
+    </li>
+    <li block-type="ListItem">
+     [14] Gordy, M. (2000). A comparative anatomy of credit risk models,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      24
+     </b>
+     (1), 119–149.
+    </li>
+    <li block-type="ListItem">
+     [15] Hull, J., Predescu, M. &amp; White, A. (2005).
+     <i>
+      The Valuation of Correlation-dependent Credit Derivatives using a Structural Model
+     </i>
+     . Working paper, retrieved from http://www.rotman.utoronto.ca/hull/DownloadablePublications/StructuralModel.pdf
+    </li>
+    <li block-type="ListItem">
+     [16] Hull, J. &amp; White, A. (2004). Valuation of a CDO and an n-th to default CDS without a Monte Carlo simulation,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      12
+     </b>
+     (2), 8–23.
+    </li>
+    <li block-type="ListItem">
+     [17] Kalemanova, A., Schmid, B. &amp; Werner, R. (2007). The normal inverse Gaussian distribution for synthetic CDO pricing,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      14
+     </b>
+     (3), 80–93.
+    </li>
+    <li block-type="ListItem">
+     [18] Kiesel, R. &amp; Scherer, M. (2007).
+     <i>
+      Dynamic Credit Portfolio Modelling in Structural Models with Jumps
+     </i>
+     . working paper, retrieved from http://www.uni-ulm.de/fileadmin/ website uni ulm/mawi.inst.050/ people/kiesel/publications/ Kiesel Scherer Dec07.pdf.
+    </li>
+    <li block-type="ListItem">
+     [19] Kou, S. &amp; Wang, H. (2003). First passage times of a jump diffusion process,
+     <i>
+      Advances in Applied Probability
+     </i>
+     <b>
+      35
+     </b>
+     , 504–531.
+    </li>
+    <li block-type="ListItem">
+     [20] Leland, H. (1994). Corporate debt value, bond covenants, and optimal capital structure,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      49
+     </b>
+     (4), 1213–1252.
+    </li>
+    <li block-type="ListItem">
+     [21] Leland, H. &amp; Toft, K. (1996). Optimal capital structure, endogenous bankruptcy, and the term structure of credit spreads,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      51
+     </b>
+     (3), 987–1019.
+    </li>
+    <li block-type="ListItem">
+     [22] Longstaff, F. &amp; Schwartz, E. (1995). A simple approach to valuing risky fixed and floating rate debt,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      50
+     </b>
+     (3), 789–819.
+    </li>
+    <li block-type="ListItem">
+     [23] Lopez, J. (2004). The empirical relationship between average asset correlation, firm probability of default, and asset size,
+     <i>
+      Journal of Financial Intermediation
+     </i>
+     <b>
+      13
+     </b>
+     (2), 265–283.
+    </li>
+    <li block-type="ListItem">
+     [24] Lucas, D. (1995). Default correlation and credit analysis,
+     <i>
+      Journal of Fixed Income
+     </i>
+     <b>
+      4
+     </b>
+     (4), 76–87.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [25] Merton, R. (1974). On the pricing of corporate debt: the risk structure of interest rates,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      29
+     </b>
+     , 449–470. Reprinted as Chapter 12 in Merton, R. (1990)
+     <i>
+      Continuous-time Finance
+     </i>
+     , Blackwell.
+    </li>
+    <li block-type="ListItem">
+     [26] Metwally, S. &amp; Atiya, A. (2002). Using Brownian bridge for fast simulation of jump-diffusion processes and barrier options,
+     <i>
+      The Journal of Derivatives
+     </i>
+     <b>
+      10
+     </b>
+     (1), 43–54.
+    </li>
+    <li block-type="ListItem">
+     [27] Moosbrucker, T. (2006).
+     <i>
+      Pricing CDOs with Correlated Variance Gamma Distributions
+     </i>
+     . Research report, Department of Banking, University of Cologne.
+    </li>
+    <li block-type="ListItem">
+     [28] Rebholz, J. (1994).
+     <i>
+      Planar Diffusions with Applications to Mathematical Finance
+     </i>
+     , PhD thesis, University of California, Berkeley.
+    </li>
+    <li block-type="ListItem">
+     [29] Schonbucher, P. (2003). ¨
+     <i>
+      Credit Derivatives Pricing Models: Models, Pricing, Implementation
+     </i>
+     , Wiley Finance.
+    </li>
+    <li block-type="ListItem">
+     [30] Thomas, H. &amp; Wang, Z. (2005). Interpreting the internal ratings-based capital requirements in Basel II,
+     <i>
+      Journal of Banking Regulation
+     </i>
+     <b>
+      6
+     </b>
+     , 274–289.
+    </li>
+    <li block-type="ListItem">
+     [31] Vasicek, O. (1987).
+     <i>
+      Probability of Loss on Loan Portfolio
+     </i>
+     , KMV Corporation, retrieved from http://www.moodyskmv.com/research/whitepaper/Probability of Loss on Loan Portfolio.pdf
+    </li>
+    <li block-type="ListItem">
+     [32] Willemann, S. (2007). Fitting the CDO correlation skew: a tractable structural jump-diffusion model,
+     <i>
+      The Journal of Credit Risk
+     </i>
+     <b>
+      3
+     </b>
+     (1), 63–90.
+    </li>
+    <li block-type="ListItem">
+     [33] Zhou, C. (2001). An analysis of default correlations and multiple defaults,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      14
+     </b>
+     , 555–576.
+    </li>
+    <li block-type="ListItem">
+     [34] Zhou, C. (2001). The term structure of credit spreads with jump risk,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      25
+     </b>
+     , 2015–2040.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Lipton, A. (2002). Assets with jumps,
+   <i>
+    Risk
+   </i>
+   <b>
+    15
+   </b>
+   (9), 149–153.
+  </p>
+  <p block-type="Text">
+   Lipton, A. &amp; Sepp, A. (2009). Credit value adjustment for credit default swaps via the structural default model,
+   <i>
+    The Journal of Credit Risk
+   </i>
+   <b>
+    5
+   </b>
+   (2), 125.
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Default Barrier Models
+   </b>
+   ;
+   <b>
+    Modeling Correlation of Structured Instruments in a Portfolio Setting
+   </b>
+   ;
+   <b>
+    Gaussian Copula Model
+   </b>
+   ;
+   <b>
+    Internal-ratings-based Approach
+   </b>
+   ;
+   <b>
+    Reduced Form Credit Risk Models
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   RUDIGER ¨ KIESEL &amp; MATTHIAS A. SCHERER
+  </p>
+ </body>
+</html>

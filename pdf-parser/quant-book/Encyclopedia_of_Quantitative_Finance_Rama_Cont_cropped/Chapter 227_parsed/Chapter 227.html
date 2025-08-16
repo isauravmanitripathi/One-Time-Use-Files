@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Forward and Swap
+   </b>
+   Measures
+  </h1>
+  <p block-type="Text">
+   Forward and swap measures are instances of general numeraire measures and are useful in interest-rate modeling and derivatives valuation. They take a zero-coupon bond and an annuity as the numeraire, respectively. Accordingly, the forward price of any asset and the instantaneous and Libor forward rates are martingales under the forward measure. Likewise, the forward swap rate is a martingale under the swap measure.
+  </p>
+  <p block-type="Text">
+   Assuming deterministic forward Libor or swap rate volatility leads to industry-standard Black-Scholes type pricing formulae for caplets and swaptions, respectively. The forward measure has other interesting applications in option pricing and in the Libor market model.
+  </p>
+  <p block-type="Text">
+   The forward measure was implicit in Merton's [7] extension of the Black-Scholes model to stochastic interest rates. Early development and application of the concept appeared in [4] and [2]. The swap measure was discussed heuristically in [8] and formalized in [5]. Forward and swap measures are instances of the change of numeraire, as described heuristically in [6] and formalized in [3].
+  </p>
+  <h4>
+   <b>
+    Numeraire Measures
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   We take as given a stochastic basis
+   <math display="inline">
+    (\Omega, \mathcal{F}, (\mathcal{F}_t)_{t&gt;0}, \mathbb{P})
+   </math>
+   and a family
+   <math display="inline">
+    (A^i)_{i \in I}
+   </math>
+   of semimartingales. Each
+   <math display="inline">
+    A^i
+   </math>
+   is viewed as the observable price process of a traded zero-dividend asset. We assume that this family is arbitrage free in that there exists a positive semimartingale
+   <math display="inline">
+    S = (S_t)
+   </math>
+   such that
+   <math display="inline">
+    S_- &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    S_0 = 1
+   </math>
+   , and
+   <math display="inline">
+    SA^{i}
+   </math>
+   is a martingale for every
+   <math display="inline">
+    i \in I
+   </math>
+   . Such a process
+   <math display="inline">
+    S
+   </math>
+   is called a
+   <i>
+    state price density
+   </i>
+   (or sometimes a state price deflator, cf. Duffie [1]), and we fix one such process.(In a complete market, it is unique.)
+  </p>
+  <p block-type="TextInlineMath">
+   For our purposes here, we define an
+   <i>
+    asset
+   </i>
+   as a semimartingale
+   <math display="inline">
+    C
+   </math>
+   such that there exist a finite subset
+   <math display="inline">
+    J \subset I
+   </math>
+   and bounded predictable processes
+   <math display="inline">
+    \delta^j
+   </math>
+   satisfying
+   <math display="inline">
+    C = \sum_{j \in J} \delta^j A^j
+   </math>
+   and
+   <math display="inline">
+    dC = \sum_{j \in J} \delta^j dA^j
+   </math>
+   . As such, an asset is the price process of a dynamic self-financing portfolio, for example, a (static) linear combination of
+   <math display="inline">
+    A^i
+   </math>
+   . The
+   <math display="inline">
+    \delta^j
+   </math>
+   are called the
+   <i>
+    deltas
+   </i>
+   or the
+   <i>
+    hedge ratios
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   It can be shown that
+   <math display="inline">
+    SC
+   </math>
+   is a martingale for any asset C. This implies the law of one price: if two assets have almost surely the same prices at some time
+   <math display="inline">
+    T
+   </math>
+   , then they will have identical prices at all times
+   <math display="inline">
+    t &lt; T
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    N
+   </math>
+   be a
+   <i>
+    numeraire
+   </i>
+   , that is, a positive asset. For each
+   <math display="inline">
+    T &gt; 0
+   </math>
+   define the measure
+   <math display="inline">
+    \mathbb{P}^{\bar{N},T}
+   </math>
+   on
+   <math display="inline">
+    \mathcal{F}_T
+   </math>
+   via its Radon-Nikodym derivative by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\mathbb{P}^{N,T}}{\mathrm{d}\mathbb{P}} = \frac{S_T N_T}{N_0} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This is an equivalent probability measure and is called the associated
+   <i>
+    equivalent martingale measure
+   </i>
+   or numeraire measure. Since
+   <math display="inline">
+    SN
+   </math>
+   is a martingale, for any
+   <math display="inline">
+    s &lt; T
+   </math>
+   , the restriction of
+   <math display="inline">
+    \mathbb{P}^{N,T}
+   </math>
+   to
+   <math display="inline">
+    \mathcal{F}_s
+   </math>
+   equals
+   <math display="inline">
+    \mathbb{P}^{N,s}
+   </math>
+   . (In an incomplete market,
+   <math display="inline">
+    \mathbb{P}^{N,T}
+   </math>
+   depends on the choice of
+   <math display="inline">
+    S
+   </math>
+   .)
+  </p>
+  <p block-type="TextInlineMath">
+   By an easy and well-known consequence of the Bayes' rule, given a process
+   <math display="inline">
+    C
+   </math>
+   , the process
+   <math display="inline">
+    SC
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -martingale on [0, T] if and only if
+   <math display="inline">
+    C/N
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^{N,T}
+   </math>
+   martingale on
+   <math display="inline">
+    [0, T]
+   </math>
+   . In particular, this holds for all assets C, yielding for
+   <math display="inline">
+    t &lt; T
+   </math>
+   the pricing formula,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_t = N_t \mathbb{E}^{\mathbb{P}^{N,T}} \left[ \frac{C_T}{N_T} \mid \mathcal{F}_t \right] \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A useful technique is the
+   <i>
+    change of numeraire
+   </i>
+   . Suppose
+   <i>
+    B
+   </i>
+   is another numeraire and
+   <i>
+    M
+   </i>
+   is a
+   <math display="inline">
+    \mathbb{P}^{N,T}
+   </math>
+   martingale. Note that both
+   <math display="inline">
+    F := N/B
+   </math>
+   and
+   <math display="inline">
+    MF
+   </math>
+   are
+   <math display="inline">
+    \mathbb{P}^{B,T}
+   </math>
+   -martingales. Hence, using Itô's product rule,
+   <math display="inline">
+    \int F_{-}dM + [M, F]
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^{B,T}
+   </math>
+   -local martingale. (Here,
+   <math display="inline">
+    [M, F]
+   </math>
+   denotes the quadratic covariation of
+   <math display="inline">
+    M
+   </math>
+   and F.) Thus, dividing by
+   <math display="inline">
+    F_{-}
+   </math>
+   , so is
+   <math display="inline">
+    M + \int d[M, F]/F_{-}
+   </math>
+   . In particular, if F is continuous, then the
+   <math display="inline">
+    \mathbb{P}^{B,T}
+   </math>
+   -drift of M equals
+   <math display="inline">
+    -d[M, \log F]
+   </math>
+   .
+  </p>
+  <h2>
+   The Forward Measure
+  </h2>
+  <p block-type="TextInlineMath">
+   For a fixed maturity
+   <math display="inline">
+    T
+   </math>
+   , let us assume there exists an asset
+   <math display="inline">
+    P^T
+   </math>
+   such that
+   <math display="inline">
+    P_T^T = 1
+   </math>
+   . Such an asset, called the T-maturity zero-coupon bond, is necessarily positive and unique on
+   <math display="inline">
+    [0, T]
+   </math>
+   by the law of one price. Its associated numeraire measure on
+   <math display="inline">
+    \mathcal{F}_T
+   </math>
+   is called the
+   <i>
+    T
+   </i>
+   -forward measure and denoted
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   . Its expectation operator is denoted
+   <math display="inline">
+    \mathbb{E}^T
+   </math>
+   . Since
+   <math display="inline">
+    P_T^T = 1
+   </math>
+   , by equation
+   <math display="inline">
+    (1)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\mathbb{P}^T}{\mathrm{d}\mathbb{P}} = \frac{S_T}{P_0^T} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   By equation (2), the
+   <i>
+    T
+   </i>
+   -forward price
+   <math display="inline">
+    C/P^T
+   </math>
+   of any asset C is a
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   -martingale on [0, T] and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_t = P_t^T \mathbb{E}^T [C_T \mid \mathcal{F}_t] \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   The price of a European thus equals the discounted expected value of its payoff.
+  </p>
+  <p block-type="TextInlineMath">
+   Another important property is that
+   <i>
+    forward interest
+   </i>
+   rates are martingales under the forward measure. The simple (or Libor)
+   <i>
+    T
+   </i>
+   -forward rate
+   <math display="inline">
+    L^{T,\varepsilon}
+   </math>
+   of length
+   <math display="inline">
+    \varepsilon &gt; 0
+   </math>
+   is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_t^{T,\varepsilon} := \frac{P_t^{T-\varepsilon} - P_t^T}{\varepsilon P_t^T} \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Assuming that
+   <math display="inline">
+    P^{T-\varepsilon}
+   </math>
+   is an asset,
+   <math display="inline">
+    P^{T-\varepsilon}/P^{T}
+   </math>
+   , and with it.
+   <math display="inline">
+    L^{T,\varepsilon}
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   -martingale.
+  </p>
+  <p block-type="TextInlineMath">
+   As
+   <math display="inline">
+    \varepsilon
+   </math>
+   approaches zero,
+   <math display="inline">
+    L_t^{T,\varepsilon}
+   </math>
+   approaches the instantaneous forward rate
+   <math display="inline">
+    f_t^T
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_t^T := -\frac{\partial \log(P_t^T)}{\partial T} \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   As such, in the limit, the instantaneous forward rate process
+   <math display="inline">
+    f^T
+   </math>
+   is also a
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   -martingale.
+  </p>
+  <h3>
+   <b>
+    Option Pricing and Hedging
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   Consider a
+   <math display="inline">
+    T
+   </math>
+   -expiry option on an asset
+   <math display="inline">
+    A
+   </math>
+   (e.g. a stock or a bond) with time T-payoff
+   <math display="inline">
+    g(A_T)
+   </math>
+   , where
+   <math display="inline">
+    g(x)
+   </math>
+   is a Borel function of linear growth. For example,
+   <math display="inline">
+    g(x) = \max(x - K, 0)
+   </math>
+   for a call option struck at K. We wish to construct an asset C satisfying
+   <math display="inline">
+    C_T =
+   </math>
+   <math display="inline">
+    g(A_T)
+   </math>
+   . From equation (4), we know that the only possible candidate is
+   <math display="inline">
+    C = P^T F
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_t := \mathbb{E}^T[g(A_T) \,|\, \mathcal{F}_t] \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This works if we assume the process
+   <math display="inline">
+    X := A/P^{T}
+   </math>
+   is continuous and
+   <math display="inline">
+    F_t = f(t, X_t)
+   </math>
+   for some
+   <math display="inline">
+    C^{1,2}
+   </math>
+   function
+   <math display="inline">
+    f(t, x)
+   </math>
+   . The desired deltas (hedge ratios) are then simply given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_t^A := \frac{\partial f}{\partial x}(X_t, t), \quad \delta^P := F - \delta^A X \qquad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Indeed,
+   <math display="inline">
+    C := P^T F = \delta^A A + \delta^P P^T
+   </math>
+   obviously. Moreover, since both X and F are
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   -martingales, Itô's formula implies
+   <math display="inline">
+    dF = \delta^A dX
+   </math>
+   . An application of Itô's product rule known as the
+   <i>
+    numeraire-invariance theorem
+   </i>
+   cf. [1]), then shows that
+   <math display="inline">
+    dC = \delta^A dA + \delta^P dP^T
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The above Markovian assumption that
+   <math display="inline">
+    F_t =
+   </math>
+   <math display="inline">
+    f(t, X_t)
+   </math>
+   for some function
+   <math display="inline">
+    f(t, x)
+   </math>
+   is generally satisfied when
+   <math display="inline">
+    X
+   </math>
+   is a positive diffusion, specifically when
+   <math display="inline">
+    d[X]_t = X_t^2 \sigma^2(t, X_t) dt
+   </math>
+   for some positive continuous bounded function
+   <math display="inline">
+    \sigma(t, x)
+   </math>
+   . (Here [X] denotes the quadratic variation of
+   <math display="inline">
+    X
+   </math>
+   .) This is equivalent to
+   <math display="inline">
+    dX_t = X_t \sigma(t, X_t) dW_t
+   </math>
+   for some
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   -Brownian motion W. In this case,
+   <math display="inline">
+    f(t, x)
+   </math>
+   is basically obtained as
+   <math display="inline">
+    \mathbb{E}^T[g(X_T) | X_t = x]
+   </math>
+   . By Itô's formula,
+   <math display="inline">
+    f(t, x)
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f}{\partial t} + \frac{1}{2}x^2\sigma^2(t,x)\frac{\partial^2 f}{\partial x^2} = 0 \qquad (f(x,T) = g(x))
+   </math>
+   (9)
+  </p>
+  <h2>
+   <b>
+    Closed-form Solutions
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   The classical case assumes as in
+   <math display="inline">
+    [7]
+   </math>
+   that the forward price volatility
+   <math display="inline">
+    \sigma(t, X_t)
+   </math>
+   is deterministic, that is, independent of X. Then X is a
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   log-Gaussian martingale, and hence conditioned on time t,
+   <math display="inline">
+    X_T =
+   </math>
+   <math display="inline">
+    A_T
+   </math>
+   is
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   -lognormally distributed with mean
+   <math display="inline">
+    X_t
+   </math>
+   and log-variance
+   <math display="inline">
+    \int_{t}^{T} \sigma^{2}(s) ds
+   </math>
+   . As such, for, say, a call option with payoff function
+   <math display="inline">
+    g(x) = \max(x - K, 0)
+   </math>
+   , equation
+   <math display="inline">
+    (7)
+   </math>
+   readily yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(t) = K P_t^T \mathbf{C}_{\mathbf{BS}} \left( \frac{A_t}{P_t^T K}, \int_t^T \sigma^2(t) \, \mathrm{d}t \right) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   where, denoting the standard normal distribution function by
+   <math display="inline">
+    N(\cdot)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_{\text{BS}}(x,v) := xN \left( \frac{\log(x)}{\sqrt{v}} + \frac{\sqrt{v}}{2} \right)
+   </math>
+   <math display="block">
+    - N \left( \frac{\log(x)}{\sqrt{v}} - \frac{\sqrt{v}}{2} \right) \quad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Specific examples are the Vasicek or more general Gaussian interest-rate models (see Gaussian Interest-Rate Models) where the deterministic (forward) zero-coupon bond price volatilities are determined endogenously in terms of mean reversion and other model parameters. For zero-coupon bond options, equation (7) can be computed in the
+   <math display="inline">
+    Cox
+   </math>
+   -Ingersoll-Ross model (see Cox-Ingersoll-Ross (CIR) Model) and the quadratic Gaussian model (see Quadratic Gaussian Models) in terms of the noncentral chi-squared distribution function. This is derived by showing that the spot interest rate
+   <math display="inline">
+    r_T :=
+   </math>
+   <math display="inline">
+    f_T^T
+   </math>
+   is noncentral chi-squared distributed under the forward measure
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   (e.g., [4]).
+  </p>
+  <h2>
+   <b>
+    Cap Pricing
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   A cap is a portfolio of consecutive caplets, and a caplet of maturity T, length
+   <math display="inline">
+    \varepsilon
+   </math>
+   , and strike rate K is an option with payoff
+   <math display="inline">
+    \varepsilon \max(L_{T-\varepsilon}^{T,\varepsilon}-K,0)
+   </math>
+   at time T. A caplet is actually equivalent to a zero-coupon bond put option, so a bond option model as in the previous section is applicable. However, more directly, by the pricing formula given by equation
+   <math display="inline">
+    (4)
+   </math>
+   the caplet price
+   <math display="inline">
+    C_t
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_{t} = \varepsilon P_{t}^{T} \mathbb{E}^{T} [\max(L_{T-\varepsilon}^{T,\varepsilon} - K, 0) | \mathcal{F}_{t}]
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   By the section The Forward Measure, the forward Libor process
+   <math display="inline">
+    L^{T,\varepsilon}
+   </math>
+   is a martingale under the forward measure
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   . Hence, if its volatility
+   <math display="inline">
+    \sigma(t)
+   </math>
+   is deterministic, it is log-Gaussian and we get, as in, the section Closed-form Solutions,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_{t} = \varepsilon K P_{t}^{T} \mathbf{C}_{\mathbf{BS}} \left( \frac{L_{t}^{T,\varepsilon}}{K}, \int_{t}^{T} \sigma^{2}(t) \, \mathrm{d}t \right) \tag{13}
+   </math>
+  </p>
+  <h2>
+   The Forward Measure by Changing the
+   <b>
+    Risk-neutral Measure
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    r_t := f_t^t
+   </math>
+   denote the spot interest rate. One often starts with the "money market" asset
+   <math display="inline">
+    \exp(\int_0^{\cdot} r_t dt)
+   </math>
+   as the numeraire and uses its equivalent martingale measure, often called the risk-neutral measure and denoted by
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   . Accordingly,
+   <math display="inline">
+    \exp(-\int_0^t r_t dt)C
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   martingale for any asset
+   <math display="inline">
+    C
+   </math>
+   . One can then change the numeraire to the T-maturity bond
+   <math display="inline">
+    P^T
+   </math>
+   and obtain the
+   <math display="inline">
+    T
+   </math>
+   -forward measure
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   by the formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{d\mathbb{P}^T}{d\mathbb{Q}} = \frac{1}{P_0^T} \exp\left(-\int_0^T r_t \, \mathrm{d}t\right) \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Since the forward rate process
+   <math display="inline">
+    f^T
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   martingale, it follows from the section Numeraire Measures that when
+   <math display="inline">
+    P^T
+   </math>
+   is continuous, the
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -drift of
+   <math display="inline">
+    f^T
+   </math>
+   equals
+   <math display="inline">
+    -\mathrm{d}[\log P^T, f^T]
+   </math>
+   .
+  </p>
+  <h2>
+   Libor Market Model SDE in the Forward Measure
+  </h2>
+  <p block-type="TextInlineMath">
+   Consider a sequence of dates
+   <math display="inline">
+    0 &lt; T_1 \cdots &lt; T_{n+1}
+   </math>
+   , for example, equidistant semiannually. Given "daycount fractions"
+   <math display="inline">
+    \varepsilon_i \approx T_{i+1} - T_i
+   </math>
+   , the forward Libor rates
+   <math display="inline">
+    L_t^i
+   </math>
+  </p>
+  <p block-type="Text">
+   are defined as in the section The Forward Measure by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varepsilon_i L_t^i = \frac{P_t^{I_i}}{P_t^{T_{i+1}}} - 1 \qquad (t \le T_i, \ i = 1, \dots, n) \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Evidently,
+   <math display="inline">
+    L^i
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^{T_{i+1}}
+   </math>
+   -martingale on [0,
+   <math display="inline">
+    T_i
+   </math>
+   ].
+  </p>
+  <p block-type="TextInlineMath">
+   In some applications such as valuation by Monte Carlo simulation, it is necessary to determine the dynamics of all the forward Libor processes
+   <math display="inline">
+    L^i
+   </math>
+   under the same measure. One appropriate measure is the spot-Libor measure, a simple-compounding analog of the risk-neutral measure that takes as numeraire a "rolling zero-coupon bond" (cf. [5]). Another convenient measure is the terminal measure, that is, the
+   <math display="inline">
+    T_{n+1}
+   </math>
+   -forward measure
+   <math display="inline">
+    \mathbb{P}^{T_{n+1}}
+   </math>
+   . Let
+   <math display="inline">
+    W^1, \ldots, W^n
+   </math>
+   be
+   <math display="inline">
+    \mathbb{P}^{T_{n+1}}
+   </math>
+   -Brownian motions with correlations
+   <math display="inline">
+    \rho^{ij}
+   </math>
+   , that is,
+   <math display="inline">
+    d[W^i, W^j]_t = \rho^{ij}_t dt
+   </math>
+   . Assume
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}L_t^i = \mu_t^i \,\mathrm{d}t + \sigma_t^i \,\mathrm{d}W_t^i \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some predictable processes
+   <math display="inline">
+    \mu^i
+   </math>
+   and
+   <math display="inline">
+    \sigma^i
+   </math>
+   . For example, in the deterministic-volatility Libor market model,
+   <math display="inline">
+    \sigma_t^i = \sigma_i(t) L_t^i
+   </math>
+   for some deterministic functions
+   <math display="inline">
+    \sigma_i(t)
+   </math>
+   . Since
+   <math display="inline">
+    L^i
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^{T_{i+1}}
+   </math>
+   -martingale, it follows from the section Numeraire Measures that
+   <math display="inline">
+    \mu^i dt =
+   </math>
+   <math display="inline">
+    -\mathrm{d}[L^i,\log F]
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F := \frac{P^{T_{i+1}}}{P^{T_{n+1}}} = \prod_{j=i+1}^{n} (1 + \varepsilon_j L^j) \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   Therefore, the drift of the forward Libor rate in the terminal measure is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu^{i} dt = -\sum_{j=i+1}^{n} \frac{\varepsilon_{j} d[L^{i}, L^{j}]}{1 + \varepsilon_{j} L^{j}}
+   </math>
+   <math display="block">
+    = -\sum_{j=i+1}^{n} \frac{\varepsilon_{j} \sigma^{i} \sigma^{j} \rho^{ij}}{1 + \varepsilon_{j} L^{j}} dt \qquad (18)
+   </math>
+  </p>
+  <h4>
+   <b>
+    The Swap Measure
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    T_i
+   </math>
+   and
+   <math display="inline">
+    \varepsilon_i
+   </math>
+   be as in the previous section. For each
+   <math display="inline">
+    1 \leq i \leq j
+   </math>
+   , the swap measure
+   <math display="inline">
+    \mathbb{P}^{ij}
+   </math>
+   is defined on
+   <math display="inline">
+    \mathcal{F}_{T_{i+1}}
+   </math>
+   as the equivalent martingale measure associated with the annuity numeraire
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A^{ij} := \varepsilon_i P^{T_{i+1}} + \dots + \varepsilon_{j-1} P^{T_j} \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The forward swap rate
+   <math display="inline">
+    S_t^{ij}
+   </math>
+   with start date
+   <math display="inline">
+    T_i
+   </math>
+   and end date
+   <math display="inline">
+    T_i
+   </math>
+   is defined for
+   <math display="inline">
+    t \leq T_i
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t^{ij} := \frac{P_t^{T_i} - P_t^{T_j}}{A_t^{ij}} \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   It follows from the section Numeraire Measures that
+   <math display="inline">
+    S^{ij}
+   </math>
+   is a martingale under the swap measure
+   <math display="inline">
+    \mathbb{P}^{ij}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The main application of the swap measure is to European swaptions, that is, options to enter an interest-rate swap at a fixed strike rate. Specifically, a payer swaption with start date
+   <math display="inline">
+    T_i
+   </math>
+   , end date
+   <math display="inline">
+    T_i
+   </math>
+   , expiration
+   <math display="inline">
+    T \leq T_i
+   </math>
+   and strike rate K has the payoff
+   <math display="inline">
+    C_T
+   </math>
+   at time T given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_T = A_T^{ij} \max(S_T^{ij} - K, 0) \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (When
+   <math display="inline">
+    j = i + 1
+   </math>
+   , a payer swaption is just a caplet). Arguments similar to those in the section Option Pricing and Hedging show that the swaption is replicable under general diffusion assumptions, for example, when
+   <math display="inline">
+    S^{ij}
+   </math>
+   has deterministic volatility or, more generally, when it is a diffusion process under the swap measure
+   <math display="inline">
+    \mathbb{P}^{ij}
+   </math>
+   . The swaption price process C is then uniquely characterized by
+   <math display="inline">
+    C/A^{ij}
+   </math>
+   being a
+   <math display="inline">
+    \mathbb{P}^{ij}
+   </math>
+   martingale, implying by equation
+   <math display="inline">
+    (21)
+   </math>
+   that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_t = A_t^{ij} \mathbb{E}^{\mathbb{P}^{ij}} [\max(S_T^{ij} - K, 0) \mid \mathcal{F}_t] \qquad (22)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    S^{ij}
+   </math>
+   has a deterministic volatility
+   <math display="inline">
+    \sigma_{ij}(t)
+   </math>
+   (i.e.,
+   <math display="inline">
+    d[S^{ij}]_t = \sigma_{ii}^2(t)(S_t^{ij})^2 dt
+   </math>
+   , this yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_t = K A_t^{ij} C_{\text{BS}} \left( \frac{S_t^{ij}}{K}, \int_t^T \sigma_{ij}^2(t) \, \text{d}t \right) \tag{23}
+   </math>
+  </p>
+  <p block-type="Text">
+   The market uses this formula to quote swaptions, namely a constant volatility
+   <math display="inline">
+    \sigma_{ij}
+   </math>
+   is quoted from which one computes the swaption price by equation
+   <math display="inline">
+    (23)
+   </math>
+   . Receiver swaptions are treated similarly.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The valuation of Bermudan options is more complex. Here, the swaption can be exercised at any
+  </p>
+  <p block-type="TextInlineMath">
+   time
+   <math display="inline">
+    T_i, \ldots, T_{i-1}
+   </math>
+   . One approach, known as the coterminal swap market model, assumes that the forward swap rates
+   <math display="inline">
+    S^{ij}, \ldots, S^{j-1,j}
+   </math>
+   all have deterministic volatilities. According to equation (23), the model is then automatically calibrated to all the European swaptions with start dates
+   <math display="inline">
+    T_i, \ldots, T_{i-1}
+   </math>
+   and the same end date
+   <math display="inline">
+    T_i
+   </math>
+   , thus ruling out obvious arbitrage opportunities.
+  </p>
+  <p block-type="Text">
+   Constructs similar to the swap measure have been applied to credit default swaptions.
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Duffie, D. (2001). Dynamic Asset Pricing Theory, 3rd [1] Edition, Princeton University Press.
+    </li>
+    <li block-type="ListItem">
+     [2] Geman, H. (1989). The Importance of the Forward Neutral Probability in a Stochastic Approach of Interest Rates, ESSEC working paper.
+    </li>
+    <li block-type="ListItem">
+     [3] Geman, H., El-Karoui, N. &amp; Rochet, J.C. (1995). Change of numeraire, change of probability measure, and option pricing, Journal of Applied Probability 32, 443-458.
+    </li>
+    <li block-type="ListItem">
+     [4] Jamshidian, F. (1987). Pricing of Contingent Claims in the One-Factor Term Structure Model, working paper, appeared in Vasicek and Beyond, Risk Publications,
+     <math display="inline">
+      (1996).
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [5] Jamshidian, F. (1997). Libor and swap market model and measures. Finance and Stochastics 1, 293-330.
+    </li>
+    <li block-type="ListItem">
+     Margrabe, W. (1978). The value of an option to exchange [6] one asset for another, Journal of Finance 33, 177-186.
+    </li>
+    <li block-type="ListItem">
+     [7] Merton, R. (1973). Theory of rational option pricing,
+     <i>
+      Bell
+     </i>
+     Journal of Economics
+     <math display="inline">
+      4(1)
+     </math>
+     ,
+     <math display="inline">
+      141-183
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     [8] Neuberger, A. (1990). Pricing Swap Options Using the Forward Swap Market, IFA Preprint.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   Caps and Floors; Change of Numeraire; Exchange Options: Itô's Formula: LIBOR Market Model; LIBOR Rate; Martingales; Term Structure Models; Swap Market Models.
+  </p>
+  <p block-type="Text">
+   FARSHID JAMSHIDIAN
+  </p>
+ </body>
+</html>

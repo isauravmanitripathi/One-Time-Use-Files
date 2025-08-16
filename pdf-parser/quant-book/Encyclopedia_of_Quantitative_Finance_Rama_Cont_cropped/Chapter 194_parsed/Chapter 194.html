@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Credit Default Swap Index Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   Portfolio credit default swaps (CDSs) referencing indices such as CDX and iTraxx are the most liquid instruments in today's credit market and options on these have become mainstream. A CDS index option (also called a
+   <i>
+    portfolio swaption
+   </i>
+   ) is an option to enter into a portfolio swap as a protection buyer or a protection seller. A portfolio swap (also called a
+   <i>
+    CDS index swap
+   </i>
+   ) is similar to a portfolio of singlename CDS all with the same coupon (for details,
+   <i>
+    see
+   </i>
+   <b>
+    Credit Default Swap (CDS) Indices
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   Both portfolio swaps and swaptions are traded over the counter but are standardized. The conventions for how portfolio swaps are quoted and traded are important for properly valuing portfolio swaptions.
+  </p>
+  <p block-type="Text">
+   In this article, we outline the basic conventions and terminology for portfolio swaptions, explain the standard model used by most market participants, and briefly discuss other models and approaches.
+  </p>
+  <h3>
+   <b>
+    Conventions and Terminology
+   </b>
+  </h3>
+  <p block-type="Text">
+   A portfolio swaption is an option to enter into a portfolio swap as a protection buyer (payer swaption) or a protection seller (receiver swaption). The swaption is defined by the underlying portfolio swap, for example, 5-year CDX.IG.11, the expiration date, and the strike spread or strike price. For investment grade portfolios, it is a convention to specify a strike spread, whereas for high yield portfolios a strike price is usually specified. Trading is primarily in options on 5-year portfolio swaps. Option maturities are less than 1 year, with most liquidity in 1–3 months maturities. The standard option expiration dates are the 20th of each month.
+  </p>
+  <p block-type="Text">
+   The strike, whether it is specified as a spread or as a price, must be converted by a simple calculation to determine the cash amount to be exchanged between the swaption counterparties upon exercise. The calculation is easiest when a strike price is specified:
+  </p>
+  <p block-type="Equation">
+   Cash amount = Notional
+   <math display="block">
+    \cdot
+   </math>
+   (Strike price
+   <math>
+    -100\%
+   </math>
+   )
+  </p>
+  <p block-type="Equation">
+   − Accrued coupon
+   <i>
+    (
+   </i>
+   1
+   <i>
+    )
+   </i>
+  </p>
+  <p block-type="Text">
+   The cash amount is paid by the protection buyer. The accrued coupon enters the calculation because portfolio swaps, by convention trade with accrued coupon, similar to the way bonds trade with accrued interest. To simplify the exposition, we ignore accrued coupon in the remainder of the article.
+  </p>
+  <p block-type="Text">
+   When a strike spread is specified, the cash amount is calculated using the standard CDS valuation model, for example, as implemented in the Bloomberg CDSW screen:
+  </p>
+  <p block-type="Text">
+   Cash amount = Notional · PV01·
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    (
+   </i>
+   Strike spread − Coupon
+   <i>
+    ) (
+   </i>
+   2
+   <i>
+    )
+   </i>
+  </p>
+  <p block-type="Text">
+   The coupon is the fixed premium rate for the underlying portfolio swap. When valuing a portfolio swaption, it is important to respect the exact market convention for calculating the PV01 such as the flat spread curve convention (
+   <i>
+    see
+   </i>
+   <b>
+    Credit Default Swap (CDS) Indices
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   Another important market convention is that if the swaption is exercised, the option holder will buy or sell protection on all names in the portfolio including those that may have defaulted before option expiration.
+  </p>
+  <h2>
+   <b>
+    The Standard Model
+   </b>
+  </h2>
+  <p block-type="Text">
+   Now, suppose that
+   <i>
+    V
+   </i>
+   is the value at option expiration of owning protection on all names in the portfolio including those that have already defaulted. Option payoff at exercise is then
+  </p>
+  <p block-type="Text">
+   Payer swaption payoff at exercise
+  </p>
+  <p block-type="TextInlineMath">
+   = max{
+   <i>
+    V
+   </i>
+   − Cash amount
+   <i>
+    ,
+   </i>
+   0}
+  </p>
+  <p block-type="Text">
+   Receiver swaption payoff at exercise
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = \max\{\text{Cash amount} - V, 0\} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the cash amount is calculated from the strike price as in equation (1) or from the strike spread using a CDS valuation model as in equation (2). The cash amount is not affected by defaults. In fact, if a strike price is specified, the cash amount is known with certainty before option expiration. If a strike spread is specified, the only uncertainty about the cash amount derives from uncertainty about the interest rate curve. However, when pricing portfolio swaptions, it is standard to assume that forward rates are realized.
+  </p>
+  <p block-type="Text">
+   To price a swaption, we must specify a stochastic model for
+   <i>
+    V
+   </i>
+   . In addition to assuming that risk-neutral valuation is proper [1, 3], the standard model is based on two minimal assumptions that are clarified further:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. the spread of the underlying portfolio swap is lognormally distributed and
+    </li>
+    <li block-type="ListItem">
+     2. the model correctly prices a synthetic forward contract constructed by combining a long payer and a short receiver with the same strikes.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The standard model assumes that
+   <i>
+    V
+   </i>
+   is a function,
+   <i>
+    V (X)
+   </i>
+   , of a hypothetical spread:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X = E(X) \exp\left(-0.5\sigma^2 T + \sigma \text{ Normal}(0, T)\right) \quad (4)
+   </math>
+  </p>
+  <p block-type="Text">
+   where Normal(0
+   <i>
+    , T
+   </i>
+   ) is random normal variable with mean 0 and variance
+   <i>
+    T
+   </i>
+   (the time, in years, to option expiration), and
+   <i>
+    σ
+   </i>
+   is the free parameter that we interpret as the spread volatility.
+   <i>
+    E(X)
+   </i>
+   is the expected value of
+   <i>
+    X
+   </i>
+   . The function
+   <i>
+    V (X)
+   </i>
+   is the one found in equation (2) when the cash amount is seen as a function of the strike spread.
+  </p>
+  <p block-type="Text">
+   The swaptions are priced by discounting their expected terminal payoff (risk-neutral valuation). To understand where
+   <i>
+    E(X)
+   </i>
+   comes from, consider a payer and a receiver swaption both with a strike price of 100% or equivalently strike spreads equal to the coupon in the underlying portfolio swap. In this case, the cash amount in equation (1) or (2) is zero and the terminal payoff from a position that is long the payer and short the receiver is
+   <i>
+    V
+   </i>
+   . The value of this position is therefore
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_0 = D(T)E(V(X)) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    D(T )
+   </i>
+   is the discount factor to time
+   <i>
+    T
+   </i>
+   (option expiration).
+  </p>
+  <p block-type="TextInlineMath">
+   The value of a position that pays
+   <i>
+    V
+   </i>
+   , that is,
+   <i>
+    V
+   </i>
+   0, can also be determined from the credit curve of the underlying portfolio (potentially using the credit curves of all the names in the portfolio) since it is simply the value of owning protection on all names in the portfolio but only having to pay premium from option expiration onward. Once we have a value for
+   <i>
+    V
+   </i>
+   0,
+   <i>
+    E(V (X))
+   </i>
+   can be found as
+   <i>
+    V
+   </i>
+   0
+   <i>
+    /D(T )
+   </i>
+   and
+   <i>
+    E(X)
+   </i>
+   can be implied from this value. We can then price the swaptions using
+   <i>
+    σ
+   </i>
+   as the only additional parameter.
+  </p>
+  <p block-type="Text">
+   It is recommended to solve the model numerically to get the most accurate pricing. However, by making a few simple approximations (such as simplifying the expression for the PV01 in equation (2)) it is possible to derive approximate closed-form solutions that look like Black formulas.
+  </p>
+  <p block-type="Text">
+   See [2] for details on the model outlined above.
+  </p>
+  <h4>
+   <b>
+    Other Models and Approaches
+   </b>
+  </h4>
+  <p block-type="Text">
+   The standard model is a simple approach to what could be a very complicated problem. Instead of trying to model the credit curves and default of each of the names in the portfolio, the approach in the standard model is to model the hypothetical spread on the aggregate portfolio that also includes defaulted names. Thereby the model has only one free parameter, the aggregate spread volatility, and the approach becomes similar to using Black–Scholes for S&amp;P 500 options. This analogy to the equity world suggests paths to the next generation of models such as introducing stochastic volatility and jumps or creating a model that starts from the individual credits by modeling their default, spread volatility, and spread correlation.
+  </p>
+  <h4>
+   <b>
+    References
+   </b>
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Morini, M. &amp; Brigo, D. (2007).
+     <i>
+      Arbitrage-free Pricing of Credit Index Options
+     </i>
+     , Working Paper, Bocconi University.
+    </li>
+    <li block-type="ListItem">
+     [2] Pedersen, C. (2003).
+     <i>
+      Valuation of Portfolio Credit Default Swaptions
+     </i>
+     ,
+     <i>
+      Lehman Brothers Quantitative Credit Research Quarterly
+     </i>
+     , 2003-Q4, pp. 71–81.
+    </li>
+    <li block-type="ListItem">
+     [3] Rutkowski, M. &amp; Armstrong, A. (2008).
+     <i>
+      Valuation of Credit Default Swaptions and Credit Default Index Swaptions
+     </i>
+     , Working Paper, University of New South Wales.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Related Articles
+   </b>
+  </h4>
+  <p block-type="Text">
+   <b>
+    Credit Default Swaps
+   </b>
+   ;
+   <b>
+    Credit Default Swap (CDS) Indices
+   </b>
+   ;
+   <b>
+    Credit Default Swaption
+   </b>
+   ;
+   <b>
+    Hazard Rate
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   CLAUS M. PEDERSEN
+  </p>
+ </body>
+</html>

@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Bermudan Swaptions and Callable Libor Exotics
+   </b>
+  </h1>
+  <p block-type="Text">
+   In this article we give an overview of callable interest rate products, a product class that includes Bermudan swaptions as well as callable Libor exotics (CLE). The main contractual features of these securities are discussed, and an outline of valuation algorithms is provided. CLEs are among the most complicated fixed income exotics derivatives traded, combining state-dependent coupons with other features such as a Bermudan-style callability option. As a consequence, these securities are particularly challenging to price and risk-manage.
+  </p>
+  <h1>
+   <b>
+    Market Overview
+   </b>
+  </h1>
+  <p block-type="Text">
+   CLEs most often start their life as callable structured notes. In a callable structured note, a
+   <i>
+    note issuer
+   </i>
+   receives the principal from an
+   <i>
+    investor
+   </i>
+   and pays a coupon, which is typically a function of interest rates, in return. In addition, the issuer retains the right to
+   <i>
+    call
+   </i>
+   , or
+   <i>
+    cancel
+   </i>
+   , the note on particular days, often coupon fixing days, after some initial
+   <i>
+    lock-out
+   </i>
+   (or
+   <i>
+    noncall
+   </i>
+   ) period. When a note is called by the issuer, the principal is returned to the investor and the issuer stops paying the coupons.
+  </p>
+  <p block-type="Text">
+   As the principal received by the issuer is invested and typically yields a Libor rate (plus or minus a spread), a cancelable note is equivalent to a
+   <i>
+    cancelable swap
+   </i>
+   , that is, a swap of structured coupons against Libor rate payments that can be canceled on specified dates. Alternatively, it can be viewed as a noncancelable swap plus an option to
+   <i>
+    enter
+   </i>
+   , on a given set of dates, into a reverse swap. A CLE is typically defined to be such a
+   <i>
+    Bermudan-style option
+   </i>
+   to enter an exotic swap.
+  </p>
+  <p block-type="Text">
+   An investor granting the issuer the right to cancel the structured note is essentially selling a Bermudanstyle right to enter an exotic swap. In return, the issuer compensates by making the coupon more attractive, which is often the motivation for adding the callability feature in the first place.
+  </p>
+  <h1>
+   <b>
+    Types of Structured Coupons
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   CLEs are defined by the structured coupon they are paying, plus other features such as callability. In this
+  </p>
+  <p block-type="Text">
+   section we review some common types of coupons that one can encounter in a CLE. Coupons are usually structured to let the investors take speculative views on the interest rate market or to provide protection against adverse scenarios. For example, a floored payoff can be chosen if an investor desires protection against a fall in interest rates.
+  </p>
+  <p block-type="Text">
+   A structured coupon can be any function of observed interest rates (such as Libor or constant maturity swap (CMS);
+   <i>
+    see
+   </i>
+   <b>
+    LIBOR Rate
+   </b>
+   ;
+   <b>
+    Constant Maturity Swap
+   </b>
+   ) on or before its fixing date. Many types are available. They can roughly be split into four categories: Libor-based, CMS-based, spreadbased, and range-accruals.
+  </p>
+  <p block-type="Text">
+   To provide some detail, we assume in the following sections that a tenor structure is defined:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 = T_0 &lt; T_1 &lt; \cdots &lt; T_N, \quad \tau_n = T_{n+1} - T_n \quad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Typically, the rate observations, or fixings, for the
+   <i>
+    n
+   </i>
+   th coupon are made at
+   <i>
+    Tn
+   </i>
+   , and the coupon pays at
+   <i>
+    Tn
+   </i>
+   +1,
+   <i>
+    n
+   </i>
+   = 1
+   <i>
+    ,...,N
+   </i>
+   − 1.
+  </p>
+  <h4>
+   <i>
+    Libor-based Exotic Swaps
+   </i>
+  </h4>
+  <p block-type="Text">
+   A Libor-based structured coupon is a function of a single Libor rate. Let us denote the
+   <i>
+    n
+   </i>
+   th coupon as a function of the
+   <i>
+    n
+   </i>
+   th Libor rate observed on its fixing date by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n = C_n(L_n(T_n)) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   There is a large variety of structured coupons
+   <i>
+    Cn(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   that can be used. For example
+   <sup>
+    a
+   </sup>
+  </p>
+  <p block-type="Text">
+   •
+   <i>
+    Standard swap
+   </i>
+   : For fixed coupon
+   <i>
+    k
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n(x) = k \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   •
+   <i>
+    Capped and floored floaters
+   </i>
+   : For strike
+   <i>
+    s
+   </i>
+   , gearing
+   <i>
+    g
+   </i>
+   , cap
+   <i>
+    c
+   </i>
+   , and floor
+   <i>
+    f
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n(x) = \max(\min(g \times x - s, c), f) \qquad (4)
+   </math>
+  </p>
+  <p block-type="Text">
+   •
+   <i>
+    Capped and floored inverse floaters
+   </i>
+   : For spread
+   <i>
+    s
+   </i>
+   , gearing
+   <i>
+    g
+   </i>
+   , cap
+   <i>
+    c
+   </i>
+   , and floor
+   <i>
+    f
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n(x) = \max(\min(s - g \times x, c), f) \qquad (5)
+   </math>
+  </p>
+  <p block-type="Text">
+   •
+   <i>
+    Digitals
+   </i>
+   : For strike
+   <i>
+    s
+   </i>
+   and coupon
+   <i>
+    k
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n(x) = k \times 1_{\{x &gt; s\}} \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   • "
+   <i>
+    Flip-flops
+   </i>
+   "
+   <i>
+    or
+   </i>
+   "
+   <i>
+    tip-tops
+   </i>
+   ": For strike
+   <i>
+    s
+   </i>
+   and two coupons,
+   <i>
+    k
+   </i>
+   <sup>
+    1
+   </sup>
+   and
+   <i>
+    k
+   </i>
+   2, "low" and "high" coupons, the coupon is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n(x) = \begin{cases} k_1, &amp; x \le s \\ k_2, &amp; x &gt; s \end{cases} \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   Different coupon types can be added together to create new types of structured coupons.
+  </p>
+  <h4>
+   <i>
+    CMS-based Coupons
+   </i>
+  </h4>
+  <p block-type="TextInlineMath">
+   The same payoffs can be applied to CMS rates. Structured coupons are then deterministic functions of CMS rates. If an
+   <i>
+    m
+   </i>
+   -period rate is used, and we denote by
+   <i>
+    Sn,m(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   the forward swap rate that fixes at
+   <i>
+    Tn
+   </i>
+   and covers
+   <i>
+    m
+   </i>
+   periods, then a structured coupon for period
+   <i>
+    n
+   </i>
+   is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n = C_n(S_{n,m}(T_n)) \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+   <i>
+    Cn(x)
+   </i>
+   as defined in the previous section.
+  </p>
+  <h4>
+   <i>
+    Spread-based Coupons
+   </i>
+  </h4>
+  <p block-type="TextInlineMath">
+   Spread-based structured coupons differ from Liboror CMS-based ones in that they involve more than one market rate, Libor or CMS, in the calculation of structured coupons. The most common example is a CMS spread coupon. Let
+   <i>
+    Sn,a(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   and
+   <i>
+    Sn,b(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   be two collections of CMS rates, fixing on
+   <i>
+    Tn
+   </i>
+   ,
+   <i>
+    n
+   </i>
+   ≥ 0, and covering
+   <i>
+    a
+   </i>
+   and
+   <i>
+    b
+   </i>
+   periods, respectively. A CMS spread coupon with gearing
+   <i>
+    g
+   </i>
+   , spread
+   <i>
+    s
+   </i>
+   , cap
+   <i>
+    c
+   </i>
+   , and floor
+   <i>
+    f
+   </i>
+   is then defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n = \max(\min(g \times (S_{n,a}(T_n) - S_{n,b}(T_n)) + s, c), f)
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   A more general example can be obtained by using one of the payoff functions
+   <i>
+    Cn(x)
+   </i>
+   defined in section Libor-based Exotic Swaps when applied to the spread
+   <i>
+    x
+   </i>
+   =
+   <i>
+    Sn,a(Tn)
+   </i>
+   −
+   <i>
+    Sn,b(Tn)
+   </i>
+   . In particular, digital and flip-flop CMS spread swaps are popular.
+  </p>
+  <p block-type="Text">
+   Spread-based exotic swaps typically cannot be decomposed into "standard" instruments, such as standard swaps, caps, and so on. Therefore, they, as a rule, cannot be valued by replication arguments, and a model is required.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   More than two rates can be used in the definition of a coupon. Relatively recently, the so-called "curve
+  </p>
+  <p block-type="Text">
+   caps" became popular. In a curve cap, a coupon rate (Libor or CMS) is capped at a level that is given by a function (typically a spread) of two (other) rates. Often, the coupon rate is also floored at (another) function of two (yet other!) rates. Thus, the definition of a curve cap coupon can involve up to five rates. If the coupon rate is itself a spread, six rates define the coupon.
+  </p>
+  <h4>
+   <i>
+    Range-accruals
+   </i>
+  </h4>
+  <p block-type="Text">
+   A range-accrual structured coupon is defined as a fixed (or, sometimes, floating; see below) rate that only accrues when a reference rate is within a certain range. Let
+   <i>
+    X(t)
+   </i>
+   be such a reference rate, and let
+   <i>
+    l
+   </i>
+   be the low bound and
+   <i>
+    u
+   </i>
+   be the upper bound. Let
+   <i>
+    k
+   </i>
+   be a fixed rate. A range-accrual coupon pays
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n = k \times \frac{\#\{t \in [T_n, T_{n+1}] : X(t) \in [l, u]\}}{\#\{t \in [T_n, T_{n+1}]\}} \quad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   where #{·} is used to denote the number of days that a given criterion is satisfied.
+  </p>
+  <p block-type="Text">
+   The fixed coupon
+   <i>
+    k
+   </i>
+   can be replaced with, for example, a Libor rate or, much less commonly, a CMS rate or any other structured coupon. Similarly, the reference rate
+   <i>
+    X(t)
+   </i>
+   can be any market-observable rate such as a Libor rate fixing at
+   <i>
+    t
+   </i>
+   , a CMS rate fixing at
+   <i>
+    t
+   </i>
+   , or even a CMS spread.
+  </p>
+  <p block-type="Text">
+   A fixed-rate range-accrual coupon can be decomposed into simpler coupons, because
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \#\{t \in [T_n, T_{n+1}] : X(t) \in [l, u]\} \\ &amp;= \sum_{t \in [T_n, T_{n+1}]} 1_{\{X(t) \in [l, u]\}} \end{aligned} \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   The sum on the right-hand side is over all business days in the period [
+   <i>
+    Tn, Tn
+   </i>
+   +1]. Thus, the range-accrual coupon can be seen as a collection of digitals on the reference rate. A similar decomposition can be applied to floating range-accruals.
+  </p>
+  <h1>
+   <b>
+    Bermudan Swaptions and Callable Libor Exotics
+   </b>
+  </h1>
+  <h4>
+   <i>
+    Definition
+   </i>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   A
+   <i>
+    Bermudan swaption
+   </i>
+   is a Bermudan-style option to enter a fixed-for-floating swap, that is, a swap with
+  </p>
+  <p block-type="Text">
+   the "structured" coupon paying fixed rate,
+   <math display="inline">
+    C_n(x) = k
+   </math>
+   . Bermudan swaptions on payer (pay-fixed, receivefloating) swaps are called
+   <i>
+    payer Bermuda swaptions
+   </i>
+   ; similar conventions hold for receiver swaps. Bermudan swaptions are actively traded in both the US and European markets, with well-developed interdealer market in the United States for shorter-dated Bermudan swaptions.
+  </p>
+  <p block-type="Text">
+   If the underlying swap is an exotic swap, that is, a swap paying a structured coupon as in the previous section, then the Bermuda-style option to enter it is called a CLE.
+  </p>
+  <p block-type="TextInlineMath">
+   For a CLE on an exotic swap with structured coupons
+   <math display="inline">
+    \{C_n\}_{n=0}^{N-1}
+   </math>
+   , we denote the value of the exotic swap that one can exercise on date
+   <math display="inline">
+    T_n
+   </math>
+   , the so-called exercise value, by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_n(t) = \beta(t) \sum_{i=n}^{N-1} \tau_i \mathbf{E}_t(\beta^{-1}(T_{i+1}) \times (C_i - L_i(T_i))),
+   </math>
+   <br/>
+   <math display="block">
+    t \le T_n \qquad (12)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \beta
+   </math>
+   is a numeraire and
+   <math display="inline">
+    E_t
+   </math>
+   denotes time t expectation in the probability measure associated with
+   <math display="inline">
+    \beta
+   </math>
+   (see Forward and Swap Measures).
+  </p>
+  <h4>
+   Types of Callable Libor Exotics
+  </h4>
+  <p block-type="Text">
+   Any exotic swap can be used as an underlying for a CLE. The "taxonomy" of CLEs follows closely that of structured coupons; see the section Types of Structured Coupons. As we already mentioned, the simplest type of a CLE is a Bermudan swaption, with the underlying being a fixed-for-floating swap. We can generally distinguish four types of CLEs, Libor-based, CMS-based, spread-based, and callable range-accruals. If the underlying is an inverse floating swap, the CLE is called a
+   <i>
+    callable inverse
+   </i>
+   floater, and so on.
+  </p>
+  <h4>
+   CLEs Accreting at Coupon Rate
+  </h4>
+  <p block-type="Text">
+   Typically the notional of the underlying swap of a CLE is the same throughout the life of the deal, but occasionally this is not the case. A notional can vary deterministically by, for example, increasing or decreasing by the same amount or at a certain rate each period. Such deterministic accretion rarely adds extra complications from a modeling prospective. Sometimes, however, a contract specifies that the
+  </p>
+  <p block-type="TextInlineMath">
+   notional of the swap increases, or accretes, at the structured coupon rate. As the structured coupon is not known in advance, the accretion rate is not deterministic. For such CLEs, definition (12) has to be amended. For this, let
+   <math display="inline">
+    q_i
+   </math>
+   be the notional to be applied to the coupon paid at the end of the period
+   <math display="inline">
+    [T_i, T_{i+1}]
+   </math>
+   .
+   <math display="inline">
+    q_i
+   </math>
+   is obtained from the notional over the previous period
+   <math display="inline">
+    q_{i-1}
+   </math>
+   by multiplying it by the structured coupon over the previous period. Formally,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_n(t) = \beta(t) \sum_{i=n}^{N-1} \tau_i \mathbf{E}_t(\beta^{-1}(T_{i+1}) \times q_i)
+   </math>
+   <math display="block">
+    \times (C_i - L_i(T_i))),
+   </math>
+   <math display="block">
+    q_i = q_{i-1} \times (1 + \tau_{i-1}C_{i-1}) \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   The initial notional
+   <math display="inline">
+    q_0
+   </math>
+   is contractually specified.
+  </p>
+  <h4>
+   Snowballs
+  </h4>
+  <p block-type="Text">
+   In a
+   <i>
+    snowball
+   </i>
+   , the structure coupon is not just a function of the interest rate, but of the previous coupon as well. The most common snowball is of inverse floating type. In particular, the
+   <math display="inline">
+    n
+   </math>
+   th coupon
+   <math display="inline">
+    C_n
+   </math>
+   is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n = (C_{n-1} + s_n - g_n \times L_n(T_n))^+ \qquad (14)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    n = 1, \ldots, N - 1
+   </math>
+   (with
+   <math display="inline">
+    C_0
+   </math>
+   usually being a simple fixed-rate coupon). Here
+   <math display="inline">
+    \{s_n\}
+   </math>
+   and
+   <math display="inline">
+    \{g_n\}
+   </math>
+   are contractually specified deterministic sequences of spreads and gearings. With this particular type of coupon, a snowball is sometimes called a
+   <i>
+    callable inverse ratchet
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Many variants on the snowball idea have appeared recently, all variations on the theme of using a previous coupon in the definition of the current one. For example, a
+   <i>
+    snowrange
+   </i>
+   is typically defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_n = C_{n-1} \times \frac{\#\{t \in [T_n, T_{n+1}] : X(t) \in [l, u]\}}{\#\{t \in [T_n, T_{n+1}]\}}
+   </math>
+   (15)
+  </p>
+  <h4>
+   Multitranches
+  </h4>
+  <p block-type="Text">
+   As we discussed previously, the more optionality an investor can sell to the issuer, the better coupon he/she can receive. The option to call the note is already present in a callable structured note. Another
+  </p>
+  <p block-type="Text">
+   option that is sometimes embedded is the right for the issuer to increase the size of the note, or put more of the same note to the investor, whether he/she wants it or not. The name of this feature, a
+   <i>
+    multitranche
+   </i>
+   callable structured note, comes from the fact that these possible notional increases are formalized as tranches of the same note that the issuer has the right to put to the investor.
+  </p>
+  <p block-type="Text">
+   The times when the issuer has the right to increase the notional of the note typically come before the times when the issues can cancel the note altogether. Callability usually applies jointly to all "tranches" of the note.
+  </p>
+  <h1>
+   <b>
+    Valuation of Callable Libor Exotics
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   The valuation of multicallable securities, such as Bermudan or American options, requires a solution of the optimal exercise problem, a type of a dynamic programming problem (
+   <i>
+    see
+   </i>
+   <b>
+    Binomial Tree
+   </b>
+   ). If we denote by
+   <i>
+    Hn(t)
+   </i>
+   the value, at time
+   <i>
+    t
+   </i>
+   , of a CLE that has only the dates {
+   <i>
+    Tn
+   </i>
+   <sup>
+    +
+   </sup>
+   1
+   <i>
+    ,...,TN
+   </i>
+   <sup>
+    −
+   </sup>
+   1} as exercise opportunities, then the value of a CLE, the value
+   <i>
+    H
+   </i>
+   0
+   <i>
+    (
+   </i>
+   0
+   <i>
+    )
+   </i>
+   , is defined recursively by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_{n-1}(T_{n-1}) = \beta(T_{n-1})\mathbf{E}_{T_{n-1}}(\beta(T_n)^{-1} \times \max\{H_n(T_n), E_n(T_n)\}),
+   </math>
+   <br/>
+   <math display="block">
+    n = N - 1, \dots, 1,
+   </math>
+   <br/>
+   <math display="block">
+    H_{N-1} \equiv 0 \tag{16}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Bermudan swaptions are the most liquid interest rate exotics. As their values are mostly derived from up- and down-moves of the yield curve, they are often valued in low-dimensional short-rate models such as developed in
+   <b>
+    Term Structure Models
+   </b>
+   , using lattice or PDE numerical methods (
+   <i>
+    see
+   </i>
+   articles in
+   <b>
+    Partial Differential Equations
+   </b>
+   ). The value of the "switch" option built into a Bermudan swaption, that is, the option to change which swap is entered into, can be captured by a model parameter responsible for rate autocorrelations, such as mean reversion in a
+  </p>
+  <p block-type="Text">
+   one-factor Gaussian model, see [1]. To value other types of CLEs, a more involved setup is usually required. Complicated dependence of coupons on one or more underlying rates, combined with the need to account for callability, typically necessitates an application of a realistic, multifactor model of interest rates such as the Libor market model (
+   <i>
+    see
+   </i>
+   <b>
+    LIBOR Market Model
+   </b>
+   ). Owing to the high dimension of such a model, Monte Carlo methods become a necessity (
+   <i>
+    see
+   </i>
+   <b>
+    LIBOR Market Models: Simulation
+   </b>
+   ) and must be complemented by methods for estimating exercise boundaries of Bermudan-style options in Monte Carlo simulation (
+   <i>
+    see
+   </i>
+   <b>
+    Bermudan Options
+   </b>
+   ;
+   <b>
+    Exercise Boundary Optimization Methods
+   </b>
+   ;
+   <b>
+    Early Exercise Options: Upper Bounds
+   </b>
+   ). Additional details are available in [2].
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   Note that in all definitions we ignore day counting fractions.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Andersen, L.B. &amp; Andreasen, J. (2001). Factor dependence of Bermudan swaption prices: fact or fiction?
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      62
+     </b>
+     , 3–37.
+    </li>
+    <li block-type="ListItem">
+     [2] Piterbarg V.V. (2005). Pricing and hedging callable Libor exotics in forward Libor models.
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      8
+     </b>
+     (2), 65–117.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Bermudan Options
+   </b>
+   ;
+   <b>
+    Binomial Tree
+   </b>
+   ;
+   <b>
+    Early Exercise Options: Upper Bounds
+   </b>
+   ;
+   <b>
+    Exercise Boundary Optimization Methods
+   </b>
+   ;
+   <b>
+    LIBOR Market Model
+   </b>
+   ;
+   <b>
+    LIBOR Market Models: Simulation
+   </b>
+   .
+  </p>
+  <pre>LEIF B.G. ANDERSEN &amp; VLADIMIR V.
+                       PITERBARG</pre>
+ </body>
+</html>

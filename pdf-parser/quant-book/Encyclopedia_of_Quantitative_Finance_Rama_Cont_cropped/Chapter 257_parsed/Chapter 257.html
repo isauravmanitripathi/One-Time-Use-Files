@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Partial Integro-differential Equations (PIDEs)
+   </b>
+  </h1>
+  <p block-type="Text">
+   Partial integro-differential equationss (PIDEs) appear in finance in the context of option pricing in discontinuous models. They generalize the Black-Scholes partial differential equation (PDE) when the continuous Black-Scholes dynamics for the underlying price is replaced by a Markov process with jumps.
+  </p>
+  <p block-type="TextInlineMath">
+   The jump models proposed for option pricing are mostly based on Lévy processes (see Exponential Lévy Models). The jumps of a Lévy process are characterized by a positive measure
+   <math display="inline">
+    \nu(dx)
+   </math>
+   on
+   <math display="inline">
+    \mathbb{R} \setminus \{0\}
+   </math>
+   , called Lévy measure, which satisfies the following integrability condition:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{\mathbb{R}\setminus\{0\}} \min(1, x^2) \nu(\mathrm{d}x) &lt; \infty \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   In particular, it may be singular at the origin.
+  </p>
+  <p block-type="TextInlineMath">
+   Consider an asset whose risk-neutral dynamics are described by an exponential Lévy model
+   <math display="inline">
+    S_t =
+   </math>
+   <math display="inline">
+    S_0 \exp X_t
+   </math>
+   , where
+   <math display="inline">
+    X_t
+   </math>
+   is a Lévy process with coefficient
+   <math display="inline">
+    \sigma
+   </math>
+   and Lévy measure
+   <math display="inline">
+    \nu
+   </math>
+   (the drift is determined by the martingale condition on
+   <math display="inline">
+    e^{-rt}S_t
+   </math>
+   ). The value
+   <math display="inline">
+    V_t =
+   </math>
+   <math display="inline">
+    V(t, S_t)
+   </math>
+   at time
+   <math display="inline">
+    t \leq T
+   </math>
+   of a European option on this underlying with maturity T and payoff
+   <math display="inline">
+    H(S_T)
+   </math>
+   is then given by the solution of the following PIDE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{t} + \frac{1}{2}\sigma^{2}S^{2}V_{SS} + rSV_{S} - rV
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int \left[ V(t, S e^{y}) - V(t, S) - S(e^{y} - 1)V_{S}(t, S) \right] \nu(dy) = 0 \qquad (2)
+   </math>
+  </p>
+  <p block-type="Text">
+   The subscripts indicate partial derivatives and
+   <math display="inline">
+    r
+   </math>
+   is the continuously compounded risk-free interest rate. We can see that this equation contains the same terms as the Black-Scholes PDE and an integral term with respect to the Lévy measure v. In particular, if v is equal to 0, the integral term disappears and equation (2) reduces to the Black-Scholes equation. This is compatible with the fact that an exponential Lévy model without jumps is simply the Black-Scholes model.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Similar to the diffusion case, the PIDE formulation can be used for other types of options, such as barrier or American options, leading to
+  </p>
+  <p block-type="Text">
+   boundary-value problems or variational inequalities with the same integro-differential operator. The PIDE approach can also be generalized to more complicated cases: for example, stochastic volatility with jumps, nonhomogeneous jump measure
+   <math display="inline">
+    v_{t,x}(dx)
+   </math>
+   , multiasset derivatives (see Jump Processes; Exponential Lévy
+   <b>
+    Models
+   </b>
+   ). Finally, one can obtain a
+   <i>
+    forward PIDE
+   </i>
+   —in maturity and strike variables—for call options, analogous to the Dupire equation (see
+   <math display="inline">
+    [6, 14]
+   </math>
+   ) in one-factor Markovian models with jumps.
+  </p>
+  <p block-type="Text">
+   We first present the specific features of the integrodifferential equations compared with the PDEs. In particular, we highlight the difficulties that arise for the numerical solution of these equations. We see that the use of standard techniques, such as finite differences or finite elements, is not straightforward. We then survey the existing approaches to adapt numerical methods developed for PDEs to the solution of partial integro-differential equations.
+  </p>
+  <h1>
+   <b>
+    General Remarks
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   To solve the PIDE (2), it is convenient to make the change of variables
+   <math display="inline">
+    x = \log(S/S_0)
+   </math>
+   and
+   <math display="inline">
+    \tau = T - t
+   </math>
+   . Denote
+   <math display="inline">
+    v(\tau, x) = e^{r(T-t)}V(t, S) = e^{r\tau}V(T - t)
+   </math>
+   <math display="inline">
+    \tau
+   </math>
+   ,
+   <math display="inline">
+    S_0e^x
+   </math>
+   ). This leads to the following equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_{\tau} = \frac{1}{2}\sigma^{2}v_{xx} + \left(r - \frac{1}{2}\sigma^{2}\right)v_{x}
+   </math>
+   <math display="block">
+    + \int [v(\tau, x + y) - v(\tau, x)
+   </math>
+   <math display="block">
+    - (e^{y} - 1)v_{x}(\tau, x)]v(dy) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The payoff function provides a terminal condition for (2):
+   <math display="inline">
+    V(T, S) = H(S)
+   </math>
+   and an initial condition for
+   <math display="inline">
+    equation (3):
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(0, x) = H(S_0 e^x) \equiv h(x), \quad x \in \mathbb{R} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   The main sources of difficulties with the PIDEs of type
+   <math display="inline">
+    (2)
+   </math>
+   or
+   <math display="inline">
+    (3)
+   </math>
+   are the following:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     . nonlocal character of the operator;
+    </li>
+    <li block-type="ListItem">
+     possible lack of regularity of the solution, espe-
+     <math display="inline">
+      \bullet
+     </math>
+     cially in the pure jump case (
+     <math display="inline">
+      \sigma = 0
+     </math>
+     ); and
+    </li>
+    <li block-type="ListItem">
+     possible singularity of the Lévy measure at 0. .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Let us get a closer look at these issues. Observe that the operator in equation
+   <math display="inline">
+    (3)
+   </math>
+   is nonlocal in space: that is, to evaluate it at a given point
+   <math display="inline">
+    (\tau, x_*)
+   </math>
+   , we need
+  </p>
+  <p block-type="TextInlineMath">
+   the values
+   <math display="inline">
+    v(\tau, x)
+   </math>
+   for all
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   . This has multiple implications. First of all, if we consider equation
+   <math display="inline">
+    (3)
+   </math>
+   on a bounded domain in
+   <math display="inline">
+    x
+   </math>
+   , which is always the case if we solve it numerically, the boundary conditions must be specified not only
+   <i>
+    at
+   </i>
+   the boundary but also
+   <i>
+    beyond
+   </i>
+   the boundary:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(\tau, x) = g(\tau, x) \quad \forall x \notin (x_{\min}, x_{\max}) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    g
+   </math>
+   is a given function. Second, a finite difference or finite element discretization of equation (3) gives rise to a dense matrix, in contrast with the PDE case where the discretized operator is a sparse (usually tridiagonal) matrix easy to invert. The direct solution of a nonsparse linear system of N equations requires, in general,
+   <math display="inline">
+    O(N^3)
+   </math>
+   operations, which makes the direct application of these methods inefficient. Finally, the integral operator propagates possible irregularities of the solution. For instance, the price of a barrier option is usually discontinuous at the barrier. While in the PDE case this discontinuity influences only the neighborhood of the boundary, a PIDE will propagate it inside the domain. It is worth mentioning that the regularity of the solution is not only a theoretical issue but also has a direct impact on the efficiency (stability and order of convergence) of numerical methods.
+  </p>
+  <p block-type="Text">
+   If the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   is strictly positive (jump diffusion case), the integro-differential operator has the same regularizing property as the differential Black-Scholes operator: the solution is smooth for all
+   <math display="inline">
+    t &lt; T
+   </math>
+   even for discontinuous payoffs. The same is true in the pure jump case (without diffusion component) if there are "sufficiently many" jumps. More precisely, we have the following result
+   <math display="inline">
+    [15, 16]
+   </math>
+   :
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   Let
+   <math display="inline">
+    H
+   </math>
+   be a measurable function with a finite set of discontinuities. Suppose that
+   <math display="inline">
+    h(x) \equiv H(S_0e^x)
+   </math>
+   has at most polynomial growth:
+   <math display="inline">
+    \exists p \geq 0, |h(x)| \leq C(1+|x|^p)
+   </math>
+   . Let X be a Lévy process with characteristic triplet
+   <math display="inline">
+    (\sigma, \nu, \gamma)
+   </math>
+   satisfying
+   <math display="inline">
+    \int_{|y|&gt;1} |y|^{2p} \nu(dy) &lt; \infty \text{ and}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma &gt; 0 \quad or \quad \exists \beta \in (0, 2),
+   </math>
+   <br/>
+   <math display="block">
+    \liminf_{\varepsilon \downarrow 0} \frac{1}{\varepsilon^{2-\beta}} \int_{-\varepsilon}^{\varepsilon} |y|^2 \nu(dy) &gt; 0 \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Then the forward European option price
+   <math display="inline">
+    v(\tau, x) =
+   </math>
+   <math display="inline">
+    E[h(x+X_{\tau})]
+   </math>
+   belongs to the class
+   <math display="inline">
+    C^{\infty}((0,T]\times
+   </math>
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   ) with
+   <math display="inline">
+    \left|\partial^{n+m}v/\partial x^n\partial t^m(x)\right| \leq C(1+|x|^p)
+   </math>
+   , for all
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    n, m \ge 0
+   </math>
+   . Moreover,
+   <math display="inline">
+    v(\tau, x)
+   </math>
+   is a solution of the PIDE
+   <math display="inline">
+    (3)
+   </math>
+   with the initial condition
+   <math display="inline">
+    (4)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The main idea of the proof is to apply the Itô formula to the discounted option price, which is a martingale, identify the drift term, and put it to 0: this gives the corresponding PIDE (see also
+   <b>
+    Partial Differential Equations
+   </b>
+   ). The condition (6) ensures the regularity of the option price, so that we can apply the Itô formula. While the condition (6) is satisfied by most of the exponential Lévy models in the literature, there are some exceptions such as the popular Variance Gamma model (see Variance-gamma Model). When equation
+   <math display="inline">
+    (6)
+   </math>
+   is not satisfied, the irregularities in the payoff are not smoothened immediately and the option price may not be sufficiently regular to apply the Itô formula (see the examples in [16]). In the case of barrier options, the option price may be irregular even if
+   <math display="inline">
+    \sigma &gt; 0
+   </math>
+   . This is due to the fact that the irregularity at the barrier is propagated inside the domain by the integral operator.
+  </p>
+  <p block-type="Text">
+   The possible lack of regularity of option prices led to consider them as different kinds of weak solutions of the PIDEs. Existence and uniqueness of solutions of integro-differential equations in Sobolev spaces has been studied in
+   <math display="inline">
+    [10]
+   </math>
+   and more recently in
+   <math display="inline">
+    [25, 26,
+   </math>
+   33]. This approach provides the necessary framework for the solution of PIDEs by finite element methods. Another type of weak solution is the viscosity solution (see Monotone Schemes). Viscosity solutions of PIDEs are studied in
+   <math display="inline">
+    [4, 5, 7, 9, 23, 27-29]
+   </math>
+   . This approach is naturally linked to the probabilistic interpretation of the solution [16]. Moreover, it can be shown that any monotone scheme converges to the viscosity solution of the equation (see
+   <b>
+    Monotone Schemes
+   </b>
+   ). This property is exploited in
+   <math display="inline">
+    [11, 17]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   We stress that Proposition 1 gives the PIDE satisfied by a
+   <i>
+    European
+   </i>
+   option price in the relatively simple
+   <i>
+    exponential Lévy models
+   </i>
+   . Although a rigorous proof of similar results for more complicated jump models or option types is often not available, the formal derivation of the pricing PIDEs is very easy and is regularly used for numerical valuation of option prices in models with jumps. However, we should be aware that, in many cases, the PIDE approach remains to be justified.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Finally, let us comment on the singularity of the Lévy measure. In pure jump models, such as Variance Gamma or CGMY (see Tempered Stable Process), the jumps are of infinite activity in order to
+  </p>
+  <p block-type="Text">
+   compensate the absence of diffusion component. This implies that the jump measure
+   <math display="inline">
+    \nu
+   </math>
+   is not integrable at 0, which brings an additional difficulty for the discretization of equation (3). For finite element discretization, this is not really a problem because we do not need to discretize
+   <math display="inline">
+    \nu
+   </math>
+   separately but only to evaluate the integral on some basis functions. To solve the PIDE using finite differences, we can approximate small jumps of the Lévy process by a Brownian motion with appropriately chosen volatility. This approximation is based on the results obtained in [8], and its impact on the option price is estimated in
+   <math display="inline">
+    [17]
+   </math>
+   . In the case of jumps of finite variation, as in the Variance Gamma model, it is also possible to replace small jumps by a drift rather than a diffusion term, as done in [24].
+  </p>
+  <h2>
+   Numerical Solution
+  </h2>
+  <p block-type="Text">
+   To illustrate the issues discussed above, we describe a simple finite difference scheme for equation (3) proposed in [17]. We consider here the case of nonzero diffusion and finite jump measure. As noted above, the general case may be reduced to this one by approximating small jumps.
+  </p>
+  <h4>
+   <i>
+    European Vanilla and Barrier Options
+   </i>
+  </h4>
+  <p block-type="Text">
+   To solve numerically the integro-differential problem
+   <math display="inline">
+    (3)-(4)
+   </math>
+   , we first need to localize it to a bounded computational domain in
+   <math display="inline">
+    x
+   </math>
+   and truncate the integration domain in the integral part.
+  </p>
+  <p block-type="Text">
+   Truncation of the integration domain. Since we cannot calculate numerically an integral on the infinite range
+   <math display="inline">
+    (-\infty, \infty)
+   </math>
+   , the domain is truncated to a bounded interval
+   <math display="inline">
+    (B_l, B_r)
+   </math>
+   . In terms of the Lévy process, this corresponds to removing large jumps. Usually, the tails of
+   <math display="inline">
+    \nu
+   </math>
+   decrease exponentially, so the probability of large jumps is small and the impact on the solution of the truncation is exponentially small in the domain size (see
+   <math display="inline">
+    [17]
+   </math>
+   for pointwise estimates).
+  </p>
+  <p block-type="TextInlineMath">
+   Localization. Similarly, for the computational purposes, the domain of definition of the equation has to be bounded. For barrier options, the barriers are the natural limits for this domain and the rebate is the natural boundary condition. In the absence of barriers, we have to choose artificial bounds
+   <math display="inline">
+    (x_{\min}, x_{\max})
+   </math>
+   and impose artificial boundary conditions. Recall that "boundary" conditions in this case must extend the
+  </p>
+  <p block-type="TextInlineMath">
+   solution beyond the bounds as well (cf. equation
+   <math display="inline">
+    (5)
+   </math>
+   ). It can be shown that any bounded function
+   <math display="inline">
+    g(\tau, x)
+   </math>
+   leads to an exponentially decreasing localization error when the size of the domain increases. However, from the numerical point of view, it is better to take into account the asymptotic behavior of the solution. For instance, a good choice for a put option is
+   <math display="inline">
+    g(\tau, x) = (K - S_0 e^{x + r\tau})^+
+   </math>
+   . Of course, in the case of one barrier option, we need this condition only on one side of the domain: the other is zero or given by the rebate.
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark
+   </b>
+   In [25, 26], the authors subtract the payoff from the option price and solve a PIDE with zero boundary conditions on the excess to payoff. This leads to a source term in the equation which is, in the case of a put option, a Dirac delta-function. This is easily handled in the finite element framework but makes problem for finite difference discretization.
+  </p>
+  <p block-type="Text">
+   Discretization. We consider now the localized problem on
+   <math display="inline">
+    (x_{\min}, x_{\max})
+   </math>
+   :
+  </p>
+  <p block-type="TextInlineMath">
+   on
+   <math display="inline">
+    (0, T] \times (x_{\min}, x_{\max})
+   </math>
+   (7)
+   <math display="inline">
+    v_{\tau} = Lv
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(0, x) = h(x), \qquad x \in (x_{\min}, x_{\max})
+   </math>
+   (8)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(\tau, x) = g(\tau, x), \quad x \notin (x_{\min}, x_{\max}) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    L
+   </math>
+   is the following integro-differential operator:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Lv = \frac{1}{2}\sigma^2 v_{xx} - \left(\frac{1}{2}\sigma^2 - r\right)v_x
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{B_l}^{B_r} v(\mathrm{d}y)v(\tau, x+y) - \lambda v - \alpha v_x \quad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \lambda = \int_{B_l}^{B_r} \nu(dy)
+   </math>
+   ,
+   <math display="inline">
+    \alpha = \int_{B_l}^{B_r} (e^y - 1)\nu(dy)
+   </math>
+   . We introduce a uniform grid on
+   <math display="inline">
+    [0, T] \times \mathbb{R}
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_n = n\Delta t, \quad n = 0, \dots, M,
+   </math>
+   <br/>
+   <math display="block">
+    x_i = x_{\min} + i\Delta x, \quad i \in \mathbb{Z}
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \Delta t = T/M
+   </math>
+   ,
+   <math display="inline">
+    \Delta x = (x_{\text{max}} - x_{\text{min}})/N
+   </math>
+   . The values of
+   <math display="inline">
+    v
+   </math>
+   on this grid are denoted by
+   <math display="inline">
+    \{v_i^n\}
+   </math>
+   . The space derivatives of
+   <math display="inline">
+    v
+   </math>
+   are approximated by finite differences:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (v_{xx})_i \approx \frac{v_{i+1} - 2v_i + v_{i-1}}{(\Delta x)^2} \tag{12}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (v_x)_i \approx \frac{v_{i+1} - v_i}{\Delta x}
+   </math>
+   or
+   <math>
+    (v_x)_i \approx \frac{v_i - v_{i-1}}{\Delta x}
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   The choice of the approximation of the firstorder derivative—forward or backward difference depends on the parameters
+   <math display="inline">
+    \sigma
+   </math>
+   , r, and
+   <math display="inline">
+    \alpha
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   To approximate the integral term, we use the trapezoidal rule with the same discretization step
+   <math display="inline">
+    \Delta x
+   </math>
+   . Choose integers
+   <math display="inline">
+    K_l
+   </math>
+   ,
+   <math display="inline">
+    K_r
+   </math>
+   such that
+   <math display="inline">
+    [B_l, B_r]
+   </math>
+   is contained in
+   <math display="inline">
+    [(K_l - 1/2)\Delta x, (K_r + 1/2)\Delta x]
+   </math>
+   . Then,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{B_l}^{B_r} \nu(\mathrm{d}y) \nu(\tau, x_i + y) \approx \sum_{j=K_l}^{K_r} \nu_j v_{i+j} \quad \text{where}
+   </math>
+   <math display="block">
+    \nu_j = \int_{(j-1/2)\Delta x}^{(j+1/2)\Delta x} \nu(\mathrm{d}y) \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Using equations
+   <math display="inline">
+    (12)
+   </math>
+   –
+   <math display="inline">
+    (14)
+   </math>
+   , we obtain an approximation for
+   <math display="inline">
+    Lv \approx D_{\Delta}v + J_{\Delta}v
+   </math>
+   , where
+   <math display="inline">
+    D_{\Delta}v
+   </math>
+   and
+   <math display="inline">
+    J_{\Delta}v
+   </math>
+   are chosen as follows:
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    Explicit–implicit Scheme.
+   </i>
+   Without loss of generality, suppose that
+   <math display="inline">
+    \sigma^2/2 - r &lt; 0
+   </math>
+   . Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (D_{\Delta}v)_{i} = \frac{\sigma^{2}}{2} \frac{v_{i+1} - 2v_{i} + v_{i-1}}{(\Delta x)^{2}} - \left(\frac{\sigma^{2}}{2} - r\right) \frac{v_{i+1} - v_{i}}{\Delta x}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \sigma^2/2 - r &gt; 0
+   </math>
+   , to ensure the stability of the algorithm, we must change the discretization of
+   <math display="inline">
+    v_x
+   </math>
+   by choosing the backward difference instead of the forward one. Similarly, if
+   <math display="inline">
+    \alpha &lt; 0
+   </math>
+   we discretize J as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (J_{\Delta}v)_{i} = \sum_{j=K_{l}}^{K_{r}} v_{j}v_{i+j} - \lambda v_{i} - \alpha \frac{v_{i+1} - v_{i}}{\Delta x} \qquad (15)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Otherwise, we change the approximation of the first derivative. Finally, we replace the problem
+   <math display="inline">
+    (7)
+   </math>
+   –
+   <math display="inline">
+    (9)
+   </math>
+   with the following semiimplicit scheme:
+  </p>
+  <h4>
+   Initialization:
+  </h4>
+  <p block-type="Equation">
+   <math display="block">
+    v_i^0 = h(x_i)
+   </math>
+   if
+   <math>
+    i \in \{0, \dots, N-1\}
+   </math>
+   (16)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_i^0 = g(0, x_i) \qquad \text{otherwise} \tag{17}
+   </math>
+  </p>
+  <p block-type="Equation">
+   For
+   <math display="block">
+    \mathbf{n} = 0, \dots, \mathbf{M} - 1
+   </math>
+   :
+   <br/>
+   <math display="block">
+    \frac{v_i^{n+1} - v_i^n}{\Delta t} = (D_\Delta v^{n+1})_i + (J_\Delta v^n)_i
+   </math>
+   if
+   <math>
+    i \in \{0, \dots, N-1\}
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <math display="inline">
+    v_i^{n+1} = g((n+1)\Delta t, x_i)
+   </math>
+   otherwise
+   <math display="inline">
+    (19)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here, the nonlocal operator
+   <math display="inline">
+    J
+   </math>
+   is treated explicitly to avoid the inversion of the fully populated matrix
+   <math display="inline">
+    J_{\wedge}
+   </math>
+   , while the differential part
+   <i>
+    D
+   </i>
+   is treated implicitly. At each time step, we first evaluate vector
+   <math display="inline">
+    J_{\wedge}v^n
+   </math>
+   where
+   <math display="inline">
+    v^n
+   </math>
+   is known from the previous iteration, and then solve the tridiagonal system (18) for
+   <math display="inline">
+    v^{n+1} =
+   </math>
+   <math display="inline">
+    (v_0^{n+1}, \ldots, v_{N-1}^{n+1}).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Remark
+   </b>
+   A direct computation of the term
+   <math display="inline">
+    J_{\Delta}v^n
+   </math>
+   would require
+   <math display="inline">
+    O(N^2)
+   </math>
+   operations and would be the most expensive step of the method. Fortunately, the particular form of the sum-discrete convolution of two vectors—allows to compute it efficiently and simultaneously for all
+   <math display="inline">
+    i
+   </math>
+   using fast Fourier transform (FFT) (see [21]). Note, however, that this is only possible in the case of a translation invariant jump measure. Another way to solve the problem of the dense matrix, valid also for nonhomogeneous jump models, is proposed in [26]. The authors use a finite element method with a special basis of wavelet functions (see also Wavelet Galerkin Method). In this basis, most of the entries in the matrix operator are very small, so that they can be replaced by zeros without affecting the solution much. The efficiency of the wavelet compression depends on the degree of singularity of the jump measure. Although it does not appear explicitly, this is also the case for the finite difference scheme, because of the trade-off that has to be done between the parameter
+   <math display="inline">
+    \varepsilon
+   </math>
+   of truncation of small jumps and discretization step
+   <math display="inline">
+    \Delta x
+   </math>
+   (see
+   <math display="inline">
+    [17]
+   </math>
+   ). Finally, let us mention
+   <math display="inline">
+    [31]
+   </math>
+   where the integral is evaluated in linear complexity using a recursive formula in the particular case of the Kou model (see
+   <b>
+    Kou Model
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   <i>
+    Stability.
+   </i>
+   The scheme
+   <math display="inline">
+    (16)
+   </math>
+   –
+   <math display="inline">
+    (19)
+   </math>
+   is stable if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta t &lt; \frac{\Delta x}{|\alpha| + \lambda \Delta x} \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   It is possible to make it unconditionally stable by moving the local terms in equation
+   <math display="inline">
+    (15)
+   </math>
+   in the implicit part. However, numerical experiments show that this leads to large errors for infinite activity Lévy measures.
+  </p>
+  <h4>
+   Remark
+  </h4>
+  <p block-type="Text">
+   • In [21, 26, 30–32], fully implicit or Crank-Nicolson finite difference schemes are used, which are unconditionally stable. To solve the resulting dense linear systems, the authors use
+  </p>
+  <p block-type="Text">
+   iterative methods that require only matrix-vector multiplication performed using FFT.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Equation
+     <math display="inline">
+      (2)
+     </math>
+     can be solved directly in the original variables. We can also choose a nonuniform grid with, for example, more nodes near the strike and maturity [2, 31]. In this case, an interpolation at each time step is needed in order to apply FFT [21].
+    </li>
+    <li block-type="ListItem">
+     Similar semiimplicit scheme in the finite activity case is used in
+     <math display="inline">
+      [11]
+     </math>
+     . In
+     <math display="inline">
+      [6]
+     </math>
+     , the operator is also split into differential and integral parts, and then an alternating direction implicit (ADI) time stepping is used.
+    </li>
+    <li block-type="ListItem">
+     The situation is more challenging for PIDEs in
+     <math display="inline">
+      \bullet
+     </math>
+     more than one dimension. The main idea here is to devise an operator-splitting scheme as above where each component only acts on one of the variables, thus reducing the dimension in each step of the computation [12, 13, 18].
+    </li>
+   </ul>
+  </p>
+  <h4>
+   American Options
+  </h4>
+  <p block-type="Text">
+   Pricing American options in jump models leads to integro-differential variational inequalities [10, 27]. Equivalently, option price may be represented as solution of a linear complementarity problem (LCP) of the following form (see also Finite Difference
+   <b>
+    Methods for Early Exercise Options):
+   </b>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\tau} - \mathcal{L}V \ge 0 \tag{21}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V - V^* \ge 0 \tag{22}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (V_{\tau} - \mathcal{L}V)(V - V^*) = 0 \tag{23}
+   </math>
+  </p>
+  <p block-type="Text">
+   For example, in exponential Lévy models,
+   <math display="inline">
+    \mathcal{L}
+   </math>
+   is the same integro-differential operator as in the PIDE (2) and
+   <math display="inline">
+    V^*
+   </math>
+   is the payoff received upon exercise. Pricing American options in Lévy driven models based on equations (21)–(23) is considered in
+   <math display="inline">
+    [1-3,
+   </math>
+   19-22, 24, 25, 32, 33]. Numerical solution of the integro-differential problem
+   <math display="inline">
+    (21)
+   </math>
+   –
+   <math display="inline">
+    (23)
+   </math>
+   faces globally the same difficulties as that of PIDEs. The dense and nonsymmetric matrix of the operator makes unfeasible or inefficient standard methods for solving LCPs. The solutions proposed rely on similar ideas as in the European case: splitting the operator
+   <math display="inline">
+    [1, 33]
+   </math>
+   , wavelet compression [25], using iterative methods with suitable preconditioning. In [19, 21, 32], the LCP is replaced by an equation with a nonlinear penalty term. We refer to the references cited above for the details on these methods.
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      [1]
+     </math>
+     Almendral, A. (2005). Numerical valuation of American options under the CGMY process, in
+     <i>
+      Exotic
+     </i>
+     Options Pricing and Advanced Levy Models, A. Kyprianou, W. Schoutens &amp; P. Wilmott, eds, Wiley.
+    </li>
+    <li block-type="ListItem">
+     [2] Almendral, A. &amp; Oosterlee, C.W. (2006). Highly accurate evaluation of European and American options under the variance gamma process, Journal of Computational Finance 10(1), 21-42.
+    </li>
+    <li block-type="ListItem">
+     [3] Almendral, A. &amp; Oosterlee, C.W. (2007). Accurate evaluation of European and American options under the CGMY Process, SIAM Journal on Scientific Computing 29. 93-117.
+    </li>
+    <li block-type="ListItem">
+     Alvarez, O. &amp; Tourin, A. (1996). Viscosity solutions [4] of non-linear integro-differential equations, Annales de l'Institut Henri Poincaré 13(3), 293-317.
+    </li>
+    <li block-type="ListItem">
+     [5] Amadori, A.L. (2003). Nonlinear integro-differential evolution problems arising in option pricing: a viscosity solutions approach, Journal of Differential Integral
+     <i>
+      Equations
+     </i>
+     <math display="inline">
+      16(7)
+     </math>
+     , 787–811.
+    </li>
+    <li block-type="ListItem">
+     Andersen, L. &amp; Andreasen, J. (2000). Jump-diffusion [6] models: volatility smile fitting and numerical methods for pricing, Review of Derivatives Research 4(3), 231-262.
+    </li>
+    <li block-type="ListItem">
+     [7] Arisawa, M. (2006). A new definition of viscosity solutions for a class of second-order degenerate elliptic integro-differential equations, Annales de l'Institut Henri Poincaré (C) Non Linear Analysis, 23(5), 695-711.
+    </li>
+    <li block-type="ListItem">
+     [8] Asmussen, S. &amp; Rosiński, J. (2001). Approximations of small jumps of Lévy processes with a view towards simulation.
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      38
+     </b>
+     (2), 482–493.
+    </li>
+    <li block-type="ListItem">
+     [9] Barles, G., Buckdahn, R. &amp; Pardoux, E. (1997). Backward stochastic differential equations and integral-partial differential equations, Stochastics and Stochastic Reports 60. 57-83.
+    </li>
+    <li block-type="ListItem">
+     [10] Bensoussan, A. &amp; Lions, J.-L. (1982). Contrôle Impulsionnel et Inéquations Quasi-Variationnelles, Dunod, Paris.
+    </li>
+    <li block-type="ListItem">
+     [11] Briani, M., Natalini, R. &amp; Russo, G. (2007). Implicitexplicit numerical schemes for jump-diffusion processes, Calcolo 44, 33-57.
+    </li>
+    <li block-type="ListItem">
+     [12] Carr, P. &amp; Itkin, A. (2007). A Finite-Difference Approach to the Pricing of Barrier Options in Stochastic Skew
+     <i>
+      Model
+     </i>
+     , Working Paper.
+    </li>
+    <li block-type="ListItem">
+     [13] Clift, S. &amp; Forsyth, P. (2008). Numerical solution of two asset jump diffusion models for option valuation, Applied Numerical Mathematics, 58(6), 743-782.
+    </li>
+    <li block-type="ListItem">
+     [14] Cont, R. &amp; Tankov, P. (2008). Financial Modelling with Jump Processes, 2nd Edition, CRC Press.
+    </li>
+    <li block-type="ListItem">
+     [15] Cont, R., Tankov, P. &amp; Voltchkova, E. (2005). Hedging with options in models with jumps, in Stochastic Analysis and Applications: The Abel Symposium 2005 in honor of Kiyosi Ito, F.E. Benth, G. Di Nunno, T. Lindstrom, B. Oksendal &amp; T. Zhang, eds, Springer, pp. 197-218.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [16] Cont, R. &amp; Voltchkova, E. (2005). Integro-differential equations for option prices in exponential Levy models, ´
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      9
+     </b>
+     , 299–325.
+    </li>
+    <li block-type="ListItem">
+     [17] Cont, R. &amp; Voltchkova, E. (2005). Finite difference methods for option pricing in jump-diffusion and exponential Levy models, ´
+     <i>
+      SIAM Journal on Numerical Analysis
+     </i>
+     <b>
+      43
+     </b>
+     (4), 1596–1626.
+    </li>
+    <li block-type="ListItem">
+     [18] Farkas, W., Reich, N. &amp; Schwab, C. (2006).
+     <i>
+      Anisotropic Stable L´evy Copula Processes—Analytical and Numerical Aspects
+     </i>
+     . Research Report No. 2006-08, Seminar for Applied Mathematics, ETH Zurich. ¨
+    </li>
+    <li block-type="ListItem">
+     [19] d'Halluin, Y., Forsyth, P. &amp; Labahn, G. (2004). A penalty method for American options with jump diffusion processes,
+     <i>
+      Numerische Mathematik
+     </i>
+     <b>
+      97
+     </b>
+     , 321–352.
+    </li>
+    <li block-type="ListItem">
+     [20] d'Halluin, Y., Forsyth, P. &amp; Labahn, G. (2005). A semi-Lagrangian approach for American Asian options under jump diffusion,
+     <i>
+      SIAM Journal on Scientific Computing
+     </i>
+     <b>
+      27
+     </b>
+     , 315–345.
+    </li>
+    <li block-type="ListItem">
+     [21] d'Halluin, Y., Forsyth, P. &amp; Vetzal, K. (2005). Robust numerical methods for contingent claims under jump diffusion processes,
+     <i>
+      IMA Journal on Numerical Analysis
+     </i>
+     <b>
+      25
+     </b>
+     , 87–112.
+    </li>
+    <li block-type="ListItem">
+     [22] Hirsa, A. &amp; Madan, D.B. (2003). Pricing American options under variance gamma,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      7
+     </b>
+     (2), 63–80.
+    </li>
+    <li block-type="ListItem">
+     [23] Jakobsen, E.R. &amp; Karlsen, K.H. (2006). A "maximum principle for semicontinuous functions" applicable to integro-partial differential equations,
+     <i>
+      Nonlinear Differential Equations Applications
+     </i>
+     <b>
+      13
+     </b>
+     , 137–165.
+    </li>
+    <li block-type="ListItem">
+     [24] Levendorskii, S., Kudryavtsev, O. &amp; Zherder, V. (2005). The relative efficiency of numerical methods for pricing American options under Levy processes, ´
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      9
+     </b>
+     (2), 69–97.
+    </li>
+    <li block-type="ListItem">
+     [25] Matache, A.-M., Nitsche, P.-A. &amp; Schwab, C. (2005). Wavelet Galerkin pricing of American options on Levy- ´ driven assets,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      5
+     </b>
+     (4), 403–424.
+    </li>
+    <li block-type="ListItem">
+     [26] Matache, A.-M., von Petersdorff, T. &amp; Schwab, C. (2004). Fast deterministic pricing of options on Levy ´ driven assets,
+     <i>
+      Mathematical Modelling and Numerical Analysis
+     </i>
+     <b>
+      38
+     </b>
+     (1), 37–71.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [27] Pham, H. (1998). Optimal stopping of controlled jumpdiffusion processes: a viscosity solution approach,
+     <i>
+      Journal of Mathematical Systems
+     </i>
+     <b>
+      8
+     </b>
+     (1), 1–27.
+    </li>
+    <li block-type="ListItem">
+     [28] Sayah, A. (1991). Equations d'Hamilton Jacobi du premier ordre avec termes integro-differentiels,
+     <i>
+      Communications in Partial Differential Equations
+     </i>
+     <b>
+      16
+     </b>
+     , 1057–1093.
+    </li>
+    <li block-type="ListItem">
+     [29] Soner, H.M. (1986). Optimal control of jump-Markov processes and viscosity solutions,
+     <i>
+      IMA Volumes in Mathematics and Applications
+     </i>
+     , Springer-Verlag, New York, Vol. 10, 501–511.
+    </li>
+    <li block-type="ListItem">
+     [30] Tavella, D. &amp; Randall, C. (2000).
+     <i>
+      Pricing Financial Instruments: The Finite Difference Method
+     </i>
+     , Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [31] Toivanen, J. (2008). Numerical valuation of European and American options under Kou's jump-diffusion model,
+     <i>
+      SIAM Journal on Scientific Computing
+     </i>
+     <b>
+      30
+     </b>
+     (4), 1949–1970.
+    </li>
+    <li block-type="ListItem">
+     [32] Wang, I.R., Wan, J.W.L. &amp; Forsyth, P. (2007). Robust numerical valuation of European and American options under the CGMY process,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      10
+     </b>
+     , 31–69.
+    </li>
+    <li block-type="ListItem">
+     [33] Zhang, X.L. (1997). Numerical analysis of American option pricing in a jump-diffusion model,
+     <i>
+      Mathematics of Operations Research
+     </i>
+     <b>
+      22
+     </b>
+     (3), 668–690.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Backward Stochastic Differential Equations: Numerical Methods
+   </b>
+   ;
+   <b>
+    Econometrics of Option Pricing
+   </b>
+   ;
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Barrier Options
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Early Exercise Options
+   </b>
+   ;
+   <b>
+    Jump Processes
+   </b>
+   ;
+   <b>
+    Lattice Methods for Path-dependent Options
+   </b>
+   ;
+   <b>
+    Monotone Schemes
+   </b>
+   ;
+   <b>
+    Option Pricing Theory: Historical Perspectives
+   </b>
+   ;
+   <b>
+    Partial Differential Equations
+   </b>
+   ;
+   <b>
+    Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Timechanged Levy Process ´
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   EKATERINA VOLTCHKOVA
+  </p>
+ </body>
+</html>

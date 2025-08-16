@@ -1,0 +1,2254 @@
+{
+  "blocks": [
+    {
+      "id": "/page/0/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Monte Carlo Greeks </b></h1>",
+      "page": 183,
+      "polygon": [
+        [
+          73.4379746835443,
+          71.2027833001988
+        ],
+        [
+          239.0481012658228,
+          71.2027833001988
+        ],
+        [
+          239.0481012658228,
+          88.451416015625
+        ],
+        [
+          73.4379746835443,
+          88.451416015625
+        ]
+      ],
+      "bbox": [
+        73.4379746835443,
+        71.2027833001988,
+        239.0481012658228,
+        88.451416015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Monte Carlo simulation (see Monte Carlo Simulation) allows not only to compute option prices but can also be used to estimate their sensitivity parameters (delta, gamma, vega, etc.). The baseline estimator, the one which is to be improved, is known as the res<i>imulation estimator</i>. Resimulation consists of simply rerunning the simulation (using the same sequence of pseudorandom numbers) after perturbing the parameter or variable of interest. The corresponding estimator is then taken as the change in the value of the derivative divided by the magnitude of the perturbation. The purpose of most of the sophisticated methods that are discussed is primarily that resimulation can be very demanding computationally, while the desired information is in some way already contained in the original simulation data and can be extracted with much more modest amounts of computation than with resimulation. The focus of this article is on the two main such techniques, known as the pathwise and likelihood ratio methods.</p>",
+      "page": 183,
+      "polygon": [
+        [
+          74.1873417721519,
+          109.42743538767395
+        ],
+        [
+          286.75,
+          109.42743538767395
+        ],
+        [
+          286.75,
+          337.79052734375
+        ],
+        [
+          74.1873417721519,
+          337.79052734375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        109.42743538767395,
+        286.75,
+        337.79052734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/2",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The standard integration, or expectation, that represents the value of a derivative takes the form</p>",
+      "page": 183,
+      "polygon": [
+        [
+          74.9367088607595,
+          337.2763419483102
+        ],
+        [
+          285.73828125,
+          337.2763419483102
+        ],
+        [
+          285.73828125,
+          359.328125
+        ],
+        [
+          74.9367088607595,
+          359.328125
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        337.2763419483102,
+        285.73828125,
+        359.328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/3",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V = \\int \\pi(S)\\psi(S) \\, \\mathrm{d}S \\tag{1}</math></p>",
+      "page": 183,
+      "polygon": [
+        [
+          137.8828125,
+          366.13916015625
+        ],
+        [
+          283.859375,
+          366.13916015625
+        ],
+        [
+          283.859375,
+          390.25390625
+        ],
+        [
+          137.8828125,
+          390.25390625
+        ]
+      ],
+      "bbox": [
+        137.8828125,
+        366.13916015625,
+        283.859375,
+        390.25390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">\\pi</math> (<math display=\"inline\">\\bullet</math>) represents the payoff function and <math display=\"inline\">\\psi</math> (<math display=\"inline\">\\bullet</math>) is the probability density of the underlying. The pathwise estimator is based on how the relevant parameter functionally enters into the payoff, whereas the likelihood ratio estimator is based on how the relevant parameter enters into the density function of the underlying(s), given the appropriate change of variable. We specialize this in what follows by assuming that normal variates are the drivers for all price changes and by including a vector of parameters <math display=\"inline\">\\alpha</math>, which may represent the initial prices of the underlying securities or rates, volatilities, time to expiration, dividend rates, and so on. In what follows, we give the specifics of the computation of these methods and give some examples of each.</p>",
+      "page": 183,
+      "polygon": [
+        [
+          74.1873417721519,
+          394.2385685884692
+        ],
+        [
+          287.00759493670887,
+          394.2385685884692
+        ],
+        [
+          287.00759493670887,
+          564.763671875
+        ],
+        [
+          74.1873417721519,
+          564.763671875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        394.2385685884692,
+        287.00759493670887,
+        564.763671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/5",
+      "block_type": "SectionHeader",
+      "html": "<h4><b>Pathwise Method </b></h4>",
+      "page": 183,
+      "polygon": [
+        [
+          74.9367088607595,
+          586.1113320079523
+        ],
+        [
+          161.1139240506329,
+          586.1113320079523
+        ],
+        [
+          161.1139240506329,
+          596.0576171875
+        ],
+        [
+          74.9367088607595,
+          596.0576171875
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        586.1113320079523,
+        161.1139240506329,
+        596.0576171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The pathwise estimator is obtained with</p>",
+      "page": 183,
+      "polygon": [
+        [
+          74.1873417721519,
+          605.5984095427435
+        ],
+        [
+          236.8,
+          605.5984095427435
+        ],
+        [
+          236.8,
+          615.9384765625
+        ],
+        [
+          74.1873417721519,
+          615.9384765625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        605.5984095427435,
+        236.8,
+        615.9384765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V = \\int \\pi [S(z,\\alpha)] \\varphi(z) \\, \\mathrm{d}z \\tag{2}</math></p>",
+      "page": 183,
+      "polygon": [
+        [
+          131.162109375,
+          624.7744140625
+        ],
+        [
+          284.4375,
+          624.7744140625
+        ],
+        [
+          284.4375,
+          650.5458984375
+        ],
+        [
+          131.162109375,
+          650.5458984375
+        ]
+      ],
+      "bbox": [
+        131.162109375,
+        624.7744140625,
+        284.4375,
+        650.5458984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">\\varphi(z)</math> is the standard normal density. The desired sensitivities are then</p>",
+      "page": 183,
+      "polygon": [
+        [
+          301.24556962025315,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          92.3631591796875
+        ],
+        [
+          301.24556962025315,
+          92.3631591796875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        71.2027833001988,
+        513.3164556962025,
+        92.3631591796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}V}{\\mathrm{d}\\alpha} = \\frac{\\mathrm{d}}{\\mathrm{d}\\alpha} \\left\\{ \\int \\pi [S(z,\\alpha)] \\varphi(z) \\,\\mathrm{d}z \\right\\} \\tag{3}</math></p>",
+      "page": 183,
+      "polygon": [
+        [
+          338.7139240506329,
+          99.680419921875
+        ],
+        [
+          512.796875,
+          99.680419921875
+        ],
+        [
+          512.796875,
+          128.397216796875
+        ],
+        [
+          338.7139240506329,
+          128.397216796875
+        ]
+      ],
+      "bbox": [
+        338.7139240506329,
+        99.680419921875,
+        512.796875,
+        128.397216796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">or, exchanging the differentiation and integral</p>",
+      "page": 183,
+      "polygon": [
+        [
+          301.24556962025315,
+          131.16302186878727
+        ],
+        [
+          486.33924050632913,
+          131.16302186878727
+        ],
+        [
+          486.33924050632913,
+          141.55908203125
+        ],
+        [
+          301.24556962025315,
+          141.55908203125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        131.16302186878727,
+        486.33924050632913,
+        141.55908203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}V}{\\mathrm{d}\\alpha} = \\int \\frac{\\mathrm{d}}{\\mathrm{d}\\alpha} \\left( \\pi [S(z,\\alpha)] \\right) \\varphi(z) \\, \\mathrm{d}z \\tag{4}</math></p>",
+      "page": 183,
+      "polygon": [
+        [
+          346.0078125,
+          150.02685546875
+        ],
+        [
+          511.3515625,
+          150.02685546875
+        ],
+        [
+          511.3515625,
+          178.5595703125
+        ],
+        [
+          346.0078125,
+          178.5595703125
+        ]
+      ],
+      "bbox": [
+        346.0078125,
+        150.02685546875,
+        511.3515625,
+        178.5595703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The corresponding (unbiased) pathwise estimator can then be computed as</p>",
+      "page": 183,
+      "polygon": [
+        [
+          301.24556962025315,
+          180.63021868787277
+        ],
+        [
+          513.3164556962025,
+          180.63021868787277
+        ],
+        [
+          513.3164556962025,
+          202.67431640625
+        ],
+        [
+          301.24556962025315,
+          202.67431640625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        180.63021868787277,
+        513.3164556962025,
+        202.67431640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\left\\{\\frac{\\mathrm{d}V}{\\mathrm{d}\\alpha}\\right\\}_{P} = \\frac{1}{N} \\sum_{i=1}^{N} \\frac{\\mathrm{d}}{\\mathrm{d}\\alpha} \\left(\\pi \\left[S^{i}(z_{i}, \\alpha)\\right]\\right) \\qquad (5)</math></p>",
+      "page": 183,
+      "polygon": [
+        [
+          337.046875,
+          213.53515625
+        ],
+        [
+          511.640625,
+          213.53515625
+        ],
+        [
+          511.640625,
+          244.4609375
+        ],
+        [
+          337.046875,
+          244.4609375
+        ]
+      ],
+      "bbox": [
+        337.046875,
+        213.53515625,
+        511.640625,
+        244.4609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where the summation is taken over <math display=\"inline\">N</math> simulation paths indexed by <i>i</i> and the <math display=\"inline\">z_i</math> are independent and identically distributed standard normal variates. As an application of the pathwise methodology, we consider computing an estimate of vega for a European call option under the Black-Scholes model where</p>",
+      "page": 183,
+      "polygon": [
+        [
+          301.24556962025315,
+          251.08349900596423
+        ],
+        [
+          513.3164556962025,
+          251.08349900596423
+        ],
+        [
+          513.3164556962025,
+          317.90966796875
+        ],
+        [
+          301.24556962025315,
+          317.90966796875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        251.08349900596423,
+        513.3164556962025,
+        317.90966796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">dS_t = S_t [(r - \\delta) dt + \\sigma dB_t] </math> (6)</p>",
+      "page": 183,
+      "polygon": [
+        [
+          350.0546875,
+          328.7705078125
+        ],
+        [
+          511.9296875,
+          328.7705078125
+        ],
+        [
+          511.9296875,
+          338.7109375
+        ],
+        [
+          350.0546875,
+          338.7109375
+        ]
+      ],
+      "bbox": [
+        350.0546875,
+        328.7705078125,
+        511.9296875,
+        338.7109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/16",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">and <math display=\"inline\">S_t</math> is the underlying asset price at time t, r is the domestic interest rate, <math display=\"inline\">\\delta</math> is the dividend rate or foreign interest rate, <math display=\"inline\">\\sigma</math> is the volatility, and <math display=\"inline\">B_t</math> is standard Brownian motion. A European call option with expiration <math display=\"inline\">T</math> and strike price <math display=\"inline\">K</math> has value equal to</p>",
+      "page": 183,
+      "polygon": [
+        [
+          301.24556962025315,
+          348.5188866799205
+        ],
+        [
+          513.3164556962025,
+          348.5188866799205
+        ],
+        [
+          513.3164556962025,
+          416.76171875
+        ],
+        [
+          301.24556962025315,
+          416.76171875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        348.5188866799205,
+        513.3164556962025,
+        416.76171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V = E\\left[e^{-rT}\\left(S_T - K\\right)^+\\right] \\tag{7}</math></p>",
+      "page": 183,
+      "polygon": [
+        [
+          356.703125,
+          417.498046875
+        ],
+        [
+          511.640625,
+          417.498046875
+        ],
+        [
+          511.640625,
+          430.751953125
+        ],
+        [
+          356.703125,
+          430.751953125
+        ]
+      ],
+      "bbox": [
+        356.703125,
+        417.498046875,
+        511.640625,
+        430.751953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/18",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">E(\\bullet)</math> is the risk-neutral expectation operator. In the Black-Scholes model we have</p>",
+      "page": 183,
+      "polygon": [
+        [
+          301.24556962025315,
+          437.7097415506958
+        ],
+        [
+          513.3164556962025,
+          437.7097415506958
+        ],
+        [
+          513.3164556962025,
+          459.8369140625
+        ],
+        [
+          301.24556962025315,
+          459.8369140625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        437.7097415506958,
+        513.3164556962025,
+        459.8369140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/19",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">S_T = S_0 \\exp\\left[\\left(r - \\delta - \\frac{\\sigma^2}{2}\\right)T + \\sigma\\sqrt{T}Z\\right] \\quad (8)</math></p>",
+      "page": 183,
+      "polygon": [
+        [
+          314.73417721518985,
+          467.568359375
+        ],
+        [
+          512.21875,
+          467.568359375
+        ],
+        [
+          512.21875,
+          500.703125
+        ],
+        [
+          314.73417721518985,
+          500.703125
+        ]
+      ],
+      "bbox": [
+        314.73417721518985,
+        467.568359375,
+        512.21875,
+        500.703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/20",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">Z</math> is a realization of a standard normal variate. Therefore</p>",
+      "page": 183,
+      "polygon": [
+        [
+          301.24556962025315,
+          504.4155069582505
+        ],
+        [
+          513.3164556962025,
+          504.4155069582505
+        ],
+        [
+          513.3164556962025,
+          526.1064453125
+        ],
+        [
+          301.24556962025315,
+          526.1064453125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        504.4155069582505,
+        513.3164556962025,
+        526.1064453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/21",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}S_T}{\\mathrm{d}\\sigma} = S_T \\left( -\\sigma T + \\sqrt{T}Z \\right)</math><math display=\"block\">= \\frac{S_T}{\\sigma} \\left[ \\ln \\left( S_T / S_0 \\right) - \\left( r - \\delta + \\frac{\\sigma^2}{2} \\right) T \\right] \\tag{9}</math></p>",
+      "page": 183,
+      "polygon": [
+        [
+          315.3671875,
+          538.6240234375
+        ],
+        [
+          511.9296875,
+          538.6240234375
+        ],
+        [
+          511.9296875,
+          599.7392578125
+        ],
+        [
+          315.3671875,
+          599.7392578125
+        ]
+      ],
+      "bbox": [
+        315.3671875,
+        538.6240234375,
+        511.9296875,
+        599.7392578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/22",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Now we simply apply the chain rule</p>",
+      "page": 183,
+      "polygon": [
+        [
+          301.24556962025315,
+          603.3499005964214
+        ],
+        [
+          450.36962025316456,
+          603.3499005964214
+        ],
+        [
+          450.36962025316456,
+          613.7294921875
+        ],
+        [
+          301.24556962025315,
+          613.7294921875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        603.3499005964214,
+        450.36962025316456,
+        613.7294921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/23",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}V}{\\mathrm{d}\\sigma} = E \\left[ \\frac{\\mathrm{d}\\pi}{\\mathrm{d}S_T} \\frac{\\mathrm{d}S_T}{\\mathrm{d}\\sigma} \\right] \\tag{10}</math></p>",
+      "page": 183,
+      "polygon": [
+        [
+          363.0625,
+          621.0927734375
+        ],
+        [
+          512.21875,
+          621.0927734375
+        ],
+        [
+          512.21875,
+          649.8095703125
+        ],
+        [
+          363.0625,
+          649.8095703125
+        ]
+      ],
+      "bbox": [
+        363.0625,
+        621.0927734375,
+        512.21875,
+        649.8095703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          44.970178926441356
+        ],
+        [
+          195.58481012658228,
+          44.970178926441356
+        ],
+        [
+          195.58481012658228,
+          55.77685546875
+        ],
+        [
+          77.93417721518988,
+          55.77685546875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        44.970178926441356,
+        195.58481012658228,
+        55.77685546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where</p>",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.2027833001988
+        ],
+        [
+          104.279296875,
+          71.2027833001988
+        ],
+        [
+          104.279296875,
+          81.5943603515625
+        ],
+        [
+          77.93417721518988,
+          81.5943603515625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.2027833001988,
+        104.279296875,
+        81.5943603515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}\\pi}{\\mathrm{d}S_T} = \\mathrm{e}^{-rT}I\\left(S_T &gt; K\\right) \\tag{11}</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          135.63544303797468,
+          80.719970703125
+        ],
+        [
+          288.91796875,
+          80.719970703125
+        ],
+        [
+          288.91796875,
+          103.0859375
+        ],
+        [
+          135.63544303797468,
+          103.0859375
+        ]
+      ],
+      "bbox": [
+        135.63544303797468,
+        80.719970703125,
+        288.91796875,
+        103.0859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">and <math display=\"inline\">I(\\bullet)</math> is the indicator function that takes on the value <math display=\"inline\">1</math> if the argument is true and <math display=\"inline\">0</math> otherwise. That is, the call payoff responds one-to-one with the underlying at expiration provided that the option finishes in-the-money. We then replace the expectation with a summation, as before, to obtain the pathwise estimator</p>",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          111.67594433399603
+        ],
+        [
+          290.00506329113927,
+          111.67594433399603
+        ],
+        [
+          290.00506329113927,
+          190.3408203125
+        ],
+        [
+          77.93417721518988,
+          190.3408203125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        111.67594433399603,
+        290.00506329113927,
+        190.3408203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\left\\{\\frac{\\mathrm{d}V}{\\mathrm{d}\\sigma}\\right\\}_{P} = \\frac{1}{N} \\sum_{i=1}^{N} \\mathrm{e}^{-rT} \\mathbb{1} \\left(S_{T}^{i} &gt; K\\right) \\frac{S_{T}^{i}}{\\sigma}</math><math display=\"block\">\\times \\left[\\ln\\left(S_{T}^{i}/S_{0}^{i}\\right) - \\left(r - \\delta + \\frac{\\sigma^{2}}{2}\\right)T\\right] \\tag{12}</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          88.59765625,
+          205.435546875
+        ],
+        [
+          288.05078125,
+          205.435546875
+        ],
+        [
+          288.05078125,
+          288.640625
+        ],
+        [
+          88.59765625,
+          288.640625
+        ]
+      ],
+      "bbox": [
+        88.59765625,
+        205.435546875,
+        288.05078125,
+        288.640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/5",
+      "block_type": "SectionHeader",
+      "html": "<h3>Likelihood Ratio Method</h3>",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          311.79324055666007
+        ],
+        [
+          203.07848101265822,
+          311.79324055666007
+        ],
+        [
+          203.07848101265822,
+          322.51171875
+        ],
+        [
+          77.93417721518988,
+          322.51171875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        311.79324055666007,
+        203.07848101265822,
+        322.51171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">For the likelihood ratio method, we perform a change of variables such that the dependence on <math display=\"inline\">\\alpha</math> in the integrand is put into the density function <i>via </i></p>",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          333.5288270377734
+        ],
+        [
+          290.00506329113927,
+          333.5288270377734
+        ],
+        [
+          290.00506329113927,
+          367.0595703125
+        ],
+        [
+          77.93417721518988,
+          367.0595703125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        333.5288270377734,
+        290.00506329113927,
+        367.0595703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}V}{\\mathrm{d}\\alpha} = \\int \\pi \\left( S \\right) \\frac{\\mathrm{d}}{\\mathrm{d}\\alpha} \\varphi(S;\\alpha) \\, \\mathrm{d}S \\tag{13}</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          126.970703125,
+          375.8955078125
+        ],
+        [
+          288.1953125,
+          375.8955078125
+        ],
+        [
+          288.1953125,
+          403.1396484375
+        ],
+        [
+          126.970703125,
+          403.1396484375
+        ]
+      ],
+      "bbox": [
+        126.970703125,
+        375.8955078125,
+        288.1953125,
+        403.1396484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">or</p>",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          406.98011928429423
+        ],
+        [
+          88.4253164556962,
+          406.98011928429423
+        ],
+        [
+          88.4253164556962,
+          416.76171875
+        ],
+        [
+          77.93417721518988,
+          416.76171875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        406.98011928429423,
+        88.4253164556962,
+        416.76171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}V}{\\mathrm{d}\\alpha} = \\int \\pi \\left( S \\right) \\frac{\\frac{\\mathrm{d}}{\\mathrm{d}\\alpha} \\varphi(S;\\alpha)}{\\varphi(S;\\alpha)} \\varphi(S;\\alpha) \\, \\mathrm{d}S \\tag{14}</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          102.6171875,
+          427.4384765625
+        ],
+        [
+          287.6171875,
+          427.4384765625
+        ],
+        [
+          287.6171875,
+          459.1005859375
+        ],
+        [
+          102.6171875,
+          459.1005859375
+        ]
+      ],
+      "bbox": [
+        102.6171875,
+        427.4384765625,
+        287.6171875,
+        459.1005859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In this form, the calculation resembles the estimation of the price of a derivative with payoff</p>",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          466.9403578528827
+        ],
+        [
+          290.00506329113927,
+          466.9403578528827
+        ],
+        [
+          290.00506329113927,
+          488.185546875
+        ],
+        [
+          77.93417721518988,
+          488.185546875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        466.9403578528827,
+        290.00506329113927,
+        488.185546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\chi(S;\\alpha) \\equiv \\pi(S)\\omega(S;\\alpha) \\tag{15}</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          137.015625,
+          499.966796875
+        ],
+        [
+          289.640625,
+          499.966796875
+        ],
+        [
+          289.640625,
+          510.275390625
+        ],
+        [
+          137.015625,
+          510.275390625
+        ]
+      ],
+      "bbox": [
+        137.015625,
+        499.966796875,
+        289.640625,
+        510.275390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where</p>",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          522.4035785288271
+        ],
+        [
+          104.1620253164557,
+          522.4035785288271
+        ],
+        [
+          104.1620253164557,
+          531.62890625
+        ],
+        [
+          77.93417721518988,
+          531.62890625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        522.4035785288271,
+        104.1620253164557,
+        531.62890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\omega \\equiv \\frac{\\frac{\\mathrm{d}}{\\mathrm{d}\\alpha}\\varphi(S;\\alpha)}{\\varphi(S;\\alpha)}\\tag{16}</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          150.6015625,
+          533.1015625
+        ],
+        [
+          287.328125,
+          533.1015625
+        ],
+        [
+          287.328125,
+          563.291015625
+        ],
+        [
+          150.6015625,
+          563.291015625
+        ]
+      ],
+      "bbox": [
+        150.6015625,
+        533.1015625,
+        287.328125,
+        563.291015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">so that we have</p>",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          573.3697813121272
+        ],
+        [
+          144.458984375,
+          573.3697813121272
+        ],
+        [
+          144.458984375,
+          583.5400390625
+        ],
+        [
+          77.93417721518988,
+          583.5400390625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        573.3697813121272,
+        144.458984375,
+        583.5400390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}V}{\\mathrm{d}\\alpha} = \\int \\chi(S;\\alpha) \\varphi(S,\\alpha) \\,\\mathrm{d}S \\tag{17}</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          127.837890625,
+          590.53515625
+        ],
+        [
+          289.640625,
+          590.53515625
+        ],
+        [
+          289.640625,
+          616.306640625
+        ],
+        [
+          127.837890625,
+          616.306640625
+        ]
+      ],
+      "bbox": [
+        127.837890625,
+        590.53515625,
+        289.640625,
+        616.306640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">As with the pathwise method, we can convert this into a discrete sum suitable for a Monte Carlo</p>",
+      "page": 137,
+      "polygon": [
+        [
+          77.93417721518988,
+          622.8369781312127
+        ],
+        [
+          290.00506329113927,
+          622.8369781312127
+        ],
+        [
+          290.00506329113927,
+          644.287109375
+        ],
+        [
+          77.93417721518988,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        622.8369781312127,
+        290.00506329113927,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/17",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">implementation to obtain an unbiased estimator of</p>",
+      "page": 137,
+      "polygon": [
+        [
+          304.99240506329113,
+          71.2027833001988
+        ],
+        [
+          508.82025316455696,
+          71.2027833001988
+        ],
+        [
+          508.82025316455696,
+          81.3642578125
+        ],
+        [
+          304.99240506329113,
+          81.3642578125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        71.2027833001988,
+        508.82025316455696,
+        81.3642578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/18",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\left\\{\\frac{\\mathrm{d}V}{\\mathrm{d}\\alpha}\\right\\}_{L} = \\frac{1}{N} \\sum_{i=1}^{N} \\chi\\left(S_{i}\\left(z_{i}\\right); \\alpha\\right) \\tag{18}</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          346.5859375,
+          89.924072265625
+        ],
+        [
+          515.9765625,
+          89.924072265625
+        ],
+        [
+          515.9765625,
+          124.715576171875
+        ],
+        [
+          346.5859375,
+          124.715576171875
+        ]
+      ],
+      "bbox": [
+        346.5859375,
+        89.924072265625,
+        515.9765625,
+        124.715576171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/19",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In order to illustrate this technique, we again consider the vega calculation. For the normal density we get</p>",
+      "page": 137,
+      "polygon": [
+        [
+          304.99240506329113,
+          128.16500994035786
+        ],
+        [
+          517.0632911392405,
+          128.16500994035786
+        ],
+        [
+          517.0632911392405,
+          161.163818359375
+        ],
+        [
+          304.99240506329113,
+          161.163818359375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        128.16500994035786,
+        517.0632911392405,
+        161.163818359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/20",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\omega = \\frac{\\mathrm{d}}{\\mathrm{d}\\alpha} \\varphi(S;\\alpha) \\tag{19}</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          340.2126582278481,
+          174.601806640625
+        ],
+        [
+          516.265625,
+          174.601806640625
+        ],
+        [
+          516.265625,
+          208.7490234375
+        ],
+        [
+          340.2126582278481,
+          208.7490234375
+        ]
+      ],
+      "bbox": [
+        340.2126582278481,
+        174.601806640625,
+        516.265625,
+        208.7490234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/21",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">=\\frac{\\ln\\left(x/S_0\\right) - \\left(r - \\delta - \\sigma^2/2\\right)T}{S_0\\sigma^2T} \\qquad (20)</math></p>",
+      "page": 137,
+      "polygon": [
+        [
+          349.4765625,
+          214.45556640625
+        ],
+        [
+          516.5546875,
+          214.45556640625
+        ],
+        [
+          516.5546875,
+          240.59521484375
+        ],
+        [
+          349.4765625,
+          240.59521484375
+        ]
+      ],
+      "bbox": [
+        349.4765625,
+        214.45556640625,
+        516.5546875,
+        240.59521484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/22",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">and therefore the likelihood ratio estimator is</p>",
+      "page": 137,
+      "polygon": [
+        [
+          305.7417721518987,
+          248.0854870775348
+        ],
+        [
+          487.8379746835443,
+          248.0854870775348
+        ],
+        [
+          487.8379746835443,
+          258.0830078125
+        ],
+        [
+          305.7417721518987,
+          258.0830078125
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        248.0854870775348,
+        487.8379746835443,
+        258.0830078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/23",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\left\\{ \\frac{\\mathrm{d}V}{\\mathrm{d}\\sigma} \\right\\}_{L} = \\sum_{i=1}^{N} \\mathrm{e}^{-rT} \\left( S_{T}^{i} \\left( z_{i} \\right) - K \\right)^{+} \\times \\left[ \\frac{\\ln \\left( x / S_{0} \\right) - \\left( r - \\delta - \\sigma^{2} / 2 \\right) T}{S_{0} \\sigma^{2} T} \\right] </math>(21)</p>",
+      "page": 137,
+      "polygon": [
+        [
+          309.296875,
+          269.49609375
+        ],
+        [
+          516.84375,
+          269.49609375
+        ],
+        [
+          516.84375,
+          351.96484375
+        ],
+        [
+          309.296875,
+          351.96484375
+        ]
+      ],
+      "bbox": [
+        309.296875,
+        269.49609375,
+        516.84375,
+        351.96484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/24",
+      "block_type": "SectionHeader",
+      "html": "<h4>Comments</h4>",
+      "page": 137,
+      "polygon": [
+        [
+          305.7417721518987,
+          374.00198807157057
+        ],
+        [
+          359.69620253164555,
+          374.00198807157057
+        ],
+        [
+          359.69620253164555,
+          383.9951171875
+        ],
+        [
+          305.7417721518987,
+          383.9951171875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        374.00198807157057,
+        359.69620253164555,
+        383.9951171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/1/SectionHeader/24"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/25",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The interchange of the differentiation and integral operators that both the pathwise and likelihood ratio methods entail requires smoothness in the payoff functions and density functions, respectively. As financial derivative payoffs are often not smooth while densities generally are, the likelihood ratio method is more advantageous. For example, the call option payoff is not differentiable in the underlying asset price. The problem with the likelihood ratio method, however, is that the parameter of interest may not appear in the density function even after transformations are considered, although this is a fairly rare occurrence. For programming systems, a very significant advantage of the likelihood ratio method is that it can be coded in a modular way in that prior knowledge of the payoff is not required as made clear by equations <math display=\"inline\">(15-17)</math>.</p>",
+      "page": 137,
+      "polygon": [
+        [
+          304.99240506329113,
+          394.2385685884692
+        ],
+        [
+          517.0632911392405,
+          394.2385685884692
+        ],
+        [
+          517.0632911392405,
+          586.8608349900596
+        ],
+        [
+          304.99240506329113,
+          586.8608349900596
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        394.2385685884692,
+        517.0632911392405,
+        586.8608349900596
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/1/SectionHeader/24"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/26",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">It should be noted that these methods can also be applied to path-dependent payoffs (which can complicate the application of the pathwise method) as well as non-Gaussian cases (which can complicate the application of the likelihood ratio method).</p>",
+      "page": 137,
+      "polygon": [
+        [
+          304.99240506329113,
+          588.3598409542743
+        ],
+        [
+          517.0632911392405,
+          588.3598409542743
+        ],
+        [
+          517.0632911392405,
+          644.287109375
+        ],
+        [
+          304.99240506329113,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        588.3598409542743,
+        517.0632911392405,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/1/SectionHeader/24"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 190,
+      "polygon": [
+        [
+          397.6199951171875,
+          45.49365234375
+        ],
+        [
+          512.305419921875,
+          45.49365234375
+        ],
+        [
+          512.305419921875,
+          56.70166015625
+        ],
+        [
+          397.6199951171875,
+          56.70166015625
+        ]
+      ],
+      "bbox": [
+        397.6199951171875,
+        45.49365234375,
+        512.305419921875,
+        56.70166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/1/SectionHeader/24"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">It may be mentioned that there are other methods, such as the equivalent entropy projection and Malliavin calculus approaches. The equivalent entropy projection method, instead of perturbing the parameters of interest, involves perturbing the probabilities of the simulated paths. The Malliavin calculus approach (<i>see</i> <b>Sensitivity Computations: Integra</b><b>tion by Parts</b>) is a more elaborate or general version of, but arguably not superior, to the likelihood ratio method [1].</p>",
+      "page": 190,
+      "polygon": [
+        [
+          75.806640625,
+          71.88751220703125
+        ],
+        [
+          286.4609375,
+          71.88751220703125
+        ],
+        [
+          286.4609375,
+          184.7420654296875
+        ],
+        [
+          75.806640625,
+          184.7420654296875
+        ]
+      ],
+      "bbox": [
+        75.806640625,
+        71.88751220703125,
+        286.4609375,
+        184.7420654296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/1/SectionHeader/24"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>References</b></h2>",
+      "page": 190,
+      "polygon": [
+        [
+          75.734375,
+          201.43359375
+        ],
+        [
+          128.0771942138672,
+          201.43359375
+        ],
+        [
+          128.0771942138672,
+          212.6416015625
+        ],
+        [
+          75.734375,
+          212.6416015625
+        ]
+      ],
+      "bbox": [
+        75.734375,
+        201.43359375,
+        128.0771942138672,
+        212.6416015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/189",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">[1] Chen, N. &amp; Glasserman, P. (2007). Malliavin Greeks without Malliavin calculus, <i>Stochastic Processes and their</i> <i>Applications</i> <b>117</b>, 1723.</p>",
+      "page": 190,
+      "polygon": [
+        [
+          75.95999908447266,
+          227.70947265625
+        ],
+        [
+          285.3046875,
+          227.70947265625
+        ],
+        [
+          285.3046875,
+          255.90713500976562
+        ],
+        [
+          75.95999908447266,
+          255.90713500976562
+        ]
+      ],
+      "bbox": [
+        75.95999908447266,
+        227.70947265625,
+        285.3046875,
+        255.90713500976562
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/4",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Further Reading</b></h2>",
+      "page": 190,
+      "polygon": [
+        [
+          75.373046875,
+          272.95367431640625
+        ],
+        [
+          158.984375,
+          272.95367431640625
+        ],
+        [
+          158.984375,
+          284.1616516113281
+        ],
+        [
+          75.373046875,
+          284.1616516113281
+        ]
+      ],
+      "bbox": [
+        75.373046875,
+        272.95367431640625,
+        158.984375,
+        284.1616516113281
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/190",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">Avellaneda, M. &amp; Gamba, R. (2001). Conquering the Greeks in Monte Carlo: Efficient Calculation of the Market Sensitivities and Hedge Ratios of Financial Assets by Direct Numerical Simulation in <i>Quantitative Analysis in Financial Markets</i>, M. Avellaneda, ed., World Scientific, 336–364, Vol. III,</p>",
+      "page": 190,
+      "polygon": [
+        [
+          75.517578125,
+          299.2879333496094
+        ],
+        [
+          285.2677307128906,
+          299.2879333496094
+        ],
+        [
+          285.2677307128906,
+          347.4072265625
+        ],
+        [
+          75.517578125,
+          347.4072265625
+        ]
+      ],
+      "bbox": [
+        75.517578125,
+        299.2879333496094,
+        285.2677307128906,
+        347.4072265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">www.math.nyu.edu/faculty/avellane/Conquering TheGreeks. pdf.</p>",
+      "page": 190,
+      "polygon": [
+        [
+          309.875,
+          72.0064697265625
+        ],
+        [
+          512.3067016601562,
+          72.0064697265625
+        ],
+        [
+          512.3067016601562,
+          90.30572509765625
+        ],
+        [
+          309.875,
+          90.30572509765625
+        ]
+      ],
+      "bbox": [
+        309.875,
+        72.0064697265625,
+        512.3067016601562,
+        90.30572509765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/ListGroup/188",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">Broadie, M. &amp; Glasserman, P. (1996). Estimating security price derivatives using simulation, <i>Management Science</i> <b>42</b>(2), 269–285.</li><li block-type=\"ListItem\">Dupire, B. (ed) (1998). <i>Monte Carlo: Methodologies and Appli</i><i>cations for Pricing and Risk Management</i>, Risk Publications.</li><li block-type=\"ListItem\">Fournie, E., Lasry, J.M., Lebuchoux, J., Lions, P.L. &amp; Touzi, N. (1999). Applications of Malliavin Calculus to Monte Carlo methods in finance, <i>Finance and Stochastics</i> <b>3</b>(4), 391–412.</li><li block-type=\"ListItem\">Jackel, P. (2002). ¨ <i>Monte Carlo methods in finance</i>, John Wiley &amp; Sons.</li><li block-type=\"ListItem\">Jackel, P. (2005). ¨ <i>More Likely than Not</i>, www.jaeckel.org.</li></ul></p>",
+      "page": 190,
+      "polygon": [
+        [
+          300.625,
+          92.2265625
+        ],
+        [
+          513.375,
+          92.2265625
+        ],
+        [
+          513.375,
+          201.666015625
+        ],
+        [
+          300.625,
+          201.666015625
+        ]
+      ],
+      "bbox": [
+        300.625,
+        92.2265625,
+        513.375,
+        201.666015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/12",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Related Articles</b></h2>",
+      "page": 190,
+      "polygon": [
+        [
+          303.1199951171875,
+          228.91357421875
+        ],
+        [
+          380.9158630371094,
+          228.91357421875
+        ],
+        [
+          380.9158630371094,
+          240.12158203125
+        ],
+        [
+          303.1199951171875,
+          240.12158203125
+        ]
+      ],
+      "bbox": [
+        303.1199951171875,
+        228.91357421875,
+        380.9158630371094,
+        240.12158203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Delta Hedging</b>; <b>Gamma Hedging</b>; <b>Monte Carlo</b> <b>Simulation</b>; <b>Monte Carlo Simulation for Stocha</b><b>stic Differential Equations</b>; <b>Sensitivity Compu</b><b>tations: Integration by Parts</b>; <b>Stochastic Differ</b><b>ential Equations: Scenario Simulation</b>; <b>Variance</b> <b>Reduction</b>;</p>",
+      "page": 190,
+      "polygon": [
+        [
+          302.9375,
+          259.2891540527344
+        ],
+        [
+          512.796875,
+          259.2891540527344
+        ],
+        [
+          512.796875,
+          327.1797180175781
+        ],
+        [
+          302.9375,
+          327.1797180175781
+        ]
+      ],
+      "bbox": [
+        302.9375,
+        259.2891540527344,
+        512.796875,
+        327.1797180175781
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">MICHAEL CURRAN</p>",
+      "page": 190,
+      "polygon": [
+        [
+          425.5,
+          338.04632568359375
+        ],
+        [
+          500.3966064453125,
+          338.04632568359375
+        ],
+        [
+          500.3966064453125,
+          347.7611389160156
+        ],
+        [
+          425.5,
+          347.7611389160156
+        ]
+      ],
+      "bbox": [
+        425.5,
+        338.04632568359375,
+        500.3966064453125,
+        347.7611389160156
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    }
+  ],
+  "page_info": {
+    "0": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "1": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "2": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    }
+  }
+}

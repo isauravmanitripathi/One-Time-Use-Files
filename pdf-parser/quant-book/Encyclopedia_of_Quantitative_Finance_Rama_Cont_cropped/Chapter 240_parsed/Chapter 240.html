@@ -1,0 +1,2544 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Finite Difference Methods for Early Exercise Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   Analytical formulas for the price are not available for options with early exercise possibility. Numerical methods are needed for pricing them. A common way is to derive a partial differential equation (PDE) for the price of the corresponding European-type option (without early exercise possibility) and then modify the equation to allow early exercise. With this approach, most often the underlying partial differential operator is discretized using a finite difference method that we consider in the following. Finite difference methods can be seen as a special (but simpler) case of the finite element method (
+   <i>
+    see
+   </i>
+   <b>
+    Finite Element Methods
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   An American-type option can be exercised any time during its life (
+   <i>
+    see
+   </i>
+   <b>
+    American Options
+   </b>
+   ) while a Bermudan-type option can be exercised at specified discrete times during its life. Most typical examples are American put and call options, but American and Bermudan exercise features can be added virtually to any option. In the following, we use an American put option under the Black–Scholes model as an example. Many of the considered methods can be used in a straightforward manner for other types of models and options, as discussed below.
+  </p>
+  <h1>
+   <b>
+    PDE Formulation
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   We denote the price of an option by
+   <i>
+    V
+   </i>
+   , which is a function of the value of the underlying asset
+   <i>
+    S
+   </i>
+   and time
+   <i>
+    t
+   </i>
+   . As it is more common to consider problems forward in time instead of backward, we use the inverted time variable
+   <i>
+    τ
+   </i>
+   =
+   <i>
+    T
+   </i>
+   −
+   <i>
+    t
+   </i>
+   instead of
+   <i>
+    t
+   </i>
+   in the following. The payoff function
+   <i>
+    g
+   </i>
+   gives the value of the option at the expiry date
+   <i>
+    T
+   </i>
+   , and also if it is exercised early. For example, for a put option, it is
+   <i>
+    g(S, τ )
+   </i>
+   = max{
+   <i>
+    K
+   </i>
+   −
+   <i>
+    S,
+   </i>
+   0}, where
+   <i>
+    K
+   </i>
+   is the strike price.
+  </p>
+  <p block-type="Text">
+   The price
+   <i>
+    V
+   </i>
+   of a European option is given by a parabolic PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\tau} + LV = 0 \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   with the initial condition
+   <i>
+    V
+   </i>
+   =
+   <i>
+    g
+   </i>
+   at
+   <i>
+    τ
+   </i>
+   = 0 together with boundary conditions, where
+   <i>
+    L
+   </i>
+   is linear partial
+  </p>
+  <p block-type="Text">
+   differential operator. Under the Black–Scholes model [6], the operator
+   <i>
+    L
+   </i>
+   is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    LV = -\frac{1}{2}\sigma^2 S^2 V_{SS} - rSV_S + rV \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <i>
+    S &gt;
+   </i>
+   0, where
+   <i>
+    σ
+   </i>
+   is the volatility and
+   <i>
+    r
+   </i>
+   is the interest rate (
+   <i>
+    see
+   </i>
+   <b>
+    Black–Scholes Formula
+   </b>
+   ).
+  </p>
+  <p block-type="TextInlineMath">
+   At the moment when the owner of an American or Bermudan-type option exercises it, she/he will receive a payment defined by the payoff function
+   <i>
+    g
+   </i>
+   . Hence the value
+   <i>
+    V
+   </i>
+   of such an option cannot be less than
+   <i>
+    g
+   </i>
+   , otherwise there would be an arbitrage opportunity. This leads to an early exercise constraint
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V \ge g \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   which holds whenever the option can be exercised. As this inequality constrains the price
+   <i>
+    V
+   </i>
+   , it does not satisfy the PDE (1) everywhere; instead, it satisfies an inequality
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\tau} + LV \ge 0 \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   whenever equation (3) holds. Furthermore, either equation (3) or equation (4) has to hold with the equality at each point. Combining these conditions for an American-type option leads to a linear complementarity problem (LCP)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\tau} + LV \ge 0, \quad V \ge g,
+   </math>
+   <br/>
+   <math display="block">
+    (V_{\tau} + LV)(V - g) = 0 \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   For a Bermudan option, the LCP (5) holds when the option can be exercised, and at other times, the PDE (1) holds. Another possibility is to formulate a variational inequality for the price
+   <i>
+    V
+   </i>
+   ; see [1, 18, 27], for example.
+  </p>
+  <p block-type="Text">
+   At time
+   <i>
+    τ
+   </i>
+   , the space can be divided into two parts: an early exercise (stopping) region
+   <i>
+    E(τ )
+   </i>
+   and a hold (continuation) region
+   <i>
+    H (τ )
+   </i>
+   . In the early exercise region, it is optimal to exercise the option, whereas in the hold region, it is optimal not to exercise it. For example, under the Black–Scholes model, these regions can be defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(\tau) = \{S &gt; 0 : V(S, \tau) = g(S)\},\
+   </math>
+   <br/>
+   <math display="block">
+    H(\tau) = \{S &gt; 0 : V(S, \tau) &gt; g(S)\}\
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   The boundary between these regions is called the
+   <i>
+    early exercise boundary Sf (τ )
+   </i>
+   . This is a time-dependent free boundary whose location is not known before solving the LCP (5) or some equivalent problem.
+  </p>
+  <p block-type="TextInlineMath">
+   Alternatively, the price
+   <i>
+    V
+   </i>
+   can be computed as the solution of a free boundary problem in which the function
+   <i>
+    Sf (τ )
+   </i>
+   is also unknown. When the smooth pasting principle holds, the first derivative of
+   <i>
+    V
+   </i>
+   is continuous across the boundary
+   <i>
+    Sf (τ )
+   </i>
+   , and this gives an additional boundary condition on
+   <i>
+    Sf (τ )
+   </i>
+   that can be used to locate the free boundary. We remark that the smooth pasting principle does not hold, for example, when the model has
+   <i>
+    σ
+   </i>
+   = 0 like the variance gamma model (
+   <i>
+    see
+   </i>
+   <b>
+    Variance-gamma Model
+   </b>
+   ). Under the Black–Scholes model, we can formulate the problem for a put option:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\tau} + LV = 0 \quad \text{for } S &gt; S_f(\tau),
+   </math>
+   <br/>
+   <math display="block">
+    V(S_f(\tau), \tau) = g(S_f(\tau)) = S_f(\tau) - K,
+   </math>
+   <br/>
+   <math display="block">
+    V_S(S_f(\tau), \tau) = g_x(S_f(\tau)) = -1 \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with the initial condition
+   <i>
+    V (S,
+   </i>
+   0
+   <i>
+    )
+   </i>
+   =
+   <i>
+    g(S)
+   </i>
+   . One advantage of this formulation is that it can give a good approximation for the free boundary
+   <i>
+    Sf (τ )
+   </i>
+   . The domain
+   <i>
+    (Sf (τ ),
+   </i>
+   ∞
+   <i>
+    )
+   </i>
+   in which the PDE needs to be satisfied is time varying. This makes the use of a finite difference method more complicated. An approach used in [32, 43] is to use a time-dependent change of variable in such a way that the computational domain is independent of time. The free boundary problem (7) is nonlinear, and devising a simpler and efficient solution procedure can be also a challenging task. We do not consider this formulation in the following.
+  </p>
+  <p block-type="Text">
+   A semilinear formulation for American put and call options under the Black–Scholes model was described in [4, 28]. For a put option, it leads to a semilinear PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\tau} - LV = q \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <i>
+    S &gt;
+   </i>
+   0, where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q(S,\tau) = \begin{cases} 0 &amp; \text{if } V(S,\tau) &gt; g(S) \\ rK &amp; \text{if } V(S,\tau) \le g(S) \end{cases} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   This PDE has a simple form, and it is posed in the fixed domain
+   <i>
+    (
+   </i>
+   0
+   <i>
+    ,
+   </i>
+   ∞
+   <i>
+    )
+   </i>
+   . The discontinuous
+   <i>
+    q
+   </i>
+   can make the numerical solution of this problem difficult. The
+  </p>
+  <p block-type="Text">
+   PDE (8) with a regularized
+   <i>
+    q
+   </i>
+   was solved using an explicit finite difference method in [5].
+  </p>
+  <h1>
+   <b>
+    Finite Difference Scheme
+   </b>
+  </h1>
+  <p block-type="Text">
+   Here, we consider the finite difference discretization of the LCP formulation (5) for an American option. Furthermore, we use the Black–Scholes operator
+   <i>
+    L
+   </i>
+   in equation (2) as an example. For discussion on finite difference discretizations, see [1, 15, 36, 37].
+  </p>
+  <p block-type="TextInlineMath">
+   First, the domain
+   <i>
+    (
+   </i>
+   0
+   <i>
+    ,
+   </i>
+   ∞
+   <i>
+    )
+   </i>
+   is truncated into a sufficiently large interval
+   <i>
+    (
+   </i>
+   0
+   <i>
+    , S
+   </i>
+   max
+   <i>
+    )
+   </i>
+   and an artificial boundary condition is introduced at
+   <i>
+    S
+   </i>
+   max. For a put option, one possibility is
+   <i>
+    V (S
+   </i>
+   max
+   <i>
+    ,τ)
+   </i>
+   = 0. Next, we define a grid
+   <i>
+    Si
+   </i>
+   ,
+   <i>
+    i
+   </i>
+   = 0
+   <i>
+    ,...,p
+   </i>
+   , such that 0 =
+   <i>
+    S
+   </i>
+   <sup>
+    0
+   </sup>
+   <i>
+    &lt; S
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    &lt;
+   </i>
+   ···
+   <i>
+    &lt; Sp
+   </i>
+   =
+   <i>
+    S
+   </i>
+   max. We allow the grid to be nonuniform, that is, the grid steps
+   <i>
+    Si
+   </i>
+   <sup>
+    +
+   </sup>
+   <sup>
+    1
+   </sup>
+   =
+   <i>
+    Si
+   </i>
+   <sup>
+    +
+   </sup>
+   <sup>
+    1
+   </sup>
+   −
+   <i>
+    Si
+   </i>
+   can vary. An alternative approach would be to use a coordinate transformation together with a uniform grid (
+   <i>
+    see
+   </i>
+   <b>
+    Finite Difference Methods for Barrier Options
+   </b>
+   ). In the finite difference discretization, we seek the value of
+   <i>
+    V
+   </i>
+   at the grid points
+   <i>
+    Si
+   </i>
+   . For better accuracy, it is desirable to have finer grid where
+   <i>
+    V
+   </i>
+   changes more rapidly such as near the strike price
+   <i>
+    K
+   </i>
+   for a put and call option, and near where the option price is desired. For example, we can construct a finer grid near the strike price
+   <i>
+    K
+   </i>
+   using a formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_i = \left(1 + \frac{\sinh(\mu(i/p - \xi))}{\sinh(\mu\xi)}\right)K\qquad(10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the constant
+   <i>
+    µ
+   </i>
+   is solved numerically from the equation
+   <i>
+    Sp
+   </i>
+   =
+   <i>
+    S
+   </i>
+   max. By choosing
+   <i>
+    ξ
+   </i>
+   , we control the amount of grid refinement.
+  </p>
+  <p block-type="Text">
+   The adopted space finite difference discretization leads to an approximation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (LV)(S_i) \approx -\alpha_i V_{i-1}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    (\alpha_i + \beta_i + r)V_i - \beta_i V_{i+1} \quad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   at the internal grid points
+   <i>
+    Si
+   </i>
+   ,
+   <i>
+    i
+   </i>
+   = 1
+   <i>
+    ,...,p
+   </i>
+   − 1, where the grid point values of
+   <i>
+    V
+   </i>
+   are denoted by
+   <i>
+    Vi
+   </i>
+   =
+   <i>
+    V (Si)
+   </i>
+   . The coefficients
+   <i>
+    αi
+   </i>
+   and
+   <i>
+    βi
+   </i>
+   are defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_i = \frac{\sigma^2 S_i^2}{\Delta S_i (\Delta S_{i+1} + \Delta S_i)} - \frac{r S_i}{\Delta S_{i+1} + \Delta S_i},
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \beta_i = \frac{\sigma^2 S_i^2}{\Delta S_{i+1} (\Delta S_{i+1} + \Delta S_i)} + \frac{r S_i}{\Delta S_{i+1} + \Delta S_i}
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   if
+   <math display="inline">
+    \Delta S_i &lt; \sigma^2 S_i/r
+   </math>
+   , and otherwise by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_i = \frac{\sigma^2 S_i^2}{\Delta S_i (\Delta S_{i+1} + \Delta S_i)},
+   </math>
+   <br/>
+   <math display="block">
+    \beta_i = \frac{\sigma^2 S_i^2}{\Delta S_{i+1} (\Delta S_{i+1} + \Delta S_i)} + \frac{r S_i}{\Delta S_{i+1}} \qquad (13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The reason to switch over to the latter formulas based on a one-sided difference for
+   <math display="inline">
+    V_S
+   </math>
+   when the above condition does not hold is to always have positive coefficients
+   <math display="inline">
+    \alpha_i
+   </math>
+   (and
+   <math display="inline">
+    \beta_i
+   </math>
+   ). The latter formulas are less accurate. Usually, it is necessary to use them only for a few grid points near
+   <math display="inline">
+    S = 0
+   </math>
+   , and this has minor (or no) influence on accuracy. We form a vector
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{V} = \begin{pmatrix} V_0 \\ V_1 \\ \vdots \\ V_p \end{pmatrix} \in \mathbb{R}^{p+1} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and a
+   <math display="inline">
+    p+1 \times p+1
+   </math>
+   tridiagonal matrix A with
+   <math display="inline">
+    A_{i+1,i} = -\alpha_i, A_{i+1,i+1} = \alpha_{i-1} + \beta_{i-1} + r
+   </math>
+   , and
+   <math display="inline">
+    A_{i+1,i+2} = -\beta_{i-1}
+   </math>
+   for
+   <math display="inline">
+    i = 1, \ldots, p-1
+   </math>
+   . The first and last row of
+   <math display="inline">
+    A
+   </math>
+   depends on the boundary conditions. For example, for a put option, we choose them to be zero rows. The matrix vector multiplication AV results in a vector that contains the approximations of LV at the grid points.
+  </p>
+  <p block-type="TextInlineMath">
+   The space finite difference discretization leads to a semidiscrete LCP for the vector function
+   <math display="inline">
+    V(\tau)
+   </math>
+   given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{V}_{\tau} - \mathbf{A}\mathbf{V} \ge \mathbf{0}, \quad \mathbf{V} \ge \mathbf{g},
+   </math>
+   <br/>
+   <math display="block">
+    (\mathbf{V}_{\tau} - \mathbf{A}\mathbf{V})^T (\mathbf{V} - \mathbf{g}) = 0 \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    \tau \in (0, T]
+   </math>
+   . The initial value
+   <math display="inline">
+    \mathbf{V}(0)
+   </math>
+   and the vector
+   <math display="inline">
+    \mathbf{g}
+   </math>
+   contain the grid point values of the payoff function
+   <math display="inline">
+    g
+   </math>
+   . In the above and following, the inequalities hold componentwise.
+  </p>
+  <p block-type="Text">
+   The finite difference discretization of the LCP gives the value of
+   <math display="inline">
+    V
+   </math>
+   only at the grid points. Thus, any simple approximation of the early exercise region
+   <math display="inline">
+    E(\tau)
+   </math>
+   and the free boundary
+   <math display="inline">
+    S_f(\tau)
+   </math>
+   can have only the same accuracy as the grid step size.
+  </p>
+  <p block-type="TextInlineMath">
+   The time discretization approximates the vector function
+   <b>
+    V
+   </b>
+   at times
+   <math display="inline">
+    \tau^n
+   </math>
+   such that
+   <math display="inline">
+    0 = \tau^0 &lt; \tau^1 &lt; \cdots &lt;
+   </math>
+   <math display="inline">
+    \tau^m = T
+   </math>
+   . In the following,
+   <b>
+    V
+   </b>
+   at the approximation time
+   <math display="inline">
+    \tau^n
+   </math>
+   is denoted by
+   <math display="inline">
+    \mathbf{V}^n = \mathbf{V}(\tau^n)
+   </math>
+   and the time step between
+   <math display="inline">
+    \tau^n
+   </math>
+   and
+   <math display="inline">
+    \tau^{n+1}
+   </math>
+   is denoted by
+   <math display="inline">
+    \Delta \tau^{n+1} =
+   </math>
+   <math display="inline">
+    \tau^{n+1} - \tau^n
+   </math>
+   . The popular
+   <math display="inline">
+    \theta
+   </math>
+   time stepping scheme leads to a sequence of discrete LCPs
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{B}\mathbf{V}^{n+1} \ge \mathbf{b}^{n+1} \quad \mathbf{V}^{n+1} \ge \mathbf{g},
+   </math>
+   <br/>
+   <math display="block">
+    (\mathbf{B}\mathbf{V}^{n+1} - \mathbf{b}^{n+1})^T (\mathbf{V}^{n+1} - \mathbf{g}) = 0 \qquad (16)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    n = 0, 1, \ldots, m-1
+   </math>
+   with the initial vector
+   <math display="inline">
+    \mathbf{V}^0 =
+   </math>
+   <math display="inline">
+    g
+   </math>
+   , where we have used the notations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{B} = \mathbf{I} + \theta^{n+1} \Delta \tau^{n+1} \mathbf{A},
+   </math>
+   <br/>
+   <math display="block">
+    \mathbf{b}^{n+1} = \left[ \mathbf{I} + (1 - \theta^{n+1}) \Delta \tau^{n+1} \mathbf{A} \right] \mathbf{V}^n \qquad (17)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Different choices of
+   <math display="inline">
+    \theta^{n+1}
+   </math>
+   lead to the following commonly used method: the explicit Euler method
+   <math display="inline">
+    \theta^{n+1}
+   </math>
+   = 0, the Crank-Nicolson method
+   <math display="inline">
+    \theta^{n+1} = 1/2
+   </math>
+   , and the implicit Euler method
+   <math display="inline">
+    \theta^{n+1} = 1
+   </math>
+   . The Rannacher scheme is obtained by taking a few (say, four) first time steps with the implicit Euler method
+   <math display="inline">
+    (\theta_n = 1, n = 1, 2, 3, 4)
+   </math>
+   and then using the Crank-Nicolson method
+   <math display="inline">
+    (\theta_n = 1/2, n = 5, \ldots, m)
+   </math>
+   (see Crank-Nicolson Scheme).
+  </p>
+  <p block-type="TextInlineMath">
+   Usually, the exercise boundary
+   <math display="inline">
+    S_f(\tau)
+   </math>
+   moves rapidly near the expiry and more slowly away from it. For example, for a put option under the Black-Scholes model the boundary behaves like
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_f(\tau) \approx K \left( 1 - \sigma \sqrt{-\tau \log \tau} \right)
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   near the expiry
+   <math display="inline">
+    \tau = 0
+   </math>
+   [29]. Because of this, with uniform time steps, time discretization errors are likely to be much larger during the first time steps than during the later steps. This suggests that it is beneficial to use variable time steps. By gradually increasing the length of time steps, the errors can be made more equidistributed. This way, better accuracy can be obtained with a given number of time steps. Thus, we can reduce the computational effort to reach a desired accuracy.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   One possible way to choose the time steps is so that the exercise boundary moves approximately the same amount at each time step. For the Rannacher scheme, by neglecting the logarithm term in the exercise boundary estimate given by equation (18), this approach leads to the approximation
+  </p>
+  <p block-type="Text">
+   times
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau^n = \left(\frac{n}{2m-4}\right)^2 T, \quad n = 1, 2, 3, 4,
+   </math>
+   <math display="block">
+    \tau^n = \left(\frac{n-2}{m-2}\right)^2 T, \quad n = 5, \dots, m \qquad (19)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the lengths of the four implicit Euler steps are further reduced by the factor
+   <math display="inline">
+    \frac{1}{2}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Another approach is to use adaptive time step selector that uses already computed time steps to predict a good length for the next time step. In [17], the time step
+   <math display="inline">
+    \Delta \tau^{n+1}
+   </math>
+   was suggested to be selected according to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta \tau^{n+1} = C \left( \min_{i} \left[ \frac{\max\left\{ |V_i^{n-1}|, |V_i^n|, D \right\}}{|V_i^n - V_i^{n-1}|} \right] \right) \Delta \tau^n \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C
+   </math>
+   is a target relative change over the time step and
+   <math display="inline">
+    D
+   </math>
+   is a scale of value of the option (for example, we could have
+   <math display="inline">
+    D = 1
+   </math>
+   if the value of the option is of the order of one monetary unit).
+  </p>
+  <p block-type="Text">
+   In the following sections, we describe common ways to solve the discrete LCPs
+   <math display="inline">
+    (16)
+   </math>
+   , or approximate them and then solve resulting problems.
+  </p>
+  <h2>
+   Solution Methods for LCPs
+  </h2>
+  <p block-type="Text">
+   In the following, we consider the solution of the model LCP
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{BV} \ge \mathbf{b}, \quad \mathbf{V} \ge \mathbf{g},
+   </math>
+   <math display="block">
+    (\mathbf{BV} - \mathbf{b})^T (\mathbf{V} - \mathbf{g}) = 0 \tag{21}
+   </math>
+  </p>
+  <p block-type="Text">
+   arising at each time step.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   A commonly used iterative method for LCPs is the projected successive over relaxation (PSOR) method [11, 12, 22]. It reduces to the projected Gauss–Seidel method when the relaxation parameter denoted by
+   <math display="inline">
+    \omega
+   </math>
+   is 1. The basic idea of the projected Gauss-Seidel method is to solve components
+   <math display="inline">
+    V_i
+   </math>
+   successively, using the
+   <i>
+    i
+   </i>
+   th row of the system
+   <math display="inline">
+    \mathbf{BV} = \mathbf{b}
+   </math>
+   and then project
+   <math display="inline">
+    V_i
+   </math>
+   to be
+   <math display="inline">
+    g_i
+   </math>
+   if it is below it. The PSOR method over corrects each component by the factor
+   <math display="inline">
+    \omega
+   </math>
+   before the projection. The following pseudocode performs one iteration with the PSOR method for the LCP
+   <math display="inline">
+    (21)
+   </math>
+   . The vector
+   <math display="inline">
+    \mathbf{V}
+   </math>
+   contains the initial guess for the solution,
+  </p>
+  <p block-type="Text">
+   which is usually the value from the previous time step or the vector
+   <math display="inline">
+    \mathbf{V}
+   </math>
+   returned by the previous iteration.
+  </p>
+  <p block-type="Equation">
+   Algorithm PSOR(
+   <b>
+    B
+   </b>
+   ,
+   <b>
+    V
+   </b>
+   ,
+   <b>
+    b
+   </b>
+   ,
+   <b>
+    g
+   </b>
+   )
+   <br/>
+   For
+   <math display="block">
+    i = 1, p + 1
+   </math>
+   <br/>
+   <math>
+    r_i = b_i - \sum_j B_{i,j} V_j
+   </math>
+   <br/>
+   <math>
+    V_i = \max \{V_i + \omega r_i / B_{i,i}, g_i\}
+   </math>
+   <br/>
+   End For
+  </p>
+  <p block-type="Text">
+   The PSOR method is guaranteed to converge when the matrix
+   <math display="inline">
+    \mathbf{B}
+   </math>
+   is strictly diagonal dominant with positive diagonal entries
+   <math display="inline">
+    (\sum_{j \neq i} |B_{i,j}| &lt; B_{i,i}
+   </math>
+   for all
+   <i>
+    i
+   </i>
+   ) and the relaxation parameter
+   <math display="inline">
+    \omega
+   </math>
+   has value in (0, 1]. For more precise and general convergence results, we refer to
+   <math display="inline">
+    [11, 22]
+   </math>
+   . The convergence rate reduces as the number of grid points grows. On the other hand, smaller time steps make the matrix
+   <math display="inline">
+    \mathbf{B}
+   </math>
+   more diagonally dominant and convergence improves. Overall, the convergence slows down somewhat when both space and time steps are reduced at the same rate. The relaxation parameter
+   <math display="inline">
+    \omega
+   </math>
+   has a big influence on the convergence. Usually, on coarse grids, the optimal value of
+   <math display="inline">
+    \omega
+   </math>
+   is closer to 1 and on finer grids, it approaches 2. There is no formula for the optimal value; however, it is possible to form a reasonable estimate for it. Even then, quite often,
+   <math display="inline">
+    \omega
+   </math>
+   is chosen by hand tuning it for a given grid.
+  </p>
+  <p block-type="Text">
+   A grid-independent convergence rate can obtained using multigrid methods (see Multigrid Methods). For LCPs, suitable projected multigrid methods have been considered in
+   <math display="inline">
+    [7, 33, 34]
+   </math>
+   , for example. The basic idea is to use a sequence of coarser grids to get better corrections with a small computational effort. These methods are more involved and thus it takes more effort to implement them. Nevertheless, for higher dimensional models, it may be necessary to use these methods to keep computation times feasible.
+  </p>
+  <p block-type="TextInlineMath">
+   The LCP
+   <math display="inline">
+    (21)
+   </math>
+   can be equivalently formulated as a linear programming (LP) problem [14] when
+   <math display="inline">
+    \mathbf{B}
+   </math>
+   is a Z-matrix (offdiagonal entries are nonpositive, that is,
+   <math display="inline">
+    B_{i,j} \leq 0
+   </math>
+   for all
+   <math display="inline">
+    i \neq j
+   </math>
+   ) and it is strictly diagonal dominant with positive diagonal entries. The solution
+   <math display="inline">
+    \mathbf{V}
+   </math>
+   of equation (21) is given by the LP
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \min_{\mathbf{V}\in F} \mathbf{c}^T \mathbf{V}, \quad F = \{ \mathbf{V} \in \mathbb{R}^{p+1} \, : \, \mathbf{V} \ge \mathbf{g}, \, \mathbf{B} \mathbf{V} \ge \mathbf{b} \}
+   </math>
+   (22)
+  </p>
+  <p block-type="TextInlineMath">
+   for any fixed
+   <math display="inline">
+    \mathbf{c} &gt; 0
+   </math>
+   in
+   <math display="inline">
+    \mathbb{R}^{p+1}
+   </math>
+   . The LP problems can be solved using the (direct) simplex method or an
+  </p>
+  <p block-type="Text">
+   (iterative) interior point method. For discussion on this approach see [14].
+  </p>
+  <p block-type="TextInlineMath">
+   When the matrix
+   <b>
+    B
+   </b>
+   is symmetric (
+   <b>
+    B
+   </b>
+   <i>
+    <sup>
+     T
+    </sup>
+   </i>
+   =
+   <b>
+    B
+   </b>
+   ) and strictly diagonal dominant with positive diagonal entries, the LCP (21) can be equivalently formulated as a quadratic programming (QP) problem, which reads
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \min_{\mathbf{V} \ge g} \frac{1}{2} \mathbf{V}^T \mathbf{B} \mathbf{V} - \mathbf{b}^T \mathbf{V} \tag{23}
+   </math>
+  </p>
+  <p block-type="Text">
+   There exists a host of methods to solve such QP problems. Our example of discretization above does not lead to a symmetric matrix
+   <b>
+    B
+   </b>
+   . However, it is often possible to symmetrize the problem by performing a coordinate transformation for the underlying operator or by applying a diagonal similarity transform to LCP. Particularly, these two approaches are applicable for the Black–Scholes operator. For example, we could employ a common transformation to the heat equation to symmetrize
+   <b>
+    B
+   </b>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The Brennan–Schwartz algorithm [8] is a direct method to solve the LCP (21) with a tridiagonal matrix
+   <b>
+    B
+   </b>
+   . In [27], it has been shown that the algorithm gives the solution of the LCP when
+   <b>
+    B
+   </b>
+   is a strictly diagonal dominant matrix with positive diagonal entries and there exists
+   <i>
+    k
+   </i>
+   such that
+   <i>
+    Vi
+   </i>
+   =
+   <i>
+    gi
+   </i>
+   for all
+   <i>
+    i
+   </i>
+   ≤
+   <i>
+    k
+   </i>
+   and
+   <i>
+    Vi &gt; gi
+   </i>
+   for all
+   <i>
+    i&gt;k
+   </i>
+   . The latter condition means that the early exercise region is
+   <i>
+    (
+   </i>
+   0
+   <i>
+    , Sk)
+   </i>
+   . This is the case with a put option. A similar direct method has been considered in [16].
+  </p>
+  <p block-type="Text">
+   Effectively, the algorithm forms an
+   <b>
+    UL
+   </b>
+   decomposition for
+   <b>
+    B
+   </b>
+   such that
+   <b>
+    L
+   </b>
+   is a bidiagonal lowertriangular matrix and
+   <b>
+    U
+   </b>
+   is a bidiagonal uppertriangular matrix with ones on the diagonal. Then it performs the steps of solving the system
+   <b>
+    ULV
+   </b>
+   =
+   <b>
+    b
+   </b>
+   with the modification that in the backsubstitution step employing
+   <b>
+    L
+   </b>
+   , the components of
+   <b>
+    V
+   </b>
+   are projected to be feasible (
+   <i>
+    Vi
+   </i>
+   = max{
+   <i>
+    Vi, gi
+   </i>
+   }) as soon as they are computed. The following pseudocode solves the LCP (21) using the Brennan–Schwartz algorithm.
+  </p>
+  <p block-type="Text">
+  </p>
+  <p block-type="Equation">
+   Algorithm BS(
+   <b>
+    B
+   </b>
+   ,
+   <b>
+    V
+   </b>
+   ,
+   <b>
+    b
+   </b>
+   ,
+   <b>
+    g
+   </b>
+   )
+   <br/>
+   <math display="block">
+    w_{p+1} = B_{p+1,p+1}
+   </math>
+   <br/>
+   For
+   <math>
+    i = p, 1, -1
+   </math>
+   <br/>
+   <math>
+    w_i = B_{i,i} - B_{i,i+1}B_{i+1,i}/w_{i+1}
+   </math>
+   <br/>
+   <math>
+    V_i = V_i - B_{i,i+1}V_{i+1}/w_{i+1}
+   </math>
+   <br/>
+   End For
+   <br/>
+   <math>
+    V_1 = \max \{V_1/w_1, g_1\}
+   </math>
+   <br/>
+   For
+   <math>
+    i = 2, p + 1
+   </math>
+   <br/>
+   <math>
+    V_i = \max \{(V_i - B_{i,i-1}V_{i-1})/w_i, g_i\}
+   </math>
+   <br/>
+   End For
+  </p>
+  <p block-type="Text">
+   When the continuous early exercise region is
+   <i>
+    (Sk, S
+   </i>
+   max
+   <i>
+    )
+   </i>
+   for some
+   <i>
+    k
+   </i>
+   , there are two possible ways to use a Brennan–Schwartz-type algorithm. This is the case with a call option. The first one is to use the above code with the reverse index numbering for the vectors and matrices. Alternatively, the algorithm can be changed to use an
+   <b>
+    LU
+   </b>
+   decomposition instead of the
+   <b>
+    UL
+   </b>
+   decomposition.
+  </p>
+  <p block-type="Text">
+   The Brennan–Schwartz algorithm is usually the fastest way to solve LCPs when it is applicable. Direct methods for LCP with tridiagonal matrices can also be developed for more general exercise regions [13]. These methods are more complicated to implement and they are computationally more expensive.
+  </p>
+  <p block-type="Text">
+   The LCP (21) can be equivalently formulated using a Lagrange multiplier
+   <i>
+    λ
+   </i>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{array}{ll} \mathbf{BV}-\boldsymbol{\lambda}=\mathbf{b},\\ \boldsymbol{\lambda}\geq\mathbf{0},\quad\mathbf{V}\geq\mathbf{g}\\ \boldsymbol{\lambda}^{T}(\mathbf{V}-\mathbf{g})=0 \end{array} \tag{24}
+   </math>
+  </p>
+  <p block-type="Text">
+   or, alternatively, [21] as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathbf{BV} - \boldsymbol{\lambda} &amp;= \mathbf{b}, \\ \boldsymbol{\lambda} - \max\{\boldsymbol{\lambda} + \eta(\mathbf{g} - \mathbf{V}), \ \mathbf{0}\} &amp;= \mathbf{0} \end{aligned} \tag{25}
+   </math>
+  </p>
+  <p block-type="Text">
+   for any
+   <i>
+    η &gt;
+   </i>
+   0. For these formulations, several active set solution strategies have been developed; see [1, 21, 42] and references therein.
+  </p>
+  <h1>
+   <b>
+    Penalty Methods
+   </b>
+  </h1>
+  <p block-type="Text">
+   The penalty methods enforce the early exercise constraint by penalizing its violations. For the model LCP (21) a typical power penalty approximation is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{BV} = \mathbf{b} + \frac{1}{\epsilon} [\max \left\{ \mathbf{g} - \mathbf{V}, \ \mathbf{0} \right\}]^k \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where the maximum and the power function are applied componentwise, and
+   <i>
+    &gt;
+   </i>
+   0 is a small penalty parameter. The linear penalty
+   <i>
+    k
+   </i>
+   = 1 and the quadratic penalty
+   <i>
+    k
+   </i>
+   = 2 are the most common ones. For example, the linear penalty was considered for the Black–Scholes model in [17], and both linear and quadratic penalties were considered for the Heston stochastic volatility model in [45]. The penalty
+  </p>
+  <p block-type="Text">
+   parameter
+   <math display="inline">
+    \epsilon
+   </math>
+   controls the quality of the approximation. A small value for
+   <math display="inline">
+    \epsilon
+   </math>
+   enforces the constraint more strictly. The following pseudocode performs one (semismooth) Newton iteration for the system of nonlinear equations (26). The vector
+   <math display="inline">
+    \mathbf{V}
+   </math>
+   contains the initial guess for the solution or the vector
+   <math display="inline">
+    \mathbf{V}
+   </math>
+   returned by the previous iteration.
+  </p>
+  <p block-type="Equation">
+   Algorithm Penalty(
+   <b>
+    B
+   </b>
+   ,
+   <b>
+    V
+   </b>
+   ,
+   <b>
+    b
+   </b>
+   ,
+   <b>
+    g
+   </b>
+   )
+   <br/>
+   <math display="block">
+    \mathbf{J} = \mathbf{B}
+   </math>
+   For
+   <math>
+    i = 1, p + 1
+   </math>
+   <br/>
+   <math>
+    r_i = b_i - \sum_j B_{i,j} V_j
+   </math>
+   <br/>
+   If
+   <math>
+    V_i &lt; g_i
+   </math>
+   Then
+   <br/>
+   <math>
+    r_i = r_i + \frac{1}{\epsilon} (g_i - V_i)^k
+   </math>
+   <br/>
+   <math>
+    J_{i,i} = J_{i,i} + \frac{1}{\epsilon} k (g_i - V_i)^{k-1}
+   </math>
+   <br/>
+   End If
+   <br/>
+   End For
+   <br/>
+   Solve
+   <math>
+    \mathbf{Jd} = \mathbf{r}
+   </math>
+   <br/>
+   <math>
+    \mathbf{V} = \mathbf{V} + \mathbf{d}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For our example of discretization, the Jacobian matrix
+   <b>
+    J
+   </b>
+   is tridiagonal and the system
+   <math display="inline">
+    \mathbf{Jd} = \mathbf{r}
+   </math>
+   can be solved efficiently using an LU decomposition (or the UL decomposition used by Algorithm BS), for example. With higher dimensional models, it is probably necessary to solve these problems iteratively to obtain reasonable computational times. Under the Heston model, the BiCGSTAB method with an incomplete
+   <math display="inline">
+    LU
+   </math>
+   preconditioner was used in [45] and a multigrid method was used in [25].
+  </p>
+  <p block-type="TextInlineMath">
+   The penalty approximation (26) leads to
+   <math display="inline">
+    V
+   </math>
+   that violates the early exercise constraint
+   <math display="inline">
+    V \geq g
+   </math>
+   by a small amount in the early exercise region. The size of the violation depends on the penalty parameter
+   <math display="inline">
+    \epsilon
+   </math>
+   and the violation vanishes when
+   <math display="inline">
+    \epsilon
+   </math>
+   approaches zero. The use of very small values for
+   <math display="inline">
+    \epsilon
+   </math>
+   can lead to numerical difficulties. A modified penalty approximation in [26],
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{BV} = \mathbf{b} + \max\{\bar{\lambda} + (\mathbf{g} - \mathbf{V})/\epsilon, \ \mathbf{0}\}\tag{27}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \bar{\lambda} = \max\{\mathbf{Bg} - \mathbf{b}, \mathbf{0}\}\
+   </math>
+   can be shown to lead always to V satisfying the constraint
+   <math display="inline">
+    V \geq g
+   </math>
+   . For example, the above (semismooth) Newton method can be modified to solve the system (27). Another penalty function enforcing the constraint strictly was considered in
+   <math display="inline">
+    [32]
+   </math>
+   .
+  </p>
+  <h2>
+   Other Approximations for LCP
+  </h2>
+  <p block-type="TextInlineMath">
+   The simplest way to enforce the early exercise constraint
+   <math display="inline">
+    V &gt; g
+   </math>
+   is to treat it explicitly. In this socalled explicit payoff method, one first solves the system of linear equations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{B}\hat{\mathbf{V}} = \mathbf{b} \tag{28}
+   </math>
+  </p>
+  <p block-type="Text">
+   and then the intermediate solution
+   <math display="inline">
+    \tilde{\mathbf{V}}
+   </math>
+   is projected to be feasible by setting
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{V} = \max{\{\tilde{\mathbf{V}}, \ \mathbf{g}\}}\tag{29}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Typically, this approach leads the order of accuracy to be only
+   <math display="inline">
+    \Delta \tau
+   </math>
+   . With the explicit Euler method, the LCP
+   <math display="inline">
+    (21)
+   </math>
+   reduces to the steps in equations
+   <math display="inline">
+    (28)
+   </math>
+   and (29) with
+   <b>
+    B
+   </b>
+   being the
+   <math display="inline">
+    p + 1 \times p + 1
+   </math>
+   identity matrix. Owing to the stability restriction of the explicit Euler method, the time step
+   <math display="inline">
+    \Delta \tau
+   </math>
+   has to be of order
+   <math display="inline">
+    (\Delta S)^2
+   </math>
+   . Thus with the explicit Euler method, the order of accuracy usually is
+   <math display="inline">
+    \Delta \tau \sim (\Delta S)^2
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Another approach to approximate the LCP with a system of linear equations and a correction enforcing the constraint is to employ an operator splitting method [23, 25]. This method is based on the Lagrange multiplier formulation (24). The basic idea is to use the Lagrange multiplier
+   <math display="inline">
+    \lambda
+   </math>
+   from the previous time step to form a linear system, and then update the solution and Lagrange multiplier to satisfy the constraints pointwise. In the first step, the system of linear equations reads
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{B}\mathbf{V}^{n+1} = \mathbf{b}^n + \boldsymbol{\lambda}^n \tag{30}
+   </math>
+  </p>
+  <p block-type="Text">
+   and the correction in the second step is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{V}^{n+1} - \tilde{\mathbf{V}}^{n+1} = \boldsymbol{\lambda}^{n+1} - \boldsymbol{\lambda}^{n},
+   </math>
+   <br/>
+   <math display="block">
+    \boldsymbol{\lambda}^{n+1} \ge \mathbf{0}, \qquad \mathbf{V}^{n+1} \ge \mathbf{g},
+   </math>
+   <br/>
+   <math display="block">
+    (\boldsymbol{\lambda}^{n+1})^{T} (\mathbf{V}^{n+1} - \mathbf{g}) = 0 \tag{31}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   For higher dimensional models like the Heston model or options on several assets, the LCPs are much more challenging to solve than those with one-dimensional models. One approach is to approximate the resulting problems with a sequence of problems corresponding to a one-dimensional model as in alternating direction implicit (ADI) schemes (see Alternating Direction Implicit (ADI) Method). With early exercise possibility, this approach usually leads to solving LCPs with Black-Scholes-type
+  </p>
+  <p block-type="Text">
+   one-dimensional models. When the solutions have suitable form, these LCPs can be solved efficiently using the Brennan-Schwartz algorithm. Such methods have been considered for American options in [24, 25, 39].
+  </p>
+  <h4>
+   Example
+  </h4>
+  <p block-type="TextInlineMath">
+   As an example, we consider pricing an American put option with the parameters:
+   <math display="inline">
+    S = K = 100, r = 0.1,
+   </math>
+   <math display="inline">
+    T = 0.25
+   </math>
+   years, and
+   <math display="inline">
+    \sigma = 0.2
+   </math>
+   . The same option was also priced in [17]. For discretization, we truncate the semi-infinite interval at
+   <math display="inline">
+    S_{\text{max}} = 400
+   </math>
+   , and we construct nonuniform time-space grids that are refined near the expiry date
+   <math display="inline">
+    \tau = 0
+   </math>
+   and the strike price K. The space grid is constructed using the formula
+   <math display="inline">
+    (10)
+   </math>
+   with
+   <math display="inline">
+    \xi = 0.4
+   </math>
+   . We choose the time steps explicitly for the Rannacher time stepping according to the formulas
+   <math display="inline">
+    (19).
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   We compute the option price using the Brennan-Schwartz algorithm, the linear penalty method
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \epsilon = (\Delta \tau^m)^2
+   </math>
+   , and the PSOR method. For a comparison, we also use the explicit payoff method. Table 1 reports the results. The errors with the explicit and implicit treatments of the constraint are given for a sequence of grids. All implicit methods give essentially the same accuracy. The total iteration counts are reported for the penalty method and the PSOR method. We have optimized the relaxation parameter
+   <math display="inline">
+    \omega
+   </math>
+   for each grid. CPU times show that it is possible to price hundreds of options with a good precision in one second under the Black-Scholes model.
+  </p>
+  <p block-type="TextInlineMath">
+   We have plotted a very coarse grid and an approximation of the early exercise boundary
+   <math display="inline">
+    S_f(\tau)
+   </math>
+   in Figure 1. It shows a typical jagged boundary obtained using the LCP formulation. Though the approximation of
+   <math display="inline">
+    S_f(\tau)
+   </math>
+   can be only
+   <math display="inline">
+    \Delta S
+   </math>
+   Accurate, the order of accuracy for the price appears to be
+   <math display="inline">
+    (\Delta S)^2
+   </math>
+   and
+   <math display="inline">
+    (\Delta \tau)^2
+   </math>
+   with the implicit treatment of the early exercise constraint. This behavior is studied in [17], which concludes that with suitably chosen time steps a quadratic convergence rate is attainable.
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Numerical results with different methods for an American put option. The parameters are
+   <math display="inline">
+    S = K = 100, r = 0.1
+   </math>
+   ,
+   <math display="inline">
+    T = 0.25
+   </math>
+   years, and
+   <math display="inline">
+    \sigma = 0.2
+   </math>
+   . The reference price is 3.0701067. The number of time steps is m and the number of space grid points is
+   <math display="inline">
+    p+1
+   </math>
+   . Ratio is the ratio of successive errors. Iter is the total number of iterations. Time is the CPU time in seconds on a 3.2-GHz Pentium 4 PC
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th colspan="2">
+      Grid
+     </th>
+     <th colspan="2">
+      Explicit
+     </th>
+     <th>
+      Direct
+     </th>
+     <th colspan="2">
+      Implicit
+     </th>
+     <th>
+      BS
+     </th>
+     <th colspan="2">
+      Penalty
+     </th>
+     <th colspan="2">
+      <math>
+       \mathsf{PSOR}
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      m
+     </th>
+     <th>
+      <math>
+       \mathcal{D}
+      </math>
+     </th>
+     <th>
+      error at
+      <math>
+       K
+      </math>
+     </th>
+     <th>
+      ratio
+     </th>
+     <th>
+      time
+     </th>
+     <th>
+      error at
+      <math>
+       K
+      </math>
+     </th>
+     <th>
+      ratio
+     </th>
+     <th>
+      time
+     </th>
+     <th>
+      iter
+     </th>
+     <th>
+      time
+     </th>
+     <th>
+      iter
+     </th>
+     <th>
+      time
+     </th>
+    </tr>
+    <tr>
+     <td>
+      18
+     </td>
+     <td>
+      80
+     </td>
+     <td>
+      <math>
+       -3.1 \times 10^{-2}
+      </math>
+     </td>
+     <td>
+     </td>
+     <td>
+      0.0002
+     </td>
+     <td>
+      <math>
+       -1.5 \times 10^{-2}
+      </math>
+     </td>
+     <td>
+     </td>
+     <td>
+      0.0003
+     </td>
+     <td>
+      24
+     </td>
+     <td>
+      0.0004
+     </td>
+     <td>
+      204
+     </td>
+     <td>
+      0.0010
+     </td>
+    </tr>
+    <tr>
+     <td>
+      34
+     </td>
+     <td>
+      160
+     </td>
+     <td>
+      <math>
+       -1.2 \times 10^{-2}
+      </math>
+     </td>
+     <td>
+      2.5
+     </td>
+     <td>
+      0.0008
+     </td>
+     <td>
+      <math>
+       -3.7 \times 10^{-3}
+      </math>
+     </td>
+     <td>
+      4.0
+     </td>
+     <td>
+      0.0009
+     </td>
+     <td>
+      47
+     </td>
+     <td>
+      0.0013
+     </td>
+     <td>
+      511
+     </td>
+     <td>
+      0.0045
+     </td>
+    </tr>
+    <tr>
+     <td>
+      66
+     </td>
+     <td>
+      320
+     </td>
+     <td>
+      <math>
+       -5.3 \times 10^{-3}
+      </math>
+     </td>
+     <td>
+      2.3
+     </td>
+     <td>
+      0.0032
+     </td>
+     <td>
+      <math>
+       -9.5 \times 10^{-4}
+      </math>
+     </td>
+     <td>
+      3.9
+     </td>
+     <td>
+      0.0034
+     </td>
+     <td>
+      91
+     </td>
+     <td>
+      0.0053
+     </td>
+     <td>
+      1236
+     </td>
+     <td>
+      0.0212
+     </td>
+    </tr>
+    <tr>
+     <td>
+      130
+     </td>
+     <td>
+      640
+     </td>
+     <td>
+      <math>
+       -2.5 \times 10^{-3}
+      </math>
+     </td>
+     <td>
+      2.1
+     </td>
+     <td>
+      0.0124
+     </td>
+     <td>
+      <math>
+       -2.4 \times 10^{-4}
+      </math>
+     </td>
+     <td>
+      3.9
+     </td>
+     <td>
+      0.0139
+     </td>
+     <td>
+      179
+     </td>
+     <td>
+      0.0208
+     </td>
+     <td>
+      3205
+     </td>
+     <td>
+      0.1071
+     </td>
+    </tr>
+    <tr>
+     <td>
+      258
+     </td>
+     <td>
+      1280
+     </td>
+     <td>
+      <math>
+       -1.2 \times 10^{-3}
+      </math>
+     </td>
+     <td>
+      2.1
+     </td>
+     <td>
+      0.0506
+     </td>
+     <td>
+      <math>
+       -6.0 \times 10^{-5}
+      </math>
+     </td>
+     <td>
+      4.0
+     </td>
+     <td>
+      0.0561
+     </td>
+     <td>
+      356
+     </td>
+     <td>
+      0.0858
+     </td>
+     <td>
+      8315
+     </td>
+     <td>
+      0.5645
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <img src="_page_6_Figure_9.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   A part of 41
+   <math display="inline">
+    \times
+   </math>
+   10 space-time grid and an approximation of the early exercise boundary
+   <math display="inline">
+    S_f(\tau)
+   </math>
+   given by the Brennan-Schwartz algorithm
+  </p>
+  <h1>
+   <b>
+    Other Models and Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   Often it is desirable to add jumps to the model of the underlying asset (
+   <i>
+    see
+   </i>
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ;
+   <b>
+    Variance-gamma Model
+   </b>
+   ;
+   <b>
+    Jump-diffusion Models
+   </b>
+   ). Models with jumps lead to a partial integro differential equation (PIDE) for the price of European options (
+   <i>
+    see
+   </i>
+   <b>
+    Partial Integro-differential Equations (PIDEs)
+   </b>
+   ) and an LCP with same operator can be derived for the price of American options. The discretization of these problems can lead to nonsparse matrices and the efficient solution of the resulting equations is more challenging. Finite-differencebased methods for pricing American options under jump models have been considered in [3, 10, 19, 31, 37, 38, 40, 41].
+  </p>
+  <p block-type="Text">
+   Stochastic volatility models like the Heston model (
+   <i>
+    see
+   </i>
+   <b>
+    Heston Model
+   </b>
+   ) lead to LCPs with partial differential operators with two space dimensions. These can be discretized with finite differences in a fairly straightforward manner. Owing to the correlation between the asset value and its volatility the resulting partial differential operator has a second-order cross derivative that can lead to numerical issues. No direct method like the Brennan–Schwartz algorithm is available for these problems. Furthermore, because of two space dimensions, the systems resulting from the discretization are much larger. Finite difference methods for options under stochastic volatility models have been considered in [9, 24, 25, 33, 45]. Similar discretizations and solution methods can be used when interest rates or dividends are modeled as stochastic.
+  </p>
+  <p block-type="Text">
+   Asian options lead to partial differential operator with an additional dimension for the average of the underlying asset. Similar finite difference methods can be used for American-style Asian options as for the above-mentioned options. The partial differential operator has only the first derivative present in the direction of the new dimension, and this makes discretizing the operator more involved. Americanstyle Asian options have been priced numerically in [20, 44], for example.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The payoff of a multiasset option depends on several underlying assets. Each underlying asset adds one dimension to the model, leading to high dimensional problems. With a few underlying assets, the standard finite difference methods can still be used. For example, American basket options on two stocks
+  </p>
+  <p block-type="Text">
+   were priced in [39]. With the standard finite differences, the computational cost grows to be high with several underlying assets; see [34]. A special sparse grid technique can be used to reduce the size of the discrete problem (
+   <i>
+    see
+   </i>
+   <b>
+    Sparse Grids
+   </b>
+   ). This technique relies on the regularity properties of the price function
+   <i>
+    V
+   </i>
+   . The early exercise possibility reduces the regularity of
+   <i>
+    V
+   </i>
+   and thus the straightforward application of the sparse grid technique for American options might lead to reduced accuracy for the price. Nevertheless, in [35] it was observed that the accuracy for American options was still good.
+  </p>
+  <h1>
+   <b>
+    Related Topics
+   </b>
+  </h1>
+  <p block-type="Text">
+   The grids and time steps are chosen usually on the basis of the behavior of discretization error in numerical experiments. Error estimation gives a more systematic way to choose (nearly) optimal discretizations where the number of grid points and time steps are minimized to reach a desired accuracy. In [30] finite difference discretizations were constructed on the basis of an error estimate for European multiasset options. For finite elements, error estimation has been consider in [1] for European options and in [2] for American options.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Achdou, Y. &amp; Pironneau, O. (2005).
+     <i>
+      Computational Methods for Option Pricing
+     </i>
+     ,
+     <i>
+      Frontiers in Applied Mathematics
+     </i>
+     , SIAM, Philadelphia, Vol. 30.
+    </li>
+    <li block-type="ListItem">
+     [2] Allegretto, W., Lin, Y. &amp; Yan, N. (2006). A posteriori error analysis for FEM of American options,
+     <i>
+      Discrete Continuous Dynamical Systems Series B
+     </i>
+     <b>
+      6
+     </b>
+     , 957–978.
+    </li>
+    <li block-type="ListItem">
+     [3] Almendral, A. &amp; Oosterlee, C.W. (2007). Accurate evaluation of European and American options under the CGMY process,
+     <i>
+      SIAM Journal of Scientific Computing
+     </i>
+     <b>
+      29
+     </b>
+     , 93–117.
+    </li>
+    <li block-type="ListItem">
+     [4] Benth, F.E., Karlsen, K.H. &amp; Reikvam, K. (2003). A semilinear Black and Scholes partial differential equation for valuing American options,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      7
+     </b>
+     , 277–298.
+    </li>
+    <li block-type="ListItem">
+     [5] Benth, F.E., Karlsen, K.H. &amp; Reikvam, K. (2004). A semilinear Black and Scholes partial differential equation for valuing American options: approximate solutions and convergence,
+     <i>
+      Interfaces and Free Boundaries
+     </i>
+     <b>
+      6
+     </b>
+     , 379–404.
+    </li>
+    <li block-type="ListItem">
+     [6] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities,
+     <i>
+      Journal of Political Economy
+     </i>
+     <b>
+      81
+     </b>
+     , 637–654.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [7] Brandt, A. &amp; Cryer, C.W. (1983). Multigrid algorithms for the solution of linear complementarity problems arising from free boundary problems,
+     <i>
+      SIAM Journal on Scientific and Statistical Computing
+     </i>
+     <b>
+      4
+     </b>
+     , 655–684.
+    </li>
+    <li block-type="ListItem">
+     [8] Brennan, M.J. &amp; Schwartz, E.S. (1977). The valuation of American put options,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      32
+     </b>
+     , 449–462.
+    </li>
+    <li block-type="ListItem">
+     [9] Clarke, N. &amp; Parrott, K. (1999). Multigrid for American option pricing with stochastic volatility,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      6
+     </b>
+     , 177–195.
+    </li>
+    <li block-type="ListItem">
+     [10] Cont, R. &amp; Tankov, P. (2004).
+     <i>
+      Financial Modelling with Jump Processes
+     </i>
+     , Chapman &amp; Hall/CRC, Boca Raton.
+    </li>
+    <li block-type="ListItem">
+     [11] Cottle, R.W., Pang, J.-S. &amp; Stone, R.E. (1992).
+     <i>
+      The Linear Complementarity Problem
+     </i>
+     , Academic Press, Boston.
+    </li>
+    <li block-type="ListItem">
+     [12] Cryer, C.W. (1971). The solution of a quadratic programming problem using systematic overrelaxation,
+     <i>
+      SIAM Journal on Control
+     </i>
+     <b>
+      9
+     </b>
+     , 385–392.
+    </li>
+    <li block-type="ListItem">
+     [13] Cryer, C.W. (1983). The efficient solution of linear complementarity problems for tridiagonal Minkowski matrices,
+     <i>
+      ACM Transaction on Mathematical Software
+     </i>
+     <b>
+      9
+     </b>
+     , 199–214.
+    </li>
+    <li block-type="ListItem">
+     [14] Dempster, M.A.H. &amp; Hutton, J.P. (1999). Pricing American stock options by linear programming,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      9
+     </b>
+     , 229–254.
+    </li>
+    <li block-type="ListItem">
+     [15] Duffy, D.J. (2006).
+     <i>
+      Finite Difference Methods in Financial Engineering
+     </i>
+     ,
+     <i>
+      Wiley Finance Series
+     </i>
+     , John Wiley &amp; Sons, Chichester.
+    </li>
+    <li block-type="ListItem">
+     [16] Elliott, C.M. &amp; Ockendon, J.R. (1982).
+     <i>
+      Weak and Variational Methods for Moving Boundary Problems
+     </i>
+     ,
+     <i>
+      Research Notes in Mathematics
+     </i>
+     , Pitman, Boston, Vol. 59.
+    </li>
+    <li block-type="ListItem">
+     [17] Forsyth, P.A. &amp; Vetzal, K.R. (2002). Quadratic convergence for valuing American options using a penalty method,
+     <i>
+      SIAM Journal of Scientific Computing
+     </i>
+     <b>
+      23
+     </b>
+     , 2095–2122.
+    </li>
+    <li block-type="ListItem">
+     [18] Glowinski, R. (1984).
+     <i>
+      Numerical Methods for Nonlinear Variational Problems
+     </i>
+     ,
+     <i>
+      Springer Series in Computational Physics
+     </i>
+     , Springer-Verlag, New York.
+    </li>
+    <li block-type="ListItem">
+     [19] d'Halluin, Y., Forsyth, P.A. &amp; Labahn, G. (2004). A penalty method for American options with jump diffusion processes,
+     <i>
+      Numerische Mathematik
+     </i>
+     <b>
+      97
+     </b>
+     , 321–352.
+    </li>
+    <li block-type="ListItem">
+     [20] d'Halluin, Y., Forsyth, P.A. &amp; Labahn, G. (2005). A semi-Lagrangian approach for American Asian options under jump diffusion,
+     <i>
+      SIAM Journal of Scientific Computing
+     </i>
+     <b>
+      27
+     </b>
+     , 315–345.
+    </li>
+    <li block-type="ListItem">
+     [21] Hintermuller, M., Ito, K. &amp; Kunisch, K. (2003). The ¨ primal-dual active set strategy as a semismooth Newton method,
+     <i>
+      SIAM Journal on Optimization
+     </i>
+     <b>
+      13
+     </b>
+     , 865–888.
+    </li>
+    <li block-type="ListItem">
+     [22] Huang, J. &amp; Pang, J.-S. (1998). Option pricing and linear complementarity,
+     <i>
+      The Journal of Computational Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 31–60.
+    </li>
+    <li block-type="ListItem">
+     [23] Ikonen, S. &amp; Toivanen, J. (2004). Operator splitting methods for American option pricing,
+     <i>
+      Applied Mathematics Letters
+     </i>
+     <b>
+      17
+     </b>
+     , 809–814.
+    </li>
+    <li block-type="ListItem">
+     [24] Ikonen, S. &amp; Toivanen, J. (2007). Componentwise splitting methods for pricing American options under stochastic volatility,
+     <i>
+      International Journal of Theoretical and Applied Finance
+     </i>
+     <b>
+      10
+     </b>
+     , 331–361.
+    </li>
+    <li block-type="ListItem">
+     [25] Ikonen, S. &amp; Toivanen, J. (2007). Efficient numerical methods for pricing American options under stochastic
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   volatility,
+   <i>
+    Numerical Methods Partial Differential Equations
+   </i>
+   <b>
+    24
+   </b>
+   , 104–126.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [26] Ito, K. &amp; Kunisch, K. (2006). Parabolic variational inequalities: The Lagrange multiplier approach,
+     <i>
+      Journal de Mathmatiques Pures et Appliquees
+     </i>
+     <b>
+      85
+     </b>
+     , 415–449.
+    </li>
+    <li block-type="ListItem">
+     [27] Jaillet, P., Lamberton, D. &amp; Lapeyre, B. (1990). Variational inequalities and the pricing of American options,
+     <i>
+      Acta Applicandae Mathematicae
+     </i>
+     <b>
+      21
+     </b>
+     , 263–289.
+    </li>
+    <li block-type="ListItem">
+     [28] Kholodnyi, V.A. (1997). A nonlinear partial differential equation for American options in the entire domain of the state variable,
+     <i>
+      Nonlinear Analysis
+     </i>
+     <b>
+      30
+     </b>
+     , 5059–5070.
+    </li>
+    <li block-type="ListItem">
+     [29] Kuske, R.A. &amp; Keller, J.B. (1998). Optimal exercise boundary for an American put option,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      5
+     </b>
+     , 107–116.
+    </li>
+    <li block-type="ListItem">
+     [30] Lotstedt, P., Persson, J., von Sydow, L. &amp; Tysk, J. ¨ (2007). Space-time adaptive finite difference method for European multi-asset options,
+     <i>
+      Computers &amp; Mathematics with Applications
+     </i>
+     <b>
+      53
+     </b>
+     , 1159–1180.
+    </li>
+    <li block-type="ListItem">
+     [31] Matache, A.-M., Nitsche, P.-A. &amp; Schwab, C. (2005). Wavelet Galerkin pricing of American options on Levy ´ driven assets,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      5
+     </b>
+     , 403–424.
+    </li>
+    <li block-type="ListItem">
+     [32] Nielsen, B.F., Skavhaug, O. &amp; Tveito, A. (2002). Penalty and front-fixing methods for the numerical solution of American option problems,
+     <i>
+      The Journal of Computational Finance
+     </i>
+     <b>
+      5
+     </b>
+     , 69–97.
+    </li>
+    <li block-type="ListItem">
+     [33] Oosterlee, C.W. (2003). On multigrid for linear complementarity problems with application to American-style options,
+     <i>
+      Electronic Transactions on Numerical Analysis
+     </i>
+     <b>
+      15
+     </b>
+     , 165–185.
+    </li>
+    <li block-type="ListItem">
+     [34] Reisinger, C. &amp; Wittum, G. (2004). On multigrid for anisotropic equations and variational inequalities: pricing multi-dimensional European and American options,
+     <i>
+      Computing and Visualization in Science
+     </i>
+     <b>
+      7
+     </b>
+     , 189–197.
+    </li>
+    <li block-type="ListItem">
+     [35] Reisinger, C. &amp; Wittum, G. (2007). Efficient hierarchical approximation of high-dimensional option pricing problems,
+     <i>
+      SIAM Journal of Scientific Computing
+     </i>
+     <b>
+      29
+     </b>
+     , 440–458.
+    </li>
+    <li block-type="ListItem">
+     [36] Seydel, R.U. (2006).
+     <i>
+      Tools for Computational Finance
+     </i>
+     , 3rd Edition, Universitext, Springer-Verlag, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [37] Tavella, D. &amp; Randall, C. (2000).
+     <i>
+      Pricing Financial Instruments: The Finite Difference Method
+     </i>
+     , John Wiley &amp; Sons, Chichester.
+    </li>
+    <li block-type="ListItem">
+     [38] Toivanen, J. (2008). Numerical valuation of European and American options under Kou's jump-diffusion model,
+     <i>
+      SIAM Journal of Scientific Computing
+     </i>
+     <b>
+      30
+     </b>
+     , 1949–1970.
+    </li>
+    <li block-type="ListItem">
+     [39] Villeneuve, S. &amp; Zanette, A. (2002). Parabolic ADI methods for pricing American options on two stocks,
+     <i>
+      Mathematics of Operations Research
+     </i>
+     <b>
+      27
+     </b>
+     , 121–149.
+    </li>
+    <li block-type="ListItem">
+     [40] Wang, I.R., Wan, J.W.L. &amp; Forsyth, P.A. (2007). Robust numerical valuation of European and American options under the CGMY process,
+     <i>
+      The Journal of Computational Finance
+     </i>
+     <b>
+      10
+     </b>
+     , 31–69.
+    </li>
+    <li block-type="ListItem">
+     [41] Zhang, X.L. (1997). Numerical analysis of American option pricing in a jump-diffusion model,
+     <i>
+      Mathematics of Operations Research
+     </i>
+     <b>
+      22
+     </b>
+     , 668–690.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [42] Zhang, K., Yang, X.Q. &amp; Teo, K.L. (2006). Augmented Lagrangian method applied to American option pricing,
+     <i>
+      Automatica Journal of IFAC
+     </i>
+     <b>
+      42
+     </b>
+     , 1407–1416.
+    </li>
+    <li block-type="ListItem">
+     [43] Zhu, Y.-L., Chen, B.-M., Ren, H. &amp; Xu, H. (2003). Application of the singularity-separating method to American exotic option pricing,
+     <i>
+      Advances in Computational Mathematics
+     </i>
+     <b>
+      19
+     </b>
+     , 147–158.
+    </li>
+    <li block-type="ListItem">
+     [44] Zvan, R., Forsyth, P.A. &amp; Vetzal, K.R. (1998). Robust numerical methods for PDE models of Asian options,
+     <i>
+      The Journal of Computational Finance
+     </i>
+     <b>
+      1
+     </b>
+     , 39–78.
+    </li>
+    <li block-type="ListItem">
+     [45] Zvan, R., Forsyth, P.A. &amp; Vetzal, K.R. (1998). Penalty methods for American options with stochastic volatility,
+     <i>
+      Journal of Computational and Applied Mathematics
+     </i>
+     <b>
+      91
+     </b>
+     , 199–218.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Alternating Direction Implicit (ADI) Method
+   </b>
+   ;
+   <b>
+    American Options
+   </b>
+   ;
+   <b>
+    Asian Options
+   </b>
+   ;
+   <b>
+    Crank–Nicolson Scheme
+   </b>
+   ;
+   <b>
+    Jump-diffusion Models
+   </b>
+   ;
+   <b>
+    Method of Lines
+   </b>
+   ;
+   <b>
+    Monotone Schemes
+   </b>
+   ;
+   <b>
+    Multigrid Methods
+   </b>
+   ;
+   <b>
+    Partial Differential Equations
+   </b>
+   ;
+   <b>
+    Partial Integrodifferential Equations (PIDEs)
+   </b>
+   ;
+   <b>
+    Sparse Grids
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   JARI TOIVANEN
+  </p>
+ </body>
+</html>

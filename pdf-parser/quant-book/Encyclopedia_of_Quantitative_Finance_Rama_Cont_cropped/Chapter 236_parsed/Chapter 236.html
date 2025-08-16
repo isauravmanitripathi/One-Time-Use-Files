@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Hedging of Interest Rate Derivatives
+   </b>
+  </h1>
+  <h1>
+   <b>
+    Cash and the Zero Curve
+   </b>
+  </h1>
+  <p block-type="Text">
+   The simplest contract is a unit notional, zero-coupon bond to be paid at time
+   <i>
+    T
+   </i>
+   (the
+   <i>
+    maturity
+   </i>
+   ). The value of such a bond is denoted by
+   <i>
+    P (T )
+   </i>
+   . a
+  </p>
+  <p block-type="Text">
+   The function
+   <i>
+    P
+   </i>
+   thus describes the evolution through time of interest rate expectations.
+  </p>
+  <p block-type="TextInlineMath">
+   The instantaneous
+   <i>
+    forward rate f
+   </i>
+   is defined by
+   <i>
+    f (T )
+   </i>
+   ≡ −
+   <i>
+    P
+   </i>
+   -
+   <i>
+    (T )/P (T )
+   </i>
+   . Thus, the
+   <i>
+    forward curve f
+   </i>
+   provides a local view of the market forecast for future interest rates. While knowledge of
+   <i>
+    P
+   </i>
+   and
+   <i>
+    f
+   </i>
+   are in principle equivalent, the latter provides a superior framework for practical analysis.
+  </p>
+  <h1>
+   <b>
+    FRAs, Swaps, and Bond Equivalence
+   </b>
+  </h1>
+  <p block-type="Text">
+   A forward rate agreement,
+   <i>
+    FRA
+   </i>
+   , is a contract to lend at a previously agreed rate over some time interval—thus it is equivalent to a calendar spread of zero-coupon bonds. A swap is very similar to a succession of FRAs, so its price can nearly be determined from the zero curve. The slight differences between Libor swaps and coupon-paying bonds stem from the differences between the Libor end date and the period payment date, and also (in most currencies) the difference between fixed and floating payment frequencies. For a more detailed description,
+   <i>
+    see
+   </i>
+   <b>
+    LIBOR Rate
+   </b>
+   .
+  </p>
+  <h1>
+   <b>
+    Libor Futures
+   </b>
+  </h1>
+  <p block-type="Text">
+   A Libor futures contract (
+   <i>
+    see
+   </i>
+   <b>
+    Eurodollar Futures and Options
+   </b>
+   ) pays, at its settlement, a proportion of the Libor rate fixed on the futures expiry date. However, since an FRA makes its payment only at its maturity date, its par rate in a risk-neutral world is equal to the expectation under the discount-adjusted measure to that maturity date. The daily updating of posted margins for Libor futures means that profit or loss from rate fluctuations is realized immediately; thus the par futures price reflects the risk-neutral expectation in an undiscounted measure.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Because the resulting "futures convexity adjustment" does not closely track other measures of
+  </p>
+  <p block-type="Text">
+   volatility, it is traded actively only by a few specialists. For most purposes, we can think of a future as being equivalent to an FRA plus an exogenously specified spread.
+  </p>
+  <h1>
+   <b>
+    Yield Curve Construction
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Since the function
+   <i>
+    P (T )
+   </i>
+   , or equivalently
+   <i>
+    f (T )
+   </i>
+   , practically determines the value of these Liborbased instruments, we price less-liquid instruments by fitting a
+   <i>
+    yield curve
+   </i>
+   —any object from which
+   <i>
+    P
+   </i>
+   and
+   <i>
+    f
+   </i>
+   can be computed—to the observed values of the most liquid
+   <i>
+    build instruments
+   </i>
+   . Since there will not be above a few dozen such instruments, this fitting problem is severely underconstrained.
+  </p>
+  <p block-type="TextInlineMath">
+   One common method is
+   <i>
+    bootstrapping
+   </i>
+   of
+   <i>
+    zero yields
+   </i>
+   : we specify that the yield curve will be defined by linear interpolation on the zero-coupon bond yield
+   <i>
+    y(T )
+   </i>
+   ≡ − ln
+   <i>
+    P (T )/T
+   </i>
+   . This restricts the curve's degrees of freedom to one per interpolation point. If we place one interpolation point at the last maturity date (the latest payment or rate end date) of each build instrument, we can solve for each corresponding value of
+   <i>
+    y
+   </i>
+   with a succession of one-dimensional root searches.
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <i>
+    f (T )
+   </i>
+   =
+   <i>
+    y(T )
+   </i>
+   +
+   <i>
+    T y
+   </i>
+   -
+   <i>
+    (T )
+   </i>
+   , the forward curve thus constructed is gratuitously discontinuous and contains large-scale interpolation artifacts. We do not wish to recommend this construction method or to disparage others, but only wish to note its frequent use and to show a concrete example. For a more complete discussion,
+   <i>
+    see
+   </i>
+   <b>
+    Yield Curve Construction
+   </b>
+   .
+  </p>
+  <h1>
+   <b>
+    Hedging on the Yield Curve
+   </b>
+  </h1>
+  <p block-type="Text">
+   Once a yield curve is built, it can be used to price similar trades that are not among the build instruments, such as forward-starting or nonstandard swaps. Such pricing depends on two implicit assumptions: that the yield curve is the underlying of these trades as well as of its build instruments, and that its interpolation methods (or other nonmarket constraints) are sufficiently accurate. In practice, the former is widely accepted for Libor-based products, while the latter is a major arena of competition among market makers.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Any trade priced on the yield curve will have a
+   <i>
+    forward rate risk
+   </i>
+   , which we denote by
+   <i>
+    δf (T )
+   </i>
+   , so that its change in value for a small curve fluctuation
+   <i>
+    <sup>
+     f
+    </sup>
+   </i>
+   is
+  </p>
+  <p block-type="TextInlineMath">
+   equal to the change in
+   <math display="inline">
+    \delta_f^{\wedge} \Delta f \equiv \int_0^{\infty} \delta_f(u) \Delta_f(u) \, du
+   </math>
+   . Formally, we write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_f(t) \equiv \lim_{h \to 0, \epsilon \to 0} \frac{U(f + h\eta_{t,\epsilon}) - U(f)}{h\epsilon} \qquad (1)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      U(f)
+     </math>
+     is the trade's value for a given yield curve described by the forward rates
+     <math display="inline">
+      f
+     </math>
+     ;
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \n\eta(z)\n
+     </math>
+     is a
+     <math display="inline">
+      \mathcal{C}^{\infty}
+     </math>
+     test function with support in [0, 1] and
+     <math display="inline">
+      \int_0^1 \eta = 1
+     </math>
+     ; and&lt;br&gt;
+     <math display="inline">
+      \eta_{t,\epsilon}(z) \equiv \eta((z-t)/\epsilon)
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   For the
+   <i>
+    linear
+   </i>
+   trades, that we have so far discussed,
+   <math display="inline">
+    \delta_f
+   </math>
+   will change very little as f changes. A portfolio of trades with no net
+   <math display="inline">
+    \delta_f
+   </math>
+   has, at least for that moment, no interest rate risk.
+  </p>
+  <p block-type="Text">
+   Figure 1 shows the forward rate risk for a swap. The large-scale behavior is unsurprising; the forward rate risk steadily decreases as coupons are paid. The small-scale spikes are caused by overlapping, or in one case underlapping, of the start and end dates for the Libor rates on the floating side. The vertical scale is, of course, proportional to the swap notional amount, and is not shown here.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In practice, especially when trades cannot be exactly represented by equivalent cash flows, we will not know
+   <math display="inline">
+    \delta_f
+   </math>
+   exactly but we will have rather a numerically computed (e.g., piecewise constant) approximation thereto; but since we can control the
+  </p>
+  <p block-type="Text">
+   <i>
+    buckets
+   </i>
+   , that is, the intervals over which
+   <math display="inline">
+    \delta_f
+   </math>
+   is kept constant, this is not a major difficulty.
+  </p>
+  <h4>
+   <b>
+    Response Functions
+   </b>
+  </h4>
+  <p block-type="Text">
+   However, we cannot execute a hedge of the forward rate risk directly; instead, we must choose a set of hedge instruments that will allow us to offset it. Often, these hedge instruments are exactly the build instruments. Each hedge instrument will also, of course, have a forward rate sensitivity. In practice, we generally consider the sensitivity, not of the instrument value, but of the implied par rate (or just
+   <i>
+    implied rate
+   </i>
+   ): The implied FRA rate for futures, par coupon for swaps, or yield for bonds implied by the vield curve.
+  </p>
+  <p block-type="Text">
+   In this case, we can compute a hedge by slightly bumping each instrument's implied rate
+   <math display="inline">
+    r_i
+   </math>
+   , rebuilding the curve, repricing the trade being hedged, and measuring its price change. This method has the advantage of enabling very precise p/l explanation, at the cost of requiring repeated yield curve builds.
+  </p>
+  <p block-type="TextInlineMath">
+   The resulting instrument sensitivity is closely related to the forward rate risk. To be precise, let the
+   <i>
+    response function
+   </i>
+   <math display="inline">
+    \beta_i(T) \equiv dF(T)/dr_i
+   </math>
+   . Then, the instrument sensitivity is exactly
+   <math display="inline">
+    \beta_i^{\wedge} \delta_f
+   </math>
+   . Thus, response functions provide an ideal tool for examining curve build methods.
+  </p>
+  <p>
+   <img src="_page_1_Figure_15.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Forward rate risk for a (Payer) swap
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Response of
+   <math display="inline">
+    F
+   </math>
+   to fourth future and to 4-year swap
+  </p>
+  <p block-type="Text">
+   The response functions for two typical build instruments are displayed in Figure 2, for two different curve build methods. The response to a futures rate, shown against the left-hand scale, changes the forwards within the futures period and decreases them in the interval from the last future to the first swap (so that all other build instruments will have unchanged rates); naturally, within the futures period,
+   <math display="inline">
+    dF(T)/dt_i \simeq 1
+   </math>
+   . The response to a swap rate, which is substantially larger, is shown against the right-hand scale. In both cases, the bootstrapped curve shows the "sawteeth" characteristic of linear interpolation on
+   <math display="inline">
+    y
+   </math>
+   , while the smooth curve shows the inevitable loss of locality. This tension between smoothness and locality arises because a smooth curve, by its very nature, must alter values far from the source of a change in order to preserve smoothness; for details see
+   <b>
+    Yield Curve Construction.
+   </b>
+  </p>
+  <h4>
+   <b>
+    Bucket Delta Methods
+   </b>
+  </h4>
+  <p block-type="Text">
+   Another common hedge method is to set the bucket end dates to the maturities of the curve build instruments, and then compute the bucket deltas: sensitivities
+   <math display="inline">
+    \delta_k
+   </math>
+   to the forward rate in the kth bucket, computed by applying a parallel shift to those forward rates. We can also define a Jacobian matrix
+   <math display="inline">
+    J
+   </math>
+   such that
+   <math display="inline">
+    J_{ik}
+   </math>
+   is the sensitivity of the
+   <math display="inline">
+    i
+   </math>
+   th instrument's implied rate to the forward rate in the
+   <math display="inline">
+    k
+   </math>
+   th bucket; then the instrument sensitivities are given by
+   <math display="inline">
+    J^{-1}\vec{\delta}
+   </math>
+   . This is known as the
+   <i>
+    inverse
+   </i>
+   method.
+  </p>
+  <p block-type="TextInlineMath">
+   A hedge can also be constructed from
+   <math display="inline">
+    \vec{\delta}
+   </math>
+   by minimizing the
+   <math display="inline">
+    p/l
+   </math>
+   variance of the hedge trade plus a portfolio of hedging instruments; for this we need an estimate of the covariance
+   <math display="inline">
+    \Sigma(T_k, T_m)
+   </math>
+   between the forward rates
+   <math display="inline">
+    f(T_k)
+   </math>
+   and
+   <math display="inline">
+    f(T_m)
+   </math>
+   . The variance is then a quadratic form in the hedge instrument notionals, which can easily be minimized. Any other quadratic form, such as a penalty function based on the hedge notionals, can be included without difficulty.
+  </p>
+  <h1>
+   <b>
+    Nonlinear Products
+   </b>
+  </h1>
+  <p block-type="Text">
+   For any product, the sensitivity
+   <math display="inline">
+    \delta_f
+   </math>
+   is defined in each yield curve state; however, it need not be independent of that state. This nonlinearity is most pronounced for options, especially when they are short-dated and nearly at-the-money. In this case, to lock in an option value by hedging we must dynamically rebalance the hedging instruments, subject to the well-known limitations of payoff replication strategies.
+  </p>
+  <p block-type="Text">
+   One issue of particular importance is that the local hedge, based on
+   <math display="inline">
+    \delta_t
+   </math>
+   in the current state of the yield curve, can differ greatly from the varianceminimizing hedge if the rebalancing frequency is finite or if jumps are present. This occurs when the distribution of possible curve shifts is strongly asymmetric, or more frequently when the second derivative of the payoff is highly state-dependent.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   These issues are not unique to interest rates, but they can become more pronounced for some payoffs owing to the tendency of short rates to move in
+  </p>
+  <p block-type="Text">
+   discrete increments (e.g., in response to a central bank action). Nonlinearity is also important to the pricing and hedging of very long-dated swaps and bonds.
+  </p>
+  <h4>
+   <b>
+    Projected Gamma
+   </b>
+  </h4>
+  <p block-type="Text">
+   The second-order "gamma" risk is formally described by an extension of the first-order forward rate risk that we have just discussed; in fact, there is a power series
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(f) = U(f_0) + \delta_f^{\wedge} \Delta_f
+   </math>
+   <br/>
+   +
+   <math>
+    \frac{1}{2} \int \int \gamma_f(u, v) \Delta(u) \Delta(v) du dv + \dots
+   </math>
+   <br/>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Delta_f(t) \equiv f(t) - f_0(t)
+   </math>
+   and
+   <math display="inline">
+    \delta_f
+   </math>
+   ,
+   <math display="inline">
+    \gamma_f
+   </math>
+   , and so on, are computed at
+   <math display="inline">
+    f = f_0
+   </math>
+   . However, extracting this
+   <math display="inline">
+    \gamma_f
+   </math>
+   in all its detail is prohibitively time-consuming. Instead, we compute the f-dependence of
+   <math display="inline">
+    \delta_f
+   </math>
+   , which is the same to this order (and is, in fact, the more relevant measure), by computing the delta hedge in various interest rate scenarios.
+  </p>
+  <p block-type="Text">
+   These scenarios are generally constructed by parallel shifts to the market yield curve. There are several reasons for this:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Only parallel-shift gamma can realistically be hedged (by trading short-dated options).
+    </li>
+    <li block-type="ListItem">
+     Large unexpected moves in rates, necessitating delta rehedging, tend to be roughly parallel.
+    </li>
+    <li block-type="ListItem">
+     The parallel shift is uniquely easy to define and to explain.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The industry standard is to create a progression of scenarios using parallel shifts, which are multiples of 10 basis points, for example, from
+   <math display="inline">
+    -50
+   </math>
+   to
+   <math display="inline">
+    +50
+   </math>
+   in steps of 10. This aids visualization of higher- order contributions to the hedge, which can sometimes be traced to their source; for example, a sudden change in delta indicates an upcoming option expiry or barrier test in that interval.
+  </p>
+  <h1>
+   <b>
+    Vega Hedging
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   The volatility sensitivity, or "vega", of an interest rate derivative is characterized by both the time during which its optionality is active, and the time
+  </p>
+  <p block-type="Text">
+   covered by the underlying rate. In other words, nonlinear interest rate derivatives are sensitive to the Heath–Jarrow–Morton
+   <math display="inline">
+    (HJM)^b
+   </math>
+   forward volatility
+   <math display="inline">
+    \sigma(t, T)
+   </math>
+   , the volatility at time t of
+   <math display="inline">
+    f(T)
+   </math>
+   . This does not mean that we must use an HJM model: any interest rate model defines an expected forward volatility.
+  </p>
+  <p block-type="TextInlineMath">
+   A given trade, then, has a "forward volatility footprint"
+   <math display="inline">
+    v(t, T)
+   </math>
+   so that its change in value, to first order in volatility, equals the change in
+   <math display="inline">
+    \int v(t,T)\sigma(t,T) dt dT
+   </math>
+   . In more sophisticated models, this change is computed with other parameters (e.g., correlations, elasticity of rates, or volatility of volatility) held fixed. Thus,
+   <math display="inline">
+    v(t, T)
+   </math>
+   is precisely analogous to the forward rate sensitivity
+   <math display="inline">
+    \delta_f(T)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In addition, any mechanistic calibration technique has a response function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B_j(t,T) \equiv \frac{\partial \sigma(t,T)}{\partial \sigma_j} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma_i
+   </math>
+   is the quoted volatility of the
+   <i>
+    j
+   </i>
+   th calibration instrument and partial derivatives are taken with other calibration instruments fixed. The inner product
+   <math display="inline">
+    \int \int v(t,T)B_i(t,T) dt dT
+   </math>
+   is thus the
+   <i>
+    calibration
+   </i>
+   instrument vega, which will be computed by bumping, recalibrating, and repricing ("bump-and-grind"). It is worth noting that examination of response functions is by far the best test of the quality of a calibration technique.
+  </p>
+  <p block-type="Text">
+   Models with few state variables harshly restrict the form of
+   <math display="inline">
+    \sigma(t, T)
+   </math>
+   ; for example, in one-state-variable models we have
+   <math display="inline">
+    \sigma(t,T) = g(t)H(T)
+   </math>
+   .&lt;sup&gt;c&lt;/sup&gt; This impacts vega hedging in two main ways. First, the forward vol footprint simply cannot be measured using such a model, since it is the sensitivity to a perturbation which the model cannot reproduce. Second, the response functions must reflect the constraints on
+   <math display="inline">
+    \sigma(t, T)
+   </math>
+   ; thus, they are inevitably nonlocal and often highly unnatural. Such models can be used for vega hedging in restricted environments, such as when the maturity of the hedging instruments is already known; but, in general, they are incapable of "finding" the vega hedge, owing to their intrinsic inability to localize perturbations.
+  </p>
+  <h1>
+   <b>
+    Cost of Funding Complications
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   So far, we have assumed that the market Libor rate reflects our own cost of funds; this assumption is necessary for a single zero curve to exist. In
+  </p>
+  <p block-type="TextInlineMath">
+   practice, many market participants consistently fund their operations above or below Libor; thus they must maintain a zero curve
+   <i>
+    Zc
+   </i>
+   for their own cashflows, and a different curve
+   <i>
+    Zr
+   </i>
+   for rate forecasts. To a very good approximation, this effect can be encapsulated by specifying the
+   <i>
+    funding adjustment Zc(T )/Zr(T )
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   This is most important in markets where the demand for currencies is highly asymmetric, particularly in Japanese Yen (
+   <i>
+    JPY
+   </i>
+   ). The steady demand of JPY-based issuers for dollars means that foreign dealers can fund their JPY debts more cheaply, effectively increasing their own
+   <i>
+    Zc
+   </i>
+   —this effect drives the currency basis swaps market.
+  </p>
+  <p block-type="Text">
+   The presence of funding adjustments causes different dealers, observing the same market swap rates, to deduce different forward curves. The effect is always to create an incentive for the party with the higher cost of funds to take the side with initial positive cash flows, thus borrowing a fraction of the swap notional. To minimize this effect, most market quotes are for mutually collateralized swaps.
+  </p>
+  <h1>
+   <b>
+    Cost of Tenor Complications
+   </b>
+  </h1>
+  <p block-type="Text">
+   The frequency of Libor fixings also influences the par rate for a swap; the curve
+   <i>
+    Zr
+   </i>
+   , which forecasts 3-month Libor will not forecast 1-month or 6-month Libor. In practice, the forward rates are higher for longer- tenor Libor rates; this is generally, attributed to credit issues, since a longer tenor entails a greater risk of a downgrade during the loan period.
+  </p>
+  <p block-type="Text">
+   This can be addressed by constructing separate curves for each tenor, or by adjusting Libor rate forecasts by some
+   <i>
+    ad hoc
+   </i>
+   tenor-dependent correction. The floating-for-floating swaps at mismatched tenors, in which these corrections can be traded, are also called
+   <i>
+    basis swaps
+   </i>
+   .
+  </p>
+  <h1>
+   <b>
+    Collateral and Repo Complications
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   For some markets, notably US Treasury bonds, the value of a bond is not fully captured by the value of its cashflows. The complex repo market for these bonds makes some
+   <i>
+    special
+   </i>
+   bonds valuable as collateral, giving them a positive convenience yield
+  </p>
+  <p block-type="Text">
+   and raising their price above that predicted from the zero curve. Such markets are usually treated by building a
+   <i>
+    general collateral
+   </i>
+   curve based on bonds with no such added value, and then relating the premium in some bond's price to its expected repo rates. A derivative whose underlying is a special bond is thus exposed to both general collateral rates and the bond's forecast repo rates. For short-expiry trades, this combination of exposures is accurately expressed as an exposure to the special bond's price, but longdated trades require separate consideration of the two curves.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   Even this simple contract is fraught with credit and collateral issues, which our notation conceals. Most of these are beyond the scope of this discussion.
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   For details of the HJM approach,
+   <i>
+    see
+   </i>
+   Bjork
+   <b>
+    Heath–Jarrow–Morton Approach
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   c
+   <i>
+    .
+   </i>
+   Here
+   <i>
+    σ (t, T )
+   </i>
+   need not be the normal HJM volatility; in Black–Karasinski models, for example, it is the volatility of the log forward rate in the risk-neutral measure which is separable.
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Romanelli, P. (1997). The yield curve: from the ground up, Bankers Trust Topics in Derivatives Analytics 2.
+    </li>
+    <li block-type="ListItem">
+     Hagan, P. &amp; West, G. (2006). Interpolation methods for yield curve construction,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      3
+     </b>
+     (2), 89–129.
+    </li>
+    <li block-type="ListItem">
+     Heath, D., Jarrow, R. &amp; Morton, A. (1989).
+     <i>
+      Bond pricing and the term structure of interest rates: a new methodology
+     </i>
+     , Cornell University, working paper.
+    </li>
+    <li block-type="ListItem">
+     Pennacchi, G., Ritchken, P. &amp; Sankarasubramanian, L. (1996). On pricing kernels and finite state-variable Heath, Jarrow, Morton models,
+     <i>
+      Review of Derivatives Research
+     </i>
+     <b>
+      1
+     </b>
+     , 87–99.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Delta Hedging
+   </b>
+   ;
+   <b>
+    Gamma Hedging
+   </b>
+   ;
+   <b>
+    Hedging
+   </b>
+   ;
+   <b>
+    Mean–Variance Hedging
+   </b>
+   ;
+   <b>
+    Yield Curve Construction
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   TOM HYER
+  </p>
+ </body>
+</html>

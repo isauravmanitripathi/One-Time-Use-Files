@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Fractional Brownian
+   </b>
+   Motion
+  </h1>
+  <p block-type="Text">
+   A fractional Brownian motion (fBm) is a self-similar Gaussian process, defined as follows:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   Let
+   <math display="inline">
+    0 &lt; H &lt; 1
+   </math>
+   . The Gaussian stochastic process
+   <math display="inline">
+    \{B_H(t)\}_{t&gt;0}
+   </math>
+   satisfying the following three properties
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     (
+     <i>
+      i
+     </i>
+     )
+     <math display="inline">
+      B_H(0) = 0
+     </math>
+    </li>
+    <li block-type="ListItem">
+     (ii)
+     <math display="inline">
+      E[B_H(t)] = 0
+     </math>
+     for all
+     <math display="inline">
+      t \ge 0
+     </math>
+     ,
+    </li>
+    <li block-type="ListItem">
+     (iii) for all
+     <math display="inline">
+      s, t &gt; 0
+     </math>
+     ,
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[B_H(t)B_H(s)]
+   </math>
+   <br/>
+   =
+   <math>
+    \frac{1}{2} \left( |t|^{2H} - |t - s|^{2H} + |s|^{2H} \right)
+   </math>
+   (1)
+  </p>
+  <h4>
+   is called the (standard) fBm with parameter
+   <math display="inline">
+    H
+   </math>
+   .
+  </h4>
+  <p block-type="Text">
+   The fBm has been the subject of numerous investigations, in particular, in the context of long-range dependence (often referred to as long memory). fBm was first introduced in 1940 by Kolmogorov (see Kolmogorov, Andrei Nikolaevich) [11], but its main properties and its relevance in many fields of application such as economics, finance, turbulence, and telecommunications were first discussed in the seminal paper of Mandelbrot (see
+   <b>
+    Mandelbrot, Benoit
+   </b>
+   ) and Van Ness [12].
+  </p>
+  <p block-type="Text">
+   For historical reasons, the parameter
+   <math display="inline">
+    H
+   </math>
+   is also referred to as the
+   <i>
+    Hurst coefficient
+   </i>
+   . In fact, in 1951, while he was investigating the flow of the river Nile, the British hydrologist H. E. Hurst [10] noticed that his measurements showed dependence properties and, in particular, long memory behavior in the sense that they seemed to require models, whose autocorrelation functions exhibit a power law decay at large timescales. This index of dependence
+   <math display="inline">
+    H
+   </math>
+   always takes values between
+   <math display="inline">
+    0
+   </math>
+   and
+   <math display="inline">
+    1
+   </math>
+   and indicates relatively long-range dependence if
+   <math display="inline">
+    H &gt; 0.5
+   </math>
+   , for example, Hurst observed
+   <math display="inline">
+    H = 0.91
+   </math>
+   in the case of Nile level data.
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    H = 0.5
+   </math>
+   , it is obvious from equation (1) that the increments of fBm are independent and
+   <math display="inline">
+    \{B_{0.5}(t)\}_{t\in\mathbb{R}} = \{B(t)\}_{t\in\mathbb{R}}
+   </math>
+   is ordinary Brownian motion. Moreover, fBm has stationary increments which, for
+   <math display="inline">
+    H \neq 0.5
+   </math>
+   , are not independent.
+  </p>
+  <p block-type="Text">
+   One can define a parametric family of fBms in terms of the
+   <i>
+    stochastic Weyl integral
+   </i>
+   (see e.g. [16], chapter 7.2). In fact, for any
+   <math display="inline">
+    a, b \in \mathbb{R}
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \{B_{H}(t)\}_{t\in\mathbb{R}} \stackrel{d}{=} \left\{ \int_{\mathbb{R}} \left\{ a \left[ (t-s)_{+}^{H-\frac{1}{2}} - (-s)_{+}^{H-\frac{1}{2}} \right] \right. \\ + \left. b \left[ (t-s)_{-}^{H-\frac{1}{2}} - (-s)_{-}^{H-\frac{1}{2}} \right] \right\} \mathrm{d}B(s) \right\}_{t\in\mathbb{R}} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    u_{+} = \max(u, 0), \quad u_{-} = \max(-u, 0), \text{ and}
+   </math>
+   <math display="inline">
+    \{B(t)\}_{t\in\mathbb{R}}
+   </math>
+   is a two-sided standard Brownian motion constructed by taking a Brownian motion
+   <math display="inline">
+    B_1
+   </math>
+   and an independent copy
+   <math display="inline">
+    B_2
+   </math>
+   and setting
+   <math display="inline">
+    B(t) = B_1(t)1_{\{t \ge 0\}}
+   </math>
+   <math display="inline">
+    -B_2(-t-1)_{\{t&lt;0\}}.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If we choose
+   <math display="inline">
+    a = \sqrt{\Gamma(2H+1)\sin(\pi H)}/\Gamma(H+
+   </math>
+   1/2) and
+   <math display="inline">
+    b = 0
+   </math>
+   in equation (2) then
+   <math display="inline">
+    \{B_H(t)\}_{t \in \mathbb{R}}
+   </math>
+   is an
+   <math display="inline">
+    fBm
+   </math>
+   satisfying equation (1).
+  </p>
+  <p block-type="TextInlineMath">
+   fBm admits a
+   <i>
+    Volterra type representation
+   </i>
+   <math display="inline">
+    B_H(t)
+   </math>
+   <math display="inline">
+    =\int_0^t K_H(t,s) B(ds)
+   </math>
+   , where
+   <math display="inline">
+    K_H
+   </math>
+   is some square integrable kernel (see [13] or [1] for details).
+  </p>
+  <h4>
+   Properties
+  </h4>
+  <p block-type="Text">
+   Many properties of fBm, like self-similarity, are given by its fractional index
+   <math display="inline">
+    H
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 2
+   </b>
+   A real-valued stochastic process
+   <math display="inline">
+    \{X(t)\}_{t\in\mathbb{R}}
+   </math>
+   is self-similar with index H if for all
+   <math display="inline">
+    c&gt;0
+   </math>
+   ,
+   <math display="inline">
+    \{X(ct)\}_{t\in\mathbb{R}} \stackrel{d}{=} c^H \{X(t)\}_{t\in\mathbb{R}}, \text{ where } \stackrel{d}{=} \text{ denotes equality}
+   </math>
+   in distribution
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 1
+   </b>
+   <i>
+    Fractional Brownian motion (fBm)
+   </i>
+   is self-similar with index H. Moreover, fBm is the only self-similar Gaussian process with stationary increments.
+  </p>
+  <p block-type="Text">
+   Now, we consider the increments of fBm.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 3
+   </b>
+   <i>
+    The stationary process
+   </i>
+   <math display="inline">
+    \{Y(t)\}_{t\in\mathbb{R}}
+   </math>
+   <i>
+    given
+   </i>
+   <math display="inline">
+    by
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y(t) = B_H(t) - B_H(t-1) \quad t \in \mathbb{R} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   is called fractional Gaussian noise.
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Various sample paths, each showing 500 points of fBm
+  </p>
+  <p block-type="Text">
+   For
+   <math display="inline">
+    n \in \mathbb{N}
+   </math>
+   , it follows by the stationarity of the increments of
+   <math display="inline">
+    B_H
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho_H(n) := \text{cov}(Y(k+n), Y(k))
+   </math>
+   <br/>
+   =
+   <math>
+    \frac{1}{2}(|n+1|^{2H} - 2|n|^{2H} - |n-1|^{2H}) \tag{4}
+   </math>
+  </p>
+  <h4>
+   <b>
+    Proposition 2
+   </b>
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     (i) If
+     <math display="inline">
+      0 &lt; H &lt; 0.5
+     </math>
+     ,
+     <math display="inline">
+      \rho_H
+     </math>
+     is negative and
+     <math display="inline">
+      \sum_{i=1}^{\infty} |\rho_H(n)|
+     </math>
+     <math display="inline">
+      &lt; \infty
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     (ii) If
+     <math display="inline">
+      H = 0.5
+     </math>
+     ,
+     <math display="inline">
+      \rho_H
+     </math>
+     equals 0, that is, the increments are independent.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   (iii) If
+   <math display="block">
+    0.5 &lt; H &lt; 1
+   </math>
+   ,
+   <math>
+    \rho_H
+   </math>
+   is positive,
+   <math>
+    \sum_{n=1}^{\infty} |\rho_H(n)| = \infty
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    and
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    o_H(n) \sim C n^{2H-2}, \quad n \to \infty
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   Hence, for
+   <math display="inline">
+    0.5 &lt; H &lt; 1
+   </math>
+   the increments of fBm are persistent or long-range dependent, whereas for
+   <math display="inline">
+    0 &lt; H &lt; 0.5
+   </math>
+   they are said to be
+   <i>
+    antipersistent
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <b>
+    Proposition 3
+   </b>
+   The sample paths of fBm are continuous. In particular, for every
+   <math display="inline">
+    \tilde{H} &lt; H
+   </math>
+   there exists a modification of
+   <math display="inline">
+    B_H
+   </math>
+   whose sample paths are almost surely (a.s.) locally
+   <math display="inline">
+    \tilde{H}
+   </math>
+   -Hölder continuous on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   , that is, for each trajectory, there exists a constant
+   <math display="inline">
+    c &gt; 0
+   </math>
+  </p>
+  <p block-type="Text">
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |B_H(t) - B_H(s)| \le c|t - s|^{H - \epsilon} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for any
+   <math display="inline">
+    \epsilon &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Figure 1 shows the sample paths of fBm for various values of the Hurst parameter
+   <math display="inline">
+    H
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 4
+   </b>
+   The sample paths of fBm are of finite
+   <i>
+    p
+   </i>
+   -variation for every
+   <math display="inline">
+    p &gt; 1/H
+   </math>
+   and of infinite
+   <i>
+    p
+   </i>
+   variation if
+   <math display="inline">
+    p &lt; 1/H
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Consequently, for
+   <math display="inline">
+    H &lt; 0.5
+   </math>
+   the quadratic variation is infinite. On the other hand, if
+   <math display="inline">
+    H &gt; 0.5
+   </math>
+   it is known that the quadratic variation of fBm is zero, whereas the total variation is infinite.
+  </p>
+  <p block-type="Text">
+   <b>
+    Corollary 1
+   </b>
+   This shows that for
+   <math display="inline">
+    H \neq 1/2
+   </math>
+   , fBm cannot be a semimartingale.
+  </p>
+  <p block-type="Text">
+   A proof of this well-known fact can be found in for example, [15] or [4].
+  </p>
+  <p block-type="Text">
+   However, since fBm is not a semimartingale one cannot use the Itô stochastic integral (see Stochastic
+   <b>
+    Integrals
+   </b>
+   ) when considering integrals with respect to fBm. Recently, integration with respect to fBms has been studied extensively and various approaches have been made to define a stochastic integration theory for fBm (see e.g., [14] for a survey).
+  </p>
+  <h2>
+   <b>
+    Applications in Finance
+   </b>
+  </h2>
+  <p block-type="Text">
+   Many studies of financial time series point to longrange dependence (
+   <i>
+    see
+   </i>
+   <b>
+    Long Range Dependence
+   </b>
+   ), which indicates the potential usefulness of fBm in financial modeling (see [7] for a summary and references). One obstacle is that fBm is not a semimartingale (
+   <i>
+    see
+   </i>
+   <b>
+    Semimartingale
+   </b>
+   ), so the Ito integral cannot be used to define the gain of a self-financing portfolio as, for instance, in the Black–Scholes model (
+   <i>
+    see
+   </i>
+   <b>
+    Black–Scholes Formula
+   </b>
+   ). Various approaches have been developed for integrating fBm, some of which are as follows:
+  </p>
+  <p block-type="Text">
+   1. The
+   <i>
+    pathwise Riemann–Stieltjes fractional integral
+   </i>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{0}^{T} f(t) \, \mathrm{d}B_{H}(t)
+   </math>
+   <math display="block">
+    = \lim_{|\pi| \to 0} \sum_{k=0}^{n-1} f(t_{k}) (B_{H}(t_{k+1}) - B_{H}(t_{k})) \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    π
+   </i>
+   = {
+   <i>
+    tk
+   </i>
+   : 0 =
+   <i>
+    t
+   </i>
+   <sup>
+    0
+   </sup>
+   <i>
+    &lt; t
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    &lt;...&lt;tn
+   </i>
+   =
+   <i>
+    T
+   </i>
+   } is a partition of the interval [0
+   <i>
+    , T
+   </i>
+   ] and
+   <i>
+    f
+   </i>
+   has bounded
+   <i>
+    p
+   </i>
+   -variation for some
+   <i>
+    p &lt;
+   </i>
+   1
+   <i>
+    /(
+   </i>
+   1 −
+   <i>
+    H )
+   </i>
+   a.s.
+  </p>
+  <p block-type="Text">
+   2. Under some regularity conditions on
+   <i>
+    f
+   </i>
+   , the
+   <i>
+    fractional Wick–It ˆo integral
+   </i>
+   has the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{0}^{T} f(t) \, \delta B_{H}(t)
+   </math>
+   <math display="block">
+    = \lim_{|\pi| \to 0} \sum_{k=0}^{n-1} f(t_{k}) \, \diamondsuit \, (B_{H}(t_{k+1}) - B_{H}(t_{k}))
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   where ♦ represents the Wick product [18] and the convergence is the
+   <i>
+    L
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    ()
+   </i>
+   -convergence of random variables [2].
+  </p>
+  <p block-type="Text">
+   Whereas, the pathwise fractional integral mirrors a Stratonovich integral, the Wick– Ito-Skorohod calcu- ˆ lus is similar to the Ito calculus, for example, integrals ˆ always have zero expectation.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The Wick– Ito integral was constructed by Duncan ˆ
+   <i>
+    et al.
+   </i>
+   [8] and later applied to finance by, for example,
+  </p>
+  <p block-type="TextInlineMath">
+   Hu and Oksendal [9] in a fractional Black–Scholes pricing model in which the "gain" of a self-financing portfolio
+   <i>
+    φ
+   </i>
+   is replaced by
+   <i>
+    T
+   </i>
+   0
+   <i>
+    φ(t) δS(t)
+   </i>
+   . However, results produced by this approach are controversial: indeed, for a piecewise constant strategy (represented by a simple predictable process)
+   <i>
+    φ
+   </i>
+   , this definition does not coincide with the capital gain of the portfolio, so the approach lacks economical interpretation [3]. An interesting study is [17], where the implications of different notions of integrals to the problem of arbitrage and self-financing condition in the fractional pricing model are considered.
+  </p>
+  <p block-type="Text">
+   An alternative is to use mixed Brownian motion, defined as the sum of a (regular) Brownian motion and an fBm with index
+   <i>
+    H
+   </i>
+   which, under some conditions on
+   <i>
+    H
+   </i>
+   , is a semimartingale [5]. Alternatively, Rogers [15] proposes to modify the behavior near zero of the kernel in equation (2) to obtain a semimartingale. In both the cases, one loses selfsimilarity, but conserves long-range dependence.
+  </p>
+  <p block-type="Text">
+   On the other hand, there is empirical evidence of long-range dependence in absolute returns [7], showing that it might be more interesting to use fractional processes as models of volatility rather than prices [6]. Fractional volatility processes are compatible with the semimartingale assumption for prices, so the technical obstacles discussed above do not necessarily arise when defining portfolio gain processes (
+   <i>
+    see
+   </i>
+   <b>
+    Long Range Dependence
+   </b>
+   ;
+   <b>
+    Multifractals
+   </b>
+   ).
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Baudoin, F. &amp; Nualart, D. (2003). Equivalence of Volterra processes,
+     <i>
+      Stochastic Processes and their Applications
+     </i>
+     <b>
+      107
+     </b>
+     , 327–350.
+    </li>
+    <li block-type="ListItem">
+     [2] Bender, C. (2003). An Ito formula for generalized func- ˆ tionals of a fractional Brownian motion with arbitrary Hurst parameter,
+     <i>
+      Stochastic Processes and their Applications
+     </i>
+     <b>
+      104
+     </b>
+     , 81–106.
+    </li>
+    <li block-type="ListItem">
+     [3] Bjork, T. &amp; Hult, H. (2005). A note on Wick products ¨ and the fractional Black-Scholes model,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      9
+     </b>
+     , 197–209.
+    </li>
+    <li block-type="ListItem">
+     [4] Cheridito, P. (2001).
+     <i>
+      Regularizing Fractional Brownian Motion with a View towards Stock Price Modelling
+     </i>
+     , PhD Dissertation, ETH Zurich.
+    </li>
+    <li block-type="ListItem">
+     [5] Cheriditio, P. (2003). Arbitrage in fractional Brownian motion models,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      7
+     </b>
+     , 533–553.
+    </li>
+    <li block-type="ListItem">
+     [6] Comte, F. &amp; Renault, E. (1998). Long memory in continuous time stochastic volatility models,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 291–323.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [7] Cont, R. (2005). Long range dependence in financial time series, in
+     <i>
+      Fractals in Engineering
+     </i>
+     , E. Lutton &amp; J. Levy-Vehel, eds, Springer.
+    </li>
+    <li block-type="ListItem">
+     [8] Duncan, T.E., Hu, Y. &amp; Pasik-Duncan, B. (2000). Stochastic calculus for fractional Brownian motion I. Theory,
+     <i>
+      SIAM Journal of Control and Optimization
+     </i>
+     <b>
+      28
+     </b>
+     , 582–612.
+    </li>
+    <li block-type="ListItem">
+     [9] Hu, Y. &amp; Oksendal, B. (2003). Fractional white noise calculus and applications to finance,
+     <i>
+      Infinite Dimensional Analysis, Quantum Probability and Related Topics
+     </i>
+     <b>
+      6
+     </b>
+     , 1–32.
+    </li>
+    <li block-type="ListItem">
+     [10] Hurst, H. (1951). Long term storage capacity of reservoirs,
+     <i>
+      Transactions of the American Society of Civil Engineers
+     </i>
+     <b>
+      116
+     </b>
+     , 770–1299.
+    </li>
+    <li block-type="ListItem">
+     [11] Kolmogorov, A.N. (1940). Wienersche Spiralen und einige andere interessante Kurven im Hilbertschen Raum,
+     <i>
+      Computes Rendus (Doklady) Academic Sciences USSR (N.S.)
+     </i>
+     <b>
+      26
+     </b>
+     , 115–118.
+    </li>
+    <li block-type="ListItem">
+     [12] Mandelbrot, B.B. &amp; Van Ness, J.W. (1968). Fractional Brownian motions, fractional noises and applications,
+     <i>
+      SIAM Review
+     </i>
+     <b>
+      10
+     </b>
+     , 422–437.
+    </li>
+    <li block-type="ListItem">
+     [13] Norros, I., Valkeila, E. &amp; Virtamo, J. (1999). An elementary approach to a Girsanov formula and other analytical results on fractional Brownian motion,
+     <i>
+      Bernoulli
+     </i>
+     <b>
+      5
+     </b>
+     , 571–589.
+    </li>
+    <li block-type="ListItem">
+     [14] Nualart, D. (2003). Stochastic calculus with respect to the fractional Brownian motion and applications,
+     <i>
+      Contemporary Mathematics
+     </i>
+     <b>
+      336
+     </b>
+     , 3–39.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [15] Rogers, L.C.G. (1997). Arbitrage with fractional Brownian motion,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 95–105.
+    </li>
+    <li block-type="ListItem">
+     [16] Samorodnitsky, G. &amp; Taqqu, M. (1994).
+     <i>
+      Stable Non-Gaussian Random Processes: Stochastic Models with Infinite Variance
+     </i>
+     , Chapman &amp; Hall, New York.
+    </li>
+    <li block-type="ListItem">
+     [17] Sottinen, T. &amp; Valkeila, E. (2003). On arbitrage and replication in the fractional Black-Scholes pricing model,
+     <i>
+      Statistics and Decisions
+     </i>
+     <b>
+      21
+     </b>
+     , 93–107.
+    </li>
+    <li block-type="ListItem">
+     [18] Wick, G.-C. (1950). Evaluation of the collision matrix,
+     <i>
+      Physical Review
+     </i>
+     <b>
+      80
+     </b>
+     , 268–272.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Doukhan, P., Oppenheim, G. &amp; Taqqu, M.S. (2003).
+     <i>
+      Theory and Applications of Long-Range Dependence
+     </i>
+     , Birkhauser, ¨ Boston.
+    </li>
+    <li block-type="ListItem">
+     Lin, S.J. (1995). Stochastic analysis of fractional Brownian motion,
+     <i>
+      Stochastics and Stochastics Reports
+     </i>
+     <b>
+      55
+     </b>
+     , 121–140.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Long Range Dependence
+   </b>
+   ;
+   <b>
+    Mandelbrot, Benoit
+   </b>
+   ;
+   <b>
+    Multifractals
+   </b>
+   ;
+   <b>
+    Semimartingale
+   </b>
+   ;
+   <b>
+    Stylized Properties of Asset Returns
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   TINA M. MARQUARDT
+  </p>
+ </body>
+</html>

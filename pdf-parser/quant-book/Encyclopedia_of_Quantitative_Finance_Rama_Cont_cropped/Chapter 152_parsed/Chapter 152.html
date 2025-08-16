@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Hull-White Stochastic Volatility Model
+   </b>
+  </h1>
+  <p block-type="Text">
+   Even before practitioners started using the Black-Scholes formula extensively, one had identified the assumption of constant volatility as unrealistic. Empirical observation of equity vanilla option market shows, indeed, that the implied volatility level depends on the strike. This feature, commonly known as the volatility smile, violates the constant volatility assumption. This essential remark motivated the birth of stochastic volatility models (see Stochastic Volatility Models).
+  </p>
+  <p block-type="Text">
+   Among the first authors to tackle this issue, Hull and White proposed in 1987 a simple extension of Black-Scholes model [1]. This article aims at presenting a sound introduction to the Hull-White stochastic volatility model and at indicating its implications in terms of volatility behavior and correlation.
+  </p>
+  <p block-type="TextInlineMath">
+   Hull and White describe the variance
+   <math display="inline">
+    V = \sigma^2
+   </math>
+   as a geometric Brownian motion. Therefore, the asset and variance satisfy the following stochastic differential equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS = \phi S dt + \sigma S dw_t \tag{1}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dV = \mu V dt + \xi V dz_t \tag{2}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}w_t,\ \mathrm{d}z_t = \rho\ \mathrm{d}t\tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In its general formulation, the parameter
+   <math display="inline">
+    \phi
+   </math>
+   may depend on S,
+   <math display="inline">
+    \sigma
+   </math>
+   , and t, while parameters
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    \xi
+   </math>
+   may depend on
+   <math display="inline">
+    \sigma
+   </math>
+   and t. One may find that many models fall under these dynamics, including the Heston
+   <b>
+    model
+   </b>
+   for
+   <math display="inline">
+    \mu = \kappa \left(\theta/V - 1\right)
+   </math>
+   and
+   <math display="inline">
+    \xi = \left(\nu/\sqrt{V}\right)
+   </math>
+   . As in [1], we will restrict to the constant parameters case (Hull and White studied the mean-reverting variance case in [2]).
+  </p>
+  <h1>
+   <b>
+    Option Pricing
+   </b>
+  </h1>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    f
+   </math>
+   be the price of a security which depends on the stock price.
+   <math display="inline">
+    f
+   </math>
+   satisfies the
+   <b>
+    partial differential
+   </b>
+   <math display="inline">
+    equation (PDE)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f}{\partial t} + \frac{1}{2} \left[ \sigma^2 S^2 \frac{\partial^2 f}{\partial S^2} + 2\rho \sigma^3 \xi S \frac{\partial^2 f}{\partial S \partial V} + \xi^2 V^2 \frac{\partial^2 f}{\partial V^2} \right]
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -rf = -rS\frac{\partial f}{\partial S} - \mu\sigma^2 \frac{\partial f}{\partial V} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   Assuming volatility and stock price are uncorrelated, we derive an analytic solution to equation
+   <math display="inline">
+    (4)
+   </math>
+   through risk-neutral valuation procedure
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(S_t, \sigma_t^2, t) = e^{-r(T-t)}
+   </math>
+   <math display="block">
+    \times \int_0^\infty f(S_T, \sigma_T^2, T) p(S_T | S_t, \sigma_t^2) \, dS_t \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where T is the option maturity,
+   <math display="inline">
+    S_t
+   </math>
+   is the security at pricing time t,
+   <math display="inline">
+    \sigma_t
+   </math>
+   is the instantaneous volatility at time t, and
+   <math display="inline">
+    p(S_T|S_t, \sigma_t^2)
+   </math>
+   is the conditional distribution of
+   <math display="inline">
+    S_T
+   </math>
+   given the security price and variance at time t.
+  </p>
+  <p block-type="Text">
+   Introducing the mean variance over the option life
+   <math display="inline">
+    \bar{V}
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \bar{V} = \frac{1}{T - t} \int_{t}^{T} \sigma_{\tau}^{2} \, \mathrm{d}\tau \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   we express the call option value as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_{\rm HW}(S_t,\sigma_t^2,t) = \int_0^\infty C_{\rm BS}(\bar{V})h(\bar{V}|\sigma_t^2)\mathrm{d}\bar{V} \qquad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C_{\rm BS}
+   </math>
+   is the Black-Scholes call option value and
+   <math display="inline">
+    h(\cdot, \sigma_t^2)
+   </math>
+   is the conditional density of
+   <math display="inline">
+    \bar{V}
+   </math>
+   given
+   <math display="inline">
+    \sigma_t^2
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In some particular cases, such as when
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    \sigma
+   </math>
+   are constant, this expression admits an explicit Taylor expansion which converges quickly for small values of
+   <math display="inline">
+    \xi^2(T - t)
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Behavior of Volatility
+   </b>
+  </h4>
+  <p block-type="Text">
+   Assuming that parameters
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    \xi
+   </math>
+   are constant, the first two moments of the volatility process are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[\sigma(t)] = \sigma(0) \times e^{\frac{1}{2} \left(\mu - \frac{1}{4}\xi^2\right)t} \tag{8}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V[\sigma(t)] = \sigma(0)^2 \times e^{\mu t} \left(1 - e^{\frac{1}{8}\xi^2 t}\right) \qquad (9)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For
+   <math display="inline">
+    \mu &lt; \frac{1}{4}\xi^2
+   </math>
+   , the expectation of volatility converges to zero, whereas for
+   <math display="inline">
+    \mu &gt; \frac{1}{4}\xi^2
+   </math>
+   , it diverges.&lt;br&gt;Regarding the variance of volatility, it increases unbounded if
+   <math display="inline">
+    \mu &gt; 0
+   </math>
+   .
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Implied volatility as a function of strike
+  </p>
+  <p block-type="Text">
+   When calibrating the model to the market, we are very likely to find
+   <i>
+    µ
+   </i>
+   ≤ 0, since variance of volatility is bounded. Hence, the expectation of volatility converges to either zero or its initial value.
+  </p>
+  <h4>
+   <i>
+    Implied Volatility Smile
+   </i>
+  </h4>
+  <p block-type="TextInlineMath">
+   In Figure 1, we show implied volatility as a function of moneyness (strike divided by forward). The call option price has been computed using the Taylor expansion of equation (7) with
+   <i>
+    σ
+   </i>
+   <sup>
+    0
+   </sup>
+   = 0
+   <i>
+    .
+   </i>
+   15,
+   <i>
+    µ
+   </i>
+   = 0,
+   <i>
+    ξ
+   </i>
+   = 0, and
+   <i>
+    r
+   </i>
+   = 0. Compared to the Hull–White model, the Black–Scholes model overprices at-themoney options and underprices in- and out-of-themoney options.
+  </p>
+  <h1>
+   <b>
+    Correlation between Stock Returns and Changes in Volatility
+   </b>
+  </h1>
+  <p block-type="Text">
+   By introducing correlation between stock and variance Gaussian increments, Hull and White incorporate explicitly a cause of the volatility skew: the leverage effect. Even if they do not provide any analytic formula in the correlated case, one can still analyze the impact of correlation through numerical simulation.
+  </p>
+  <p block-type="Text">
+   As shown in Figure 2, this correlation has a huge impact since it enables to transform the smile into
+  </p>
+  <p>
+   <img src="_page_1_Figure_9.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Volatility smile for various correlation levels
+  </p>
+  <p block-type="Text">
+   a skew. In order to fit market data, it is crucial to correctly set the correlation parameter.
+  </p>
+  <p block-type="Text">
+   One drawback of the Hull–White model is the lack of mean-reverting behavior in the volatility process (
+   <i>
+    see
+   </i>
+   <b>
+    Stochastic Volatility Models
+   </b>
+   ).
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Hull, J. &amp; White, A. (1987). The pricing of options on assets with stochastic volatilities,
+     <i>
+      The Journal of Finance
+     </i>
+     <b>
+      17
+     </b>
+     (2), 281–300.
+    </li>
+    <li block-type="ListItem">
+     [2] Hull, J &amp; White, A. (1988). An analysis of the bias in option pricing caused by a stochastic volatility,
+     <i>
+      Advances in Futures and Options Research
+     </i>
+     <b>
+      3
+     </b>
+     , 27–61.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Heavy Tails
+   </b>
+   ;
+   <b>
+    Heston Model
+   </b>
+   ;
+   <b>
+    Implied Volatility in Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Implied Volatility Surface
+   </b>
+   ;
+   <b>
+    Partial Differential Equations
+   </b>
+   ;
+   <b>
+    Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Stylized Properties of Asset Returns
+   </b>
+   .
+  </p>
+  <blockquote>
+   <p block-type="Text">
+    PIERRE GAUTHIER &amp; PIERRE-YVES H. RIVAILLE
+   </p>
+  </blockquote>
+ </body>
+</html>

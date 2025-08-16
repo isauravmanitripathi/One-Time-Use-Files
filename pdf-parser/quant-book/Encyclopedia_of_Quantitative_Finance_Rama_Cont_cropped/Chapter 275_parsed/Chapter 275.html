@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Exercise Boundary Optimization Methods
+   </b>
+  </h1>
+  <p block-type="Text">
+   One of the most important characteristics of the Monte Carlo simulation method is its intrinsically forward-looking nature. While this feature enables us to take into account inherently path-dependent payoff structures of any derivative contract with comparative ease, it makes it difficult to accommodate the inclusion of any early exercise rights into the contract. The two most commonly used methods to handle products with early exercise opportunities within a Monte Carlo simulation framework are regression-based techniques (which are covered in Bermudan Options) and exercise boundary opti
+   <i>
+    mization
+   </i>
+   approaches that are discussed in this article.
+  </p>
+  <h2>
+   <b>
+    Optimal Stopping Time as Exercise Boundary Optimization
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   For the sake of generality, we assume that we are dealing with the valuation of a financial product
+   <math display="inline">
+    \Pi_0
+   </math>
+   , with embedded exercise optionality and discrete cash flows that span
+   <i>
+    m
+   </i>
+   time horizons
+   <math display="inline">
+    t_1 &lt; \ldots &lt; t_m
+   </math>
+   , with the current time being
+   <math display="inline">
+    t \equiv t_0
+   </math>
+   . The product is considered to have two underlying contracts
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   of contingent cash flows, both of which, individually, contain no exercise optionality. The product
+   <math display="inline">
+    \Pi_0
+   </math>
+   initially pays the same cash flows as product
+   <math display="inline">
+    A
+   </math>
+   , but, in addition, permits the exercise option holder to switch into B at one of the time horizons
+   <math display="inline">
+    t_i
+   </math>
+   . This formulation is fairly generic and encompasses practically all callable structures, including what is sometimes referred to as
+   <i>
+    options on options
+   </i>
+   or
+   <i>
+    higher
+   </i>
+   order options since they can be reformulated as a sequence of payable cash flows to continue until a final contingent payoff is attained, or to opt out at any of the intermediate exercise times.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Assuming a finite-dimensional Markovian representation of our usual probability space given a state vector
+   <math display="inline">
+    \mathbf{x}
+   </math>
+   , the contingency of the cash flows
+   <math display="inline">
+    a_i
+   </math>
+   in product A means that
+   <math display="inline">
+    a_i = a_i(\mathbf{x}(t_i))
+   </math>
+   , and likewise for product
+   <math display="inline">
+    B
+   </math>
+   . Risk-neutral valuation of the exercisable financial product
+   <math display="inline">
+    \Pi_0
+   </math>
+   requires that we identify the optimal exercise strategy represented by the
+   <i>
+    opti
+   </i>
+   mal stopping time. Valuation of
+   <math display="inline">
+    \Pi_0
+   </math>
+   in the filtration
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \mathcal{F}_{t_0}
+   </math>
+   , denoted by
+   <math display="inline">
+    \mathcal{V}_{t_0}[\Pi_0]
+   </math>
+   , is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{V}_{t_0}[\Pi_0] = N(\mathbf{x}(t_0)) \cdot \sup_{\tau} \mathsf{E}_{t_0}^{\mathcal{M}(N)} \left[ \sum_{j=1}^{\tau-1} \frac{a_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} + \sum_{j=\tau}^m \frac{b_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} \right]
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   wherein the discrete random variable
+   <math display="inline">
+    \tau \in 1, \ldots, m
+   </math>
+   is the stopping time index,
+   <math display="inline">
+    N(\cdot)
+   </math>
+   is the chosen numéraire, and
+   <math display="inline">
+    \mathsf{E}_{t_0}^{\mathcal{M}(N)}[f]
+   </math>
+   is the expectation of any given
+   <math display="inline">
+    f
+   </math>
+   under the measure induced by the numéraire in the filtration
+   <math display="inline">
+    \mathcal{F}_{t_0}
+   </math>
+   . Define
+   <math display="inline">
+    \Pi_k
+   </math>
+   in complete analogy to the financial product
+   <math display="inline">
+    \Pi_0
+   </math>
+   except that it can only be exercised on or after
+   <math display="inline">
+    t_k
+   </math>
+   . A crucial observation in the following is that if we had knowledge of the optimal stopping time process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_{k}^{\star} := \arg \sup_{\tau | \tau \geq k} \mathsf{E}_{t_{0}}^{\mathcal{M}(N)} \left[ \sum_{j=1}^{\tau-1} \frac{a_{j}(\mathbf{x}(t_{j}))}{N(\mathbf{x}(t_{j}))} + \sum_{j=\tau}^{m} \frac{b_{j}(\mathbf{x}(t_{j}))}{N(\mathbf{x}(t_{j}))} \right]
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   we could value
+   <math display="inline">
+    \n\Pi_k\n
+   </math>
+   by means of the simple expectation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{V}_{t_0}[\Pi_k] = N(\mathbf{x}(t_0)) \cdot \mathsf{E}_{t_0}^{\mathcal{M}(N)} \left[ \sum_{j=1}^{k-1} \frac{a_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} + \sum_{j=k}^{\tau_k^{\star}-1} \frac{a_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} + \sum_{j=\tau_k^{\star}}^{m} \frac{b_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} \right]
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   By virtue of the assumed Markovian representation in the state vector
+   <math display="inline">
+    \mathbf{x}(t)
+   </math>
+   , it is possible to rephrase the valuation problem based on an indicator function
+   <math display="inline">
+    \mathcal{I}_k(\mathbf{x}(t_k))
+   </math>
+   , which takes the value 1 when exercise is optimal and
+   <math display="inline">
+    0
+   </math>
+   otherwise. This gives us the recursive formulation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{V}_{t_0}[\Pi_k]
+   </math>
+   <math display="block">
+    = N(\mathbf{x}(t_0)) \cdot \mathsf{E}_{t_0}^{\mathcal{M}(N)} \left[ \mathcal{I}_k(\mathbf{x}(t_k)) \cdot \left( \sum_{j=1}^{k-1} \frac{a_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} + \sum_{j=k}^m \frac{b_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} \right) + \tilde{\mathcal{I}}_k(\mathbf{x}(t_k)) \cdot \frac{\mathcal{V}_{t_k}[\Pi_{k+1}]}{N(\mathbf{x}(t_k))} \right]
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   wherein
+   <math display="inline">
+    \tilde{\mathcal{I}}_k = 1 - \mathcal{I}_k
+   </math>
+   . If we define the product
+   <math display="inline">
+    \hat{\Pi}_k
+   </math>
+   as
+   <math display="inline">
+    \n\Pi_k\n
+   </math>
+   minus all cash flows occurring before
+   <math display="inline">
+    t_k
+   </math>
+   such that the first cash flow of
+   <math display="inline">
+    \hat{\Pi}_k
+   </math>
+   is
+   <math display="inline">
+    b_k
+   </math>
+   or
+   <math display="inline">
+    a_k
+   </math>
+   at
+   <math display="inline">
+    t_k
+   </math>
+   , depending on whether exercise was invoked at
+   <math display="inline">
+    t_k
+   </math>
+   or not, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{V}_{t_0}[\hat{\Pi}_k] = N(\mathbf{x}(t_0)) \cdot \mathsf{E}_{t_0}^{\mathcal{M}(N)} \bigg[ \tilde{\mathcal{I}}_k(\mathbf{x}(t_k)) \times \frac{a_k(\mathbf{x}(t_k)) + \mathcal{V}_{t_k}[\hat{\Pi}_{k+1}]}{N(\mathbf{x}(t_k))} + \mathcal{I}_k(\mathbf{x}(t_k)) \cdot \sum_{j=k}^m \frac{b_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} \bigg] \qquad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In this form, it seems that we need to know the conditional value
+   <math display="inline">
+    \mathcal{V}_{t_k}[\hat{\Pi}_{k+1}]
+   </math>
+   in order to value
+   <math display="inline">
+    \Pi_0
+   </math>
+   (which is, by construction, equal to
+   <math display="inline">
+    \hat{\Pi}_0
+   </math>
+   , since no cash flows occur before
+   <math display="inline">
+    t_1
+   </math>
+   ). However, since this conditional expectation appears
+   <i>
+    inside an expectation
+   </i>
+   over its conditioning filtration, by virtue of the tower
+   <i>
+    law
+   </i>
+   , we can replace it by the sequence of (numérairedeflated) contingent cash flow values:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{V}_{t_0}[\hat{\Pi}_k]
+   </math>
+   <math display="block">
+    = N(\mathbf{x}(t_0)) \cdot \mathsf{E}_{t_0}^{\mathcal{M}(N)} \left[ \tilde{\mathcal{I}}_k(\mathbf{x}(t_k)) \cdot \left( \sum_{j=k}^{\tau_{k+1}^{\star} - 1} \frac{a_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} + \sum_{j=t_{k+1}^{\star}}^{m} \frac{b_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} \right) + \mathcal{I}_k(\mathbf{x}(t_k)) \cdot \sum_{j=k}^{m} \frac{b_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} \right]
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   In this form, we can view
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c_k = \sum_{j=k}^{\tau_{k+1}^* - 1} \frac{a_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} + \sum_{j=\tau_{k+1}^*}^m \frac{b_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))} \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   as the numéraire-deflated continuation value, and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_k = \sum_{j=k}^{m} \frac{b_j(\mathbf{x}(t_j))}{N(\mathbf{x}(t_j))}
+   </math>
+   (8)
+  </p>
+  <p block-type="Text">
+   as the numéraire-deflated cancellation value, to arrive at
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{V}_{t_0}[\hat{\Pi}_k] = N(\mathbf{x}(t_0)) \cdot \mathsf{E}_{t_0}^{\mathcal{M}(N)} \big[ \tilde{\mathcal{I}}_k(\mathbf{x}(t_k)) \cdot c_k + \mathcal{I}_k(\mathbf{x}(t_k)) \cdot q_k \big]
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   The only trouble now is that we do not know,
+   <math display="inline">
+    a
+   </math>
+   <i>
+    priori
+   </i>
+   , the optimal exercise indicator function
+   <math display="inline">
+    \mathcal{I}_k(\cdot)
+   </math>
+   . We can confidently say, though, that given any trial exercise decision function
+   <math display="inline">
+    \mathcal{E}_k(\mathbf{x}; \boldsymbol{\lambda}_k)
+   </math>
+   (which we choose to indicate exercise if its value is positive), with parameter vector
+   <math display="inline">
+    \lambda_k
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{V}_{t_0}[\hat{\Pi}_k] \ge N(\mathbf{x}(t_0)) \cdot \max_{\boldsymbol{\lambda}_k} \mathsf{E}_{t_0}^{\mathcal{M}(N)} \left[ \mathbf{1}_{\{\mathcal{E}_k(\mathbf{x}(t_k); \boldsymbol{\lambda}_k) \le 0\}} \cdot c_k \right]
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \mathbf{1}_{\{\mathcal{E}_k(\mathbf{x}(t_k); \boldsymbol{\lambda}_k) &gt; 0\}} \cdot q_k \right]
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   The key idea of exercise boundary optimization methods for the valuation of exercisable financial products in a Monte Carlo simulation framework is to use a suitably chosen exercise decision function
+   <math display="inline">
+    \mathcal{E}_k(\mathbf{x}; \boldsymbol{\lambda}_k)
+   </math>
+   and to find the value for
+   <math display="inline">
+    \boldsymbol{\lambda}_k
+   </math>
+   that maximizes the Monte Carlo estimator objective function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_k := \frac{1}{n} \sum_{i=1}^n \left( \mathbf{1}_{\{\mathcal{E}_k(\mathbf{x}(t_k); \lambda_k) \le 0\}} \cdot c_{ik} + \mathbf{1}_{\{\mathcal{E}_k(\mathbf{x}(t_k); \lambda_k) &gt; 0\}} \cdot q_{ik} \right) \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    c_{ik}
+   </math>
+   and
+   <math display="inline">
+    q_{ik}
+   </math>
+   representing the continuation and cancellation values of the
+   <math display="inline">
+    i
+   </math>
+   th path at time horizon
+   <math display="inline">
+    t_k
+   </math>
+   for a set of
+   <i>
+    n
+   </i>
+   -simulated discrete evolutions of the state vector in the chosen measure. Incidentally, it becomes apparent in this formulation that the exercise boundary optimization method allows readily for the switch product
+   <math display="inline">
+    B
+   </math>
+   to be, in principle, a different one at each exercise time horizon since the switch payments enter only in the form of the term
+   <math display="inline">
+    q_{ik}
+   </math>
+   as the sum of all numéraire-deflated cash flows that are payable if exercise is made at time
+   <math display="inline">
+    t_k
+   </math>
+   . Once the maximizing value
+   <math display="inline">
+    \lambda_k
+   </math>
+   has been established, the procedure continues at
+   <math display="inline">
+    t_{k-1}
+   </math>
+   , in analogy to a backward induction method. An important observation in this context is that throughout the entire backward iteration the same set of simulated paths and associated values can be used. This is a key point for the efficiency of this method. An initial simulation only needs to store the
+  </p>
+  <p block-type="Text">
+   required state variables
+   <b>
+    x
+   </b>
+   <i>
+    (tk )
+   </i>
+   and associated continuation and cancellation values for each exercise time horizon. All subsequent optimization calculations can then be done over this precomputed
+   <i>
+    training set
+   </i>
+   . For typical training set sizes in the range of 8191–65 535 paths, the evaluation of the objective function (11) is thus very fast indeed.
+  </p>
+  <h2>
+   <b>
+    Choices of Exercise Boundary Specification
+   </b>
+  </h2>
+  <p block-type="Text">
+   The choice of exercise decision function E
+   <i>
+    (
+   </i>
+   <b>
+    x
+   </b>
+   ;
+   <i>
+    λ)
+   </i>
+   is crucial for the performance of exercise boundary optimization methods. This applies to both the actual choice of the functional form and, with it, the number of free parameters, as well as the effective financial variables that are considered the primary arguments of E
+   <i>
+    (
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   .
+  </p>
+  <h4>
+   <i>
+    Assessment by Related Financial Contracts
+   </i>
+  </h4>
+  <p block-type="Text">
+   An intuitive approach to the choice of a reduced set of state variables is to monitor related financial contracts. Andersen [1] and Piterbarg [3] describe how swap rate levels and European swaptions values, even if only attainable in an approximate analytical fashion in any one given model, can be used to capture most of the callability value for Bermudan swaptions. They also show that for this family of financial contracts, a one-parameter choice for E
+   <i>
+    <sup>
+     k
+    </sup>
+    (
+   </i>
+   <b>
+    x
+   </b>
+   ;
+   <i>
+    λ)
+   </i>
+   is often sufficient. This particularly holds when the used model is itself driven by a single Brownian motion, even if there is no one-dimensional Markovian representation as is the case for Libor market model. In this case, the exercise decision function can be as simple as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    SR(\mathbf{x}) - \lambda
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+   <i>
+    SR(
+   </i>
+   <b>
+    x
+   </b>
+   <i>
+    )
+   </i>
+   denoting the coterminal swap rate, for a payer's Bermudan swaption. More complicated decision rules for Bermudan swaptions can be found in [1].
+  </p>
+  <h4>
+   <i>
+    Financial Coordinate Transformations
+   </i>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   It is not always intuitive and easy to find a related financial contract that can be used as an exercise indicator and whose value is attainable (semi)analytically.
+  </p>
+  <p block-type="Text">
+   Jackel [2] discusses the exercise boundary optimiza- ¨ tion method in more general terms and suggests, when necessary, the use of tree methods and nonlinear transformations of
+   <b>
+    x
+   </b>
+   for the assessment of the suitability of any particular functional form and choice of variables prior to its use in an exercise boundary optimization context. The useful observation is made that a functional form that works well for a given financial contract's exercise domain delineation with one model, even if the contract is simplified to a significant extent, practically always also works very well with other models for the fully fledged product version. This makes it possible, for instance, to visualize exercise domains computed with a nonrecombining tree implementation of a twofactor Libor market model for a short contract life such as 6-noncall-2, and to apply the same functional form with a fully factorized model for very longdated contracts.
+  </p>
+  <h4>
+   <i>
+    A Useful Generic Functional Form
+   </i>
+  </h4>
+  <p block-type="Text">
+   In practice, the functional form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{E}_{\text{hyperbolic}}(x, y; a, b, c, d, g)
+   </math>
+   <br/>
+   =
+   <math>
+    a - y + c(x - b) + g\sqrt{(c(x - b))^2 + d^2}
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   suits many practical applications where two financial variables are required to unlock most of the callability value.
+  </p>
+  <p block-type="Text">
+   The typical shapes of its zero-level contour line (which is the exercise boundary) are shown in Figure 1. As an example for the use of this functional form, consider the callability of a payer's Bermudan swaption in a multifactor model, and consider
+   <i>
+    x
+   </i>
+   to represent the front Libor and
+   <i>
+    y
+   </i>
+   as the coterminal swap rate. In the limit of both
+   <i>
+    x
+   </i>
+   and
+   <i>
+    y
+   </i>
+   very large, it is clearly beneficial to exercise as soon as possible, whence E ought to be large in this limit. In contrast, when both are very low, we should not exercise, and E must be negative in this limit. When
+   <i>
+    x
+   </i>
+   is small and
+   <i>
+    y
+   </i>
+   is moderate but larger than the fixed rate, exercise should not be done now but is likely to become optimal at a later stage. When
+   <i>
+    y
+   </i>
+   is very small, exercise should be avoided, even if
+   <i>
+    x
+   </i>
+   is large. This simple analysis already suggests that −Ehyperbolic with
+   <i>
+    a &gt;
+   </i>
+   0,
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   The hyperbolic exercise boundary given by equation (12)
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    b &gt;
+   </i>
+   0,
+   <i>
+    c &lt;
+   </i>
+   0,
+   <i>
+    g &gt;
+   </i>
+   0 might be a good choice, and empirical tests show that this indeed works very well.
+  </p>
+  <h2>
+   <b>
+    The Full Algorithm
+   </b>
+  </h2>
+  <p block-type="Text">
+   The key stages of the exercise boundary optimization method are as follows:-
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <i>
+      Step 1
+     </i>
+     . Decide on a functional form for the exercise decision functions E for all exercise time horizons. Note that different functions may need to be chosen for different time horizons if the product exhibits strong inhomogeneity in its features over time. Also, note that the exercise domain may not be singly connected whence the implicit formulation of the exercise domain in the form of E
+     <i>
+      (
+     </i>
+     <b>
+      x
+     </b>
+     <i>
+      ) &gt;
+     </i>
+     0 is generally preferable over explicit specifications of the boundary. A simple example for this is a multicallable best-of option paying
+     <i>
+      (
+     </i>
+     max
+     <i>
+      (S
+     </i>
+     1
+     <i>
+      , S
+     </i>
+     2
+     <i>
+      )
+     </i>
+     −
+     <i>
+      K)
+     </i>
+     +.
+    </li>
+    <li block-type="ListItem">
+     <i>
+      Step 2
+     </i>
+     . Generation of the
+     <i>
+      n
+     </i>
+     -path training set. The only values that need to be stored are each path's continuation values, cancellation values, and exercise decision function argument values for each exercise decision horizon.
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that for complex models, with contemporary computer's typical memory capacities, this reduction in storage requirements is typically necessary in order to be able to store all data in memory. Also note that the reduction of required memory typically leads to significant speedup since the cache memory access speed and main memory access speed differ considerably.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <i>
+      Step 3
+     </i>
+     . In reverse chronological order, optimize the discretely sampled objective function (11) for each exercise time horizon in turn. Note that the objective function, at a highresolution level, appears to be piecewise constant in its parameters whence an optimization method ought to be used that can cope with the fact that the function appears to change only at scales compatible with the granularity of the Monte Carlo sampling. One of the simplest methods that allows for a scale change during the optimization is the
+     <i>
+      Downhill–Simplex
+     </i>
+     algorithm [4]. For the case that
+     <i>
+      λ
+     </i>
+     is one-dimensional, golden section search [4] or outright sorting also works well.
+    </li>
+    <li block-type="ListItem">
+     <i>
+      Step 4
+     </i>
+     . Using the exercise strategy now defined by the fully specified exercise decision functions established in stage 3, reevaluate the callable financial contract by an independent
+     <i>
+      N
+     </i>
+     -path Monte Carlo simulation with
+     <i>
+      N n
+     </i>
+     . In practice,
+     <i>
+      N
+     </i>
+     ∼ 4 ·
+     <i>
+      n
+     </i>
+     has been found to be a good ratio when low-discrepancy numbers are used throughout.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The final result, by virtue of the inequality (10), is of course biased low since the valuation based on an optimized (implicit) functional approximation can only be as good as the exercise domain boundary is represented in the approximation. It can be shown readily, though, that for a small difference
+   <i>
+    ε
+   </i>
+   (defined in any suitable way) between the truly optimal exercise boundary and the one used in the numerical approximation, the difference between the numerically obtained value and the truly optimal value scales like the second order in
+   <i>
+    <sup>
+     ε
+    </sup>
+   </i>
+   , that is, like
+   <sup>
+    O
+   </sup>
+   <i>
+    (ε
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    )
+   </i>
+   whence small differences tend to have negligible influence on the calculation. Another mitigating factor with respect to the exercise boundary representation is that any mismatches only contribute proportionally to the probability of actually reaching this part of state space, that is, the exercise boundary only need be
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Andersen, L. (2000). A simple approach to the pricing of Bermudan swaptions in the multifactor LIBOR market model,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      3
+     </b>
+     (2), 5–32.
+    </li>
+    <li block-type="ListItem">
+     [2] Jackel, P. (2002). ¨
+     <i>
+      Monte Carlo Methods in Finance
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [3] Piterbarg, V. (2003). Computing deltas of callable Libor exotics in forward Libor models,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      7
+     </b>
+     (3), ssrn.com/abstract=396180.
+    </li>
+    <li block-type="ListItem">
+     [4] Press, W.H., Teukolsky, S.A., Vetterling, W.T. &amp; Flannery, B.P. (1992).
+     <i>
+      Numerical Recipes in C
+     </i>
+     , Cambridge University Press, www.library.cornell.edu/nr/cbookcpdf. html
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Bermudan Options
+   </b>
+   ;
+   <b>
+    Bermudan Swaptions and Callable Libor Exotics
+   </b>
+   ;
+   <b>
+    Early Exercise Options: Upper Bounds
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Early Exercise Options
+   </b>
+   ;
+   <b>
+    LIBOR Market Models: Simulation
+   </b>
+   ;
+   <b>
+    Stochastic Mesh Method
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   PETER JACKEL ¨ &amp; LEIF B.G. ANDERSEN
+  </p>
+ </body>
+</html>

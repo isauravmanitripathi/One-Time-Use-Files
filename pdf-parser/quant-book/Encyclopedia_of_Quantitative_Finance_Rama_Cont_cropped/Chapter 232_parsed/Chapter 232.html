@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Affine Models
+   </b>
+  </h1>
+  <h1>
+   Definition
+  </h1>
+  <p block-type="Text">
+   <b>
+    Notation 1
+   </b>
+   <i>
+    Throughout the article,
+   </i>
+   <math display="inline">
+    \langle \cdot, \cdot \rangle
+   </math>
+   <i>
+    denotes the
+   </i>
+   standard scalar product on
+   <math display="inline">
+    \mathbb{R}^N
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   Let
+   <math display="inline">
+    r_t
+   </math>
+   be a short-rate model specified as an affine function of an N-dimensional Markov process
+   <math display="inline">
+    X_t
+   </math>
+   with state space
+   <math display="inline">
+    D \subseteq \mathbb{R}^N
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r_t = l + \langle \lambda, X_t \rangle \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some (nontime-dependent) constants
+   <math display="inline">
+    l \in \mathbb{R}
+   </math>
+   and
+   <math display="inline">
+    \lambda \in \mathbb{R}^N
+   </math>
+   . This is called an affine term structure model (ATSM) if the zero-coupon bond price has exponential-affine form, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t,T) = \mathbb{E}\left[e^{-\int_t^T r_s \mathrm{d}s} \Big| X_t\right]
+   </math>
+   <math display="block">
+    = e^{G(t,T) + \langle H(t,T), X_t \rangle} \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \mathbb{E}
+   </math>
+   denotes the expectation under a risk neutral probability measure.
+  </p>
+  <h1>
+   <b>
+    Early Examples
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Early well-known examples are the Vasiček [14] and the Cox et al. [5] (see Term Structure Models; Cox-Ingersoll-Ross (CIR) Model) time-homogeneous one-factor short-rate models. In equation (1), both models are characterized by
+   <math display="inline">
+    N = 1
+   </math>
+   ,
+   <math display="inline">
+    l = 0
+   </math>
+   , and
+   <math display="inline">
+    \lambda = 1
+   </math>
+   .
+  </p>
+  <h2>
+   Vasiček Model
+  </h2>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    X_t
+   </math>
+   follows an Ornstein-Uhlenbeck process on
+   <math display="inline">
+    D=\mathbb{R},
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = (b + \beta X_t) dt + \sigma dW_t, \quad b, \beta \in \mathbb{R}, \quad \sigma \in \mathbb{R}_+
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    W_t
+   </math>
+   is a standard Brownian motion. Under these model specifications, bond prices can be explicitly calculated and the corresponding coefficients
+   <math display="inline">
+    G
+   </math>
+   and
+   <math display="inline">
+    H
+   </math>
+   in equation (2) are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H(t,T) = \frac{1 - e^{\beta(T-t)}}{\beta}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(t,T) = \frac{\sigma^2}{2} \int_t^T H^2(s,T) \, \mathrm{d}s
+   </math>
+   <math display="block">
+    + b \int_t^T H(s,T) \, \mathrm{d}s \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   provided that
+   <math display="inline">
+    \beta \neq 0
+   </math>
+   (see also
+   <b>
+    Term Structure
+   </b>
+   Models).
+  </p>
+  <h2>
+   Cox-Ingersoll-Ross Model
+  </h2>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    X_t
+   </math>
+   is defined as the solution of the following affine diffusion process on
+   <math display="inline">
+    D = \mathbb{R}_+
+   </math>
+   , known as
+   <i>
+    Feller
+   </i>
+   square root process,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}X_t &amp;= (b + \beta X_t) \,\mathrm{d}t + \sigma \sqrt{X_t} \,\mathrm{d}W_t \\ b, \sigma \in \mathbb{R}_+, \quad \beta \in \mathbb{R} \end{aligned} \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Like in the Vasiček model, there is a closed-form solution for the bond price. If
+   <math display="inline">
+    \sigma \neq 0
+   </math>
+   , G and H in equation
+   <math display="inline">
+    (2)
+   </math>
+   are then of the form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(t,T) = \frac{2b}{\sigma^2} \ln \left( \frac{2\gamma e^{(\gamma-\beta)(T-t)/2}}{(\gamma-\beta)(e^{\gamma(T-t)}-1)+2\gamma} \right)
+   </math>
+   <math display="block">
+    H(t,T) = \frac{-2(e^{\gamma(T-t)}-1)}{(\gamma-\beta)(e^{\gamma(T-t)}-1)+2\gamma} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \gamma := \sqrt{\beta^2 + 2\sigma^2}
+   </math>
+   (see also
+   <b>
+    Cox–Ingersoll–
+   </b>
+   Ross (CIR) Model).
+  </p>
+  <p block-type="Text">
+   Since the development of these first onedimensional term structure models, many multifactor extensions have been considered with the aim to provide more realistic models.
+  </p>
+  <h2>
+   <b>
+    Regular Affine Processes
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   The generic method to construct ATSMs is to use regular affine processes. A concise mathematical foundation was provided by Duffie et al. [8]. Henceforth, we fix the state space
+   <math display="inline">
+    D = \mathbb{R}^m_+ \times \mathbb{R}^{N-m}
+   </math>
+   , for some
+   <math display="inline">
+    0 \le m \le N
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   <b>
+    Definition 2
+   </b>
+   A Markov process
+   <math display="inline">
+    X
+   </math>
+   is called regular affine if its characteristic function has exponentialaffine dependence on the initial state, that is, for
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    t \in \mathbb{R}_+
+   </math>
+   and
+   <math display="inline">
+    u \in i \mathbb{R}^N
+   </math>
+   , there exist
+   <math display="inline">
+    \phi(t, u) \in \mathbb{C}
+   </math>
+   and
+   <math display="inline">
+    \psi(t, u) \in \mathbb{C}^N
+   </math>
+   , such that for all
+   <math display="inline">
+    x \in D
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[e^{\langle u,X_t\rangle}\middle|X_0=x\right] = e^{\phi(t,u) + \langle\psi(t,u),x\rangle} \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Moreover, the functions
+   <math display="inline">
+    \phi
+   </math>
+   and
+   <math display="inline">
+    \psi
+   </math>
+   are continuous in t and
+   <math display="inline">
+    \partial_t^+ \phi(t,u)|_{t=0}
+   </math>
+   and
+   <math display="inline">
+    \partial_t^+ \psi(t,u)|_{t=0}
+   </math>
+   exist and are
+   <i>
+    continuous at
+   </i>
+   <math display="inline">
+    u = 0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Regular affine processes have been defined and completely characterized in [8]. The main result is stated below.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   A regular affine process is a Feller semimartingale with infinitesimal generator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathcal{A}f(x) &amp;= \sum_{k,l=1}^{N} A_{kl}(x) \frac{\partial^2 f(x)}{\partial x_k \partial x_l} \\ &amp;+ \langle B(x), \nabla f(x) \rangle - C(x) f(x) \\ &amp;+ \int_{D \setminus \{0\}} (f(x+\xi) - f(x) \\ &amp;- \langle \nabla f(x), \chi(\xi) \rangle) M(x, \, \mathrm{d}\xi) \end{split} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   for
+   <math display="inline">
+    f
+   </math>
+   in the set of smooth test functions, with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A(x) = a + \sum_{i=1}^{m} x_i \alpha_i, \quad a, \alpha_i \in \mathbb{R}^{N \times N} \quad (9)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B(x) = b + \sum_{i=1}^{N} x_i \beta_i, \quad b, \beta_i \in \mathbb{R}^N \qquad (10)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(x) = c + \sum_{i=1}^{m} x_i \gamma_i, \quad c, \gamma_i \in \mathbb{R}_+ \tag{11}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M(x, d\xi) = m(d\xi) + \sum_{i=1}^{m} x_i \mu_i(d\xi)
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    m, \mu_i
+   </math>
+   are Borel measures on
+   <math display="inline">
+    D\{0\}
+   </math>
+   and
+   <math display="inline">
+    \chi: \mathbb{R}^N \to \mathbb{R}^N
+   </math>
+   some bounded continuous truncation function with
+   <math display="inline">
+    \chi(\xi) = \xi
+   </math>
+   in a neighborhood of 0. Furthermore,
+   <math display="inline">
+    \phi
+   </math>
+   and
+   <math display="inline">
+    \psi
+   </math>
+   in equation (7) solve the generalized Riccati equations,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \partial_t \phi(t, u) = F(\psi(t, u)), \quad \phi(0, u) = 0 \quad (13)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \partial_t \psi(t, u) = R(\psi(t, u)), \quad \psi(0, u) = u \quad (14)
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(u) = \langle au, u \rangle + \langle b, u \rangle - c
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    +\int_{D\setminus\{0\}} \Big(\mathrm{e}^{\langle u,\xi\rangle}-1-\langle u,\chi(\xi)\rangle\Big) m(\mathrm{d}\xi) \tag{15}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R_{i}(u) = \langle \alpha_{i}u, u \rangle + \langle \beta_{i}, u \rangle - \gamma_{i}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{D \setminus \{0\}} \left( e^{\langle u, \xi \rangle} - 1 - \langle u, \chi(\xi) \rangle \right) \mu_{i}(\mathrm{d}\xi)
+   </math>
+   <br/>
+   for
+   <math>
+    i \in \{1, \dots, m\}
+   </math>
+   (16)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R_i(u) = \langle \beta_i, u \rangle, \quad \text{for } i \in \{m+1, \dots, N\}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Conversely, for any choice of admissible parameters
+   <math display="inline">
+    a, \alpha_i, b, \beta_i, c, \gamma_i, m, \mu_i
+   </math>
+   , there exists a unique regular affine process with generator (8).
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    (17)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Remark 1
+   </b>
+   It is worth noting that the infinitesimal generator of every Feller process on
+   <math display="inline">
+    \mathbb{R}^N
+   </math>
+   has the form of the above integro-differential operator (8) with some functions
+   <math display="inline">
+    A
+   </math>
+   ,
+   <math display="inline">
+    B
+   </math>
+   ,
+   <math display="inline">
+    C
+   </math>
+   and a kernel
+   <math display="inline">
+    M
+   </math>
+   . The specific characteristic of regular affine processes is that these functions are all affine, as described in equations
+   <math display="inline">
+    (9-12)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Observe furthermore that by the definition of the infinitesimal generator and the form of
+   <math display="inline">
+    F
+   </math>
+   and
+   <math display="inline">
+    R
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}}{\mathrm{d}t} \mathbb{E} \left[ \mathrm{e}^{\langle u, X_t \rangle} \Big| X_0 = x \right] \Big|_{t=0_+}
+   </math>
+   <math display="block">
+    = \left( \partial_t^+ \phi(t, u) \Big|_{t=0} + \partial_t^+ \psi(t, u) \Big|_{t=0} \right) \mathrm{e}^{\langle u, x \rangle}
+   </math>
+   <math display="block">
+    = \left( F(u) + \langle R(u), x \rangle \right) \mathrm{e}^{\langle u, x \rangle} = \mathcal{A} \mathrm{e}^{\langle u, x \rangle} \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   This gives the link between the form of the operator
+   <math display="inline">
+    \mathcal{A}
+   </math>
+   and the functions
+   <math display="inline">
+    F
+   </math>
+   and
+   <math display="inline">
+    R
+   </math>
+   in the Riccati equations (13) and (14).
+  </p>
+  <p block-type="TextInlineMath">
+   Remark 2 The above parameters satisfy certain admissibility conditions guaranteeing the existence of the process in
+   <math display="inline">
+    D
+   </math>
+   . These parameter restrictions can be found in Definition 2.6 and equations
+   <math display="inline">
+    (2.23)
+   </math>
+   –
+   <math display="inline">
+    (2.24)
+   </math>
+   in
+   <math display="inline">
+    [8]
+   </math>
+   . We note that admissibility, in particular, means
+   <math display="inline">
+    \alpha_{i,kl} = 0
+   </math>
+   for
+   <math display="inline">
+    i, k, l \leq m
+   </math>
+   unless
+   <math display="inline">
+    k = l = i
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Systematic Analysis
+   </b>
+  </h2>
+  <h2>
+   Regular Affine Processes and ATSMs
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Regular affine processes generically induce ATSMs. This relation is explicitly stated in the subsequent
+  </p>
+  <p block-type="Text">
+   argument. Under some technical conditions that are specified in [8, Chapter 11], we have for
+   <math display="inline">
+    r_t
+   </math>
+   as defined in equation
+   <math display="inline">
+    (1)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[e^{-\int_0^t r_s \mathrm{d}s} \mathrm{e}^{\langle u, X_t \rangle} \middle| X_0 = x\right] = \mathrm{e}^{\widetilde{\phi}(t,u) + \langle \widetilde{\psi}(t,u), x \rangle} \quad (19)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \partial_t \widetilde{\psi}(t, u) &amp;= \widetilde{F}(\widetilde{\psi}(t, u)) \\ \partial_t \widetilde{\psi}(t, u) &amp;= \widetilde{R}(\widetilde{\psi}(t, u)) \end{aligned} \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \widetilde{F}(u) = F(u) - l
+   </math>
+   and
+   <math display="inline">
+    \widetilde{R}(u) = R(u) - \lambda
+   </math>
+   . Setting
+   <math display="inline">
+    u = 0
+   </math>
+   in equation (19), one immediately gets equation (2) with
+   <math display="inline">
+    G(t,T) = \phi(T-t,0)
+   </math>
+   and
+   <math display="inline">
+    H(t,T) =
+   </math>
+   <math display="inline">
+    \psi(T-t,0).
+   </math>
+  </p>
+  <h4>
+   Diffusion Case
+  </h4>
+  <p block-type="Text">
+   Conversely, for a class of diffusions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = B(X_t) dt + \sigma(X_t) dW_t \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   on
+   <math display="inline">
+    D
+   </math>
+   , Duffie and Kan [7] analyzed when equation (2) implies an affine diffusion matrix
+   <math display="inline">
+    A = \frac{\sigma \sigma^T}{2}
+   </math>
+   and an affine drift
+   <math display="inline">
+    B
+   </math>
+   of form equations (9) and (10), respectively.
+  </p>
+  <h4>
+   One-dimensional Nonnegative Markov Process
+  </h4>
+  <p block-type="TextInlineMath">
+   For
+   <math display="inline">
+    D = \mathbb{R}_+
+   </math>
+   , Filipović [9] showed that equation (1) defines an ATSM if and only if
+   <math display="inline">
+    X_t
+   </math>
+   is a regular affine process.
+  </p>
+  <h4>
+   Relation to Heath-Jarrow-Morton Framework
+  </h4>
+  <p block-type="Text">
+   Filipović and Teichmann [10] established a relation between the Heath-Jarrow-Morton (HJM) framework (see
+   <b>
+    Heath–Jarrow–Morton Approach
+   </b>
+   ) and ATSMs: essentially, all generic finite dimensional realizations&lt;sup&gt;a&lt;/sup&gt; of a HJM term structure model are timeinhomogeneous ATSMs.
+  </p>
+  <h2>
+   <b>
+    Canonical Representation
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   An ATSM stemming from a regular affine diffusion process X on
+   <math display="inline">
+    \mathbb{R}^m_+ \times \mathbb{R}^{N-m}
+   </math>
+   can be represented in different ways by applying nonsingular affine transformations to
+   <math display="inline">
+    X
+   </math>
+   . Indeed, for every nonsingular
+   <math display="inline">
+    N \times N
+   </math>
+   -matrix
+   <math display="inline">
+    K
+   </math>
+   and
+   <math display="inline">
+    \kappa \in \mathbb{R}^N
+   </math>
+   , the transformation
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    KX + \kappa
+   </math>
+   modifies the particular form of equation (21) and the short-rate process (1), while observable quantities (e.g., the term structure or bond prices) remain unchanged. To group those
+   <math display="inline">
+    N
+   </math>
+   -dimensional ATSMs generating identical term structures, Dai and Singleton [6] found
+   <math display="inline">
+    N + 1
+   </math>
+   subfamilies
+   <math display="inline">
+    A_m(N)
+   </math>
+   , where
+   <math display="inline">
+    0 &lt; m &lt; N
+   </math>
+   is the number of state variables actually appearing in the diffusion matrix (i.e., the dimension of the positive half space). For each class, they specified a canonical representation whose diffusion matrix
+   <math display="inline">
+    \sigma \sigma^T
+   </math>
+   is of diagonal form with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (\sigma \sigma^T(x))_{kk} = \begin{cases} x_k, &amp; k \le m \\ 1 + \sum_{i=1}^m \lambda_{k,i} x_i, &amp; k &gt; m \end{cases} (22)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \lambda_{k,i} \in \mathbb{R}
+   </math>
+   . For
+   <math display="inline">
+    N \leq 3
+   </math>
+   the Dai–Singleton specification comprises all ATSMs generated by regular affine diffusions on
+   <math display="inline">
+    \mathbb{R}^m_+ \times \mathbb{R}^{N-m}
+   </math>
+   . The general situation
+   <math display="inline">
+    N &gt; 3
+   </math>
+   was analyzed by Cheridito
+   <i>
+    et al.
+   </i>
+   [4].
+  </p>
+  <h2>
+   <b>
+    Empirical Aspects
+   </b>
+  </h2>
+  <p block-type="Text">
+   Pricing
+  </p>
+  <p block-type="TextInlineMath">
+   The price of a claim with payoff function
+   <math display="inline">
+    f(X_t)
+   </math>
+   is given by the risk neutral expectation formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi(t,x) = \mathbb{E}\left[e^{-\int_0^t r_s \, \mathrm{d}s} f(X_t) \middle| X_0 = x\right] \tag{23}
+   </math>
+  </p>
+  <p block-type="Text">
+   Suppose that
+   <math display="inline">
+    f
+   </math>
+   can be expressed by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(x) = \int_{\mathbb{R}^N} e^{(C+i\lambda, x)} \widetilde{f}(\lambda) d\lambda, \quad \lambda \in \mathbb{R}^N \qquad (24)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some integrable function
+   <math display="inline">
+    \tilde{f}
+   </math>
+   and some constant
+   <math display="inline">
+    C \in \mathbb{R}^N
+   </math>
+   . If, moreover,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[e^{-\int_0^t r_s \, \mathrm{d}s} e^{\langle C, X_t\rangle} \middle| X_0 = x\right] &lt; \infty \tag{25}
+   </math>
+  </p>
+  <p block-type="Text">
+   then equation
+   <math display="inline">
+    (19)
+   </math>
+   implies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \pi(t,x) &amp;= \mathbb{E}\bigg[e^{-\int_0^t r_s \, \mathrm{d}s} \bigg(\int_{\mathbb{R}^N} \mathrm{e}^{\langle C+i\lambda, X_t\rangle} \widetilde{f}(\lambda) \, \mathrm{d}\lambda\bigg) \bigg| X_0 = x\bigg] \\ &amp;= \int_{\mathbb{R}^N} \mathbb{E}\bigg[e^{-\int_0^t r_s \, \mathrm{d}s} \mathrm{e}^{\langle C+i\lambda, X_t\rangle} \bigg| X_0 = x\bigg] \widetilde{f}(\lambda) \, \mathrm{d}\lambda \\ &amp;= \int_{\mathbb{R}^N} \mathrm{e}^{\widetilde{\phi}(t, C+i\lambda) + \langle \widetilde{\psi}(t, C+i\lambda), x \rangle} \widetilde{f}(\lambda) \, \mathrm{d}\lambda \end{split} \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Hence, the price
+   <math display="inline">
+    \pi(t, x)
+   </math>
+   can be computed
+   <i>
+    via
+   </i>
+   numerical integration, since the integrands are, in principle, known. For instance, in the case
+   <math display="inline">
+    N = 1
+   </math>
+   , the payoff function of a European call
+   <math display="inline">
+    (e^x - e^k)^+
+   </math>
+   , where x corresponds to the log price of the underlying and
+   <math display="inline">
+    k
+   </math>
+   to the log strike price, satisfies equation (24). In particular, we have the following integral representation (see
+   <math display="inline">
+    [11]
+   </math>
+   ):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (\mathbf{e}^{x} - \mathbf{e}^{k})^{+} = \frac{1}{2\pi} \int_{\mathbb{R}} \mathbf{e}^{(C+i\lambda)x} \frac{\mathbf{e}^{k(1-C-i\lambda)}}{(C+i\lambda)(C+i\lambda-1)} \mathrm{d}\lambda \tag{27}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, the previous formula to compute the price of the call
+   <math display="inline">
+    \pi(t, x)
+   </math>
+   is applicable. An alternative approach leading to the same result can be found in [3].
+  </p>
+  <h4>
+   Estimation
+  </h4>
+  <p block-type="Text">
+   Statistical methods to estimate the parameters of ATSMs have been based on maximum likelihood and generalized method of moments.
+  </p>
+  <p block-type="Text">
+   Concerning maximum likelihood techniques, the conditional log densities entering into the log likelihood function can, in general, be obtained by inverse Fourier transformation. Since this procedure is computationally costly, several approximations and limited-information estimation strategies have been considered (e.g., [13]). Another possibility is to use closed-form expansions of the log likelihood function, which are available for general diffusions [1] and which have been applied to ATSMs. In the case of Gaussian and Cox-Ingersoll-Ross models, one can forgo such techniques, since the log densities are known in closed form (e.g., [12]).
+  </p>
+  <p block-type="TextInlineMath">
+   As conditional moments of the form
+   <math display="inline">
+    \mathbb{E}[X_{t}^{m}X_{t}^{n}]
+   </math>
+   for
+   <math display="inline">
+    m, n \ge 0
+   </math>
+   can be computed from the derivatives of the conditional characteristic function and are, in general, explicitly known up to the solution of the Riccati ordinary differential equations (ODEs) (13) and
+   <math display="inline">
+    (14)
+   </math>
+   , the generalized method of moments is an alternative to maximum likelihood estimation (e.g., [2]).
+  </p>
+  <h2>
+   Acknowledgments
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Authors Christa Cuchiero and Josef Teichmann gratefully acknowledge the support from the FWF-grant Y 328
+  </p>
+  <p block-type="Text">
+   (START prize from the Austrian Science Fund). Damir Filipovic gratefully acknowledges the support from WWTF (Vienna Science and Technology Fund).
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;For a precise definition, see
+   <math display="inline">
+    [10]
+   </math>
+   .
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Ait-Sahalia, Y. (2008). Closed-form likelihood expansions for multivariate diffusions, Annals of Statistics 36, 906-937.
+    </li>
+    <li block-type="ListItem">
+     [2] Andersen, T.G. &amp; Sørensen, B.E. (1996). GMM estimation of a stochastic volatility model: A Monte Carlo study, Journal of Business &amp; Economic Statistics 14, 328-352.
+    </li>
+    <li block-type="ListItem">
+     [3] Carr, P. &amp; Madan, D. (1998). Option valuation using the fast Fourier transform, Journal of Computational Finance 2, 61-73.
+    </li>
+    <li block-type="ListItem">
+     [4] Cheridito, P., Filipović, D. &amp; Kimmel, R.L. A note on the Dai-Singleton canonical representation of affine term structure models. Forthcoming in Mathematical Finance.
+    </li>
+    <li block-type="ListItem">
+     Cox, J.C., Ingersoll, J.E. &amp; Ross, S.A. (1985). A theory [5] of the term structure of interest rates,
+     <i>
+      Econometrica
+     </i>
+     53,
+     <math display="inline">
+      385 - 407
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [6] Dai, Q. &amp; Singleton, K.J. (2000). Specification analysis of affine term structure models, Journal of Finance 55, 1943-1978
+    </li>
+    <li block-type="ListItem">
+     Duffie, D. &amp; Kan, R. (1996). A yield-factor model of [7] interest rates, Mathematical Finance 6, 379-406.
+    </li>
+    <li block-type="ListItem">
+     Duffie, D., Filipović, D. &amp; Schachermayer, W. (2003). [8] Affine processes and applications in finance,
+     <i>
+      The Annals
+     </i>
+     of Applied Probability 13, 984-1053.
+    </li>
+    <li block-type="ListItem">
+     Filipović, D. (2001). A general characterization of [9] one factor affine term structure models, Finance and Stochastics 5, 389-412.
+    </li>
+    <li block-type="ListItem">
+     [10] Filipović, D. &amp; Teichmann, J. (2004). On the geometry of the term structure of interest rates, Proceedings of The Royal Society of London. Series A. Mathematical, Physical and Engineering Sciences 460, 129-167.
+    </li>
+    <li block-type="ListItem">
+     Hubalek, F., Kallsen, J. &amp; Krawczyk, L. (2006).
+     <math display="inline">
+      [111]
+     </math>
+     Variance-optimal hedging for processes with stationary independent increments, Annals of Applied Probability 16, 853-885.
+    </li>
+    <li block-type="ListItem">
+     [12] Pearson, N.D. &amp; Sun, T.-S. (1994). Exploiting the conditional density in estimating the term structure: An application to the Cox, Ingersoll, and Ross model, Journal of Finance 49, 1279-1304.
+    </li>
+    <li block-type="ListItem">
+     [13] Singleton, K.J. (2001). Estimation of affine asset pricing models using the empirical characteristic function, Journal of Econometrics 102, 111-141.
+    </li>
+    <li block-type="ListItem">
+     [14] Vasiček, O. (1977). An equilibrium characterization of the term structure, Journal of Financial Economics 5, 177-188.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   <b>
+    Cox–Ingersoll–Ross (CIR) Model
+   </b>
+   ;
+   <b>
+    Gaussian Interest-Rate Models
+   </b>
+   ;
+   <b>
+    Heath–Jarrow–Morton
+   </b>
+  </p>
+  <p block-type="Text">
+   <b>
+    Approach
+   </b>
+   ;
+   <b>
+    Heston Model
+   </b>
+   ;
+   <b>
+    Simulation of Squareroot Processes
+   </b>
+   ;
+   <b>
+    Term Structure Models
+   </b>
+   .
+  </p>
+  <blockquote>
+   <p block-type="Text">
+    CHRISTA CUCHIERO, JOSEF TEICHMANN &amp; DAMIR FILIPOVIC
+   </p>
+  </blockquote>
+ </body>
+</html>

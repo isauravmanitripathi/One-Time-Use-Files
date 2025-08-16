@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Dividend Modeling
+   </b>
+  </h1>
+  <p block-type="Text">
+   A dividend is a portion of a company's earnings paid to its shareholders. In the process of dividend payment, the following stages are distinguished: (i) declaration date, when the dividend size and the ex-dividend date are announced; (ii) ex-dividend date, when the share starts trading net of dividend; (iii) record date, when holders eligible to dividend payment are identified; and (iv) payment date, when delivery is made. At the ex-dividend date, the stock price drops by an amount proportional to the size of the dividend; the proportionality factor depends on the tax regulations. There are a lot of issues, research streams, and approaches in dividend modeling; here the issue is considered mainly in the context of option pricing theory.
+  </p>
+  <p block-type="Text">
+   The usual way to price derivatives on dividendpaying stocks is to take a model for non-dividendpaying stocks and extend it to take the dividends into account. The dividends then are commonly modeled as (i) continuously paid dividend yield, (ii) proportional dividends (known fractions of the stock price) paid at known discrete times, or (iii) fixed dividends (known amounts), paid at known discrete times. It is also possible to model the dividend amounts and the dividend dates stochastically (though there is evidence that this has a negligible impact on vanilla options [10]). In fact, there is an alternative approach where the stochastic dividends are the primary quantities and the stock followed by option price are derived from these, which was pioneered in [9]. As usual, one has to choose the complexity of the model depending on dividend exposure of the derivative to be priced.
+  </p>
+  <p block-type="Text">
+   In practice, one comes across the notion of implied dividends: the value of the dividends (independent of how they are modeled) can be inverted from the synthetic forward or future contract; the fact that one can get quite different (from analyst predictions) numbers reflects various uncertainties. Among them are the sundry tax regulations in different countries for various market players, timing, and value of the dividends, just to name a few.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The impact of dividends can be illustrated, starting simply by adding a continuous dividend yield to the drift. For the sake of the simplicity of notations, it is
+  </p>
+  <p block-type="Text">
+   written in lognormal terms:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = (r - q)S_t dt + \sigma S_t dW_t \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This approach is especially popular when modeling options on indexes, where dividend payments are numerous and spread through time. Another choice, of proportional amounts
+   <i>
+    di
+   </i>
+   =
+   <i>
+    fiSti
+   </i>
+   paid at exdividend dates
+   <i>
+    t
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    &lt; t
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    &lt;
+   </i>
+   ··· for single shares, can be justified by the fact that dividends tend to increase when a company is doing well, which is correlated with a high share price:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = (r - Q_t)S_t dt + \sigma S_t dW_t \text{ with}
+   </math>
+   <br/>
+   <math display="block">
+    Q_t = \sum_i \delta(t - t_i) f_i
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   In both these cases, the stock price at each time still has a lognormal distribution, so the prices of European options are given by straightforward modifications of the Black–Scholes (BS) pricing formula. This is no longer true, however, for discrete cash dividends:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = (rS_t - D_t) dt + \sigma S_t dW_t \text{ with}
+   </math>
+   <br/>
+   <math display="block">
+    D_t = \sum_i \delta(t - t_i) d_i \qquad (3)
+   </math>
+  </p>
+  <p block-type="Text">
+   The stock price
+   <i>
+    St
+   </i>
+   jumps down with the amount of dividend
+   <i>
+    di
+   </i>
+   paid at time
+   <i>
+    ti
+   </i>
+   and between the dividends it follows a geometric Brownian motion. In this setting, the stock price can become negative, but this is usually so unlikely that, in practice, it is not a problem. Still, one might want to use a more robust dividend policy in the model, such as capping the dividend at the stock price. Obviously, different dividend policies result in different option prices [7].
+  </p>
+  <h1>
+   <b>
+    Impact on Option Pricing
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   To compute an option price under equation (3) the standard collection of numerical methods can be employed: finite difference (FD) method with jump conditions across ex-dividend date [11], Monte Carlo simulations, or nonrecombining trees [8]. There is no real closed-form solution with multiple dividends for European option under equation (3); however, several approximations are available. All of them are
+  </p>
+  <p block-type="TextInlineMath">
+   based on bootstrapping, that is, repeatedly computing the convolution of the option value at one dividend date with the density kernel from that date to the previous dividend date and applying the jump condition at the dividend dates, starting from the payoff at maturity. One can use a piecewise linear or a more sophisticated approximation of the option value at each convolution step and enjoy having a finite sum of closed-form solutions. On the basis of the fact that diffusion preserves monotonicity and convexity, it can be shown that the result converges to the true value (unpublished work of Amaro de Matos
+   <i>
+    et al.
+   </i>
+   ). Another choice of parameterization was made in [7]: at each step of the integration the option value is approximated by BS-like function where strike and volatility are adjusted to obtain the best fit. Such methods can be used for any underlying process where one can compute the density kernel (Green function, propagator) for the convolution, though it will probably be not much faster or more accurate than employing the standard finite difference method, especially in the case of multiple dividends. For the handling of American options, one can find an extensive list of references in
+   <math display="inline">
+    [4]
+   </math>
+   and the relation between early exercise and dividends is explained in American Options; Finite Difference Methods for Early
+   <b>
+    Exercise Options
+   </b>
+   or [8].
+  </p>
+  <h3>
+   A Common Approach
+  </h3>
+  <p block-type="Text">
+   As already pointed out in the discrete cash dividend model (3), the price of a European option has no closed-form solution and trees do not recombine. In order to remedy this, traders often split the stock price into a risky net-dividend part and a deterministic dividend part:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}\tilde{S}_{t} &amp;= r\,\tilde{S}_{t}\,\mathrm{d}t + \tilde{\sigma}\,\tilde{S}_{t}\,\mathrm{d}t \\ S_{t} &amp;= \tilde{S}_{t} + \tilde{D}_{t} \\ \tilde{D}_{t} &amp;= \tilde{D}_{t}^{\mathrm{fut}} - \tilde{D}_{t}^{\mathrm{past}} \\ \tilde{D}_{t}^{\mathrm{fut}} &amp;= \sum_{t &lt; t_{i} \leq T} \alpha_{i}d_{i}\mathrm{e}^{-r(t_{i}-t)} \\ \tilde{D}_{t}^{\mathrm{past}} &amp;= \sum_{0 &lt; t_{i} \leq t} (1 - \alpha_{i})d_{i}\mathrm{e}^{-r(t_{i}-t)} \end{aligned} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Note that the dependence on the option maturity
+   <math display="inline">
+    T
+   </math>
+   in the notation
+   <math display="inline">
+    \tilde{D}_{t}^{\text{fut}}
+   </math>
+   is suppressed. The most common
+  </p>
+  <p block-type="Text">
+   choices used by practitioners
+   <math display="inline">
+    [3, 5]
+   </math>
+   are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_i = 1
+   </math>
+   so
+   <math>
+    \tilde{D}_t = \sum_{t &lt; t_i \leq T} d_i e^{-r(t_i - t)}
+   </math>
+   (6)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_i = 0 \quad \text{so} \quad \tilde{D}_t = \sum_{0 &lt; t_i \le t} d_i e^{-r(t_i - t)} \tag{7}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_i = 1 - \frac{t_i}{T} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In this approach, the tree for
+   <math display="inline">
+    \tilde{S}_t
+   </math>
+   is recombining (see
+   <b>
+    Binomial Tree
+   </b>
+   or [8]), and the price of a European option is again given by a BS type formula, where the spot and the strike are adjusted as
+   <math display="inline">
+    S_0 \rightarrow S_0 - \tilde{D}_0^{\text{fut}}
+   </math>
+   and
+   <math display="inline">
+    K \to K + \tilde{D}_T^{\text{past}}
+   </math>
+   . Needless to say, however, the volatility for each of these processes will be different. Namely, choice (6) underestimates and choice (7) overestimates the volatility compared to the "true" model
+   <math display="inline">
+    (3)
+   </math>
+   ; the weighted choice
+   <math display="inline">
+    (8)
+   </math>
+   aims to minimize this effect.
+  </p>
+  <h2>
+   Arbitrage Opportunities
+  </h2>
+  <p block-type="Text">
+   In reference [1], it was shown that arbitrage opportunities exist in the most standard approach
+   <math display="inline">
+    (6)
+   </math>
+   if the volatility surface is continuously interpolated around ex-dividend dates. They apply a rough volatility adjustment to prevent the arbitrage opportunities. The following example demonstrates that the continuous interpolation of volatility around ex-dividend dates can lead to significant mispricing. Figure 1 shows
+  </p>
+  <p>
+   <img src="_page_1_Figure_13.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Price of an American call as a function of the time to maturity
+   <math display="inline">
+    T
+   </math>
+   for the following models: (3) (solid line),
+   <math display="inline">
+    (6)
+   </math>
+   (dotted line), and
+   <math display="inline">
+    (6)
+   </math>
+   with the volatility adjustment (10) (dashed line). The parameters are
+   <math display="inline">
+    S_0 = 100
+   </math>
+   ,
+   <math display="inline">
+    K = 100
+   </math>
+   ,
+   <math display="inline">
+    r = 0.05, \, \sigma = 0.3, \, d_i = 8, \, \text{and} \, t_i = i - \frac{1}{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   the price of an American call as a function of the time to maturity
+   <math display="inline">
+    T
+   </math>
+   for different models. Given a flat volatility, the prices under equation (6) jump down after an ex-dividend date, which is not realistic, because a risk-free profit can be locked in by selling an option maturing just before the ex-dividend date and by buying a similar option maturing just after the ex-dividend date. Although the mispricing under equation (6) is most evident for American options, it is equally present in the valuation of European options. Note that equation (4) produces continuous prices around dividend payments and the price differences between the two models increase dramatically with maturity (see
+   <math display="inline">
+    [1, 5]
+   </math>
+   for similar results). Another primitive pitfall with equation
+   <math display="inline">
+    (6)
+   </math>
+   is to use constant extrapolation of the implied volatility to longer maturities. For example, if the present value of dividends of a long-term contract is half of the current stock price, then with simple flat term structure extrapolation one will underestimate the volatility by a factor of at least one and a half [2].
+  </p>
+  <h3>
+   <b>
+    Volatility Adjustments
+   </b>
+  </h3>
+  <p block-type="Text">
+   To understand the difference in terms of volatility for the specified models, consider the local volatility model. Substitution of equation
+   <math display="inline">
+    (4)
+   </math>
+   into equation
+   <math display="inline">
+    (3)
+   </math>
+   yields the result that
+   <math display="inline">
+    \tilde{S}
+   </math>
+   follows the process with local volatility
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{\sigma}(\tilde{S},t) = \left(1 + \frac{\tilde{D}_t}{\tilde{S}}\right)\sigma\tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   It is handy to translate this result into implied terms [6]. Following the line of reasoning presented in [2], a slightly generalized result for the implied volatility can be derived:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{\sigma}^2 \approx \sigma^2 + \sigma \sqrt{\frac{\pi}{2T}} A \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A = 4e^{\frac{b_1^2}{2} - s} \sum_i \tilde{d}_i \bigg( \omega_i \left[ \mathcal{N}(b_1) - \mathcal{N}(b_1 - \xi_i) \right]
+   </math>
+   <br/>
+   +
+   <math>
+    \tilde{\omega}_i \left[ \mathcal{N}(b_2) - \mathcal{N}(b_1 - \xi_i) \right] \bigg)
+   </math>
+   <br/>
+   +
+   <math>
+    e^{\frac{c_1^2}{2} - 2s} \sum_{i,j} \tilde{d}_i \tilde{d}_j \bigg( \omega_i \omega_j \left[ \mathcal{N}(c_1) - \mathcal{N}(c_1 - \psi_{ij}) \right]
+   </math>
+   <br/>
+   -
+   <math>
+    \tilde{\omega}_i \tilde{\omega}_j \left[ \mathcal{N}(c_2) - \mathcal{N}(c_1 - \psi_{ij}) \right]
+   </math>
+   <br/>
+   +
+   <math>
+    \Omega_{ij} \left[ \mathcal{N}(c_1 - \Psi_{ij}) - \mathcal{N}(c_1 - \psi_{ij}) \right] \bigg)
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    s = \ln(S_0 - \tilde{D}_0^{\text{fut}}), k = \ln(K + \tilde{D}_T^{\text{past}}) - rT, x_t = (s + (k - s)\frac{t}{T}) + rt, y_t = \frac{t(T - t)}{T}, \tilde{\omega}_i = 1 - \omega_i, \tilde{d}_i = d_i e^{-rt_i}, a = \frac{s - k}{\sigma\sqrt{T}}, b_{1/2} = a \pm \frac{\sigma\sqrt{T}}{2}, c_{1/2} = a \pm \sigma\sqrt{T}, \xi_i = \sigma\frac{t_i}{\sqrt{T}}, \psi_{ij} = 2\min(\xi_i, \xi_j), \Psi_{ij} = 2\max(\xi_i, \xi_j),
+   </math>
+   <math display="inline">
+    \Omega_{ij} = \omega_i \tilde{\omega_j} 1_{t_i &gt; t_j} + \omega_j \tilde{\omega_i} 1_{t_j &gt; t_i}.
+   </math>
+  </p>
+  <p block-type="Text">
+   This gives a very simple and quick way of switching between models for trading practice as well as for understanding the essence of the feature. Moreover, it can be used independently of the option type. To give an idea of the quantitative value of presented methods, some numerical results with and without volatility adjustment are summarized in Table 1. All results are compared to the numerical solution calculated with the FD method. Bootstrapping with the piecewise linear interpolation converges to FD with sufficiently many points; HHL approximation of [7] differs a bit, probably due to the fact that the BS-like formula cannot exactly fit the shape of the integrand. Clearly, even in approximate form, equation
+   <math display="inline">
+    (10)
+   </math>
+   gives a fair correction in all cases, performing especially well for the weighted model (8).
+  </p>
+  <p block-type="Text">
+   When pricing equity derivatives, one should be aware that these instruments can be sensitive to
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   European call prices with parameter set of Figure 1 for different strikes. HHL refers to the approximation of [7]; FD to finite difference and BS to closed-form solution
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th rowspan="2">
+      Strike
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th colspan="3">
+      BS for
+      <math>
+       (6)
+      </math>
+     </th>
+     <th colspan="2">
+      BS for
+      <math>
+       (8)
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      <math>
+       FD
+      </math>
+      for (3)
+     </th>
+     <th>
+      <math>
+       HHL
+      </math>
+      for (3)
+     </th>
+     <th>
+      BS for
+      <math>
+       (6)
+      </math>
+     </th>
+     <th>
+      with
+      <math>
+       (10)
+      </math>
+     </th>
+     <th>
+      BS for
+      <math>
+       (8)
+      </math>
+     </th>
+     <th>
+      with
+      <math>
+       (10)
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      50
+     </td>
+     <td>
+      33.509
+     </td>
+     <td>
+      33.641
+     </td>
+     <td>
+      29.908
+     </td>
+     <td>
+      33.312
+     </td>
+     <td>
+      33.547
+     </td>
+     <td>
+      33.497
+     </td>
+    </tr>
+    <tr>
+     <td>
+      80
+     </td>
+     <td>
+      22.482
+     </td>
+     <td>
+      22.559
+     </td>
+     <td>
+      17.846
+     </td>
+     <td>
+      22.414
+     </td>
+     <td>
+      22.304
+     </td>
+     <td>
+      22.473
+     </td>
+    </tr>
+    <tr>
+     <td>
+      100
+     </td>
+     <td>
+      17.393
+     </td>
+     <td>
+      17.428
+     </td>
+     <td>
+      12.772
+     </td>
+     <td>
+      17.404
+     </td>
+     <td>
+      17.102
+     </td>
+     <td>
+      17.388
+     </td>
+    </tr>
+    <tr>
+     <td>
+      120
+     </td>
+     <td>
+      13.573
+     </td>
+     <td>
+      13.575
+     </td>
+     <td>
+      9.250
+     </td>
+     <td>
+      13.644
+     </td>
+     <td>
+      13.209
+     </td>
+     <td>
+      13.573
+     </td>
+    </tr>
+    <tr>
+     <td>
+      150
+     </td>
+     <td>
+      9.511
+     </td>
+     <td>
+      9.479
+     </td>
+     <td>
+      5.836
+     </td>
+     <td>
+      9.635
+     </td>
+     <td>
+      9.099
+     </td>
+     <td>
+      9.515
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   dividends. Examples are exotic options on stocks and derivatives involving realized volatility, such as variance swaps (
+   <i>
+    see
+   </i>
+   <b>
+    Variance Swap
+   </b>
+   ), volatility swaps (
+   <i>
+    see
+   </i>
+   <b>
+    Volatility Swaps
+   </b>
+   ), correlation swaps (
+   <i>
+    see
+   </i>
+   <b>
+    Correlation Swap
+   </b>
+   ), and gamma swaps (
+   <i>
+    see
+   </i>
+   <b>
+    Gamma Swap
+   </b>
+   ). This sensitivity determines the required sophistication in dividend modeling. Adding dividends to a stock price process may seem trivial at first glance, but one has to be careful in setting the model parameters. The resulting model can then be solved by the usual methods. For the plain vanilla option with dividends, a number of numerical approximations have been developed.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Beneder, R. &amp; Vorst, T. (2001). Options on dividends paying stocks, in
+     <i>
+      Recent Developments in Mathematical Finance
+     </i>
+     , World Scientific Printers, Shanghai, pp. 204–217.
+    </li>
+    <li block-type="ListItem">
+     [2] Bos, R., Gairat, A. &amp; Shepeleva, A. (2003). Dealing with discrete dividends,
+     <i>
+      Risk
+     </i>
+     <b>
+      16
+     </b>
+     , 109–112.
+    </li>
+    <li block-type="ListItem">
+     [3] Bos, M. &amp; Vandermark, S. (2002). Finessing fixed dividends,
+     <i>
+      Risk
+     </i>
+     <b>
+      15
+     </b>
+     , 157–158.
+    </li>
+    <li block-type="ListItem">
+     [4] Cassimon, D., Engelen, P.J., Thomassen, L. &amp; Van Wouwe, M. (2007). Closed-form valuation of American
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   call options on stocks paying multiple dividends,
+   <i>
+    Finance Research Letters
+   </i>
+   <b>
+    4
+   </b>
+   , 34–48.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [5] Frishling, V. (2002). A discrete question,
+     <i>
+      Risk
+     </i>
+     <b>
+      15
+     </b>
+     , 115–116.
+    </li>
+    <li block-type="ListItem">
+     [6] Gatheral, J. (2006).
+     <i>
+      The Volatility Surface
+     </i>
+     , John Wiley &amp; Sons, Hoboken, pp. 13–14.
+    </li>
+    <li block-type="ListItem">
+     [7] Haug, E., Haug, J. &amp; Lewis, A. (2003). Back to basics: a new approach to the discrete dividend problem,
+     <i>
+      Wilmott Magazine
+     </i>
+     (September), 37–47.
+    </li>
+    <li block-type="ListItem">
+     [8] Hull, J.C. (2006).
+     <i>
+      Options, Futures and Other Derivatives
+     </i>
+     , 6th Edition, Prentice-Hall, Upper Saddle River.
+    </li>
+    <li block-type="ListItem">
+     [9] Korn, R. &amp; Rogers, L.C.G. (2005). Stocks paying discrete dividends: modeling and option pricing,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      13
+     </b>
+     (2), 44–48.
+    </li>
+    <li block-type="ListItem">
+     [10] Kruchen, S. (2005).
+     <i>
+      Dividend Risk
+     </i>
+     , thesis, Uni/ETH, Zurich. ¨
+    </li>
+    <li block-type="ListItem">
+     [11] Tavella, D. &amp; Randall, C. (2000).
+     <i>
+      Pricing Financial Instruments. The Finite Difference Method
+     </i>
+     , John Wiley &amp; Sons, New York.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    American Options
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Early Exercise Options
+   </b>
+   ;
+   <b>
+    Local Volatility Model
+   </b>
+   ;
+   <b>
+    Monte Carlo Simulation
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ANNA SHEPELEVA &amp; ALAIN VERBERKMOES
+  </p>
+ </body>
+</html>

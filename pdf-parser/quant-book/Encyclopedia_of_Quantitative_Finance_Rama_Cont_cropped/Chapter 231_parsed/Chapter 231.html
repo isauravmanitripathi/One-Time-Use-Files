@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Ouadratic Gaussian
+   </b>
+   <math display="inline">
+    \mathbf{Models}^{\mathbf{a}}
+   </math>
+  </h1>
+  <p block-type="Text">
+   Ouadratic Gaussian (OG) models are factor models for the pricing of interest-rate derivatives, where interest rates are quadratic functions of underlying Gaussian factors. The OG model of interest rates was first introduced by Beaglehole and Tenney [3] and by El Karoui
+   <i>
+    et al.
+   </i>
+   [11]. Similar models had been introduced in epidemiology [16]. Jamshidian [14], under restrictive hypothesis on the dynamic of the factors, obtained closed formulas for the prices of vanilla options in the QG model. Durand and El Karoui [10] have detailed some properties and statistical analysis of the QG model. One may refer, for example, to
+   <math display="inline">
+    [1, 6]
+   </math>
+   for general studies of quadratic term-structure models.
+  </p>
+  <h2>
+   <b>
+    Ouadratic Gaussian Model
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Uncertainty is represented by an
+   <math display="inline">
+    n
+   </math>
+   -dimensional Brownian motion
+   <math display="inline">
+    \widehat{\widehat{W}}_t = (\widehat{W}_t^1, \widehat{W}_t^2, \dots, \widehat{W}_t^n)^{*b}
+   </math>
+   on the filtered probability space
+   <math display="inline">
+    (\Omega, F_t, P)
+   </math>
+   , where
+   <math display="inline">
+    F_t
+   </math>
+   is the natural augmented filtration of Brownian motion
+   <math display="inline">
+    \widehat{W}
+   </math>
+   and
+   <math display="inline">
+    P
+   </math>
+   the historical probability. We then add two assumptions:
+  </p>
+  <p block-type="Text">
+   <b>
+    Hypothesis 1
+   </b>
+   The asset price processes in all the different markets are regular deterministic functions of
+   <math display="inline">
+    n
+   </math>
+   state variables.
+  </p>
+  <p block-type="Text">
+   <b>
+    Hypothesis 2
+   </b>
+   The state variables have a Gaussian– Markovian distribution with respect to all the risk-neutral probabilities (which includes the forwardneutral probabilities).
+  </p>
+  <p block-type="Text">
+   The first hypothesis is common and is used in numerical methods such as finite difference methods to price and hedge options; the second is also natural if we want to have results as explicit as possible. We specify, more precisely, the diffusion of the state variable Z under the risk-neutral probability (see Ornstein-Uhlenbeck Processes):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dZ_t = (A_t Z_t + \mu_t) dt + \Sigma_t dW_t \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    (W_t)
+   </math>
+   is a Brownian motion under the domestic risk-neutral probability
+   <math display="inline">
+    \mathcal{Q}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   [11]. Under these assumptions, there exist a family of symmetrical matrices
+   <math display="inline">
+    \widehat{\Gamma}(t,T)
+   </math>
+   , a family of vectors
+   <math display="inline">
+    \widehat{b}(t,T)
+   </math>
+   , and a family of scalars
+   <math display="inline">
+    \widehat{a}(t,T)
+   </math>
+   such that the zero-coupon price at t of the bond
+   <math display="inline">
+    P(t, T)
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t,T) = \exp\left[Z_t^* \widehat{\Gamma}(t,T) Z_t + \widehat{b}^*(t,T) Z_t + \widehat{a}(t,T)\right]
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   In particular, the functional dependence of the short rate
+   <math display="inline">
+    r_t
+   </math>
+   on the factors is quadratic affine:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r_t = -\partial_T \ln P(t, T)_{t=T}
+   </math>
+   <br/>
+   =
+   <math>
+    \left[ Z_t^* \Gamma(t, t) Z_t + b^*(t, t) Z_t + a(t, t) \right]
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\Gamma(t,T) = -\partial_T \widehat{\Gamma}(t,T) \\
+b(t,T) = -\partial_T \widehat{b}(t,T) \\
+a(t,T) = -\partial_T \widehat{a}(t,T)\n\end{cases} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   To describe completely the dynamics of the interest rates, we need to make explicit the computation of the matrices
+   <math display="inline">
+    \widehat{\Gamma}(t,T)
+   </math>
+   ,
+   <math display="inline">
+    \widehat{b}(t,T)
+   </math>
+   , and
+   <math display="inline">
+    \widehat{a}(t,T)
+   </math>
+   . Once again, the no-arbitrage assumption will give us the solution.
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 2 [11]. Given the short rate parameters,
+   <math display="inline">
+    \Gamma(t, t)
+   </math>
+   ,
+   <math display="inline">
+    b(t, t)
+   </math>
+   , and
+   <math display="inline">
+    a(t, t)
+   </math>
+   , the matrices
+   <math display="inline">
+    \widehat{\Gamma}(t, T)
+   </math>
+   ,
+   <math display="inline">
+    \widehat{b}(t,T)
+   </math>
+   , and
+   <math display="inline">
+    \widehat{a}(t,T)
+   </math>
+   are the solutions of the backward
+   <math display="inline">
+    \text{differential system with respect to the current date } t
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \partial_t U_t = -(A_t^* U_t + U_t A_t) + 2U_t^* \Sigma_t \Sigma_t^* U_t - \Gamma(t, t) \\ \partial_t u_t = -A_t^* u_t + 2U_t \Sigma_t^* \Sigma_t u_t - 2U_t \mu_t - b(t, t) \\ \partial_t \alpha_t = -tr[\Sigma_t \Sigma_t^* U_t] - u_t^* \mu_t + \frac{1}{2} u_t^* \Sigma_t \Sigma_t^* u_t - a(t, t) \end{cases}
+   </math>
+   <math display="block">
+    (5)
+   </math>
+  </p>
+  <p block-type="Text">
+   with the initial conditions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} U_T = 0\\ u_T = 0\\ \alpha_T = 0 \end{cases} \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   These two results, which are direct consequences of the hypothesis, completely describe the diffusion of the interest rates under the risk-neutral probability. In the stationary case, let us denote
+   <math display="inline">
+    \hat{\Gamma}_{\infty}
+   </math>
+   the solution of the algebraic Riccati equation on
+   <math display="inline">
+    U
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A^*U + UA - 2U^*\Sigma\Sigma^*U + \Gamma = 0 \tag{7}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   If
+   <math display="inline">
+    A - 2\hat{\Gamma}_{\infty} \Sigma \Sigma^*
+   </math>
+   has only negative eigenvalues, then the equations of Theorem 2 will only have nonexploding solutions. In those cases, one can even obtain
+  </p>
+  <p block-type="Text">
+   a simple expression for the limit of the zero-coupon interest rate when the maturity increases to infinity; this limit does not depend on the time (see
+   <math display="inline">
+    [10]
+   </math>
+   ). The QG model admits, for example, the following models as particular cases:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     the Gaussian model of Vasicek [15], its generalization by Hull and White [13], and its multidimensional version by Heath, Jarrow, and Morton (HJM) [12] (see Gaussian Interest-Rate Models):
+    </li>
+    <li block-type="ListItem">
+     Cox, Ingersoll, and Ross (CIR) [8], Chen and Scott [7], and Duffie and Kan [9]; also see Cox-Ingersoll-Ross (CIR) Model.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Statistical Justification
+   </b>
+  </h4>
+  <p block-type="Text">
+   In addition to the practical and computational justification of the hypothesis that lead to the QG model, this model can also be justified by statistical studies of the interest rates. The most intuitive justification comes from principal component analysis (PCA). For most currencies, using a PCA will lead to keeping two factors to explain the diffusion of the interest yield curves. Then, the residual noise may be explained by a quadratic form of the first two factors of the PCA. For a detailed description of this analysis, we refer to [10].
+  </p>
+  <h2>
+   <b>
+    Option Pricing
+   </b>
+  </h2>
+  <p block-type="Text">
+   In the QG model, the instantaneous volatility of the zero-coupon interest rates
+   <math display="inline">
+    R(t, T)
+   </math>
+   is an affine form of the factors
+   <math display="inline">
+    Z_t
+   </math>
+   , and when we consider two factors or more, the instantaneous volatility of
+   <math display="inline">
+    R(t, T)
+   </math>
+   cannot be written as a deterministic form of
+   <math display="inline">
+    R(t, T)
+   </math>
+   : in some way, we can therefore consider the QG model as a stochastic volatility model.&lt;sup&gt;c&lt;/sup&gt; Its main interest will be in interest-rate exotic option pricing and hedging.
+  </p>
+  <h4>
+   Closed Form for Vanilla Option
+  </h4>
+  <p block-type="Text">
+   Quasi-closed form for vanillas options are the consequence of the following result.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 3
+   </b>
+   [11]. Let us denote by
+   <math display="inline">
+    m^{T}(t, u)
+   </math>
+   and
+   <math display="inline">
+    V^{T}(t, u)
+   </math>
+   the conditional mean and the conditional variance of
+   <math display="inline">
+    Z_u
+   </math>
+   under the forward-neutral probability of maturity
+   <math display="inline">
+    T \mathbf{Q}_{t}^{T}
+   </math>
+   . The conditional mean
+   <math display="inline">
+    m^{T}(t, T)
+   </math>
+   and
+  </p>
+  <p block-type="Text">
+   variance
+   <math display="inline">
+    V^{T}(t,T)
+   </math>
+   of the factors are solutions of the differential system given by equation (8):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial V^T(t,T)}{\partial T} = V^T(t,T)(A_T)^* + A_T V^T(t,T) \\ -2V^T(t,T)\Gamma(T,T)V^T(t,T) + \Sigma_T \Sigma_T^* \\\frac{\partial m^T(t,T)}{\partial T} = A_T m^T(t,T) \\ -2V^T(t,T)\Gamma(T,T)m^T(t,T) \\ +2V^T(t,T)b(T,T) + \mu_T \end{cases} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   and under the risk-neutral probability
+   <math display="inline">
+    \mathbf{Q}_t
+   </math>
+   , the conditional mean
+   <math display="inline">
+    m(t, T)
+   </math>
+   and variance
+   <math display="inline">
+    V(t, T)
+   </math>
+   of the factors are solutions of the differential system:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\frac{\partial V(t,T)}{\partial T} = V(t,T)(A_T)^* + A_T V(t,T) + \Sigma_T \Sigma_T^* \\
+\frac{\partial m(t,T)}{\partial T} = A_T m(t,T) + \mu_T \\
+V(t,t) = 0 \qquad m(t,t) = Z_t\n\end{cases} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Assefa [2] has detailed swaption prices in the QG model and has described how approximations may be obtained using Fourier transform. Some analytical approximations of caps, floors, and swaptions are also proposed in
+   <math display="inline">
+    [4]
+   </math>
+   .
+  </p>
+  <h2>
+   Pricing of Exotic Options
+  </h2>
+  <p block-type="Text">
+   To use the QG model to price and hedge exotic options, one needs to add some constraints to simplify the different equations and to accelerate the different numerical schemes used in the different steps of calibrating the model on plain vanilla option prices and used to price exotic options. Some calibration results of a two-factor OG model on USD Libor caps and swaptions are shown in [2]. Depending on the shape of the smile and on the payoff of the exotic option studied, one uses a one- or two-factor model: empirically, by using a one-factor QG model one will generate increasing or decreasing volatility smiles; with a two-factor QG model, "U-shape" volatility smiles may be generated. The QG model can then be successfully calibrated on vanilla option prices and on interest-rate correlation to price and hedge exotic interest-rate options. We recommend to choose a calibration set for each exotic option and not to try to calibrate simultaneously to the entire volatility cube. We also recommend to specify a correlation structure
+  </p>
+  <p block-type="Text">
+   on the forward interest rate and not to deduce it implicitly from the market implied volatilities.
+  </p>
+  <h1>
+   <b>
+    Summary
+   </b>
+  </h1>
+  <p block-type="Text">
+   Owing to its capacity to calibrate interest-rate volatility smiles and correlation term structure, the QG is an interesting model to price and hedge exotic interest-rate derivatives, as multicancelable options on interest-rate spreads. Several banks have developed proprietary models based on the QG model, each choosing its own parameterization, mainly as a consequences of choices made on the numerical schemes used.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   This article reflects the author's point of view and do not necessarily represents the point of view of Banque de France.
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   Here
+   <i>
+    x
+   </i>
+   <sup>
+    ∗
+   </sup>
+   denotes transpose
+   <i>
+    (x)
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   c
+   <i>
+    .
+   </i>
+   In fact, as we can deduce the factors
+   <i>
+    Zt
+   </i>
+   from the interestrate curve, we can write the instantaneous volatility of
+   <i>
+    R(t, θ )
+   </i>
+   as a deterministic function of interest rate of different maturities; in a theoretical point of view, the QG model may be not a stochastic volatility model as defined in [5].
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Ahn, D.-H., Dittmar, R.F. &amp; Gallant, A.R. (1999).
+     <i>
+      Quadratic Term Structure Models: Theory and Evidence
+     </i>
+     , working paper, University of North Carolina.
+    </li>
+    <li block-type="ListItem">
+     [2] Assefa, S. (2007).
+     <i>
+      Calibrating and Pricing in a Multi-Factor Quadratic Gaussian Model
+     </i>
+     , research paper, Quantitative Finance Research Centre, University of Technology Sydney.
+    </li>
+    <li block-type="ListItem">
+     [3] Beaglehole, D. &amp; Tenney, M. (1991). General solutions of some interest rate contingent claim pricing equations,
+     <i>
+      Journal of Fixed Income
+     </i>
+     <b>
+      1
+     </b>
+     , 69–83.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [4] Boyarchenko, N. &amp; Levendorski, S. (2007). The eigenfunction expansion method in multi-factor quadratic term structure models,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      17
+     </b>
+     , 503–539.
+    </li>
+    <li block-type="ListItem">
+     [5] Casassus, J., Collin-Dufresne, P. &amp; Goldstein, B. (2005). Unspanned stochastic volatility and fixed income derivatives pricing,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      29
+     </b>
+     , 2723–2749.
+    </li>
+    <li block-type="ListItem">
+     [6] Chen, L., Filipovic, D. &amp; Poor, H.V. (2004). Quadratic term structure models for risk-free and defaultable rates,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     , 515–536.
+    </li>
+    <li block-type="ListItem">
+     [7] Chen, R.-R. &amp; Scott, L. (1992). Pricing interest rate options in a two-factor cox-ingersoll-ross model of the term structure,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      5
+     </b>
+     , 613–636.
+    </li>
+    <li block-type="ListItem">
+     [8] Cox, J., Ingersoll, J. &amp; Ross, S. (1985). A theory of the term structure of interest rates,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      53
+     </b>
+     , 385–407.
+    </li>
+    <li block-type="ListItem">
+     [9] Duffie, D. &amp; Kan, R. (1992).
+     <i>
+      A Yield-Factor Model of Interest Rates
+     </i>
+     , working paper, Stanford University.
+    </li>
+    <li block-type="ListItem">
+     [10] Durand, Ph. &amp; El Karoui, N. (1998).
+     <i>
+      Interest Rates Dynamics and Option Pricing with the Quadratic Gaussian Model in Several Economies
+     </i>
+     , working paper.
+    </li>
+    <li block-type="ListItem">
+     [11] El Karoui, N., Myneni, R. &amp; Viswanathan, R. (1991).
+     <i>
+      Arbitrage Pricing and Hedging of Interest Rate Claims with State Variables, Theory and Applications
+     </i>
+     , working paper, Universite Paris VI.
+    </li>
+    <li block-type="ListItem">
+     [12] Heath, D., Jarrow, R. &amp; Morton, A. (1992). Bond pricing and the term structure of interest rates: a new methodology for contingent claims valuation,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      60
+     </b>
+     , 77–105.
+    </li>
+    <li block-type="ListItem">
+     [13] Hull, J. &amp; White, A. (1990). Pricing interest rate derivative securities,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      3
+     </b>
+     , 573–592.
+    </li>
+    <li block-type="ListItem">
+     [14] Jamshidian, F. (1996). Bond, futures and option evaluation in the quadratic interest rate model,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      3
+     </b>
+     , 93–115.
+    </li>
+    <li block-type="ListItem">
+     [15] Vasicek, O. (1977). An equilibrium characterisation or the term structure,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      5
+     </b>
+     , 177–188.
+    </li>
+    <li block-type="ListItem">
+     [16] Woodbury, M.A., Manton, K.G. &amp; Stallard, E. (1979). Longitudinal analysis of the dynamics and risk of coronary heart disease in the framingham study,
+     <i>
+      Biometrics
+     </i>
+     <b>
+      35
+     </b>
+     , 575–585.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   PHILIPPE DURAND
+  </p>
+ </body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Modeling Correlation of Structured Instruments in a Portfolio Setting
+   </b>
+  </h1>
+  <p block-type="Text">
+   Credit events are correlated. Corporate or retail loan portfolios can exhibit wide swings in losses as economic factors common to the underlying entities drive defaults or deterioration in credit quality. Though challenging, the modeling and data issues related to single-name credit instruments are well understood [9, 10]. However, the correlation of structured instruments remains much more complicated and less understood. Traditional approaches to modeling economic capital, credit-VaR (Value-at-Risk), or structured instruments whose underlying collateral is composed of structured instruments treat structured instruments as a single-name credit instrument (i.e., a loan-equivalent).a Though tractable, the loan-equivalent approach requires appropriate parameterization to achieve a reasonable description of the cross-correlation between the structured instrument and the rest of the portfolio. We address this challenge by calibrating the loanequivalent correlation parameters to the dynamics observed in a granular model of the structured instrument.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In the granular model, the underlying reference entities associated with the collateral pool are used to simulate collateral losses, which are translated to structured instrument loss using its subordination level. For ease of exposition, we assume passthrough waterfalls throughout the article; the waterfall structure and subordination level are completely determined by attachment and detachment points. The structured instrument is said to be in distress if it incurs a loss. Simulated losses are used to calculate a probability of distress and loss given distress for each structured instrument and a joint probability of distress (JPD) for the structured instrument and other instruments in the portfolio. The JPD and the individual probabilities of distress are then used to back out an implied "asset return" correlation associated with the structures' loan-equivalent reference entities (henceforth,
+   <i>
+    the loan-equivalent correlation
+   </i>
+   ). By taking the probability of distress as the loan-equivalent probability of default (PD), the loss given distress as the loan-equivalent loss given
+  </p>
+  <p block-type="Text">
+   default, and the deal maturity as the loan-equivalent maturity the parameterization of the loan-equivalent is complete.
+  </p>
+  <p block-type="Text">
+   In addition to the benefits of using loanequivalents in a portfolio setting, the simplicity associated with loan-equivalent correlations serves as a useful summary statistic for understanding portfolio-referent risk characteristics. For example, when the collateral pool is parameterized under a wide range of values, the resulting correlation of the structure instrument with the rest of the portfolio is far higher than that of the underlying collateral pool or for other classes of single-name instruments, such as corporate exposures. This is because the idiosyncratic shocks in a collateral pool offset one another, and the systematic portion is left to "run the show". Moreover, loan-equivalent correlations between two subordinated tranches can be substantially lower than their senior counterparts. The higher correlation exhibited between two credit instruments in the tail region of the loss distribution (the loss region of the collateral pool where a senior tranche enters distress) drives the difference. This is because a senior tranche distress is most likely driven by systematic shock, which makes it more likely that it will be accompanied by a distress in the other senior tranche.
+  </p>
+  <p block-type="Text">
+   Correlation among CDOs can also stem from the overlap in reference entities associated with their collateral pools. Although it is intuitive that loan-equivalent correlations increase with the degree of overlap, the effect is stronger for more junior tranches. This finding follows from the junior tranches' susceptibility to idiosyncratic noise. With a higher degree of overlap, the tranches share more of the idiosyncratic shocks.
+  </p>
+  <p block-type="Text">
+   Recent literature on structured instruments' correlation primarily addresses correlations between collateral pool reference entities and their effect on tranche pricing. For example, Agca and Islam [1] examines the impact of correlation increase among underlying assets on the value of a CDO equity tranche, and shows that CDO equity can be short on correlation. The normal copula model, studied in detail in [4], has become the industry standard for pricing structured instruments and often results in a market price-implied correlation smile. Several papers address this phenomenon; Moosbrucker [5] explains it using variance-gamma distributions. This article, however, focuses on the
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   ABS probability of distress changing with subordination for collateral parameters:
+   <i>
+    R
+   </i>
+   <sup>
+    2
+   </sup>
+   = 10%,
+   <i>
+    LGD
+   </i>
+   = 70%, and collateral
+   <i>
+    PD
+   </i>
+   ranging from 10 basis points to 22%
+  </p>
+  <p block-type="Text">
+   correlation structure between a structured instrument and other instruments in the portfolio. This structured instrument correlation is a function of the correlation of the underlying collateral instruments among themselves and with other instruments in the portfolio, as well as of the deal's waterfall structure and the instrument's subordination level. Coval
+   <i>
+    et al.
+   </i>
+   [2] show that, similar to economic catastrophe bonds, structured instruments are highly correlated with the market, but offer far less compensation than economic catastrophe bonds. The authors suggest in [3] that this lower compensation occurs because rating agencies base their structured instrument ratings on distress probability and expected loss, ignoring the high correlation with the market.
+  </p>
+  <h3>
+   <b>
+    Modeling the Correlation of Two ABSs
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   Consider an asset-backed security (ABS) with a homogeneous collateral pool (e.g., similar risk California auto-loans). In a homogeneous pool, we can model the systematic portion of reference entity
+   <i>
+    i
+   </i>
+   's asset return process (
+   <i>
+    ri
+   </i>
+   ) using a single factor (
+   <i>
+    Z
+   </i>
+   ) with a common factor loading (
+   <i>
+    R
+   </i>
+   ):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r_i = R \cdot Z + \sqrt{1 - R^2} \cdot \varepsilon_i \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   Henceforth, we use the square form of the factor loading,
+   <i>
+    R
+   </i>
+   2, because of its interpretation as the proportion of asset return variation explained by the common factor
+   <i>
+    Z
+   </i>
+   . The single factor
+   <i>
+    Z
+   </i>
+   and the idiosyncratic portion
+   <i>
+    εi
+   </i>
+   are standard Brownian motion processes and, therefore, so is the asset return. A default occurs when the asset return process drops below a default threshold (DT), which happens with probability PD. These PDs and other parameters for the underlying instruments in the collateral pool are publicly available.b
+  </p>
+  <p block-type="TextInlineMath">
+   In analyzing ABS characteristics, we made simplifying assumptions. We assumed a single period, and the analysis abstracted from subtleties such as reinvestment, collateralization, or wrapping. Collateral pools were composed of instruments with Loss Given Default (LGD) = 70% and reference entities with
+   <i>
+    R
+   </i>
+   <sup>
+    2
+   </sup>
+   = 10%. Each deal consisted of seven ABSs at different subordination levels. Deal maturity was set at 1 year. All deals were simulated 100 000 times in Moody's KMV's RiskFrontier to obtain the ABSs' probabilities of distress and losses given distress, as well as to account for collateral pool correlations properly. See [8] for the methodology used in RiskFrontier.
+  </p>
+  <p block-type="Text">
+   Figure 1 demonstrates how the ABS 1-year distress probability changes with the subordination level for collateral pools; PD values range from as low as 10 basis points to as high as 22%, covering a
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 2 ABS loan-equivalent reference entity's "asset return" correlation for collateral parameters:
+   <math display="inline">
+    R^2 = 10\%
+   </math>
+   .
+   <math display="inline">
+    LGD = 70\%
+   </math>
+   , and collateral PD ranging from 10 basis points to 22%
+  </p>
+  <p block-type="Text">
+   variety of instruments in varying economic environments—from prime loans in boom times to subprime mortgages during downturns. As expected, the ABS probability of distress is decreasing in the subordination level. Moreover, it appears that the distress probability curve starts out concave, switches. and then becomes convex. This convexity switch occurs at the maximum point of the bell-shaped collateral loss distribution function. Higher collateral PD pushes this maximum point to higher loss points.
+  </p>
+  <p block-type="TextInlineMath">
+   To better understand the correlation structure of these ABSs, we compute the loan-equivalent reference entity's
+   <math display="inline">
+    R^2
+   </math>
+   for each deal. To this end, the simulation holds two similar copies of each ABS. Collateral pools for the two copies contain statistically similar instruments (but not the same instruments, i.e., different idiosyncratic shocks). The empirical JPD
+   <math display="inline">
+    (JPD_{\text{sim}})
+   </math>
+   of the similar ABS pairs is calculated from the simulation results. Using a normal copula, we choose the loan-equivalent reference entity's "asset return" correlation
+   <math display="inline">
+    \rho_{12}^A
+   </math>
+   , which results in the empirical JPD:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    JPD(PD_1, PD_2, \rho_{12}^A) = JPD_{\text{sim}} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    JPD(PD_1, PD_2, \rho_{12}^A)
+   </math>
+   is the joint, 1-year distress probability of the two ABSs in a normal copula with correlation
+   <math display="inline">
+    \rho_{12}^A
+   </math>
+   and 1-year default probabilities
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    PD_1
+   </math>
+   ,
+   <math display="inline">
+    PD_2
+   </math>
+   . To be clear, the "asset return" correlation
+   <math display="inline">
+    \rho_{12}^A
+   </math>
+   differs from the ABSs' distress correlation
+   <math display="inline">
+    \rho_{12}^D
+   </math>
+   . Of course, the two are related:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho_{12}^{D} = \frac{JPD(PD_1, PD_2, \rho_{12}^{A}) - PD_1 \cdot PD_2}{\sqrt{PD_1 \cdot (1 - PD_1) \cdot PD_2 \cdot (1 - PD_2)}} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   Generally, ABS "asset return" correlations are much higher than those of the underlying collateral. In our example, the asset return correlation for any pair of auto-loans, one from each ABS, is 10%. However, the "asset return" correlation for ABS loan-equivalents is 29% for the junior note and low collateral PD and significantly increases with subordination (Figure 2). This shows that the average collateral correlation is a highly biased estimate for the loan-equivalent correlation, since most of the idiosyncratic noise in the collateral pools washes out as the idiosyncratic shocks in the pool offset one another, leaving the common systematic factor to drive dynamics.
+  </p>
+  <p block-type="Text">
+   Results in Figures 1 and 2 are based on collateral pools of, for example, homogeneous auto-loans that share exposure to the same systematic factor (e.g., all in California). Therefore, the initial correlation between pairs of auto-loans was high to begin with. To examine the significance of pool diversification, consider an example with 50 state factors
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 3 ABS loan-equivalent reference entity's "asset return" correlation—diversified pool (50 factors) versus homogeneous pool (common factor) with collateral pool parameters:
+   <math display="inline">
+    PD = 2\%, R^2 = 10\%, LGD = 70\%
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    (Z_1, \ldots, Z_{50})
+   </math>
+   , where the auto-loans are equally distributed between the states. Each auto loan
+   <math display="inline">
+    i
+   </math>
+   has an associated state factor
+   <math display="inline">
+    k(i)
+   </math>
+   , such that
+   <math display="inline">
+    r_i = R
+   </math>
+   .
+   <math display="inline">
+    Z_{k(i)} + \sqrt{1 - R^2} \cdot \varepsilon_i
+   </math>
+   . Using Moody's KMV's GCorr Retail&lt;sup&gt;™&lt;/sup&gt;, we set the correlation between any two state factors to be 65% (
+   <math display="inline">
+    \rho(Z_k, Z_l) = 0.65
+   </math>
+   for any
+   <math display="inline">
+    1 &lt; k &lt; l &lt; 50
+   </math>
+   ).&lt;sup&gt;c&lt;/sup&gt; Figure 3 compares the ABS "asset return" correlations between the diversified pool (50 factors) and the homogeneous pool (common factor) for pools with collateral
+   <math display="inline">
+    R^2 = 10\%
+   </math>
+   corresponding with a range of retail loans including student loans and consumer loans [8]. Collateral PD was set to 2%.
+  </p>
+  <p block-type="Text">
+   Figure 3 demonstrates that the loan-equivalent reference entity associated with a diversified pool is less correlated than that of a homogeneous pool. This finding is not surprising, given that state factors are not perfectly correlated, allowing for diversification. This exercise is particularly important when modeling a CDO of ABSs whose collateral pools are focused on different geographic locations.
+  </p>
+  <h2>
+   <b>
+    Collateralized Debt Obligation (CDO)
+   </b>
+   Correlations
+  </h2>
+  <p block-type="Text">
+   Even though CDO deals are similar to ABS deals, several important dynamics specific to CDOs impact correlation structure. First, corporate entities have lower default probabilities and higher
+   <math display="inline">
+    R^2
+   </math>
+   than typical reference entities associated with ABS collateral instruments. Second, names commonly overlap
+  </p>
+  <p block-type="TextInlineMath">
+   in collateral pools of different CDO deals. Thompson and Rajendra [7] show that some names appear in more than 50% of deals in Fitch's Synthetic CDO Index (Ford Motor Co
+   <math display="inline">
+    -56.52\%
+   </math>
+   , and General Motors Corp
+   <math display="inline">
+    -52.40\%
+   </math>
+   ). Third, credit portfolios commonly have overlapping names across the singlename portion of the portfolio and the CDO collateral pool.
+  </p>
+  <p block-type="Text">
+   This section is divided into two subsections. The first analyzes the correlation between a CDO and a single-named instrument whose reference entity does not overlap with the CDO collateral pool. The second analyzes the correlation between two CDOs with varying degrees of collateral overlap.
+  </p>
+  <h4>
+   Correlation between a Collateralized Debt
+   <i>
+    Obligation (CDO) and a Single-name Instrument
+   </i>
+  </h4>
+  <p block-type="Text">
+   Morokoff [6] calculated the loan-equivalent reference entity
+   <math display="inline">
+    R^2
+   </math>
+   for a pass-through CDO tranche from the joint probability of tranche distress and single-name instrument default (outside the CDO's collateral pool), known henceforth as the joint default-distress probability. He considered a collateral pool of
+   <math display="inline">
+    N
+   </math>
+   homogeneous instruments in a single factor environment. The single-name instrument was assumed similar to the instruments in the homogeneous collateral pool. Morokoff's methodology relies on using the independence of defaults, conditional on the realization of systematic risk factors, to compute the conditional joint default probability and then the expectation is taken over the systematic risk factor:
+  </p>
+  <p>
+   <img src="_page_4_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 4 The effect of collateral overlap on tranche loan-equivalent reference entity's "asset return" correlation with collateral pool parameters:
+   <math display="inline">
+    PD = 2\%, R^2 = 25\%, LGD = 70\%
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    P(\text{Tranche distress and single default}) = E_Z(P(\text{Tranche distress and single default } |Z=z))
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = E_Z(P(\text{# defaults in pool } \ge \hat{a}|Z=z) \cdot p(z))
+   </math>
+   <math display="block">
+    = E_Z\left(\left(1 - \sum_{k=0}^{\hat{a}-1} P(\text{# defaults in pool } = k|Z=z)\right) \cdot p(z)\right)
+   </math>
+   <math display="block">
+    = E_Z\left(\left(1 - \sum_{k=0}^{\hat{a}-1} \binom{N}{k} p(z)^k (1-p(z))^{N-k}\right) \cdot p(z)\right)
+   </math>
+   <math display="block">
+    = p - \sum_{k=0}^{\hat{a}-1} \binom{N}{k} E_z(p(z)^{k+1} (1-p(z))^{N-k}) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \hat{a}
+   </math>
+   is the required number of defaults in the pool to cause a distress to the tranche,
+   <math display="inline">
+    p(z) =
+   </math>
+   <math display="inline">
+    \frac{N^{-1}(p) - R \cdot z}{\sqrt{1 - R^2}}
+   </math>
+   represents the PD conditional on the common factor
+   <math display="inline">
+    Z = z
+   </math>
+   , and
+   <math display="inline">
+    p = E_Z[p(Z)]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Similar to our analysis of ABS correlations, one can infer an "asset return" correlation
+   <math display="inline">
+    \rho
+   </math>
+   from the default probability, distress probability, and joint default-distress probability using a normal copula:
+   <math display="inline">
+    JPD = N(N^{-1}(\text{tranche distress prob}), N^{-1}(p), \rho).
+   </math>
+   Finally,
+   <math display="inline">
+    R_{\text{Loan equivalent}}^2
+   </math>
+   can be computed as
+   <math display="inline">
+    \frac{\rho^2}{R^2}
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Note that these calculations present an alternative to the simulations in the ABS section. However, the computation becomes infeasible for large pools and is, therefore, more suitable for CDOs. The normal approximation to the binomial distribution
+  </p>
+  <p block-type="Text">
+   can alleviate the cumbersome calculations, but forsome values of the systematic factors
+   <math display="inline">
+    z
+   </math>
+   , the conditional default probability
+   <math display="inline">
+    p(z)
+   </math>
+   is too small for the normal approximation to work.
+  </p>
+  <h4>
+   Correlation of Collateralized Debt Obligations (CDOs) with Overlapping Names
+  </h4>
+  <p block-type="Text">
+   Intuitively, the degree of overlap associated with two CDO tranches increases their correlation. To better understand the quantitative impact of overlap, we used simulation methods similar to those in the section Modeling the Correlation of Two ABSs. The relevant difference is that a certain percentage of the collateral pool is assumed to overlap when analyzing the correlations across the deals. Figure 4
+  </p>
+  <p block-type="Text">
+   presents the tranche loan-equivalent asset return correlations computed using the methodology in the section Modeling the Correlation of Two ABSs. The analysis was conducted on a high-yield deal with typical high-yield CDO properties (
+   <i>
+    PD
+   </i>
+   = 2% and
+   <i>
+    R
+   </i>
+   <sup>
+    2
+   </sup>
+   = 25%). Along the
+   <i>
+    x
+   </i>
+   -axis, the collateral overlap varies from 0 to 65%. Each curve represents a subordination level for the tranche. Interestingly, the loan-equivalent asset correlation increase with overlap is more substantial for junior tranches. This follows from the susceptibility of junior tranches to idiosyncratic shocks. After all, the junior tranche can easily experience distress even when the systematic shock is high; all it takes is a single reference entity to realize a particularly low idiosyncratic shock. On the other hand, senior tranches are extremely unlikely to experience distress when the systematic shock is high. Therefore, the degree of overlap, which only affects idiosyncratic shocks, has a much greater effect on junior tranches.
+  </p>
+  <h3>
+   <b>
+    Acknowledgments
+   </b>
+  </h3>
+  <p block-type="Text">
+   We would like to thank Zhenya Hu for help with the simulations and Mikael Nyberg for his suggestions.
+  </p>
+  <h3>
+   <b>
+    End Notes
+   </b>
+  </h3>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   Exceptions include Moody's KMV RiskFrontier, which models the terms of the subordinated note along with the correlation structure of the underlying collateral pool as it relates to the other instruments in the portfolio. Please see [5] for additional details.
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   For example,
+   <i>
+    PD
+   </i>
+   , and
+   <i>
+    LGD
+   </i>
+   estimates are available through Moody's Economy.com, and
+   <i>
+    R
+   </i>
+   <sup>
+    2
+   </sup>
+   estimates are available through Moody's KMV.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   c
+   <i>
+    .
+   </i>
+   Moody's KMV's GCorr Retail provides pairwise correlations for retail counterparties defined by MSA in the
+  </p>
+  <p block-type="Text">
+   UnitedStates (e.g., San Francisco or New York City) and product type (e.g., auto loan or student loan, etc.). The correlations are estimated using delinquency rates data from Equifax and Moody's Economy.com. For more details on Moody's KMV's GCorr Retail please see [8].
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Agca, S. &amp; Islam, S. (2007).
+     <i>
+      Can CDO Equity Be Short on Correlation?
+     </i>
+     working paper.
+    </li>
+    <li block-type="ListItem">
+     [2] Coval, J.D., Jurek, J.W. &amp; Stafford, E. (2008).
+     <i>
+      Economic Catastrophe Bonds
+     </i>
+     , HBS Finance working paper No. 07–102, available at: http://ssrn.com/abstract=995249
+    </li>
+    <li block-type="ListItem">
+     [3] Coval, J.D., Jurek, J.W. &amp; Stafford, E. (2008).
+     <i>
+      Re-Examining the Role of Rating Agencies: Lessons from Structured Finance
+     </i>
+     . working paper.
+    </li>
+    <li block-type="ListItem">
+     [4] Gregory, J. &amp; Laurent, J.P. (2004). In the core of correlation,
+     <i>
+      Risk
+     </i>
+     October, 87–91.
+    </li>
+    <li block-type="ListItem">
+     [5] Moosbrucker, T. (2006). Explaining the correlation smile using variance gamma distributions,
+     <i>
+      The Journal of Fixed Income
+     </i>
+     <b>
+      16
+     </b>
+     (1), 71–87.
+    </li>
+    <li block-type="ListItem">
+     [6] Morokoff, W. (2006).
+     <i>
+      Modeling ABS, RMBS, CMBS: 'Loan Equivalent' Approach in Portfolio Manager
+     </i>
+     . unpublished work done at Moody's KMV.
+    </li>
+    <li block-type="ListItem">
+     [7] Thompson, A. &amp; Rajendra, G. (2006).
+     <i>
+      Global CDO market 2005 review
+     </i>
+     . Deutsche Bank whitepaper.
+    </li>
+    <li block-type="ListItem">
+     [8] Wang, J., Zhang, J. &amp; Levy, A. (2008).
+     <i>
+      Modeling Retail Correlations in Credit Portfolios
+     </i>
+     . Moody's KMV research whitepaper
+    </li>
+    <li block-type="ListItem">
+     [9] Zeng, B. &amp; Zhang, J. (2001).
+     <i>
+      An Empirical Assessment of Asset Correlation Models
+     </i>
+     , Moody's KMV whitepaper, available at: http://www.moodyskmv.com/research/files/ wp/emp assesment.pdf
+    </li>
+    <li block-type="ListItem">
+     [10] Zhang, J., Zhu, F. &amp; Lee, J. (2008).
+     <i>
+      Asset Correlation, Realized Default Correlation, and Portfolio Credit Risk
+     </i>
+     , available at: http://www.moodyskmv.com/research/files/ wp/Asset Correlation and Portfolio Risk.pdf
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   TOMER YAHALOM, AMNON LEVY &amp; ANDREW S. KAPLIN
+  </p>
+ </body>
+</html>

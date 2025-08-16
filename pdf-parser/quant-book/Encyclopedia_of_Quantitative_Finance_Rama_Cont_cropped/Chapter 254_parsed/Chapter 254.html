@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Tikhonov Regularization
+   </b>
+  </h1>
+  <p block-type="Text">
+   An important issue in quantitative finance is
+   <i>
+    model calibration
+   </i>
+   . The calibration problem is the
+   <i>
+    inverse
+   </i>
+   of the pricing problem. Instead of computing prices in a model with given values for its parameters, one wishes to compute the values of the model parameters that are consistent with observed prices (up to the bid-ask spread).
+  </p>
+  <p block-type="Text">
+   Many examples of such inverse problems are illposed. Recall that a problem is
+   <i>
+    well posed
+   </i>
+   (as defined by Hadamard) if its solution exists, is unique, and depends continuously on its input data. Thus there are three reasons for which a problem might be ill posed:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     ٠ It admits no solution.
+    </li>
+    <li block-type="ListItem">
+     It admits more than one solution.
+    </li>
+    <li block-type="ListItem">
+     The solution/solutions to the inverse problem does/do not depend on the input data in a continuous way.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   In the case of calibration problems in finance. except for trivial situations, there exists typically
+   <i>
+    no
+   </i>
+   instance of a given class of models that is exactly consistent with a full calibration data set, including a number of option prices, a zero-coupons curve, an expected dividend yield curve on the underlying, and so on. However, there are often various instances of a given class of models that fit the data within the
+   <i>
+    bid-ask spread.
+   </i>
+   In such cases, if one perturbs the data (e.g., if the observed prices change by some small amount between today and tomorrow), it is quite typical that a numerically determined best fit solution of the calibration problem switches from one "basin of attraction" to the other, and thus the numerically determined solution is
+   <i>
+    not stable
+   </i>
+   either.
+  </p>
+  <p block-type="Text">
+   To get a well-posed problem, we need to introduce some regularization. The most widely known and applicable regularization method is the Tikhonov(-
+   <i>
+    Phillips
+   </i>
+   ) regularization method [9, 14, 16].
+  </p>
+  <h2>
+   Tikhonov Regularization of Nonlinear
+   <b>
+    Inverse Problems
+   </b>
+  </h2>
+  <p block-type="Text">
+   We consider a Hilbert space
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   , a closed convex nonvoid subset
+   <math display="inline">
+    \mathcal{A}
+   </math>
+   of
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   , a direct operator ("pricing functional")
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{H} \supseteq \mathcal{A} \ni a \xrightarrow{\Pi} \Pi(a) \in \mathbb{R}^d \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (so
+   <math display="inline">
+    a
+   </math>
+   corresponds to the set of model parameters), noisy data ("observed prices")
+   <math display="inline">
+    \pi^{\delta}
+   </math>
+   , and a
+   <i>
+    prior
+   </i>
+   <math display="inline">
+    a_0 \in \mathcal{H}
+   </math>
+   (
+   <math display="inline">
+    a
+   </math>
+   priori guess for
+   <math display="inline">
+    a
+   </math>
+   ). The Tikhonov regularization method for
+   <i>
+    inverting
+   </i>
+   <math display="inline">
+    \prod
+   </math>
+   at
+   <math display="inline">
+    \pi^{\delta}
+   </math>
+   , or estimating the model parameter
+   <i>
+    a
+   </i>
+   given the observation
+   <math display="inline">
+    \pi^{\delta}
+   </math>
+   , consists in
+  </p>
+  <p block-type="Text">
+   reformulating the inverse problem as the following nonlinear least squares problem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \min_{a \in \mathcal{A}} \left\| \Pi \left( a \right) - \pi^{\delta} \right\|^2 \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   to ensure
+   <i>
+    existence
+   </i>
+   of a solution;
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     selecting the solutions of the previous nonlinear
+     <math display="inline">
+      \bullet
+     </math>
+     least squares problem that minimize
+     <math display="inline">
+      \|a - a_0\|^2
+     </math>
+     over the set of all solutions; and
+    </li>
+    <li block-type="ListItem">
+     introducing a trade-off between accuracy and reg-
+     <math display="inline">
+      \bullet
+     </math>
+     ularity, parameterized by a level of regularization
+     <math display="inline">
+      \alpha &gt; 0
+     </math>
+     , to ensure
+     <i>
+      stability
+     </i>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   More precisely, we introduce the following
+   <i>
+    cost
+   </i>
+   criterion:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J_{\alpha}^{\delta}(a) \equiv \left\| \Pi(a) - \pi^{\delta} \right\|^{2} + \alpha \left\| a - a_{0} \right\|^{2} \quad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Given
+   <math display="inline">
+    \alpha
+   </math>
+   ,
+   <math display="inline">
+    \delta
+   </math>
+   , and a further parameter
+   <math display="inline">
+    \eta
+   </math>
+   , where
+   <math display="inline">
+    \eta
+   </math>
+   represents an error tolerance on the minimization, we define a regularized solution to the inverse problem for
+   <math display="inline">
+    \Pi
+   </math>
+   at
+   <math display="inline">
+    \pi^{\delta}
+   </math>
+   as any model parameter
+   <math display="inline">
+    a_{\alpha}^{\delta,\eta} \in \mathcal{A}
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J_{\alpha}^{\delta} \left( a_{\alpha}^{\delta,\eta} \right) \leq J_{\alpha}^{\delta} \left( a \right) + \eta, \quad a \in \mathcal{A} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   Under suitable assumptions, one can show that the regularized inverse problem is well posed, as follows. We first postulate that the direct operator
+   <math display="inline">
+    \Pi
+   </math>
+   satisfies the following regularity assumption.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Assumption 1 (Compactness)
+   </b>
+   <math display="inline">
+    \prod (a_n)
+   </math>
+   <i>
+    converges to
+   </i>
+   <math display="inline">
+    \n\Pi\n
+   </math>
+   (a) in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   if
+   <math display="inline">
+    a_n
+   </math>
+   weakly converges to a in
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   We then have the following
+   <i>
+    stability
+   </i>
+   result.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1 (Stability)
+   </b>
+   Let
+   <math display="inline">
+    \pi^{\delta_n} \to \pi^{\delta}
+   </math>
+   ,
+   <math display="inline">
+    \eta_n \to 0
+   </math>
+   when
+   <math display="inline">
+    n \to \infty
+   </math>
+   . Then any sequence of regularized solutions
+   <math display="inline">
+    a_{\alpha}^{\delta_n,\eta_n}
+   </math>
+   admits a subsequence that converges toward a regularized solution
+   <math display="inline">
+    a_{\alpha}^{\delta,\eta=0}
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Assuming further that the data lie in the range of the model leads to
+   <i>
+    convergence
+   </i>
+   properties of
+  </p>
+  <p block-type="TextInlineMath">
+   regularized solutions to (unregularized) solutions of the inverse problem as
+   <math display="inline">
+    midi \rightarrow 0
+   </math>
+   . Let us then make the following additional assumption on
+   <math display="inline">
+    \Pi
+   </math>
+   .
+  </p>
+  <h4>
+   Assumption 2 (Range Property)
+   <math display="inline">
+    \pi \in \Pi(\mathcal{A})
+   </math>
+   .
+  </h4>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   By an
+   <math display="inline">
+    a_0
+   </math>
+   -solution to the inverse problem for
+   <math display="inline">
+    \Pi
+   </math>
+   at
+   <math display="inline">
+    \pi
+   </math>
+   , we mean any
+   <math display="inline">
+    a \in \operatorname*{Argmin}
+   </math>
+   <math display="inline">
+    \|\mathbf{a} - \mathbf{a}_0\|
+   </math>
+   . Note that the set of
+   <math display="inline">
+    a_0
+   </math>
+   -solutions is non-empty, by Assumption 2.
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 2 (Convergence; see, for instance, Theorem 2.3 of Engl et al [10]) Let the perturbed parameters
+   <math display="inline">
+    \alpha_n
+   </math>
+   ,
+   <math display="inline">
+    \delta_n
+   </math>
+   ,
+   <math display="inline">
+    \eta_n
+   </math>
+   and the perturbed data
+   <math display="inline">
+    \pi_n \in \mathbb{R}^d
+   </math>
+   satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{array}{lll}\n(n \in \mathbb{N}) &amp; \|\pi - \pi_n\| \le \delta_n &amp; (5) \\
+(n \to \infty) &amp; \alpha_n, \quad \delta_n^2/\alpha_n, \quad \eta_n/\alpha_n &amp; \longrightarrow &amp; 0\n\end{array}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then any sequence of regularized solutions
+   <math display="inline">
+    a_{\alpha}^{\delta_n,\eta_n}
+   </math>
+   admits a subsequence that converges toward an
+   <math display="inline">
+    a_0
+   </math>
+   solution a of the inverse problem for
+   <math display="inline">
+    \Pi
+   </math>
+   at
+   <math display="inline">
+    \pi
+   </math>
+   . In particular, in the case when this problem admits a unique
+   <math display="inline">
+    a_0
+   </math>
+   -solution
+   <math display="inline">
+    a
+   </math>
+   ,
+   <math display="inline">
+    a_{\alpha_n}^{\delta_n,\eta_n}
+   </math>
+   converges to
+   <math display="inline">
+    a
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 1
+   </b>
+   In the special case where the direct operator
+   <math display="inline">
+    \Pi
+   </math>
+   is linear, Tikhonov regularization thus appears as an approximating scheme for the pseudoinverse of
+   <math display="inline">
+    \Pi
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Finally, assuming further regularity of
+   <math display="inline">
+    \Pi
+   </math>
+   , one can get convergence rates estimates, uniform over all data
+   <math display="inline">
+    \pi \in \Pi(\mathcal{A})
+   </math>
+   sufficiently close and smooth with respect to the prior
+   <math display="inline">
+    a_0
+   </math>
+   (so that the additional
+   <i>
+    source condition
+   </i>
+   12 is satisfied). Let us thus make the following additional assumption on
+   <math display="inline">
+    \Pi
+   </math>
+   .
+  </p>
+  <h4>
+   Assumption 3 (Twice Gateaux Differentiability)
+  </h4>
+  <p block-type="TextInlineMath">
+   There exist linear and bilinear forms
+   <math display="inline">
+    d\Pi(a)
+   </math>
+   on
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   and
+   <math display="inline">
+    d^2\Pi(a)
+   </math>
+   on
+   <math display="inline">
+    \mathcal{H}^2
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \Pi\left(a+\varepsilon h\right) &amp;= \Pi\left(a\right) + \varepsilon d\Pi\left(a\right) \cdot h \\ &amp;+ \frac{\varepsilon^2}{2} d^2 \Pi\left(a\right) \cdot \left(h, h\right) + \mathsf{o}\left(\varepsilon^2\right); \\ a, a+h \in \mathcal{A} \qquad (6) \\ \|d\Pi\left(a\right) \cdot h\| &amp;\leq C \left\|h\right\|, \\ \|d^2 \Pi\left(a\right) \cdot \left(h, h'\right)\| &amp;\leq C \left\|h\right\| \left\|h'\right\|; \end{aligned}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a \in \mathcal{A} \ , \quad h, h' \in \mathcal{H}
+   </math>
+   (7)
+  </p>
+  <p block-type="Text">
+   where C is a constant independent of
+   <math display="inline">
+    a \in A
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In the following theorem, the operator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\Pi(a)^* : \mathbb{R}^d \ni \lambda \mapsto d\Pi(a)^* \lambda \in \mathcal{H}^1 \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   denotes the
+   <i>
+    adjoint
+   </i>
+   of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\Pi(a) : \mathcal{H}^1 \ni h \mapsto d\Pi(a) \, h \in \mathbb{R}^d \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   in the sense that (see
+   <math display="inline">
+    [9]
+   </math>
+   )
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \langle h, \mathrm{d}\Pi(a)^{\star}\lambda\rangle_{\mathcal{H}^{1}} = \lambda' \mathrm{d}\Pi(a).h \; ; \quad (h,\lambda) \in \mathcal{H}^{1} \times \mathbb{R}^{d}
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 3 (Convergence Rates; see, for instance, Theorem 10.4 of Engl et al [9]) Assume
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{array}{cc} (n \in \mathbb{N}) &amp; \|\pi - \pi_n\| \le \delta_n, \\\\ (n \to \infty) &amp; \alpha_n \longrightarrow 0, \quad \alpha_n \sim \delta_n, \quad \eta_n = \mathcal{O}\left(\delta_n^2\right) \end{array} \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then
+   <math display="inline">
+    \|a_{\alpha_n}^{\delta_n,\eta_n}-a\| = O(\sqrt{\delta_n})
+   </math>
+   , for any
+   <math display="inline">
+    a_0
+   </math>
+   -solution a of the inverse problem for
+   <math display="inline">
+    \Pi
+   </math>
+   at
+   <math display="inline">
+    \pi
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a - a_0 = d\Pi \left( a \right)^* \lambda \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   for some
+   <math display="inline">
+    \lambda
+   </math>
+   sufficiently small in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   (in particular, there exists at most one such
+   <math display="inline">
+    a_0
+   </math>
+   -solution a).
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 2
+   </b>
+   An interesting feature of Tikhonov regularization is that the data set
+   <math display="inline">
+    \pi
+   </math>
+   does not need to belong to the range of the direct operator for applicability of the method-even if Assumption 2 is the simplest assumption for the previous results regarding convergence and convergence rates (in fact, a minimal assumption for such results is the existence of a least squares solution to the inverse problem; see Proposition 3.2 of Binder et al [2]).
+  </p>
+  <p block-type="Text">
+   An important issue, in practice, is the choice of the
+   <i>
+    regularization parameter
+   </i>
+   <math display="inline">
+    \alpha
+   </math>
+   that determines the tradeoff between accuracy and regularity in the method. To set
+   <math display="inline">
+    \alpha
+   </math>
+   , the two main approaches are
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <i>
+      a priori
+     </i>
+     methods, in which the choice of
+     <math display="inline">
+      \alpha
+     </math>
+     only depends on
+     <math display="inline">
+      \delta
+     </math>
+     , the level of noise on the data (such as the size of the bid-ask spread, in the case of market prices data in finance);
+    </li>
+    <li block-type="ListItem">
+     more general
+     <i>
+      a posteriori
+     </i>
+     methods, in which
+     <math display="inline">
+      \alpha
+     </math>
+     may depend on the data in a less specific way.
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   In applications to calibration problems in finance, the most commonly used method for choosing
+   <math display="inline">
+    \alpha
+   </math>
+   is the
+   <i>
+    a posteriori
+   </i>
+   method based on the so-called discrepancy principle, which consists in choosing the greatest level of
+   <math display="inline">
+    \alpha
+   </math>
+   for which the "distance"
+   <math display="inline">
+    \|\Pi(a_{\alpha}^{\delta,\eta}) - \pi^{\delta}\|
+   </math>
+   (for given
+   <math display="inline">
+    \delta, \eta
+   </math>
+   ) does not exceed the level of noise
+   <math display="inline">
+    \delta
+   </math>
+   on the observations (as measured by the bid-ask spread).
+  </p>
+  <h2>
+   Implementation
+  </h2>
+  <p block-type="Text">
+   For implementation purposes, the minimization problem 3 is discretized, and thus it effectively becomes a nonlinear minimization problem on (some subset of)
+   <math display="inline">
+    \mathbb{R}^k
+   </math>
+   (see, e.g., [13]), where k is the number of model parameters to be estimated.
+  </p>
+  <p block-type="TextInlineMath">
+   In the case of a strictly convex cost criterion
+   <math display="inline">
+    J = J_{\alpha}^{\delta}
+   </math>
+   in equation 3, and if, additionally, J is differentiable, one can prove the convergence to the (unique) minimum of various gradient descent algorithms. These consist, at each iteration, in making a step of a certain length (fixed-step descent vs. optimal step descent) in a direction defined by the gradient
+   <math display="inline">
+    \nabla J
+   </math>
+   in the current step of the algorithm, in combination with, in some variants of the method (conjugate gradient method, quasi-Newton algorithms, etc.), the
+   <math display="inline">
+    gradient(s) \nabla J
+   </math>
+   in the previous step(s).
+  </p>
+  <p block-type="Text">
+   In the
+   <i>
+    nonstrictly convex
+   </i>
+   case, (actually, in the context of calibration problems in finance,
+   <math display="inline">
+    J
+   </math>
+   is typically not even convex with respect to
+   <math display="inline">
+    a
+   </math>
+   ), or if the cost criterion is only almost everywhere differentiable (as in the American calibration problem, see Remark 3 (i)), such algorithms can still be used, in which case, they typically converge to one among many
+   <math display="inline">
+    local \ minima \ of \ J
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   When there are no constraints (the case when
+   <math display="inline">
+    \mathcal{A} =
+   </math>
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   ), the minimization problem is, in practice, much easier, and many implementations of the related gradient descent algorithms are available (e.g., in [15]). As for constrained problems, a state-of-the-art opensource implementation of the quasi-Newton method for minimizing a function in a box, the L-BFGS algorithm, is available on www.ece.northwestern. edu/~nocedal/lbfgsb.html.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   When the gradient
+   <math display="inline">
+    \nabla J
+   </math>
+   is neither computable in closed form nor computable numerically with the required accuracy, an alternative to gradient descent methods is to use the nonlinear simplex method (not to be confused with the simplex algorithm for solving linear programming problems, see [15]). As
+  </p>
+  <p block-type="Text">
+   opposed to gradient descent methods, the nonlinear simplex algorithm only uses the
+   <i>
+    values
+   </i>
+   (and not the
+   <i>
+    gradient
+   </i>
+   ) of
+   <math display="inline">
+    J
+   </math>
+   , but the convergence of the algorithm is not proved in general, and there are known counterexamples in which it does not converge.
+  </p>
+  <h2>
+   <b>
+    Application: Extracting Local Volatility
+   </b>
+  </h2>
+  <p block-type="Text">
+   In the case of
+   <i>
+    parametric
+   </i>
+   models in finance, namely, models with a small number of scalar parameters, such as Heston's stochastic volatility model or Merton's jump-diffusion model (as opposed to models with
+   <i>
+    functional
+   </i>
+   , e.g., time-dependent, parameters), the choice of a suitable regularization term is generally not obvious. In this case, the calibration industry standard rather consists in solving the unregularized nonlinear least squares problem 2. So Tikhonov regularization is rather used for calibrating
+   <i>
+    nonparametric
+   </i>
+   financial models.
+  </p>
+  <p block-type="Text">
+   In this section, we consider the problem of inferring a
+   <i>
+    local volatility function
+   </i>
+   <math display="inline">
+    \sigma(t, S)
+   </math>
+   (see [7]) from observed option prices, namely, European vanilla calls and/or puts with various strikes and maturities on the underlying
+   <math display="inline">
+    S
+   </math>
+   . The local volatility function thus inferred may then be used to price exotic options and/or compute Greeks, consistently with the market (e.g., [5]).
+  </p>
+  <h3>
+   The Ill-posed Local Volatility Calibration Problem
+  </h3>
+  <p block-type="Text">
+   The local volatility calibration problem, however, is underdetermined (since the set of observed prices is finite whereas the nonparametric function
+   <math display="inline">
+    \sigma
+   </math>
+   has an infinite degrees of freedom) and ill posed. So a naive approach based on numerical differentiation using the so-called
+   <i>
+    Dupire's formula
+   </i>
+   [7] gives a local volatility that is highly oscillatory (Figure 1), and thus unstable, for instance when performing a dayto-day calibration.
+  </p>
+  <p block-type="Text">
+   To address this issue, the first idea that comes to mind is to seek for
+   <math display="inline">
+    \sigma
+   </math>
+   within a parameterized family of functions. However, finding classes of functions with all the flexibility required for fitting implied volatility surfaces with several hundred implied volatility points and a variety of shapes turns out to be a very challenging task (unless a large family of splines is considered, see Coleman et al. [3], in which case, the ill-posedness of the problem shows up again).
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Local Variance
+   <math display="inline">
+    \sigma(t, S)^2
+   </math>
+   obtained by application of Dupire's formula on the DAX index, May 2, 2001
+  </p>
+  <p block-type="Text">
+   The best way to proceed is to stay nonparametric, and to use regularization methods to stabilize the calibration procedure. Since we use a nonparametric local volatility, the model contains sufficient number of degrees of freedom to provide a perfect fit to virtually any market smile. Furthermore, the regularization method guarantees that the local volatility thus calibrated is nice and smooth.
+  </p>
+  <h4>
+   Approach by Tikhonov Regularization
+  </h4>
+  <p block-type="Text">
+   Among the various regularization methods at hand, the most popular one is the Tikhonov regularization method described in the section Tikhonov Regularization of Nonlinear Inverse Problems. One thus rewrites the local volatility calibration problem as the following nonlinear minimization problem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \min_{\{\sigma \equiv \sigma(t,S); \underline{\sigma} \le \sigma \le \overline{\sigma}\}} J(\sigma)
+   </math>
+   <br/>
+   =
+   <math>
+    \|\Pi(\sigma) - \pi\|^2 + \alpha \|\sigma - \sigma_0\|_{\mathcal{H}^1}^2
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Text">
+   the bounds
+   <math display="inline">
+    \underline{\sigma}
+   </math>
+   and
+   <math display="inline">
+    \overline{\sigma}
+   </math>
+   are given positive constants specifying the abstract set
+   <math display="inline">
+    \mathcal{A}
+   </math>
+   in the section Tikhonov Regularization of Nonlinear Inverse Problems;
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      \pi
+     </math>
+     is the vector of market prices observed at the calibration time;
+     <math display="inline">
+      \Pi(\sigma)
+     </math>
+     is the related vector of prices in the Dupire model with volatility function
+     <math display="inline">
+      \sigma
+     </math>
+     ;
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \sigma_0
+     </math>
+     is a suitable prior (
+     <i>
+      a
+     </i>
+     priori guess on
+     <math display="inline">
+      \sigma
+     </math>
+     ), and for
+     <math display="inline">
+      u \equiv u(t, S)
+     </math>
+     ,
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \|u\|_{\mathcal{H}^{1}}^{2} = \int_{t_{0}}^{\infty} \int_{0}^{\infty} \left[ u(t, S)^{2} + (\partial_{t} u(t, S))^{2} + (\partial_{S} u(t, S))^{2} \right] dt dS \quad (14)
+   </math>
+  </p>
+  <p block-type="Text">
+   Problem 13 and a related gradient descent approach to solve it numerically (cf. the section Implementation) were introduced in [12]. Crépey [6] (see also [8]) further showed that the general conditions of the section Tikhonov Regularization of Nonlinear Inverse Problems are satisfied in this case. Stability and convergence of the method follow.
+  </p>
+  <p block-type="TextInlineMath">
+   In [5] an efficient trinomial tree implementation of this approach was presented, based on an exact computation of the gradient of the (discretized) cost criterion
+   <math display="inline">
+    J
+   </math>
+   in equation 13. Figure 2 displays the local variance surface
+   <math display="inline">
+    \sigma(t, S)^2
+   </math>
+   (to be compared with that of Figure 1), the corresponding implied volatility surface, and the accuracy of the calibration, obtained by running this algorithm on the DAX index European options data set of May 2, 2001 (consisting
+  </p>
+  <p>
+   <img src="_page_4_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 2 (a) Local variance, (b) implied volatility, and (c) calibration accuracy obtained by application of the Tikhonov regularization method on the DAX index, May 2, 2001
+  </p>
+  <p block-type="Text">
+   of about 300 European vanilla option prices distributed throughout six maturities with moneyness
+   <math display="inline">
+    K/S_0 \in [0.8, 1.2]
+   </math>
+   ). At the initiation of the algorithm, the norm of the gradient of the cost criterion
+   <math display="inline">
+    J
+   </math>
+   in equation 13 was equal to
+   <math display="inline">
+    5.73E - 02
+   </math>
+   , and upon convergence after 65 iterations of the gradient descent algorithm, a local minimum of the cost criterion was found, with related value of the norm of the gradient of the cost criterion equal to
+   <math display="inline">
+    6.83E - 07
+   </math>
+   . In the accuracy graph, implied volatility mismatch refers to the difference between the Black-Scholes implied volatility corresponding to the market price of an option and its price in the calibrated local volatility model, for each option in the calibration data set.
+  </p>
+  <p block-type="Text">
+   Such calibration procedures are typically computationally intensive; however, it is possible to make them faster by resorting to parallel computing (see Table 1 and [5]).
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Calibration CPU times on a cluster of
+   <i>
+    nproc
+   </i>
+   1.3-GHz processors connected on a fast Myrinet network. using a calibration tree with
+   <i>
+    n
+   </i>
+   time steps (thus
+   <math display="inline">
+    n^2/2
+   </math>
+   nodes in the tree)
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      <math>
+       n \times n \n
+      </math>
+      proc
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      54
+     </td>
+     <td>
+      25s
+     </td>
+     <td>
+      9s
+     </td>
+     <td>
+      10s
+     </td>
+    </tr>
+    <tr>
+     <td>
+      101
+     </td>
+     <td>
+      <math>
+       4 \text{m} 30 \text{s}
+      </math>
+     </td>
+     <td>
+      <math>
+       1 \text{m} 57 \text{s}
+      </math>
+     </td>
+     <td>
+      <math>
+       1 \text{m} 36 \text{s}
+      </math>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   <b>
+    Remark 3
+   </b>
+   (1) This approach by Tikhonov regularization can be extended to the problem of calibrating a local volatility function using American observed option prices as input data [5], or to the problem of calibrating a
+   <i>
+    Lévy model with local jump measure
+   </i>
+   (see
+   <math display="inline">
+    [4]
+   </math>
+   and
+   <math display="inline">
+    [11]
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    (2)
+   </math>
+   An alternative approach for this problem is to use entropic regularization, rewriting the local volatility calibration problem as a related stochastic control problem [1].
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Avellaneda, M., Friedman, C., Holmes, R. &amp; Samperi, D. (1997). Calibrating volatility surfaces via relativeentropy minimization,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      41
+     </b>
+     , 37–64.
+    </li>
+    <li block-type="ListItem">
+     [2] Binder, A., Engl, H.W., Groetsch, C.W., Neubauer, A. &amp; Scherzer, O. (1994). Weakly closed nonlinear operators and parameter identification in parabolic equations by Tikhonov regularization,
+     <i>
+      Applicable Analysis
+     </i>
+     <b>
+      55
+     </b>
+     , 13–25.
+    </li>
+    <li block-type="ListItem">
+     [3] Coleman, T., Li, Y. &amp; Verma, A. (1999). Reconstructing the unknown volatility function,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      2
+     </b>
+     (3), 77–102.
+    </li>
+    <li block-type="ListItem">
+     [4] Cont, R. &amp; Rouis, M.(2006).
+     <i>
+      Estimating Exponential L´evy Models from Option Prices via Tikhonov Regularization
+     </i>
+     , Working Paper.
+    </li>
+    <li block-type="ListItem">
+     [5] Crepey, S. (2003). Calibration of the local volatility in ´ a trinomial tree using Tikhonov regularization,
+     <i>
+      Inverse Problems
+     </i>
+     <b>
+      19
+     </b>
+     , 91–127.
+    </li>
+    <li block-type="ListItem">
+     [6] Crepey, S. (2003). Calibration of the local volatility ´ in a generalized Black–Scholes model using Tikhonov regularization,
+     <i>
+      SIAM Journal on Mathematical Analysis
+     </i>
+     <b>
+      34
+     </b>
+     (5), 1183–1206.
+    </li>
+    <li block-type="ListItem">
+     [7] Dupire, B. (1994). Pricing with a smile,
+     <i>
+      Risk
+     </i>
+     <b>
+      7
+     </b>
+     , 18–20.
+    </li>
+    <li block-type="ListItem">
+     [8] Egger, H. &amp; Engl, H.W. (2005). Tikhonov regularization applied to the inverse problem of option pricing: convergence analysis and rates,
+     <i>
+      Inverse Problems
+     </i>
+     <b>
+      21
+     </b>
+     , 1027–1045.
+    </li>
+    <li block-type="ListItem">
+     [9] Engl, H.W., Hanke, M. &amp; Neubauer, A. (1996).
+     <i>
+      Regularization of Inverse Problems
+     </i>
+     , Kluwer, Dordrecht.
+    </li>
+    <li block-type="ListItem">
+     [10] Engl, H.W. Kunisch, K. &amp; Neubauer, A. (1989). Convergence rates for Tikhonov regularisation of nonlinear ill-posed problems,
+     <i>
+      Inverse Problems
+     </i>
+     <b>
+      5
+     </b>
+     (4), 523–540.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [11] Kindermann, S., Mayer, P., Albrecher, H. &amp; Engl, H.W. (2008). Identification of the local speed function in a Levy model for option pricing, ´
+     <i>
+      Journal of Integral Equations and Applications
+     </i>
+     <b>
+      20
+     </b>
+     (2), 161–200.
+    </li>
+    <li block-type="ListItem">
+     [12] Lagnado, R. &amp; Osher, S. (1997). A technique for calibrating derivative security pricing models: numerical solution of an inverse problem,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      1
+     </b>
+     (1), 13–25.
+    </li>
+    <li block-type="ListItem">
+     [13] Nocedal, J. &amp; Wright, S.J. (2006).
+     <i>
+      Numerical Optimization
+     </i>
+     , 2nd Edition, Springer.
+    </li>
+    <li block-type="ListItem">
+     [14] Phillips, D. (1962). A technique for the numerical solution of certain integral equations of the first kind,
+     <i>
+      Journal of the ACM
+     </i>
+     <b>
+      9
+     </b>
+     , 84–97.
+    </li>
+    <li block-type="ListItem">
+     [15] Press, W.H., Flannery, B.P., Teukolsky, S.A. &amp; Vetterling, W.T. (1992).
+     <i>
+      Numerical Recipes in C: The Art of Scientific Computing
+     </i>
+     , 2nd Edition, Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [16] Tikhonov, A. (1963). Solution of incorrectly formulated problems and the regularization method,
+     <i>
+      Soviet Mathematics Doklady
+     </i>
+     <b>
+      4
+     </b>
+     , 1035–1038, English translation of
+     <i>
+      Doklady Akademii Nauk SSSR
+     </i>
+     <b>
+      151
+     </b>
+     , 501–504, 1963.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Conjugate Gradient Methods
+   </b>
+   ;
+   <b>
+    Dupire Equation
+   </b>
+   ;
+   <b>
+    Local Volatility Model
+   </b>
+   ;
+   <b>
+    Model Calibration
+   </b>
+   ;
+   <b>
+    Tree Methods
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   STEPHANE ´ CREPEY ´
+  </p>
+ </body>
+</html>

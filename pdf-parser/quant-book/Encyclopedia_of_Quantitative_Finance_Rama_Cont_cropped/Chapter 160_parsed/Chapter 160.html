@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Time-changed Lévy Process
+  </h1>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    L
+   </math>
+   is a Lévy process (see
+   <b>
+    Lévy Processes
+   </b>
+   ) and
+   <math display="inline">
+    (T_t)_{t\geq 0}
+   </math>
+   is a positive increasing process,
+   <math display="inline">
+    X_t = L(T_t)
+   </math>
+   is called a time-changed Lévy process with time change
+   <math display="inline">
+    (T_t)_{t&gt;0}
+   </math>
+   . When the time change is independent from
+   <math display="inline">
+    L
+   </math>
+   , many properties of
+   <math display="inline">
+    X
+   </math>
+   can be derived from those of
+   <math display="inline">
+    L
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Many Lévy processes have appeared as timechanged Brownian motions (see Time Change), so one might ask why one should time change them yet again. In this regard, we note that Lévy processes are by construction processes of independent identically distributed increments and hence all distributional parameters such as variances, skewness, kurtosis, and possibly correlations are constant. Yet all these and possibly more entities are stochastic in actual economies, and this randomness may be important for particular questions of interest. These considerations led in the first instance to the construction of processes displaying stochastic volatility with the local innovations of a Lévy process. Analytical tractability of characteristic functions motivated models with exponential affine characteristic functions (see Affine
+   <b>
+    Models
+   </b>
+   ) and through the work of Duffie
+   <i>
+    et al.
+   </i>
+   [4] it became well known that this would be the case if the infinitesimal generator of the resulting Markov process was linear in state variables. The recipe for constructing these models was, therefore, clear.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   A number of models in this direction were presented by Carr et al. [2]. Three Lévy processes were selected for being time changed and they were the normal inverse Gaussian (NIG) (see Normal Inverse Gaussian Model), the variance gamma (VG) (see Variance-gamma Model), and the CGMY model (see
+   <b>
+    Tempered Stable Process
+   </b>
+   ). The first two were already known to be time changes of Brownian motion with drift. Cont and Tankov [3, Prop. 4.1] show that the CGMY also has such a representation. Characteristic exponents
+   <math display="inline">
+    \psi(u;.)
+   </math>
+   are critical to the development of the exponential affine representations (see Affine Models) involved, which are given here by the logarithm of the characteristic functions taken at unit time. For these three models, the characteristic exponents are given as (subscript indicates
+  </p>
+  <p block-type="Text">
+   the model name)
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \psi_{\text{NIG}}(u; \sigma, \nu, \theta)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    =\sigma\left(\frac{\nu}{\theta}-\sqrt{\frac{\nu^{2}}{\theta^{2}}-2\frac{\theta\mathrm{i}u}{\sigma^{2}}+u^{2}}\right),\,\sigma,\,\nu&gt;0,\,\,\theta\in\mathbb{R}
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \psi_{\text{VG}}(u;\sigma,\nu,\theta)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = \frac{1}{\nu} \log \left( 1 - \mathrm{i} u \theta \nu - \frac{\sigma^2 \nu}{2} u^2 \right), \sigma, \ \theta, \nu \in \mathbb{R} \ (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \psi_{\text{CGMY}}(u;C,G,M,Y)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = C\Gamma(-Y)((M - iu)^{Y} - M^{Y} + (G + iu)^{Y}
+   </math>
+   <math display="block">
+    - G^{Y}), C, G, M &gt; 0, 0 &lt; Y &lt; 2.
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   The details of the associated Lévy processes are given, which would assist in various applications. The NIG and VG processes can be written as Brownian motion with drift
+   <math display="inline">
+    \theta
+   </math>
+   and volatility
+   <math display="inline">
+    \sigma
+   </math>
+   time changed by an inverse Gaussian process and a gamma process, respectively. The inverse Gaussian process
+   <math display="inline">
+    T_t^{\nu}
+   </math>
+   is the time taken by an independent Brownian motion with drift
+   <math display="inline">
+    \nu
+   </math>
+   to reach the level
+   <math display="inline">
+    t
+   </math>
+   , while the gamma process
+   <math display="inline">
+    G_t^v
+   </math>
+   is an increasing process with independent identically distributed increments where the increments over unit time have a gamma distribution with unit mean and volatility
+   <math display="inline">
+    \nu
+   </math>
+   . Both the NIG and VG are pure jump processes with Lévy measures
+   <math display="inline">
+    k_{\text{NIG}}(x) dx
+   </math>
+   ,
+   <math display="inline">
+    k_{\text{VG}}(x) dx
+   </math>
+   defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k_{\text{NIG}}(x) = \sqrt{\frac{2}{\pi}} \sigma \alpha^2 \frac{e^{\beta x} K_1(|x|)}{|x|} \tag{4}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \beta = \frac{\theta}{\sigma^2}, \quad \alpha^2 = \frac{v^2}{\sigma^2} + \frac{\theta^2}{\sigma^4} \tag{5}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k_{\text{VG}}(x) = \frac{C}{|x|} \exp\left(\frac{G-M}{2}x\right) \exp\left(-\frac{G+M}{2}|x|\right) \tag{6}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C = \frac{1}{\nu}; G = \left(\sqrt{\frac{\theta^2 \nu^2}{4} + \frac{\sigma^2 \nu}{2}} - \frac{\theta \nu}{2}\right)^{-1},
+   </math>
+   <math display="block">
+    M = \left(\sqrt{\frac{\theta^2 \nu^2}{4} + \frac{\sigma^2 \nu}{2}} + \frac{\theta \nu}{2}\right)^{-1}
+   </math>
+   (7)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    K_{\alpha}(x)
+   </math>
+   is the Bessel K function.
+  </p>
+  <p block-type="Text">
+   The CGMY process was defined in terms of its Lévy measure
+   <math display="inline">
+    k_{\text{CGMY}}(x) dx
+   </math>
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k_{\text{CGMY}}(x) = \frac{C}{|x|^{1+Y}} \exp\left(\frac{G-M}{2}x\right)
+   </math>
+   <math display="block">
+    \times \exp\left(-\frac{G+M}{2}|x|\right) \qquad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It was shown in
+   <math display="inline">
+    [3,
+   </math>
+   Proposition 4.1] (see also [6]) that the
+   <math display="inline">
+    CGMY
+   </math>
+   process can be represented as Brownian motion with drift
+   <math display="inline">
+    (G - M)/2
+   </math>
+   time changed by a shaved stable
+   <math display="inline">
+    \frac{Y}{2}
+   </math>
+   subordinator with shaving function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(y) = e^{-\frac{(B^2 - A^2)y}{2}} E\left[e^{-\frac{B^2 y}{2} \frac{\gamma \gamma/2}{\gamma_{1/2}}}\right],
+   </math>
+   <math display="block">
+    A = \frac{G - M}{2}, \quad B = \frac{G + M}{2} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \gamma_{Y/2}
+   </math>
+   ,
+   <math display="inline">
+    \gamma_{1/2}
+   </math>
+   are independent gamma variates.
+  </p>
+  <p block-type="Text">
+   One may explicitly evaluate in terms of Hermite functions:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[e^{-\frac{B^2y}{2}\frac{\gamma_{Y/2}}{\gamma_{1/2}}}\right] = \frac{\Gamma(Y)}{\Gamma\left(\frac{Y}{2}\right)2^{\frac{Y}{2}-1}}h_{-Y}(B\sqrt{y})
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_{\nu}(z) = \frac{1}{\Gamma(-\nu)} \int_0^{\infty} e^{-y^2/2 - yz} y^{-\nu - 1} dy \quad (\nu &lt; 0)
+   </math>
+   (11)
+  </p>
+  <h3>
+   <b>
+    A Continuous Time Change
+   </b>
+  </h3>
+  <p block-type="Text">
+   We can introduce stochastic volatility along with a clustering of volatility by time changing these Lévy processes by the integral of the square root process
+   <math display="inline">
+    y(t)
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dy = \kappa (\eta - y) dt + \lambda \sqrt{y} dW \qquad (12)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for an independent Brownian motion
+   <math display="inline">
+    (W(t), t &gt; 0)
+   </math>
+   . For a candidate Lévy process
+   <math display="inline">
+    X(t)
+   </math>
+   , we consider as a model for the uncertainty driving the stock the composite process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z(t) = X(Y(t)) \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y(t) = \int_0^t y(u) \, \mathrm{d}u \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The characteristic function for the composite process is easily derived from the characteristic function of
+   <math display="inline">
+    Y(t)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[e^{iuY(t)}\right] = \phi(u, t, y(0), \kappa, \eta, \lambda)
+   </math>
+   <br/>
+   <math display="block">
+    = A(t, u) \exp\left(B(t, u)y(0)\right) \qquad (15)
+   </math>
+   <br/>
+   <math display="block">
+    A(t, u) = \frac{\exp\left(\frac{\kappa^2 \eta t}{\lambda^2}\right)}{\left(\cosh\left(\frac{\gamma t}{2}\right) + \frac{\kappa}{\gamma} \sinh\left(\frac{\gamma t}{2}\right)\right)^{\frac{2\kappa\eta}{\lambda^2}}} \qquad (16)
+   </math>
+  </p>
+  <p block-type="Equation">
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B(t, u) = \frac{2\mathrm{i}u}{\kappa + \gamma \coth\left(\frac{\gamma t}{2}\right)}
+   </math>
+   (17)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \gamma = \sqrt{\kappa^2 - 2\lambda^2 \mathrm{i}u} \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   It follows that
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    (10)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\exp\left(iuZ(t)\right)\right] = \phi\left(-i\psi_X(u), t, y(0), \kappa, \eta, \lambda\right) \tag{19}
+   </math>
+  </p>
+  <h2>
+   The Stock Price Model
+  </h2>
+  <p block-type="Text">
+   There are two approaches to model the stock price
+   <math display="inline">
+    S(t)
+   </math>
+   . The first approach takes the exponential of the composite process corrected to get the correct forward price, whereby we define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_1(t) = S(0) \frac{\exp\left(Z\left(t\right)\right)}{E\left[\exp\left(Z\left(t\right)\right)\right]} \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   In this case, the stock price has the right forward and the resulting option prices are free of static arbitrage. However, there may be the possibility of dynamic arbitrage in the model and this is an issue if the model is being used continuously to quote on options with constant parameters through time. To exclude dynamic arbitrage in the model, one could form a martingale model for the forward stock price by modeling it as the stochastic exponential of the martingale:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    n(t) = Z(t) - \int_0^t \int_{-\infty}^\infty xy(t) k_X(x) \, \mathrm{d}x \mathrm{d}s \qquad (21)
+   </math>
+  </p>
+  <p block-type="Text">
+   In the second approach, one writes the stock price process
+   <math display="inline">
+    S_2(t)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_2(t) = S(0) \exp\left((r-q)t\right) \exp(Z(t)
+   </math>
+   <math display="block">
+    -Y(t)\psi_X(-\mathbf{i})) \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   For the first approach, the log characteristic function for the logarithm of the stock price is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E \left[ \exp \left( \mathrm{i}u \log S_1(t) \right) \right]
+   </math>
+   <br/>
+   =
+   <math>
+    \exp \left( \mathrm{i}u (\log(S(0) + (r - q)t)) \right)
+   </math>
+   <br/>
+   <math>
+    \times \frac{\phi \left( -\mathrm{i}\psi_X(u), t, y(0); \kappa, \eta, \lambda \right)}{\phi \left( -\mathrm{i}\psi_X(-i), t, y(0); \kappa, \eta, \lambda \right)^{\mathrm{i}u}}
+   </math>
+   (23)
+  </p>
+  <p block-type="Text">
+   The second approach leads to the following characteristic function:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E \left[ \exp \left( \mathrm{i}u \log S_2(t) \right) \right]
+   </math>
+   <br/>
+   =
+   <math>
+    \exp \left( \mathrm{i}u (\log(S(0) + (r - q)t)) \times \phi(-\mathrm{i}\psi_X(u) - u\psi_X(-\mathrm{i}), t, y(0); \kappa, \eta, \lambda) \right)
+   </math>
+   <br/>
+   (24)
+  </p>
+  <p block-type="Text">
+   The models of the first approach are termed NIGSA, VGSA, and CGMYSA for NIG, VG, and CGMY with a stochastic arrival rate of jumps adapted to the level of the process
+   <math display="inline">
+    y(t)
+   </math>
+   . The models of the second approach are martingale models and are termed NIGSAM, VGSAM, and CGMYSAM, respectively. It is observed in calibrations that the first approach generally fits the option price data better.
+  </p>
+  <h4>
+   Some Discontinuous Time Changes
+  </h4>
+  <p block-type="TextInlineMath">
+   One can replace the continuous stochastic process for the arrival rate of jump activity
+   <math display="inline">
+    v(t)
+   </math>
+   by a discontinuous process that now only has upward jumps. We call this process
+   <math display="inline">
+    y^{J}(t)
+   </math>
+   for discontinuous jump arrival rates. Given a background driving Lévy process (BDLP)
+   <math display="inline">
+    U(t)
+   </math>
+   with only positive jumps, we define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dy^{J}(t) = -\kappa y^{J}(t) dt + dU(t)
+   </math>
+   (25)
+  </p>
+  <p block-type="Text">
+   The composite process now permits some direct dependence between arrival rate jumps and the underlying uncertainty:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z^{J}(t) = X(Y^{J}(t)) + \rho U(t) \tag{26}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y^{J}(t) = \int_{0}^{t} y^{J}(s) \, \mathrm{d}s \tag{27}
+   </math>
+  </p>
+  <p block-type="Text">
+   We suppose that the background driving Lévy process has the following characteristic function:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[\exp(iuU(t)) = \exp(t\psi_U(u)) \qquad (28)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The characteristic function of the composite process
+   <math display="inline">
+    Z^{J}(t)
+   </math>
+   may be developed in terms of the joint characteristic function of
+   <math display="inline">
+    Y^{J}(t)
+   </math>
+   ,
+   <math display="inline">
+    U(t)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Phi_t(a,b) = E\left[\exp\left(\mathrm{i}aY^J(t) + \mathrm{i}bU(t)\right)\right] \tag{29}
+   </math>
+  </p>
+  <p block-type="Text">
+   We may show that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\exp\left(iuZ^{J}(t)\right)\right] = \Phi_{t}(-i\psi_{X}(u), u\rho) \qquad (30)
+   </math>
+  </p>
+  <p block-type="Text">
+   We have that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Phi_t(a,b) = \exp\left(iay(0)\frac{1 - e^{-\kappa t}}{\kappa}\right)
+   </math>
+   <math display="block">
+    \times \exp\left(\int_L^U \frac{\psi_U(v)}{a + \kappa b - \kappa v} dv\right) \tag{31}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L = b \tag{32}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U = b + a \frac{1 - e^{-\kappa t}}{\kappa} \tag{33}
+   </math>
+  </p>
+  <p block-type="Text">
+   The characteristic functions for the logarithm of the stock price for the exponential model are now
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E \left[ \exp \left( \mathrm{i}u \log(S_1^J(t)) \right) \right]
+   </math>
+   <br/>
+   =
+   <math>
+    \exp \left( \mathrm{i}u (\log(S(0) + (r - q)t)) \times \Phi_t(-\mathrm{i}\psi_X(u), \rho u) \times \exp \left( -\mathrm{i}u \log \left( \Phi_t(-\mathrm{i}\psi_X(-i), -\mathrm{i}\rho) \right) \right) \right)
+   </math>
+   (34)
+  </p>
+  <p block-type="Text">
+   For the stochastic exponential, the result is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\exp\left(iu\log(S_2^J(t))\right)\right]
+   </math>
+   <br/>
+   =
+   <math>
+    \exp(iu(\log(S(0)) + (r-q)t - \psi_U(-i\rho)t))
+   </math>
+   <br/>
+   <math>
+    \times \Phi_t\left(-i\psi_X(u) - u\psi_X(-i), \rho u\right)
+   </math>
+   (35)
+  </p>
+  <p block-type="Text">
+   Some explicit examples for
+   <math display="inline">
+    \psi_U(u)
+   </math>
+   , for which we may obtain exact expressions for
+   <math display="inline">
+    \Phi_t(a, b)
+   </math>
+   , remain to be determined.
+  </p>
+  <h4>
+   Examples for
+   <math display="inline">
+    \psi_U(u)
+   </math>
+   and
+   <math display="inline">
+    \Phi_t(a,b)
+   </math>
+  </h4>
+  <p block-type="Text">
+   Three explicit models for
+   <math display="inline">
+    \psi_U
+   </math>
+   were developed. These are SG for stationary gamma, IG for inverse Gaussian, and SIG for stationary inverse Gaussian.
+  </p>
+  <h3>
+   The SG Case
+  </h3>
+  <p block-type="Text">
+   In this case, the Lévy density for jumps in the process
+   <math display="inline">
+    U(t)
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k_U(x) = \frac{\lambda}{\zeta} e^{-x/\zeta} \tag{36}
+   </math>
+  </p>
+  <p block-type="Text">
+   The log characteristic function of the BDLP is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi_U(u) = \frac{\mathrm{i}u\lambda}{1/\zeta - \mathrm{i}u} \tag{37}
+   </math>
+  </p>
+  <h4>
+   The IG Case
+  </h4>
+  <p block-type="Text">
+   The Laplace transform for inverse Gaussian (see Normal Inverse Gaussian Model) time with drift
+   <math display="inline">
+    \nu
+   </math>
+   for the Brownian motion is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\exp\left(-\lambda T_1^{\nu}\right)\right] = \exp\left(\nu - \sqrt{\nu^2 + 2\lambda}\right) \qquad (38)
+   </math>
+  </p>
+  <p block-type="Text">
+   and the log characteristic function is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi_U(u) = \nu - \sqrt{\nu^2 - 2\mathrm{i}u} \tag{39}
+   </math>
+  </p>
+  <h3>
+   The SIG Case
+  </h3>
+  <p block-type="Text">
+   For this case, Barndorff-Nielsen and Shephard [1] show that the Lévy density is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k_U(x) = \frac{1}{2\sqrt{2\pi}} x^{-3/2} (1 + \nu^2 x) \exp\left(-\frac{\nu^2 x}{2}\right) \tag{40}
+   </math>
+  </p>
+  <p block-type="Text">
+   The log characteristic function is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi_U(u) = \frac{\mathrm{i}u}{\sqrt{v^2 - 2\mathrm{i}u}}\tag{41}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For these three cases, the construction of
+   <math display="inline">
+    \Phi_t(a, b)
+   </math>
+   is completed on determining the integral
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{L}^{U} \frac{\psi_{Z}(v)}{a + \kappa b - \kappa v} dv = \Psi(U, a, b) - \Psi(L, a, b)
+   </math>
+   (42)
+  </p>
+  <p block-type="Text">
+   and we have analytic expressions for
+   <math display="inline">
+    \Psi(x, a, b)
+   </math>
+   in the SG, IG, and SIG cases that are as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi_{\text{SG}}(x, a, b; \kappa, \lambda, \zeta)\n
+   </math>
+   <math display="block">
+    \n= \log \left[ \left( x + \frac{\mathrm{i}}{\zeta} \right)^{\frac{\lambda}{\kappa - \mathrm{i}\zeta(a + \kappa b)}} \times (a + \kappa b - \kappa x)^{\frac{\lambda(a + \kappa b)\zeta}{\kappa((a + \kappa b)\zeta + \mathrm{i}\kappa)}} \right] \n
+   </math>
+   (43)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi_{\text{IG}}(x, a, b; \kappa, \nu)\n
+   </math>
+   <math display="block">
+    \n= \frac{2\sqrt{\nu^2 - 2ix}}{\kappa} + \frac{2\sqrt{\nu^2\kappa - 2i(a + \kappa b)}}{\kappa^{3/2}}\n
+   </math>
+   <math display="block">
+    \n\times \operatorname{arctanh}\left[\frac{\sqrt{\kappa}\sqrt{\nu^2 - 2ix}}{\sqrt{\nu^2\kappa - 2i(a + \kappa b)}}\right]\n
+   </math>
+   <math display="block">
+    \n- \frac{\nu \log(a + \kappa b - \kappa x)}{\kappa}\n
+   </math>
+   <math display="block">
+    \n\Psi_{\text{SIG}}(x, a, b; \kappa, \nu)\n
+   </math>
+   (44)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = \frac{\sqrt{\nu^2 - 2ix}}{\kappa} - \frac{2i(a + \kappa b)}{\kappa^{3/2}\sqrt{\nu^2\kappa - 2i(a + \kappa b)}}
+   </math>
+   <math display="block">
+    \times \operatorname{arctanh}\left[\frac{\sqrt{\kappa}\sqrt{\nu^2 - 2ix}}{\sqrt{\nu^2\kappa - 2i(a + \kappa b)}}\right] \qquad (45)
+   </math>
+  </p>
+  <h1>
+   Correlation in VGSA or VGCSA
+  </h1>
+  <p block-type="Text">
+   We consider the introduction of correlation in VGSA along the following lines. We define the correlated uncertainty as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z^{C}(t) = X(Y(t)) + \rho y(t) \tag{46}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The characteristic function now follows from the joint characteristic function of
+   <math display="inline">
+    Y(t)
+   </math>
+   ,
+   <math display="inline">
+    y(t)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[e^{iuZ^{C}(t)}\right] = E\left[e^{Y(t)\psi_{X}(u) + iu\rho_{Y}(t)}\right] \qquad (47)
+   </math>
+  </p>
+  <p block-type="Text">
+   Let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Phi_t^C(a, b, x) = E\left[\exp\left(\mathrm{i}aY(t) + \mathrm{i}by(t)\right)|y(0) = x\right]
+   </math>
+   (48)
+  </p>
+  <p block-type="Text">
+   We have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{Z^C}(u) = \Phi_t^C(-\mathrm{i}\psi_X(u), \rho u) \tag{49}
+   </math>
+  </p>
+  <p block-type="Text">
+   We recall the solution for
+   <math display="inline">
+    \Phi_t(a, b, x)
+   </math>
+   from
+   <math display="inline">
+    [5, 7]
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Phi_t^C(a,b,x) = A^C(t,a,b) \exp(B^C(t,a,b)x) \quad (50)
+   </math>
+   <math display="block">
+    A^C(t,a,b) \quad (50)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    =\frac{\exp\left(\frac{\kappa^{2}\eta t}{\lambda^{2}}\right)}{\left[\cosh\left(\frac{\gamma t}{2}\right)+\frac{\left(\kappa-\mathrm{i}b\lambda^{2}\right)}{\gamma}\sinh\left(\frac{\gamma t}{2}\right)\right]^{\frac{2\kappa\eta}{\lambda^{2}}}}
+   </math>
+   (51)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B^{C}(t,a,b) = \frac{\mathrm{i}b\left[\gamma\cosh\left(\frac{\gamma t}{2}\right) - \kappa\sinh\left(\frac{\gamma t}{2}\right)\right] + 2\mathrm{i}a\sinh\left(\frac{\gamma t}{2}\right)}{\gamma\cosh\left(\frac{\gamma t}{2}\right) + \left(\kappa - \mathrm{i}b\lambda^{2}\right)\sinh\left(\frac{\gamma t}{2}\right)}
+   </math>
+   (52)
+   <br/>
+   <math display="block">
+    \gamma = \sqrt{\kappa^{2} - 2\lambda^{2}\mathrm{i}a}
+   </math>
+   (53)
+  </p>
+  <p block-type="Text">
+   We get the characteristic function for the model VGCSA, where the letter
+   <math display="inline">
+    C
+   </math>
+   denotes correlated stochastic arrival by exponentiation as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E \left[ \exp \left( iu \log(S_1^C(t)) \right) \right]
+   </math>
+   <br/>
+   =
+   <math>
+    \exp \left( iu (\log(S(0)) + (r - q)t) \right)
+   </math>
+   <br/>
+   <math>
+    \times \Phi_t^C(-i\psi_X(u), \rho u)
+   </math>
+   <br/>
+   <math>
+    \times \exp\left( -iu \log(\Phi_t^C(-i\psi_X(-i), -i\rho)) \right)
+   </math>
+   (54)
+  </p>
+  <h1>
+   Exciting the Jumps by the Level of Activity that Is Also a Heston Type of
+   <b>
+    Correlated Volatility
+   </b>
+  </h1>
+  <p block-type="Text">
+   In this class of models, we introduce stochastic volatility and allow jump arrival rates to respond to the volatility on each side with separate sensitivities. This will give rise to stochastic skewness as well as to volatility. The model for the logarithm of the stock price
+   <math display="inline">
+    H(t) = \log(S(t))
+   </math>
+   is now as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H(t) = H(0) + (r - q)t - \int_0^t \frac{y(u)}{2} du
+   </math>
+   <math display="block">
+    - (c_p t + s_p Y(t)) \int_0^\infty (e^x - 1 - x) k_p(x) dx
+   </math>
+   <math display="block">
+    - (c_n t + s_n Y(t)) \int_{-\infty}^0 (e^x - 1 - x) k_n(x) dx
+   </math>
+   <math display="block">
+    + x * (\mu - \nu) + \int_0^t \sqrt{y(u)} dW_S(u) \qquad (55)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(t, H(t), y(t)) = A(\tau) \exp(\mathrm{i}aH(t) + \gamma(\tau)y(t))
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y(t) = \int_0^t y(u) \, \mathrm{d}u \tag{56}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dy = \kappa(\eta - y) dt + \lambda \sqrt{y} dW_y(t) \quad (57)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dW_y \, dW_S = \rho \, dt \tag{58}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \nu(\,dx,\,dt) = \left(c_p + s_p y(t)\right) k_p(x) \mathbf{1}_{x&gt;0} \, dx \n+ (c_n + s_n y(t)) k_n(x) \mathbf{1}_{x&lt;0} \, dx \tag{59}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The growth rate of the stock price is at the risk neutral level of
+   <math display="inline">
+    (r - q)
+   </math>
+   . The coefficients
+   <math display="inline">
+    c_p, c_n
+   </math>
+   are the Lévy jump response components. The sensitivities of jumps to volatility are captured by the two slope coefficients
+   <math display="inline">
+    s_p
+   </math>
+   ,
+   <math display="inline">
+    s_n
+   </math>
+   for the positive and the negative sides. The logarithm of the stock price is a continuous martingale with stochastic volatility plus a compensated jump martingale that has jumps responding to volatility with log price drift set to fix the stock drift at
+   <math display="inline">
+    r - q
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The joint characteristic function of the log of the stock price, the level of the terminal variance, and the remaining integrated variance is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(t, H(t), y(t))\n
+   </math>
+   <math display="block">
+    \n= E_t \left[ \exp(\mathrm{i}aH(T) + \mathrm{i}by(T) + \mathrm{i}c \int_t^T y(u) \, \mathrm{d}u \right]\n
+   </math>
+   (60)
+  </p>
+  <p block-type="Text">
+   We have a closed form for
+   <math display="inline">
+    \Psi
+   </math>
+   in this model given
+  </p>
+  <p block-type="Text">
+   (61)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A(\tau) = \exp\left(\left(\mathrm{i}a(r-q) + c_p u_p + c_n u_n + (\kappa - \lambda \rho \mathrm{i}a)\frac{\kappa \eta}{\lambda^2}\right)\tau\right)\left(\frac{\cosh(D)}{\cosh\left(D - \frac{\tau}{2}\xi\right)}\right)^{\frac{2\kappa \eta}{\lambda^2}}\tag{62}
+   </math>
+  </p>
+  <p block-type="Text">
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \gamma(\tau) = \frac{\kappa - \lambda \rho i a}{\lambda^2} + \frac{\xi}{\lambda^2} \tanh\left(D - \frac{\xi}{2}\tau\right) \tag{63}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \xi = \sqrt{(\kappa - \lambda \rho \mathrm{i}a)^2 + \lambda^2 \left[a^2 + \mathrm{i}(a - 2c) - 2(s_p u_p + s_n u_n)\right]}
+   </math>
+   (64)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_p = \int_0^\infty (e^x - 1 - iax)k_p(x) dx - ia \int_0^\infty (e^x - 1 - x)k_p(x) dx \tag{65}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_n = \int_{-\infty}^0 (e^x - 1 - iax)k_n(x) dx - \int_{-\infty}^0 (e^x - 1 - x)k_n(x) dx \tag{66}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D = \tanh^{-1} \left( \frac{\mathrm{i}b\lambda^2}{\xi} - \frac{\kappa - \lambda\rho\mathrm{i}a}{\xi} \right) \tag{67}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   On setting
+   <math display="inline">
+    b = c = 0
+   </math>
+   , we obtain the characteristic function of the log of the final stock price and this yields the models: SVADNE, SVAVG, and SVAC-CGMYY.
+  </p>
+  <p block-type="Text">
+   We note that for DNE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{p} = (1 - ia) \frac{1}{\beta_{p} - 1}
+   </math>
+   (68)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_n = -(1 - ia)\frac{1}{\beta_n + 1}
+   </math>
+   (69)
+  </p>
+  <p block-type="Text">
+   The corresponding calculations for VG in the CGM parameterization are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_p = \log\left(\frac{M}{M-1}\right) \tag{70}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_n = \log\left(\frac{G}{G+1}\right) \tag{71}
+   </math>
+  </p>
+  <p block-type="Text">
+   For CCGMYY, we have the following result:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_p = \Gamma(-y_p) \left( (M-1)^{y_p} - M^{y_p} \right) \tag{72}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_n = \Gamma(-y_n) \left( (G+1)^{y_n} - G^{y_n} \right) \tag{73}
+   </math>
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Barndorff-Nielsen, O.E. (1998). Processes of normal inverse Gaussian type, Finance and Stochastics 2, 41-68.
+    </li>
+    <li block-type="ListItem">
+     [2] Carr, P., Geman, H., Madan, D. &amp; Yor, M. (2003). Stochastic volatility for Levy processes, Mathematical Finance 13, 345-382.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [3] Cont, R. &amp; Tankov, P. (2004). Financial Modelling with Jump Processes, Series in Financial Mathematics, CRC Press.
+    </li>
+    <li block-type="ListItem">
+     [4] Duffie, D., Filipovic, D. &amp; Schachermayer, W. (2003). Affine processes and applications in finance, Annals of Applied Probability 13, 984–1053.
+    </li>
+    <li block-type="ListItem">
+     [5] Lamberton, D. &amp; Lapeyre, B. (1996). Introduction to Stochastic Calculus Applied to Finance, Chapman and Hall, New York.
+    </li>
+    <li block-type="ListItem">
+     [6] Madan, D. &amp; Yor, M. (2008). Representing the CGMY and Meixner Levy processes as time changed Brownian motions, Journal of Computational Finance Fall, 27-47.
+    </li>
+    <li block-type="ListItem">
+     [7] Pitman, J. &amp; Yor M. (1982). A decomposition of Bessel Bridges, Zeitschrift für Wahrsch- einlichkeitstheorie und Verwandte Gebiete 59, 425–457.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Further Reading
+   </b>
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Carr, P., Geman, H., Madan, D. &amp; Yor, M. (2002). The fine structure of asset returns: an empirical investigation, Journal of Business, 75(2), 305-332.
+    </li>
+    <li block-type="ListItem">
+     Madan, D., Carr, P. &amp; Chang, E. (1998). The variance gamma process and option pricing, European Finance Review 2,
+     <math display="inline">
+      79 - 105
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     Madan, D.B. &amp; Seneta, E. (1990). The Variance Gamma (VG) model for share market returns, Journal of Business 63, 511-524.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Related Articles
+   </b>
+  </h4>
+  <p block-type="Text">
+   Affine Models; Barndorff-Nielsen and Shephard (BNS) Models; Exponential Lévy Models; Heston Model; Lévy Processes; Normal Inverse Gaussian Model; Squared Bessel Processes; Stochastic Exponential; Tempered Stable Process; Time Change; Variance-gamma Model.
+  </p>
+  <p block-type="Text">
+   DILIP B. MADAN
+  </p>
+ </body>
+</html>

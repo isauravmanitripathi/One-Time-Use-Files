@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Constant Maturity Swap
+   </b>
+  </h1>
+  <p block-type="Text">
+   In-arrears swaps, averaging swaps, and constant maturity swaps (CMS) are simple extensions of vanilla interest rate swaps. Unlike vanilla swaps, these securities are sensitive to volatility via socalled convexity adjustments (see Convexity Adjust
+   <b>
+    ments
+   </b>
+   ). We demonstrate two methods for calculating convexity adjustments: the standard Black-Scholes framework and the replication method.
+  </p>
+  <p block-type="TextInlineMath">
+   Market uncertainty is described via a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathcal{F}_t, Q)
+   </math>
+   where
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   is a filtration associated with a Q-Brownian motion
+   <math display="inline">
+    W_t
+   </math>
+   . Q is the so-called risk-neutral probability measure, under which money-market-discounted asset prices are martingales.
+   <math display="inline">
+    \mathbb{E}_t[X] = \mathbb{E}[X|\mathcal{F}_t]
+   </math>
+   is the conditional expectation under
+   <math display="inline">
+    Q
+   </math>
+   of the integrable random variable
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <h4>
+   Notations
+  </h4>
+  <p block-type="Text">
+   We use the following notations within the article:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      r_t
+     </math>
+     is the short rate at time
+     <math display="inline">
+      t
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \beta_{t,T} = \exp(\int_t^T r_s \mathrm{d}s)
+     </math>
+     is the continuously rolled money-market account between
+     <math display="inline">
+      t
+     </math>
+     and
+     <math display="inline">
+      T
+     </math>
+     . Note that
+     <math display="inline">
+      \beta_{t,T} = \frac{\beta_{0,T}}{\beta_{0,t}}
+     </math>
+     and that
+     <math display="inline">
+      \beta_{t,T}
+     </math>
+     is
+     <math display="inline">
+      \mathcal{F}_T
+     </math>
+     -measurable.&lt;br&gt;
+     <math display="inline">
+      P(t, T)
+     </math>
+     is the value at
+     <i>
+      t
+     </i>
+     of 1$ paid at
+     <i>
+      T
+     </i>
+     . We have
+    </li>
+    <li block-type="ListItem">
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t,T) = \mathbb{E}_{t} \left[ \frac{\beta_{0,t}}{\beta_{0,T}} \right] = \mathbb{E}_{t} \left[ e^{-\int_{t}^{T} r_{s} ds} \right] \quad (1)
+   </math>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      G(w, f, N) = \sum_{i=1}^{f \cdot N} \frac{\delta(f)}{(1 + \delta(f)w)^i}
+     </math>
+     is the cash level of the swap, or an approximation to the present value of a basis-point, or PV01, of a swap with different payment frequencies
+     <math display="inline">
+      f \in \{1, 2, 4\}
+     </math>
+     and different maturities
+     <math display="inline">
+      N \in \mathbb{N}
+     </math>
+     . Note that
+     <math display="inline">
+      \delta(f) \approx \frac{1}{f}
+     </math>
+     is the day-count fraction associated with a given day-count basis such as "Act360", "30-360", and so on. Going forward, we assume the frequency to be annual (i.e.,
+     <math display="inline">
+      f = 1
+     </math>
+     ), and T to be fixed and equal to N; then we simply write
+     <math display="inline">
+      G(w, 1, N) = G(w)
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      L(t, T_1, T_2)
+     </math>
+     is the value at t of the forward LIBOR . rate, paid at
+     <math display="inline">
+      T_2
+     </math>
+     , and determined at the settlement date
+     <math display="inline">
+      T_1
+     </math>
+     , as described in
+     <b>
+      LIBOR Rate
+     </b>
+     .
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \bullet
+     </math>
+     <math display="inline">
+      L^{f}(t, T_1, T_2)
+     </math>
+     is the futures rate with settlement date
+     <math display="inline">
+      T_1
+     </math>
+     . Because of margin calls, the value
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    L^{f}(t, T_{1}, T_{2})
+   </math>
+   differs from
+   <math display="inline">
+    L(t, T_{1}, T_{2})
+   </math>
+   , as detailed in
+   <b>
+    Eurodollar Futures and Options
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   .
+   <math display="inline">
+    Q^T
+   </math>
+   denotes the T-forward probability measure (see Forward and Swap Measures). It is the risk-neutral probability measure associated with the numeraire
+   <math display="inline">
+    P(t, T)
+   </math>
+   (see
+   <b>
+    LIBOR Rate
+   </b>
+   ). For any
+   <math display="inline">
+    \mathcal{F}_T
+   </math>
+   -measurable random variable X, the change of measures is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t}\left[\frac{\beta_{0,t}}{\beta_{0,T}}X\right] = P(t,T)\mathbb{E}_{t}^{T}[X] \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbb{E}_{t}^{T}
+   </math>
+   (.) is the conditional expectation under
+   <math display="inline">
+    Q^T
+   </math>
+   .
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     The O-Brownian motion,
+     <math display="inline">
+      W_t
+     </math>
+     , changes into
+     <math display="inline">
+      W_t^T
+     </math>
+     . under
+     <math display="inline">
+      Q^T
+     </math>
+     via the Girsanov theorem.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      P^{f}(t, \widetilde{T}, T') = \frac{P(t, T')}{P(t, T)}
+     </math>
+     is the forward zerocoupon, that is, the
+     <i>
+      t
+     </i>
+     -value of 1
+     <math display="inline">
+      \
+     </math>
+     paid at
+     <math display="inline">
+      T'
+     </math>
+     but borrowed at time
+     <math display="inline">
+      T &lt; T'
+     </math>
+     . Note that
+     <math display="inline">
+      P^f(t, T, T')
+     </math>
+     is a
+     <math display="inline">
+      Q^T
+     </math>
+     -martingale as
+     <math display="inline">
+      P(t,T)
+     </math>
+     is a traded asset. More details on forward measures can be found in Forward and Swap Measures or in [5].
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      w_{t,T}
+     </math>
+     is the forward swap rate of an N-year LIBOR swap paying annual coupons at dates
+     <math display="inline">
+      T_1, \ldots, T_N
+     </math>
+     (see LIBOR Rate for the definition of a LIBOR swap). We define
+     <math display="inline">
+      T_0
+     </math>
+     to be the fixing date
+     <math display="inline">
+      T
+     </math>
+     . We have
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    w_{t,T} = \frac{P(t,T) - P(t,T_N)}{\sum_{i=1}^{N} \theta_i P(t,T_i)} = \frac{1 - P^f(t,T,T_N)}{\sum_{i=1}^{N} \theta_i P^f(t,T,T_i)}
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   The quantity
+   <math display="inline">
+    \theta_i
+   </math>
+   is the day-count fraction for period
+   <math display="inline">
+    [T_{i-1}, T_i], i = 1, \ldots, N.
+   </math>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      A(t) = \sum_{i=1}^{N} \theta_i P(t, T_i)
+     </math>
+     is the spot annuity paying
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \theta_i
+     </math>
+     at times
+     <math display="inline">
+      T_1, \ldots, T_N
+     </math>
+     .&lt;br&gt;
+     <math display="inline">
+      A^f(t,T) = \sum_{i=1}^N \theta_i \frac{P(t,T_i)}{P(t,T)}
+     </math>
+     is the forward annuity paying
+     <math display="inline">
+      \theta_i
+     </math>
+     at time
+     <math display="inline">
+      T_1, \ldots, T_N
+     </math>
+     forward in time, as of T. Note that
+     <math display="inline">
+      A^f(T,T) = A(T)
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     The probability measure
+     <math display="inline">
+      Q^{A_T}
+     </math>
+     (see Forward and
+     <math display="inline">
+      \bullet
+     </math>
+     Swap Measures) associated with the numeraire
+     <math display="inline">
+      A(.)
+     </math>
+     is defined
+     <i>
+      via
+     </i>
+     the following measure change. For any
+     <math display="inline">
+      \mathcal{F}_T
+     </math>
+     -measurable random variable X,
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t}\left[\frac{\beta_{0,t}}{\beta_{0,T}}A(T)X\right] = A(t)\mathbb{E}_{t}^{A_{T}}[X] \qquad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    Q^{A_T}
+   </math>
+   is usually called the
+   <i>
+    annuity
+   </i>
+   , or
+   <i>
+    swap
+   </i>
+   , measure. Note that for
+   <math display="inline">
+    N = 1
+   </math>
+   ,
+   <math display="inline">
+    O^{A_{T_1}}
+   </math>
+   coincides with
+   <math display="inline">
+    O^{T_1}
+   </math>
+   .
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     The Q-Brownian motion,
+     <math display="inline">
+      W_t
+     </math>
+     , changes into
+     <math display="inline">
+      W_t^{A_T}
+     </math>
+     under
+     <math display="inline">
+      Q^{A_T}
+     </math>
+     via the Girsanov theorem.
+    </li>
+    <li block-type="ListItem">
+     A swaption is an option to enter into a swap at a future date
+     <math display="inline">
+      T
+     </math>
+     . We define
+     <math display="inline">
+      K
+     </math>
+     as the fixed rate in the swap. The price at
+     <math display="inline">
+      t &lt; T
+     </math>
+     of a cashsettled swaption is given by
+     <math display="inline">
+      CSS_{t,T}(K, \zeta) =
+     </math>
+     <math display="inline">
+      \mathbb{E}_{t} \left[ \beta_{t,T}^{-1} G \left( w_{T,T} \right) \left( \zeta \cdot w_{T,T} - \zeta \cdot K \right)_{+} \right] \text{ with } \zeta = 1
+     </math>
+     &lt;br&gt;for a payer swaption and
+     <math display="inline">
+      \zeta = -1
+     </math>
+     for a receiver swaption.
+    </li>
+    <li block-type="ListItem">
+     In this section, we define the payout of a CMS caplet referencing the swap rate
+     <math display="inline">
+      w_{T}
+     </math>
+     with strike K as
+     <math display="inline">
+      (w_{T,T}-K)_+
+     </math>
+     , and paying at the fixing date T. So its price is
+     <math display="inline">
+      CMScaplet_{t,T}(K) =
+     </math>
+     <math display="inline">
+      \mathbb{E}_{t}[\beta_{t,T}^{-1}(w_{T,T}-K)_{+}]
+     </math>
+     . We define the CMS floorlet as
+     <math display="inline">
+      CMSfloor_{t,T}(K) = \mathbb{E}_{t}[\beta_{t,T}^{-1}(K - w_{T,T})_{+}].
+     </math>
+     For a definition of standard caps and floors, see Caps and Floors: a standard (LIBOR) caplet with maturity
+     <math display="inline">
+      T_{i+1}
+     </math>
+     is given by
+     <math display="inline">
+      Caplet_{t,T_{i+1}}(K) =
+     </math>
+     <math display="inline">
+      \mathbb{E}_{t}[\beta_{t,T_{i+1}}^{-1}(L(T_{i},T_{i},T_{i+1})-K)_{+}].
+     </math>
+     &lt;br&gt;In CMS and LIBOR swaps, we distinguish two
+    </li>
+    <li block-type="ListItem">
+     different types of payments: the nonstandard case (in-arrears), where the floating cash flow fixes on the same date as it pays, that is,
+     <math display="inline">
+      T
+     </math>
+     , and the standard case, (in advance), where the fixing takes place, say, 3 or 6 months before the payment.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Constant Maturity Swaps
+   </b>
+  </h4>
+  <p block-type="Text">
+   Constant maturity swaps, constant maturity treasuries (CMT), and modified schedule LIBOR swaps are extensions of the standard fixed-for-floating swaps. Unlike the standard vanilla interest rate swaps (see LIBOR Rate) that specify an exchange of a fixed coupon for a LIBOR rate, CMS instruments pay the swap rate that is reset at each period versus either a fixed coupon or a LIBOR rate plus a spread. For CMT swaps, the structure is identical, but instead of the swap rate, the yield of a government bond is referenced. These swaps are often suggested as a way to benefit from a steepening or a flattening of the yield curve, while still being hedged against its parallel moves. To illustrate, let us consider the following CMS instrument: one pays 3-month LIBOR rate and receives the 10-year swap rate, denoted by
+   <math display="inline">
+    CMS_{10Y}(t)
+   </math>
+   , that is reset (observed) every 6 months. If, during the life of the swap (for instance 10 years)
+  </p>
+  <p block-type="Text">
+   the curve steepens, so that
+   <math display="inline">
+    CMS_{10Y}(t)
+   </math>
+   increases as time
+   <math display="inline">
+    t
+   </math>
+   goes by relative to the LIBOR rate, the holder realizes a positive carry, that is, the amount of received cash flows exceeds the amount of paid cash flows. Given that LIBOR and CMS rates are reset at each period, a sudden parallel shift of the curve has no effect on the present value of the swap because of the mutual offset of both legs. As instruments that express views on the nonparallel moves of the yield curve, both CMS and CMT instruments are very popular and generally very liquid, and also often serve as building blocks for more complicated derivatives such as options on CMS rates or CMS spreads (differences between CMS rates of different tenors). Given their widespread use, accurate pricing of the underlying CMS cash flows is important. We describe the nonstandard CMS first, as the standard CMS is the nonstandard CMS adjusted for a payment lag.
+  </p>
+  <p block-type="Text">
+   There are two main methods for valuing CMS instruments: a standard Black-Scholes approach and a replication method. The first, a more traditional approach, assumes the swap rate to be log-normal, allowing the standard Black-Scholes framework to be used (see Black-Scholes Formula for this model). The key benefit of this approach is that it leads a to closed-form formula for the value of a CMS cash flow, also allowing options on CMS rates and other derivatives to be priced with the Black-Scholes formula.
+  </p>
+  <p block-type="Text">
+   We will show that the value of the CMS rate cash flow differs from the forward swap rate as it depends on volatility. This difference, called
+   <i>
+    convexity adjustment
+   </i>
+   , is often explained by the fact that in a CMS cash flow, the rate is paid once, rather than on its "natural" schedule. More details about convexity can be found in [4], [6], and [9].
+  </p>
+  <p block-type="TextInlineMath">
+   Before describing these pricing methods in some detail, we introduce some notations. We know that in a CMS cash flow, the swap rate is paid once, at
+   <math display="inline">
+    T
+   </math>
+   , so the CMS value at
+   <math display="inline">
+    t &lt; T
+   </math>
+   is simply given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t,T) \cdot CMS_t = \mathbb{E}_t[\beta_{t,T}^{-1}w_{T,T}]
+   </math>
+   <br/>
+   =
+   <math>
+    P(t,T)\mathbb{E}_t^T[w_{T,T}]
+   </math>
+   (5)
+  </p>
+  <p block-type="Text">
+   so that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    CMS_t = \mathbb{E}_t^T[w_{T,T}] \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Note that
+   <math display="inline">
+    w_{.,T}
+   </math>
+   is not a
+   <math display="inline">
+    Q^T
+   </math>
+   -martingale, so
+   <math display="inline">
+    \mathbb{E}_{t}^{T}[w_{T,T}] \neq w_{t,T}
+   </math>
+   . The difference between
+   <math display="inline">
+    CMS_{t}
+   </math>
+   and
+  </p>
+  <p block-type="TextInlineMath">
+   the forward swap rate
+   <math display="inline">
+    w_{t,T}
+   </math>
+   is the convexity adjustment. Let us write the formula under the annuity measure
+   <math display="inline">
+    Q^{A_T}
+   </math>
+   , the probability measure under which
+   <math display="inline">
+    w_{..T}
+   </math>
+   is a martingale. Using equation (4), we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    CMS_{t} = \frac{A(t)}{P(t,T)} \mathbb{E}_{t}^{A_{T}} \left[ \frac{w_{T,T}}{A(T)} \right] \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We see that
+   <math display="inline">
+    CMS_t
+   </math>
+   is a function of both the curve level via
+   <math display="inline">
+    \frac{A(t)}{P(t,T)}
+   </math>
+   and the covariance between
+   <math display="inline">
+    A(T)
+   </math>
+   and
+   <math display="inline">
+    w_{T,T}
+   </math>
+   . This strongly hints that the convexity adjustment is a function of the volatility of the forward swap rate
+   <math display="inline">
+    w_{T,T}
+   </math>
+   .
+  </p>
+  <h3>
+   CMS Convexity Adjustment: the Simple Approach
+  </h3>
+  <p block-type="TextInlineMath">
+   The aim of this approach is to find a simple, closedform approximation, assuming that the forward swap rate is log-normal: it is consequently often referred as the
+   <i>
+    Black
+   </i>
+   convexity adjustment. As
+   <math display="inline">
+    w_{T}
+   </math>
+   is a
+   <math display="inline">
+    Q^{A_T}
+   </math>
+   martingale, we have
+   <math display="inline">
+    \frac{\mathrm{d}w_{u,T}}{w_{u,T}} = \sigma \mathrm{d}W_u^{A_T}
+   </math>
+   at any time
+   <i>
+    u
+   </i>
+   between
+   <math display="inline">
+    t
+   </math>
+   and
+   <math display="inline">
+    T
+   </math>
+   . We assume that the variance of the swap rate under its swap measure is equal to its variance under the
+   <math display="inline">
+    T
+   </math>
+   -forward measure, that is,
+   <math display="inline">
+    \mathbb{E}_{t}^{T}[w_{T,T}-w_{t,T}]^{2}=\sigma^{2}(T-t)w_{t,T}^{2}
+   </math>
+   (more precisely, we assume the convexity adjustment to be an adjustment of second order). We further assume that at any time
+   <i>
+    u
+   </i>
+   between
+   <i>
+    t
+   </i>
+   and
+   <i>
+    T
+   </i>
+   ,
+   <math display="inline">
+    A^f(u,T) \approx G(w_{u,T})
+   </math>
+   , so that we approximate
+   <math display="inline">
+    w_{u,T}
+   </math>
+   with the par yield of the forward starting bond—a common assumption used by market participants to, for example, compute the swap PV01. Since
+   <math display="inline">
+    A^f(., T)
+   </math>
+   is a
+   <math display="inline">
+    Q^T
+   </math>
+   -martingale, so it is approximately
+   <math display="inline">
+    G(w_{T})
+   </math>
+   . Performing a Taylor expansion to second order of
+   <math display="inline">
+    G(w_{T,T})
+   </math>
+   around
+   <math display="inline">
+    w_{t,T}
+   </math>
+   , we obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(w_{T,T}) = G(w_{t,T}) + (w_{T,T} - w_{t,T})G'(w_{t,T})
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \frac{1}{2}(w_{T,T} - w_{t,T})^2 G^{''}(w_{t,T})
+   </math>
+   <br/>
+   +
+   <math display="block">
+    o(w_{T,T} - w_{t,T,(T_i)})^2
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   Given also that
+   <math display="inline">
+    \mathbb{E}_{t}^{T}[G(w_{T,T})] = G(w_{t,T}),
+   </math>
+   we apply the expected value operator
+   <math display="inline">
+    \mathbb{E}^T_t
+   </math>
+   to both sides of
+   <math display="inline">
+    (8)
+   </math>
+   to give us
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    CMS_t = w_{t,T} \left( 1 - \frac{1}{2} w_{t,T} \cdot \sigma^2 \cdot (T - t) \cdot \frac{G''(w_{t,T})}{G'(w_{t,T})} \right)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \simeq w_{t,T} \exp\left(-\frac{1}{2}w_{t,T} \cdot \sigma^2 \cdot (T-t) \cdot \frac{G''(w_{t,T})}{G'(w_{t,T})}\right)
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   From the above formula, we see that the convexity adjustment
+   <math display="inline">
+    \exp\left(-\frac{1}{2}w_{t,T}\cdot\sigma^2\cdot(T-t)\cdot\frac{G''(w_{t,T})}{G'(w_{t,T})}\right)
+   </math>
+   &lt;br&gt;-1 is positive given that G is decreasing, convex
+   <math display="inline">
+    (G' &lt; 0 \text{ and } G'' &gt; 0)
+   </math>
+   , and increases with the implied volatility
+   <math display="inline">
+    \sigma
+   </math>
+   .
+  </p>
+  <h4>
+   CMS Convexity Adjustment: the Replication Approach
+  </h4>
+  <p block-type="Text">
+   The simple approach does not capture the fact that the implied volatilities exhibit volatility smile. The replication method we develop in this section captures the smile effect, as noted by Amblard et al. [1].
+  </p>
+  <p block-type="Text">
+   The simple adjustment has a further drawback that it does not provide a way to construct a hedge for a CMS cash flow. Indeed, to hedge the CMS using the Black-Scholes adjustment, one can compute the delta and vega, but this is not a static hedge. The replication approach rectifies this issue as well.
+  </p>
+  <p block-type="Text">
+   The replication approach has the disadvantage of being nonparametric, but on the other hand, it takes into account the volatility smile and exhibits an explicit static hedge for the CMS rate cash flows and options in terms of payer and receiver swaptions. The computation is done in two steps. First we compute a CMS caplet and a CMS floorlet at a given strike
+   <math display="inline">
+    k
+   </math>
+   (see Notations for a definition of CMS caplets and floorlets; see also Caps and Floors for a definition of caps and floors). The CMS rate is then obtained
+   <i>
+    via
+   </i>
+   the call
+   <math display="inline">
+    -
+   </math>
+   put parity.
+  </p>
+  <p block-type="Text">
+   We use a numerical integration, commonly used to replicate European options with complex payoffs using vanilla European options (see [3]). Indeed, for any real
+   <math display="inline">
+    C_2
+   </math>
+   -function V of the swap rate w and any real number
+   <math display="inline">
+    x
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(w) = V(x) + (w - x) \cdot V'(x)
+   </math>
+   <br/>
+   +
+   <math>
+    1_{\{w &gt; x\}} \int_{x}^{w} V''(K)(w - K)_{+} dK
+   </math>
+   <br/>
+   +
+   <math>
+    1_{\{w &lt; x\}} \int_{w}^{x} V''(K)(K - w)_{+} dK
+   </math>
+   <br/>
+   (10)
+  </p>
+  <p block-type="Text">
+   Observing that the boundaries for the integrals can be extended to
+   <math display="inline">
+    +\infty
+   </math>
+   and
+   <math display="inline">
+    -\infty
+   </math>
+   , respectively, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(w) = V(x) + (w - x) \cdot V'(x)
+   </math>
+   <br/>
+   +
+   <math>
+    1_{\{w &gt; x\}} \int_{x}^{+\infty} V''(K)(w - K)_{+} dK
+   </math>
+   <br/>
+   +
+   <math>
+    1_{\{w &lt; x\}} \int_{-\infty}^{x} V''(K)(K - w)_{+} dK
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   so by setting
+   <math display="inline">
+    x = 0
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(w) = V(0) + wV'(0)
+   </math>
+   <br/>
+   +
+   <math>
+    1_{\{w&gt;0\}} \int_{0}^{+\infty} V''(K)(w-K)_{+} dK
+   </math>
+   <br/>
+   +
+   <math>
+    1_{\{w&lt;0\}} \int_{-\infty}^{0} V''(K)(K-w)_{+} dK
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    k &gt; 0
+   </math>
+   be the strike of CMS caplet or CMS floorlet.
+  </p>
+  <p block-type="TextInlineMath">
+   To compute the CMS caplet, let us define
+   <math display="inline">
+    V(w) =
+   </math>
+   <math display="inline">
+    \frac{(w-k)_{+}}{G(w)}
+   </math>
+   . Then as
+   <math display="inline">
+    V(0) = V'(0) = 0
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (w-k)_{+} = 1_{\{w&gt;0\}} \int_{0}^{+\infty} V''(K)G(w)(w-K)_{+} \, \mathrm{d}K
+   </math>
+   <math display="block">
+    + 1_{\{w&lt;0\}} \int_{-\infty}^{0} V''(K)G(w)(K-w)_{+} \, \mathrm{d}K \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Equation (13) expresses the general decomposition of a call payoff
+   <math display="inline">
+    (w-k)_+
+   </math>
+   on a continuous set of payoffs
+   <math display="inline">
+    (G(w)(w-K)_{+})_{K\geq 0}
+   </math>
+   and
+   <math display="inline">
+    (G(w)
+   </math>
+   <math display="inline">
+    (K-w)_{+}
+   </math>
+   )
+   <math display="inline">
+    _{K&lt;0}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   By replacing
+   <math display="inline">
+    w
+   </math>
+   with
+   <math display="inline">
+    w_{T,T}
+   </math>
+   , multiplying both sides by
+   <math display="inline">
+    \beta_{t,T}^{-1}
+   </math>
+   , taking the
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -conditional expectation under the risk-neutral measure, and using the definition of a CMS caplet in the section Notations, we obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    CMScaplet_{t,T}(k)
+   </math>
+   <br/>
+   =
+   <math>
+    \int_{0}^{+\infty} V''(K) \mathbb{E}_{t} [\beta_{t,T}^{-1} G(w_{T,T})(w_{T,T} - K)_{+}] dK
+   </math>
+   <br/>
+   +
+   <math>
+    \int_{-\infty}^{0} V''(K) \mathbb{E}_{t} [\beta_{t,T}^{-1} G(w_{T,T})(K - w_{T,T})_{+}] dK
+   </math>
+   (14)
+  </p>
+  <p block-type="TextInlineMath">
+   On the right-hand side, we recognize the prices of cash-settled swaptions as described in the section Notations. Note that
+   <math display="inline">
+    G(w_{T,T})
+   </math>
+   is an approximation for
+   <math display="inline">
+    A(T)
+   </math>
+   in the cash-settled swaption formula. So we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    CMScaplet_{t,T}(k)
+   </math>
+   <br/>
+   =
+   <math>
+    \int_{0}^{+\infty} V''(K)CSS_{t,T}(K, \zeta = 1) dK
+   </math>
+   <br/>
+   +
+   <math>
+    \int_{-\infty}^{0} V''(K)CSS_{t,T}(K, \zeta = -1) dK
+   </math>
+   (15)
+  </p>
+  <p block-type="TextInlineMath">
+   If we assume
+   <math display="inline">
+    k &gt; 0
+   </math>
+   , the second integral vanishes as
+   <math display="inline">
+    V''(K) = 0
+   </math>
+   if
+   <math display="inline">
+    K &lt; k
+   </math>
+   . To be tractable, this decomposition must be discretized and the integrals ultimately truncated:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    CMScaplet_{t,T}(K) \approx \sum_{i=0}^{N_{\text{cap}}} \alpha_i^{\text{cap}} CSS_{t,T}(K_i, x=1)
+   </math>
+   (16)
+  </p>
+  <p block-type="TextInlineMath">
+   We start from
+   <math display="inline">
+    K_0 = k + \varepsilon
+   </math>
+   , with
+   <math display="inline">
+    \varepsilon
+   </math>
+   very small to avoid the discontinuity at
+   <math display="inline">
+    K = k
+   </math>
+   , and set
+   <math display="inline">
+    K_i =
+   </math>
+   <math display="inline">
+    K_0 + i \Delta K
+   </math>
+   . The strike step
+   <math display="inline">
+    \Delta K
+   </math>
+   is also arbitrary. We have
+   <math display="inline">
+    \alpha_i^{\text{cap}} = 2h'(K_i) + (K_i - k)h''(K_i)
+   </math>
+   with
+   <math display="inline">
+    h(x) =
+   </math>
+   <math display="inline">
+    \frac{1}{G(x)}
+   </math>
+   . In practice, the choice of
+   <math display="inline">
+    N_{\text{cap}}
+   </math>
+   or, equivalently, the last payer swaption strike used for replication can be computed dynamically: we add in that case an extra strike until we reach
+   <math display="inline">
+    \alpha_i^{\text{cap}}CSS_{t,T}(K_i, x=1) &lt;
+   </math>
+   Chosen Precision. Depending on the assumption chosen for the smile extrapolation far out of the money, this can lead to some divergence of the replication algorithm. In that case, we can use an arbitrary cap, for example
+   <math display="inline">
+    K_{\text{max}}^{\text{cap}} = 50\%
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The CMS floorlet is computed in a similar way, replacing
+   <math display="inline">
+    V(w)
+   </math>
+   by
+   <math display="inline">
+    \frac{(k-w)_+}{G(w)}
+   </math>
+   . Note that we have
+   <math display="inline">
+    V(0) \neq 0
+   </math>
+   and
+   <math display="inline">
+    V'(0) \neq 0
+   </math>
+   , so we have two extra terms:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;\quad \mathcal{C}MSfloorlet_{t,T}(k) \\ &amp;= V(0)\mathbb{E}_{t}[\beta_{t,T}^{-1}G(w_{T,T})] \\ &amp;+ V'(0)\mathbb{E}_{t}[\beta_{t,T}^{-1}w_{T,T}G(w_{T,T})] \\ &amp;+ \int_{0}^{+\infty} V''(K)\mathbb{E}_{t}[\beta_{t,T}^{-1}G(w_{T,T})(w_{T,T}-K)_{+}] \, \mathrm{d}K \\ &amp;+ \int_{-\infty}^{0} V''(K)\mathbb{E}_{t}[\beta_{t,T}^{-1}G(w_{T,T}) \\ &amp;\times (K - w_{T,T})_{+}] \, \mathrm{d}K \end{split} \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If we assume that rates cannot be negative, the second integral vanishes. In the current environment, it is not clear that rates cannot go slightly negative, so we should also compute the second part, which has value if we use, for example, a Gaussian model. Assuming
+   <math display="inline">
+    G(w_{T,T})
+   </math>
+   as an approximation for
+   <math display="inline">
+    A(T)
+   </math>
+   we have
+   <math display="inline">
+    \mathbb{E}_{t}[\beta_{t,T}^{-1}G(w_{T,T})] \approx A(t)
+   </math>
+   and using equation (4), we get
+   <math display="inline">
+    \mathbb{E}_t[\beta_{t,T}^{-1}w_{T,T}G(w_{T,T})] \approx A(t)w_{t,T}
+   </math>
+   . We start the first integration from
+   <math display="inline">
+    K_0^{\alpha} = k - \varepsilon
+   </math>
+   &lt;br&gt;and set
+   <math display="inline">
+    K_i^{\alpha} = K_0^{\alpha} - i\Delta K
+   </math>
+   , with
+   <math display="inline">
+    \alpha_i^{\text{floor}} = -2h'(K_i^{\alpha}) +
+   </math>
+   <math display="inline">
+    (k - K_i^{\alpha})h^{''}(K_i^{\alpha})
+   </math>
+   until we reach
+   <math display="inline">
+    K_{N_i}^{\alpha} = 0
+   </math>
+   . Concerning the receiver swaption, we start from
+   <math display="inline">
+    K_0^{\beta} = 0
+   </math>
+   &lt;br&gt;and set
+   <math display="inline">
+    K_j^{\beta} = K_0^{\beta} - j\Delta K
+   </math>
+   with
+   <math display="inline">
+    \beta_j^{\text{floor}} = -2h'(K_j^{\beta}) +
+   </math>
+   <math display="inline">
+    (k - K_i^{\beta})h^{''}(K_i^{\beta})
+   </math>
+   until we reach an arbitrary lower bound for the receivers
+   <math display="inline">
+    K_{N_2}^{\beta} = K_{\min}(&lt;0)
+   </math>
+   . Then we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} CMSfloorlet_{t,T}(K) \\ \approx &amp; \left(V(0) + V'(0)w_{t,T}\right)A(t) \\ &amp;+ \Sigma_{i=0}^{N_1} \alpha_i^{\text{floor}} CSS_{t,T}(K_i^{\alpha}, \zeta = 1) \\ &amp;+ \Sigma_{j=0}^{N_2} \beta_j^{\text{floor}} CSS_{t,T}(K_j^{\beta}, \zeta = -1) \end{split} \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   To compute the CMS rate, we see from expression (6) that if we assume interest rates to be positive as in the Black-Scholes case, we can value the CMS rate directly from a CMS caplet struck at
+   <math display="inline">
+    k = 0
+   </math>
+   as
+   <math display="inline">
+    \mathbb{E}_t[(w_{T,T})_+] = \mathbb{E}_t[w_{T,T}]:
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    CMS_{t} = \frac{1}{P(t,T)} CMScaplet_{t,T}(k=0) \qquad (19)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Alternatively, we use the call-put parity. Note that the choice of the strike
+   <math display="inline">
+    k
+   </math>
+   in the caplet and floorlet is arbitrary (a common practice is to set the strike to the forward swap rate
+   <math display="inline">
+    k = w_{t,T}
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    CMS_{t} = k + \frac{CMScaplet_{t,T}(k) - CMSfloorlet_{t,T}(k)}{P(t,T)}
+   </math>
+   (20)
+  </p>
+  <p block-type="Text">
+   Alternative pricing methods have been proposed in the literature such as higher order Taylor expansions or chaos expansions (see [2]) or linear swap rate model approximation (see
+   <math display="inline">
+    [6-8]
+   </math>
+   ).
+  </p>
+  <h4>
+   Computation of the CMS rate in the standard case
+  </h4>
+  <p block-type="TextInlineMath">
+   In the standard case, fixing is at
+   <math display="inline">
+    T
+   </math>
+   , and payment takes place at
+   <math display="inline">
+    T + \theta
+   </math>
+   , so we have
+   <math display="inline">
+    P(t, T + \theta) \cdot CMS_t^{\text{std}} =
+   </math>
+   <math display="inline">
+    \mathbb{E}_t\left[\frac{\beta_{0,t}}{\beta_{0,T+\theta}}w_{T,T}\right]
+   </math>
+   . We see that we can no longer apply the change of probability as in equation
+   <math display="inline">
+    (4)
+   </math>
+   because of the presence of
+   <math display="inline">
+    \beta_{0,T+\theta}
+   </math>
+   instead of f
+   <math display="inline">
+    \beta_{0,T}
+   </math>
+   : we artificially introduce
+   <math display="inline">
+    \beta_{0,T}
+   </math>
+   in order to use equation
+   <math display="inline">
+    (4)
+   </math>
+   . We have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t} \left[ \frac{\beta_{0,t}}{\beta_{0,T+\theta}} w_{T,T} \right] = \mathbb{E}_{t} \left[ \frac{\beta_{0,t}}{\beta_{0,T}} \frac{\beta_{0,T}}{\beta_{0,T+\theta}} w_{T,T} \right]
+   </math>
+   <math display="block">
+    = \mathbb{E}_{t} \left[ \frac{\beta_{0,t}}{\beta_{0,T}} w_{T,T} B(T,T+\theta) \right]
+   </math>
+   <math display="block">
+    = P(t,T) \mathbb{E}_{t}^{T} [w_{T,T} B(T,T+\theta)] \tag{21}
+   </math>
+  </p>
+  <p block-type="Text">
+   There are at least two methods for computing the above quantity.
+  </p>
+  <p block-type="TextInlineMath">
+   The first method consists in replacing
+   <math display="inline">
+    B(T, T +
+   </math>
+   <math display="inline">
+    \theta
+   </math>
+   ) with a function involving
+   <math display="inline">
+    w_{T,T}
+   </math>
+   plus a spread s. For example, we could write
+   <math display="inline">
+    B(T, T + \theta) =
+   </math>
+   <math display="inline">
+    \frac{1}{1+\theta(w_{T,T}+s)} \quad \text{so} \quad \text{that} \quad \mathbb{E}_t^T[w_{T,T}B(T,T+\theta)] =
+   </math>
+   <math display="inline">
+    \mathbb{E}_{t}^{T}[f(w_{T,T})] \text{ with } f(w) = \frac{w}{1 + \theta(w+s)}. \text{ We then}
+   </math>
+   use the replication formula (12) by replacing
+   <math display="inline">
+    V(w)
+   </math>
+   with
+   <math display="inline">
+    V(w) = \frac{f(w)}{G(w)}
+   </math>
+   .&lt;br&gt;Alternatively, we can replace
+   <math display="inline">
+    B(T, T + \theta)
+   </math>
+   with
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    B(T, T + \theta) = \frac{1}{1 + \theta L(T, T, T + \theta)}
+   </math>
+   . The approximation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{1 + \theta L(T, T, T + \theta)} \approx 1 - \theta L(T, T, T + \theta) \tag{22}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   together with a correlation assumption
+   <math display="inline">
+    \rho = corr^{Q_T}
+   </math>
+   <math display="inline">
+    (L(T, T, T + \theta), w_{T,T})
+   </math>
+   between the forward LIBOR and the forward swap rate under measure
+   <math display="inline">
+    Q^T
+   </math>
+   give us
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathbb{E}_{t}^{T}[w_{T,T}B(T,T+\theta)] \\ \approx &amp; \mathcal{C}MS_{t} - \theta \mathcal{C}MS_{t}\mathbb{E}_{t}^{T}[L(T,T,T+\theta)] \\ - &amp; \theta \rho \sqrt{Var^{\mathcal{Q}^{T}}(w_{T,T})} \sqrt{Var^{\mathcal{Q}^{T}}(L(T,T,T+\theta))} \end{split} \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    CMS_t
+   </math>
+   is the nonstandard CMS rate computed previously and
+   <math display="inline">
+    \mathbb{E}^T_t[L(T,T,T+\theta)]
+   </math>
+   is a convexityadjusted forward LIBOR (see the next section for
+  </p>
+  <p block-type="TextInlineMath">
+   more details). The variances under
+   <math display="inline">
+    O^T
+   </math>
+   of the forward swap and LIBOR rates can be both valued via replication or approximated with the variances under their "natural" measures, respectively,
+   <math display="inline">
+    Q^A
+   </math>
+   and
+   <math display="inline">
+    Q^{T+\theta}
+   </math>
+   . Under Black–Scholes assumptions, they are simply
+   <math display="inline">
+    w_{t,T}^2(e^{(T-t)\sigma_w^2(T)}-1)
+   </math>
+   and
+   <math display="inline">
+    L(t,T,T+1)
+   </math>
+   <math display="inline">
+    (\theta)^2 (e^{(T-t)\sigma_L^2(T)} - 1)
+   </math>
+   , respectively.
+  </p>
+  <p block-type="Text">
+   On the one hand, the second method involves more computations, themselves involving approximations, and uses an input
+   <math display="inline">
+    \rho
+   </math>
+   not explicitly given by the market. However, it better illustrates the "negative" convexity in the standard CMS case, that is, the presence of a negative second term in the formula.
+  </p>
+  <h3>
+   <b>
+    In-arrears Swaps
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   In this section, we deal with LIBOR swaps, the CMS case having been described previously. As defined in the section Notations, in-arrears swaps are interest rate swaps that differ from vanilla swaps by the absence of a payment lag in the floating leg. More precisely, in a vanilla swap, the floating rate
+   <math display="inline">
+    L(T_{i-1}, T_{i-1}, T_i)
+   </math>
+   fixes at
+   <math display="inline">
+    T_{i-1}
+   </math>
+   and is paid at
+   <math display="inline">
+    T_i
+   </math>
+   , that is, payment at
+   <math display="inline">
+    T_i
+   </math>
+   is
+   <math display="inline">
+    \theta_i L(T_{i-1}, T_{i-1}, T_i)
+   </math>
+   while in an in-arrears swap, the floating rate is fixed and paid the same date at the end of the period, that is, the payment at
+   <math display="inline">
+    T_i
+   </math>
+   is
+   <math display="inline">
+    \theta_{i+1}L(T_i, T_i, T_{i+1})
+   </math>
+   . As we will see, this change also creates a positive convexity adjustment in the valuation of the floating leg. The valuation of in-arrears swaps can be done by at least two different methods: the traditional Black-Scholes adjustment and the replication technique. For the replication method, the underlying replication instruments are caplets/floorlets as opposed to swaptions for the CMS cash flows described in the previous section.
+  </p>
+  <p block-type="Text">
+   The time
+   <i>
+    t
+   </i>
+   -value of the in-arrears payment at
+   <math display="inline">
+    T_i
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t} \left[ \frac{\beta_{0,t}}{\beta_{0,T_{i}}} \theta_{i+1} L(T_{i}, T_{i}, T_{i+1}) \right]
+   </math>
+   <br/>
+   =
+   <math>
+    \theta_{i+1} P(t, T_{i}) \mathbb{E}_{t}^{T_{i}} [L(T_{i}, T_{i}, T_{i+1})]
+   </math>
+   (24)
+  </p>
+  <p block-type="TextInlineMath">
+   As the forward LIBOR rate
+   <math display="inline">
+    L(., T_i, T_{i+1})
+   </math>
+   is a
+   <math display="inline">
+    Q^{T_{i+1}}
+   </math>
+   -martingale, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t}^{T_{i+1}}[L(T_{i}, T_{i}, T_{i+1})] = L(t, T_{i}, T_{i+1}) \tag{25}
+   </math>
+  </p>
+  <p block-type="Text">
+   but
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t}^{T_{i}}[L(T_{i}, T_{i}, T_{i+1})] \neq L(t, T_{i}, T_{i+1}) \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   To use the martingale property of
+   <math display="inline">
+    L(., T_i, T_{i+1})
+   </math>
+   under
+   <math display="inline">
+    Q^{T_{i+1}}
+   </math>
+   , we discount
+   <math display="inline">
+    \theta_{i+1}L(T_i,T_i,T_{i+1})
+   </math>
+   from date
+   <math display="inline">
+    T_{i+1}
+   </math>
+   . Obviously, the cash flow must be capitalized between
+   <math display="inline">
+    T_i
+   </math>
+   to
+   <math display="inline">
+    T_{i+1}
+   </math>
+   to compensate for this "late" discounting:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t} \left[ \frac{\beta_{0,t}}{\beta_{0,T_{i}}} \theta_{i+1} L(T_{i}, T_{i}, T_{i+1}) \right]
+   </math>
+   <math display="block">
+    = \mathbb{E}_{t} \left[ \frac{\beta_{0,t}}{\beta_{0,T_{i+1}}} \theta_{i+1} L(T_{i}, T_{i}, T_{i+1}) \frac{\beta_{0,T_{i+1}}}{\beta_{0,T_{i}}} \right]
+   </math>
+   <math display="block">
+    = \mathbb{E}_{t} \left[ \frac{\beta_{0,t}}{\beta_{0,T_{i+1}}} \theta_{i+1} L(T_{i}, T_{i}, T_{i+1}) \times (1 + \theta_{i+1} L(T_{i}, T_{i}, T_{i+1})) \right]
+   </math>
+   <math display="block">
+    = P(t, T_{i+1}) \theta_{i+1} L(t, T_{i}, T_{i+1}) + P(t, T_{i+1}) \theta_{i+1}^{2} \mathbb{E}_{t}^{T_{i+1}} [L^{2}(T_{i}, T_{i}, T_{i+1})]
+   </math>
+   <math display="block">
+    (27)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Now we can compute
+   <math display="inline">
+    \mathbb{E}_{t}^{T_{i+1}}[L^{2}(T_{i}, T_{i}, T_{i+1})]
+   </math>
+   either using a standard Black-Scholes adjustment or via replication on caplets. In the first case, assuming that the at-the-money implied volatility of the forward rate
+   <math display="inline">
+    L(., T_i, T_{i+1})
+   </math>
+   is
+   <math display="inline">
+    \sigma_i
+   </math>
+   , we find
+   <math display="inline">
+    \mathbb{E}_t^{T_{i+1}}[L^2(T_i, T_i, T_{i+1})]
+   </math>
+   <math display="inline">
+    = L(t, T_i, T_{i+1})^2 e^{\sigma_i^2(T_i - t)}
+   </math>
+   . In the second case, we can use formula
+   <math display="inline">
+    (12)
+   </math>
+   to find that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x^{2} = 2 \int_{0}^{+\infty} (x - K)_{+} \, \mathrm{d}K \tag{28}
+   </math>
+  </p>
+  <p block-type="Text">
+   so that using the caplet definition given in the section Notations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t}^{T_{i+1}}[L^{2}(T_{i}, T_{i}, T_{i+1})]
+   </math>
+   <math display="block">
+    = 2 \int_{0}^{+\infty} \mathbb{E}_{t}^{T_{i+1}}[(L(T_{i}, T_{i}, T_{i+1}) - K)_{+}] dK
+   </math>
+   <math display="block">
+    = \frac{2}{P(t, T_{i+1})} \int_{0}^{+\infty} Caplet_{t, T_{i+1}}(K) dK \quad (29)
+   </math>
+  </p>
+  <p block-type="Text">
+   To be tractable, this integral must be discretized and capped as previously described in the CMS case.
+  </p>
+  <h1>
+   <b>
+    Averaging Swaps
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   As nonstandard fixed-for-floating interest rate swaps, averaging swaps are somewhat less common than
+  </p>
+  <p block-type="TextInlineMath">
+   CMS and in-arrears swaps. The floating leg of such a swap pays at each coupon date
+   <math display="inline">
+    T_i
+   </math>
+   the average of the LIBOR rates observed over a predetermined period. Let us consider a set of dates
+   <math display="inline">
+    T_{i(k)}
+   </math>
+   with
+   <math display="inline">
+    i(k) &lt; i
+   </math>
+   . The cash flow at date
+   <math display="inline">
+    T_i
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{N} \sum_{k=1}^{N} \theta_{i(k)+1} L(T_{i(k)}, T_{i(k)}, T_{i(k)+1}) \qquad (30)
+   </math>
+  </p>
+  <p block-type="Text">
+   So assuming that under the "terminal measure"
+   <math display="inline">
+    Q_{T_i}
+   </math>
+   , we know the drift
+   <math display="inline">
+    \mu_{i(k)}
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}L(t,T_{i(k)},T_{i(k)+1})}{L(t,T_{i(k)},T_{i(k)+1})} = \mu_{i(k)}(t)\,\mathrm{d}t + \sigma_{i(k)}\mathrm{d}W_t^{T_i} \quad (31)
+   </math>
+  </p>
+  <p block-type="Text">
+   the averaging formula has a value at time
+   <math display="inline">
+    t
+   </math>
+   given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t} \left[ \beta_{t,T_{i}}^{-1} \frac{1}{N} \sum_{k=1}^{N} \theta_{i(k)+1} L(T_{i(k)}, T_{i(k)}, T_{i(k)+1}) \right]
+   </math>
+   <math display="block">
+    = P(t, T_{i}) \sum_{k=1}^{N} \theta_{i(k)+1} L(t, T_{i(k)}, T_{i(k)+1})
+   </math>
+   <math display="block">
+    \times \exp \left( \int_{t}^{T_{i(k)}} \mu_{i(k)}(u) \, \mathrm{d}u \right) \tag{32}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The convexity adjustments
+   <math display="inline">
+    \exp\left(\int_{t}^{T_{i}(k)} \mu_{i}(k)}(u) du\right)
+   </math>
+   can either be computed by Black-Scholes formula, or by replication. Alternatively, a term structure model such as a LIBOR market model (see LIBOR Market Model) or a Chevette model (see Markovian Term Structure Models) could be used to obtain the required drifts. (See also Change of Numeraire; Forward and Swap Measures; Convexity Adjustments.)
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Amblard, G. &amp; Lebuchoux, J. (2000).
+     <i>
+      The Relationship
+     </i>
+     Between CMS Options and the Smile, Risk Magazine.
+    </li>
+    <li block-type="ListItem">
+     [2] Benhamou, E. (2000). Pricing Convexity Adjustment with Wiener Chaos. Working paper available from www.ssrn.com.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [3] Carr. P., Lewis, K. &amp; Mandan, D. (2000). On the
+     <i>
+      Nature of Options
+     </i>
+     . working paper 2000, available from http://www.math.nyu.edu/research/carrp/papers.
+    </li>
+    <li block-type="ListItem">
+     [4] Coleman, T. (1995). Convexity Adjustments for CMS and Libor in Arrears Basis Swaps. Working paper.
+    </li>
+    <li block-type="ListItem">
+     [5] El Karoui, N., Geman, H. &amp; Rochet, J.C. (1995). Changes of numeraire, changes of probability measures and option pricing, Journal of Applied Probability 32, 443-458.
+    </li>
+    <li block-type="ListItem">
+     [6] Hunt, J.P. &amp; Kennedy, J.F. (2000). On Convexity Corrections. Working Paper, ABN-AMRO Bank and Warwick University.
+    </li>
+    <li block-type="ListItem">
+     [7] Hunt, J.P. &amp; Kennedy J.F. (2000). Financial Derivatives in Theory and Practice, Wiley, Chichester.
+    </li>
+    <li block-type="ListItem">
+     [8] Pelsser, A. (2000). Efficient Methods for Valuing Interest Rate Derivatives, Springer Finance, Heidelberg.
+    </li>
+    <li block-type="ListItem">
+     [9] Pugachewsky, D. (2001). Forward CMS rate adjustment, RISK March, 125-128.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Amin, K. &amp; Jarrow, R. (1992). Pricing options on risky assets in a stochastic interest rate economy,
+     <i>
+      Mathematical Finance
+     </i>
+     2, 217-237.
+    </li>
+    <li block-type="ListItem">
+     Black, F &amp; Scholes M. (1973). The pricing of options and corporate liabilities, Journal of Political Economy 8(1), 637-654.
+    </li>
+    <li block-type="ListItem">
+     Flesaker, B. (1993). Arbitrage free pricing of interest rate futures and forward contracts, Journal of Futures Markets 13, 77-91.
+    </li>
+    <li block-type="ListItem">
+     Hull, J. (2007). Options, Futures and other Derivatives, Prentice Hall India.
+    </li>
+    <li block-type="ListItem">
+     Jamshidian, F. (1993). Option and Future evaluation with deterministic volatilities, Mathematical Finance 3, 149-159.
+    </li>
+    <li block-type="ListItem">
+     Musiela, M &amp; Rutkowski, M. (1998). Martingale Methods in Financial Modelling, Springer Verlag.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   Related Articles
+  </h4>
+  <p block-type="Text">
+   Black-Scholes Formula; Convexity Adjustments; Forward and Swap Measures; LIBOR Rate; Markovian Term Structure Models.
+  </p>
+  <p block-type="Text">
+   LAURENT VEILEX
+  </p>
+ </body>
+</html>

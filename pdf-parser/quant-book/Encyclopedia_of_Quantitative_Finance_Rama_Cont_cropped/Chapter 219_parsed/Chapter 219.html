@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Caps and Floors
+   </b>
+  </h1>
+  <h4>
+   <b>
+    Definitions and Notation
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Let us consider a set of times
+   <math display="inline">
+    0 =: T_0, T_1, \ldots, T_M
+   </math>
+   and denote by
+   <math display="inline">
+    P(t, T)
+   </math>
+   the discount factor at time t for the generic maturity
+   <math display="inline">
+    T
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   A
+   <i>
+    cap
+   </i>
+   is a contract that pays at each time
+   <math display="inline">
+    T_i
+   </math>
+   ,
+   <math display="inline">
+    i =
+   </math>
+   <math display="inline">
+    a, \ldots, b, a \ge 1
+   </math>
+   , the difference, if positive, between the LIBOR rate set at the previous time
+   <math display="inline">
+    T_{i-1}
+   </math>
+   and a given rate
+   <math display="inline">
+    K
+   </math>
+   specified by the contract, which is shortly referred to as a strike. In formulas, assuming unit notional, the time-
+   <math display="inline">
+    T_i
+   </math>
+   payoff is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_i \max\{L(T_{i-1}, T_i) - K, 0\} = \tau_i [L(T_{i-1}, T_i) - K]^+
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tau_i
+   </math>
+   denotes the year fraction for the interval
+   <math display="inline">
+    (T_{i-1}, T_i]
+   </math>
+   and the LIBOR rate
+   <math display="inline">
+    L(T_{i-1}, T_i)
+   </math>
+   is the simply compounded rate at time
+   <math display="inline">
+    T_{i-1}
+   </math>
+   for maturity
+   <math display="inline">
+    T_i
+   </math>
+   , namely,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(T_{i-1}, T_i) := \frac{1}{\tau_i} \left[ \frac{1}{P(T_{i-1}, T_i)} - 1 \right] \qquad (2)
+   </math>
+  </p>
+  <p block-type="Text">
+   (see also LIBOR Rate).
+  </p>
+  <p block-type="Text">
+   Each single option in a cap is called a
+   <i>
+    caplet
+   </i>
+   . A cap is then a strip of caplets.
+  </p>
+  <p block-type="TextInlineMath">
+   Analogously, a
+   <i>
+    floor
+   </i>
+   is a contract that pays at each time
+   <math display="inline">
+    T_i
+   </math>
+   ,
+   <math display="inline">
+    i = a, \ldots, b, a \ge 1
+   </math>
+   , the difference, if positive, between a strike
+   <math display="inline">
+    K
+   </math>
+   and the LIBOR rate set at time
+   <math display="inline">
+    T_{i-1}
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_i \max\{K - L(T_{i-1}, T_i), 0\} = \tau_i [K - L(T_{i-1}, T_i)]^+
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   Each single option in a floor is called a
+   <i>
+    floorlet
+   </i>
+   . A floor is then a strip of floorlets.
+  </p>
+  <p block-type="Text">
+   A cap (floor) is said to be at-the-money (ATM) if its price is equal to that of the corresponding floor (cap). It is said to be in-the-money (ITM) or out-ofthe-money (OTM) if its price is, respectively, higher or lower than that of the corresponding floor (cap).
+  </p>
+  <p block-type="Text">
+   As a consequence of the put-call parity, which, on each
+   <math display="inline">
+    T_i
+   </math>
+   , reads as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_i \max\{L(T_{i-1},T_i)-K,0\}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    - \tau_i \max\{K - L(T_{i-1}, T_i), 0\}
+   </math>
+   <br/>
+   =
+   <math>
+    \tau_i [L(T_{i-1}, T_i) - K]
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   (see also
+   <b>
+    Put-Call Parity
+   </b>
+   ), the difference between a cap and a floor with the same payment times
+   <math display="inline">
+    T_i
+   </math>
+   ,
+   <math display="inline">
+    i = a, \ldots, b
+   </math>
+   ,
+   <math display="inline">
+    a \ge 1
+   </math>
+   , and strike K is an interest rate swap (IRS) where, at each time
+   <math display="inline">
+    T_i
+   </math>
+   , the floating rate
+   <math display="inline">
+    L(T_{i-1}, T_i)
+   </math>
+   is exchanged for the fixed rate K. Therefore, a cap (floor) is ATM if and only if the related IRS has zero value, that is, if and only if its strike equals the underlying (forward) swap rate:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K = K_{\text{ATM}} := \frac{P(0, T_{a-1}) - P(0, T_b)}{\sum_{i=a}^{b} \tau_i P(0, T_i)} \qquad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Moreover, the cap is ITM if
+   <math display="inline">
+    K &lt; K_{\text{ATM}}
+   </math>
+   and OTM if
+   <math display="inline">
+    K &gt; K_{\text{ATM}}
+   </math>
+   . The converse holds for a floor.
+  </p>
+  <h4>
+   <b>
+    Pricing Formulas
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   It is market practice to price caps and floors with sums of corresponding Black's formulas (see
+   <b>
+    Black–Scholes Formula
+   </b>
+   ). Precisely, if the cap (floor) pays on dates
+   <math display="inline">
+    T_i
+   </math>
+   ,
+   <math display="inline">
+    i = a, \ldots, b, a \ge 1
+   </math>
+   , and has a strike
+   <math display="inline">
+    K
+   </math>
+   , its market formula is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \text{Cap}(K, T_a, T_b; \sigma_b) &amp;= \sum_{i=a}^{b} P(0, T_i) \tau_i \\ &amp;\times \text{Bl}(K, L(0, T_{i-1}, T_i), \ \sigma_b \sqrt{T_{i-1}}, 1) \\ \text{Floor}(K, T_a, T_b; \sigma_b) &amp;= \sum_{i=a}^{b} P(0, T_i) \tau_i \\ &amp;\times \text{Bl}(K, L(0, T_{i-1}, T_i), \ \sigma_b \sqrt{T_{i-1}}, -1) \quad (6) \end{aligned}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \text{Bl}(K,L,v,\omega) := &amp;L\omega\Phi\bigg(\omega\frac{\ln(L/K) + \frac{1}{2}v^2}{v}\bigg) \\ &amp;- K\omega\Phi\bigg(\omega\frac{\ln(L/K) - \frac{1}{2}v^2}{v}\bigg) \end{split}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <math display="inline">
+    \Phi
+   </math>
+   denotes the standard Gaussian cumulative distribution function, and
+   <math display="inline">
+    L(0, T_{i-1}, T_i)
+   </math>
+   is the simply
+  </p>
+  <p block-type="Text">
+   compounded forward LIBOR rate at time 0 for the interval [
+   <i>
+    Ti
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    , Ti
+   </i>
+   ]:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(t;T_{i-1},T_i) := \frac{1}{\tau_i} \left[ \frac{P(t,T_{i-1})}{P(t,T_i)} - 1 \right], \quad t \le T_{i-1}
+   </math>
+   (7)
+  </p>
+  <p block-type="Text">
+   The parameter
+   <i>
+    σb
+   </i>
+   is called the
+   <i>
+    cap- (floor-) implied volatility
+   </i>
+   . It is a single volatility parameter that must be inputted in each Black's formula in equation (6) to reproduce the market price.
+  </p>
+  <p block-type="Text">
+   A cap and a floor with the same maturity and strike must be priced with the same implied volatility, as a consequence of the put–call parity (4).
+  </p>
+  <h1>
+   <b>
+    Justification for the Market Formulas
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Practitioners used the market formulas (6) for years without a formal proof that they were indeed arbitrage free. Such a proof was first given by Jamshidian [3], followed by Miltersen
+   <i>
+    et al.
+   </i>
+   [4] and Brace
+   <i>
+    et al.
+   </i>
+   [1] with their celebrated lognormal LIBOR market models (
+   <i>
+    see also
+   </i>
+   <b>
+    LIBOR Market Model
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   Let us consider a
+   <i>
+    Ti
+   </i>
+   -maturity caplet with strike
+   <i>
+    K
+   </i>
+   . The floorlet case is analogous. By classic riskneutral valuation (
+   <i>
+    see also
+   </i>
+   <b>
+    Risk-neutral Pricing
+   </b>
+   ), the no-arbitrage price of the caplet payoff (1) at time 0 is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left\{e^{-\int_{0}^{T_{i}}r(t)dt}\tau_{i}[L(T_{i-1},T_{i})-K]^{+}\right\}
+   </math>
+   <math display="block">
+    =E\left\{e^{-\int_{0}^{T_{i}}r(t)dt}\tau_{i}[L(T_{i-1};T_{i-1},T_{i})-K]^{+}\right\}
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    E
+   </i>
+   denotes the risk-neutral expectation and
+   <i>
+    r(t)
+   </i>
+   the instantaneous short rate at time
+   <i>
+    t
+   </i>
+   . Switching to the
+   <i>
+    Ti
+   </i>
+   -forward measure
+   <i>
+    QTi
+   </i>
+   , whose associated numeraire is the zero-coupon bond
+   <i>
+    P (t, Ti)
+   </i>
+   (
+   <i>
+    see also
+   </i>
+   <b>
+    Forward and Swap Measures
+   </b>
+   ), the caplet price becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left\{e^{-\int_{0}^{T_{i}}r(t)dt}\tau_{i}[L(T_{i-1};T_{i-1},T_{i})-K]^{+}\right\}
+   </math>
+   <br/>
+   =
+   <math>
+    P(0,T_{i})\tau_{i}E^{T_{i}}\left\{[L(T_{i-1};T_{i-1},T_{i})-K]^{+}\right\}
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <i>
+    ETi
+   </i>
+   denotes expectation under
+   <i>
+    QTi
+   </i>
+   . The Black formula for the caplet in question can then be
+  </p>
+  <p block-type="Text">
+   obtained by assuming that under such a measure:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dL(t;T_{i-1},T_i) = \varsigma_i L(t;T_{i-1},T_i) dW_i(t) \qquad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    ςi
+   </i>
+   is the (constant and deterministic) caplet volatility and
+   <i>
+    Wi
+   </i>
+   is a standard Brownian motion under
+   <i>
+    QTi
+   </i>
+   . Assuming a driftless dynamics for the forward rate
+   <i>
+    L(t
+   </i>
+   ;
+   <i>
+    Ti
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    , Ti)
+   </i>
+   under
+   <i>
+    QTi
+   </i>
+   is the only admissible choice since, by its own definition (7), the forward rate is a martingale under the
+   <i>
+    Ti
+   </i>
+   forward measure (tradable asset divided by the numeraire).
+  </p>
+  <p block-type="Text">
+   A more detailed descriptions of these arguments can be found in
+   <b>
+    LIBOR Market Model
+   </b>
+   .
+  </p>
+  <h1>
+   <b>
+    Market Quotes and Smiles
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Given the pricing formulas (6), it is also a market practice to quote caps and floors through their implied volatility
+   <i>
+    σb
+   </i>
+   . Such a volatility is typically a function of the strike price, too:
+   <i>
+    σb
+   </i>
+   =
+   <i>
+    σb(K)
+   </i>
+   , meaning that caps (floors) with the same maturities but different strikes can be priced with different implied volatilities. This is called
+   <i>
+    smile effect
+   </i>
+   , due to the typical shape of the market implied volatility curves and surfaces.
+  </p>
+  <p block-type="Text">
+   The market quotes cap-/floor-implied volatilities for a number of maturities (up to 30 years for the main currencies). An example of cap implied volatility surface from the USD market is shown in Figure 1, where payment times are three-month spaced.
+  </p>
+  <p block-type="TextInlineMath">
+   Let us denote by
+   <i>
+    Tjk
+   </i>
+   ,
+   <i>
+    k
+   </i>
+   = 1
+   <i>
+    ,...,N
+   </i>
+   , the
+   <i>
+    N
+   </i>
+   cap maturities in a given market, and assume that
+   <i>
+    jN
+   </i>
+   =
+   <i>
+    M
+   </i>
+   . From the corresponding cap quotes, one can strip the implied caplet volatilities
+   <i>
+    ςi
+   </i>
+   , for a given strike
+   <i>
+    K
+   </i>
+   , by recursively solving, for
+   <i>
+    k
+   </i>
+   = 1
+   <i>
+    ,...,N
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \text{Cap}(K, T_a, T_{jk}; \sigma_{jk}) \\ &amp;= \sum_{i=a}^{jk} P(0, T_i) \tau_i \text{Cpl}(K, T_{i-1}, T_i; \varsigma_i) \\ &amp;= \sum_{i=a}^{jk} P(0, T_i) \tau_i \text{Bl}(K, L(0, T_{i-1}, T_i), \varsigma_i \sqrt{T_{i-1}}, 1) \end{split} \tag{11}
+   </math>
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   USD cap volatilities as of February 13, 2009. Strikes are in percentage points
+  </p>
+  <p block-type="Text">
+   Unfortunately, the number
+   <i>
+    N
+   </i>
+   of traded (cap) maturities is typically (much) smaller than the number of underlying (caplet) payments times. Therefore, stripping the caplet volatilities is neither trivial nor uniquely defined. A common approach is based on assuming, for each given strike, specific interpolations along the maturity dimension. The simplest choice is to assume that the
+   <i>
+    ςi
+   </i>
+   are constant on the intervals defined by the cap maturities, namely,
+   <i>
+    ςi
+   </i>
+   =
+   <i>
+    ςh
+   </i>
+   when
+   <i>
+    Tjk
+   </i>
+   <sup>
+    −
+   </sup>
+   <sup>
+    1
+   </sup>
+   <i>
+    &lt; Ti, Th
+   </i>
+   ≤
+   <i>
+    Tjk
+   </i>
+   . This allows the recursive stripping of caplet volatilities from equation (11) by solving sequences of equations, each with a unique unknown.
+  </p>
+  <p block-type="Text">
+   The caplet-implied volatilities stripped from the caps of Figure 1 by assuming piece-wise constant interpolation along the maturity dimension are shown in Figure 2 for a limited range of maturities.
+  </p>
+  <h1>
+   <b>
+    Beyond Black's Formula
+   </b>
+  </h1>
+  <p block-type="Text">
+   The lognormal dynamics (10) imply that caplets with the same maturity
+   <i>
+    Ti
+   </i>
+   but different strikes are priced with the same implied volatility
+   <i>
+    ςi
+   </i>
+   . However, as just seen, the implied volatilities quoted by the market change depending on the strike (smile effect). A popular alternative to equation (10), allowing for implied volatility smiles, is the stochastic alpha beta rho (SABR) model of Hagan
+   <i>
+    et al.
+   </i>
+   [2], where each forward LIBOR rate
+   <i>
+    L(t
+   </i>
+   ;
+   <i>
+    Ti
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    , Ti)
+   </i>
+   is assumed to
+  </p>
+  <p>
+   <img src="_page_2_Figure_7.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   USD caplet volatilities as of February 13, 2009. Strikes are in percentage points
+  </p>
+  <p block-type="Text">
+   evolve under the corresponding forward measure
+   <i>
+    QTi
+   </i>
+   according to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dL(t; T_{i-1}, T_i) = V_i(t)L(t; T_{i-1}, T_i)^{\beta_i} dZ_i(t)
+   </math>
+   <br/>
+   <math display="block">
+    dV_i(t) = \epsilon_i V_i(t) dW_i(t)
+   </math>
+   <br/>
+   <math display="block">
+    V_i(0) = \alpha_i
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    Zi
+   </i>
+   and
+   <i>
+    Wi
+   </i>
+   are
+   <i>
+    QTi
+   </i>
+   -standard Brownian motions with d
+   <i>
+    Zi(t)
+   </i>
+   d
+   <i>
+    Wi(t)
+   </i>
+   =
+   <i>
+    ρi
+   </i>
+   d
+   <i>
+    t
+   </i>
+   and where
+   <i>
+    βi
+   </i>
+   ∈
+   <i>
+    (
+   </i>
+   0
+   <i>
+    ,
+   </i>
+   1],
+   <i>
+    i
+   </i>
+   and
+   <i>
+    αi
+   </i>
+   are positive constants, and
+   <i>
+    ρi
+   </i>
+   ∈ [−1
+   <i>
+    ,
+   </i>
+   1].
+  </p>
+  <p block-type="Text">
+   Cap prices in the SABR model are given by the following closed form approximation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{Cap}^{\text{SABR}}(K, T_a, T_b)
+   </math>
+   <br/>
+   =
+   <math>
+    \sum_{i=a}^{b} P(0, T_i) \tau_i \text{Bl}(K, L(0, T_{i-1}, T_i),
+   </math>
+   <br/>
+   <math>
+    \sigma_i^{\text{SABR}}(K, L(0; T_{i-1}, T_i)) \sqrt{T_{i-1}}, 1)
+   </math>
+   <br/>
+   (13)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{i}^{\text{SABR}}(K,L) = \frac{\alpha_{i}}{(LK)^{\frac{1-\beta_{i}}{2}} \left[1 + \frac{(1-\beta_{i})^{2}}{24} \ln^{2}\left(\frac{L}{K}\right) + \frac{(1-\beta_{i})^{4}}{1920} \ln^{4}\left(\frac{L}{K}\right) + \cdots\right]} \frac{z}{x(z)}\n
+   </math>
+   <math display="block">
+    \n\times \left\{1 + \left[\frac{(1-\beta_{i})^{2}\alpha_{i}^{2}}{24(LK)^{1-\beta_{i}}} + \frac{\rho_{i}\beta_{i}\epsilon_{i}\alpha_{i}}{4(LK)^{\frac{1-\beta_{i}}{2}}} + \epsilon_{i}^{2}\frac{2-3\rho_{i}^{2}}{24}\right]T_{i-1} + \cdots\right\} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    z := \frac{\epsilon_i}{\alpha_i} (LK)^{\frac{1-\beta_i}{2}} \ln\left(\frac{L}{K}\right)
+   </math>
+   and
+   <math display="inline">
+    x(z) := \ln\left\{\frac{\sqrt{1-2\rho_i z+z^2}+z-\rho_i}{1-\rho_i}\right\}
+   </math>
+   . An analogous formula holds for floors.
+  </p>
+  <p block-type="TextInlineMath">
+   The success of the SABR model is mainly due to the existence of an analytical formula for the implied volatilities
+   <math display="inline">
+    \sigma_i^{\text{SABR}}
+   </math>
+   , which is flexible enough to recover typical market smiles. In fact, it is a widespread practice to construct cap smiles by using the SABR functional form
+   <math display="inline">
+    \sigma_i^{\text{SABR}}
+   </math>
+   , assuming specific patterns for the parameters
+   <math display="inline">
+    \alpha_i
+   </math>
+   ,
+   <math display="inline">
+    \beta_i
+   </math>
+   ,
+   <math display="inline">
+    \epsilon_i
+   </math>
+   , and
+   <math display="inline">
+    \rho_i
+   </math>
+   between a caplet maturity and the next (e.g., piece-wise linear interpolation).
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Brace, A., Gatarek, D. &amp; Musiela, M. (1997). The market model of interest rate dynamics,
+     <i>
+      Mathematical Finance
+     </i>
+     7, 127-154.
+    </li>
+    <li block-type="ListItem">
+     [2] Hagan, P.S., Kumar, D., Lesniewski, A.S. &amp; Woodward, D.E. (2002). Managing smile risk, Wilmott Magazine September, 84-108.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [3] Jamshidian, F. (1996). Sorting out swaptions, Risk March, 59-60.
+    </li>
+    <li block-type="ListItem">
+     [4] Miltersen, K.R., Sandmann, K. &amp; Sondermann, D. (1997). Closed form solutions for term structure derivatives with log-normal interest rates, The Journal of Finance 52,
+     <math display="inline">
+      409 - 430.
+     </math>
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Further Reading
+   </b>
+  </h4>
+  <p block-type="Text">
+   Brigo, D. &amp; Mercurio, F. (2006). Interest-Rate Models: Theory and Practice. With Smile, Inflation and Credit, Springer Finance.
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   Black-Scholes Formula; Forward and Swap Measures; LIBOR Market Model; LIBOR Rate; Put-Call Parity; Risk-neutral Pricing.
+  </p>
+  <p block-type="Text">
+   FABIO MERCURIO
+  </p>
+ </body>
+</html>

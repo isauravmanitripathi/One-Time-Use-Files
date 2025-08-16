@@ -1,0 +1,5366 @@
+{
+  "blocks": [
+    {
+      "id": "/page/0/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Alternating Direction </b>Implicit (ADI) Method</h1>",
+      "page": 216,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.60791015625
+        ],
+        [
+          257.265625,
+          71.60791015625
+        ],
+        [
+          257.265625,
+          108.42431640625
+        ],
+        [
+          74.1873417721519,
+          108.42431640625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.60791015625,
+        257.265625,
+        108.42431640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In the Black-Scholes model, option values are characterized as solutions of certain partial differential equations (PDEs) for European options or partial differential inequalities for American options (see Partial Differential Equations). In general, these option values have to be evaluated numerically, for example using the finite difference method (see Finite Difference Methods for Barrier Options; Finite Difference Methods for Early Exercise Options). Unfortunately, when considering the pricing of options depending on several assets, the finite difference method suffers from the curse of dimensionality. The alternating direction implicit (ADI) algorithm of Peaceman-Rachford [8], first proposed for the numerical solution of heat equation in two space dimensions, is to reduce the numerical solution of higher dimensional PDEs to a sequence of steps involving only one-dimensional finite difference operators, involving a simple tridiagonal matrix. The resulting algorithms are memory efficient and easy to parallelize. We illustrate this method in a Black-Scholes model with two risky assets.</p>",
+      "page": 216,
+      "polygon": [
+        [
+          74.1873417721519,
+          131.91252485089464
+        ],
+        [
+          287.47265625,
+          131.91252485089464
+        ],
+        [
+          287.47265625,
+          395.0400390625
+        ],
+        [
+          74.1873417721519,
+          395.0400390625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        131.91252485089464,
+        287.47265625,
+        395.0400390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Black–Scholes Equation for Multiasset </b>Options</h2>",
+      "page": 216,
+      "polygon": [
+        [
+          74.9367088607595,
+          415.22465208747514
+        ],
+        [
+          265.27594936708863,
+          415.22465208747514
+        ],
+        [
+          265.27594936708863,
+          438.4833984375
+        ],
+        [
+          74.9367088607595,
+          438.4833984375
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        415.22465208747514,
+        265.27594936708863,
+        438.4833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Consider a filtered probability space <math display=\"inline\">(\\Omega, \\mathcal{F}, \\mathcal{F}_t, \\mathbb{I}P)</math>and let <math display=\"inline\">(W_t)_{t\\geq 0}</math> be a standard bidimensional <math display=\"inline\">\\mathcal{F}_t</math>Brownian motion on it. We consider options written on two dividend-paying stocks whose price <math display=\"inline\">S_t^1</math>, <math display=\"inline\">S_t^2</math>satisfies the stochastic differential equation:</p>",
+      "page": 216,
+      "polygon": [
+        [
+          74.9367088607595,
+          449.70178926441355
+        ],
+        [
+          285.50886075949364,
+          449.70178926441355
+        ],
+        [
+          285.50886075949364,
+          505.4892578125
+        ],
+        [
+          74.9367088607595,
+          505.4892578125
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        449.70178926441355,
+        285.50886075949364,
+        505.4892578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\mathrm{d}S_t^i}{S_t^i} = (r - \\delta_i) \\,\\mathrm{d}t + \\sum_{j=1}^2 \\sigma_{ij} \\,\\mathrm{d}W_t^j, \\quad i = 1, 2 \\quad (1)</math></p>",
+      "page": 216,
+      "polygon": [
+        [
+          86.501953125,
+          514.693359375
+        ],
+        [
+          285.3046875,
+          514.693359375
+        ],
+        [
+          285.3046875,
+          547.828125
+        ],
+        [
+          86.501953125,
+          547.828125
+        ]
+      ],
+      "bbox": [
+        86.501953125,
+        514.693359375,
+        285.3046875,
+        547.828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where r is the interest rate, <math display=\"inline\">\\delta_i</math> is the dividend rate of the stock <i>i</i>, and the matrix <math display=\"inline\">\\Sigma = (\\sigma_{ij})_{1 \\le i,j \\le n}</math> is assumed to be invertible, which ensures that the market is complete. In this setting, the value at time <math display=\"inline\">t</math> of an European option with maturity <math display=\"inline\">T</math> and payoff function <math display=\"inline\">\\psi</math> is given by <math display=\"inline\">U(t, S_t)</math> where</p>",
+      "page": 216,
+      "polygon": [
+        [
+          74.1873417721519,
+          556.1312127236581
+        ],
+        [
+          286.2582278481013,
+          556.1312127236581
+        ],
+        [
+          286.2582278481013,
+          624.40625
+        ],
+        [
+          74.1873417721519,
+          624.40625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        556.1312127236581,
+        286.2582278481013,
+        624.40625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">U(t,x) = I\\!E \\left( e^{-r(T-t)} \\psi \\left( S_T^{t,x} \\right) \\right) \\tag{2}</math></p>",
+      "page": 216,
+      "polygon": [
+        [
+          115.48046875,
+          633.6103515625
+        ],
+        [
+          284.58203125,
+          633.6103515625
+        ],
+        [
+          284.58203125,
+          646.1279296875
+        ],
+        [
+          115.48046875,
+          646.1279296875
+        ]
+      ],
+      "bbox": [
+        115.48046875,
+        633.6103515625,
+        284.58203125,
+        646.1279296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/7",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">while the value at time <math display=\"inline\">t</math> of an American option with maturity T and payoff function <math display=\"inline\">\\psi</math> is given by <math display=\"inline\">U_{am}(t, S_t)</math> where</p>",
+      "page": 216,
+      "polygon": [
+        [
+          301.99493670886073,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          104.282470703125
+        ],
+        [
+          301.99493670886073,
+          104.282470703125
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        71.2027833001988,
+        513.3164556962025,
+        104.282470703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">U_{am}(t,x) = \\sup_{\\tau \\in \\mathcal{T}_{0,T-t}} I\\!E \\left( e^{-r\\tau} \\psi \\left( S^x_{\\tau} \\right) \\right) \\tag{3}</math></p>",
+      "page": 216,
+      "polygon": [
+        [
+          334.15625,
+          112.013916015625
+        ],
+        [
+          511.640625,
+          112.013916015625
+        ],
+        [
+          511.640625,
+          133.183349609375
+        ],
+        [
+          334.15625,
+          133.183349609375
+        ]
+      ],
+      "bbox": [
+        334.15625,
+        112.013916015625,
+        511.640625,
+        133.183349609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/9",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\mathcal{T}_{0,T-t}</math> is the set of all stopping times with values in <math display=\"inline\">[0, T - t]</math>.</p>",
+      "page": 216,
+      "polygon": [
+        [
+          301.24556962025315,
+          140.15705765407554
+        ],
+        [
+          513.3164556962025,
+          140.15705765407554
+        ],
+        [
+          513.3164556962025,
+          161.716064453125
+        ],
+        [
+          301.24556962025315,
+          161.716064453125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        140.15705765407554,
+        513.3164556962025,
+        161.716064453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">To see this, we shall use the following notation:</p>",
+      "page": 216,
+      "polygon": [
+        [
+          313.2354430379747,
+          163.3916500994036
+        ],
+        [
+          507.3215189873418,
+          163.3916500994036
+        ],
+        [
+          507.3215189873418,
+          173.58935546875
+        ],
+        [
+          313.2354430379747,
+          173.58935546875
+        ]
+      ],
+      "bbox": [
+        313.2354430379747,
+        163.3916500994036,
+        507.3215189873418,
+        173.58935546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/ListGroup/216",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\"> <math display=\"inline\">\\mu</math> is the vector with components <math display=\"inline\">(r  \\delta_i -</math><math display=\"inline\">\\frac{1}{2} \\sum_{j=1}^{2} \\sigma_{ij}^{2} \\big)_{i=1,2}.</math>&lt;br&gt;\n• for <math display=\"inline\">x = (x_1, x_2) \\in \\mathbb{R}^2</math>; <math display=\"inline\">\\exp(x) = (e^{x_1}, e^{x_2})</math></li><li block-type=\"ListItem\"></li></ul></p>",
+      "page": 216,
+      "polygon": [
+        [
+          296.7493670886076,
+          185.1272365805169
+        ],
+        [
+          511.81772151898736,
+          185.1272365805169
+        ],
+        [
+          511.81772151898736,
+          224.580078125
+        ],
+        [
+          296.7493670886076,
+          224.580078125
+        ]
+      ],
+      "bbox": [
+        296.7493670886076,
+        185.1272365805169,
+        511.81772151898736,
+        224.580078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/13",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Hence, if we denote by <math display=\"inline\">S_t^{\\exp(x)}</math> the solution of equation (1) with <math display=\"inline\">S_0 = \\exp(x)</math>, we have</p>",
+      "page": 216,
+      "polygon": [
+        [
+          301.203125,
+          233.09542743538768
+        ],
+        [
+          513.3164556962025,
+          230.84691848906562
+        ],
+        [
+          513.3164556962025,
+          258.63525390625
+        ],
+        [
+          301.203125,
+          258.63525390625
+        ]
+      ],
+      "bbox": [
+        301.203125,
+        230.84691848906562,
+        513.3164556962025,
+        258.63525390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/14",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">S_t^{\\exp(x)} = \\exp(x + \\mu t + \\Sigma W_t) \\tag{4}</math></p>",
+      "page": 216,
+      "polygon": [
+        [
+          347.7421875,
+          266.55078125
+        ],
+        [
+          512.5078125,
+          266.55078125
+        ],
+        [
+          512.5078125,
+          281.6455078125
+        ],
+        [
+          347.7421875,
+          281.6455078125
+        ]
+      ],
+      "bbox": [
+        347.7421875,
+        266.55078125,
+        512.5078125,
+        281.6455078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/15",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">We make the following change in variables, <math display=\"inline\">\\alpha =</math><math display=\"inline\">\\Sigma^{-1}\\mu</math>, <math display=\"inline\">\\rho = r + (||\\alpha||^2/2)</math>. The Girsanov theorem (Equivalence of Probability Measures) ensures that there exists a probability measure <math display=\"inline\">\\mathbb{I}^{P^{(\\alpha)}}</math>&lt;br&gt;defined on <math display=\"inline\">(\\Omega, \\mathcal{F}_T)</math> by <math display=\"inline\">\\frac{\\mathrm{d}P^{(\\alpha)}}{\\mathrm{d}P} = M_T^{(\\alpha)}</math>, where <math display=\"inline\">M_T^{(\\alpha)} =</math><math display=\"inline\">e^{-\\alpha.W_T - \\frac{|\\alpha|^2}{2}T}</math> such that <math display=\"inline\">(W_t^{(\\alpha)} = W_t + \\alpha t)_{0 \\le t \\le T}</math> is a standard <math display=\"inline\">\\mathbb{P}^{(\\alpha)}</math>-Brownian motion. Therefore, we have for <math display=\"inline\">x \\in \\mathbb{R}^2</math>,</p>",
+      "page": 216,
+      "polygon": [
+        [
+          300.49620253164557,
+          287.80914512922465
+        ],
+        [
+          513.3164556962025,
+          287.80914512922465
+        ],
+        [
+          513.3164556962025,
+          386.2041015625
+        ],
+        [
+          300.49620253164557,
+          386.2041015625
+        ]
+      ],
+      "bbox": [
+        300.49620253164557,
+        287.80914512922465,
+        513.3164556962025,
+        386.2041015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/16",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">U(t, \\exp(x)) = I\\!\\!E \\Big( e^{-r(T-t)} M_{T-t}^{(\\alpha)}</math><math display=\"block\">\\times e^{(\\alpha.W_{T-t} + |\\alpha|^2/2(T-t))} \\psi \\big( \\exp\\big(x + \\Sigma W_{T-t}^{(\\alpha)}\\big) \\big) \\Big)</math><math display=\"block\">= I\\!\\!E^{(\\alpha)} \\big( e^{-\\rho(T-t)} e^{\\alpha.W_{T-t}^{(\\alpha)}} \\psi \\big( \\exp\\big(x + \\Sigma W_{T-t}^{(\\alpha)}\\big) \\big) \\big) \\tag{5}</math></p>",
+      "page": 216,
+      "polygon": [
+        [
+          308.140625,
+          399.826171875
+        ],
+        [
+          512.5670886075949,
+          399.826171875
+        ],
+        [
+          512.5670886075949,
+          466.83203125
+        ],
+        [
+          308.140625,
+          466.83203125
+        ]
+      ],
+      "bbox": [
+        308.140625,
+        399.826171875,
+        512.5670886075949,
+        466.83203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/17",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Define for <math display=\"inline\">y \\in \\mathbb{R}^2</math>,</p>",
+      "page": 216,
+      "polygon": [
+        [
+          301.24556962025315,
+          470.6878727634195
+        ],
+        [
+          379.17974683544304,
+          470.6878727634195
+        ],
+        [
+          379.17974683544304,
+          481.55859375
+        ],
+        [
+          301.24556962025315,
+          481.55859375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        470.6878727634195,
+        379.17974683544304,
+        481.55859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/18",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V(t, y) = I\\!E^{(\\alpha)} \\left( e^{-\\rho(T-t)} \\phi \\left( y + W_{T-t}^{(\\alpha)} \\right) \\right) \\tag{6}</math></p>",
+      "page": 216,
+      "polygon": [
+        [
+          321.1484375,
+          489.2900390625
+        ],
+        [
+          511.3515625,
+          489.2900390625
+        ],
+        [
+          511.3515625,
+          511.3798828125
+        ],
+        [
+          321.1484375,
+          511.3798828125
+        ]
+      ],
+      "bbox": [
+        321.1484375,
+        489.2900390625,
+        511.3515625,
+        511.3798828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/19",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">with <math display=\"inline\">\\phi(y) = e^{\\alpha y} \\psi(\\exp(\\Sigma y))</math>. We have <math display=\"inline\">U(t,</math><math display=\"inline\">\\exp(\\Sigma y) = e^{-\\alpha y} V(t, y)</math>, the valuation of an European option is now reduced to the computation of <math display=\"inline\">V.</math> By means of the same transformation, we have <math display=\"inline\">U_{am}(t, \\exp(\\Sigma y)) = e^{-\\alpha y} V_{am}(t, y)</math>, where</p>",
+      "page": 216,
+      "polygon": [
+        [
+          301.24556962025315,
+          514.9085487077535
+        ],
+        [
+          513.3164556962025,
+          514.9085487077535
+        ],
+        [
+          513.3164556962025,
+          572.86328125
+        ],
+        [
+          301.24556962025315,
+          572.86328125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        514.9085487077535,
+        513.3164556962025,
+        572.86328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/20",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_{am}(t, y) = \\sup_{\\tau \\in \\mathcal{T}_{0, T - t}} I\\!E^{(\\alpha)} \\left( e^{-\\rho \\tau} \\phi \\left( y + W_{\\tau}^{(\\alpha)} \\right) \\right) \\tag{7}</math></p>",
+      "page": 216,
+      "polygon": [
+        [
+          314.5,
+          579.8583984375
+        ],
+        [
+          512.796875,
+          579.8583984375
+        ],
+        [
+          512.796875,
+          600.4755859375
+        ],
+        [
+          314.5,
+          600.4755859375
+        ]
+      ],
+      "bbox": [
+        314.5,
+        579.8583984375,
+        512.796875,
+        600.4755859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/21",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Introduce the parabolic operator <math display=\"inline\">\\mathcal{L}</math> defined by</p>",
+      "page": 216,
+      "polygon": [
+        [
+          301.24556962025315,
+          607.8388671875
+        ],
+        [
+          485.9140625,
+          607.8388671875
+        ],
+        [
+          485.9140625,
+          617.4111328125
+        ],
+        [
+          301.24556962025315,
+          617.4111328125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        607.8388671875,
+        485.9140625,
+        617.4111328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/22",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathcal{L}v = \\frac{\\partial v}{\\partial t} + \\frac{1}{2}\\Delta v - \\rho v \\tag{8}</math></p>",
+      "page": 216,
+      "polygon": [
+        [
+          359.59375,
+          625.142578125
+        ],
+        [
+          512.21875,
+          625.142578125
+        ],
+        [
+          512.21875,
+          648.705078125
+        ],
+        [
+          359.59375,
+          648.705078125
+        ]
+      ],
+      "bbox": [
+        359.59375,
+        625.142578125,
+        512.21875,
+        648.705078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 209,
+      "polygon": [
+        [
+          77.90234375,
+          45.71968190854871
+        ],
+        [
+          297.49873417721517,
+          45.71968190854871
+        ],
+        [
+          297.49873417721517,
+          55.868896484375
+        ],
+        [
+          77.90234375,
+          55.868896484375
+        ]
+      ],
+      "bbox": [
+        77.90234375,
+        45.71968190854871,
+        297.49873417721517,
+        55.868896484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">\\Delta</math> stands for the Laplacian. Then the function <math display=\"inline\">V</math> is the solution of the following PDE:</p>",
+      "page": 209,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.2027833001988
+        ],
+        [
+          290.00506329113927,
+          71.2027833001988
+        ],
+        [
+          290.00506329113927,
+          92.3631591796875
+        ],
+        [
+          77.93417721518988,
+          92.3631591796875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.2027833001988,
+        290.00506329113927,
+        92.3631591796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases}\\n\\mathcal{L}v = 0 \\\\\nv(T,.) = \\phi\\n\\end{cases} \\tag{9}</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          156.9609375,
+          103.546142578125
+        ],
+        [
+          288.484375,
+          103.546142578125
+        ],
+        [
+          288.484375,
+          126.556396484375
+        ],
+        [
+          156.9609375,
+          126.556396484375
+        ]
+      ],
+      "bbox": [
+        156.9609375,
+        103.546142578125,
+        288.484375,
+        126.556396484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">while the function <math display=\"inline\">V_{am}</math> satisfies the following obstacle problem on <math display=\"inline\">[0, T] \\times \\mathbb{R}^2</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          77.93417721518988,
+          134.91053677932405
+        ],
+        [
+          290.00506329113927,
+          134.91053677932405
+        ],
+        [
+          290.00506329113927,
+          157.114013671875
+        ],
+        [
+          77.93417721518988,
+          157.114013671875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        134.91053677932405,
+        290.00506329113927,
+        157.114013671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases} \\max(\\mathcal{L}v, \\phi - v) = 0\\\\ v(T,.) = \\phi \\end{cases} \\tag{10}</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          139.544921875,
+          167.69873046875
+        ],
+        [
+          287.328125,
+          167.69873046875
+        ],
+        [
+          287.328125,
+          190.3408203125
+        ],
+        [
+          139.544921875,
+          190.3408203125
+        ]
+      ],
+      "bbox": [
+        139.544921875,
+        167.69873046875,
+        287.328125,
+        190.3408203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">either in the sense of variational inequalities [7] or in the sense of viscosity solutions <math display=\"inline\">[9, \\text{Prop } 1.2]</math> (see Monotone Schemes).</p>",
+      "page": 209,
+      "polygon": [
+        [
+          77.93417721518988,
+          199.36779324055667
+        ],
+        [
+          290.00506329113927,
+          199.36779324055667
+        ],
+        [
+          290.00506329113927,
+          232.49560546875
+        ],
+        [
+          77.93417721518988,
+          232.49560546875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        199.36779324055667,
+        290.00506329113927,
+        232.49560546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/6",
+      "block_type": "SectionHeader",
+      "html": "<h3><b>ADI Methods </b></h3>",
+      "page": 209,
+      "polygon": [
+        [
+          77.93417721518988,
+          257.07952286282307
+        ],
+        [
+          146.126582278481,
+          257.07952286282307
+        ],
+        [
+          146.126582278481,
+          267.6552734375
+        ],
+        [
+          77.93417721518988,
+          267.6552734375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        257.07952286282307,
+        146.126582278481,
+        267.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The idea of Peaceman-Rachford ADI methods can be outlined as follows: consider a two-dimensional PDE arising from the valuation of a European option</p>",
+      "page": 209,
+      "polygon": [
+        [
+          77.93417721518988,
+          278.8151093439364
+        ],
+        [
+          290.00506329113927,
+          278.8151093439364
+        ],
+        [
+          290.00506329113927,
+          323.248046875
+        ],
+        [
+          77.93417721518988,
+          323.248046875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        278.8151093439364,
+        290.00506329113927,
+        323.248046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{\\partial u}{\\partial t} + \\mathcal{A}u = 0 \\tag{11}</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          155.66015625,
+          325.8251953125
+        ],
+        [
+          288.62890625,
+          325.8251953125
+        ],
+        [
+          288.62890625,
+          346.4423828125
+        ],
+        [
+          155.66015625,
+          346.4423828125
+        ]
+      ],
+      "bbox": [
+        155.66015625,
+        325.8251953125,
+        288.62890625,
+        346.4423828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/9",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where the operator <math display=\"inline\">\\mathcal{A}</math> can be decomposed into <math display=\"inline\">\\mathcal{A} =</math><math display=\"inline\">A_1 + A_2</math> where each term acts on one variable. The ADI methods consist in splitting each time interval of length <math display=\"inline\">\\Delta t</math> in two subintervals and applying the implicit scheme for <math display=\"inline\">A_1</math> and the explicit scheme for <math display=\"inline\">\\mathcal{A}_2</math> on the time interval <math display=\"inline\">[t_n, t_{n+1/2}]</math> and the implicit scheme for <math display=\"inline\">A_2</math> and the explicit scheme for <math display=\"inline\">A_1</math> on the time interval <math display=\"inline\">[t_{n+1/2}, t_{n+1}]</math>. If we denote by <math display=\"inline\">u_n</math>the vector <math display=\"inline\">u(t_n, .)</math>, the ADI methods compute <math display=\"inline\">u_n</math>from <math display=\"inline\">u_{n+1}</math> in two steps as follows: first we compute an intermediate value function <math display=\"inline\">u_{n+1/2}</math> applying the implicit scheme for the differential operator <math display=\"inline\">\\mathcal{A}_1</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          77.93417721518988,
+          354.5149105367793
+        ],
+        [
+          290.00506329113927,
+          354.5149105367793
+        ],
+        [
+          290.00506329113927,
+          491.130859375
+        ],
+        [
+          77.93417721518988,
+          491.130859375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        354.5149105367793,
+        290.00506329113927,
+        491.130859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">u_{n+1} - u_{n+1/2} + \\frac{\\Delta t}{2} \\left( \\mathcal{A}_1 u_{n+1/2} + \\mathcal{A}_2 u_{n+1} \\right) = 0</math>\n(12)</p>",
+      "page": 209,
+      "polygon": [
+        [
+          89.46484375,
+          506.2255859375
+        ],
+        [
+          288.50632911392404,
+          506.2255859375
+        ],
+        [
+          288.50632911392404,
+          541.5693359375
+        ],
+        [
+          89.46484375,
+          541.5693359375
+        ]
+      ],
+      "bbox": [
+        89.46484375,
+        506.2255859375,
+        288.50632911392404,
+        541.5693359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">next, we compute <math display=\"inline\">u_n</math> from <math display=\"inline\">u_{n+1/2}</math> applying an implicit scheme to <math display=\"inline\">\\mathcal{A}_2</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          77.93417721518988,
+          553.882703777336
+        ],
+        [
+          290.00506329113927,
+          553.882703777336
+        ],
+        [
+          290.00506329113927,
+          575.072265625
+        ],
+        [
+          77.93417721518988,
+          575.072265625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        553.882703777336,
+        290.00506329113927,
+        575.072265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/12",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">u_{n+1/2} - u_n + \\frac{\\Delta t}{2} \\left( \\mathcal{A}_1 u_{n+1/2} + \\mathcal{A}_2 u_n \\right) = 0 \\quad (13)</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          90.1875,
+          583.908203125
+        ],
+        [
+          288.7734375,
+          583.908203125
+        ],
+        [
+          288.7734375,
+          606.734375
+        ],
+        [
+          90.1875,
+          606.734375
+        ]
+      ],
+      "bbox": [
+        90.1875,
+        583.908203125,
+        288.7734375,
+        606.734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Each intermediate equation are afterwards discretized in space using finite difference approximation.</p>",
+      "page": 209,
+      "polygon": [
+        [
+          77.93417721518988,
+          623.5864811133201
+        ],
+        [
+          290.00506329113927,
+          623.5864811133201
+        ],
+        [
+          290.00506329113927,
+          644.6552734375
+        ],
+        [
+          77.93417721518988,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        623.5864811133201,
+        290.00506329113927,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/14",
+      "block_type": "SectionHeader",
+      "html": "<h4><b>ADI Methods for American Options </b></h4>",
+      "page": 209,
+      "polygon": [
+        [
+          305.25,
+          71.95228628230616
+        ],
+        [
+          484.0911392405063,
+          71.95228628230616
+        ],
+        [
+          484.0911392405063,
+          81.9625244140625
+        ],
+        [
+          305.25,
+          81.9625244140625
+        ]
+      ],
+      "bbox": [
+        305.25,
+        71.95228628230616,
+        484.0911392405063,
+        81.9625244140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/15",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">We now treat the example of pricing of two-asset American options. The first step is to formulate <math display=\"inline\">(10)</math>in a bounded domain, for example on <math display=\"inline\">Q_l = [0, T] \\times</math><math display=\"inline\">\\Omega_l</math> where <math display=\"inline\">\\Omega_l = ] - l, l[^2]</math>:</p>",
+      "page": 209,
+      "polygon": [
+        [
+          305.7417721518987,
+          94.43737574552684
+        ],
+        [
+          516.3139240506329,
+          94.43737574552684
+        ],
+        [
+          516.3139240506329,
+          137.90854870775348
+        ],
+        [
+          305.7417721518987,
+          137.90854870775348
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        94.43737574552684,
+        516.3139240506329,
+        137.90854870775348
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/16",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases} \\max(\\mathcal{L}v_{am}, \\phi - v_{am}) = 0\\\\ v_{am}(T, .) = \\phi \\end{cases} \\tag{14}</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          359.8828125,
+          149.474609375
+        ],
+        [
+          515.9765625,
+          149.474609375
+        ],
+        [
+          515.9765625,
+          172.30078125
+        ],
+        [
+          359.8828125,
+          172.30078125
+        ]
+      ],
+      "bbox": [
+        359.8828125,
+        149.474609375,
+        515.9765625,
+        172.30078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/17",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">with a Dirichlet boundary condition <math display=\"inline\">v_{am} = \\phi</math> on <math display=\"inline\">]0,T[\\times \\partial \\Omega_l.</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          305.7417721518987,
+          184.37773359840955
+        ],
+        [
+          516.3139240506329,
+          184.37773359840955
+        ],
+        [
+          516.3139240506329,
+          205.25146484375
+        ],
+        [
+          305.7417721518987,
+          205.25146484375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        184.37773359840955,
+        516.3139240506329,
+        205.25146484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/18",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">For the numerical resolution of the obstacle problem <math display=\"inline\">(14)</math> by finite difference methods, we shall introduce a grid of mesh points <math display=\"inline\">(nk, ih, jh)</math> where h, k are mesh parameters that are thought of as tending to zero. Denote by <math display=\"inline\">N = \\lceil T/k \\rceil</math> and M the greatest integer such that <math display=\"inline\">(M + \\frac{1}{2}) h \\leq l</math>. For each point <math display=\"inline\">x_{ij} = (ih, jh)</math>, consider a square</p>",
+      "page": 209,
+      "polygon": [
+        [
+          304.99240506329113,
+          206.86282306163022
+        ],
+        [
+          516.3139240506329,
+          206.86282306163022
+        ],
+        [
+          516.3139240506329,
+          287.72021484375
+        ],
+        [
+          304.99240506329113,
+          287.72021484375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        206.86282306163022,
+        516.3139240506329,
+        287.72021484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/19",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">C_{ij}^{(h)} = \\left] (i - 1/2)h, (i + 1/2)h \\right[ \\times \\left] (j - 1/2)h, (j + 1/2)h \\right[ \\tag{15}</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          342.25,
+          304.83984375
+        ],
+        [
+          515.6875,
+          304.83984375
+        ],
+        [
+          515.6875,
+          339.0791015625
+        ],
+        [
+          342.25,
+          339.0791015625
+        ]
+      ],
+      "bbox": [
+        342.25,
+        304.83984375,
+        515.6875,
+        339.0791015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/20",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">and define</p>",
+      "page": 209,
+      "polygon": [
+        [
+          305.7417721518987,
+          349.26838966202786
+        ],
+        [
+          347.706329113924,
+          349.26838966202786
+        ],
+        [
+          347.706329113924,
+          359.328125
+        ],
+        [
+          305.7417721518987,
+          359.328125
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        349.26838966202786,
+        347.706329113924,
+        359.328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/21",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\Omega_h = \\left\\{ x_{ij} \\; ; \\; C_{ij}^{(h)} \\subset \\Omega_l \\right\\}\\n</math>\n<math display=\"block\">\\n= \\left\\{ x_{ij} \\; ; \\; -M \\le i, \\, j \\le M \\right\\} \\tag{16}</math></p>",
+      "page": 209,
+      "polygon": [
+        [
+          351.7890625,
+          374.791015625
+        ],
+        [
+          515.9765625,
+          374.791015625
+        ],
+        [
+          515.9765625,
+          412.34375
+        ],
+        [
+          351.7890625,
+          412.34375
+        ]
+      ],
+      "bbox": [
+        351.7890625,
+        374.791015625,
+        515.9765625,
+        412.34375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/22",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">In the sequel, <math display=\"inline\">V_h</math> is the space generated by <math display=\"inline\">\\chi_{ij}^{(h)}</math> where <math display=\"inline\">\\chi_{ij}^{(h)}</math> is the indicator function of the squares <math display=\"inline\">C_{ij}^{(h)}</math>. If <math display=\"inline\">u_h \\in V_h</math>, we write <math display=\"inline\">u_h(x) = \\sum_{i,j=-M}^M u_{ij} \\chi_{ij}^{(h)}(x)</math>. Note that <math display=\"inline\">u_{ii} = u(ih, jh)</math>. Moreover, we denote by <math display=\"inline\">\\phi_{h,k}</math>the approximation of the payoff function <math display=\"inline\">\\phi</math> in the grid defined by</p>",
+      "page": 209,
+      "polygon": [
+        [
+          304.99240506329113,
+          421.97017892644135
+        ],
+        [
+          517.0632911392405,
+          421.97017892644135
+        ],
+        [
+          517.0632911392405,
+          497.021484375
+        ],
+        [
+          304.99240506329113,
+          497.021484375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        421.97017892644135,
+        517.0632911392405,
+        497.021484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/23",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\phi_{h,k}(t,x) = \\sum_{n=0}^{N} \\phi_h(x) \\mathbf{1}_{[nk,(n+1)k[}(t))</math><math display=\"block\">= \\sum_{n=0}^{N} \\left( \\sum_{i,j=-M}^{M} \\phi_{ij} \\chi_{ij}^{(h)}(x) \\right) \\mathbf{1}_{[nk,(n+1)k[}(t))} </math>(17)</p>",
+      "page": 209,
+      "polygon": [
+        [
+          304.671875,
+          510.6435546875
+        ],
+        [
+          515.109375,
+          510.6435546875
+        ],
+        [
+          515.109375,
+          599.0029296875
+        ],
+        [
+          304.671875,
+          599.0029296875
+        ]
+      ],
+      "bbox": [
+        304.671875,
+        510.6435546875,
+        515.109375,
+        599.0029296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/24",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\phi_{ij} = \\phi(x_{ij})</math> and <math display=\"inline\">\\mathbf{1}_I</math> is the indicator function of the interval <math display=\"inline\">I</math>. We replace the Laplacian operator by a finite difference approximation and denote throughout</p>",
+      "page": 209,
+      "polygon": [
+        [
+          305.7417721518987,
+          611.5944333996024
+        ],
+        [
+          517.0632911392405,
+          611.5944333996024
+        ],
+        [
+          517.0632911392405,
+          643.8230616302187
+        ],
+        [
+          305.7417721518987,
+          643.8230616302187
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        611.5944333996024,
+        517.0632911392405,
+        643.8230616302187
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 158,
+      "polygon": [
+        [
+          293.0025316455696,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          55.7308349609375
+        ],
+        [
+          293.0025316455696,
+          55.7308349609375
+        ]
+      ],
+      "bbox": [
+        293.0025316455696,
+        45.71968190854871,
+        513.3164556962025,
+        55.7308349609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">the paper A, B the linear operators defined on <math display=\"inline\">V_h</math>by</p>",
+      "page": 158,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.95228628230616
+        ],
+        [
+          285.8828125,
+          71.95228628230616
+        ],
+        [
+          285.8828125,
+          93.3756103515625
+        ],
+        [
+          74.1873417721519,
+          93.3756103515625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.95228628230616,
+        285.8828125,
+        93.3756103515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">(Au_h)(x) = \\sum_{i,j=-M}^{M} (Au_h)_{ij} \\chi_{ij}^{(h)}(x) \\qquad (18)</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          111.2890625,
+          107.68798828125
+        ],
+        [
+          285.59375,
+          107.68798828125
+        ],
+        [
+          285.59375,
+          140.45458984375
+        ],
+        [
+          111.2890625,
+          140.45458984375
+        ]
+      ],
+      "bbox": [
+        111.2890625,
+        107.68798828125,
+        285.59375,
+        140.45458984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/3",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">(Bu_h)(x) = \\sum_{i,j=-M}^{M} (Bu_h)_{ij} \\chi_{ij}^{(h)}(x) \\qquad (19)</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          109.626953125,
+          146.8974609375
+        ],
+        [
+          283.28125,
+          146.8974609375
+        ],
+        [
+          283.28125,
+          179.84814453125
+        ],
+        [
+          109.626953125,
+          179.84814453125
+        ]
+      ],
+      "bbox": [
+        109.626953125,
+        146.8974609375,
+        283.28125,
+        179.84814453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where</p>",
+      "page": 158,
+      "polygon": [
+        [
+          74.1873417721519,
+          188.12524850894633
+        ],
+        [
+          100.41518987341772,
+          188.12524850894633
+        ],
+        [
+          100.41518987341772,
+          197.7041015625
+        ],
+        [
+          74.1873417721519,
+          197.7041015625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        188.12524850894633,
+        100.41518987341772,
+        197.7041015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/5",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">(Au_h)_{ij} = 1/2(u_{i+1,j} - 2u_{ij} + u_{i-1,j}) \\quad (20)</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          105.21875,
+          214.35785288270378
+        ],
+        [
+          286.2582278481013,
+          214.35785288270378
+        ],
+        [
+          286.2582278481013,
+          225.86865234375
+        ],
+        [
+          105.21875,
+          225.86865234375
+        ]
+      ],
+      "bbox": [
+        105.21875,
+        214.35785288270378,
+        286.2582278481013,
+        225.86865234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">(Bu_h)_{ij} = 1/2(u_{i,j+1} - 2u_{ij} + u_{i,j-1}) \\quad (21)</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          105.21875,
+          232.86376953125
+        ],
+        [
+          285.8828125,
+          232.86376953125
+        ],
+        [
+          285.8828125,
+          245.01318359375
+        ],
+        [
+          105.21875,
+          245.01318359375
+        ]
+      ],
+      "bbox": [
+        105.21875,
+        232.86376953125,
+        285.8828125,
+        245.01318359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/7",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">with the convention <math display=\"inline\">u_{ij} = 0</math> if <math display=\"inline\">|i| \\geq M + 1</math> and <math display=\"inline\">|j| \\geq</math><math display=\"inline\">M + 1</math>. Finally, we shall denote by <math display=\"inline\">(.,.)_l</math> the inner product on <math display=\"inline\">\\Omega_l</math> and <math display=\"inline\">|.|_l = \\sqrt{(\\cdot,\\cdot)_l}</math>.</p>",
+      "page": 158,
+      "polygon": [
+        [
+          74.1873417721519,
+          264.5745526838966
+        ],
+        [
+          286.171875,
+          264.5745526838966
+        ],
+        [
+          286.171875,
+          298.5810546875
+        ],
+        [
+          74.1873417721519,
+          299.051689860835
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        264.5745526838966,
+        286.171875,
+        299.051689860835
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6",
+        "4": "/page/1/SectionHeader/14"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/8",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Dynamic Programming and ADI Method </b></h2>",
+      "page": 158,
+      "polygon": [
+        [
+          74.1873417721519,
+          322.28628230616306
+        ],
+        [
+          278.01518987341774,
+          322.28628230616306
+        ],
+        [
+          278.01518987341774,
+          333.00439453125
+        ],
+        [
+          74.1873417721519,
+          333.00439453125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        322.28628230616306,
+        278.01518987341774,
+        333.00439453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Barles <i>et al.</i> [1] discuss a splitting method, which can be viewed as an analytic version of the dynamic programming principle: one builds the approximate solution</p>",
+      "page": 158,
+      "polygon": [
+        [
+          74.1873417721519,
+          344.77137176938373
+        ],
+        [
+          286.2582278481013,
+          344.77137176938373
+        ],
+        [
+          286.2582278481013,
+          388.044921875
+        ],
+        [
+          74.1873417721519,
+          388.044921875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        344.77137176938373,
+        286.2582278481013,
+        388.044921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">u_{h,k} = \\sum_{n=0}^{N} u_h^n(x) \\mathbf{1}_{[nk,(n+1)k[}(t)) </math>(22)</p>",
+      "page": 158,
+      "polygon": [
+        [
+          119.166015625,
+          397.2490234375
+        ],
+        [
+          285.015625,
+          397.2490234375
+        ],
+        [
+          285.015625,
+          427.4384765625
+        ],
+        [
+          119.166015625,
+          427.4384765625
+        ]
+      ],
+      "bbox": [
+        119.166015625,
+        397.2490234375,
+        285.015625,
+        427.4384765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/11",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">in a recursive way, starting from <math display=\"inline\">u_h^N = \\phi</math> and computing <math display=\"inline\">u_h^n</math> for <math display=\"inline\">0 &lt; n &lt; N</math> in two steps:</p>",
+      "page": 158,
+      "polygon": [
+        [
+          73.4379746835443,
+          436.2107355864811
+        ],
+        [
+          285.50886075949364,
+          435.4612326043738
+        ],
+        [
+          285.50886075949364,
+          459.8369140625
+        ],
+        [
+          73.4379746835443,
+          459.8369140625
+        ]
+      ],
+      "bbox": [
+        73.4379746835443,
+        435.4612326043738,
+        285.50886075949364,
+        459.8369140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/155",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><i>First step</i>: One solves the following Cauchy problem on <math display=\"inline\">[nk, (n + 1)k] \\times \\Omega_l</math> with Dirichlet boundary conditions.</p>",
+      "page": 158,
+      "polygon": [
+        [
+          71.83203125,
+          469.93836978131213
+        ],
+        [
+          285.50886075949364,
+          469.93836978131213
+        ],
+        [
+          285.50886075949364,
+          504.384765625
+        ],
+        [
+          71.83203125,
+          504.384765625
+        ]
+      ],
+      "bbox": [
+        71.83203125,
+        469.93836978131213,
+        285.50886075949364,
+        504.384765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases}\\n\\mathcal{L}v = 0 \\\\\nv(n+1, .) = u_h^{n+1}(.)\\n\\end{cases} \\n</math>\n(23)</p>",
+      "page": 158,
+      "polygon": [
+        [
+          140.484375,
+          511.748046875
+        ],
+        [
+          285.8828125,
+          511.748046875
+        ],
+        [
+          285.8828125,
+          536.046875
+        ],
+        [
+          140.484375,
+          536.046875
+        ]
+      ],
+      "bbox": [
+        140.484375,
+        511.748046875,
+        285.8828125,
+        536.046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">and denote the solution by <math display=\"inline\">S(k)[u_h^{n+1}]</math>.</p>",
+      "page": 158,
+      "polygon": [
+        [
+          75.373046875,
+          544.1391650099404
+        ],
+        [
+          241.9453125,
+          544.1391650099404
+        ],
+        [
+          241.9453125,
+          563.291015625
+        ],
+        [
+          75.373046875,
+          563.291015625
+        ]
+      ],
+      "bbox": [
+        75.373046875,
+        544.1391650099404,
+        241.9453125,
+        563.291015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/156",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><i>Second step</i>: One computes</p>",
+      "page": 158,
+      "polygon": [
+        [
+          72.916015625,
+          557.6302186878728
+        ],
+        [
+          200.03125,
+          557.6302186878728
+        ],
+        [
+          200.03125,
+          569.5498046875
+        ],
+        [
+          72.916015625,
+          569.5498046875
+        ]
+      ],
+      "bbox": [
+        72.916015625,
+        557.6302186878728,
+        200.03125,
+        569.5498046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/16",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">u(n,.) = \\max\\left(\\phi_h(.), S(k)[u_h^{n+1}]\\right) \\tag{24}</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          109.771484375,
+          578.75390625
+        ],
+        [
+          286.171875,
+          578.75390625
+        ],
+        [
+          286.171875,
+          591.271484375
+        ],
+        [
+          109.771484375,
+          591.271484375
+        ]
+      ],
+      "bbox": [
+        109.771484375,
+        578.75390625,
+        286.171875,
+        591.271484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/17",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The ADI method consists in splitting the initial system into two intermediate unidimensional linear systems: <math display=\"inline\">u^{n+1}</math> given in <math display=\"inline\">V_h</math> with <math display=\"inline\">u_{ij}^{n+1} = \\phi_{ij}</math> if <math display=\"inline\">|i| =</math><math display=\"inline\">M + 1</math> or <math display=\"inline\">|j| = M + 1</math>.</p>",
+      "page": 158,
+      "polygon": [
+        [
+          73.4379746835443,
+          600.3518886679921
+        ],
+        [
+          285.50886075949364,
+          600.3518886679921
+        ],
+        [
+          285.50886075949364,
+          644.6552734375
+        ],
+        [
+          73.4379746835443,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        73.4379746835443,
+        600.3518886679921,
+        285.50886075949364,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/18",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">One computes an intermediate value function <math display=\"inline\">v_h^{n+1/2} = (v_{ij}^{n+1/2})_{-M \\leq i, j \\leq M}</math> by</p>",
+      "page": 158,
+      "polygon": [
+        [
+          300.49620253164557,
+          69.7037773359841
+        ],
+        [
+          513.3164556962025,
+          69.7037773359841
+        ],
+        [
+          513.3164556962025,
+          96.68588469184891
+        ],
+        [
+          300.49620253164557,
+          96.68588469184891
+        ]
+      ],
+      "bbox": [
+        300.49620253164557,
+        69.7037773359841,
+        513.3164556962025,
+        96.68588469184891
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/19",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">• for <math display=\"inline\">|i| \\leq M - 1</math> and <math display=\"inline\">|j| \\leq M - 1</math>,</p>",
+      "page": 158,
+      "polygon": [
+        [
+          296.7493670886076,
+          107.17892644135189
+        ],
+        [
+          449.62025316455697,
+          105.67992047713717
+        ],
+        [
+          449.62025316455697,
+          118.1806640625
+        ],
+        [
+          296.7493670886076,
+          118.1806640625
+        ]
+      ],
+      "bbox": [
+        296.7493670886076,
+        105.67992047713717,
+        449.62025316455697,
+        118.1806640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/20",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{u_{ij}^{n+1} - v_{ij}^{n+1/2}}{\\frac{k}{2}} + \\frac{v_{i+1,j}^{n+1/2} - 2v_{ij}^{n+1/2} + v_{i-1,j}^{n+1/2}}{2h^2} + \\frac{u_{i,j+1}^{n+1} - 2u_{ij}^{n+1} + u_{i,j-1}^{n+1}}{2h^2} - \\frac{\\rho}{2} \\left( u_{ij}^{n+1} + v_{ij}^{n+1/2} \\right) = 0 \\quad (25)</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          322.8828125,
+          129.40966796875
+        ],
+        [
+          513.3164556962025,
+          129.40966796875
+        ],
+        [
+          513.3164556962025,
+          219.0576171875
+        ],
+        [
+          322.8828125,
+          219.0576171875
+        ]
+      ],
+      "bbox": [
+        322.8828125,
+        129.40966796875,
+        513.3164556962025,
+        219.0576171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/157",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">for <math display=\"inline\">i = M</math> and <math display=\"inline\">|j| \\leq M - 1</math> (right boundary conditions).</p>",
+      "page": 158,
+      "polygon": [
+        [
+          297.734375,
+          232.34592445328033
+        ],
+        [
+          513.3164556962025,
+          232.34592445328033
+        ],
+        [
+          513.3164556962025,
+          254.4013671875
+        ],
+        [
+          297.734375,
+          254.4013671875
+        ]
+      ],
+      "bbox": [
+        297.734375,
+        232.34592445328033,
+        513.3164556962025,
+        254.4013671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/22",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{u_{M,j}^{n+1} - v_{M,j}^{n+1/2}}{\\frac{k}{2}} + \\frac{\\phi_{M+1,j} - 2v_{M,j}^{n+1/2} + v_{M-1,j}^{n+1/2}}{2h^2} + \\frac{u_{M,j+1}^{n+1} - 2u_{M,j}^{n+1} + u_{M,j-1}^{n+1}}{2h^2} - \\frac{\\rho}{2} \\left( u_{Mj}^{n+1} + v_{Mj}^{n+1/2} \\right) = 0 \\quad (26)</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          320.72911392405064,
+          267.6552734375
+        ],
+        [
+          510.484375,
+          267.6552734375
+        ],
+        [
+          510.484375,
+          352.701171875
+        ],
+        [
+          320.72911392405064,
+          352.701171875
+        ]
+      ],
+      "bbox": [
+        320.72911392405064,
+        267.6552734375,
+        510.484375,
+        352.701171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/158",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">for <math display=\"inline\">i = -M</math> and <math display=\"inline\">|j| \\leq M - 1</math> (left boundary con-<math display=\"inline\">\\bullet</math>ditions),</p>",
+      "page": 158,
+      "polygon": [
+        [
+          296.7493670886076,
+          360.5109343936382
+        ],
+        [
+          512.5670886075949,
+          360.5109343936382
+        ],
+        [
+          512.5670886075949,
+          382.5224609375
+        ],
+        [
+          296.7493670886076,
+          382.5224609375
+        ]
+      ],
+      "bbox": [
+        296.7493670886076,
+        360.5109343936382,
+        512.5670886075949,
+        382.5224609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/24",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{u_{-M,j}^{n+1} - v_{-M,j}^{n+1/2}}{\\frac{k}{2}} + \\frac{\\phi_{-M-1,j} - 2v_{M,j}^{n+1/2} + v_{-M+1,j}^{n+1/2}}{2h^2} + \\frac{u_{-M,j+1}^{n+1} - 2u_{-M,j}^{n+1} + u_{-M,j-1}^{n+1}}{2h^2} - \\frac{\\rho}{2} \\left( u_{-Mj}^{n+1} + v_{-Mj}^{n+1/2} \\right) = 0 \\quad (27)</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          315.65625,
+          396.14453125
+        ],
+        [
+          512.5670886075949,
+          396.14453125
+        ],
+        [
+          512.5670886075949,
+          483.767578125
+        ],
+        [
+          315.65625,
+          483.767578125
+        ]
+      ],
+      "bbox": [
+        315.65625,
+        396.14453125,
+        512.5670886075949,
+        483.767578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/25",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">and the symmetric equations for <math display=\"inline\">|j| = M</math>. In a more compact form:</p>",
+      "page": 158,
+      "polygon": [
+        [
+          301.24556962025315,
+          492.2353515625
+        ],
+        [
+          513.3164556962025,
+          492.2353515625
+        ],
+        [
+          513.3164556962025,
+          513.5888671875
+        ],
+        [
+          301.24556962025315,
+          513.5888671875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        492.2353515625,
+        513.3164556962025,
+        513.5888671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/26",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{u^{n+1} - v^{n+1/2}}{\\frac{k}{2}} + \\frac{Av^{n+1/2} + a}{h^2} + \\frac{Bu^{n+1} + b}{h^2} - \\frac{\\rho}{2} \\left( u^{n+1} + v^{n+1/2} \\right) = 0 \\qquad (28)</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          320.5703125,
+          526.8427734375
+        ],
+        [
+          511.9296875,
+          526.8427734375
+        ],
+        [
+          511.9296875,
+          581.3310546875
+        ],
+        [
+          320.5703125,
+          581.3310546875
+        ]
+      ],
+      "bbox": [
+        320.5703125,
+        526.8427734375,
+        511.9296875,
+        581.3310546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/27",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">with</p>",
+      "page": 158,
+      "polygon": [
+        [
+          301.24556962025315,
+          586.1113320079523
+        ],
+        [
+          321.4784810126582,
+          586.1113320079523
+        ],
+        [
+          321.4784810126582,
+          596.42578125
+        ],
+        [
+          301.24556962025315,
+          596.42578125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        586.1113320079523,
+        321.4784810126582,
+        596.42578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/28",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">a_{Mj} = \\frac{1}{2}\\phi_{M+1,j}, \\quad a_{-Mj} = \\frac{1}{2}\\phi_{-M-1,j}</math><br/><math display=\"block\">a_{ij} = 0 \\quad \\text{for } |i| \\le M - 1 \\tag{29}</math></p>",
+      "page": 158,
+      "polygon": [
+        [
+          331.265625,
+          606.734375
+        ],
+        [
+          513.3164556962025,
+          606.734375
+        ],
+        [
+          513.3164556962025,
+          645.759765625
+        ],
+        [
+          331.265625,
+          645.759765625
+        ]
+      ],
+      "bbox": [
+        331.265625,
+        606.734375,
+        513.3164556962025,
+        645.759765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 139,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          297.49873417721517,
+          45.71968190854871
+        ],
+        [
+          297.49873417721517,
+          55.77685546875
+        ],
+        [
+          77.93417721518988,
+          55.77685546875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        297.49873417721517,
+        55.77685546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/1",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">b_{iM} = \\frac{1}{2}\\phi_{i,M+1}, \\quad b_{i,-M} = \\frac{1}{2}\\phi_{i,-M-1}</math><math display=\"block\">b_{ij} = 0 \\quad \\text{for } |j| \\le M-1 \\tag{30}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          107.314453125,
+          71.515869140625
+        ],
+        [
+          289.640625,
+          71.515869140625
+        ],
+        [
+          289.640625,
+          109.3447265625
+        ],
+        [
+          107.314453125,
+          109.3447265625
+        ]
+      ],
+      "bbox": [
+        107.314453125,
+        71.515869140625,
+        289.640625,
+        109.3447265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/2",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">In the same <math display=\"inline\">v_{h}^{n} =</math>manner, one computes <math display=\"inline\">(v_{ij}^n)_{-M \\leq i,j \\leq M}</math> by</p>",
+      "page": 139,
+      "polygon": [
+        [
+          77.93417721518988,
+          116.17296222664017
+        ],
+        [
+          289.2556962025316,
+          116.92246520874752
+        ],
+        [
+          289.2556962025316,
+          139.4075546719682
+        ],
+        [
+          77.93417721518988,
+          139.4075546719682
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        116.17296222664017,
+        289.2556962025316,
+        139.4075546719682
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/3",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{v^{n+1/2} - v^n}{\\frac{k}{2}} + \\frac{Av^{n+1/2} + a}{h^2} + \\frac{Bv^n + b}{h^2} - \\frac{\\rho}{2} \\left( v^n + v^{n+1/2} \\right) = 0 \\tag{31}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          105.21875,
+          152.327880859375
+        ],
+        [
+          290.75443037974685,
+          152.327880859375
+        ],
+        [
+          290.75443037974685,
+          206.35595703125
+        ],
+        [
+          105.21875,
+          206.35595703125
+        ]
+      ],
+      "bbox": [
+        105.21875,
+        152.327880859375,
+        290.75443037974685,
+        206.35595703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Equations <math display=\"inline\">(28)</math> and <math display=\"inline\">(31)</math> give</p>",
+      "page": 139,
+      "polygon": [
+        [
+          77.93417721518988,
+          212.10934393638172
+        ],
+        [
+          195.58481012658228,
+          212.10934393638172
+        ],
+        [
+          195.58481012658228,
+          222.92333984375
+        ],
+        [
+          77.93417721518988,
+          222.92333984375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        212.10934393638172,
+        195.58481012658228,
+        222.92333984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/5",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\left[ \\left( 1 + \\frac{\\rho k}{4} \\right) I - \\frac{k}{2h^2} A \\right] v_h^{n+1/2}</math><br/>= <math display=\"block\">\\left[ \\left( 1 - \\frac{\\rho k}{4} \\right) I + \\frac{k}{2h^2} B \\right] u^{n+1} + \\frac{k}{2h^2} (a+b) \\quad (32)</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          84.623046875,
+          235.80908203125
+        ],
+        [
+          287.90625,
+          235.80908203125
+        ],
+        [
+          287.90625,
+          299.13330078125
+        ],
+        [
+          84.623046875,
+          299.13330078125
+        ]
+      ],
+      "bbox": [
+        84.623046875,
+        235.80908203125,
+        287.90625,
+        299.13330078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">and</p>",
+      "page": 139,
+      "polygon": [
+        [
+          77.93417721518988,
+          296.740234375
+        ],
+        [
+          94.42025316455697,
+          296.740234375
+        ],
+        [
+          94.42025316455697,
+          305.9443359375
+        ],
+        [
+          77.93417721518988,
+          305.9443359375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        296.740234375,
+        94.42025316455697,
+        305.9443359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\left[ \\left( 1 + \\frac{\\rho k}{4} \\right) I - \\frac{k}{2h^2} B \\right] v_h^n\\n</math>\n<math display=\"block\">\\n= \\left[ \\left( 1 - \\frac{\\rho k}{4} \\right) I + \\frac{k}{2h^2} A \\right] v_h^{n+1/2} + \\frac{k}{2h^2} (a+b) \\quad (33)</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          84.912109375,
+          317.357421875
+        ],
+        [
+          288.1953125,
+          317.357421875
+        ],
+        [
+          288.1953125,
+          379.5771484375
+        ],
+        [
+          84.912109375,
+          379.5771484375
+        ]
+      ],
+      "bbox": [
+        84.912109375,
+        317.357421875,
+        288.1953125,
+        379.5771484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">If we set <math display=\"inline\">\\eta_{h,k} = \\frac{k}{2h^2}(a+b)</math>,</p>",
+      "page": 139,
+      "polygon": [
+        [
+          77.93417721518988,
+          379.2485089463221
+        ],
+        [
+          191.08860759493672,
+          379.2485089463221
+        ],
+        [
+          191.08860759493672,
+          390.6220703125
+        ],
+        [
+          77.93417721518988,
+          390.6220703125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        379.2485089463221,
+        191.08860759493672,
+        390.6220703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">A_{h,k}^{+} = \\left(1 + \\frac{\\rho k}{4}\\right)I - \\frac{k}{2h^{2}}A</math><math display=\"block\">A_{h,k}^{-} = \\left(1 - \\frac{\\rho k}{4}\\right)I + \\frac{k}{2h^{2}}A \\tag{34}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          124.658203125,
+          404.6123046875
+        ],
+        [
+          288.1953125,
+          404.6123046875
+        ],
+        [
+          288.1953125,
+          461.3095703125
+        ],
+        [
+          124.658203125,
+          461.3095703125
+        ]
+      ],
+      "bbox": [
+        124.658203125,
+        404.6123046875,
+        288.1953125,
+        461.3095703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">and</p>",
+      "page": 139,
+      "polygon": [
+        [
+          77.93417721518988,
+          465.441351888668
+        ],
+        [
+          94.5234375,
+          465.441351888668
+        ],
+        [
+          94.5234375,
+          474.5634765625
+        ],
+        [
+          77.93417721518988,
+          474.5634765625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        465.441351888668,
+        94.5234375,
+        474.5634765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">B_{h,k}^{+} = \\left(1 + \\frac{\\rho k}{4}\\right)I - \\frac{k}{2h^{2}}B</math><math display=\"block\">B_{h,k}^{-} = \\left(1 - \\frac{\\rho k}{4}\\right)I + \\frac{k}{2h^{2}}B \\tag{35}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          124.224609375,
+          486.3447265625
+        ],
+        [
+          287.6171875,
+          486.3447265625
+        ],
+        [
+          287.6171875,
+          542.3056640625
+        ],
+        [
+          124.224609375,
+          542.3056640625
+        ]
+      ],
+      "bbox": [
+        124.224609375,
+        486.3447265625,
+        287.6171875,
+        542.3056640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">one obtains</p>",
+      "page": 139,
+      "polygon": [
+        [
+          77.93417721518988,
+          547.1371769383697
+        ],
+        [
+          125.89367088607595,
+          547.1371769383697
+        ],
+        [
+          125.89367088607595,
+          556.6640625
+        ],
+        [
+          77.93417721518988,
+          556.6640625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        547.1371769383697,
+        125.89367088607595,
+        556.6640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases}\\nA_{h,k}^{+}v^{n+1/2} = B_{h,k}^{-}u^{n+1} + \\eta_{h,k} \\\\\nB_{h,k}^{+}v^{n} = A_{h,k}^{-}v^{n+1/2} + \\eta_{h,k}\\n\\end{cases} \\n\\tag{36}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          123.4296875,
+          562.1865234375
+        ],
+        [
+          287.90625,
+          562.1865234375
+        ],
+        [
+          287.90625,
+          587.9580078125
+        ],
+        [
+          123.4296875,
+          587.9580078125
+        ]
+      ],
+      "bbox": [
+        123.4296875,
+        562.1865234375,
+        287.90625,
+        587.9580078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Finally, the computation of <math display=\"inline\">u_h^n</math> may be summarized by:</p>",
+      "page": 139,
+      "polygon": [
+        [
+          77.93417721518988,
+          593.48046875
+        ],
+        [
+          290.00506329113927,
+          593.48046875
+        ],
+        [
+          290.00506329113927,
+          613.8429423459245
+        ],
+        [
+          77.93417721518988,
+          613.8429423459245
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        593.48046875,
+        290.00506329113927,
+        613.8429423459245
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">u_h^n = \\max\\left(\\phi_h, T_{h,k}[u_h^{n+1}]\\right)</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          130.150390625,
+          615.5703125
+        ],
+        [
+          234.140625,
+          615.5703125
+        ],
+        [
+          234.140625,
+          627.3515625
+        ],
+        [
+          130.150390625,
+          627.3515625
+        ]
+      ],
+      "bbox": [
+        130.150390625,
+        615.5703125,
+        234.140625,
+        627.3515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where the operator <math display=\"inline\">T_{h,k}</math> is defined on <math display=\"inline\">V_h</math> by:</p>",
+      "page": 139,
+      "polygon": [
+        [
+          304.99240506329113,
+          71.2027833001988
+        ],
+        [
+          484.0911392405063,
+          71.2027833001988
+        ],
+        [
+          484.0911392405063,
+          81.91650390625
+        ],
+        [
+          304.99240506329113,
+          81.91650390625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        71.2027833001988,
+        484.0911392405063,
+        81.91650390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">T_{h,k}[u_h] = (A_{h,k}^+)^{-1} (B_{h,k}^+)^{-1} A_{h,k}^- B_{h,k}^- [u_h] </math><br/> <math display=\"block\">+ (A_{h,k}^+)^{-1} (B_{h,k}^+)^{-1} A_{h,k}^- \\eta_{h,k} </math>(37)<br/> <math display=\"block\">+ (B_{h,k}^+)^{-1} \\eta_{h,k}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          332.1328125,
+          97.471435546875
+        ],
+        [
+          517.1328125,
+          97.471435546875
+        ],
+        [
+          517.1328125,
+          146.989501953125
+        ],
+        [
+          332.1328125,
+          146.989501953125
+        ]
+      ],
+      "bbox": [
+        332.1328125,
+        97.471435546875,
+        517.1328125,
+        146.989501953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/18",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">in which one implicitly used the fact that <math display=\"inline\">(A_{h,k}^+)^{-1}</math>, <math display=\"inline\">(B_{h,k}^+)^{-1}, A_{h,k}^- \\text{ and } B_{h,k}^- \\text{ commute.}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          304.99240506329113,
+          157.9423828125
+        ],
+        [
+          515.6875,
+          157.9423828125
+        ],
+        [
+          515.6875,
+          182.1292246520875
+        ],
+        [
+          304.99240506329113,
+          182.1292246520875
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        157.9423828125,
+        515.6875,
+        182.1292246520875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/19",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Villeneuve and Zanette have proved the stability and the convergence of this scheme (see [9, Proposition 2.4 and Theorem 2.1]). Under a condition on the mesh parameters of the form</p>",
+      "page": 139,
+      "polygon": [
+        [
+          304.99240506329113,
+          181.3797216699801
+        ],
+        [
+          517.0632911392405,
+          181.3797216699801
+        ],
+        [
+          517.0632911392405,
+          226.23681640625
+        ],
+        [
+          304.99240506329113,
+          226.23681640625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        181.3797216699801,
+        517.0632911392405,
+        226.23681640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/20",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\lim_{h,k\\downarrow 0} \\frac{k}{h^2} = 0\\tag{38}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          386.765625,
+          235.9931640625
+        ],
+        [
+          515.6875,
+          235.9931640625
+        ],
+        [
+          515.6875,
+          258.8193359375
+        ],
+        [
+          386.765625,
+          258.8193359375
+        ]
+      ],
+      "bbox": [
+        386.765625,
+        235.9931640625,
+        515.6875,
+        258.8193359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/21",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">From a numerical viewpoint, the systems (28) and (31) involve a tridiagonal matrix. Therefore, each intermediate system can be easily solved by Gaussian elimination, which takes part in the accuracy of the ADI method.</p>",
+      "page": 139,
+      "polygon": [
+        [
+          304.99240506329113,
+          266.8230616302187
+        ],
+        [
+          517.0632911392405,
+          266.8230616302187
+        ],
+        [
+          517.0632911392405,
+          323.43212890625
+        ],
+        [
+          304.99240506329113,
+          323.43212890625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        266.8230616302187,
+        517.0632911392405,
+        323.43212890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/22",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Linear Complementarity Problem </b>and ADI Method</h1>",
+      "page": 139,
+      "polygon": [
+        [
+          304.99240506329113,
+          344.77137176938373
+        ],
+        [
+          472.8506329113924,
+          344.77137176938373
+        ],
+        [
+          472.8506329113924,
+          368.5322265625
+        ],
+        [
+          304.99240506329113,
+          368.5322265625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        344.77137176938373,
+        472.8506329113924,
+        368.5322265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/23",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In this section, we describe a second numerical method, which adapts the ADI algorithm to solve the linear complementarity problem (LCP) arising from the discretization of the parabolic variational inequalities related to the pricing of American options.</p>",
+      "page": 139,
+      "polygon": [
+        [
+          304.99240506329113,
+          379.9453125
+        ],
+        [
+          517.0632911392405,
+          379.9453125
+        ],
+        [
+          517.0632911392405,
+          446.21484375
+        ],
+        [
+          304.99240506329113,
+          446.21484375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        379.9453125,
+        517.0632911392405,
+        446.21484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/24",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">When the American option value is computed using standard finite differences approximation, one obtains finite dimensional LCP as follows:</p>",
+      "page": 139,
+      "polygon": [
+        [
+          304.99240506329113,
+          448.2027833001988
+        ],
+        [
+          517.0632911392405,
+          448.2027833001988
+        ],
+        [
+          517.0632911392405,
+          480.822265625
+        ],
+        [
+          304.99240506329113,
+          480.822265625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        448.2027833001988,
+        517.0632911392405,
+        480.822265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/25",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">AU \\leq b</math><br/>\n<math display=\"block\">U \\geq \\psi</math><br/>\n<math display=\"block\">(U - \\psi)^{\\mathrm{T}} (AU - b) = 0</math>\n(39)</p>",
+      "page": 139,
+      "polygon": [
+        [
+          351.7890625,
+          496.28515625
+        ],
+        [
+          515.9765625,
+          496.28515625
+        ],
+        [
+          515.9765625,
+          544.8828125
+        ],
+        [
+          351.7890625,
+          544.8828125
+        ]
+      ],
+      "bbox": [
+        351.7890625,
+        496.28515625,
+        515.9765625,
+        544.8828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/26",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where U is the <math display=\"inline\">(M + 1)^2</math> vector of American option values on the space grid and <math display=\"inline\">A</math> is a block tridiagonal matrix.</p>",
+      "page": 139,
+      "polygon": [
+        [
+          305.7417721518987,
+          552.3836978131213
+        ],
+        [
+          516.84375,
+          552.3836978131213
+        ],
+        [
+          516.84375,
+          587.58984375
+        ],
+        [
+          305.7417721518987,
+          587.58984375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        552.3836978131213,
+        516.84375,
+        587.58984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/27",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">There is an extensive literature on the resolution of LCPs and a complete survey can be found in [3]. In particular, the matrix <math display=\"inline\">A</math> of the LCP arising from a variational inequality exhibits special properties like sparseness, which make it possible to use efficient</p>",
+      "page": 139,
+      "polygon": [
+        [
+          305.7417721518987,
+          588.6943359375
+        ],
+        [
+          517.0632911392405,
+          588.6943359375
+        ],
+        [
+          517.0632911392405,
+          643.9189453125
+        ],
+        [
+          305.7417721518987,
+          643.9189453125
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        588.6943359375,
+        517.0632911392405,
+        643.9189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 140,
+      "polygon": [
+        [
+          293.54296875,
+          44.970178926441356
+        ],
+        [
+          513.3164556962025,
+          44.970178926441356
+        ],
+        [
+          513.3164556962025,
+          56.052978515625
+        ],
+        [
+          293.54296875,
+          56.052978515625
+        ]
+      ],
+      "bbox": [
+        293.54296875,
+        44.970178926441356,
+        513.3164556962025,
+        56.052978515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">algorithms including projected SOR [4] or direct pivoting methods [5].</p>",
+      "page": 140,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.2027833001988
+        ],
+        [
+          287.0390625,
+          71.2027833001988
+        ],
+        [
+          287.0390625,
+          93.1915283203125
+        ],
+        [
+          74.1873417721519,
+          93.1915283203125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.2027833001988,
+        287.0390625,
+        93.1915283203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/2",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Once again, the idea of the ADI method is to exploit the rapid <math display=\"inline\">LU</math> decomposition algorithm for tridiagonal matrices by solving recursively a sequence of <i>one-dimensional</i> linear complementarity problems involving a tridiagonal matrix. Speed and flexibility of ADI methods come again from this decomposition:</p>",
+      "page": 140,
+      "polygon": [
+        [
+          74.1873417721519,
+          93.68787276341949
+        ],
+        [
+          286.2582278481013,
+          93.68787276341949
+        ],
+        [
+          286.2582278481013,
+          172.30078125
+        ],
+        [
+          74.1873417721519,
+          172.30078125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        93.68787276341949,
+        286.2582278481013,
+        172.30078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/3",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">u_{h,k}(t,x) = \\sum_{n=0}^{N-1} \\left( u_h^n(x) \\mathbf{1}_{[nk,(n+1/2)k]}(t) + u_h^{n+1/2}(x) \\mathbf{1}_{[(n+1/2)k,(n+1)k]}(t) \\right) + u_h^N \\mathbf{1}_{[Nk,(N+1/2)k]}(t) \\tag{40}</math></p>",
+      "page": 140,
+      "polygon": [
+        [
+          94.162109375,
+          181.044677734375
+        ],
+        [
+          286.4609375,
+          181.044677734375
+        ],
+        [
+          286.4609375,
+          250.3515625
+        ],
+        [
+          94.162109375,
+          250.3515625
+        ]
+      ],
+      "bbox": [
+        94.162109375,
+        181.044677734375,
+        286.4609375,
+        250.3515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">u_h^0, u_h^{1/2}, \\ldots, u_h^N</math> are the elements of the vector space <math display=\"inline\">V_h</math> satisfying the variational inequalities:</p>",
+      "page": 140,
+      "polygon": [
+        [
+          74.9367088607595,
+          256.3300198807157
+        ],
+        [
+          285.50886075949364,
+          256.3300198807157
+        ],
+        [
+          285.50886075949364,
+          280.541015625
+        ],
+        [
+          74.9367088607595,
+          280.541015625
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        256.3300198807157,
+        285.50886075949364,
+        280.541015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">complementarity problems (see the next proposition): pivoting methods (algorithms of Cryer [5], Brennan-Schwartz [2]) and iterative methods (e.g., PSOR [4]) (see Finite Difference Methods for Early Exercise <b>Options</b>). In the sequel, we specify the computational treatment of equation (41). The inner product in <math display=\"inline\">R^{d^2}</math>is denoted by <math display=\"inline\">(u, v)</math> and we write <math display=\"inline\">u &gt; v</math> if <math display=\"inline\">u_i &gt; v_i</math>for all <math display=\"inline\">i \\in \\{1, \\ldots, d^2\\}</math>. The variational inequality (41) becomes a linear complementarity problem in finite dimensions:</p>",
+      "page": 140,
+      "polygon": [
+        [
+          301.24556962025315,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          183.89794921875
+        ],
+        [
+          301.24556962025315,
+          183.89794921875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        71.2027833001988,
+        513.3164556962025,
+        183.89794921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/6",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Proposition 1 (Linear complementarity problem [3, 7]). Let A a <math display=\"inline\">d^2 \\times d^2</math> matrix and <math display=\"inline\">u, \\theta, \\phi \\in R^{d^2}</math>. The following systems are equivalent:</p>",
+      "page": 140,
+      "polygon": [
+        [
+          301.24556962025315,
+          198.61829025844932
+        ],
+        [
+          513.3164556962025,
+          198.61829025844932
+        ],
+        [
+          513.3164556962025,
+          233.0478515625
+        ],
+        [
+          301.24556962025315,
+          233.0478515625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        198.61829025844932,
+        513.3164556962025,
+        233.0478515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\">• <math display=\"block\">(S)Au \\ge \\theta, \\quad u \\ge \\phi</math><br/>\n<math>(Au - \\theta, \\phi - u) = 0</math> (44)</p>",
+      "page": 140,
+      "polygon": [
+        [
+          302.359375,
+          247.40625
+        ],
+        [
+          512.796875,
+          247.40625
+        ],
+        [
+          512.796875,
+          276.123046875
+        ],
+        [
+          302.359375,
+          276.123046875
+        ]
+      ],
+      "bbox": [
+        302.359375,
+        247.40625,
+        512.796875,
+        276.123046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases}\\n u_{h}^{N} = \\phi_{h} \\text{ and } \\forall n \\leq N - 1 \\\\\n\\forall v_{h} \\geq \\phi_{h} \\quad \\left( \\frac{u_{h}^{n+1} - u_{h}^{n+1/2}}{\\frac{k}{2}} + \\frac{1}{h^{2}} A u_{h}^{n+1/2} + \\frac{1}{h^{2}} B u_{h}^{n+1} - \\frac{\\rho}{2} \\left( u_{h}^{n+1/2} + u_{h}^{n+1} \\right), v_{h} - u_{h}^{n+1/2} \\right)_{l} \\leq 0 \\\\\n\\forall v_{h} \\geq \\phi_{h} \\quad \\left( \\frac{u_{h}^{n+1/2} - u_{h}^{n}}{\\frac{k}{2}} + \\frac{1}{h^{2}} A u_{h}^{n+1/2} + \\frac{1}{h^{2}} B u_{h}^{n} - \\frac{\\rho}{2} \\left( u_{h}^{n+1/2} + u_{h}^{n} \\right), v_{h} - u_{h}^{n} \\right)_{l} \\leq 0\\n\\end{cases} \\tag{41}</math></p>",
+      "page": 140,
+      "polygon": [
+        [
+          89.1746835443038,
+          296.05367793240555
+        ],
+        [
+          511.640625,
+          296.05367793240555
+        ],
+        [
+          511.640625,
+          383.9951171875
+        ],
+        [
+          89.1746835443038,
+          383.9951171875
+        ]
+      ],
+      "bbox": [
+        89.1746835443038,
+        296.05367793240555,
+        511.640625,
+        383.9951171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">with the Dirichlet conditions</p>",
+      "page": 140,
+      "polygon": [
+        [
+          74.9367088607595,
+          397.986083499006
+        ],
+        [
+          191.08860759493672,
+          397.986083499006
+        ],
+        [
+          191.08860759493672,
+          407.92578125
+        ],
+        [
+          74.9367088607595,
+          407.92578125
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        397.986083499006,
+        191.08860759493672,
+        407.92578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/20",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><math display=\"inline\">\\sim N</math></p>",
+      "page": 140,
+      "polygon": [
+        [
+          125.14430379746835,
+          493.92246520874755
+        ],
+        [
+          144.6278481012658,
+          493.92246520874755
+        ],
+        [
+          144.6278481012658,
+          499.91848906560637
+        ],
+        [
+          125.14430379746835,
+          499.91848906560637
+        ]
+      ],
+      "bbox": [
+        125.14430379746835,
+        493.92246520874755,
+        144.6278481012658,
+        499.91848906560637
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\forall n \\quad u_h^n(x_{ij}) = u_h^{n+1/2}(x_{ij}) = \\phi_{ij}</math><br/>for <math>|i| = M</math> and <math>|j| = M</math> (42)</p>",
+      "page": 140,
+      "polygon": [
+        [
+          114.396484375,
+          420.8115234375
+        ],
+        [
+          284.4375,
+          420.8115234375
+        ],
+        [
+          284.4375,
+          455.4189453125
+        ],
+        [
+          114.396484375,
+          455.4189453125
+        ]
+      ],
+      "bbox": [
+        114.396484375,
+        420.8115234375,
+        284.4375,
+        455.4189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/22",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><math display=\"inline\">\\sim</math> <math display=\"inline\">\\sim</math></p>",
+      "page": 140,
+      "polygon": [
+        [
+          209.07341772151898,
+          493.92246520874755
+        ],
+        [
+          235.3012658227848,
+          493.92246520874755
+        ],
+        [
+          235.3012658227848,
+          499.91848906560637
+        ],
+        [
+          209.07341772151898,
+          499.91848906560637
+        ]
+      ],
+      "bbox": [
+        209.07341772151898,
+        493.92246520874755,
+        235.3012658227848,
+        499.91848906560637
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">As usual, we had rather write the system in the following more compact form:</p>",
+      "page": 140,
+      "polygon": [
+        [
+          74.1873417721519,
+          462.4433399602386
+        ],
+        [
+          286.2582278481013,
+          462.4433399602386
+        ],
+        [
+          286.2582278481013,
+          483.767578125
+        ],
+        [
+          74.1873417721519,
+          483.767578125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        462.4433399602386,
+        286.2582278481013,
+        483.767578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/21",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">...</p>",
+      "page": 140,
+      "polygon": [
+        [
+          178.3493670886076,
+          493.92246520874755
+        ],
+        [
+          195.58481012658228,
+          493.92246520874755
+        ],
+        [
+          195.58481012658228,
+          499.91848906560637
+        ],
+        [
+          178.3493670886076,
+          499.91848906560637
+        ]
+      ],
+      "bbox": [
+        178.3493670886076,
+        493.92246520874755,
+        195.58481012658228,
+        499.91848906560637
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/12",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\">• <math display=\"block\">(S')u \\ge \\phi, \\quad \\forall v \\ge \\phi</math><br/>\n<math>(Au - \\theta, v - u) \\ge 0</math> (45)</p>",
+      "page": 140,
+      "polygon": [
+        [
+          300.625,
+          402.03515625
+        ],
+        [
+          512.796875,
+          402.03515625
+        ],
+        [
+          512.796875,
+          433.697265625
+        ],
+        [
+          300.625,
+          433.697265625
+        ]
+      ],
+      "bbox": [
+        300.625,
+        402.03515625,
+        512.796875,
+        433.697265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/13",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">For any matrix <math display=\"inline\">u = (u_{ij})_{1 \\le i, j \\le d}</math>, we choose one of the most obvious methods of ordering</p>",
+      "page": 140,
+      "polygon": [
+        [
+          301.24556962025315,
+          445.95427435387677
+        ],
+        [
+          513.3164556962025,
+          445.95427435387677
+        ],
+        [
+          513.3164556962025,
+          467.568359375
+        ],
+        [
+          301.24556962025315,
+          467.568359375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        445.95427435387677,
+        513.3164556962025,
+        467.568359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/14",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">u = [u_{11}, \\dots, u_{d1}, \\dots, u_{1d}, \\dots, u_{dd}] \\tag{46}</math></p>",
+      "page": 140,
+      "polygon": [
+        [
+          321.4375,
+          478.2451171875
+        ],
+        [
+          512.21875,
+          478.2451171875
+        ],
+        [
+          512.21875,
+          488.5537109375
+        ],
+        [
+          321.4375,
+          488.5537109375
+        ]
+      ],
+      "bbox": [
+        321.4375,
+        478.2451171875,
+        512.21875,
+        488.5537109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases} u_{h}^{n} = \\phi_{h} \\text{ and } \\forall n \\leq N - 1\\\\ \\forall v_{h} \\geq \\phi_{h} \\quad \\left( \\left( I + \\frac{k}{2h^{2}} B - \\frac{\\rho}{2} \\right) u^{n+1} - \\left( I - \\frac{k}{2h^{2}} A + \\frac{\\rho}{2} \\right) u_{h}^{n+1/2}, v_{h} - u_{h}^{n+1/2} \\right)_{l} \\leq 0\\\\ \\forall v_{h} \\geq \\phi_{h} \\quad \\left( \\left( I + \\frac{k}{2h^{2}} B - \\frac{\\rho}{2} \\right) u^{n} - \\left( I - \\frac{k}{2h^{2}} A + \\frac{\\rho}{2} \\right) u_{h}^{n+1/2}, v_{h} - u_{h}^{n} \\right)_{l} \\leq 0 \\end{cases} \\tag{43}</math></p>",
+      "page": 140,
+      "polygon": [
+        [
+          125.01953125,
+          499.966796875
+        ],
+        [
+          512.796875,
+          499.966796875
+        ],
+        [
+          512.796875,
+          552.24609375
+        ],
+        [
+          125.01953125,
+          552.24609375
+        ]
+      ],
+      "bbox": [
+        125.01953125,
+        499.966796875,
+        512.796875,
+        552.24609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">From a theoretical viewpoint, Villeneuve and Zanette <math display=\"inline\">[9, Theorem 3.2]</math> have proved the convergence of this approximation procedure, using the weaker notion of quadratic convergence.</p>",
+      "page": 140,
+      "polygon": [
+        [
+          74.1873417721519,
+          565.8747514910536
+        ],
+        [
+          286.2582278481013,
+          565.8747514910536
+        ],
+        [
+          286.2582278481013,
+          609.3459244532803
+        ],
+        [
+          74.1873417721519,
+          609.3459244532803
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        565.8747514910536,
+        286.2582278481013,
+        609.3459244532803
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/17",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">From a numerical viewpoint, there are mainly two families for solving variational inequalities in finite dimension by exploiting their link with linear</p>",
+      "page": 140,
+      "polygon": [
+        [
+          74.9367088607595,
+          611.5944333996024
+        ],
+        [
+          286.2582278481013,
+          611.5944333996024
+        ],
+        [
+          286.2582278481013,
+          643.8230616302187
+        ],
+        [
+          74.9367088607595,
+          643.8230616302187
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        611.5944333996024,
+        286.2582278481013,
+        643.8230616302187
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/18",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The ADI scheme (41) consists in approximating <math display=\"inline\">u(nk, ih, jh)_{0 \\le n \\le N; -M \\le i, j \\le M}</math> by <math display=\"inline\">(u_{ij}^n)</math> ordered in the way defined above by</p>",
+      "page": 140,
+      "polygon": [
+        [
+          301.24556962025315,
+          568.1232604373757
+        ],
+        [
+          513.3164556962025,
+          568.1232604373757
+        ],
+        [
+          513.3164556962025,
+          602.31640625
+        ],
+        [
+          301.24556962025315,
+          602.31640625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        568.1232604373757,
+        513.3164556962025,
+        602.31640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/19",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">u_{ij}^{N} = \\phi(ih, jh) = \\phi_{ij} \\qquad \\text{for } -M \\le i, j \\le M \\tag{47}</math></p>",
+      "page": 140,
+      "polygon": [
+        [
+          309.5859375,
+          617.04296875
+        ],
+        [
+          513.0859375,
+          617.04296875
+        ],
+        [
+          513.0859375,
+          642.078125
+        ],
+        [
+          309.5859375,
+          642.078125
+        ]
+      ],
+      "bbox": [
+        309.5859375,
+        617.04296875,
+        513.0859375,
+        642.078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 48,
+      "polygon": [
+        [
+          77.541015625,
+          44.970178926441356
+        ],
+        [
+          298.2481012658228,
+          44.970178926441356
+        ],
+        [
+          298.2481012658228,
+          56.212723658051694
+        ],
+        [
+          77.541015625,
+          56.212723658051694
+        ]
+      ],
+      "bbox": [
+        77.541015625,
+        44.970178926441356,
+        298.2481012658228,
+        56.212723658051694
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">and for <math display=\"inline\">0 \\le n \\le N-1</math> and <math display=\"inline\">-M \\le i, j \\le M</math>,</p>",
+      "page": 48,
+      "polygon": [
+        [
+          77.7578125,
+          70.45328031809146
+        ],
+        [
+          261.52911392405065,
+          70.45328031809146
+        ],
+        [
+          261.52911392405065,
+          81.6958250497018
+        ],
+        [
+          77.7578125,
+          81.6958250497018
+        ]
+      ],
+      "bbox": [
+        77.7578125,
+        70.45328031809146,
+        261.52911392405065,
+        81.6958250497018
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases} u_{ij}^{n+1/2} \\geq \\phi_{ij} \\text{ and } u_{ij}^{n} \\geq \\phi_{ij} \\\\ u_{ij}^{n+1/2} = \\phi_{ij} \\text{ and } u_{ij}^{n} = \\phi_{ij} \\text{ for } |i| = M+1 \\text{ or } |j| = M+1 \\\\ \\frac{-1}{2} u_{i+1,j}^{n+1/2} + \\alpha u_{ij}^{n+1/2} - \\frac{1}{2} u_{i-1,j}^{n+1/2} \\geq \\frac{-1}{2} u_{i+1,j}^{n+1} + \\alpha u_{ij}^{n+1} - \\frac{1}{2} u_{i-1,j}^{n+1} \\\\ \\left( \\left( \\frac{-1}{2} u_{i+1,j}^{n+1/2} + \\alpha u_{ij}^{n+1/2} - \\frac{1}{2} u_{i-1,j}^{n+1/2} \\right) - \\frac{1}{2} u_{i+1,j}^{n+1} - \\alpha u_{ij}^{n+1} + \\frac{1}{2} u_{i-1,j}^{n+1} u_{ij}^{n+1/2} - \\phi_{ij} \\right) = 0 \\\\ \\frac{-1}{2} u_{i,j+1}^{n} + \\alpha u_{ij}^{n} - \\frac{1}{2} u_{i,j-1}^{n} \\geq \\frac{-1}{2} u_{i,j+1}^{n+1/2} + \\alpha u_{ij}^{n+1/2} - \\frac{1}{2} u_{i,j-1}^{n+1/2} \\\\ \\left( \\left( \\frac{-1}{2} u_{i,j+1}^{n} + \\alpha u_{ij}^{n} - \\frac{1}{2} u_{i,j-1}^{n} \\right) - \\left( \\frac{-1}{2} u_{i,j+1}^{n+1/2} + \\alpha u_{ij}^{n+1/2} - \\frac{1}{2} u_{i,j-1}^{n+1/2} \\right), u_{ij}^{n} - \\phi_{ij} \\right) = 0 \\end{cases} \\tag{48}</math></p>",
+      "page": 48,
+      "polygon": [
+        [
+          125.88671875,
+          126.09619140625
+        ],
+        [
+          516.265625,
+          126.09619140625
+        ],
+        [
+          516.265625,
+          253.48095703125
+        ],
+        [
+          125.88671875,
+          253.48095703125
+        ]
+      ],
+      "bbox": [
+        125.88671875,
+        126.09619140625,
+        516.265625,
+        253.48095703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\alpha = \\left(1 + \\frac{\\rho k}{4} - \\frac{k}{2h^2}\\right)</math>. The Kronecker product of two matrices <math display=\"inline\">M, N \\in \\mathcal{M}_d(R)</math> is the <math display=\"inline\">d^2 \\times d^2</math> matrix denoted by <math display=\"inline\">M \\otimes N</math> with entries <math display=\"inline\">(M \\otimes N)_{ij} = M_{ij}N</math> for <math display=\"inline\">1 \\leq i, j \\leq d</math>. To take into account the boundary conditions, for <math display=\"inline\">u \\in \\mathcal{M}_{d^2}(R)</math> with <math display=\"inline\">d = 2M + 1</math>, we define <math display=\"inline\">\\bar{u} \\in \\mathcal{M}_{d^2}(R)</math> with components <math display=\"inline\">i = 1</math></p>",
+      "page": 48,
+      "polygon": [
+        [
+          76.43544303797468,
+          274.3180914512923
+        ],
+        [
+          291.50379746835443,
+          274.3180914512923
+        ],
+        [
+          291.50379746835443,
+          349.755859375
+        ],
+        [
+          76.43544303797468,
+          349.755859375
+        ]
+      ],
+      "bbox": [
+        76.43544303797468,
+        274.3180914512923,
+        291.50379746835443,
+        349.755859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases} \\bar{u}_{11} = u_{11} - \\frac{k}{h^2} (\\phi(-(M+1)h, -Mh) + \\phi(-Mh, -(M+1)h)) \\\\ \\bar{u}_{1j} = u_{1j} - \\frac{k}{h^2} (\\phi(-(M+1)h, (-M+1) + j)h)) \\quad 2 \\le j \\le d-1 \\\\ \\bar{u}_{1d} = u_{1d} - \\frac{k}{h^2} (\\phi(-(M+1)h, Mh) + \\phi(-Mh, (M+1)h)) \\end{cases} \\tag{49}</math></p>",
+      "page": 48,
+      "polygon": [
+        [
+          152.87088607594936,
+          364.66650390625
+        ],
+        [
+          516.84375,
+          364.66650390625
+        ],
+        [
+          516.84375,
+          436.642578125
+        ],
+        [
+          152.87088607594936,
+          436.642578125
+        ]
+      ],
+      "bbox": [
+        152.87088607594936,
+        364.66650390625,
+        516.84375,
+        436.642578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><math display=\"inline\">2 \\le i \\le d-1</math></p>",
+      "page": 48,
+      "polygon": [
+        [
+          76.43544303797468,
+          439.9582504970179
+        ],
+        [
+          136.38481012658227,
+          439.9582504970179
+        ],
+        [
+          136.38481012658227,
+          452.699801192843
+        ],
+        [
+          76.43544303797468,
+          452.699801192843
+        ]
+      ],
+      "bbox": [
+        76.43544303797468,
+        439.9582504970179,
+        136.38481012658227,
+        452.699801192843
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\bar{u}_{i1} = u_{i1} - \\frac{k}{h^2} (\\phi((-(M+1)+i)h, -(M+1)h))</math><br/>\n<math display=\"block\">\\bar{u}_{ij} = u_{ij}\\bar{u}_{id} = u_{id} - \\frac{k}{h^2} (\\phi((-(M+1)+i)h, (M+1)h))</math><br/>\n(50)</p>",
+      "page": 48,
+      "polygon": [
+        [
+          162.7421875,
+          464.2548828125
+        ],
+        [
+          515.3984375,
+          464.2548828125
+        ],
+        [
+          515.3984375,
+          506.9619140625
+        ],
+        [
+          162.7421875,
+          506.9619140625
+        ]
+      ],
+      "bbox": [
+        162.7421875,
+        464.2548828125,
+        515.3984375,
+        506.9619140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/7",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><math display=\"inline\">i = d</math></p>",
+      "page": 48,
+      "polygon": [
+        [
+          77.18481012658228,
+          515.6580516898608
+        ],
+        [
+          103.4126582278481,
+          515.6580516898608
+        ],
+        [
+          103.4126582278481,
+          526.1510934393639
+        ],
+        [
+          77.18481012658228,
+          526.1510934393639
+        ]
+      ],
+      "bbox": [
+        77.18481012658228,
+        515.6580516898608,
+        103.4126582278481,
+        526.1510934393639
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\bar{u}_{d1} = u_{d1} - \\frac{k}{h^2} (\\phi((M+1)h, -Mh) + \\phi(Mh, -(M+1)h))</math><br/>\n<math display=\"block\">\\bar{u}_{dj} = u_{dj} - \\frac{k}{h^2} (\\phi((M+1)h, -(M+1) + j)h)) \\quad 2 \\le j \\le d-1</math><br/>\n<math display=\"block\">\\bar{u}_{dd} = u_{dd} - \\frac{k}{h^2} (\\phi((M+1)h, Mh) + \\phi(Mh, (M+1)h))</math><br/>\n(51)</p>",
+      "page": 48,
+      "polygon": [
+        [
+          164.04296875,
+          538.255859375
+        ],
+        [
+          516.265625,
+          538.255859375
+        ],
+        [
+          516.265625,
+          606.734375
+        ],
+        [
+          164.04296875,
+          606.734375
+        ]
+      ],
+      "bbox": [
+        164.04296875,
+        538.255859375,
+        516.265625,
+        606.734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 139,
+      "polygon": [
+        [
+          293.7518987341772,
+          44.970178926441356
+        ],
+        [
+          513.3164556962025,
+          44.970178926441356
+        ],
+        [
+          513.3164556962025,
+          55.9609375
+        ],
+        [
+          293.7518987341772,
+          55.9609375
+        ]
+      ],
+      "bbox": [
+        293.7518987341772,
+        44.970178926441356,
+        513.3164556962025,
+        55.9609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Then, the linear complementary problem can be written as</p>",
+      "page": 139,
+      "polygon": [
+        [
+          74.9367088607595,
+          71.95228628230616
+        ],
+        [
+          286.2582278481013,
+          71.95228628230616
+        ],
+        [
+          286.2582278481013,
+          92.317138671875
+        ],
+        [
+          74.9367088607595,
+          92.317138671875
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        71.95228628230616,
+        286.2582278481013,
+        92.317138671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases}\\n u^{n+1/2} \\geq \\phi_{h} \\text{ and } u^{n} \\geq \\phi_{h} \\\\\n \\left[ I \\otimes \\left( I + \\frac{\\rho k}{2} I - \\frac{k}{2h^{2}} T \\right) \\right] u^{n+1/2} \\geq \\left[ I \\otimes \\left( I - \\frac{\\rho k}{2} I + \\frac{k}{2h^{2}} T \\right) \\right] \\bar{u}^{n+1} \\\\\n \\left( I \\otimes \\left( I + \\frac{\\rho k}{2} I - \\frac{k}{2h^{2}} T \\right) u^{n+1/2} - I \\otimes \\left( I - \\frac{\\rho k}{2} I + \\frac{k}{2h^{2}} T \\right) \\bar{u}^{n+1}, u^{n+1/2} - \\phi \\right) = 0 \\\\\n \\left[ \\left( I + \\frac{\\rho k}{2} I - \\frac{k}{2h^{2}} T \\right) \\otimes I \\right] u^{n} \\geq \\left[ \\left( I - \\frac{\\rho k}{2} I + \\frac{k}{2h^{2}} T \\right) \\otimes I \\right] \\bar{u}^{n+1/2} \\\\\n \\left( \\left[ \\left( I + \\frac{\\rho k}{2} I - \\frac{k}{2h^{2}} T \\right) \\otimes I \\right] u^{n} - \\left[ \\left( I - \\frac{\\rho k}{2} I + \\frac{k}{2h^{2}} T \\right) \\otimes I \\right] \\bar{u}^{n+1/2}, u^{n} - \\phi \\right) = 0\\n\\end{cases} \\tag{52}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          125.01953125,
+          99.312255859375
+        ],
+        [
+          512.21875,
+          99.312255859375
+        ],
+        [
+          512.21875,
+          210.58984375
+        ],
+        [
+          125.01953125,
+          210.58984375
+        ]
+      ],
+      "bbox": [
+        125.01953125,
+        99.312255859375,
+        512.21875,
+        210.58984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">with</p>",
+      "page": 139,
+      "polygon": [
+        [
+          74.9367088607595,
+          228.59840954274355
+        ],
+        [
+          93.67088607594937,
+          228.59840954274355
+        ],
+        [
+          93.67088607594937,
+          237.833984375
+        ],
+        [
+          74.9367088607595,
+          237.833984375
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        228.59840954274355,
+        93.67088607594937,
+        237.833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">T = \\begin{pmatrix} -2 &amp; 1 &amp; \\cdots &amp; \\cdots &amp; 0 \\\\ 1 &amp; -2 &amp; 1 &amp; \\cdots &amp; 0 \\\\ \\vdots &amp; \\ddots &amp; \\ddots &amp; \\ddots &amp; \\vdots \\\\ \\vdots &amp; \\vdots &amp; 1 &amp; -2 &amp; 1 \\\\ 0 &amp; \\cdots &amp; \\cdots &amp; 1 &amp; -2 \\end{pmatrix} \\tag{53}</math></p>",
+      "page": 139,
+      "polygon": [
+        [
+          111.8671875,
+          244.64501953125
+        ],
+        [
+          290.21875,
+          244.64501953125
+        ],
+        [
+          290.21875,
+          310.17822265625
+        ],
+        [
+          111.8671875,
+          310.17822265625
+        ]
+      ],
+      "bbox": [
+        111.8671875,
+        244.64501953125,
+        290.21875,
+        310.17822265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Hence, the pricing of the American option defined by <math display=\"inline\">\\phi</math> is now reduced to the computation of the bidimensional linear complementarity problem (52), which has been split in two intermediate unidimensional linear complementarity problems involving a tridiagonal matrix.</p>",
+      "page": 139,
+      "polygon": [
+        [
+          74.1873417721519,
+          318.5387673956262
+        ],
+        [
+          286.60546875,
+          318.5387673956262
+        ],
+        [
+          286.60546875,
+          385.8359375
+        ],
+        [
+          74.1873417721519,
+          385.8359375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        318.5387673956262,
+        286.60546875,
+        385.8359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">To summarize, ADI methods</p>",
+      "page": 139,
+      "polygon": [
+        [
+          86.17721518987342,
+          387.493041749503
+        ],
+        [
+          204.65625,
+          387.493041749503
+        ],
+        [
+          204.65625,
+          397.6171875
+        ],
+        [
+          86.17721518987342,
+          397.6171875
+        ]
+      ],
+      "bbox": [
+        86.17721518987342,
+        387.493041749503,
+        204.65625,
+        397.6171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/ListGroup/137",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">are competitive in terms of speed of computation . in comparison with standard iterative methods used in financial literature for solving linear complementarity problems;</li><li block-type=\"ListItem\">lead to algorithms that are very easy to implement . in the Black-Scholes setting; and</li><li block-type=\"ListItem\">are unconditionally stable for the <math display=\"inline\">L^2</math> norm [6], which simplifies their implementation in practice.</li></ul></p>",
+      "page": 139,
+      "polygon": [
+        [
+          74.9367088607595,
+          407.7296222664016
+        ],
+        [
+          286.89453125,
+          407.7296222664016
+        ],
+        [
+          286.89453125,
+          497.021484375
+        ],
+        [
+          74.9367088607595,
+          497.021484375
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        407.7296222664016,
+        286.89453125,
+        497.021484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/SectionHeader/10",
+      "block_type": "SectionHeader",
+      "html": "<h4>References</h4>",
+      "page": 139,
+      "polygon": [
+        [
+          74.9367088607595,
+          514.693359375
+        ],
+        [
+          128.89113924050633,
+          514.693359375
+        ],
+        [
+          128.89113924050633,
+          524.265625
+        ],
+        [
+          74.9367088607595,
+          524.265625
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        514.693359375,
+        128.89113924050633,
+        524.265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22",
+        "4": "/page/6/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/139",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">[1] Barles, G., Daher, Ch. &amp; Romano, M. (1995). Convergence of numerical Schemes for problems arising in Finance theory, Mathematical Models and Methods in Applied sciences <math display=\"inline\">5(1)</math>, <math display=\"inline\">125-143</math>.</p>",
+      "page": 139,
+      "polygon": [
+        [
+          74.1873417721519,
+          539.6421471172962
+        ],
+        [
+          286.31640625,
+          539.6421471172962
+        ],
+        [
+          286.31640625,
+          579.1220703125
+        ],
+        [
+          74.1873417721519,
+          579.1220703125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        539.6421471172962,
+        286.31640625,
+        579.1220703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22",
+        "4": "/page/6/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/ListGroup/138",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">[2] Brennan, M.J. &amp; Schwartz, E. (1977). The valuation of the American put option, Journal of Finance 32, 449–462.</li><li block-type=\"ListItem\">[3] Cottle, R.W., Pang, J.S. &amp; Stone, R.E. (1992). The Linear Complementarity Problem, Academic Press.</li><li block-type=\"ListItem\">[4] Cryer, C.W. (1971). The solution of a quadratic programming problem using systematic overrelaxation, SIAM Journal on Control and Optimization 9, 385–392.</li><li block-type=\"ListItem\">[5] Cryer, C.W. (1983). The efficient solution of linear complementarity problems for tridiagonal Minkowski matrices, ACM Transactions on Mathematical Software 9, 199-214.</li><li block-type=\"ListItem\">[6] Hout, K.J. &amp; Welfert, B.D. (2007). Stability of ADI schemes applied to convestion-diffusion equations with mixed derivative terms, Applied Numerical Mathematics 57, 19-35.</li><li block-type=\"ListItem\">[7] Jaillet, P., Lamberton, D. &amp; Lapeyre, B. (1990). Variational inequalities and the pricing of the American options, Acta Applicandae Mathematicae 21, 263-289.</li><li block-type=\"ListItem\">[8] Peaceman, P.W. &amp; Rachford, H.H. (1955). The numerical solution of Parabolic and Elliptic differential equation, Journal of the Society for Industrial and Applied Mathematics 3, 28-42.</li><li block-type=\"ListItem\">[9] Villeneuve, S. &amp; Zanette, A. (2002). Parabolic A.D.I. methods for pricing American options on two stocks, Mathematics of Operation Research 27(1), 121-149.</li></ul></p>",
+      "page": 139,
+      "polygon": [
+        [
+          300.9140625,
+          252.58250497017895
+        ],
+        [
+          513.375,
+          252.58250497017895
+        ],
+        [
+          513.375,
+          501.439453125
+        ],
+        [
+          300.9140625,
+          501.439453125
+        ]
+      ],
+      "bbox": [
+        300.9140625,
+        252.58250497017895,
+        513.375,
+        501.439453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22",
+        "4": "/page/6/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/20",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">STÉPHANE VILLENEUVE</p>",
+      "page": 139,
+      "polygon": [
+        [
+          405.40759493670885,
+          511.91053677932405
+        ],
+        [
+          502.1015625,
+          511.91053677932405
+        ],
+        [
+          502.1015625,
+          520.9521484375
+        ],
+        [
+          405.40759493670885,
+          520.9521484375
+        ]
+      ],
+      "bbox": [
+        405.40759493670885,
+        511.91053677932405,
+        502.1015625,
+        520.9521484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/22",
+        "4": "/page/6/SectionHeader/10"
+      },
+      "images": {}
+    }
+  ],
+  "page_info": {
+    "0": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "1": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "2": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "3": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "4": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "5": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "6": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    }
+  }
+}

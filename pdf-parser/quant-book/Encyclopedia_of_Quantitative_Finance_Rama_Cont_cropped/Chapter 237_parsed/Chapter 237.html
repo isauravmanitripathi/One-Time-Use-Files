@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Inflation Derivatives
+   </b>
+  </h1>
+  <p block-type="Text">
+   The market for financial inflation products started with public sector bonds linked to some measure for inflation of prices of (mainly) goods and services. This dates back to as early as the first half of the eighteenth century when the state of Massachusetts issued bonds linked to the price of silver on the London Exchange [4]. Over time, and particularly, in the last 20 years or so, the dominant index used for inflation-linked bonds has become the consumer price index (CPI). A notable exception is the UK inflationindexed gilt market, which is linked to the retail price index (RPI).&lt;sup&gt;a&lt;/sup&gt; The actual cash-flow structure of inflation-indexed bonds varies from issue to issue, including capital-indexed bonds (CIBs), interestindexed bonds, current pay bonds, indexed annuity bonds, indexed zero-coupon bonds, and others. By far the most common cash-flow structure is the CIB, on which we shall focus in the remainder of this article.
+  </p>
+  <h1>
+   <b>
+    Bonds, Asset Swaps, and the Breakeven
+   </b>
+   Curve
+  </h1>
+  <p block-type="Text">
+   Inflation-indexed bonds (of CIB type) are defined by
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      \bullet
+     </math>
+     N—a notional;
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \bullet
+     </math>
+     <i>
+      I
+     </i>
+     —the inflation index;
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      L
+     </math>
+     —a lag (often three months);
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      T_i: \{1 \le i \le n\}
+     </math>
+     —coupon dates;
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      c_i: \{1 \le i \le n\}
+     </math>
+     —coupon at date
+     <math display="inline">
+      T_i
+     </math>
+     (usually, all
+     <math display="inline">
+      c_i
+     </math>
+     are equal); and
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      I(T_0  L)
+     </math>
+     —the bond's base index value.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The bond pays the regular coupon payments
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Nc_i \frac{I(T_i - L)}{I(T_0 - L)} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   plus the inflation-adjusted final redemption, which often contains a capital guarantee according to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N \max\left(\frac{I(T_n - L)}{I(T_0 - L)}, 1\right) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   Asset swap packages swapping the inflation bond for a floating leg are liquid in some markets such as for bonds linked to the CPTFEMU (also known as the
+   <math display="inline">
+    HICP
+   </math>
+   ) index. Since the present value of an inflationlinked bond can be decomposed into the value of each coupon
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_{T_i}(T_0) N c_i \frac{1}{I(T_0 - L)} \mathsf{E}_0^{\mathcal{M}(P_{T_i})} [I(T_i - L)] \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   wherein
+   <math display="inline">
+    \mathsf{E}_{\tau}^{\mathcal{M}(X)}[\cdot]
+   </math>
+   denotes expectation in filtration
+   <math display="inline">
+    \mathcal{F}_{\tau}
+   </math>
+   under the measure induced by choosing X as numéraire, and the value of the final redemption
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_{T_n}(T_0)N\frac{1}{I(T_0-L)} \times \mathsf{E}_0^{\mathcal{M}(P_{T_n})}[\max{(I(T_n-L), I(T_0-L))}] \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   these products give us a mechanism to calibrate the forward curve
+   <math display="inline">
+    F(t, T)
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(t, T - L) :=
+   </math>
+   The index forward for (payment)
+  </p>
+  <p block-type="Equation">
+   time
+   <math display="block">
+    T
+   </math>
+   seen at time
+   <math>
+    t
+   </math>
+   <br/>
+   <math display="block">
+    := \mathsf{E}_{t}^{\mathcal{M}(P_{T})}[I(T-L)] \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   The forward curve is often also referred to as the breakeven curve. The realized inflation index fixing level is thus naturally
+   <math display="inline">
+    I(T) = F(T, T)
+   </math>
+   . Note that while equation (4), strictly speaking, requires a stochastic model for consistent evaluation due to the convexity of the
+   <math display="inline">
+    max(\cdot, 1)
+   </math>
+   function, in practice, the
+   <math display="inline">
+    \max(\cdot, 1)
+   </math>
+   part is usually ignored, since its influence on valuation is below the level of price resolution.&lt;sup&gt;
+   <math display="inline">
+    b
+   </math>
+   &lt;/sup&gt;
+  </p>
+  <p block-type="Text">
+   If there were a multitude of inflation-linked bonds, or associated asset swaps, with well-dispersed coupon dates liquidly available for any given inflation index, then the above argument would be all that is needed for the construction of a forward index curve, that is, breakeven inflation curve. In reality, though, for many inflation markets, there is only a small number of reasonably liquid bonds or asset swaps available. This makes it necessary to use interpolation techniques for forward inflation levels or rates between the attainable index-linked bond's maturity dates. In some cases, this may mean that for the construction of a 10-year (or longer) inflation curve, only three bonds are available, and extreme care must be taken for the choice of interpolation. However, even when a sufficiently large number of bonds is traded, to have a forward inflation rate for each year determined by the bond market, sophisticated interpolation methods are still needed. This is because of inflation's seasonal nature. For instance, consumer prices tend to go up significantly more than the annual average just before Christmas and tend to drop (or rise less than the annual average) just after.
+  </p>
+  <p block-type="Text">
+   The most common approach to incorporate seasonality into the breakeven curve is to analyze the statistical deviation of the month-on-month inflation
+  </p>
+  <p block-type="Text">
+   rate from the annual average with the aid of historical data, and to overlay a seasonality adjustment on top of an annual inflation average curve in a manner such that, by construction, the annual inflation index growth is preserved. In addition, some authors used to suggest that one may want to add a long-term attenuation function (such as
+   <math display="inline">
+    e^{-\lambda t}
+   </math>
+   ) for the magnitude of seasonality. This was supposed to represent the view that, since we have very little knowledge about long-term inflation seasonality, one may not wish to forecast any seasonality structure. This idea has gone out of fashion though, probably partly based on the realization that, historically, the seasonality of inflation became
+   <i>
+    more
+   </i>
+   pronounced over time, not exponentially
+   <i>
+    less
+   </i>
+   .
+  </p>
+  <h4>
+   <b>
+    Inflation Derivatives
+   </b>
+  </h4>
+  <h4>
+   Daily Inflation Reference
+  </h4>
+  <p block-type="Text">
+   Ultimately, all inflation fixings are based on the publication of a respective index level by a government or cross-government funded organization such as Eurostat for the HICP index series in Europe, or the Bureau of Labor Statistics for the CPI-U in the United States. This publication tends to be monthly, and usually on the same day of the month with a small amount of variability in the publication date. In most inflation bond markets, index-linked bonds are written on the publication of these published index levels in a straightforward manner such as
+   <math display="inline">
+    I(T_i)/I(T_0)
+   </math>
+   times a fixed number as discussed in the previous section, with
+   <math display="inline">
+    T_i
+   </math>
+   indicating that a certain month's publication level is to be used. For some inflation bonds, however, the inflation reference level is not a single month's published fixing, but instead, an average over the two nearest fixings. In this manner, the fact that a bond's coupon is possibly paid between two index publication dates, and thus should really benefit from a value between the two levels, can be catered for. French OAT
+   <i>
+    i
+   </i>
+   and OAT
+   <math display="inline">
+    \in
+   </math>
+   <i>
+    i
+   </i>
+   bonds, for instance, use this concept of the daily inflation reference (DIR) defined as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{DIR}(T) = I\left(T_{m(T)-3}\right) + \frac{n_{\text{day}}(T) - 1}{n_{\text{days}}\left(m(T)\right)} \times \left[I\left(T_{m(T)-2}\right) - I\left(T_{m(T)-3}\right)\right] \quad (6)
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   with
+   <math display="inline">
+    m(T)
+   </math>
+   indicating the month in which the reference date
+   <math display="inline">
+    T
+   </math>
+   lies,
+   <math display="inline">
+    T_i
+   </math>
+   the publication date of month
+  </p>
+  <p block-type="TextInlineMath">
+   i,
+   <math display="inline">
+    n_{\text{day}}(T)
+   </math>
+   the number of the day of date T in its month, and
+   <math display="inline">
+    n_{\text{days}}(m(T))
+   </math>
+   the number of days in the month in which
+   <math display="inline">
+    T
+   </math>
+   lies. For example, the DIR applicable to June 21st is
+   <math display="inline">
+    \frac{10}{30}
+   </math>
+   times the HICP for March plus
+   <math display="inline">
+    \frac{20}{30}
+   </math>
+   times the HICP for April. While the DIR is in itself not an inflation derivative, it is a common building block for derivatives in any market that uses the DIR in any bond coupon definitions. The DIR clause complicates the use of any model that renders inflation index levels as lognormal or similar, since any payoff depending on the DIR thus depends on the weighted sum of two index fixings.
+  </p>
+  <h2>
+   Futures
+  </h2>
+  <p block-type="Text">
+   Futures on the Eurozone HICP and the US CPI have been traded on the Chicago Mercantile Exchange since February 2004. Eurex launched Euro inflation futures based on the Eurozone HICP in January 2008. Both exchanges show, to date, very little actual trading activity in these contracts. An inflation futures contract settles at maturity at
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M\left(1 - \frac{1}{\Omega}\left(\frac{I(T-L)}{I(T-L-\Omega)} - 1\right)\right) \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   with M being a contract size multiplier and
+   <math display="inline">
+    \Omega
+   </math>
+   an additional time offset. The lag
+   <math display="inline">
+    L
+   </math>
+   is usually one month. The offset
+   <math display="inline">
+    \Omega
+   </math>
+   is three months for CPI-U (also known as CPURNSA) on the CME, that is,
+   <math display="inline">
+    \Omega = 1/4
+   </math>
+   above. For the HICP (also known as
+   <i>
+    CPT
+   </i>
+   -
+   <i>
+    FEMU
+   </i>
+   ) on both Eurex and CME,
+   <math display="inline">
+    \Omega = 1
+   </math>
+   , that is, one year. Exactly why the inflation trading community has paid little attention to these futures is not entirely clear, though, one explanation may be the difference in inflation linkage between bonds and futures. Both HICP-linked bonds and US Treasury-Inflation Protected Securities (TIPS) pay coupons on an inflation-adjusted notional, that is, they are CIBs. In contrast, both CPI and HICP futures pay period-on-period inflation rates. As a consequence, a futures-based inflation hedge of a single CIB coupon would require a whole sequence of futures positions and would leave the position still exposed to realized period-on-period covariance.
+  </p>
+  <h4>
+   Zero-coupon Swaps
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   This simple inflation derivative is as straightforward as the simplest derivative in other asset classes: two
+  </p>
+  <p block-type="Text">
+   counterparties promise to exchange cash at an agreed date in the future. One counterparty pays a previously fixed lump sum, and the other counterparty pays an amount that is given by the published fixing of an agreed official inflation index (times an agreed fixed number). In the world of equity derivatives, this would be called a
+   <i>
+    forward contract
+   </i>
+   on the index. Since inflation trading is, by nature and origin, leaning on fixed income markets, this contract is referred to as a
+   <i>
+    swap
+   </i>
+   , which is the fixed income market equivalent of a forward contract. Conventionally, swaps are defined by repeated exchange of fixed for floating coupons. Since the inflation index forward contract has no cashflows during the life of the contract, and only at maturity money is exchanged, in analogy to the concept of a
+   <i>
+    zero-coupon bond
+   </i>
+   , the inflation index forward contract is commonly known as the
+   <i>
+    inflation index-linked zero-coupon swap
+   </i>
+   , or just
+   <i>
+    zero-coupon swap
+   </i>
+   <sup>
+    c
+   </sup>
+   for short. More precisely speaking, zero-coupon swaps have two legs. The two legs of the swap pay
+  </p>
+  <p block-type="Equation">
+   inflation leg:
+   <math display="block">
+    N \frac{I(T-L)}{I(T_0-L)}
+   </math>
+   <br/>
+   fixed leg:
+   <math>
+    N(1+K)^{T-T_0}
+   </math>
+   (8)
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    N
+   </i>
+   is the notional,
+   <i>
+    T
+   </i>
+   <sup>
+    0
+   </sup>
+   is the start date of the swap,
+   <i>
+    T
+   </i>
+   the maturity, and
+   <i>
+    K
+   </i>
+   the quote. These swaps appear in the market comparatively liquidly as hedges for the inflation bond exposure to the final redemption payment—they act as a mirror. However, this should not mask the fact that the true source of the liquidity is the underlying asset swap/inflation bond.
+  </p>
+  <h4>
+   <i>
+    The Vanilla Option Market
+   </i>
+  </h4>
+  <p block-type="Text">
+   In the inflation option market, the most liquid instruments are as follows.
+  </p>
+  <p block-type="Text">
+   •
+   <b>
+    Zero-coupon caps and floors:
+   </b>
+  </p>
+  <p block-type="Text">
+   At maturity
+   <i>
+    T
+   </i>
+   , they pay
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left[\phi\left(\frac{I(T-L)}{I(T-L-\Omega)} - (1+K)^{\tau}\right)\right]_{+} \qquad (9)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where  is the index offset,
+   <i>
+    L
+   </i>
+   is the index lag,
+   <i>
+    K
+   </i>
+   the annualized strike,
+   <i>
+    τ
+   </i>
+   the year fraction between
+   <i>
+    (T
+   </i>
+   −
+   <i>
+    L
+   </i>
+   −
+   <i>
+    )
+   </i>
+   and
+   <i>
+    (T
+   </i>
+   −
+   <i>
+    L)
+   </i>
+   , and
+   <i>
+    φ
+   </i>
+   is +1 for a cap and −1 for a floor. For most of those options, the index in the denominator is actually known (i.e.,  =
+   <i>
+    T
+   </i>
+   ), and
+  </p>
+  <p block-type="Text">
+   the option premium depends only on the volatility of the index
+   <i>
+    I (T
+   </i>
+   −
+   <i>
+    L)
+   </i>
+   .
+  </p>
+  <h4>
+   •
+   <b>
+    Year-on-year caps and floors:
+   </b>
+  </h4>
+  <p block-type="Text">
+   The option is a string of year-on-year caplets or floorlets individually paying according to equation (9) with  =
+   <i>
+    τ
+   </i>
+   = 1 at increasing dates spaced by one year. Apart from the front period, these caplets and/or floorlets thus depend on one index forward in their payoff's numerator, and on a second one in their payoff's denominator, whence some authors refer to these products being subject to
+   <i>
+    convexity
+   </i>
+   , though this is not to be confused with the usual concept of convexity induced by correlation with interest rates (there is more on this in the section Two Types of Convexity). An alternative view of a year-on-year caplet/floorlet's volatility dependence is to consider
+   <i>
+    volatility of the year-on-year ratio
+   </i>
+   as the fundamental driver of uncertainty. In this framework, no convexity considerations are required. The payoff of an inflation caplet/floorlet resembles the payoff of a vanilla option on the return of a money market account if one replaces inflation rates with interest rates.
+  </p>
+  <h4>
+   <i>
+    The Swap Market
+   </i>
+  </h4>
+  <p block-type="Text">
+   A close cousin of inflation caps and floors is the inflation swap. The swap consists of a series of shorttenored
+   <i>
+    forward starting zero-coupon swaps
+   </i>
+   each of which pays
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{I(T-L)}{I(T-L-\Omega)} - (1+K)^{\tau} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   at the end of its respective period. Just like an interest rate swap can be seen as a string of
+   <i>
+    forward interest rate agreements
+   </i>
+   , an inflation swap can be seen as a string of
+   <i>
+    forward inflation rate agreements
+   </i>
+   . Unlike vanilla interest rate swaps, though, the period an inflation swap's individual forward inflation rate agreement is linked to does not have to be equal to the period the associated coupon is nominally associated with. An example for this is an asset swap on an Australian (inflation-linked) government bond whose coupons are typically paid quarterly and are "indexed to the average percentage change in the CPI over the two quarters ending in the quarter that is two quarters prior to that in which the next interest payment falls" [4]. In other words,  is six months,
+   <i>
+    τ
+   </i>
+   = 1
+   <i>
+    /
+   </i>
+   2, and
+   <i>
+    L
+   </i>
+   is in the range of one to three months for quarterly coupons.
+  </p>
+  <h4>
+   Total Return Inflation Swaps
+  </h4>
+  <p block-type="Text">
+   These structures pay out a fixed sum linked to an inflation measure over time. With growing inflation concerns in mid-2008, these, together with inflation caps, became increasingly popular with private as well as institutional investors.
+  </p>
+  <h4>
+   The Limited Price Index
+  </h4>
+  <p block-type="TextInlineMath">
+   A limited price index (LPI) is an instrument that is used in the market to provide a hedge to inflation, but with limited upside and/or downside exposure. When period-on-period inflation is within an agreed range, the LPI grows at the same rate as its underlying official publication index. When period-on-period inflation is outside this range, the LPI grows at the, respectively, capped or floored rate. Given an underlying inflation index
+   <math display="inline">
+    I
+   </math>
+   , the LPI
+   <math display="inline">
+    \tilde{I}
+   </math>
+   is constructed using I, a base date
+   <math display="inline">
+    T_b
+   </math>
+   , a fixing time tenor (i.e., frequency period)
+   <math display="inline">
+    \tau
+   </math>
+   , an inflation capping level
+   <math display="inline">
+    l_{\text{max}} \in
+   </math>
+   <math display="inline">
+    (0, \infty]
+   </math>
+   , and an inflation flooring level
+   <math display="inline">
+    l_{\min} \in [0, \infty)
+   </math>
+   . Using
+   <math display="inline">
+    T_b
+   </math>
+   and
+   <math display="inline">
+    \tau
+   </math>
+   , we create a publication sequence for
+   <math display="inline">
+    \hat{I}
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{\text{publication sequence}} = \{T_b, T_b + \tau, T_b + 2\tau, T_b + 3\tau, \ldots\}
+   </math>
+   <math display="block">
+    (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The LPI
+   <math display="inline">
+    \tilde{I}
+   </math>
+   can be defined recursively, starting with
+   <math display="inline">
+    \tilde{I}(T_b) = 1
+   </math>
+   , and continuing with
+  </p>
+  <p block-type="Text">
+   whence an exact static replication argument based on inflation caps and floors is not attainable. As a consequence, LPIs require a fully fledged (stochastic) model for relative value comparison with inflation bonds, zero-coupon swaps, and inflation caps and floors.
+  </p>
+  <h4>
+   The Inflation Swaption
+  </h4>
+  <p block-type="Text">
+   This product is in its optionality very similar to a conventional interest rate swaption. However, the underlying swap can have a variety of special features. The start date of the swap
+   <math display="inline">
+    T_{\text{start}}
+   </math>
+   is on or after the expiry of the option. The swap has one inflation-rate-linked leg, and one (nominal) interest-rate-linked leg. For instance, the underlying swap could be agreed to be given by the following.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     The inflation leg is a sum of
+     <math display="inline">
+      n
+     </math>
+     annual forward inflation rate agreements, paid at dates
+     <math display="inline">
+      T_1
+     </math>
+     ,
+     <math display="inline">
+      T_2, \ldots, T_{n-1}, T_n
+     </math>
+     with
+     <math display="inline">
+      T_n
+     </math>
+     representing the final maturity of the underlying swap. Each inflation leg coupon pays
+     <math display="inline">
+      k^{\text{DIR}(T_i)}/_{I_{\text{Bess}}}
+     </math>
+     , with DIR
+     <math display="inline">
+      (T_i)
+     </math>
+     being the daily inflation reference for date
+     <math display="inline">
+      T_i
+     </math>
+     . The leg also pays a final notional redemption floored at 0, which can of course be seen as an enlarged coupon plus a zero-coupon floor struck at 0.
+    </li>
+    <li block-type="ListItem">
+     The Libor leg is a sequence of quarterly forward (nominal) interest rate agreements. A variation
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{I}(T_{b} + (i+1)\tau) = \tilde{I}(T_{b} + i\tau) \begin{cases}\n1 + l_{\min} &amp; \text{if} \\
+\frac{I(T_{b} + (i+1)\tau)}{I(T_{b} + i\tau)} \le 1 + l_{\min} \\
+\frac{I(T_{b} + (i+1)\tau)}{I(T_{b} + i\tau)} &amp; \text{if} \\
+1 + l_{\max} \le \frac{I(T_{b} + (i+1)\tau)}{I(T_{b} + i\tau)} \le 1 + l_{\max} \\
+1 + l_{\max} &amp; \text{if} \\
+1 + l_{\max} \le \frac{I(T_{b} + (i+1)\tau)}{I(T_{b} + i\tau)}\n\end{cases}\n
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   Given the definition of the LPI, derivatives such as zero-coupon swaps and options on the LPI can be built. LPI-linked products are most common in the UK market. A common comparison made by trading and structuring practitioners is to view an LPI, especially if it is only one sided, as very similar to an inflation cap or floor. It is worth noting that the two structures do have different sensitivities to inflation curve autocorrelation assumptions
+  </p>
+  <p block-type="Text">
+   of this is for the interest rate leg to pay Libor plus a fixed margin, or Libor minus a fixed margin floored at zero, which makes this leg alone already effectively a nominal interest rate cap.
+  </p>
+  <p block-type="Text">
+   There are many variations of inflation-linked swaptions, such as swaptions on the real rate (the real rate is explained further on), but most of them are only traded over-the-counter and in moderate size.
+  </p>
+  <h4>
+   Inflation Modeling
+  </h4>
+  <p block-type="Text">
+   For vanilla products such as inflation zero-coupon caps and floors, and year-on-year caplets and floorlets, practitioners tend to use terminologies and conventions relating to the Black and Bachelier models. For instance, to translate the price of an option that pays
+   <math display="inline">
+    (I_T - K)_+
+   </math>
+   , that is, simply at some point in the future the level of the index minus a previously agreed fixed number, or zero, whichever is greater, practitioners tend to use the concept of implied volatility for the index as if the index evolved in a Black-Scholes modeling framework. For options that pay a year-on-year rate, either Black implied lognormal volatilities or, alternatively, Bachelier, that is, absolute normal volatilities may be used. The latter are also sometimes referred to as
+   <i>
+    basis points volatil
+   </i>
+   ities to indicate the fact that these are expressed in absolute, rather than relative terms (as Black volatilities would).
+  </p>
+  <h4>
+   Jarrow-Yildirim
+  </h4>
+  <p block-type="Text">
+   Most articles on inflation modeling start out with what is referred to as the Fisher equation. This is the definition that
+   <i>
+    real returns
+   </i>
+   are given by the relative increase in
+   <i>
+    buying power
+   </i>
+   on an investment, not by nominal returns [5]. In other words, the Fisher equation is the
+   <i>
+    definition
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r_{\text{real}} = r - y \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \alpha r
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r = r_{\text{real}} + y \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+   <math display="inline">
+    r
+   </math>
+   being the continuously compounded nominal rate,
+   <math display="inline">
+    y
+   </math>
+   the continuously compounded inflation rate, and
+   <math display="inline">
+    r_{\text{real}}
+   </math>
+   represents a thus defined
+   <i>
+    real rate
+   </i>
+   . While this definition is, in practice, of no further consequence to any derivatives modeling, the terminology and concepts are useful to know since they pervade the inflation modeling literature.
+  </p>
+  <p block-type="Text">
+   One of the earliest publications suggesting a comprehensive set of dynamics for the evolution of inflation (rates) in relation to nominal interest rates is the Jarrow-Yildirim model [8]. The original article discusses the generic setting of a real economy, a nominal economy, and a translation index between the two, employing the mathematical no-arbitrage HJM apparatus [6]. This results in a framework that is completely analogous to a foreign exchange rate
+  </p>
+  <p block-type="TextInlineMath">
+   model with foreign (the
+   <i>
+    real
+   </i>
+   economy's) interest rate dynamics, domestic (the
+   <i>
+    nominal
+   </i>
+   economy's) interest rate dynamics, and an exchange rate that represents the inflation index. A confusing aspect for people not used to inflation financials is the nomenclature to refer to observable real-world interest rates as nominal rates, and to nonobservable (derived) inflationadjusted return rates (i.e., to nominal interest rates minus inflation rates) as
+   <i>
+    real
+   </i>
+   rates. In practice, this model tends to be implemented with both individual economies' interest rate dynamics being given by an extended Vasicek [12] ([7], but also see Term Structure Models and Gaussian Interest-Rate Models) model, with locally geometric Brownian motion for the real/nominal FX rate, that is, the inflation index. In short, in the nominal money market measure, the dynamics of nominal zero-coupon bonds
+   <math display="inline">
+    P_T(t)
+   </math>
+   , real zero-coupon bonds
+   <math display="inline">
+    P_{\text{real},T}(t)
+   </math>
+   , and the inflation index
+   <math display="inline">
+    X(t)
+   </math>
+   are governed by the stochastic differential equations:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}P_T(t)}{P_T(t)} = r(t)\,\mathrm{d}t + \sigma_P(t,T)\,\mathrm{d}W_P(t) \tag{15}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}P_{\mathrm{real},T}(t)}{P_{\mathrm{real},T}(t)} = \left(r_{\mathrm{real}}(t) - \rho_{P_{\mathrm{real}},X}\sigma_{X}(t)\sigma_{P_{\mathrm{real}}}(t,T)\right)\mathrm{d}t
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    + \sigma_{P_{\text{real}}}(t, T) \, \mathrm{d}W_{P_{\text{real}}}(t) \tag{16}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}X(t)}{X(t)} = (r(t) - r_{\text{real}}(t)) \mathrm{d}t + \sigma_X(t) \mathrm{d}W_X(t)
+   </math>
+   (17)
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_P(t,T) = \int_t^T \zeta(s) \mathrm{e}^{-\int_t^s \kappa(u) \, \mathrm{d}u} \, \mathrm{d}s \tag{18}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{P_{\text{real}}}(t,T) = \int_{t}^{T} \varsigma_{\text{real}}(s) e^{-\int_{t}^{s} \varkappa_{\text{real}}(u) \, du} \, \text{d}s \quad (19)
+   </math>
+  </p>
+  <p block-type="Text">
+   The Jarrow-Yildirim model, initially, gained significant popularity with quantitative analysts, though, arguably, primarily because this model could be deployed for inflation derivatives comparatively rapidly since it was already available as a crosscurrency Hull-White model in the respective practitioners' group's analytics library. Its main drawbacks are that calibration and operation of the model requires specification of a set of correlation numbers between inflation index and (nominal) interest rates,
+  </p>
+  <p block-type="Text">
+   inflation index and real rates, and (nominal) interest rates and real rates, of which only the first one is directly observable. Also, this model requires volatility specifications for nonobservable (and nontradable) real rates.
+  </p>
+  <h2>
+   <i>
+    Inflation Forward "Market" Modeling
+   </i>
+  </h2>
+  <p block-type="Text">
+   In an alternative model suggested by Belgrade
+   <i>
+    et al.
+   </i>
+   [2], inflation index forward levels
+   <i>
+    F (t, Ti)
+   </i>
+   for a discrete set of maturities {
+   <i>
+    Ti
+   </i>
+   } are permitted to evolve according to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}F(t,T_i)}{F(t,T_i)} = \mu(t,T_i)\,\mathrm{d}t + \sigma(t,T_i)\,\mathrm{d}W_i(t) \qquad (20)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The drift terms
+   <i>
+    µ(t, Ti)
+   </i>
+   are determined as usual by no-arbitrage conditions, but the volatility functions
+   <i>
+    σ (t, Ti)
+   </i>
+   can be chosen freely, as can the correlations between all the Wiener processes
+   <i>
+    Wi
+   </i>
+   . The authors discuss a variety of different possible choices. When interest rates are deterministic, or assumed to be uncorrelated with forward inflation index levels, all drift terms vanish and the model reduces to a set of forward levels that evolve as a multivariate geometric Brownian motion. The main drawback of this model is that it permits highly undesirable forward inflation rate dynamics, specifically with respect to the breakeven curve's autocorrelation structure, unless complicated modifications of the instantaneous correlation and volatility functions are added. The model also introduces many free parameters that have to be calibrated, which is not ideal in a market that is as illiquid as the inflation option market.
+  </p>
+  <h2>
+   <i>
+    The Exponential Mean-reverting Period-on-period Model
+   </i>
+  </h2>
+  <p block-type="Text">
+   When a model's purpose is predominantly for the pricing and hedging of contracts that only depend on year-on-year returns of the inflation index, a useful model is to consider the year-on-year ratio process:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y(t) = F_Y(t) e^{-\frac{1}{2}V_0[x(t)] + x(t)}
+   </math>
+   (21)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dx(t) = -\kappa x(t) dt + \alpha(t) dW(t) \qquad (22)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   with
+   <i>
+    V
+   </i>
+   0[
+   <i>
+    x(t)
+   </i>
+   ] representing the variance of the inflation driver process
+   <i>
+    x
+   </i>
+   from time 0 to time
+   <i>
+    t
+   </i>
+   , and the deterministic function
+   <i>
+    FY (t)
+   </i>
+   is implicitly defined by
+  </p>
+  <p block-type="Text">
+   the choice of measure, that is, it is calibrated such that the model reproduces the breakeven curve (and thus all inflation-linked bonds) correctly. This model is known as the
+   <i>
+    exponential mean-reverting year-onyear
+   </i>
+   model. Note that even though the year-on-year ratio process is formulated as a continuous process, it is really only monitored at annual intervals when relevant fixings become available, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y(T_i) = \frac{I(T_i)}{I(T_i - \Omega)}
+   </math>
+   (23)
+  </p>
+  <p block-type="Text">
+   The advantage of this model is its comparative simplicity and its reasonable inflation curve autocorrelation characteristics. This model can also be combined with simple interest rate dynamics (such as given by the Hull–White model). A further benefit is that it promotes the view of a future inflation index level fixing being the result of year-on-year return factors:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I(T_n) = I(T_0) \prod_{i=1}^{n} Y(T_i)
+   </math>
+   (24)
+  </p>
+  <p block-type="TextInlineMath">
+   The sequence of
+   <i>
+    Y (Ti)
+   </i>
+   fixings are a set of strongly positively correlated lognormal variables (even when interest rates are stochastic in a Hull–White setting) in analogy to the correlation structure of a set of forward starting zero coupon bonds in a standard Hull–White model. As such, they lend themselves very well to an approximation of independence conditional on one or two common factors [1, 3]. Conditional independence permits easy evaluation of the LPI [11]. For other inflation products, the model can also be written on shorter periodon-period returns and can be equipped with more than one inflation driver:
+   <i>
+    x(t)
+   </i>
+   →
+   <i>
+    x
+   </i>
+   1
+   <i>
+    (t)
+   </i>
+   +
+   <i>
+    x
+   </i>
+   2
+   <i>
+    (t)
+   </i>
+   , and so on.
+  </p>
+  <h2>
+   <i>
+    The Multifactor Instantaneous Inflation Model with Stochastic Interest Rates
+   </i>
+  </h2>
+  <p block-type="Text">
+   For more complex products depending on more than just the period-on-period autocorrelation structure, the exponential period-on-period model with Hull–White interest rate dynamics can be taken to the limit of infinitesimal return periods, which makes it structurally similar to the Jarrow–Yildirim model, with the main difference being that we model inflation rates directly, rather than real rates. Dropping all lag-induced convexity considerations for clarity (i.e.,
+  </p>
+  <p block-type="Text">
+   assuming
+   <math display="inline">
+    L = 0
+   </math>
+   and no settlement delay), this gives us, for
+   <math display="inline">
+    m
+   </math>
+   inflation and one interest rate factor, in the
+   <math display="inline">
+    T
+   </math>
+   -forward measure,
+  </p>
+  <p block-type="Text">
+   data into unobservable "real rate" volatilities and autocorrelations.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I(t) = F(0, t) e^{-B_a(t, T) \text{Cov}_0 \left[ \sum_{i=1}^m X_i(t), z(t) \right] - \frac{1}{2} \text{V}_0 \left[ \sum_{i=1}^m X_i(t) \right] + \sum_{i=1}^m X_i(t)}
+   </math>
+   (25)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_T(t) = \frac{P_T(0)}{P_t(0)} e^{-B_a(t,T) \left( z(t) - \frac{1}{2} B_a(t,T) \mathsf{V}_0[z(t)] \right)}
+   </math>
+   (26)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    z(t) = \int_0^t e^{-a(t-u)} \sigma(u) dW^z(u)
+   </math>
+   (27)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x_i(t) = \int_0^t e^{-x_i(t-u)} \alpha_i(u) \, \mathrm{d}W^i(u) \tag{28}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_i(t) = \int_0^t x_i(s) \, \mathrm{d}s = \int_0^t B_{x_i}(u, T) \alpha_i(u) \, \mathrm{d}W^i(u) \tag{29}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B_{\mu}(t_1, t_2) = \int_0^{t_2 - t_1} e^{-\mu s} ds \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   wherein all
+   <math display="inline">
+    x_i
+   </math>
+   and
+   <math display="inline">
+    z
+   </math>
+   are standard Ornstein-Uhlenbeck processes under the T-forward measure, of numéraire
+   <math display="inline">
+    P_T
+   </math>
+   , the zero-coupon bond paying in T, and we assume flat mean reversions a and
+   <math display="inline">
+    \kappa_i
+   </math>
+   . It is naturally straightforward to translate these dynamics to other measures (see, e.g., Forward and Swap Measures).
+  </p>
+  <p block-type="TextInlineMath">
+   A suitable choice of the different drivers' correlation, volatility, and mean reversion strength permits highly flexible calibration to the inflation curve's desired autocorrelation structure, which is another major advantage over the Jarrow-Yildirim model. For the specific case when there are two inflation factors, and the mean reversion strength of one of the factors, say
+   <math display="inline">
+    x_1
+   </math>
+   , is taken to the limit
+   <math display="inline">
+    x_1 \rightarrow \infty
+   </math>
+   while at the same time keeping
+   <math display="inline">
+    \alpha_1^2/\kappa_1
+   </math>
+   constant, the cumulative process
+   <math display="inline">
+    X_1
+   </math>
+   becomes a Brownian motion.&lt;sup&gt;d&lt;/sup&gt; In this case, inflation has one geometric Brownian motion factor, and one mean-reverting inflation rate factor, in complete analogy to the Jarrow-Yildirim model. In this sense, the multifactor instantaneous inflation model with stochastic interest rates encompasses the Jarrow-Yildirim model's autocorrelation structure as a special case, but, in general, allows for more flexible calibration, while, at the same time, it avoids the need to translate market observable
+  </p>
+  <h4>
+   Common Inflation Modeling Considerations
+  </h4>
+  <p block-type="Text">
+   Two Types of Convexity. In the inflation market, when practitioners talk about
+   <i>
+    convexity
+   </i>
+   effects, confusingly, and differently from the derivatives market of most other asset classes, they might be referring to one of the two possible effects whose origins are rather distinct.
+  </p>
+  <p block-type="Text">
+   The first of the two convexity effects arises in the context of period-on-period inflation rate related products such as year-on-year caps and floors (and obviously also inflation futures). In this context, convexity is generated only if the fundamental observable of the underlying inflation market is considered to be the
+   <i>
+    inflation index
+   </i>
+   since period-onperiod payouts are always governed by the return factor
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y(T-L) = \frac{I(T-L)}{I(T-K-\Omega)}
+   </math>
+   (31)
+  </p>
+  <p block-type="TextInlineMath">
+   which is
+   <i>
+    hyperbolic
+   </i>
+   , and thus convex, in the first of the two index fixings entering the return ratio
+   <math display="inline">
+    Y(T  L
+   </math>
+   ). For inflation derivatives practitioners whose background is firmly in the area of exotic interest rate derivatives, and who prefer to view period-on-period rates, that is,
+   <math display="inline">
+    (Y(T - L) - 1)/\Omega
+   </math>
+   or similar, as the fundamental underlying, this convexity, quite naturally, does not exist, and is merely an artifact of
+  </p>
+  <p block-type="Text">
+   choice of fundamental variables. Given the fact that ultimately all inflation fixing data result in the publication of an inndex figure, that is,
+   <i>
+    I (T )
+   </i>
+   , and the impact this setting has on the mind-set of inflation investors, this
+   <i>
+    hyperbolicity
+   </i>
+   effect is worth bearing in mind.
+  </p>
+  <p block-type="Text">
+   The second of the two convexity effects is the same as can be observed in other asset classes due to correlation with interest rates. It arises from a
+   <i>
+    timing discrepancy
+   </i>
+   between the fixing (observation) time of a financial observable and the time at which a payoff based on it is actually paid out. For instance, if an inflation zero-coupon swap payment is to be made with a certain delay, any nonzero correlation with interest rates gives rise to a risk-neutral valuation difference. Intuitively, one can understand this without the use of any model by considering that, in any scenario of high inflation, assuming positive correlation with interest rates, a delay of the payment is likely to incur a higher-than-average discount factor attenuation since, in that scenario, interest rates are also likely to be high. As a consequence,
+   <i>
+    ab initio
+   </i>
+   , one would tend to value a delayed inflation payment lower than its nondelayed counterpart (if we assume positive correlation between inflation and interest rates).
+  </p>
+  <p block-type="Text">
+   Both the hyperbolicity effect's and the interest rate correlation induced convexity effect's valuation formulae depend of course on the specific model used but are, typically, in any tractable model, straightforward to derive.
+  </p>
+  <p block-type="Text">
+   <b>
+    Fixing Lag Effects.
+   </b>
+   An inconvenient feature of the inflation market is that the prices of tradables, even in the simplest of all possible cases, do not, in general, converge to the level at which they finally settle when the last piece of relevant market information becomes available. Take, for instance, a forward contract on the one month return of a money market account with daily interest rate accrual at the overnight rate. Clearly, the amount of uncertainty in the settlement level of this forward contract decreases at least linearly as we approach the last day of the one month period. On the day before the final overnight rate becomes known, at worst, 1/30 (say) of the uncertainty is left as to where this contract will fix. In contrast, for a similar inflation rate contract, such as a month-on-month caplet or floorlet, the amount of uncertainty in the beginning of the one month period and at its end is very
+  </p>
+  <p block-type="Text">
+   similar. This is because only limited extra information as to where the inflation index will fix becomes available during the month. As a consequence, it is common practice to consider for all volatility and variance related calculations, the reference date, that is, the point in time assumed to be
+   <i>
+    t
+   </i>
+   = 0, to be the
+   <i>
+    last index publication date
+   </i>
+   . Arguably, this may or may not be seen as an inconsistency between the framework assumed within any used model and its application, but, in practice, this appears to be a usable compromise.
+  </p>
+  <p block-type="Text">
+   Another point worth noting for the implementation of models, which is rarely spoken about in publications on the subject, is that all fixing timing tends to be subject to lags, offsets, and so on. This seemingly innocuous feature can, in practice, turn out to require intricate attention to detail. Unfortunately, since inflation structures can have very long final maturities of up to one hundred years, these small differences, if systematically erroneous, can build up to major valuation differences and can thus not be ignored. A specific mistake that is exceptionally easy to make is to assume that a breakeven curve, traded and quoted as zero-coupon swap rates, relates to future inflation index fixing levels in their own
+   <i>
+    T
+   </i>
+   -forward measure, with
+   <i>
+    T
+   </i>
+   being the publication date of the respective index level. This is insidiously wrong since actual zero-coupon swaps pay at a date that is a given tenor after the day of inception, and this could be any day in the month. For instance, if we enter into a five-year zero-coupon swap on the first of a month, ignoring weekends, this will typically settle in five years on the third of the month, and pay the index level published (say) at the beginning of the month three months before the settlement month. If we enter into the same swap on the 26th of the month, it will settle on the 28th five years later, and pay the same index fixing level as the previous example. For an arbitrary zero-coupon swap with lag
+   <i>
+    L
+   </i>
+   , depending on the day of the month at which it is entered into, this means it may settle with an effective lag of
+   <i>
+    L
+   </i>
+   months, or almost
+   <i>
+    L
+   </i>
+   + 1 months, or anything in between. Any associated interest rate convexity considerations thus depend not only on time to expiry and nominal lag but also on the day of the month. This may not sound much for a short-maturity zero-coupon swap such as one or two years, but for a 50-year zero-coupon swap, the interest rate convexity incurred makes a prohibitively expensive difference!
+  </p>
+  <p block-type="Text">
+   <b>
+    Backward Induction for Interest Rate/Inflation Products.
+   </b>
+   It is not uncommon for inflation products to contain elements of a more traditional interest rate derivatives nature as, for example, was mentioned for the comparatively benign inflation swaptions discussed in the section The Inflation Swaption. When more exotic products allow for easy valuation in a strictly forward looking manner, one can of course employ Monte Carlo simulation techniques. However, if a product such as an inflation swaption is equipped with a Bermudan callable feature, as a quantitative analyst, one faces the problem that interest rates are by their nature forward looking, whereas inflation rates are by their nature backward looking. What we mean is that, typically, a natural floating interest rate coupon's absolute value is known
+   <i>
+    at the beginning
+   </i>
+   of the period for which it is paid. In contrast, floating inflation coupons are always paid after their associated period has elapsed. In a conventional backwards induction implementation on any type of lattice (e.g., explicit finite differencing solver or tree), this poses the problem that, as one has rolled the valuation back to the beginning of an interest rate period, one has to compare the value of the so induced filtration specific spot Libor rate, in some kind of payoff formula, with the contemporaneous inflation rate, which is due to the inflation driver's evolution
+   <i>
+    in the past
+   </i>
+   , and thus
+   <i>
+    unknown
+   </i>
+   on the backwards induction lattice. The problem is ultimately very similar to the valuation of, say, a forward starting equity option. The paradox is that one needs to have simultaneous access to the effect of the interest rate driver's evolution over a future interval
+   <i>
+    and
+   </i>
+   to the inflation rate driver's evolution in the past, on any valuation node in the lattice. A practical solution to this dilemma is in fact very similar to the way in which the valuation of a hindsight, or, even simpler, Asian, option in an FX or equity setting can be implemented on a lattice [13]. By enlarging the state space by one dimension, which represents a suitably chosen extra state variable, one can indeed roll back future interest rates in tandem with past inflation rates. In practice, this is in effect nothing other than a parallel roll-back of
+   <i>
+    delayed equations
+   </i>
+   . The fact that this may become necessary for what appears to be otherwise relatively vanilla products is a unique feature of the inflation market.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   <b>
+    The Inflation Smile.
+   </b>
+   Similar to other asset classes, volatilities implied from inflation options, when
+  </p>
+  <p block-type="Text">
+   visible in the market, tend to display what is known as "smile" and "skew", and several authors have suggested the pricing of inflation options with models that incorporate a smile, for example, see [9, 10]. Unlike many other asset classes, though, the liquidity in options for different strikes, at the time of this study, is extremely thin. It is therefore arguable whether a sophisticated model that reflects a full smile is really warranted for the management of exotic inflation derivatives structures, or whether a simpler, yet more robust, model, that only permits control over the skew, or possibly even only over the level of volatility, if managed prudently (i.e., conservatively), is perhaps preferable. As and when the inflation options market becomes more liquid, the value differences between management of a trading book with a smiling model and a mere skew model may be attainable by hedging strategies, and then the use of fully fledged smile model for inflation is definitely justified. Since the liquidity in options has not significantly increased in the last few years, it is not clear whether this day of sufficient option liquidity to warrant, for instance, stochastic volatility models for inflation, will come.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   The main difference between CPI and RPI is that the latter includes a number of extra items mainly related to housing, such as council tax and a range of owner-occupier housing costs, for example, mortgage interest payments, house depreciation, buildings insurance, and estate agents' and conveyancing fees.
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   Note that for the max
+   <i>
+    (
+   </i>
+   ·
+   <i>
+    ,
+   </i>
+   1
+   <i>
+    )
+   </i>
+   function to become active,
+   <i>
+    the average inflation over the life of the bond must be negative
+   </i>
+   . While inflation does, in practice, become negative for moderate periods of time, the market tends to assign no measurable value to the risk of inflation being negative on average for decades (the typical maturity of inflation bonds). Also note that inflation bond prices tend to be quoted with a four or five digit round-off rule, and that inflation indices themselves are published rounded (typically) to one digit after the decimal point, for example, the UK RPI for June 2008 was published as 216.8 (based on 1987 at 100).
+  </p>
+  <p block-type="Text">
+   c
+   <i>
+    .
+   </i>
+   This can be confusing to newcomers to the inflation market who come from a fixed income background since a zero-coupon swap, by definition as used in the interest rate market, is a contract to never exchange any money whatsoever.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   d
+   <i>
+    .
+   </i>
+   This is a consequence of the fact that an Ornstein– Uhlenbeck process, in the limit  → ∞ with
+   <i>
+    α
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    /
+   </i>
+   kept constant converges to the
+   <i>
+    white noise
+   </i>
+   process, which, in
+  </p>
+  <p block-type="Text">
+   turn, is in law equal to the temporal derivative of standard Brownian motion.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Andersen, L. Sidenius, J. &amp; Basu, S. (2003). All your hedges in one basket,
+     <i>
+      Risk
+     </i>
+     November, 67–72.
+    </li>
+    <li block-type="ListItem">
+     [2] Belgrade, N. Benhamou, E. &amp; Koehler, E. (2004).
+     <i>
+      A Market Model For Inflation
+     </i>
+     . Technical report, CDC Ixis Capital Markets and CNCE, January. ssrn.com/abstract= 576081.
+    </li>
+    <li block-type="ListItem">
+     [3] Curran, M. (1994). Valuing Asian and portfolio options by conditioning on the geometric mean price,
+     <i>
+      Management Science
+     </i>
+     <b>
+      40
+     </b>
+     , 1705–1711.
+    </li>
+    <li block-type="ListItem">
+     [4] Deacon, M. Derry, A. &amp; Mirfendereski, D. (2004).
+     <i>
+      Inflation-indexed Securities
+     </i>
+     . John Wiley &amp; Sons. ISBN 0470868120.
+    </li>
+    <li block-type="ListItem">
+     [5] Fisher, I. (1930).
+     <i>
+      The Theory of Interest
+     </i>
+     . The Macmillan Company.
+    </li>
+    <li block-type="ListItem">
+     [6] Heath, D. Jarrow, R. &amp; Morton, A. (1992). Bond pricing and the term structure of interest rates,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      61
+     </b>
+     (1), 77–105.
+    </li>
+    <li block-type="ListItem">
+     [7] Hull, J. &amp; White, A. (1990). Pricing interest rate derivative securities,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      3
+     </b>
+     (4), 573–592.
+    </li>
+    <li block-type="ListItem">
+     [8] Jarrow, R. &amp; Yildirim, Y. (2003). Pricing treasury inflation protected securities and related derivatives using
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   an HJM model,
+   <i>
+    Journal of Financial and Quantitative Analysis
+   </i>
+   <b>
+    38
+   </b>
+   (2), 409–430. forum.johnson.cornell.edu/ faculty/jarrow/papers.html
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [9] Kruse, S. (2007).
+     <i>
+      Pricing of Inflation-Indexed Options Under the Assumption of a Lognormal Inflation Index as Well as Under Stochastic Volatility
+     </i>
+     . Technical report, S-University – Hochschule der Sparkassen-Finanzgruppe; Fraunhofer Gesellschaft – Institute of Industrial Mathematics (ITWM), April. ssrn.com/ abstract=948399
+    </li>
+    <li block-type="ListItem">
+     [10] Mercurio, F. &amp; Moreni, N. (2006). Inflation with a smile,
+     <i>
+      Risk
+     </i>
+     <b>
+      19
+     </b>
+     (3), 70–75.
+    </li>
+    <li block-type="ListItem">
+     [11] Ryten, M. (2007).
+     <i>
+      Practical Modelling For Limited Price Index and Related Inflation Products
+     </i>
+     . In
+     <i>
+      ICBI Global Derivatives Conference
+     </i>
+     , Paris.
+    </li>
+    <li block-type="ListItem">
+     [12] Vasicek, O.A. (1977). An equilibrium characterisation of the term structure,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      5
+     </b>
+     , 177–188.
+    </li>
+    <li block-type="ListItem">
+     [13] Wilmott, P. (1998).
+     <i>
+      Derivatives
+     </i>
+     . John Wiley &amp; Sons.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="Text">
+   Crosby, J. (2007). Valuing inflation futures contracts,
+   <i>
+    Risk
+   </i>
+   <b>
+    20
+   </b>
+   (3), 88–90.
+  </p>
+  <p block-type="Text">
+   PETER JACKEL ¨ &amp; JEROME BONNETON
+  </p>
+ </body>
+</html>

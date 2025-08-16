@@ -1,0 +1,3899 @@
+{
+  "blocks": [
+    {
+      "id": "/page/0/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Yield Curve Construction </b></h1>",
+      "page": 220,
+      "polygon": [
+        [
+          74.9367088607595,
+          70.963623046875
+        ],
+        [
+          281.0126582278481,
+          70.963623046875
+        ],
+        [
+          281.0126582278481,
+          88.267333984375
+        ],
+        [
+          74.9367088607595,
+          88.267333984375
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        70.963623046875,
+        281.0126582278481,
+        88.267333984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The objective of an interest rate model is to describe the random movement of a curve of zero-coupon bond prices through time, starting from a known initial condition. In reality, however, only a few shortdated zero-coupon bonds are directly quoted in the market at any given time, a long stretch from the assumption of many models that an initial curve of zero-coupon bond prices is observable for a continuum of maturities. Fortunately, a number of liquid securities depend, in relatively straightforward fashion, on zero-coupon bonds, opening up for the possibility of uncovering zero-coupon bond prices from prices of such securities. Still, as only a finite set of securities are quoted in the market, constructing a continuous curve of zero-coupon bond prices will require us to complement market observation with an interpolation rule, based perhaps on direct assumptions about functional form or perhaps on a regularity norm to be optimized on. A somewhat specialized area of research, discount curve construction relies on techniques from a number of fields, including statistics and computer graphics. We discuss the basic topics in detail and refer the reader to appropriate sources for advanced applications. In the same spirit, we pay scant attention to the subtle intricacies of actual swap and bond market conventions.</p>",
+      "page": 220,
+      "polygon": [
+        [
+          74.1873417721519,
+          109.42743538767395
+        ],
+        [
+          286.4609375,
+          109.42743538767395
+        ],
+        [
+          286.4609375,
+          406.0849609375
+        ],
+        [
+          74.1873417721519,
+          406.0849609375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        109.42743538767395,
+        286.4609375,
+        406.0849609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Discount Curves </b></h1>",
+      "page": 220,
+      "polygon": [
+        [
+          74.1873417721519,
+          420.47117296222666
+        ],
+        [
+          157.36708860759492,
+          420.47117296222666
+        ],
+        [
+          157.36708860759492,
+          431.8564453125
+        ],
+        [
+          74.1873417721519,
+          431.8564453125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        420.47117296222666,
+        157.36708860759492,
+        431.8564453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Let <math display=\"inline\">P(t, T)</math> be the time t price of a zero-coupon bond maturing at time <math display=\"inline\">T</math>. Going forward, we use the abbreviated notation <math display=\"inline\">P(T) = P(0, T)</math> where <math display=\"inline\">P:[0,T] \\rightarrow (0,1]</math> is a continuous, monotonically declining <i>discount curve</i>. <math display=\"inline\">T</math> denotes the maximum maturity considered, typically given as the longest maturity in the set of securities the curve is built to match. Let there be <math display=\"inline\">N</math> such securities—the bench<i>mark set</i>—with observable prices <math display=\"inline\">V_1, \\ldots, V_N</math>. We fundamentally assume that the time 0 price <math display=\"inline\">V_i =</math><math display=\"inline\">V_i(0)</math> of security <i>i</i> can be written as a linear combination of zero-coupon bond prices at different maturities.</p>",
+      "page": 220,
+      "polygon": [
+        [
+          74.1873417721519,
+          439.20874751491056
+        ],
+        [
+          286.2582278481013,
+          439.20874751491056
+        ],
+        [
+          286.2582278481013,
+          586.1171875
+        ],
+        [
+          74.1873417721519,
+          586.1171875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        439.20874751491056,
+        286.2582278481013,
+        586.1171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_i = \\sum_{j=1}^{M} c_{ij} P(t_j), \\quad i = 1, \\dots, N \\tag{1}</math></p>",
+      "page": 220,
+      "polygon": [
+        [
+          111.8671875,
+          591.271484375
+        ],
+        [
+          285.59375,
+          591.271484375
+        ],
+        [
+          285.59375,
+          620.724609375
+        ],
+        [
+          111.8671875,
+          620.724609375
+        ]
+      ],
+      "bbox": [
+        111.8671875,
+        591.271484375,
+        285.59375,
+        620.724609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">where <math display=\"inline\">0 &lt; t_1 &lt; t_2 &lt; \\ldots &lt; t_M \\leq T</math> is a given finite set of dates, in practice obtained by merging together</p>",
+      "page": 220,
+      "polygon": [
+        [
+          74.1873417721519,
+          622.8369781312127
+        ],
+        [
+          285.50886075949364,
+          622.8369781312127
+        ],
+        [
+          285.50886075949364,
+          644.287109375
+        ],
+        [
+          74.1873417721519,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        622.8369781312127,
+        285.50886075949364,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/6",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">the cash-flow dates of each of the <math display=\"inline\">N</math> benchmark securities. Securities that satisfy relationship (1) include coupon bonds, forward rate agreements (FRAs), as well as fixed-floating interest rate swaps. For instance, consider a newly issued unit-notional fixedfloating swap, paying a coupon of <math display=\"inline\">c\\tau</math> at times <math display=\"inline\">\\tau</math>, <math display=\"inline\">2\\tau, 3\\tau, \\ldots, n\\tau</math>. If no spread is paid on the floating rate, the time 0 total swap value <math display=\"inline\">V_S</math> to the fixed-rate paver is</p>",
+      "page": 220,
+      "polygon": [
+        [
+          301.24556962025315,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          173.22119140625
+        ],
+        [
+          301.24556962025315,
+          173.22119140625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        71.2027833001988,
+        513.3164556962025,
+        173.22119140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_S = 1 - P(n\\tau) - \\sum_{j=1}^n c\\tau P(j\\tau) \\Rightarrow</math><br/><math display=\"block\">1 - V_S = P(n\\tau) + \\sum_{j=1}^n c\\tau P(j\\tau)</math> (2)</p>",
+      "page": 220,
+      "polygon": [
+        [
+          304.09375,
+          182.9775390625
+        ],
+        [
+          512.796875,
+          182.9775390625
+        ],
+        [
+          512.796875,
+          249.9833984375
+        ],
+        [
+          304.09375,
+          249.9833984375
+        ]
+      ],
+      "bbox": [
+        304.09375,
+        182.9775390625,
+        512.796875,
+        249.9833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">which is in the form (1) once we interpret <math display=\"inline\">V_i =</math><math display=\"inline\">1 - V_{\\rm s}</math>.</p>",
+      "page": 220,
+      "polygon": [
+        [
+          301.24556962025315,
+          251.83300198807157
+        ],
+        [
+          512.5670886075949,
+          251.83300198807157
+        ],
+        [
+          512.5670886075949,
+          272.25732421875
+        ],
+        [
+          301.24556962025315,
+          272.25732421875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        251.83300198807157,
+        512.5670886075949,
+        272.25732421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The choice of the securities to be included in the benchmark set depends on the market under consideration. For instance, to construct a treasury bond curve, it is natural to choose a set of treasury bonds and T-bills. On the other hand, if we are interested in constructing a discount curve applicable for bonds issued by a particular firm, we would naturally use bonds and loans used by the firm in question. In many applications, the most important yield curve is the <i>Libor curve</i>, constructed out of market quotes for Libor deposits, swaps, and Eurodollar futures. In the construction of this curve, most firms would use a few certificates of deposit for the first 3 months of the curve, followed by a strip of Eurodollar futures&lt;sup&gt;a&lt;/sup&gt; (with maturities staggered 3 months apart) out to <math display=\"inline\">3</math>or 4 years. Par swaps are then used for the rest of the curve, often going out to 30 years or more.</p>",
+      "page": 220,
+      "polygon": [
+        [
+          301.24556962025315,
+          274.3180914512923
+        ],
+        [
+          513.3164556962025,
+          274.3180914512923
+        ],
+        [
+          513.3164556962025,
+          467.568359375
+        ],
+        [
+          301.24556962025315,
+          467.568359375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        274.3180914512923,
+        513.3164556962025,
+        467.568359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/10",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Matrix Formulation &amp; Transformations </b></h1>",
+      "page": 220,
+      "polygon": [
+        [
+          301.24556962025315,
+          486.427435387674
+        ],
+        [
+          499.07848101265824,
+          486.427435387674
+        ],
+        [
+          499.07848101265824,
+          497.7578125
+        ],
+        [
+          301.24556962025315,
+          497.7578125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        486.427435387674,
+        499.07848101265824,
+        497.7578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Define the <math display=\"inline\">M</math>-dimensional discount bond vector</p>",
+      "page": 220,
+      "polygon": [
+        [
+          301.24556962025315,
+          508.16302186878727
+        ],
+        [
+          494.5822784810127,
+          508.16302186878727
+        ],
+        [
+          494.5822784810127,
+          518.375
+        ],
+        [
+          301.24556962025315,
+          518.375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        508.16302186878727,
+        494.5822784810127,
+        518.375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/12",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathbf{P} = (P(t_1), \\dots, P(t_M))^\\top \\tag{3}</math></p>",
+      "page": 220,
+      "polygon": [
+        [
+          354.96875,
+          527.2109375
+        ],
+        [
+          510.484375,
+          527.2109375
+        ],
+        [
+          510.484375,
+          537.51953125
+        ],
+        [
+          354.96875,
+          537.51953125
+        ]
+      ],
+      "bbox": [
+        354.96875,
+        527.2109375,
+        510.484375,
+        537.51953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/13",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">and let <math display=\"inline\">\\mathbf{V} = (V_1, \\ldots, V_N)^\\top</math> be the vector of observable security prices. Also let <math display=\"inline\">\\mathbf{c} = \\{c_{ij}\\}\\</math> be an <math display=\"inline\">N \\times M</math>dimensional matrix containing all the cash flows produced by the chosen set of securities. <math display=\"inline\">\\mathbf{c}</math> would typically be quite sparse.</p>",
+      "page": 220,
+      "polygon": [
+        [
+          301.24556962025315,
+          544.8886679920478
+        ],
+        [
+          513.3164556962025,
+          544.8886679920478
+        ],
+        [
+          513.3164556962025,
+          602.6845703125
+        ],
+        [
+          301.24556962025315,
+          602.6845703125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        544.8886679920478,
+        513.3164556962025,
+        602.6845703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In a friction-free market without arbitrage, the fundamental relation</p>",
+      "page": 220,
+      "polygon": [
+        [
+          301.24556962025315,
+          603.3499005964214
+        ],
+        [
+          513.3164556962025,
+          603.3499005964214
+        ],
+        [
+          513.3164556962025,
+          625.142578125
+        ],
+        [
+          301.24556962025315,
+          625.142578125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        603.3499005964214,
+        513.3164556962025,
+        625.142578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathbf{V} = \\mathbf{c}\\mathbf{P} \\tag{4}</math></p>",
+      "page": 220,
+      "polygon": [
+        [
+          393.125,
+          634.71484375
+        ],
+        [
+          511.640625,
+          634.71484375
+        ],
+        [
+          511.640625,
+          644.287109375
+        ],
+        [
+          393.125,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        393.125,
+        634.71484375,
+        511.640625,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 231,
+      "polygon": [
+        [
+          77.93417721518988,
+          44.970178926441356
+        ],
+        [
+          217.31645569620252,
+          44.970178926441356
+        ],
+        [
+          217.31645569620252,
+          55.9149169921875
+        ],
+        [
+          77.93417721518988,
+          55.9149169921875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        44.970178926441356,
+        217.31645569620252,
+        55.9149169921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">must be satisfied, giving us a starting point to find <math display=\"inline\">P</math>. In practice, however, we normally have <math display=\"inline\">M &gt; N</math>, in which case equation (4) is insufficient to uniquely determine <math display=\"inline\">P</math>. The problem of curve construction essentially boils down to supplementing equation (4) with enough additional assumptions to allow us to extract <b>P</b> and to determine <math display=\"inline\">P(T)</math> for values of T not in the cash-flow timing set <math display=\"inline\">\\{t_j\\}_{j=1}^M</math>.</p>",
+      "page": 231,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.2027833001988
+        ],
+        [
+          290.796875,
+          71.2027833001988
+        ],
+        [
+          290.796875,
+          162.64214711729622
+        ],
+        [
+          77.93417721518988,
+          162.64214711729622
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.2027833001988,
+        290.796875,
+        162.64214711729622
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/2",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">As it is normally easier to devise an interpolation scheme on a curve that is reasonably flat (rather than exponentially decaying), it is common to perform the curve-fitting exercise on <i>zero-coupon yields</i>, rather than directly on discount bond prices&lt;sup&gt;b&lt;/sup&gt;. Specifically, we introduce a continuous yield function <math display=\"inline\">y</math>: <math display=\"inline\">[0,T] \\to \\mathbb{R}_+</math> given by</p>",
+      "page": 231,
+      "polygon": [
+        [
+          77.93417721518988,
+          162.64214711729622
+        ],
+        [
+          290.00506329113927,
+          162.64214711729622
+        ],
+        [
+          290.00506329113927,
+          242.6201171875
+        ],
+        [
+          77.93417721518988,
+          242.6201171875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        162.64214711729622,
+        290.00506329113927,
+        242.6201171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/3",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">e^{-y(T)T} = P(T) \\Rightarrow y(T) = -T^{-1} \\ln P(T)</math> (5)</p>",
+      "page": 231,
+      "polygon": [
+        [
+          92.64453125,
+          252.37646484375
+        ],
+        [
+          289.20703125,
+          252.37646484375
+        ],
+        [
+          289.20703125,
+          265.26220703125
+        ],
+        [
+          92.64453125,
+          265.26220703125
+        ]
+      ],
+      "bbox": [
+        92.64453125,
+        252.37646484375,
+        289.20703125,
+        265.26220703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">such that in equation (4) <math display=\"inline\">\\mathbf{P} = (e^{-y(t_1)T_1}, \\dots, e^{-y(t_M)T_M})</math>. The mapping <math display=\"inline\">T \\mapsto y(T)</math> is known as the <i>yield curve</i>; it is related to the discount curve by the simple transformation (5). Of related interest is also the instantaneous forward curve <math display=\"inline\">f(T)</math>, given by</p>",
+      "page": 231,
+      "polygon": [
+        [
+          77.93417721518988,
+          275.0675944333996
+        ],
+        [
+          290.00506329113927,
+          275.0675944333996
+        ],
+        [
+          290.00506329113927,
+          332.083984375
+        ],
+        [
+          77.93417721518988,
+          332.083984375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        275.0675944333996,
+        290.00506329113927,
+        332.083984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/5",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">P(T) = e^{-\\int_0^T f(u) du} \\Rightarrow f(T) = y(T) + \\frac{dy(T)}{dT}T</math>\n(6)</p>",
+      "page": 231,
+      "polygon": [
+        [
+          86.357421875,
+          346.25830078125
+        ],
+        [
+          289.0625,
+          346.25830078125
+        ],
+        [
+          289.0625,
+          381.7861328125
+        ],
+        [
+          86.357421875,
+          381.7861328125
+        ]
+      ],
+      "bbox": [
+        86.357421875,
+        346.25830078125,
+        289.0625,
+        381.7861328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">For more transformations of the discount curve—and a discussion of relative merits in curve construction—see <math display=\"inline\">[1, 14]</math>. For simplicity, in this article we work primarily with <math display=\"inline\">y(T)</math> unless otherwise noted.</p>",
+      "page": 231,
+      "polygon": [
+        [
+          77.93417721518988,
+          395.7375745526839
+        ],
+        [
+          290.36328125,
+          395.7375745526839
+        ],
+        [
+          290.36328125,
+          451.0009765625
+        ],
+        [
+          77.93417721518988,
+          451.0009765625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        395.7375745526839,
+        290.36328125,
+        451.0009765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/7",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Construction Principles </b></h1>",
+      "page": 231,
+      "polygon": [
+        [
+          77.93417721518988,
+          477.140625
+        ],
+        [
+          194.83544303797467,
+          476.68389662027835
+        ],
+        [
+          194.83544303797467,
+          487.44921875
+        ],
+        [
+          77.93417721518988,
+          487.9264413518887
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        476.68389662027835,
+        194.83544303797467,
+        487.9264413518887
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">We have at least three options for solving equation (4).</p>",
+      "page": 231,
+      "polygon": [
+        [
+          77.93417721518988,
+          499.91848906560637
+        ],
+        [
+          290.00506329113927,
+          499.91848906560637
+        ],
+        [
+          290.00506329113927,
+          520.583984375
+        ],
+        [
+          77.93417721518988,
+          520.583984375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        499.91848906560637,
+        290.00506329113927,
+        520.583984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/ListGroup/231",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">1. We can introduce new and unspanned securities such that <math display=\"inline\">N = M</math> and equation (4) allows for exactly one solution.</li><li block-type=\"ListItem\">2. We can use a parameterization of the yield curve with precisely <math display=\"inline\">N</math> parameters, using the <math display=\"inline\">N</math> equations in equation (4) to recover these parameters.</li><li block-type=\"ListItem\">3. We can search the space of all solutions to equation <math display=\"inline\">(4)</math> and choose the one that is \"optimal\" according to a given criterion.</li></ul></p>",
+      "page": 231,
+      "polygon": [
+        [
+          77.93417721518988,
+          531.2607421875
+        ],
+        [
+          290.00506329113927,
+          531.2607421875
+        ],
+        [
+          290.00506329113927,
+          644.287109375
+        ],
+        [
+          77.93417721518988,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        531.2607421875,
+        290.00506329113927,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Let us provide some comments to these three ideas. First, in option 1, introduction of new securities might not truly be possible—such securities may simply not exist—but sometimes interpolation rules applied to the given benchmark set may allow us to provide reasonable values for an additional set of \"fictitious\" securities. Although it can occasionally be useful in preprocessing to pad an overly sparse benchmark set, this idea will often require some quite <i>ad hoc</i> decisions about the specifics of the fictitious securities, and excessive use may ultimately lead to odd-looking curves and suboptimal hedge reports. When an interpolation rule is to be used, it is typically better to apply it to fundamental quantities such as zero-coupon yields or forward rates, thereby maintaining a higher degree of control over the resulting yield curve.</p>",
+      "page": 231,
+      "polygon": [
+        [
+          304.99240506329113,
+          71.2027833001988
+        ],
+        [
+          517.421875,
+          71.2027833001988
+        ],
+        [
+          517.421875,
+          263.8250497017893
+        ],
+        [
+          304.99240506329113,
+          263.8250497017893
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        71.2027833001988,
+        517.421875,
+        263.8250497017893
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In option 2 above, parametric functional forms such as that in <math display=\"inline\">[9]</math> are sometimes used, but it is far more common to work with a spline representation with <math display=\"inline\">N</math> user-selected knots (typically at the maturity dates of the benchmark securities), with the level of the yield curve at these knots constituting the <math display=\"inline\">N</math>unknowns to be solved for. We discuss the details of this approach in the section Yield Curve Fitting with <math display=\"inline\">N</math>-knot Splines, using a number of different spline types. We assume some knowledge of spline theory here—classical references are [2, 11].</p>",
+      "page": 231,
+      "polygon": [
+        [
+          304.99240506329113,
+          266.8230616302187
+        ],
+        [
+          517.8126582278481,
+          266.8230616302187
+        ],
+        [
+          517.8126582278481,
+          392.0947265625
+        ],
+        [
+          304.99240506329113,
+          392.0947265625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        266.8230616302187,
+        517.8126582278481,
+        392.0947265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Option 3 is covered in the section Nonparametric Optimal Yield Curve Fitting and constitutes the most sophisticated approach. It can often be stated in completely nonparametric terms, with the yield curve emerging naturally as the solution to an optimization problem. If carefully stated, this approach can be set up to also handle the situation where the system of equations (4) is (near-) singular, in the sense that either no solutions exist or all solutions are irregular and nonsmooth.</p>",
+      "page": 231,
+      "polygon": [
+        [
+          305.7417721518987,
+          392.73956262425446
+        ],
+        [
+          517.0632911392405,
+          392.73956262425446
+        ],
+        [
+          517.0632911392405,
+          506.2255859375
+        ],
+        [
+          305.7417721518987,
+          506.2255859375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        392.73956262425446,
+        517.0632911392405,
+        506.2255859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/15",
+      "block_type": "SectionHeader",
+      "html": "<h4>Yield Curve Fitting with N-Knot Splines</h4>",
+      "page": 231,
+      "polygon": [
+        [
+          305.7417721518987,
+          532.89662027833
+        ],
+        [
+          508.4609375,
+          532.89662027833
+        ],
+        [
+          508.4609375,
+          543.0419921875
+        ],
+        [
+          305.7417721518987,
+          543.0419921875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        532.89662027833,
+        508.4609375,
+        543.0419921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/1/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In this section, we discuss a number of yield Curve algorithms based on polynomial and exponential (tension) splines of various degrees of differentiability. Throughout, we assume that we can select and arrange our benchmark set of securities to guarantee that the maturities of the benchmark securities satisfy</p>",
+      "page": 231,
+      "polygon": [
+        [
+          304.99240506329113,
+          554.6322067594433
+        ],
+        [
+          517.0632911392405,
+          554.6322067594433
+        ],
+        [
+          517.0632911392405,
+          622.197265625
+        ],
+        [
+          304.99240506329113,
+          622.197265625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        554.6322067594433,
+        517.0632911392405,
+        622.197265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/1/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">T_i &gt; T_{i-1}, \\quad i = 2, 3, \\dots, N</math> (7)</p>",
+      "page": 231,
+      "polygon": [
+        [
+          353.234375,
+          634.3466796875
+        ],
+        [
+          516.265625,
+          634.3466796875
+        ],
+        [
+          516.265625,
+          644.6552734375
+        ],
+        [
+          353.234375,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        353.234375,
+        634.3466796875,
+        516.265625,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/1/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 239,
+      "polygon": [
+        [
+          374.625,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          55.77685546875
+        ],
+        [
+          374.625,
+          55.77685546875
+        ]
+      ],
+      "bbox": [
+        374.625,
+        45.71968190854871,
+        513.3164556962025,
+        55.77685546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/1/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where the inequality is strict. Equation <math display=\"inline\">(7)</math> constitutes a \"spanning\" condition and allows us to select the <math display=\"inline\">N</math>deal maturities as distinct knots in our splines.</p>",
+      "page": 239,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.95228628230616
+        ],
+        [
+          286.31640625,
+          71.95228628230616
+        ],
+        [
+          286.31640625,
+          104.00634765625
+        ],
+        [
+          74.1873417721519,
+          104.00634765625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.95228628230616,
+        286.31640625,
+        104.00634765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/1/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h4>Bootstrapping</h4>",
+      "page": 239,
+      "polygon": [
+        [
+          74.1873417721519,
+          116.17296222664017
+        ],
+        [
+          134.8860759493671,
+          116.17296222664017
+        ],
+        [
+          134.8860759493671,
+          126.6484375
+        ],
+        [
+          74.1873417721519,
+          126.6484375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        116.17296222664017,
+        134.8860759493671,
+        126.6484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">A simple—and widely used—approach involves assuming that the yield curve <math display=\"inline\">y(T)</math> is a continuous piecewise linear spline. This assumption allows for a straightforward solution procedure, known as <i>boot</i>strapping. Specifically, we proceed according to the algorithm:</p>",
+      "page": 239,
+      "polygon": [
+        [
+          74.1873417721519,
+          134.1610337972167
+        ],
+        [
+          285.50886075949364,
+          134.1610337972167
+        ],
+        [
+          285.50886075949364,
+          200.46533203125
+        ],
+        [
+          74.1873417721519,
+          200.46533203125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        134.1610337972167,
+        285.50886075949364,
+        200.46533203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/ListGroup/239",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">1. Let <math display=\"inline\">y(t_i)</math> be known for <math display=\"inline\">t_i \\leq T_{i-1}</math>, such that prices for benchmark securities <math display=\"inline\">1, \\ldots, i-1</math> are matched.</li><li block-type=\"ListItem\">2. Make a guess for <math display=\"inline\">y(T_i)</math>; linearly interpolate to find <math display=\"inline\">y(t_i)</math>, <math display=\"inline\">T_{i-1} &lt; t_i &lt; T_i</math>.</li><li block-type=\"ListItem\">Compute <math display=\"inline\">V_i</math> from the known values of <math display=\"inline\">P(t_i)</math>, 3. <math display=\"inline\">t_i \\leq T_i</math>.</li><li block-type=\"ListItem\">4. If <math display=\"inline\">V_i</math> equals the market value, stop. Otherwise return to equation (4).</li><li block-type=\"ListItem\">If <math display=\"inline\">i &lt; N</math>, set <math display=\"inline\">i = i + 1</math> and repeat. 5.</li></ul></p>",
+      "page": 239,
+      "polygon": [
+        [
+          74.1873417721519,
+          212.10934393638172
+        ],
+        [
+          286.4609375,
+          212.10934393638172
+        ],
+        [
+          286.4609375,
+          324.90478515625
+        ],
+        [
+          74.1873417721519,
+          324.90478515625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        212.10934393638172,
+        286.4609375,
+        324.90478515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The updating of guesses when iterating over steps 4 and 6 can be handled by a standard one-dimensional root-search algorithm (e.g., the Newton-Raphson or secant methods).</p>",
+      "page": 239,
+      "polygon": [
+        [
+          74.1873417721519,
+          334.27833001988074
+        ],
+        [
+          286.75,
+          334.27833001988074
+        ],
+        [
+          286.75,
+          378.47265625
+        ],
+        [
+          74.1873417721519,
+          378.47265625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        334.27833001988074,
+        286.75,
+        378.47265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">With <math display=\"inline\">y(T)</math> being piecewise linear, the forward curve <math display=\"inline\">f(T)</math> (see equation 6) takes on a discontinuous saw-tooth shape, as shown in Figure 1. It may be tempting to replace the assumption of continuous piecewise linear yields with an assumption of continuous piecewise linear forwards, but such an interpolation rule turns out to be numerically unstable and prone to oscillations. However, we may</p>",
+      "page": 239,
+      "polygon": [
+        [
+          74.1873417721519,
+          379.99801192842943
+        ],
+        [
+          286.2582278481013,
+          379.99801192842943
+        ],
+        [
+          286.2582278481013,
+          469.1888667992048
+        ],
+        [
+          74.1873417721519,
+          469.1888667992048
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        379.99801192842943,
+        286.2582278481013,
+        469.1888667992048
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">instead assume that the forward curve is piecewise flat—or, equivalently, that <math display=\"inline\">\\log P(T)</math> is piecewise linear—which again allows for stable application of the bootstrapping principle. For reference, the forward curve resulting from this idea is also shown in Figure 1.</p>",
+      "page": 239,
+      "polygon": [
+        [
+          301.24556962025315,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          138.7978515625
+        ],
+        [
+          301.24556962025315,
+          138.7978515625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        71.2027833001988,
+        513.3164556962025,
+        138.7978515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/12",
+      "block_type": "SectionHeader",
+      "html": "<h4><i>Catmull–Rom Splines </i></h4>",
+      "page": 239,
+      "polygon": [
+        [
+          301.4921875,
+          158.1451292246521
+        ],
+        [
+          394.91645569620255,
+          158.1451292246521
+        ],
+        [
+          394.91645569620255,
+          168.06689453125
+        ],
+        [
+          301.4921875,
+          168.06689453125
+        ]
+      ],
+      "bbox": [
+        301.4921875,
+        158.1451292246521,
+        394.91645569620255,
+        168.06689453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">To ensure that the forward curve stays continuous, we need a yield curve that is at least once differentiable, that is, in <math display=\"inline\">C^1</math>. A common assumption involves setting <math display=\"inline\">y(T)</math> equal to a once differentiable Hermite cubic spline:</p>",
+      "page": 239,
+      "polygon": [
+        [
+          301.24556962025315,
+          177.63220675944333
+        ],
+        [
+          513.3164556962025,
+          177.63220675944333
+        ],
+        [
+          513.3164556962025,
+          232.49560546875
+        ],
+        [
+          301.24556962025315,
+          232.49560546875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        177.63220675944333,
+        513.3164556962025,
+        232.49560546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/14",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">y(T) = a_{3,i}(T - T_i)^3 + a_{2,i}(T - T_i)^2 + a_{1,i}(T - T_i)</math><math display=\"block\">+ a_{0,i}, \\quad T \\in [T_i, T_{i+1}] \\tag{8}</math></p>",
+      "page": 239,
+      "polygon": [
+        [
+          304.9609375,
+          249.2470703125
+        ],
+        [
+          513.0859375,
+          249.2470703125
+        ],
+        [
+          513.0859375,
+          276.859375
+        ],
+        [
+          304.9609375,
+          276.859375
+        ]
+      ],
+      "bbox": [
+        304.9609375,
+        249.2470703125,
+        513.0859375,
+        276.859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/15",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">for a series of constants <math display=\"inline\">a_{3,i}</math>, <math display=\"inline\">a_{2,i}</math>, <math display=\"inline\">a_{1,i}</math>, <math display=\"inline\">a_{0,i}</math> to be determined from exogenously given values of <math display=\"inline\">y(T_i)</math>, <math display=\"inline\">y(T_{i+1})</math>, <math display=\"inline\">y'(T_i)</math>, and <math display=\"inline\">y'(T_{i+1})</math>. In practice, the first derivatives <math display=\"inline\">y'(T_i) = dy(T_i)/dT</math> are most often specified as finite difference coefficients <math display=\"inline\">y'(T_i) =</math><math display=\"inline\">(y(T_{i+1}) - y(T_{i-1})) / (T_{i+1} - T_{i-1})</math>, giving rise to the so-called <i>Catmull–Rom spline</i> [3].</p>",
+      "page": 239,
+      "polygon": [
+        [
+          301.24556962025315,
+          289.19287109375
+        ],
+        [
+          513.3164556962025,
+          289.19287109375
+        ],
+        [
+          513.3164556962025,
+          367.61181640625
+        ],
+        [
+          301.24556962025315,
+          367.61181640625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        289.19287109375,
+        513.3164556962025,
+        367.61181640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/16",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Solving for the Catmull-Rom spline that satisfies equation (4) involves an iterative search for the unknown levels <math display=\"inline\">y(T_1), \\ldots, y(T_N)</math>, with each iteration involving a construction of the spline and a computation of <math display=\"inline\">\\mathbf{P} = \\left(e^{-y(t_1)t_1}, \\ldots, e^{-y(t_M)t_M}\\right)</math>. Any standard multidimensional root-search algorithm can be applied here. We notice that the Catmull-Rom spline links values of <math display=\"inline\">y(T)</math>, <math display=\"inline\">T \\in (T_i, T_{i+1})</math> to only four knots, namely, <math display=\"inline\">y(T_{i-1}), y(T_i), y(T_{i+1}), y(T_{i+2}),</math></p>",
+      "page": 239,
+      "polygon": [
+        [
+          301.99493670886073,
+          368.00596421471175
+        ],
+        [
+          513.3164556962025,
+          368.00596421471175
+        ],
+        [
+          513.3164556962025,
+          470.513671875
+        ],
+        [
+          301.99493670886073,
+          470.513671875
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        368.00596421471175,
+        513.3164556962025,
+        470.513671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/FigureGroup/238",
+      "block_type": "FigureGroup",
+      "html": "<p><img src='/page/2/Figure/17'></p><p><b>Figure 1</b> Yield and forward curve (linear yield bootstrap)</p>",
+      "page": 239,
+      "polygon": [
+        [
+          74.9367088607595,
+          484.46708984375
+        ],
+        [
+          429.879296875,
+          484.46708984375
+        ],
+        [
+          429.879296875,
+          645.0234375
+        ],
+        [
+          74.9367088607595,
+          645.0234375
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        484.46708984375,
+        429.879296875,
+        645.0234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {
+        "/page/2/Figure/17": "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sN00caCPzNx+4WOAf7vJ9ud/w/qE2qaNFdXKxrPvkik8vO0sjshIzyASufxpLjw7plzDNE8Lr5tx9qZ45nRxLgDerA5U4GOMfrVyxsbbTbKKztI/LgiGFXJJ9SSTySTkknrQBYooooAKKKKACsXW9Uv9O1DR4reG3a2u7sQTySOd6gqxG1QMH7vUnj0NbVV7qxtr1rdriPebeUTRfMRtcAgHjrwT1oA5/Sdd1G48Qy2WoqtrE7zLaRNYujSKjYyJTIQeOcbBnPHSuorLtfD2m2WofbYYpfOG/YHnd0j3nLbFJKrk+gFalABRRRQAUUUUAVr+W4h0+4ltUie4SMmMSttTdjjcewrjrXxNrl9dRWFrLp8hnlfyNS+yyCGVEjDNtTzMt8xC7g2CMntXY6hYW2qafPY3aF7edCkiq7ISp6jKkEfgazH8JaVJbJAxv2CPvjdtQnaRDjaQrlyyggkEA4NAFvQtSbWNBsdReMRvcQq7IDkAkc49s1o1Fa20NlaxWttGscEKBI0XoqgYAqWgAooooAKKKKAOY1LW9UtPEcNnD9jljklRRaJGzztER88pYNhADnAKnOMZyRg8La5qOpSyQauFgu/JWZbU2LwMqkkZ3NI27njopHpyK0W8Naa2qTajtu1uJmVpdl7MschAwN0YfYRgYwRin6ZoGn6TM8tokvmNGIg0s7ylUHRF3E7V56CgDTooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigDl5PE92mna9eNaIkdlcm2tDuz5rfKuTz/fbH0pt543s9LjmS8hmae1aRJwNowEVTv64AbemP972Nak/h6yk0e902IPFFdu8rHezFZGO7cMk4+bnA4qpF4Wgm1HU73U/JuZL6CO3YRoYwEX/AIETuJ7jH3V9KAM2T4i2UenNdG2BdJHR0F1FtO1Qx2Nuw5II4HfOcVNc+O4YY55k024a2ieOM3DuiRhnRXG4k/KAG5J4zgd6vyeDtGlQLJHdu3zhpGvZt7hwAys27LKQq8E44qUeFtJW1+zxxTxLvWQPHdSq4ZUCA7w2fugDrz3oAZpGuNqOpyW7KBHJaRXkGGViFbKlSVJBwVzkHvW5WTpeg22lXcs0AATyY7eGMZ/dxpk4ySSSWZiT9K1qACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k="
+      }
+    },
+    {
+      "id": "/page/3/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 182,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          216.56708860759494,
+          45.71968190854871
+        ],
+        [
+          216.56708860759494,
+          55.77685546875
+        ],
+        [
+          77.93417721518988,
+          55.77685546875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        216.56708860759494,
+        55.77685546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/FigureGroup/182",
+      "block_type": "FigureGroup",
+      "html": "<p><img src='/page/3/Figure/1'></p><p>Figure 2 Yield and forward curve (Catmull–Rom spline)</p>",
+      "page": 182,
+      "polygon": [
+        [
+          77.93417721518988,
+          61.453485107421876
+        ],
+        [
+          434.94287109375,
+          61.453485107421876
+        ],
+        [
+          434.94287109375,
+          224.580078125
+        ],
+        [
+          77.93417721518988,
+          224.580078125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        61.453485107421876,
+        434.94287109375,
+        224.580078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {
+        "/page/3/Figure/1": "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YSLEScbgCNowQcniuq1bTl1bSriwe4nt0nXY0tuQHA74JBHPTp3rMXwvJHYR2kOvalGkasi7Et0AQgDbsWILxjg4yMnntQBuQSia3ilBQh0DZjbcpyM8HuPepKgs7SKwsbezgBENvGsUYJyQqjA/QVPQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQBR1jVrXQ9Lm1G9ZhBEBnaMkknAAHqSain1yzttQitJJApeISF2OFUMwVAfdmOB9DTtb0x9WsY7ZJ1h23EUzFo94YI4baRkdcetYviLR7ie51OaG1kuUvdOEAWJlDpKjEoRuIHV857baANebxHo1vOsM2pWySNIYwpf8AiBwQfTkgfXihvEmjJLcxtqVurWys02XwECnDHPTgnB9O9cwfh9JLBal9QCzNbLDfBhIRK28u7Da6jJZ2+8GHI445WfwBd3V1cSz60HWWO4i+eF2bbKwbvJtGMAYVQDQB0DeKdJZZFtbuK6nWIyrDG3zOAu7A7E45x6c9K1ba4iu7WK5gcPDKgdGHdSMg1zF34avYdbudYtLpTkO4tYkZDMxj2BXO/YRnB3FN3bNb2i6edK0Ox08vvNtAkRb1KgDNAF6iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9k="
+      }
+    },
+    {
+      "id": "/page/3/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">which simplifies the causality structure in the model and allows for application of \"near-bootstrap\" methods. Figure 2 shows typical yield and forward curves generated by the Catmull-Rom spline approach, using the same benchmark set as was used to construct Figure 1.</p>",
+      "page": 182,
+      "polygon": [
+        [
+          77.93417721518988,
+          243.58846918489067
+        ],
+        [
+          290.00506329113927,
+          243.58846918489067
+        ],
+        [
+          290.00506329113927,
+          311.466796875
+        ],
+        [
+          77.93417721518988,
+          311.466796875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        243.58846918489067,
+        290.00506329113927,
+        311.466796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">We can easily extend the procedure above beyond Catmull–Rom splines to more complicated <math display=\"inline\">C^1</math> cubic splines in the Hermite class; for instance, it is relatively straightforward to add tension to the Catmull–Rom spline. See [7] for details.</p>",
+      "page": 182,
+      "polygon": [
+        [
+          77.93417721518988,
+          311.79324055666007
+        ],
+        [
+          290.00506329113927,
+          311.79324055666007
+        ],
+        [
+          290.00506329113927,
+          367.97998046875
+        ],
+        [
+          77.93417721518988,
+          367.97998046875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        311.79324055666007,
+        290.00506329113927,
+        367.97998046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/1/SectionHeader/7",
+        "4": "/page/2/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/5",
+      "block_type": "SectionHeader",
+      "html": "<h1><math display=\"inline\">C^2</math> Cubic Splines</h1>",
+      "page": 182,
+      "polygon": [
+        [
+          77.93417721518988,
+          385.9940357852883
+        ],
+        [
+          152.12151898734177,
+          385.9940357852883
+        ],
+        [
+          152.12151898734177,
+          397.2490234375
+        ],
+        [
+          77.93417721518988,
+          397.2490234375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        385.9940357852883,
+        152.12151898734177,
+        397.2490234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">While the spline method introduced in the previous section often produces acceptable yield curves, the method is heuristic in nature and ultimately does not produce a smooth forward curve. To improve on the latter, one alternative is to remain in the realm of cubic splines, but now insist that the curve is twice differentiable everywhere on <math display=\"inline\">[T_1, T_N]</math>. The resulting spline equations are</p>",
+      "page": 182,
+      "polygon": [
+        [
+          77.93417721518988,
+          407.7296222664016
+        ],
+        [
+          290.00506329113927,
+          407.7296222664016
+        ],
+        [
+          290.00506329113927,
+          497.7578125
+        ],
+        [
+          77.93417721518988,
+          497.7578125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        407.7296222664016,
+        290.00506329113927,
+        497.7578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">y(T) = \\frac{(T_{i+1} - T)^3}{6h_i} y_i'' + \\frac{(T - T_i)^3}{6h_i} y_{i+1}'' + (T_{i+1} - T) \\left(\\frac{y_i}{h_i} - \\frac{h_i}{6} y_i''\\right) + (T - T_i) \\times \\left(\\frac{y_{i+1}}{h_i} - \\frac{h_i}{6} y_{i+1}''\\right), \\quad T \\in [T_i, T_{i+1}] </math>(9)</p>",
+      "page": 182,
+      "polygon": [
+        [
+          86.791015625,
+          512.8525390625
+        ],
+        [
+          289.0625,
+          512.8525390625
+        ],
+        [
+          289.0625,
+          612.9931640625
+        ],
+        [
+          86.791015625,
+          612.9931640625
+        ]
+      ],
+      "bbox": [
+        86.791015625,
+        512.8525390625,
+        289.0625,
+        612.9931640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">y''_i = d^2y(T_i)/dT^2</math>, <math display=\"inline\">y_i = y(T_i)</math>, and <math display=\"inline\">h_i =</math><math display=\"inline\">T_{i+1} - T_i</math>. Continuity of the second derivative across</p>",
+      "page": 182,
+      "polygon": [
+        [
+          77.93417721518988,
+          622.0874751491053
+        ],
+        [
+          289.640625,
+          622.0874751491053
+        ],
+        [
+          289.640625,
+          646.49609375
+        ],
+        [
+          77.93417721518988,
+          646.49609375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        622.0874751491053,
+        289.640625,
+        646.49609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/9",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">the <math display=\"inline\">\\{T_i\\}</math> knots requires that <math display=\"inline\">y''_i</math> and <math display=\"inline\">y_i</math>, <math display=\"inline\">i = 1, \\ldots, N</math>, are connected through a tri-diagonal linear system of equations; see [2, 10] for the well-known details. Full specification of this system of equations requires exogenous characterization of behavior at the boundaries <math display=\"inline\">T_1</math> and <math display=\"inline\">T_N</math>. The most common—and often best—specification is that of the <i>natural spline</i>, where we set <math display=\"inline\">y_1'' = y_N'' = 0</math>.</p>",
+      "page": 182,
+      "polygon": [
+        [
+          304.99240506329113,
+          243.17236328125
+        ],
+        [
+          517.421875,
+          243.17236328125
+        ],
+        [
+          517.421875,
+          334.27833001988074
+        ],
+        [
+          304.99240506329113,
+          334.27833001988074
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        243.17236328125,
+        517.421875,
+        334.27833001988074
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">As for the Catmull–Rom spline, solving the <math display=\"inline\">C^2</math>cubic spline yield curve that satisfies equation (4) involves a numerical search for the unknown levels&lt;sup&gt;c&lt;/sup&gt; <math display=\"inline\">y_1, \\ldots, y_N</math>. The fitting problem is typically goodnatured, and virtually all standard root-search packages can tackle it successfully. References [1, 14] use a simple Gauss-Newton scheme, whereas [6] applies a fixed-point-type iteration. Both these simple suggestions are most likely outperformed by the backtracking Newton method or the Broyden method, both of which are described in Press et al. [10]. An example of the forward curve arising from this approach can be seen in Figure 3 (the case <math display=\"inline\">\\sigma = 0</math>).</p>",
+      "page": 182,
+      "polygon": [
+        [
+          304.99240506329113,
+          335.77733598409543
+        ],
+        [
+          516.84375,
+          335.77733598409543
+        ],
+        [
+          516.84375,
+          483.767578125
+        ],
+        [
+          304.99240506329113,
+          483.767578125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        335.77733598409543,
+        516.84375,
+        483.767578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">While the <math display=\"inline\">C^2</math> cubic spline discussed here has attractive smoothness, it is not necessarily an ideal representation of the yield curve. As discussed in [1, 6], among others, twice differentiable cubic spline yield curves are often subject to oscillatory behavior, spurious inflection points, poor extrapolation behavior, and nonlocal behavior when prices in the benchmark set are perturbed. In particular, perturbation of a single benchmark price can cause a slow-decaying \"ringing\" effect on the <math display=\"inline\">C^2</math> cubic yield curve, with the effect of the perturbation of the benchmark instrument price spilling into the entire yield curve. This behavior is a nuisance in risk-management applications, and is much less present in curves constructed by</p>",
+      "page": 182,
+      "polygon": [
+        [
+          304.99240506329113,
+          484.92842942345925
+        ],
+        [
+          517.0632911392405,
+          484.92842942345925
+        ],
+        [
+          517.0632911392405,
+          645.3916015625
+        ],
+        [
+          304.99240506329113,
+          645.3916015625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        484.92842942345925,
+        517.0632911392405,
+        645.3916015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 178,
+      "polygon": [
+        [
+          374.625,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          55.77685546875
+        ],
+        [
+          374.625,
+          55.77685546875
+        ]
+      ],
+      "bbox": [
+        374.625,
+        45.71968190854871,
+        513.3164556962025,
+        55.77685546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/FigureGroup/178",
+      "block_type": "FigureGroup",
+      "html": "<p><img src='/page/4/Figure/1'></p><p>Figure 3 Forward curve (tension spline)</p>",
+      "page": 178,
+      "polygon": [
+        [
+          74.8671875,
+          64.0513427734375
+        ],
+        [
+          435.966796875,
+          64.0513427734375
+        ],
+        [
+          435.966796875,
+          230.28662109375
+        ],
+        [
+          74.8671875,
+          230.28662109375
+        ]
+      ],
+      "bbox": [
+        74.8671875,
+        64.0513427734375,
+        435.966796875,
+        230.28662109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {
+        "/page/4/Figure/1": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCADOAX4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAopGZUUszBVAySTgAVEl5bSRRypcQtHIcI4cEMfQHvQBNRSBlYsFYEqcHB6GloAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAOf8bW8914QvoLeF5XkCAiNC5C71y2wffwMnb3xjvXJad4aW+0q/uJ1umCXjtbMlmLf7SHWMHETqTGNygbhg8E55r02igDmfDV3qK391p13YPGkZd2uDG6733ddxG1twO4bSdoGDUXiBte0qF9Rh1qNoBdQqLZrNfuPMqFd2c9G611dc/wCNP+RZf/r7tP8A0ojoA6CiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoqvem7Fo5sRAbjjYJ2IT3yQCelchH4u137DFdNpEE8UszrHJbGV1kRSBkYQ7dx3YLYGFznmgDt65/wAaf8iy/wD192n/AKUR1o6XqSalFJIrRj5sqitlgn8JYds9R7EVzPjHxLocumSabHq1m18L22jNuJgXDC4jyMeowfyoA7WiiigAooooAKKKKACimTTRW8Ek00ixxRqXd3OAqgZJJ7CszRPEVlr3ni1S4jaEK2y4iMbPG+SkgB/hbBwevB4FAGtRRRQAUUUUAFFFUtW1jTtCsHvtVvYbO1TgyTNtGfQep9hzQBdorzOf4najrdwlv4P8O6jd28km3+1JbRjAFGCxVSVDHGQAXU56irmjeP8AVZbOd9V8N3SfZbtrOaVGjjZ3xlSsTvnlSvAZuTxmgD0Cis7SNd0/XYZZLCZmML+XNFLE0UsTejo4DKfqOa0aACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigCG7txeWU9sZJIhNG0ZeMgMuRjIJzzVf+yoF0ePS4y8dskawgKeSgwMfiBg/Wr1FAGNpvhqz0rVLi/gkmLzBgI22bUDNubGFBPP94nHQYqDxp/yLL/9fdp/6UR10Fc/40/5Fl/+vu0/9KI6AOgooooAKKKKACiiuJ8b+NzpEUukaGUuPEMgURxbNyw7mVQzdskuoVc8llJwuTQAeLNTGq6ivh+xa0mNq8dxqSXNz5MRU5McLMATljhyuDlUIPDCpRqsR+I+mxqFZ7rS5Y5ZIWDxF1dXVQw5yB5vUDhhjviTQPAem2Nt9o1mCDVtZuCZby8uYlffI2M7RjCqMAAADgVn+K/Cmlyav4dFlENInkupYlvdPUQyIxgkZRkDkEr0PB5HegDvaCQASTgDvXn154h8S+Eb0wajGNYsM4hlYJFd3JODtiSMkSMBnIKx+uaoXWs61r9zCdW8N6smltJtfTVjkUbAR80rKp8wnn92CE9S2eADubPxRouoaj9gtNQjluDuC7QdjlfvBXxtYjuASR3qHxD4y8P+FlP9ralD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"
+      }
+    },
+    {
+      "id": "/page/4/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">bootstrapping or by the Hermite spline approach.&lt;sup&gt;d&lt;/sup&gt; A pragmatic, but inherently inconsistent, approach is to use a <math display=\"inline\">C^2</math> cubic spline for pricing purposes only, but use bootstrapping when stability to perturbations is required. A more sophisticated approach is discussed below.</p>",
+      "page": 178,
+      "polygon": [
+        [
+          74.1873417721519,
+          250.33399602385686
+        ],
+        [
+          286.2582278481013,
+          250.33399602385686
+        ],
+        [
+          286.2582278481013,
+          319.38232421875
+        ],
+        [
+          74.1873417721519,
+          319.38232421875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        250.33399602385686,
+        286.2582278481013,
+        319.38232421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/SectionHeader/4",
+      "block_type": "SectionHeader",
+      "html": "<h1><math display=\"inline\">C^2</math> Tension Splines</h1>",
+      "page": 178,
+      "polygon": [
+        [
+          74.9367088607595,
+          341.7733598409543
+        ],
+        [
+          155.86835443037975,
+          341.7733598409543
+        ],
+        [
+          155.86835443037975,
+          354.173828125
+        ],
+        [
+          74.9367088607595,
+          354.173828125
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        341.7733598409543,
+        155.86835443037975,
+        354.173828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Hermite cubic splines are less prone to nonlocal perturbation behavior than <math display=\"inline\">C^2</math> cubic splines, but accomplish this in a somewhat <i>ad hoc</i> fashion by giving up one degree of differentiability. Rather than taking such an extreme step, one wonders whether there may be a way to retain the <math display=\"inline\">C^2</math> feature of the cubic spline, yet still allow control of the curve locality and \"stiffness\". As it turns out, an attractive remedy to the shortcomings of the pure <math display=\"inline\">C^2</math> cubic spline is to insert some <i>tension</i> in the spline, that is, to apply a tensile force to the end points of the spline. Details about this idea can be found in [12]; when applied to the yield Curve setting, the construction involves a modification of the cubic equation (9) for <math display=\"inline\">y(T)</math> to</p>",
+      "page": 178,
+      "polygon": [
+        [
+          74.1873417721519,
+          366.87548828125
+        ],
+        [
+          286.2582278481013,
+          366.87548828125
+        ],
+        [
+          286.2582278481013,
+          527.2109375
+        ],
+        [
+          74.1873417721519,
+          527.2109375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        366.87548828125,
+        286.2582278481013,
+        527.2109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">y(T) = \\left(\\frac{\\sinh(\\sigma(T_{i+1} - T))}{\\sinh(\\sigma h_i)} - \\frac{T_{i+1} - T}{h_i}\\right) \\frac{y_i''}{\\sigma^2} + \\left(\\frac{\\sinh(\\sigma(T - T_i))}{\\sinh(\\sigma h_i)} - \\frac{T - T_i}{h_i}\\right) \\frac{y_{i+1}''}{\\sigma^2} + y_i \\frac{T_{i+1} - T}{h_i} + y_{i+1} \\frac{T - T_i}{h_i},</math><br/><math display=\"block\">T \\in [T_i, T_{i+1}] \\tag{10}</math></p>",
+      "page": 178,
+      "polygon": [
+        [
+          81.94921875,
+          545.619140625
+        ],
+        [
+          286.2582278481013,
+          545.619140625
+        ],
+        [
+          286.2582278481013,
+          646.49609375
+        ],
+        [
+          81.94921875,
+          646.49609375
+        ]
+      ],
+      "bbox": [
+        81.94921875,
+        545.619140625,
+        286.2582278481013,
+        646.49609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/7",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\sigma \\ge 0</math> is the <i>tension factor</i>, and where we recall the definition <math display=\"inline\">h_i = T_{i+1} - T_i</math>.</p>",
+      "page": 178,
+      "polygon": [
+        [
+          301.24556962025315,
+          249.5844930417495
+        ],
+        [
+          512.5670886075949,
+          249.5844930417495
+        ],
+        [
+          512.5670886075949,
+          272.0732421875
+        ],
+        [
+          301.24556962025315,
+          272.0732421875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        249.5844930417495,
+        512.5670886075949,
+        272.0732421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Among the properties of the tension splines are the facts that setting <math display=\"inline\">\\sigma = 0</math> will recover the ordinary <math display=\"inline\">C^2</math> cubic spline, whereas letting <math display=\"inline\">\\sigma \\to \\infty</math> will make the tension spline uniformly approach a linear spline (i.e., the spline we used in the section Bootstrapping). Loosely, we can thus think of a tension spline as a twice differentiable hybrid between a cubic spline and a linear spline. Equally loosely, as we increase <math display=\"inline\">\\sigma</math>, inflections and ringing in the cubic spline are gradually \"stretched\" out of the curve, accompanied by rising (absolute values of) second derivatives at the knots.</p>",
+      "page": 178,
+      "polygon": [
+        [
+          301.24556962025315,
+          274.3180914512923
+        ],
+        [
+          513.3164556962025,
+          274.3180914512923
+        ],
+        [
+          513.3164556962025,
+          420.0751953125
+        ],
+        [
+          301.24556962025315,
+          420.0751953125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        274.3180914512923,
+        513.3164556962025,
+        420.0751953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">More details on tension splines in yield Curve application can be found in [1], which also contains a discussion of computationally efficient local spline bases and the usage of <math display=\"inline\">T</math>-dependent tension factors for additional curve control. For our purposes here, it suffices to note that equation <math display=\"inline\">(10)</math> is structurally similar to equation (9), and also allows for a tri-diagonal matrix equation linking <math display=\"inline\">y''_i</math> and <math display=\"inline\">y_i</math>, <math display=\"inline\">i = 1, \\ldots, N</math>. The solution procedure for the yield curve is therefore the same as in the section <math display=\"inline\">C^2</math> Cubic Splines. Figure 3 illustrates the effect of varying the tension factor on the shape of the instantaneous forward curve <math display=\"inline\">f(t)</math>; notice how increasing the tension parameter gradually moves us from smooth cubic spline behavior to bootstrap behavior. Examples of how the tension parameter dampens ringing in the forward curve after input perturbations can be found in [1].</p>",
+      "page": 178,
+      "polygon": [
+        [
+          301.24556962025315,
+          424.21868787276344
+        ],
+        [
+          513.3164556962025,
+          424.21868787276344
+        ],
+        [
+          513.3164556962025,
+          644.5725646123261
+        ],
+        [
+          301.24556962025315,
+          644.5725646123261
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        424.21868787276344,
+        513.3164556962025,
+        644.5725646123261
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 230,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          216.56708860759494,
+          45.71968190854871
+        ],
+        [
+          216.56708860759494,
+          55.9609375
+        ],
+        [
+          77.93417721518988,
+          55.9609375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        216.56708860759494,
+        55.9609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/SectionHeader/1",
+      "block_type": "SectionHeader",
+      "html": "<h4>Nonparametric Methods</h4>",
+      "page": 230,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.95228628230616
+        ],
+        [
+          199.33164556962026,
+          71.95228628230616
+        ],
+        [
+          199.33164556962026,
+          82.5147705078125
+        ],
+        [
+          77.93417721518988,
+          82.5147705078125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.95228628230616,
+        199.33164556962026,
+        82.5147705078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/2",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The techniques we outlined so far generally suffice for the construction of a discount curve from a \"clean\" set of non-duplicate benchmark securities, including the carefully selected set of liquid staggered-maturity deposits, futures, and swaps, that most banks assemble for the purpose of constructing a Libor yield curve. In some settings, however, the benchmark set may be significantly less well structured, involving illiquid securities with little order in their cash-flow timing and considerable noise in their prices. This situation may, say, arise when one attempts to construct a yield curve from corporate bonds.</p>",
+      "page": 230,
+      "polygon": [
+        [
+          77.93417721518988,
+          92.93836978131213
+        ],
+        [
+          290.94140625,
+          92.93836978131213
+        ],
+        [
+          290.94140625,
+          240.779296875
+        ],
+        [
+          77.93417721518988,
+          240.779296875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        92.93836978131213,
+        290.94140625,
+        240.779296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">When the input benchmark set is noisy, a straight solution of (4) may be erratic or may not exist. To overcome this, and to reflect that noise in the input data may make us content to solve (4) only to within certain error bounds, we now proceed to replace this equation by minimization of a penalized least-squares norm. Specifically, define the space <math display=\"inline\">\\mathcal{A} = C^2[t_1, t_M]</math>of all twice differentiable functions <math display=\"inline\">[t_1, t_M] \\to \\mathbb{R}</math> and introduce the <math display=\"inline\">M</math>-dimensional discount vector</p>",
+      "page": 230,
+      "polygon": [
+        [
+          77.93417721518988,
+          242.08946322067595
+        ],
+        [
+          290.65234375,
+          242.08946322067595
+        ],
+        [
+          290.65234375,
+          343.31298828125
+        ],
+        [
+          77.93417721518988,
+          343.31298828125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        242.08946322067595,
+        290.65234375,
+        343.31298828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathbf{P}(y) = \\left( e^{-y(t_1)t_1}, \\dots, e^{-y(t_M)t_M} \\right) \\tag{11}</math></p>",
+      "page": 230,
+      "polygon": [
+        [
+          120.828125,
+          353.4375
+        ],
+        [
+          289.0625,
+          353.4375
+        ],
+        [
+          289.0625,
+          364.8505859375
+        ],
+        [
+          120.828125,
+          364.8505859375
+        ]
+      ],
+      "bbox": [
+        120.828125,
+        353.4375,
+        289.0625,
+        364.8505859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Also, let <b>W</b> be a diagonal <math display=\"inline\">N \\times N</math> weighting matrix. Then, as our best estimate <math display=\"inline\">\\hat{y}</math> of the yield curve we may use</p>",
+      "page": 230,
+      "polygon": [
+        [
+          77.93417721518988,
+          374.75149105367797
+        ],
+        [
+          290.94140625,
+          374.75149105367797
+        ],
+        [
+          290.94140625,
+          407.92578125
+        ],
+        [
+          77.93417721518988,
+          407.92578125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        374.75149105367797,
+        290.94140625,
+        407.92578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{y} = \\arg\\min_{y \\in \\mathcal{A}} \\mathcal{I}(y) \\tag{12}</math><math display=\"block\">\\mathcal{I}(y) \\equiv \\frac{1}{N} \\left( \\mathbf{V} - \\mathbf{c} \\mathbf{P}(y) \\right)^{\\top} \\mathbf{W}^{2} \\left( \\mathbf{V} - \\mathbf{c} \\mathbf{P}(y) \\right)</math><math display=\"block\">+ \\lambda \\left( \\int_{t_{1}}^{t_{M}} \\left[ y''(t)^{2} + \\sigma^{2} y'(t)^{2} \\right] dt \\right) \\tag{13}</math></p>",
+      "page": 230,
+      "polygon": [
+        [
+          100.015625,
+          423.388671875
+        ],
+        [
+          291.375,
+          423.388671875
+        ],
+        [
+          291.375,
+          500.703125
+        ],
+        [
+          100.015625,
+          500.703125
+        ]
+      ],
+      "bbox": [
+        100.015625,
+        423.388671875,
+        291.375,
+        500.703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">\\lambda</math> and <math display=\"inline\">\\sigma</math> are positive constants. The norm <math display=\"inline\">\\mathcal{I}(y)</math>consists of three separate terms:</p>",
+      "page": 230,
+      "polygon": [
+        [
+          77.93417721518988,
+          508.06640625
+        ],
+        [
+          289.2556962025316,
+          508.06640625
+        ],
+        [
+          289.2556962025316,
+          528.68359375
+        ],
+        [
+          77.93417721518988,
+          528.68359375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        508.06640625,
+        289.2556962025316,
+        528.68359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/230",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">A least-squares penalty term</p>",
+      "page": 230,
+      "polygon": [
+        [
+          78.986328125,
+          540.3916500994036
+        ],
+        [
+          207.5746835443038,
+          540.3916500994036
+        ],
+        [
+          207.5746835443038,
+          550.037109375
+        ],
+        [
+          78.986328125,
+          550.037109375
+        ]
+      ],
+      "bbox": [
+        78.986328125,
+        540.3916500994036,
+        207.5746835443038,
+        550.037109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{1}{N} \\left( \\mathbf{V} - \\mathbf{c} \\mathbf{P}(y) \\right)^{\\top} \\mathbf{W}^2 \\left( \\mathbf{V} - \\mathbf{c} \\mathbf{P}(y) \\right)</math><math display=\"block\">= \\frac{1}{N} \\sum_{i=1}^{N} W_i^2 \\left( V_i - \\sum_{j=1}^{M} c_{ij} e^{-y(t_j)t_j} \\right)^2 \\tag{14}</math></p>",
+      "page": 230,
+      "polygon": [
+        [
+          111.8671875,
+          562.5546875
+        ],
+        [
+          290.75443037974685,
+          562.5546875
+        ],
+        [
+          290.75443037974685,
+          643.55078125
+        ],
+        [
+          111.8671875,
+          643.55078125
+        ]
+      ],
+      "bbox": [
+        111.8671875,
+        562.5546875,
+        290.75443037974685,
+        643.55078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">W_i</math> is the <i>i</i>th diagonal element of <b>W</b>. This term is an outright precision-of-fit norm and measures the degree to which the constructed discount curve can replicate input security prices. The weight-matrix <math display=\"inline\">W</math> can be used to express the relative importance of the various securities in the benchmark set, or to turn price errors into yield errors.</p>",
+      "page": 230,
+      "polygon": [
+        [
+          319.703125,
+          71.2027833001988
+        ],
+        [
+          517.421875,
+          71.2027833001988
+        ],
+        [
+          517.421875,
+          161.255859375
+        ],
+        [
+          319.703125,
+          161.255859375
+        ]
+      ],
+      "bbox": [
+        319.703125,
+        71.2027833001988,
+        517.421875,
+        161.255859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/ListGroup/229",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">A weighted smoothness term <math display=\"inline\">\\lambda \\int_{t_1}^{t_M} y''(t)^2 dt</math>, penalizing high second-order gradients of <math display=\"inline\">y</math> to avoid kinks and discontinuities.</li><li block-type=\"ListItem\">A weighted curve-length term <math display=\"inline\">\\lambda \\sigma^2 \\int_{t_1}^{t_M} y'(t)^2 dt</math>, <math display=\"inline\">\\bullet</math>penalizing oscillations and excess convexity/ concavity.</li></ul></p>",
+      "page": 230,
+      "polygon": [
+        [
+          305.7417721518987,
+          161.89264413518887
+        ],
+        [
+          516.5546875,
+          161.89264413518887
+        ],
+        [
+          516.5546875,
+          229.55029296875
+        ],
+        [
+          305.7417721518987,
+          229.55029296875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        161.89264413518887,
+        516.5546875,
+        229.55029296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">To construct the yield curve, we have replaced the nonlinear root-search problems encountered in the section Yield Curve Fitting with <math display=\"inline\">N</math>-knot Splines with the functional optimization problem (12). Fortunately, the latter approach can be linked to that of the former by the following result, which can be shown by variational methods.</p>",
+      "page": 230,
+      "polygon": [
+        [
+          305.7417721518987,
+          240.59045725646124
+        ],
+        [
+          517.0632911392405,
+          240.59045725646124
+        ],
+        [
+          517.0632911392405,
+          319.1982421875
+        ],
+        [
+          305.7417721518987,
+          319.1982421875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        240.59045725646124,
+        517.0632911392405,
+        319.1982421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><b>Proposition 1</b> The curve <math display=\"inline\">\\hat{y}</math> that satisfies equation (12) is a natural exponential tension spline with tension factor <math display=\"inline\">\\sigma</math> and knots at all cash-flow dates <math display=\"inline\">t_1, t_2, \\ldots, t_M.</math></p>",
+      "page": 230,
+      "polygon": [
+        [
+          304.99240506329113,
+          330.53081510934396
+        ],
+        [
+          517.0632911392405,
+          330.53081510934396
+        ],
+        [
+          517.0632911392405,
+          376.44775390625
+        ],
+        [
+          304.99240506329113,
+          376.44775390625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        330.53081510934396,
+        517.0632911392405,
+        376.44775390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/15",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Proposition 1 establishes that the curve we are looking for is a tension spline with tension factor <math display=\"inline\">\\sigma</math>, but does not, in itself, allow us to identify the optimal spline directly, beyond the fact that (i) it is a natural spline with boundary conditions <math display=\"inline\">y''(t_1) =</math><math display=\"inline\">y''(t_M) = 0</math>; (ii) it has knots at all <math display=\"inline\">t_i</math>. Identification of the correct tension spline involves solving for unknown levels <math display=\"inline\">y(t_1), y(t_2), \\ldots, y(t_M)</math> to directly optimize equation (13). This optimization problem can be solved by standard methods, for example, by use of the Levenberg-Marquardt method, or the Gauss–Newton method in <math display=\"inline\">[1, 14]</math>.</p>",
+      "page": 230,
+      "polygon": [
+        [
+          304.99240506329113,
+          385.2445328031809
+        ],
+        [
+          518.0,
+          385.2445328031809
+        ],
+        [
+          518.0,
+          521.3203125
+        ],
+        [
+          304.99240506329113,
+          521.3203125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        385.2445328031809,
+        518.0,
+        521.3203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Remark 1</b> If we let <math display=\"inline\">\\sigma = 0</math>, the solution to the optimization problem becomes a <i>cubic smoothing </i><i>spline;</i> see [14] for more details on this case.</p>",
+      "page": 230,
+      "polygon": [
+        [
+          305.5390625,
+          531.3976143141153
+        ],
+        [
+          517.1328125,
+          531.3976143141153
+        ],
+        [
+          517.1328125,
+          564.3955078125
+        ],
+        [
+          305.5390625,
+          564.3955078125
+        ]
+      ],
+      "bbox": [
+        305.5390625,
+        531.3976143141153,
+        517.1328125,
+        564.3955078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/SectionHeader/17",
+      "block_type": "SectionHeader",
+      "html": "<h4>Choice of Smoothing Parameter</h4>",
+      "page": 230,
+      "polygon": [
+        [
+          305.7417721518987,
+          580.2265625
+        ],
+        [
+          441.3772151898734,
+          580.2265625
+        ],
+        [
+          441.3772151898734,
+          589.8588469184891
+        ],
+        [
+          305.7417721518987,
+          589.8588469184891
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        580.2265625,
+        441.3772151898734,
+        589.8588469184891
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/17"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/18",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">The parameter <math display=\"inline\">\\lambda</math> may be specified exogenously by the user, as a way to provide a trade-off between pricing accuracy and curve regularity. In practice, however, a good magnitude of <math display=\"inline\">\\lambda</math> may sometimes be</p>",
+      "page": 230,
+      "polygon": [
+        [
+          304.99240506329113,
+          600.3518886679921
+        ],
+        [
+          517.0632911392405,
+          600.3518886679921
+        ],
+        [
+          517.0632911392405,
+          643.9189453125
+        ],
+        [
+          304.99240506329113,
+          643.9189453125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        600.3518886679921,
+        517.0632911392405,
+        643.9189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/17"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/PageHeader/6",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 418,
+      "polygon": [
+        [
+          375.6600036621094,
+          45.49365234375
+        ],
+        [
+          512.3057250976562,
+          45.49365234375
+        ],
+        [
+          512.3057250976562,
+          56.70166015625
+        ],
+        [
+          375.6600036621094,
+          56.70166015625
+        ]
+      ],
+      "bbox": [
+        375.6600036621094,
+        45.49365234375,
+        512.3057250976562,
+        56.70166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/17"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/0",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">hard to ascertain by inspection, and a procedure to estimate <i>λ</i> directly from the data is often useful. One possibility is to use a cross-validation approach, either outright or through the more efficient generalized cross-validation (GCV) criterion in [4]. Some results along these lines can be found in [14], for instance. A more pragmatic approach is to specify a target value for the least-squares term in equation (13), iterating on <i>λ</i> until the target is met; in general, we would expect the least-squares error term to increase monotonically with <i>λ</i>. Most trading desks should have little difficulty specifying a meaningful least-squares target error directly from, say, observed bid–offer spreads. We note that the target error value may be set to zero, if a perfect fit to benchmark securities is required.</p>",
+      "page": 418,
+      "polygon": [
+        [
+          75.228515625,
+          71.88751220703125
+        ],
+        [
+          288.1953125,
+          71.88751220703125
+        ],
+        [
+          288.1953125,
+          253.20159912109375
+        ],
+        [
+          75.228515625,
+          253.20159912109375
+        ]
+      ],
+      "bbox": [
+        75.228515625,
+        71.88751220703125,
+        288.1953125,
+        253.20159912109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/4",
+        "4": "/page/5/SectionHeader/17"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/SectionHeader/1",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Special Topics</b></h1>",
+      "page": 418,
+      "polygon": [
+        [
+          75.15625,
+          275.7136535644531
+        ],
+        [
+          144.96484375,
+          275.7136535644531
+        ],
+        [
+          144.96484375,
+          286.921630859375
+        ],
+        [
+          75.15625,
+          286.921630859375
+        ]
+      ],
+      "bbox": [
+        75.15625,
+        275.7136535644531,
+        144.96484375,
+        286.921630859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/TextInlineMath/2",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">While our discussion of curve construction algorithms generally relied on the notion that the forward curve should ideally be <i>smooth</i>, there may be circumstances where we want to make exceptions. For instance, it may be reasonable to expect instantaneous forwards to jump on or around meetings of monetary authorities, such as the Federal Reserve in the United States. In addition, other \"special\" situations may exist that might warrant introduction of discontinuities into the forward curve. A well-known example is the turn-of-year (TOY) effect where shortdated loan premiums spike for loans between the last business day of the year and the first business day of the next year. One common way of incorporating TOY-type effects is to exogenously specify an <i>over</i><i>lay curve</i> <i>f</i> <i>(t)</i> on the instantaneous forward curve. Specifically, the forward curve <i>f (t)</i> is written as</p>",
+      "page": 418,
+      "polygon": [
+        [
+          75.517578125,
+          297.30755615234375
+        ],
+        [
+          286.4609375,
+          297.30755615234375
+        ],
+        [
+          286.4609375,
+          490.0810241699219
+        ],
+        [
+          75.517578125,
+          490.0810241699219
+        ]
+      ],
+      "bbox": [
+        75.517578125,
+        297.30755615234375,
+        286.4609375,
+        490.0810241699219
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Equation/3",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">f(t) = \\epsilon_f(t) + f^*(t) \\tag{15}</math></p>",
+      "page": 418,
+      "polygon": [
+        [
+          138.23963928222656,
+          498.25440979003906
+        ],
+        [
+          285.1435546875,
+          498.25440979003906
+        ],
+        [
+          285.1435546875,
+          510.9541778564453
+        ],
+        [
+          138.23963928222656,
+          510.9541778564453
+        ]
+      ],
+      "bbox": [
+        138.23963928222656,
+        498.25440979003906,
+        285.1435546875,
+        510.9541778564453
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <i>f</i> <i>(t)</i> is user-specified—and most likely contains discontinuities around special events dates and <i>f</i> <sup>∗</sup><i>(t)</i> is unknown. The yield Curve construction problem is then subsequently applied to the construction of <i>f</i> <sup>∗</sup><i>(t),</i> using algorithms such as those discussed earlier.</p>",
+      "page": 418,
+      "polygon": [
+        [
+          75.4453125,
+          520.5755310058594
+        ],
+        [
+          286.75,
+          520.5755310058594
+        ],
+        [
+          286.75,
+          587.5209197998047
+        ],
+        [
+          75.4453125,
+          587.5209197998047
+        ]
+      ],
+      "bbox": [
+        75.4453125,
+        520.5755310058594,
+        286.75,
+        587.5209197998047
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">We should note that the curve construction algorithms outlined in this article are meant only for single-currency applications. In a setting with multiple currencies, care must be taken to ensure that discount curves in different currencies are properly</p>",
+      "page": 418,
+      "polygon": [
+        [
+          75.87890625,
+          589.2674255371094
+        ],
+        [
+          286.31640625,
+          589.2674255371094
+        ],
+        [
+          286.31640625,
+          644.7612228393555
+        ],
+        [
+          75.87890625,
+          644.7612228393555
+        ]
+      ],
+      "bbox": [
+        75.87890625,
+        589.2674255371094,
+        286.31640625,
+        644.7612228393555
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">related, in the sense that they together replicate the prices for foreign exchange forward agreements, as well as cross-currency floating–floating basis swaps. In general, the ability to match currency markets requires that the discount curve and the forward rate curve (e.g., the Libor curve) be separated into two entities separated by a cross-currency spread; see [5]. It is normally straightforward to embed a singlecurrency yield Curve solver into a cross-currency setting, for instance, by means of an iterative adjustment to the price vector <b>V</b> in equation (4). Similar techniques can be used to accommodate the so-called <i>tenor</i> basis, that is, the fact that different Libor tenors (e.g., 3-month versus 6-month) in practice do not swap flat against each other.</p>",
+      "page": 418,
+      "polygon": [
+        [
+          301.78125,
+          71.8861083984375
+        ],
+        [
+          512.796875,
+          71.8861083984375
+        ],
+        [
+          512.796875,
+          242.34234619140625
+        ],
+        [
+          301.78125,
+          242.34234619140625
+        ]
+      ],
+      "bbox": [
+        301.78125,
+        71.8861083984375,
+        512.796875,
+        242.34234619140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/1"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/SectionHeader/8",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Acknowledgments</b></h1>",
+      "page": 418,
+      "polygon": [
+        [
+          302.6484375,
+          266.05364990234375
+        ],
+        [
+          391.6796875,
+          266.05364990234375
+        ],
+        [
+          391.6796875,
+          277.2616271972656
+        ],
+        [
+          302.6484375,
+          277.2616271972656
+        ]
+      ],
+      "bbox": [
+        302.6484375,
+        266.05364990234375,
+        391.6796875,
+        277.2616271972656
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The authors are grateful for the suggestions of Brian Ostrow, Igor Polonsky, David Price, and Branko Radosavljevic.</p>",
+      "page": 418,
+      "polygon": [
+        [
+          303.1199951171875,
+          288.4078369140625
+        ],
+        [
+          513.0859375,
+          288.4078369140625
+        ],
+        [
+          513.0859375,
+          317.17333984375
+        ],
+        [
+          303.1199951171875,
+          317.17333984375
+        ]
+      ],
+      "bbox": [
+        303.1199951171875,
+        288.4078369140625,
+        513.0859375,
+        317.17333984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/8"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/SectionHeader/10",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>End Notes</b></h1>",
+      "page": 418,
+      "polygon": [
+        [
+          301.78125,
+          336.55364990234375
+        ],
+        [
+          353.8125,
+          336.55364990234375
+        ],
+        [
+          353.8125,
+          347.7616271972656
+        ],
+        [
+          301.78125,
+          347.7616271972656
+        ]
+      ],
+      "bbox": [
+        301.78125,
+        336.55364990234375,
+        353.8125,
+        347.7616271972656
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">a<i>.</i> Owing to their daily mark-to-market provision, Eurodollar futures contracts do not allow for a pricing expression of the form (1), so a preprocessing step is normally employed to convert the futures rate quote to a forward rate quote. <i>See</i> <b>Eurodollar Futures and Options</b>.</p>",
+      "page": 418,
+      "polygon": [
+        [
+          302.9375,
+          361.7710876464844
+        ],
+        [
+          512.796875,
+          361.7710876464844
+        ],
+        [
+          512.796875,
+          411.6652526855469
+        ],
+        [
+          302.9375,
+          411.6652526855469
+        ]
+      ],
+      "bbox": [
+        302.9375,
+        361.7710876464844,
+        512.796875,
+        411.6652526855469
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">b<i>.</i> See, for example, [13] for a discussion of the pitfalls associated with curve interpolators that work directly on the discount function <i>P (T )</i> (as in [8]).</p>",
+      "page": 418,
+      "polygon": [
+        [
+          303.1199951171875,
+          411.69110107421875
+        ],
+        [
+          513.6640625,
+          411.69110107421875
+        ],
+        [
+          513.6640625,
+          441.60516357421875
+        ],
+        [
+          303.1199951171875,
+          441.60516357421875
+        ]
+      ],
+      "bbox": [
+        303.1199951171875,
+        411.69110107421875,
+        513.6640625,
+        441.60516357421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">c<i>.</i> A more contemporary approach replaces this search with a search for coefficients in a local spline basis. Andersen [1] contains more details on this.</p>",
+      "page": 418,
+      "polygon": [
+        [
+          302.6484375,
+          441.69110107421875
+        ],
+        [
+          513.0859375,
+          441.69110107421875
+        ],
+        [
+          513.0859375,
+          471.545166015625
+        ],
+        [
+          302.6484375,
+          471.545166015625
+        ]
+      ],
+      "bbox": [
+        302.6484375,
+        441.69110107421875,
+        513.0859375,
+        471.545166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">d<i>.</i> Intuitively, this is because linear and Hermite splines link values of <i>y(T )</i> to only a few (2 and 4, respectively) of the values <i>y(Ti)</i>, <i>i</i> = 1<i>,...,N</i>. The <i>C</i><sup>2</sup> cubic spline, on the other hand, links <i>y(T )</i> to <i>all</i> <i>y(Ti), i</i> = 1<i>,...,N</i>.</p>",
+      "page": 418,
+      "polygon": [
+        [
+          302.9375,
+          471.631103515625
+        ],
+        [
+          513.375,
+          471.631103515625
+        ],
+        [
+          513.375,
+          512.1728210449219
+        ],
+        [
+          302.9375,
+          512.1728210449219
+        ]
+      ],
+      "bbox": [
+        302.9375,
+        471.631103515625,
+        513.375,
+        512.1728210449219
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/10"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/SectionHeader/15",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>References</b></h1>",
+      "page": 418,
+      "polygon": [
+        [
+          302.9375,
+          529.4536285400391
+        ],
+        [
+          355.546875,
+          529.4536285400391
+        ],
+        [
+          355.546875,
+          540.6616363525391
+        ],
+        [
+          302.9375,
+          540.6616363525391
+        ]
+      ],
+      "bbox": [
+        302.9375,
+        529.4536285400391,
+        355.546875,
+        540.6616363525391
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/ListGroup/418",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">[1] Andersen, L. (2006). Discount curve construction with tension splines, <i>Review of Derivatives Research</i> <b>10</b>(3), 227–267.</li><li block-type=\"ListItem\">[2] de Boor, C. (2001). <i>A Practical Guide to Splines (revised</i> <i>edition)</i>, Springer Verlag, New York.</li><li block-type=\"ListItem\">[3] Catmull, E. &amp; Rom, R. (1974). A class of local interpolating spline, in <i>Computer Aided Geometric Design</i>, R.E. Barnhill &amp; R.F. Riesenfled, eds, Academic Press, New York.</li></ul></p>",
+      "page": 418,
+      "polygon": [
+        [
+          302.0703125,
+          556.2679290771484
+        ],
+        [
+          512.796875,
+          556.2679290771484
+        ],
+        [
+          512.796875,
+          644.407356262207
+        ],
+        [
+          302.0703125,
+          644.407356262207
+        ]
+      ],
+      "bbox": [
+        302.0703125,
+        556.2679290771484,
+        512.796875,
+        644.407356262207
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/15"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>8</b> <b>Yield Curve Construction</b></h1>",
+      "page": 184,
+      "polygon": [
+        [
+          78.48046875,
+          45.49365234375
+        ],
+        [
+          216.41355895996094,
+          45.49365234375
+        ],
+        [
+          216.41355895996094,
+          56.70166015625
+        ],
+        [
+          78.48046875,
+          56.70166015625
+        ]
+      ],
+      "bbox": [
+        78.48046875,
+        45.49365234375,
+        216.41355895996094,
+        56.70166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/7/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/ListGroup/183",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\" class=\"has-continuation\"><ul><li block-type=\"ListItem\">[4] Craven, P. &amp; Wahba, G. (1979). Smoothing noisy data with spline functions: estimating the correct degree of smoothing by the method of generalized crossvalidation, <i>Numerische Matematik</i> <b>31</b>, 377–403.</li><li block-type=\"ListItem\">[5] Fruchard, E., Zammouri, C. &amp; Willems, E. (1995). Basis for change, <i>RISK Magazine</i> October, 70–75.</li><li block-type=\"ListItem\">[6] Hagan, P. &amp; West, G. (2006). Interpolation methods for yield curve construction, <i>Applied Mathematical Finance</i> <b>3</b>(2), 89–129.</li><li block-type=\"ListItem\">[7] Kochanek, D. &amp; Bartels, R. (1984). Interpolating splines with local tension, continuity, and bias control, <i>ACM</i> <i>SIGGRAPH</i> <b>18</b>(3), 33–41.</li><li block-type=\"ListItem\">[8] McCulloch, J.H. (1975). The tax-adjusted yield curve, <i>Journal of Finance</i> <b>30</b>, 811–830.</li><li block-type=\"ListItem\">[9] Nelson, C.R. &amp; Siegel, A.F. (1987). Parsimonious modeling of yield curves, <i>Journal of Business</i> <b>60</b>, 473–489.</li><li block-type=\"ListItem\">[10] Press, W., Teukolsky, S., Vetterling, W. &amp; Flannery, B. (1992). <i>Numerical Recipes in C</i>, Cambridge University Press.</li><li block-type=\"ListItem\">[11] Schoenberg, I. (1973). <i>Cardinal Spline Interpolation</i>. SIAM CBMS-NSF Regional Conference Series in Applied Mathematics 12.</li></ul></p>",
+      "page": 184,
+      "polygon": [
+        [
+          78.046875,
+          72.00787353515625
+        ],
+        [
+          290.796875,
+          72.00787353515625
+        ],
+        [
+          290.796875,
+          289.4476013183594
+        ],
+        [
+          78.046875,
+          289.4476013183594
+        ]
+      ],
+      "bbox": [
+        78.046875,
+        72.00787353515625,
+        290.796875,
+        289.4476013183594
+      ],
+      "section_hierarchy": {
+        "1": "/page/7/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/ListGroup/184",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">[12] Schweikert, D.G. (1966). An interpolating curve using a spline in tension, <i>Journal of Mathematics and Physics</i> <b>45</b>, 312–317.</li><li block-type=\"ListItem\">[13] Shea, G.S. (1984). Pitfalls in smoothing interest rate terms structure data: equilibrium models and spline approximation, <i>Journal of Financial and Quantitative</i> <i>Analysis</i> <b>19</b>, 253–269.</li><li block-type=\"ListItem\">[14] Tanggaard, C. (1997). Nonparametric smoothing of yield curves, <i>Review of Quantitative Finance and Accounting</i> <b>9</b>, 251–267.</li></ul></p>",
+      "page": 184,
+      "polygon": [
+        [
+          305.828125,
+          71.60791015625
+        ],
+        [
+          516.84375,
+          71.60791015625
+        ],
+        [
+          516.84375,
+          170.091796875
+        ],
+        [
+          305.828125,
+          170.091796875
+        ]
+      ],
+      "bbox": [
+        305.828125,
+        71.60791015625,
+        516.84375,
+        170.091796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/7/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/SectionHeader/12",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Related Articles</b></h1>",
+      "page": 184,
+      "polygon": [
+        [
+          304.671875,
+          187.87359619140625
+        ],
+        [
+          385.03125,
+          187.87359619140625
+        ],
+        [
+          385.03125,
+          199.08160400390625
+        ],
+        [
+          304.671875,
+          199.08160400390625
+        ]
+      ],
+      "bbox": [
+        304.671875,
+        187.87359619140625,
+        385.03125,
+        199.08160400390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/7/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Eurodollar Futures and Options</b>; <b>Hedging of</b> <b>Interest Rate Derivatives</b>; <b>LIBOR Rate</b>.</p>",
+      "page": 184,
+      "polygon": [
+        [
+          306.8390197753906,
+          214.28912353515625
+        ],
+        [
+          517.421875,
+          214.28912353515625
+        ],
+        [
+          517.421875,
+          235.56121826171875
+        ],
+        [
+          306.8390197753906,
+          235.56121826171875
+        ]
+      ],
+      "bbox": [
+        306.8390197753906,
+        214.28912353515625,
+        517.421875,
+        235.56121826171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/7/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/SectionHeader/14",
+      "block_type": "SectionHeader",
+      "html": "<h4>LEIF B.G. ANDERSEN &amp; VLADIMIR V. PITERBARG</h4>",
+      "page": 184,
+      "polygon": [
+        [
+          352.3793029785156,
+          246.487548828125
+        ],
+        [
+          506.4375,
+          246.487548828125
+        ],
+        [
+          506.4375,
+          267.6612548828125
+        ],
+        [
+          352.3793029785156,
+          267.6612548828125
+        ]
+      ],
+      "bbox": [
+        352.3793029785156,
+        246.487548828125,
+        506.4375,
+        267.6612548828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/7/SectionHeader/12",
+        "4": "/page/7/SectionHeader/14"
+      },
+      "images": {}
+    }
+  ],
+  "page_info": {
+    "0": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "1": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "2": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "3": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "4": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "5": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "6": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "7": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    }
+  }
+}

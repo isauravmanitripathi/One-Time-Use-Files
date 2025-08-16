@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Loan Valuation
+   </b>
+  </h1>
+  <p block-type="Text">
+   A loan is an agreement in which one party, called a
+   <i>
+    lender
+   </i>
+   , provides the use of property, the
+   <i>
+    principal
+   </i>
+   , to another party, the
+   <i>
+    borrower
+   </i>
+   . The borrower customarily promises to return the principal after a specified period along with payment for its use, called
+   <i>
+    interest
+   </i>
+   [3]. When the property loaned is cash, the documentation of the agreement between borrower and lender is called a
+   <i>
+    promissory note
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Although cash loans can take many forms, traditionally, banks and other financial institutions are the primary lenders of cash and businesses, organizations, and individuals are the borrowers. Most loans to corporations share a common set of structural characteristics [2, 5].
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. Interest on loans is typically paid quarterly at a rate specified relative to some reference rate such as LIBOR (i.e., L + 250 bp).a Thus, loans have
+     <i>
+      floating-rate
+     </i>
+     coupons whose absolute values are not known with certainty except over the next quarter.
+    </li>
+    <li block-type="ListItem">
+     2. Often the firm's assets or receivables are pledged against the borrowed principal. Because of this, their recovery rates are generally higher than corporate bonds, which are most commonly unsecured.
+    </li>
+    <li block-type="ListItem">
+     3. Most loans are prepayable on any coupon date at par, although some agreements contain a prepayment penalty or have a noncall period. The loan prepayment feature ensures that loan prices rarely exceed several points above par.
+    </li>
+    <li block-type="ListItem">
+     4. Finally, unlike bonds which are public securities, loans are private credit agreements. Thus, access to firm fundamentals and loan terms may be limited and loan contracts are less standardized. It is not uncommon to find "nonstandard" covenants or other structural features catering to specific needs of borrowers or investors.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Loan valuation concerns the amount of interest that a lender requires for use of the property or an investor will charge for purchasing the loan agreement. That valuation depends on several factors, such as
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     1. the likelihood of failure to receive timely payments of principal, called
+     <i>
+      risk of default
+     </i>
+     ;
+    </li>
+    <li block-type="ListItem">
+     2. the residual value of the loan in the event of default, called its
+     <i>
+      recovery value;
+     </i>
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     3. the time by which the principal of the loan must be repaid, the
+     <i>
+      maturity
+     </i>
+     ;
+    </li>
+    <li block-type="ListItem">
+     4. the current market rate of interest for the obligor's likelihood of default, called the
+     <i>
+      market credit spread
+     </i>
+     ;
+    </li>
+    <li block-type="ListItem">
+     5. the likelihood of the event that a borrower will have repaid the principal at any particular date prior to maturity.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Although the bulk of the loans outstanding are rated investment-grade or better, these loans trade very infrequently because of their high credit quality and lack of price differentiation. In fact, most loans that trade after origination are those made by banks to borrowers having speculative-grade credit ratings. These loans, made to high-yield firms are typically referred to as
+   <i>
+    leveraged loans
+   </i>
+   , though the exact definition varies slightly among market participants.b
+  </p>
+  <p block-type="Text">
+   The types of loan facilities commonly traded in secondary markets include the following:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <b>
+      Amortizing term loans
+     </b>
+     . Usually called "term loan A", the periodic payments from these loans include partial payment of principal, similar to what a mortgage loan does. These loans are usually held by banks and are becoming less popular.
+    </li>
+    <li block-type="ListItem">
+     2.
+     <b>
+      Institutional term loans
+     </b>
+     . These loans are structured to have bullet or close-to-bullet payment schedules and are targeted for institutional investors. They are referred to as "
+     <i>
+      term loan B
+     </i>
+     ", "
+     <i>
+      term loan C
+     </i>
+     " and so on. Institutional term loans constitute the bulk of leveraged loan market.
+    </li>
+    <li block-type="ListItem">
+     3.
+     <b>
+      Revolving credit lines
+     </b>
+     . These are unfunded or partially funded commitments by lenders that can be drawn at the discretion of the borrowers. The facility is analogous to a corporate credit card. It can be drawn and repaid multiple times during the term of the commitment. These commitments are traded in secondary market. They are also known as
+     <i>
+      revolvers
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     4.
+     <b>
+      Second-lien term loans
+     </b>
+     . They have cash-flow schedule similar to that of institutional term loans, except that their claims on borrowers' assets are behind first-lien loan holders in the event of default.
+    </li>
+    <li block-type="ListItem">
+     5.
+     <b>
+      Covenant-lite loans
+     </b>
+     . These are borrowerfriendly versions of institutional term loans that have fewer than the typical stringent covenants
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   that restrict use of the principal or subsequent borrowing activities of the firm.
+  </p>
+  <h3>
+   <b>
+    Loan Pricing
+   </b>
+  </h3>
+  <p block-type="Text">
+   Like bonds, loans contain risk of default; an obligor may fail to make timely payments of interest and/or principal. Thus, the notion of a credit spread to LIBOR has been used to characterize the riskiness of loans, where the credit spread,
+   <math display="inline">
+    s
+   </math>
+   , to LIBOR is calculated as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V = \sum_{t=1}^{4n} \frac{c_t/4}{\left(1 + \frac{r_t + s}{4}\right)^t} + \frac{F}{\left(1 + \frac{r_{4n} + s}{4}\right)^{4n}} \quad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    V
+   </math>
+   is the market value of the loan,
+   <math display="inline">
+    c_t
+   </math>
+   is the coupon (LIBOR + contractual spread),
+   <math display="inline">
+    r_t
+   </math>
+   is the spot rate for maturity
+   <math display="inline">
+    t
+   </math>
+   LIBOR rates, and
+   <math display="inline">
+    F
+   </math>
+   is the face value of the loan to be repaid at maturity. Loan coupons are generally paid quarterly and then reset relative to LIBOR and this is reflected in equation 1. Using equation 1, we can calculate a credit spread for any loan whose market price is known.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   One problem with equation 1 for loan valuation is that it fails to account for the fact that loans, unlike bonds, are typically prepayable at par on any given coupon date. The loan prepayment option creates uncertainty in the expected pattern of cash flows and complicates comparisons of value among loans based on their credit spreads. Pricing the prepayment option has proved difficult because of its dependence
+  </p>
+  <p block-type="Text">
+   on the evolution of an obligor's credit state and the changing market costs of borrowing. For example, if a firm's credit improves or the loan rate over LIBOR decreases, the likelihood of prepayment increases; the borrower can refinance at a lower rate. Conversely, if a borrower's credit deteriorates or lending rates increase, it will not be advantages for the borrower to refinance.
+  </p>
+  <p block-type="TextInlineMath">
+   To account for the prepayment option, we price the loans using a credit-state-dependent backward induction method.&lt;sup&gt;c&lt;/sup&gt; To illustrate, consider pricing a term loan with face value
+   <math display="inline">
+    F
+   </math>
+   , intermediate floatingrate coupon payments of
+   <math display="inline">
+    c_t
+   </math>
+   , and a maturity at time
+   <math display="inline">
+    T
+   </math>
+   , to a borrower of known credit quality,
+   <math display="inline">
+    J
+   </math>
+   . Specifically, Figure 1 displays pricing lattices for a five-year loan to a double-B rated (i.e.,
+   <math display="inline">
+    J = BB
+   </math>
+   ) obligor having a coupon of LIBOR
+   <math display="inline">
+    + 3\%,^d
+   </math>
+   and face value of 100 at maturity.&lt;sup&gt;e&lt;/sup&gt; Figure 1(a) shows how the obligor's credit state evolves over time. In the lattice, probabilities are assigned reflecting transitions from each node at time
+   <math display="inline">
+    t
+   </math>
+   to all nodes at
+   <math display="inline">
+    t + 1
+   </math>
+   . Thus, the probability of being at a given node will be conditional upon all the previous transitions. In practice, ratings transition probabilities are based on historical data from credit rating agencies,&lt;sup&gt;f&lt;/sup&gt; and these are typically modified by the current market price of risk to produce risk-neutral ratings transition matrices.g,h
+  </p>
+  <p block-type="Text">
+   Having calculated transition probabilities between all future nodes, we then apply the backward induction method. At maturity
+   <math display="inline">
+    T
+   </math>
+   , the borrower pays the principal plus coupon,
+   <math display="inline">
+    F + c_T
+   </math>
+   , or the recovery
+  </p>
+  <p>
+   <img src="_page_1_Figure_10.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Credit-dependent backward induction method. (a) Double-B rated obligor, whose credit transitions are derived from historical data and incorporate market risk premiums are used to specify the likelihood of being in any credit state at future times to maturity. (b) Calculation of node values using backward induction, whereby values at each non-defaulted node are the coupon value at that node plus the sum of the conditional cash flows from the later date, discounted one period at forward LIBOR. In the example in (b), we assume a refinancing penalty of
+   <math display="inline">
+    0.5\%
+   </math>
+   of the principal
+  </p>
+  <p block-type="TextInlineMath">
+   value in default
+   <math display="inline">
+    R \ast F
+   </math>
+   . Those cash flows are discounted back to each node at the previous period using forward LIBOR at
+   <math display="inline">
+    T-1
+   </math>
+   . In other words, for each node at time
+   <math display="inline">
+    i &lt; T
+   </math>
+   and credit state
+   <math display="inline">
+    j
+   </math>
+   , and
+   <math display="inline">
+    j = (AAA, AA, \dots, CCC)
+   </math>
+   we calculate an induced value,
+   <math display="inline">
+    v_{i,j}
+   </math>
+   , as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_{(i,j)} = \min\left\{ \left( \frac{1}{\left( 1 + \frac{f_{i+1,i}}{4} \right)} \sum_{k=D}^{AAA} (P_{j,k,i} * v_{i+1,k}) \right) + c_i, K_i \right\}, \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    P_{i,k,i}
+   </math>
+   is the probability of migrating from state j to state k from time i to
+   <math display="inline">
+    i + 1
+   </math>
+   ,
+   <math display="inline">
+    f_i
+   </math>
+   is the forward LIBOR rate from time i to
+   <math display="inline">
+    i + 1
+   </math>
+   ,
+   <math display="inline">
+    K_i
+   </math>
+   is the terminal value of the loan at time
+   <i>
+    i
+   </i>
+   ,&lt;sup&gt;i&lt;/sup&gt; and
+   <math display="inline">
+    v_{T,i} = F + c_T
+   </math>
+   . Thus, at each node
+   <math display="inline">
+    i, j
+   </math>
+   we compute the induced value, compare it with the terminal value,
+   <math display="inline">
+    K_i
+   </math>
+   , and set the value at that node,
+   <math display="inline">
+    v_{i,j}
+   </math>
+   to the lesser of the two. In other words, if the induced value exceeds the terminal value, the loan is effectively repaid and terminates at
+   <math display="inline">
+    i, i
+   </math>
+   . Also, if the loan defaults at time
+   <math display="inline">
+    i
+   </math>
+   , the loan terminates with a value
+   <math display="inline">
+    v_{i,D} = R * F
+   </math>
+   for all i. Finally, the value of
+   <math display="inline">
+    v_{i,j}
+   </math>
+   at time 0 (in this example, at
+   <math display="inline">
+    v_{0,BB}
+   </math>
+   ) is the
+   <i>
+    model
+   </i>
+   price of the loan.
+  </p>
+  <p block-type="Text">
+   Although equation 2 is useful for calculating prices of illiquid loans and for estimating the coupon premiums to charge for new loans, it is less useful for evaluating relative value among existing loans, which are better assessed using credit spreads. In fact, we can calculate the credit spread for a loan by discounting its expected nondefault cash flows by a constant amount over the LIBOR curve such that the discounted value matches its current market price. For all nondefault cash flows at a given time, the borrower will either prepay the principal and terminate, or pay a coupon and continue. The prepayment region in the time-and-credit-state lattice can be determined using the values of
+   <math display="inline">
+    v_{i,j}
+   </math>
+   in equation 2. The probability of prepaying at period
+   <math display="inline">
+    i
+   </math>
+   is the sum of the probabilities of reaching nodes whose value of
+   <math display="inline">
+    v_{i,j}
+   </math>
+   equal those capped at the terminal values
+   <math display="inline">
+    K_i
+   </math>
+   . Given the probability transition matrix and the set
+   <math display="inline">
+    \omega
+   </math>
+   of all prepayment nodes, we can calculate the probability of prepayment at time
+   <math display="inline">
+    i
+   </math>
+   conditional on no prepayment before time
+   <math display="inline">
+    i
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Let the conditional probability of prepayment at time be
+   <math display="inline">
+    q_i
+   </math>
+   ,&lt;sup&gt;j&lt;/sup&gt; then the discounted cash flow is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{J} = \sum_{i=1}^{T} D_{i} * \prod_{j=1}^{i-1} (1 - q_{j}) * [(q_{i} * K_{i}) + ((1 - q_{i}) * CF_{i})]
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    CF_i = c_i/4
+   </math>
+   for
+   <math display="inline">
+    i &lt; T
+   </math>
+   ;
+   <math display="inline">
+    CF_i = (c_i/4 + F)
+   </math>
+   for
+   <math display="inline">
+    i = T
+   </math>
+   , and the discount margin
+   <math display="inline">
+    D_i
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D_{i} = \prod_{j=0}^{i} \frac{1}{\left(1 + \frac{f_{j,j-1} + \hat{s}}{4}\right)} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   The credit spread,
+   <math display="inline">
+    s
+   </math>
+   , is determined by iteratively changing the parameter
+   <math display="inline">
+    \hat{s}
+   </math>
+   and recalculating the discounted value of the cash flows,
+   <math display="inline">
+    V_J
+   </math>
+   , until
+   <math display="inline">
+    V_J
+   </math>
+   converges to
+   <math display="inline">
+    P
+   </math>
+   , the market price.
+  </p>
+  <p block-type="Text">
+   Revolving lines of credit are priced by assuming that the fraction of the loan drawn at a particular time, called the
+   <i>
+    usage
+   </i>
+   , is directly related changes to the obligor's credit quality. In other words, if a borrower's credit rating improves, it can access credit more cheaply and is also less likely to draw on existing lines of credit. Conversely, a borrower with deteriorating credit will likely draw on the credit lines it obtained when more highly rated. In this framework, usage can be interpreted as credit-dependent face value. Thus, in the equations above the face value is modified by
+   <math display="inline">
+    F \rightarrow U_i * F
+   </math>
+   where j is the credit state and usage
+   <math display="inline">
+    U_i
+   </math>
+   ranges from
+   <math display="inline">
+    0
+   </math>
+   to
+   <math display="inline">
+    1
+   </math>
+   .
+  </p>
+  <h3>
+   <b>
+    End Notes
+   </b>
+  </h3>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;LIBOR stands for London interbank offered rate, which roughly corresponds to the interest rate charged between banks when lending large amounts of US dollars outside the United States. The coupon rate for a given quarter is set at the beginning of the period. For example, the
+   <math display="inline">
+    L + 250
+   </math>
+   bp coupon in the text indicates that the borrower will pay onequarter of 250 bp
+   <math display="inline">
+    (0.625\%)
+   </math>
+   plus the current three-month LIBOR rate on the next coupon date.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;b.&lt;/sup&gt; Although some people define leveraged loans on the basis of their balance sheet leverage ratio, it is more common to use credit ratings (i.e., below BBB-) or credit spread to LIBOR above some maximum.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;c&lt;/sup&gt;. Several versions of the backward induction method have been proposed over the years
+   <math display="inline">
+    [1, 6, 7, 9]
+   </math>
+   . The version presented in equations
+   <math display="inline">
+    (1-3)
+   </math>
+   embodies elements that are common to most of these methodologies.
+  </p>
+  <p block-type="Text">
+   d. Loan spreads are typically quoted in basis points such as LIBOR
+   <math display="inline">
+    + 300
+   </math>
+   bp, where
+   <math display="inline">
+    1\% = 100
+   </math>
+   bp.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;e&lt;/sup&gt;. For convenience, we assume LIBOR is constant at 2%, thereby generating a constant 5% coupon, and that the loan pays annually, rather than the typical quarterly coupon
+  </p>
+  <p block-type="Text">
+   payment.
+   <math display="inline">
+    \mathrm{^{f}.The\ most\ well\-known\ credit\ rating\ agencies\ are\ Fitch,}
+   </math>
+   Moody's, and Standard &amp; Poor's.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;g&lt;/sup&gt;. Ratings transition matrices are published regularly by the major agencies [4, 8].
+  </p>
+  <p block-type="TextInlineMath">
+   Most models specify adjustment of physical credit transitions so that the default probabilities at each time,
+   <math display="inline">
+    i
+   </math>
+   , match the risk-neutral probabilities of default as implied by the bond and loan markets. For example, the riskneutral default probability for a single risky cash flow at time
+   <i>
+    t
+   </i>
+   is given as
+   <math display="inline">
+    P_t^Q = \frac{1 - e^{-ts}}{(1 - R)}
+   </math>
+   and
+   <math display="inline">
+    P_t^Q = N(N^{-1}(P_t) +
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \beta\lambda\sqrt{t}
+   </math>
+   ) where,
+   <math display="inline">
+    P(t, Q)
+   </math>
+   is the cumulative risk-neutral default
+  </p>
+  <p block-type="Text">
+   probability to time
+   <math display="inline">
+    t
+   </math>
+   ,
+   <math display="inline">
+    s
+   </math>
+   is the market credit spread, and
+   <math display="inline">
+    R
+   </math>
+   is the recovery rate in default. On the right, we calculate
+   <math display="inline">
+    P_t^Q
+   </math>
+   from
+   <math display="inline">
+    P_t
+   </math>
+   the physical default probability by adding a term related to the volatility of the credit relative to the market, the market price of risk, and the time to receipt of the cash flow. (For an elaboration and discussion of the derivation of this relation, see Bohn [1]. Zeng and Wen [9] describe its application to loan pricing.)
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;i&lt;/sup&gt;.It is common to add a refinancing premium to the principal plus coupon when defining the terminal value for evaluating prepayment as there are costs and/or penalties associated with the refinancing process.
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;j&lt;/sup&gt;. The probability of prepayment at time 1 from the initial state
+   <math display="inline">
+    J
+   </math>
+   is given by
+   <math display="inline">
+    q_1 = \sum_{k \in \omega} P_{J,k,0}
+   </math>
+   . For time
+   <math display="inline">
+    i &gt; 1
+   </math>
+   , we must add the condition that the loan was not prepaid before time
+   <i>
+    i
+   </i>
+   ; thus,
+   <math display="inline">
+    q_i = \prod_{m=1}^{i-1} (1-q_m) * \sum_{k \in \omega, l \notin \omega} P_{l,k,i-1}
+   </math>
+   .
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Bohn, J. (2000). A Survey of Contingent-Claims Appro-
+     <math display="inline">
+      [1]
+     </math>
+     aches to Risky Debt Valuation, Institutional Investor.
+    </li>
+    <li block-type="ListItem">
+     Deitrick, W. (2006). Leveraged Loan Handbook, Citi [2] Markets and Banking.
+    </li>
+    <li block-type="ListItem">
+     [3] Downs, J. &amp; Goodman, J.E. (1991). Dictionary of Finance and Investment Terms, Barron's, Hauppauge, New York.
+    </li>
+    <li block-type="ListItem">
+     Emery, K., Ou, S., Tennant, J., Kim, F. &amp; Cantor, R. [4] (2008). Corporate Default and Recovery Rates, Moody's Global Corporate Finance. 1920-2007, Special Comment.
+    </li>
+    <li block-type="ListItem">
+     Miller, S. &amp; William, C. (2007). A Guide to the Loan [5] Market, Standard &amp; Poor's.
+    </li>
+    <li block-type="ListItem">
+     Rizk, H. (1993). GMPM Valuation Methodology: An [6] Overview, Citi Markets and Banking.
+    </li>
+    <li block-type="ListItem">
+     [7] Rosen, D. Does Structure Matter? (2002) Advanced Methods for Pricing and Managing the Risk of Loan Portfolios, Algorithmics Inc.
+    </li>
+    <li block-type="ListItem">
+     [8] Vazza, D., Aurora, D., Kraemer, N., Kesh, S., Torres, J. &amp; Erturk, E. (2007). Annual 2006 Global Corporate Default Study and Rating Transition, Standard and Poor's Global fixed Income Research.
+    </li>
+    <li block-type="ListItem">
+     Zeng, B. &amp; Wen, K. (2006). CreditMark Valuation [9] Methodology, Moody's K.M.V.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Aguais, S., Forest, L. &amp; Rosen, D. (2000). Building a Credit Risk Valuation Framework for Loan Instruments, Algo Research Quarterly.
+  </p>
+  <h4>
+   TERRY BENZSCHAWEL, JULIO DAGRACA &amp; HENRY FOK
+  </h4>
+ </body>
+</html>

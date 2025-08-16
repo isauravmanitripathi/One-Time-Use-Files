@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    SABR Model
+   </b>
+  </h1>
+  <p block-type="Text">
+   The SABR model [4] is a stochastic volatility (see Stochastic Volatility Models) model in which the forward asset price follows the dynamics in a forward measure
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}f_t = a_t C(f_t) \,\mathrm{d}W_t \tag{1}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    da_t = va_t dZ_t , \alpha \equiv a_0 \tag{2}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dW_t dZ_t = \rho dt, \ C(f) \equiv f^{\beta}, \ \beta \in [0, 1) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The stochastic volatility
+   <math display="inline">
+    a_t
+   </math>
+   , is described by a geometric Brownian motion. The model depends on four parameters:
+   <math display="inline">
+    \alpha
+   </math>
+   ,
+   <math display="inline">
+    \nu
+   </math>
+   ,
+   <math display="inline">
+    \rho
+   </math>
+   , and
+   <math display="inline">
+    \beta
+   </math>
+   . By using singular perturbation techniques, Hagan et al. [4] obtained a closed-form formula for the implied volatility
+   <math display="inline">
+    \sigma_{\text{BS}}(\tau, K)
+   </math>
+   , at the first-order in the maturity
+   <math display="inline">
+    \tau
+   </math>
+   . Here, we display a corrected version of the formula
+   <math display="inline">
+    [8]
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{\text{BS}}(\tau, K) = \frac{\nu \ln \frac{f_0}{K}}{\hat{x}(\zeta)} \left(1 + \sigma_1(f_{\text{av}})\tau\right) \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{x}(\zeta) = \ln\left(\frac{\sqrt{1 - 2\rho\zeta + \zeta^2} - \rho + \zeta}{1 - \rho}\right)\n
+   </math>
+   <math display="block">
+    \n\zeta = \frac{\nu}{\alpha} \int_{K}^{f_0} \frac{\mathrm{d}x}{C(x)}, f_{\mathrm{av}} = \sqrt{f_0 K}\n
+   </math>
+   <math display="block">
+    \n\sigma_1(f) = \frac{\alpha \nu \partial_f C(f)\rho}{4} + \frac{2 - 3\rho^2}{24} \nu^2 + \frac{(\alpha C(f))^2}{24}\n
+   </math>
+   <math display="block">
+    \n\times \left(\frac{1}{f^2} + \frac{2\partial_{ff} C(f)}{C(f)} - \left(\frac{\partial_f C(f)}{C(f)}\right)^2\right)\n
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   Though this formula is popular, volatility does not mean-revert in the underlying SABR model, so for given
+   <math display="inline">
+    \alpha
+   </math>
+   ,
+   <math display="inline">
+    \nu
+   </math>
+   ,
+   <math display="inline">
+    \beta
+   </math>
+   , and
+   <math display="inline">
+    \rho
+   </math>
+   , the SABR formula cannot simultaneously calibrate to the implied volatility smile at more than one expiry.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   By mapping Hagan et al.'s computations into a geometrical framework based on the heat kernel expansion, approximate implied volatility formulae may be derived for more general stochastic volatility models (SVMs), in particular for the models where
+  </p>
+  <p block-type="Text">
+   volatility mean-reverts. The use of geometrical methods in quantitative finance originates from
+   <math display="inline">
+    [1, 2]
+   </math>
+   and was investigated in detail in
+   <math display="inline">
+    [5, 6, 7]
+   </math>
+   .
+  </p>
+  <h1>
+   A More General Stochastic Process
+  </h1>
+  <p block-type="Text">
+   In the following, we will assume arbitrary local volatility functions
+   <math display="inline">
+    C(\cdot)
+   </math>
+   and a general time-homo geneous one-dimensional stochastic differential equation (SDE) for the stochastic volatility process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    da_t = b(a_t) dt + \sigma(a_t) dZ_t \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   In principle,
+   <math display="inline">
+    b(\cdot)
+   </math>
+   and
+   <math display="inline">
+    \sigma(\cdot)
+   </math>
+   could depend on the forward
+   <math display="inline">
+    f
+   </math>
+   as well, but the models we are interested in here do not exhibit this additional dependence.
+  </p>
+  <p block-type="Text">
+   This strategy for computing the short-time implied volatility asymptotics induced by the SVM involves two main steps:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Derive the short-time limit of the effective local . volatility function. The computation involves the use of the heat kernel expansion.
+    </li>
+    <li block-type="ListItem">
+     Derive an approximate expression for the implied volatility corresponding to this effective local volatility function.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Effective Local Volatility Model
+   </b>
+  </h2>
+  <p block-type="Text">
+   The square of the Dupire effective local volatility function (
+   <i>
+    see
+   </i>
+   <b>
+    Model Calibration
+   </b>
+   ) [3] is equal to the mean of the square of the stochastic volatility when the forward is fixed to the strike
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{\text{loc}}(t, K)^{2} = C(K)^{2} \mathbb{E}^{\mathbb{P}}[a_{t}^{2}|f_{t} = K]
+   </math>
+   <math display="block">
+    = C(K)^{2} \frac{\int_{-\infty}^{\infty} a^{2} \mathbf{p}(t, K, a|f_{0}, \alpha) da}{\int_{-\infty}^{\infty} \mathbf{p}(t, K, a|f_{0}, \alpha) da}
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    p(t, K, a | f, \alpha)
+   </math>
+   is the conditional probability density for the forward and the volatility at time t. As we now proceed to explain,
+   <math display="inline">
+    p(t, K, a|f, \alpha)
+   </math>
+   is the fundamental solution of a heat kernel equation depending on two important geometrical quantities: first a metric tensor in equation (9), which is the inverse of the local covariance matrix and second an
+  </p>
+  <p block-type="Text">
+   Abelian connection in equation
+   <math display="inline">
+    (10)
+   </math>
+   which depends on the drift
+   <math display="inline">
+    b(a)
+   </math>
+   .
+  </p>
+  <h1>
+   <b>
+    Heat Kernel Expansion
+   </b>
+  </h1>
+  <p block-type="Text">
+   A short-time expansion of the density for a multidimensional Itô diffusion process can be obtained using the heat kernel expansion: the Kolmogorov equation is rewritten as a heat kernel equation on an
+   <math display="inline">
+    n
+   </math>
+   -dimensional Riemannian manifold endowed with an Abelian connection as explained in [7].
+  </p>
+  <p block-type="Text">
+   Suppose the stochastic equations are written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dx^{\mu} = b^{\mu}(x) dt + \sigma^{\mu}(x) dW^{\mu} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    dW^{\mu} dW^{\nu} = \rho_{\mu\nu} dt
+   </math>
+   . The associated metric
+   <math display="inline">
+    g_{\mu\nu}
+   </math>
+   depends only on the diffusion terms
+   <math display="inline">
+    \sigma_{\mu}
+   </math>
+   , while the connection
+   <math display="inline">
+    \mathcal{A}_{\mu}(x)
+   </math>
+   involves drift terms
+   <math display="inline">
+    b^{\mu}
+   </math>
+   as well:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g_{\mu\nu}(x) = 2 \frac{\rho^{\mu\nu}}{\sigma_{\mu}(x)\sigma_{\nu}(x)}
+   </math>
+   <math display="block">
+    \rho^{\mu\nu} \equiv [\rho^{-1}]_{\mu\nu}, \ \mu, \nu = 1 \cdots n
+   </math>
+   <math display="block">
+    \mathcal{A}^{\mu}(x) = \frac{1}{2} \left( b^{\mu}(x) - g^{-\frac{1}{2}} \partial_{\nu} \left( g^{1/2} g^{\mu\nu}(x) \right) \right) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g(x) \equiv \det[g_{\mu\nu}(x)] \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   Here, we have used the Einstein convention meaning that two repeated indices are implicitly summed. We set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{A}_{\mu}(x) = g_{\mu\nu}(x)\mathcal{A}^{\nu}(x) \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   The asymptotic solution to the Kolmogorov equation in the short-time limit is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{p}(t, x|x_0) = \frac{\sqrt{g(x)}}{(4\pi t)^{\frac{n}{2}}} \sqrt{\Delta(x)} \mathcal{P}(x^0, x) e^{-\frac{\mathbf{d}(x)^2}{4t}}
+   </math>
+   <math display="block">
+    \times \sum_{n=1}^{\infty} a_n(x) t^n \tag{12}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   <math display="inline">
+    d(x)
+   </math>
+   is the geodesic distance between x and
+   <math display="inline">
+    x^0
+   </math>
+   c measured in the metric
+   <math display="inline">
+    g_{\mu\nu}
+   </math>
+   .
+   <math display="inline">
+    d(x)
+   </math>
+   is defined as
+  </p>
+  <p block-type="Text">
+   the minimizer of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d(x)^{2} = \min_{\mathcal{C}} \int_{0}^{1} g_{\mu\nu} \frac{dx^{\mu}}{d\lambda} \frac{dx^{\nu}}{d\lambda} d\lambda \qquad (13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \lambda
+   </math>
+   parameterizes the curve
+   <math display="inline">
+    \mathcal{C}(x^0, x)
+   </math>
+   joining
+   <math display="inline">
+    x(\lambda = 0) \equiv x^0
+   </math>
+   and
+   <math display="inline">
+    x(\lambda = 1) \equiv x
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \Delta(x)
+   </math>
+   is the so-called Van Vleck-Morette determinant:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta(x) = g(x)^{-\frac{1}{2}} \det\left(-\frac{\partial^2 \mathrm{d}(x)^2}{2\partial x \partial x^0}\right) g(x^0)^{-\frac{1}{2}}
+   </math>
+   (14)
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \mathcal{P}(x^0, x)
+   </math>
+   is the parallel transport of the Abelian connection along the geodesic
+   <math display="inline">
+    C(x^0, x)
+   </math>
+   from the point
+   <math display="inline">
+    x^0
+   </math>
+   to x:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{P}(x^{0}, x) = e^{-\int_{\mathcal{C}(x^{0}, x)} \mathcal{A}_{\mu}(x) dx^{\mu}} \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   The
+   <math display="inline">
+    a_i(x)
+   </math>
+   coefficients
+   <math display="inline">
+    (a_0(x) = 1)
+   </math>
+   are smooth functions and depend on geometric invariants such as the scalar curvature. More details can be found in
+   <math display="inline">
+    [7]
+   </math>
+   .
+  </p>
+  <h2>
+   The Short-time Limit
+  </h2>
+  <p block-type="Text">
+   Plugging the general short-time limit for
+   <math display="inline">
+    p
+   </math>
+   at the firstorder in time as given by equation
+   <math display="inline">
+    (12)
+   </math>
+   in equation (7) and using a saddle-point approximation for the integration over
+   <math display="inline">
+    a
+   </math>
+   , we obtain the short-time limit of the effective local volatility function.
+  </p>
+  <p block-type="Text">
+   Getting implied volatility from the effective local volatility function boils down to calculating the geodesic distance between any two given points in the metric defined by the SVM. While this is generally a nontrivial task, the geodesic distance is known analytically in the special case of the geometry associated with the SVM defined by equations (1) and (6). Details are given in [7].
+  </p>
+  <h2>
+   Asymptotic Implied Volatility
+  </h2>
+  <p block-type="Text">
+   Applying these techniques, we find that the general asymptotic implied volatility at the first order for any
+  </p>
+  <p block-type="Text">
+   time-homogeneous SVM, depending implicitly on the metric
+   <math display="inline">
+    g_{ij}
+   </math>
+   (9) and the connection
+   <math display="inline">
+    \mathcal{A}_i
+   </math>
+   (10) is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{\text{BS}}(\tau, K) = \frac{\ln \frac{K}{f_0}}{\int_{f_0}^K \frac{\mathrm{d}f'}{\sqrt{2g^{ff}}}} \left( 1 + \frac{g^{ff}\tau}{12} \right)
+   </math>
+   <math display="block">
+    \left( -\frac{3}{4} \left( \frac{\partial_f g^{ff}}{g^{ff}} \right)^2 + \frac{\partial_f^2 g^{ff}}{g^{ff}} + \frac{1}{f_{\text{av}^2}} \right)
+   </math>
+   <math display="block">
+    + \frac{g^{ff'}\tau}{2g^{ff}\phi''(a_{\text{min}})}
+   </math>
+   <math display="block">
+    \left( \ln(\Delta g \mathcal{P}^2)'(a_{\text{min}}) - \frac{\phi'''(a_{\text{min}})}{\phi''(a_{\text{min}})} + \frac{g^{ff''}}{g^{ff'}} \right) \right) \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    a_{\min}
+   </math>
+   the volatility
+   <math display="inline">
+    a
+   </math>
+   , which minimizes the geodesic distance
+   <math display="inline">
+    d(a, f_{av}|\alpha, f_0)
+   </math>
+   . The
+   <math display="inline">
+    g^{ff}
+   </math>
+   are the
+   <math display="inline">
+    ff
+   </math>
+   -components of the inverse metric evaluated at
+   <math display="inline">
+    a_{\min}
+   </math>
+   .
+   <math display="inline">
+    \Delta
+   </math>
+   is the Van Vleck-Morette determinant as in equation (14),
+   <math display="inline">
+    g
+   </math>
+   is the determinant of the metric, and
+   <math display="inline">
+    \mathcal{P}
+   </math>
+   is the parallel gauge transport as in equation (15). The prime symbol ' indicates a derivative according to
+   <math display="inline">
+    a
+   </math>
+   . This formula in equation (16) is particularly useful as we can use it to rapidly calibrate any given SVM. In the following, we apply it to the SABR model with an arbitrary local volatility
+   <math display="inline">
+    C(\cdot)
+   </math>
+   .
+  </p>
+  <h1>
+   <b>
+    Improved SABR Formula
+   </b>
+  </h1>
+  <p block-type="Text">
+   The asymptotic implied volatility in the SABR model with arbitrary local volatility
+   <math display="inline">
+    C(\cdot)
+   </math>
+   is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{\text{BS}}(\tau, K) = \frac{\ln \frac{K}{f_0}}{\sigma(K)} \left(1 + \sigma_1 \left(f_{\text{av}}\right) \tau\right) \qquad (17)
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{1}(f) = \frac{\alpha v \rho}{4} \partial_{f} C(f) \frac{\sinh(\mathbf{d}(f))}{\mathbf{d}(f)} + \frac{\left(C(f)a_{\min}\right)^{2}}{24}
+   </math>
+   <math display="block">
+    \left(\frac{1}{f^{2}} + \frac{2\partial_{ff} \left(C(f)a_{\min}\right)}{C(f)a_{\min}} - \left(\frac{\partial_{f}(C(f)a_{\min})}{C(f)a_{\min}}\right)^{2}\right) \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma(f) = \frac{1}{\nu}
+   </math>
+   <math display="block">
+    \times \ln\left(\frac{q\nu + \alpha\rho + \sqrt{\alpha^2 + q^2\nu^2 + 2q\alpha\nu\rho}}{\alpha(1+\rho)}\right)
+   </math>
+   <math display="block">
+    q = \int_{f_0}^f \frac{dx}{C(x)}
+   </math>
+   <math display="block">
+    a_{\min}(f) = \sqrt{\alpha^2 + 2\alpha\nu\rho q + \nu^2 q^2}
+   </math>
+   <math display="block">
+    d(f) = \cosh^{-1}\left(\frac{-q\nu\rho - \alpha\rho^2 + a_{\min}(f)}{\alpha(1-\rho^2)}\right) \quad (19)
+   </math>
+  </p>
+  <p block-type="Text">
+   The original SABR formula (6) can be reproduced by approximating
+   <math display="inline">
+    a_{\min}
+   </math>
+   for strikes near the money by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a_{\min} \simeq \alpha + q\rho v
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\sinh(\mathsf{d}(a_{\min}))}{\mathsf{d}(a_{\min})} \simeq 1 \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   An asymptotic formula for a SABR model with a mean-reversion term, called
+   <math display="inline">
+    \lambda
+   </math>
+   -SABR, has been obtained similarly in [7].
+  </p>
+  <h4>
+   <b>
+    Calibration of the Short-term Smile
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Moreover, by inverting equation
+   <math display="inline">
+    (17)
+   </math>
+   to lowest order in
+   <math display="inline">
+    \tau
+   </math>
+   , we see that for any values
+   <math display="inline">
+    \alpha
+   </math>
+   ,
+   <math display="inline">
+    \rho
+   </math>
+   , and
+   <math display="inline">
+    \nu
+   </math>
+   , a given short-term smile
+   <math display="inline">
+    \sigma_{\text{BS}}(f)
+   </math>
+   is calibrated by construction if the local volatility function is chosen as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(f) = \frac{f\sigma_{\rm BS}(f)\left(1 - f\ln\left(\frac{f}{f_0}\right)\frac{\sigma_{\rm BS}'(f)}{\sigma_{\rm BS}(f)}\right)^{-1}}{\alpha\sqrt{1 - \rho^2}\cosh\left(\frac{\rho}{|\rho|}v\frac{\ln\left(\frac{f}{f_0}\right)}{\sigma_{\rm BS}(f)} + \cosh^{-1}\left(\frac{1}{\sqrt{1 - \rho^2}}\right)\right)}
+   </math>
+   (21)
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="Text">
+   [1] Avellaneda, M., Boyer-Olson, D., Busca, J. &amp; Friz, P. (2002). Reconstructing the smile, Risk Magazine October 91-95.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Berestycki, H., Busca, J. &amp; Florent, I. (2004). Computing the implied volatility in stochastic volatility models,
+     <i>
+      Communications on Pure and Applied Mathematics
+     </i>
+     <b>
+      57
+     </b>
+     (10), 1352–1373.
+    </li>
+    <li block-type="ListItem">
+     [3] Dupire, B. (2004). A unified theory of volatility, in
+     <i>
+      Derivatives Pricing: The Classic Collection
+     </i>
+     , P. Carr, ed., Risk Publications.
+    </li>
+    <li block-type="ListItem">
+     [4] Hagan, P., Kumar, D., Lesniewski, A.S. &amp; Woodward, D.E. (2002). Managing smile risk,
+     <i>
+      Wilmott Magazine
+     </i>
+     September, 84–108.
+    </li>
+    <li block-type="ListItem">
+     [5] Henry-Labordere, P. (2007). Combining the SABR and ` BGM models,
+     <i>
+      Risk Magazine
+     </i>
+     October 102–107.
+    </li>
+    <li block-type="ListItem">
+     [6] Henry-Labordere, P (2008). A geometric approach to ` the asymptotics of implied volatility, in R. Cont, ed.,
+     <i>
+      Frontiers in Quantitative Finance: Volatility and Credit Risk Modeling
+     </i>
+     , Wiley, Chapter 4.
+    </li>
+    <li block-type="ListItem">
+     [7] Henry-Labordere, P. (2008). `
+     <i>
+      Analysis, Geometry and Modeling in Finance: Advanced Methods in Option
+     </i>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <i>
+    Pricing
+   </i>
+   , Financial Mathematics Series, Chapman &amp; Hall/CRC 102–104.
+  </p>
+  <p block-type="Text">
+   [8] Obłoj, J. (2008). Fine-tune your smile, ´
+   <i>
+    Wilmott Magazine
+   </i>
+   May.
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Benaim, S., Friz, P., Lee, R. (2008). On the Black-Scholes implied volatility at extreme strikes, in
+     <i>
+      Frontiers in Quantitative Finance: Volatility and Credit Risk Modeling
+     </i>
+     , R. Cont, ed., Wiley, Chapter 3.
+    </li>
+    <li block-type="ListItem">
+     Lee, R. (2004). The moment formula for implied volatility at extreme strikes,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     (3), July 469–480.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   PIERRE HENRY-LABORDERE `
+  </p>
+ </body>
+</html>

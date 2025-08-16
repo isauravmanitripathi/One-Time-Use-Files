@@ -1,0 +1,3519 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Variance Reduction
+  </h1>
+  <p block-type="Text">
+   Classical convergence results for the Monte Carlo method show that the ratio
+   <math display="inline">
+    \sigma/\sqrt{n}
+   </math>
+   governs its accuracy,
+   <i>
+    n
+   </i>
+   being the number of drawings and
+   <math display="inline">
+    \sigma
+   </math>
+   the variance of the random variable of which we compute the expectation. Variance reduction techniques consist in modifying the classical Monte Carlo method to reduce the order of magnitude of the simulation error. The basic idea behind variance reduction techniques consists in rewriting the quantity to be computed as the expectation of a random variable that has a smaller variance.
+  </p>
+  <p block-type="TextInlineMath">
+   In other words, if the quantity to be computed is the expectation
+   <math display="inline">
+    E[X]
+   </math>
+   of a real square integrable random variable
+   <math display="inline">
+    X
+   </math>
+   , variance reduction methods aim at finding an alternative representation
+   <math display="inline">
+    \mathbf{E}(X) = \mathbf{E}(Y) +
+   </math>
+   <math display="inline">
+    C
+   </math>
+   , using another square integrable random variable Y such that
+   <math display="inline">
+    \text{Var}(Y) &lt; \text{Var}(X)
+   </math>
+   , C being a computable constant.
+  </p>
+  <p block-type="Text">
+   The most widely used variance reduction methods are "importance sampling" and "control variate" methods. As such, distinct sections are devoted to them. We also describe other classical variance reduction methods: antithetic variables, stratified sampling. and conditioning. For each method, we give simple examples related to option pricing.
+  </p>
+  <h2>
+   <b>
+    Control Variates
+   </b>
+  </h2>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    X
+   </math>
+   be a real-valued random variable and assume that we want to compute its expectation using a Monte Carlo method. In this method we use
+   <math display="inline">
+    Y
+   </math>
+   , another square integrable random variable, called the
+   <i>
+    control variate
+   </i>
+   , to write
+   <math display="inline">
+    E(X)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(X) = \mathbf{E}(X - Y) + \mathbf{E}(Y) \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   When
+   <math display="inline">
+    \mathbf{E}(Y)
+   </math>
+   can be computed using an explicit formula and
+   <math display="inline">
+    \text{Var}(X - Y)
+   </math>
+   is smaller than
+   <math display="inline">
+    \text{Var}(X)
+   </math>
+   , we can use a Monte Carlo method to estimate
+   <math display="inline">
+    \mathbf{E}(X - Y)
+   </math>
+   , and add the known value of
+   <math display="inline">
+    E(Y)
+   </math>
+   . Note that a variance reduction can be obtained only if
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   are
+   <i>
+    not
+   </i>
+   independent. In fact, the more dependent are
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   or the nearer is
+   <math display="inline">
+    Y
+   </math>
+   to
+   <math display="inline">
+    X
+   </math>
+   , the better the control variate performs.
+  </p>
+  <p block-type="Text">
+   Let us illustrate this principle by simple financial examples.
+  </p>
+  <h1>
+   Using Call-put Arbitrage Formula for Variance Reduction
+  </h1>
+  <p block-type="Text">
+   In a financial context, the price of the underlying assets is usually a good source for control variate as under a risk neutral probability the expected value of the actualized price remains constant with time.
+  </p>
+  <p block-type="Text">
+   This idea is used when taking into account the call-put arbitrage relation. Let
+   <math display="inline">
+    S_t
+   </math>
+   be the price at time
+   <math display="inline">
+    t
+   </math>
+   of an asset, and denote by
+   <math display="inline">
+    C
+   </math>
+   the price of the European call option
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C = \mathbf{E} \left( e^{-rT} \left( S_T - K \right)_+ \right) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   and by
+   <math display="inline">
+    P
+   </math>
+   the price of the European put option
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P = \mathbf{E} \left( e^{-rT} \left( K - S_T \right)_+ \right) \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   There exists a relation between the price of the put and the call, which does not depend on the models for the price of the asset, namely, the "call-put arbitrage formula":
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C - P = \mathbf{E} \left( e^{-rT} \left( S_T - K \right) \right) = S_0 - K e^{-rT} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   This arbitrage formula, which remains true whatever the model, can be used to replace the computation of a call option price by a put option price.
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 1
+   </b>
+   For the Black–Scholes model explicit formulas for the variance of the put and the call options can be obtained. Often, the variance of the put option is smaller than the variance of the call option. Note that this is not always true but since the payoff of the put is bounded, whereas the payoff of the call is not, this is certainly true when volatility is large enough.
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 2
+   </b>
+   Observe that call–put relations can also be obtained for Asian options or index options.
+  </p>
+  <p block-type="TextInlineMath">
+   For Asian options, set
+   <math display="inline">
+    \bar{S}_T = 1/T \int_0^{\infty} S_s \, ds
+   </math>
+   . We have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\left(\bar{S}_{T}-K\right)_{+}\right)-\mathbf{E}\left(\left(K-\bar{S}_{T}\right)_{+}\right)
+   </math>
+   <math display="block">
+    =\mathbf{E}\left(\bar{S}_{T}\right)-K\tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   and, in the Black-Scholes model,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(\bar{S}_T) = \frac{1}{T} \int_0^T \mathbf{E}(S_s) \, \mathrm{d}s
+   </math>
+   <math display="block">
+    = \frac{1}{T} \int_0^T S_0 \, \mathrm{e}^{rs} \, \mathrm{d}s = S_0 \frac{\mathrm{e}^{rT} - 1}{rT} \qquad (6)
+   </math>
+  </p>
+  <h2>
+   The Kemna and Vorst Method for Asian Options
+  </h2>
+  <p block-type="Text">
+   A variance reduction method based on the control variate is proposed in [11] for computing the value of a fixed-strike Asian option. The price of an average (or Asian) put option with fixed strike is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\mathrm{e}^{-rT}\left(K-\frac{1}{T}\int_{0}^{T}S_{s}\,\mathrm{d}s\right)_{+}\right)\tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (S_t, t \ge 0)
+   </math>
+   is the Black–Scholes model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = x \exp\left(\left(r - \frac{\sigma^2}{2}\right)t + \sigma W_t\right) \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \sigma
+   </math>
+   and r are small enough, an expansion of the exponential function suggest that
+   <math display="inline">
+    1/T \int_0^T S_s \, ds
+   </math>
+   can be approximated by
+   <math display="inline">
+    \exp\left(1/T\int_0^T \log(S_s) \, ds\right)
+   </math>
+   . This heuristic argument suggests to use
+   <math display="inline">
+    Y
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y = e^{-rT} \left( K - \exp(Z) \right)_+ \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    Z = 1/T \int_0^T \log(S_s) ds
+   </math>
+   , as a control variate. As the random variable
+   <math display="inline">
+    Z
+   </math>
+   is Gaussian, we can explicitly compute
+   <math display="inline">
+    \mathbf{E}(Y)
+   </math>
+   using the (Black-Scholestype) formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\left(K - \mathbf{e}^{Z}\right)_{+}\right) = KN(-d)
+   </math>
+   <math display="block">
+    -\mathbf{e}^{\mathbf{E}(Z) + \frac{1}{2}\text{Var}(Z)}N\left(-d - \sqrt{\text{Var}(Z)}\right) \quad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    d = (\mathbf{E}(Z) - \log(K))/\sqrt{\text{Var}(Z)}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   To have a working algorithm, it remains to sample
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-rT}\left(K-\frac{1}{T}\int_0^T S_s \,ds\right)_+ - Y \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This method can be very efficient when
+   <math display="inline">
+    \sigma \approx 0.3
+   </math>
+   by year,
+   <math display="inline">
+    r \approx 0.1
+   </math>
+   by year and
+   <math display="inline">
+    T \approx 1
+   </math>
+   year. Of course, for larger values of
+   <math display="inline">
+    \sigma
+   </math>
+   and r, the gain obtained with this control variate is less significant but this method still remains useful.
+  </p>
+  <h2>
+   <b>
+    Index Options
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   A very similar idea can be used for pricing index options. Assume that
+   <math display="inline">
+    S_t
+   </math>
+   is given by the multidimensional Black–Scholes model. Let
+   <math display="inline">
+    \sigma
+   </math>
+   be a
+   <math display="inline">
+    p \times d
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   matrix and
+   <math display="inline">
+    W^1, \ldots, W^d
+   </math>
+   be d independent Brownian motions. Denote by
+   <math display="inline">
+    (S_t, t &gt; 0)
+   </math>
+   the solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\ndS_t^1 = S_t^1 (r dt + [\sigma dW_t]_1), S_0^1 = x_1 \\
+\dots \\
+dS_t^p = S_t^p (r dt + [\sigma dW_t]_p) S_0^p = x_p\n\end{cases} \n
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    [\sigma \, dW_t]_i = \sum_{j=1}^d \sigma_{ij} \, dW_t^j
+   </math>
+   . Note that this equation can be solved to get, for
+   <math display="inline">
+    i = 1, \ldots, p
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_T^i = x_i \, \mathrm{e}^{\left(r - 1/2 \sum_{j=1}^d \sigma_{ij}^2\right)T + \sum_{j=1}^d \sigma_{ij} W_T^j} \qquad (13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Moreover, denote by
+   <math display="inline">
+    I_t
+   </math>
+   the value of an index
+   <math display="inline">
+    I_t =
+   </math>
+   <math display="inline">
+    \sum_{i=1}^{p} a_i S_t^i
+   </math>
+   , where
+   <math display="inline">
+    a_1, \ldots, a_p
+   </math>
+   is a given set of positive numbers such that
+   <math display="inline">
+    \sum_{i=1}^{p} a_i = 1
+   </math>
+   . Suppose that we want to compute the price of a European index put option with payoff at time T given by
+   <math display="inline">
+    (K - I_T)_+
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Consider
+   <math display="inline">
+    I_T/m
+   </math>
+   where
+   <math display="inline">
+    m = a_1x_1 + \cdots + a_dx_d
+   </math>
+   . Because
+   <math display="inline">
+    I_0/m = 1
+   </math>
+   , an expansion of the exponential function suggests approximation of
+   <math display="inline">
+    I_T/m
+   </math>
+   by
+   <math display="inline">
+    Y_T/m
+   </math>
+   , where
+   <math display="inline">
+    Y_T
+   </math>
+   is the lognormal random variable
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_T = m e^{\sum_{i=1}^p a_i x_i / m \left( \left\{ r - \frac{1}{2} \sum_{j=1}^d \sigma_{ij}^2 \right\} T + \sum_{j=1}^d \sigma_{ij} W_T^j \right)}
+   </math>
+   (14)
+  </p>
+  <p block-type="TextInlineMath">
+   As we can explicitly compute
+   <math display="inline">
+    \mathbf{E}\left[(K-Y_T)_+\right]
+   </math>
+   using a Black-Scholes formula, this suggests to use the control variate
+   <math display="inline">
+    Z = (K - Y_T)_+
+   </math>
+   and to sample
+   <math display="inline">
+    (K - I_T)_+ - (K - Y_T)_+
+   </math>
+   . We refer to Figure 1 to see the improvement in variance obtained when using this control variate in a multidimensional Black-Scholes model.
+  </p>
+  <h4>
+   A Random Volatility Model
+  </h4>
+  <p block-type="TextInlineMath">
+   Consider the pricing of an option in a Black–Scholes model with stochastic volatility. The price
+   <math display="inline">
+    (S_t, t \ge 0)
+   </math>
+   is the solution of the stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t (r dt + \sigma(Y_t) dW_t), \quad S(0) = x \quad (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \sigma
+   </math>
+   is a bounded function and
+   <math display="inline">
+    Y_t
+   </math>
+   is the solution of another stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = b(Y_t) dt + c(Y_t) dW'_t, \quad Y_0 = y \quad (16)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (W_t, t \ge 0)
+   </math>
+   and
+   <math display="inline">
+    (W'_t, t \ge 0)
+   </math>
+   are two, not necessarily independent, Brownian motions. We want to
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   At the money index call option : with and without control variate,
+   <math display="inline">
+    d = 10
+   </math>
+   ,
+   <math display="inline">
+    \sigma = 0.3/\sqrt{\text{year}}
+   </math>
+   for each asset, every covariance equal to 0.5,
+   <math display="inline">
+    T = 1
+   </math>
+  </p>
+  <p block-type="Text">
+   compute the price of a European option with payoff
+   <math display="inline">
+    f(S_T)
+   </math>
+   at time T given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\mathbf{e}^{-rT}f(S_T)\right) \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If the volatility of the volatility (i.e.,
+   <math display="inline">
+    c(Y_t)
+   </math>
+   ) is not too large or if
+   <math display="inline">
+    Y_t
+   </math>
+   has an invariant law (as for the Orstein–Uhlenbeck process) with mean
+   <math display="inline">
+    \sigma_0
+   </math>
+   , we can expect
+   <math display="inline">
+    \sigma_0
+   </math>
+   to be an acceptable approximation of
+   <math display="inline">
+    \sigma_t
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   This suggests the use of the control variate
+   <math display="inline">
+    e^{-rT} f(\bar{S}_T)
+   </math>
+   , where
+   <math display="inline">
+    \bar{S}_T
+   </math>
+   is the solution of a Black-Scholes equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\bar{S}_t = \bar{S}_t \left( r \, dt + \sigma_0 \, dW_t \right), \quad S(0) = x \quad (18)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For standard payoff
+   <math display="inline">
+    f
+   </math>
+   ,
+   <math display="inline">
+    \mathbf{E}\left(\mathrm{e}^{-rT}f(\bar{S}_T)\right)
+   </math>
+   can be obtained using a Black-Scholes-type formula; hence, it remains to sample
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-rT}f(S_T) - e^{-rT}f(\bar{S}_T) \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   and to check on simulations, using the standard estimate for the variance, that this procedure actually reduces the variance.
+  </p>
+  <h4>
+   Using the Hedge as a Control Variate
+  </h4>
+  <p block-type="Text">
+   In most standard financial models, a hedging strategy is available. This hedge can be used as a hint to construct a control variate.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Let
+   <math display="inline">
+    (S_t, t \ge 0)
+   </math>
+   be the price of the asset. Assume that the price of the option at time
+   <math display="inline">
+    t
+   </math>
+   can be expressed
+  </p>
+  <p block-type="TextInlineMath">
+   as
+   <math display="inline">
+    C(t, S_t)
+   </math>
+   (this fact is satisfied for any Markovian model). When an explicit approximation
+   <math display="inline">
+    \bar{C}(t,x)
+   </math>
+   of
+   <math display="inline">
+    C(t, x)
+   </math>
+   is known, we can use the control variate
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y = \sum_{k=1}^{N} \frac{\partial \bar{C}}{\partial x} (t_k, S_{t_k})
+   </math>
+   <math display="block">
+    \times \left( (S_{t_{k+1}} - S_{t_k}) - \mathbf{E} \left( S_{t_{k+1}} - S_{t_k} \right) \right) \quad (20)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that
+   <math display="inline">
+    \mathbf{E}(Y) = 0
+   </math>
+   by construction and so no correction is needed. If
+   <math display="inline">
+    \bar{C}
+   </math>
+   is close to C and if N is large enough, a large reduction in the variance can be obtained.
+  </p>
+  <h4>
+   Optimizing a Set of Control Variates
+  </h4>
+  <p block-type="TextInlineMath">
+   Assume that
+   <math display="inline">
+    Y = (Y^1, \ldots, Y^n)
+   </math>
+   is a given set of control variates with 0 expectation (or more generally having a known expectation) and finite variance. It is quite easy to optimize the control variate among all linear combinations of the coordinate of
+   <math display="inline">
+    Y
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Let us denote by
+   <math display="inline">
+    \lambda
+   </math>
+   an
+   <math display="inline">
+    \mathbf{R}^n
+   </math>
+   vector. As for every
+   <math display="inline">
+    \lambda
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(X) = \mathbf{E}(X - \langle \lambda, Y \rangle) \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   we can use
+   <math display="inline">
+    \langle \lambda, Y \rangle
+   </math>
+   as a control variate and it is natural to choose
+   <math display="inline">
+    \lambda
+   </math>
+   to be the minimizer of the variance Var
+   <math display="inline">
+    (X - \langle \lambda, Y \rangle)
+   </math>
+   . A simple computation shows that this minimizer is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lambda^* = \Gamma_Y^{-1} \text{Cov}(X, Y) \tag{22}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   when
+   <math display="inline">
+    \Gamma_Y
+   </math>
+   , the covariance matrix of the vector Y, is invertible and where
+   <math display="inline">
+    \text{Cov}(X, Y) = (\text{Cov}(X, Y_i)),
+   </math>
+   <math display="inline">
+    1 \le i \le n
+   </math>
+   ). Note that the optimizing
+   <math display="inline">
+    \lambda^*
+   </math>
+   can be estimated using independent samples of the law of
+   <math display="inline">
+    (X, Y), ((X_1, Y_1), \ldots, (X_n, Y_n))
+   </math>
+   and the standard estimators of the variances and the covariances of the random variables. This leads to a convergent estimator
+   <math display="inline">
+    \hat{\lambda}_n := \hat{\lambda}_n(X_1, Y_1, \ldots, X_n, Y_n)
+   </math>
+   of
+   <math display="inline">
+    \lambda^*
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Using
+   <math display="inline">
+    \hat{\lambda}_n
+   </math>
+   with an independent sample
+   <math display="inline">
+    ((X'_1, Y'_1),
+   </math>
+   <math display="inline">
+    \ldots
+   </math>
+   ,
+   <math display="inline">
+    (X'_n, Y'_n)
+   </math>
+   leads to a convergent and
+   <i>
+    unbiased
+   </i>
+   estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_n^1 = \frac{1}{n} \sum_{i=1}^n X'_i - \langle \hat{\lambda}_n, Y'_n \rangle \tag{23}
+   </math>
+  </p>
+  <p block-type="Text">
+   whereas using the same drawings leads to a convergent but
+   <i>
+    biased
+   </i>
+   estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_n^2 = \frac{1}{n} \sum_{i=1}^n X_i - \langle \hat{\lambda}_n, Y_n \rangle \tag{24}
+   </math>
+  </p>
+  <p block-type="Text">
+   The bias of the second estimator is negligible, at least for large samples as it can be shown that the two estimators follow the same central limit theorem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sqrt{n}\left(E_n^i - \mathbf{E}(X)\right) \to \mathcal{N}\big(0, (\sigma^*)^2\big) \tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    i = 1
+   </math>
+   or 2 and where
+   <math display="inline">
+    (\sigma^*)^2
+   </math>
+   is the best available variance
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (\sigma^*)^2 = \min_{\lambda \in \mathbf{R}^d} \text{Var}(X - \langle \lambda, Y \rangle) \tag{26}
+   </math>
+  </p>
+  <p block-type="Text">
+   See [5, 12] for details and proofs on this technique known as
+   <i>
+    adaptive control variates
+   </i>
+   .
+  </p>
+  <h4>
+   Perfect Control Variates for Diffusion Models
+  </h4>
+  <p block-type="Text">
+   An interesting result is that perfect (zero-variance) control variates exist for diffusion models. Although the argumentation is mainly theoretical, it can give hints for implementation.
+  </p>
+  <p block-type="TextInlineMath">
+   We want to compute
+   <math display="inline">
+    \mathbf{E}(Z)
+   </math>
+   where
+   <math display="inline">
+    Z = \psi(X_s, 0 \le
+   </math>
+   <math display="inline">
+    s \leq T
+   </math>
+   ) and
+   <math display="inline">
+    (X_s, s \geq 0)
+   </math>
+   is the solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = b(X_t) dt + \sigma(X_t) dW_t, \quad X(0) = x \quad (27)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We assume that
+   <math display="inline">
+    (X_t, t \ge 0)
+   </math>
+   is
+   <math display="inline">
+    \mathbf{R}^n
+   </math>
+   valued and
+   <math display="inline">
+    (W_t, t \ge 0)
+   </math>
+   0) is an
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   -valued Brownian motion.
+  </p>
+  <p block-type="Text">
+   The
+   <i>
+    predictable representation theorem
+   </i>
+   shows that we are often able (at least theoretically) to cancel the variance using a stochastic integral as a control variate.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   (Predictable Representation Theorem). Let Z be a random variable such that
+   <math display="inline">
+    \mathbf{E}(Z^2)
+   </math>
+   &lt;
+   <math display="inline">
+    +\infty
+   </math>
+   . Assume that Z is measurable with respect to
+   <math display="inline">
+    \sigma(W_s, s &lt; T)
+   </math>
+   . Then there exists a stochastic process
+   <math display="inline">
+    (H_t, t \leq T)
+   </math>
+   adapted to the Brownian filtration, such that
+   <math display="inline">
+    \mathbf{E}\left(\int_0^T H_s^2 \, \mathrm{d}s\right) &lt; +\infty
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z = \mathbf{E}(Z) + \int_0^T H_s \, \mathrm{d}W_s \tag{28}
+   </math>
+  </p>
+  <p block-type="Text">
+   For a proof we refer to
+   <math display="inline">
+    [10, 15]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 3
+   </b>
+   Note that
+   <math display="inline">
+    Z
+   </math>
+   needs to be measurable with respect to the
+   <math display="inline">
+    \sigma
+   </math>
+   -field generated by the Brownian motion.
+  </p>
+  <p block-type="TextInlineMath">
+   The theorem shows that, in principle, we are able to cancel the variance of
+   <math display="inline">
+    Z
+   </math>
+   using a stochastic integral as a control variate. Nevertheless, the explicit computation of
+   <math display="inline">
+    (H_s, s \leq T)
+   </math>
+   is much more complicated than the one of
+   <math display="inline">
+    \mathbf{E}(Z)
+   </math>
+   ! The reader is referred to [14] for formulas for
+   <math display="inline">
+    H_s
+   </math>
+   involving Malliavin derivatives and conditional expectations. In financial applications, empirical methods are often used instead.
+  </p>
+  <p block-type="TextInlineMath">
+   When the price of the underlying asset is described by a Markovian model
+   <math display="inline">
+    X_t
+   </math>
+   , the process
+   <math display="inline">
+    (H_t, t \leq T)
+   </math>
+   can be written as
+   <math display="inline">
+    H_t = v(t, X_t)
+   </math>
+   , v being a function of
+   <math display="inline">
+    t
+   </math>
+   and
+   <math display="inline">
+    x
+   </math>
+   often related to the hedge in the context of financial models.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 2
+   </b>
+   Let b and
+   <math display="inline">
+    \sigma
+   </math>
+   be two Lipschitz continuous functions. Let
+   <math display="inline">
+    (X_t, t \ge 0)
+   </math>
+   be the unique solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = b(X_t) dt + \sigma(X_t) dW_t, \quad X_0 = x \quad (29)
+   </math>
+  </p>
+  <p block-type="Text">
+   Denote by
+   <math display="inline">
+    A
+   </math>
+   the infinitesimal generator of this diffusion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Af(x) = \frac{1}{2} \sum_{i,j=1}^{n} a_{ij}(x) \frac{\partial^2 f}{\partial x_i \partial x_j}(x)
+   </math>
+   <math display="block">
+    + \sum_{j=1}^{n} b_j(x) \frac{\partial f}{\partial x_j}(x) \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    a_{ij}(x) = \sum_{k=1}^{p} \sigma_{ik}(x) \sigma_{jk}(x)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Assume that there exists a
+   <math display="inline">
+    C^{1,2}([0,T] \times \mathbf{R}^d)
+   </math>
+   function, with bounded derivatives in
+   <math display="inline">
+    x
+   </math>
+   , as solution to the problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\begin{aligned}\n\text{For } (t, x) &amp;\in [0, T] \times \mathbf{R}^n, \\
+\left(\frac{\partial u}{\partial t} + Au\right)(t, x) &amp;= 0, \\
+u(T, x) &amp;= g(x), \quad x \in \mathbf{R}^n\n\end{aligned}\n\end{cases} \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then if
+   <math display="inline">
+    Z = g(X_T)
+   </math>
+   and
+   <math display="inline">
+    Y = \int_{0}^{T} \frac{\partial u}{\partial x}(s, X_{s}) \sigma(s, X_{s}) \, \mathrm{d}W_{s}
+   </math>
+   <math display="inline">
+    (32)
+   </math>
+  </p>
+  <p block-type="Text">
+   we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(Z) = Z - Y \tag{33}
+   </math>
+  </p>
+  <p block-type="Text">
+   The random variable
+   <math display="inline">
+    Y
+   </math>
+   is, thus, a perfect control variate for
+   <math display="inline">
+    Z
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Proof
+   </b>
+   Using Itôs formula, we obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathrm{d}u(t,\,X_t) &amp;= \left(\frac{\partial u}{\partial t} + Au\right)(t,\,X_t)\,\mathrm{d}t \\ &amp;+ \frac{\partial u}{\partial x}(t,\,X_t)\sigma(s,\,X_s)\,\mathrm{d}W_t \end{split} \tag{34}
+   </math>
+  </p>
+  <p block-type="Text">
+   Now, integrate between 0 and
+   <math display="inline">
+    T
+   </math>
+   and take the expectation of both sides of the equality. Using the facts that
+   <math display="inline">
+    u
+   </math>
+   is a solution of equation (31) and that the stochastic integral is a martingale, we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(0, x) = Z - Y = \mathbf{E}(Z) \tag{35}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Remark 4
+   </b>
+   Theorem 2 shows that we only need to look for
+   <math display="inline">
+    H_t
+   </math>
+   as a function of t and
+   <math display="inline">
+    X_t
+   </math>
+   when X is a diffusion process. However, the explicit formula involves partial derivatives with respect to
+   <math display="inline">
+    x
+   </math>
+   and it is numerically difficult to take advantage of it.
+  </p>
+  <p block-type="Text">
+   In a practical situation, we can use the following heuristic procedure. Assume that we know an approximation
+   <math display="inline">
+    \bar{u}
+   </math>
+   for u. The previous theorem suggests to use
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y = \int_0^T \frac{\partial \bar{u}}{\partial x}(t, X_t) \sigma(s, X_s) \, \mathrm{d}W_t \tag{36}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   as a control variate. Note that for every function
+   <math display="inline">
+    \bar{u}
+   </math>
+   (even a bad approximation of u), we obtain an unbiased estimator for
+   <math display="inline">
+    \mathbf{E}(Z)
+   </math>
+   by setting
+   <math display="inline">
+    Z' = Z - Y
+   </math>
+   . For a reasonable choice of
+   <math display="inline">
+    \bar{u}
+   </math>
+   , we can expect an improvement of the variance of the estimator. Indeed, set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \bar{Z} := g(X_T) - \int_0^T \frac{\partial \bar{u}}{\partial x}(t, X_t) \sigma(X_t) \, \mathrm{d}W_t \quad (37)
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \bar{Z}
+   </math>
+   is an unbiased estimator of
+   <math display="inline">
+    \mathbf{E}(g(X_T))
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(|\bar{Z} - \mathbf{E}g(X_T)|^2\right)
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \mathbf{E}\left(\int_0^T \left|\left(\frac{\partial u}{\partial x} - \frac{\partial \bar{u}}{\partial x}\right)(t, X_t)\right|^2 \sigma(t, X_t)^2 \,\mathrm{d}t\right)
+   </math>
+   (38)
+  </p>
+  <p block-type="Text">
+   This variance can be expected to be small if
+   <math display="inline">
+    \partial \bar{u}/\partial x
+   </math>
+   is a good approximation of
+   <math display="inline">
+    \partial u/\partial x
+   </math>
+   .
+  </p>
+  <h1>
+   <b>
+    Importance Sampling
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Importance sampling methods proceed by
+   <i>
+    changing the law
+   </i>
+   of the samples. Assume that
+   <math display="inline">
+    X
+   </math>
+   takes its values in
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   ,
+   <math display="inline">
+    \phi
+   </math>
+   is a bounded function from
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   to
+   <math display="inline">
+    \mathbf{R}
+   </math>
+   , and we want to compute
+   <math display="inline">
+    \mathbf{E}(\phi(X))
+   </math>
+   . The aim is to find a new random variable
+   <math display="inline">
+    Y
+   </math>
+   following a different law and a function
+   <i>
+    i
+   </i>
+   such that
+   <math display="inline">
+    \mathbf{E}(\phi(X)) = \mathbf{E}(i(Y)\phi(Y)).
+   </math>
+   The function
+   <math display="inline">
+    i
+   </math>
+   , the
+   <i>
+    importance function
+   </i>
+   , is needed to maintain the equality of the expectations for every function
+   <math display="inline">
+    f
+   </math>
+   . Obviously, this method is interesting in a Monte Carlo method only if
+   <math display="inline">
+    \text{Var}(i(Y)\phi(Y))
+   </math>
+   is smaller than
+   <math display="inline">
+    \text{Var}(\phi(X))
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Consider
+   <math display="inline">
+    X
+   </math>
+   as an
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   -valued random variable following a law with density
+   <math display="inline">
+    f(x)
+   </math>
+   for which we want to compute
+   <math display="inline">
+    \mathbf{E}(\phi(X))
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(\phi(X)) = \int_{\mathbf{R}^d} \phi(x) f(x) \, \mathrm{d}x \tag{39}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \tilde{f}
+   </math>
+   is any density on
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   such that
+   <math display="inline">
+    \tilde{f}(x) &gt; 0
+   </math>
+   and
+   <math display="inline">
+    \int_{\mathbf{R}^d} \tilde{f}(x) dx = 1
+   </math>
+   , clearly one can rewrite
+   <math display="inline">
+    \mathbf{E}(\phi(X))
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(\phi(X)) = \int_{\mathbf{R}^d} \frac{\phi(x)f(x)}{\tilde{f}(x)} \tilde{f}(x) dx
+   </math>
+   <math display="block">
+    = \mathbf{E}\left(\frac{\phi(Y)f(Y)}{\tilde{f}(Y)}\right) \tag{40}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where Y is a random variable with density law
+   <math display="inline">
+    \tilde{f}(x)
+   </math>
+   under
+   <b>
+    P
+   </b>
+   . Hence,
+   <math display="inline">
+    \mathbf{E}(\phi(X))
+   </math>
+   can be approximated by an alternative estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{n}\left(\frac{\phi(Y_1)f(Y_1)}{\tilde{f}(Y_1)}+\cdots+\frac{\phi(Y_n)f(Y_n)}{\tilde{f}(Y_n)}\right) \quad (41)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (Y_1, \ldots, Y_n)
+   </math>
+   are independent copies of Y. Denoting
+   <math display="inline">
+    Z = \phi(Y) f(Y) / \tilde{f}(Y)
+   </math>
+   , this estimator will have a smaller asymptotic variance than the standard one if
+   <math display="inline">
+    \text{Var}(Z) &lt; \text{Var}(\phi(X))
+   </math>
+   . Note that the variance of
+   <math display="inline">
+    Z
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{Var}(Z) = \int_{\mathbf{R}} \frac{g^2(x)f^2(x)}{\tilde{f}(x)} \, \mathrm{d}x - \mathbf{E}(\phi(X))^2 \tag{42}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   An easy computation shows that when
+   <math display="inline">
+    \phi(x) &gt; 0
+   </math>
+   , for every
+   <math display="inline">
+    x \in \mathbf{R}^d
+   </math>
+   , the choice of
+   <math display="inline">
+    \tilde{f}(x) = \phi(x) f(x) /
+   </math>
+   <math display="inline">
+    \mathbf{E}(\phi(X))
+   </math>
+   leads to a zero-variance estimator as
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    Var(Z) = 0
+   </math>
+   . Of course, this result can seldom be used in practice as it relies on the exact knowledge of
+   <math display="inline">
+    \mathbf{E}(\phi(X))
+   </math>
+   , which is exactly what we need to compute. Nevertheless, it can lead to a useful heuristic approach : choose for
+   <math display="inline">
+    \tilde{f}(x)
+   </math>
+   a good approximation of
+   <math display="inline">
+    |\phi(x)f(x)|
+   </math>
+   such that
+   <math display="inline">
+    \tilde{f}(x)/\int_{\mathbf{R}} \tilde{f}(x) dx
+   </math>
+   can be sampled easily.
+  </p>
+  <h2>
+   An Elementary Gaussian Example
+  </h2>
+  <p block-type="Text">
+   In finance, importance sampling is especially useful when computing multidimensional Gaussian expectations as all computations and simulations are completely explicit.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    G
+   </math>
+   be a Gaussian random variable with mean zero and unit variance. We want to compute
+   <math display="inline">
+    \mathbf{E}(\phi(G))
+   </math>
+   , for a function
+   <math display="inline">
+    \phi
+   </math>
+   . We choose for the new sampling law, its shifted valued
+   <math display="inline">
+    \tilde{G} = G + m
+   </math>
+   , m being a real constant to be determined later; hence,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\phi(G)\right) = \mathbf{E}\left(\phi(\tilde{G})\frac{f(\tilde{G})}{\tilde{f}(\tilde{G})}\right) \tag{43}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where f is the density of the law of G and
+   <math display="inline">
+    \tilde{f}
+   </math>
+   the density of the law of
+   <math display="inline">
+    \tilde{G}
+   </math>
+   . Easy computation leads to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\phi(G)\right) = \mathbf{E}\left(\phi(\tilde{G})\,\mathrm{e}^{-m\tilde{G} + (m^2/2)}\right)
+   </math>
+   <math display="block">
+    = \mathbf{E}\left(\phi(G+m)\,\mathrm{e}^{-mG - (m^2/2)}\right) \quad (44)
+   </math>
+  </p>
+  <p block-type="Text">
+   As a simple example of the use of equation (44), assume that we want to compute a European call option in the Black–Scholes model;
+   <math display="inline">
+    \phi
+   </math>
+   is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi(G) = \left(\lambda e^{\sigma G} - K\right)_{\perp} \tag{45}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \lambda
+   </math>
+   ,
+   <math display="inline">
+    \sigma
+   </math>
+   , and K are positive constants. When
+   <math display="inline">
+    \lambda \ll K
+   </math>
+   ,
+   <math display="inline">
+    \mathbf{P}(\lambda e^{\sigma G} &gt; K)
+   </math>
+   is very small and the option will, very unlikely, be exercised. This fact leads to a very large relative error when using a standard Monte Carlo method. To increase to exercise probability, we can use equality
+   <math display="inline">
+    (44)
+   </math>
+   to obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\left(\lambda e^{\sigma G} - K\right)_+\right)
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \mathbf{E}\left(\left(\lambda e^{\sigma(G+m)} - K\right)_+ e^{-mG - (m^2/2)}\right) \tag{46}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and choose
+   <math display="inline">
+    m = m_0
+   </math>
+   with
+   <math display="inline">
+    \lambda e^{\sigma m_0} = K
+   </math>
+   , since
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{P}\left(\lambda \,\mathrm{e}^{\sigma(G+m_0)} &gt; K\right) = \frac{1}{2} \tag{47}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This choice of
+   <math display="inline">
+    m
+   </math>
+   is certainly not optimal; however, it drastically improves the efficiency of the Monte Carlo method when
+   <math display="inline">
+    \lambda \ll K
+   </math>
+   . See Figure 2 for an illustration of the improvement, which can be obtained using this idea.
+  </p>
+  <p>
+   <img src="_page_5_Figure_15.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Call options: use of importance sampling for deep out-of-the-money call option
+   <math display="inline">
+    \sigma = 0.3/\sqrt{\text{year}}
+   </math>
+   ,
+   <math display="inline">
+    S_0 = 70
+   </math>
+   ,
+   <math display="inline">
+    K = 100
+   </math>
+  </p>
+  <h4>
+   A Multidimensional Gaussian Case: Index Options
+  </h4>
+  <p block-type="TextInlineMath">
+   The previous method can easily be extended to multidimensional Gaussian cases. Let us start by motivating this in the context of index option pricing. Denote by
+   <math display="inline">
+    (S_t, t &gt; 0)
+   </math>
+   a multidimensional Black-Scholes model solution of equation (13)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_T^i = S_0^i \exp\left(\left(r - \frac{1}{2} \sum_{j=1}^d \sigma_{ij}^2\right) T + \sum_{j=1}^d \sigma_{ij} W_T^j\right) \tag{48}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Moreover, denote
+   <math display="inline">
+    I_t
+   </math>
+   by the value of an index
+   <math display="inline">
+    I_t =
+   </math>
+   <math display="inline">
+    \sum_{i=1}^{n} a_i S_t^i
+   </math>
+   , where
+   <math display="inline">
+    a_1, \ldots, a_n
+   </math>
+   is a given set of positive numbers such that
+   <math display="inline">
+    \sum_{i=1}^{n} a_i = 1
+   </math>
+   . Suppose that we want to compute the price of a European call or put option with payoff at time T given by
+   <math display="inline">
+    f(I_T)
+   </math>
+   . Obviously, there exists a function
+   <math display="inline">
+    \phi
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(I_T) = \phi(G_1, \dots, G_d) \tag{49}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    G_i = W_T^j / \sqrt{T}
+   </math>
+   . The price of this option can be rewritten as
+   <math display="inline">
+    \mathbf{E}(\phi(G))
+   </math>
+   , where
+   <math display="inline">
+    G = (G_1, \ldots, G_d)
+   </math>
+   is a
+   <math display="inline">
+    d
+   </math>
+   -dimensional Gaussian vector with unit covariance matrix.
+  </p>
+  <p block-type="TextInlineMath">
+   As in the one-dimensional case, it is easy (by a change of variable) to prove that if
+   <math display="inline">
+    m =
+   </math>
+   <math display="inline">
+    (m_1,\ldots,m_d)
+   </math>
+   , then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(\phi(G)) = \mathbf{E}\left(\phi(G+m) \,\mathrm{e}^{-mG - (|m|^2/2)}\right) \tag{50}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    m.G = \sum_{i=1}^{d} m_i G_i
+   </math>
+   and
+   <math display="inline">
+    |m|^2 = \sum_{i=1}^{d} m_i^2
+   </math>
+   . In view of equation (50), the second moment
+   <math display="inline">
+    V(m)
+   </math>
+   of the random variable
+   <math display="inline">
+    X_m = \phi(G+m) e^{-m \cdot G - |m|^2/2}
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(m) = \mathbf{E} \left( \phi^2 (G+m) e^{-2mG - |m|^2} \right)
+   </math>
+   <br/>
+   =
+   <math>
+    \mathbf{E} \left( \phi^2 (G) e^{-mG + |m|^2/2} \right)
+   </math>
+   (51)
+  </p>
+  <p block-type="TextInlineMath">
+   The choice of a minimizing
+   <math display="inline">
+    m
+   </math>
+   (or an approximation) is more difficult than in one dimension. From the previous formula, it follows that
+   <math display="inline">
+    V(m)
+   </math>
+   is a strictly convex function, a property from which we can derive useful approximation methods for a minimizer of
+   <math display="inline">
+    V(m)
+   </math>
+   . The reader is referred to [6] for an almost optimal way to choose the parameter
+   <math display="inline">
+    m
+   </math>
+   or to [1, 2] for a use of stochastic algorithms to get convergent approximation of the
+   <math display="inline">
+    m
+   </math>
+   minimizing the variance
+   <math display="inline">
+    V(m)
+   </math>
+   .
+  </p>
+  <h1>
+   The Girsanov Theorem and Path-dependent Options
+  </h1>
+  <p block-type="TextInlineMath">
+   We can extend further these techniques to pathdependent options, using the Girsanov theorem. Let
+   <math display="inline">
+    (S_t, t &gt; 0)
+   </math>
+   be the solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t (r dt + \sigma dW_t), S_0 = x \qquad (52)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (W_t, t &gt; 0)
+   </math>
+   is a Brownian motion under a probability
+   <math display="inline">
+    P
+   </math>
+   . We want to compute the price of a path-dependent option with payoff given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi(S_t, t \le T) = \psi(W_t, t \le T) \tag{53}
+   </math>
+  </p>
+  <p block-type="Text">
+   Common examples of such a situation are
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Asian options whose payoff is given by
+     <math display="inline">
+      f(S_T, \int_0^T S_s \, ds)
+     </math>
+     and
+    </li>
+    <li block-type="ListItem">
+     Maximum options whose payoff is given by
+     <math display="inline">
+      f(S_T, \max_{s &lt; T} S_s)
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   We start by considering the Brownian case that is a straightforward extension of the technique used in the preceding paragraph. For every real number
+   <math display="inline">
+    \lambda
+   </math>
+   , define the process
+   <math display="inline">
+    (W_t^{\lambda}, t \leq T)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W_t^{\lambda} := W_t + \lambda t \tag{54}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   According to the Girsanov theorem,
+   <math display="inline">
+    (W_t^{\lambda}, t &lt; T)
+   </math>
+   is a Brownian motion under the probability law
+   <math display="inline">
+    \mathbf{P}^{\lambda}
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{P}^{\lambda}(A) = \mathbf{E}(L_T^{\lambda} \mathbf{1}_A), \quad A \in \mathcal{F}_T \tag{55}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    L_T^{\lambda} = e^{-\lambda W_T - \lambda^2 T/2}
+   </math>
+   . Denote by
+   <math display="inline">
+    \mathbf{E}^{\lambda}
+   </math>
+   the expectation under this new probability
+   <math display="inline">
+    \mathbf{P}^{\lambda}
+   </math>
+   . For every bounded function
+   <math display="inline">
+    \psi
+   </math>
+   we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\psi(W_t, t \le T)\right) = \mathbf{E}^{\lambda}\left(\psi(W_t^{\lambda}, t \le T)\right)
+   </math>
+   <math display="block">
+    = \mathbf{E}\left(L_T^{\lambda}\psi(W_t^{\lambda}, t \le T)\right) \quad (56)
+   </math>
+  </p>
+  <p block-type="Text">
+   and thus
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E} \left( \psi(W_t, t \le T) \right)
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \mathbf{E} \left( e^{-\lambda W_T - (\lambda^2 T/2)} \psi(W_t + \lambda t, t \le T) \right) \quad (57)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For example, if we want to compute the price of a fixed-strike Asian option
+   <math display="inline">
+    P
+   </math>
+   given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\mathrm{e}^{-rt}\left(\frac{1}{T}\int_{0}^{T}x\mathrm{e}^{\left(r-(\sigma^{2}/2)\right)s+\sigma W_{s}}\,\mathrm{d}s-K\right)\right) \quad (58)
+   </math>
+  </p>
+  <p block-type="Text">
+   we can use the previous equality to obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P = \mathbf{E} \left( e^{-rt - \lambda W_T - \lambda^2 T/2} \left( \frac{1}{T} \int_0^T x e^{(r - \sigma^2/2)s + \sigma(W_s + \lambda s)} ds - K \right)_+ \right)
+   </math>
+   (59)
+  </p>
+  <p block-type="Text">
+   This representation can be used for deep out-of-the money options (that is to say,
+   <math display="inline">
+    x \ll K
+   </math>
+   ). Then
+   <math display="inline">
+    \lambda
+   </math>
+   can be chosen such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{x}{T} \int_0^T e^{(r-\sigma^2/2)s + \sigma\lambda s} ds = K \tag{60}
+   </math>
+  </p>
+  <p block-type="Text">
+   in order to increase the exercise probability.
+  </p>
+  <h3>
+   Importance Sampling for the Poisson Process
+  </h3>
+  <p block-type="Text">
+   Similar results can also be obtained for Poisson processes and can be useful to construct variance reduction methods for financial models with jumps.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (N_s^{\lambda}, s \ge 0)
+   </math>
+   be a Poisson process with intensity
+   <math display="inline">
+    \lambda
+   </math>
+   . Denote by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_T^{\mu \to \lambda} = e^{T(\mu - \lambda)} \left(\frac{\lambda}{\mu}\right)^{N_T^{\mu}} \tag{61}
+   </math>
+  </p>
+  <p block-type="Text">
+   We have for every bounded functional
+   <math display="inline">
+    f
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(f(N_s^{\lambda}, s \le T)\right) = \mathbf{E}\left(L_T^{\mu \to \lambda} f(N_s^{\mu}, s \le T)\right) \tag{62}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   See
+   <math display="inline">
+    [4]
+   </math>
+   for a proof and extensions. Note that the variance is given by
+   <math display="inline">
+    V(\lambda) = \mathbf{E}(X_{\mu}^{2}) - \mathbf{E}(X_{\mu})^{2}
+   </math>
+   where
+   <math display="inline">
+    X_{\mu} = L_T^{\mu \to \lambda} f(N_s^{\mu}, s \leq T)
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(X_{\mu}^{2}) = \mathbf{E}\left(\mathbf{e}^{T(\mu-\lambda)}\left(\frac{\lambda}{\mu}\right)^{N_{T}^{\lambda}}\right)
+   </math>
+   <math display="block">
+    \times f^{2}(N_{t}^{\lambda}, 0 \leq t \leq T)\right) \tag{63}
+   </math>
+  </p>
+  <p block-type="Text">
+   From this formula, a convexity property in
+   <math display="inline">
+    \mu
+   </math>
+   can be derived and optimization algorithms deduced from the Euler equation associated with the variance minimization problem.
+  </p>
+  <p block-type="Text">
+   This methodology can be useful for jump models in finance (e.g., the Merton model) by mixing a change of law on the underlying Brownian motion and on Poisson process.
+  </p>
+  <p block-type="Text">
+   Importance Sampling for Diffusion Processes
+  </p>
+  <p block-type="Text">
+   Following [14], we now present a result which proves that variance can be canceled using importance sampling for a diffusion process. The reader is also refered to [13] for the necessary background on simulation of diffusion processes.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   Let
+   <math display="inline">
+    Z
+   </math>
+   be a random variable such that
+   <math display="inline">
+    Z = \psi(W_s, 0 \le s \le T)
+   </math>
+   ,
+   <math display="inline">
+    \mathbf{E}(Z^2) &lt; +\infty
+   </math>
+   and
+   <math display="inline">
+    \mathbf{P}(Z \ge \epsilon) = 1
+   </math>
+   , for an
+   <math display="inline">
+    \epsilon &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Then, there exists an adapted process
+   <math display="inline">
+    (h_t, 0 &lt;
+   </math>
+   <math display="inline">
+    t &lt; T
+   </math>
+   ), such that, if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_T = \exp\left(-\int_0^T h_s \, \mathrm{d}W_s - \frac{1}{2} \int_0^T |h_s|^2 \, \mathrm{d}s\right) \tag{64}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \mathbf{E}(L_T) = 1
+   </math>
+   , then we can define a probability
+   <math display="inline">
+    \tilde{\mathbf{P}}
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{P}(A) = \mathbf{E} \left( L_T \mathbf{1}_A \right) \tag{65}
+   </math>
+  </p>
+  <p block-type="Text">
+   Under this probability
+   <math display="inline">
+    \tilde{\mathbf{P}}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{\mathbf{E}}\left(L_T^{-1}Z\right) = \mathbf{E}(Z) \text{ and } \tilde{\text{Var}}\left(L_T^{-1}Z\right) = 0 \quad (66)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Remark 5
+   </b>
+   Under
+   <math display="inline">
+    \tilde{\mathbf{P}}
+   </math>
+   , the random variable
+   <math display="inline">
+    L_T^{-1}Z
+   </math>
+   has zero variance, and thus is almost surely constant. So if we are able to sample
+   <math display="inline">
+    L_T^{-1}Z
+   </math>
+   under
+   <math display="inline">
+    \tilde{\mathbf{P}}
+   </math>
+   , we obtain a zero-variance estimator for
+   <math display="inline">
+    \mathbf{E}(Z)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Of course, an effective computation of
+   <math display="inline">
+    h_t
+   </math>
+   is almost always impossible. However, heuristic approximation methods can also be derived. We refer to
+   <math display="inline">
+    [14]
+   </math>
+   for an overview of some of these methods.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proof
+   </b>
+   The representation theorem for Brownian martingales proves the existence of a process
+   <math display="inline">
+    (H_t, t \leq
+   </math>
+   T) such that, for
+   <math display="inline">
+    t \leq T
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(Z|\mathcal{F}_{t}\right) = \mathbf{E}\left(Z\right) + \int_{0}^{t} H_{s} \, \mathrm{d}W_{s} \tag{67}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \phi_t = \mathbf{E} (Z|\mathcal{F}_t) / \mathbf{E} (Z)
+   </math>
+   . Equality (67) becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_t = 1 + \int_0^t \frac{H_s}{\mathbf{E}(Z)} \, \mathrm{d}W_s = 1 - \int_0^t \phi_s h_s \, \mathrm{d}W_s \quad (68)
+   </math>
+  </p>
+  <p block-type="Text">
+   This is a linear equation for
+   <math display="inline">
+    \phi
+   </math>
+   , which can be solved to obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_T = \exp\left(-\int_0^T h_s \, \mathrm{d}W_s - \frac{1}{2} \int_0^T |h_s|^2 \, \mathrm{d}s\right)
+   </math>
+   <br/>
+   =
+   <math>
+    L_T
+   </math>
+   (69)
+  </p>
+  <p block-type="TextInlineMath">
+   However, as Z is an
+   <math display="inline">
+    \mathcal{F}_T
+   </math>
+   -measurable random variable,
+   <math display="inline">
+    L_T = \phi_T = Z/\mathbf{E}(Z)
+   </math>
+   . Thus,
+   <math display="inline">
+    \mathbf{E}(L_T) = 1
+   </math>
+   and
+   <math display="inline">
+    L_T^{-1}Z =
+   </math>
+   <math display="inline">
+    \mathbf{E}(Z)
+   </math>
+   almost surely under
+   <b>
+    P
+   </b>
+   and
+   <math display="inline">
+    \tilde{\mathbf{P}}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The previous theorem can be used in a simulation context for diffusion processes. Let
+   <math display="inline">
+    (X_t, t &gt; 0)
+   </math>
+   be the unique solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = b(X_t) dt + \sigma(X_t) dW_t,
+   </math>
+   <br/>
+   <math display="block">
+    X(0) = x
+   </math>
+   (70)
+  </p>
+  <p block-type="TextInlineMath">
+   where b and
+   <math display="inline">
+    \sigma
+   </math>
+   are Lipschitz functions and
+   <math display="inline">
+    (W_t, t \geq
+   </math>
+   0) is a Brownian motion. If
+   <math display="inline">
+    (h_t, t \ge 0)
+   </math>
+   is a process such that
+   <math display="inline">
+    \mathbf{E}(L_T) = 1
+   </math>
+   , then X is also a solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\ndX_t = (b(X_t) - \sigma(X_t)h_t) dt + \sigma(X_t) d\tilde{W}_t \\
+X(0) = x\n\end{cases} \tag{71}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (\tilde{W}_t = W_t + \int_0^t h_s \, ds, 0 \le t \le T)
+   </math>
+   is a Brownian motion under the probability
+   <math display="inline">
+    \tilde{\mathbf{P}}
+   </math>
+   . Hence, we can, in principle, sample the process
+   <math display="inline">
+    X
+   </math>
+   under the new probability
+   <math display="inline">
+    \tilde{\mathbf{P}}
+   </math>
+   . This is easy when
+   <math display="inline">
+    h_t
+   </math>
+   can be written as
+   <math display="inline">
+    v(t, X_t)
+   </math>
+   , v being a function of t and x. Indeed, in this case,
+   <math display="inline">
+    X
+   </math>
+   satisfies the stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = \tilde{b}(t, X_t) dt + \sigma(X_t) d\tilde{W}_t, \quad X(0) = x \quad (72)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \tilde{b}(t,x) = b(x) - \sigma(x)v(t,x)
+   </math>
+   . Since
+   <math display="inline">
+    \tilde{W}
+   </math>
+   is a Brownian motion under
+   <math display="inline">
+    \tilde{\mathbf{P}}
+   </math>
+   , we can simulate X under
+   <math display="inline">
+    \hat{\mathbf{P}}
+   </math>
+   using a standard discretization scheme for this stochastic differential equation.
+  </p>
+  <p block-type="Text">
+   Now we give a more explicit formula for
+   <math display="inline">
+    h_t
+   </math>
+   when the random variable is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z = e^{-\int_0^T r(X_s) \, ds} f(X_T) \tag{73}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   when
+   <math display="inline">
+    f
+   </math>
+   and
+   <math display="inline">
+    r
+   </math>
+   are bounded positive functions and
+   <math display="inline">
+    (X_t, t \ge 0)
+   </math>
+   is the
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   -diffusion process solution of equation (70). Note that such a
+   <math display="inline">
+    Z
+   </math>
+   has a form suitable for the computation of option or zero-coupon prices.
+  </p>
+  <p block-type="TextInlineMath">
+   Assume that there exists a
+   <math display="inline">
+    C^{1,2}([0,T]\times \mathbf{R}^d)
+   </math>
+   solution to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n u(T,x) = f(x) &amp; \text{for } x \in \mathbf{R}^n \\
+ \left(\frac{\partial u}{\partial t} + Au - ru\right)(t,x) = 0 \\
+ &amp; \text{for } (t,x) \in [0,T] \times \mathbf{R}^n\n\end{cases} \tag{74}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    A
+   </math>
+   is the infinitesimal generator of the diffusion
+   <math display="inline">
+    (X_t, t \ge 0)
+   </math>
+   given by equation (30). Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-\int_0^t r(X_s) ds} u(t, X_t) = u(0, x)
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_0^t e^{-\int_0^s r(X_u) du} \frac{\partial u}{\partial x}(s, X_s) \sigma(X_s) dW_s \quad (75)
+   </math>
+  </p>
+  <p block-type="Text">
+   Assuming that the stochastic integral is a martingale, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\mathrm{e}^{-\int_{0}^{T}r(X_{s})\,\mathrm{d}s}f(X_{T})|\mathcal{F}_{t}\right)
+   </math>
+   <math display="block">
+    =\mathbf{E}\left(\mathrm{e}^{-\int_{0}^{T}r(X_{s})\,\mathrm{d}s}u(T,X_{T})|\mathcal{F}_{t}\right)
+   </math>
+   <math display="block">
+    =\mathrm{e}^{-\int_{0}^{t}r(X_{s})\,\mathrm{d}s}u(t,X_{t})\tag{76}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Thus, we have
+   <math display="inline">
+    Z = \mathbf{E}(Z) + \int_0^T H_t \, dW_t
+   </math>
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_t = e^{-\int_0^t r(X_s) ds} \frac{\partial u}{\partial x}(t, X_t) \sigma(X_t)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\mathbf{e}^{-\int_{0}^{T}r(X_{s})\,\mathrm{d}s}f(X_{T})|\mathcal{F}_{t}\right)
+   </math>
+   <math display="block">
+    =\mathbf{e}^{-\int_{0}^{t}r(X_{s})\,\mathrm{d}s}u(t,X_{t})\tag{77}
+   </math>
+  </p>
+  <p block-type="Text">
+   Therefore, using the proof of Proposition 1, we can see that the process
+   <math display="inline">
+    h_t
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_{t} = -\frac{e^{-\int_{0}^{t} r(X_{s}) ds} \frac{\partial u}{\partial x}(t, X_{t}) \sigma(X_{t})}{e^{-\int_{0}^{t} r(X_{s}) ds} u(t, X_{t})}
+   </math>
+   <math display="block">
+    = -\frac{\frac{\partial u}{\partial x}(t, X_{t}) \sigma(X_{t})}{u(t, X_{t})} \tag{78}
+   </math>
+  </p>
+  <p block-type="Text">
+   allows to cancel the variance of the Monte Carlo method.
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 6
+   </b>
+   Note that, as
+   <math display="inline">
+    h_t
+   </math>
+   is a function of
+   <math display="inline">
+    t
+   </math>
+   and
+   <math display="inline">
+    X_t
+   </math>
+   , simulation is always possible in principle.
+  </p>
+  <p block-type="TextInlineMath">
+   In practical terms, when we know (even rough) approximations
+   <math display="inline">
+    \bar{u}(t,x)
+   </math>
+   of
+   <math display="inline">
+    u(t,x)
+   </math>
+   , it is natural to try to reduce the variance by substituting
+   <math display="inline">
+    \bar{u}
+   </math>
+   for
+   <math display="inline">
+    u
+   </math>
+   in the previous formula. The reader is referred to [17] to see how large deviation theory can give a good approximation
+   <math display="inline">
+    \bar{u}
+   </math>
+   and lead to effective variance reductions.
+  </p>
+  <h1>
+   <b>
+    Antithetic Variables
+   </b>
+  </h1>
+  <p block-type="Text">
+   Antithetic variables are widely used in Monte Carlo simulations because of generality and ease of implementation. Note, though, that it seldom leads to significant effects on the variance and, if not used with care, it can even lead to an increase of the variance.
+  </p>
+  <p block-type="TextInlineMath">
+   First, let us consider a simple example,
+   <math display="inline">
+    I =
+   </math>
+   <math display="inline">
+    \mathbf{E}(g(U))
+   </math>
+   where U is uniformly distributed on the interval [0, 1]. As
+   <math display="inline">
+    1-U
+   </math>
+   has the same law as U
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I = \mathbf{E}\left(\frac{1}{2}(g(U) + g(1-U))\right) \tag{79}
+   </math>
+  </p>
+  <p block-type="Text">
+   Therefore, one can draw
+   <math display="inline">
+    2n
+   </math>
+   independent random variables
+   <math display="inline">
+    U_1, \ldots, U_{2n}
+   </math>
+   following a uniform law on
+   <math display="inline">
+    [0, 1]
+   </math>
+   , and approximate
+   <i>
+    I
+   </i>
+   either by using
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{2n}^{0} = \frac{1}{2n} \left( g(U_1) + g(U_2) \right.
+   </math>
+   <br/>
+   <math display="block">
+    + \cdots + g(U_{2n-1}) + g(U_{2n}) \left. \right)
+   </math>
+  </p>
+  <p block-type="Text">
+   or
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{2n} = \frac{1}{2n} \left( g(U_1) + g(1 - U_1) \right.
+   </math>
+   <br/>
+   <math display="block">
+    \left. + \dots + g(U_n) + g(1 - U_n) \right) \tag{80}
+   </math>
+  </p>
+  <p block-type="Text">
+   We can now compare the variances of
+   <math display="inline">
+    I_{2n}
+   </math>
+   and
+   <math display="inline">
+    I_{2n}^0
+   </math>
+   Observe that, in doing this, we assume that most of the numerical work relies on the evaluation of
+   <math display="inline">
+    g
+   </math>
+   and the time devoted to the simulation of the random variables is negligible; this is often a realistic assumption.
+  </p>
+  <p block-type="Text">
+   The variance of the two estimators are given, respectively, by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{Var}(I_{2n}^{0}) = \frac{1}{2n} \operatorname{Var}(g(U_{1}))
+   </math>
+   <br/>
+   <math display="block">
+    \operatorname{Var}(I_{2n}) = \frac{1}{2n} \left( \operatorname{Var}(g(U_{1}) + \operatorname{Cov}(g(U_{1}), g(1-U_{1})) \right)
+   </math>
+   (81)
+  </p>
+  <p block-type="TextInlineMath">
+   Obviously,
+   <math display="inline">
+    \text{Var}(I_{2n}) \leq \text{Var}(I_{2n}^0)
+   </math>
+   if and only if Cov
+   <math display="inline">
+    (g(U_1), g(1-U_1)) \le 0
+   </math>
+   . When g is either an increasing or a decreasing function, this can be shown to be true and thus the Monte Carlo method using antithetic variables
+   <math display="inline">
+    (I_{2n})
+   </math>
+   is better than the standard one
+   <math display="inline">
+    (I_{2n}^{0}).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This simple idea can be greatly generalized. If
+   <math display="inline">
+    X
+   </math>
+   is a random variable taking values in
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   (or even an infinite dimension space) and if T operates on
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   in
+  </p>
+  <p block-type="Text">
+   such a way that the law of
+   <math display="inline">
+    X
+   </math>
+   is preserved by
+   <math display="inline">
+    T
+   </math>
+   , we can construct a generalized antithetic method based on the equality
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(g(X)) = 1/2\mathbf{E}\left(g(X) + g(T(X))\right) \tag{82}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In other words, if
+   <math display="inline">
+    (X_1, \ldots, X_{2n})
+   </math>
+   are sampled along the law of
+   <math display="inline">
+    X
+   </math>
+   , we can consider the estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{2n} = \frac{1}{2n} \left( g(X_1) + g(T(X_1)) \right. \\ \left. + \dots + g(X_n) + g(T(X_n)) \right) \tag{83}
+   </math>
+  </p>
+  <p block-type="Text">
+   and compare it to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{2n}^{0} = \frac{1}{2n} \left( g(X_1) + g(X_2) \right)
+   </math>
+   <br/>
+   + \dots + g(X_{2n-1}) + g(X_{2n}) (84)
+  </p>
+  <p block-type="TextInlineMath">
+   The same computations as before prove that the estimator
+   <math display="inline">
+    I_{2n}
+   </math>
+   is better than the crude one
+   <math display="inline">
+    I_{2n}^0
+   </math>
+   if and only if
+   <math display="inline">
+    \text{Cov}(g(X), g(T(X))) \leq 0
+   </math>
+   .
+  </p>
+  <h2>
+   A Generic Example
+  </h2>
+  <p block-type="Text">
+   Let T be the transformation from
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   to
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (u^1, \dots, u^d) \to (1 - u^1, \dots, 1 - u^d)
+   </math>
+   (85)
+  </p>
+  <p block-type="TextInlineMath">
+   Obviously, if
+   <math display="inline">
+    U = (U^1, \ldots, U^d)
+   </math>
+   is a vector of independent random variables, then the law of
+   <math display="inline">
+    T(U)
+   </math>
+   is identical to the law of
+   <math display="inline">
+    U
+   </math>
+   . Hence, we can construct an antithetic estimator
+   <math display="inline">
+    I_{2n}
+   </math>
+   . It can be shown that this estimator improves upon the standard one when
+   <math display="inline">
+    f(u_1, \ldots, u_d)
+   </math>
+   is monotonic in each of its coordinates.
+  </p>
+  <h2>
+   A Toy Financial Example
+  </h2>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    G
+   </math>
+   be a standard Gaussian random variable. Clearly, the law of
+   <math display="inline">
+    -G
+   </math>
+   and
+   <math display="inline">
+    G
+   </math>
+   are identical and we can consider the transformation
+   <math display="inline">
+    T(x) = -x
+   </math>
+   to construct an antithetic method.
+  </p>
+  <p block-type="Text">
+   A very simple illustration is given by the call option in the Black-Scholes model where the payoff can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\left(\lambda\,\mathrm{e}^{\sigma G}-K\right)_{+}\right)\tag{86}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   <math display="inline">
+    \lambda
+   </math>
+   ,
+   <math display="inline">
+    \sigma
+   </math>
+   , and K being positive real numbers. As this payoff is increasing as a function of
+   <math display="inline">
+    G
+   </math>
+   , the antithetic
+  </p>
+  <p block-type="Text">
+   estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{2n} = \frac{1}{2n} \left( g(G_1) + g(-G_1) \right.
+   </math>
+   <br/>
+   <math display="block">
+    \left. + \dots + g(G_n) + g(-G_n) \right) \tag{87}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    g(x) = (\lambda e^{\sigma x} - K)_+
+   </math>
+   , certainly reduces the variance.
+  </p>
+  <p block-type="TextInlineMath">
+   This example can be easily extended to the (more useful) multidimensional Gaussian case, when
+   <math display="inline">
+    G =
+   </math>
+   <math display="inline">
+    (G^1,\ldots,G^d)
+   </math>
+   are independent standard Gaussian random variables.
+  </p>
+  <h4>
+   Antithetic Variables for Path-dependent Options
+  </h4>
+  <p block-type="TextInlineMath">
+   The antithetic variables method can also be applied to path-dependent options. For this, consider a pathdependent payoff
+   <math display="inline">
+    \psi
+   </math>
+   (
+   <math display="inline">
+    S_s
+   </math>
+   ,
+   <math display="inline">
+    s \leq T
+   </math>
+   ), where (
+   <math display="inline">
+    S_t
+   </math>
+   ,
+   <math display="inline">
+    t \geq 0
+   </math>
+   ) follows the Black-Scholes model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = x \exp\left((r - 1/2\sigma^2)t + \sigma W_t\right) \qquad (88)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    (W_t, t \ge 0)
+   </math>
+   is a Brownian motion, r and
+   <math display="inline">
+    \sigma
+   </math>
+   positive real numbers. As the law of
+   <math display="inline">
+    (-W_t, t \ge 0)
+   </math>
+   is identical to the law of
+   <math display="inline">
+    (W_t, t \ge 0)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\psi\left(x\mathrm{e}^{(r-1/2\sigma^{2})s+\sigma W_{s}},s\leq T\right)\right)
+   </math>
+   <math display="block">
+    =\mathbf{E}\left(\psi\left(x\mathrm{e}^{(r-(1/2)\sigma^{2})s-\sigma W_{s}},s\leq T\right)\right) \tag{89}
+   </math>
+  </p>
+  <p block-type="Text">
+   An antithetic method can be constructed using this equality.
+  </p>
+  <h2>
+   <b>
+    Stratified Sampling
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Stratified sampling aims at decomposing the computation of an expectation into specific subsets (called strata). Suppose we want to compute
+   <math display="inline">
+    I = \mathbf{E}(g(X)),
+   </math>
+   where X is an
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   -valued random variable and g a bounded measurable function from
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   to
+   <math display="inline">
+    \mathbf{R}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (D_i, 1 \le i \le m)
+   </math>
+   be a partition of
+   <math display="inline">
+    \mathbf{R}^d
+   </math>
+   . I can be expressed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I = \sum_{i=1}^{m} \mathbf{E}(g(X)|X \in D_i)\mathbf{P}(X \in D_i) \qquad (90)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(g(X)|X \in D_i) = \frac{\mathbf{E}(\mathbf{1}_{\{X \in D_i\}}g(X))}{\mathbf{P}(X \in D_i)} \qquad (91)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that
+   <math display="inline">
+    \mathbf{E}(g(X)|X \in D_i)
+   </math>
+   can be interpreted as
+   <math display="inline">
+    \mathbf{E}(g(X^{i}))
+   </math>
+   , where
+   <math display="inline">
+    X^{i}
+   </math>
+   is a random variable whose law is the law of X conditioned to belong to
+   <math display="inline">
+    D_i
+   </math>
+   . When X has a density given by
+   <math display="inline">
+    f(x)
+   </math>
+   , this conditional law also has a density given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{\int_{D_i} f(y) \, \mathrm{d}y} \mathbf{1}_{\{x \in D_i\}} f(x) \, \mathrm{d}x
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   When we further assume that the numbers
+   <math display="inline">
+    p_i =
+   </math>
+   <math display="inline">
+    \mathbf{P}(X \in D_i)
+   </math>
+   can be explicitly computed, one can use a Monte Carlo method to approximate each conditional expectation
+   <math display="inline">
+    I_i = \mathbf{E}(g(X)|X \in D_i)
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{I}_{i} = \frac{1}{n_{i}} \left( g(X_{1}^{i}) + \dots + g(X_{n_{i}}^{i}) \right) \tag{92}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (X_1^i, \ldots, X_{n_i}^i)
+   </math>
+   are independent copies of
+   <math display="inline">
+    X^i
+   </math>
+   . An estimator
+   <math display="inline">
+    \tilde{I}
+   </math>
+   of
+   <math display="inline">
+    I
+   </math>
+   is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{I} = \sum_{i=1}^{m} p_i \tilde{I}_i \tag{93}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Of course, the samples used to compute
+   <math display="inline">
+    \tilde{I}_i
+   </math>
+   are supposed to be independent and so the variance of
+   <math display="inline">
+    \tilde{I}
+   </math>
+   is
+   <math display="inline">
+    \sum_{i=1}^{m} p_i^2(\sigma_i^2/n_i)
+   </math>
+   , where
+   <math display="inline">
+    \sigma_i^2
+   </math>
+   be the variance of
+   <math display="inline">
+    g(X^i)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   By fixing the total number of simulations
+   <math display="inline">
+    \sum_{i=1}^{m}
+   </math>
+   <math display="inline">
+    n_i = n
+   </math>
+   and minimizing the above variance, we obtain an optimal allocation of points in the strata
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    n_{i} = n \frac{p_{i}\sigma_{i}}{\sum_{i=1}^{m} p_{i}\sigma_{i}} \tag{94}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For these values of
+   <math display="inline">
+    n_i
+   </math>
+   , the variance of
+   <math display="inline">
+    \tilde{I}
+   </math>
+   , given in this case by
+   <math display="inline">
+    1/n \left(\sum_{i=1}^{m} p_i \sigma_i\right)^2
+   </math>
+   , is always smaller than the one obtained without stratification.
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 7
+   </b>
+   The optimal stratification involves the
+   <math display="inline">
+    \sigma_i
+   </math>
+   s which are almost never explicitly known. So one needs to estimate these
+   <math display="inline">
+    \sigma_i
+   </math>
+   s by some preliminary Monte Carlo simulations.
+  </p>
+  <p block-type="Text">
+   Moreover, let us underline that a bad repartition of
+   <math display="inline">
+    n_i
+   </math>
+   may
+   <i>
+    increase
+   </i>
+   the variance of the estimator.
+  </p>
+  <p block-type="TextInlineMath">
+   A common way to circumvent these difficulties is to choose a proportional repartition:
+   <math display="inline">
+    n_i =
+   </math>
+   <math display="inline">
+    np_i
+   </math>
+   . The corresponding variance
+   <math display="inline">
+    1/n \sum_{i=1}^m p_i \sigma_i^2
+   </math>
+   , is still smaller than the original one, but not optimal. This choice is often made especially when the probabilities
+   <math display="inline">
+    p_i
+   </math>
+   are explicit.
+  </p>
+  <p block-type="Text">
+   For more considerations on the choice of the
+   <math display="inline">
+    n_i
+   </math>
+   and for hints on suitable choices of the sets
+   <math display="inline">
+    D_i
+   </math>
+   , see [3].
+  </p>
+  <h4>
+   A Toy Financial Example
+  </h4>
+  <p block-type="Text">
+   In the standard Black-Scholes, model the price of a call option is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\left(\lambda e^{\sigma G} - K\right)_{+}\right) \tag{95}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is natural to use the following strata for
+   <math display="inline">
+    G: \{G &lt; d\}
+   </math>
+   or
+   <math display="inline">
+    \{G &gt; d\}
+   </math>
+   , where
+   <math display="inline">
+    d = \log(K/\lambda)/\sigma
+   </math>
+   . Of course the variance of the stratum
+   <math display="inline">
+    G &lt; d
+   </math>
+   is equal to 0. So, in the optimal allocation, we have to simulate only one point in this stratum: all other points have to be drawn in the stratum
+   <math display="inline">
+    G \ge d
+   </math>
+   . This can be done by using the (numerical) inverse of the cumulative distribution function of a Gaussian random variable.
+  </p>
+  <h3>
+   Index Options
+  </h3>
+  <p block-type="TextInlineMath">
+   A European call or put index option in the multidimensional Black-Scholes model can be expressed as
+   <math display="inline">
+    \mathbf{E}(h(G))
+   </math>
+   , for
+   <math display="inline">
+    G = (G_1, \ldots, G_n)
+   </math>
+   a vector of independent standard Gaussian random variables and for some complicated but explicit function h from
+   <math display="inline">
+    \mathbf{R}^n
+   </math>
+   to R.
+  </p>
+  <p block-type="TextInlineMath">
+   Now, choose a vector
+   <math display="inline">
+    u \in \mathbf{R}^n
+   </math>
+   such that
+   <math display="inline">
+    |u| = 1
+   </math>
+   (so
+   <math display="inline">
+    \langle u, G \rangle = \sum_{i=1}^{n} u_i G_i
+   </math>
+   is also a standard Gaussian random variable) and a partition
+   <math display="inline">
+    (B_i, 1 \le i \le n)
+   </math>
+   of
+   <math display="inline">
+    \mathbf{R}
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{P}(&lt; u, G &gt; \in B_i) = \mathbf{P}(G_1 \in B_i) = 1/n
+   </math>
+   (96)
+  </p>
+  <p block-type="TextInlineMath">
+   This can be done by setting
+   <math display="inline">
+    B_i = N^{-1}((i-1)/n)
+   </math>
+   ,
+   <math display="inline">
+    N^{-1}(i/n)
+   </math>
+   , where N is the cumulative distribution function of a standard Gaussian random variable and
+   <math display="inline">
+    N^{-1}
+   </math>
+   is its inverse. Then define the
+   <math display="inline">
+    \mathbf{R}^{n}
+   </math>
+   -strata by
+   <math display="inline">
+    D_i = \{u \in \mathbf{R}^n, \langle u, x \rangle \in B_i\}.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In order to implement a stratification method based on these strata, we need first to sample the Gaussian random variable
+   <math display="inline">
+    \langle u, G \rangle
+   </math>
+   given that
+   <math display="inline">
+    \langle u, G \rangle
+   </math>
+   belongs to
+   <math display="inline">
+    B_i
+   </math>
+   , then to sample the vector G when knowing already the value
+   <math display="inline">
+    \langle u, G \rangle
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The first point is easy since, if
+   <math display="inline">
+    U
+   </math>
+   is uniformly distributed on [0, 1], then the law of
+   <math display="inline">
+    N^{-1}((i - 1/N) +
+   </math>
+   <math display="inline">
+    (U/N)
+   </math>
+   is precisely the law of a standard Gaussian random variable conditioned to be in
+   <math display="inline">
+    B_i
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   To solve the second point, observe that
+   <math display="inline">
+    G - \langle
+   </math>
+   <math display="inline">
+    u, G &gt; u
+   </math>
+   is a Gaussian vector independent of
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \langle u, G \rangle
+   </math>
+   . So if Y is a copy of the vector G,
+   <math display="inline">
+    G = \langle u, G \rangle u + G - \langle u, G \rangle u
+   </math>
+   and
+   <math display="inline">
+    \langle u, G \rangle
+   </math>
+   <math display="inline">
+    u + Y - \langle u, Y \rangle
+   </math>
+   have the same distribution. This leads to a very simple simulation method for
+   <math display="inline">
+    G
+   </math>
+   given
+   <math display="inline">
+    \langle u, G \rangle = \lambda
+   </math>
+   and to an effective way to implement the suggested stratification method.
+  </p>
+  <p block-type="Text">
+   Note that this method can be made efficient by choosing a good vector
+   <math display="inline">
+    u
+   </math>
+   . An almost optimal way to choose the vector
+   <math display="inline">
+    u
+   </math>
+   can be found in [6].
+  </p>
+  <h2>
+   Conditioning
+  </h2>
+  <p block-type="Text">
+   This method uses the well-known fact that conditioning reduces the variance. Indeed, for any square integrable random variable
+   <math display="inline">
+    Z
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(Z) = \mathbf{E}(\mathbf{E}(Z|\mathcal{B}))\tag{97}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathcal{B}
+   </math>
+   is any
+   <math display="inline">
+    \sigma
+   </math>
+   -algebra defined on the same probability space as
+   <math display="inline">
+    Z
+   </math>
+   . When, in addition,
+   <math display="inline">
+    Z
+   </math>
+   is square integrable, the conditional expectation is an
+   <math display="inline">
+    L^2
+   </math>
+   projection so
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\mathbf{E}(Z|\mathcal{B})^2\right) \le \mathbf{E}(Z^2) \tag{98}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and thus
+   <math display="inline">
+    \text{Var}(\mathbf{E}(Z|\mathcal{B})) &lt; \text{Var}(Z)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   When
+   <math display="inline">
+    Y
+   </math>
+   is a random variable defined on the same probability space as X and
+   <math display="inline">
+    \mathcal{B} = \sigma(Y)
+   </math>
+   , it is well known that
+   <math display="inline">
+    \mathbf{E}(Z|\sigma(Y))
+   </math>
+   can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(Z|Y) := \mathbf{E}(Z|\sigma(Y)) = \phi(Y) \tag{99}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some measurable function
+   <math display="inline">
+    \phi
+   </math>
+   and the practical efficiency of simulating
+   <math display="inline">
+    \phi(Y)
+   </math>
+   instead of Z heavily relies on getting an explicit formula for the function
+   <math display="inline">
+    \phi
+   </math>
+   . This can be achieved when
+   <math display="inline">
+    Z = f(X, Y)
+   </math>
+   , where
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   are independent random variables. In this case, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}(f(X,Y)|Y) = \phi(Y) \tag{100}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \phi(y) = \mathbf{E}(f(X, y)).
+   </math>
+  </p>
+  <h2>
+   A Basic Example
+  </h2>
+  <p block-type="TextInlineMath">
+   Suppose that we want to compute
+   <math display="inline">
+    \mathbf{P}(X \leq Y)
+   </math>
+   , where
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   are independent random variables. This occurs in finance, in a slightly more complex setting, when computing the hedge of an exchange option (or the price of a digital exchange option). We have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{P}\left(X\leq Y\right) = \mathbf{E}\left(F(Y)\right) \tag{101}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    F(x) = \mathbf{P}(X \le x)
+   </math>
+   is the distribution function of
+   <math display="inline">
+    X
+   </math>
+   . This can be used to obtain a variance reduction which can be significant, especially when the probability
+   <math display="inline">
+    \mathbf{P}(X &lt; Y)
+   </math>
+   is small.
+  </p>
+  <h1>
+   A Financial Example: A Stochastic Volatility Model
+  </h1>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (W_t, t &gt; 0)
+   </math>
+   be a Brownian motion and r be a real number. Assume that
+   <math display="inline">
+    (S_t, t &gt; 0)
+   </math>
+   follows a Black-Scholes model with stochastic volatility, which is solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t (r dt + \sigma_t dW_t), \quad S_0 = x \quad (102)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (\sigma_t, t \ge 0)
+   </math>
+   is a given continuous stochastic process independent of the Brownian motion
+   <math display="inline">
+    (W_t, t \ge
+   </math>
+   0). We want to compute the option price
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{E}\left(\mathbf{e}^{-rT}f(S_T)\right) \tag{103}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    f
+   </math>
+   is a bounded measurable function. Clearly
+   <math display="inline">
+    S_T
+   </math>
+   can be expressed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_T = x \exp\left(rT - \frac{1}{2} \int_0^T \sigma_t^2 dt + \int_0^T \sigma_t dW_t^1\right)
+   </math>
+   (104)
+  </p>
+  <p block-type="TextInlineMath">
+   As the processes
+   <math display="inline">
+    (\sigma_t, t \ge 0)
+   </math>
+   and
+   <math display="inline">
+    (W_t, t \ge 0)
+   </math>
+   are independent,
+   <math display="inline">
+    \left(\int_0^T \sigma_t^2 dt, \int_0^T \sigma_t dW_t\right)
+   </math>
+   has the same law as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(\int_0^T \sigma_t^2 \, \mathrm{d}t, \sqrt{\frac{1}{T} \int_0^T \sigma_t^2 \, \mathrm{d}t} \times W_T\right) \quad (105)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Conditioning with respect to the process
+   <math display="inline">
+    (\sigma_t, 0 \le t \le t)
+   </math>
+   <math display="inline">
+    T
+   </math>
+   ), we obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathbf{E} \left( e^{-rT} f(S_T) \right) \\ &amp;= \mathbf{E} \left( \mathbf{E} \left[ e^{-rT} f(S_T) | \sigma_t, 0 \le t \le T \right] \right) \\ &amp;= \mathbf{E} \left( \psi(\sigma_t, 0 \le t \le T) \right) \end{aligned} \tag{106}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where, for a fixed volatility path
+   <math display="inline">
+    (v_t, 0 \le t \le T)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \phi(v_t, 0 &amp;\le t \le T) \\ &amp;= \mathbf{E} \left( e^{-rT} f\left(x e^{rT - \int_0^T v_t^2/2 \, \mathrm{d}t + W_T \sqrt{1/T \int_0^T v_t^2 \, \mathrm{d}t}} \right) \right) \\ &amp;= \phi\left(\sqrt{\frac{1}{T} \int_0^T v_t^2 \, \mathrm{d}t} \right) \end{split} \tag{107}
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \phi(\sigma)
+   </math>
+   being the price of the option in the standard Black–Scholes model with volatility
+   <math display="inline">
+    \sigma
+   </math>
+   , that is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi(\sigma) = \mathbf{E}\left(\mathrm{e}^{-rT}f\left(x\mathrm{e}^{\left(r-(\sigma^2/2)\right)T+\sigma W_T}\right)\right) \qquad (108)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Hence, we only need to sample
+   <math display="inline">
+    \int_0^T \sigma_t^2 dt
+   </math>
+   in order to use a Monte Carlo method using the random variable
+   <math display="inline">
+    \psi(\sigma_t, 0 &lt; t &lt; T).
+   </math>
+  </p>
+  <h2>
+   Additional References
+  </h2>
+  <p block-type="TextInlineMath">
+   For complements, we refer the reader to classical books devoted to Monte Carlo methods ([7, 9, 16, 18]). For a more specific discussion of Monte Carlo methods in finance see
+   <math display="inline">
+    [5, 8]
+   </math>
+   .
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Arouna, B. (2003/2004). Robbins-Monro algorithms and
+     <math display="inline">
+      [1]
+     </math>
+     variance reduction in finance, The Journal of Computational Finance 7(2), 35-61.
+    </li>
+    <li block-type="ListItem">
+     [2] Arouna, B. (2004). Adaptative Monte-Carlo method, a variance reduction technique, Monte Carlo Methods Application
+     <math display="inline">
+      10(1)
+     </math>
+     , 1–24.
+    </li>
+    <li block-type="ListItem">
+     [3] Cochran, W.G. (1977). Sampling Techniques, Series in Probabilities and Mathematical Statistics, Wiley.
+    </li>
+    <li block-type="ListItem">
+     Cont, R. &amp; Tankov, P. (2004). Financial Modelling with [4] Jump Processes, CRC Financial Mathematics Series, Chapman &amp; Hall.
+    </li>
+    <li block-type="ListItem">
+     [5] Glasserman, P. (2004). Monte-Carlo methods in financial engineering, Applications of Mathematics (New York), Stochastic Modelling and Applied Probability, Springer-Verlag, New York, Vol. 53.
+    </li>
+    <li block-type="ListItem">
+     Glasserman, P., Heidelberger, P. &amp; Shahabuddin, P. [6] (1999). Asymptotically optimal importance sampling and stratification for pricing path dependent options, Mathematical Finance
+     <math display="inline">
+      9(2)
+     </math>
+     , 117–152.
+    </li>
+    <li block-type="ListItem">
+     Hammersley, J. &amp; Handscomb, D. (1979). Monte-Carlo [7]
+     <i>
+      Methods
+     </i>
+     , Chapman &amp; Hall, London.
+    </li>
+    <li block-type="ListItem">
+     [8] Jäkel, P. (2002). Monte-Carlo Methods in Finance, Wiley.
+    </li>
+    <li block-type="ListItem">
+     Kalos, M.H. &amp; Whitlock, P.A. (1986). Monte Carlo [9] Methods, John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [10] Karatzas, I. &amp; Shreve, S.E. (1991).
+     <i>
+      Brownian Motion
+     </i>
+     and Stochastic Calculus, 2nd Edition, Springer-Verlag, New York.
+    </li>
+    <li block-type="ListItem">
+     [11] Kemna, A.G.Z. &amp; Vorst, A.C.F. (1990). A pricing method for options based on average asset values, Journal of Banking Finance 14, 113-129.
+    </li>
+    <li block-type="ListItem">
+     [12] Kim, S. &amp; Anderson, S.G. (2004). Winter Simulation Conference, Proceedings of the 36th conference on Winter simulation, Washington, D.C.
+    </li>
+    <li block-type="ListItem">
+     [13] Kloeden, P.E. &amp; Platen, E. (1999).
+     <i>
+      Numerical Solution
+     </i>
+     of Stochastic Differential Equations, Applications of
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <i>
+    Mathematics (New York)
+   </i>
+   , 3rd Edition, Springer-Verlag, Berlin, Vol. 23.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [14] Newton, N.J. (1994). Variance reduction for simulated diffusions,
+     <i>
+      SIAM Journal on Applied Mathematics
+     </i>
+     <b>
+      54
+     </b>
+     (6), 1780–1805.
+    </li>
+    <li block-type="ListItem">
+     [15] Revuz, D. &amp; Yor, M. (1991).
+     <i>
+      Continuous Martingales and Brownian Motion
+     </i>
+     , Springer-Verlag, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [16] Ripley, B.D. (1987).
+     <i>
+      Stochastic Simulation
+     </i>
+     , Wiley.
+    </li>
+    <li block-type="ListItem">
+     [17] Fournie, E., Lasry, J.M. &amp; Touzi, N. (1997). Monte ´ Carlo methods for stochastic volatility models, in
+     <i>
+      Numerical methods in finance
+     </i>
+     , Publ. Newton Inst., Rogers, L.C.G.
+     <i>
+      et al.
+     </i>
+     , ed., Cambridge University Press, Cambridge 146–164.
+    </li>
+    <li block-type="ListItem">
+     [18] Rubinstein, R.Y. (1981).
+     <i>
+      Simulation and the Monte-Carlo Method
+     </i>
+     ,
+     <i>
+      Series in Probabilities and Mathematical Statistics
+     </i>
+     , Wiley.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <b>
+    Related Articles
+   </b>
+  </p>
+  <p block-type="Text">
+   <b>
+    Monte Carlo Greeks
+   </b>
+   ;
+   <b>
+    Monte Carlo Simulation for Stochastic Differential Equations
+   </b>
+   ;
+   <b>
+    Option Pricing: General Principles
+   </b>
+   ;
+   <b>
+    Rare-event Simulation
+   </b>
+   ;
+   <b>
+    Simulation of Square-root Processes
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   BERNARD LAPEYRE
+  </p>
+ </body>
+</html>

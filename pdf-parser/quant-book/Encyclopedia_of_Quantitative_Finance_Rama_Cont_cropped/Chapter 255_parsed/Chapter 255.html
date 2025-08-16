@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Tree Methods
+   </b>
+  </h1>
+  <p block-type="Text">
+   Tree methods are among the most popular numerical methods to price financial derivatives. Mathematically speaking, they are easy to understand and do not require severe implementation skills to obtain algorithms to price financial derivatives. Tree methods basically consist in approximating the diffusion process modeling the underlying asset price by a discrete random walk.
+  </p>
+  <p block-type="Text">
+   In fact, the price of a European option of maturity
+   <math display="inline">
+    T
+   </math>
+   can always be written as an expectation either of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(\mathrm{e}^{-rT}\psi(S_T))
+   </math>
+  </p>
+  <p block-type="Text">
+   in the case of vanilla options or of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(\mathrm{e}^{-rT}\psi(S_t, 0 \le t \le T))
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   in the case of exotic options, where
+   <math display="inline">
+    (S_t, t \ge 0)
+   </math>
+   is a stochastic process describing the evolution of the stock price,
+   <math display="inline">
+    \psi
+   </math>
+   is the payoff function, and r is the instantaneous interest rate. The basic idea of tree methods is to approximate the stochastic process
+   <math display="inline">
+    (S_t, t \ge 0)
+   </math>
+   by a discrete Markov chain
+   <math display="inline">
+    (\bar{S}_n^N, n \ge 0)
+   </math>
+   , such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(\mathrm{e}^{-rT}\psi(S_t, 0 \le t \le T))
+   </math>
+   <br/>
+   <math display="block">
+    \approx \mathbb{E}(\mathrm{e}^{-rT}\psi(\bar{S}_n^N, 0 \le n \le N)) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for N large enough (
+   <math display="inline">
+    \approx
+   </math>
+   is used to remind the reader that the equality is only guarantied for
+   <math display="inline">
+    N = \infty
+   </math>
+   ). To ensure the quality of the approximation, we are interested in a particular notion of convergence called convergence in distribution (weak convergence) of discrete Markov chains to continuous stochastic processes. It is interesting to note that tree methods can also be regarded as a particular case of explicit finite difference algorithms.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Tree methods provide natural algorithms to price both European and American options when the risky asset is modeled by a geometric Brownian motion (see
+   <math display="inline">
+    [27]
+   </math>
+   , for an introduction on how to use tree methods in financial problems). When considering more complex models—such as models with jumps or stochastic volatility models—the use of tree methods
+  </p>
+  <p block-type="Text">
+   is much more difficult; analytic approaches like finite difference (see
+   <b>
+    Partial Differential Equations
+   </b>
+   ; Partial Integro-differential Equations (PIDEs)) or finite element (see Finite Element Methods) methods are usually preferred, and Monte Carlo methods are also widely used for complex models. Binomial (see
+   <b>
+    Binomial Tree
+   </b>
+   ) and trinomial trees may also be constructed to approximate the stochastic differential equation governing the short rate
+   <math display="inline">
+    [21, 26]
+   </math>
+   or the intensity of default [32], permitting hereby to obtain the price of, respectively, interest rate derivatives or credit derivatives. Implied binomial trees, which enable us to construct trees consistent with the market prices of plain vanilla options, are a generalization of the standard tree methods used to price more exotic options (see
+   <math display="inline">
+    [11, 14]
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   For the sake of simplicity, consider a market model where the evolution of the risky asset is driven by the Black-Scholes stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t(r \, dt + \sigma \, dW_t), \quad S_0 = s_0 \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   in which
+   <math display="inline">
+    (W_t)_{0 \le t \le T}
+   </math>
+   is a standard Brownian motion (under the so-called risk neutral probability measure) and the positive constant
+   <math display="inline">
+    \sigma
+   </math>
+   is the volatility of the risky asset.
+  </p>
+  <p block-type="Text">
+   The seminal work of Cox-Ross-Rubinstein (CRR) [10] initiated the use of tree methods and many variants have been introduced to improve the quality of the approximation when pricing plain vanilla or exotic options.
+  </p>
+  <h4>
+   <b>
+    Plain Vanilla Options
+   </b>
+  </h4>
+  <p block-type="Text">
+   The multiplicative binomial CRR model [10] is interesting on its own as a basic discrete-time model for the underlying asset of a financial derivative, since it converges to a log-normal diffusion process under appropriate conditions. One of its most attractive features is the ease of implementation to price plain vanilla options by backward induction.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    N
+   </math>
+   denote the number of steps of the tree and
+   <math display="inline">
+    \Delta T = T/N
+   </math>
+   the corresponding time step. The log-normal diffusion process
+   <math display="inline">
+    (S_{n\Delta T})_{0 \le n \le N}
+   </math>
+   is approximated by the CRR binomial process
+   <math display="inline">
+    \left(\bar{S}_{n}^{N} = s_{0} \prod_{j=1}^{n} Y_{j}\right)_{\substack{0 \leq n \leq N \ \text{algebra } Y_{1}, \ldots, Y_{N} \text{ are independent and identically dis
+   </math>
+   tributed with values in
+   <math display="inline">
+    \{d, u\}
+   </math>
+   (
+   <i>
+    u
+   </i>
+   is called the
+   <i>
+    up factor
+   </i>
+   and
+   <i>
+    d
+   </i>
+   the
+   <i>
+    down factor
+   </i>
+   ) with
+   <math display="inline">
+    p_u = \mathbb{P}(Y_n = u)
+   </math>
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 1 CRR tree
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    p_d = \mathbb{P}(Y_n = d)
+   </math>
+   . The dynamics of the binomial tree (see Figure 1) is given by the following Markov chain:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \bar{S}_{n+1}^{N} = \begin{cases} \bar{S}_{n}^{N} u &amp; \text{with probability} \quad p_{u} \\ \bar{S}_{n}^{N} d &amp; \text{with probability} \quad p_{d} \end{cases} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Kushner and Dupuis [23] proved that the local consistency conditions given by equation
+   <math display="inline">
+    (4)
+   </math>
+   —that is, the matching at the first order in
+   <math display="inline">
+    \Delta T
+   </math>
+   of the first and second moments of the logarithmic increments of the approximating chain with those of the continuoustime limit—grant the convergence in distribution:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\log\frac{\bar{S}_{n+1}^{N}}{\bar{S}_{n}^{N}} = \mathbb{E}\log\frac{S_{(n+1)\Delta T}}{S_{n\Delta T}} + o\left(\Delta T\right)
+   </math>
+   <math display="block">
+    \mathbb{E}\log^{2}\frac{\bar{S}_{n+1}^{N}}{\bar{S}_{n}^{N}} = \mathbb{E}\log^{2}\frac{S_{(n+1)\Delta T}}{S_{n\Delta T}} + o\left(\Delta T\right)
+   </math>
+   (4)
+  </p>
+  <p block-type="Text">
+   This first-order matching condition rewrites
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} p_u \log u + (1 - p_u) \log \ d = (r - \frac{\sigma^2}{2}) \Delta T \\ p_u \log^2 u + (1 - p_u) \log^2 \ d = \sigma^2 \Delta T \end{cases} \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The usual CRR tree corresponds to the choice
+   <math display="inline">
+    u =
+   </math>
+   <math display="inline">
+    1/d = e^{\sigma\sqrt{\Delta T}}
+   </math>
+   , which leads to
+   <math display="inline">
+    p_u = e^{r\Delta T} - e^{-\sigma\sqrt{\Delta T}}/e^{\sigma\sqrt{\Delta T}} - e^{-\sigma\sqrt{\Delta T}} = 1/2 + r - \sigma^2/2/2\sigma\sqrt{\Delta T} + r
+   </math>
+   <math display="inline">
+    \mathcal{O}(\Delta T^{3/2})
+   </math>
+   . When
+   <math display="inline">
+    \Delta T
+   </math>
+   is small enough (i.e., for N large), the above value of
+   <math display="inline">
+    p_u
+   </math>
+   belongs to [0,1]. For this choice of
+   <math display="inline">
+    u
+   </math>
+   ,
+   <math display="inline">
+    d
+   </math>
+   , and
+   <math display="inline">
+    p_u
+   </math>
+   , the difference between both sides of each equality in equation
+   <math display="inline">
+    (5)
+   </math>
+   is of order
+   <math display="inline">
+    (\Delta T)^2
+   </math>
+   . This is sufficient to ensure the convergence to the Black-Scholes model when
+   <math display="inline">
+    N
+   </math>
+   tends to infinity.
+  </p>
+  <p block-type="TextInlineMath">
+   As
+   <math display="inline">
+    (\bar{S}_n)_n
+   </math>
+   defined by the CRR model is Markovian, the price at time
+   <math display="inline">
+    n \in \{0, \ldots, N\}
+   </math>
+   of an American put option (see American Options) in the CRR model with maturity
+   <math display="inline">
+    T
+   </math>
+   and strike
+   <math display="inline">
+    K
+   </math>
+   can be written as
+   <math display="inline">
+    v(n, \bar{S}_n)
+   </math>
+   where the function
+   <math display="inline">
+    v(n, x)
+   </math>
+   can be computed by the following backward dynamic programming eauations:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} v_N(N,x) = (K-x)^+\\ v_N(n,x) = \max\left(\psi(x),\\ e^{-r\Delta T} \big[ p_u v_N(n+1,xu)\\ v_N(n+1,xd) \big] \right) \end{cases} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \psi(x) = (K - x)^{+}
+   </math>
+   . Note that the algorithm requires the comparison between the intrinsic value and the continuation value. When considering European options,
+   <math display="inline">
+    \psi \equiv 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The initial price of a put option in the Black-Scholes model can be approximated by
+   <math display="inline">
+    v_N(0, s_0)
+   </math>
+   . The initial delta, which is the quantity of risky asset in the replicating portfolio on the first time step in the CRR model, is approximated by
+   <math display="inline">
+    v_N(1, s_0u)
+   </math>
+   <math display="inline">
+    v_N(1, s_0 d)/s_0(u - d)
+   </math>
+   . Note that to obtain the approximated price and delta, one only needs to compute
+   <math display="inline">
+    (v_N(n, s_0 u^k d^{n-k}), 0 \le k \le n)
+   </math>
+   by backward induction on
+   <math display="inline">
+    n
+   </math>
+   from
+   <math display="inline">
+    N
+   </math>
+   to 0. Figure 2 gives an example of backward computation of the price of an American put option using
+   <math display="inline">
+    N = 4
+   </math>
+   time steps. The complexity of the algorithm is of order
+   <math display="inline">
+    N^2
+   </math>
+   , more precisely the function
+   <math display="inline">
+    v_N
+   </math>
+   has to be evaluated at
+   <math display="inline">
+    (N + 1)(N + 2)/2
+   </math>
+   nodes.
+  </p>
+  <p block-type="TextInlineMath">
+   For the computation of the delta, Pelsser and Vorst [28] suggested to enlarge the original tree by adding two new initial nodes generated by an extended two-period back tree (dashed lines in Figure 2). To achieve the convergence in distribution, many other choices for
+   <math display="inline">
+    u
+   </math>
+   ,
+   <math display="inline">
+    d
+   </math>
+   ,
+   <math display="inline">
+    p_u
+   </math>
+   , and
+   <math display="inline">
+    p_d
+   </math>
+   can be made, leading to as many other Markov chains. We may choose other two-point schemes, such as a random walk approximation of the Brownian motion, threepoint schemes (trinomial trees), or more general
+   <math display="inline">
+    p
+   </math>
+   -point schemes. The random walk approximation of the Brownian motion
+   <math display="inline">
+    (Z_{n+1} = Z_n + U_{n+1}
+   </math>
+   with
+   <math display="inline">
+    (U_i)_i
+   </math>
+   independent and identically distributed with
+   <math display="inline">
+    \mathbb{P}(U_i =
+   </math>
+   1) =
+   <math display="inline">
+    \mathbb{P}(U_i = -1) = 1/2
+   </math>
+   ) can be used as long as
+   <math display="inline">
+    S_T
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_T = s_0 e^{(r - \sigma^2/2)T + \sigma W_T} \tag{7}
+   </math>
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Backward induction for a CRR tree with
+   <math display="inline">
+    N = 4
+   </math>
+   for an American put option with parameters
+   <math display="inline">
+    s_0 = K = 100
+   </math>
+   ,
+   <math display="inline">
+    r = 0.1, \sigma = 0.2, T = 1
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This leads to
+   <math display="inline">
+    p_u = 1/2
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u = e^{(r - \sigma^2/2)\Delta T + \sigma\sqrt{\Delta T}}
+   </math>
+   <br/>
+   <math display="block">
+    d = e^{(r - \sigma^2/2)\Delta T - \sigma\sqrt{\Delta T}}
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   The most popular trinomial tree has been introduced by Kamrad and Ritchken [22] who have chosen to approximate
+   <math display="inline">
+    (S_{n\Delta T})_{0 \le n \le N}
+   </math>
+   by a symmetric three-point Markov chain
+   <math display="inline">
+    (\bar{S}_n)_{0 \le n \le N}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \bar{S}_{n+1} = \begin{cases}\n\bar{S}_n u &amp; \text{with probability} \quad p_u \\
+\bar{S}_n &amp; \text{with probability} \quad p_m \\
+\bar{S}_n d &amp; \text{with probability} \quad p_d\n\end{cases} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The convergence is ensured as soon as the first two moment matching condition on
+   <math display="inline">
+    \log (S_{\Delta T}/s_0)
+   </math>
+   is satisfied. With
+   <math display="inline">
+    u = e^{\lambda \sigma \sqrt{\Delta T}}
+   </math>
+   and
+   <math display="inline">
+    d = 1/u
+   </math>
+   , this condition leads to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_u = \frac{1}{2\lambda^2} + \frac{\left(r - \sigma^2/2\right)\sqrt{\Delta T}}{2\lambda\sigma}, \quad p_m = 1 - \frac{1}{\lambda^2}
+   </math>
+   <math display="block">
+    p_d = \frac{1}{2\lambda^2} - \frac{\left(r - \sigma^2/2\right)\sqrt{\Delta T}}{2\lambda\sigma} \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The parameter
+   <math display="inline">
+    \lambda
+   </math>
+   —the stretch parameter—appears as a free parameter of the geometry of the tree, which can be tuned to improve the convergence. The value
+   <math display="inline">
+    \lambda \approx 1.22474
+   </math>
+   corresponding to
+   <math display="inline">
+    p_m = 1/3
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is reported to be a good choice for at-the-money plain vanilla options. Note that choosing
+   <math display="inline">
+    u = 1/d
+   </math>
+   is essential to avoid a complexity explosion. In this case, the complexity is still of order
+   <math display="inline">
+    N^2
+   </math>
+   , but this time
+   <math display="inline">
+    (N+1)(N+3)
+   </math>
+   evaluations of the function
+   <math display="inline">
+    v_N
+   </math>
+   are required. The value
+   <math display="inline">
+    \lambda = 1
+   </math>
+   corresponds to the CRR tree.
+  </p>
+  <p block-type="Text">
+   Note that complexity is intimately related to the quality of the approximation. Therefore, one should always try to balance the additional computational cost with the improvement of the convergence it brings out.
+  </p>
+  <h4>
+   <b>
+    Convergence Issues
+   </b>
+  </h4>
+  <p block-type="Text">
+   Over the last years, significant advances have been made in understanding the convergence behavior of tree methods for option pricing and hedging (see [13, 24, 25, 33]). As noted in [12, 15], there are two sources of error in tree methods for call (see Call
+   <b>
+    Options
+   </b>
+   ) or put option: the first one (
+   <i>
+    the distribution error
+   </i>
+   ) ensues from the approximation of a continuous distribution by a discrete one, whereas the second one (
+   <i>
+    the nonlinearity error
+   </i>
+   ) stems from the interplay between the strike and the grid nodes at the final time step. Because of the nonlinearity error, the convergence is slow except for at-the-money options. Let
+   <math display="inline">
+    P_N^{\text{CRR}}
+   </math>
+   and
+   <math display="inline">
+    P^{\text{BS}}
+   </math>
+   denote the initial price of the European put option with maturity
+   <math display="inline">
+    T
+   </math>
+   and strike
+   <math display="inline">
+    K
+   </math>
+   , respectively, in the CRR tree (with
+   <math display="inline">
+    N
+   </math>
+   steps) and in the Black-Scholes model. Using the call-put parity relationship in both the models and the results given for the call option in
+   <math display="inline">
+    [13]
+   </math>
+   , one finds
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_N^{\text{CRR}} = P^{\text{BS}} - \frac{K e^{-rT}}{N} e^{-d_2^2/2} \sqrt{\frac{2}{\pi}}
+   </math>
+   <math display="block">
+    \times \left[ \kappa_N (\kappa_N - 1) \sigma \sqrt{T} + D_1 \right] + \mathcal{O}\left(\frac{1}{N^{3/2}}\right) \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    d_2 = (\log(s_0/K) + (r - (\sigma^2/2))T)/\sigma\sqrt{T}, \kappa_N
+   </math>
+   denotes the fractional part of
+   <math display="inline">
+    \log(K/s_0)/2\sigma\sqrt{N/T}
+   </math>
+   –
+   <math display="inline">
+    N/2
+   </math>
+   and
+   <math display="inline">
+    D_1
+   </math>
+   is a constant. For at-the-money options (i.e.,
+   <math display="inline">
+    K = s_0
+   </math>
+   ),
+   <math display="inline">
+    \kappa_N = 0
+   </math>
+   for N even and
+   <math display="inline">
+    \kappa = 1/2
+   </math>
+   for N odd; hence, the difference
+   <math display="inline">
+    (P_N^{\text{CRR}} - P^{\text{BS}})_N
+   </math>
+   is an alternating sequence. Figure&lt;sup&gt;a&lt;/sup&gt; 3 shows that for
+   <math display="inline">
+    N
+   </math>
+   even
+   <math display="inline">
+    P_N^{\text{CRR}}
+   </math>
+   gives an upper estimate of
+   <math display="inline">
+    P^{\text{BS}}
+   </math>
+   , whereas for
+   <math display="inline">
+    N
+   </math>
+   odd
+   <math display="inline">
+    P_N^{\rm{CRR}}
+   </math>
+   gives a lower estimate. The monotonicity of
+   <math display="inline">
+    (P_{2N+1})_N
+   </math>
+   and
+   <math display="inline">
+    (P_{2N})_N
+   </math>
+   for at-the-money
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 3 Convergence for an at-the-money put option with parameters
+   <math display="inline">
+    s_0 = K = 100, r = 0.1, \sigma = 0.2, T = 1
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   options enables us to use a Richardson extrapolation (i.e., consider
+   <math display="inline">
+    2P_{4N}^{\text{CRR}} - P_{2N}^{\text{CRR}}
+   </math>
+   or
+   <math display="inline">
+    2P_{4N+1}^{\text{CRR}} - P_{2N+1}^{\text{CRR}}
+   </math>
+   ) to make the terms of order
+   <math display="inline">
+    1/N
+   </math>
+   disappear. For not at-the-money options, Figure 4 shows that the sequences
+   <math display="inline">
+    (P_{2N+1}^{\text{CRR}})_N
+   </math>
+   and
+   <math display="inline">
+    (P_{2N}^{\text{CRR}})_N
+   </math>
+   are not monotonic and present an oscillating behavior. In this context, a naive Richardson extrapolation performs badly.
+  </p>
+  <p block-type="Text">
+   Several tree methods [6, 15, 18] try to deal with the nonlinearity error at maturity reproducing in some sense an at-the-money situation. The binomial Black-Scholes (BBS) method introduced by Broadie and Detemple [6] replaces at each node of the last but one time step before maturity, the continuation value with the Black-Scholes European one [3]. A two-point Richardson extrapolation aiming
+  </p>
+  <p>
+   <img src="_page_3_Figure_5.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 4
+   </b>
+   Convergence for a not at-the-money put option with parameters
+   <math display="inline">
+    s_0 = 100
+   </math>
+   ,
+   <math display="inline">
+    K = 90
+   </math>
+   ,
+   <math display="inline">
+    r = 0.1
+   </math>
+   ,
+   <math display="inline">
+    \sigma = 0.2
+   </math>
+   ,
+   <math display="inline">
+    T = 1
+   </math>
+  </p>
+  <p block-type="Text">
+   at improving the convergence leads to the binomial Black-Scholes-Richardson (BBSR) method.
+  </p>
+  <p block-type="Text">
+   Adaptive mesh model (AMM) is a trinomial-based method introduced by Figlewski and Gao [15]. By taking into account that the nonlinearity error at maturity only affects the node nearest to the strike, AMM resorts to thickening the trinomial grid only around the strike and only at maturity time.
+  </p>
+  <p block-type="Text">
+   The binomial interpolated (with Richardson extrapolation) method (BI(R)) introduced by Gaudenzi and Pressacco [18] tries to recover the regularity of the sequences giving the CRR price of the European at-the-money options. The logic of the BI approach is to create a set of computational options, each one with a computational strike lying exactly on a final node of the tree. The value of the option with the contractual strike is then obtained by interpolating the values of the computational options.
+  </p>
+  <p block-type="Text">
+   Let us finally remark that similar techniques have been developed in numerical analysis for PDEs associated to option pricing problems (see [19]). In the case of nonsmooth initial conditions, to get good convergence of finite element and finite difference methods, there should always be a node at the strike and the payoff may have to be smoothed (see [30] for a classical reference).
+  </p>
+  <p block-type="Text">
+   In the American option case, a new source of error arises compared to the European case: the loss of opportunity to early exercise in any interval between two discrete times of the tree.
+  </p>
+  <h2>
+   <b>
+    Exotic Options
+   </b>
+  </h2>
+  <p block-type="Text">
+   The classical CRR approach may be troublesome when applied to barrier options (see
+   <b>
+    Barrier Options
+   </b>
+   ) because the convergence is very slow in comparison with plain vanilla options. The reason is quite obvious: let
+   <math display="inline">
+    L
+   </math>
+   be the barrier and
+   <math display="inline">
+    n_L
+   </math>
+   denote the index such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    s_0 d^{n_L} \ge L &gt; s_0 d^{n_L+1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then, the binomial algorithm yields the same result for any value of the barrier between
+   <math display="inline">
+    s_0 d^{n_L}
+   </math>
+   and
+   <math display="inline">
+    s_0 d^{n_L+1}
+   </math>
+   , while the limiting value changes for every barrier
+   <math display="inline">
+    L
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Several different approaches have been proposed to overcome this problem.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Boyle and Lau [5] choose the number of time steps in order to have a layer of nodes of the tree as close
+  </p>
+  <p block-type="Text">
+   as possible to the barrier. Ritchken [31] noted that the trinomial method is more suitable than the binomial one. The main idea is to choose the stretch parameter
+   <i>
+    λ
+   </i>
+   such that the barrier is exactly hit. Later, Cheuk and Vorst [9] presented a modification of the trinomial tree (based on a change of the geometry of the tree), which enables to set a layer of the nodes exactly on the barrier for any choice of the number of time steps. Numerical interpolation techniques have also been provided by Derman
+   <i>
+    et al.
+   </i>
+   [12].
+  </p>
+  <p block-type="Text">
+   In the case of Asian options (
+   <i>
+    see
+   </i>
+   <b>
+    Asian Options
+   </b>
+   ;
+   <b>
+    Lattice Methods for Path-dependent Options
+   </b>
+   ) with arithmetic average, the CRR method is not efficient since the number of possible averages increases exponentially with the number of the steps of the tree. For this reason, Hull and White [20] and in a similar way Barraquand and Pudet [2] proposed more feasible approaches. The main idea of their procedure is to restrict the possible arithmetic averages to a set of representative values. These values are selected in order to cover all the possible values of the averages reachable at each node of the tree. The price is then computed by a backward induction procedure, whereas the prices associated to the averages outside of representative value set are obtained by some suitable interpolation methods.
+  </p>
+  <p block-type="Text">
+   These techniques drastically reduce the computation time compared to the pure binomial tree; however, they present some drawbacks (convergence and numerical accuracy) as observed by Forsyth
+   <i>
+    et al.
+   </i>
+   [16]. Chalasani
+   <i>
+    et al.
+   </i>
+   [7, 8] proposed a completely different approach to obtain precise upper and lower bounds on the pure binomial price of Asian options. This algorithm significantly increases the precision of the estimates but induces a different problem: the implementation requires a lot of memory compared to the previous methods.
+  </p>
+  <p block-type="Text">
+   In the case of lookback options (
+   <i>
+    see
+   </i>
+   <b>
+    Lookback Options
+   </b>
+   ), the complexity of the pure binomial algorithm is of order
+   <i>
+    O(N
+   </i>
+   <sup>
+    3
+   </sup>
+   <i>
+    )
+   </i>
+   and the methods proposed in [2, 20] do not improve the efficiency. Babbs [1] gave a very efficient and accurate solution to the problem for American floating strike lookback options by using a procedure of complexity of order
+   <i>
+    O(N
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    )
+   </i>
+   . He proposed a change of "numeraire" approach, which cannot be applied in the fixed strike case.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Gaudenzi
+   <i>
+    et al.
+   </i>
+   [17] introduced the singular point method to price American path-dependent options. The main idea is to give a continuous representation
+  </p>
+  <p block-type="Text">
+   of the option price function as a piecewise linear convex function of the path-dependent variable. These functions are characterized only by a set of points named
+   <i>
+    singular points
+   </i>
+   . Such functions can be evaluated by backward induction in a straightforward manner. Hence, this method provides an alternative and more efficient approach to evaluate the pure binomial prices associated with the path-dependent options. Moreover, because the piecewise linear function representing the price is convex, it is easy to obtain upper and lower bounds of the price.
+  </p>
+  <p block-type="Text">
+   For the rainbow options, extensions of the binomial approach for pricing American options on two or more stocks have been made by Boyle
+   <i>
+    et al.
+   </i>
+   [4] and Kamrad and Ritchken [22]. In higher dimensional problems (say, dimension greater than three), the straightforward application of tree methods fails because of the so-called curse of dimension: the computational cost and the memory requirement increase exponentially with the dimension of the problem.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   The graphics have been generated using PREMIA software [29].
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Babbs, S. (2000). Binomial valuation of lookback options,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      24
+     </b>
+     , 1499–1525.
+    </li>
+    <li block-type="ListItem">
+     [2] Barraquand, J. &amp; Pudet, T. (1996). Pricing of American path-dependent contingent claims,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      6
+     </b>
+     , 17–51.
+    </li>
+    <li block-type="ListItem">
+     [3] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities,
+     <i>
+      Journal of Political Economy
+     </i>
+     <b>
+      81
+     </b>
+     , 637–654.
+    </li>
+    <li block-type="ListItem">
+     [4] Boyle, P.P., Evnine, J. &amp; Gibbs, S. (1989). Numerical evaluation of multivariate contingent claims,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      2
+     </b>
+     , 241–250.
+    </li>
+    <li block-type="ListItem">
+     [5] Boyle, P.P. &amp; Lau, S.H. (1994). Bumping up against the barrier with the binomial method,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      1
+     </b>
+     , 6–14.
+    </li>
+    <li block-type="ListItem">
+     [6] Broadie, M. &amp; Detemple, J. (1996). American option valuation: new bounds, approximations and a comparison of existing methods,
+     <i>
+      The Review of Financial Studies
+     </i>
+     <b>
+      9–4
+     </b>
+     , 1221–1250.
+    </li>
+    <li block-type="ListItem">
+     [7] Chalasani, P., Jha, S., Egriboyun, F. &amp; Varikooty, A. (1999). A refined binomial lattice for pricing American Asian options,
+     <i>
+      Review of Derivatives Research
+     </i>
+     <b>
+      3
+     </b>
+     , 85–105.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [8] Chalasani, P., Jha, S. &amp; Varikooty, A. (1999). Accurate approximations for European Asian Options,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      1
+     </b>
+     , 11–29.
+    </li>
+    <li block-type="ListItem">
+     [9] Cheuk, T.H.F. &amp; Vorst, T.C.F. (1996). Complex barrier options,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      4
+     </b>
+     , 8–22.
+    </li>
+    <li block-type="ListItem">
+     [10] Cox, J., Ross, S.A. &amp; Rubinstein, M. (1979). Option pricing: a simplified approach,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      7
+     </b>
+     , 229–264.
+    </li>
+    <li block-type="ListItem">
+     [11] Derman, E. &amp; Kani, I. (1994). Riding on a smile,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      7
+     </b>
+     , 32–39.
+    </li>
+    <li block-type="ListItem">
+     [12] Derman, E., Kani, I., Bardhan, D. &amp; Ergener, E.B. (1995). Enhanced numerical methods for options with barriers,
+     <i>
+      Finance Analyst Journal
+     </i>
+     <b>
+      51–6
+     </b>
+     , 65–74.
+    </li>
+    <li block-type="ListItem">
+     [13] Diener, F. &amp; Diener, M. (2004). Asymptotics of the price oscillations of a European call option in a tree model,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     (2), 271–293.
+    </li>
+    <li block-type="ListItem">
+     [14] Dupire, B. (1994). Pricing on a smile,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      7
+     </b>
+     , 18–20.
+    </li>
+    <li block-type="ListItem">
+     [15] Figlewski, S. &amp; Gao, B. (1999). The adaptive mesh model: a new approach to efficient option pricing,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      53
+     </b>
+     , 313–351.
+    </li>
+    <li block-type="ListItem">
+     [16] Forsyth, P.A., Vetzal, K.R. &amp; Zvan, R. (2002). Convergence of numerical methods for valuing pathdependent options using interpolation,
+     <i>
+      Review of Derivatives Research
+     </i>
+     <b>
+      5
+     </b>
+     , 273–314.
+    </li>
+    <li block-type="ListItem">
+     [17] Gaudenzi, M., Lepellere, M.A. &amp; Zanette, A. (2007).
+     <i>
+      The Singular Points Binomial Method For Pricing American Path-Dependent Options
+     </i>
+     , Working Paper, Finance Department, University of Udine, Vol. 1, pp. 1–17.
+    </li>
+    <li block-type="ListItem">
+     [18] Gaudenzi, M. &amp; Pressacco, F. (2003). An efficient binomial method for pricing American put options,
+     <i>
+      Decisions in Economics and Finance
+     </i>
+     <b>
+      4–1
+     </b>
+     , 1–17.
+    </li>
+    <li block-type="ListItem">
+     [19] Giles, M.B. &amp; Carter, R. (2006). Convergence analysis of Crank-Nicolson and Rannacher time-marching,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      4–9
+     </b>
+     , 89–112.
+    </li>
+    <li block-type="ListItem">
+     [20] Hull, J. &amp; White, A. (1993). Efficient procedures for valuing European and American path-dependent options,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      1
+     </b>
+     , 21–31.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [21] Hull, J. &amp; White, A. (1993). Numerical procedures for implementing term structure models I: single factor models,
+     <i>
+      Journal of derivatives
+     </i>
+     <b>
+      2
+     </b>
+     , 7–16.
+    </li>
+    <li block-type="ListItem">
+     [22] Kamrad, B. &amp; Ritchken, P. (1991). Multinomial approximating models for options with k state variables,
+     <i>
+      Management Science
+     </i>
+     <b>
+      37
+     </b>
+     , 1640–1652.
+    </li>
+    <li block-type="ListItem">
+     [23] Kushner, H. &amp; Dupuis, P.G. (1992).
+     <i>
+      Numerical Methods for Stochastic Control Problems in Continuous Time
+     </i>
+     , Springer Verlag.
+    </li>
+    <li block-type="ListItem">
+     [24] Lamberton, D. (1998). Error estimates for the binomial approximation of American put options,
+     <i>
+      Annals of Applied Probability
+     </i>
+     <b>
+      8
+     </b>
+     (1), 206–233.
+    </li>
+    <li block-type="ListItem">
+     [25] Lamberton, D. (2002). Brownian optimal stopping and random walks,
+     <i>
+      Applied Mathematics and Optimization
+     </i>
+     <b>
+      45
+     </b>
+     , 283–324.
+    </li>
+    <li block-type="ListItem">
+     [26] Li, A., Ritchken, P. &amp; Sankarasubramanian, L. (1995). Lattice methods for pricing American interest rate claims,
+     <i>
+      The Journal of Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 719–737.
+    </li>
+    <li block-type="ListItem">
+     [27] Martini, C. (1999).
+     <i>
+      Introduction to Tree Methods for Financial Derivatives
+     </i>
+     .
+     <i>
+      PREMIA software documentation
+     </i>
+     . http://www.premia.fr.
+    </li>
+    <li block-type="ListItem">
+     [28] Pelsser, A. &amp; Vorst, T. (1994). The binomial model and the Greeks,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      1–3
+     </b>
+     (3), 45–49.
+    </li>
+    <li block-type="ListItem">
+     [29] PREMIA.
+     <i>
+      An Option Pricer Project
+     </i>
+     .
+     <i>
+      MathFi, INRIA-ENPC
+     </i>
+     . http://www.premia.fr (accessed 2008).
+    </li>
+    <li block-type="ListItem">
+     [30] Rannacher, A. (1984). Finite element solution of diffusion problems with irregular data,
+     <i>
+      Numerische Mathematik
+     </i>
+     <b>
+      43–2
+     </b>
+     , 309–327.
+    </li>
+    <li block-type="ListItem">
+     [31] Ritchken, P. (1995). On pricing barrier options,
+     <i>
+      Journal of Derivatives
+     </i>
+     ,
+     <b>
+      3
+     </b>
+     , 19–28.
+    </li>
+    <li block-type="ListItem">
+     [32] Schonbucher, P.J. (2002). A tree implementation of a credit spread model for credit derivatives,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      6–2
+     </b>
+     , 1–38.
+    </li>
+    <li block-type="ListItem">
+     [33] Walsh, J.B. (2003). The rate of convergence of the binomial tree scheme,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      7
+     </b>
+     , 337–361.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   JER´ OME ˆ LELONG &amp; ANTONINO ZANETTE
+  </p>
+ </body>
+</html>

@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Method of Lines
+   </b>
+  </h1>
+  <p block-type="Text">
+   The complexity of a partial differential equation (PDE) grows with the number of independent variables. In applied mathematics, the
+   <i>
+    method of lines
+   </i>
+   (MoL) is frequently used to reduce the number of independent variables by one. For this reduction, one has to pay a price, which is twofold:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. A
+     <i>
+      system
+     </i>
+     of several dependent variables arises.
+    </li>
+    <li block-type="ListItem">
+     2. The system is an approximation—that is, a discretization error is introduced.
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   In finance, the method of lines is applied to the Black–Scholes PDE, which involves two independent variables, namely, time
+   <i>
+    t
+   </i>
+   and price
+   <i>
+    S
+   </i>
+   of the underlying asset. The continuous domain is the
+   <i>
+    half strip
+   </i>
+   0 ≤
+   <i>
+    t
+   </i>
+   ≤
+   <i>
+    T
+   </i>
+   ,
+   <i>
+    S &gt;
+   </i>
+   0, where
+   <i>
+    T
+   </i>
+   denotes the time to maturity. Introducing the backward running time
+   <i>
+    τ
+   </i>
+   :=
+   <i>
+    T
+   </i>
+   −
+   <i>
+    t
+   </i>
+   , the Black–Scholes equation is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\frac{\partial V(S,\tau)}{\partial \tau} + \mathcal{L}_{\text{BS}}(V(S,\tau)) = 0 \text{ with}
+   </math>
+   <br/>
+   <math display="block">
+    \mathcal{L}_{\text{BS}}(V(S,\tau)) := \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} + (r - \delta)S\frac{\partial V}{\partial S} - rV
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   Here, the dependent variable
+   <i>
+    V (S, τ )
+   </i>
+   denotes the value function of a vanilla American put option,
+   <i>
+    r
+   </i>
+   is the risk-free interest rate,
+   <i>
+    δ
+   </i>
+   denotes a constant dividend yield, and
+   <i>
+    σ
+   </i>
+   the volatility (
+   <i>
+    see
+   </i>
+   <b>
+    Options: Basic Definitions
+   </b>
+   ). According to the Black–Scholes model,
+   <i>
+    r, σ, δ
+   </i>
+   are taken as constants. For a put option of the American style with strike
+   <i>
+    K
+   </i>
+   , the payoff at time
+   <i>
+    T
+   </i>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (K - S)^{+} := \max(K - S, 0) \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The initially unknown early exercise curve
+   <i>
+    Sf
+   </i>
+   separates the half strip into two parts: stopping region
+   <i>
+    S
+   </i>
+   ≤
+   <i>
+    Sf
+   </i>
+   , where
+   <i>
+    V
+   </i>
+   equals the payoff, and the continuation region, where
+   <i>
+    V
+   </i>
+   solves the Black–Scholes equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V = (K - S)^{+} \text{ for } S \leq S_{f}
+   </math>
+   <br/>
+   V solves equation (1) for
+   <math>
+    S &gt; S_{f}
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   The geometry of the domain is illustrated in Figure 1.
+  </p>
+  <p block-type="Text">
+   Since equation (1) depends on two independent variables, MoL leads to a system with only one independent variable—that is, to a system of ordinary differential equations (ODEs). For introducing "lines" in our context, we have two possibilities: either we set up lines parallel to the
+   <i>
+    t
+   </i>
+   -axis or we work with lines parallel to the
+   <i>
+    S
+   </i>
+   -axis. The former approach leads to a fully numerical method; it is described in Exercise 4.10 of [6]. Our focus is on the latter MoL approach, with lines parallel to the
+   <i>
+    S
+   </i>
+   -axis. This approach (which goes back to [3]) is attractive because the resulting ODEs can be solved analytically.
+  </p>
+  <h1>
+   <b>
+    Semidiscretization
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   The method of lines replaces the half strip by a set of equidistant lines, each line defined by a constant value of
+   <i>
+    τ
+   </i>
+   . To this end, the interval 0 ≤
+   <i>
+    τ
+   </i>
+   ≤
+   <i>
+    T
+   </i>
+   is discretized into
+   <i>
+    n
+   </i>
+   subintervals by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_{\nu} := \nu \Delta \tau, \quad \Delta \tau := T/n, \quad \nu = 1, \dots, n-1 \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   (Figure 1). On this discrete set of lines, the partial derivative
+   <i>
+    ∂V /∂τ
+   </i>
+   is approximated by the difference quotient
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{V(S,\tau) - V(S,\tau - \Delta \tau)}{\Delta \tau} \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   This gives a semidiscretized version of equation (1), namely, for each
+   <i>
+    τν
+   </i>
+   the ODE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    w(S, \tau - \Delta \tau) - w(S, \tau) + \Delta \tau \mathcal{L}_{\text{BS}}(w(S, \tau)) = 0
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   which holds for
+   <i>
+    S
+   </i>
+   ≥
+   <i>
+    Sf
+   </i>
+   . Here, we use the notation
+   <i>
+    w
+   </i>
+   rather than
+   <i>
+    V
+   </i>
+   to indicate that a discretization error is involved. As this semidiscretized version of equation (6) is applied for each of the parallel lines,
+   <i>
+    τ
+   </i>
+   =
+   <i>
+    τν
+   </i>
+   ,
+   <i>
+    ν
+   </i>
+   = 1
+   <i>
+    ,...,n
+   </i>
+   − 1, a coupled system of ODEs is derived.
+  </p>
+  <h1>
+   <b>
+    Analytic Solution
+   </b>
+  </h1>
+  <p block-type="Text">
+   Substituting equation (1) into equation (6) gives the equation to be solved for each line
+   <i>
+    τν
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{2}\Delta\tau\,\sigma^2S^2\frac{\partial^2 w}{\partial S^2} + \Delta\tau\,(r-\delta)S\frac{\partial w}{\partial S} - (1+r\,\Delta\tau)w
+   </math>
+   <math display="block">
+    = -w(S,\,\tau_{\nu-1})\tag{7}
+   </math>
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Method of lines applied to an American-style vanilla put
+  </p>
+  <p block-type="TextInlineMath">
+   where the argument of
+   <math display="inline">
+    w
+   </math>
+   on the left-hand side is
+   <math display="inline">
+    (S, \tau_{v})
+   </math>
+   . This is a second-order ODE for
+   <math display="inline">
+    w(S, \tau_{v})
+   </math>
+   , with boundary conditions for
+   <math display="inline">
+    S_f(\tau_v)
+   </math>
+   and
+   <math display="inline">
+    S \to \infty
+   </math>
+   . For any line
+   <math display="inline">
+    \tau = \tau_{\nu}
+   </math>
+   , the function
+   <math display="inline">
+    w(S, \tau_{\nu-1})
+   </math>
+   of the righthand side is known from the previous line, starting from the known payoff for
+   <math display="inline">
+    \tau = 0
+   </math>
+   . The right-hand function
+   <math display="inline">
+    q(S) := -w(S, \tau_{\nu-1})
+   </math>
+   is an inhomogeneous term of the ODE.
+  </p>
+  <p block-type="Text">
+   The analytic solution exploits that the equation
+   <math display="inline">
+    (7)
+   </math>
+   is linear in
+   <math display="inline">
+    w
+   </math>
+   and of the simple type of an inhomogeneous Euler equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha S^2 w'' + \beta S w' + \gamma w = q(S)
+   </math>
+   <br/>
+   with
+   <math>
+    \alpha = \frac{1}{2} \Delta \tau \sigma^2
+   </math>
+   ,
+   <math>
+    \beta = (r - \delta) \Delta \tau
+   </math>
+   , (8)
+   <br/>
+   <math>
+    \gamma = -(1 + r \Delta \tau)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where the prime denotes differentiation with respect to
+   <math display="inline">
+    S
+   </math>
+   . The solution method for such a simple type of ODE is standard and found in any ODE text book. It is based on substituting
+   <math display="inline">
+    S^{\lambda}
+   </math>
+   into the homogeneous ODE (
+   <math display="inline">
+    q \equiv 0
+   </math>
+   ). This yields a quadratic equation with
+  </p>
+  <p block-type="Text">
+   zeros
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lambda_{1,2} := \frac{1}{2} - \frac{r - \delta}{\sigma^2}
+   </math>
+   <math display="block">
+    \pm \sqrt{\left(\frac{1}{2} - \frac{r - \delta}{\sigma^2}\right)^2 + \frac{2(1 + r\Delta\tau)}{\sigma^2 \Delta\tau}} \quad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   Solutions to the homogeneous ODE are obtained by linear combinations of the
+   <math display="inline">
+    S^{\lambda}
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    aS^{\lambda_1} + bS^{\lambda_2} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   for suitable constants
+   <math display="inline">
+    a
+   </math>
+   and
+   <math display="inline">
+    b
+   </math>
+   . A solution of the inhomogeneous equation is added. Note that this analytical solution avoids a truncation error in Sdirection.
+  </p>
+  <h4>
+   <b>
+    Matching Solution Parts
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   In our context, we need (at least) two such solutions for every line, because the inhomogeneous terms change. The early exercise curve
+   <math display="inline">
+    S_f
+   </math>
+   separates each of the parallel lines into two parts (Figure 2). As for the previous line
+   <math display="inline">
+    \tau_{\nu-1}
+   </math>
+   , the separation point lies more "on the right" (recall that for a put the curve
+   <math display="inline">
+    S_f(\tau)
+   </math>
+   is monotonically decreasing for growing
+   <math display="inline">
+    \tau
+   </math>
+   ), the inhomogeneous term
+   <math display="inline">
+    w(\cdot, \tau_{\nu-1})
+   </math>
+   consists of (at least) two parts as well, but separated differently. Neglecting for a moment the previous history of lines
+   <math display="inline">
+    \tau_{\nu-2}, \tau_{\nu-3}, \ldots
+   </math>
+   , the analytic solution of equation (7) for
+   <math display="inline">
+    \tau_{\nu}
+   </math>
+   consists of three parts, defined on the three subintervals
+  </p>
+  <p block-type="Equation">
+   A:
+   <math display="block">
+    0 &lt; S \leq S_f(\tau_{\nu})
+   </math>
+   <br/>
+   B:
+   <math>
+    S_f(\tau_{\nu}) &lt; S \leq S_f(\tau_{\nu-1})
+   </math>
+   (11)
+   <br/>
+   C:
+   <math>
+    S_f(\tau_{\nu-1}) &lt; S
+   </math>
+  </p>
+  <p>
+   <img src="_page_1_Figure_15.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Detail of Figure 1, situation along line
+   <math display="inline">
+    \tau_{\nu}
+   </math>
+   : A: solution is given by payoff; B: inhomogeneous term of differential equation given by payoff; and C: inhomogeneous term given by
+   <math display="inline">
+    -w(., \tau_{\nu-1})
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   On the left-hand interval A,
+   <math display="inline">
+    w
+   </math>
+   equals the payoff; nothing needs to be calculated. For the middle interval B, the inhomogeneous term
+   <math display="inline">
+    -w(., \tau_{v-1})
+   </math>
+   is given by the payoff,
+   <math display="inline">
+    q(S) = -(K - S)
+   </math>
+   . As we need solutions for both subintervals B and C, a second pair of constants is required for C. In this subinterval, the value of a put vanishes for
+   <math display="inline">
+    S \rightarrow \infty
+   </math>
+   , which contradicts
+   <math display="inline">
+    \lambda_1 &gt; 0
+   </math>
+   ; the root
+   <math display="inline">
+    \lambda_1
+   </math>
+   drops out for the solution part in C. Hence, this solution is of the type
+   <math display="inline">
+    cS^{\lambda_2}
+   </math>
+   for a constant c. When we consider the dependence on previous lines, then we realize that there are recursively several B-type subintervals, and only one C-type interval for
+   <math display="inline">
+    S &gt; S_f(\tau_0) = K
+   </math>
+   . To illustrate this, merge Figures 1 and 2. For
+   <math display="inline">
+    S_f(\tau_0) = K
+   </math>
+   to hold, assume in addition
+   <math display="inline">
+    \delta &lt; r
+   </math>
+   for a put (
+   <math display="inline">
+    \delta &gt; r
+   </math>
+   for a call).
+  </p>
+  <h2>
+   <b>
+    First Line
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Let us discuss for the first line
+   <math display="inline">
+    \nu = 1
+   </math>
+   how the solution is setup. For this exposition, we take specifically
+   <math display="inline">
+    \delta = 0
+   </math>
+   . For
+   <math display="inline">
+    \nu = 1
+   </math>
+   , we have
+   <math display="inline">
+    S_f(\tau_{\nu-1}) = K
+   </math>
+   and
+   <math display="inline">
+    q =
+   </math>
+   <math display="inline">
+    w(S, \tau_{\nu-1}) = 0
+   </math>
+   for
+   <math display="inline">
+    S &gt; K
+   </math>
+   . Hence, in subinterval C the inhomogeneous solution is 0. And
+   <math display="inline">
+    q = S - K
+   </math>
+   for
+   <math display="inline">
+    S_f(\tau_1) &lt; S &lt; K
+   </math>
+   , hence
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{K}{1+r\,\Delta\tau} - S\tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   solves the inhomogeneous equation for subinterval B. This leads to the three parts of the solution along the first line
+   <math display="inline">
+    \tau = \tau_1
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    w(S; \tau_1) = K - S \quad \text{for A}
+   </math>
+   <br/>
+   <math display="block">
+    w(S; \tau_1) = \frac{K}{1 + r \Delta \tau} - S + a^{(1)} S^{\lambda_1} + b^{(1)} S^{\lambda_2} \quad \text{for B}
+   </math>
+   <br/>
+   <math display="block">
+    w(S; \tau_1) = c^{(1)} S^{\lambda_2} \quad \text{for C}
+   </math>
+   (13)
+  </p>
+  <p block-type="TextInlineMath">
+   The value of
+   <math display="inline">
+    S_f(\tau_1)
+   </math>
+   is still undetermined as well as the three constants
+   <math display="inline">
+    a^{(1)}, b^{(1)}
+   </math>
+   and
+   <math display="inline">
+    c^{(1)}
+   </math>
+   . To determine these four parameters, we require four equations.
+  </p>
+  <p block-type="Text">
+   The unknown separation point
+   <math display="inline">
+    S_f(\tau_v)
+   </math>
+   is fixed by the high-contact conditions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(S_f, \tau) = K - S_f, \quad \frac{\partial V(S_f, \tau)}{\partial S} = -1 \quad (14)
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   This is applied to the approximation
+   <math display="inline">
+    w
+   </math>
+   as well. Two remaining conditions are given by the requirement
+  </p>
+  <p block-type="TextInlineMath">
+   that both
+   <math display="inline">
+    w
+   </math>
+   and
+   <math display="inline">
+    dw/dS
+   </math>
+   are continuous at the matching point
+   <math display="inline">
+    S_f(\tau_{\nu-1})
+   </math>
+   . This fixes all variables. For the first line, the four equations for the parameters are (with
+   <math display="inline">
+    E := S_f(\tau_1)
+   </math>
+   )
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{K}{1+r \ \Delta \tau} - E + a^{(1)}E^{\lambda_1} + b^{(1)}E^{\lambda_2} = K - E \tag{15}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -1 + \lambda_1 a^{(1)} E^{\lambda_1 - 1} + \lambda_2 b^{(1)} E^{\lambda_2 - 1} = -1 \tag{16}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{K}{1+r\ \Delta\tau} - K + a^{(1)}K^{\lambda_1} + b^{(1)}K^{\lambda_2} = c^{(1)}K^{\lambda_2}
+   </math>
+   (17)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -1 + \lambda_1 a^{(1)} K^{\lambda_1 - 1} + \lambda_2 b^{(1)} K^{\lambda_2 - 1} = \lambda_2 c^{(1)} K^{\lambda_2 - 1}
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   which has made use of
+   <math display="inline">
+    S_f(\tau_0) = K
+   </math>
+   . The solution of this system is tedious, we skip the derivation. This explains the analytic solution of equation
+   <math display="inline">
+    (13)
+   </math>
+   along the first line.
+  </p>
+  <h4>
+   <b>
+    General Case
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   The following lines
+   <math display="inline">
+    (v \ge 2)
+   </math>
+   lead to even more involved equations, because in subinterval C the inhomogeneous solution is nontrivial, and additional subintervals B are inserted for each new line. The general structure of the solutions of the ODE is the same in the subintervals B, but the coefficients differ. And, of course, the points
+   <math display="inline">
+    S_f(\tau_v)
+   </math>
+   vary. The resulting analytic method of lines is quite involved. The final formulas from [3] for a put with
+   <math display="inline">
+    \delta &lt; r
+   </math>
+   are the following:
+  </p>
+  <p block-type="Text">
+   Notations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \gamma &amp;= \frac{1}{2} - \frac{r - \delta}{\sigma^2} \\ R &amp;= \frac{1}{1 + r\Delta\tau} \quad \text{(single-period discount factor)} \\ D &amp;= \frac{1}{1 + \delta\Delta\tau} \\ \varepsilon &amp;= \sqrt{\gamma^2 + \frac{2}{R\sigma^2\Delta\tau}} \\ p &amp;= \frac{\varepsilon - \gamma}{2\varepsilon} \ , \ q = 1 - p \end{aligned}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{p} = \frac{\varepsilon - \gamma + 1}{2\varepsilon} , \ \hat{q} = 1 - \hat{p}
+   </math>
+   <br/>
+   <math display="block">
+    S_{f,\nu} := S_f(\tau_\nu)
+   </math>
+   <br/>
+   <math display="block">
+    V^{(n)}(S) = \text{approximation of the American put for}
+   </math>
+   <br/>
+   <math display="block">
+    t = 0
+   </math>
+  </p>
+  <p block-type="Text">
+   After
+   <i>
+    n
+   </i>
+   lines, the solutions consist of
+   <math display="inline">
+    n + 2
+   </math>
+   pieces,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^{(n)}(S) = \begin{cases} K - S &amp; \text{for } S \leq S_{f,n} \\ v_{\nu}^{(n)}(S) + b_{\nu}^{(n)}(S) + A_{\nu}^{(n)}(S;1) \\ &amp; \text{for } S_{f,\nu} &lt; S \leq S_{f,\nu-1} \ , \ \nu = 1,\dots,n \\ p_{0}^{(n)}(S) + b_{1}^{(n)}(S) &amp; \text{for } S &gt; S_{f,0} \equiv K \end{cases}
+   </math>
+   (19)
+  </p>
+  <p block-type="TextInlineMath">
+   This piecewise defined function represents
+   <math display="inline">
+    w(S, \tau_n)
+   </math>
+   and corresponds to
+   <math display="inline">
+    V(S, 0)
+   </math>
+   . The coefficients are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_0^{(n)}(S) = \left(\frac{S}{K}\right)^{\gamma-\varepsilon} \sum_{k=0}^{n-1} \frac{(2\varepsilon \ln(S/K))^k}{k!} \times \sum_{l=0}^{n-k-1} {n-1+l \choose n-1} \times \left[ KR^n q^n p^{l+k} - KD^n \hat{q}^n \hat{p}^{l+k} \right]
+   </math>
+   (20)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_{\nu}^{(n)}(S) = KR^{n-\nu+1} - SD^{n-\nu+1} \tag{21}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    b_{\nu}^{(n)}(S) = \sum_{j=1}^{n-\nu+1} \left(\frac{S}{S_{f,n-j+1}}\right)^{\gamma-\varepsilon}
+   </math>
+   <math display="block">
+    \times \sum_{k=0}^{j-1} \frac{(2\varepsilon \ln(S/S_{f,n-j+1}))^k}{k!}
+   </math>
+   <math display="block">
+    \times \sum_{l=0}^{j-k-1} {j-1+l \choose j-1}
+   </math>
+   <math display="block">
+    \times \left[q^j p^{k+l} R^j K r - \hat{q}^j \hat{p}^{k+l} D^j S_{f,n-j+1} \delta\right] \Delta \tau \tag{22}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_{\nu}^{(n)}(S;i) = \sum_{j=i}^{n-\nu+1} \left(\frac{S}{S_{f,n-j+1}}\right)^{\nu+\varepsilon} \times \sum_{k=0}^{j-1} \frac{(2\varepsilon \ln(S_{f,n-j+1}/S))^k}{k!}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \times \sum_{l=0}^{j-k-1} {j-1+l \choose j-1} \\
+\times \left[ p^j q^{k+l} R^j K r \right] \\
+- \hat{p}^j \hat{q}^{k+l} D^j S_{f,n-j+1} \delta \right] \Delta \tau \n
+   </math>
+   (23)
+  </p>
+  <p block-type="Text">
+   The approximation of the optimal exercise prices
+   <math display="inline">
+    S_{f,m}
+   </math>
+   are solutions of the equations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c_{1}^{(m)}(K) - A_{1}^{(m)}(K;2)
+   </math>
+   <br/>
+   =
+   <math>
+    \left(\frac{K}{S_{f,m}}\right)^{\gamma+\varepsilon} \left[pRKr - \hat{p}DS_{f,m}\delta\right] \Delta \tau
+   </math>
+   (24)
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    m = 1, \ldots, n
+   </math>
+   , where
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \sim
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \sim
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c_{1}^{(m)}(K) = \sum_{l=0}^{m-1} {m-1+l \choose m-1} \times \left[KD^{m}\hat{p}^{m}\hat{q}^{l} - KR^{m}p^{m}q^{l}\right] \qquad (25)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This equation is solved iteratively with Newton's method. In case no dividend is paid (
+   <math display="inline">
+    \delta = 0, D = 1
+   </math>
+   ), no iteration is needed, and the solution is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_{f,m} = K \left(\frac{pRKr\Delta\tau}{c_1^{(m)}(K) - A_1^{(m)}(K;2)}\right)^{1/(\gamma+\varepsilon)} \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This value would serve as initial guess for the Newton iteration in case
+   <math display="inline">
+    \delta &gt; 0
+   </math>
+   . The formulas of these triple sums are also collected in [2]. The corresponding formulas for a call are available too. Instead, the put-call symmetry relation from [4] can be used as well.
+  </p>
+  <h2>
+   Extrapolation
+  </h2>
+  <p block-type="TextInlineMath">
+   For small values of
+   <math display="inline">
+    n
+   </math>
+   , the method does not provide high accuracy in its basic state. To enhance the quality of the approximation, Richardson extrapolation is applied. Let
+   <math display="inline">
+    \overline{V}_n
+   </math>
+   denote the result of the above MoL with
+   <math display="inline">
+    n
+   </math>
+   lines, evaluating equation (19) for a given value of S. Assume that three approximations
+   <math display="inline">
+    \overline{V}_1
+   </math>
+   ,
+   <math display="inline">
+    \overline{V}_2
+   </math>
+   , and
+   <math display="inline">
+    \overline{V}_3
+   </math>
+   are calculated. Note that
+   <math display="inline">
+    \overline{V}_1
+   </math>
+   means that only a single timestep of size
+   <math display="inline">
+    \Delta \tau = T
+   </math>
+   is used. Then the extrapolated value
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{V}^{1:3} := \frac{1}{2}(9\overline{V}_3 - 8\overline{V}_2 + \overline{V}_1) \tag{27}
+   </math>
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th rowspan="2">
+      Table 1
+      <br/>
+      S
+     </th>
+     <th colspan="5">
+      Test results of the tuned V 1:3 for
+      <br/>
+      K = 100
+     </th>
+    </tr>
+    <tr>
+     <th>
+      T
+     </th>
+     <th>
+      σ
+     </th>
+     <th>
+      r
+     </th>
+     <th>
+      δ
+     </th>
+     <th>
+      V (S, 0)
+     </th>
+    </tr>
+    <tr>
+     <td>
+      80
+     </td>
+     <td>
+      0.5
+     </td>
+     <td>
+      0.4
+     </td>
+     <td>
+      0.06
+     </td>
+     <td>
+      0.00
+     </td>
+     <td>
+      21.6257
+     </td>
+    </tr>
+    <tr>
+     <td>
+      100
+     </td>
+     <td>
+      0.5
+     </td>
+     <td>
+      0.4
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.00
+     </td>
+     <td>
+      10.7899
+     </td>
+    </tr>
+    <tr>
+     <td>
+      80
+     </td>
+     <td>
+      3.0
+     </td>
+     <td>
+      0.4
+     </td>
+     <td>
+      0.06
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      29.2323
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="TextInlineMath">
+   gives an accurate result with order
+   <i>
+    (τ )
+   </i>
+   3. As shown in [1], the obtainable accuracy of the combined MoL/extrapolation approach compares well to the other methods. Reference [3] applies a fine tuning to the three-point formula
+   <i>
+    V
+   </i>
+   1:3 replacing the coefficient 8 in the above formula by 8
+   <i>
+    (
+   </i>
+   1 − 0
+   <i>
+    .
+   </i>
+   0002
+   <i>
+    (
+   </i>
+   5 −
+   <i>
+    T )
+   </i>
+   <sup>
+    +
+   </sup>
+   <i>
+    )
+   </i>
+   . Even with only two approximations,
+   <i>
+    V
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    , V
+   </i>
+   2, extrapolation enhances the accuracy significantly. The formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{V}^{1:2} := -\overline{V}^1 + 2\overline{V}^2 \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is of the order
+   <i>
+    (τ )
+   </i>
+   2. The justification of Richardson extrapolation in this context does not yet appear fully explored; smoothness in time is assumed. This is not a disadvantage since equations (27) or (28) serve as analytic-approximation formulas.
+  </p>
+  <h1>
+   <b>
+    Further Remarks
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   For comparison, we provide in Table 1, three test values of the tuned version of the three-line extrapolation
+  </p>
+  <p block-type="TextInlineMath">
+   equation (27). To check the accuracy, an independent computation with a highly accurate version of a finite-difference approach was run. This has revealed relative errors of about 10
+   <sup>
+    −
+   </sup>
+   <sup>
+    3
+   </sup>
+   in the three examples reported in Table 1—that is, three digits are correct. For testing purposes, the MoL method with the tuned version of the formula
+   <i>
+    V
+   </i>
+   1:3 of equation (27) is installed in the option-calculator of the website www.compfin.de. Note that the above describes the analytic method of [3]; the MoL approach of [5] solves equation (7) numerically.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Broadie, M. &amp; Detemple, J. (1996). American option valuation: new bounds, approximations, and a comparison of existing methods,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      9
+     </b>
+     , 1211–1250.
+    </li>
+    <li block-type="ListItem">
+     [2] Carr, P. (1998). Randomization and the American put,
+     <i>
+      Review Financial Studies
+     </i>
+     <b>
+      11
+     </b>
+     , 597–626.
+    </li>
+    <li block-type="ListItem">
+     [3] Carr, P. &amp; Faguet, D. (1995).
+     <i>
+      Fast Accurate Valuation of American Options
+     </i>
+     , Working Paper, Cornell University.
+    </li>
+    <li block-type="ListItem">
+     [4] McDonald, R.L. &amp; Schroder, M.D. (1998). A parity result for American options,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      1
+     </b>
+     (3), 5–13.
+    </li>
+    <li block-type="ListItem">
+     [5] Meyer, G.H. &amp; van der Hoek, J. (1997). The valuation of American options with the method of lines,
+     <i>
+      Advances in Futures and Options Research
+     </i>
+     <b>
+      9
+     </b>
+     , 265–285.
+    </li>
+    <li block-type="ListItem">
+     [6] Seydel, R. (2006).
+     <i>
+      Tools for Computational Finance
+     </i>
+     , Springer, Berlin.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   RUDIGER ¨ U. SEYDEL
+  </p>
+ </body>
+</html>

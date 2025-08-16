@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Infinite Divisibility
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   We say that a random variable
+   <math display="inline">
+    X
+   </math>
+   has an infinitely divisible (ID) distribution (in short
+   <math display="inline">
+    X
+   </math>
+   is ID) if for all the integers
+   <math display="inline">
+    n &gt; 1
+   </math>
+   there exist
+   <i>
+    n
+   </i>
+   independent identically distributed (i.i.d) random variables
+   <math display="inline">
+    X_1,\ldots,X_n
+   </math>
+   , such that
+   <math display="inline">
+    X_1+\cdots+X_n\stackrel{d}{=}X
+   </math>
+   , where
+   <math display="inline">
+    \stackrel{d}{=}
+   </math>
+   is equality in distribution. Alternatively,
+   <math display="inline">
+    X
+   </math>
+   (or its distribution
+   <math display="inline">
+    \mu
+   </math>
+   ) is ID if for all
+   <math display="inline">
+    n \ge 1
+   </math>
+   ,
+   <math display="inline">
+    \mu
+   </math>
+   is the
+   <i>
+    nth
+   </i>
+   convolution
+   <math display="inline">
+    \mu_n * \cdots * \mu_n
+   </math>
+   , where
+   <math display="inline">
+    \mu_n
+   </math>
+   is a probability distribution.
+  </p>
+  <p block-type="Text">
+   There are several advantages in using infinitely divisible distributions and processes in financial modeling. First, they offer wide possibilities for modeling alternatives to the Gaussian and stable distributions, while maintaining a link with the central limit theorem and a rich probabilistic structure. Second, they are closely linked to Lévy processes: for each ID distribution
+   <math display="inline">
+    \mu
+   </math>
+   there is a Lévy process (see Lévy Processes)
+   <math display="inline">
+    \{X_t : t \ge 0\}
+   </math>
+   with
+   <math display="inline">
+    X_1
+   </math>
+   having distribution
+   <math display="inline">
+    \mu
+   </math>
+   . Third, every stationary distribution of an Ornstein-Uhlenbeck process (see Ornstein-Uhlenbeck Processes) belongs to the class
+   <math display="inline">
+    L
+   </math>
+   of ID distributions, which are self-decomposable (SD). We say that a random variable
+   <math display="inline">
+    X
+   </math>
+   is SD if it has the linear autoregressive property: for any
+   <math display="inline">
+    \theta \in (0, 1)
+   </math>
+   , there is a random variable
+   <math display="inline">
+    \varepsilon_{\theta}
+   </math>
+   independent of X such that
+   <math display="inline">
+    X \stackrel{d}{=} \theta X + \varepsilon_{\theta}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The concept of infinite divisibility in probability was introduced in 1929 by de Fenneti. Its theory was established in the 1930s by Khintchine, Kolmogorov, and Lévy. Motivated by applications arising in different fields, from the 1960s on there was a renewed interest in the subject, in particular, among many other topics, in the study of concrete examples and subclasses of ID distributions. Historical notes and references are found in
+   <math display="inline">
+    [3, 6, 8, 9]
+   </math>
+   .
+  </p>
+  <h2>
+   Link with the Central Limit Theorem
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The class of ID distributions is characterized as the class of possible limit laws for triangular arrays of the form
+   <math display="inline">
+    X_{n,1} + \cdots + X_{n,k_n} - a_n
+   </math>
+   , where
+   <math display="inline">
+    k_n &gt; 0
+   </math>
+   is an increasing sequence,
+   <math display="inline">
+    X_{n,1}, \ldots, X_{n,k_n}
+   </math>
+   are independent random variable for every
+   <math display="inline">
+    n \ge 1
+   </math>
+   ,
+   <math display="inline">
+    a_n
+   </math>
+   are normalized constants, and
+   <math display="inline">
+    \{X_{n,j}\}
+   </math>
+   is
+   <i>
+    infinitesimal
+   </i>
+   :
+   <math display="inline">
+    \lim_{n\to\infty} \max_{1\leq j\leq k_n} P(|X_{n,j}| &gt; \epsilon) = 0
+   </math>
+   , for each
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \epsilon &gt; 0
+   </math>
+   . On the other hand, the class L of SD distributions is characterized as the class of possible limit laws for normalized sequences of the form
+   <math display="inline">
+    (X_1 + \cdots + X_n - a_n)/b_n
+   </math>
+   , where
+   <math display="inline">
+    X_1, X_2, \ldots
+   </math>
+   are independent random variables and
+   <math display="inline">
+    a_n
+   </math>
+   and
+   <math display="inline">
+    b_n &gt; 0
+   </math>
+   are sequences of numbers with
+   <math display="inline">
+    \lim_{n\to\infty} b_n = \infty
+   </math>
+   and
+   <math display="inline">
+    \lim_{n\to\infty} b_{n+1}/b_n = 1.
+   </math>
+  </p>
+  <h2>
+   Lévy-Khintchine Representation
+  </h2>
+  <p block-type="TextInlineMath">
+   In terms of characteristic functions (see Filtering), a random variable X is ID if
+   <math display="inline">
+    \varphi(u) = E[e^{iuX}]
+   </math>
+   is represented by
+   <math display="inline">
+    \varphi = (\varphi_n)^n
+   </math>
+   , where
+   <math display="inline">
+    \varphi_n
+   </math>
+   is the characteristic function of a probability distribution for every
+   <math display="inline">
+    n &gt; 1
+   </math>
+   . We define the
+   <i>
+    characteristic exponent
+   </i>
+   or cumulant function of X by
+   <math display="inline">
+    \Psi(u) = \log \varphi(u)
+   </math>
+   . The Lévy-Khintchine representation establishes that a distribution function
+   <math display="inline">
+    \mu
+   </math>
+   is ID if and only if its characteristic exponent is represented by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(u) = iau - \frac{1}{2}u^2\sigma^2\n
+   </math>
+   <math display="block">
+    \n+ \int_{\mathbb{R}} \left( e^{iux} - 1 - iux1_{|x| \le 1} \right) \Pi(dx), \quad u \in \mathbb{R}\n
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma^2 \ge 0
+   </math>
+   ,
+   <i>
+    a
+   </i>
+   ∈ ℝ and Π is a positive measure on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   with no atom at zero and
+   <math display="inline">
+    \int_{\mathbb{R}} \min(1, |x|^2) \Pi(dx) &lt;
+   </math>
+   <math display="inline">
+    \infty
+   </math>
+   . The triplet
+   <math display="inline">
+    (a, \sigma^2, \Pi)
+   </math>
+   is unique and is called the generating triplet of
+   <math display="inline">
+    \mu
+   </math>
+   , while
+   <math display="inline">
+    \Pi
+   </math>
+   is its Lévy
+   <i>
+    measure.
+   </i>
+   When
+   <math display="inline">
+    \pi
+   </math>
+   is zero, we have the Gaussian distribution. We speak of the purely non-Gaussian case when
+   <math display="inline">
+    \sigma^2 = 0
+   </math>
+   . When
+   <math display="inline">
+    \Pi(dx) = h(x)dx
+   </math>
+   is absolutely continuous, we call the nonnegative function
+   <math display="inline">
+    h
+   </math>
+   the Lévy density of
+   <math display="inline">
+    \Pi
+   </math>
+   . Distributions in the class
+   <math display="inline">
+    L
+   </math>
+   are also characterized by having Lévy densities of the form
+   <math display="inline">
+    h(x) = |x|^{-1} g(x)
+   </math>
+   , where g is nondecreasing in
+   <math display="inline">
+    x &lt; 0
+   </math>
+   and nonincreasing in
+   <math display="inline">
+    x &gt; 0.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A nonnegative ID random variable is characterized by a special form of its Lévy-Khintchine representation: it is purely non-Gaussian,
+   <math display="inline">
+    \Pi(-\infty, 0) = 0
+   </math>
+   ,
+   <math display="inline">
+    \int_{|x|&lt;1} |x| \Pi(\mathrm{d}x) &lt; \infty
+   </math>
+   , and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(u) = ia_0u + \int_{\mathbb{R}_+} \left( e^{iux} - 1 \right) \Pi(dx) \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    a_0 \ge 0
+   </math>
+   is called the
+   <i>
+    drift
+   </i>
+   . The associated Lévy process
+   <math display="inline">
+    \{X_t : t \ge 0\}
+   </math>
+   is called a
+   <i>
+    subordinator
+   </i>
+   . It is a
+  </p>
+  <p block-type="Text">
+   nonnegative increasing process having characteristic exponent (2). Subordinators are useful models for random time evolutions.
+  </p>
+  <p block-type="TextInlineMath">
+   Several properties of an ID random variable
+   <math display="inline">
+    X
+   </math>
+   are related to corresponding properties of its Lévy measure
+   <math display="inline">
+    \Pi
+   </math>
+   . For example, the
+   <i>
+    k
+   </i>
+   th moment
+   <math display="inline">
+    E |X|^k
+   </math>
+   is finite if and only if
+   <math display="inline">
+    \int_{|x|&gt;1} |x|^k \Pi(dx)
+   </math>
+   is finite. Likewise, for the ID&lt;sub&gt;log&lt;/sub&gt; condition:
+   <math display="inline">
+    \int_{|x|&gt;2} \ln |x| \Pi(dx) &lt; \infty
+   </math>
+   if and only if
+   <math display="inline">
+    \int_{|x|&gt;2} \ln |x| \mu(dx) &lt; \infty
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The monograph [8] has a detailed study of multivariate ID distributions and their associated Lévy processes.
+  </p>
+  <h3>
+   <b>
+    Classical Examples and Criteria
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   The Poisson distribution with mean
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   is ID with Lévy measure
+   <math display="inline">
+    \Pi(B) = \lambda 1_{\{1\}}(B)
+   </math>
+   , but is not SD. A compound Poisson distribution is the law of
+   <math display="inline">
+    X = \sum_{i=1}^{N} Y_i
+   </math>
+   , where
+   <math display="inline">
+    N, Y_1, Y_2, \ldots
+   </math>
+   are independent random variables,
+   <math display="inline">
+    N
+   </math>
+   having Poisson distribution with mean
+   <math display="inline">
+    \lambda
+   </math>
+   and the
+   <math display="inline">
+    Y_i
+   </math>
+   's have the same distribution G, with
+   <math display="inline">
+    G(\{0\}) = 0
+   </math>
+   . Any compound Poisson distribution is ID with Lévy measure
+   <math display="inline">
+    \Pi(B) = \lambda G(B)
+   </math>
+   . This distribution is a building block for all other ID laws, since every ID distribution is the limit of a sequence of compound Poisson distributions.
+  </p>
+  <p block-type="TextInlineMath">
+   An important example of an SD law is the gamma distribution with shape parameter
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   and scale parameter
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   . It has Lévy density
+   <math display="inline">
+    h(x) =
+   </math>
+   <math display="inline">
+    \alpha x^{-1}e^{-\beta x}
+   </math>
+   ,
+   <math display="inline">
+    x &gt; 0
+   </math>
+   . The
+   <math display="inline">
+    \alpha
+   </math>
+   -stable distribution, with
+   <math display="inline">
+    0 &lt; \alpha &lt; 2
+   </math>
+   and purely non Gaussian, is also SD. Its Lévy density is
+   <math display="inline">
+    h(x) = c_1 x^{-1-\alpha} dx
+   </math>
+   on
+   <math display="inline">
+    (0, \infty)
+   </math>
+   and
+   <math display="inline">
+    h(\mathrm{d}x) = c_2 |x|^{-1-\alpha}
+   </math>
+   on
+   <math display="inline">
+    (-\infty, 0)
+   </math>
+   , with
+   <math display="inline">
+    c_1 \ge 0, c_2 \ge 0
+   </math>
+   and
+   <math display="inline">
+    c_1 + c_2 &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   There is no explicit characterization of infinite divisibility in terms of densities or distributions. However, there are some sufficient or necessary conditions to test for infinite divisibility. A nonnegative random variable with density
+   <math display="inline">
+    f
+   </math>
+   is ID in any of the following cases: (i)
+   <math display="inline">
+    \log f
+   </math>
+   is convex, (ii) f is completely monotone, or (iii)
+   <math display="inline">
+    f
+   </math>
+   is hyperbolically completely monotone [9]. If
+   <math display="inline">
+    X
+   </math>
+   is symmetric around zero, it is ID if it has a density that is completely monotone on
+   <math display="inline">
+    (0, \infty)
+   </math>
+   . For a non-Gaussian ID distribution F, its tail behavior is
+   <math display="inline">
+    -\log(1 + F(-x) - F(x)) = O(x \log x)
+   </math>
+   , when
+   <math display="inline">
+    x \to \infty
+   </math>
+   . Hence, no bounded random variable is ID and if a density has a decay of the type
+   <math display="inline">
+    c_1 \exp(-c_2 x^2)
+   </math>
+   with some
+   <math display="inline">
+    c_1, c_2
+   </math>
+   positive and if it is not Gaussian, then
+   <math display="inline">
+    F
+   </math>
+   is not ID. An important property
+  </p>
+  <p block-type="Text">
+   of SD distributions is that they always have densities that are unimodal.
+  </p>
+  <p block-type="Text">
+   Infinite divisibility is preserved under some mixtures of distributions. One has the surprising fact that any mixture of the exponential distribution is ID:
+   <math display="inline">
+    X \stackrel{d}{=} YV
+   </math>
+   is ID whenever V has exponential distribution and
+   <math display="inline">
+    Y
+   </math>
+   is an arbitrary nonnegative random variable independent of
+   <math display="inline">
+    V
+   </math>
+   . The monograph [9] has a detailed study of ID mixtures.
+  </p>
+  <h3>
+   <b>
+    Stochastic Integral Representations
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   Several classes of ID distributions are characterized by stochastic integrals (see Stochastic Integrals) of a nonrandom function with respect to a Lévy process [2]. The classical example is the class
+   <math display="inline">
+    L
+   </math>
+   that is also characterized as all the laws of
+   <math display="inline">
+    X \stackrel{d}{=}
+   </math>
+   <math display="inline">
+    \int_0^\infty e^{-t} \mathrm{d}Z_t
+   </math>
+   , where
+   <math display="inline">
+    Z_t
+   </math>
+   is a Levy process having Lévy measure
+   <math display="inline">
+    \Pi_Z
+   </math>
+   with the ID&lt;sub&gt;log&lt;/sub&gt; condition. More generally, the stochastic integral
+   <math display="inline">
+    \int_0^1 \log t^{-1} dZ_t
+   </math>
+   is well defined for every Lévy process
+   <math display="inline">
+    Z_t
+   </math>
+   . Denote by
+   <math display="inline">
+    B(\mathbb{R})
+   </math>
+   the class of all the distributions of these stochastic integrals. The class
+   <math display="inline">
+    B(\mathbb{R})
+   </math>
+   coincides with those ID laws with completely monotone Lévy density. It is also characterized as the smallest class that contains all mixtures of exponential distributions and is closed under convolution, convergence, and reflection. It is sometimes called the Bondenson-Goldie-Steutel class of distributions. Multivariate extensions are presented in [2].
+  </p>
+  <h2>
+   <b>
+    Generalized Gamma Convolutions
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   The class of generalized gamma convolutions (GGCs) is the smallest class of probability distributions on
+   <math display="inline">
+    \mathbb{R}_+
+   </math>
+   that contains all gamma distributions and is closed under convolution and convergence in distribution [6]. These laws are in the class
+   <math display="inline">
+    L
+   </math>
+   and have Lévy density of the form
+   <math display="inline">
+    h(x) = x^{-1}g(x), x &gt; 0,
+   </math>
+   with g a completely monotone function on
+   <math display="inline">
+    (0, \infty)
+   </math>
+   . Most of the classical distributions on
+   <math display="inline">
+    \mathbb{R}_+
+   </math>
+   are GGC: gamma, lognormal, positive
+   <math display="inline">
+    \alpha
+   </math>
+   -stable, Pareto, Student
+   <math display="inline">
+    t
+   </math>
+   -distribution, Gumbel, and
+   <math display="inline">
+    F
+   </math>
+   -distribution. Of special applicability in financial modeling is the family of generalized inverse Gaussian distributions [4, 7].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   A distribution
+   <math display="inline">
+    \mu
+   </math>
+   with characteristic exponent
+   <math display="inline">
+    \Psi
+   </math>
+   is GGC if and only if there exists a positive Radon
+  </p>
+  <p block-type="Text">
+   measure U on
+   <math display="inline">
+    (0, \infty)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(u) = ia_0u - \int_0^\infty \log\left(1 + \frac{iu}{s}\right)U(\mathrm{d}s) \qquad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \int_0^1 |\log x| U(\mathrm{d}x) &lt; \infty
+   </math>
+   and
+   <math display="inline">
+    \int_1^\infty U(\mathrm{d}x)/x &lt; \infty
+   </math>
+   . The measure
+   <math display="inline">
+    U_{\mu}
+   </math>
+   is called the
+   <i>
+    Thorin measure
+   </i>
+   of
+   <math display="inline">
+    \mu
+   </math>
+   . So, the triplet of
+   <math display="inline">
+    \mu
+   </math>
+   is
+   <math display="inline">
+    (a_0, 0, \nu_\mu)
+   </math>
+   where the Lévy measure is concentrated on
+   <math display="inline">
+    (0,\infty)
+   </math>
+   and such that
+   <math display="inline">
+    v_{\mu}(\mathrm{d}x) = \mathrm{d}x/x \int_{0}^{\infty} \mathrm{e}^{-xs} U_{\mu}(\mathrm{d}s)
+   </math>
+   . Moreover, any GGC is the law of a Wiener-gamma integral
+   <math display="inline">
+    \int_0^\infty h(u) \mathrm{d}\gamma_u
+   </math>
+   , where
+   <math display="inline">
+    (\gamma_t; t \ge 0)
+   </math>
+   is the standard gamma process with Lévy measure
+   <math display="inline">
+    v(dx) = e^{-x}(dx/x)
+   </math>
+   and h is a Borel function
+   <math display="inline">
+    h: \mathbb{R}_+ \to \mathbb{R}_+
+   </math>
+   with
+   <math display="inline">
+    \int_0^\infty \log(1 + h(t)) dt &lt; \infty
+   </math>
+   . The function
+   <i>
+    h
+   </i>
+   is called the
+   <i>
+    Thorin function
+   </i>
+   of
+   <math display="inline">
+    \mu
+   </math>
+   and is obtained as follows. Let
+   <math display="inline">
+    F_U(x) = \int_0^x U(dy)
+   </math>
+   for
+   <math display="inline">
+    x \ge 0
+   </math>
+   and let
+   <math display="inline">
+    F_U^{-1}(s)
+   </math>
+   be the right continuous inverse of
+   <math display="inline">
+    F_{II}^{-1}(s)
+   </math>
+   in the sense of composition of functions, that is
+   <math display="inline">
+    F_U^{-1}(s) = \inf\{t &gt; 0; F_U(t) \ge s\}
+   </math>
+   for
+   <math display="inline">
+    s \ge 0
+   </math>
+   . Then,
+   <math display="inline">
+    h(s) = 1/F_U^{-1}(s)
+   </math>
+   for
+   <math display="inline">
+    s \ge 0
+   </math>
+   . For the positive
+   <math display="inline">
+    \alpha
+   </math>
+   -stable distributions,
+   <math display="inline">
+    0 &lt; \alpha &lt; 1
+   </math>
+   ,
+   <math display="inline">
+    h(s) =
+   </math>
+   <math display="inline">
+    \{s\theta\Gamma(\alpha+1)\}^{-1/\alpha}
+   </math>
+   for a
+   <math display="inline">
+    \theta&gt;0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   For distributions on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   , Thorin also introduced the class
+   <math display="inline">
+    T(\mathbb{R})
+   </math>
+   of extended generalized gamma convolutions as the smallest class that contains the GGC and is closed under convolution, convergence in distribution, and reflection. These distributions are in the class
+   <math display="inline">
+    L
+   </math>
+   and are characterized by the alternative representation of their characteristic exponents
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(u) = iua - \frac{1}{2}u^2\sigma^2\n
+   </math>
+   <math display="block">
+    \n-\int_{\mathbb{R}_+} \left[ \ln\left(1 - \frac{iu}{x}\right) + \frac{iux}{1+x^2} \right] U(\mathrm{d}x) \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    a \in \mathbb{R}
+   </math>
+   ,
+   <math display="inline">
+    \sigma^2 \ge 0
+   </math>
+   and
+   <math display="inline">
+    U : \mathbb{R}_+ \to \mathbb{R}_+
+   </math>
+   is a nondecreasing function with
+   <math display="inline">
+    U(0) = 0
+   </math>
+   ,
+   <math display="inline">
+    \int_0^1 |\ln(x)| U(dx) &lt;
+   </math>
+   <math display="inline">
+    \infty
+   </math>
+   and
+   <math display="inline">
+    \int_{1}^{\infty} x^{-2} U(\mathrm{d}x) &lt; \infty
+   </math>
+   . Several examples of Thorin distributions are given in [6, 9]. Any member of this class is the law of a stochastic integral
+   <math display="inline">
+    \int_0^\infty g^*(t) dZ_t
+   </math>
+   , where
+   <math display="inline">
+    Z_t
+   </math>
+   is a Lévy process with
+   <math display="inline">
+    Z_1
+   </math>
+   satisfying the ID&lt;sub&gt;log&lt;/sub&gt; condition and
+   <math display="inline">
+    g^*
+   </math>
+   is the inverse of the incomplete gamma function
+   <math display="inline">
+    g(t) =
+   </math>
+   <math display="inline">
+    \int_{t}^{\infty} u^{-1} e^{-u} du
+   </math>
+   [2].
+  </p>
+  <h2>
+   Type G Distributions
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   A random variable X is of type G if
+   <math display="inline">
+    X \stackrel{d}{=} \sqrt{V}N
+   </math>
+   , where
+   <math display="inline">
+    N
+   </math>
+   and
+   <math display="inline">
+    V
+   </math>
+   are independent random variables
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    V
+   </math>
+   being nonnegative ID and
+   <math display="inline">
+    N
+   </math>
+   having the standard normal distribution. Any type
+   <math display="inline">
+    G
+   </math>
+   distribution is ID and it is interpreted as the law of a random time changed Brownian motion
+   <math display="inline">
+    B_V
+   </math>
+   , where
+   <math display="inline">
+    \{B_t : t \ge 0\}
+   </math>
+   is a Brownian motion independent of V. When we know the Lévy measure
+   <math display="inline">
+    \rho
+   </math>
+   of V, we can compute the Lévy density of X as
+   <math display="inline">
+    h(x) =
+   </math>
+   <math display="inline">
+    (2\pi)^{-1/2} \int_{\mathbb{R}_+} s^{-1/2} e^{-\frac{1}{2s}x^2} \rho(\mathrm{d}s)
+   </math>
+   as well as its characteristic exponent
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi_X(u) = \int_{\mathbb{R}_+} \left( e^{-(1/2)u^2 s} - 1 \right) \rho(ds) \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Many classical distributions are of type
+   <math display="inline">
+    G
+   </math>
+   and SD: the gamma variance distribution, where
+   <math display="inline">
+    V
+   </math>
+   has a gamma distribution; the Student
+   <math display="inline">
+    t
+   </math>
+   , where
+   <math display="inline">
+    V
+   </math>
+   has the distribution of the reciprocal chi-square distribution and the symmetric
+   <math display="inline">
+    \alpha
+   </math>
+   -stable distributions,
+   <math display="inline">
+    0 &lt; \alpha &lt; 2
+   </math>
+   ; here V is a positive
+   <math display="inline">
+    \alpha/2
+   </math>
+   -stable random variable, including the Cauchy distribution case
+   <math display="inline">
+    \alpha = 1
+   </math>
+   . Of special relevance in financial modeling are the normal inverse Gaussian, with
+   <math display="inline">
+    V
+   </math>
+   following the inverse Gaussian law [1], and the zero-mean symmetric generalized hyperbolic distributions, where
+   <math display="inline">
+    V
+   </math>
+   has the generalized inverse Gaussian law [5, 7]; all their moments are finite and they can accommodate heavy tails.
+  </p>
+  <h3>
+   <b>
+    Tempered Stable Distributions
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   Tempered stable distributions (see
+   <b>
+    Tempered Stable Process
+   </b>
+   ) are useful in mathematical finance as an attractive alternative to stable distributions, since they can have moments and heavy tails at the same time. Their corresponding Lévy and Ornstein-Uhlenbeck processes combines both the stable and Gaussian trends. An ID distribution on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   is
+   <i>
+    tempered stable
+   </i>
+   if it is purely non-Gaussian and if its Lévy measure is of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pi(B) = \int_{\mathbb{R}} \int_0^\infty 1_B(sx)s^{-1-\alpha}g(s)ds\tau(dx) \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    0 &lt; \alpha &lt; 2
+   </math>
+   , g is a completely monotone function on
+   <math display="inline">
+    (0,\infty)
+   </math>
+   and
+   <math display="inline">
+    \tau
+   </math>
+   is a finite Borel measure on
+   <math display="inline">
+    \mathbb R
+   </math>
+   such that
+   <math display="inline">
+    \tau
+   </math>
+   has no atom at zero and
+   <math display="inline">
+    \int_{\mathbb{R}} |x|^{\alpha} \tau(dx) &lt;
+   </math>
+   <math display="inline">
+    \infty
+   </math>
+   . These distributions are in class L and constitute a proper subclass of the class of Thorin distributions
+   <math display="inline">
+    T(\mathbb{R})
+   </math>
+   .
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Barndorff-Nielsen, O.E. (1998). Processes of normal inverse Gaussian type,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      2
+     </b>
+     , 41–68.
+    </li>
+    <li block-type="ListItem">
+     [2] Barndorff-Nielsen, O.E., Maejima, M. &amp; Sato, K. (2006). Some classes of multivariate infinitely divisible distributions admitting stochastic integral representations,
+     <i>
+      Bernoulli
+     </i>
+     <b>
+      12
+     </b>
+     , 1–33.
+    </li>
+    <li block-type="ListItem">
+     [3] Barndorff-Nielsen, O.E., Mikosch, T. &amp; Resnick, S. (eds) (2001).
+     <i>
+      L´evy Processes—Theory and Applications
+     </i>
+     , Birkhauser, Boston. ¨
+    </li>
+    <li block-type="ListItem">
+     [4] Barndorff-Nielsen, O.E. &amp; Shephard, N. (2001). Non-Gaussian Ornstein–Uhlenbeck-based models and some of their uses in financial economics (with Discussion),
+     <i>
+      Journal of the Royal Statistical Society Series B
+     </i>
+     <b>
+      63
+     </b>
+     , 167–241.
+    </li>
+    <li block-type="ListItem">
+     [5] Bibby, B.M. &amp; Sorensen, M. (2003). Hyperbolic distributions in finance, in
+     <i>
+      Handbook of Heavy Tailed Distributions in Finance
+     </i>
+     , S.T. Rachev, ed, Elsevier, Amsterdam.
+    </li>
+    <li block-type="ListItem">
+     [6] Bondesson, L. (1992).
+     <i>
+      Generalized Gamma Convolutions and Related Classes of Distributions and Densities
+     </i>
+     ,
+     <i>
+      Lecture Notes in Statistics
+     </i>
+     , Springer, Berlin, Vol. 76.
+    </li>
+    <li block-type="ListItem">
+     [7] Eberlein, E. &amp; Hammerstein, E.V. (2004). Generalized hyperbolic and inverse Gaussian distributions: limiting cases and approximation of processes, in
+     <i>
+      Seminar
+     </i>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <i>
+    on Stochastic Analysis, Random Fields and Applications IV
+   </i>
+   ,
+   <i>
+    Progress in Probability
+   </i>
+   , R.C. Dalang, M. Dozzi &amp; F. Russo, eds, Birkhauser, Vol. 58, pp. 221–264. ¨
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [8] Sato, K. (1999).
+     <i>
+      L´evy Processes and Infinitely Divisible Distributions
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [9] Steutel, F.W. &amp; Van Harn, K. (2003).
+     <i>
+      Infinite Divisibility of Probability Distributions on the Real Line
+     </i>
+     , Marcel-Dekker, New York.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     James, L.F., Roynette, B. &amp; Yor, M. (2008). Generalized gamma convolutions, Dirichlet means, Thorin measures, with explicit examples,
+     <i>
+      Probability Surveys
+     </i>
+     <b>
+      8
+     </b>
+     , 346–415.
+    </li>
+    <li block-type="ListItem">
+     Rosinski, J. (2007). Tempering stable processes,
+     <i>
+      Stochastic Processes and Their Applications
+     </i>
+     <b>
+      117
+     </b>
+     , 677–707.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ;
+   <b>
+    Heavy Tails
+   </b>
+   ;
+   <b>
+    Levy ´ Processes
+   </b>
+   ;
+   <b>
+    Ornstein–Uhlenbeck Processes
+   </b>
+   ;
+   <b>
+    Tempered Stable Process
+   </b>
+   ;
+   <b>
+    Time-changed Levy Process ´
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   V´ICTOR PEREZ ´ -ABREU
+  </p>
+ </body>
+</html>

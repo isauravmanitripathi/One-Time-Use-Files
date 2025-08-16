@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Wavelet Galerkin Method
+   </b>
+  </h1>
+  <p block-type="Text">
+   Wavelet methods in finance are a particular realization of the finite element method (
+   <i>
+    see
+   </i>
+   <b>
+    Finite Element Methods
+   </b>
+   ) that provides a very general PDE-based numerical pricing technique. The methods owe their name to the choice of a wavelet basis in the finite element method. This particular choice of basis allows the method to solve partial integro-differential equations (PIDEs) arising from a very large class of market models. Therefore, wavelet-based finite element methods are well suited for the analysis of model risk and pricing in multidimensional and exotic market models. Since wavelet methods are mesh-based methods they allow for the efficient calculation of Greeks and other model sensitivities.
+  </p>
+  <p block-type="TextInlineMath">
+   As for any finite element method, the general setup for wavelet methods can be described as follows. Consider a basket of
+   <i>
+    d
+   </i>
+   ≥ 1 assets whose log returns
+   <i>
+    Xt
+   </i>
+   are modeled by a Levy or, more generally, a Feller ´ process with state space
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   and
+   <i>
+    X
+   </i>
+   <sup>
+    0
+   </sup>
+   =
+   <i>
+    x
+   </i>
+   . By the fundamental theorem of asset pricing, the arbitragefree price
+   <i>
+    u
+   </i>
+   of a European contingent claim with payoff
+   <i>
+    g(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   on these assets is given by the conditional expectation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x,t) = \mathbb{E}\left[g(X_t) \mid X_0 = x\right] \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   under an
+   <i>
+    a priori
+   </i>
+   chosen equivalent martingale measure (
+   <i>
+    see
+   </i>
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ). Provided sufficient smoothness of
+   <i>
+    u
+   </i>
+   , the price can be obtained as the solution of a PIDE (
+   <i>
+    see
+   </i>
+   <b>
+    Partial Differential Equations
+   </b>
+   ;
+   <b>
+    Partial Integro-differential Equations (PIDEs)
+   </b>
+   ):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial u}{\partial t} + \mathcal{A}u = 0
+   </math>
+   <br/>
+   <math display="block">
+    u(\cdot, 0) = g \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where A denotes the infinitesimal generator of the process
+   <i>
+    X
+   </i>
+   . For the Galerkin-based finite element implementation, equation (2) is converted into variational form on a suitable test space
+   <i>
+    V
+   </i>
+   (cf., e.g., [11, 20] and the references therein). The variational pricing equation then reads: find
+   <i>
+    u
+   </i>
+   ∈
+   <i>
+    V
+   </i>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left\langle \frac{d}{dt}u, v \right\rangle + \mathcal{E}(u, v) = 0 \quad \text{ for all } v \in V \quad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where E
+   <i>
+    (u, v)
+   </i>
+   := A
+   <i>
+    u, vL
+   </i>
+   2×
+   <i>
+    L
+   </i>
+   <sup>
+    2
+   </sup>
+   denotes the bilinear form associated to the process
+   <i>
+    X
+   </i>
+   . Note that this bilinear form is the central object of discretization in wavelet methods. Owing to the variational formulation (3), wavelet methods are also referred to as
+   <i>
+    variational methods
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   In one dimension, wavelet methods have been introduced by Matache
+   <i>
+    et al.
+   </i>
+   [20, 21]. They were successively applied to American-type contracts (cf. [19, 27]) as well as stochastic volatility models (cf. [14]). In [11], this approach was extended to multidimensional market models based on the sparse tensor product approach and wavelet compression techniques as described in [23, 26] and the references therein.
+  </p>
+  <h2>
+   <b>
+    Admissible Pricing Models
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Wavelet-based finite element methods are applicable whenever the variational equation (3) admits a unique solution. Some admissible market models are the multidimensional Black–Scholes model, local volatility models, Kou's model (
+   <i>
+    see
+   </i>
+   <b>
+    Kou Model
+   </b>
+   ), stochastic volatility models (
+   <i>
+    see
+   </i>
+   <b>
+    Barndorff-Nielsen and Shephard (BNS) Models
+   </b>
+   ;
+   <b>
+    Heston Model
+   </b>
+   ;
+   <b>
+    Hull–White Stochastic Volatility Model
+   </b>
+   ), one-dimensional Levy models ( ´
+   <i>
+    see
+   </i>
+   <b>
+    Variancegamma Model
+   </b>
+   ;
+   <b>
+    Jump-diffusion Models
+   </b>
+   ;
+   <b>
+    Timechanged Levy Process ´
+   </b>
+   ;
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ), multidimensional Levy copula models (see [11]), ´ as well as models based on time inhomogeneous or nonstationary processes (see [6]). The particular choice of market model determines the particular form of the bilinear form E
+   <i>
+    (
+   </i>
+   ·
+   <i>
+    ,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   in equation (3). In all the above market models, the bilinear form is governed by the characteristic triplet
+   <i>
+    (γ ,
+   </i>
+   Q
+   <i>
+    ,ν)
+   </i>
+   of the underlying Levy process. It consists of a drift ´ vector
+   <i>
+    <sup>
+     γ
+    </sup>
+   </i>
+   <sup>
+    ∈
+   </sup>
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   , a covariance matrix
+   <sup>
+    Q
+   </sup>
+   <sup>
+    ∈
+   </sup>
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   ×
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   , and a Levy-type measure ´
+   <i>
+    ν
+   </i>
+   that is assumed to be absolutely continuous with density
+   <i>
+    k(z)
+   </i>
+   d
+   <i>
+    z
+   </i>
+   =
+   <i>
+    ν(
+   </i>
+   d
+   <i>
+    z)
+   </i>
+   . Then, E
+   <i>
+    (
+   </i>
+   ·
+   <i>
+    ,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   is of the abstract form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{E}(u,v) = \langle \gamma \nabla u, v \rangle + \frac{1}{2} \langle \mathcal{Q} \nabla u, \nabla v \rangle
+   </math>
+   <math display="block">
+    - \int_{\mathbb{R}^d} \int_{\mathbb{R}^d} (u(x+f(z)) - u(x)
+   </math>
+   <math display="block">
+    - f(z) \cdot \nabla u(x)) v(x) v(\mathrm{d}z) \, \mathrm{d}x \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that in case the underlying process
+   <math display="inline">
+    X
+   </math>
+   is not stationary or time inhomogeneous, the parameters
+   <math display="inline">
+    (\gamma, \mathcal{Q}, \nu) = (\gamma(x, t), \mathcal{Q}(x, t), \nu(x, t))
+   </math>
+   as well as the function
+   <math display="inline">
+    f(\cdot)
+   </math>
+   may depend on space and time (e.g., in models based on Sato processes [6]). Furthermore, the parameters are allowed to degenerate (e.g., in stochastic volatility models). Under rather weak conditions, wavelet-based finite elements methods are still applicable in these cases.
+  </p>
+  <h1>
+   <b>
+    Wavelet-based Finite Element
+   </b>
+   Discretization
+  </h1>
+  <p block-type="TextInlineMath">
+   The wavelet-based finite element implementation of equation (3) is obtained in three steps: first, the original space domain
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   has to be
+   <i>
+    localized
+   </i>
+   to a bounded domain
+   <math display="inline">
+    \Box := [-R, R]^d
+   </math>
+   ,
+   <math display="inline">
+    R &gt; 0
+   </math>
+   . Second, the test space
+   <math display="inline">
+    V
+   </math>
+   needs to be
+   <i>
+    discretized
+   </i>
+   by an increasing sequence of finite dimensional subspaces
+   <math display="inline">
+    V^L \subset V
+   </math>
+   ,
+   <math display="inline">
+    L \in \mathbb{N}
+   </math>
+   . Third, a
+   <i>
+    time-stepping
+   </i>
+   scheme has to be applied to discretize in time.
+  </p>
+  <h3>
+   Localization
+  </h3>
+  <p block-type="TextInlineMath">
+   For the localization, we find that in finance truncation of the original x-domain
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   to
+   <math display="inline">
+    \Box
+   </math>
+   corresponds to approximating the solution
+   <math display="inline">
+    u
+   </math>
+   of equation (2) by the price
+   <math display="inline">
+    u_R
+   </math>
+   of a corresponding barrier option on
+   <math display="inline">
+    [e^{-R}, e^{R}]^{d}
+   </math>
+   . In case the underlying stochastic process
+   <math display="inline">
+    X
+   </math>
+   admits semiheavy tails, the solution of the localized problem
+   <math display="inline">
+    u_R
+   </math>
+   converges pointwise exponentially to the solution
+   <math display="inline">
+    u
+   </math>
+   of equation (3). There exist constants
+   <math display="inline">
+    \alpha, \beta &gt; 0
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |u(t,x) - u_R(t,x)| \lesssim e^{-\alpha R + \beta \|x\|_{\infty}} \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It therefore indeed suffices to replace the original price space domain
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   by
+   <math display="inline">
+    \Box = [-R, R]^d
+   </math>
+   with sufficiently large
+   <math display="inline">
+    R &gt; 0
+   </math>
+   . For details we refer to [24].
+  </p>
+  <h4>
+   Space Discretization
+  </h4>
+  <p block-type="TextInlineMath" class="has-continuation">
+   In wavelet methods, the space discretization is based on the concepts of classical finite element methods (see Finite Element Methods). To this end, for any level index
+   <math display="inline">
+    L \in \mathbb{N}
+   </math>
+   , let
+   <math display="inline">
+    V^L \subset V
+   </math>
+   be a subspace of dimension
+   <math display="inline">
+    N := \dim V^L = \mathcal{O}(h^{-d})
+   </math>
+   generated by a tensor product finite element basis
+   <math display="inline">
+    \Phi_L := \{ \phi_{j,L} : j \in \mathbb{R} \}
+   </math>
+   <math display="inline">
+    \Delta_L
+   </math>
+   } with some suitable index set
+   <math display="inline">
+    \Delta_L
+   </math>
+   corresponding to a mesh of width
+   <math display="inline">
+    h = 2^{-L}
+   </math>
+   . There holds
+   <math display="inline">
+    V^L \subset V^{L+1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for all
+   <math display="inline">
+    L \in \mathbb{N}
+   </math>
+   . For further details on classical finite element approximations see, for example [10].
+  </p>
+  <p block-type="TextInlineMath">
+   Denote by
+   <math display="inline">
+    \underline{U}_L
+   </math>
+   the coefficient vector of
+   <math display="inline">
+    u
+   </math>
+   with respect to
+   <math display="inline">
+    \Phi_L
+   </math>
+   . Then equation (3) is equivalent to: find
+   <math display="inline">
+    \underline{U}_L(t) \in \mathbb{R}^N
+   </math>
+   such that
+   <math display="inline">
+    \underline{U}_L(0) = \underline{U}_0
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{M}\underline{U}'_{L}(t) + \mathbf{A}\underline{U}_{L}(t) = 0, \quad t \in (0, T) \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \mathbf{M}
+   </math>
+   and
+   <math display="inline">
+    \mathbf{A}
+   </math>
+   are the so-called mass and stiffness matrices.
+  </p>
+  <p block-type="TextInlineMath">
+   Straightforward application of standard finite element schemes to calculate the stiffness matrix
+   <math display="inline">
+    \mathbf{A} = (\mathcal{E}(\phi_{i,L}, \phi_{j,L}))_{i,j \in \Delta_L}
+   </math>
+   arising from general market models fails due to two reasons. For high-dimensional models, we have the "curse of dimension": the number of degrees of freedom on a tensor product finite element mesh of width
+   <math display="inline">
+    h
+   </math>
+   in dimension
+   <math display="inline">
+    d
+   </math>
+   grows like
+   <math display="inline">
+    \mathcal{O}(h^{-d})
+   </math>
+   as
+   <math display="inline">
+    h \to 0
+   </math>
+   . For jump models, the nonlocality of the underlying operator implies that the standard finite element stiffness matrix
+   <b>
+    A
+   </b>
+   consists of
+   <math display="inline">
+    \mathcal{O}(h^{-2d})
+   </math>
+   nonzero entries, which is not practicable even in one dimension with small mesh widths.
+  </p>
+  <p block-type="Text">
+   Wavelets can overcome these issues while still being easy to compute. There are three main advantages.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Break the curse of dimension using sparse tensor products (
+     <i>
+      see
+     </i>
+     <b>
+      Sparse Grids
+     </b>
+     )
+     <math display="inline">
+      \Rightarrow
+     </math>
+     dimensionindependent complexity (up to log-factors).
+    </li>
+    <li block-type="ListItem">
+     Multiscale compression of jump measure of
+     <math display="inline">
+      X
+     </math>
+     <math display="inline">
+      \Rightarrow
+     </math>
+     complexity of jump models can asymptotically be reduced to Black-Scholes complexity.
+    </li>
+    <li block-type="ListItem">
+     Efficient preconditioning.
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   In one dimension, biorthogonal
+   <i>
+    complement
+   </i>
+   or
+   <i>
+    wave
+   </i>
+   let bases
+   <math display="inline">
+    \Psi_L = \{\psi_{j,L} : j \in \nabla_L\}, \nabla_L := \Delta_{L+1} \backslash \Delta_L
+   </math>
+   are constructed from the single-scale bases
+   <math display="inline">
+    \Phi_L
+   </math>
+   ; for details see [7, 9, 22]. Denoting by
+   <math display="inline">
+    W^L
+   </math>
+   the span of
+   <math display="inline">
+    \Psi_L
+   </math>
+   , the spaces
+   <math display="inline">
+    V^{L+1}
+   </math>
+   admit a splitting
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^{L+1} = W^L \oplus V^L, \quad L &gt; 0 \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Each wavelet space
+   <math display="inline">
+    W^L
+   </math>
+   can be thought of as describing the increment of information when refining the finite element approximation from
+   <math display="inline">
+    V^L
+   </math>
+   to
+   <math display="inline">
+    V^{L+1}
+   </math>
+   . Furthermore, equation (7) implies that for any
+   <math display="inline">
+    L &gt; 0
+   </math>
+   the finite element space
+   <math display="inline">
+    V^L
+   </math>
+   can be written as a direct
+   <i>
+    multilevel
+   </i>
+   sum of the wavelet spaces
+   <math display="inline">
+    W^{\ell}
+   </math>
+   ,
+   <math display="inline">
+    \ell &lt; L
+   </math>
+   . Thus, any
+   <math display="inline">
+    u_L \in V^L
+   </math>
+   has the representation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_L = \sum_{\ell=0}^{L-1} \sum_{j \in \nabla_{\ell}} d_{j,\ell} \psi_{j,\ell} \tag{8}
+   </math>
+  </p>
+  <p>
+   <img src="_page_2_Figure_0.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Schematic of single-scale space
+   <math display="inline">
+    V^L
+   </math>
+   and its decomposition into multiscale wavelet spaces
+   <math display="inline">
+    W^{\ell}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with suitable coefficients
+   <math display="inline">
+    d_{i,\ell} \in \mathbb{R}
+   </math>
+   . Figure 1 illustrates the decomposition of the finite element space
+   <math display="inline">
+    V^L
+   </math>
+   ,
+   <math display="inline">
+    L = 4
+   </math>
+   , spanned by continuous, piecewise linear (nodal) basis functions
+   <math display="inline">
+    \phi_{i,L}
+   </math>
+   into its increment spaces
+   <math display="inline">
+    W^{\ell}, \ell = 0, \ldots, 3
+   </math>
+   , spanned by wavelets
+   <math display="inline">
+    \psi_{i,\ell}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In the multidimensional setting, we obtain multivariate wavelet basis functions by using tensor products. The finite element spaces
+   <math display="inline">
+    V^L
+   </math>
+   can then be characterized by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^{L} = \text{span}\left\{\psi_{j_{1},\ell_{1}}(x_{1})\cdots\psi_{j_{d},\ell_{d}}(x_{d})\;:\; \atop \ell_{1},\ldots,\ell_{d} \leq L, \; j_{i} \in \nabla_{\ell_{i}}\right\}
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   Since these multivariate wavelet bases comprise of products of one-dimensional wavelets, they form
+   <i>
+    hierarchical bases
+   </i>
+   as in [12]. Thus, the spaces
+   <math display="inline">
+    V^L
+   </math>
+   can be replaced by
+   <i>
+    sparse tensor product
+   </i>
+   spaces
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{V}^{L} = \text{span}\left\{ \psi_{j_{1},\ell_{1}}(x_{1}) \cdots \psi_{j_{d},\ell_{d}}(x_{d}) \; : \right.
+   </math>
+   <math display="block">
+    \left. \ell_{1} + \ldots + \ell_{d} \leq L, \; j_{i} \in \nabla_{\ell_{i}} \right\} \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In
+   <math display="inline">
+    [3, 26]
+   </math>
+   it is shown that, under certain smoothness assumptions on the solution
+   <math display="inline">
+    u
+   </math>
+   of equation (3), the sparse tensor product spaces preserve the approximation properties of the full tensor product spaces, while there holds
+   <math display="inline">
+    \widehat{N} := \text{dim}\widehat{V}^L = \mathcal{O}\left(h^{-1}|\log h|^{d-1}\right) \ll N.
+   </math>
+   Herewith, the complexity of the finite element
+  </p>
+  <p block-type="TextInlineMath">
+   stiffness matrix can be reduced to
+   <math display="inline">
+    \mathcal{O}(h^{-2}|\log h|^{2(d-1)})
+   </math>
+   instead of the original
+   <math display="inline">
+    \mathcal{O}(h^{-2d})
+   </math>
+   nonzero entries.
+  </p>
+  <p block-type="Text">
+   Furthermore, wavelet basis functions give rise to certain cancellation properties and norm equivalences as illustrated in, for example [2, 7]. One therefore obtains sharp estimates for the entries of the corresponding stiffness matrix, cf. [20, 23]. Herewith
+   <math display="inline">
+    a
+   </math>
+   <i>
+    priori
+   </i>
+   compression schemes can be defined that further reduce the complexity of the stiffness matrix. The compression exploits the fact that the position of large entries in the stiffness matrix arising from a model with jumps resembles the structure of a Black-Scholes stiffness matrix. The remaining entries can
+   <i>
+    a priori
+   </i>
+   be proved to be negligible. Therefore, the compression scheme (asymptotically) reduces the complexity of a model with jumps to that of the Black-Scholes model. To give a brief illustration of this idea, in Figure 2, the density pattern of the stiffness matrix of the Black-Scholes model (a) and a Lévy model of tempered-stable-type (b) in one dimension is given.
+  </p>
+  <p block-type="TextInlineMath">
+   Combining the compression scheme with the sparse tensor product spaces results in a computational complexity of
+   <math display="inline">
+    \mathcal{O}(h^{-1}|\log h|^{2(d-1)})
+   </math>
+   instead of the original
+   <math display="inline">
+    \mathcal{O}(h^{-2d})
+   </math>
+   . It is proved that these wavelet schemes preserve stability and convergence of the classical finite element schemes, cf. [23].
+  </p>
+  <h2>
+   Time Stepping
+  </h2>
+  <p block-type="Text">
+   To finally obtain a fully discrete solution of equation (3), there are various methods to approximate the solution of the ordinary differential equation
+   <math display="inline">
+    (6)
+   </math>
+   . These time-stepping methods are not specific to wavelet-based finite element methods. We therefore mention only a few examples here: one obtains algebraic convergence
+   <math display="inline">
+    \mathcal{O}((\Delta t)^{\alpha})
+   </math>
+   in the time step size
+   <math display="inline">
+    \Delta t
+   </math>
+   for all the above market models using the implicit Euler scheme, then
+   <math display="inline">
+    \alpha = 1
+   </math>
+   or the Crank–Nicholson scheme, then
+   <math display="inline">
+    \alpha = 2
+   </math>
+   ; see, for example [1]. Furthermore, exponential convergence rates can be obtained by discretizing equation (6) by a
+   <math display="inline">
+    hp
+   </math>
+   -discontinuous Galerkin (dG) method as in [14, 25].
+  </p>
+  <h3>
+   <b>
+    American Contracts
+   </b>
+  </h3>
+  <p block-type="Text">
+   The price
+   <math display="inline">
+    u
+   </math>
+   of an American-type contract is given by an optimal stopping, free boundary problem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \sup_{t \le \tau \le T} \mathbb{E}[g(X_\tau) \mid X_t = x] \qquad (11)
+   </math>
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Density pattern for the stiffness matrix
+   <b>
+    A
+   </b>
+   for
+   <i>
+    L
+   </i>
+   = 8 refinement steps. Matrix for Black–Scholes model (a) and for tempered stable process (b)
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <i>
+    τ
+   </i>
+   running over stopping times. The solution of equation (11) then solves a partial integro-differential
+   <i>
+    inequality
+   </i>
+   (see [19]). Similar to the variational formulation for European contracts, the wavelet-based finite element implementation solves the corresponding variational inequality: Find
+   <i>
+    u(t,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   ∈
+   <i>
+    Kg
+   </i>
+   := {
+   <i>
+    v
+   </i>
+   ∈
+   <i>
+    V
+   </i>
+   |
+   <i>
+    v
+   </i>
+   ≥
+   <i>
+    g
+   </i>
+   a
+   <i>
+    .
+   </i>
+   e
+   <i>
+    .
+   </i>
+   } such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left\langle \frac{\partial u}{\partial t}, v - u \right\rangle + \mathcal{E}(u, v - u) \le 0 \quad \text{for all } v \in K_g
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   Choosing finite dimensional subspaces
+   <i>
+    V
+    <sup>
+     L
+    </sup>
+   </i>
+   ⊂
+   <i>
+    V
+   </i>
+   , as above, to discretize in space and applying a timestepping scheme leads to a sequence of matrix linear complementary problems. For large size
+   <i>
+    N
+   </i>
+   = dim
+   <i>
+    V
+    <sup>
+     L
+    </sup>
+   </i>
+   , standard solution methods such as projected successive overrelaxation [8] are not suitable, since their rate of convergence depends on
+   <i>
+    N
+   </i>
+   . The waveletbased solution algorithm suggested in [19] relies on a fixed point iteration where in each iteration step a
+   <i>
+    V
+   </i>
+   –projection
+   <i>
+    PKg
+   </i>
+   onto the convex cone
+   <i>
+    Kg
+   </i>
+   has to be realized. Owing to norm equivalences of the wavelet basis, the outer fixed point iteration convergences at a rate independent of the dimension
+   <i>
+    N
+   </i>
+   of the space
+   <i>
+    V
+    <sup>
+     L
+    </sup>
+   </i>
+   . The projection
+   <i>
+    PKg
+   </i>
+   is based on a wavelet generalization of the classical Cryer algorithm [8].
+  </p>
+  <h2>
+   <b>
+    Sensitivities and Greeks
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   As a PDE-based pricing method, wavelet methods are well suited for the fast and accurate calculation
+  </p>
+  <p block-type="Text">
+   of sensitivities of market models with respect to model parameters. Classical examples are variations of option prices with respect to the spot price or with respect to time to maturity, the so-called "Greeks" of the model.
+  </p>
+  <p block-type="Text">
+   There are two classes of sensitivities: the sensitivity of the solution
+   <i>
+    u
+   </i>
+   to variation of a model parameter, like the Greek Vega (
+   <i>
+    ∂σ u
+   </i>
+   ), and the sensitivity of the solution
+   <i>
+    u
+   </i>
+   to a variation of the state space such as the Greek Delta (
+   <i>
+    ∂xu
+   </i>
+   ).
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose that the infinitesimal generator A of
+   <i>
+    X
+   </i>
+   depends on a parameter
+   <i>
+    η
+   </i>
+   . We write
+   <i>
+    u(η
+   </i>
+   0
+   <i>
+    )
+   </i>
+   for a fixed parameter
+   <i>
+    η
+   </i>
+   <sup>
+    0
+   </sup>
+   to emphasize the dependence of
+   <i>
+    u
+   </i>
+   on
+   <i>
+    η
+   </i>
+   0. Then, the derivative of
+   <i>
+    u
+   </i>
+   with respect to
+   <i>
+    η
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widetilde{u}(\delta\eta) := \lim_{s \to 0^+} \frac{1}{s} \Big( u(\eta_0 + s\delta\eta) - u(\eta_0) \Big) \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   is the solution of the PIDE (see [15])
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \partial_t \widetilde{u}(\delta \eta) + \mathcal{A}(\eta_0) \widetilde{u}(\delta \eta) = -D_\eta \mathcal{A}u(\eta_0)
+   </math>
+   <math display="block">
+    \widetilde{u}(\delta \eta)(0, \cdot) = 0 \quad \text{in } \mathbb{R}^d \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    Dη
+   </i>
+   A is the derivative of A with respect to
+   <i>
+    η
+   </i>
+   . Therefore, the derivative of
+   <i>
+    u
+   </i>
+   with respect to
+   <i>
+    η
+   </i>
+   can be obtained as a solution of the same pricing PIDE with a right-hand side depending on
+   <i>
+    u
+   </i>
+   , cf. [15].
+  </p>
+  <p block-type="Text">
+   For sensitivities with respect to a variation of the state space, a finite difference like differentiation procedure is presented in [15], which allows to obtain the sensitivities from the finite element forward price without additional forward solver.
+  </p>
+  <h2>
+   <b>
+    Numerical Examples
+   </b>
+  </h2>
+  <p block-type="Text">
+   In this section, we illustrate the use of wavelet-based finite element methods by a number of numerical examples.
+  </p>
+  <h4>
+   Multidimensional Lévy Models
+  </h4>
+  <p block-type="TextInlineMath" class="has-continuation">
+   We consider a two-dimensional basket with payoff
+   <math display="inline">
+    g = \left(\frac{1}{2}(S_1 + S_2) - K\right)^{+}
+   </math>
+   , strike
+   <math display="inline">
+    K = 1
+   </math>
+   , and maturity
+   <math display="inline">
+    \tilde{T} = 1
+   </math>
+   . The price process is a pure jump process, which is given by the Clayton copula [16] and tempered stable margins [5]. The parameters are
+   <math display="inline">
+    C = (1, 1), G = (10, 10), M = (10, 10),
+   </math>
+   and
+   <math display="inline">
+    Y = (0.5, 1.5)
+   </math>
+   . The copula depends on a parameter
+   <math display="inline">
+    \theta &gt; 0
+   </math>
+   parameterizing the dependence among jumps.
+  </p>
+  <p block-type="Text">
+   Different values for
+   <math display="inline">
+    \theta
+   </math>
+   are used to analyze the different dependence structures. In Figure 3, we compare the model with a Black-Scholes model having the same marginal variances and the same correlation.
+  </p>
+  <h2>
+   American-type Options in Lévy Models
+  </h2>
+  <p block-type="Text">
+   We consider the finite horizon multiple stopping time problem as in
+   <math display="inline">
+    [4]
+   </math>
+   arising from swing options with maturity
+   <math display="inline">
+    T = 1
+   </math>
+   and interest rate
+   <math display="inline">
+    r = 0.05
+   </math>
+   . The holder has
+   <math display="inline">
+    p = 5
+   </math>
+   exercise rights and there is a refracting time
+   <math display="inline">
+    \delta = 0.1
+   </math>
+   after each exercise. For computational details, see [27]. The computed prices and the exercise boundary are shown in Figure 4 where we use a tempered stable/CGMY model [5] and computed a swing put option with up
+  </p>
+  <p>
+   <img src="_page_4_Figure_8.jpeg"/>
+  </p>
+  <p>
+   Figure 3 Time value for basket options using a Lévy model (a) and Black–Scholes model (b)
+  </p>
+  <p>
+   <img src="_page_4_Figure_10.jpeg"/>
+  </p>
+  <p>
+   Figure 4 Swing option price (a) and exercise boundary (b) of a put option with up to six exercise rights
+  </p>
+  <p>
+   <img src="_page_5_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 5
+   </b>
+   Convergence rates of sensitivities for a European call in the variance Gamma (a) and Heston (b) model
+  </p>
+  <p block-type="TextInlineMath">
+   to five exercise rights and strike
+   <math display="inline">
+    K = 100
+   </math>
+   . The model parameters are
+   <math display="inline">
+    C = 1
+   </math>
+   ,
+   <math display="inline">
+    G = 10
+   </math>
+   ,
+   <math display="inline">
+    M = 10
+   </math>
+   , and
+   <math display="inline">
+    Y =
+   </math>
+   0.5. In contrast to the result in the Black-Scholes model, the exercise boundary values in a Lévy model never reach the option's strike price, which is well known for American options [17, 19].
+  </p>
+  <h4>
+   Sensitivities
+  </h4>
+  <p block-type="Text">
+   We compute various sensitivities for the variance Gamma [18] and the Heston model [13] where the price is known in closed form such that we are able to compute the errors between the exact price/sensitivities and their finite element approximations.
+  </p>
+  <p block-type="TextInlineMath">
+   We consider a European call with strike
+   <math display="inline">
+    K = 1
+   </math>
+   and maturity
+   <math display="inline">
+    T = 0.5
+   </math>
+   . For the variance Gamma model, we calculate the Greeks Delta,
+   <math display="inline">
+    \Delta = \partial u / \partial S
+   </math>
+   , and Gamma,
+   <math display="inline">
+    \Gamma = \partial^2 u / \partial S^2
+   </math>
+   , and use the parameters
+   <math display="inline">
+    \sigma = 0.4
+   </math>
+   ,
+   <math display="inline">
+    \nu = 0.04
+   </math>
+   , and
+   <math display="inline">
+    \vartheta = -0.2
+   </math>
+   . For the Heston model, we calculate the sensitivities
+   <math display="inline">
+    \widetilde{u}(\delta\rho)
+   </math>
+   and
+   <math display="inline">
+    \widetilde{u}(\delta\alpha)
+   </math>
+   with respect to correlation
+   <math display="inline">
+    \rho
+   </math>
+   of the Brownian motions that drive the underlying and the volatility and the rate of mean reversion
+   <math display="inline">
+    \alpha
+   </math>
+   . The model parameters are
+   <math display="inline">
+    \lambda = 0, \sigma = 0.5, m = 0.06, \rho = -0.5, \text{ and } \alpha = 2.5.
+   </math>
+  </p>
+  <p block-type="Text">
+   The convergence rates are shown in Figure 5. All sensitivities convergence with the same rate as the price
+   <math display="inline">
+    u
+   </math>
+   itself [15].
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="Text">
+   Achdou, Y. &amp; Pironneau, O. (2005). Computational [1] methods for option pricing, Frontiers in Applied Mathematics, Society for Industrial and Applied Mathematics (SIAM), Philadelphia, Vol. 30.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Bramble, J.H., Cohen, A. &amp; Dahmen, W. (2003). Multiscale problems and methods in numerical simulations, Lecture Notes in Mathematics, Springer-Verlag, Berlin, Vol. 1825.
+    </li>
+    <li block-type="ListItem">
+     [3] Bungartz, H.-J. &amp; Griebel, M. (1999). A note on the complexity of solving Poisson's equation for spaces of bounded mixed derivative, Journal of Complexity 15,
+     <math display="inline">
+      167 - 199
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [4] Carmona, R. &amp; Touzi, N. (2006). Optimal multiple stopping and valuation of swing options, Mathematical Finance, 18(2), 239-268.
+    </li>
+    <li block-type="ListItem">
+     Carr, P., Geman, H., Madan, D.B. &amp; Yor, M. (2002). [5] The fine structure of assets returns: an empirical investigation, Journal of Business 75(2), 305-332.
+    </li>
+    <li block-type="ListItem">
+     [6] Carr, P., Geman, H., Madan, D.B. &amp; Yor, M. (2007). Self-decomposability and option pricing, Mathematical Finance
+     <math display="inline">
+      17(1), 31-57.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Cohen, A. (2003). Numerical Analysis of Wavelet Meth-[7] ods, Elsevier, Amsterdam.
+    </li>
+    <li block-type="ListItem">
+     [8] Cryer, C.W. (1971). The solution of a quadratic programming problem using systematic overrelaxation, SIAM Journal of Control 9(3), 385-392.
+    </li>
+    <li block-type="ListItem">
+     [9] Dahmen, W., Kunoth, A. &amp; Urban, K. (1999). Biorthogonal spline wavelets on the interval-stability and moment conditions, Applied and Computational Harmonic Analysis 6, 259-302.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      [10]
+     </math>
+     Ern, A. &amp; Guermond, J.-L. (2004). Theory and Practice of Finite Elements, Springer Verlag, New York.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      [11]
+     </math>
+     Farkas, W., Reich, N. &amp; Schwab, C. (2007). Anisotropic stable Lévy copula processes—analytical and numerical aspects, Mathematical Models and Methods in Applied Sciences 17, 1405-1443.
+    </li>
+    <li block-type="ListItem">
+     [12] Griebel, M. &amp; Oswald, P. (1995). Tensor product type subspace splittings and multilevel iterative methods for anisotropic problems, Advances in Computational Mathematics 4, 171-206.
+    </li>
+    <li block-type="ListItem">
+     [13] Heston, S.L. (1993). A closed-form solution for options with stochastic volatility, with applications to bond and
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   currency options,
+   <i>
+    The Review of Financial Studies
+   </i>
+   <b>
+    6
+   </b>
+   , 327–343.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [14] Hilber, N., Matache, A.-M. &amp; Schwab, C. (2005). Sparse wavelet methods for option pricing under stochastic volatility,
+     <i>
+      The Journal of Computational Finance
+     </i>
+     <b>
+      8
+     </b>
+     (4), 1–42.
+    </li>
+    <li block-type="ListItem">
+     [15] Hilber, N., Schwab, C. &amp; Winter, C. (2008). Variational Sensitivity Analysis of Parametric Markovian Market Models, in
+     <i>
+      Advances in Mathematics in Finance
+     </i>
+     , L. Stettner, ed, Banach Center Publications Vol.
+     <b>
+      83
+     </b>
+     , 85–106.
+    </li>
+    <li block-type="ListItem">
+     [16] Kallsen, J. &amp; Tankov, P. (2006). Characterization of dependence of multidimensional Levy processes using ´ Levy copulas, ´
+     <i>
+      Journal of Multivariate Analysis
+     </i>
+     <b>
+      97
+     </b>
+     , 1551–1572.
+    </li>
+    <li block-type="ListItem">
+     [17] Levendorski˘i, S.Z. (2004). Early exercise boundary and option prices in Levy driven models, ´
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      4
+     </b>
+     (5), 525–547.
+    </li>
+    <li block-type="ListItem">
+     [18] Madan, D.B., Carr, P. &amp; Chang, E. (1998). The variance gamma process and option pricing,
+     <i>
+      European Finance Review
+     </i>
+     <b>
+      2
+     </b>
+     , 79–105.
+    </li>
+    <li block-type="ListItem">
+     [19] Matache, A.-M., Nitsche, P.-A. &amp; Schwab, C. (2005). Wavelet Galerkin pricing of American options on Levy ´ driven assets,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      5
+     </b>
+     (4), 403–424.
+    </li>
+    <li block-type="ListItem">
+     [20] Matache, A.-M., Petersdorff, T. &amp; Schwab, C. (2004). Fast deterministic pricing of options on Levy driven ´ assets,
+     <i>
+      M2AN Mathematical Modelling and Numerical Analysis
+     </i>
+     <b>
+      38
+     </b>
+     (1), 37–71.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [21] Matache, A.-M., Schwab, C. &amp; Wihler, T.P. (2006). Linear complexity solution of parabolic integro-differential equations,
+     <i>
+      Numerical Mathematics
+     </i>
+     <b>
+      104
+     </b>
+     (1), 69–102.
+    </li>
+    <li block-type="ListItem">
+     [22] Nguyen, H. &amp; Stevenson, R. (2003). Finite elements on manifolds,
+     <i>
+      IMA Journal of Numerical Analysis
+     </i>
+     <b>
+      23
+     </b>
+     , 149–173.
+    </li>
+    <li block-type="ListItem">
+     [23] Reich, N. (2008).
+     <i>
+      Wavelet Compression of Anisotropic Integrodifferential Operators on Sparse Tensor Product Spaces
+     </i>
+     , PhD Thesis, ETH, Zurich.
+    </li>
+    <li block-type="ListItem">
+     [24] Reich, N. Schwab, C. &amp; Winter, C. (2008).
+     <i>
+      Anisotropic multivariate L´evy processes and their Kolmogorov equation
+     </i>
+     , research report no. 2008-03,
+     <i>
+      Seminar for Applied Mathematics
+     </i>
+     , ETH, Zurich.
+    </li>
+    <li block-type="ListItem">
+     [25] Schotzau, D. &amp; Schwab, C. (2001). ¨
+     <i>
+      hp
+     </i>
+     -discontinuous Galerkin time-stepping for parabolic problems,
+     <i>
+      Comptes Rendus de l'Academie des Sciences Series I Mathematics
+     </i>
+     ,
+     <b>
+      333
+     </b>
+     (12).
+    </li>
+    <li block-type="ListItem">
+     [26] von Petersdorff, T. &amp; Schwab, C. (2004). Numerical solution of parabolic equations in high dimensions,
+     <i>
+      M2AN Mathematical Modelling and Numerical Analysis
+     </i>
+     <b>
+      38
+     </b>
+     (1), 93–127.
+    </li>
+    <li block-type="ListItem">
+     [27] Wilhelm, M. &amp; Winter, C. (2008). Finite element valuation of swing options,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      11
+     </b>
+     (3), 107–132.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   NORBERT HILBER, NILS REICH &amp; CHRISTOPH WINTER
+  </p>
+ </body>
+</html>

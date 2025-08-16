@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Stochastic Mesh Method
+   </b>
+  </h1>
+  <p block-type="Text">
+   The stochastic mesh method has been proposed by Broadie and Glasserman [2] to price multivariate Bermudan options. These contracts include an early exercise feature, which makes their pricing a challenging computational problem. There are several methods available for options with payoff functions depending only on one asset. They include finite difference methods and approaches based on lattices (
+   <i>
+    see
+   </i>
+   <b>
+    Finite Difference Methods for Early Exercise Options
+   </b>
+   ). These methods, however, become typically ineffective for high-dimensional problems, like basket options.
+  </p>
+  <p block-type="Text">
+   The stochastic mesh approach belongs to simula tion-based methods, whose attractiveness for complex computational problems stems from the fact that the convergence rate is typically independent of the dimension of the problem.
+  </p>
+  <p block-type="Text">
+   The method is based on the dynamic programming representation and in each period uses a finite collection of points from the state space. In these aspects, the method is similar to the binomial tree approach. Its distinctive feature is that at each time interval the nodes are selected randomly and their number is always the same.
+  </p>
+  <p block-type="TextInlineMath">
+   To illustrate the method, we consider a Bermudan option whose payoff depends only on the current price of an underlying asset. We assume that changes of the asset's price can be described by a Markov chain: {
+   <i>
+    Sti
+   </i>
+   }{
+   <i>
+    i
+   </i>
+   =0
+   <i>
+    ,...,M
+   </i>
+   }, with values in
+   <sup>
+    R
+   </sup>
+   <i>
+    <sup>
+     b
+    </sup>
+   </i>
+   . Since Bermudan options are often used to approximate prices of American options, {
+   <i>
+    Sti
+   </i>
+   }{
+   <i>
+    i
+   </i>
+   =0
+   <i>
+    ,...,M
+   </i>
+   } may be obtained as a result of sampling a continuous process {
+   <i>
+    St
+   </i>
+   }{0≤
+   <i>
+    t
+   </i>
+   ≤
+   <i>
+    <sup>
+     T
+    </sup>
+   </i>
+   }. The option can be exercised at
+   <i>
+    M
+   </i>
+   + 1 time points (including the initial time), which we shall denote as
+   <i>
+    t
+   </i>
+   0
+   <i>
+    , t
+   </i>
+   1
+   <i>
+    ,...,tM
+   </i>
+   =
+   <i>
+    T
+   </i>
+   . At the time of exercise
+   <i>
+    τ
+   </i>
+   , the options are equal to
+   <i>
+    G(τ, Sτ )
+   </i>
+   , where
+   <i>
+    G
+   </i>
+   is a given function.
+  </p>
+  <p block-type="Text">
+   An arbitrage-free price of the option can be obtained by using the risk-neutral representation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t_0, S_0) := \max_{\tau} E[B(t_0, \tau)G(\tau, S_\tau)] \qquad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <i>
+    τ
+   </i>
+   is a stopping time that takes values in the set {
+   <i>
+    t
+   </i>
+   0
+   <i>
+    , t
+   </i>
+   1
+   <i>
+    ,...,T
+   </i>
+   }. Here, the expectation is taken with respect to a given risk-neutral measure,
+   <i>
+    Q
+   </i>
+   , and
+   <i>
+    B(s, t)
+   </i>
+   denotes the discount factor for the period
+   <i>
+    (s, t)
+   </i>
+   . The main difficulty in using equation (1) is
+  </p>
+  <p block-type="Text">
+   due to the fact that the optimal exercise strategy is unknown. The price of the option and the optimal strategy can be obtained, however, from the dynamic programming characterization of the problem. For this, we use the following backward recursion to calculate, for
+   <i>
+    i
+   </i>
+   =
+   <i>
+    M,... ,
+   </i>
+   0, functions
+   <i>
+    P (ti,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(T, x) = G(T, x)
+   </math>
+   (2)
+   <br/>
+   <math display="block">
+    P(t_i, x) = \max\{G(t_i, x), C(t_i, x)\},
+   </math>
+   <br/>
+   <math display="block">
+    i = M - 1, \dots, 0
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   where the continuation value,
+   <i>
+    C(ti, x)
+   </i>
+   , is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(t_i, x) := B_{t_i} E[P(t_{i+1}, S_{t_{i+1}})|S_{t_i} = x]
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   Then the price of the instrument at
+   <i>
+    t
+   </i>
+   <sup>
+    0
+   </sup>
+   is given by
+   <i>
+    P (t
+   </i>
+   0
+   <i>
+    , S
+   </i>
+   0
+   <i>
+    )
+   </i>
+   . For simplicity of exposition, we assume that the discount factor
+   <i>
+    Bti
+   </i>
+   ≡
+   <i>
+    B(ti, ti
+   </i>
+   <sup>
+    +
+   </sup>
+   1
+   <i>
+    )
+   </i>
+   is deterministic, but in a more general formulation of the method it can be stochastic.
+  </p>
+  <p block-type="Text">
+   To use this method in practice, we must be able to efficiently calculate the conditional expectation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[P(t_{i+1}, S_{t_{i+1}})|S_{t_i} = x]
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <i>
+    i
+   </i>
+   = 0
+   <i>
+    ,...,M
+   </i>
+   − 1 and the selected set of points
+   <i>
+    x
+   </i>
+   from the state space. To accomplish this, several techniques have been proposed, including binomial trees and Monte Carlo simulations.
+  </p>
+  <p block-type="TextInlineMath">
+   In the stochastic mesh method, the expectation (5) are approximated by arithmetic sums. For this, in the first phase, we generate at each exercise time
+   <i>
+    ti, i
+   </i>
+   = 0
+   <i>
+    ,...,M
+   </i>
+   , the same number of random points, {
+   <i>
+    xij , j
+   </i>
+   = 1
+   <i>
+    ,...,d
+   </i>
+   }. Then, at each node of the mesh the option price is calculated using the backward recursion. At the terminal nodes, we take
+   <i>
+    P (T , x
+   </i>
+   ˆ
+   <i>
+    Mj )
+   </i>
+   =
+   <i>
+    G(T , xMj ), j
+   </i>
+   = 1
+   <i>
+    ,...,d
+   </i>
+   . At all other exercise times, we estimate the price of the option using the following mesh estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{P}(t_i, x_{ij}) = \max\{G(t_i, x_{ij}), \ \hat{C}(t_i, x_{ij})\} \qquad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   with the estimate
+   <i>
+    C
+   </i>
+   ˆ of the continuation value defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{C}(t_i, x_{ij}) := B_{t_i} \frac{1}{d} \sum_{k=1}^d \hat{P}(t_{i+1}, x_{(i+1)k}) w_i(j, k) \quad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    wi(j, k)
+   </i>
+   ≡
+   <i>
+    wi(xij , x(i
+   </i>
+   <sup>
+    +
+   </sup>
+   1
+   <i>
+    )k )
+   </i>
+   is a weight attached to the pair
+   <i>
+    (xij , x(i
+   </i>
+   <sup>
+    +
+   </sup>
+   1
+   <i>
+    )k)
+   </i>
+   . Thus, for each fixed node at
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   An example of a stochastic mesh with
+   <i>
+    d
+   </i>
+   = 4. Weight that is attached to each arc is used in a weightedsum approximation to the corresponding continuation value
+  </p>
+  <p block-type="TextInlineMath">
+   time
+   <i>
+    ti
+   </i>
+   , all nodes at the next time are used to calculate the corresponding continuation value. This has been depicted in Figure 1 for
+   <i>
+    d
+   </i>
+   = 4. Selection of these weights depends on the mechanism we have used to generate the mesh points {
+   <i>
+    xij
+   </i>
+   }. The weighted sum (7) can be interpreted as an estimate of the conditional expectation (5) when the process is in state
+   <i>
+    xij
+   </i>
+   at time
+   <i>
+    ti
+   </i>
+   . Since in calculations we always use all mesh points at the next time, regardless of the current state of the process, the main purpose of these weights is to estimate the continuation values without bias. We provide more details about different mechanisms of selecting mesh points and weights in the following section.
+  </p>
+  <h1>
+   <b>
+    Selection of the Mesh Points and Weights
+   </b>
+  </h1>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Proper choices of the mesh points and weights
+   <i>
+    wi(j, k)
+   </i>
+   in equation (7) are essential for the method to be successful. The approaches suggested in the literature are based on the assumption that the
+  </p>
+  <p block-type="TextInlineMath">
+   Markov process {
+   <i>
+    Sti
+   </i>
+   }
+   <i>
+    i
+   </i>
+   =0
+   <i>
+    ,...,M
+   </i>
+   admits transition densities and they are known or can be evaluated numerically. We therefore assume that conditional on
+   <i>
+    Sti
+   </i>
+   =
+   <i>
+    x
+   </i>
+   the value of the process at the next time instance,
+   <i>
+    Sti
+   </i>
+   <sup>
+    +
+   </sup>
+   <sup>
+    1
+   </sup>
+   , has density
+   <i>
+    f (ti, x,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   . Denote by
+   <i>
+    h(ti,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   the density of
+   <i>
+    Sti
+   </i>
+   conditional on the initial value
+   <i>
+    S
+   </i>
+   0. We refer to
+   <i>
+    h(ti,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   as the marginal density of
+   <i>
+    Sti
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Broadie and Glasserman [2] have considered two constructions of mesh points, which we present in Figure 2. In both, the points {
+   <i>
+    xij , j
+   </i>
+   = 1
+   <i>
+    ,...,b
+   </i>
+   } at time
+   <i>
+    ti
+   </i>
+   are generated as independent and identically distributed observations from some density
+   <i>
+    g(ti,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   , called the
+   <i>
+    mesh density function
+   </i>
+   . In the first method, the mesh density is allowed to depend on time but not on the mesh points generated at previous time intervals. In the second method, the mesh is constructed in a forward procedure where at time
+   <i>
+    ti
+   </i>
+   the points {
+   <i>
+    xij , j
+   </i>
+   = 1
+   <i>
+    ,...,b
+   </i>
+   } are generated as samples from a mesh density that depends on observations at the previous time
+   <i>
+    ti
+   </i>
+   −1. Although other methods of generating mesh points have been proposed later (e.g., [4]), we focus only on these two.
+  </p>
+  <p block-type="TextInlineMath">
+   A natural choice for the mesh density
+   <i>
+    g(ti,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   is to take it equal to the marginal density function
+   <i>
+    h(ti,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   . In this case, the mesh points at time
+   <i>
+    ti
+   </i>
+   are generated independently of points at previous times
+   <i>
+    t
+   </i>
+   1
+   <i>
+    ,...,ti
+   </i>
+   −1. Using a simple change of measure, we can transform conditional expectation (5) to an expectation with respect to the density
+   <i>
+    h(ti
+   </i>
+   <sup>
+    +
+   </sup>
+   1
+   <i>
+    ,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[P(t_{i+1}, S_{t_{i+1}})|S_{t_i} = x_{ij}]
+   </math>
+   <br/>
+   =
+   <math>
+    \int P(t_{i+1}, z) f(t_i, x_{ij}, z) dz
+   </math>
+   <br/>
+   =
+   <math>
+    \int P(t_{i+1}, z) \frac{f(t_i, x_{ij}, z)}{h(t_{i+1}, z)} h(t_{i+1}, z) dz
+   </math>
+   (8)
+  </p>
+  <p>
+   <img src="_page_1_Figure_10.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Two methods of generating mesh points. (a) The points are generated independently at each time interval. (b) The points are generated by independent paths
+  </p>
+  <p block-type="Text">
+   Since this result is valid for any integrable function
+   <i>
+    P
+   </i>
+   , it implies that weighted sums with weights equal to the likelihood ratio
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    w_i(j,k) := \frac{f(t_i, x_{ij}, x_{(i+1)k})}{g(t_{i+1}, x_{(i+1)k})}
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   provide unbiased estimates of conditional expectations with respect to the transition density
+   <i>
+    f (ti, xij ,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   , meaning that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\frac{B_{t_i}}{d}\sum_{k=1}^{d}P(t_{i+1},X_k)w_i(x_{ij},X_k)\right] = C(t_i,x_{ij})
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    X
+   </i>
+   1
+   <i>
+    ,...,Xd
+   </i>
+   are independent and identically distributed random variables with the common density equal to
+   <i>
+    g(ti
+   </i>
+   <sup>
+    +
+   </sup>
+   1
+   <i>
+    ,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   A drawback of selecting the mesh density equal to the marginal density function is that it can lead to estimators whose variance grows exponentially with the number of exercise times. In the context of an European option, this fact has been demonstrated by Broadie and Glasserman [2]. The authors have also observed that this build up of variance can be avoided if we choose the mesh density equal to the average of transition density functions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g^{A}(t_{i+1}, x_{i-}, x) = \frac{1}{d} \sum_{j=1}^{d} f(t_{i}, x_{ij}, x),
+   </math>
+   <br/>
+   <math display="block">
+    i = 1, \dots, M - 1 \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   and
+   <i>
+    gA(t
+   </i>
+   1
+   <i>
+    , x)
+   </i>
+   =
+   <i>
+    f (t
+   </i>
+   0
+   <i>
+    , S
+   </i>
+   0
+   <i>
+    , x)
+   </i>
+   , where
+   <i>
+    xi
+   </i>
+   · denotes the vector of mesh points at time
+   <i>
+    ti
+   </i>
+   . For this choice of the density, points at time
+   <i>
+    ti
+   </i>
+   <sup>
+    +
+   </sup>
+   <sup>
+    1
+   </sup>
+   are generated from a distribution that depends on the position of the mesh points at the previous time
+   <i>
+    ti
+   </i>
+   . The particular form of the mesh density (11) as a mixture of transition densities allows for two equivalent interpretations of the generation mechanism. In the first, we use a forward procedure where at each time we independently generate all points from the same distribution. To generate a point at time
+   <i>
+    ti
+   </i>
+   from the density
+   <i>
+    g(ti, x(i
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    )
+   </i>
+   ·
+   <i>
+    ,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   , we first randomly choose a point from the set {
+   <i>
+    x(i
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    )
+   </i>
+   1
+   <i>
+    ,...,x(i
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    )d
+   </i>
+   }, say
+   <i>
+    x(i
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    )j
+   </i>
+   <sup>
+    ∗
+   </sup>
+   , and then sample from the transition density
+   <i>
+    f (ti
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    , x(i
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    )j
+   </i>
+   <sup>
+    ∗
+   </sup>
+   <i>
+    ,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   . This procedure is repeated until all
+   <i>
+    d
+   </i>
+   points have been obtained, after which we proceed to the next time interval. Alternatively, generating a
+  </p>
+  <p block-type="TextInlineMath">
+   mesh using equation (11) is equivalent to generating
+   <i>
+    d
+   </i>
+   independent paths of the process {
+   <i>
+    S
+   </i>
+   0
+   <i>
+    , St
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    ,...,StM
+   </i>
+   }, as presented in Figure 2(b), and then disconnecting the nodes on each path.
+  </p>
+  <p block-type="TextInlineMath">
+   For this construction of a mesh, we can use the likelihood ratio weights (9) with the mesh density
+   <i>
+    g(ti,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   replaced by
+   <i>
+    gA(ti, xi
+   </i>
+   ·
+   <i>
+    ,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   . These weights preserve the property of the weighted sum being an unbiased estimator of conditional expectation. In this case, however, expectation (10) is conditional on the position of the mesh points at the previous time
+   <i>
+    ti
+   </i>
+   −1.
+  </p>
+  <h1>
+   <b>
+    Properties of the Method and Its Extensions
+   </b>
+  </h1>
+  <p block-type="Text">
+   The stochastic mesh method has an important property of being asymptotically consistent, meaning that by increasing the number of mesh points it can be assured that the mesh estimates will converge to the true price of the option. When the distributions used to sample mesh points are set to marginal distributions of the process, this result has been established by Broadie and Glasserman [2]. Avramidis and Matzinger [1] have proved the asymptotic consistency under weaker assumptions on the generating mechanism, which, in particular, cover the construction based on independent paths of the process {
+   <i>
+    Sti
+   </i>
+   }
+   <i>
+    i
+   </i>
+   =0
+   <i>
+    ,...,M
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Broadie and Glasserman [2] and Glasserman [4] have also shown that under some conditions on the mechanism of selecting the mesh points and weights in equation (7), the mesh estimator defined by equations (6) and (7) is biased high. This means that for a fixed number of mesh points and a fixed number of exercise opportunities, if we randomly generate sufficiently many meshes and calculate the corresponding mesh estimates, then the arithmetic average of all these estimates will be strictly greater than the true price of the option. The proof of this result uses Jensen's inequality and relies on a particular choice of weights that guarantees the unbiasedness property of the weighted sums (10). In particular, the likelihood ratios and the two constructions of the mesh points described in the previous section lead to mesh estimators that are bias high.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The bias high property of the method can be used to construct conservative confidence intervals for the option price. For this, we can combine the mesh estimator with any bias low estimator. The latter can be constructed quite easily, since an application of
+  </p>
+  <p block-type="Text">
+   any exercise strategy in equation (1) that is different from the optimal one will lead to a bias low estimate of the price. Such a suboptimal stopping rule can also be constructed within the stochastic mesh method [2]. In the process of finding the mesh estimate through the dynamic programming procedure (6) and (7), each node of the mesh can be classified as either belonging to the exercise region or not, depending whether the maximum in equation (6) is equal to the current value of the option or the continuation value. This classification can be extended to an arbitrary state of the process. Because the immediate exercise value
+   <i>
+    G(ti, x)
+   </i>
+   in equation (6) is defined for all
+   <i>
+    x
+   </i>
+   , we need to estimate a continuation value
+   <i>
+    C(t
+   </i>
+   ˆ
+   <i>
+    i, x)
+   </i>
+   at an arbitrary state
+   <i>
+    x
+   </i>
+   . To do this, it suffices to extend the weights
+   <i>
+    wi(j, k)
+   </i>
+   to all points in the state space, which for the likelihood ratio weights (9) can be easily accomplished by simply replacing
+   <i>
+    xij
+   </i>
+   with
+   <i>
+    x
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   A bias low estimator, called
+   <i>
+    path estimator
+   </i>
+   , is based on the exercise region corresponding to these continuation values. Its value is obtained by randomly generating a certain number of trajectories of the underlying process and then stopping each trajectory if it reaches this exercise region. Thus, for the
+   <i>
+    j
+   </i>
+   th simulated path,
+   <i>
+    S
+    <sup>
+     j
+    </sup>
+   </i>
+   , the exercise time
+   <i>
+    τ
+   </i>
+   ˆ is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\tau}(S^{j}) = \min\{t_{i}: G(t_{i}, S^{j}_{t_{i}}) \ge \hat{C}(t_{i}, S^{j}_{t_{i}})\} \qquad (12)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   in the case when the trajectory reaches the exercise region, and
+   <i>
+    τ
+   </i>
+   ˆ =
+   <i>
+    T
+   </i>
+   , otherwise. Then, conditional on this mesh, the path estimate based on
+   <i>
+    N
+   </i>
+   -simulated trajectories is simply the average of the discounted payoffs at the exercise time
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{N} \sum_{j=1}^{N} B(t_0, \hat{\tau}(S^j)) G(\hat{\tau}(S^j), S^j_{\hat{\tau}(S^j)}) \qquad (13)
+   </math>
+  </p>
+  <p block-type="Text">
+   If we repeat this procedure for a number of independently generated meshes, then the sample mean of the estimates (13) obtained for each copy of the mesh will give a bias low estimate of the price of the option. Under some conditions, this estimator is asymptotically unbiased as the number of mesh points
+   <i>
+    d
+   </i>
+   increases to infinity. Therefore, the confidence interval that combines the bias high and the bias low estimators will shrink to the true price of the option as
+   <i>
+    d
+   </i>
+   → ∞ and the number of generated trajectories
+   <i>
+    N
+   </i>
+   increases to infinity.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Several numerical examples illustrating applications of the stochastic mesh method have been presented by Broadie and Glasserman [2]. Numerical
+  </p>
+  <p block-type="Text">
+   tests conducted by the authors suggest that the efficiency of the method can be significantly improved when it is combined with some standard variance reduction techniques, in particular, those based on control variates (
+   <i>
+    see
+   </i>
+   <b>
+    Variance Reduction
+   </b>
+   ). Another way of enhancing the method is proposed in Boyle
+   <i>
+    et al.
+   </i>
+   , where mesh points are generated using lowdiscrepancy points (
+   <i>
+    see
+   </i>
+   <b>
+    Quasi-Monte Carlo Methods
+   </b>
+   ). A serious limitation of the method is the need for a transition density. To address this issue, in [3] the authors extend the stochastic mesh method by proposing to choose mesh weights through a constrained optimization problem.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Avramidis, A.N. &amp; Matzinger, H. (2004). Convergence of the stochastic mesh estimator for pricing Bermudan options,
+     <i>
+      The Journal of Computational Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 73–91.
+    </li>
+    <li block-type="ListItem">
+     [2] Broadie, M. &amp; Glasserman, P. (2004). A stochastic mesh method for pricing high-dimensional American options,
+     <i>
+      The Journal of Computational Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 35–72.
+    </li>
+    <li block-type="ListItem">
+     [3] Broadie, M., Glasserman, P. &amp; Ha, Z. (2000). Pricing American options by simulation using a stochastic mesh with optimized weights, in
+     <i>
+      Probabilistic Constrained Optimization: Methodology and Applications
+     </i>
+     , S. Uryasev, ed, Kluwer, Norwell, pp. 32–50.
+    </li>
+    <li block-type="ListItem">
+     [4] Glasserman, P. (2004).
+     <i>
+      Monte Carlo Methods in Financial Engineering
+     </i>
+     , Springer, New York.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Boyle, P.P., Kolkiewicz, A. &amp; Tan, K.S. (2001). Valuation of the reset options embedded in some equity-linked insurance products,
+   <i>
+    North American Actuarial Journal
+   </i>
+   <b>
+    5
+   </b>
+   , 1–18.
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    American Options
+   </b>
+   ;
+   <b>
+    Bermudan Options
+   </b>
+   ;
+   <b>
+    Bermudan Swaptions and Callable Libor Exotics
+   </b>
+   ;
+   <b>
+    Exercise Boundary Optimization Methods
+   </b>
+   ;
+   <b>
+    Early Exercise Options: Upper Bounds
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Early Exercise Options
+   </b>
+   ;
+   <b>
+    Integral Equation Methods for Free Boundaries
+   </b>
+   ;
+   <b>
+    Monte Carlo Simulation for Stochastic Differential Equations
+   </b>
+   ;
+   <b>
+    Sparse Grids
+   </b>
+   ;
+   <b>
+    Tree Methods
+   </b>
+   ;
+   <b>
+    Weighted Monte Carlo
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ADAM KOLKIEWICZ
+  </p>
+ </body>
+</html>

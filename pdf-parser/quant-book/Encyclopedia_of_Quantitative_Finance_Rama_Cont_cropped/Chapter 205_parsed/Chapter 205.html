@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Local Correlation Model
+   </b>
+  </h1>
+  <p block-type="Text">
+   The local correlation model is a credit portfolio loss model that generalizes the Gaussian copula model (see Gaussian Copula Model) and allows to account for the base correlation smile (see
+   <b>
+    Base
+   </b>
+   Correlation).
+  </p>
+  <p block-type="Text">
+   The local correlation model is essentially similar to an exotic copula model; its originality lies mainly in its economic interpretation. The model consists of a slight modification in the analytical specification of the Gaussian copula (see Gaussian Copula Model):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_i = \sqrt{\rho(X)}X + \sqrt{1 - \rho(X)}\varepsilon_i \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   Each reference entity in the portfolio is represented by its asset value
+   <math display="inline">
+    A_i
+   </math>
+   , driven by a specific factor
+   <math display="inline">
+    \varepsilon_i
+   </math>
+   , and an economic factor X, common to all names in the economy. In the Gaussian framework, the correlation parameter
+   <math display="inline">
+    \rho
+   </math>
+   is constant and therefore
+   <math display="inline">
+    A_i
+   </math>
+   is Gaussian. On the contrary, in the local correlation model,
+   <math display="inline">
+    \rho(X)
+   </math>
+   is a function of the economy factor, making assets non-Gaussian. As a result,
+   <math display="inline">
+    \rho(X)
+   </math>
+   is not a measure of the actual asset correlation in the traditional sense. In the local correlation model, default correlation does not depend on the average spread of the portfolio, its dispersion, rating, or industrial sectors, but rather on the global state of the economy. In other words, the local correlation function is universal and can be used regardless of the composition of the reference portfolio. We can, therefore, calibrate our local correlation function to standard Collateralized Debt Obligation (CDO) tranches and use it to price bespoke CDOs. The model's applications are discussed later.
+  </p>
+  <h2>
+   Large Pool Framework
+  </h2>
+  <p block-type="Text">
+   Conditional on a state of the economy, the local correlation model behaves just like any other Gaussian copula model. The conditional cumulative loss is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(K|X) = P\left[ (1 - RR) \times \frac{1}{n} \sum_{i=1}^{n} 1_{\{A_i \le G_i^{-1}(p_i)\}} \le K|X \right]
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   In equation (2),
+   <math display="inline">
+    RR
+   </math>
+   is a fixed recovery rate assumption,
+   <math display="inline">
+    n
+   </math>
+   is the number of obligors in the portfolio,
+   <math display="inline">
+    A_i
+   </math>
+   is the
+   <i>
+    i
+   </i>
+   th asset value as defined in the previous section,
+   <math display="inline">
+    p_i
+   </math>
+   is the probability of default for the
+   <i>
+    i
+   </i>
+   th obligor, and
+   <math display="inline">
+    G_i
+   </math>
+   is
+   <math display="inline">
+    A_i
+   </math>
+   's cumulative distribution function.
+   <math display="inline">
+    P
+   </math>
+   is the risk-neutral probability. In an infinitely diversified portfolio, asset distributions and default probabilities do not depend on the obligor, and equa-
+   <math display="inline">
+    \text{tion (2) becomes}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(K|X) = P\left[1_{\{A \le G^{-1}(p)\}} \le \frac{K}{1 - RR} | X = x\right]
+   </math>
+   <br/>
+   =
+   <math>
+    1_{\left\{N\left(\frac{G^{-1}(p) + x\sqrt{\rho(x)}}{\sqrt{1 - \rho(x)}}\right) \le \frac{K}{1 - RR}\right\}}
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   Finally, equation
+   <math display="inline">
+    (3)
+   </math>
+   yields the expression for unconditional cumulative loss:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(K) = P\left[N\left(\frac{G^{-1}(p) + X\sqrt{\rho(X)}}{\sqrt{1 - \rho(X)}}\right) \le \frac{K}{1 - RR}\right] \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   Assuming that cumulative loss distribution
+   <math display="inline">
+    L
+   </math>
+   and asset distribution
+   <math display="inline">
+    G
+   </math>
+   are known, we can use equation
+   <math display="inline">
+    (4)
+   </math>
+   to obtain the local correlation function.
+  </p>
+  <h4>
+   Implied Loss Distribution
+  </h4>
+  <p block-type="TextInlineMath">
+   Let us first derive an expression for cumulative loss distribution. The only information we have about a portfolio's cumulative loss comes from CDO market quotes. For example, five single-tranche CDOs are quoted based on the iTraxx Main portfolio—the European credit benchmark—and the CDX IG portfolio—the US credit benchmark. These prices form the "base correlation skew"-five constant correlations obtained using the Gaussian copula framework (see Gaussian Copula Model; Base Correlation). We write the naïve cumulative loss obtained using constant base correlations as
+   <math display="inline">
+    L(K, \rho_K^{\text{Base}})
+   </math>
+   . The naïve cumulative loss coincides with the actual cumulative loss
+   <math display="inline">
+    L(K)
+   </math>
+   on the five market points.
+   <math display="inline">
+    L(K)
+   </math>
+   can then be continuously interpolated using the following formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(K) = L(K, \rho_K^{\text{Base}}) + \frac{\partial L}{\partial K}(K, \rho_K^{\text{Base}})
+   </math>
+   <math display="block">
+    \times \int_0^K \frac{\partial L}{\partial \rho}(k, \rho_K^{\text{Base}}) \, \mathrm{d}k \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \mathbf{1}
+   </math>
+  </p>
+  <h1>
+   Results and Interpretation
+  </h1>
+  <p block-type="Text">
+   One last assumption is made before we derive the final result: we need to assume that the asset distribution G is a Gaussian distribution, that is,
+   <math display="inline">
+    G \equiv N
+   </math>
+   . We drop this assumption later on. Equations (4) and (5) can finally be combined to obtain an analytical expression for local correlation
+   <math display="inline">
+    \rho(X)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Let us now discuss the economic interpretation of equation (4). We define the idiosyncratic threshold as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{\varepsilon}(X) = \frac{G^{-1}(p) + X\sqrt{\rho(X)}}{\sqrt{1 - \rho(X)}}\tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   Equation
+   <math display="inline">
+    (4)
+   </math>
+   can be rewritten according to the following equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(K) = N(x_K), \quad x_K = \tilde{\varepsilon}^{-1} \left( N^{-1} \left( \frac{K}{1 - RR} \right) \right)
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   This means that for each level of loss
+   <math display="inline">
+    K
+   </math>
+   in the portfolio, there is an equivalent&lt;sup&gt;a&lt;/sup&gt; state of the economy
+   <math display="inline">
+    x_K
+   </math>
+   . Thus, for every state of the economy, there is a single corresponding loss level for any diversified portfolio. We can, therefore, interpret the local correlation
+   <math display="inline">
+    \rho(X)
+   </math>
+   in a given state of the economy as the equivalent constant correlation to be used for a tiny tranche of size
+   <math display="inline">
+    dK
+   </math>
+   , centered at strike
+   <math display="inline">
+    K = L^{-1} \cdot N(X).
+   </math>
+  </p>
+  <p block-type="Text">
+   The results so far are summarized as follows. The large pool assumption allows us to relate the local correlation function to the cumulative loss distribution. Furthermore, assuming that assets are normally distributed, we can generate a mapping of each state of the economy into a loss level for any given portfolio. The local correlation can, therefore, be interpreted as the correlation of a tiny tranche centered at the corresponding loss level in a given state of the economy.
+  </p>
+  <h3>
+   Relaxing the Gaussian Assumption
+  </h3>
+  <p block-type="Text">
+   We made two crucial assumptions in the previous sections: we assumed that the portfolio could be considered infinitely diversified—the large pool assumption-and we also assumed that despite the local correlation specification (1), assets could be considered to be Gaussian
+  </p>
+  <p block-type="Text">
+   If we drop the Gaussian assumption, the law of assets becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G_i^{\rho}(z) = P[A_i \le z]
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \int N\left(\frac{z + x\sqrt{\rho(x)}}{\sqrt{1 - \rho(x)}}\right)\varphi(x) dx \qquad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Equations
+   <math display="inline">
+    (2)
+   </math>
+   and
+   <math display="inline">
+    (8)
+   </math>
+   can be used simultaneously to solve both the local correlation function
+   <math display="inline">
+    \rho(x)
+   </math>
+   and asset distribution
+   <math display="inline">
+    G
+   </math>
+   at the same time, through a fixed-point algorithm. We initialize the algorithm by setting
+   <math display="inline">
+    G \equiv N
+   </math>
+   and solve equation (2) to get the corresponding
+   <math display="inline">
+    \rho(x)
+   </math>
+   function. The result is substituted into equation (8), which yields a new version of
+   <math display="inline">
+    G
+   </math>
+   . We iterate this process until the local correlation function is stable.
+  </p>
+  <h4>
+   Relaxing the Large Pool Assumption
+  </h4>
+  <p block-type="Text">
+   We now relax the large pool assumption. Considering equation (2), individual default probabilities are now used in their general form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g_{i|X} = N\left(\frac{G^{-1}(p_i) + X\sqrt{\rho(X)}}{\sqrt{1 - \rho(X)}}\right) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   Assuming that the function
+   <math display="inline">
+    \rho(X)
+   </math>
+   is known, we can compute the loss distribution
+   <math display="inline">
+    L(K)
+   </math>
+   via equation (2), using Andersen's combinatory algorithm as presented in [2]. We, therefore, need to provide the model with a functional form for local correlation such as a parametric representation. In
+   <math display="inline">
+    [1]
+   </math>
+   (see
+   <b>
+    Ran
+   </b>
+   dom Factor Loading Model (for Portfolio Credit)), Andersen et al. use a piecewise constant correlation function in their random factor loading model. Continuous functions such as piecewise linear functions or cubic splines can also be used. Such a parameterization suggests that the model needs to be calibrated to market prices through high-dimension optimization. Such an optimization is beyond the scope of this article.
+  </p>
+  <h4>
+   Application to Exotic CDO Valuation
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   The problem of mapping the correlation of bespoke portfolios against standard ones has been a hot topic ever since standard CDO tranches started to trade. The question is, "How do we obtain the Gaussian correlation assumption to use with a nonstandard
+  </p>
+  <p block-type="Text">
+   portfolio and nonstandard subordination from standard CDO quotes?" Amongst other authors, Turc and Very [4] have described several ways of choosing the right equivalent correlation for nonstandard CDO pricing [3]. The probability-matching approach turns out to be the most consistent technique. It suggests using the index correlation corresponding to an equivalent strike in probabilistic terms. In other words, the index strike and bespoke strike are equivalent if they have the same probability of being reached. In the local correlation model, remember that the function
+   <i>
+    ρ(X)
+   </i>
+   is considered as a universal constant, independent of the portfolio. Thus, equation (7) yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_{\text{index}}(K_{\text{index}}) = N(X) = L_{\text{bespoke}}(K_{\text{bespoke}}) \quad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   Equation (10) shows that the local correlation model is equivalent to the probability-matching approach. It is, therefore, consistent with one of the most popular market practices for bespoke CDO pricing.
+  </p>
+  <h1>
+   <b>
+    Acknowledgments
+   </b>
+  </h1>
+  <p block-type="Text">
+   We would like to acknowledge the contribution of Philippe Very, of Natixis, for the development of the local correlation model.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   Equivalence in terms of probability.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Andersen, L. &amp; Sidenius, J. (2004).
+     <i>
+      Extensions to the Gaussian Copula: Random Recovery and Random Factor Loadings
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [2] Andersen, L., Sidenius, J. &amp; Basu, S. (2003). All your hedges in one basket,
+     <i>
+      Risk
+     </i>
+     November, 67–72.
+    </li>
+    <li block-type="ListItem">
+     [3] Jeffery, C. (2006). Credit model meltdown,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      19
+     </b>
+     (11), 21–25.
+    </li>
+    <li block-type="ListItem">
+     [4] Turc, J. &amp; Very, P. (2008). Pricing CDOs with a smile: the local correlation model, in
+     <i>
+      Frontiers in Quantitative Finance: Volatility and Credit Risk Modeling
+     </i>
+     , R. Cont, ed., Wiley, Chapter 9.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Burtschell, X., Gregory, J. &amp; Laurent, J.-P. (2005, 2008).
+   <i>
+    A Comparative Analysis of CDO Pricing Models
+   </i>
+   .
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Base Correlation
+   </b>
+   ;
+   <b>
+    CDO Tranches: Impact on Economic Capital
+   </b>
+   ;
+   <b>
+    Collateralized Debt Obligations (CDO)
+   </b>
+   ;
+   <b>
+    Gaussian Copula Model
+   </b>
+   ;
+   <b>
+    Modeling Correlation of Structured Instruments in a Portfolio Setting
+   </b>
+   ;
+   <b>
+    Random Factor Loading Model (for Portfolio Credit)
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   JULIEN TURC &amp; BENJAMIN HERZOG
+  </p>
+ </body>
+</html>

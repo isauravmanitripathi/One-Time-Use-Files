@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Crank-Nicolson Scheme
+  </h1>
+  <p block-type="Text">
+   In a paper published in 1947 [2], John Crank and Phyllis Nicolson presented a numerical method for the approximation of diffusion equations. Starting from the simplest example
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V}{\partial t} = \frac{\partial^2 V}{\partial x^2} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   a spatial approximation on a uniform grid with spacing
+   <math display="inline">
+    h
+   </math>
+   leads to the semidiscrete equations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}V_j}{\mathrm{d}t} = h^{-2} \,\delta_j^2 V_j \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    V_i(t)
+   </math>
+   is an approximation to
+   <math display="inline">
+    V(x_i, t)
+   </math>
+   and
+   <math display="inline">
+    \delta_i^2 V_i \equiv V_{i+1} - 2V_i + V_{i-1}
+   </math>
+   is a central second difference. Crank-Nicolson time-marching discretizes this in time with a uniform timestep
+   <math display="inline">
+    k
+   </math>
+   using the approximation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k^{-1} \left( V_j^{n+1} - V_j^n \right) = \frac{1}{2} h^{-2} \left( \delta_j^2 V_j^{n+1} + \delta_j^2 V_j^n \right) \quad (3)
+   </math>
+  </p>
+  <p block-type="Text">
+   which can be rearranged to give
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(1 - \frac{1}{2}kh^{-2}\delta_j^2\right)V_j^{n+1} = \left(1 + \frac{1}{2}kh^{-2}\delta_j^2\right)V_j^n \qquad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This can be viewed as the
+   <math display="inline">
+    \theta = \frac{1}{2}
+   </math>
+   case of the more general
+   <math display="inline">
+    \theta
+   </math>
+   scheme
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(1 - \theta \, kh^{-2} \delta_j^2\right) V_j^{n+1} = \left(1 + (1 - \theta) \, kh^{-2} \delta_j^2\right) V_j^n \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \theta = 0
+   </math>
+   corresponds to explicit Euler time-marching, while
+   <math display="inline">
+    \theta = 1
+   </math>
+   corresponds to fully implicit Euler timemarching. For
+   <math display="inline">
+    \theta &gt; 0
+   </math>
+   , the
+   <math display="inline">
+    \theta
+   </math>
+   -scheme defines a tridiagonal system of simultaneous equations, which can be solved very efficiently using the Thomas algorithm to obtain the values for
+   <math display="inline">
+    V_i^{n+1}
+   </math>
+   . The scheme is unconditionally stable in the
+   <math display="inline">
+    \vec{L}_2
+   </math>
+   norm, meaning that the
+   <math display="inline">
+    L_2
+   </math>
+   norm of the solution does not increase for any value of k, provided
+   <math display="inline">
+    \theta \ge 1/2
+   </math>
+   . The Crank–Nicolson scheme is thus on the boundary of unconditional stability. It is also special in having a numerical error for smooth initial data, which is
+   <math display="inline">
+    O(h^2, k^2)
+   </math>
+   , whereas the error is
+   <math display="inline">
+    O(h^2, k)
+   </math>
+   for other values of
+   <math display="inline">
+    \theta
+   </math>
+   . The unconditional
+   <math display="inline">
+    L_2
+   </math>
+   stability means that one can choose to make
+   <math display="inline">
+    k
+   </math>
+   proportional to
+   <math display="inline">
+    h
+   </math>
+   , and, together with the secondorder accuracy, this makes the scheme both accurate
+  </p>
+  <p block-type="Text">
+   and efficient, and hence a very popular choice for approximating parabolic PDEs (see
+   <b>
+    Partial Differ
+   </b>
+   ential Equations).
+  </p>
+  <h2>
+   <b>
+    Application to Black–Scholes Equation
+   </b>
+  </h2>
+  <p block-type="Text">
+   The Crank-Nicolson method is used extensively in mathematical finance for approximating parabolic PDEs such as the Black-Scholes equation, which can be written in reversed-time form (with
+   <math display="inline">
+    \tau \equiv T - t
+   </math>
+   being the time to maturity
+   <math display="inline">
+    T
+   </math>
+   ) as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V}{\partial \tau} = -rV + rS\frac{\partial V}{\partial S} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Switching to the new coordinate
+   <math display="inline">
+    x \equiv \log S
+   </math>
+   gives the transformed equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V}{\partial \tau} = -rV + \left(r - \frac{1}{2}\sigma^2\right)\frac{\partial V}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 V}{\partial x^2} \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   and its Crank-Nicolson discretization on a grid with uniform timestep
+   <math display="inline">
+    k
+   </math>
+   and uniform grid spacing
+   <math display="inline">
+    h
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(I + \frac{1}{2}D\right) V_j^{n+1} = \left(I - \frac{1}{2}D\right) V_j^n \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the discrete operator
+   <math display="inline">
+    D
+   </math>
+   is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D = r k - \frac{1}{2}kh^{-1} \left(r - \frac{1}{2}\sigma^2\right) \delta_{2j} - \frac{1}{2}kh^{-2} \sigma^2 \delta_j^2
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   with the central first difference operator
+   <math display="inline">
+    \delta_{2j}
+   </math>
+   defined by
+   <math display="inline">
+    \delta_{2j} V_j \equiv V_{j+1} - V_{j-1}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   For an European call option with strike
+   <math display="inline">
+    K
+   </math>
+   , the initial data at maturity is
+   <math display="inline">
+    V(S, 0) = \max(S - K, 0)
+   </math>
+   . Figure 1a shows the numerical solution
+   <math display="inline">
+    V(S, 2)
+   </math>
+   for parameter values
+   <math display="inline">
+    r = 0.05
+   </math>
+   ,
+   <math display="inline">
+    \sigma = 0.2
+   </math>
+   ,
+   <math display="inline">
+    K = 1
+   </math>
+   , and timestep/spacing ratio
+   <math display="inline">
+    \lambda \equiv k/h = 10
+   </math>
+   . The agreement between the numerical solution and the known analytic solution appears quite good, but b and c show much poorer agreement for the approximations to
+   <math display="inline">
+    \Delta \equiv \partial V/\partial S
+   </math>
+   and
+   <math display="inline">
+    \Gamma \equiv \partial^2 V/\partial S^2
+   </math>
+   (see
+   <b>
+    Delta Hedging
+   </b>
+   ; Gamma Hedging) obtained by central differencing of the numerical solution
+   <math display="inline">
+    V_i^n
+   </math>
+   . In particular, note that the maximum error in the computed value for
+   <math display="inline">
+    \Gamma
+   </math>
+   occurs at
+   <math display="inline">
+    S=1
+   </math>
+   , which is the location of the discontinuity in the first derivative of the initial data. Figure
+   <math display="inline">
+    2a-c
+   </math>
+   show the behavior of the maximum error as the computational grid is refined, keeping fixed the ratio
+   <math display="inline">
+    \lambda \equiv k/h
+   </math>
+   . It can be seen that for
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   <i>
+    V
+   </i>
+   ,  and  for a European call option, with
+   <i>
+    λ
+   </i>
+   ≡
+   <i>
+    k/h
+   </i>
+   = 10
+  </p>
+  <p block-type="Text">
+   largest value of
+   <i>
+    λ
+   </i>
+   the numerical solution
+   <i>
+    Vj
+   </i>
+   exhibits first-order convergence, while the discrete approximation to  does not converge, and the approximation to  diverges. For smaller values of
+   <i>
+    λ
+   </i>
+   , it appears that the convergence is better, but, in fact, the asymptotic behavior is exactly the same except that it becomes evident only on much finer grids.
+  </p>
+  <p block-type="Text">
+   At first sight, this is a little surprising as textbooks almost always describe the Crank–Nicolson method as unconditionally stable and second-order accurate. The key is that it is only unconditionally stable in the
+   <i>
+    L
+   </i>
+   <sup>
+    2
+   </sup>
+   norm, and this only ensures convergence in the
+   <i>
+    L
+   </i>
+   <sup>
+    2
+   </sup>
+   norm for initial data, which has a finite
+   <i>
+    L
+   </i>
+   <sup>
+    2
+   </sup>
+   norm [9]. Furthermore, the order of convergence may be less than second order for initial data, which is not
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Grid convergence for a European call option, with fixed
+   <math display="inline">
+    \lambda \equiv k/h
+   </math>
+  </p>
+  <p block-type="Text">
+   smooth; for example, the
+   <math display="inline">
+    L_2
+   </math>
+   order of convergence for discontinuous initial data is 1/2. With the European call Black–Scholes application, the initial data for
+   <math display="inline">
+    V
+   </math>
+   lies in
+   <math display="inline">
+    L_2
+   </math>
+   , as does its first derivative, but the second derivative is the Dirac delta function, which does not lie in
+   <math display="inline">
+    L_2
+   </math>
+   . This is the root cause of the observed failure
+  </p>
+  <p block-type="Text">
+   to converge as the grid is refined. Furthermore, it is the maximum error, the
+   <math display="inline">
+    L_{\infty}
+   </math>
+   error, which is most relevant in financial applications.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   One solution to this problem is to use an alternative second-order backward difference method, but these methods require special start-up procedures
+  </p>
+  <p block-type="Text">
+   because they require more than one previous time level, and they are usually less accurate than the Crank-Nicolson method for the same number of timesteps. Better alternatives are higher order backward difference methods [5] or the Rannacher start-up procedure described in the next section.
+  </p>
+  <h4>
+   <b>
+    Rannacher Start-up Procedure
+   </b>
+  </h4>
+  <p block-type="Text">
+   Rannacher analyzed this problem of poor
+   <math display="inline">
+    L_2
+   </math>
+   convergence of convection-diffusion approximations with discontinuous initial data [8], and recovered secondorder convergence by replacing the Crank-Nicolson approximation for the very first timestep by two halftimesteps of implicit Euler time integration, and by using a finite element projection of the discontinuous initial data onto the computational grid. This technique, often referred to as
+   <i>
+    Rannacher timestep
+   </i>
+   <math display="inline">
+    ping
+   </math>
+   , has been used with success in approximations of the Black-Scholes equations [6, 7], with the halftimestep implicit Euler discretization given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(I + \frac{1}{2}D\right) V_j^{n+1/2} = V_j^n \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   The problem has been further investigated by Giles and Carter [4] who analyzed the maximum errors in finance applications and proved that it is necessary to go further and replace the first two Crank-Nicolson timesteps by four half-timesteps of implicit Euler to achieve second-order accuracy in the
+   <math display="inline">
+    L_{\infty}
+   </math>
+   norm for V,
+   <math display="inline">
+    \Delta
+   </math>
+   and
+   <math display="inline">
+    \Gamma
+   </math>
+   for put, call, and digital options. The improved accuracy is demonstrated by
+   <math display="inline">
+    (d-f)
+   </math>
+   in Figures 1 and 2.
+  </p>
+  <h4>
+   <b>
+    Nonlinear and Multifactor Extensions
+   </b>
+  </h4>
+  <p block-type="Text">
+   The use of a nonlinear penalty function in approximating American options (see Finite Difference Methods for Early Exercise Options) leads to a nonlinear discretization of the form [3]
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(I + \frac{1}{2}D\right) V_j^{n+1} = \left(I - \frac{1}{2}D\right) V_j^n + P\left(V_j^{n+1}\right) \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the nonlinear penalty term
+   <math display="inline">
+    P(V_j^{n+1})
+   </math>
+   is negligible in the region where the option is not exercised, and elsewhere ensures that
+   <math display="inline">
+    V_i^{n+1}
+   </math>
+   is approximately equal to the exercise value.
+  </p>
+  <p block-type="TextInlineMath">
+   This nonlinear system of equations can be solved using a Newton iteration, starting with
+   <math display="inline">
+    V_j^{n+1,0} = V_j^n
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and defining the
+   <math display="inline">
+    m+1^{th}
+   </math>
+   iterate to be
+   <math display="inline">
+    V_i^{n+1,m+1} =
+   </math>
+   <math display="inline">
+    V_i^{n+1,m} + \Delta V_i
+   </math>
+   with the correction
+   <math display="inline">
+    \Delta V_j
+   </math>
+   given by the linear equations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \left(I + \frac{1}{2}D - \frac{\partial P}{\partial V}\right) \Delta V_j \\ &amp;= -\left(I + \frac{1}{2}D\right) V_j^{n+1,m} \\ &amp;+ \left(I - \frac{1}{2}D\right) V_j^n + P\left(V_j^{n+1,m}\right) \end{aligned} \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Alternatively, one can use just one step of the Newton iteration, in which case one has
+   <math display="inline">
+    V_i^{n+1} = V_i^n + \Delta V_j
+   </math>
+   with the change
+   <math display="inline">
+    \Delta V_i
+   </math>
+   given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(I + \frac{1}{2}D - \frac{\partial P}{\partial V}\right)\Delta V_j = -D V_j^n + P(V_j^n) \quad (13)
+   </math>
+  </p>
+  <p block-type="Text">
+   In one dimension, the linear equations are a tridiagonal system that can be solved very efficiently. In higher dimensions, the direct solution cost is much greater and alternative approaches are usually adopted. One is to use an Alternating Direction Implicit (ADI) Method approximate factorization into a product of operators, each of which involves differences in only one direction [9]. To maintain second-order accuracy, it is necessary to use the Craig-Sneyd treatment for any cross-derivative term
+   <math display="inline">
+    [1]
+   </math>
+   . Another approach is to use a preconditioned iterative solver such as BiCGStab with ILU preconditioning (see Conjugate Gradient Methods).
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Craig, I.J.D. &amp; Sneyd, A.D. (1988). An alternatingdirection implicit scheme for parabolic equations with mixed derivatives, Computers and Mathematics with Applications 16(4), 341-350.
+    </li>
+    <li block-type="ListItem">
+     [2] Crank, J. &amp; Nicolson, P. (1947). A practical method for numerical integration of solutions of partial differential equations of heat-conduction type. Proceedings Cambridge Philosophical Society 43, 50.
+    </li>
+    <li block-type="ListItem">
+     [3] Forsyth, P.A. &amp; Vetzal, K.R. (2002). Quadratic convergence for valuing American options using a penalty method, SIAM Journal on Scientific Computing 23(6), 2095-2122.
+    </li>
+    <li block-type="ListItem">
+     [4] Giles, M.B. &amp; Carter, R. (2006). Convergence analysis of Crank-Nicolson and Rannacher time-marching, Journal of Computational Finance
+     <math display="inline">
+      9(4)
+     </math>
+     ,
+     <math display="inline">
+      89-112
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     [5] Khaliq, A.Q.M., Voss, D.A., Yousuf, R. &amp; Wendland, W. (2007). Pricing exotic options with L-stable Padé schemes, Journal of Banking and Finance 31(11), 3438-3461.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [6] Pooley, D.M., Forsyth, P.A. &amp; Vetzal, K.R. (2003). Numerical convergence properties of option pricing PDEs with uncertain volatility,
+     <i>
+      IMA Journal of Numerical Analysis
+     </i>
+     <b>
+      23
+     </b>
+     , 241–267.
+    </li>
+    <li block-type="ListItem">
+     [7] Pooley, D.M., Vetzal, K.R. &amp; Forsyth, P.A. (2003). Convergence remedies for non-smooth payoffs in option pricing,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      6
+     </b>
+     (4), 25–40.
+    </li>
+    <li block-type="ListItem">
+     [8] Rannacher, R. (1984). Finite element solution of diffusion problems with irregular data,
+     <i>
+      Numerische Mathematik
+     </i>
+     <b>
+      43
+     </b>
+     , 309–327.
+    </li>
+    <li block-type="ListItem">
+     [9] Richtmyer, R.D. &amp; Morton, K.W. (1967).
+     <i>
+      Difference Methods for Initial-value Problems
+     </i>
+     , 2nd Edition, John
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Wiley &amp; Sons. Reprint Edition (1994), Krieger Publishing Company, Malabar.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Alternating Direction Implicit (ADI) Method
+   </b>
+   ;
+   <b>
+    Conjugate Gradient Methods
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Barrier Options
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Early Exercise Options
+   </b>
+   ;
+   <b>
+    Finite Element Methods
+   </b>
+   ;
+   <b>
+    Partial Differential Equations
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   MICHAEL B. GILES
+  </p>
+ </body>
+</html>

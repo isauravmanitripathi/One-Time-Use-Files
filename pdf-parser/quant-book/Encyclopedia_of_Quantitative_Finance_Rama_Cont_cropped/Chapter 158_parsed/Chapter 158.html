@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Variance-gamma Model
+  </h1>
+  <p block-type="Text">
+   The variance-gamma (VG) process is a stochastic process with independent stationary increments, which allows for flexible parameterization of skewness and kurtosis of increments. It has gained popularity, especially in option pricing, because of its analytical tractability. It is an example of a pure-jump Lévy process (see Lévy Processes).
+  </p>
+  <p block-type="TextInlineMath">
+   The VG model is derived from the (symmetric) VG probability distribution, which is so named because it is the distribution of a random variable
+   <math display="inline">
+    X
+   </math>
+   that results from mixing a normal variable on its variance by a gamma distribution. Specifically, the conditional distribution of
+   <math display="inline">
+    X
+   </math>
+   is given by
+   <math display="inline">
+    X|W \sim \mathcal{N}(\mu, \sigma^2 W), \mu \in \mathbb{R}, \sigma &gt; 0
+   </math>
+   , where
+   <math display="inline">
+    W \sim
+   </math>
+   <math display="inline">
+    \Gamma(\alpha, \alpha)
+   </math>
+   ,
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . The symbol "~" stands for "is distributed as". The symbol
+   <math display="inline">
+    \Gamma(\alpha, \lambda)
+   </math>
+   indicates a gamma probability distribution, with probability density function (PDF), for
+   <math display="inline">
+    \alpha, \lambda &gt; 0
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_{\Gamma}(w;\alpha,\lambda) = \frac{\lambda^{\alpha}}{\Gamma(\alpha)} w^{\alpha-1} e^{-\lambda w},
+   </math>
+   <br/>
+   <math display="block">
+    w &gt; 0; = 0 \text{ elsewhere}
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   The choice
+   <math display="inline">
+    \lambda = \alpha
+   </math>
+   implies that
+   <math display="inline">
+    \mathbb{E}(W) = 1
+   </math>
+   and
+   <math display="inline">
+    \mathbb{V}\text{ar}(W) = \frac{1}{\alpha}
+   </math>
+   . Thus,
+   <i>
+    X
+   </i>
+   is a random variable symmetrically distributed about its mean
+   <math display="inline">
+    \mathbb{E}(X) = \mu
+   </math>
+   , with
+   <math display="inline">
+    \text{Var}(X) = \sigma^2
+   </math>
+   and a simple characteristic function (CF), so that when X is mean-corrected to
+   <math display="inline">
+    Y =
+   </math>
+   <math display="inline">
+    X - \mu
+   </math>
+   , the CF is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(\mathrm{e}^{\mathrm{i}uY}) = \left(1 + \frac{\sigma^2 u^2}{2\alpha}\right)^{-\alpha} \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   A random variable
+   <math display="inline">
+    X
+   </math>
+   having (symmetric) VG distribution may also be viewed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X \stackrel{\mathcal{D}}{=} \mu + \sigma W^{\frac{1}{2}} Z, \qquad \mathbb{E}(W) = 1 \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the symbol
+   <math display="inline">
+    \stackrel{\mathcal{D}}{=}
+   </math>
+   means "has the same distribution as". Here
+   <math display="inline">
+    Z \sim \mathcal{N}(0, 1)
+   </math>
+   and W is a positive nondegenerate random variable distributed independently of
+   <math display="inline">
+    Z
+   </math>
+   . In the case of the VG distribution,
+   <math display="inline">
+    W \sim \Gamma(\alpha, \alpha)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Log returns of financial assets
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = \log P_t - \log P_{t-1}, \quad t = 1, 2, \dots, N
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   reveal a kurtosis well in excess of 3, suggesting that the modeling of returns should be done by a symmetric distribution with heavier tails than the normal (see Stylized Properties of Asset Returns; Heavy Tails). For example, in 1972, Praetz [20] argued in favor of variance-dilation of the normal through variance-mixing and found that mixing according to
+   <math display="inline">
+    X|W \sim \mathcal{N}(\mu, \sigma^2 W)
+   </math>
+   , where W has reciprocal (inverse) gamma PDF with
+   <math display="inline">
+    \mathbb{E}W = 1
+   </math>
+   , gives the scaled
+   <i>
+    t
+   </i>
+   -distribution symmetric about
+   <math display="inline">
+    \mu
+   </math>
+   for the returns. This is a slight generalization of the classical Student's
+   <math display="inline">
+    t
+   </math>
+   -distribution, in that fractional degrees of freedom are permitted.
+  </p>
+  <p block-type="Text">
+   Influenced by Praetz's work, Madan and Seneta [16] took the distribution of the mixing variable
+   <math display="inline">
+    W
+   </math>
+   itself to be gamma (rather than reciprocal gamma). This resulted in a continuous-time model, which is now known as the (symmetric) variance-gamma model.
+  </p>
+  <p block-type="TextInlineMath">
+   The VG model may be placed within the context of a more general subordinator (
+   <i>
+    see
+   </i>
+   <b>
+    Time Change
+   </b>
+   ) model [10], which gives the price
+   <math display="inline">
+    P_t
+   </math>
+   of a risky asset over continuous time
+   <math display="inline">
+    t \ge 0
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_t = P_0 \exp \{ \mu t + \sigma B(T_t) \} \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    \sigma(&gt;0)
+   </math>
+   are real constants.
+   <math display="inline">
+    \{T_t\}
+   </math>
+   , the (market) activity time, is a positive, increasing random process (with stationary differences
+   <math display="inline">
+    W_t = T_t  T_{t-1}, t = 1, 2, \ldots
+   </math>
+   ), which is independent of the standard Brownian motion
+   <math display="inline">
+    \{B(t)\}\
+   </math>
+   . The corresponding returns are then given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{t} = \log P_{t} - \log P_{t-1} = \mu + \sigma(B(T_{t}) - B(T_{t-1}))
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   We assume that
+   <math display="inline">
+    \mathbb{E}(W_t) &lt; \infty
+   </math>
+   , and so without loss of generality that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(W_t) = 1\tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   to make the expected activity time change over unit calendar time equal to one unit, the scaling change in time being absorbed into
+   <math display="inline">
+    \sigma
+   </math>
+   , while noting that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t \stackrel{\mathcal{D}}{=} \mu + \sigma W_t^{\frac{1}{2}} B(1) \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which is of form (3). The case
+   <math display="inline">
+    T_t = t
+   </math>
+   of the model
+   <math display="inline">
+    (5)
+   </math>
+   is the classical geometric Brownian motion (GBM) model for the process
+   <math display="inline">
+    \{P_t\}
+   </math>
+   , with corresponding returns being independently
+   <math display="inline">
+    \mathcal{N}(\mu, \sigma^2)
+   </math>
+   distributed.
+  </p>
+  <p block-type="TextInlineMath">
+   In the VG model,
+   <math display="inline">
+    \{T_t\}
+   </math>
+   for
+   <math display="inline">
+    t \ge 0
+   </math>
+   , is the gamma process, a process of stationary-independent increments. The distribution of an increment over a time interval of length t is
+   <math display="inline">
+    \Gamma(\alpha t, \alpha)
+   </math>
+   . It is a remarkable feature that the distributional form for any
+   <math display="inline">
+    t
+   </math>
+   is the same; this is inherited by the VG model for
+   <math display="inline">
+    \{\log(P_t/P_0)\}, t \ge 0
+   </math>
+   , which is a process of stationary-independent increments, with the distribution of an increment over any time period
+   <math display="inline">
+    t
+   </math>
+   having CF
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{i\mu ut} \left( 1 + \frac{\sigma^2 u^2}{2\alpha} \right)^{-\alpha t} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The corresponding distribution is also called a (symmetric) VG distribution. Its mean and variance are given by
+   <math display="inline">
+    \mathbb{E} \log(P_t/P_0) = \mu t
+   </math>
+   and
+   <math display="inline">
+    \text{Var}(\log(P_t/P_0))
+   </math>
+   <math display="inline">
+    =\sigma^2 t
+   </math>
+   , respectively. The whole structure is redolent of Brownian motion, to which the VG process reduces in the limit as
+   <math display="inline">
+    \alpha \to \infty
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   An important consequence of the VG distributional form of an increment over any time interval of length
+   <math display="inline">
+    t
+   </math>
+   is that, irrespective of the size of unit of time between successive data readings, returns have a VG distribution.
+  </p>
+  <p block-type="TextInlineMath">
+   The CF
+   <math display="inline">
+    (2)
+   </math>
+   , clearly the CF of an infinitely divisible distribution, is also the CF of a difference of two independently and identically distributed (i.i.d.) gamma random variables, which reflects the fact shown in [16] that the process
+   <math display="inline">
+    \{\log(P_t/P_0) - t\mu\}, t \ge 0
+   </math>
+   , is the difference of two i.i.d. gamma processes.
+  </p>
+  <p block-type="Text">
+   The VG model is a pure-jump process [16] (see Jump Processes) reflecting this feature of a gamma process. This is seen from the Lévy-Khinchin representation (see Lévy Processes).
+  </p>
+  <p block-type="Text">
+   The analytical simplicity of the VG model and its pure-jump nature make it a leading candidate for modeling historical financial data. Further, the VG distribution's PDF has explicit structural form (see below), which is tractable for maximum-likelihood estimation of parameters from returns data.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Returns
+   <math display="inline">
+    \{X_t\}, t = 0, 1, 2, \ldots
+   </math>
+   , considered in isolation, need not be taken to be i.i.d. as in the preceding discussion, but to form (more generally) a strictly stationary sequence, to which moment estimation methods, for example, will still apply [25]. The symmetric scaled
+   <math display="inline">
+    t
+   </math>
+   -distribution continues to enjoy favor as a model for the distribution of returns because of its power-law (Pareto-type) probability tails, a property manifested (in contrast to the
+   <math display="inline">
+    VG
+   </math>
+   ) in the nonexistence of higher moments. For some data sets, empirical
+  </p>
+  <p block-type="Text">
+   investigations [10, 12] suggest the nonexistence of higher moments in a model for returns (see Heavy Tails; Stylized Properties of Asset Returns) and hence the scaled
+   <math display="inline">
+    t
+   </math>
+   -distribution.
+  </p>
+  <p block-type="Text">
+   On the other hand, other investigations [9] suggest that it is virtually impossible to distinguish between the symmetric scaled
+   <math display="inline">
+    t
+   </math>
+   and VG distributions in regard to distributional tail structure by taking compatible parameter values in the two distributions. In fact, the PDFs of the two distributions reveal that the concentration of probability near the point of symmetry
+   <math display="inline">
+    \mu
+   </math>
+   and in the middle range of the distributions is qualitatively and quantitatively different. The VG distribution tends to increase the probability near
+   <math display="inline">
+    \mu
+   </math>
+   and in the tails, at the expense of the middle range. The different natures in regard to shape are most significantly revealed by the Cauchy distribution as a special case of the
+   <math display="inline">
+    t
+   </math>
+   -distribution and the Laplace (two-sided exponential) distribution as a special case of the VG distribution.
+  </p>
+  <p block-type="Text">
+   The first monograph to include a study of the VG model was [4]. Since then it has found a place in monographs such as [22], where it is treated in the general context of Lévy processes (see Lévy Processes).
+  </p>
+  <p block-type="Text">
+   Both the VG distribution and the scaled
+   <math display="inline">
+    t
+   </math>
+   distribution are extreme cases of the generalized hyperbolic (see
+   <b>
+    Generalized Hyperbolic Models
+   </b>
+   ) distribution [23, 25].
+  </p>
+  <h4>
+   Allowing for Skewness
+  </h4>
+  <p block-type="Text">
+   A generalized normal mean-variance-mixing distribution is the distribution of
+   <math display="inline">
+    X
+   </math>
+   , where the conditional distribution of
+   <math display="inline">
+    X
+   </math>
+   is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X|W \sim \mathcal{N}(\mu + \theta W, \sigma^2 W + d^2) \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    \mu
+   </math>
+   ,
+   <math display="inline">
+    \theta
+   </math>
+   ,
+   <math display="inline">
+    d
+   </math>
+   , and
+   <math display="inline">
+    \sigma(&gt;0)
+   </math>
+   are real numbers, and W is a nondegenerate positive random variable. The distribution is skew if
+   <math display="inline">
+    \theta \neq 0
+   </math>
+   , and it is symmetric otherwise. Press [21] studied a continuous-time model with this distribution for returns, where
+   <math display="inline">
+    W \sim \text{Poisson}(\lambda)
+   </math>
+   . This is a process of stationary-independent increments, resulting from adding a compound Poisson process of normal shocks to a Brownian motion, and has both continuous and jump components. Some special cases of equation
+   <math display="inline">
+    (10)
+   </math>
+   as a returns distribution, with focus on the estimation of parameters by the method of moments, are considered in [25].
+  </p>
+  <p block-type="Text">
+   A random variable
+   <math display="inline">
+    X
+   </math>
+   is said to have a normal variance-mean mixture (NVM) distribution [1] if equation (10) holds with
+   <math display="inline">
+    d = 0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The symmetric VG and scaled
+   <math display="inline">
+    t
+   </math>
+   -distributions are instances of equation (10), with
+   <math display="inline">
+    d = \theta = 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The skew VG distribution, as introduced in [15], is the case of NVM where
+   <math display="inline">
+    W
+   </math>
+   is described by equation (1) with
+   <math display="inline">
+    \mathbb{E}W = 1
+   </math>
+   as in the symmetric case. (The skewed scaled
+   <math display="inline">
+    t
+   </math>
+   -distribution is defined analogously by taking
+   <math display="inline">
+    W
+   </math>
+   to have a reciprocal gamma distribution.)
+  </p>
+  <p block-type="Text">
+   The skew VG distribution has PDF
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_{\text{VG}}(x) = \sqrt{\frac{2}{\pi}} \frac{\alpha^{\alpha} e^{\frac{(x-\mu)\theta}{\sigma^{2}}}}{\sigma \Gamma(\alpha)} \left(\frac{|x-\mu|}{\sqrt{\theta^{2}+2\alpha\sigma^{2}}}\right)^{\alpha-\frac{1}{2}}
+   </math>
+   <math display="block">
+    \times K_{\alpha-\frac{1}{2}} \left(\frac{|x-\mu|\sqrt{\theta^{2}+2\alpha\sigma^{2}}}{\sigma^{2}}\right), \ x \in \mathbb{R}
+   </math>
+   (11)
+  </p>
+  <p block-type="Text">
+   and CF
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{\text{VG}}(u) = \mathbb{E}(\mathrm{e}^{\mathrm{i}ux}) = \mathrm{e}^{\mathrm{i}\mu u} \left(1 - \frac{1}{\alpha} \left(\mathrm{i}u\theta - \frac{\sigma^2 u^2}{2}\right)\right)^{-\alpha} \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    K_n(\omega)
+   </math>
+   for
+   <math display="inline">
+    \eta \in \mathbb{R}
+   </math>
+   and
+   <math display="inline">
+    \omega &gt; 0
+   </math>
+   , given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\eta}(\omega) = \frac{1}{2} \int_0^{\infty} z^{\eta - 1} e^{-\frac{\omega}{2} \left(z + \frac{1}{z}\right)} dz \qquad (13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is a modified Bessel function of the third kind with index
+   <math display="inline">
+    \eta
+   </math>
+   <math display="inline">
+    (K_n(\omega))
+   </math>
+   is referred to as a
+   <i>
+    modified Bessel
+   </i>
+   function of the second kind in some texts).
+  </p>
+  <p block-type="Text">
+   An equivalent representation is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X \stackrel{\mathcal{D}}{=} \mu + \theta W + \sigma W^{\frac{1}{2}} Z, \quad EW = 1 \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where Z and W are independently distributed,
+   <math display="inline">
+    Z \sim
+   </math>
+   <math display="inline">
+    \mathcal{N}(0, 1), W \sim \Gamma(\alpha, \alpha)
+   </math>
+   as mentioned before. This distributional structure is consistent with the continuoustime model for prices
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_t = P_0 \exp \{ \mu t + \theta T_t + \sigma B(T_t) \} \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \{T_t\}, t \ge 0
+   </math>
+   , is a gamma process, exactly as before. The process of independent stationary increments
+   <math display="inline">
+    \{\log(P_t/P_0)\}, t &gt; 0
+   </math>
+   , with the distribution of returns described by equations
+   <math display="inline">
+    (11)
+   </math>
+   –
+   <math display="inline">
+    (13)
+   </math>
+   , is also
+  </p>
+  <p block-type="Text">
+   called the variance-gamma model. Its properties are extensively studied in
+   <math display="inline">
+    [15]
+   </math>
+   .
+  </p>
+  <h3>
+   <b>
+    Dependence and Estimation
+   </b>
+  </h3>
+  <p block-type="Text">
+   The VG model described above is a Lévy process (see Lévy Processes)—a stochastic process in continuous time with stationary independent increments—whose increments are independent and VG distributed. To discuss dependence, we consider the model for returns:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{t} = \log P_{t} - \log P_{t-1} = \mu + \theta W_{t} + \sigma W_{t}^{1/2} Z_{t},
+   </math>
+   <br/>
+   <math display="block">
+    t = 1, 2, \dots
+   </math>
+   (16)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    Z_t
+   </math>
+   ,
+   <math display="inline">
+    t = 1, 2, \ldots
+   </math>
+   , are identically distributed
+   <math display="inline">
+    \mathcal{N}(0, 1)
+   </math>
+   random variables, independent of the strictly stationary process
+   <math display="inline">
+    \{W_t\}, t = 1, 2, \ldots
+   </math>
+   Here
+   <math display="inline">
+    \theta, \sigma(&gt;0)
+   </math>
+   are constants as before.
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    \theta = 0
+   </math>
+   , this discrete-time model is equivalent in distribution to that described by the subordinator model of Heyde [10] given by equations (5)–(8). Note that
+   <math display="inline">
+    \mathbb{C}ov(X_t, X_{t+k}) = 0
+   </math>
+   , while
+   <math display="inline">
+    \mathbb{C}\text{ov}(X_t^2, X_{t+k}^2) \neq 0, k = 1, 2, \dots
+   </math>
+   This is an important feature inasmuch as many asset returns display a sample autocorrelation function plot characteristic of white noise, but no longer do so in a sample autocorrelation plot of squared returns and of absolute values of returns [10, 12, 17].
+  </p>
+  <p block-type="TextInlineMath">
+   McLeish [17] considered the distribution of individual
+   <math display="inline">
+    W_t \sim \Gamma(\alpha, \lambda)
+   </math>
+   , which gives the distribution of individual
+   <math display="inline">
+    X_t
+   </math>
+   as (symmetric) VG, which he regarded as a robust alternative to the normal. He suggested a number of ways of introducing the dependence in the process
+   <math display="inline">
+    \{W_t\}, t = 1, 2, \ldots
+   </math>
+  </p>
+  <p block-type="Text">
+   The continuous-time subordinator model was expanded in [11] to allow for scaled
+   <math display="inline">
+    t
+   </math>
+   -distributed returns. Their specification of the activity time process in continuous time
+   <math display="inline">
+    \{T_t\}
+   </math>
+   incorporated selfsimilarity (a scaling property) and long-range dependence (LRD) in the stochastic process of squared returns. (LRD in the Allen sense is expressed as divergence of the sequence of ultimately nonnegative autocorrelations of a discrete stationary process.)
+  </p>
+  <p block-type="Text">
+   The general form of the continuous-time model for prices over continuous time
+   <math display="inline">
+    t \ge 0
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_t = P_0 \exp \{ \mu t + \theta T_t + \sigma B(T_t) \} \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for which the returns are equivalent in distribution to equation
+   <math display="inline">
+    (16)
+   </math>
+   was given in [23] as a generalization of the subordinator model that allows for skewness in the distribution of returns in the same way as in
+   <math display="inline">
+    [15]
+   </math>
+   , but the returns inherit the postulated strict stationarity of the sequence
+   <math display="inline">
+    \{W_t\}, t = 1, 2, \ldots
+   </math>
+   Following on from [11], Finlay and Seneta [5, 6] studied in detail and in parallel the continuous time structure of the skew VG model and the skew
+   <i>
+    t
+   </i>
+   -model, with focus on skewness, asymptotic self-similarity, and LRD.
+  </p>
+  <p block-type="Text">
+   Maximum-likelihood estimation for independent readings from a symmetric VG distribution is discussed in [17] and in [23], which however proposes moment estimation in the presence of dependence. Moment estimation, allowing for dependence, is further developed in [25], along with goodness of fit of various models for several sets of asset data. A method of simulating data from long-range dependent processes with skew VG or
+   <math display="inline">
+    t
+   </math>
+   -distributed increments is described in [7], and various estimation procedures (method of moments, product-density maximum likelihood, and nonstandard minimum
+   <math display="inline">
+    \chi^2
+   </math>
+   in particular) are tested on the data to assess their performance. In the simulations considered, the product-density maximum-likelihood method performs favorably. The conclusion, within the limited testing carried out, indicates then that, in practice, ordinary product density maximumlikelihood estimation is satisfactory even in the presence of LRD. This is tantamount to saying that one may treat such data on returns as i.i.d. This entails an enormous simplification in estimation procedures in fitting the skew VG and skew
+   <math display="inline">
+    t
+   </math>
+   -distributions.
+  </p>
+  <h4>
+   <b>
+    Option Pricing Applications
+   </b>
+  </h4>
+  <p block-type="Text">
+   Our discussion is based on the difference of gamma (DG) models for real-world (historical) data:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_t = P_0 e^{\mu t + G_1(t;a,b) - G_2(t;c,d)} \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \{G(t; \alpha, \beta)\}\
+   </math>
+   is a gamma process, and so
+   <math display="inline">
+    G(t;\alpha,\beta) \sim \Gamma(t\alpha,\beta)
+   </math>
+   for any given t, and the two gamma processes are independent of each other. For each t, the returns (4) for
+   <math display="inline">
+    P_t
+   </math>
+   have the following CF:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{\text{DG}}(u;\mu,a,b,c,d) = e^{i\mu u} \left(1 - \frac{\mathrm{i}u}{b}\right)^{-a} \left(1 + \frac{\mathrm{i}u}{d}\right)^{-c} \quad (19)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Comparing equations
+   <math display="inline">
+    (12)
+   </math>
+   and
+   <math display="inline">
+    (19)
+   </math>
+   , it is clear that choosing
+   <math display="inline">
+    c = a
+   </math>
+   results in a (skew) VG distribution, with PDF (11) parameters
+   <math display="inline">
+    \alpha = a, \theta = a \left(\frac{1}{b} - \frac{1}{d}\right)
+   </math>
+   , and
+   <math display="inline">
+    \sigma^2 = \frac{2a}{bd}
+   </math>
+   . The further simplification
+   <math display="inline">
+    b = d
+   </math>
+   results in the symmetric VG process for returns.
+  </p>
+  <p block-type="TextInlineMath">
+   Using this model for option pricing requires imposing parameter restrictions to ensure that
+   <math display="inline">
+    \{e^{-rt}P_t\}
+   </math>
+   is a martingale, where r is the interest rate. This amounts to ensuring that
+   <math display="inline">
+    \mathbb{E}(e^{-rt}P_t|\mathcal{F}_s)
+   </math>
+   <math display="inline">
+    e^{-rs} P_s
+   </math>
+   , where
+   <math display="inline">
+    \mathcal{F}_s
+   </math>
+   represents information available to time
+   <math display="inline">
+    s &lt; t
+   </math>
+   . In the case of the DG process,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(\mathrm{e}^{-rt}P_t|\mathcal{F}_s)
+   </math>
+   <br/>
+   =
+   <math>
+    \mathrm{e}^{-rs}P_s \times \mathrm{e}^{(\mu-r)(t-s)} \left(\frac{b}{b-1}\right)^{a(t-s)} \left(\frac{d}{d+1}\right)^{c(t-s)}
+   </math>
+   (20)
+  </p>
+  <p block-type="Text">
+   so that imposing the restriction
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu = r - a \log\left(\frac{b}{b-1}\right) - c \log\left(\frac{d}{d+1}\right) \quad (21)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    b &gt; 1
+   </math>
+   results in
+   <math display="inline">
+    \{e^{-rt} P_t\}
+   </math>
+   , which is a martingale with four free parameters:
+   <math display="inline">
+    a, b, c
+   </math>
+   , and
+   <math display="inline">
+    d
+   </math>
+   . We label it
+   <math display="inline">
+    MDG.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The (skew) VG special case is obtained by choosing
+   <math display="inline">
+    c = a
+   </math>
+   . Relabeling the parameters as above,
+   <math display="inline">
+    \alpha =
+   </math>
+   <math display="inline">
+    a, \theta = a \left(\frac{1}{b} - \frac{1}{d}\right)
+   </math>
+   , and
+   <math display="inline">
+    \sigma^2 = \frac{2a}{bd}
+   </math>
+   , results in a martingale that is a (skew) VG process. The mean constraint
+   <math display="inline">
+    (21)
+   </math>
+   now translates to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu = r + \alpha \log \left( 1 - \frac{\theta + \frac{1}{2}\sigma^2}{\alpha} \right) \tag{22}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where we take
+   <math display="inline">
+    \alpha &gt; \theta + \frac{1}{2}\sigma^2
+   </math>
+   . This martingale now has only three free parameters. We label it MVG. This corresponds to the labeling "VG" in [22] and is the martingale used in
+   <math display="inline">
+    [15]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Both MDG and MVG are, in the terminology of the work by Schoutens [22], "mean-correcting martingales", since the restriction
+   <math display="inline">
+    (21)
+   </math>
+   ,
+   <math display="inline">
+    (22)
+   </math>
+   is on the mean
+   <math display="inline">
+    (\mu)
+   </math>
+   to produce a martingale.
+  </p>
+  <p block-type="Text">
+   Another way of producing a martingale from a (skew) VG process is to begin by noting from [5] and equation
+   <math display="inline">
+    (17)
+   </math>
+   that irrespective of the distribution of
+   <math display="inline">
+    T_t
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(\mathrm{e}^{-rt} P_t | \mathcal{F}_s)
+   </math>
+   <br/>
+   =
+   <math>
+    \mathrm{e}^{-rs} P_s \times \mathrm{e}^{(\mu - r)(t - s)} \mathbb{E}\left(\mathrm{e}^{(\theta + \frac{1}{2}\sigma^2)(T_t - T_s)} | \mathcal{F}_s\right)
+   </math>
+   <br/>
+   (23)
+  </p>
+  <p block-type="TextInlineMath">
+   where the sequence
+   <math display="inline">
+    \{W_t\}
+   </math>
+   , where
+   <math display="inline">
+    W_t = T_t - T_{t-1}
+   </math>
+   , is strictly stationary.
+  </p>
+  <p block-type="TextInlineMath">
+   Thus, if we take
+   <math display="inline">
+    \mu = r
+   </math>
+   and
+   <math display="inline">
+    \theta = -\frac{1}{2}\sigma^2
+   </math>
+   in (23), the right-hand side of equation (23) becomes
+   <math display="inline">
+    e^{-st} P_s
+   </math>
+   , and we have a martingale. This construction of a martingale, simple and quite general, is slightly restrictive, however, in that two parameters,
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    \theta
+   </math>
+   , are constrained. We shall refer to this construction as a skew-correcting martingale, since
+   <math display="inline">
+    \theta
+   </math>
+   , the parameter that determines skewness, is constrained. We denote this martingale model by
+   <i>
+    MSK
+   </i>
+   . Out of the "external" parameters
+   <math display="inline">
+    \mu, \theta
+   </math>
+   , and
+   <math display="inline">
+    \sigma
+   </math>
+   , the only parameter that is retained is
+   <math display="inline">
+    \sigma
+   </math>
+   , which is called the
+   <i>
+    historical volatility
+   </i>
+   in the Black-Scholes (BS) context, which is a special case when
+   <math display="inline">
+    T_t = t
+   </math>
+   . Any additional parameters in the martingale (risk-neutral) process will be those emanating from the nature of
+   <math display="inline">
+    \{T_t\}
+   </math>
+   , which will need to be specified for any examination of estimation and goodness of fit.
+  </p>
+  <p block-type="TextInlineMath">
+   When the CF of the risk-neutral distribution of price is of the closed form, option prices may be calculated using Fourier methods (see Fourier Methods in Options Pricing) as in [3, 14]. Specifically, for
+   <math display="inline">
+    C(\Upsilon, k)
+   </math>
+   , the price of a European call option with time to maturity
+   <math display="inline">
+    \Upsilon
+   </math>
+   and strike price K and
+   <math display="inline">
+    k = \log(K)
+   </math>
+   , let
+   <math display="inline">
+    q_{\Upsilon}(p)
+   </math>
+   be the risk-neutral density of
+   <math display="inline">
+    \log(P_{\Upsilon})
+   </math>
+   , with
+   <math display="inline">
+    CF \phi_{\Upsilon}(u)
+   </math>
+   , at time
+   <math display="inline">
+    \Upsilon
+   </math>
+   . Thus,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(\Upsilon, k) = e^{-r\Upsilon} \mathbb{E}(P_{\Upsilon} - K)^{+}
+   </math>
+   <math display="block">
+    = \int_{k}^{\infty} e^{-r\Upsilon} (e^{p} - e^{k}) q_{\Upsilon}(p) \, \mathrm{d}p \quad (24)
+   </math>
+  </p>
+  <p block-type="Text">
+   Define the modified call price as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c(\Upsilon, k) = e^{\gamma k} C(\Upsilon, k) \tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some
+   <math display="inline">
+    \gamma
+   </math>
+   such that
+   <math display="inline">
+    \mathbb{E}(P_{\Upsilon}^{\gamma+1}) &lt; \infty
+   </math>
+   . The Fourier transform of
+   <math display="inline">
+    c(\Upsilon, k)
+   </math>
+   is then given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi_{\Upsilon}(x) = \int_{-\infty}^{\infty} e^{ixk} c(\Upsilon, k) dk\n
+   </math>
+   <math display="block">
+    \n= \frac{e^{-r\Upsilon} \phi_{\Upsilon}(x - (\gamma + 1)i)}{\gamma^2 + \gamma - x^2 + ix(2\gamma + 1)} \n
+   </math>
+   (26)
+  </p>
+  <p block-type="Text">
+   Taking the inverse Fourier transform and using the fact that
+   <math display="inline">
+    c(\Upsilon, k)
+   </math>
+   is real, and using equation (25) gives
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(\Upsilon, k) = \frac{e^{-\gamma k}}{2\pi} \int_{-\infty}^{\infty} e^{-ixk} \Psi_{\Upsilon}(x) dx
+   </math>
+   <math display="block">
+    = \frac{e^{-\gamma k}}{\pi} \int_{0}^{\infty} \Re\{e^{-ixk} \Psi_{\Upsilon}(x)\} dx \quad (27)
+   </math>
+  </p>
+  <p block-type="Text">
+   In fact, we shall use a modified version of equation (27) suggested in [14]:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(\Upsilon,k) = R_{\gamma} + \frac{\mathrm{e}^{-\gamma k}}{\pi} \int_0^\infty \Re\{\mathrm{e}^{-\mathrm{i} xk} \Psi_{\Upsilon}(x)\} \,\mathrm{d}x \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    R_{\gamma} = \phi_{\Upsilon}(-i)
+   </math>
+   for
+   <math display="inline">
+    -1 &lt; \gamma &lt; 0
+   </math>
+   . The choice of
+   <math display="inline">
+    \gamma
+   </math>
+   generally impacts on the error generated by the numerical approximation of equation (28). Finally, the option price
+   <math display="inline">
+    (28)
+   </math>
+   is computed
+   <i>
+    via
+   </i>
+   numerical integration.
+  </p>
+  <p block-type="Text">
+   The option price in this procedure is given simply by the sum of a number of function evaluations. Lee
+   <math display="inline">
+    [14]
+   </math>
+   shows that with a judicious choice of tuning parameters, one can calculate the option price up to 99.99% accuracy with less than 100, and in some cases less than 10, function evaluations. This CF-based pricing method lends itself easily to the fast Fourier transform, which allows for a very fast calculation of a range of option prices.
+  </p>
+  <p block-type="Text">
+   To numerically illustrate the method and the empirical performance of MVG against some competitors, we
+   <math display="inline">
+    [8]
+   </math>
+   use the data set in
+   <math display="inline">
+    [22]
+   </math>
+   , Appendix C, which contains 77 call option prices on the S&amp;P 500 index at the close of market on April 18, 2002. Fundamentally, each data point consists of the triple: strike, option price, and expiry date.
+  </p>
+  <p block-type="Text">
+   Fitting models involves estimating model parameters. To do this, we follow [22], p. 7, by minimizing with respect to the model parameters, the root-meansquare error (RMSE):
+  </p>
+  <p block-type="Text">
+   RMSE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = \sqrt{\left(\sum_{\text{options}} \frac{\text{(market price - model price)}^2}{\text{number of options}}\right)}
+   </math>
+   (29)
+  </p>
+  <p block-type="Text" class="has-continuation">
+   and then comparing the values of the minimized errors between models. If a model perfectly described
+  </p>
+  <p block-type="Text">
+   the asset price process, the RMSE value would be zero, with all model prices matching market prices, given the single true set of parameters.
+  </p>
+  <p block-type="Text">
+   The estimates of model parameters produced for a given model correspond to the current market status of that model. The procedure is thus, for a given model, a calibration procedure. No historical data are used in this procedure. The use of this data set for comparison of several different models in this way as already done in [22] allows for easy comparison of goodness of fit. We used the tuning parameter value
+   <math display="inline">
+    \gamma = -\frac{1}{2}
+   </math>
+   ; the other nonmodel constants, q, r, were as in [22], Appendix C.
+  </p>
+  <p block-type="TextInlineMath">
+   The RMSE surface for the MDG was reported in [8] to be quite flat, with a number of different parameter values giving essentially the same RMSE value of 2.24. The parameter values that gave the lowest value by 0.001 were as follows:
+   <math display="inline">
+    a = 4.35, b = 240.86, c =
+   </math>
+   <math display="inline">
+    9.79 \times 10^{-6}
+   </math>
+   ,
+   <math display="inline">
+    d = 2.65 \times 10^{-7}
+   </math>
+   . The four-parameter MDG model thus did better than the four-parameter CGMY and GH models reported in [22], p. 83, and shown in Table 1.
+  </p>
+  <p block-type="TextInlineMath">
+   The VG (skew) model fit reported in [22], p. 83, corresponded to the parameter values
+   <math display="inline">
+    \alpha (= a = c) =
+   </math>
+   <math display="inline">
+    5.4296 \times 10^{-3}
+   </math>
+   ,
+   <math display="inline">
+    b = 14.2699
+   </math>
+   ,
+   <math display="inline">
+    d = 5.8704
+   </math>
+   . The recalculation of RMSE with these parameter values reported in
+   <math display="inline">
+    [8]
+   </math>
+   gave the value 3.57. Optimization of RMSE reported in [8] with starting values
+   <math display="inline">
+    a = c =
+   </math>
+   <math display="inline">
+    0.01, b = d = 10
+   </math>
+   resulted in the parameter estimates and RMSE as in [22]. Thus in Table 1, the RMSE values reported under VG and MVG are the same, 3.56.
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    As
+   </math>
+   expected, this three-parameter model (MVG/VG) does not perform quite as well as the four-parameter models. The VG model is a special case of the GH model, so this is not unexpected.
+  </p>
+  <p block-type="Text">
+   Finlay and Seneta [8] discuss fitting an MSK martingale model, which allows for LRD in the historical data. This introduces two parameters in addition to the "historical volatility" parameter
+   <math display="inline">
+    \sigma
+   </math>
+   , namely, a parameter
+   <math display="inline">
+    \alpha
+   </math>
+   corresponding to the gamma distribution with mean 1, as before, and a "Hurst" parameter
+   <math display="inline">
+    H
+   </math>
+   associated with dependence. The fit of MSK produces an RMSE of 6.35 and an estimate of
+   <math display="inline">
+    \sigma = 0.012
+   </math>
+   . There is almost no improvement on the BS situation reported in Table 1, which is the standard BS
+  </p>
+  <p>
+   &lt;table&gt;
+   <b>
+    Table 1
+   </b>
+   Fit of models to Schoutens [22] option data
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      Model MDG CGMY GH VG MVG BS
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      RMSE 2.24 2.76 2.88 3.56 3.56 6.73
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="TextInlineMath">
+   martingale model; its RMSE and
+   <math display="inline">
+    \sigma
+   </math>
+   -estimate values are reported in [22], pp. 40-41, and are 6.73 and 0.011, respectively. This apparent insensitivity of the MSK model to departure from BS, possibly due to the skewness parameter being constrained in the martingale construction, is overcome, as reported in
+   <math display="inline">
+    [8]
+   </math>
+   , by a four-parameter ("lack of static arbitrage" model: [2]) model, which is termed as
+   <math display="inline">
+    C3
+   </math>
+   . This model, though not a martingale model, gives an RMSE
+   <math display="inline">
+    = 0.76
+   </math>
+   , and its parameter estimates conform with estimates from historical data for an LRD VG model [7].
+  </p>
+  <p block-type="Text">
+   Thus, for a given maturity, the three-parameter MVG model and its associated (skew) VG model for historical data perform reasonably well in fitting option prices. If a four-parameter martingale model is to be used, the parent model of MVG that should be used is the MDG, in which the gamma process continues to play a fundamental role.
+  </p>
+  <h4>
+   <b>
+    Historical Notes
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   In the case where
+   <math display="inline">
+    \sigma^2 = 2\alpha
+   </math>
+   in the CF (2), the corresponding PDF (11) (with
+   <math display="inline">
+    \mu = \theta = 0
+   </math>
+   ) already appears in [18], p. 184, equation (xlii), and is the theme of
+   <math display="inline">
+    [19]
+   </math>
+   , where it is shown to be the distribution of difference of two i.i.d. gamma random variables, an idea clarified in [13]. The definition of the Bessel function
+   <math display="inline">
+    K_n(\omega)
+   </math>
+   used differs from equation (13). Teichroew [24] obtained the PDF (11) (with
+   <math display="inline">
+    \mu = \theta =
+   </math>
+   0), in terms of a Hankel function, from the normal variance-mixing structure of the distribution of
+   <math display="inline">
+    X
+   </math>
+   , using form (1) for the PDF of the mixing variable W. These themes are taken up by McLeish [17] as a starting point.
+  </p>
+  <p block-type="TextInlineMath">
+   The skew VG distribution with
+   <math display="inline">
+    \alpha = 2n
+   </math>
+   , where
+   <i>
+    n
+   </i>
+   is a positive integer, and
+   <math display="inline">
+    -1 &lt; \theta/\sigma^2 &lt; 1
+   </math>
+   appears in [26], a paper generalizing [19], which was also published in 1932.
+  </p>
+  <h4>
+   Acknowledgments
+  </h4>
+  <p block-type="Text">
+   Many thanks are due to Richard Finlay for his help.
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="Text">
+   <math display="inline">
+    [1]
+   </math>
+   Barndorff-Nielsen, O.E., Kent, J. &amp; Sørensen, M. (1982). Normal variance-mean mixtures and z distributions, International Statistical Review 50, 145–159.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [2] Carr, P., Geman, H., Madan, D. &amp; Yor, M. (2003). Stochastic volatility for Levy processes, ´
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      13
+     </b>
+     , 345–382.
+    </li>
+    <li block-type="ListItem">
+     [3] Carr, P. &amp; Madan, D. (1999). Option valuation using the fast Fourier transform,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 61–73.
+    </li>
+    <li block-type="ListItem">
+     [4] Epps, T.W. (2000).
+     <i>
+      Pricing Derivative Securities
+     </i>
+     , World Scientific, Singapore.
+    </li>
+    <li block-type="ListItem">
+     [5] Finlay, R. &amp; Seneta, E. (2006). Stationary-increment Student and Variance-Gamma processes,
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      43
+     </b>
+     , 441–453.
+    </li>
+    <li block-type="ListItem">
+     [6] Finlay, R. &amp; Seneta, E. (2007). A gamma activity time process with noninteger parameter and self-similar limit,
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      44
+     </b>
+     , 950–959.
+    </li>
+    <li block-type="ListItem">
+     [7] Finlay, R. &amp; Seneta, E. (2008a). Stationary-increment Variance-Gamma and
+     <i>
+      t
+     </i>
+     -models: simulation and parameter estimation,
+     <i>
+      International Statistical Review
+     </i>
+     <b>
+      76
+     </b>
+     , 167–186.
+    </li>
+    <li block-type="ListItem">
+     [8] Finlay, R. &amp; Seneta, E. (2008b). Option pricing with VG-like models,
+     <i>
+      International Journal of Theoretical and Applied Finance
+     </i>
+     <b>
+      11
+     </b>
+     , 943–955.
+    </li>
+    <li block-type="ListItem">
+     [9] Fung, T. &amp; Seneta, E. (2007). Tailweight, quantiles and kurtosis. A study of competing distributions,
+     <i>
+      Operations Research Letters
+     </i>
+     <b>
+      35
+     </b>
+     , 448–454.
+    </li>
+    <li block-type="ListItem">
+     [10] Heyde, C.C. (1999). A risky asset model with strong dependence through fractal activity time,
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      36
+     </b>
+     , 1234–1239.
+    </li>
+    <li block-type="ListItem">
+     [11] Heyde, C.C. &amp; Leonenko, N.N. (2005). Student processes,
+     <i>
+      Advances in Applied Probability
+     </i>
+     <b>
+      37
+     </b>
+     , 342–365.
+    </li>
+    <li block-type="ListItem">
+     [12] Heyde, C.C. &amp; Liu, S. (2001). Empirical realities for a minimal description risky asset model. The need for fractal features,
+     <i>
+      Journal of the Korean Mathematical Society
+     </i>
+     <b>
+      38
+     </b>
+     , 1047–1059.
+    </li>
+    <li block-type="ListItem">
+     [13] Kullback, S. (1936). The distribution laws of the difference and quotient of variables independently distributed in Pearson type III laws,
+     <i>
+      Annals of Mathematical Statistics
+     </i>
+     <b>
+      7
+     </b>
+     , 51–53.
+    </li>
+    <li block-type="ListItem">
+     [14] Lee, R. (2004). Option pricing by transform methods: extensions, unification and error control,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 51–86.
+    </li>
+    <li block-type="ListItem">
+     [15] Madan, D.B., Carr, P.P. &amp; Chang, E.C. (1998). The Variance-Gamma process and option pricing,
+     <i>
+      European Finance Review
+     </i>
+     <b>
+      2
+     </b>
+     , 79–105.
+    </li>
+    <li block-type="ListItem">
+     [16] Madan, D.B. &amp; Seneta, E. (1990). The Variance-Gamma (V.G.) model for share market returns,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      63
+     </b>
+     , 511–524.
+    </li>
+    <li block-type="ListItem">
+     [17] McLeish, D.L. (1982). A robust alternative to the normal distribution,
+     <i>
+      Canadian Journal of Statistics
+     </i>
+     <b>
+      10
+     </b>
+     , 89–102.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [18] Pearson, K., Jeffery, G.B. &amp; Elderton, E.M. (1929). On the distribution of the first product-moment coefficient in samples drawn from an indefinitely large normal population,
+     <i>
+      Biometrika
+     </i>
+     <b>
+      21
+     </b>
+     , 164–201.
+    </li>
+    <li block-type="ListItem">
+     [19] Pearson, K., Stouffer, S.A. &amp; David, F.N. (1932). Further applications in statistics of the
+     <i>
+      Tm(x)
+     </i>
+     Bessel function,
+     <i>
+      Biometrika
+     </i>
+     <b>
+      24
+     </b>
+     , 316–343.
+    </li>
+    <li block-type="ListItem">
+     [20] Praetz, P.D. (1972). The distribution of share price changes,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      45
+     </b>
+     , 49–55.
+    </li>
+    <li block-type="ListItem">
+     [21] Press, S.J. (1967). A compound events model for security prices,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      40
+     </b>
+     , 317–335.
+    </li>
+    <li block-type="ListItem">
+     [22] Schoutens, W. (2003).
+     <i>
+      L´evy Processes in Finance. Pricing Financial Derivatives
+     </i>
+     , Wiley, Chichester.
+    </li>
+    <li block-type="ListItem">
+     [23] Seneta, E. (2004). Fitting the Variance-Gamma model to financial data, in
+     <i>
+      Stochastic Methods and Their Applications (C.C. Heyde Festschrift)
+     </i>
+     , J. Gani &amp; E. Seneta, eds, Journal of Applied Probability, Vol. 41A, pp. 177–187.
+    </li>
+    <li block-type="ListItem">
+     [24] Teichroew, D. (1957). The mixture of normal distributions with different variances,
+     <i>
+      Annals of Mathematical Statistics
+     </i>
+     <b>
+      28
+     </b>
+     , 510–512.
+    </li>
+    <li block-type="ListItem">
+     [25] Tjetjep, A. &amp; Seneta, E. (2006). Skewed normal variance-mean models for asset pricing and the method of moments,
+     <i>
+      International Statistical Review
+     </i>
+     <b>
+      74
+     </b>
+     , 109–126.
+    </li>
+    <li block-type="ListItem">
+     [26] Wishart, J. &amp; Bartlett, M.S. (1932). The distribution of second order moment statistics in a normal system,
+     <i>
+      Proceedings of the Cambridge Philosophical Society
+     </i>
+     <b>
+      28
+     </b>
+     , 455–459.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Seneta, E. (2007). The early years of the Variance-Gamma process, in
+   <i>
+    Advances in Mathematical Finance (Dilip B. Madan Festschrift)
+   </i>
+   , M.C. Fu, R.A. Jarrow, J.-Y.J. Yen, &amp; R.J. Elliott, eds, Birkhauser, Boston, pp. 3–19. ¨
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ;
+   <b>
+    Generalized Hyperbolic Models
+   </b>
+   ;
+   <b>
+    Hazard Rate
+   </b>
+   ;
+   <b>
+    Heavy Tails
+   </b>
+   ;
+   <b>
+    Levy ´ Processes
+   </b>
+   ;
+   <b>
+    Stylized Properties of Asset Returns
+   </b>
+   ;
+   <b>
+    Tempered Stable Process
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   EUGENE SENETA
+  </p>
+ </body>
+</html>

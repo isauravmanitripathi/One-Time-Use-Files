@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Markov Functional
+   </b>
+   Models
+  </h1>
+  <p block-type="Text">
+   Market models (see LIBOR Market Model) are formulated directly in terms of market observable rates. such as LIBORs (see LIBOR Rate), their volatilities, and correlations. They were the first models that could calibrate exactly to Black's formula for pricing liquid instruments for all strikes. Though the models provide an excellent framework for selecting and understanding a model, and have become a benchmark in the market place, they do have one significant drawback. An accurate implementation of a market model can only be done by simulation because of the high dimensionality of the model. This is true even when there is only one stochastic driver.
+  </p>
+  <p block-type="Text">
+   In this article, we describe models that can fit the observed prices of liquid instruments in a similar fashion to the market models, but which also have the advantage that derivative prices can be calculated just as efficiently as in the most tractable
+   <i>
+    short-rate
+   </i>
+   model (see Term Structure Models). To achieve this, we consider the general class of Markovfunctional interest-rate models [4, 8], which, as we shall discuss, can be specified using the numeraire approach restricted to a finite time horizon. The defining characteristic of Markov-functional models is that pure discount bonds prices are at any time a function of some low-dimensional process that is Markovian in some martingale measure. This ensures that the implementation is efficient since it is only necessary to track the driving process, something that is particularly important for Bermudan-style products. Market models do not possess this property for some low-dimensional Markov process and this is the obstacle to their efficient implementation.
+  </p>
+  <h2>
+   <b>
+    Numeraire Approach to Specifying Interest-rate Models
+   </b>
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Let
+   <math display="inline">
+    \{\Omega, \mathcal{F}, \{\mathcal{F}_t\}, \mathbb{P}\}
+   </math>
+   be a filtered probability space. Denote by
+   <math display="inline">
+    D_{tT}
+   </math>
+   the value at t of a pure discount bond with maturity
+   <math display="inline">
+    T
+   </math>
+   , an asset that pays a unit amount on its maturity date. There are several ways to model the complete term structure of pure discount bonds,
+   <math display="inline">
+    \{D_{tT} :
+   </math>
+   <math display="inline">
+    0 &lt; t &lt; T &lt; \infty
+   </math>
+   and it is not necessary to specify the model under the "real-world" measure
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   . The
+  </p>
+  <p block-type="Text">
+   numeraire approach follows from the definition of a numeraire pair. Let
+   <math display="inline">
+    \mathbb{N}
+   </math>
+   be an
+   <i>
+    equivalent martingale measure
+   </i>
+   (see Equivalent Martingale Measures) corresponding to a
+   <i>
+    numeraire
+   </i>
+   <math display="inline">
+    N
+   </math>
+   (see Change of Numeraire). Then any numeraire-rebased asset is a martingale under the measure
+   <math display="inline">
+    \mathbb{N}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Noting that
+   <math display="inline">
+    D_{TT} = 1
+   </math>
+   , we see that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D_{tT} = \mathbb{N}_{t} \mathbb{E}_{\mathbb{N}} \left[ N_{T}^{-1} \mid \mathcal{F}_{t} \right] \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   Thus, once we have specified the numeraire pair
+   <math display="inline">
+    (N, \mathbb{N})
+   </math>
+   and the filtration
+   <math display="inline">
+    \{\mathcal{F}_t\}
+   </math>
+   , we have defined a term structure model under the equivalent martingale measure
+   <math display="inline">
+    \mathbb{N}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   For practical applications, it is usual to restrict attention to a finite time horizon,
+   <math display="inline">
+    0 &lt; t &lt; T
+   </math>
+   . Here, to specify a model using the numeraire approach, in addition to knowledge of the numeraire, we need to know its joint distribution under
+   <math display="inline">
+    \mathbb{N}
+   </math>
+   with the pure discount bonds on some boundary curve. In applications that we have encountered, it is sufficient to take these bonds to be
+   <math display="inline">
+    D_{TS}
+   </math>
+   , for
+   <math display="inline">
+    S \in [T, T']
+   </math>
+   for some fixed
+   <math display="inline">
+    T' \geq T
+   </math>
+   . Then we can again use the martingale property of numeraire-rebased assets to recover the pure discount bonds at earlier times for maturities up to
+   <math display="inline">
+    T'
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Markov-functional Models
+   </b>
+  </h4>
+  <p block-type="Text">
+   We now give a formal definition of a Markovfunctional model. We restrict attention to a finite time horizon and so the definition includes the boundary curve mentioned above. This definition is very general and, if we allow the process driving the model to be of high dimension, the definition will encompass nearly all models of practical interest (including market models). The real spirit of Markovfunctional modeling is explained in the next section when we discuss how to recover the prices of calibrating liquid instruments
+   <i>
+    via
+   </i>
+   a functional sweep.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 1
+   </b>
+   An interest-rate model is said to be Markov-functional if there exists some numeraire pair
+   <math display="inline">
+    (N, \mathbb{N})
+   </math>
+   and some process x such that
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. the process
+     <math display="inline">
+      x
+     </math>
+     is a (time-inhomogeneous) Markov process under the measure
+     <math display="inline">
+      \mathbb{N}
+     </math>
+     ;
+    </li>
+    <li block-type="ListItem">
+     2. the pure discount bonds are of the form
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D_{tS} = D_{tS}(x_t), \ 0 \le t \le \min\{S, T\} \qquad (2)
+   </math>
+  </p>
+  <p block-type="Text">
+   From our discussion of the numeraire approach, we see that to completely specify a general Markovfunctional model, it is sufficient to specify the joint law of the numeraire N and the process x under
+   <math display="inline">
+    \mathbb{N}
+   </math>
+   , and the functional form of the discount factors on the boundary. This observation forms the basis for setting up a Markov-functional model in practice.
+  </p>
+  <h4>
+   Recap of the Standard Markov-functional Approach
+  </h4>
+  <p block-type="Text">
+   The formal definition above tells us the general properties of the model we wish to develop, but nothing about the practicalities of how to set up a model for a particular pricing problem. Here, we summarize the standard case in which the driving process, denoted by
+   <math display="inline">
+    x
+   </math>
+   , is chosen to be of low dimension and Gaussian. This ensures that the model is efficient to implement. We comment on the choice of covariance structure for
+   <math display="inline">
+    x
+   </math>
+   below. Assuming
+   <math display="inline">
+    x
+   </math>
+   has been chosen, the practical problem we now seek to address is that of setting up a model that is arbitragefree and calibrates well to a set of vanilla instruments appropriate for the product we wish to price. In this article, we restrict our discussion to a special case-the LIBOR Markov-functional model in the terminal measure. For further details on practical aspects of this model, see
+   <math display="inline">
+    [4, 6, 8]
+   </math>
+   and
+   <math display="inline">
+    [10]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   As in a LIBOR market model (see LIBOR Market
+   <b>
+    Model
+   </b>
+   ), we assume we have a set of contiguous forward LIBORs denoted by
+   <math display="inline">
+    L^i
+   </math>
+   for
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   corresponding to tenor structure
+   <math display="inline">
+    T_1, \ldots, T_{n+1}
+   </math>
+   . We write
+   <math display="inline">
+    S_i := T_{i+1}
+   </math>
+   for
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   and so
+   <math display="inline">
+    L^i
+   </math>
+   is the LIBOR corresponding to the period
+   <math display="inline">
+    [T_i, S_i]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In this section, we use
+   <math display="inline">
+    \mathbb{N}
+   </math>
+   to denote the terminal measure corresponding to taking the bond
+   <math display="inline">
+    D_{S_n}
+   </math>
+   as numeraire and
+   <math display="inline">
+    E
+   </math>
+   to denote expectations in this measure.
+  </p>
+  <p block-type="TextInlineMath">
+   Consider the problem of how to choose the functional forms so that the resulting model calibrates accurately to the prices of the set of caplets (equivalently digital caplets) corresponding to the forward LIBORs
+   <math display="inline">
+    L^1, \ldots, L^n
+   </math>
+   . The model is actually only specified on a grid. That is, we specify the functional forms
+   <math display="inline">
+    D_{T_iT_i}(x_{T_i})
+   </math>
+   for
+   <math display="inline">
+    1 \le i &lt; j \le n+1
+   </math>
+   , since this is all that is (typically) needed in practice. Note that here all we need to recover these discount factors are the functional forms of the numeraire for times
+   <math display="inline">
+    T_1, \ldots, T_n
+   </math>
+   . The functional forms are derived numerically from market prices and the martingale properties necessary to make the model arbitrage-free.
+  </p>
+  <p block-type="TextInlineMath">
+   The algorithm for finding the functional forms works back iteratively from the terminal time
+   <math display="inline">
+    T_n
+   </math>
+   . Suppose we have reached
+   <math display="inline">
+    T_i
+   </math>
+   , having already found the functional forms
+   <math display="inline">
+    D_{T_kS_n}(x_{T_k}), k = i + 1, \ldots,
+   </math>
+   <math display="inline">
+    n + 1
+   </math>
+   . Trivially, this is true when
+   <math display="inline">
+    i = n
+   </math>
+   as there is nothing to know since
+   <math display="inline">
+    D_{T_{n+1}S_n}(x_{T_{n+1}}) = 1
+   </math>
+   . Then from the martingale property of numeraire-rebased assets we can find
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{D}_{T_i T_{i+1}}(x_{T_i}) := \frac{D_{T_i T_{i+1}}(x_{T_i})}{D_{T_i S_n}(x_{T_i})} \\
+= \mathbb{E}\left[\frac{1}{D_{T_{i+1} S_n}}(x_{T_{i+1}}) \mid x_{T_i}\right] \n
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   Noting, by definition, that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_{T_i}^i = \frac{1 - D_{T_i T_{i+1}}}{\alpha_i D_{T_i T_{i+1}}} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \alpha_i
+   </math>
+   is the accrual factor for the interval
+   <math display="inline">
+    [T_i, S_i]
+   </math>
+   , it follows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D_{T_i S_n}(x_{T_i}) = \frac{1}{\hat{D}_{T_i T_{i+1}}(x_{T_i})(1 + \alpha_i L_{T_i}(x_{T_i}))}
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   Thus we see that to determine the functional form for the numeraire at time
+   <math display="inline">
+    T_i
+   </math>
+   ,
+   <math display="inline">
+    D_{T_iS_n}(x_{T_i})
+   </math>
+   , it is sufficient to find the functional form for
+   <math display="inline">
+    L_{T_i}^i(x_{T_i})
+   </math>
+   . Equivalently, it is sufficient to find the off-diagonal discount factor
+   <math display="inline">
+    D_{T_i T_{i+1}}(x_{T_i}).
+   </math>
+  </p>
+  <p block-type="Text">
+   We begin with the case in which the process
+   <math display="inline">
+    x
+   </math>
+   is one dimensional. Here, we view the process
+   <math display="inline">
+    x
+   </math>
+   as capturing the overall level of interest rates.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    One-dimensional Case.
+   </b>
+   In setting up our model, we make the assumption that the
+   <math display="inline">
+    i
+   </math>
+   th forward LIBOR at time
+   <math display="inline">
+    T_i
+   </math>
+   ,
+   <math display="inline">
+    L_{T_i}^i
+   </math>
+   , is a monotonic increasing function of the variable
+   <math display="inline">
+    x_{T_i}
+   </math>
+   , that is, we assume that
+   <math display="inline">
+    L_{T_i}^i
+   </math>
+   =
+   <math display="inline">
+    f^{i}(x_{T_{i}})
+   </math>
+   , for some monotonic increasing function
+   <math display="inline">
+    f^{i}
+   </math>
+   . The functional forms are found using market prices of digital caplets. This is equivalent to calibrating to caplets as we can recover the price of a caplet with strike
+   <math display="inline">
+    K
+   </math>
+   ,
+   <math display="inline">
+    C^{i}(K)
+   </math>
+   , from the prices of digital caplets:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C^{i}(K) = \int_{K}^{\infty} V^{i}(\hat{K}) d\hat{K} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    V^{i}(K)
+   </math>
+   denotes the market value of the digital caplet with strike K (setting at
+   <math display="inline">
+    T_i
+   </math>
+   , paying at
+   <math display="inline">
+    S_i
+   </math>
+   ). In an arbitrage-free model, we must have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^{i}(K) = D_{0S_{n}} \mathbb{E}\left[\frac{D_{T_{i}S_{i}}}{D_{T_{i}S_{n}}} \mathbf{1}\{L^{i}_{T_{i}} &gt; K\}\right] \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   Choose a grid of values
+   <math display="inline">
+    x^*
+   </math>
+   and for each
+   <math display="inline">
+    x^*
+   </math>
+   calculate
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J_0^i(x^*) := D_{0S_n} \mathbb{E}\left[\frac{D_{T_iS_i}}{D_{T_iS_n}}(x_{T_i})\mathbf{1}\{x_{T_i} &gt; x^*\}\right] \tag{8}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    := D_{0S_n} \mathbb{E}\bigg[\mathbb{E}\bigg[\frac{D_{T_{i+1}S_i}}{D_{T_{i+1}S_n}}(x_{T_{i+1}})|x_{T_i}\bigg] \mathbf{1}\{x_{T_i} &gt; x^*\}\bigg]
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   We can do this (numerically) from what we already know, having calibrated the model at all
+   <math display="inline">
+    T_i
+   </math>
+   ,
+   <math display="inline">
+    j &gt; i
+   </math>
+   . Now find the value
+   <math display="inline">
+    K(x^*)
+   </math>
+   such that
+   <math display="inline">
+    V^i(K(x^*)) =
+   </math>
+   <math display="inline">
+    J_0^i(x^*)
+   </math>
+   . Equating equations (7) and (9) we find that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D_{0S_n} \mathbb{E}\left[\frac{D_{T_iS_i}}{D_{T_iS_n}}(x_{T_i})\mathbf{1}\{L_{T_i}^i(x_{T_i}) &gt; K(x^*)\}\right]
+   </math>
+   <br/>
+   <math display="block">
+    = V^i(K(x^*))
+   </math>
+   <br/>
+   <math display="block">
+    = J_0^i(x^*)
+   </math>
+   <br/>
+   <math display="block">
+    = D_{0S_n} \mathbb{E}\left[\frac{D_{T_iS_i}}{D_{T_iS_n}}(x_{T_i})\mathbf{1}\{x_{T_i} &gt; x^*\}\right]
+   </math>
+   <br/>
+   <math display="block">
+    = D_{0S_n} \mathbb{E}\left[\frac{D_{T_iS_i}}{D_{T_iS_n}}(x_{T_i})\mathbf{1}\{L_{T_i}^i(x_{T_i}) &gt; L_{T_i}^i(x^*)\}\right]
+   </math>
+   <br/>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   Under the assumption that
+   <math display="inline">
+    L_{T_i}^i(x)
+   </math>
+   is increasing in x, we can now conclude that
+   <math display="inline">
+    L_{T_i}^i(x^*) = K(x^*)
+   </math>
+   , thus, repeating this on a grid of values
+   <math display="inline">
+    x^*
+   </math>
+   , we have derived the required functional form.
+  </p>
+  <p block-type="Text">
+   Multidimensional Case. This is a straightforward generalization of the one-dimensional case. The key to this extension is to ensure in the generalization that we
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. retain the univariate and monotonicity properties that were required to make the functional fitting efficient;
+    </li>
+    <li block-type="ListItem">
+     capture desired correlation/covariance 2. the structure.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   To do this, we introduce the idea of a
+   <i>
+    prior model
+   </i>
+   . The prior model expresses each LIBOR as a function of the driving Markov process
+   <math display="inline">
+    x
+   </math>
+   , which is now of dimension
+   <math display="inline">
+    k &gt; 1
+   </math>
+   . This prior model is chosen to capture the basic dynamics of the market, but may admit arbitrage. We discuss the choice of a prior model based on a market model below. Once the prior
+  </p>
+  <p block-type="Text">
+   model is chosen, the approach now is to regard the Markov-functional sweep as a (small) perturbation of this prior model, which removes the arbitrage.
+  </p>
+  <p block-type="TextInlineMath">
+   In particular, we assume that the functional dependence of
+   <math display="inline">
+    L_{T_i}^i
+   </math>
+   on the multidimensional
+   <math display="inline">
+    x_{T_i}
+   </math>
+   is only via the prior model LIBOR
+   <math display="inline">
+    \tilde{L}^i_{T_i}
+   </math>
+   . Thus
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_{T_i}^i(x_{T_i}) = f_i\left(\tilde{L}_{T_i}^i(x_{T_i})\right) \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   for some monotonic function
+   <math display="inline">
+    f_i
+   </math>
+   . It is this specialization that enables us to achieve the univariate and monotonicity properties in this higher dimensional setting. The last step is the derivation of the functional forms
+   <math display="inline">
+    f_i
+   </math>
+   . This is almost identical to the one-factor case. For details, the reader is referred to [6].
+  </p>
+  <p block-type="Text">
+   Covariance Structure of
+   <math display="inline">
+    x
+   </math>
+   -process and Comparison with Market Models. Typically,
+   <math display="inline">
+    x
+   </math>
+   is taken to be a
+   <math display="inline">
+    k
+   </math>
+   -dimensional Gaussian process with
+   <math display="inline">
+    i
+   </math>
+   th component of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x_t^i = \int_0^t \sigma_s^i dW_s^i \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the
+   <math display="inline">
+    W^i
+   </math>
+   s are Brownian motions under the measure
+   <math display="inline">
+    \mathbb{N}
+   </math>
+   , with instantaneous correlations
+   <math display="inline">
+    dW_t^i dW_t^j =
+   </math>
+   <math display="inline">
+    \rho_t^{ij} dt
+   </math>
+   . With x of this form, we have explicit knowledge of all marginal and conditional transition densities and all the required conditional expectations can be computed efficiently.
+  </p>
+  <p block-type="Text">
+   As in any interest-rate model, care must be taken in the choice of the instantaneous volatilities so that the resulting model has the appropriate qualitative behavior. For example, many authors illustrate the features of a model by using a simple exponential form of the instantaneous volatilities. However, use of this, in practice, would lead to a model having unrealistic hedges as the resulting correlation structure does not change in an appropriate way when the implied volatilities change. One appropriate choice based on a Hull-White short-rate model is given in
+   <math display="inline">
+    [1]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Recall that in a
+   <math display="inline">
+    k
+   </math>
+   -dimensional Markov-functional model, the prior model is chosen with some desired correlation structure in mind. If the instantaneous volatilities
+   <math display="inline">
+    \sigma^i, i = 1, \ldots, n
+   </math>
+   are taken to be separable in that for each
+   <i>
+    i
+   </i>
+   ,
+   <math display="inline">
+    \sigma_t^i
+   </math>
+   can be written as a vector product of constants depending on
+   <math display="inline">
+    i
+   </math>
+   and a common volatility function
+   <math display="inline">
+    \sigma_t
+   </math>
+   , then it is very easy to form a prior model from the corresponding
+   <math display="inline">
+    k
+   </math>
+   -factor LIBOR
+  </p>
+  <p block-type="Text">
+   market model with the same instantaneous volatilities. A first-order approximation to this model could, for example, be obtained by taking the usual SDE and replacing the time-dependent drift with its time-zero value. This would result in a model with something very close to the desired correlation structure, for which all LIBORs are lognormally distributed, but for which there is significant arbitrage. This makes the approximation too poor for use as a model in practice, but it remains adequate as a starting point for an arbitrage-free Markov-functional model. In fact, it is shown in [1] that in the one-dimensional case, Markov-functional and separable LMM models are very similar across a broad range of parameter values.
+  </p>
+  <p block-type="Text">
+   <b>
+    Generalizations.
+   </b>
+   The discussion above focused on a LIBOR Markov-functional model specified in the terminal measure. For a version of this model that uses the discrete savings account as numeraire and forward induction, see [2]. The Markov-functional method is not restricted to calibrating to the market implied distributions of LIBORs. For a given tenor structure, one can formulate a model that calibrates to any swap rate or LIBOR at each time slice. In addition, the boundary can be extended so that more than one discount factor can be modeled on the final time slice. The details for a swap model can be found in [4, 8]. This is an appropriate choice for pricing
+   <i>
+    Bermudan swaptions
+   </i>
+   (
+   <i>
+    see
+   </i>
+   <b>
+    Bermudan Swaptions and Callable Libor Exotics
+   </b>
+   ) as the resulting model can be calibrated to vanilla swaption prices.
+  </p>
+  <p block-type="Text">
+   A multicurrency Markov-functional model first presented in [5] is described in [3].
+  </p>
+  <p block-type="Text">
+   If one is willing to employ Monte Carlo methods, the Markov-functional approach can be extended to formulate a high-dimensional model comparable
+  </p>
+  <p block-type="Text">
+   with a full-rank market model. See [9] for details. For further developments in the high-dimensional setting, see [7].
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bennett, M. &amp; Kennedy, J. (2005). A comparison of Markov-functional and market models: the onedimensional case,
+     <i>
+      The Journal of Derivatives
+     </i>
+     <b>
+      1
+     </b>
+     (2), 22–43.
+    </li>
+    <li block-type="ListItem">
+     [2] Fries, C. (2007).
+     <i>
+      Mathematical Finance: Theory, Modeling, Implementation
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [3] Fries, C. &amp; Rott, M. (2004).
+     <i>
+      Cross Currency and Hybrid Markov-Functional Models
+     </i>
+     ,
+     <i>
+      SSRN pre-print
+     </i>
+     , at http://papers.ssrn.com/sol3/papers.cfm?abstract id= 532122.
+    </li>
+    <li block-type="ListItem">
+     [4] Hunt, P., Kennedy, J. &amp; Pelsser, A. (2000). Markovfunctional interest rate models, in
+     <i>
+      The New Interest Rate Models
+     </i>
+     , L. Hughston, ed, Risk Books.
+    </li>
+    <li block-type="ListItem">
+     [5] Hunt, P. (2003). The modelling and risks of prdcs.
+     <i>
+      Proceedings of the ICBI Global Derivatives Conference
+     </i>
+     , Barcelona.
+    </li>
+    <li block-type="ListItem">
+     [6] Hunt, P. &amp; Kennedy, J. (2004).
+     <i>
+      Financial Derivatives in Theory And Practice
+     </i>
+     , 2nd Edition, John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [7] Hunt, P. &amp; Kennedy, J. (2005).
+     <i>
+      Longstaff–Schwarz, Effective Model Dimensionality and Reducible Markov-Functional Models
+     </i>
+     , SSRN pre-print at http://papers.ssrn. com/sol3/papers.cfm?abstract id=627921.
+    </li>
+    <li block-type="ListItem">
+     [8] Hunt, P., Kennedy, J. &amp; Pelsser, A. (2000). Markovfunctional interest rate models,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      4
+     </b>
+     (1), 391–408.
+    </li>
+    <li block-type="ListItem">
+     [9] Kaisajuntti, L. &amp; Kennedy, J. (2008).
+     <i>
+      An n-Dimensional Markov-Functional Interest Rate Model
+     </i>
+     , SSRN pre-print at http://papers.ssrn.com/sol3/papers.cfm? abstract id=1081337.
+    </li>
+    <li block-type="ListItem">
+     [10] Pelsser, A. (2000).
+     <i>
+      Efficient Methods For Valuing Interest Rate Derivatives
+     </i>
+     , Springer Finance.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   JOANNE KENNEDY
+  </h4>
+ </body>
+</html>

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Random Factor Loading Model (for Portfolio
+   </b>
+   <math display="inline">
+    \text{Credit}
+   </math>
+  </h1>
+  <p block-type="Text">
+   Consider a portfolio of
+   <math display="inline">
+    N
+   </math>
+   risky assets, all assumed (for simplicity) to generate a $1 loss at the time of default. Let
+   <math display="inline">
+    \tau_i
+   </math>
+   denote the random default time for asset
+   <i>
+    i
+   </i>
+   , such that the total portfolio loss
+   <math display="inline">
+    L(T)
+   </math>
+   on the horizon
+   <math display="inline">
+    [0, T]
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(T) = \sum_{i=1}^{N} 1_{\tau_i \le T}
+   </math>
+   (1)
+  </p>
+  <p block-type="Text">
+   From credit default swap (CDS) or bond markets, we can normally extract risk-neutral survival probabilities
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q_i(T) = \Pr(\tau_i &gt; T), \quad i = 1, ..., N
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   for all
+   <math display="inline">
+    T
+   </math>
+   ; this information locks risk-neutral expected portfolio losses at
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(L(T)) = \sum_{i=1}^{N} E(1_{\tau_i \le T}) = \sum_{i=1}^{N} (1 - Q_i(T)) \quad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   To be able to construct the entire distribution of
+   <math display="inline">
+    L(T)
+   </math>
+   —and not just its first moment—we need additional information about the default codependencies among the
+   <math display="inline">
+    N
+   </math>
+   assets.
+  </p>
+  <p block-type="TextInlineMath">
+   The default codependence model that we consider here is in the class of
+   <i>
+    factor models
+   </i>
+   , in the sense that codependence is induced solely by a scalar&lt;sup&gt;a&lt;/sup&gt; random variable
+   <math display="inline">
+    Z
+   </math>
+   —the so-called
+   <i>
+    systematic factor
+   </i>
+   —that affects all assets through a factor "loading" function. Conditional on Z, all N default times
+   <math display="inline">
+    \tau_i
+   </math>
+   are assumed to be independent of each other.
+  </p>
+  <p block-type="TextInlineMath">
+   In practice, specification of factor loading is done using conditional survival time distributions
+   <math display="inline">
+    q_i: \mathbb{R}_+ \times \mathbb{R} \to [0, 1],
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_i(t, z) \equiv \Pr(\tau_i &gt; t | Z = z)
+   </math>
+   <br/>
+   <math display="block">
+    i = 1, \dots, N, \quad t \ge 0
+   </math>
+   (4)
+  </p>
+  <p block-type="Text">
+   Complete prescription of a factor model requires specification of (i) all
+   <math display="inline">
+    N
+   </math>
+   functions
+   <math display="inline">
+    q_i
+   </math>
+   and (ii) the probability distribution of the systematic factor
+   <math display="inline">
+    Z
+   </math>
+   . As should be obvious, the
+   <math display="inline">
+    q_i
+   </math>
+   's cannot be prescribed
+  </p>
+  <p block-type="Text">
+   arbitrarily, as they are subject to strong consistency and regularity conditions. For instance, we know from basic probability
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pr\left(\tau_{i} &gt; T\right) = \int q_{i}(T, z) \Pr\left(Z \in \mathrm{d}z\right) = Q_{i}(T) \quad (5)
+   </math>
+  </p>
+  <p block-type="Text">
+   which, for any given distribution of
+   <math display="inline">
+    Z
+   </math>
+   , provides an important constraint on
+   <math display="inline">
+    q_i
+   </math>
+   . Other regularity conditions—including those associated with the fact that
+   <math display="inline">
+    L
+   </math>
+   must be never decreasing in
+   <math display="inline">
+    T
+   </math>
+   —are reviewed in [1].
+  </p>
+  <p block-type="TextInlineMath">
+   We emphasize the importance of the assumption of conditional independence, which allows for the application of efficient numerical methods to construct the (discrete) distribution of
+   <math display="inline">
+    L(T)
+   </math>
+   in equation (1). Andersen
+   <i>
+    et al.
+   </i>
+   [4] give one such algorithm and discuss in detail its application in price and sensitivity computations for collateralized debt obligations (CDOs).
+  </p>
+  <h2>
+   <b>
+    Random Factor Loading Models
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   A standard recipe for specifying the functions
+   <math display="inline">
+    q_i
+   </math>
+   's in a financially meaningful way is to assume that Pr
+   <math display="inline">
+    (\tau_i &gt; T) = \Pr(X_i &gt; H_i(T))
+   </math>
+   for a deterministic default barrier
+   <math display="inline">
+    H_i(T)
+   </math>
+   and a
+   <i>
+    default driver
+   </i>
+   <math display="inline">
+    X_i
+   </math>
+   of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_i = \beta_i Z + e_i, \quad i = 1, \dots, N
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \beta_i
+   </math>
+   is a firm-specific constant, Z is a one-dimensional systematic factor, and
+   <math display="inline">
+    e_i
+   </math>
+   is a residual variable idiosyncratic to firm
+   <i>
+    i
+   </i>
+   and independent of Z and
+   <math display="inline">
+    e_i
+   </math>
+   ,
+   <math display="inline">
+    j \neq i
+   </math>
+   . As Z is often loosely considered a proxy for the state of the "market", equation (6) has some qualitative similarity with the CAPM setup, with
+   <math display="inline">
+    X_i
+   </math>
+   loosely representing the asset returns on firm
+   <math display="inline">
+    i
+   </math>
+   . The Gaussian copula model falls in the class of equation (6) as do many Levy-type copula models.
+  </p>
+  <p block-type="Text">
+   The RFL (random factor loading) class starts from equation (6), but alters the dependence of
+   <math display="inline">
+    X_i
+   </math>
+   on
+   <math display="inline">
+    Z
+   </math>
+   from strictly linear to a generic functional relationship. Specifically, one writes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_i = A_i(Z) + e_i, \quad i = 1, \dots, N
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    A_i
+   </math>
+   is a possibly firm-specific deterministic function. For reasons of tractability, it is most common to assume that Z and
+   <math display="inline">
+    e_i
+   </math>
+   are Gaussian, and to (arbitrarily) normalize such that
+   <math display="inline">
+    E(X_i) = 0
+   </math>
+   . In this case, one has
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_i = A_i(Z) + \epsilon_i + m_i, \quad i = 1, ..., N
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   where Z and all residuals
+   <math display="inline">
+    \epsilon_i
+   </math>
+   are independent standard Gaussian variables (i.e., distributed as
+   <math display="inline">
+    \mathcal{N}(0, 1)
+   </math>
+   ), and the constant
+   <math display="inline">
+    m_i
+   </math>
+   is set to
+   <math display="inline">
+    m_i = -E(A_i(Z))
+   </math>
+   . Going forward, equation (8) shall be our working definition of a one-factor RFL model.
+  </p>
+  <p block-type="Text">
+   By moving away from strictly linear "loading" on the systematic variable, RFL models can incorporate a number of empirical observations about default codependence dynamics. Most importantly, we have the ability to increase the loading for low values of
+   <math display="inline">
+    Z (= a "bad" market outcome)
+   </math>
+   as a way of modeling the well-established fact that equity price correlations tend to increase in a market downturn. This, in turn, tends to fatten the upper tail of the distribution of
+   <math display="inline">
+    L(T)
+   </math>
+   , an effect that is consistent with the market for synthetic CDOs.
+  </p>
+  <h3>
+   <b>
+    Some Analytical Results
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   For simplicity, let us now drop&lt;sup&gt;b&lt;/sup&gt; the subscript
+   <math display="inline">
+    i
+   </math>
+   on
+   <math display="inline">
+    A_i
+   </math>
+   and
+   <math display="inline">
+    m_i
+   </math>
+   . For completely arbitrary specifications of
+   <math display="inline">
+    A(z)
+   </math>
+   , there is obviously no hope that the distribution of
+   <math display="inline">
+    X_i
+   </math>
+   in equation (8) has a closed-form representation. If
+   <math display="inline">
+    A(z)
+   </math>
+   is taken to be piecewise linear, however, such a result exists, as shown in [3]. To list it, let us define thresholds
+   <math display="inline">
+    \theta_0 &lt; \theta_1 &lt; \dots \theta_{K-1}
+   </math>
+   and then write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A(z) = (\alpha_0 z + \beta_0) \mathbb{1}_{z \le \theta_0} + \sum_{k=1}^{K-1} (\alpha_k z + \beta_k) \mathbb{1}_{z \in (\theta_{k-1}, \theta_k]} + (\alpha_K z + \beta_K) \mathbb{1}_{z &gt; \theta_{K-1}}
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   where the slopes
+   <math display="inline">
+    \{\alpha_k\}_{k=0}^K
+   </math>
+   and intercepts
+   <math display="inline">
+    \{\beta_k\}_{k=0}^K
+   </math>
+   are given constants. Let
+   <math display="inline">
+    \Phi(x)
+   </math>
+   be the Gaussian conditional default functions (CDFs), and let
+   <math display="inline">
+    \Phi_2(x, y; \rho)
+   </math>
+   be the bivariate Gaussian CDF at the correlation level
+   <math display="inline">
+    \rho
+   </math>
+   . Define, for
+   <math display="inline">
+    k = 1, \ldots, K - 1
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(k,x) = \Phi_2\left(\frac{x - \beta_k - m}{\sqrt{1 + \alpha_k^2}}, \theta_k; \frac{\alpha_k}{\sqrt{1 + \alpha_k^2}}\right)
+   </math>
+   <math display="block">
+    - \Phi_2\left(\frac{x - \beta_k - m}{\sqrt{1 + \alpha_k^2}}, \theta_{k-1}; \frac{\alpha_k}{\sqrt{1 + \alpha_k^2}}\right)
+   </math>
+   (10)
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(0,x) = \Phi_2\left(\frac{x - m - \beta_0}{\sqrt{1 + \alpha_0^2}}, \theta_0; \frac{\alpha_0}{\sqrt{1 + \alpha_0^2}}\right) \quad (11)\n
+   </math>
+   <math display="block">
+    \n\psi(K,x) = \Phi_2\left(\frac{x - m - \beta_K}{\sqrt{1 + \alpha_K^2}}, -\theta_{K-1}; \frac{-\alpha_K}{\sqrt{1 + \alpha_K^2}}\right) \quad (12)
+   </math>
+  </p>
+  <p block-type="Text">
+   Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pr\left(X_i \le x\right) = \sum_{k=0}^{K} \psi(k, x) \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We can use equation
+   <math display="inline">
+    (13)
+   </math>
+   to ensure that the model is in calibration with market-observed default probabilities, by insisting that the default barrier function
+   <math display="inline">
+    H_i(T)
+   </math>
+   is set (by numerical root search) such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{k=0}^{K} \psi(k, H_i(T)) = 1 - Q_i(T), \quad i = 1, \dots, N
+   </math>
+   (14)
+  </p>
+  <p block-type="Text">
+   We also notice that (with
+   <math display="inline">
+    \varphi
+   </math>
+   being the Gaussian density)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(X_i) = m - \alpha_0 \varphi(\theta_0) \theta_0 + \beta_0 \Phi(\theta_0)
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \sum_{k=1}^{K-1} \alpha_k \left( \varphi(\theta_{k-1}) - \varphi(\theta_k) \right)
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \sum_{k=1}^{K-1} \beta_k \left( \Phi(\theta_k) - \Phi(\theta_{k-1}) \right)
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \alpha_K \varphi(\theta_{K-1}) + \beta_K \Phi \left( -\theta_{K-1} \right)
+   </math>
+   <br/>
+   (15)
+  </p>
+  <p block-type="Text">
+   which can be used to set
+   <i>
+    m
+   </i>
+   such that
+   <math display="inline">
+    E(X_i) = 0
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    CDO Calibration
+   </b>
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The free parameters of the RFL model are those involved in setting the function
+   <math display="inline">
+    A(z)
+   </math>
+   . Assuming that
+   <math display="inline">
+    A
+   </math>
+   is piecewise linear on
+   <math display="inline">
+    K
+   </math>
+   different intervals, we evidently have a total of
+   <math display="inline">
+    3K + 2
+   </math>
+   parameters in
+  </p>
+  <p block-type="TextInlineMath">
+   the model:
+   <i>
+    K
+   </i>
+   interval break-points
+   <i>
+    θ
+   </i>
+   0
+   <i>
+    , θ
+   </i>
+   1
+   <i>
+    ,...,θK
+   </i>
+   −1;
+   <i>
+    K
+   </i>
+   + 1 slopes
+   <i>
+    α
+   </i>
+   0
+   <i>
+    ,...,αK
+   </i>
+   ; and
+   <i>
+    K
+   </i>
+   + 1 intercepts
+   <i>
+    β
+   </i>
+   0
+   <i>
+    ,...,βK
+   </i>
+   . In general, this number of parameters is too high, so to avoid overfitting one normally locks some of these parameters manually and calibrates the rest against observed CDO prices. A few common parameter strategies are listed below.
+  </p>
+  <h4>
+   <b>
+    Classic RFL
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   In this approach, which was developed in [3], we set all
+   <i>
+    K
+   </i>
+   + 1 intercepts (
+   <i>
+    βk )
+   </i>
+   to zero, leaving 2
+   <i>
+    K
+   </i>
+   + 1 free parameters for the calibration. In typical applications, sufficient calibration accuracy is often reached with
+   <i>
+    K
+   </i>
+   = 2 break-points, for a total of five free calibration parameters. We note that when intercepts are forced to zero, the function
+   <i>
+    A
+   </i>
+   is of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A(z) = a(z) \cdot z \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    a
+   </i>
+   is piecewise flat. Comparison with equation (6) shows that, loosely, the function
+   <sup>
+    √
+   </sup>
+   <i>
+    a(z)
+   </i>
+   can be interpreted as a "random correlation" function. Consistent with earlier discussion, the calibrated
+   <i>
+    a(z)
+   </i>
+   will always be decreasing in
+   <i>
+    z
+   </i>
+   , that is, when the economy variable
+   <i>
+    Z
+   </i>
+   is low (= bad economy) correlations increase, and
+   <i>
+    vice versa
+   </i>
+   .
+  </p>
+  <h4>
+   <b>
+    Discrete RFL
+   </b>
+  </h4>
+  <p block-type="Text">
+   In this style, we set all
+   <i>
+    K
+   </i>
+   + 1 slopes to zero, yielding
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A(z) = b(z) \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    b
+   </i>
+   is piecewise flat at levels
+   <i>
+    b
+   </i>
+   0
+   <i>
+    , b
+   </i>
+   1
+   <i>
+    ,...,bK
+   </i>
+   . Evidently then, the distribution of
+   <i>
+    A(Z)
+   </i>
+   is here simply a discrete distribution
+   <sup>
+    c
+   </sup>
+   taking on
+   <i>
+    K
+   </i>
+   + 1 different values with
+   <i>
+    K
+   </i>
+   + 1 different probabilities. As the RFL model is normalized to work with the term
+   <i>
+    A(Z)
+   </i>
+   −
+   <i>
+    E (A(Z))
+   </i>
+   , we can add an arbitrary constant to the function
+   <i>
+    b(z)
+   </i>
+   without altering the model; equivalently, we are free to lock one of the
+   <i>
+    bk
+   </i>
+   values to a fixed constant (e.g., zero) without losing any generality. As a consequence, the effective number of parameters here is 2
+   <i>
+    K
+   </i>
+   .
+  </p>
+  <h4>
+   <b>
+    Fixed-slope RFL
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Our setup here is similar to that in discrete RFL, but now we allow for a nonzero constant slope
+   <i>
+    α
+   </i>
+   to be used for all line segments:
+   <i>
+    αk
+   </i>
+   =
+   <i>
+    α
+   </i>
+   ,
+   <i>
+    k
+   </i>
+   = 0
+   <i>
+    ,...,K
+   </i>
+   . We include this parameter in the set of free parameters to be optimized on, so now the problem dimension is 2
+   <i>
+    K
+   </i>
+   + 1.
+  </p>
+  <h1>
+   <b>
+    Comments and Extensions
+   </b>
+  </h1>
+  <p block-type="Text">
+   Unlike a number of other factor models, the RFL model extends the basic Gaussian copula model by altering the CDF
+   <i>
+    qi
+   </i>
+   , rather than the density of the systematic factor
+   <i>
+    Z
+   </i>
+   . On the other hand, we can rewrite the RFL model as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_i = Y + \epsilon_i, \quad Y = A(Z) + m \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   So, if we elect to treat the variable
+   <i>
+    Y
+   </i>
+   , rather than
+   <i>
+    Z
+   </i>
+   , as our systematic factor, the RFL model can, in fact, also be interpreted as extending the Gaussian copula model through a change of systematic factor density. Indeed, by a suitable choice of
+   <i>
+    A
+   </i>
+   ,
+   <i>
+    all
+   </i>
+   factor models with Gaussian residuals can be cast as an RFL model of the type in equation (8). Andersen and Piterbarg [2] discuss this in more detail, using the models in [5, 6, 8] as examples.
+  </p>
+  <p block-type="Text">
+   In [1], the RFL model is extended to allow for Poisson- or mixture-style jumps in both residuals and in the systematic factor; the model in [7] is a special case of such a jump-extended RFL model. Andersen [1] also discusses methods to introduce a dynamic element into RFL and other factor models, by letting the density of
+   <i>
+    Z
+   </i>
+   depend on time.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   Extensions to vector-valued
+   <i>
+    Z
+   </i>
+   is straightforward; see, for example, [3].
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   To keep free parameters at a manageable level, it is, in fact, common to use a single
+   <i>
+    A
+   </i>
+   for an entire portfolio. Firmspecific
+   <i>
+    A
+   </i>
+   functions may, however, be of use when mixing portfolios or as part of a bespoke mapping rule.
+  </p>
+  <p block-type="TextInlineMath">
+   c
+   <i>
+    .
+   </i>
+   So rather than optimizing on the
+   <i>
+    θk
+   </i>
+   parameters, we can work directly with the discrete probabilities
+   <i>
+    (θk )
+   </i>
+   −
+   <i>
+    (θk
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    )
+   </i>
+   .
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Andersen, L. (2006/2007). Portfolio losses in factor models: term structures and intertemporal loss dependence,
+     <i>
+      Journal of Credit Risk
+     </i>
+     <b>
+      2
+     </b>
+     (4), 3–31.
+    </li>
+    <li block-type="ListItem">
+     [2] Andersen, L. &amp; Piterbarg, V.L. (2008).
+     <i>
+      The Definitive Guide to CDOs – Market, Application, Valuation, and Hedging
+     </i>
+     , Risk Books.
+    </li>
+    <li block-type="ListItem">
+     [3] Andersen, L. &amp; Sidenius, J. (2004/2005). Extensions of the Gaussian Copula: random recovery and random factor loadings,
+     <i>
+      Journal of Credit Risk
+     </i>
+     <b>
+      1
+     </b>
+     (1), 29–70.
+    </li>
+    <li block-type="ListItem">
+     [4] Andersen, L., Sidenius, J. &amp; Basu, S. (2003). All your hedges in one basket,
+     <i>
+      Risk
+     </i>
+     <b>
+      16
+     </b>
+     , 67–72.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [5] Guegan, D. &amp; Houdain, J. (2005).
+     <i>
+      Collateralized Debt Obligations Pricing and Factor Models: A New Methodology Using Normal Inverse Gaussian Distributions
+     </i>
+     . Working Paper.
+    </li>
+    <li block-type="ListItem">
+     [6] Inglis, S. &amp; Lipton, A. (2007).
+     <i>
+      Factor Models for Credit Correlation
+     </i>
+     . Working Paper, Merrill Lynch.
+    </li>
+    <li block-type="ListItem">
+     [7] Willeman, S. (2005).
+     <i>
+      Fitting the CDO Correlation Skew: A Tractable Structural Jump Model
+     </i>
+     . Working Paper, Aarhus Business School.
+    </li>
+    <li block-type="ListItem">
+     [8] Xu, G. (2006).
+     <i>
+      Extending Gaussian Copula with Jumps to match Correlation Smile
+     </i>
+     . Working Paper, Wachovia Securities, defaultrisk.com.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Base Correlation
+   </b>
+   ;
+   <b>
+    Collateralized Debt Obligations (CDO)
+   </b>
+   ;
+   <b>
+    Copulas: Estimation
+   </b>
+   ;
+   <b>
+    Credit Portfolio Simulation
+   </b>
+   ;
+   <b>
+    Default Barrier Models
+   </b>
+   ;
+   <b>
+    Gaussian Copula Model
+   </b>
+   ;
+   <b>
+    Local Correlation Model
+   </b>
+   ;
+   <b>
+    Multiname Reduced Form Models
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   LEIF B.G. ANDERSEN
+  </p>
+ </body>
+</html>

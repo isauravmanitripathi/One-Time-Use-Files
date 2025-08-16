@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Simulation of Square-root
+   </b>
+   Processes
+  </h1>
+  <p block-type="Text">
+   Square-root diffusion processes are popular in many branches of quantitative finance. Guaranteed to stay nonnegative, yet almost as tractable as a Gaussian process, the mean-reverting square-root process has found applications ranging from short-rate modeling of the term structure of interest rates, to credit derivative pricing, and to stochastic volatility models, just to name a few.
+  </p>
+  <p block-type="Text">
+   A thorough description of the theoretical properties of square-root processes as well as their generalization into multifactor affine jump-diffusion processes can be found in [7] where a full literature survey is also available. While we shall rely on some of these results in the remainder of this article, our focus here is on the problem of generating Monte Carlo paths for the one-factor square-root process, first in isolation and later in combination with a lognormal asset process (as required in most stochastic volatility applications). As we shall see, such path generation can, under many relevant parameter settings, be surprisingly challenging. Indeed, despite the popularity and the longevity of the square-root diffusion—the first uses in finance date back several decades—it is only in the last few years that a satisfactory palette of Monte Carlo algorithms has been established.
+  </p>
+  <h1>
+   <b>
+    Problem Definition and Key Theoretical
+   </b>
+   Results
+  </h1>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    x(t)
+   </math>
+   be a scalar random variable satisfying a stochastic differential equation (SDE) of the meanreverting square-root type, that is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dx(t) = \kappa (\theta - x(t)) dt + \epsilon \sqrt{x(t)} dW(t),
+   </math>
+   <br/>
+   <math display="block">
+    x(0) = x_0
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    \kappa, \theta, \epsilon
+   </math>
+   are positive constants and
+   <math display="inline">
+    W(t)
+   </math>
+   is a Brownian motion in a given probability measure. Applications of equation
+   <math display="inline">
+    (1)
+   </math>
+   in finance include the seminal CIR (Cox-Ingersoll-Ross) model for interest rates (see Cox-Ingersoll-Ross (CIR) Model) and the Heston stochastic volatility model (see Heston Model). In practical usage of such models (e.g., to price options), we are often faced with the problem of generating Monte Carlo paths of
+   <math display="inline">
+    x
+   </math>
+   on some
+  </p>
+  <p block-type="Text">
+   discrete timeline. To devise a simulation scheme, it suffices to contemplate the more fundamental question of how to generate, for an arbitrary increment
+   <math display="inline">
+    \Delta
+   </math>
+   , a random sample of
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   given
+   <math display="inline">
+    x(t)
+   </math>
+   ; repeated application of the resulting one-period scheme produces a full path of
+   <math display="inline">
+    x
+   </math>
+   on an arbitrary set of discrete dates.
+  </p>
+  <p block-type="Text">
+   To aid in the construction of simulation algorithms, let us quickly review a few well-known theoretical results for equation (1).
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 1
+   </b>
+   Let
+   <math display="inline">
+    F(z; \nu, \lambda)
+   </math>
+   be the cumulative distribution function for the noncentral chi-square dis
+   <math display="inline">
+    t
+   </math>
+   ribution with
+   <math display="inline">
+    v
+   </math>
+   degrees of freedom and noncentrality
+   <i>
+    parameter
+   </i>
+   <math display="inline">
+    \lambda
+   </math>
+   <i>
+    :
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(z;\nu,\lambda) = e^{-\lambda/2} \sum_{j=0}^{\infty} \frac{(\lambda/2)^j}{j! 2^{\nu/2+j} \Gamma(\nu/2+j)}
+   </math>
+   <math display="block">
+    \times \int_0^z y^{\nu/2+j-1} e^{-x/2} dy \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   For the process
+   <math display="inline">
+    (1)
+   </math>
+   define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d = 4\kappa\theta/\epsilon^{2};
+   </math>
+   <br/>
+   <math display="block">
+    n(t,T) = \frac{4\kappa e^{-\kappa(T-t)}}{\epsilon^{2} \left(1 - e^{-\kappa(T-t)}\right)}, \ T &gt; t \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    T &gt; t
+   </math>
+   . Conditional on
+   <math display="inline">
+    x(t)
+   </math>
+   ,
+   <math display="inline">
+    x(T)
+   </math>
+   is distributed as
+   <math display="inline">
+    e^{-\kappa(T-t)}/n(t,T)
+   </math>
+   times a noncentral chi-square distri-
+   <math display="inline">
+    \text{bution with } d \text{ degrees of freedom and noncentrality}
+   </math>
+   parameter
+   <math display="inline">
+    x(t)n(t, T)
+   </math>
+   . That is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pr\left(x(T) &lt; x | x(t)\right)
+   </math>
+   <br/>
+   =
+   <math>
+    F\left(\frac{x \cdot n(t,T)}{e^{-\kappa(T-t)}}; d, x(t) \cdot n(t,T)\right)
+   </math>
+   (4)
+  </p>
+  <p block-type="Text">
+   From the known properties of the noncentral chisquare distribution, the following corollary easily follows.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Corollary 1
+   </b>
+   For
+   <math display="inline">
+    T &gt; t
+   </math>
+   ,
+   <math display="inline">
+    x(T)
+   </math>
+   has the following first two conditional moments:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(x(T)|x(t)) = \theta + (x(t) - \theta)e^{-\kappa(T-t)}
+   </math>
+   <br/>
+   <math display="block">
+    Var(x(T)|x(t)) = \frac{x(t)\epsilon^2 e^{-\kappa(T-t)}}{\kappa}
+   </math>
+   <br/>
+   <math display="block">
+    \times \left(1 - e^{-\kappa(T-t)}\right) + \frac{\theta \epsilon^2}{2\kappa} \left(1 - e^{-\kappa(T-t)}\right)^2 \quad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 2
+   </b>
+   Assume that
+   <math display="inline">
+    x(0) &gt; 0
+   </math>
+   . If
+   <math display="inline">
+    2\kappa\theta \ge \epsilon^2
+   </math>
+   , then the process for x can never reach zero. If
+   <math display="inline">
+    2\kappa\theta
+   </math>
+   &lt;
+   <math display="inline">
+    \epsilon^2
+   </math>
+   , the origin is accessible and strongly reflecting.
+  </p>
+  <p block-type="Text">
+   The condition
+   <math display="inline">
+    2\kappa\theta \geq \epsilon^2
+   </math>
+   in Proposition 2 is often known as the
+   <i>
+    Feller condition
+   </i>
+   (see [12]) for equation
+   <math display="inline">
+    (1)
+   </math>
+   . When equation
+   <math display="inline">
+    (1)
+   </math>
+   is used as a model for interest rates or credit spreads, market-implied model parameters are typically such that the Feller condition is satisfied. However, when equation (1) represent a stochastic variance process (as in the section Stochastic Volatility Simulation), the Feller condition rarely holds. As it turns out, a violation of the Feller condition may increase the difficulty of Monte Carlo path generation considerably.
+  </p>
+  <h2>
+   <b>
+    Simulation Schemes
+   </b>
+  </h2>
+  <h4>
+   Exact Simulation
+  </h4>
+  <p block-type="TextInlineMath">
+   According to Proposition 1, the distribution of
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   given
+   <math display="inline">
+    x(t)
+   </math>
+   is known in closed form. Generation of a random sample of
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   given
+   <math display="inline">
+    x(t)
+   </math>
+   can therefore be done entirely bias-free by sampling from a noncentral chi-square distribution. Using the fact that a noncentral chi-square distribution can be seen as a regular chi-square distribution with Poissondistributed degrees of freedom (see
+   <math display="inline">
+    [9]
+   </math>
+   ), the following algorithm can be used.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. Draw a Poisson random variable
+     <math display="inline">
+      N
+     </math>
+     , with mean
+     <math display="inline">
+      \frac{1}{2}x(t)n(t,t+\Delta).
+     </math>
+    </li>
+    <li block-type="ListItem">
+     2. Given
+     <math display="inline">
+      N
+     </math>
+     , draw a regular chi-square random variable
+     <math display="inline">
+      \chi_v^2
+     </math>
+     , with
+     <math display="inline">
+      v = d + 2N
+     </math>
+     degrees of freedom.&lt;br&gt;3. Set
+     <math display="inline">
+      x(t + \Delta) = \chi_v^2 \cdot \exp(-\kappa \Delta) / n(t, t + \Delta)
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Steps 1 and 3 of this algorithm are straightforward, but Step 2 is somewhat involved. In practice, generation of chi-squared variables would most often use one of several available techniques for the gamma distribution, a special case of which is the chi-square distribution. A standard algorithm for the generation of gamma variates of acceptance-rejection type is the Cheng-Feast algorithm [5], and a number of others are listed in [9], though direct generation by the aid of the inverse cumulative distribution function [6] is also a practically viable option.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   We should note that if
+   <math display="inline">
+    d &gt; 1
+   </math>
+   , it may be numerically advantageous to use a different algorithm, based
+  </p>
+  <p block-type="Text">
+   on the convenient relation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \chi_d^{\prime 2}(\lambda) \stackrel{d}{=} \left(Z + \sqrt{\lambda}\right)^2 + \chi_{d-1}^2 \ , \quad d &gt; 1 \quad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \stackrel{d}{=}
+   </math>
+   denotes equality in distribution,
+   <math display="inline">
+    \chi_d^2(\lambda)
+   </math>
+   is a noncentral chi-square variable with
+   <math display="inline">
+    d
+   </math>
+   degrees of freedom and noncentrality parameter
+   <math display="inline">
+    \lambda
+   </math>
+   , and Z is an ordinary
+   <math display="inline">
+    \mathcal{N}(0, 1)
+   </math>
+   Gaussian variable. We trust that the reader can complete the details on application of equation (6) in a simulation algorithm for
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   One might think that the existence of an exact simulation scheme for
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   would settle once and for all the question of how to generate paths of the square-root process. In practice, however, several complications may arise with the application of the algorithm mentioned earlier. Indeed, the scheme is quite complex compared with many standard SDE discretization schemes and may not fit smoothly into existing software architecture for SDE simulation routines. Also, computational speed may be an issue, and the application of acceptance-rejection sampling will potentially cause a "scrambling effect" when process parameters are perturbed, resulting in poor sensitivity computations. While caching techniques can be designed to overcome some of these issues. storage, look-up, and interpolation of such a cache pose their own challenges. Further, the basic scheme above provides no explicit link between the paths of the Brownian motion
+   <math display="inline">
+    W(t)
+   </math>
+   and that of
+   <math display="inline">
+    x(t)
+   </math>
+   , complicating applications in which, say, multiple correlated Brownian motions need to be advanced through time.
+  </p>
+  <p block-type="Text">
+   In light of the discussion earlier, it seems reasonable to also investigate the application of simpler simulation algorithms. These will typically exhibit a bias for finite values of
+   <math display="inline">
+    \Delta
+   </math>
+   , but convenience and speed may more than compensate for this, especially if the bias is small and easy to control by reduction of stepsize. We proceed to discuss several classes of such schemes.
+  </p>
+  <h2>
+   Biased Taylor-type Schemes
+  </h2>
+  <p block-type="Text">
+   <b>
+    Euler Schemes.
+   </b>
+   Going forward, let us use
+   <math display="inline">
+    \hat{x}
+   </math>
+   to denote a discrete-time (biased) approximation to
+   <math display="inline">
+    x
+   </math>
+   . A classical approach to constructing simulation schemes for SDEs involves the application of Itô-Taylor expansions, suitably truncated. See
+   <b>
+    Monte Carlo
+   </b>
+   Simulation for Stochastic Differential Equations, Stochastic Differential Equations: Scenario Simulation, and Stochastic Taylor Expansions for details.
+  </p>
+  <p block-type="Text">
+   The simplest of such schemes is the
+   <i>
+    Euler scheme
+   </i>
+   , a direct application of which would write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{x}(t + \Delta) = \hat{x}(t) + \kappa(\theta - \hat{x}(t))\Delta \n+ \epsilon \sqrt{\hat{x}(t)} Z\sqrt{\Delta} \n
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   where Z is
+   <math display="inline">
+    \mathcal{N}(0, 1)
+   </math>
+   Gaussian variable. One immediate (and fatal) problem with equation
+   <math display="inline">
+    (7)
+   </math>
+   is that the discrete process for
+   <math display="inline">
+    x
+   </math>
+   can become negative with nonzero probability, making computation of
+   <math display="inline">
+    \sqrt{\hat{x}(t)}
+   </math>
+   impossible and causing the time-stepping scheme to fail. To get around this problem, several remedies have been proposed in the literature, starting with the suggestion in [13] that one simply replaces
+   <math display="inline">
+    \sqrt{\hat{x}(t)}
+   </math>
+   in equation (7) with
+   <math display="inline">
+    \sqrt{\left|\hat{x}(t)\right|}
+   </math>
+   . Lord
+   <i>
+    et al.
+   </i>
+   , [14] review a number of such "fixes", concluding that the following works best:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{x}(t+\Delta) = \hat{x}(t) + \kappa(\theta - \hat{x}(t)^{+})\Delta
+   </math>
+   <math display="block">
+    + \epsilon \sqrt{\hat{x}(t)^{+}} Z\sqrt{\Delta} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where we use the notation
+   <math display="inline">
+    x^+ = \max(x, 0)
+   </math>
+   . In [14] this scheme is denoted "full truncation"; its main characteristic is that the process for
+   <math display="inline">
+    \hat{x}
+   </math>
+   is allowed to go below zero, at which point the process for
+   <math display="inline">
+    x
+   </math>
+   becomes deterministic with an upward drift of
+   <math display="inline">
+    \kappa\theta
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Higher-order Schemes.
+   </b>
+   The scheme (8) has firstorder weak convergence, in the sense that expectations of functions of
+   <math display="inline">
+    x
+   </math>
+   will approach their true values as
+   <math display="inline">
+    \mathcal{O}(\Delta)
+   </math>
+   . To improve convergence, it is tempting to apply a
+   <i>
+    Milstein scheme
+   </i>
+   , the most basic of which is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{x}(t+\Delta) = \hat{x}(t) + \kappa(\theta - \hat{x}(t))\Delta
+   </math>
+   <math display="block">
+    + \epsilon \sqrt{\hat{x}(t)} Z\sqrt{\Delta} + \frac{1}{4} \epsilon^2 \Delta \left(Z^2 - 1\right) \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   As was the case for equation
+   <math display="inline">
+    (7)
+   </math>
+   , this scheme has a positive probability of generating negative values of
+   <math display="inline">
+    \hat{x}
+   </math>
+   and therefore cannot be used without suitable modifications. Kahl and Jäckel [11] list several other Milstein-type schemes, some of which allow for a certain degree of control over the likelihood of generating negative values. One particularly appealing variation is the
+   <i>
+    implicit Milstein scheme
+   </i>
+   , defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{x}(t+\Delta) = (1+\kappa\Delta)^{-1} \cdot \left(\hat{x}(t) + \kappa\theta\Delta\right)
+   </math>
+   <math display="block">
+    +\epsilon\sqrt{\hat{x}(t)} Z\sqrt{\Delta} + \frac{1}{4}\epsilon^2\Delta(Z^2 - 1)\right) \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is easy to verify that this discretization scheme results in strictly positive paths for the
+   <math display="inline">
+    x
+   </math>
+   process if
+   <math display="inline">
+    4\kappa\theta &gt; \epsilon^2
+   </math>
+   . For cases where this bound does not hold, it will be necessary to modify equation (10) to prevent problems with the computation of
+   <math display="inline">
+    \sqrt{\hat{x}(t)}
+   </math>
+   . For instance, whenever
+   <math display="inline">
+    \hat{x}(t)
+   </math>
+   drops below zero, we could use equation
+   <math display="inline">
+    (8)
+   </math>
+   rather than equation
+   <math display="inline">
+    (10)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Under certain sufficient regularity conditions, Milstein schemes have second-order weak convergence. Owing to the presence of a square root in equation (1), these sufficient conditions are violated here, and one should not expect equation
+   <math display="inline">
+    (10)
+   </math>
+   to have second-order convergence for all parameter values, even the ones that satisfy
+   <math display="inline">
+    4\kappa\theta &gt; \epsilon^2
+   </math>
+   . Numerical tests of Milstein schemes for square-root processes can be found in [9] and [11]; overall these schemes perform fairly well in certain parameter regimes, but are typically less robust than the Euler scheme.
+  </p>
+  <h2>
+   Moment-matching Schemes
+  </h2>
+  <p block-type="TextInlineMath">
+   Lognormal Approximation. The simulation schemes introduced in the section Biased Taylor-type Schemes all suffer to various degrees from an inability to keep the path of
+   <math display="inline">
+    x
+   </math>
+   nonnegative throughout. One, rather obvious, way around this is to draw
+   <math display="inline">
+    \hat{x}(t + \Delta)
+   </math>
+   from a user-selected probability distribution that (i) is reasonably close to the true distribution of
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   and (ii) is certain not to produce negative values. To ensure that (i) is satisfied, it is natural to select the parameters of the chosen distribution to match one or more of the true moments for
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   , conditional upon
+   <math display="inline">
+    x(t) = \hat{x}(t)
+   </math>
+   . For instance, if we assume that the true distribution of
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   is well approximated by a lognormal distribution with parameters
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    \sigma
+   </math>
+   , we write (see
+   <math display="inline">
+    [2]
+   </math>
+   )
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{x}(t+\Delta) = e^{\mu+\sigma Z} \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where Z is a Gaussian random variable, and
+   <math display="inline">
+    \mu
+   </math>
+   ,
+   <math display="inline">
+    \sigma
+   </math>
+   are chosen to satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{\mu + \frac{1}{2}\sigma^2} = E\left(x(t+\Delta)|x(t) = \hat{x}(t)\right)
+   </math>
+   <math display="block">
+    e^{2\left(\mu + \frac{1}{2}\sigma^2\right)}\left(e^{\sigma^2} - 1\right) = \text{Var}\left(x(t+\Delta)|x(t) = \hat{x}(t)\right)
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   The results in Corollary 1 can be used to compute the right-hand sides of this system of equations, which can then easily be solved analytically for
+   <i>
+    µ
+   </i>
+   and
+   <i>
+    σ
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   As is the case for many other schemes, equation (11) works best if the Feller condition is satisfied. If not, the lower tail of the lognormal distribution is often too thin to capture the true distribution shape of
+   <i>
+    x(t
+   </i>
+   ˆ +
+   <i>
+    )
+   </i>
+   —see Figure 1.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Truncated Gaussian.
+   </b>
+   Figure 1 demonstrates that the density of
+   <i>
+    x(t
+   </i>
+   ˆ +
+   <i>
+    )
+   </i>
+   may sometimes be nearly singular at the origin. To accommodate this, one could contemplate inserting an actual singularity through outright truncation at the origin of a distribution that may otherwise go negative. Using a Gaussian distribution for this, say, one could write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{x}(t+\Delta) = (\mu + \sigma Z)^{+} \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    µ
+   </i>
+   and
+   <i>
+    σ
+   </i>
+   are determined by moment-matching, along the same lines as in the section Lognormal Approximation. While this moment-matching exercise cannot be done in an entirely analytical fashion, a number of caching tricks outlined in [3] can be used to make the determination of
+   <i>
+    µ
+   </i>
+   and
+   <i>
+    σ
+   </i>
+   essentially instantaneous. As documented in [3], the scheme (14) is robust and generally has attractive convergence properties when applied to standard option pricing problems. Being fundamentally Gaussian when
+   <i>
+    x(t)
+   </i>
+   ˆ is far from the origin, equation (14) is somewhat similar to the Euler scheme (8), although the performance
+  </p>
+  <p>
+   <img src="_page_3_Figure_6.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Cumulative distribution function for
+   <i>
+    x(T )
+   </i>
+   given
+   <i>
+    x(
+   </i>
+   0
+   <i>
+    )
+   </i>
+   , with
+   <i>
+    T
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   1. Model parameters were
+   <i>
+    x(
+   </i>
+   0
+   <i>
+    )
+   </i>
+   =
+   <i>
+    θ
+   </i>
+   = 4%,
+   <i>
+    κ
+   </i>
+   = 50%, and  = 100%. The lognormal and Gaussian distributions in the graph were parameterized by matching mean and variances to the exact distribution of
+   <i>
+    x(T )
+   </i>
+  </p>
+  <p block-type="TextInlineMath">
+   of equation (14) is typically better than equation (8). Unlike equation (8), the truncated Gaussian scheme (14) also ensures, by construction, that negative values of
+   <i>
+    x(t
+   </i>
+   ˆ +
+   <i>
+    )
+   </i>
+   cannot be attained.
+  </p>
+  <p block-type="Text">
+   <b>
+    Quadratic-exponential.
+   </b>
+   We finish our discussion of biased schemes for equation (1) with a more elaborate moment-matched scheme, based on a combination of a squared Gaussian and an exponential distribution. In this scheme, for large values of
+   <i>
+    x(t)
+   </i>
+   ˆ , we write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{x}(t+\Delta) = a\,(b+Z)^2\tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    Z
+   </i>
+   is a standard Gaussian random variable, and
+   <i>
+    a
+   </i>
+   and
+   <i>
+    b
+   </i>
+   are certain constants, to be determined by moment-matching. These constants
+   <i>
+    a
+   </i>
+   and
+   <i>
+    b
+   </i>
+   depend on the time step  and
+   <i>
+    x(t)
+   </i>
+   ˆ , as well as the parameters in the SDE for
+   <i>
+    x.
+   </i>
+   While based on the well-established asymptotics for the noncentral chi-square distribution (see [3]), formula (15) does not work well for low values of
+   <i>
+    x(t)
+   </i>
+   ˆ —in fact, the moment-matching exercise fails to work—so we supplement it with a scheme to be used when
+   <i>
+    x(t)
+   </i>
+   ˆ is small. Andersen [3] shows that a good choice is to approximate the density of
+   <i>
+    x(t
+   </i>
+   ˆ +
+   <i>
+    )
+   </i>
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pr\left(\hat{x}(t+\Delta) \in [x, x+dx]\right)
+   </math>
+   <br/>
+   <math display="block">
+    \approx \left(p\delta(x) + \beta(1-p)e^{-\beta x}\right) dx \ , \quad x \ge 0 \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    δ
+   </i>
+   is a Dirac delta-function, and
+   <i>
+    p
+   </i>
+   and
+   <i>
+    β
+   </i>
+   are nonnegative constants to be determined. As in the scheme in the section Truncated Gaussian, we have a probability mass at the origin, but now the strength of this mass
+   <i>
+    (p)
+   </i>
+   is explicitly specified, rather than implied from other parameters. The mass at the origin is supplemented with an exponential tail. It can be verified that if
+   <i>
+    p
+   </i>
+   ∈ [0
+   <i>
+    ,
+   </i>
+   1] and
+   <i>
+    β
+   </i>
+   ≥ 0, then equation (16) constitutes a valid density function.
+  </p>
+  <p block-type="Text">
+   Assuming that we have determined
+   <i>
+    a
+   </i>
+   and
+   <i>
+    b
+   </i>
+   , Monte Carlo sampling from equation (15) is trivial. To draw samples in accordance with equation (16), we can generate a cumulative distribution function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(x) = \Pr\left(\hat{x}(t+\Delta) \le x\right) \\
+= p + (1-p)\left(1 - e^{-\beta x}\right), \quad x \ge 0 \quad (17)
+   </math>
+  </p>
+  <p block-type="Text">
+   the inverse of which is readily computable, allowing for efficient generation of random draws by the inverse distribution method.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   What remains is the determination of the constants
+   <i>
+    a
+   </i>
+   ,
+   <i>
+    b
+   </i>
+   ,
+   <i>
+    p
+   </i>
+   , and
+   <i>
+    β
+   </i>
+   , as well as a rule for when
+  </p>
+  <p block-type="Text">
+   to switch from equation
+   <math display="inline">
+    (15)
+   </math>
+   to sampling from equation (17). The first problem is easily settled by moment-matching techniques.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 3
+   </b>
+   Let
+   <math display="inline">
+    m \stackrel{\Delta}{=} E(x(t + \Delta)|x(t) = \hat{x}(t))
+   </math>
+   and
+   <math display="inline">
+    s^2 \stackrel{\Delta}{=} \text{Var}\left(x(t+\Delta)|x(t) = \hat{x}(t)\right)
+   </math>
+   and set
+   <math display="inline">
+    \psi =
+   </math>
+   <math display="inline">
+    s^2/m^2
+   </math>
+   . Provided that
+   <math display="inline">
+    \psi \leq 2
+   </math>
+   , set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    b^{2} = 2\psi^{-1} - 1 + \sqrt{2\psi^{-1}}\sqrt{2\psi^{-1} - 1} \ge 0 \quad (18)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a = \frac{m}{1+b^2} \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \hat{x}(t + \Delta)
+   </math>
+   be as defined in equation (15); then
+   <math display="inline">
+    \mathrm{E}\left(\hat{x}(t+\Delta)\right) = m \text{ and } \mathrm{Var}\left(\hat{x}(t+\Delta)\right) = s^2.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 4
+   </b>
+   Let m, s, and
+   <math display="inline">
+    \psi
+   </math>
+   be as defined in
+   <i>
+    Proposition 3. Assume that
+   </i>
+   <math display="inline">
+    \psi \ge 1
+   </math>
+   <i>
+    and set
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p = \frac{\psi - 1}{\psi + 1} \in [0, 1) \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \beta = \frac{1-p}{m} = \frac{2}{m(\psi+1)} &gt; 0 \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \hat{x}(t + \Delta)
+   </math>
+   be sampled from equation (17); then
+   <math display="inline">
+    \mathrm{E}\left(\hat{x}(t+\Delta)\right) = m \text{ and } \mathrm{Var}\left(\hat{x}(t+\Delta)\right) = s^2.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The terms m, s,
+   <math display="inline">
+    \psi
+   </math>
+   defined in the two propositions above are explicitly computable from the result in Corollary 1. For any
+   <math display="inline">
+    \psi_c
+   </math>
+   in [1, 2], a valid switching
+   <i>
+    rule
+   </i>
+   is to use equation (15) if
+   <math display="inline">
+    \psi \leq \psi_c
+   </math>
+   and to sample equation (17) otherwise. The exact choice for
+   <math display="inline">
+    \psi_c
+   </math>
+   is noncritical;
+   <math display="inline">
+    \psi_c = 1.5
+   </math>
+   is a good choice.
+  </p>
+  <p block-type="Text">
+   The quadratic-exponential (QE) scheme outlined above is typically the most accurate of the biased schemes introduced in this article. Indeed, in most practical applications, the bias introduced by the scheme is statistically undetectable at the levels of Monte Carlo noise acceptable in practical applications; see [3] for numerical tests under a range of challenging conditions. Variations on the QE scheme without an explicit singularity in zero can also be found in [3].
+  </p>
+  <h2>
+   <b>
+    Stochastic Volatility Simulation
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   As mentioned earlier, square-root processes are commonly used to model stochastic movements in the volatility of some financial asset. A popular example
+  </p>
+  <p block-type="Text">
+   of such an application is the
+   <i>
+    Heston model
+   </i>
+   [10], defined by a vector SDE of the form&lt;sup&gt;a&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY(t) = Y(t)\sqrt{x(t)} \, dW_Y(t) \tag{22}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dx(t) = \kappa \left(\theta - x(t)\right) dt + \epsilon \sqrt{x(t)} dW(t) \quad (23)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    dW_Y(t) \cdot dW(t) = \rho dt, \quad \rho \in [-1, 1].
+   </math>
+   For with numerical work, it is useful to recognize that the process for
+   <math display="inline">
+    Y(t)
+   </math>
+   is often relatively close to geometric Brownian motion, making it sensible to work with logarithms of
+   <math display="inline">
+    Y(t)
+   </math>
+   , rather than
+   <math display="inline">
+    Y(t)
+   </math>
+   itself. An application of Itô's Lemma shows that equations
+   <math display="inline">
+    (22)
+   </math>
+   –
+   <math display="inline">
+    (23)
+   </math>
+   are equivalent to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\ln Y(t) = -\frac{1}{2}x(t) dt + \sqrt{x(t)} dW_Y(t)
+   </math>
+   (24)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dx(t) = \kappa \left(\theta - x(t)\right) dt + \epsilon \sqrt{x(t)} dW(t) \tag{25}
+   </math>
+  </p>
+  <p block-type="Text">
+   We proceed to consider the joint simulation of equations
+   <math display="inline">
+    (24)
+   </math>
+   –
+   <math display="inline">
+    (25)
+   </math>
+   .
+  </p>
+  <h4>
+   Broadie-Kaya Scheme
+  </h4>
+  <p block-type="TextInlineMath">
+   As demonstrated in [4], it is possible to simulate equations
+   <math display="inline">
+    (24)
+   </math>
+   –
+   <math display="inline">
+    (25)
+   </math>
+   bias-free. To show this, first integrate the SDE for
+   <math display="inline">
+    x(t)
+   </math>
+   and rearrange.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{t}^{t+\Delta} \sqrt{x(u)} \, \mathrm{d}W(u)
+   </math>
+   <br/>
+   =
+   <math>
+    \epsilon^{-1} \left( x(t+\Delta) - x(t) - \kappa\theta\Delta + \kappa \int_{t}^{t+\Delta} x(u) \, \mathrm{d}u \right)
+   </math>
+   <br/>
+   (26)
+  </p>
+  <p block-type="Text">
+   Performing a Cholesky decomposition we can also write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\ln Y(t) = -\frac{1}{2}x(t) dt + \rho\sqrt{x(u)} dW(u) + \sqrt{1 - \rho^2}\sqrt{x(u)} dW^*(u)
+   </math>
+   (27)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    W^*
+   </math>
+   is a Brownian motion independent of W. An integration yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \ln Y(t+\Delta) = \ln Y(t) + \frac{\rho}{\epsilon} \left( x(t+\Delta) - x(t) - \kappa \theta \Delta \right)
+   </math>
+   <math display="block">
+    + \left( \frac{\kappa \rho}{\epsilon} - \frac{1}{2} \right) \int_{t}^{t+\Delta} x(u) \, \mathrm{d}u
+   </math>
+   <math display="block">
+    + \sqrt{1-\rho^2} \int_{t}^{t+\Delta} \sqrt{x(u)} \, \mathrm{d}W^*(u) \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where we have used equation (26). Conditional on
+   <math display="inline">
+    x(t+\Delta)
+   </math>
+   and
+   <math display="inline">
+    \int_{t}^{t+\Delta} x(u) \, \mathrm{d}u
+   </math>
+   , it is clear that the distribution of
+   <math display="inline">
+    \ln Y(t + \Delta)
+   </math>
+   is Gaussian with easily computable moments. After first sampling
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   from the noncentral chi-square distribution (as described in the section Exact Simulation), one then performs the following steps:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. Conditional on
+     <math display="inline">
+      x(t + \Delta)
+     </math>
+     (and
+     <math display="inline">
+      x(t)
+     </math>
+     ) draw a sample of
+     <math display="inline">
+      I = \int_{t}^{t+\Delta} x(u) \, \mathrm{d}u
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     2. Conditional on
+     <math display="inline">
+      x(t + \Delta)
+     </math>
+     and I, use equation (28) to draw a sample of
+     <math display="inline">
+      \ln Y(t + \Delta)
+     </math>
+     from a Gaussian distribution.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   While execution of the second step is straightforward, the first one is decidedly not, as the conditional distribution of the integral
+   <math display="inline">
+    I
+   </math>
+   is not known in closed form. In [4], the authors instead derive a characteristic function, which they numerically Fourier-invert to generate the cumulative distribution function for I, given
+   <math display="inline">
+    x(t + \Delta)
+   </math>
+   and
+   <math display="inline">
+    x(t)
+   </math>
+   . Numerical inversion of this distribution function over a uniform random variable finally allows for generation of a sample of
+   <math display="inline">
+    I
+   </math>
+   . The total algorithm requires great care in numerical discretization to prevent introduction of noticeable biases and is further complicated by the fact that the characteristic function for
+   <math display="inline">
+    I
+   </math>
+   contains two modified Bessel functions.
+  </p>
+  <p block-type="Text">
+   The Broadie-Kaya algorithm is bias-free by construction, but its complexity and lack of speed is problematic in some applications. At the cost of introducing a (small) bias, [15] improves computational efficiency by introducing certain approximations to the characteristic function of time-integrated variance, enabling efficient caching techniques.
+  </p>
+  <h3>
+   Other Schemes
+  </h3>
+  <p block-type="Text">
+   Taylor-type Schemes. In their examination of "fixed" Euler schemes, Lord et al. [14] suggest simulation of the Heston model by combining equation (8) with the following scheme for
+   <math display="inline">
+    \ln Y
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \ln \hat{Y}(t+\Delta) = \ln \hat{Y}(t) - \frac{1}{2}\hat{x}(t)^{+}\Delta
+   </math>
+   <math display="block">
+    + \sqrt{\hat{x}(t)^{+}}Z_{Y}\sqrt{\Delta} \qquad (29)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    Z_Y
+   </math>
+   is a Gaussian
+   <math display="inline">
+    \mathcal{N}(0, 1)
+   </math>
+   draw, correlated to Z in equation (8) with correlation coefficient
+   <math display="inline">
+    \rho
+   </math>
+   . For
+  </p>
+  <p block-type="Text">
+   the periods where
+   <math display="inline">
+    \hat{x}
+   </math>
+   drops below zero in equation (8), the process for
+   <math display="inline">
+    \hat{Y}
+   </math>
+   comes to a standstill.
+  </p>
+  <p block-type="Text">
+   Kahl and Jäckel [11] consider several alternative schemes for
+   <math display="inline">
+    Y
+   </math>
+   , the most prominent being the "IJK" scheme, defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \ln \hat{Y}(t+\Delta) = \ln \hat{Y}(t)
+   </math>
+   <math display="block">
+    -\frac{\Delta}{4} \left(\hat{x}(t+\Delta) + \hat{x}(t)\right) + \rho \sqrt{\hat{x}(t)} Z \sqrt{\Delta}
+   </math>
+   <math display="block">
+    +\frac{1}{2} \left(\sqrt{\hat{x}(t+\Delta)} + \sqrt{\hat{x}(t)}\right) \left(Z_Y \sqrt{\Delta} - \rho Z \sqrt{\Delta}\right)
+   </math>
+   <math display="block">
+    +\frac{1}{4} \epsilon \rho \Delta \left(Z^2 - 1\right) \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    \hat{x}(t + \Delta)
+   </math>
+   and
+   <math display="inline">
+    \hat{x}(t)
+   </math>
+   are meant to be simulated by the implicit Milstein scheme
+   <math display="inline">
+    (5)
+   </math>
+   ; again the correlation between the Gaussian samples
+   <math display="inline">
+    Z_{\gamma}
+   </math>
+   and Z is
+   <math display="inline">
+    \rho
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Simplified Broadie–Kaya.
+   </b>
+   We recall from the discussion earlier that the complicated part of the Broadie-Kaya algorithm was the computation of
+   <math display="inline">
+    \int_{t}^{t+\Delta} x(u) \, \mathrm{d}u
+   </math>
+   , conditional on
+   <math display="inline">
+    x(t)
+   </math>
+   and
+   <math display="inline">
+    x(t+\Delta)
+   </math>
+   . Andersen [3] suggests a naive, but effective, approximation based on the idea that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{t}^{t+\Delta} x(u) \, \mathrm{d}u \approx \Delta \left[ \gamma_1 x(t) + \gamma_2 x(t+\Delta) \right] \quad (31)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for certain constants
+   <math display="inline">
+    \gamma_1
+   </math>
+   and
+   <math display="inline">
+    \gamma_2
+   </math>
+   . The constants
+   <math display="inline">
+    \gamma_1
+   </math>
+   and
+   <math display="inline">
+    \gamma_2
+   </math>
+   can be found by moment-matching techniques (using results from [8], p. 16), but [3] presents evidence that it will often be sufficient to use either an Euler-like setting
+   <math display="inline">
+    (\gamma_1 = 1, \gamma_2 = 0)
+   </math>
+   or a central discretization
+   <math display="inline">
+    (\gamma_1 = \gamma_2 = \frac{1}{2})
+   </math>
+   . In any case, equation
+   <math display="inline">
+    (30)
+   </math>
+   combined with equation
+   <math display="inline">
+    (27)
+   </math>
+   gives rise to a scheme for
+   <math display="inline">
+    Y
+   </math>
+   -simulation that can be combined with any basic algorithm that can produce
+   <math display="inline">
+    \hat{x}(t)
+   </math>
+   and
+   <math display="inline">
+    \hat{x}(t + \Delta)
+   </math>
+   . Andersen [3] provides numerical results for the case where
+   <math display="inline">
+    \hat{x}(t)
+   </math>
+   and
+   <math display="inline">
+    \hat{x}(t + \Delta)
+   </math>
+   are simulated by the algorithms in the sections Truncated Gaussian and Quadratic-exponential; the results are excellent, particularly when the QE algorithm in the section Quadratic-exponential is used to sample
+   <math display="inline">
+    x
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Martingale Correction. Finally, let us note that some of the schemes outlined above (including equation (29) and the one in the section Simplified Broadie-Kaya) generally do not lead to martingalebehavior of
+   <math display="inline">
+    \hat{Y}
+   </math>
+   ; that is,
+   <math display="inline">
+    E(\hat{Y}(t+\Delta)) \neq E(\hat{Y}(t))
+   </math>
+   . For
+  </p>
+  <p block-type="TextInlineMath">
+   the cases where the error
+   <i>
+    e
+   </i>
+   = E
+   <i>
+    (Y (t
+   </i>
+   ˆ +
+   <i>
+    ))
+   </i>
+   − E
+   <i>
+    (Y (t))
+   </i>
+   ˆ is analytically computable, it is, however, straightforward to remove the bias by simply adding −
+   <i>
+    e
+   </i>
+   to the sample value for
+   <i>
+    Y (t
+   </i>
+   ˆ +
+   <i>
+    )
+   </i>
+   . Andersen [3] gives several examples of this idea.
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   In this article, we restricted ourselves to the presentation of relatively simple methods, which in the two-dimensional Heston model setting only require two variates per time step. Such schemes are often the most convenient in actual trading systems and for implementations that rely on Wiener processes built from low discrepancy numbers. More complicated high-order Taylor schemes, which often require extra variates, are described in [13]. The efficacy of such methods are, however, unproven in the specific setting of the Heston model.
+  </p>
+  <p block-type="Text">
+   In recent work, Alfonsi [1] constructs a secondorder scheme for the CIR process, using a switching idea similar to that of the QE scheme. For the Heston process, Alfonsi develops a "second-order scheme candidate" involving three variates per time step; the numerical performance of the scheme compares favorably with Euler-type schemes.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   We assume that
+   <i>
+    Y
+   </i>
+   is a martingale in the chosen measure; adding a drift is straightforward.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Alfonsi, A. (2008).
+     <i>
+      A Second-Order Discretization Scheme for the CIR Process: Application to the Heston Model
+     </i>
+     , Working Paper, Institut fur Mathematik, TU, ¨ Berlin.
+    </li>
+    <li block-type="ListItem">
+     [2] Andersen, L. &amp; Brotherton-Ratcliffe, R. (2005). Extended Libor market models with stochastic volatility,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      9
+     </b>
+     (1), 1–40.
+    </li>
+    <li block-type="ListItem">
+     [3] Andersen, L. (2008). Simple and efficient simulation of the Heston stochastic volatility model,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      11
+     </b>
+     (3), 1–42.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [4] Broadie, M. &amp; Kaya, O. (2006). Exact simulation of ¨ stochastic volatility and other affine jump diffusion processes,
+     <i>
+      Operations Research
+     </i>
+     <b>
+      54
+     </b>
+     (2), 217–231.
+    </li>
+    <li block-type="ListItem">
+     [5] Cheng, R. &amp; Feast, G. (1980). Gamma variate generators with increased shape parameter range,
+     <i>
+      Communications of the ACM
+     </i>
+     <b>
+      23
+     </b>
+     (7), 389–394.
+    </li>
+    <li block-type="ListItem">
+     [6] DiDonato, A.R. &amp; Morris, A.H. (1987). Incomplete gamma function ratios and their inverse,
+     <i>
+      ACM TOMS
+     </i>
+     <b>
+      13
+     </b>
+     , 318–319.
+    </li>
+    <li block-type="ListItem">
+     [7] Duffie, D., Pan, J. &amp; Singleton, K. (2000). Transform analysis and asset pricing for affine jump diffusions,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      68
+     </b>
+     , 1343–1376.
+    </li>
+    <li block-type="ListItem">
+     [8] Dufresne, D. (2001).
+     <i>
+      The Integrated Square-Root Process
+     </i>
+     , Working Paper, University of Montreal.
+    </li>
+    <li block-type="ListItem">
+     [9] Glasserman, P. (2003).
+     <i>
+      Monte Carlo Methods in Financial Engineering
+     </i>
+     , Springer Verlag, New York.
+    </li>
+    <li block-type="ListItem">
+     [10] Heston, S.L. (1993). A closed-form solution for options with stochastic volatility with applications to bond and currency options,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      6
+     </b>
+     (2), 327–343.
+    </li>
+    <li block-type="ListItem">
+     [11] Kahl, C. &amp; Jackel, P. (2006). Fast strong approximation ¨ Monte Carlo schemes for stochastic volatility models,
+     <i>
+      Journal of Quantitative Finance
+     </i>
+     <b>
+      6
+     </b>
+     (6), 513–536.
+    </li>
+    <li block-type="ListItem">
+     [12] Karlin, S. &amp; Taylor, H. (1981).
+     <i>
+      A Second Course in Stochastic Processes
+     </i>
+     , Academic Press.
+    </li>
+    <li block-type="ListItem">
+     [13] Kloeden, P. &amp; Platen, E. (1999).
+     <i>
+      Numerical Solution of Stochastic Differential Equations
+     </i>
+     , 3rd Edition, Springer Verlag, New York.
+    </li>
+    <li block-type="ListItem">
+     [14] Lord, R., Koekkoek, R. &amp; van Dijk, D. (2006).
+     <i>
+      A Comparison of Biased Simulation Schemes for Stochastic Volatility Models
+     </i>
+     , Working Paper, Tinbergen Institute, Amsterdam.
+    </li>
+    <li block-type="ListItem">
+     [15] Smith, R. (2007). An almost exact simulation method for the Heston model,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      11
+     </b>
+     (1), 115–125.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Affine Models
+   </b>
+   ;
+   <b>
+    Cox–Ingersoll–Ross (CIR) Model
+   </b>
+   ;
+   <b>
+    Heston Model
+   </b>
+   ;
+   <b>
+    Monte Carlo Simulation for Stochastic Differential Equations
+   </b>
+   ;
+   <b>
+    Stochastic Differential Equations: Scenario Simulation
+   </b>
+   ;
+   <b>
+    Stochastic Taylor Expansions
+   </b>
+   .
+  </p>
+  <p>
+   LEIF B.G. ANDERSEN, PETER JACKEL ¨ &amp; CHRISTIAN KAHL
+  </p>
+ </body>
+</html>

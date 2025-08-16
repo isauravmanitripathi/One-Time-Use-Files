@@ -1,0 +1,3074 @@
+{
+  "blocks": [
+    {
+      "id": "/page/0/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Lattice Methods for </b><b>Path-dependent Options </b></h1>",
+      "page": 224,
+      "polygon": [
+        [
+          73.4379746835443,
+          71.2027833001988
+        ],
+        [
+          268.27341772151897,
+          71.2027833001988
+        ],
+        [
+          268.27341772151897,
+          108.05615234375
+        ],
+        [
+          73.4379746835443,
+          108.05615234375
+        ]
+      ],
+      "bbox": [
+        73.4379746835443,
+        71.2027833001988,
+        268.27341772151897,
+        108.05615234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Path-dependent options are options whose payoffs depend on some specific function <math display=\"inline\">F</math> of the entire trajectory of the asset price <math display=\"inline\">F_t = F(t, (S_u)_{u \\le t})</math>. The most well-known examples are the lookback options and Asian options. In a lookback option, the payoff function is dependent on the realized maximum or minimum price of the asset over a certain period within the life of the option. The Asian options are also called <i>average options</i> since the payoff depends on a prespecified form of averaging of the asset price over a certain period. Consider an arithmetic average Asian option that is issued at time <math display=\"inline\">0</math> and expiring at <math display=\"inline\">T &gt; 0</math>, its terminal payoff is dependent on the arithmetic average <math display=\"inline\">A_T</math> of the asset price process <math display=\"inline\">S_t</math>over period [0, T]. The running average value <math display=\"inline\">A_t</math> is defined as</p>",
+      "page": 224,
+      "polygon": [
+        [
+          74.1873417721519,
+          138.65805168986083
+        ],
+        [
+          286.4609375,
+          138.65805168986083
+        ],
+        [
+          286.4609375,
+          322.51171875
+        ],
+        [
+          74.1873417721519,
+          322.51171875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        138.65805168986083,
+        286.4609375,
+        322.51171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">A_t = \\frac{1}{t} \\int_0^t S_u \\, \\mathrm{d}u \\tag{1}</math></p>",
+      "page": 224,
+      "polygon": [
+        [
+          146.5546875,
+          326.9296875
+        ],
+        [
+          285.3046875,
+          326.9296875
+        ],
+        [
+          285.3046875,
+          352.3330078125
+        ],
+        [
+          146.5546875,
+          352.3330078125
+        ]
+      ],
+      "bbox": [
+        146.5546875,
+        326.9296875,
+        285.3046875,
+        352.3330078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">with <math display=\"inline\">A_0 = S_0</math>. We are interested in the correlated evolution of the path function with the asset price process. In the above example of arithmetic averaging, the law of evolution of <math display=\"inline\">A_t</math> is given as</p>",
+      "page": 224,
+      "polygon": [
+        [
+          74.1873417721519,
+          364.258449304175
+        ],
+        [
+          285.8828125,
+          364.258449304175
+        ],
+        [
+          285.8828125,
+          408.662109375
+        ],
+        [
+          74.1873417721519,
+          408.662109375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        364.258449304175,
+        285.8828125,
+        408.662109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">dA_t = \\frac{1}{t}(S_t - A_t) dt</math> (2)</p>",
+      "page": 224,
+      "polygon": [
+        [
+          137.087890625,
+          424.125
+        ],
+        [
+          287.0390625,
+          424.125
+        ],
+        [
+          287.0390625,
+          446.951171875
+        ],
+        [
+          137.087890625,
+          446.951171875
+        ]
+      ],
+      "bbox": [
+        137.087890625,
+        424.125,
+        287.0390625,
+        446.951171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">A variant of the lattice tree methods (binomial/trinomial methods), called the <i>forward shooting </i>grid (FSG) approach, has been successfully applied to price a wide range of strong path-dependent options, such as the lookback options, Asian options, convertible bonds with reset feature and Parisian feature. reset strike feature in shout options, and so on. The FSG approach is characterized by augmenting an auxiliary state vector at each node in the usual lattice tree, which serves to capture the path-dependent feature of the option. Under the discrete setting of lattice tree calculations, let <math display=\"inline\">G</math> denote the function that describes the correlated evolution of <math display=\"inline\">F</math> with <math display=\"inline\">S</math> over the time step <math display=\"inline\">\\Delta t</math>, which can be expressed as</p>",
+      "page": 224,
+      "polygon": [
+        [
+          74.1873417721519,
+          457.1968190854871
+        ],
+        [
+          286.2582278481013,
+          457.1968190854871
+        ],
+        [
+          286.2582278481013,
+          618.1474609375
+        ],
+        [
+          74.1873417721519,
+          618.1474609375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        457.1968190854871,
+        286.2582278481013,
+        618.1474609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">F_{t+\\Delta t} = G(t, F_t, S_{t+\\Delta t}) \\tag{3}</math></p>",
+      "page": 224,
+      "polygon": [
+        [
+          132.6796875,
+          635.0830078125
+        ],
+        [
+          286.75,
+          635.0830078125
+        ],
+        [
+          286.75,
+          645.3916015625
+        ],
+        [
+          132.6796875,
+          645.3916015625
+        ]
+      ],
+      "bbox": [
+        132.6796875,
+        635.0830078125,
+        286.75,
+        645.3916015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">For example, let <math display=\"inline\">A^n</math> denote the discretely observed arithmetic average defined as</p>",
+      "page": 224,
+      "polygon": [
+        [
+          301.99493670886073,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          92.317138671875
+        ],
+        [
+          301.99493670886073,
+          92.317138671875
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        71.2027833001988,
+        513.3164556962025,
+        92.317138671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">A^n = \\frac{\\sum_{i=0}^n S^i}{n+1} \\tag{4}</math></p>",
+      "page": 224,
+      "polygon": [
+        [
+          376.359375,
+          101.06103515625
+        ],
+        [
+          511.640625,
+          101.06103515625
+        ],
+        [
+          511.640625,
+          125.72802734375
+        ],
+        [
+          376.359375,
+          125.72802734375
+        ]
+      ],
+      "bbox": [
+        376.359375,
+        101.06103515625,
+        511.640625,
+        125.72802734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/9",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">S^i</math> is the observed asset price at time <math display=\"inline\">t_i</math>, <math display=\"inline\">i =</math><math display=\"inline\">0, 1, \\ldots, n</math>. The correlated evolution of <math display=\"inline\">A^{n+1}</math> with <math display=\"inline\">S^{n+1}</math> is seen to be</p>",
+      "page": 224,
+      "polygon": [
+        [
+          301.24556962025315,
+          132.66202783300199
+        ],
+        [
+          513.3164556962025,
+          132.66202783300199
+        ],
+        [
+          513.3164556962025,
+          166.134033203125
+        ],
+        [
+          301.24556962025315,
+          166.134033203125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        132.66202783300199,
+        513.3164556962025,
+        166.134033203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">A^{n+1} = A^n + \\frac{S^{n+1} - A^n}{n+2} \\tag{5}</math></p>",
+      "page": 224,
+      "polygon": [
+        [
+          355.2,
+          174.32568359375
+        ],
+        [
+          512.796875,
+          174.32568359375
+        ],
+        [
+          512.796875,
+          196.9677734375
+        ],
+        [
+          355.2,
+          196.9677734375
+        ]
+      ],
+      "bbox": [
+        355.2,
+        174.32568359375,
+        512.796875,
+        196.9677734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/11",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Another example is provided by the correlated evolution of the realized maximum price <math display=\"inline\">M_t</math> and its underlying asset price process <math display=\"inline\">S_t</math>. Recall <math display=\"inline\">M_t =</math><math display=\"inline\">\\max S_u</math> so that <math display=\"inline\">0 \\leq u \\leq t</math></p>",
+      "page": 224,
+      "polygon": [
+        [
+          301.24556962025315,
+          203.8648111332008
+        ],
+        [
+          513.3164556962025,
+          203.8648111332008
+        ],
+        [
+          513.3164556962025,
+          254.08151093439363
+        ],
+        [
+          301.24556962025315,
+          254.08151093439363
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        203.8648111332008,
+        513.3164556962025,
+        254.08151093439363
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/12",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">M_{t+\\Delta t} = \\max(M_t, S_{t+\\Delta t}) \\tag{6}</math></p>",
+      "page": 224,
+      "polygon": [
+        [
+          358.7265625,
+          262.68505859375
+        ],
+        [
+          511.9296875,
+          262.68505859375
+        ],
+        [
+          511.9296875,
+          272.62548828125
+        ],
+        [
+          358.7265625,
+          272.62548828125
+        ]
+      ],
+      "bbox": [
+        358.7265625,
+        262.68505859375,
+        511.9296875,
+        272.62548828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In the construction of the auxiliary state vector, it is necessary to know the number of possible values that can be taken by the path-dependent state variable. For the lookback feature, the realized maximum asset price is necessarily one of the values taken by the asset price in the lattice tree. However, the number of possible values for the arithmetic average grows exponentially with the number of time steps. To circumvent the problem of dealing with exceedingly large number of nodal values, the state vector is constructed such that it contains a set of predetermined nodal values that cover the range of possible values of arithmetic averaging. Since the realized arithmetic average does not fall on these nodal values in general, we apply interpolation between the nodal values as an approximation.</p>",
+      "page": 224,
+      "polygon": [
+        [
+          301.24556962025315,
+          281.81312127236583
+        ],
+        [
+          513.375,
+          281.81312127236583
+        ],
+        [
+          513.375,
+          463.88671875
+        ],
+        [
+          301.24556962025315,
+          463.88671875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        281.81312127236583,
+        513.375,
+        463.88671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The FSG approach is pioneered by Hull and White [4] and Ritchken et al. [10] for pricing American and European style Asian and lookback options. Theoretical studies on the construction and convergence analysis of the FSG schemes are presented by Barraquand and Pudet [1], Forsyth et al. [3], and Jiang and Dai [5]. A list of various applications of the FSG approach in lattice tree algorithms for pricing strongly path-dependent options/derivative products is given as follows:</p>",
+      "page": 224,
+      "polygon": [
+        [
+          301.24556962025315,
+          465.441351888668
+        ],
+        [
+          513.3164556962025,
+          465.441351888668
+        ],
+        [
+          513.3164556962025,
+          578.75390625
+        ],
+        [
+          301.24556962025315,
+          578.75390625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        465.441351888668,
+        513.3164556962025,
+        578.75390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/ListGroup/224",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">options whose underlying asset price follows various kinds of GARCH processes [11];</li><li block-type=\"ListItem\">path-dependent interest rate claims [9]; <math display=\"inline\">\\bullet</math></li><li block-type=\"ListItem\">Parisian options, alpha-quantile options, and strike . reset options <math display=\"inline\">[6]</math>;</li></ul></p>",
+      "page": 224,
+      "polygon": [
+        [
+          300.9140625,
+          588.3598409542743
+        ],
+        [
+          513.3164556962025,
+          588.3598409542743
+        ],
+        [
+          513.3164556962025,
+          644.6552734375
+        ],
+        [
+          300.9140625,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        300.9140625,
+        588.3598409542743,
+        513.3164556962025,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h4>2 <b>Lattice Methods for Path-dependent Options </b></h4>",
+      "page": 211,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          298.2481012658228,
+          45.71968190854871
+        ],
+        [
+          298.2481012658228,
+          55.8228759765625
+        ],
+        [
+          77.93417721518988,
+          55.8228759765625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        298.2481012658228,
+        55.8228759765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/ListGroup/211",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">soft call requirement in convertible bonds [7]; ٠</li><li block-type=\"ListItem\">target redemption notes [2]; and</li><li block-type=\"ListItem\">employee stock options with repricing features [8]</li></ul></p>",
+      "page": 211,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.2027833001988
+        ],
+        [
+          290.00506329113927,
+          71.2027833001988
+        ],
+        [
+          290.00506329113927,
+          115.143310546875
+        ],
+        [
+          77.93417721518988,
+          115.143310546875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.2027833001988,
+        290.00506329113927,
+        115.143310546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In this article, we illustrate the application of the FSG lattice tree algorithms for pricing options with path-dependent lookback and Asian features, convertible bonds with the soft call requirement (Parisian feature), and call options with the strike reset feature.</p>",
+      "page": 211,
+      "polygon": [
+        [
+          77.93417721518988,
+          125.91650099403579
+        ],
+        [
+          290.00506329113927,
+          125.91650099403579
+        ],
+        [
+          290.00506329113927,
+          181.32080078125
+        ],
+        [
+          77.93417721518988,
+          181.32080078125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        125.91650099403579,
+        290.00506329113927,
+        181.32080078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/5",
+      "block_type": "SectionHeader",
+      "html": "<h3><b>Lookback Options </b></h3>",
+      "page": 211,
+      "polygon": [
+        [
+          77.93417721518988,
+          201.61630218687873
+        ],
+        [
+          170.10632911392406,
+          201.61630218687873
+        ],
+        [
+          170.10632911392406,
+          212.61474609375
+        ],
+        [
+          77.93417721518988,
+          212.61474609375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        201.61630218687873,
+        170.10632911392406,
+        212.61474609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/6",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Let the risk neutral probabilities of upward, zero, and downward jump in a trinomial tree be represented by <math display=\"inline\">p_u</math>, <math display=\"inline\">p_0</math>, and <math display=\"inline\">p_d</math>, respectively. In the FSG approach for capturing the path dependence of the discrete asset price process, we append an augmented state vector at each node in the trinomial tree and determine the appropriate grid function that models the discrete correlated evolution of the path dependence. Let <math display=\"inline\">V_{i,k}^n</math> denote the numerical option value of the path-dependent option at the <math display=\"inline\">n</math>th-time level and <math display=\"inline\">i</math> upward jumps from the initial asset value <math display=\"inline\">S_0</math>. Here, k denotes the numbering index for the values assumed by the augmented state vector at the <math display=\"inline\">(n, j)</math>th node in the trinomial tree. Let u and <math display=\"inline\">d</math> denote the proportional upward and downward jump of the asset price over one time step <math display=\"inline\">\\Delta t</math>, with <math display=\"inline\">ud = 1</math>. Let <math display=\"inline\">g(k, j)</math> denote the grid function that characterizes the discrete correlated evolution of the path-dependent state variable <math display=\"inline\">F_t</math> and asset price process <math display=\"inline\">S_t</math>. When applied to the trinomial tree calculations, the FSG scheme takes the following form:</p>",
+      "page": 211,
+      "polygon": [
+        [
+          77.93417721518988,
+          223.35188866799206
+        ],
+        [
+          290.21875,
+          223.35188866799206
+        ],
+        [
+          290.21875,
+          471.986328125
+        ],
+        [
+          77.93417721518988,
+          471.986328125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        223.35188866799206,
+        290.21875,
+        471.986328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_{j,k}^{n} = e^{-r\\Delta t} \\left[ p_u V_{j+1,g(k,j+1)}^{n+1} + p_0 V_{j,g(k,j)}^{n+1} + p_d V_{j-1,g(k,j-1)}^{n+1} \\right] </math>(7)</p>",
+      "page": 211,
+      "polygon": [
+        [
+          100.8828125,
+          484.8720703125
+        ],
+        [
+          289.3515625,
+          484.8720703125
+        ],
+        [
+          289.3515625,
+          526.8427734375
+        ],
+        [
+          100.8828125,
+          526.8427734375
+        ]
+      ],
+      "bbox": [
+        100.8828125,
+        484.8720703125,
+        289.3515625,
+        526.8427734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">e^{-r\\Delta t}</math> denotes the discount factor over one time step (Figure 1).</p>",
+      "page": 211,
+      "polygon": [
+        [
+          77.93417721518988,
+          534.3956262425447
+        ],
+        [
+          290.00506329113927,
+          534.3956262425447
+        ],
+        [
+          290.00506329113927,
+          556.6640625
+        ],
+        [
+          77.93417721518988,
+          556.6640625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        534.3956262425447,
+        290.00506329113927,
+        556.6640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/9",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">We consider the floating strike lookback option whose terminal payoff depends on the realized maximum of the asset price, namely, <math display=\"inline\">V(S_T, M_T, T) =</math><math display=\"inline\">M_T - S_T</math>. The corresponding discrete analogy of the correlated evolution of <math display=\"inline\">M_t</math> and <math display=\"inline\">S_t</math> is given by the following grid function (equation 6):</p>",
+      "page": 211,
+      "polygon": [
+        [
+          77.93417721518988,
+          558.3797216699801
+        ],
+        [
+          290.00506329113927,
+          558.3797216699801
+        ],
+        [
+          290.00506329113927,
+          624.40625
+        ],
+        [
+          77.93417721518988,
+          624.40625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        558.3797216699801,
+        290.00506329113927,
+        624.40625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">g(k, j) = \\max(k, j) \\tag{8}</math></p>",
+      "page": 211,
+      "polygon": [
+        [
+          142.21875,
+          634.71484375
+        ],
+        [
+          289.640625,
+          634.71484375
+        ],
+        [
+          289.640625,
+          644.287109375
+        ],
+        [
+          142.21875,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        142.21875,
+        634.71484375,
+        289.640625,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/FigureGroup/210",
+      "block_type": "FigureGroup",
+      "html": "<p><img src='/page/1/Figure/11'></p><p>Figure 1 The discrete correlated evolution of the pathdependent state variable <math display=\"inline\">F_t</math> and asset price process <math display=\"inline\">S_t</math> is characterized by the grid function <math display=\"inline\">g(k, j)</math></p>",
+      "page": 211,
+      "polygon": [
+        [
+          295.33515625,
+          61.522515869140626
+        ],
+        [
+          526.18046875,
+          61.522515869140626
+        ],
+        [
+          526.18046875,
+          241.1474609375
+        ],
+        [
+          295.33515625,
+          241.1474609375
+        ]
+      ],
+      "bbox": [
+        295.33515625,
+        61.522515869140626,
+        526.18046875,
+        241.1474609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {
+        "/page/1/Figure/11": "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"
+      }
+    },
+    {
+      "id": "/page/1/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">As in usual trinomial calculations, we apply the backward induction procedure, starting with the lattice nodes at maturity. Suppose that there are a total of <math display=\"inline\">N</math> time steps in the trinomial tree so that the maximum value of the discrete asset price process is <math display=\"inline\">S_0 u^N</math>, corresponding to N successive jumps from the initial value <math display=\"inline\">S_0</math>. The possible range for realized maximum asset price would be <math display=\"inline\">\\{S_0, S_0u, \\ldots, S_0u^N\\}</math>. When these possible values of the path-dependent state variable are indexed by <math display=\"inline\">k</math>, then <math display=\"inline\">k</math> assumes values from <math display=\"inline\">0, 1, \\ldots</math>, to N. The terminal option value at the <math display=\"inline\">(N, j)</math>th node and kth value in the state vector is given as</p>",
+      "page": 211,
+      "polygon": [
+        [
+          305.7417721518987,
+          265.32405566600397
+        ],
+        [
+          517.0632911392405,
+          265.32405566600397
+        ],
+        [
+          517.0632911392405,
+          410.87109375
+        ],
+        [
+          305.7417721518987,
+          410.87109375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        265.32405566600397,
+        517.0632911392405,
+        410.87109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/14",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_{j,k}^{N} = S_{0}u^{k} - S_{0}u^{j},</math><br/>\n<math display=\"block\">j = -N, -N + 1, ..., N \\text{ and}</math><br/>\n<math display=\"block\">k = \\max(j, 0), \\max(j, 0) + 1, ..., N \\quad (9)</math></p>",
+      "page": 211,
+      "polygon": [
+        [
+          332.1328125,
+          425.59765625
+        ],
+        [
+          515.3984375,
+          425.59765625
+        ],
+        [
+          515.3984375,
+          473.458984375
+        ],
+        [
+          332.1328125,
+          473.458984375
+        ]
+      ],
+      "bbox": [
+        332.1328125,
+        425.59765625,
+        515.3984375,
+        473.458984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/15",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Applying backward induction over one time step from expiry, the option values at the <math display=\"inline\">(N-1)</math>th time level are given as</p>",
+      "page": 211,
+      "polygon": [
+        [
+          305.7417721518987,
+          482.6799204771372
+        ],
+        [
+          517.0632911392405,
+          482.6799204771372
+        ],
+        [
+          517.0632911392405,
+          514.693359375
+        ],
+        [
+          305.7417721518987,
+          514.693359375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        482.6799204771372,
+        517.0632911392405,
+        514.693359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/16",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_{j,k}^{N-1} = e^{-r\\Delta t} \\left[ p_u V_{j+1,\\max(k,j+1)}^N + p_0 V_{j,\\max(k,j)}^N + p_d V_{j-1,\\max(k,j-1)}^N \\right]</math><br/>\n<math display=\"block\">j = -N + 1, -N + 2, \\dots, N - 1,</math><br/>\n<math display=\"block\">k = \\max(j, 0) + 1, \\dots, N - 1 \\tag{10}</math></p>",
+      "page": 211,
+      "polygon": [
+        [
+          317.390625,
+          528.3154296875
+        ],
+        [
+          515.6875,
+          528.3154296875
+        ],
+        [
+          515.6875,
+          587.9580078125
+        ],
+        [
+          317.390625,
+          587.9580078125
+        ]
+      ],
+      "bbox": [
+        317.390625,
+        528.3154296875,
+        515.6875,
+        587.9580078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/17",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">where the terminal option values are defined in equation (9). The backward induction procedure is then repeated to obtain numerical option values at the lattice nodes at earlier time levels. Note that the range</p>",
+      "page": 211,
+      "polygon": [
+        [
+          304.99240506329113,
+          599.7392578125
+        ],
+        [
+          517.0632911392405,
+          599.7392578125
+        ],
+        [
+          517.0632911392405,
+          643.9189453125
+        ],
+        [
+          304.99240506329113,
+          643.9189453125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        599.7392578125,
+        517.0632911392405,
+        643.9189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 231,
+      "polygon": [
+        [
+          293.0025316455696,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          56.052978515625
+        ],
+        [
+          293.0025316455696,
+          56.052978515625
+        ]
+      ],
+      "bbox": [
+        293.0025316455696,
+        45.71968190854871,
+        513.3164556962025,
+        56.052978515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">of the possible values assumed by the path-dependent state variable narrows as we proceed backward in a stepwise manner until we reach the tip of the trinomial tree.</p>",
+      "page": 231,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.95228628230616
+        ],
+        [
+          286.4609375,
+          71.95228628230616
+        ],
+        [
+          286.4609375,
+          115.41943359375
+        ],
+        [
+          74.1873417721519,
+          115.41943359375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.95228628230616,
+        286.4609375,
+        115.41943359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h4><b>Asian Options </b></h4>",
+      "page": 231,
+      "polygon": [
+        [
+          74.9367088607595,
+          137.90854870775348
+        ],
+        [
+          145.37721518987343,
+          137.90854870775348
+        ],
+        [
+          145.37721518987343,
+          148.55419921875
+        ],
+        [
+          74.9367088607595,
+          148.55419921875
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        137.90854870775348,
+        145.37721518987343,
+        148.55419921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Recall that the asset price <math display=\"inline\">S_i^n</math> at the <math display=\"inline\">(n, j)</math>th node in the trinomial tree is given as</p>",
+      "page": 231,
+      "polygon": [
+        [
+          74.9367088607595,
+          158.1451292246521
+        ],
+        [
+          286.171875,
+          157.39562624254472
+        ],
+        [
+          286.171875,
+          179.756103515625
+        ],
+        [
+          74.9367088607595,
+          179.756103515625
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        157.39562624254472,
+        286.171875,
+        179.756103515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">S_j^n = S_0 u^j = S_0 e^{j\\Delta W}, \\quad j = -n, -n+1, \\dots, n</math>\n(11)</p>",
+      "page": 231,
+      "polygon": [
+        [
+          82.9609375,
+          191.4453125
+        ],
+        [
+          285.3046875,
+          191.4453125
+        ],
+        [
+          285.3046875,
+          214.6396484375
+        ],
+        [
+          82.9609375,
+          214.6396484375
+        ]
+      ],
+      "bbox": [
+        82.9609375,
+        191.4453125,
+        285.3046875,
+        214.6396484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">u = e^{\\Delta W}</math> with <math display=\"inline\">\\Delta W = \\sigma \\sqrt{\\Delta t}</math>. Here, <math display=\"inline\">\\sigma</math> is the volatility of the asset price. The average asset price at the <i>n</i>th time level must lie between <math display=\"inline\">\\{S_0u^{-n}, S_0u^n\\}</math>. We take <math display=\"inline\">\\rho &lt; 1</math> and let <math display=\"inline\">\\Delta Y = \\rho \\Delta W</math>. Let floor(x) denote the largest integer less than or equal to <math display=\"inline\">x</math>and <math display=\"inline\">\\text{ceil}(x) = \\text{floor}(x) + 1</math>. We set the possible values taken by the average asset price to be</p>",
+      "page": 231,
+      "polygon": [
+        [
+          74.1873417721519,
+          222.60238568588468
+        ],
+        [
+          286.2582278481013,
+          222.60238568588468
+        ],
+        [
+          286.2582278481013,
+          303.7353515625
+        ],
+        [
+          74.1873417721519,
+          303.7353515625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        222.60238568588468,
+        286.2582278481013,
+        303.7353515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">A_k^n = S_0 e^{k\\Delta Y}, \\quad k = \\text{floor}\\left(-\\frac{n}{\\rho}\\right), \\dots, \\text{ceil}\\left(\\frac{n}{p}\\right) \\tag{12}</math></p>",
+      "page": 231,
+      "polygon": [
+        [
+          81.515625,
+          316.06884765625
+        ],
+        [
+          284.1484375,
+          316.06884765625
+        ],
+        [
+          284.1484375,
+          350.67626953125
+        ],
+        [
+          81.515625,
+          350.67626953125
+        ]
+      ],
+      "bbox": [
+        81.515625,
+        316.06884765625,
+        284.1484375,
+        350.67626953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/7",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The earlier FSG schemes choose <math display=\"inline\">\\rho</math> to be a sufficiently small number that is independent of <math display=\"inline\">\\Delta t</math>. The larger the value chosen for <math display=\"inline\">1/\\rho</math>, the finer the quantification of the average asset price. In view of numerical convergence of the FSG schemes, Forsyth <i>et al.</i> [3] propose to choose <math display=\"inline\">\\rho</math> to depend on <math display=\"inline\">\\sqrt{\\Delta t}</math>(say, <math display=\"inline\">\\rho = \\lambda \\sqrt{\\Delta t}</math>, where <math display=\"inline\">\\lambda</math> is independent of <math display=\"inline\">\\Delta t</math>), though this would result in an excessive amount of computation in actual implementation. Further details on numerical convergence of various versions of the FSG schemes are presented later.</p>",
+      "page": 231,
+      "polygon": [
+        [
+          74.1873417721519,
+          358.9599609375
+        ],
+        [
+          286.2582278481013,
+          358.9599609375
+        ],
+        [
+          286.2582278481013,
+          484.1357421875
+        ],
+        [
+          74.1873417721519,
+          484.1357421875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        358.9599609375,
+        286.2582278481013,
+        484.1357421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Suppose that the average is <math display=\"inline\">A_k^n</math> and the asset price moves upward from <math display=\"inline\">S_j^n</math> to <math display=\"inline\">S_{j+1}^{n+1}</math>, then the new average is given as (equation <math display=\"inline\">5</math>)</p>",
+      "page": 231,
+      "polygon": [
+        [
+          74.1873417721519,
+          484.92842942345925
+        ],
+        [
+          285.59375,
+          484.92842942345925
+        ],
+        [
+          285.59375,
+          518.7431640625
+        ],
+        [
+          74.1873417721519,
+          518.7431640625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        484.92842942345925,
+        285.59375,
+        518.7431640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">A_{k^{+}(j)}^{n+1} = A_k^n + \\frac{S_{j+1}^{n+1} - A_k^n}{n+2} </math>(13)</p>",
+      "page": 231,
+      "polygon": [
+        [
+          126.681640625,
+          523.8974609375
+        ],
+        [
+          283.5703125,
+          523.8974609375
+        ],
+        [
+          283.5703125,
+          551.1416015625
+        ],
+        [
+          126.681640625,
+          551.1416015625
+        ]
+      ],
+      "bbox": [
+        126.681640625,
+        523.8974609375,
+        283.5703125,
+        551.1416015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Next, we set <math display=\"inline\">A_{k^+(j)}^{n+1}</math> to be <math display=\"inline\">S_0e^{k^+(j)\\Delta Y}</math> for some value <math display=\"inline\">k^+(i)</math>, that is,</p>",
+      "page": 231,
+      "polygon": [
+        [
+          74.9367088607595,
+          551.6341948310139
+        ],
+        [
+          285.50886075949364,
+          551.6341948310139
+        ],
+        [
+          285.50886075949364,
+          576.544921875
+        ],
+        [
+          74.9367088607595,
+          576.544921875
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        551.6341948310139,
+        285.50886075949364,
+        576.544921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">k^{+}(j) = \\frac{\\ln A_{k^{+}(j)}^{n+1}/S_0}{\\Delta Y} \\tag{14}</math></p>",
+      "page": 231,
+      "polygon": [
+        [
+          137.015625,
+          582.0673828125
+        ],
+        [
+          284.1484375,
+          582.0673828125
+        ],
+        [
+          284.1484375,
+          607.1025390625
+        ],
+        [
+          137.015625,
+          607.1025390625
+        ]
+      ],
+      "bbox": [
+        137.015625,
+        582.0673828125,
+        284.1484375,
+        607.1025390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/12",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">Note that <math display=\"inline\">k^+(j)</math> is not an integer in general, so <math display=\"inline\">A_{k^+(i)}^{n+1}</math> does not fall onto one of the preset values for the average. Recall that floor(<math display=\"inline\">k^+(j)</math>) is</p>",
+      "page": 231,
+      "polygon": [
+        [
+          74.1873417721519,
+          610.844930417495
+        ],
+        [
+          285.50886075949364,
+          610.844930417495
+        ],
+        [
+          285.50886075949364,
+          644.287109375
+        ],
+        [
+          74.1873417721519,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        610.844930417495,
+        285.50886075949364,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/13",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">the largest integer less than or equal to <math display=\"inline\">k^+(i)</math>and <math display=\"inline\">\\text{ceil}(k^+(j)) = \\text{floor}(k^+(j)) + 1</math>. By the above construction, <math display=\"inline\">A_{\\text{floor}(k^+(j))}^{n+1}</math> and <math display=\"inline\">A_{\\text{ceil}(k^+(j))}^{n+1}</math> now fall onto the set of preset values. Similarly, we define</p>",
+      "page": 231,
+      "polygon": [
+        [
+          301.24556962025315,
+          72.70178926441352
+        ],
+        [
+          513.3164556962025,
+          72.70178926441352
+        ],
+        [
+          513.3164556962025,
+          117.536376953125
+        ],
+        [
+          301.24556962025315,
+          117.536376953125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        72.70178926441352,
+        513.3164556962025,
+        117.536376953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/14",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">A_{k^{-}(j)}^{n+1} = A_k^n + \\frac{S_{j-1}^{n+1} - A_k^n}{n+2}</math><br/><math display=\"block\">A_{k^{0}(j)}^{n+1} = A_k^n + \\frac{S_j^{n+1} - A_k^n}{n+2}</math> (15)</p>",
+      "page": 231,
+      "polygon": [
+        [
+          353.8125,
+          128.30517578125
+        ],
+        [
+          512.796875,
+          128.30517578125
+        ],
+        [
+          512.796875,
+          181.5048828125
+        ],
+        [
+          353.8125,
+          181.5048828125
+        ]
+      ],
+      "bbox": [
+        353.8125,
+        128.30517578125,
+        512.796875,
+        181.5048828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/15",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">corresponding to the new average at the <math display=\"inline\">(n +</math>1)th time level when the asset price experiences a downward jump and zero jump, respectively. In addition, floor<math display=\"inline\">(k^-(j))</math>, ceil<math display=\"inline\">(k^-(j))</math>, floor<math display=\"inline\">(k^0(j))</math>, and <math display=\"inline\">\\text{ceil}(k^0(j))</math> are obtained in a similar manner.</p>",
+      "page": 231,
+      "polygon": [
+        [
+          301.24556962025315,
+          185.00244140625
+        ],
+        [
+          513.3164556962025,
+          185.00244140625
+        ],
+        [
+          513.3164556962025,
+          242.06787109375
+        ],
+        [
+          301.24556962025315,
+          242.06787109375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        185.00244140625,
+        513.3164556962025,
+        242.06787109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/16",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Let <math display=\"inline\">V_{i,k^+(i)}^n</math> denote the Asian option value at node <math display=\"inline\">(n, j)</math> with the averaging state variable <math display=\"inline\">A_t</math>assuming the value <math display=\"inline\">A_{k^+(j)}^n</math>, and assuming similar notation for <math display=\"inline\">V_{j,\\text{floor}(k^+(j))}^n</math>, and so on. In the lattice tree calculations, numerical option values for <math display=\"inline\">V_{i k}^{n}</math> are obtained only for the case when <math display=\"inline\">k</math> is an integer. Since <math display=\"inline\">k^+(j)</math> assumes a noninteger value in general, <math display=\"inline\">V_{i,k^+(j)}^n</math>is approximated through interpolation using option values at the neighboring nodes. Suppose that linear interpolation is adopted; we approximate <math display=\"inline\">V_{i,k^+(i)}^n</math> by the following interpolation formula:</p>",
+      "page": 231,
+      "polygon": [
+        [
+          301.24556962025315,
+          243.58846918489067
+        ],
+        [
+          513.3164556962025,
+          243.58846918489067
+        ],
+        [
+          513.3164556962025,
+          368.1640625
+        ],
+        [
+          301.24556962025315,
+          368.1640625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        243.58846918489067,
+        513.3164556962025,
+        368.1640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_{j,k^{+}(j)}^{n} = \\epsilon_{j,k}^{+} V_{j,\\text{ceil}(k^{+}(j))}^{n} + (1 - \\epsilon_{j,k}^{+}) V_{j,\\text{floor}(k^{+}(j))}^{n} </math>(16)</p>",
+      "page": 231,
+      "polygon": [
+        [
+          310.1640625,
+          379.9453125
+        ],
+        [
+          511.9296875,
+          379.9453125
+        ],
+        [
+          511.9296875,
+          402.771484375
+        ],
+        [
+          310.1640625,
+          402.771484375
+        ]
+      ],
+      "bbox": [
+        310.1640625,
+        379.9453125,
+        511.9296875,
+        402.771484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/18",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where</p>",
+      "page": 231,
+      "polygon": [
+        [
+          301.99493670886073,
+          409.97813121272367
+        ],
+        [
+          327.473417721519,
+          409.97813121272367
+        ],
+        [
+          327.473417721519,
+          420.0751953125
+        ],
+        [
+          301.99493670886073,
+          420.0751953125
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        409.97813121272367,
+        327.473417721519,
+        420.0751953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/19",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\epsilon_{j,k}^{+} = \\frac{\\ln A_{k^{+}(j)}^{n} - \\ln A_{\\text{floor}(k^{+}(j))}^{n}}{\\Delta Y} \\tag{17}</math></p>",
+      "page": 231,
+      "polygon": [
+        [
+          341.3828125,
+          428.54296875
+        ],
+        [
+          511.9296875,
+          428.54296875
+        ],
+        [
+          511.9296875,
+          452.841796875
+        ],
+        [
+          341.3828125,
+          452.841796875
+        ]
+      ],
+      "bbox": [
+        341.3828125,
+        428.54296875,
+        511.9296875,
+        452.841796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/20",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The FSG algorithm with linear interpolation for pricing an Asian option can be formulated as follows (Figure <math display=\"inline\">2</math>):</p>",
+      "page": 231,
+      "polygon": [
+        [
+          301.24556962025315,
+          460.19483101391654
+        ],
+        [
+          513.3164556962025,
+          460.19483101391654
+        ],
+        [
+          513.3164556962025,
+          492.2353515625
+        ],
+        [
+          301.24556962025315,
+          492.2353515625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        460.19483101391654,
+        513.3164556962025,
+        492.2353515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/21",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_{j,k}^{n} = e^{-r\\Delta t} \\left( p_{u} V_{j,k^{+}(j)}^{n+1} + p_{0} V_{j,k^{0}(j)}^{n+1} + p_{d} V_{j,k^{-}(j)}^{n+1} \\right)</math><br/>\n<math display=\"block\">= e^{-r\\Delta t} \\left\\{ p_{u} \\left[ \\epsilon_{j,k}^{+} V_{j,\\text{ceil}(k^{+}(j))}^{n+1} + (1 - \\epsilon_{j,k}^{+}) V_{j,\\text{floor}(k^{+}(j))}^{n+1} \\right] + p_{0} \\left[ \\epsilon_{j,k}^{0} V_{j,\\text{ceil}(k^{0}(j))}^{n+1} + (1 - \\epsilon_{j,k}^{0}) V_{j,\\text{floor}(k^{0}(j))}^{n+1} \\right] + p_{d} \\left[ \\epsilon_{j,k}^{-} V_{j,\\text{ceil}(k^{-}(j))}^{n+1} + (1 - \\epsilon_{j,k}^{-}) V_{j,\\text{floor}(k^{-}(j))}^{n+1} \\right] \\right\\} </math>(18)</p>",
+      "page": 231,
+      "polygon": [
+        [
+          302.7443037974684,
+          508.802734375
+        ],
+        [
+          511.640625,
+          508.802734375
+        ],
+        [
+          511.640625,
+          646.49609375
+        ],
+        [
+          302.7443037974684,
+          646.49609375
+        ]
+      ],
+      "bbox": [
+        302.7443037974684,
+        508.802734375,
+        511.640625,
+        646.49609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 243,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          298.2481012658228,
+          45.71968190854871
+        ],
+        [
+          298.2481012658228,
+          56.0069580078125
+        ],
+        [
+          77.93417721518988,
+          56.0069580078125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        298.2481012658228,
+        56.0069580078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/FigureGroup/243",
+      "block_type": "FigureGroup",
+      "html": "<p><img src='/page/3/Figure/1'></p><p><b>Figure 2</b> The average value <math display=\"inline\">A_k^n</math> at the <i>n</i>th time step changes to <math display=\"inline\">A_{k^+(i)}^{n+1}</math> at the <math display=\"inline\">(n+1)</math>th time step upon an upward move of the asset price from <math display=\"inline\">S_j^n</math> to <math display=\"inline\">S_{j+1}^{n+1}</math>. The option value at node <math display=\"inline\">(n + 1, j + 1)</math> with asset price average <math display=\"inline\">A_{k+(j)}^n</math> is approximated by linear interpolation between the option values with asset price average <math display=\"inline\">A_{\\text{floor}(k^+(j))}^{n+1}</math> and <math display=\"inline\">A_{\\text{ceil}(k^+(j))}^{n+1}</math></p>",
+      "page": 243,
+      "polygon": [
+        [
+          77.93417721518988,
+          66.26953125
+        ],
+        [
+          290.00506329113927,
+          66.26953125
+        ],
+        [
+          290.00506329113927,
+          243.58846918489067
+        ],
+        [
+          77.93417721518988,
+          243.58846918489067
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        66.26953125,
+        290.00506329113927,
+        243.58846918489067
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/2/SectionHeader/2"
+      },
+      "images": {
+        "/page/3/Figure/1": "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"
+      }
+    },
+    {
+      "id": "/page/3/SectionHeader/3",
+      "block_type": "SectionHeader",
+      "html": "<h4>Numerical Convergence of FSG Schemes</h4>",
+      "page": 243,
+      "polygon": [
+        [
+          77.93417721518988,
+          262.32604373757454
+        ],
+        [
+          251.0379746835443,
+          262.32604373757454
+        ],
+        [
+          251.0379746835443,
+          272.44140625
+        ],
+        [
+          77.93417721518988,
+          272.44140625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        262.32604373757454,
+        251.0379746835443,
+        272.44140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/3/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Besides linear interpolation between two neighboring nodal values, other forms of interpolation can be adopted (say, quadratic interpolation between 3 neighboring nodal values or nearest node point interpolation). Forsyth et al. [3] remark that the FSG algorithm using <math display=\"inline\">\\rho</math> that is independent of <math display=\"inline\">\\Delta t</math> and the nearest node point interpolation may exhibit large errors as the number of time steps increases. They also prove that this choice of <math display=\"inline\">\\rho</math> in the FSG algorithm together with linear interpolation converges to the correct solution plus a constant error term. Unfortunately, the error term cannot be reduced by decreasing the size of the time step. To ensure convergence of the FSG calculations to the true Asian option price, they propose to use <math display=\"inline\">\\rho</math> that depends on <math display=\"inline\">\\sqrt{\\Delta t}</math>, though this would lead to a large number of nodes in the averaging direction. More precisely, if <math display=\"inline\">\\rho</math> is independent of <math display=\"inline\">\\sqrt{\\Delta t}</math>, then the complexity of the FSG method is <math display=\"inline\">O(n^3)</math>, but convergence cannot be guaranteed. If we set <math display=\"inline\">\\rho = \\lambda \\sqrt{\\Delta t}</math>, which guarantees convergence, then the complexity becomes <math display=\"inline\">O(n^{7/2})</math>.</p>",
+      "page": 243,
+      "polygon": [
+        [
+          77.93417721518988,
+          284.06163021868787
+        ],
+        [
+          290.00506329113927,
+          284.06163021868787
+        ],
+        [
+          290.00506329113927,
+          522.79296875
+        ],
+        [
+          77.93417721518988,
+          522.79296875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        284.06163021868787,
+        290.00506329113927,
+        522.79296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "3": "/page/1/SectionHeader/5",
+        "4": "/page/3/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/5",
+      "block_type": "SectionHeader",
+      "html": "<h2>Soft Call Requirement in Callable <b>Convertible Bonds </b></h2>",
+      "page": 243,
+      "polygon": [
+        [
+          77.93417721518988,
+          543.389662027833
+        ],
+        [
+          246.54177215189873,
+          543.389662027833
+        ],
+        [
+          246.54177215189873,
+          566.97265625
+        ],
+        [
+          77.93417721518988,
+          566.97265625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        543.389662027833,
+        246.54177215189873,
+        566.97265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">Most convertible bonds contain the call provision that allows the issuer to have the flexibility to manage the debt-equity ratio in the company's capital structure. To protect the conversion premium paid upfront by the bondholders to be called away too soon, the bond indenture commonly contains the hard call protection</p>",
+      "page": 243,
+      "polygon": [
+        [
+          77.93417721518988,
+          577.8667992047714
+        ],
+        [
+          290.00506329113927,
+          577.8667992047714
+        ],
+        [
+          290.00506329113927,
+          643.9189453125
+        ],
+        [
+          77.93417721518988,
+          643.9189453125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        577.8667992047714,
+        290.00506329113927,
+        643.9189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">clause that prevents the issuer from initiating a call during the early life of the convertible bond. In addition, the soft call clause further requires the stock price to stay above the trigger price (typically 30% higher than the conversion price) for a consecutive or cumulative period before initiation of issuer's call. The purpose of the soft call clause is to minimize the potential of market manipulation by the issuer.</p>",
+      "page": 243,
+      "polygon": [
+        [
+          304.99240506329113,
+          70.87158203125
+        ],
+        [
+          517.0632911392405,
+          70.87158203125
+        ],
+        [
+          517.0632911392405,
+          162.17626953125
+        ],
+        [
+          304.99240506329113,
+          162.17626953125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        70.87158203125,
+        517.0632911392405,
+        162.17626953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The path-dependent feature that models the phenomenon of the asset price staying above some threshold level for a certain period of time is commonly called the <i>Parisian feature</i>. Let <math display=\"inline\">B</math> denote the trigger price and the \"Parisian\" clock starts counting (cumulatively or consecutively) when the asset price stays above <math display=\"inline\">B</math>. In the discrete trinomial evolution of the asset price, we construct the grid function <math display=\"inline\">g_{\\text{cum}}(k, j)</math> that models the correlated evolution of the discrete asset price process and the cumulative counting of the number of time steps that <math display=\"inline\">S_i \\geq B</math>. Given that <math display=\"inline\">k</math> is the cumulative counting of the number of time steps that the asset price has been staying above B, the index k increases its value by 1 when <math display=\"inline\">S_i \\geq B</math>. Then we have</p>",
+      "page": 243,
+      "polygon": [
+        [
+          304.99240506329113,
+          163.3916500994036
+        ],
+        [
+          517.0632911392405,
+          163.3916500994036
+        ],
+        [
+          517.0632911392405,
+          332.779324055666
+        ],
+        [
+          304.99240506329113,
+          332.779324055666
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        163.3916500994036,
+        517.0632911392405,
+        332.779324055666
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">g_{\\text{cum}}(k, j) = k + \\mathbf{1}_{\\{S_j \\ge B\\}} \\tag{19}</math></p>",
+      "page": 243,
+      "polygon": [
+        [
+          362.1953125,
+          342.94482421875
+        ],
+        [
+          515.3984375,
+          342.94482421875
+        ],
+        [
+          515.3984375,
+          352.88525390625
+        ],
+        [
+          362.1953125,
+          352.88525390625
+        ]
+      ],
+      "bbox": [
+        362.1953125,
+        342.94482421875,
+        515.3984375,
+        352.88525390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\mathbf{1}_{\\{S_i \\geq B\\}}</math> denotes the indicator function associated with the event <math display=\"inline\">\\{S_i \\geq B\\}</math>. In a similar manner, the grid function <math display=\"inline\">g_{\\text{con}}(k, j)</math> that models the consecutive counting of the number of time steps that <math display=\"inline\">S_i \\geq B</math> is defined as</p>",
+      "page": 243,
+      "polygon": [
+        [
+          304.99240506329113,
+          361.26043737574554
+        ],
+        [
+          517.0632911392405,
+          361.26043737574554
+        ],
+        [
+          517.0632911392405,
+          416.76171875
+        ],
+        [
+          304.99240506329113,
+          416.76171875
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        361.26043737574554,
+        517.0632911392405,
+        416.76171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">g_{\\text{con}}(k,j) = (k+1)\\mathbf{1}_{\\{S_j \\ge B\\}} \\tag{20}</math></p>",
+      "page": 243,
+      "polygon": [
+        [
+          357.28125,
+          426.7021484375
+        ],
+        [
+          515.6875,
+          426.7021484375
+        ],
+        [
+          515.6875,
+          436.2744140625
+        ],
+        [
+          357.28125,
+          436.2744140625
+        ]
+      ],
+      "bbox": [
+        357.28125,
+        426.7021484375,
+        515.6875,
+        436.2744140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Using the FSG approach, the path dependence of the soft call requirement can be easily incorporated into the pricing algorithm for a convertible bond with call provision [7]. Suppose that the number of cumulative time steps required for activation of the call provision is <math display=\"inline\">K</math>; then the dynamic programming procedure that enforces the interaction of the game option of holder's optimal conversion and issuer's optimal call is applied at a given lattice grid only when the condition <math display=\"inline\">g_{\\text{cum}}(k, j) \\geq K</math> is satisfied.</p>",
+      "page": 243,
+      "polygon": [
+        [
+          304.99240506329113,
+          445.20477137176937
+        ],
+        [
+          517.0632911392405,
+          445.20477137176937
+        ],
+        [
+          517.0632911392405,
+          558.13671875
+        ],
+        [
+          304.99240506329113,
+          558.13671875
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        445.20477137176937,
+        517.0632911392405,
+        558.13671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/13",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Call Options with Strike Reset Feature </b></h1>",
+      "page": 243,
+      "polygon": [
+        [
+          305.7417721518987,
+          578.6163021868788
+        ],
+        [
+          497.579746835443,
+          580.1153081510935
+        ],
+        [
+          497.579746835443,
+          590.6083499005964
+        ],
+        [
+          305.7417721518987,
+          590.53515625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        578.6163021868788,
+        497.579746835443,
+        590.6083499005964
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Consider a call option with strike reset feature where the option's strike price is reset to the prevailing asset price on a preset reset date if the option is out of the money on that date. Let <math display=\"inline\">t_i</math>, <math display=\"inline\">i = 1, 2, \\ldots, M</math>, denote</p>",
+      "page": 243,
+      "polygon": [
+        [
+          304.99240506329113,
+          600.3518886679921
+        ],
+        [
+          517.0632911392405,
+          600.3518886679921
+        ],
+        [
+          517.0632911392405,
+          644.6552734375
+        ],
+        [
+          304.99240506329113,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        600.3518886679921,
+        517.0632911392405,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 259,
+      "polygon": [
+        [
+          293.0025316455696,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          55.9149169921875
+        ],
+        [
+          293.0025316455696,
+          55.9149169921875
+        ]
+      ],
+      "bbox": [
+        293.0025316455696,
+        45.71968190854871,
+        513.3164556962025,
+        55.9149169921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">the reset dates and <math display=\"inline\">X_i</math> denote the strike price specified on <math display=\"inline\">t_i</math> based on the above reset rule. Write <math display=\"inline\">X_0</math> as the strike price set at initiation; then, <math display=\"inline\">X_i</math> is given as</p>",
+      "page": 259,
+      "polygon": [
+        [
+          74.9367088607595,
+          71.95228628230616
+        ],
+        [
+          286.31640625,
+          71.95228628230616
+        ],
+        [
+          286.31640625,
+          103.914306640625
+        ],
+        [
+          74.9367088607595,
+          103.914306640625
+        ]
+      ],
+      "bbox": [
+        74.9367088607595,
+        71.95228628230616,
+        286.31640625,
+        103.914306640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">X_i = \\min(X_0, X_{i-1}, S_{t_i}) \\tag{21}</math></p>",
+      "page": 259,
+      "polygon": [
+        [
+          134.703125,
+          112.013916015625
+        ],
+        [
+          285.8828125,
+          112.013916015625
+        ],
+        [
+          285.8828125,
+          121.770263671875
+        ],
+        [
+          134.703125,
+          121.770263671875
+        ]
+      ],
+      "bbox": [
+        134.703125,
+        112.013916015625,
+        285.8828125,
+        121.770263671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">S_{t_i}</math> is the prevailing asset price at reset date <math display=\"inline\">t_i</math>. Note that the strike price at expiry of this call option is not fixed since its value depends on the realization of the asset price at the reset dates. When we apply the backward induction procedure in the trinomial calculations, we encounter the difficulty in defining the terminal payoff since the strike price is not yet known. These difficulties can be resolved easily using the FSG approach by tracking the evolution of the asset price and the reset strike price through an appropriate choice of the grid function [6].</p>",
+      "page": 259,
+      "polygon": [
+        [
+          74.1873417721519,
+          128.9145129224652
+        ],
+        [
+          286.2582278481013,
+          128.9145129224652
+        ],
+        [
+          286.2582278481013,
+          253.296875
+        ],
+        [
+          74.1873417721519,
+          253.296875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        128.9145129224652,
+        286.2582278481013,
+        253.296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Recall that <math display=\"inline\">S_0</math> is the asset price at the tip of the trinomial tree and the asset price after <math display=\"inline\">j</math> net upward jumps is <math display=\"inline\">S_0 u^j</math>. In our notation, the index k is used as the one-to-one correspondence to the asset price level <math display=\"inline\">S_0u^k</math>. Say, suppose that the original strike price <math display=\"inline\">X_0</math>corresponds to the index <math display=\"inline\">k_0</math>, this would mean <math display=\"inline\">X_0 =</math><math display=\"inline\">S_0 u^{k_0}</math>. For convenience, we may choose the proportional jump parameter <math display=\"inline\">u</math> such that <math display=\"inline\">k_0</math> is an integer. In terms of these indexes, the grid function that models the correlated evolution between the reset strike price and asset price is given as (see equation <math display=\"inline\">21</math>)</p>",
+      "page": 259,
+      "polygon": [
+        [
+          74.1873417721519,
+          255.505859375
+        ],
+        [
+          286.2582278481013,
+          255.505859375
+        ],
+        [
+          286.2582278481013,
+          379.9453125
+        ],
+        [
+          74.1873417721519,
+          379.9453125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        255.505859375,
+        286.2582278481013,
+        379.9453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/5",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">g_{\\text{reset}}(k, j) = \\min(k, j, k_0) \\tag{22}</math></p>",
+      "page": 259,
+      "polygon": [
+        [
+          127.259765625,
+          389.1494140625
+        ],
+        [
+          288.7734375,
+          389.1494140625
+        ],
+        [
+          288.7734375,
+          398.7216796875
+        ],
+        [
+          127.259765625,
+          398.7216796875
+        ]
+      ],
+      "bbox": [
+        127.259765625,
+        389.1494140625,
+        288.7734375,
+        398.7216796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">k</math> denotes the index that corresponds to the strike price reset in the last reset date and <math display=\"inline\">j</math> is the index that corresponds to the prevailing asset price at the reset date.</p>",
+      "page": 259,
+      "polygon": [
+        [
+          74.1873417721519,
+          408.479125248509
+        ],
+        [
+          287.0390625,
+          408.479125248509
+        ],
+        [
+          287.0390625,
+          451.7373046875
+        ],
+        [
+          74.1873417721519,
+          451.7373046875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        408.479125248509,
+        287.0390625,
+        451.7373046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Since the strike price is reset only on a reset date, we perform the usual trinomial calculations for those time levels that do not correspond to a reset date while the augmented state vector of strike prices are adjusted according to the grid function <math display=\"inline\">g_{reset}(k, j)</math> for those time levels that correspond to a reset date. The FGS algorithm for pricing the reset call option is given as</p>",
+      "page": 259,
+      "polygon": [
+        [
+          74.1873417721519,
+          454.1988071570577
+        ],
+        [
+          285.50886075949364,
+          454.1988071570577
+        ],
+        [
+          285.50886075949364,
+          544.146484375
+        ],
+        [
+          74.1873417721519,
+          544.146484375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        454.1988071570577,
+        285.50886075949364,
+        544.146484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_{j,k}^{n} = \\begin{cases} p_u V_{j+1,k}^{n+1} + p_0 V_{j,k}^{n+1} + p_d V_{j-1,k}^{n+1} \\\\ \\text{if } (n+1)\\Delta t \\neq t_i \\text{ for some } i \\end{cases}</math><math display=\"block\">p_u V_{j+1,g_{\\text{reset}}(k,j+1)}^{n+1} + p_0 V_{j,g_{\\text{reset}}(k,j)}^{n+1} \\\\ + p_d V_{j-1,g_{\\text{reset}}(k,j-1)}^{n+1} \\\\ \\text{if } (n+1)\\Delta t = t_i \\text{ for some } i \\end{cases}</math>(23)</p>",
+      "page": 259,
+      "polygon": [
+        [
+          89.8984375,
+          555.927734375
+        ],
+        [
+          286.2582278481013,
+          555.927734375
+        ],
+        [
+          286.2582278481013,
+          643.8230616302187
+        ],
+        [
+          89.8984375,
+          643.8230616302187
+        ]
+      ],
+      "bbox": [
+        89.8984375,
+        555.927734375,
+        286.2582278481013,
+        643.8230616302187
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Lastly, the payoff values along the terminal nodes at the <math display=\"inline\">N</math>th time level in the trinomial tree are given as</p>",
+      "page": 259,
+      "polygon": [
+        [
+          301.78125,
+          71.95228628230616
+        ],
+        [
+          513.3164556962025,
+          71.95228628230616
+        ],
+        [
+          513.3164556962025,
+          92.0870361328125
+        ],
+        [
+          301.78125,
+          92.0870361328125
+        ]
+      ],
+      "bbox": [
+        301.78125,
+        71.95228628230616,
+        513.3164556962025,
+        92.0870361328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V_{j,k}^{N} = \\max(S_0 u^j - S_0 u^k, 0),</math><br/>\n<math display=\"block\">j = -N, -N + 1, \\dots, N</math>\n(24)</p>",
+      "page": 259,
+      "polygon": [
+        [
+          346.296875,
+          107.31982421875
+        ],
+        [
+          512.21875,
+          107.31982421875
+        ],
+        [
+          512.21875,
+          140.45458984375
+        ],
+        [
+          346.296875,
+          140.45458984375
+        ]
+      ],
+      "bbox": [
+        346.296875,
+        107.31982421875,
+        512.21875,
+        140.45458984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">and k assumes values that are taken by j and <math display=\"inline\">k_0</math>.</p>",
+      "page": 259,
+      "polygon": [
+        [
+          301.24556962025315,
+          147.6520874751491
+        ],
+        [
+          499.5,
+          147.6520874751491
+        ],
+        [
+          499.5,
+          157.666259765625
+        ],
+        [
+          301.24556962025315,
+          157.666259765625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        147.6520874751491,
+        499.5,
+        157.666259765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/SectionHeader/12",
+      "block_type": "SectionHeader",
+      "html": "<h4>References</h4>",
+      "page": 259,
+      "polygon": [
+        [
+          301.24556962025315,
+          173.88469184890656
+        ],
+        [
+          355.9493670886076,
+          173.88469184890656
+        ],
+        [
+          355.9493670886076,
+          184.174072265625
+        ],
+        [
+          301.24556962025315,
+          184.174072265625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        173.88469184890656,
+        355.9493670886076,
+        184.174072265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13",
+        "4": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/ListGroup/259",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">Barraquand, J. &amp; Pudet, T. (1996). Pricing of Amer-[1] ican path-dependent contingent claims, Mathematical Finance 6, 17-51.</li><li block-type=\"ListItem\">[2] Chu, C.C. &amp; Kwok, Y.K. (2007). Target redemption note, Journal of Futures Markets 27, 535-554.</li><li block-type=\"ListItem\">[3] Forsyth, P., Vetzal, K.R. &amp; Zvan, R. (2002). Convergence of numerical methods for valuing pathdependent options using interpolation, Review of Derivatives Research 5, 273-314.</li><li block-type=\"ListItem\">Hull, J. &amp; White, A. (1993). Efficient procedures for [4] valuing European and American path dependent options, <i>Journal of Derivatives</i> <math display=\"inline\">1</math>(Fall), 21–31.</li><li block-type=\"ListItem\">Jiang, L. &amp; Dai, M. (2004). Convergence of bino-[5] mial tree method for European/American path-dependent options, SIAM Journal of Numerical Analysis 42(3), 1094-1109.</li><li block-type=\"ListItem\">Kwok, Y.K. &amp; Lau, K.W. (2001). Pricing algorithms [6] for options with exotic path dependence, Journal of Derivatives 9, 28-38.</li><li block-type=\"ListItem\">Lau, K.W. &amp; Kwok, Y.K. (2004). Anatomy of option [7] features in convertible bonds, Journal of Futures Markets 24(6), 513-532.</li><li block-type=\"ListItem\">Leung, K.S. &amp; Kwok, Y.K. (2008). Employee stock [8] option valuation with repricing features, Quantitative <i>Finance</i>, to appear.</li><li block-type=\"ListItem\">[9] Ritchken, P. &amp; Chuang, I. (2000). Interest rate option pricing with volatility humps, Review of Derivatives Research 3, 237-262.</li><li block-type=\"ListItem\">[10] Ritchken, P.L., Sankarasubramanian, L. &amp; Vijh, A.M. <math display=\"inline\">(1993)</math>. The valuation of path dependent contract on the average, Management Science 39, 1202-1213.</li><li block-type=\"ListItem\"><math display=\"inline\">[11]</math>Ritchken, P. &amp; Trevor, R. (1999). Pricing option under generalized GARCH and stochastic volatility processes, Journal of Finance 54(1), 377-402.</li></ul></p>",
+      "page": 259,
+      "polygon": [
+        [
+          301.24556962025315,
+          198.61829025844932
+        ],
+        [
+          513.3164556962025,
+          198.61829025844932
+        ],
+        [
+          513.3164556962025,
+          537.1513671875
+        ],
+        [
+          301.24556962025315,
+          537.1513671875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        198.61829025844932,
+        513.3164556962025,
+        537.1513671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13",
+        "4": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/SectionHeader/24",
+      "block_type": "SectionHeader",
+      "html": "<h4><b>Related Articles </b></h4>",
+      "page": 259,
+      "polygon": [
+        [
+          301.99493670886073,
+          554.6322067594433
+        ],
+        [
+          381.8515625,
+          554.6322067594433
+        ],
+        [
+          381.8515625,
+          565.5
+        ],
+        [
+          301.99493670886073,
+          565.5
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        554.6322067594433,
+        381.8515625,
+        565.5
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13",
+        "4": "/page/4/SectionHeader/24"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/25",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Asian Options; Binomial Tree; Convertible Bonds; Lookback Options; Quantization Methods; Tree Methods.</p>",
+      "page": 259,
+      "polygon": [
+        [
+          301.24556962025315,
+          581.6143141153082
+        ],
+        [
+          513.3164556962025,
+          581.6143141153082
+        ],
+        [
+          513.3164556962025,
+          613.361328125
+        ],
+        [
+          301.24556962025315,
+          613.361328125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        581.6143141153082,
+        513.3164556962025,
+        613.361328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13",
+        "4": "/page/4/SectionHeader/24"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/26",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">YUE-KUEN KWOK</p>",
+      "page": 259,
+      "polygon": [
+        [
+          427.1392405063291,
+          624.3359840954274
+        ],
+        [
+          500.5772151898734,
+          624.3359840954274
+        ],
+        [
+          500.5772151898734,
+          633.6103515625
+        ],
+        [
+          427.1392405063291,
+          633.6103515625
+        ]
+      ],
+      "bbox": [
+        427.1392405063291,
+        624.3359840954274,
+        500.5772151898734,
+        633.6103515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/3/SectionHeader/13",
+        "4": "/page/4/SectionHeader/24"
+      },
+      "images": {}
+    }
+  ],
+  "page_info": {
+    "0": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "1": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "2": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "3": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "4": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    }
+  }
+}

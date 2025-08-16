@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Implied Volatility: Large
+   <b>
+    Strike Asymptotics
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    S_t
+   </math>
+   be the price of a risky asset at time
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   and
+   <math display="inline">
+    B_t = B(t, T)
+   </math>
+   the time-t value of one monetary unit received at time
+   <math display="inline">
+    T
+   </math>
+   . Assuming suitable no-arbitrage conditions, there exists a probability measure
+   <math display="inline">
+    \mathbb{P} = \mathbb{P}_T
+   </math>
+   , called the (
+   <i>
+    T
+   </i>
+   -forward)
+   <i>
+    pricing measure
+   </i>
+   , under which the
+   <math display="inline">
+    B_t
+   </math>
+   -discounted asset price
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_t = F(t, T) = S(t) / B(t, T)
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   is a martingale and so are
+   <math display="inline">
+    B_t
+   </math>
+   -discounted time-t option prices, such as
+   <math display="inline">
+    C_t/B(t,T)
+   </math>
+   , where
+   <math display="inline">
+    C_t
+   </math>
+   denotes the time-
+   <math display="inline">
+    t
+   </math>
+   value of a European call option with maturity T and payoff
+   <math display="inline">
+    (S_T - K)^+
+   </math>
+   . With focus on
+   <math display="inline">
+    t = 0
+   </math>
+   and writing
+   <math display="inline">
+    C
+   </math>
+   instead of
+   <math display="inline">
+    C_0
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C = B(0, T) \mathbb{E}\left[C_T/B(T, T)\right] \tag{2}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = B (0, T) \mathbb{E} \left[ (F_T - K)^+ \right]
+   </math>
+   <math display="block">
+    = S_0 \mathbb{E} \left[ \left( \frac{F_T}{F_0} - \frac{K}{F_0} \right)^+ \right] \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   Let us remark that in the case of deterministic interest rates
+   <math display="inline">
+    r(\cdot)
+   </math>
+   , one can rewrite this as&lt;sup&gt;a&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C = \mathbb{E}\left[\exp\left(-\int_{0}^{T} r\left(u\right) \, \mathrm{d}u\right) \left(S_{T} - K\right)^{+}\right] \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If we now make the assumption that there exists
+   <math display="inline">
+    \sigma &gt; 0
+   </math>
+   , the Black-Scholes volatility, such that
+   <math display="inline">
+    F_t
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF_t = \sigma F_t \, dW \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where W is a Brownian motion under
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , then we have
+   <i>
+    normal returns
+   </i>
+   <math display="inline">
+    X_{\text{BS}} := \log (F_T/F_0)
+   </math>
+   . More precisely,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{\text{BS}} \sim \text{Normal}\left(-V^2/2, V^2\right) \text{ with } V \equiv \sigma\sqrt{T} \quad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   and an elementary integration of equation (3) yields the classical Black-Scholes formula,&lt;sup&gt;b&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_{\text{BS}} = S_0 \left\{ \Phi \left( d_1 \right) - \frac{K}{F_0} \Phi \left( d_2 \right) \right\} \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    d_{1,2} = -\log(K/F_0)/V \pm V/2
+   </math>
+   . It follows that we can express the normalized Black-Scholes call price
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c_{\text{BS}} := C_{\text{BS}} / S_0 \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   as a function of two variables:
+   <i>
+    log-strike
+   </i>
+   <math display="inline">
+    k :=
+   </math>
+   <math display="inline">
+    \log(K/F_0)
+   </math>
+   and (scaled)
+   <i>
+    Black–Scholes volatility
+   </i>
+   <math display="inline">
+    V = \sigma \sqrt{T}
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c_{\text{BS}}(k, V) = \Phi(d_1) - e^k \Phi(d_2)
+   </math>
+   <br/>
+   with
+   <math>
+    d_{1,2} = -k/V \pm V/2
+   </math>
+   (9)
+  </p>
+  <p block-type="Text">
+   Let us now return to the general setting and just assume that, for fixed
+   <math display="inline">
+    T
+   </math>
+   , the
+   <i>
+    returns
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X := \log \frac{F_T}{F_0} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   have a known distribution, fully specified by the probability distribution function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x) := \mathbb{P}[X \le x] \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   From equation (2), the value of a normalized call price
+   <math display="inline">
+    c = C/S_0
+   </math>
+   is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[\left(\frac{F_T}{F_0} - e^k\right)^+\right] = \int_{-\infty}^{\infty} \left(e^x - e^k\right)^+ dF(x)
+   </math>
+   <math display="block">
+    =: c(k) \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   (Implied volatility). Let
+   <math display="inline">
+    T &gt; 0
+   </math>
+   be a fixed maturity and assume
+   <math display="inline">
+    F
+   </math>
+   is the distribution function of the returns
+   <math display="inline">
+    \log (F_T/F_0)
+   </math>
+   under the pricing measure. Then, the scaled (Black-Scholes) implied volatility is the unique value
+   <math display="inline">
+    V(k)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c(k) = c_{\text{BS}}(k, V(k)) \quad \text{for all } k \in \mathbb{R} \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We also write
+   <math display="inline">
+    \sigma
+   </math>
+   <math display="inline">
+    (k, T) := V(k) / \sqrt{T}
+   </math>
+   for the (annualized, Black-Scholes) implied volatility.
+  </p>
+  <p block-type="TextInlineMath">
+   By the very definition, the volatility smile
+   <math display="inline">
+    V(\cdot, T)
+   </math>
+   is flat, namely constant equal to
+   <math display="inline">
+    V = \sigma \sqrt{T}
+   </math>
+   , in the Black-Scholes model. To see existence/uniqueness of implied volatility, in general, it suffices to note that
+   <math display="inline">
+    c_{\text{BS}}(k, \cdot)
+   </math>
+   is strictly increasing in the volatility parameter and that
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    c_{\text{BS}}(k, V=0)
+   </math>
+   <math display="inline">
+    = \left(1 - \mathrm{e}^{k}\right)^{+} \leq \mathbb{E}\left[\left(F_{T}/F_{0} - \mathrm{e}^{k}\right)^{+}\right] = c\left(k\right) \quad (14)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c(k) \le \mathbb{E}[F_T/F_0] = 1 = c_{\text{BS}}(k, V = +\infty)
+   </math>
+   (15)
+  </p>
+  <p block-type="Text">
+   It is clear from the afore mentioned monotonicity of
+   <math display="inline">
+    c_{\text{BS}}(k, \cdot)
+   </math>
+   that the fatness of the tail of the returns, for example, the behavior of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{F}(k) = 1 - F(k) = \mathbb{P}[X &gt; k] \text{ as } k \to \infty \quad (16)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is related to the shape of the "wing" of the implied volatility (smile) for far-out-of-the-money calls,
+   <math display="inline">
+    V(k)
+   </math>
+   as
+   <math display="inline">
+    k \to \infty
+   </math>
+   , and similarly, for
+   <math display="inline">
+    F(k)
+   </math>
+   ,
+   <math display="inline">
+    V(k)
+   </math>
+   as
+   <math display="inline">
+    k \to \infty
+   </math>
+   <math display="inline">
+    -\infty
+   </math>
+   . Surprisingly, perhaps, this link can be made very explicit. Let us agree that if
+   <math display="inline">
+    F
+   </math>
+   admits a density, it is denoted by
+   <math display="inline">
+    f = F'
+   </math>
+   . Let us also adopt the common convention that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g(k) \sim h(k)
+   </math>
+   means
+   <math>
+    g(k)/h(k) \to 1
+   </math>
+   as
+   <math>
+    k \to \infty
+   </math>
+   (17)
+  </p>
+  <p block-type="Text">
+   The (meta) result is the following
+   <i>
+    tail-wing formula
+   </i>
+   : as
+   <math display="inline">
+    k \to \infty
+   </math>
+   we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(k)^{2}/k \sim \psi \left[ -1 - \log \bar{F}(k) / k \right]
+   </math>
+   <br/>
+   <math display="block">
+    \sim \psi \left[ -1 - \log f(k) / k \right] \qquad (18)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(-k)^{2}/k \sim \psi \left[ -\log F \left( -k \right) / k \right]
+   </math>
+   <br/>
+   <math display="block">
+    \sim \psi \left[ -\log f \left( -k \right) / k \right] \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(x) \equiv 2 - 4\left(\sqrt{x^2 + x} - x\right)\n
+   </math>
+   (20)
+  </p>
+  <p block-type="Text">
+   An interesting special case arises when either
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p^* = \sup \left\{ p \in \mathbb{R} : M \left( 1 + p \right) &lt; \infty \right\} \tag{21}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q^* = \sup \left\{ q \in \mathbb{R} : M(-q) &lt; \infty \right\} \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   is finite, where
+   <math display="inline">
+    M
+   </math>
+   is the
+   <i>
+    moment generating function
+   </i>
+   of
+   <math display="inline">
+    F
+   </math>
+   , and this is equivalent to
+   <i>
+    moment explosion
+   </i>
+   of the underlying since
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M(u) := \int e^{ux} dF(x) = \frac{1}{F_0^u} \mathbb{E}\left[F_T^u\right] = \frac{1}{F_0^u} \mathbb{E}\left[S_T^u\right]
+   </math>
+   (23)
+  </p>
+  <p block-type="Text">
+   In this case, one expects an exponential tail so that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\log \bar{F}(k) \sim (p^* + 1)k \tag{24}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\log F(-k) \sim q^*k \tag{25}
+   </math>
+  </p>
+  <p block-type="Text">
+   and one is led to Lee's moment formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(k)^{2}/k \sim \psi(p^{*})
+   </math>
+   <br/>
+   <math display="block">
+    V(-k)^{2}/k \sim \psi(q^{*})
+   </math>
+   (26)
+  </p>
+  <p block-type="TextInlineMath">
+   Recall that
+   <math display="inline">
+    g(k) \sim h(k)
+   </math>
+   stands for the precise mathematical statement that
+   <math display="inline">
+    \lim_{k \to \infty} g(k) / h(k) \to 1
+   </math>
+   as
+   <math display="inline">
+    k \to \infty
+   </math>
+   <math display="inline">
+    \infty
+   </math>
+   . In the same spirit, let us agree that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g(k) \lesssim h(k)
+   </math>
+   means
+   <math>
+    \limsup g(k) / h(k) \to 1
+   </math>
+   <br/>
+   as
+   <math>
+    k \to \infty
+   </math>
+   (27)
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   (Lee's Moment Formula; [3, 8]). Assume
+   <math display="inline">
+    \mathbb{E}[e^X] = \mathbb{E}[S_T]/F_0 &lt; \infty
+   </math>
+   . The moment formula then holds in complete generality in "limsup" form. More precisely, as
+   <math display="inline">
+    k \to \infty
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(k)^{2}/k \lesssim \psi\left(p^{*}\right) \tag{28}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(-k)^2/k \lesssim \psi\left(q^*\right) \tag{29}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The power of the moment formula comes from the fact that the critical exponents
+   <math display="inline">
+    p^*, q^*
+   </math>
+   can often be obtained by sheer inspection of a moment generating function known in closed form. One can also make use of the recent literature on moment explosions to obtain such critical exponents in various stochastic volatility models; see
+   <b>
+    Moment Explosions
+   </b>
+   and the references therein. Let us note that it is possible [4] to construct (pathological) examples to see that one cannot hope for a genuine limit form of the above moment formula, as was suggested in (26). Another remark is that the moment formula provides little information in the absence of moment explosion. For instance,
+   <math display="inline">
+    p^* = +\infty
+   </math>
+   only implies
+   <math display="inline">
+    V(k)^2 = o(k)
+   </math>
+   but gives no further information about the behavior of
+   <math display="inline">
+    V(k)
+   </math>
+   for large k. Both the issues are dealt with by the tail-wing formula. The key assumptions is a certain well behavedness of
+   <math display="inline">
+    F
+   </math>
+   ; but only on a crude logarithmic scale and, therefore, rather easy to check in many examples.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 2
+   </b>
+   (Regular Variation; [5]). A positive, real-valued function
+   <math display="inline">
+    f
+   </math>
+   , defined at least on
+   <math display="inline">
+    [M, \infty)
+   </math>
+   for some large
+   <math display="inline">
+    M
+   </math>
+   , is said to be regularly varying of
+   <i>
+    index
+   </i>
+   <math display="inline">
+    \alpha
+   </math>
+   <i>
+    if for all
+   </i>
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\lambda k) \sim \lambda^{\alpha} f(k) \text{ as } k \to \infty \ \forall \lambda &gt; 0 \tag{30}
+   </math>
+  </p>
+  <p block-type="Text">
+   and in this case we write
+   <math display="inline">
+    f \in R_{\alpha}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   (Right-hand Tail-wing Formula; [2]). Assume
+   <math display="inline">
+    \exists \epsilon &gt; 0
+   </math>
+   :
+   <math display="inline">
+    \mathbb{E}[\mathrm{e}^{(1+\epsilon)X}] = \mathbb{E}\left[S_{T}^{1+\epsilon}\right]/F_{0}^{1+\epsilon} &lt; \infty.
+   </math>
+   Let also
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   and set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(x) \equiv 2 - 4\left(\sqrt{x^2 + x} - x\right) \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then
+   <math display="inline">
+    (i) \Longrightarrow (ii) \Longrightarrow (iii) \Longrightarrow (iv)
+   </math>
+   where
+  </p>
+  <p block-type="Equation">
+   (i)
+   <math display="block">
+    -\log f(k) \in R_{\alpha};
+   </math>
+  </p>
+  <p block-type="Equation">
+   (ii)
+   <math display="block">
+    -\log \bar{F}(k) \in R_{\alpha};
+   </math>
+  </p>
+  <p block-type="Equation">
+   (iii)
+   <math display="block">
+    -\log c(k) \in R_{\alpha};
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   (iv)
+   <math display="block">
+    V(k)^{2}/k \sim \psi \left[ -\log c \left( k \right) / k \right].
+   </math>
+  </p>
+  <p block-type="Text">
+   If (ii) holds, then
+   <math display="inline">
+    -\log c(k) \sim -k - \log \bar{F}
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   (iv')
+   <math display="block">
+    V(k)^{2}/k \sim \psi \left[ -1 - \log \bar{F}(k) / k \right],
+   </math>
+  </p>
+  <p block-type="Text">
+   if (i) holds, then
+   <math display="inline">
+    -\log f \sim -\log \bar{F}
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   (iv'')
+   <math display="block">
+    V(k)^{2}/k \sim \psi \left[ -1 - \log f(k) / k \right]
+   </math>
+  </p>
+  <p block-type="Text">
+   Of course, there is a similar left-hand result, which we state such as to involve far-out-of-the-money (normalized) European puts,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p(k) := \int_{-\infty}^{\infty} \left( e^k - e^x \right)^+ dF(x) \qquad (32)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 2
+   </b>
+   (Left-hand Tail-wing Formula).
+   <i>
+    Assume
+   </i>
+   <math display="inline">
+    \exists \epsilon &gt; 0 : \mathbb{E}[\mathrm{e}^{-\epsilon X}] &lt; \infty.
+   </math>
+   Then (i) (ii) (iii)
+   <math display="inline">
+    \Longrightarrow
+   </math>
+   (iv) where
+  </p>
+  <p block-type="Equation">
+   (i)
+   <math display="block">
+    -\log f(-k) \in R_{\alpha};
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    -\log F(-k) \in R_{\alpha};
+   </math>
+   (ii)
+  </p>
+  <p block-type="Equation">
+   (iii)
+   <math display="block">
+    -\log p(-k) \in R_{\alpha};
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   (iv)
+   <math display="block">
+    V(-k)^2/k \sim \psi[-1 - \log p(-k)/k].
+   </math>
+  </p>
+  <p block-type="Equation">
+   If (ii) holds, then
+   <math display="block">
+    -\log p(-k) \sim k - \log F(-k)
+   </math>
+   <br/>
+   and
+  </p>
+  <p block-type="Equation">
+   (iv')
+   <math display="block">
+    V(-k)^2/k \sim \psi\bigl[-\log F(-k)/k\bigr],
+   </math>
+  </p>
+  <p block-type="Equation">
+   if (i) holds, then
+   <math display="block">
+    -\log f(-k) \sim -\log F(-k)
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    and
+   </math>
+  </p>
+  <p block-type="Equation">
+   (iv")
+   <math display="block">
+    V(-k)^2/k \sim \psi\bigl[-\log f(-k)/k\bigr].
+   </math>
+  </p>
+  <p block-type="Text">
+   With focus on the right-hand tail-wing, let us single out two cases of particular importance in applications.
+  </p>
+  <p block-type="Text">
+   1. (Asymptotically Linear Regime) If
+   <math display="inline">
+    -1 \log f(k) / k
+   </math>
+   or
+   <math display="inline">
+    -1 - \log \overline{F}(k) / k
+   </math>
+   converges to
+   <math display="inline">
+    p^* \in (0, \infty)
+   </math>
+   then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(k)^{2} \sim \psi(p^{*}) \times k \tag{33}
+   </math>
+  </p>
+  <p block-type="Text">
+   and the
+   <i>
+    implied variance
+   </i>
+   , defined as the square of implied volatility, is asymptotically linear with slope
+   <math display="inline">
+    \psi
+   </math>
+   (
+   <math display="inline">
+    p^*
+   </math>
+   ). One can, in fact, check this from the moment generating function of
+   <math display="inline">
+    X
+   </math>
+   . Indeed, it is shown in [3] that if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    s \mapsto M(1 + p^* - 1/s) \tag{34}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is regularly varying then
+   <math display="inline">
+    -\log f(k)/k \rightarrow
+   </math>
+   <math display="inline">
+    p^*+1
+   </math>
+   . In other words, to ensure equation (26), that is, a genuine limit in Lee's moment formula, one needs some well behavedness of the
+   <math display="inline">
+    M
+   </math>
+   as its argument approaches the critical exponent
+   <math display="inline">
+    1 + p^*
+   </math>
+   . Similar conditions can be given with
+   <math display="inline">
+    M
+   </math>
+   replaced by
+   <math display="inline">
+    M'
+   </math>
+   or
+   <math display="inline">
+    \log M
+   </math>
+   and these conditions are, indeed, easy to check in a number of familiar exponential Lévy models (including Barndorff-Nielsen's Normal Inverse Gaussian model, Carr-Madan's Variance Gamma model, or Kou's Double
+   <i>
+    Exponential model
+   </i>
+   ) and various time changes of these models (see [3] for details).
+  </p>
+  <p block-type="Text">
+   2. (Asymptotically Sublinear Regime) If -
+   <math display="inline">
+    \log f(k) / k \rightarrow \infty
+   </math>
+   , we can use
+   <math display="inline">
+    \psi(x) \sim 1/(2x)
+   </math>
+   as
+   <math display="inline">
+    x \to \infty
+   </math>
+   to see that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(k)^{2} \sim \frac{1}{-2\log f(k) / k} \times k = \frac{k^{2}}{-2\log f(k)}
+   </math>
+   (35)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   so that the implied variance is asymptotically sublinear. As sanity check, consider the Black-Scholes model where
+   <math display="inline">
+    f
+   </math>
+   is the density of the (normally distributed) returns with variance
+   <math display="inline">
+    V^2 \equiv \sigma^2 T
+   </math>
+   , as given in (6); then
+   <math display="inline">
+    -\log f(k) \sim k^2/(2V^2)
+   </math>
+   and it follows that
+   <math display="inline">
+    V(k) \sim V
+   </math>
+   , in trivial agreement with the flat smile in the Black-Scholes model. Following [2], other examples are given by Merton's jump diffusion as a borderline example
+  </p>
+  <p block-type="TextInlineMath">
+   in which the sublinear behavior comes from a subtle logarithmic correction term, and Carr-Wu's Finite Moment Logstable model. The tail behavior of the latter, as noted in [2], can be derived from the growth of the (nonexplosive) moment generating function by means of Kasahara's Tauberian theorem [5]. Another example where this methodology works is the SABR model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF = \sigma F^{\beta} dW, \ d\sigma = \eta \sigma dZ \qquad (36)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \sigma, \eta &gt; 0, \beta &lt; 1
+   </math>
+   and two Brownian motions
+   <math display="inline">
+    W, Z
+   </math>
+   assumed (here) to be independent. Using standard stochastic calculus [4], one can give good enough estimates on
+   <math display="inline">
+    \mathbb{E}\left[|F_T/F_0|^u\right]
+   </math>
+   , from above and below, to see that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \log \mathbb{E}\left[|F_T/F_0|^u\right] = \log \mathbb{E}\left[\exp\left(uX\right)\right]
+   </math>
+   <math display="block">
+    \sim \frac{\eta^2 T}{\left(1-\beta\right)^2} \frac{u^2}{2} \text{ as } u \to \infty \tag{37}
+   </math>
+  </p>
+  <p block-type="Text">
+   From this, Kasahara's theorem allows to deduce the tail behavior of
+   <math display="inline">
+    X
+   </math>
+   , namely
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\log \mathbb{P}\left[X&gt;x\right] \sim \frac{(1-\beta)^2}{\eta^2 T} \frac{x^2}{2} \tag{38}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the (right hand) tail-wing formula reveals that the implied volatility in the SABR model is asymptotically flat,
+   <math display="inline">
+    \sigma(k, T) \sim \eta/(1 - \beta)
+   </math>
+   as
+   <math display="inline">
+    k \to \infty
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Early contributions in the study of smile asymptotics are
+   <math display="inline">
+    [1, 6]
+   </math>
+   . The moment formula appears in
+   <math display="inline">
+    [8]
+   </math>
+   , the tail-wing formula in [2] with some additional criteria in
+   <math display="inline">
+    [3]
+   </math>
+   . A survey on the topic, together with some new examples (including CEV and SABR) is found in
+   <math display="inline">
+    [4]
+   </math>
+   . Further developments in the field include the refined asymptotic results of Gulisashvili and Stein [7]; in a simple log-normal stochastic volatility model of the form
+   <math display="inline">
+    dF = \sigma F dW
+   </math>
+   ,
+   <math display="inline">
+    d\sigma = \eta \sigma dZ
+   </math>
+   , with two independent Brownian motions
+   <math display="inline">
+    W
+   </math>
+   ,
+   <math display="inline">
+    Z
+   </math>
+   they find
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma(k,T)\sqrt{T} = \sqrt{2k} - \frac{\log k + \log\log k}{2\eta\sqrt{T}} + O(1)
+   </math>
+   (39)
+  </p>
+  <p block-type="TextInlineMath">
+   The leading order term
+   <math display="inline">
+    \sqrt{2k}
+   </math>
+   says that implied variance grows linearly with slope 2, as one expects in a model with immediate moment explosion.
+  </p>
+  <h3>
+   Acknowledgments
+  </h3>
+  <p block-type="Text">
+   Financial support form the Cambridge Endowment of Research in Finance is gratefully acknowledged.
+  </p>
+  <h4>
+   End Notes
+  </h4>
+  <p block-type="Text">
+   &lt;sup&gt;a&lt;/sup&gt;. Equation
+   <math display="inline">
+    (4)
+   </math>
+   is valid in a nondeterministic interest rate setting, provided the expectation is taken with respect to the risk-neutral measure (which is equivalent but, in general, not identical to
+   <math display="inline">
+    \mathbb{P}_T
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;b.&lt;/sup&gt;
+   <math display="inline">
+    \Phi
+   </math>
+   denotes the distribution function of normal (0, 1).
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Avellaneda, M. &amp; Zhu, Y. (1998). A risk-neutral stochastic volatility model, International Journal of Theoretical and Applied Finance
+     <math display="inline">
+      1(2)
+     </math>
+     , 289–310.
+    </li>
+    <li block-type="ListItem">
+     [2] Benaim, S. &amp; Friz, P.K. (2009). Regular variation and smile asymptotics,
+     <i>
+      Mathematical Finance
+     </i>
+     <math display="inline">
+      19(1)
+     </math>
+     , 1–12, eprint arXiv:math/0603146.
+    </li>
+    <li block-type="ListItem">
+     [3] Benaim, S. Friz, P.K. (2008). Smile asymptotics II: models with known MGF, Journal of Applied Probability 45(1), 16-32.
+    </li>
+    <li block-type="ListItem">
+     Benaim, S. Friz, P.K. &amp; Lee, R. (2008). The [4] Black-Scholes implied volatility at extreme strikes, in frontiers, in
+     <i>
+      Quantitative Finance: Volatility and Credit
+     </i>
+     Risk Modeling, Chapter 2, Wiley.
+    </li>
+    <li block-type="ListItem">
+     [5] Bingham, N.H. Goldie, C.M. &amp; Teugels, J.L. (1987). Regular Variation, CUP.
+    </li>
+    <li block-type="ListItem">
+     [6] Gatheral, J. (2000). Rational shapes of the Volatility Surface, Presentation, RISK Conference.
+    </li>
+    <li block-type="ListItem">
+     [7] Gulisashvili, A. &amp; Stein, E. Implied volatility in the Hull–White model,
+     <i>
+      Mathematical Finance
+     </i>
+     , to appear.
+    </li>
+    <li block-type="ListItem">
+     [8] Lee, R. (2004). The moment formula for implied volatility at extreme strikes,
+     <i>
+      Mathematical Finance
+     </i>
+     <math display="inline">
+      14(3)
+     </math>
+     , 469-480.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="Text">
+   Gatheral, J. (2006). The Volatility Surface, A Practitioner's Guide, Wiley.
+  </p>
+  <p block-type="Text">
+   PETER K. FRIZ
+  </p>
+ </body>
+</html>

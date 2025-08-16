@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Heath-Jarrow-Morton Approach
+  </h1>
+  <h2>
+   Basics
+  </h2>
+  <p block-type="TextInlineMath">
+   We consider a financial market model living on a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, F, P)
+   </math>
+   , where
+   <math display="inline">
+    F =
+   </math>
+   <math display="inline">
+    \{\mathcal{F}_t\}_{t&gt;0}
+   </math>
+   and P is the objective probability measure. The basis is assumed to carry a standard
+   <i>
+    m
+   </i>
+   -dimensional
+   <i>
+    P
+   </i>
+   -Wiener process
+   <math display="inline">
+    \bar{W}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Our main object of study is the zero coupon bond market, and we denote the price by
+   <math display="inline">
+    p(t, T)
+   </math>
+   , at t, of a zero coupon bond maturing at
+   <math display="inline">
+    T
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   We define, as usual, the
+   <i>
+    instantaneous forward rate
+   </i>
+   with maturity
+   <math display="inline">
+    T
+   </math>
+   , contracted at
+   <math display="inline">
+    t
+   </math>
+   , by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t,T) = -\frac{\partial \log p(t,T)}{\partial T} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The instantaneous
+   <i>
+    short rate at time
+   </i>
+   <math display="inline">
+    t
+   </math>
+   is defined by
+   <math display="inline">
+    r(t) = f(t, t).
+   </math>
+  </p>
+  <h2>
+   The HIM Framework
+  </h2>
+  <p block-type="Text">
+   We now turn to the specification of the Heath-Jarrow-Morton (HJM) framework (see [13]). We start by specifying everything under a given objective measure
+   <math display="inline">
+    P
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Assumption 1
+   </b>
+   We assume that, for every fixed
+   <math display="inline">
+    T &gt;
+   </math>
+   0, the forward rate
+   <math display="inline">
+    f(\cdot, T)
+   </math>
+   has a stochastic differential, which, under the objective measure
+   <math display="inline">
+    P
+   </math>
+   , is given
+   <math display="inline">
+    bv
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    df(t, T) = \alpha(t, T) dt + \sigma(t, T) d\bar{W}_t \qquad (2)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(0,T) = f_{\text{in}}(0,T) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where, for each fixed T,
+   <math display="inline">
+    \alpha(\cdot,T)
+   </math>
+   and
+   <math display="inline">
+    \sigma(\cdot,T)
+   </math>
+   are adapted processes. The curve
+   <math display="inline">
+    f_{\rm in}
+   </math>
+   is the initially observed forward rate curve.
+  </p>
+  <p block-type="Text">
+   It is important to note that the HJM approach to model the evolution of interest rates is not a proposal of a specific model, like, for example, the Cox-Ingersoll-Ross model (see Cox-Ingersoll-Ross (CIR) Model). It is, instead, a frame
+   <i>
+    work
+   </i>
+   that is used for analyzing interest-rate models. In fact,
+   <i>
+    every
+   </i>
+   interest-rate model can be equivalently formulated in forward rate terms. To turn the HJM
+  </p>
+  <p block-type="Text">
+   framework into a
+   <i>
+    model
+   </i>
+   , we have to specify the volatility and drift structure, that is, we have to specify
+   <math display="inline">
+    \sigma
+   </math>
+   and
+   <math display="inline">
+    \alpha
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   There are two main advantages of the HJM approach: First, the forward rate volatility structure
+   <math display="inline">
+    \sigma(t,T)
+   </math>
+   is an
+   <i>
+    input
+   </i>
+   to the model, whereas in a factor model such as a short rate model (see Term
+   <b>
+    Structure Models
+   </b>
+   ), it would be an output. Second, by using the observed forward rate curve as an initial condition, we automatically obtain a perfect fit to the observed yield curve.
+  </p>
+  <p block-type="Text">
+   The first main result shows how the bond price dynamics are determined by the forward rate dynamics.
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 1
+   </b>
+   If the forward rate dynamics are given by equation (2) then the induced bond price dynamics are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dp(t, T) = p(t, T) \{r(t) + A(t, T)
+   </math>
+   <br/>
+   +
+   <math>
+    \frac{1}{2} \|S(t, T)\|^2 \} dt
+   </math>
+   <br/>
+   +
+   <math>
+    p(t, T)S(t, T) d\bar{W}_t
+   </math>
+   (4)
+  </p>
+  <p block-type="Text">
+   <i>
+    where
+   </i>
+   <math display="inline">
+    \|\cdot\|
+   </math>
+   <i>
+    denotes the Euclidean norm, and
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\nA(t,T) = -\int_{t}^{T} \alpha(t,s) \, \mathrm{d}s \\
+S(t,T) = -\int_{t}^{T} \sigma(t,s) \, \mathrm{d}s\n\end{cases} \tag{5}
+   </math>
+  </p>
+  <h3>
+   Absence of Arbitrage
+  </h3>
+  <p block-type="Text">
+   Using proposition 1 above, an application of the Girsanov Theorem gives us the following basic result concerning absence of arbitrage.
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 1 (HJM Drift Condition). Assume that the family of forward rates is given by equation
+   <math display="inline">
+    (2)
+   </math>
+   . Then the induced bond market is arbitrage free if and only if there exists a d-dimensional column-vector
+   <i>
+    process
+   </i>
+   <math display="inline">
+    \lambda(t) = [\lambda_1(t), \ldots, \lambda_d(t)]^*
+   </math>
+   with the property that for all
+   <math display="inline">
+    T &gt; 0
+   </math>
+   and for all
+   <math display="inline">
+    t &lt; T
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha(t,T) = \sigma(t,T) \int_t^T \sigma(t,s)^* \, \mathrm{d}s - \sigma(t,T)\lambda(t) \quad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   In these formulas
+   <math display="inline">
+    *
+   </math>
+   denotes transpose.
+  </p>
+  <h2>
+   <i>
+    Martingale Modeling
+   </i>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   In many cases, the specification of the forward rate dynamics is done directly under a martingale
+  </p>
+  <p block-type="Text">
+   measure
+   <math display="inline">
+    Q
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    df(t, T) = \alpha(t, T) dt + \sigma(t, T) dW_t
+   </math>
+   <br/>
+   <math display="block">
+    f(0, T) = f_{\text{in}}(0, T)
+   </math>
+   (7)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    W
+   </math>
+   is a (
+   <i>
+    d
+   </i>
+   -dimensional)
+   <i>
+    Q
+   </i>
+   -Wiener process. In this setting, absence of arbitrge is no longer an issue, but we have to give conditions that guarantee that all the induced bond price processes have the correct martingale dynamics, that is, short rate as their local rate of return. This directly follows from the earlier result by setting
+   <math display="inline">
+    \lambda = 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 2
+   </b>
+   (HJM Drift Condition).
+   <i>
+    Under the
+   </i>
+   martingale measure Q, the processes
+   <math display="inline">
+    \alpha
+   </math>
+   and
+   <math display="inline">
+    \sigma
+   </math>
+   must satisfy the following relation, for every
+   <math display="inline">
+    t
+   </math>
+   and every
+   <math display="inline">
+    T \geq t
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha(t,T) = \sigma(t,T) \int_{t}^{T} \sigma(t,s)^{*} \, \mathrm{d}s \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   Thus when specifying the forward rate dynamics, (under
+   <math display="inline">
+    Q
+   </math>
+   ) we may freely specify the volatility. The drift is then uniquely determined. In practical applications, one thus has to specify the number
+   <math display="inline">
+    d
+   </math>
+   of Wiener processes as well as the volatility structure.
+  </p>
+  <p block-type="Text">
+   It is common to assume a deterministic volatility structure, and then try to estimate this as well as the number
+   <math display="inline">
+    d
+   </math>
+   by principal component analysis. The deterministic volatility is very tractable since it will lead to Gaussian forward rates (see Gaussian Interest-Rate Models) and lognormal bond prices. Analytical formulas for bond options are easily available.
+  </p>
+  <p block-type="Text">
+   The HJM approach has been extended to include a driving marked point process in
+   <math display="inline">
+    [4]
+   </math>
+   , a random measure [3], a Levy process [8], a Gaussian random field [15], and a Levy field [1].
+  </p>
+  <h4>
+   The Musiela Parameterization
+  </h4>
+  <p block-type="Text">
+   In many applications, it is more natural to use time
+   <math display="inline">
+    to
+   </math>
+   maturity, rather than time
+   <math display="inline">
+    of
+   </math>
+   maturity, to parameterize bonds and forward rates, and this approach was first described in [6] and [16]. If we denote time to maturity by x, then we have
+   <math display="inline">
+    x = T - t
+   </math>
+   , and in terms of
+   <math display="inline">
+    x
+   </math>
+   , the forward rates are defined as follows.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 1
+   </b>
+   <i>
+    For all
+   </i>
+   <math display="inline">
+    x \ge 0
+   </math>
+   <i>
+    the forward rates
+   </i>
+   <math display="inline">
+    r_t(x)
+   </math>
+   are defined by the relation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r_t(x) = f(t, t+x) \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and we denote by
+   <math display="inline">
+    r_t
+   </math>
+   the forward rate curve
+   <math display="inline">
+    x \mapsto
+   </math>
+   <math display="inline">
+    r_t(x)
+   </math>
+   at time t. We can thus view r as a process taking values in some Hilbert space
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   of forward rate curves.
+  </p>
+  <p block-type="Text">
+   Suppose now that we have the standard HJMtype model for the forward rates under a martingale measure
+   <math display="inline">
+    O
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    df(t, T) = \alpha(t, T) dt + \sigma_0(t, T) dW_t \qquad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma_0
+   </math>
+   denotes the HJM volatility structure. The question is to find the Q-dynamics for
+   <math display="inline">
+    r(t, x)
+   </math>
+   , and we have the following result.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 3
+   </b>
+   (Musiela parameterization).
+   <i>
+    Assume
+   </i>
+   that the forward rate dynamics under
+   <math display="inline">
+    O
+   </math>
+   are given by (10). Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr_t(x) = \left\{ \frac{\partial}{\partial x} r_t(x) + D(t, x) \right\} dt + \sigma(t, x) dW_t
+   </math>
+   (11)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma(t,x) = \sigma_0(t,t+x)
+   </math>
+   <br/>
+   <math display="block">
+    D(t,x) = \sigma(t,x) \int_0^x \sigma(t,s)^* ds \qquad (12)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   is of the simple deterministic form
+   <math display="inline">
+    \sigma_t(x) = \sigma(x)
+   </math>
+   , then the Musiela equation mentioned above takes the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr_t = \{ \mathbf{F}r_t + D \} dt + \sigma dW_t
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    D(x) = \sigma(x) \int_0^x \sigma(s) ds
+   </math>
+   and the operator
+   <b>
+    F
+   </b>
+   is given by
+   <math display="inline">
+    \partial/\partial x
+   </math>
+   . In this case, the forward rate equation is an infinite dimensional linear stochastic differential equation (SDE) on
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   with formal solution
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r_t = \mathbf{e}^{\mathbf{F}t}r_0 + \int_0^t \mathbf{e}^{\mathbf{F}(t-s)}D \, \mathrm{d}s + \int_0^t \mathbf{e}^{\mathbf{F}(t-s)}\sigma \, \mathrm{d}W_s \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the semigroup
+   <math display="inline">
+    e^{Ft}
+   </math>
+   is left translation, that is,
+   <math display="inline">
+    e^{\mathbf{F}t} f(x) = f(t+x).
+   </math>
+  </p>
+  <h2>
+   <b>
+    Geometric Interest Rate Theory
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Assume that the volatility process
+   <math display="inline">
+    \sigma
+   </math>
+   is of the Markovian form
+   <math display="inline">
+    \sigma_t(x) = \sigma(r_t, x)
+   </math>
+   . Then the Musiela equation for the
+   <math display="inline">
+    r
+   </math>
+   process is an infinite dimensional SDE and we write it compactly as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr_t = \mu(r_t) dt + \sigma(r_t) dW(t) \qquad (14)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu(r,x) = \frac{\partial}{\partial x}r(x) + D(r,x)
+   </math>
+   <math display="block">
+    D(r,x) = \sigma(r,x)\int_0^x \sigma(r,s) \, \mathrm{d}s \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   We can thus view
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    \sigma
+   </math>
+   as vector fields on
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   , and we now formulate a couple of natural problems:
+  </p>
+  <p block-type="Text">
+   1. Consider a given parameterized family
+   <math display="inline">
+    \mathcal{G}
+   </math>
+   of forward rate curves, such as the Nelson-Siegel family, where forward rates are parameterized as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(z, x) = z_1 + z_2 e^{-z_3 x} + z_4 x e^{-z_3 x} \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    z_1, \ldots, z_4
+   </math>
+   are the parameters. The question is now under which conditions this family is consistent with the dynamics of the interestrate model mentioned above? Here consistency is interpreted in the sense that, given an initial forward rate curve in
+   <math display="inline">
+    \mathcal{G}
+   </math>
+   , the interest-rate model will (with probability 1) produce forward rate curves belonging to the given family
+   <math display="inline">
+    \mathcal{G}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   2. When does the given, inherently infinite dimensional, interest-rate model admit a finite dimensional Markovian state space realization, that is, when can the
+   <math display="inline">
+    r
+   </math>
+   process be realized by a system of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dZ_t = a (Z_t) dt + b (Z_t) dW_t
+   </math>
+   <math display="block">
+    r_t(x) = G (Z_t, x)
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    Z
+   </math>
+   (interpreted as the state vector process) is a finite dimensional diffusion,
+   <math display="inline">
+    a(z)
+   </math>
+   ,
+   <math display="inline">
+    b(z)
+   </math>
+   and
+   <math display="inline">
+    G(z, x)
+   </math>
+   are deterministic functions and W is the same Wiener process as in equation
+   <math display="inline">
+    (11)
+   </math>
+   .
+  </p>
+  <h4>
+   Consistency
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   A finitely parameterized family of forward rate curves is a real-valued function of the form
+   <math display="inline">
+    G(z, x)
+   </math>
+   where
+  </p>
+  <p block-type="TextInlineMath">
+   z lies in some open subset of
+   <math display="inline">
+    R^k
+   </math>
+   , that is, for each fixed parameter vector
+   <math display="inline">
+    z
+   </math>
+   , we have the forward rate curve
+   <math display="inline">
+    x \mapsto G(z, x)
+   </math>
+   . A typical example is the Nelson-Siegel forward curve family in equation (16). The mapping
+   <math display="inline">
+    G
+   </math>
+   can also be viewed as a mapping
+   <math display="inline">
+    G: \mathcal{Z} \to \mathcal{H}
+   </math>
+   , and we now define the
+   <i>
+    forward curve manifold
+   </i>
+   <math display="inline">
+    \mathcal{G}
+   </math>
+   as the set of all forward rate curves produced by this family, that is.,
+   <math display="inline">
+    \mathcal{G} = \text{Im}(G)
+   </math>
+   . The main result concerning consistency is as follows (see [2]).
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 2
+   </b>
+   (Consistency).
+   <i>
+    The forward curve
+   </i>
+   <math display="inline">
+    manifold \mathcal{G}
+   </math>
+   is consistent with the forward rate process if and only if,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G'_{x}(z) + D(r) - \frac{1}{2}\sigma'_{r}(r)\sigma(r) \in \text{Im}[G'_{z}(z)]
+   </math>
+   <math display="block">
+    \sigma(r) \in \text{Im}[G'_{z}(z)] \quad (18)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    hold for all
+   </i>
+   <math display="inline">
+    z \in \mathcal{Z}
+   </math>
+   <i>
+    with
+   </i>
+   <math display="inline">
+    r = G(z)
+   </math>
+   <i>
+    , where
+   </i>
+   <math display="inline">
+    D
+   </math>
+   <i>
+    is defined
+   </i>
+   in equation
+   <math display="inline">
+    (15)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    G'_z
+   </math>
+   and
+   <math display="inline">
+    G'_x
+   </math>
+   denote the Frechet derivative of
+   <math display="inline">
+    G
+   </math>
+   with respect to
+   <math display="inline">
+    z
+   </math>
+   and
+   <math display="inline">
+    x
+   </math>
+   , respectively.
+  </p>
+  <p block-type="Text">
+   The invariance problem was originally posed and studied in [2] and then extended and studied in great depth in [9] and [10]. In particular, it is shown in [9] that no nondegenerate arbitrage-free forward rate model is consistent with the Nelson-Siegel family.
+  </p>
+  <h4>
+   Finite Dimensional Markovian Realizations
+  </h4>
+  <p block-type="Text">
+   The existence of finite dimensional Markovian realizations (FDR) was first studied in [7] and [17] where sufficient conditions were given for particular choices of volatility structures (see Markovian Term Structure Models) for a detailed discussion of these special cases and more references. General necessary and sufficient results were first obtained in
+   <math display="inline">
+    [5]
+   </math>
+   and extended in
+   <math display="inline">
+    [11]
+   </math>
+   . For an arbitrary SDE in Hilbert space (with the forward rate SDE as a special case) of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr_t = \mu(r_t) dt + \sigma(r_t) dW_t \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   the main general result is as follows.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <b>
+    Theorem 3
+   </b>
+   The infinite dimensional SDE above admits an FDR if and only if the Lie algebra generated by the vector fields
+   <math display="inline">
+    \mu - 1/2\sigma'\sigma
+   </math>
+   and
+   <math display="inline">
+    \sigma
+   </math>
+   (where
+   <math display="inline">
+    \sigma'
+   </math>
+   denotes the Frechet derivative) has finite dimension
+  </p>
+  <p block-type="Text">
+   <i>
+    (evaluated pointwise) in a neighborhood of the initial point r
+   </i>
+   0
+   <i>
+    .
+   </i>
+  </p>
+  <p block-type="Text">
+   All known examples in the literature are easy consequences of this general result, which can also be extended to stochastic volatility.
+  </p>
+  <p block-type="Text">
+   A special case of a finite dimensional realization is when a HJM model generates a Markovian short rate process. This corresponds to the case of a two-dimensional realization with running time and short rate as
+   <i>
+    Z
+   </i>
+   -factors. For the case of a short rate dependent volatility, it was shown in [14] that this occurs if and only if the model is affine. This result has a remarkable extension in [12], where it is shown that all models admitting finite dimensional realizations are, in fact, affine.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Albeverio, S., Lytvynov, A. &amp; Mahnig, A. (2004). A model of the term structure of interest rates based on Levy fields,
+     <i>
+      Stochastic Processes and Their Applications
+     </i>
+     <b>
+      114
+     </b>
+     (2), 251–263.
+    </li>
+    <li block-type="ListItem">
+     [2] Bjork, T. &amp; Christensen, B. (1999). Interest rate dynam- ¨ ics and consistent forward rate curves,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      9
+     </b>
+     (4), 323–348.
+    </li>
+    <li block-type="ListItem">
+     [3] Bjork, T., Di Masi, G., Kabanov, Y. &amp; Runggaldier, W. ¨ (1997). Towards a general theory of bond markets,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      1
+     </b>
+     , 141–174.
+    </li>
+    <li block-type="ListItem">
+     [4] Bjork, T., Kabanov, Y. &amp; Runggaldier, W. (1995). Bond ¨ market structure in the presence of a marked point process,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      7
+     </b>
+     (2), 211–239.
+    </li>
+    <li block-type="ListItem">
+     [5] Bjork, T. &amp; Svensson, L. (2001). On the existence of ¨ finite dimensional realizations for nonlinear forward rate models,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      11
+     </b>
+     (2), 205–243.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [6] Brace, A. &amp; Musiela, M. (1994). A multifactor Gauss Markov implementation of Heath, Jarrow, and Morton,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      4
+     </b>
+     , 259–283.
+    </li>
+    <li block-type="ListItem">
+     [7] Cheyette, O. (1996).
+     <i>
+      Markov Representation of the Heath–Jarrow–Morton Model
+     </i>
+     , BARRA, Preprint.
+    </li>
+    <li block-type="ListItem">
+     [8] Eberlein, E. &amp; Raible, S. (1999). Term structure models driven by general Levy processes,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      9
+     </b>
+     (1), 31–53.
+    </li>
+    <li block-type="ListItem">
+     [9] Filipovic, D. (1999). A note on the Nelson-Siegel family, ´
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      9
+     </b>
+     (4), 349–359.
+    </li>
+    <li block-type="ListItem">
+     [10] Filipovic, D. (2001). ´
+     <i>
+      Consistency Problems for Heath– Jarrow–Morton Interest Rate Models
+     </i>
+     ,
+     <i>
+      Springer Lecture Notes in Mathematics
+     </i>
+     , Springer Verlag, Vol. 1760.
+    </li>
+    <li block-type="ListItem">
+     [11] Filipovic, D. &amp; Teichmann, J. (2003). Existence of ´ invariant manifolds for stochastic equations in infinite dimension,
+     <i>
+      Journal of Functional Analysis
+     </i>
+     <b>
+      197
+     </b>
+     , 398–432.
+    </li>
+    <li block-type="ListItem">
+     [12] Filipovic, D. &amp; Teichmann, J. (2004). On the geometry ´ of the term structure of interest rates,
+     <i>
+      Proceedings of the Royal Society
+     </i>
+     <b>
+      460
+     </b>
+     , 129–167.
+    </li>
+    <li block-type="ListItem">
+     [13] Heath, D., Jarrow, R. &amp; Morton, A. (1992). Bond pricing and the term structure of interest rates: a new methodology for contingent claims valuation,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      60
+     </b>
+     , 77–105.
+    </li>
+    <li block-type="ListItem">
+     [14] Jeffrey, A. (1995). Single factor Heath–Jarrow–Morton term structure models based on Markov spot interest rate dynamics,
+     <i>
+      Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      30
+     </b>
+     , 619–642.
+    </li>
+    <li block-type="ListItem">
+     [15] Kennedy, D. (1994). The term structure of interest rates as a Gaussian random field,
+     <i>
+      Mathematica Finance
+     </i>
+     <b>
+      4
+     </b>
+     , 247–258.
+    </li>
+    <li block-type="ListItem">
+     [16] Musiela, M. (1993).
+     <i>
+      Stochastic PDE
+     </i>
+     :
+     <i>
+      s and term structure models
+     </i>
+     , Preprint.
+    </li>
+    <li block-type="ListItem">
+     [17] Ritchken, P. &amp; Sankarasubramanian, L. (1995). Volatility structures of forward rates and the dynamics of the term structure,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      5
+     </b>
+     (1), 55–72.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   TOMAS BJORK ¨
+  </p>
+ </body>
+</html>

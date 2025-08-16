@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Lognormal Mixture Diffusion Model
+   </b>
+  </h2>
+  <p block-type="Text">
+   Let us denote the time-
+   <math display="inline">
+    t
+   </math>
+   price of a given financial asset by
+   <math display="inline">
+    S(t)
+   </math>
+   , equivalently
+   <math display="inline">
+    S_t
+   </math>
+   . We say that S evolves according to a local-volatility model (see also
+   <b>
+    Local Volatility Model
+   </b>
+   ) if, under the risk-neutral measure,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS(t) = \mu S(t)dt + \sigma(t, S(t))S(t)dW(t),
+   </math>
+   <br/>
+   <math display="block">
+    S(0) = S_0
+   </math>
+   (1)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    S_0
+   </math>
+   is a positive constant, W is a standard Brownian motion,
+   <math display="inline">
+    \sigma
+   </math>
+   is a well-behaved deterministic function, and
+   <math display="inline">
+    \mu
+   </math>
+   is the risk-neutral drift rate, which is assumed to be constant. For instance, in case of a stock paying a continuous dividend yield q,
+   <math display="inline">
+    \mu =
+   </math>
+   <math display="inline">
+    r - q
+   </math>
+   , where r is the (assumed constant) continuously compounded risk-free rate.
+  </p>
+  <p block-type="Text">
+   Brigo and Mercurio
+   <math display="inline">
+    [1-3]
+   </math>
+   find an explicit expression for the function
+   <math display="inline">
+    \sigma
+   </math>
+   such that the resulting process has a density that, at each time, is given by a mixture of lognormal densities. Their result is briefly reviewed in the following.
+  </p>
+  <p block-type="Text">
+   Let us consider N functions
+   <math display="inline">
+    \sigma_i
+   </math>
+   's that are deterministic and bounded from above and below by positive constants, and corresponding lognormal densities
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_t^i(y) = \frac{1}{yV_i(t)\sqrt{2\pi}} \times \exp\left\{-\frac{1}{2V_i^2(t)} \left[ \ln \frac{y}{S_0} - \mu t + \frac{1}{2}V_i^2(t) \right]^2 \right\}
+   </math>
+   (2)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_i(t) := \sqrt{\int_0^t \sigma_i^2(u) \mathrm{d}u} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   Let us assume that each
+   <math display="inline">
+    \sigma_i
+   </math>
+   is also continuous and that there exists an
+   <math display="inline">
+    \varepsilon &gt; 0
+   </math>
+   such that
+   <math display="inline">
+    \sigma_i(t) = \sigma_0 &gt; 0
+   </math>
+   , for each t in [0,
+   <math display="inline">
+    \varepsilon
+   </math>
+   ] and
+   <math display="inline">
+    i = 1, \ldots, N
+   </math>
+   . Then, if we set
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    (t, y) &gt; (0, 0)
+   </math>
+   and
+   <math display="inline">
+    v(t, y) = \sigma_0
+   </math>
+   for
+   <math display="inline">
+    (t, y) =
+   </math>
+   <math display="inline">
+    (0, S_0)
+   </math>
+   , the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = \mu S_t dt + \nu(t, S_t) S_t dW_t \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   has a unique strong solution whose marginal density is given by the mixture of lognormals
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_t(y) = \sum_{i=1}^{N} \lambda_i \frac{1}{yV_i(t)\sqrt{2\pi}}
+   </math>
+   <math display="block">
+    \times \exp\left\{-\frac{1}{2V_i^2(t)} \left[ \ln \frac{y}{S_0} - \mu t + \frac{1}{2}V_i^2(t) \right]^2 \right\}
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    Moreover, for
+   </i>
+   <math display="inline">
+    (t, y) &gt; (0, 0)
+   </math>
+   <i>
+    , we can write
+   </i>
+   <math display="inline">
+    v^2(t, y)
+   </math>
+   <math display="inline">
+    = \sum_{i=1}^{N} \Lambda_{i}(t, y)\sigma_{i}^{2}(t), \text{ where, for each } (t, y) \text{ and}
+   </math>
+   &lt;br&gt;
+   <math display="inline">
+    i, \ \Lambda_{i}(t, y) \ge 0 \text{ and } \sum_{i=1}^{N} \Lambda_{i}(t, y) = 1. \text{ As a conse-}
+   </math>
+   quence, for each
+   <math display="inline">
+    t, y &gt; 0
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 &lt; \tilde{\sigma} := \inf_{t \ge 0} \left\{ \min_{i=1,\dots,N} \sigma_i(t) \right\} \le \nu(t,y) \le \hat{\sigma}
+   </math>
+   <math display="block">
+    := \sup_{t \ge 0} \left\{ \max_{i=1,\dots,N} \sigma_i(t) \right\} &lt; +\infty \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   A proof of this proposition can be found in [2], and more formally in
+   <math display="inline">
+    [5]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The pricing of European options under the lognormal-mixture local-volatility model is quite straightforward (see also Risk-neutral Pricing; Black-Scholes Formula).
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 2
+   </b>
+   Consider a European option with maturity
+   <math display="inline">
+    T
+   </math>
+   , strike
+   <math display="inline">
+    K
+   </math>
+   , and written on the asset. The option value at the initial time
+   <math display="inline">
+    t = 0
+   </math>
+   is given by the following convex combination of Black–Scholes prices:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t, y) = \sqrt{\frac{\sum_{i=1}^{N} \lambda_{i} \sigma_{i}^{2}(t) \frac{1}{V_{i}(t)} \exp\left\{-\frac{1}{2V_{i}^{2}(t)} \left[\ln\frac{y}{S_{0}} - \mu t + \frac{1}{2}V_{i}^{2}(t)\right]^{2}\right\}}{\sum_{i=1}^{N} \lambda_{i} \frac{1}{V_{i}(t)} \exp\left\{-\frac{1}{2V_{i}^{2}(t)} \left[\ln\frac{y}{S_{0}} - \mu t + \frac{1}{2}V_{i}^{2}(t)\right]^{2}\right\}}
+   </math>
+   (4)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi(K,T) = \omega P(0,T) \sum_{i=1}^{N} \lambda_i
+   </math>
+   <math display="block">
+    \times \left[ S_0 e^{\mu T} \Phi \left( \omega \frac{\ln \frac{S_0}{K} + \left(\mu + \frac{1}{2}\eta_i^2\right) T}{\eta_i \sqrt{T}} \right) - K \Phi \left( \omega \frac{\ln \frac{S_0}{K} + \left(\mu - \frac{1}{2}\eta_i^2\right) T}{\eta_i \sqrt{T}} \right) \right] \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    P(0, T)
+   </math>
+   is the discount factor for maturity
+   <math display="inline">
+    T
+   </math>
+   ,
+   <math display="inline">
+    \Phi
+   </math>
+   is the normal cumulative distribution function,
+   <math display="inline">
+    \omega = 1
+   </math>
+   <i>
+    for a call and
+   </i>
+   <math display="inline">
+    \omega = -1
+   </math>
+   <i>
+    for a put, and
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \eta_i := \frac{V_i(T)}{\sqrt{T}} = \sqrt{\frac{\int_0^T \sigma_i^2(t) \mathrm{d}t}{T}} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The main advantage of the lognormal-mixture local-volatility model is its tractability (explicit marginal density and option prices). This model can be successfully used in practice to calibrate
+  </p>
+  <p block-type="Text">
+   smile-shaped implied volatility structures. Extensions allowing for nonzero slopes at the at-the-money level are introduced in
+   <math display="inline">
+    [4]
+   </math>
+   .
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Brigo, D. &amp; Mercurio, F. (2000). A mixed-up smile,
+     <i>
+      Risk
+     </i>
+     September, 123-126.
+    </li>
+    <li block-type="ListItem">
+     Brigo, D. &amp; Mercurio, F. (2001). Displaced and mix-[2] ture diffusions for analytically-tractable smile models, in Mathematical Finance-Bachelier Congress 2000, H. Geman, D.B. Madan, S.R. Pliska &amp; A.C.F. Vorst, eds, Springer Finance, Springer, Berlin, Heidelberg, New York.
+    </li>
+    <li block-type="ListItem">
+     [3] Brigo, D. &amp; Mercurio, F. (2002). Lognormal-mixture dynamics and calibration to market volatility smiles, International Journal of Theoretical and Applied Finance 5(4), 427-446.
+    </li>
+    <li block-type="ListItem">
+     [4] Brigo, D., Mercurio, F. &amp; Sartorelli, G. (2003). Alternative asset-price dynamics and volatility smile, Quantitative Finance 3(3), 173-183.
+    </li>
+    <li block-type="ListItem">
+     [5] Sartorelli, G. (2004). Density Mixture Ito Processes. PhD thesis, Scuola Normale Superiore di Pisa.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   FABIO MERCURIO
+  </p>
+ </body>
+</html>

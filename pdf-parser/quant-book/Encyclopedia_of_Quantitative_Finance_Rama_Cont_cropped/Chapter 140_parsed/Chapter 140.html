@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Moment Explosions
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (S_t, V_t)_{t&gt;0}
+   </math>
+   be a Markov process, representing a (not necessarily purely continuous) stochastic volatility model.
+   <math display="inline">
+    (S_t)_{t&gt;0}
+   </math>
+   is the (discounted) price of a traded asset, such as a stock, and
+   <math display="inline">
+    (V_t)_{t&gt;0}
+   </math>
+   represents a latent factor, such as stochastic volatility, stochastic variance, or the stochastic arrival rate of jumps. A moment explosion takes place, if the moment
+   <math display="inline">
+    \mathbb{E}[S^u]
+   </math>
+   of some given order
+   <math display="inline">
+    u \in \mathbb{R}
+   </math>
+   becomes infinite ("explodes") after some finite time
+   <math display="inline">
+    T_*(u)
+   </math>
+   . This time is called the
+   <i>
+    time of moment explosion
+   </i>
+   and formally defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_*(u) = \sup \left\{ t \ge 0 : \mathbb{E}[S_t^u] &lt; \infty \right\} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We say that no moment explosion takes place for some given order
+   <math display="inline">
+    u
+   </math>
+   , if
+   <math display="inline">
+    T_*(u) = \infty
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Moment explosions can be considered both under the physical and the pricing measure, with most applications belonging to the latter. If
+   <math display="inline">
+    (S_t)_{t&gt;0}
+   </math>
+   is a martingale, then Jensen's inequality implies that moment explosions can only occur for moments of order
+   <math display="inline">
+    u \in \mathbb{R} \setminus [0, 1]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Conceptually, the notion of a moment explosion has to be distinguished from an explosion of the process itself, which refers to the situation that the process
+   <math display="inline">
+    (S_t)_{t\geq 0}
+   </math>
+   , not one of its moments, becomes infinite with some positive probability.
+  </p>
+  <h3>
+   Applications
+  </h3>
+  <p block-type="TextInlineMath" class="has-continuation">
+   In
+   <i>
+    equity
+   </i>
+   and
+   <i>
+    foreign exchange
+   </i>
+   models, where
+   <math display="inline">
+    (S_t)_{t&gt;0}
+   </math>
+   represents a stock price or an exchange rate, moment explosions are closely related to the shape of the implied volatility surface, and can be used to obtain approximations for the implied volatility of deep in-the-money and out-of-the-money options (see Implied Volatility: Large Strike Asymptotics, and the references therein). According to [5, 14], the asymptotic shape of the implied volatility surface for some fixed maturity
+   <math display="inline">
+    T
+   </math>
+   is determined by the smallest and largest moment of
+   <math display="inline">
+    S_T
+   </math>
+   that is still finite. These critical moments
+   <math display="inline">
+    u_{-}(T)
+   </math>
+   and
+   <math display="inline">
+    u_{+}(T)
+   </math>
+   are the piecewise inverse functions&lt;sup&gt;a&lt;/sup&gt; of the moment explosion time. Often the explosion time is easier to calculate, so a feasible approach is to first calculate explosion times, and then to invert to obtain the critical moments. Let
+  </p>
+  <p block-type="TextInlineMath">
+   us note that finite critical moments of the underlying
+   <math display="inline">
+    S_T
+   </math>
+   correspond, in essence, to exponential tails of
+   <math display="inline">
+    \log(S_T)
+   </math>
+   . There is evidence that refined knowledge of how moment explosion occurs (or the asymptotic behavior of
+   <math display="inline">
+    u \mapsto \mathbb{E}\left[S_T^u\right]
+   </math>
+   in the case of nonexplosion) can lead to refined results about implied volatility, see [6, 11] for some examples of stochastic alpha beta rho (SABR) type.
+  </p>
+  <p block-type="TextInlineMath">
+   In
+   <i>
+    fixed-income
+   </i>
+   markets
+   <math display="inline">
+    (S_t)_{t&gt;0}
+   </math>
+   might represent a forward LIBOR rate or swap rate. Andersen and Piterbarg [2] give examples of derivatives with superlinear payoff, whose pricing involves calculation of the second moment of
+   <math display="inline">
+    S_T
+   </math>
+   . It is clear that an explosion of the second moment will lead to infinite prices of such derivatives.
+  </p>
+  <p block-type="Text">
+   For numerical procedures, such as discretization schemes for stochastic differential equations (SDEs), error estimates that depend on higher order moments of the approximated process may break down if moment explosions occur [1]. Moment explosions may also lead to
+   <i>
+    infinite expected utility
+   </i>
+   in utility maximization problems [12].
+  </p>
+  <h1>
+   <b>
+    Moment Explosions in the Black–Scholes
+   </b>
+   and Exponential Lévy Models
+  </h1>
+  <p block-type="TextInlineMath">
+   In the Black-Scholes model, moment explosions never occur, since moments of all orders exist for all times. In an exponential Lévy model (see
+   <b>
+    Exponential Lévy Models
+   </b>
+   ),
+   <math display="inline">
+    S_t
+   </math>
+   is given by
+   <math display="inline">
+    S_t =
+   </math>
+   <math display="inline">
+    S_0 \exp(X_t)
+   </math>
+   , where
+   <math display="inline">
+    X_t
+   </math>
+   is a Lévy process. It holds that
+   <math display="inline">
+    \mathbb{E}\left[S_t^u\right] = e^{t\kappa(u)}
+   </math>
+   , where
+   <math display="inline">
+    \kappa(u)
+   </math>
+   is the cumulantgenerating function (cgf) of
+   <math display="inline">
+    X_1
+   </math>
+   . Thus in an exponential Lévy model, the time of moment explosion is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_*(u) = \begin{cases} +\infty &amp; \kappa(u) &lt; \infty \\ 0 &amp; \kappa(u) = \infty \end{cases} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let us remark that, from Theorem 25.3 in [16],
+   <math display="inline">
+    \kappa(u) &lt; \infty \text{ iff } \int e^{ux} 1_{|x|&gt;1} \nu(dx) &lt; \infty \text{ where } \nu(dx)
+   </math>
+   denotes the Lévy measure of
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <h3>
+   <b>
+    Moment Explosions in the Heston Model
+   </b>
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   The situation becomes more interesting in a stochastic volatility model, like the Heston model (see Heston
+  </p>
+  <p block-type="Text">
+   Model):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}S_t &amp;= S_t \sqrt{V_t} \, \mathrm{d}W_t^1, \quad S_0 = s \\ \mathrm{d}V_t &amp;= -\lambda (V_t - \theta) \, \mathrm{d}t + \eta \sqrt{V_t} \, \mathrm{d}W_t^2, \\ V_0 &amp;= v, \quad \langle \mathrm{d}W_t^1, \, \mathrm{d}W_t^2 \rangle = \rho \, \mathrm{d}t \end{aligned} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We now discuss how to compute the moments of
+   <math display="inline">
+    S_t
+   </math>
+   (equivalently, the moment-generating function of
+   <math display="inline">
+    X_t = \log S_t / S_0
+   </math>
+   ). The joint process
+   <math display="inline">
+    (X_t, V_t)_{t&gt;0}
+   </math>
+   is a (time-homogenous) diffusion, started at
+   <math display="inline">
+    (0, v)
+   </math>
+   , with generator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L} = \frac{v}{2} \left( \frac{\partial^2}{\partial x^2} - \frac{\partial}{\partial x} \right) + \frac{v}{2} \eta^2 \frac{\partial^2}{\partial v^2}
+   </math>
+   <math display="block">
+    + \lambda (\theta - v) \frac{\partial}{\partial v} + \rho \eta v \frac{\partial^2}{\partial x \partial v} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that
+   <math display="inline">
+    (X_t, V_t)_{t&gt;0}
+   </math>
+   has affine structure in the sense that the coefficients of
+   <math display="inline">
+    \mathcal{L}
+   </math>
+   are affine linear in the state variables.&lt;sup&gt;b&lt;/sup&gt;
+  </p>
+  <p block-type="Text">
+   Now
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[e^{uX_T}|X_t = x, V_t = v\right]
+   </math>
+   <br/>
+   =
+   <math>
+    e^{ux}\mathbb{E}\left[e^{uX_T}|X_t = 0, V_t = v\right]
+   </math>
+   (5)
+  </p>
+  <p block-type="Text">
+   we see that
+   <math display="inline">
+    f
+   </math>
+   satisfies a parabolic partial differential equation (PDE).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \partial_t f = \mathcal{A}f := \left(\frac{v}{2}\eta^2 \frac{\partial^2}{\partial v^2} + \left[\lambda(\theta - v) + \rho \eta u v\right] \frac{\partial}{\partial v} + \frac{v}{2} \left(u^2 - u\right)\right) f \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with initial condition
+   <math display="inline">
+    f(0, \cdot; u) = 1
+   </math>
+   , in which (again) all coefficients depend in an affine-linear way on
+   <math display="inline">
+    v
+   </math>
+   . The exponentially affine ansatz
+   <math display="inline">
+    f(t, v; u) =
+   </math>
+   <math display="inline">
+    \exp(\phi(t, u) + v\psi(t, u))
+   </math>
+   then immediately reduces this PDE to a system of ordinary differential equations (ODEs) for
+   <math display="inline">
+    \phi(t, u)
+   </math>
+   and
+   <math display="inline">
+    \psi(t, u)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial}{\partial t}\phi(t,u) = F(u,\psi(t,u)), \qquad \phi(0,u) = 0 \quad (8)
+   </math>
+   <br/>
+   <math display="block">
+    \frac{\partial}{\partial t}\psi(t,u) = R(u,\psi(t,u)), \qquad \psi(0,u) = 0 \quad (9)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    F(u, w) = \lambda \theta w
+   </math>
+   and
+   <math display="inline">
+    R(u, w) = \frac{w^2}{2} \eta^2 +
+   </math>
+   <math display="inline">
+    (\rho \eta u - \lambda)w + \frac{1}{2}(u^2 - u)
+   </math>
+   . Equation (9) is a Riccati differential equation, whose solution blows up at finite time, corresponding to the moment explosion of
+   <math display="inline">
+    S_t
+   </math>
+   . Explicit calculations ([2], for instance) yield&lt;sup&gt;c&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_{*}^{\text{Heston}}(u) = \begin{cases} +\infty &amp; \text{if } \Delta(u) \ge 0, \chi(u) &lt; 0\\ \frac{1}{\sqrt{\Delta(u)}} \log\left(\frac{\chi(u) + \sqrt{\Delta(u)}}{\chi(u) - \sqrt{\Delta(u)}}\right) &amp; \text{if } \Delta(u) \ge 0, \chi(u) &gt; 0\\ \frac{2}{\sqrt{-\Delta(u)}} \left(\arctan\frac{\sqrt{-\Delta(u)}}{\chi(u)} + \pi \mathbf{1}_{\{\chi(u) &lt; 0\}}\right) &amp; \text{if } \Delta(u) &lt; 0 \end{cases} \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   satisfies, as a function of
+   <math display="inline">
+    (t, x, v)
+   </math>
+   , the backward equation
+   <math display="inline">
+    \partial_t + \mathcal{L} = 0
+   </math>
+   with terminal data
+   <math display="inline">
+    e^{ux}
+   </math>
+   and after replacing
+   <math display="inline">
+    T - t
+   </math>
+   with t we can rewrite this as an initial value problem. Indeed, setting
+   <math display="inline">
+    f = f(t, v; u) :=
+   </math>
+   <math display="inline">
+    \mathbb{E}\left[e^{uX_t}|X_0=0,V_0=v\right]
+   </math>
+   , and noting that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(\frac{\partial^2}{\partial x^2} - \frac{\partial}{\partial x}\right) \left(e^{ux} f\right) = e^{ux} \left(u^2 - u\right) f \text{ and}
+   </math>
+   <math display="block">
+    \frac{\partial^2}{\partial x \partial v} \left(e^{ux} f\right) = e^{ux} u \frac{\partial}{\partial v} f \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \chi(u) = \rho \eta u - \lambda
+   </math>
+   and
+   <math display="inline">
+    \Delta(u) = \chi(u)^2 - \eta^2(u^2 - \lambda)
+   </math>
+   <math display="inline">
+    u
+   </math>
+   ). A simple analysis of this condition (cf. [2]) then allows to express the no-explosion condition in terms of the correlation parameter
+   <math display="inline">
+    \rho
+   </math>
+   . With focus on positive moments of the underlying,
+   <math display="inline">
+    u \ge 1
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_*^{\text{Heston}}(u) = +\infty \Longleftrightarrow \rho \le -\sqrt{\frac{u-1}{u}} + \frac{\lambda}{\eta u} \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   Similar results for a class of nonaffine stochastic volatility models is discussed below.
+  </p>
+  <h1>
+   Moment Explosions in Time-changed
+   <b>
+    Exponential Lévy Models
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Stochastic volatility can also be introduced in the sense of running time at a stochastic "business" clock. For instance, when
+   <math display="inline">
+    \rho = 0
+   </math>
+   the (log-price) in the Heston model is a Brownian motion with drift.
+   <math display="inline">
+    W_t - t/2
+   </math>
+   , run at a Cox-Ingersoll-Ross&lt;sup&gt;d&lt;/sup&gt; (CIR) clock
+   <math display="inline">
+    \tau(t,\omega) = \tau_t
+   </math>
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dV_t = -\lambda(V_t - \theta) dt + \eta \sqrt{V_t} dW_t, \quad V_0 = v
+   </math>
+   (12)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}\tau_t = V \,\mathrm{d}t, \quad \tau_0 = 0 \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <math display="inline">
+    (V, \tau)
+   </math>
+   has an affine structure, there is a tractable moment-generating/characteristic function in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E} \left( \exp \left( u \tau_T \right) \right) = \mathbb{E} \left( \exp \left( u \int_0^T V \left( t, \omega \right) \, \mathrm{d}t \right) \right)
+   </math>
+   <math display="block">
+    = \exp \left( A \left( u, T \right) + v B \left( u, T \right) \right) \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   where&lt;sup&gt;e&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A(u,t) = \lambda^2 \theta t / \eta^2 - \frac{2\lambda\theta}{\eta^2} \log \left[ \sinh(\gamma t/2) \cdot \left( \coth(\gamma t/2) + \frac{\lambda}{\gamma} \right) \right]
+   </math>
+   (15)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B(u, t)
+   </math>
+   <br/>
+   = 2u/(\lambda + \gamma \coth(\gamma t/2)), \qquad \gamma = \sqrt{\lambda^2 - 2\eta^2 u} (16)
+  </p>
+  <p block-type="TextInlineMath">
+   We can replace
+   <math display="inline">
+    W_t - t/2
+   </math>
+   above by a general Lévy process
+   <math display="inline">
+    L = L_t
+   </math>
+   and run it again at some independent clock
+   <math display="inline">
+    \tau = \tau (t, \omega)
+   </math>
+   , assuming only knowledge of the cgf
+   <math display="inline">
+    \kappa_T(u) = \log \mathbb{E} (\exp(u\tau_T))
+   </math>
+   . If we also set
+   <math display="inline">
+    \kappa_L(u) = \log \mathbb{E} \left[ \exp(uL_1) \right]
+   </math>
+   , a simple conditioning argument shows that the moment-generating function of
+   <math display="inline">
+    L_{\tau}
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M(u) = \mathbb{E}\left[\mathbb{E}\left(\mathrm{e}^{uL_{\tau}}|\tau\right)\right] = \mathbb{E}\left[\mathrm{e}^{\kappa_{L}(u)\tau}\right]
+   </math>
+   <br/>
+   =
+   <math>
+    \exp\left[\kappa_{\tau}(\kappa_{L}(u))\right]
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   From here on, moment explosions of
+   <math display="inline">
+    L_{\tau}
+   </math>
+   can be investigated analytically, provided
+   <math display="inline">
+    \kappa_{\tau}
+   </math>
+   ,
+   <math display="inline">
+    \kappa_{L}
+   </math>
+   are known in sufficiently explicit form. For some computations in this context, also with regard to the asymptotic behavior of the implied volatility smile, see [5].
+  </p>
+  <h1>
+   <b>
+    Moment Explosions in Non-affine Diffusion Models
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Both [2] and [15] study existence of
+   <math display="inline">
+    u
+   </math>
+   th moments,
+   <math display="inline">
+    u \ge 1
+   </math>
+   , for (not necessarily affine) diffusion models of the type
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}S_t &amp;= V_t^\delta S_t^\beta \, \mathrm{d}W_t^1, &amp; S_0 &amp;= s \\ \mathrm{d}V_t &amp;= \eta V_t^\gamma \, \mathrm{d}W_t^2 + b(V_t) \, \mathrm{d}t, \end{aligned} \tag{18}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_0 = v, \quad \langle \mathbf{d}W_t^1, \mathbf{d}W_t^2 \rangle = \rho \,\mathbf{d}t \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \delta, \gamma &gt; 0, \beta \in [0, 1]
+   </math>
+   and the function
+   <math display="inline">
+    b(v)
+   </math>
+   are subject to suitable conditions that ensure a unique solution. For instance, the SABR model falls into this class. Lions and Musiela [15] first show that if
+   <math display="inline">
+    \beta &lt; 1
+   </math>
+   , no moment explosions occur. For
+   <math display="inline">
+    \beta = 1
+   </math>
+   , the same reasoning as in the Heston model shows that
+   <math display="inline">
+    f(t, v; u) = \mathbb{E}[(S_t/s)^u]
+   </math>
+   satisfies the PDE&lt;sup&gt;f&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial}{\partial t}f = \mathcal{A}f := \frac{v^{2\gamma}}{2}\eta^2\frac{\partial^2 f}{\partial v^2} + \left[b(v) + \eta\rho uv^{\delta+\gamma}\right]\frac{\partial f}{\partial v} + \frac{v^{2\delta}}{2}\left(u^2 - u\right)f\tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with initial condition
+   <math display="inline">
+    f(0, \cdot; u) \equiv 1
+   </math>
+   . Note that the Heston model is recovered as the special case
+   <math display="inline">
+    \beta = 1, \delta = \gamma = 1/2, b(v) = -\lambda(v - \theta)
+   </math>
+   . Using the (exponentially-affine in
+   <math display="inline">
+    v^q
+   </math>
+   ) ansatz
+   <math display="inline">
+    f(t, v; u)
+   </math>
+   <math display="inline">
+    = \exp(\phi(t, u) + v^q \psi(t, u)),
+   </math>
+   with suitably chosen q,
+   <math display="inline">
+    \phi
+   </math>
+   , and
+   <math display="inline">
+    \psi
+   </math>
+   , Lions and Musiela [15] construct supersolutions of equation
+   <math display="inline">
+    (20)
+   </math>
+   , leading to lower bounds for
+   <math display="inline">
+    T_*(u)
+   </math>
+   , and then subsolutions, leading to matching upper bounds.&lt;sup&gt;g&lt;/sup&gt; We report the following results from [15]:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <math display="inline">
+      \beta &lt; 1
+     </math>
+     : no moment explosion occurs, that is,
+     <math display="inline">
+      \mathbb{E}\left(S_t^u\right) &lt; \infty \text{ for all } u \ge 1, t \ge 0;
+     </math>
+    </li>
+    <li block-type="ListItem">
+     2.
+     <math display="inline">
+      \beta = 1, \gamma + \delta &lt; 1
+     </math>
+     : as in 1. no moment explosion
+    </li>
+    <li block-type="ListItem">
+     3.
+     <math display="inline">
+      \beta = 1, \gamma + \delta = 1
+     </math>
+     : If
+     <math display="inline">
+      \gamma = \delta = \frac{1}{2}
+     </math>
+     , then this choice of parameters yields a Heston-type model, where
+    </li>
+   </ul>
+  </p>
+  <h4>
+   4
+   <b>
+    Moment Explosions
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   the mean-reversion term
+   <math display="inline">
+    -\lambda(V_t - \theta)dt
+   </math>
+   has been replaced by the more general
+   <math display="inline">
+    b(V_t) dt
+   </math>
+   . With
+   <math display="inline">
+    \lambda
+   </math>
+   replaced by
+   <math display="inline">
+    \lim_{v\to\infty} -b(v)/v
+   </math>
+   the formula (10) remains valid. If
+   <math display="inline">
+    \gamma \neq \delta
+   </math>
+   , then the model can be transformed into a Heston-like model by the change of variables
+   <math display="inline">
+    \widetilde{V}_t := V_t^{2\delta}
+   </math>
+   . The time of moment explosion
+   <math display="inline">
+    T_*(u)
+   </math>
+   can be related to the expression in equation
+   <math display="inline">
+    (10)
+   </math>
+   , by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_*(u) = \frac{1}{2\delta} T_*^{\text{Heston}}(u) \tag{21}
+   </math>
+  </p>
+  <p block-type="Text">
+   4.
+   <math display="inline">
+    \beta = 1, \gamma + \delta &gt; 1
+   </math>
+   : Let
+   <math display="inline">
+    b_{\infty} = \lim_{v \to \infty} b(v) / v^{\delta + \gamma}
+   </math>
+   , and
+   <math display="inline">
+    \rho^*(u) = -\sqrt{(u-1)/u} - b_{\infty}/(\eta u)
+   </math>
+   , then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_*(u) = \begin{cases} +\infty &amp; \rho &lt; \rho^*(u) \\ 0 &amp; \rho &gt; \rho^*(u) \end{cases} \tag{22}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The borderline case
+   <math display="inline">
+    \rho = \rho^*(u)
+   </math>
+   is delicate and we refer to
+   <math display="inline">
+    [15, page 13]
+   </math>
+   . Observe that, the condition on
+   <math display="inline">
+    \rho &lt; \rho^*(u)
+   </math>
+   is consistent with the Heston model (11), upon setting
+   <math display="inline">
+    \gamma = \delta = 1/2, b_{\infty} =
+   </math>
+   <math display="inline">
+    -\lambda
+   </math>
+   , whereas the behavior of
+   <math display="inline">
+    \rho &gt; \rho^*(u)
+   </math>
+   is different in the sense that there is no immediate moment explosion in the Heston model.
+  </p>
+  <h3>
+   <b>
+    Moment Explosions in Affine Models
+   </b>
+   with Jumps
+  </h3>
+  <p block-type="Text">
+   Recall that in the Heston model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[e^{uX_t}|X_0=x, V_0=v\right]
+   </math>
+   <br/>
+   =
+   <math>
+    e^{ux}\exp\left(\phi(t,u)+v\psi(t,u)\right)
+   </math>
+   (23)
+  </p>
+  <p block-type="TextInlineMath">
+   and it was this form of exponentially affine dependence on
+   <math display="inline">
+    x, v
+   </math>
+   that allowed an analytical treatment via Riccati equations. Assuming validity only of equation (23), for all
+   <math display="inline">
+    u \in \mathbb{C}
+   </math>
+   for which the expectation exists, and that
+   <math display="inline">
+    (X_t, V_t)_{t\geq 0}
+   </math>
+   is a (stochastically continuous, time-homogenous) Markov process on
+   <math display="inline">
+    \mathbb{R} \times \mathbb{R}_{&gt;0}
+   </math>
+   puts us in the framework of affine processes [8], which, in fact, includes the bulk of analytically tractable stochastic volatility models with and without jumps.
+  </p>
+  <p block-type="Text">
+   The infinitesimal generator
+   <math display="inline">
+    \mathcal{L}
+   </math>
+   of the process
+   <math display="inline">
+    (X_t, V_t)_{t&gt;0}
+   </math>
+   now includes integral terms corresponding to the jump effects and thus is a partial integrodifferential operator. Nevertheless, the exponentially
+  </p>
+  <p block-type="TextInlineMath">
+   affine ansatz
+   <math display="inline">
+    f(t, v; u) = \exp(\phi(t, u) + v\psi(t, u))
+   </math>
+   still reduces the Kolmogorov equation to ordinary differential equations of the type equation
+   <math display="inline">
+    (8)
+   </math>
+   . The functions
+   <math display="inline">
+    F(u, w)
+   </math>
+   and
+   <math display="inline">
+    R(u, w)
+   </math>
+   are no longer quadratic polynomials, but of Lévy-Khintchine form (see Infi
+   <b>
+    nite Divisibility
+   </b>
+   ). The time of moment explosion can be determined by calculating the blow-up time for the solutions of these
+   <i>
+    generalized
+   </i>
+   Riccati equations. This approach can be applied to a Heston model with an additional jump term:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = \left(c\left(V_t\right) - \frac{V_t}{2}\right) dt + \sqrt{V_t} dW_t^1 + dJ_t(V_t),
+   </math>
+   <br/>
+   <math display="block">
+    X_0 = 0 \tag{24}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}V_t &amp;= -\lambda(V_t - \theta)\,\mathrm{d}t + \eta\sqrt{V_t}\,\mathrm{d}W_t^2, \\ V_0 &amp;= v, \quad \langle\,\mathrm{d}W_t^1,\,\mathrm{d}W_t^2\rangle = \rho\,\mathrm{d}t \end{aligned} \tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The process
+   <math display="inline">
+    J_t(V_t)
+   </math>
+   is a pure-jump process based on a fixed Lévy measure
+   <math display="inline">
+    \nu(dx)
+   </math>
+   . More precisely, writing
+   <math display="inline">
+    \mu
+   </math>
+   for the uncompensated and
+   <math display="inline">
+    \hat{\mu}
+   </math>
+   for the compensated Poisson random measure, independent of
+   <math display="inline">
+    (W^1, W^2)
+   </math>
+   , with intensity
+   <math display="inline">
+    \nu(dx) \otimes dt
+   </math>
+   , we assume that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathrm{d}J_{t}\left(V_{t}\right) &amp;= \begin{cases} \int_{\left|x\right|&lt;1} x\tilde{\mu}\left(\mathrm{d}x,\mathrm{d}t\right) &amp; \dots \text{case (a)} \\ + \int_{\left|x\right|\geq 1} x\mu\left(\mathrm{d}x,\mathrm{d}t\right) &amp; \dots \text{case (b)} \\\ \int_{\left|x\right|&lt;1} V_{t} x\tilde{\mu}\left(\mathrm{d}x,\mathrm{d}t\right) &amp; \dots \text{case (b)} \end{cases} \end{split} \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In case (a), the process
+   <math display="inline">
+    J_t
+   </math>
+   is a genuine (purejump) Lévy process; in case (b) jumps are amplified linearly with the variance level, as proposed by Bates [4]. We focus first on case (a). Assuming
+   <math display="inline">
+    \mathbb{E}\left[e^{J_t}\right] &lt; \infty
+   </math>
+   , or equivalently
+   <math display="inline">
+    \int e^x 1_{|x|&gt;1} \nu(dx) &lt; \infty
+   </math>
+   , so that
+   <math display="inline">
+    e^{\tilde{J}_t} := e^{J_t + ct}
+   </math>
+   is a martingale for suitable drift,
+   <math display="inline">
+    c = -\log \mathbb{E}\left[e^{J_1}\right]
+   </math>
+   , we have&lt;sup&gt;h&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[e^{uX_{t}}\right] = \mathbb{E}\left[e^{uX_{t}^{\text{Heston}}}\right] \mathbb{E}\left[e^{u\tilde{J}_{t}}\right]
+   </math>
+   <math display="block">
+    = \mathbb{E}\left[e^{uX_{t}^{\text{Heston}}}\right]e^{t\tilde{\kappa}(u)} \tag{27}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    \tilde{\kappa}(u) = \int (e^{ux} - 1 - u(e^x - 1)) v(dx)
+   </math>
+   is well defined with values in
+   <math display="inline">
+    (-\infty, \infty]
+   </math>
+   and finiteness of
+   <math display="inline">
+    \tilde{\kappa}(u) &lt; \infty
+   </math>
+   is tantamount to
+   <math display="inline">
+    \int e^{ux} 1_{|x|&gt;1} \nu(dx) &lt; \infty
+   </math>
+   . Hence in case (a), we can link the time of moment explosion
+   <math display="inline">
+    T_*(u)
+   </math>
+   to
+   <math display="inline">
+    T_*^{\text{Heston}}(u)
+   </math>
+   , given by equation (10), and have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_*(u) = \begin{cases} T_*^{\text{Heston}}(u) &amp; \tilde{\kappa}(u) &lt; \infty \\ 0 &amp; \tilde{\kappa}(u) = \infty \end{cases} \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the case (b), the jump process
+   <math display="inline">
+    J_t(V_t)
+   </math>
+   depends on
+   <math display="inline">
+    V_t
+   </math>
+   and the above argument cannot be used. A direct analysis of the (generalized) Riccati equations [13] shows that in the case
+   <math display="inline">
+    \tilde{\kappa}(u) &lt; \infty
+   </math>
+   the time of moment explosion is given by formula (10), only now
+   <math display="inline">
+    \Delta(u) = \chi(u)^2 - \eta^2 (2\tilde{\kappa}(u) + u^2 - u)
+   </math>
+   , and immediate moment explosion happens in the case
+   <math display="inline">
+    \tilde{\kappa}(u) = \infty.
+   </math>
+  </p>
+  <p block-type="Text">
+   Also the model introduced by Barndorff-Nielsen and Shephard [3] (see Barndorff-Nielsen and Shephard (BNS) Models), which features simultaneous jumps in price and variance, falls into the class of affine models. It is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = \left(c - \frac{V_t}{2}\right) dt + \sqrt{V_t} dW_t + \rho dJ_{\lambda t}, \quad X_0 = 0
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    (29)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dV_t = -\lambda V_t dt + dJ_{\lambda t}, \quad V_0 = v,
+   </math>
+   (30)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    \rho &lt; 0
+   </math>
+   and
+   <math display="inline">
+    (J_t)_{t&gt;0}
+   </math>
+   is a pure-jump Lévy process with positive jumps only, and with Lévy measure
+   <math display="inline">
+    \nu(\mathrm{d}x)
+   </math>
+   . The drift parameter c is determined by the martingale condition for
+   <math display="inline">
+    (S_t)_{t\geq 0}
+   </math>
+   . The time of moment explosion can be calculated
+   <math display="inline">
+    [13]
+   </math>
+   and is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_*(u) = -\frac{1}{\lambda} \log \max \left(0, 1 - \frac{2\lambda \max(0, \kappa_+ - \rho u)}{u(u - 1)}\right)
+   </math>
+   (31)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \kappa_+ := \sup \{ u &gt; 0 : \kappa(u) &lt; \infty \}
+   </math>
+   and
+   <math display="inline">
+    \kappa(u) =
+   </math>
+   <math display="inline">
+    \int_0^\infty (e^{ux} - 1) \nu(dx) \in [0, \infty].
+   </math>
+  </p>
+  <h1>
+   Moment Explosions in Affine Diffusion
+   <b>
+    Models of Dai–Singleton Type
+   </b>
+  </h1>
+  <p block-type="Text">
+   For affine diffusion models with an arbitrary number of stochastic factors, the analysis of moment explosions through the Riccati equations has been studied by Glasserman and Kim [10]. Without structural restrictions, this approach will lead to multiple coupled Riccati differential equations, whose blowup behavior is tedious to analyze in full generality. However, for concrete specifications, this approach can still lead to explicit results. Glasserman and Kim [10] consider affine models (see Affine Models), of Dai-Singleton type [7], which are given by a diffusion process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = -A^{\top}(\Theta - Y_t) dt + \sqrt{\text{diag}(b + B^{\top}Y_t)} dW_t
+   </math>
+   (32)
+  </p>
+  <p block-type="TextInlineMath">
+   evolving on the state space
+   <math display="inline">
+    \mathbb{R}_{&gt;0}^m \times \mathbb{R}^{n-m}
+   </math>
+   . The state vector
+   <math display="inline">
+    Y
+   </math>
+   is partitioned correspondingly, into components
+   <math display="inline">
+    (Y^v, Y^d)
+   </math>
+   , called
+   <i>
+    volatility factors
+   </i>
+   and
+   <i>
+    dependent factors.
+   </i>
+   The vector
+   <math display="inline">
+    b \in \mathbb{R}^n
+   </math>
+   and matrices
+   <math display="inline">
+    A, B \in
+   </math>
+   <math display="inline">
+    \mathbb{R}^{n\times n}
+   </math>
+   are subject to the following structural constraints:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     (C1)
+     <math display="inline">
+      A = \begin{pmatrix} A^v &amp; A^c \\ 0 &amp; A^d \end{pmatrix}
+     </math>
+     , with real and strictly negative eigenvalues.
+    </li>
+    <li block-type="ListItem">
+     (C2) The off-diagonal entries of
+     <math display="inline">
+      A^v
+     </math>
+     are nonnegative.
+    </li>
+    <li block-type="ListItem">
+     (C3) The vector
+     <math display="inline">
+      \Theta = (\Theta^v, \Theta^d)
+     </math>
+     has
+     <math display="inline">
+      \Theta^d = 0, \Theta^v \ge
+     </math>
+     0, and
+     <math display="inline">
+      (-A^{\top}\Theta)^{v} \gg 0
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   (C4)
+   <math display="block">
+    B = \begin{pmatrix} I &amp; B^c \\ 0 &amp; 0 \end{pmatrix}
+   </math>
+   , and
+   <math>
+    b = (b^v, b^d)
+   </math>
+   with
+   <math>
+    b^v = 0
+   </math>
+   <br/>
+   and
+   <math>
+    b^d = (1, \dots, 1)
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Note that condition C1 assumes strict mean reversion in all components, which is a typical assumption for interest rate models. Most equity pricing models, however, will not satisfy this condition in the strict sense: The Heston model, for example, is of the form
+   <math display="inline">
+    (32)
+   </math>
+   , but has an eigenvalue of 0 in the matrix A, and thus does not satisfy C1. Nevertheless, relaxing this condition is in general not a problem, see for example [9]. Glasserman and Kim [10] show that the moments
+  </p>
+  <p block-type="Text">
+   of
+   <math display="inline">
+    Y_t
+   </math>
+   are represented by the
+   <i>
+    transform formula
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[\exp(2u \cdot Y_t)] = \exp\left(-2\int_0^t \Theta^\top A x(s) \, \mathrm{d}s
+   </math>
+   <math display="block">
+    + 2\int_0^t |x^d(s)|^2 \, \mathrm{d}s + 2x(t) \cdot Y_0\right) \tag{33}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    x(t)
+   </math>
+   is a solution to the coupled system of Riccati equations, given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{pmatrix} \dot{x}_1(t) \\ \vdots \\ \dot{x}_n(t) \end{pmatrix} = \begin{pmatrix} A^v &amp; A^c \\ 0 &amp; A^d \end{pmatrix} \cdot \begin{pmatrix} x_1(t) \\ \vdots \\ x_n(t) \end{pmatrix} \\
++ \begin{pmatrix} I &amp; B^c \\ 0 &amp; 0 \end{pmatrix} \cdot \begin{pmatrix} x_1^2(t) \\ \vdots \\ x_n^2(t) \end{pmatrix} \quad (34)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with initial condition
+   <math display="inline">
+    x(0) = u
+   </math>
+   . Equation (33) holds in the sense that if either side is well defined and finite, the other one is also finite, and equality holds. Thus, moment explosions can again be linked to the blow-up time of the ODE (34). [10] considers two concrete specifications of the above model, with one volatility factor and one dependent factor in each case. Owing to conditions
+   <math display="inline">
+    C1-C4
+   </math>
+   , the model parameters are of the form
+   <math display="inline">
+    A = \begin{pmatrix} p &amp; q \\ 0 &amp; r \end{pmatrix}
+   </math>
+   ,
+   <math display="inline">
+    B =
+   </math>
+   <math display="inline">
+    \begin{pmatrix} 1 &amp; s \\ 0 &amp; 0 \end{pmatrix}
+   </math>
+   , and
+   <math display="inline">
+    \Theta = (\theta_1, 0)
+   </math>
+   , with
+   <math display="inline">
+    p &lt; 0, q \ge 0, r &lt; 0
+   </math>
+   ,
+   <math display="inline">
+    s \ge 0
+   </math>
+   , and
+   <math display="inline">
+    \theta_1 \ge 0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    q = s = 0
+   </math>
+   : This specification decouples the system
+   <math display="inline">
+    (34)
+   </math>
+   fully, which can then easily be solved explicitly. In this case, the moment explosion time is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_*(u_1, u_2) = \begin{cases} +\infty, &amp; u_1 \le -p\\ \frac{1}{p} \log\left(1 + \frac{p}{u_1}\right), &amp; u_1 &gt; -p \end{cases}
+   </math>
+   (35)
+  </p>
+  <p block-type="Text">
+   Note that the moment explosion time does not depend on
+   <math display="inline">
+    u_2
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    s &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    q = 0
+   </math>
+   ,
+   <math display="inline">
+    r = p &lt; 0
+   </math>
+   : In this case, the system (34) decouples only partially; The equation for the second component becomes
+   <math display="inline">
+    \dot{x}_2 =
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    px_2
+   </math>
+   , with the solution
+   <math display="inline">
+    x_2(t) = u_2e^{pt}
+   </math>
+   . Substituting into the equation for the first component yields
+   <math display="inline">
+    \dot{x}_2(t) = px_1 + x_1^2 + su_2^2 e^{2pt}
+   </math>
+   , a nonautonomous Riccati equation. After the transformation
+   <math display="inline">
+    \xi(t) = e^{-pt}x(t)
+   </math>
+   it can be solved explicitly, and the moment explosion time is determined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_*(u_1, u_2) = \frac{1}{p} \log \max \left\{ 0, \frac{p}{|u_2|\sqrt{s}} \operatorname{arccot} \left( \frac{u_1}{|u_2|\sqrt{s}} + 1 \right) \right\} \tag{36}
+   </math>
+  </p>
+  <h3>
+   <b>
+    End Notes
+   </b>
+  </h3>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;On the intervals
+   <math display="inline">
+    (-\infty, 0)
+   </math>
+   and
+   <math display="inline">
+    (1, \infty)
+   </math>
+   , respectively.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;b.&lt;/sup&gt;In fact, it does not even depend on
+   <math display="inline">
+    x
+   </math>
+   , which implies the homogeneity properties in equation
+   <math display="inline">
+    (5)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;c&lt;/sup&gt;. Only
+   <math display="inline">
+    u \notin [0, 1]
+   </math>
+   needs to be discussed; in this case,
+   <math display="inline">
+    \chi(u) =
+   </math>
+   <math display="inline">
+    0 \Longrightarrow \Delta(u) &lt; 0.
+   </math>
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;d.&lt;/sup&gt;When
+   <math display="inline">
+    u=1
+   </math>
+   , equation (14) is precisely the Cox-Ingersoll-Ross bond pricing formula.
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;e.&lt;/sup&gt;For
+   <math display="inline">
+    u &lt; u^*
+   </math>
+   since equation (14) explodes as
+   <math display="inline">
+    u
+   </math>
+   ↑
+   <math display="inline">
+    u^*
+   </math>
+   , where
+   <math display="inline">
+    u^* &gt; 0
+   </math>
+   is determined by
+   <math display="inline">
+    I(u^*) \equiv \lambda +
+   </math>
+   <math display="inline">
+    \gamma(u)\coth(\gamma(u)t/2) = 0.
+   </math>
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;f&lt;/sup&gt;Care is necessary since
+   <math display="inline">
+    f
+   </math>
+   can be
+   <math display="inline">
+    +\infty
+   </math>
+   ; see [15] for a proper discussion via localization.
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;g.&lt;/sup&gt;A supersolution
+   <math display="inline">
+    \overline{f}
+   </math>
+   of equation (20) satisfies
+   <math display="inline">
+    \mathcal{A}\overline{f} - \frac{\partial \overline{f}}{\partial t} \leq
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   0, a subsolution
+   <math display="inline">
+    \underline{f}
+   </math>
+   satisfies
+   <math display="inline">
+    A\underline{f} - \frac{\partial f}{\partial t} \ge 0
+   </math>
+   .&lt;br&gt;&lt;sup&gt;h.&lt;/sup&gt;
+   <math display="inline">
+    X_t^{\text{Reston}}
+   </math>
+   denotes the usual log-price process in the classical Heston model, that is, with
+   <math display="inline">
+    J \equiv 0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;i&lt;/sup&gt;Following the notation of [7], "
+   <math display="inline">
+    \gg
+   </math>
+   " denotes strict inequality, simultaneously in all components of the vectors.
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Alfonsi, A. (2008). High Order Discretization Schemes [1] for the CIR Process: Application to Affine Term Structure and Heston Models. Preprint.
+    </li>
+    <li block-type="ListItem">
+     Andersen, L.B.G. &amp; Piterbarg, V.V. (2007). Moment [2] explosions in stochastic volatility models, Finance and Stochastics 11, 29-50.
+    </li>
+    <li block-type="ListItem">
+     Barndorff-Nielsen, O.E. &amp; Shephard, N. (2001). Non-[3] Gaussian Ornstein-Uhlenbeck-based models and some of their uses in financial economics, Journal of the Royal Statistical Society B 63, 167-241.
+    </li>
+    <li block-type="ListItem">
+     [4] Bates, D.S. (2000). Post-'87 crash fears in the S&amp;P 500 futures option market, Journal of Econometrics 94,
+     <math display="inline">
+      181 - 238.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [5] Benaim, S. &amp; Friz, P. (2008). Smile asymptotics ii: models with known moment generating functions, Journal of Applied Probability
+     <math display="inline">
+      45(1)
+     </math>
+     ,
+     <math display="inline">
+      16-32
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [6] Benaim, S., Friz, P. &amp; Lee, R. (2008). The Black Scholes implied volatility at extreme strikes, in
+     <i>
+      Frontiers in Quantitative Finance: Volatility and Credit Risk Modeling
+     </i>
+     , R. Cont, ed, Wiley, Chapter 2.
+    </li>
+    <li block-type="ListItem">
+     [7] Dai, Q. &amp; Singleton, K.J. (2000). Specification analysis of affine term structure models,
+     <i>
+      The Journal of Finance
+     </i>
+     <b>
+      55
+     </b>
+     , 1943–1977.
+    </li>
+    <li block-type="ListItem">
+     [8] Duffie, D., Filipovic, D. &amp; Schachermayer, W. (2003). Affine processes and applications in finance,
+     <i>
+      The Annals of Applied Probability
+     </i>
+     <b>
+      13
+     </b>
+     (3), 984–1053.
+    </li>
+    <li block-type="ListItem">
+     [9] Filipovic, D. &amp; Mayerhofer, E. (2009). ´
+     <i>
+      Affine Diffusion Processes: Theory and Applications
+     </i>
+     , Preprint, arXiv:0901.4003.
+    </li>
+    <li block-type="ListItem">
+     [10] Glasserman, P. &amp; Kim, K.-K. (2009). Moment explosions and stationary distributions in affine diffusion models,
+     <i>
+      Mathematical Finance
+     </i>
+     , Forthcoming, available at SSRN: http://ssrn.com/abstract=1280428.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [11] Gulisashvili, A. &amp; Stein, E. (2009). Implied volatility in the Hull-White model,
+     <i>
+      Mathematical Finance
+     </i>
+     , to appear.
+    </li>
+    <li block-type="ListItem">
+     [12] Kallsen, J. &amp; Muhle-Karbe, J. (2008).
+     <i>
+      Utility Maximization in Affine Stochastic Volatility Models
+     </i>
+     , Preprint.
+    </li>
+    <li block-type="ListItem">
+     [13] Keller-Ressel, M. (2008). Moment explosions and long-term behavior of affine stochastic volatility models, arXiv:0802.1823, forthcoming. in
+     <i>
+      Mathematical Finance
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [14] Lee, R. (2004). The moment formula for implied volatility at extreme strikes,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     (3), 469–480.
+    </li>
+    <li block-type="ListItem">
+     [15] Lions, P.-L. &amp; Musiela, M. (2007). Correlations and bounds for stochastic volatility models,
+     <i>
+      Annales de l'Institut Henri Poincar´e
+     </i>
+     <b>
+      24
+     </b>
+     , 1–16.
+    </li>
+    <li block-type="ListItem">
+     [16] Sato, K.-I. (1999).
+     <i>
+      L´evy Processes and Infinitely Divisible Distributions
+     </i>
+     , Cambridge University Press.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   PETER K. FRIZ &amp; MARTIN KELLER-RESSEL
+  </p>
+ </body>
+</html>

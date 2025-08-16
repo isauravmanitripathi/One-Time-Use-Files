@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Multiname Reduced Form
+   </b>
+   Models
+  </h1>
+  <p block-type="Text">
+   Currently, there are three established approaches for describing the default of a single credit: (i) reduced-form; (ii) structural; and (iii) hybrid. It has been an outstanding goal for many researchers to extend these approaches to baskets of several (potentially many) credits. In this article, we concentrate on the reduced-form approach and show how it works in single-name and multiname settings.
+  </p>
+  <h2>
+   <b>
+    Single-name Intensity Models
+   </b>
+  </h2>
+  <p block-type="Text">
+   For a single name, the main assumptions of the reduced-form model are as follows [8, 9, 12]). The name defaults at the first time a Cox process jumps from 0 to 1. The default intensity (hazard rate)
+   <math display="inline">
+    X(t)
+   </math>
+   of this process is governed by a mean-reverting nonnegative jump-diffusion process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX(t) = f(t, X(t)) dt + g(t, X(t)) dW(t) + J dN(t), \t X(0) = X_0 \t (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    W(t)
+   </math>
+   is a standard Wiener process,
+   <math display="inline">
+    N(t)
+   </math>
+   is a Poisson process with intensity
+   <math display="inline">
+    \lambda(t)
+   </math>
+   , and J is a positive jump distribution;
+   <math display="inline">
+    W, N, J
+   </math>
+   are mutually independent. It is clear that we have to impose the following constraints:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t, 0) \ge 0, \quad f(t, \infty) &lt; 0, \quad g(t, 0) = 0
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   plus a number of other technical conditions to ensure that
+   <math display="inline">
+    X(t)
+   </math>
+   stays nonnegative and is mean reverting.
+  </p>
+  <p block-type="Text">
+   For analytical convenience (rather than for stronger reasons), it is customary to assume that
+   <math display="inline">
+    X
+   </math>
+   is governed by the square-root stochastic differential equation (SDE):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX(t) = \kappa \left(\theta(t) - X(t)\right) dt + \sigma \sqrt{X(t)} dW(t)
+   </math>
+   <math display="block">
+    + J dN(t), \quad X(0) = X_0 \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   with exponential (or hyperexponential) jump distribution [4]. However, for practical purposes it is more convenient to consider discrete jump distributions with jump values
+   <math display="inline">
+    J_m &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    1 \le m \le M
+   </math>
+   , occurring with probabilities
+   <math display="inline">
+    \pi_m &gt; 0
+   </math>
+   ; such distributions are more flexible than parametric ones because they allow one to place jumps where they are needed
+  </p>
+  <p block-type="Text">
+   In this framework, the survival probability of the name from time 0 to time
+   <math display="inline">
+    T
+   </math>
+   has the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q(0,T) = \mathbb{E}_0 \left\{ e^{-\int_0^T X(t') dt'} \right\} = \mathbb{E}_0 \left\{ e^{-Y(T)} \right\} \quad (4)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    Y(t)
+   </math>
+   is governed by the following degenerate SDE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY(t) = X(t) dt, \quad Y(0) = 0 \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   More generally, the survival probability from time
+   <math display="inline">
+    t
+   </math>
+   to time
+   <math display="inline">
+    T
+   </math>
+   conditional on no default before time
+   <math display="inline">
+    t
+   </math>
+   has the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q(t, T | X(t), Y(t))
+   </math>
+   <math display="block">
+    = \mathbb{I}_{(\tau &gt; t)} \mathbb{E}_{t} \left\{ e^{-\int_{t}^{T} X(t') dt'} \middle| X(t), Y(t) \right\}
+   </math>
+   <math display="block">
+    = e^{Y(t)} \mathbb{I}_{(\tau &gt; t)} \mathbb{E}_{t} \left\{ e^{-Y(T)} \middle| X(t), Y(t) \right\} \quad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tau
+   </math>
+   is the default time and
+   <math display="inline">
+    \mathbb{I}_{(\tau&gt;t)}
+   </math>
+   is the corresponding indicator function. This expectation, and, more generally, expectations of the form
+   <math display="inline">
+    \mathbb{E}_{t} \left\{ e^{-\xi Y(T)} \middle| X(t), Y(t) \right\}
+   </math>
+   , can be computed by solving the following augmented partial differential equation (PDE) (see [10], Chapter 13):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}V(t, T, X, Y) + XV_Y(t, T, X, Y) = 0 \tag{7}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(T, T, X, Y) = e^{-\xi Y}
+   </math>
+   (8)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}V \equiv V_t + \kappa \left(\theta \left(t\right) - X\right) V_X + \frac{1}{2}\sigma^2 X V_{XX}
+   </math>
+   <math display="block">
+    + \lambda \sum_m \pi_m \left[V \left(X + J_m\right) - V \left(X\right)\right] \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   Specifically, the following relation holds:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t}\left\{e^{-\xi Y(T)}\middle| X\left(t\right),Y\left(t\right)\right\} = V\left(t,T,X\left(t\right),Y\left(t\right)\right) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   The corresponding solution can be written in the so-called affine form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(t, T, X, Y) = e^{a(t, T, \xi) + b(t, T, \xi)X - \xi Y}
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    a, b
+   </math>
+   are functions of time governed by the following system of ordinary differential equations (ODEs):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\frac{\mathrm{d}a\left(t,T,\xi\right)}{\mathrm{d}t} = -\kappa\theta\left(t\right)b\left(t,T,\xi\right) \\
+-\lambda\sum_{m}\pi_{m}\left[e^{J_{m}b\left(t,T,\xi\right)}-1\right] \\
+\frac{\mathrm{d}b\left(t,T,\xi\right)}{\mathrm{d}t} = \xi + \kappa b\left(t,T,\xi\right) \\
+-\frac{1}{2}\sigma^{2}b^{2}\left(t,T,\xi\right)\n\end{cases}\n
+   </math>
+   (12)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a(T, T, \xi) = 0, \quad b(T, T, \xi) = 0
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   While in the presence of discrete jumps this system cannot be solved analytically, it is very easy to solve it numerically via the standard Runge-Kutta method. The survival probability
+   <math display="inline">
+    q(0, T)
+   </math>
+   and default probability
+   <math display="inline">
+    p(0, T)
+   </math>
+   have the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q(0, T) = e^{a(0,T,1)+b(0,T,1)X_0}
+   </math>
+   <br/>
+   <math display="block">
+    p(0, T) = 1 - q(0, T) = 1 - e^{a(0,T,1)+b(0,T,1)X_0}
+   </math>
+   (14)
+  </p>
+  <p block-type="TextInlineMath">
+   Assuming for simplicity that the short interest rate
+   <math display="inline">
+    r(t)
+   </math>
+   is deterministic and the protection payments are made continuously, we can write the value
+   <math display="inline">
+    U
+   </math>
+   of a credit default swap (CDS) paying an up-front amount
+   <math display="inline">
+    \upsilon
+   </math>
+   and a coupon s in exchange for receiving
+   <math display="inline">
+    1 - R
+   </math>
+  </p>
+  <p block-type="Text">
+   (where
+   <math display="inline">
+    R
+   </math>
+   is the default recovery) on default as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U = -\upsilon + V(0, X_0) \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   Here,
+   <math display="inline">
+    V(t, X)
+   </math>
+   solves the following pricing problem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}V(t,X) - (r+X)V(t,X) = s - (1-R)X
+   </math>
+   (16)
+   <br/>
+   <math display="block">
+    V(T,X) = 0
+   </math>
+   (17)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \mathcal{L}
+   </math>
+   is given by expression (9). Using Duhamel's principle, we obtain the following expression for
+   <math display="inline">
+    V
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(t, X) = -s \int_{t}^{T} D(t, t') e^{a(t, t', 1) + b(t, t', 1)X} dt'
+   </math>
+   <math display="block">
+    - (1 - R) \int_{t}^{T} D(t, t') d[e^{a(t, t', 1) + b(t, t', 1)X}]
+   </math>
+   (18)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D\left(t,t'\right) = e^{-\int_{t}^{t'} r\left(t''\right) \mathrm{d}t''} \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   is the discount factor between two times
+   <math display="inline">
+    t
+   </math>
+   and
+   <math display="inline">
+    t'
+   </math>
+   . Accordingly,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U = -\upsilon - s \int_{0}^{T} D(0, t') (1 - p(0, t')) dt'
+   </math>
+   <br/>
+   + (1 - R)
+   <math>
+    \int_{0}^{T} D(0, t') dp(0, t')
+   </math>
+   (20)
+  </p>
+  <p block-type="Text">
+   For a given up-front payment
+   <math display="inline">
+    \nu
+   </math>
+   , we can represent the corresponding par spread
+   <math display="inline">
+    \hat{s}
+   </math>
+   (i.e., the spread that makes the value of the corresponding CDS zero) as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{s}(T) = \frac{-\upsilon + (1 - R) \int_{0}^{T} D(0, t') \, \mathrm{d}p(0, t')}{\int_{0}^{T} D(0, t') \left(1 - p(0, t')\right) \, \mathrm{d}t'}
+   </math>
+   (21)
+  </p>
+  <p block-type="Text">
+   It is clear that the numerator represents the payout in the case of default, while the denominator represents the risky
+   <math display="inline">
+    DV_{01}
+   </math>
+   . Conversely, for a given
+  </p>
+  <p block-type="Text">
+   spread we can represent the par up-front payment in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{v} = -s(T) \int_{0}^{T} D(0, t') (1 - p(0, t')) dt'
+   </math>
+   <math display="block">
+    + (1 - R) \int_{0}^{T} D(0, t') dp(0, t') \qquad (22)
+   </math>
+  </p>
+  <p block-type="Text">
+   In these formulas, we implicitly assume that the corresponding CDS is fully collateralized, so that in the event of default
+   <math display="inline">
+    1 - R
+   </math>
+   is readily available. Shortly, we will evaluate CDS spreads in the presence of the counterparty risk.
+  </p>
+  <p block-type="Text">
+   In general, there is not enough market information to calibrate the diffusion and jump parts. So, typically, they are viewed as given constants, and the mean-reversion level
+   <math display="inline">
+    \theta
+   </math>
+   (t) is calibrated in such a way that the whole par spread curve is matched.
+  </p>
+  <h2>
+   <b>
+    Multiname Intensity Models
+   </b>
+  </h2>
+  <h4>
+   The Two-name Case
+  </h4>
+  <p block-type="Text">
+   It is very tempting to extend the above framework to cover several correlated names. For example, consider two credits,
+   <math display="inline">
+    A
+   </math>
+   ,
+   <math display="inline">
+    B
+   </math>
+   and assume for simplicity that their default intensities coincide,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{A}(t) = X_{B}(t) = X(t) \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and both names have the same recovery
+   <math display="inline">
+    R_A =
+   </math>
+   <math display="inline">
+    R_B = R
+   </math>
+   . For a given maturity T, the default event correlation
+   <math display="inline">
+    \rho
+   </math>
+   is defined as follows:
+  </p>
+  <p block-type="Text">
+   It is clear that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_A(0, T) = p_B(0, T) = p(0, T)
+   </math>
+   <math display="block">
+    = 1 - e^{a(0,T,1) + b(0,T,1)X_0}
+   </math>
+   (27)
+  </p>
+  <p block-type="Text">
+   Simple calculation yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{AB}(0,T) = \mathbb{E}_{0} \left\{ e^{-\int_{0}^{T} \left( X_{A}(t') + X_{B}(t') \right) dt'} \right\}
+   </math>
+   <math display="block">
+    + p_{A}(0,T) + p_{B}(0,T) - 1
+   </math>
+   <math display="block">
+    = \mathbb{E}_{0} \left\{ e^{-2 \int_{0}^{T} X(t') dt'} \right\} + 2p(0,T) - 1
+   </math>
+   (28)
+  </p>
+  <p block-type="Text">
+   so that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho\left(0,T\right) = \frac{\mathbb{E}_{0}\left\{e^{-2\int_{0}^{T}X\left(t'\right)dt'}\right\} - \left(1-p\left(0,T\right)\right)^{2}}{p\left(0,T\right)\left(1-p\left(0,T\right)\right)}\n
+   </math>
+   <math display="block">
+    \n= \frac{e^{a(0,T,2)+b(0,T,2)X_{0}} - e^{2a(0,T,1)+2b(0,T,1)X_{0}}}{\left(1-e^{a(0,T,1)+b(0,T,1)X_{0}}\right)e^{a(0,T,1)+b(0,T,1)X_{0}}}\n
+   </math>
+   (29)
+  </p>
+  <p block-type="Text">
+   It turns out that in the absence of jumps, the corresponding event correlation is very low [12]. However, if large positive jumps are added (while overall survival probability is preserved), then correlation can increase all the way to one. Assuming that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho\left(0,T\right) = \frac{P\left(\tau_{A} \leq T, \tau_{B} \leq T\right) - P\left(\tau_{A} \leq T\right)P\left(\tau_{B} \leq T\right)}{\sqrt{P\left(\tau_{A} \leq T\right)\left(1 - P\left(\tau_{A} \leq T\right)\right)P\left(\tau_{B} \leq T\right)\left(1 - P\left(\tau_{B} \leq T\right)\right)}}\tag{24}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho\left(0,T\right) = \frac{p_{AB}\left(0,T\right) - p_{A}\left(0,T\right)p_{B}\left(0,T\right)}{\sqrt{p_{A}\left(0,T\right)\left(1 - p_{A}\left(0,T\right)\right)p_{B}\left(0,T\right)\left(1 - p_{B}\left(0,T\right)\right)}}\tag{25}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \tau_A
+   </math>
+   ,
+   <math display="inline">
+    \tau_B
+   </math>
+   are the default times, and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_A(0, T) = P(\tau_A \leq T), \quad p_B(0, T) = P(\tau_B \leq T)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{AB}(0,T) = P(\tau_A \leq T, \tau_B \leq T) \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    T = 5y, \kappa = 0.5, \sigma = 7\%
+   </math>
+   , and
+   <math display="inline">
+    J = 5.0
+   </math>
+   , we illustrate this observation in Figure 1.
+  </p>
+  <p block-type="Text">
+   In the two-name portfolio, we can define two types of CDSs which depend on the correlation: (i) the first-to-default (FTD) swap;
+   <math display="inline">
+    (ii)
+   </math>
+   the
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Correlation
+   <i>
+    ρ
+   </i>
+   and mean-reversion level
+   <i>
+    θ
+   </i>
+   =
+   <i>
+    X
+   </i>
+   <sup>
+    0
+   </sup>
+   as functions of jump intensity
+   <i>
+    λ
+   </i>
+   . Other parameters are as follows:
+   <i>
+    T
+   </i>
+   = 5
+   <i>
+    y
+   </i>
+   ,
+   <i>
+    κ
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   5,
+   <i>
+    σ
+   </i>
+   = 7%, and
+   <i>
+    J
+   </i>
+   = 5
+   <i>
+    .
+   </i>
+   0
+  </p>
+  <p block-type="Text">
+   second-to-default (STD) swap. The corresponding par spreads (assuming that there are no up-front payments) are
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    V
+   </i>
+   is the value of a fully collateralized CDS on name
+   <i>
+    B
+   </i>
+   with spread
+   <i>
+    s
+   </i>
+   , and
+   <i>
+    V
+   </i>
+   <sup>
+    +
+   </sup>
+   = max {
+   <i>
+    V ,
+   </i>
+   0},
+   <i>
+    V
+   </i>
+   <sup>
+    −
+   </sup>
+   = min {
+   <i>
+    V ,
+   </i>
+   0}. It is clear that the discount rate
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{s}_{1}(T) = \frac{(1-R)\int_{0}^{T} D(0, t') \, \mathrm{d}\left[1 - \mathrm{e}^{a(0, t', 2) + b(0, t', 2)X_{0}}\right]}{\int_{0}^{T} D(0, t') \, \mathrm{e}^{a(0, t', 2) + b(0, t', 2)X_{0}} \, \mathrm{d}t'}
+   </math>
+   (30)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{s}_{2}(T) = \frac{(1-R)\int_{0}^{T}D(0,t')\,\mathrm{d}\Big[1-\Big(2\mathrm{e}^{a(t',1)+b(t',1)X_{0}}-\mathrm{e}^{a(t',2)+b(t',2)X_{0}}\Big)\Big]}{\int_{0}^{T}D(0,t')\Big(2\mathrm{e}^{a(t',1)+b(t',1)X_{0}}-\mathrm{e}^{a(t',2)+b(t',2)X_{0}}\Big)\,\mathrm{d}t'}\tag{31}
+   </math>
+  </p>
+  <p block-type="Text">
+   It is clear that the relative values of
+   <i>
+    s
+   </i>
+   ˆ1
+   <i>
+    ,s
+   </i>
+   ˆ
+   <sup>
+    2
+   </sup>
+   very strongly depend on whether or not jumps are present in the model (see Figure 2).
+  </p>
+  <p block-type="TextInlineMath">
+   However, an even more important application of the above model is the evaluation of counterparty effects on fair CDS spreads. Let us assume that name
+   <i>
+    A
+   </i>
+   has written a CDS on reference name
+   <i>
+    B
+   </i>
+   . It is clear that the pricing problem for the value of the uncollateralized CDS
+   <i>
+    V
+   </i>
+   ˜ can be written as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}\tilde{V}(t, X) - (r + 2X)\tilde{V}(t, X)
+   </math>
+   <br/>
+   =
+   <math>
+    s - (1 - R)X - (RV_{+}(t, X) + V_{-}(t, X))X
+   </math>
+   <br/>
+   (32)
+  </p>
+  <p block-type="TextInlineMath">
+   is increased from
+   <i>
+    r
+   </i>
+   +
+   <i>
+    X
+   </i>
+   , in equation (16), to
+   <i>
+    r
+   </i>
+   + 2
+   <i>
+    X
+   </i>
+   , in equation (32), since there are two cases when the uncollateralized CDS can be terminated due to default: when the reference name
+   <i>
+    B
+   </i>
+   defaults and when the issuer
+   <i>
+    A
+   </i>
+   defaults. The terms on the right represent a continuous stream of coupon payments, the amount received if
+   <i>
+    B
+   </i>
+   defaults before
+   <i>
+    A
+   </i>
+   , and the amount received (or paid) in case when
+   <i>
+    A
+   </i>
+   defaults before
+   <i>
+    B
+   </i>
+   . Although equation (32) is no longer analytically solvable, it can be solved numerically
+   <i>
+    via
+   </i>
+   , say, an appropriate modification of the classical Crank–Nicholson method. It turns out that in the presence of jumps the value of the fair par spread goes down dramatically.
+  </p>
+  <p>
+   <img src="_page_4_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   FTD spread
+   <math display="inline">
+    \hat{s}_1
+   </math>
+   , STD spread
+   <math display="inline">
+    \hat{s}_2
+   </math>
+   , and single-name CDS spread
+   <math display="inline">
+    \hat{s}
+   </math>
+   as functions of jump intensity
+   <math display="inline">
+    \lambda
+   </math>
+   . Other parameters are the same as in Figure 1. It is clear that jumps are necessary to have
+   <math display="inline">
+    \hat{s}_1
+   </math>
+   and
+   <math display="inline">
+    \hat{s}_2
+   </math>
+   of similar magnitudes
+  </p>
+  <h4>
+   The Multiname Case
+  </h4>
+  <p block-type="Text">
+   The above modeling framework has been expanded in various directions and used as a basis for several coherent intensity-based models for credit baskets; see [2, 3, 6, 7, 11].
+  </p>
+  <p block-type="Text">
+   To start, we briefly summarize the affine jumpdiffusion model of Duffie-Garleanu [3] and Mortensen [11]. Consider a basket of
+   <math display="inline">
+    N
+   </math>
+   names with equal unit notionals and equal recoveries
+   <math display="inline">
+    R
+   </math>
+   . Let us assume that the corresponding default intensities can be decomposed as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_i(t) = \beta_i X_c(t) + \tilde{X}_i(t) \tag{33}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    X_c
+   </math>
+   is the common intensity driven by the following SDE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_c(t) = \kappa_c (\theta_c - X_c(t)) dt + \sigma_c \sqrt{X_c(t)} dW_c(t)
+   </math>
+   <math display="block">
+    + J_c dN_c(t)
+   </math>
+   <math display="block">
+    X_c(0) = X_{c0} \tag{34}
+   </math>
+  </p>
+  <p block-type="Text">
+   while
+   <math display="inline">
+    \tilde{X}_i
+   </math>
+   are idiosyncratic intensities driven by similar SDEs:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\tilde{X}_{i}(t) = \kappa_{i} \left(\theta_{i} - \tilde{X}_{i}(t)\right) dt + \sigma_{i} \sqrt{\tilde{X}_{i}(t)} dW_{i}(t)
+   </math>
+   <math display="block">
+    + \tilde{J}_{i} dN_{i}(t)
+   </math>
+   <math display="block">
+    \tilde{X}_{i}(0) = \tilde{X}_{i0} \tag{35}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    1 \leq i \leq N
+   </math>
+   . The processes
+   <math display="inline">
+    \tilde{X}_i(t)
+   </math>
+   ,
+   <math display="inline">
+    X_c(t)
+   </math>
+   are assumed to be independent. In this formulation,
+   <math display="inline">
+    \beta_i
+   </math>
+   are similar to the
+   <math display="inline">
+    \beta_i
+   </math>
+   appearing in the capital asset pricing model (CAPM). We note that
+   <math display="inline">
+    \theta_c
+   </math>
+   ,
+   <math display="inline">
+    \theta_i
+   </math>
+   are assumed to be constant. In the original Duffie-Garleanu formulation, it was assumed that all
+   <math display="inline">
+    \beta_i = 1
+   </math>
+   . However, this assumption is very restrictive since it limits the magnitude of the common factor by the size of the lowest spread
+   <math display="inline">
+    X_i
+   </math>
+   , so that, in general, high correlation cannot be achieved. It was lifted in the subsequent paper by Mortensen. Of course, to preserve analyticity, one needs to impose very rigid conditions on the coefficients of the corresponding SDEs, since, in general, the sum of two affine processes is not an affine process. Specifically, the following should hold:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \kappa_i = \kappa_c = \kappa, \quad \sigma_i = \sqrt{\beta_i} \sigma_c, \quad \lambda_i = \lambda, \quad J_{im} = \beta_i J_{cm}\n
+   </math>
+   (36)
+  </p>
+  <p block-type="Text">
+   Even when the above constraints are satisfied, there are too many free parameters in the model. A reduction in their number is achieved by imposing the following constraints:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\beta_i \theta_c}{\beta_i \theta_c + \theta_i} = \frac{\lambda_c}{\lambda_c + \lambda} = \frac{X_c(0)}{X_c(0) + X_{\text{ave}}(0)} = \omega \tag{37}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \omega
+   </math>
+   is a correlation-like parameter representing the systematic share of intensities, and
+   <math display="inline">
+    X_{\text{ave}}(0)
+   </math>
+   is the average of
+   <math display="inline">
+    X_i
+   </math>
+   (0). When
+   <math display="inline">
+    \omega
+   </math>
+   is low, the dynamics of intensities is predominantly idiosyncratic, and it is systemic when
+   <math display="inline">
+    \omega
+   </math>
+   is close to one.
+  </p>
+  <p block-type="Text">
+   Provided that equation
+   <math display="inline">
+    (36)
+   </math>
+   is true, the affine ansatz still holds, so that survival probabilities of individual names can be written in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} q_{i}\left(t,T\,|\,X_{i}\left(t\right)\right) \\ &amp;=\mathbb{I}_{\left(\tau_{i}&gt;t\right)}\mathbb{E}_{t}\left\{e^{-\int_{t}^{T}X_{i}\left(t'\right)\mathrm{d}t'}\bigg|\,X_{i}\left(t\right)\right\} \\ &amp;=\mathbb{I}_{\left(\tau_{i}&gt;t\right)}\mathbb{E}_{t}\left\{e^{-\beta_{i}\left[Y_{c}(T)-Y_{c}(t)\right]}\bigg|\,X_{c}\left(t\right)\right\} \\ &amp;\times\mathbb{E}_{t}\left\{e^{-\left[\tilde{Y}_{i}(T)-\tilde{Y}_{i}(t)\right]}\bigg|\,\tilde{X}_{i}\left(t\right)\right\} \\ &amp;=\mathbb{I}_{\left(\tau_{i}&gt;t\right)}e^{a_{c}\left(t,T,\beta_{i}\right)+b_{c}\left(t,T,\beta_{i}\right)X_{c}\left(t\right)+a_{i}\left(t,T,1\right)+b_{i}\left(t,T,1\right)\tilde{X}_{i}\left(t\right)} \end{split} \tag{38}
+   </math>
+  </p>
+  <p block-type="Text">
+   Moreover, conditioning the dynamics of spreads on the common factor
+   <math display="inline">
+    Y_c(T)
+   </math>
+   , we can write idiosyncratic survival probabilities as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_{i}\left(t,T|\tilde{X}_{i}(t),Y_{c}(T)\right)
+   </math>
+   <math display="block">
+    =\mathbb{I}_{(\tau_{i}&gt;t)}e^{-\beta_{i}[Y_{c}(T)-Y_{c}(t)]+a_{i}(t,T,1)+b_{i}(t,T,1)\tilde{X}_{i}(t)}
+   </math>
+   (39)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_i \left( 0, T | \tilde{X}_{i0}, Y_c (T) \right)
+   </math>
+   <br/>
+   =
+   <math>
+    e^{-\beta_i Y_c(T) + a_i(0, T, 1) + b_i(0, T, 1)\tilde{X}_{i0}}
+   </math>
+   (40)
+  </p>
+  <p block-type="TextInlineMath">
+   First, we perform the calibration of the model parameters to fit 1y and 5y CDS spreads for individual names. Once this calibration is performed, we can apply the usual recursion and calculate the conditional probability of loss of exactly
+   <math display="inline">
+    n
+   </math>
+   names,
+   <math display="inline">
+    0 \le n \le N
+   </math>
+   , in the corresponding portfolio, or, equivalently, of the loss of size
+   <math display="inline">
+    (1 - R) n
+   </math>
+   , which we denote as
+   <math display="inline">
+    p(0, T, n|Y)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   For a tranche of the portfolio which covers losses from the attachment point
+   <math display="inline">
+    \alpha
+   </math>
+   to the detachment point
+   <math display="inline">
+    \delta
+   </math>
+   ,
+   <math display="inline">
+    0 \le \alpha &lt; \delta \le 1
+   </math>
+   , the relative tranche loss is defined as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Lambda_{\alpha,\delta} (L) = \frac{\max \left\{ \min \left\{ L, \delta N \right\} - \alpha N, 0 \right\}}{\left( \delta - \alpha \right) N} \tag{41}
+   </math>
+  </p>
+  <p block-type="Text">
+   Its conditional expectation has the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{\alpha,\delta} (0, T | Y) = \sum_{n=0}^{N} \Lambda_{\alpha,\delta} ((1 - R) n) p (0, T, n | Y)
+   </math>
+   (42)
+  </p>
+  <p block-type="TextInlineMath">
+   In order to find the unconditional expectation, we have to integrate
+   <math display="inline">
+    p_{\alpha,\delta}(0,T|Y)
+   </math>
+   with respect to the distribution
+   <math display="inline">
+    f(Y)
+   </math>
+   of the common factor Y. The latter distribution can be found via the inverse Laplace transform of the function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi\left(\xi\right) = \int_{0}^{\infty} e^{-\xi Y} f\left(Y\right) dY = e^{a_{c}(0,T,\xi) + b_{c}(0,T,\xi)X_{c0}}
+   </math>
+   (43)
+  </p>
+  <p block-type="Text">
+   by numerically calculating the Bromwich integral in the complex plane
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(Y) = \frac{1}{2\pi i} \int_{\gamma - i\infty}^{\gamma + i\infty} e^{\xi Y} \phi(\xi) d\xi
+   </math>
+   <br/>
+   <math display="block">
+    = \frac{1}{2\pi i} \int_{\gamma - i\infty}^{\gamma + i\infty} e^{\xi Y + a_c(0, T, \xi) + b_c(0, T, \xi)X_{c0}} d\xi
+   </math>
+   <br/>
+   (44)
+  </p>
+  <p block-type="Text">
+   Both standard and more recent methods allow one to calculate the inverse transform without too much difficulty; see, for example, [1]. Finally, we calculate the unconditional expectation of the tranche loss by performing integration over the common factor:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{\alpha,\delta}\left(0,\,T\right) = \int_{0}^{\infty} p_{\alpha,\delta}\left(0,\,T\right|Y\right) f\left(Y\right) \,\mathrm{d}Y \quad (45)
+   </math>
+  </p>
+  <p block-type="Text">
+   Knowing this expectation, we can represent par spread and par up-front for the tranche in question by slightly generalizing formulas (21) and (22). In other words,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    s_{\alpha,\delta} (T) = \frac{-\upsilon + \int_{0}^{T} D(0, t') \, \mathrm{d}p_{\alpha,\delta} (0, t')}{\int_{0}^{T} D(0, t') \left(1 - p_{\alpha,\delta} (0, t')\right) \, \mathrm{d}t'} \qquad (46)
+   </math>
+   <math display="block">
+    \upsilon = -s_{\alpha,\delta} (T) \int_{0}^{T} D(0, t') \left(1 - p_{\alpha,\delta} (0, t')\right) \, \mathrm{d}t'
+   </math>
+   <math display="block">
+    + \int_{0}^{T} D(0, t') \, \mathrm{d}p_{\alpha,\delta} (0, t') \qquad (47)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Equity tranches with
+   <math display="inline">
+    \alpha = 0
+   </math>
+   ,
+   <math display="inline">
+    \delta &lt; 1
+   </math>
+   (and, in some cases, other junior tranches) are traded with a fixed spread, say
+   <math display="inline">
+    s = 5\%
+   </math>
+   , and an up-front determined by formula (47); more senior tranches are traded with zero up-front and spread determined by formula (46).
+  </p>
+  <p block-type="Text">
+   Treatment of super-senior tranches with
+   <i>
+    δ
+   </i>
+   = 1 has to be slightly modified, but we do not discuss the corresponding details for the sake of brevity.
+  </p>
+  <p block-type="Text">
+   The affine jump-diffusion model allows one to price tranches of standard on-the-run indices, such as CDX and iTraxx with reasonable (but not spectacular) accuracy, and can be further used to price bespoke tranches; however, one can argue that the presence of the stochastic idiosyncratic components makes it unnecessarily complex. In any case, the very rigid relationships between the model parameters suggest that the choice of these components is fairly limited and rather artificial.
+  </p>
+  <p block-type="Text">
+   Two models without stochastic idiosyncratic components were independently proposed in the literature. The first one, due to Chapovsky
+   <i>
+    et al.
+   </i>
+   [2], assumes purely deterministic idiosyncratic components, and represents
+   <i>
+    qi
+   </i>
+   as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_i(0, T | Y_c(T)) = e^{-\beta_i(T)Y_c(T) + \xi_i(T)} \qquad (48)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where,
+   <i>
+    Xc, Yc
+   </i>
+   are driven by SDEs (1) and (5), while
+   <i>
+    ξi (T )
+   </i>
+   is calibrated to the survival probabilities of individual names. The second one, due to Inglis–Lipton [6], models conditional survival probabilities directly, and postulates that
+   <i>
+    qi (
+   </i>
+   0
+   <i>
+    , T
+   </i>
+   |
+   <i>
+    Yc)
+   </i>
+   can be represented in the logit form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_{i}(0, T | Y_{c}(T)) = \mathbb{E}_{t} \left\{ \frac{1}{1 + e^{Y_{c}(T) + \chi_{i}(T)}} \right\} \tag{49}
+   </math>
+  </p>
+  <p block-type="Text">
+   We now describe the Inglis–Lipton model in some detail. To calibrate the model to individual CDS spreads, we need to solve the following pricing problem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\mathcal{L}}V(t, X, Y) + XV_Y(t, X, Y) = 0 \tag{50}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(T, X, Y) = \frac{1}{1 + e^{Y}} \quad (51)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\mathcal{L}}V \equiv V_t + f(t, X) V_X + \frac{1}{2}g^2(t, X) V_{XX}
+   </math>
+   <math display="block">
+    + \lambda \sum_m \pi_m \left[ V(X + J_m) - V(X) \right] (52)
+   </math>
+  </p>
+  <p block-type="Text">
+   and determine
+   <i>
+    χi (T )
+   </i>
+   from the following algebraic equation (rather than a PDE):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(0, 0, \chi_i(T)) = q_i(0, T), \quad 1 \le i \le N \quad (53)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   As before, we can easily calculate the probability of loss of exactly
+   <i>
+    n
+   </i>
+   names, 0 ≤
+   <i>
+    n
+   </i>
+   ≤
+   <i>
+    N
+   </i>
+   ,
+   <i>
+    p (
+   </i>
+   0
+   <i>
+    ,T,n
+   </i>
+   |
+   <i>
+    Y ),
+   </i>
+   conditional on
+   <i>
+    Y
+   </i>
+   . We can then solve the pricing equation (50) with the terminal condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{\alpha,\delta}\left(T,X,Y\right) = p_{\alpha,\delta}\left(0,T\right|Y) \tag{54}
+   </math>
+  </p>
+  <p block-type="Text">
+   and find the expected losses for an individual tranche at time 0:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{\alpha,\delta} (0,T) = V_{\alpha,\delta} (0, X_0, 0)
+   </math>
+   (55)
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <i>
+    pα,δ (
+   </i>
+   0
+   <i>
+    , T
+   </i>
+   |
+   <i>
+    Y )
+   </i>
+   ,
+   <i>
+    pα,δ (
+   </i>
+   0
+   <i>
+    , T )
+   </i>
+   have the same meaning as in equations (42) and (45). In order to price senior tranches rare but large jumps are necessary. Since, as a rule, we need to analyze several tranches with different attachments, detachments, and maturities at once, it is more convenient to solve the forward version of equation (50) and find
+   <i>
+    pα,δ (
+   </i>
+   0
+   <i>
+    , T )
+   </i>
+   by integration. Thus, we are in a paradoxical situation when it is more efficient to perform calibration to individual names backward and calibration to tranches forward, rather than the other way round.
+  </p>
+  <p block-type="Text">
+   When derivatives explicitly depending on the number of defaults, such as leveraged super-senior (LSS) tranches, are considered, the
+   <i>
+    X, Y
+   </i>
+   dynamics requires augmentation with the dynamics of the number of defaulted names
+   <i>
+    n
+   </i>
+   . Since we are dealing with a "pure birth" process, we can use the wellknown results due to Feller [5] and others and obtain the following expression for the one-step transition probability:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h(t, X, Y, n) = \frac{-\sum_{n'=0}^{n} \left[ p_{t}(t, T, n' | Y) + X p_{Y}(t, T, n' | Y) \right]}{p(t, T, n | Y)}
+   </math>
+   <math display="block">
+    = \frac{\sum_{n'=n+1}^{N} \left[ p_{t}(t, T, n' | Y) + X p_{Y}(t, T, n' | Y) \right]}{p(t, T, n | Y)}
+   </math>
+   (56)
+  </p>
+  <p block-type="Text">
+   The corresponding backward Kolmogoroff equation has the following form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\mathcal{L}}V(t, X, Y, n) + XV_Y(t, X, Y, n) + h(t, x, Y, n)
+   </math>
+   <math display="block">
+    \times [V(t, X, Y, n+1) - V(t, X, Y, n)] = 0 \quad (57)
+   </math>
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+      5v
+     </th>
+     <th>
+      5v
+     </th>
+     <th>
+      7ν
+     </th>
+     <th>
+      7ν
+     </th>
+     <th>
+      10v
+     </th>
+     <th>
+      10v
+     </th>
+    </tr>
+    <tr>
+     <th>
+      <math>
+       \alpha
+      </math>
+     </th>
+     <th>
+     </th>
+     <th>
+      Market
+     </th>
+     <th>
+      Model
+     </th>
+     <th>
+      Market
+     </th>
+     <th>
+      Model
+     </th>
+     <th>
+      Market
+     </th>
+     <th>
+      Model
+     </th>
+    </tr>
+    <tr>
+     <td>
+      0%
+     </td>
+     <td>
+      3%
+     </td>
+     <td>
+      21.75%
+     </td>
+     <td>
+      21.76%
+     </td>
+     <td>
+      29.00%
+     </td>
+     <td>
+      28.89%
+     </td>
+     <td>
+      36.88%
+     </td>
+     <td>
+      36.94%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3%
+     </td>
+     <td>
+      6%
+     </td>
+     <td>
+      150.5
+     </td>
+     <td>
+      149.8
+     </td>
+     <td>
+      210.5
+     </td>
+     <td>
+      215.6
+     </td>
+     <td>
+      377.0
+     </td>
+     <td>
+      379.5
+     </td>
+    </tr>
+    <tr>
+     <td>
+      6%
+     </td>
+     <td>
+      9%
+     </td>
+     <td>
+      72.5
+     </td>
+     <td>
+      73.7
+     </td>
+     <td>
+      108.0
+     </td>
+     <td>
+      100.7
+     </td>
+     <td>
+      158.0
+     </td>
+     <td>
+      159.2
+     </td>
+    </tr>
+    <tr>
+     <td>
+      9%
+     </td>
+     <td>
+      12%
+     </td>
+     <td>
+      52.5
+     </td>
+     <td>
+      51.3
+     </td>
+     <td>
+      72.0
+     </td>
+     <td>
+      72.3
+     </td>
+     <td>
+      104.5
+     </td>
+     <td>
+      98.8
+     </td>
+    </tr>
+    <tr>
+     <td>
+      12%
+     </td>
+     <td>
+      22%
+     </td>
+     <td>
+      32.5
+     </td>
+     <td>
+      32.6
+     </td>
+     <td>
+      46.0
+     </td>
+     <td>
+      47.6
+     </td>
+     <td>
+      63.5
+     </td>
+     <td>
+      64.3
+     </td>
+    </tr>
+    <tr>
+     <td>
+      0%
+     </td>
+     <td>
+      100%
+     </td>
+     <td>
+      49.0
+     </td>
+     <td>
+      46.7
+     </td>
+     <td>
+      56.0
+     </td>
+     <td>
+      53.6
+     </td>
+     <td>
+      65.0
+     </td>
+     <td>
+      63.4
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Market quotes and full dynamic model calibration results. We quote par up-front payments with 5% spread for equity tranches, and par spreads for all other tranches&lt;sup&gt;a&lt;/sup&gt;
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;a&lt;/sup&gt;adapted from [7]
+  </p>
+  <p>
+   <img src="_page_7_Figure_4.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 3
+   </b>
+   Loss distributions for 5y, 7y, 10y implied by the calibrated dynamic model (adapted from [7])
+  </p>
+  <p block-type="Text">
+   If need occurs, a multifactor extension of the above model can be considered.
+  </p>
+  <p block-type="Text">
+   Table 1 shows the quality of calibration achievable in the above framework for the on-the-run iTraxx index on November 9, 2007. We show the corresponding loss distributions in Figure 3.
+  </p>
+  <p block-type="Text">
+   This model can naturally be used to price bespoke baskets (as long as an appropriate standard basket is determined). It does not suffer from any of the drawbacks of the standard mapping approaches used for this purpose.
+  </p>
+  <p block-type="Text">
+   We note in passing that Inglis-Lipton [6] describe a static version of their model which is perfectly adequate for the purposes of pricing standard and bespoke tranches, even under the current extreme market conditions.
+  </p>
+  <h2>
+   Conclusion
+  </h2>
+  <p block-type="Text">
+   In general, multiname intensity models have many attractive features. They are naturally connected to single-name intensity models. In order to account for the observed tranche spreads in the market, they have to postulate periods of very high intensities which
+  </p>
+  <p block-type="Text">
+   gradually mean-revert to moderate and low levels. Mean-reversion of the default intensities serves as a useful mechanism which allows one to price tranches with different maturities in a coherent fashion. Of course, due to the presence of large jumps, it is very difficult to provide convincing hedging mechanisms in such models. However, since we assume that jumps are discrete, it is possible in principle to hedge a given bespoke tranche with a
+   <i>
+    portfolio
+   </i>
+   of standard tranches. This is a topic of active research and experimentation at the moment, and we hope to present the outcome of this research in the near future.
+  </p>
+  <h2>
+   Acknowledgments
+  </h2>
+  <p block-type="Text">
+   I am grateful to my colleagues S. Inglis, J. Manzano, A. Rennie, A. Sepp, and D. Shelton for illuminating discussions of the subject matter.
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="Text">
+   <math display="inline">
+    [1]
+   </math>
+   Abate, J. &amp; Whitt, W. (1995). Numerical inversion of Laplace transforms of probability distributions, ORSA Journal on Computing
+   <math display="inline">
+    7(1)
+   </math>
+   ,
+   <math display="inline">
+    36-43
+   </math>
+   .
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [2] Chapovsky, A., Rennie, A. &amp; Tavares, P. (2001). Stochastic intensity modeling for structured credit exotics,
+     <i>
+      The International Journal of Theoretical and Applied Finance
+     </i>
+     <b>
+      10
+     </b>
+     , 633–652.
+    </li>
+    <li block-type="ListItem">
+     [3] Duffie, D. &amp; Garleanu, N. (2001). Risk and valuation of collateralized debt obligations,
+     <i>
+      Financial Analysis Journal
+     </i>
+     <b>
+      57
+     </b>
+     , 41–59.
+    </li>
+    <li block-type="ListItem">
+     [4] Duffie, D., Pan, J. &amp; Singleton, K. (2000). Transform analysis and asset pricing for affine jump diffusions,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      68
+     </b>
+     , 1343–1376.
+    </li>
+    <li block-type="ListItem">
+     [5] Feller, W. (1970).
+     <i>
+      An Introduction to Probability Theory and its Applications
+     </i>
+     , Wiley, New York, Vol. 1.
+    </li>
+    <li block-type="ListItem">
+     [6] Inglis, S. &amp; Lipton, A. (2007). Factor models for credit correlation,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      20
+     </b>
+     (12), 110–115.
+    </li>
+    <li block-type="ListItem">
+     [7] Inglis, S., Lipton, A., Savescu, I. &amp; Sepp, A. (2008). Dynamic credit models,
+     <i>
+      Statistics and its Interface
+     </i>
+     <b>
+      1
+     </b>
+     , 211–227.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [8] Jarrow, R. &amp; Turnbull, S. (1995). Pricing options on financial securities subject to credit risk,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      50
+     </b>
+     , 53–85.
+    </li>
+    <li block-type="ListItem">
+     [9] Lando, D. (1998). On Cox processes and credit risky securities,
+     <i>
+      Review of Derivatives Research
+     </i>
+     <b>
+      2
+     </b>
+     , 99–120.
+    </li>
+    <li block-type="ListItem">
+     [10] Lipton, A. (2001).
+     <i>
+      Mathematical Methods for Foreign Exchange
+     </i>
+     , World Scientific, Singapore.
+    </li>
+    <li block-type="ListItem">
+     [11] Mortensen, A. (2006). Semi-analytical valuation of basket credit derivatives in intensity-based models,
+     <i>
+      The Journal of Derivatives
+     </i>
+     <b>
+      13
+     </b>
+     (4), 8–26.
+    </li>
+    <li block-type="ListItem">
+     [12] Schonbucher, P. (2003).
+     <i>
+      Credit Derivatives Pricing Models
+     </i>
+     , Wiley, Chichester.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   ALEXANDER LIPTON
+  </p>
+ </body>
+</html>

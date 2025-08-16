@@ -1,0 +1,5508 @@
+{
+  "children": [
+    {
+      "id": "/page/0/Page/190",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/0/SectionHeader/0'></content-ref><content-ref src='/page/0/Text/1'></content-ref><content-ref src='/page/0/Text/2'></content-ref><content-ref src='/page/0/SectionHeader/3'></content-ref><content-ref src='/page/0/Text/4'></content-ref><content-ref src='/page/0/Equation/5'></content-ref><content-ref src='/page/0/TextInlineMath/6'></content-ref><content-ref src='/page/0/Text/7'></content-ref><content-ref src='/page/0/Text/8'></content-ref><content-ref src='/page/0/Text/9'></content-ref><content-ref src='/page/0/Equation/10'></content-ref><content-ref src='/page/0/Text/11'></content-ref><content-ref src='/page/0/Equation/12'></content-ref><content-ref src='/page/0/TextInlineMath/13'></content-ref><content-ref src='/page/0/Equation/14'></content-ref><content-ref src='/page/0/Text/15'></content-ref><content-ref src='/page/0/TextInlineMath/16'></content-ref><content-ref src='/page/0/Equation/17'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/0/SectionHeader/0",
+          "block_type": "SectionHeader",
+          "html": "<h1><b>Simulation of Square-root </b>Processes</h1>",
+          "polygon": [
+            [
+              73.4379746835443,
+              71.423828125
+            ],
+            [
+              282.5113924050633,
+              71.423828125
+            ],
+            [
+              282.5113924050633,
+              109.252685546875
+            ],
+            [
+              73.4379746835443,
+              109.252685546875
+            ]
+          ],
+          "bbox": [
+            73.4379746835443,
+            71.423828125,
+            282.5113924050633,
+            109.252685546875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Square-root diffusion processes are popular in many branches of quantitative finance. Guaranteed to stay nonnegative, yet almost as tractable as a Gaussian process, the mean-reverting square-root process has found applications ranging from short-rate modeling of the term structure of interest rates, to credit derivative pricing, and to stochastic volatility models, just to name a few.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              129.66401590457258
+            ],
+            [
+              286.2582278481013,
+              129.66401590457258
+            ],
+            [
+              286.2582278481013,
+              219.60986328125
+            ],
+            [
+              74.1873417721519,
+              219.60986328125
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            129.66401590457258,
+            286.2582278481013,
+            219.60986328125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">A thorough description of the theoretical properties of square-root processes as well as their generalization into multifactor affine jump-diffusion processes can be found in [7] where a full literature survey is also available. While we shall rely on some of these results in the remainder of this article, our focus here is on the problem of generating Monte Carlo paths for the one-factor square-root process, first in isolation and later in combination with a lognormal asset process (as required in most stochastic volatility applications). As we shall see, such path generation can, under many relevant parameter settings, be surprisingly challenging. Indeed, despite the popularity and the longevity of the square-root diffusion—the first uses in finance date back several decades—it is only in the last few years that a satisfactory palette of Monte Carlo algorithms has been established.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              221.10337972167
+            ],
+            [
+              287.00759493670887,
+              221.10337972167
+            ],
+            [
+              287.00759493670887,
+              413.080078125
+            ],
+            [
+              74.1873417721519,
+              413.080078125
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            221.10337972167,
+            287.00759493670887,
+            413.080078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/0"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/SectionHeader/3",
+          "block_type": "SectionHeader",
+          "html": "<h1><b>Problem Definition and Key Theoretical </b>Results</h1>",
+          "polygon": [
+            [
+              74.1873417721519,
+              430.21471172962225
+            ],
+            [
+              272.76962025316453,
+              430.21471172962225
+            ],
+            [
+              272.76962025316453,
+              454.314453125
+            ],
+            [
+              74.1873417721519,
+              454.314453125
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            430.21471172962225,
+            272.76962025316453,
+            454.314453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/4",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Let <math display=\"inline\">x(t)</math> be a scalar random variable satisfying a stochastic differential equation (SDE) of the meanreverting square-root type, that is</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              462.4433399602386
+            ],
+            [
+              286.2582278481013,
+              462.4433399602386
+            ],
+            [
+              286.2582278481013,
+              496.1709741550696
+            ],
+            [
+              74.1873417721519,
+              495.9169921875
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            462.4433399602386,
+            286.2582278481013,
+            496.1709741550696
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Equation/5",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">dx(t) = \\kappa (\\theta - x(t)) dt + \\epsilon \\sqrt{x(t)} dW(t),</math><br/><math display=\"block\">x(0) = x_0</math> (1)</p>",
+          "polygon": [
+            [
+              99.076171875,
+              509.1708984375
+            ],
+            [
+              285.015625,
+              509.1708984375
+            ],
+            [
+              285.015625,
+              537.8876953125
+            ],
+            [
+              99.076171875,
+              537.8876953125
+            ]
+          ],
+          "bbox": [
+            99.076171875,
+            509.1708984375,
+            285.015625,
+            537.8876953125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/TextInlineMath/6",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">where <math display=\"inline\">\\kappa, \\theta, \\epsilon</math> are positive constants and <math display=\"inline\">W(t)</math> is a Brownian motion in a given probability measure. Applications of equation <math display=\"inline\">(1)</math> in finance include the seminal CIR (Cox-Ingersoll-Ross) model for interest rates (see Cox-Ingersoll-Ross (CIR) Model) and the Heston stochastic volatility model (see Heston Model). In practical usage of such models (e.g., to price options), we are often faced with the problem of generating Monte Carlo paths of <math display=\"inline\">x</math> on some</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              542.6401590457257
+            ],
+            [
+              286.2582278481013,
+              542.6401590457257
+            ],
+            [
+              286.2582278481013,
+              644.6552734375
+            ],
+            [
+              74.1873417721519,
+              644.6552734375
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            542.6401590457257,
+            286.2582278481013,
+            644.6552734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">discrete timeline. To devise a simulation scheme, it suffices to contemplate the more fundamental question of how to generate, for an arbitrary increment <math display=\"inline\">\\Delta</math>, a random sample of <math display=\"inline\">x(t + \\Delta)</math> given <math display=\"inline\">x(t)</math>; repeated application of the resulting one-period scheme produces a full path of <math display=\"inline\">x</math> on an arbitrary set of discrete dates.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              71.2027833001988
+            ],
+            [
+              513.3164556962025,
+              71.2027833001988
+            ],
+            [
+              513.3164556962025,
+              149.382568359375
+            ],
+            [
+              301.24556962025315,
+              149.382568359375
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            71.2027833001988,
+            513.3164556962025,
+            149.382568359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/8",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">To aid in the construction of simulation algorithms, let us quickly review a few well-known theoretical results for equation (1).</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              151.39960238568588
+            ],
+            [
+              513.3164556962025,
+              151.39960238568588
+            ],
+            [
+              513.3164556962025,
+              184.542236328125
+            ],
+            [
+              301.24556962025315,
+              184.542236328125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            151.39960238568588,
+            513.3164556962025,
+            184.542236328125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><b>Proposition 1</b> Let <math display=\"inline\">F(z; \\nu, \\lambda)</math> be the cumulative distribution function for the noncentral chi-square dis<math display=\"inline\">t</math>ribution with <math display=\"inline\">v</math> degrees of freedom and noncentrality <i>parameter</i> <math display=\"inline\">\\lambda</math><i>: </i></p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              194.87077534791254
+            ],
+            [
+              513.3164556962025,
+              194.87077534791254
+            ],
+            [
+              513.3164556962025,
+              239.49072265625
+            ],
+            [
+              301.24556962025315,
+              239.49072265625
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            194.87077534791254,
+            513.3164556962025,
+            239.49072265625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Equation/10",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">F(z;\\nu,\\lambda) = e^{-\\lambda/2} \\sum_{j=0}^{\\infty} \\frac{(\\lambda/2)^j}{j! 2^{\\nu/2+j} \\Gamma(\\nu/2+j)}</math><math display=\"block\">\\times \\int_0^z y^{\\nu/2+j-1} e^{-x/2} dy \\tag{2}</math></p>",
+          "polygon": [
+            [
+              323.75,
+              252.00830078125
+            ],
+            [
+              512.21875,
+              252.00830078125
+            ],
+            [
+              512.21875,
+              317.54150390625
+            ],
+            [
+              323.75,
+              317.54150390625
+            ]
+          ],
+          "bbox": [
+            323.75,
+            252.00830078125,
+            512.21875,
+            317.54150390625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">For the process <math display=\"inline\">(1)</math> define</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              319.2882703777336
+            ],
+            [
+              406.15696202531643,
+              319.2882703777336
+            ],
+            [
+              406.15696202531643,
+              328.95458984375
+            ],
+            [
+              301.24556962025315,
+              328.95458984375
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            319.2882703777336,
+            406.15696202531643,
+            328.95458984375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Equation/12",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">d = 4\\kappa\\theta/\\epsilon^{2};</math><br/><math display=\"block\">n(t,T) = \\frac{4\\kappa e^{-\\kappa(T-t)}}{\\epsilon^{2} \\left(1 - e^{-\\kappa(T-t)}\\right)}, \\ T &gt; t \\tag{3}</math></p>",
+          "polygon": [
+            [
+              337.3359375,
+              342.392578125
+            ],
+            [
+              511.9296875,
+              342.392578125
+            ],
+            [
+              511.9296875,
+              385.4677734375
+            ],
+            [
+              337.3359375,
+              385.4677734375
+            ]
+          ],
+          "bbox": [
+            337.3359375,
+            342.392578125,
+            511.9296875,
+            385.4677734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/TextInlineMath/13",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">Let <math display=\"inline\">T &gt; t</math>. Conditional on <math display=\"inline\">x(t)</math>, <math display=\"inline\">x(T)</math> is distributed as <math display=\"inline\">e^{-\\kappa(T-t)}/n(t,T)</math> times a noncentral chi-square distri-<math display=\"inline\">\\text{bution with } d \\text{ degrees of freedom and noncentrality}</math>parameter <math display=\"inline\">x(t)n(t, T)</math>. That is,</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              391.9900596421471
+            ],
+            [
+              513.3164556962025,
+              391.9900596421471
+            ],
+            [
+              513.3164556962025,
+              437.7470703125
+            ],
+            [
+              301.24556962025315,
+              437.7470703125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            391.9900596421471,
+            513.3164556962025,
+            437.7470703125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Equation/14",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\Pr\\left(x(T) &lt; x | x(t)\\right)</math><br/>= <math>F\\left(\\frac{x \\cdot n(t,T)}{e^{-\\kappa(T-t)}}; d, x(t) \\cdot n(t,T)\\right)</math> (4)</p>",
+          "polygon": [
+            [
+              334.15625,
+              451.0009765625
+            ],
+            [
+              511.640625,
+              451.0009765625
+            ],
+            [
+              511.640625,
+              491.4990234375
+            ],
+            [
+              334.15625,
+              491.4990234375
+            ]
+          ],
+          "bbox": [
+            334.15625,
+            451.0009765625,
+            511.640625,
+            491.4990234375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/15",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">From the known properties of the noncentral chisquare distribution, the following corollary easily follows.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              500.6679920477137
+            ],
+            [
+              513.3164556962025,
+              500.6679920477137
+            ],
+            [
+              513.3164556962025,
+              534.2060546875
+            ],
+            [
+              301.24556962025315,
+              534.2060546875
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            500.6679920477137,
+            513.3164556962025,
+            534.2060546875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/TextInlineMath/16",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\"><b>Corollary 1</b> For <math display=\"inline\">T &gt; t</math>, <math display=\"inline\">x(T)</math> has the following first two conditional moments:</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              542.6401590457257
+            ],
+            [
+              513.3164556962025,
+              542.6401590457257
+            ],
+            [
+              513.3164556962025,
+              564.3955078125
+            ],
+            [
+              301.24556962025315,
+              564.3955078125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            542.6401590457257,
+            513.3164556962025,
+            564.3955078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Equation/17",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">E(x(T)|x(t)) = \\theta + (x(t) - \\theta)e^{-\\kappa(T-t)}</math><br/>\n<math display=\"block\">Var(x(T)|x(t)) = \\frac{x(t)\\epsilon^2 e^{-\\kappa(T-t)}}{\\kappa}</math><br/>\n<math display=\"block\">\\times \\left(1 - e^{-\\kappa(T-t)}\\right) + \\frac{\\theta \\epsilon^2}{2\\kappa} \\left(1 - e^{-\\kappa(T-t)}\\right)^2 \\quad (5)</math></p>",
+          "polygon": [
+            [
+              322.3046875,
+              577.28125
+            ],
+            [
+              511.9296875,
+              577.28125
+            ],
+            [
+              511.9296875,
+              648.705078125
+            ],
+            [
+              322.3046875,
+              648.705078125
+            ]
+          ],
+          "bbox": [
+            322.3046875,
+            577.28125,
+            511.9296875,
+            648.705078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/3"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/1/Page/257",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/1/PageHeader/0'></content-ref><content-ref src='/page/1/TextInlineMath/1'></content-ref><content-ref src='/page/1/Text/2'></content-ref><content-ref src='/page/1/SectionHeader/3'></content-ref><content-ref src='/page/1/SectionHeader/4'></content-ref><content-ref src='/page/1/TextInlineMath/5'></content-ref><content-ref src='/page/1/ListGroup/257'></content-ref><content-ref src='/page/1/Text/9'></content-ref><content-ref src='/page/1/Text/10'></content-ref><content-ref src='/page/1/Text/11'></content-ref><content-ref src='/page/1/Equation/12'></content-ref><content-ref src='/page/1/TextInlineMath/13'></content-ref><content-ref src='/page/1/Text/14'></content-ref><content-ref src='/page/1/Text/15'></content-ref><content-ref src='/page/1/SectionHeader/16'></content-ref><content-ref src='/page/1/Text/17'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/1/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              77.93417721518988,
+              45.71968190854871
+            ],
+            [
+              260.77974683544306,
+              45.71968190854871
+            ],
+            [
+              260.77974683544306,
+              56.0069580078125
+            ],
+            [
+              77.93417721518988,
+              56.0069580078125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            45.71968190854871,
+            260.77974683544306,
+            56.0069580078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/1",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\"><b>Proposition 2</b> Assume that <math display=\"inline\">x(0) &gt; 0</math>. If <math display=\"inline\">2\\kappa\\theta \\ge \\epsilon^2</math>, then the process for x can never reach zero. If <math display=\"inline\">2\\kappa\\theta</math> &lt; <math display=\"inline\">\\epsilon^2</math>, the origin is accessible and strongly reflecting.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              72.70178926441352
+            ],
+            [
+              289.9296875,
+              72.70178926441352
+            ],
+            [
+              289.9296875,
+              105.294921875
+            ],
+            [
+              77.93417721518988,
+              105.294921875
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            72.70178926441352,
+            289.9296875,
+            105.294921875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The condition <math display=\"inline\">2\\kappa\\theta \\geq \\epsilon^2</math> in Proposition 2 is often known as the <i>Feller condition</i> (see [12]) for equation <math display=\"inline\">(1)</math>. When equation <math display=\"inline\">(1)</math> is used as a model for interest rates or credit spreads, market-implied model parameters are typically such that the Feller condition is satisfied. However, when equation (1) represent a stochastic variance process (as in the section Stochastic Volatility Simulation), the Feller condition rarely holds. As it turns out, a violation of the Feller condition may increase the difficulty of Monte Carlo path generation considerably.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              116.17296222664017
+            ],
+            [
+              290.36328125,
+              116.17296222664017
+            ],
+            [
+              290.36328125,
+              243.724609375
+            ],
+            [
+              77.93417721518988,
+              243.724609375
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            116.17296222664017,
+            290.36328125,
+            243.724609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/SectionHeader/3",
+          "block_type": "SectionHeader",
+          "html": "<h2><b>Simulation Schemes </b></h2>",
+          "polygon": [
+            [
+              77.93417721518988,
+              270.5705765407555
+            ],
+            [
+              177.6,
+              270.5705765407555
+            ],
+            [
+              177.6,
+              281.46142578125
+            ],
+            [
+              77.93417721518988,
+              281.46142578125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            270.5705765407555,
+            177.6,
+            281.46142578125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/SectionHeader/4",
+          "block_type": "SectionHeader",
+          "html": "<h4>Exact Simulation</h4>",
+          "polygon": [
+            [
+              77.93417721518988,
+              294.55467196819086
+            ],
+            [
+              151.46875,
+              294.55467196819086
+            ],
+            [
+              151.46875,
+              304.103515625
+            ],
+            [
+              77.93417721518988,
+              304.103515625
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            294.55467196819086,
+            151.46875,
+            304.103515625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/5",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">According to Proposition 1, the distribution of <math display=\"inline\">x(t + \\Delta)</math> given <math display=\"inline\">x(t)</math> is known in closed form. Generation of a random sample of <math display=\"inline\">x(t + \\Delta)</math> given <math display=\"inline\">x(t)</math>can therefore be done entirely bias-free by sampling from a noncentral chi-square distribution. Using the fact that a noncentral chi-square distribution can be seen as a regular chi-square distribution with Poissondistributed degrees of freedom (see <math display=\"inline\">[9]</math>), the following algorithm can be used.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              316.2902584493042
+            ],
+            [
+              290.00506329113927,
+              316.2902584493042
+            ],
+            [
+              290.00506329113927,
+              418.234375
+            ],
+            [
+              77.93417721518988,
+              418.234375
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            316.2902584493042,
+            290.00506329113927,
+            418.234375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/ListGroup/257",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup'><ul><content-ref src='/page/1/ListItem/6'></content-ref><content-ref src='/page/1/ListItem/7'></content-ref><content-ref src='/page/1/ListItem/8'></content-ref></ul></p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              429.279296875
+            ],
+            [
+              290.00506329113927,
+              429.279296875
+            ],
+            [
+              290.00506329113927,
+              486.427435387674
+            ],
+            [
+              77.93417721518988,
+              486.427435387674
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            429.279296875,
+            290.00506329113927,
+            486.427435387674
+          ],
+          "children": [
+            {
+              "id": "/page/1/ListItem/6",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">1. Draw a Poisson random variable <math display=\"inline\">N</math>, with mean <math display=\"inline\">\\frac{1}{2}x(t)n(t,t+\\Delta).</math></li>",
+              "polygon": [
+                [
+                  77.93417721518988,
+                  429.279296875
+                ],
+                [
+                  290.00506329113927,
+                  429.279296875
+                ],
+                [
+                  290.00506329113927,
+                  450.6328125
+                ],
+                [
+                  77.93417721518988,
+                  450.6328125
+                ]
+              ],
+              "bbox": [
+                77.93417721518988,
+                429.279296875,
+                290.00506329113927,
+                450.6328125
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/3",
+                "2": "/page/1/SectionHeader/3",
+                "4": "/page/1/SectionHeader/4"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/1/ListItem/7",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">2. Given <math display=\"inline\">N</math>, draw a regular chi-square random variable <math display=\"inline\">\\chi_v^2</math>, with <math display=\"inline\">v = d + 2N</math> degrees of freedom.&lt;br&gt;3. Set <math display=\"inline\">x(t + \\Delta) = \\chi_v^2 \\cdot \\exp(-\\kappa \\Delta) / n(t, t + \\Delta)</math>.</li>",
+              "polygon": [
+                [
+                  77.93417721518988,
+                  451.9502982107356
+                ],
+                [
+                  289.2556962025316,
+                  451.9502982107356
+                ],
+                [
+                  289.2556962025316,
+                  486.427435387674
+                ],
+                [
+                  77.93417721518988,
+                  486.427435387674
+                ]
+              ],
+              "bbox": [
+                77.93417721518988,
+                451.9502982107356,
+                289.2556962025316,
+                486.427435387674
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/3",
+                "2": "/page/1/SectionHeader/3",
+                "4": "/page/1/SectionHeader/4"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/1/ListItem/8",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\"></li>",
+              "polygon": [
+                [
+                  79.4921875,
+                  474.5634765625
+                ],
+                [
+                  276.34375,
+                  474.5634765625
+                ],
+                [
+                  276.34375,
+                  484.8720703125
+                ],
+                [
+                  79.4921875,
+                  484.8720703125
+                ]
+              ],
+              "bbox": [
+                79.4921875,
+                474.5634765625,
+                276.34375,
+                484.8720703125
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/3",
+                "2": "/page/1/SectionHeader/3",
+                "4": "/page/1/SectionHeader/4"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/1/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Steps 1 and 3 of this algorithm are straightforward, but Step 2 is somewhat involved. In practice, generation of chi-squared variables would most often use one of several available techniques for the gamma distribution, a special case of which is the chi-square distribution. A standard algorithm for the generation of gamma variates of acceptance-rejection type is the Cheng-Feast algorithm [5], and a number of others are listed in [9], though direct generation by the aid of the inverse cumulative distribution function [6] is also a practically viable option.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              496.1709741550696
+            ],
+            [
+              290.00506329113927,
+              496.1709741550696
+            ],
+            [
+              290.00506329113927,
+              620.5884691848906
+            ],
+            [
+              77.93417721518988,
+              620.5884691848906
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            496.1709741550696,
+            290.00506329113927,
+            620.5884691848906
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/10",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\" class=\"has-continuation\">We should note that if <math display=\"inline\">d &gt; 1</math>, it may be numerically advantageous to use a different algorithm, based</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              623.5864811133201
+            ],
+            [
+              290.00506329113927,
+              623.5864811133201
+            ],
+            [
+              290.00506329113927,
+              643.9189453125
+            ],
+            [
+              77.93417721518988,
+              643.9189453125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            623.5864811133201,
+            290.00506329113927,
+            643.9189453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">on the convenient relation</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              71.95228628230616
+            ],
+            [
+              410.653164556962,
+              71.95228628230616
+            ],
+            [
+              410.653164556962,
+              81.7784423828125
+            ],
+            [
+              304.99240506329113,
+              81.7784423828125
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            71.95228628230616,
+            410.653164556962,
+            81.7784423828125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Equation/12",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\chi_d^{\\prime 2}(\\lambda) \\stackrel{d}{=} \\left(Z + \\sqrt{\\lambda}\\right)^2 + \\chi_{d-1}^2 \\ , \\quad d &gt; 1 \\quad (6)</math></p>",
+          "polygon": [
+            [
+              333.0,
+              88.6815185546875
+            ],
+            [
+              515.6875,
+              88.6815185546875
+            ],
+            [
+              515.6875,
+              112.013916015625
+            ],
+            [
+              333.0,
+              112.013916015625
+            ]
+          ],
+          "bbox": [
+            333.0,
+            88.6815185546875,
+            515.6875,
+            112.013916015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/TextInlineMath/13",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\stackrel{d}{=}</math> denotes equality in distribution, <math display=\"inline\">\\chi_d^2(\\lambda)</math> is a noncentral chi-square variable with <math display=\"inline\">d</math> degrees of freedom and noncentrality parameter <math display=\"inline\">\\lambda</math>, and Z is an ordinary <math display=\"inline\">\\mathcal{N}(0, 1)</math> Gaussian variable. We trust that the reader can complete the details on application of equation (6) in a simulation algorithm for <math display=\"inline\">x(t + \\Delta)</math>.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              117.67196819085487
+            ],
+            [
+              517.0632911392405,
+              118.42147117296223
+            ],
+            [
+              517.0632911392405,
+              187.3955078125
+            ],
+            [
+              304.99240506329113,
+              187.3955078125
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            117.67196819085487,
+            517.0632911392405,
+            187.3955078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/14",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">One might think that the existence of an exact simulation scheme for <math display=\"inline\">x(t + \\Delta)</math> would settle once and for all the question of how to generate paths of the square-root process. In practice, however, several complications may arise with the application of the algorithm mentioned earlier. Indeed, the scheme is quite complex compared with many standard SDE discretization schemes and may not fit smoothly into existing software architecture for SDE simulation routines. Also, computational speed may be an issue, and the application of acceptance-rejection sampling will potentially cause a \"scrambling effect\" when process parameters are perturbed, resulting in poor sensitivity computations. While caching techniques can be designed to overcome some of these issues. storage, look-up, and interpolation of such a cache pose their own challenges. Further, the basic scheme above provides no explicit link between the paths of the Brownian motion <math display=\"inline\">W(t)</math> and that of <math display=\"inline\">x(t)</math>, complicating applications in which, say, multiple correlated Brownian motions need to be advanced through time.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              189.62425447316105
+            ],
+            [
+              517.1328125,
+              189.62425447316105
+            ],
+            [
+              517.1328125,
+              428.54296875
+            ],
+            [
+              304.99240506329113,
+              428.54296875
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            189.62425447316105,
+            517.1328125,
+            428.54296875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/15",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">In light of the discussion earlier, it seems reasonable to also investigate the application of simpler simulation algorithms. These will typically exhibit a bias for finite values of <math display=\"inline\">\\Delta</math>, but convenience and speed may more than compensate for this, especially if the bias is small and easy to control by reduction of stepsize. We proceed to discuss several classes of such schemes.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              429.4652087475149
+            ],
+            [
+              517.0632911392405,
+              429.4652087475149
+            ],
+            [
+              517.0632911392405,
+              518.7431640625
+            ],
+            [
+              304.99240506329113,
+              518.7431640625
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            429.4652087475149,
+            517.0632911392405,
+            518.7431640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/3",
+            "4": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/SectionHeader/16",
+          "block_type": "SectionHeader",
+          "html": "<h2>Biased Taylor-type Schemes</h2>",
+          "polygon": [
+            [
+              305.7417721518987,
+              535.1451292246521
+            ],
+            [
+              423.39240506329116,
+              535.1451292246521
+            ],
+            [
+              423.39240506329116,
+              545.2509765625
+            ],
+            [
+              305.7417721518987,
+              545.2509765625
+            ]
+          ],
+          "bbox": [
+            305.7417721518987,
+            535.1451292246521,
+            423.39240506329116,
+            545.2509765625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/17",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><b>Euler Schemes.</b> Going forward, let us use <math display=\"inline\">\\hat{x}</math> to denote a discrete-time (biased) approximation to <math display=\"inline\">x</math>. A classical approach to constructing simulation schemes for SDEs involves the application of Itô-Taylor expansions, suitably truncated. See <b>Monte Carlo </b>Simulation for Stochastic Differential Equations, Stochastic Differential Equations: Scenario Simulation, and Stochastic Taylor Expansions for details.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              554.6322067594433
+            ],
+            [
+              517.0632911392405,
+              554.6322067594433
+            ],
+            [
+              517.0632911392405,
+              644.287109375
+            ],
+            [
+              304.99240506329113,
+              644.287109375
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            554.6322067594433,
+            517.0632911392405,
+            644.287109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/3",
+        "2": "/page/1/SectionHeader/16"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/2/Page/234",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/2/PageHeader/0'></content-ref><content-ref src='/page/2/Text/1'></content-ref><content-ref src='/page/2/Equation/2'></content-ref><content-ref src='/page/2/TextInlineMath/3'></content-ref><content-ref src='/page/2/Equation/4'></content-ref><content-ref src='/page/2/TextInlineMath/5'></content-ref><content-ref src='/page/2/Text/6'></content-ref><content-ref src='/page/2/Equation/7'></content-ref><content-ref src='/page/2/TextInlineMath/8'></content-ref><content-ref src='/page/2/Equation/9'></content-ref><content-ref src='/page/2/TextInlineMath/10'></content-ref><content-ref src='/page/2/TextInlineMath/11'></content-ref><content-ref src='/page/2/SectionHeader/12'></content-ref><content-ref src='/page/2/TextInlineMath/13'></content-ref><content-ref src='/page/2/Equation/14'></content-ref><content-ref src='/page/2/TextInlineMath/15'></content-ref><content-ref src='/page/2/Equation/16'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/2/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              330.47088607594935,
+              45.71968190854871
+            ],
+            [
+              513.3164556962025,
+              45.71968190854871
+            ],
+            [
+              513.3164556962025,
+              55.8228759765625
+            ],
+            [
+              330.47088607594935,
+              55.8228759765625
+            ]
+          ],
+          "bbox": [
+            330.47088607594935,
+            45.71968190854871,
+            513.3164556962025,
+            55.8228759765625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The simplest of such schemes is the <i>Euler scheme</i>, a direct application of which would write</p>",
+          "polygon": [
+            [
+              74.9367088607595,
+              70.45328031809146
+            ],
+            [
+              286.2582278481013,
+              71.95228628230616
+            ],
+            [
+              286.2582278481013,
+              92.59326171875
+            ],
+            [
+              74.9367088607595,
+              92.59326171875
+            ]
+          ],
+          "bbox": [
+            74.9367088607595,
+            70.45328031809146,
+            286.2582278481013,
+            92.59326171875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/2",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{x}(t + \\Delta) = \\hat{x}(t) + \\kappa(\\theta - \\hat{x}(t))\\Delta \\n+ \\epsilon \\sqrt{\\hat{x}(t)} Z\\sqrt{\\Delta} \\n</math>\n(7)</p>",
+          "polygon": [
+            [
+              113.15443037974684,
+              106.58349609375
+            ],
+            [
+              284.1484375,
+              106.58349609375
+            ],
+            [
+              284.1484375,
+              136.03662109375
+            ],
+            [
+              113.15443037974684,
+              136.03662109375
+            ]
+          ],
+          "bbox": [
+            113.15443037974684,
+            106.58349609375,
+            284.1484375,
+            136.03662109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/3",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where Z is <math display=\"inline\">\\mathcal{N}(0, 1)</math> Gaussian variable. One immediate (and fatal) problem with equation <math display=\"inline\">(7)</math> is that the discrete process for <math display=\"inline\">x</math> can become negative with nonzero probability, making computation of <math display=\"inline\">\\sqrt{\\hat{x}(t)}</math>impossible and causing the time-stepping scheme to fail. To get around this problem, several remedies have been proposed in the literature, starting with the suggestion in [13] that one simply replaces <math display=\"inline\">\\sqrt{\\hat{x}(t)}</math> in equation (7) with <math display=\"inline\">\\sqrt{\\left|\\hat{x}(t)\\right|}</math>. Lord <i>et al.</i>, [14] review a number of such \"fixes\", concluding that the following works best:</p>",
+          "polygon": [
+            [
+              73.4379746835443,
+              143.90457256461232
+            ],
+            [
+              286.60546875,
+              143.90457256461232
+            ],
+            [
+              286.60546875,
+              276.123046875
+            ],
+            [
+              73.4379746835443,
+              276.123046875
+            ]
+          ],
+          "bbox": [
+            73.4379746835443,
+            143.90457256461232,
+            286.60546875,
+            276.123046875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/4",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{x}(t+\\Delta) = \\hat{x}(t) + \\kappa(\\theta - \\hat{x}(t)^{+})\\Delta</math><math display=\"block\">+ \\epsilon \\sqrt{\\hat{x}(t)^{+}} Z\\sqrt{\\Delta} \\tag{8}</math></p>",
+          "polygon": [
+            [
+              109.98828125,
+              289.92919921875
+            ],
+            [
+              286.89453125,
+              289.92919921875
+            ],
+            [
+              286.89453125,
+              319.01416015625
+            ],
+            [
+              109.98828125,
+              319.01416015625
+            ]
+          ],
+          "bbox": [
+            109.98828125,
+            289.92919921875,
+            286.89453125,
+            319.01416015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/5",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where we use the notation <math display=\"inline\">x^+ = \\max(x, 0)</math>. In [14] this scheme is denoted \"full truncation\"; its main characteristic is that the process for <math display=\"inline\">\\hat{x}</math> is allowed to go below zero, at which point the process for <math display=\"inline\">x</math> becomes deterministic with an upward drift of <math display=\"inline\">\\kappa\\theta</math>.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              325.28429423459244
+            ],
+            [
+              286.2582278481013,
+              325.28429423459244
+            ],
+            [
+              286.2582278481013,
+              382.5224609375
+            ],
+            [
+              74.1873417721519,
+              382.5224609375
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            325.28429423459244,
+            286.2582278481013,
+            382.5224609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/6",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><b>Higher-order Schemes.</b> The scheme (8) has firstorder weak convergence, in the sense that expectations of functions of <math display=\"inline\">x</math> will approach their true values as <math display=\"inline\">\\mathcal{O}(\\Delta)</math>. To improve convergence, it is tempting to apply a <i>Milstein scheme</i>, the most basic of which is</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              397.23658051689864
+            ],
+            [
+              286.2582278481013,
+              397.23658051689864
+            ],
+            [
+              286.2582278481013,
+              452.4736328125
+            ],
+            [
+              74.1873417721519,
+              452.4736328125
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            397.23658051689864,
+            286.2582278481013,
+            452.4736328125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/7",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{x}(t+\\Delta) = \\hat{x}(t) + \\kappa(\\theta - \\hat{x}(t))\\Delta</math><math display=\"block\">+ \\epsilon \\sqrt{\\hat{x}(t)} Z\\sqrt{\\Delta} + \\frac{1}{4} \\epsilon^2 \\Delta \\left(Z^2 - 1\\right) \\tag{9}</math></p>",
+          "polygon": [
+            [
+              105.796875,
+              467.568359375
+            ],
+            [
+              285.3046875,
+              467.568359375
+            ],
+            [
+              285.3046875,
+              504.384765625
+            ],
+            [
+              105.796875,
+              504.384765625
+            ]
+          ],
+          "bbox": [
+            105.796875,
+            467.568359375,
+            285.3046875,
+            504.384765625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/8",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">As was the case for equation <math display=\"inline\">(7)</math>, this scheme has a positive probability of generating negative values of <math display=\"inline\">\\hat{x}</math> and therefore cannot be used without suitable modifications. Kahl and Jäckel [11] list several other Milstein-type schemes, some of which allow for a certain degree of control over the likelihood of generating negative values. One particularly appealing variation is the <i>implicit Milstein scheme</i>, defined as</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              510.41153081510936
+            ],
+            [
+              286.2582278481013,
+              510.41153081510936
+            ],
+            [
+              286.2582278481013,
+              600.107421875
+            ],
+            [
+              74.1873417721519,
+              600.107421875
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            510.41153081510936,
+            286.2582278481013,
+            600.107421875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/9",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{x}(t+\\Delta) = (1+\\kappa\\Delta)^{-1} \\cdot \\left(\\hat{x}(t) + \\kappa\\theta\\Delta\\right)</math><math display=\"block\">+\\epsilon\\sqrt{\\hat{x}(t)} Z\\sqrt{\\Delta} + \\frac{1}{4}\\epsilon^2\\Delta(Z^2 - 1)\\right) \\tag{10}</math></p>",
+          "polygon": [
+            [
+              76.529296875,
+              613.7294921875
+            ],
+            [
+              286.2582278481013,
+              613.7294921875
+            ],
+            [
+              286.2582278481013,
+              646.1279296875
+            ],
+            [
+              76.529296875,
+              646.1279296875
+            ]
+          ],
+          "bbox": [
+            76.529296875,
+            613.7294921875,
+            286.2582278481013,
+            646.1279296875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/10",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">It is easy to verify that this discretization scheme results in strictly positive paths for the <math display=\"inline\">x</math> process if <math display=\"inline\">4\\kappa\\theta &gt; \\epsilon^2</math>. For cases where this bound does not hold, it will be necessary to modify equation (10) to prevent problems with the computation of <math display=\"inline\">\\sqrt{\\hat{x}(t)}</math>. For instance, whenever <math display=\"inline\">\\hat{x}(t)</math> drops below zero, we could use equation <math display=\"inline\">(8)</math> rather than equation <math display=\"inline\">(10)</math>.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              71.2027833001988
+            ],
+            [
+              513.3164556962025,
+              71.2027833001988
+            ],
+            [
+              513.3164556962025,
+              150.487060546875
+            ],
+            [
+              301.24556962025315,
+              150.487060546875
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            71.2027833001988,
+            513.3164556962025,
+            150.487060546875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/11",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">Under certain sufficient regularity conditions, Milstein schemes have second-order weak convergence. Owing to the presence of a square root in equation (1), these sufficient conditions are violated here, and one should not expect equation <math display=\"inline\">(10)</math> to have second-order convergence for all parameter values, even the ones that satisfy <math display=\"inline\">4\\kappa\\theta &gt; \\epsilon^2</math>. Numerical tests of Milstein schemes for square-root processes can be found in [9] and [11]; overall these schemes perform fairly well in certain parameter regimes, but are typically less robust than the Euler scheme.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              152.8986083499006
+            ],
+            [
+              513.3164556962025,
+              152.8986083499006
+            ],
+            [
+              513.3164556962025,
+              278.7001953125
+            ],
+            [
+              301.24556962025315,
+              278.7001953125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            152.8986083499006,
+            513.3164556962025,
+            278.7001953125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/1/SectionHeader/16"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/SectionHeader/12",
+          "block_type": "SectionHeader",
+          "html": "<h2>Moment-matching Schemes</h2>",
+          "polygon": [
+            [
+              301.24556962025315,
+              299.8011928429423
+            ],
+            [
+              416.6481012658228,
+              299.8011928429423
+            ],
+            [
+              416.6481012658228,
+              309.994140625
+            ],
+            [
+              301.24556962025315,
+              309.994140625
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            299.8011928429423,
+            416.6481012658228,
+            309.994140625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/13",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">Lognormal Approximation. The simulation schemes introduced in the section Biased Taylor-type Schemes all suffer to various degrees from an inability to keep the path of <math display=\"inline\">x</math> nonnegative throughout. One, rather obvious, way around this is to draw <math display=\"inline\">\\hat{x}(t + \\Delta)</math>from a user-selected probability distribution that (i) is reasonably close to the true distribution of <math display=\"inline\">x(t + \\Delta)</math>and (ii) is certain not to produce negative values. To ensure that (i) is satisfied, it is natural to select the parameters of the chosen distribution to match one or more of the true moments for <math display=\"inline\">x(t + \\Delta)</math>, conditional upon <math display=\"inline\">x(t) = \\hat{x}(t)</math>. For instance, if we assume that the true distribution of <math display=\"inline\">x(t + \\Delta)</math> is well approximated by a lognormal distribution with parameters <math display=\"inline\">\\mu</math> and <math display=\"inline\">\\sigma</math>, we write (see <math display=\"inline\">[2]</math>)</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              321.53677932405566
+            ],
+            [
+              513.3164556962025,
+              321.53677932405566
+            ],
+            [
+              513.3164556962025,
+              491.8671875
+            ],
+            [
+              301.24556962025315,
+              491.8671875
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            321.53677932405566,
+            513.3164556962025,
+            491.8671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/14",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{x}(t+\\Delta) = e^{\\mu+\\sigma Z} \\tag{11}</math></p>",
+          "polygon": [
+            [
+              369.421875,
+              504.0166015625
+            ],
+            [
+              512.21875,
+              504.0166015625
+            ],
+            [
+              512.21875,
+              514.3251953125
+            ],
+            [
+              369.421875,
+              514.3251953125
+            ]
+          ],
+          "bbox": [
+            369.421875,
+            504.0166015625,
+            512.21875,
+            514.3251953125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/TextInlineMath/15",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where Z is a Gaussian random variable, and <math display=\"inline\">\\mu</math>, <math display=\"inline\">\\sigma</math> are chosen to satisfy</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              527.6500994035786
+            ],
+            [
+              513.3164556962025,
+              527.6500994035786
+            ],
+            [
+              513.3164556962025,
+              548.9326171875
+            ],
+            [
+              301.24556962025315,
+              548.9326171875
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            527.6500994035786,
+            513.3164556962025,
+            548.9326171875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Equation/16",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">e^{\\mu + \\frac{1}{2}\\sigma^2} = E\\left(x(t+\\Delta)|x(t) = \\hat{x}(t)\\right)</math>\n<math display=\"block\">e^{2\\left(\\mu + \\frac{1}{2}\\sigma^2\\right)}\\left(e^{\\sigma^2} - 1\\right) = \\text{Var}\\left(x(t+\\Delta)|x(t) = \\hat{x}(t)\\right)</math>\n(13)</p>",
+          "polygon": [
+            [
+              307.24050632911394,
+              568.0771484375
+            ],
+            [
+              512.5670886075949,
+              568.0771484375
+            ],
+            [
+              512.5670886075949,
+              643.0735586481113
+            ],
+            [
+              307.24050632911394,
+              643.0735586481113
+            ]
+          ],
+          "bbox": [
+            307.24050632911394,
+            568.0771484375,
+            512.5670886075949,
+            643.0735586481113
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/3",
+        "2": "/page/2/SectionHeader/12"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/3/Page/637",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/3/PageHeader/0'></content-ref><content-ref src='/page/3/Text/1'></content-ref><content-ref src='/page/3/TextInlineMath/2'></content-ref><content-ref src='/page/3/TextInlineMath/3'></content-ref><content-ref src='/page/3/Equation/4'></content-ref><content-ref src='/page/3/Text/5'></content-ref><content-ref src='/page/3/FigureGroup/637'></content-ref><content-ref src='/page/3/TextInlineMath/8'></content-ref><content-ref src='/page/3/Text/9'></content-ref><content-ref src='/page/3/Equation/10'></content-ref><content-ref src='/page/3/TextInlineMath/11'></content-ref><content-ref src='/page/3/Equation/12'></content-ref><content-ref src='/page/3/TextInlineMath/13'></content-ref><content-ref src='/page/3/Text/14'></content-ref><content-ref src='/page/3/Equation/15'></content-ref><content-ref src='/page/3/Text/16'></content-ref><content-ref src='/page/3/Text/17'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/3/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              78.3359375,
+              45.49365234375
+            ],
+            [
+              260.15625,
+              45.49365234375
+            ],
+            [
+              260.15625,
+              56.70166015625
+            ],
+            [
+              78.3359375,
+              56.70166015625
+            ]
+          ],
+          "bbox": [
+            78.3359375,
+            45.49365234375,
+            260.15625,
+            56.70166015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The results in Corollary 1 can be used to compute the right-hand sides of this system of equations, which can then easily be solved analytically for <i>µ</i> and <i>σ</i>.</p>",
+          "polygon": [
+            [
+              78.3359375,
+              71.88751220703125
+            ],
+            [
+              288.95855712890625,
+              71.88751220703125
+            ],
+            [
+              288.95855712890625,
+              104.5213623046875
+            ],
+            [
+              78.3359375,
+              104.5213623046875
+            ]
+          ],
+          "bbox": [
+            78.3359375,
+            71.88751220703125,
+            288.95855712890625,
+            104.5213623046875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/TextInlineMath/2",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">As is the case for many other schemes, equation (11) works best if the Feller condition is satisfied. If not, the lower tail of the lognormal distribution is often too thin to capture the true distribution shape of <i>x(t</i> ˆ + <i>)</i>—see Figure 1.</p>",
+          "polygon": [
+            [
+              78.697265625,
+              106.267822265625
+            ],
+            [
+              289.0032043457031,
+              106.267822265625
+            ],
+            [
+              289.0032043457031,
+              161.882080078125
+            ],
+            [
+              78.697265625,
+              161.882080078125
+            ]
+          ],
+          "bbox": [
+            78.697265625,
+            106.267822265625,
+            289.0032043457031,
+            161.882080078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/TextInlineMath/3",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\"><b>Truncated Gaussian.</b> Figure 1 demonstrates that the density of <i>x(t</i> ˆ + <i>)</i> may sometimes be nearly singular at the origin. To accommodate this, one could contemplate inserting an actual singularity through outright truncation at the origin of a distribution that may otherwise go negative. Using a Gaussian distribution for this, say, one could write</p>",
+          "polygon": [
+            [
+              78.986328125,
+              179.1904296875
+            ],
+            [
+              289.3515625,
+              179.1904296875
+            ],
+            [
+              289.3515625,
+              257.883544921875
+            ],
+            [
+              78.986328125,
+              257.883544921875
+            ]
+          ],
+          "bbox": [
+            78.986328125,
+            179.1904296875,
+            289.3515625,
+            257.883544921875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Equation/4",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{x}(t+\\Delta) = (\\mu + \\sigma Z)^{+} \\tag{14}</math></p>",
+          "polygon": [
+            [
+              136.798828125,
+              267.1343994140625
+            ],
+            [
+              288.92340087890625,
+              267.1343994140625
+            ],
+            [
+              288.92340087890625,
+              279.1315002441406
+            ],
+            [
+              136.798828125,
+              279.1315002441406
+            ]
+          ],
+          "bbox": [
+            136.798828125,
+            267.1343994140625,
+            288.92340087890625,
+            279.1315002441406
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/5",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">where <i>µ</i> and <i>σ</i> are determined by moment-matching, along the same lines as in the section Lognormal Approximation. While this moment-matching exercise cannot be done in an entirely analytical fashion, a number of caching tricks outlined in [3] can be used to make the determination of <i>µ</i> and <i>σ</i> essentially instantaneous. As documented in [3], the scheme (14) is robust and generally has attractive convergence properties when applied to standard option pricing problems. Being fundamentally Gaussian when <i>x(t)</i> ˆ is far from the origin, equation (14) is somewhat similar to the Euler scheme (8), although the performance</p>",
+          "polygon": [
+            [
+              79.275390625,
+              290.59527587890625
+            ],
+            [
+              289.640625,
+              290.59527587890625
+            ],
+            [
+              289.640625,
+              426.60272216796875
+            ],
+            [
+              79.275390625,
+              426.60272216796875
+            ]
+          ],
+          "bbox": [
+            79.275390625,
+            290.59527587890625,
+            289.640625,
+            426.60272216796875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/FigureGroup/637",
+          "block_type": "FigureGroup",
+          "html": "<content-ref src='/page/3/Figure/6'></content-ref><content-ref src='/page/3/Caption/7'></content-ref>",
+          "polygon": [
+            [
+              75.68740234375,
+              444.48447265625
+            ],
+            [
+              291.34970703125,
+              444.48447265625
+            ],
+            [
+              291.34970703125,
+              644.4794006347656
+            ],
+            [
+              75.68740234375,
+              644.4794006347656
+            ]
+          ],
+          "bbox": [
+            75.68740234375,
+            444.48447265625,
+            291.34970703125,
+            644.4794006347656
+          ],
+          "children": [
+            {
+              "id": "/page/3/Figure/6",
+              "block_type": "Figure",
+              "html": "",
+              "polygon": [
+                [
+                  75.68740234375,
+                  444.48447265625
+                ],
+                [
+                  291.34970703125,
+                  444.48447265625
+                ],
+                [
+                  291.34970703125,
+                  579.74794921875
+                ],
+                [
+                  75.68740234375,
+                  579.74794921875
+                ]
+              ],
+              "bbox": [
+                75.68740234375,
+                444.48447265625,
+                291.34970703125,
+                579.74794921875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/3",
+                "2": "/page/2/SectionHeader/12"
+              },
+              "images": {
+                "/page/3/Figure/6": "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"
+              }
+            },
+            {
+              "id": "/page/3/Caption/7",
+              "block_type": "Caption",
+              "html": "<p><b>Figure 1</b> Cumulative distribution function for <i>x(T )</i> given <i>x(</i>0<i>)</i>, with <i>T</i> = 0<i>.</i>1. Model parameters were <i>x(</i>0<i>)</i> = <i>θ</i> = 4%, <i>κ</i> = 50%, and  = 100%. The lognormal and Gaussian distributions in the graph were parameterized by matching mean and variances to the exact distribution of <i>x(T )</i></p>",
+              "polygon": [
+                [
+                  78.697265625,
+                  585.9194183349609
+                ],
+                [
+                  290.21875,
+                  585.9194183349609
+                ],
+                [
+                  290.21875,
+                  644.4794006347656
+                ],
+                [
+                  78.697265625,
+                  644.4794006347656
+                ]
+              ],
+              "bbox": [
+                78.697265625,
+                585.9194183349609,
+                290.21875,
+                644.4794006347656
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/3",
+                "2": "/page/2/SectionHeader/12"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/3/TextInlineMath/8",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">of equation (14) is typically better than equation (8). Unlike equation (8), the truncated Gaussian scheme (14) also ensures, by construction, that negative values of <i>x(t</i> ˆ + <i>)</i> cannot be attained.</p>",
+          "polygon": [
+            [
+              306.40625,
+              71.88751220703125
+            ],
+            [
+              516.0874633789062,
+              71.88751220703125
+            ],
+            [
+              516.0874633789062,
+              115.879638671875
+            ],
+            [
+              306.40625,
+              115.879638671875
+            ]
+          ],
+          "bbox": [
+            306.40625,
+            71.88751220703125,
+            516.0874633789062,
+            115.879638671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><b>Quadratic-exponential.</b> We finish our discussion of biased schemes for equation (1) with a more elaborate moment-matched scheme, based on a combination of a squared Gaussian and an exponential distribution. In this scheme, for large values of <i>x(t)</i> ˆ , we write</p>",
+          "polygon": [
+            [
+              305.828125,
+              127.16925048828125
+            ],
+            [
+              516.84375,
+              127.16925048828125
+            ],
+            [
+              516.84375,
+              194.161376953125
+            ],
+            [
+              305.828125,
+              194.161376953125
+            ]
+          ],
+          "bbox": [
+            305.828125,
+            127.16925048828125,
+            516.84375,
+            194.161376953125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Equation/10",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\hat{x}(t+\\Delta) = a\\,(b+Z)^2\\tag{15}</math></p>",
+          "polygon": [
+            [
+              360.4609375,
+              191.11187744140625
+            ],
+            [
+              516.5546875,
+              191.11187744140625
+            ],
+            [
+              516.5546875,
+              202.5699462890625
+            ],
+            [
+              360.4609375,
+              202.5699462890625
+            ]
+          ],
+          "bbox": [
+            360.4609375,
+            191.11187744140625,
+            516.5546875,
+            202.5699462890625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/TextInlineMath/11",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where <i>Z</i> is a standard Gaussian random variable, and <i>a</i> and <i>b</i> are certain constants, to be determined by moment-matching. These constants <i>a</i> and <i>b</i> depend on the time step  and <i>x(t)</i> ˆ , as well as the parameters in the SDE for <i>x.</i> While based on the well-established asymptotics for the noncentral chi-square distribution (see [3]), formula (15) does not work well for low values of <i>x(t)</i> ˆ —in fact, the moment-matching exercise fails to work—so we supplement it with a scheme to be used when <i>x(t)</i> ˆ is small. Andersen [3] shows that a good choice is to approximate the density of <i>x(t</i> ˆ + <i>)</i> with</p>",
+          "polygon": [
+            [
+              305.828125,
+              209.7757568359375
+            ],
+            [
+              516.84375,
+              209.7757568359375
+            ],
+            [
+              516.84375,
+              345.3014221191406
+            ],
+            [
+              305.828125,
+              345.3014221191406
+            ]
+          ],
+          "bbox": [
+            305.828125,
+            209.7757568359375,
+            516.84375,
+            345.3014221191406
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Equation/12",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\Pr\\left(\\hat{x}(t+\\Delta) \\in [x, x+dx]\\right)</math><br/> <math display=\"block\">\\approx \\left(p\\delta(x) + \\beta(1-p)e^{-\\beta x}\\right) dx \\ , \\quad x \\ge 0 \\tag{16}</math></p>",
+          "polygon": [
+            [
+              324.0390625,
+              356.93505859375
+            ],
+            [
+              516.0557250976562,
+              356.93505859375
+            ],
+            [
+              516.0557250976562,
+              389.517578125
+            ],
+            [
+              324.0390625,
+              389.517578125
+            ]
+          ],
+          "bbox": [
+            324.0390625,
+            356.93505859375,
+            516.0557250976562,
+            389.517578125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/TextInlineMath/13",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where <i>δ</i> is a Dirac delta-function, and <i>p</i> and <i>β</i> are nonnegative constants to be determined. As in the scheme in the section Truncated Gaussian, we have a probability mass at the origin, but now the strength of this mass <i>(p)</i> is explicitly specified, rather than implied from other parameters. The mass at the origin is supplemented with an exponential tail. It can be verified that if <i>p</i> ∈ [0<i>,</i> 1] and <i>β</i> ≥ 0, then equation (16) constitutes a valid density function.</p>",
+          "polygon": [
+            [
+              306.6953125,
+              393.7958068847656
+            ],
+            [
+              516.5546875,
+              393.7958068847656
+            ],
+            [
+              516.5546875,
+              495.00140380859375
+            ],
+            [
+              306.6953125,
+              495.00140380859375
+            ]
+          ],
+          "bbox": [
+            306.6953125,
+            393.7958068847656,
+            516.5546875,
+            495.00140380859375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/14",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Assuming that we have determined <i>a</i> and <i>b</i>, Monte Carlo sampling from equation (15) is trivial. To draw samples in accordance with equation (16), we can generate a cumulative distribution function</p>",
+          "polygon": [
+            [
+              306.40625,
+              496.69586181640625
+            ],
+            [
+              516.0567016601562,
+              496.69586181640625
+            ],
+            [
+              516.0567016601562,
+              540.7815704345703
+            ],
+            [
+              306.40625,
+              540.7815704345703
+            ]
+          ],
+          "bbox": [
+            306.40625,
+            496.69586181640625,
+            516.0567016601562,
+            540.7815704345703
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Equation/15",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\Psi(x) = \\Pr\\left(\\hat{x}(t+\\Delta) \\le x\\right) \\\\\n= p + (1-p)\\left(1 - e^{-\\beta x}\\right), \\quad x \\ge 0 \\quad (17)</math></p>",
+          "polygon": [
+            [
+              315.65625,
+              551.8779296875
+            ],
+            [
+              516.84375,
+              551.8779296875
+            ],
+            [
+              516.84375,
+              584.2763671875
+            ],
+            [
+              315.65625,
+              584.2763671875
+            ]
+          ],
+          "bbox": [
+            315.65625,
+            551.8779296875,
+            516.84375,
+            584.2763671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/16",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">the inverse of which is readily computable, allowing for efficient generation of random draws by the inverse distribution method.</p>",
+          "polygon": [
+            [
+              305.828125,
+              588.326171875
+            ],
+            [
+              516.84375,
+              588.326171875
+            ],
+            [
+              516.84375,
+              621.9013977050781
+            ],
+            [
+              305.828125,
+              621.9013977050781
+            ]
+          ],
+          "bbox": [
+            305.828125,
+            588.326171875,
+            516.84375,
+            621.9013977050781
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/17",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\" class=\"has-continuation\">What remains is the determination of the constants <i>a</i>, <i>b</i>, <i>p</i>, and <i>β</i>, as well as a rule for when</p>",
+          "polygon": [
+            [
+              305.828125,
+              623.5876922607422
+            ],
+            [
+              516.265625,
+              623.5876922607422
+            ],
+            [
+              516.265625,
+              644.7613906860352
+            ],
+            [
+              305.828125,
+              644.7613906860352
+            ]
+          ],
+          "bbox": [
+            305.828125,
+            623.5876922607422,
+            516.265625,
+            644.7613906860352
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/3",
+        "2": "/page/2/SectionHeader/12"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/4/Page/200",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/4/PageHeader/0'></content-ref><content-ref src='/page/4/Text/1'></content-ref><content-ref src='/page/4/TextInlineMath/2'></content-ref><content-ref src='/page/4/Equation/3'></content-ref><content-ref src='/page/4/Text/4'></content-ref><content-ref src='/page/4/Equation/5'></content-ref><content-ref src='/page/4/TextInlineMath/6'></content-ref><content-ref src='/page/4/TextInlineMath/7'></content-ref><content-ref src='/page/4/Equation/8'></content-ref><content-ref src='/page/4/Text/9'></content-ref><content-ref src='/page/4/Equation/10'></content-ref><content-ref src='/page/4/TextInlineMath/11'></content-ref><content-ref src='/page/4/TextInlineMath/12'></content-ref><content-ref src='/page/4/Text/13'></content-ref><content-ref src='/page/4/SectionHeader/14'></content-ref><content-ref src='/page/4/Text/15'></content-ref><content-ref src='/page/4/Text/16'></content-ref><content-ref src='/page/4/Equation/17'></content-ref><content-ref src='/page/4/Equation/18'></content-ref><content-ref src='/page/4/TextInlineMath/19'></content-ref><content-ref src='/page/4/Equation/20'></content-ref><content-ref src='/page/4/Equation/21'></content-ref><content-ref src='/page/4/Text/22'></content-ref><content-ref src='/page/4/SectionHeader/23'></content-ref><content-ref src='/page/4/TextInlineMath/24'></content-ref><content-ref src='/page/4/Equation/25'></content-ref><content-ref src='/page/4/Text/26'></content-ref><content-ref src='/page/4/Equation/27'></content-ref><content-ref src='/page/4/Text/28'></content-ref><content-ref src='/page/4/Equation/29'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/4/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              330.47088607594935,
+              45.71968190854871
+            ],
+            [
+              513.3164556962025,
+              45.71968190854871
+            ],
+            [
+              513.3164556962025,
+              55.6387939453125
+            ],
+            [
+              330.47088607594935,
+              55.6387939453125
+            ]
+          ],
+          "bbox": [
+            330.47088607594935,
+            45.71968190854871,
+            513.3164556962025,
+            55.6387939453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">to switch from equation <math display=\"inline\">(15)</math> to sampling from equation (17). The first problem is easily settled by moment-matching techniques.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              71.95228628230616
+            ],
+            [
+              285.50886075949364,
+              71.95228628230616
+            ],
+            [
+              285.50886075949364,
+              103.730224609375
+            ],
+            [
+              74.1873417721519,
+              103.730224609375
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            71.95228628230616,
+            285.50886075949364,
+            103.730224609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/TextInlineMath/2",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\"><b>Proposition 3</b> Let <math display=\"inline\">m \\stackrel{\\Delta}{=} E(x(t + \\Delta)|x(t) = \\hat{x}(t))</math>and <math display=\"inline\">s^2 \\stackrel{\\Delta}{=} \\text{Var}\\left(x(t+\\Delta)|x(t) = \\hat{x}(t)\\right)</math> and set <math display=\"inline\">\\psi =</math><math display=\"inline\">s^2/m^2</math>. Provided that <math display=\"inline\">\\psi \\leq 2</math>, set</p>",
+          "polygon": [
+            [
+              73.4379746835443,
+              117.67196819085487
+            ],
+            [
+              285.50886075949364,
+              116.92246520874752
+            ],
+            [
+              285.50886075949364,
+              156.929931640625
+            ],
+            [
+              73.4379746835443,
+              156.929931640625
+            ]
+          ],
+          "bbox": [
+            73.4379746835443,
+            116.92246520874752,
+            285.50886075949364,
+            156.929931640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/3",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">b^{2} = 2\\psi^{-1} - 1 + \\sqrt{2\\psi^{-1}}\\sqrt{2\\psi^{-1} - 1} \\ge 0 \\quad (18)</math></p>",
+          "polygon": [
+            [
+              86.86328125,
+              163.64892578125
+            ],
+            [
+              284.29296875,
+              163.64892578125
+            ],
+            [
+              284.29296875,
+              183.345703125
+            ],
+            [
+              86.86328125,
+              183.345703125
+            ]
+          ],
+          "bbox": [
+            86.86328125,
+            163.64892578125,
+            284.29296875,
+            183.345703125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/4",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">and</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              186.6262425447316
+            ],
+            [
+              90.67341772151899,
+              186.6262425447316
+            ],
+            [
+              90.67341772151899,
+              197.3359375
+            ],
+            [
+              74.1873417721519,
+              197.3359375
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            186.6262425447316,
+            90.67341772151899,
+            197.3359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/5",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">a = \\frac{m}{1+b^2} \\tag{19}</math></p>",
+          "polygon": [
+            [
+              155.8046875,
+              193.654296875
+            ],
+            [
+              284.7265625,
+              193.654296875
+            ],
+            [
+              284.7265625,
+              213.9033203125
+            ],
+            [
+              155.8046875,
+              213.9033203125
+            ]
+          ],
+          "bbox": [
+            155.8046875,
+            193.654296875,
+            284.7265625,
+            213.9033203125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/TextInlineMath/6",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">Let <math display=\"inline\">\\hat{x}(t + \\Delta)</math> be as defined in equation (15); then <math display=\"inline\">\\mathrm{E}\\left(\\hat{x}(t+\\Delta)\\right) = m \\text{ and } \\mathrm{Var}\\left(\\hat{x}(t+\\Delta)\\right) = s^2.</math></p>",
+          "polygon": [
+            [
+              74.9367088607595,
+              221.10337972167
+            ],
+            [
+              285.59375,
+              221.10337972167
+            ],
+            [
+              285.59375,
+              243.54052734375
+            ],
+            [
+              74.9367088607595,
+              243.54052734375
+            ]
+          ],
+          "bbox": [
+            74.9367088607595,
+            221.10337972167,
+            285.59375,
+            243.54052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/TextInlineMath/7",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\"><b>Proposition 4</b> Let m, s, and <math display=\"inline\">\\psi</math> be as defined in <i>Proposition 3. Assume that</i> <math display=\"inline\">\\psi \\ge 1</math> <i>and set </i></p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              254.08151093439363
+            ],
+            [
+              286.2582278481013,
+              254.08151093439363
+            ],
+            [
+              286.2582278481013,
+              275.81709741550696
+            ],
+            [
+              74.1873417721519,
+              275.81709741550696
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            254.08151093439363,
+            286.2582278481013,
+            275.81709741550696
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/8",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">p = \\frac{\\psi - 1}{\\psi + 1} \\in [0, 1) \\tag{20}</math></p>",
+          "polygon": [
+            [
+              142.65234375,
+              283.486328125
+            ],
+            [
+              285.16015625,
+              283.486328125
+            ],
+            [
+              285.16015625,
+              307.78515625
+            ],
+            [
+              142.65234375,
+              307.78515625
+            ]
+          ],
+          "bbox": [
+            142.65234375,
+            283.486328125,
+            285.16015625,
+            307.78515625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">and</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              314.0417495029821
+            ],
+            [
+              91.42278481012659,
+              314.0417495029821
+            ],
+            [
+              91.42278481012659,
+              323.6162109375
+            ],
+            [
+              74.1873417721519,
+              323.6162109375
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            314.0417495029821,
+            91.42278481012659,
+            323.6162109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/10",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\beta = \\frac{1-p}{m} = \\frac{2}{m(\\psi+1)} &gt; 0 \\tag{21}</math></p>",
+          "polygon": [
+            [
+              117.720703125,
+              320.11865234375
+            ],
+            [
+              284.4375,
+              320.11865234375
+            ],
+            [
+              284.4375,
+              344.41748046875
+            ],
+            [
+              117.720703125,
+              344.41748046875
+            ]
+          ],
+          "bbox": [
+            117.720703125,
+            320.11865234375,
+            284.4375,
+            344.41748046875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/TextInlineMath/11",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">Let <math display=\"inline\">\\hat{x}(t + \\Delta)</math> be sampled from equation (17); then <math display=\"inline\">\\mathrm{E}\\left(\\hat{x}(t+\\Delta)\\right) = m \\text{ and } \\mathrm{Var}\\left(\\hat{x}(t+\\Delta)\\right) = s^2.</math></p>",
+          "polygon": [
+            [
+              74.9367088607595,
+              351.228515625
+            ],
+            [
+              285.50886075949364,
+              351.228515625
+            ],
+            [
+              285.50886075949364,
+              372.58203125
+            ],
+            [
+              74.9367088607595,
+              372.58203125
+            ]
+          ],
+          "bbox": [
+            74.9367088607595,
+            351.228515625,
+            285.50886075949364,
+            372.58203125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/TextInlineMath/12",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">The terms m, s, <math display=\"inline\">\\psi</math> defined in the two propositions above are explicitly computable from the result in Corollary 1. For any <math display=\"inline\">\\psi_c</math> in [1, 2], a valid switching <i>rule</i> is to use equation (15) if <math display=\"inline\">\\psi \\leq \\psi_c</math> and to sample equation (17) otherwise. The exact choice for <math display=\"inline\">\\psi_c</math> is noncritical; <math display=\"inline\">\\psi_c = 1.5</math> is a good choice.</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              384.49502982107356
+            ],
+            [
+              285.50886075949364,
+              384.49502982107356
+            ],
+            [
+              285.50886075949364,
+              452.841796875
+            ],
+            [
+              74.1873417721519,
+              452.841796875
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            384.49502982107356,
+            285.50886075949364,
+            452.841796875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/13",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The quadratic-exponential (QE) scheme outlined above is typically the most accurate of the biased schemes introduced in this article. Indeed, in most practical applications, the bias introduced by the scheme is statistically undetectable at the levels of Monte Carlo noise acceptable in practical applications; see [3] for numerical tests under a range of challenging conditions. Variations on the QE scheme without an explicit singularity in zero can also be found in [3].</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              453.4493041749503
+            ],
+            [
+              286.2582278481013,
+              453.4493041749503
+            ],
+            [
+              286.2582278481013,
+              566.97265625
+            ],
+            [
+              74.1873417721519,
+              566.97265625
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            453.4493041749503,
+            286.2582278481013,
+            566.97265625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/2/SectionHeader/12"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/SectionHeader/14",
+          "block_type": "SectionHeader",
+          "html": "<h2><b>Stochastic Volatility Simulation </b></h2>",
+          "polygon": [
+            [
+              74.1873417721519,
+              591.3578528827038
+            ],
+            [
+              229.30632911392405,
+              591.3578528827038
+            ],
+            [
+              229.30632911392405,
+              601.580078125
+            ],
+            [
+              74.1873417721519,
+              601.580078125
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            591.3578528827038,
+            229.30632911392405,
+            601.580078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/15",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\" class=\"has-continuation\">As mentioned earlier, square-root processes are commonly used to model stochastic movements in the volatility of some financial asset. A popular example</p>",
+          "polygon": [
+            [
+              74.1873417721519,
+              611.5944333996024
+            ],
+            [
+              285.8828125,
+              611.5944333996024
+            ],
+            [
+              285.8828125,
+              643.9189453125
+            ],
+            [
+              74.1873417721519,
+              643.9189453125
+            ]
+          ],
+          "bbox": [
+            74.1873417721519,
+            611.5944333996024,
+            285.8828125,
+            643.9189453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/16",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">of such an application is the <i>Heston model</i> [10], defined by a vector SDE of the form&lt;sup&gt;a&lt;/sup&gt;</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              71.2027833001988
+            ],
+            [
+              513.3164556962025,
+              71.2027833001988
+            ],
+            [
+              513.3164556962025,
+              92.4552001953125
+            ],
+            [
+              301.24556962025315,
+              92.4552001953125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            71.2027833001988,
+            513.3164556962025,
+            92.4552001953125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/17",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">dY(t) = Y(t)\\sqrt{x(t)} \\, dW_Y(t) \\tag{22}</math></p>",
+          "polygon": [
+            [
+              325.2253164556962,
+              105.47900390625
+            ],
+            [
+              512.21875,
+              105.47900390625
+            ],
+            [
+              512.21875,
+              117.076171875
+            ],
+            [
+              325.2253164556962,
+              117.076171875
+            ]
+          ],
+          "bbox": [
+            325.2253164556962,
+            105.47900390625,
+            512.21875,
+            117.076171875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/18",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">dx(t) = \\kappa \\left(\\theta - x(t)\\right) dt + \\epsilon \\sqrt{x(t)} dW(t) \\quad (23)</math></p>",
+          "polygon": [
+            [
+              328.953125,
+              124.899658203125
+            ],
+            [
+              512.21875,
+              124.899658203125
+            ],
+            [
+              512.21875,
+              136.128662109375
+            ],
+            [
+              328.953125,
+              136.128662109375
+            ]
+          ],
+          "bbox": [
+            328.953125,
+            124.899658203125,
+            512.21875,
+            136.128662109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/TextInlineMath/19",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\"><math display=\"inline\">dW_Y(t) \\cdot dW(t) = \\rho dt, \\quad \\rho \\in [-1, 1].</math> For with numerical work, it is useful to recognize that the process for <math display=\"inline\">Y(t)</math> is often relatively close to geometric Brownian motion, making it sensible to work with logarithms of <math display=\"inline\">Y(t)</math>, rather than <math display=\"inline\">Y(t)</math> itself. An application of Itô's Lemma shows that equations <math display=\"inline\">(22)</math>–<math display=\"inline\">(23)</math>are equivalent to</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              142.4055666003976
+            ],
+            [
+              513.3164556962025,
+              142.4055666003976
+            ],
+            [
+              513.3164556962025,
+              221.45068359375
+            ],
+            [
+              301.24556962025315,
+              221.45068359375
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            142.4055666003976,
+            513.3164556962025,
+            221.45068359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/20",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">d\\ln Y(t) = -\\frac{1}{2}x(t) dt + \\sqrt{x(t)} dW_Y(t) </math> (24)</p>",
+          "polygon": [
+            [
+              311.7367088607595,
+              234.70458984375
+            ],
+            [
+              511.640625,
+              234.70458984375
+            ],
+            [
+              511.640625,
+              261.94873046875
+            ],
+            [
+              311.7367088607595,
+              261.94873046875
+            ]
+          ],
+          "bbox": [
+            311.7367088607595,
+            234.70458984375,
+            511.640625,
+            261.94873046875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/21",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">dx(t) = \\kappa \\left(\\theta - x(t)\\right) dt + \\epsilon \\sqrt{x(t)} dW(t) \\tag{25}</math></p>",
+          "polygon": [
+            [
+              324.6171875,
+              262.5009765625
+            ],
+            [
+              511.9296875,
+              262.5009765625
+            ],
+            [
+              511.9296875,
+              276.123046875
+            ],
+            [
+              324.6171875,
+              276.123046875
+            ]
+          ],
+          "bbox": [
+            324.6171875,
+            262.5009765625,
+            511.9296875,
+            276.123046875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/22",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">We proceed to consider the joint simulation of equations <math display=\"inline\">(24)</math>–<math display=\"inline\">(25)</math>.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              278.8151093439364
+            ],
+            [
+              513.3164556962025,
+              278.8151093439364
+            ],
+            [
+              513.3164556962025,
+              301.158203125
+            ],
+            [
+              301.24556962025315,
+              301.158203125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            278.8151093439364,
+            513.3164556962025,
+            301.158203125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/SectionHeader/23",
+          "block_type": "SectionHeader",
+          "html": "<h4>Broadie-Kaya Scheme</h4>",
+          "polygon": [
+            [
+              301.24556962025315,
+              316.2902584493042
+            ],
+            [
+              398.6632911392405,
+              316.2902584493042
+            ],
+            [
+              398.6632911392405,
+              325.64111328125
+            ],
+            [
+              301.24556962025315,
+              325.64111328125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            316.2902584493042,
+            398.6632911392405,
+            325.64111328125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/TextInlineMath/24",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">As demonstrated in [4], it is possible to simulate equations <math display=\"inline\">(24)</math>–<math display=\"inline\">(25)</math> bias-free. To show this, first integrate the SDE for <math display=\"inline\">x(t)</math> and rearrange.</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              333.5288270377734
+            ],
+            [
+              513.3164556962025,
+              333.5288270377734
+            ],
+            [
+              513.3164556962025,
+              365.955078125
+            ],
+            [
+              301.24556962025315,
+              365.955078125
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            333.5288270377734,
+            513.3164556962025,
+            365.955078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/25",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\int_{t}^{t+\\Delta} \\sqrt{x(u)} \\, \\mathrm{d}W(u)</math><br/>= <math>\\epsilon^{-1} \\left( x(t+\\Delta) - x(t) - \\kappa\\theta\\Delta + \\kappa \\int_{t}^{t+\\Delta} x(u) \\, \\mathrm{d}u \\right)</math><br/>(26)</p>",
+          "polygon": [
+            [
+              304.09375,
+              376.263671875
+            ],
+            [
+              511.640625,
+              376.263671875
+            ],
+            [
+              511.640625,
+              447.6875
+            ],
+            [
+              304.09375,
+              447.6875
+            ]
+          ],
+          "bbox": [
+            304.09375,
+            376.263671875,
+            511.640625,
+            447.6875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/26",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Performing a Cholesky decomposition we can also write</p>",
+          "polygon": [
+            [
+              301.24556962025315,
+              455.69781312127236
+            ],
+            [
+              513.3164556962025,
+              455.69781312127236
+            ],
+            [
+              513.3164556962025,
+              476.7724609375
+            ],
+            [
+              301.24556962025315,
+              476.7724609375
+            ]
+          ],
+          "bbox": [
+            301.24556962025315,
+            455.69781312127236,
+            513.3164556962025,
+            476.7724609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/27",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">d\\ln Y(t) = -\\frac{1}{2}x(t) dt + \\rho\\sqrt{x(u)} dW(u) + \\sqrt{1 - \\rho^2}\\sqrt{x(u)} dW^*(u) </math> (27)</p>",
+          "polygon": [
+            [
+              324.4759493670886,
+              487.0810546875
+            ],
+            [
+              512.21875,
+              487.0810546875
+            ],
+            [
+              512.21875,
+              531.2607421875
+            ],
+            [
+              324.4759493670886,
+              531.2607421875
+            ]
+          ],
+          "bbox": [
+            324.4759493670886,
+            487.0810546875,
+            512.21875,
+            531.2607421875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/28",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">where <math display=\"inline\">W^*</math> is a Brownian motion independent of W. An integration yields</p>",
+          "polygon": [
+            [
+              301.99493670886073,
+              532.89662027833
+            ],
+            [
+              513.3164556962025,
+              532.89662027833
+            ],
+            [
+              513.3164556962025,
+              555.19140625
+            ],
+            [
+              301.99493670886073,
+              555.19140625
+            ]
+          ],
+          "bbox": [
+            301.99493670886073,
+            532.89662027833,
+            513.3164556962025,
+            555.19140625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Equation/29",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\ln Y(t+\\Delta) = \\ln Y(t) + \\frac{\\rho}{\\epsilon} \\left( x(t+\\Delta) - x(t) - \\kappa \\theta \\Delta \\right)</math><math display=\"block\">+ \\left( \\frac{\\kappa \\rho}{\\epsilon} - \\frac{1}{2} \\right) \\int_{t}^{t+\\Delta} x(u) \\, \\mathrm{d}u</math><math display=\"block\">+ \\sqrt{1-\\rho^2} \\int_{t}^{t+\\Delta} \\sqrt{x(u)} \\, \\mathrm{d}W^*(u) \\tag{28}</math></p>",
+          "polygon": [
+            [
+              300.046875,
+              565.5
+            ],
+            [
+              512.796875,
+              565.5
+            ],
+            [
+              512.796875,
+              646.49609375
+            ],
+            [
+              300.046875,
+              646.49609375
+            ]
+          ],
+          "bbox": [
+            300.046875,
+            565.5,
+            512.796875,
+            646.49609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/3",
+        "2": "/page/4/SectionHeader/14",
+        "4": "/page/4/SectionHeader/23"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/5/Page/257",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/5/PageHeader/0'></content-ref><content-ref src='/page/5/TextInlineMath/1'></content-ref><content-ref src='/page/5/ListGroup/257'></content-ref><content-ref src='/page/5/Text/4'></content-ref><content-ref src='/page/5/Text/5'></content-ref><content-ref src='/page/5/SectionHeader/6'></content-ref><content-ref src='/page/5/Text/7'></content-ref><content-ref src='/page/5/Equation/8'></content-ref><content-ref src='/page/5/TextInlineMath/9'></content-ref><content-ref src='/page/5/Text/10'></content-ref><content-ref src='/page/5/Text/11'></content-ref><content-ref src='/page/5/Equation/12'></content-ref><content-ref src='/page/5/TextInlineMath/13'></content-ref><content-ref src='/page/5/TextInlineMath/14'></content-ref><content-ref src='/page/5/Equation/15'></content-ref><content-ref src='/page/5/TextInlineMath/16'></content-ref><content-ref src='/page/5/TextInlineMath/17'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/5/PageHeader/0",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              77.93417721518988,
+              45.71968190854871
+            ],
+            [
+              260.77974683544306,
+              45.71968190854871
+            ],
+            [
+              260.77974683544306,
+              55.9149169921875
+            ],
+            [
+              77.93417721518988,
+              55.9149169921875
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            45.71968190854871,
+            260.77974683544306,
+            55.9149169921875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/TextInlineMath/1",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">where we have used equation (26). Conditional on <math display=\"inline\">x(t+\\Delta)</math> and <math display=\"inline\">\\int_{t}^{t+\\Delta} x(u) \\, \\mathrm{d}u</math>, it is clear that the distribution of <math display=\"inline\">\\ln Y(t + \\Delta)</math> is Gaussian with easily computable moments. After first sampling <math display=\"inline\">x(t + \\Delta)</math> from the noncentral chi-square distribution (as described in the section Exact Simulation), one then performs the following steps:</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              71.2027833001988
+            ],
+            [
+              290.5078125,
+              71.2027833001988
+            ],
+            [
+              290.5078125,
+              151.039306640625
+            ],
+            [
+              77.93417721518988,
+              151.039306640625
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            71.2027833001988,
+            290.5078125,
+            151.039306640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/ListGroup/257",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup'><ul><content-ref src='/page/5/ListItem/2'></content-ref><content-ref src='/page/5/ListItem/3'></content-ref></ul></p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              161.89264413518887
+            ],
+            [
+              290.00506329113927,
+              161.89264413518887
+            ],
+            [
+              290.00506329113927,
+              218.3212890625
+            ],
+            [
+              77.93417721518988,
+              218.3212890625
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            161.89264413518887,
+            290.00506329113927,
+            218.3212890625
+          ],
+          "children": [
+            {
+              "id": "/page/5/ListItem/2",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">1. Conditional on <math display=\"inline\">x(t + \\Delta)</math> (and <math display=\"inline\">x(t)</math>) draw a sample of <math display=\"inline\">I = \\int_{t}^{t+\\Delta} x(u) \\, \\mathrm{d}u</math>.</li>",
+              "polygon": [
+                [
+                  77.93417721518988,
+                  161.89264413518887
+                ],
+                [
+                  290.00506329113927,
+                  161.89264413518887
+                ],
+                [
+                  290.00506329113927,
+                  184.358154296875
+                ],
+                [
+                  77.93417721518988,
+                  184.358154296875
+                ]
+              ],
+              "bbox": [
+                77.93417721518988,
+                161.89264413518887,
+                290.00506329113927,
+                184.358154296875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/3",
+                "2": "/page/4/SectionHeader/14",
+                "4": "/page/4/SectionHeader/23"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/5/ListItem/3",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">2. Conditional on <math display=\"inline\">x(t + \\Delta)</math> and I, use equation (28) to draw a sample of <math display=\"inline\">\\ln Y(t + \\Delta)</math> from a Gaussian distribution.</li>",
+              "polygon": [
+                [
+                  77.93417721518988,
+                  185.1272365805169
+                ],
+                [
+                  290.00506329113927,
+                  185.1272365805169
+                ],
+                [
+                  290.00506329113927,
+                  218.3212890625
+                ],
+                [
+                  77.93417721518988,
+                  218.3212890625
+                ]
+              ],
+              "bbox": [
+                77.93417721518988,
+                185.1272365805169,
+                290.00506329113927,
+                218.3212890625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/0/SectionHeader/3",
+                "2": "/page/4/SectionHeader/14",
+                "4": "/page/4/SectionHeader/23"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/5/Text/4",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">While execution of the second step is straightforward, the first one is decidedly not, as the conditional distribution of the integral <math display=\"inline\">I</math> is not known in closed form. In [4], the authors instead derive a characteristic function, which they numerically Fourier-invert to generate the cumulative distribution function for I, given <math display=\"inline\">x(t + \\Delta)</math> and <math display=\"inline\">x(t)</math>. Numerical inversion of this distribution function over a uniform random variable finally allows for generation of a sample of <math display=\"inline\">I</math>. The total algorithm requires great care in numerical discretization to prevent introduction of noticeable biases and is further complicated by the fact that the characteristic function for <math display=\"inline\">I</math> contains two modified Bessel functions.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              227.70947265625
+            ],
+            [
+              290.00506329113927,
+              227.70947265625
+            ],
+            [
+              290.00506329113927,
+              386.2041015625
+            ],
+            [
+              77.93417721518988,
+              386.2041015625
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            227.70947265625,
+            290.00506329113927,
+            386.2041015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/Text/5",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The Broadie-Kaya algorithm is bias-free by construction, but its complexity and lack of speed is problematic in some applications. At the cost of introducing a (small) bias, [15] improves computational efficiency by introducing certain approximations to the characteristic function of time-integrated variance, enabling efficient caching techniques.</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              387.493041749503
+            ],
+            [
+              290.00506329113927,
+              387.493041749503
+            ],
+            [
+              290.00506329113927,
+              466.19085487077535
+            ],
+            [
+              77.93417721518988,
+              466.19085487077535
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            387.493041749503,
+            290.00506329113927,
+            466.19085487077535
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "4": "/page/4/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/SectionHeader/6",
+          "block_type": "SectionHeader",
+          "html": "<h3>Other Schemes</h3>",
+          "polygon": [
+            [
+              77.93417721518988,
+              487.9264413518887
+            ],
+            [
+              142.37974683544303,
+              487.9264413518887
+            ],
+            [
+              142.37974683544303,
+              497.7578125
+            ],
+            [
+              77.93417721518988,
+              497.7578125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            487.9264413518887,
+            142.37974683544303,
+            497.7578125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Taylor-type Schemes. In their examination of \"fixed\" Euler schemes, Lord et al. [14] suggest simulation of the Heston model by combining equation (8) with the following scheme for <math display=\"inline\">\\ln Y</math>:</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              509.662027833002
+            ],
+            [
+              290.00506329113927,
+              509.662027833002
+            ],
+            [
+              290.00506329113927,
+              554.0869140625
+            ],
+            [
+              77.93417721518988,
+              554.0869140625
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            509.662027833002,
+            290.00506329113927,
+            554.0869140625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/Equation/8",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\ln \\hat{Y}(t+\\Delta) = \\ln \\hat{Y}(t) - \\frac{1}{2}\\hat{x}(t)^{+}\\Delta</math><math display=\"block\">+ \\sqrt{\\hat{x}(t)^{+}}Z_{Y}\\sqrt{\\Delta} \\qquad (29)</math></p>",
+          "polygon": [
+            [
+              116.78125,
+              572.126953125
+            ],
+            [
+              289.2556962025316,
+              572.126953125
+            ],
+            [
+              289.2556962025316,
+              611.888671875
+            ],
+            [
+              116.78125,
+              611.888671875
+            ]
+          ],
+          "bbox": [
+            116.78125,
+            572.126953125,
+            289.2556962025316,
+            611.888671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/TextInlineMath/9",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">where <math display=\"inline\">Z_Y</math> is a Gaussian <math display=\"inline\">\\mathcal{N}(0, 1)</math> draw, correlated to Z in equation (8) with correlation coefficient <math display=\"inline\">\\rho</math>. For</p>",
+          "polygon": [
+            [
+              77.93417721518988,
+              622.8369781312127
+            ],
+            [
+              290.21875,
+              622.8369781312127
+            ],
+            [
+              290.21875,
+              643.9189453125
+            ],
+            [
+              77.93417721518988,
+              643.9189453125
+            ]
+          ],
+          "bbox": [
+            77.93417721518988,
+            622.8369781312127,
+            290.21875,
+            643.9189453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/Text/10",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">the periods where <math display=\"inline\">\\hat{x}</math> drops below zero in equation (8), the process for <math display=\"inline\">\\hat{Y}</math> comes to a standstill.</p>",
+          "polygon": [
+            [
+              305.7417721518987,
+              71.95228628230616
+            ],
+            [
+              516.84375,
+              71.95228628230616
+            ],
+            [
+              516.84375,
+              93.69775390625
+            ],
+            [
+              305.7417721518987,
+              93.69775390625
+            ]
+          ],
+          "bbox": [
+            305.7417721518987,
+            71.95228628230616,
+            516.84375,
+            93.69775390625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Kahl and Jäckel [11] consider several alternative schemes for <math display=\"inline\">Y</math>, the most prominent being the \"IJK\" scheme, defined as</p>",
+          "polygon": [
+            [
+              305.7417721518987,
+              95.1868787276342
+            ],
+            [
+              517.0632911392405,
+              95.1868787276342
+            ],
+            [
+              517.0632911392405,
+              128.30517578125
+            ],
+            [
+              305.7417721518987,
+              128.30517578125
+            ]
+          ],
+          "bbox": [
+            305.7417721518987,
+            95.1868787276342,
+            517.0632911392405,
+            128.30517578125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/Equation/12",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\ln \\hat{Y}(t+\\Delta) = \\ln \\hat{Y}(t)</math><math display=\"block\">-\\frac{\\Delta}{4} \\left(\\hat{x}(t+\\Delta) + \\hat{x}(t)\\right) + \\rho \\sqrt{\\hat{x}(t)} Z \\sqrt{\\Delta}</math><math display=\"block\">+\\frac{1}{2} \\left(\\sqrt{\\hat{x}(t+\\Delta)} + \\sqrt{\\hat{x}(t)}\\right) \\left(Z_Y \\sqrt{\\Delta} - \\rho Z \\sqrt{\\Delta}\\right)</math><math display=\"block\">+\\frac{1}{4} \\epsilon \\rho \\Delta \\left(Z^2 - 1\\right) \\tag{30}</math></p>",
+          "polygon": [
+            [
+              313.921875,
+              143.39990234375
+            ],
+            [
+              515.6875,
+              143.39990234375
+            ],
+            [
+              515.6875,
+              236.54541015625
+            ],
+            [
+              313.921875,
+              236.54541015625
+            ]
+          ],
+          "bbox": [
+            313.921875,
+            143.39990234375,
+            515.6875,
+            236.54541015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/TextInlineMath/13",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">Here, <math display=\"inline\">\\hat{x}(t + \\Delta)</math> and <math display=\"inline\">\\hat{x}(t)</math> are meant to be simulated by the implicit Milstein scheme <math display=\"inline\">(5)</math>; again the correlation between the Gaussian samples <math display=\"inline\">Z_{\\gamma}</math> and Z is <math display=\"inline\">\\rho</math>.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              243.58846918489067
+            ],
+            [
+              517.0632911392405,
+              243.58846918489067
+            ],
+            [
+              517.0632911392405,
+              277.41162109375
+            ],
+            [
+              304.99240506329113,
+              277.41162109375
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            243.58846918489067,
+            517.0632911392405,
+            277.41162109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/TextInlineMath/14",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\"><b>Simplified Broadie–Kaya.</b> We recall from the discussion earlier that the complicated part of the Broadie-Kaya algorithm was the computation of <math display=\"inline\">\\int_{t}^{t+\\Delta} x(u) \\, \\mathrm{d}u</math>, conditional on <math display=\"inline\">x(t)</math> and <math display=\"inline\">x(t+\\Delta)</math>. Andersen [3] suggests a naive, but effective, approximation based on the idea that</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              293.8051689860835
+            ],
+            [
+              517.0632911392405,
+              293.8051689860835
+            ],
+            [
+              517.0632911392405,
+              361.72119140625
+            ],
+            [
+              304.99240506329113,
+              361.72119140625
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            293.8051689860835,
+            517.0632911392405,
+            361.72119140625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/Equation/15",
+          "block_type": "Equation",
+          "html": "<p block-type=\"Equation\"><math display=\"block\">\\int_{t}^{t+\\Delta} x(u) \\, \\mathrm{d}u \\approx \\Delta \\left[ \\gamma_1 x(t) + \\gamma_2 x(t+\\Delta) \\right] \\quad (31)</math></p>",
+          "polygon": [
+            [
+              316.5234375,
+              368.1640625
+            ],
+            [
+              515.9765625,
+              368.1640625
+            ],
+            [
+              515.9765625,
+              396.14453125
+            ],
+            [
+              316.5234375,
+              396.14453125
+            ]
+          ],
+          "bbox": [
+            316.5234375,
+            368.1640625,
+            515.9765625,
+            396.14453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/TextInlineMath/16",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">for certain constants <math display=\"inline\">\\gamma_1</math> and <math display=\"inline\">\\gamma_2</math>. The constants <math display=\"inline\">\\gamma_1</math>and <math display=\"inline\">\\gamma_2</math> can be found by moment-matching techniques (using results from [8], p. 16), but [3] presents evidence that it will often be sufficient to use either an Euler-like setting <math display=\"inline\">(\\gamma_1 = 1, \\gamma_2 = 0)</math> or a central discretization <math display=\"inline\">(\\gamma_1 = \\gamma_2 = \\frac{1}{2})</math>. In any case, equation <math display=\"inline\">(30)</math> combined with equation <math display=\"inline\">(27)</math> gives rise to a scheme for <math display=\"inline\">Y</math>-simulation that can be combined with any basic algorithm that can produce <math display=\"inline\">\\hat{x}(t)</math> and <math display=\"inline\">\\hat{x}(t + \\Delta)</math>. Andersen [3] provides numerical results for the case where <math display=\"inline\">\\hat{x}(t)</math> and <math display=\"inline\">\\hat{x}(t + \\Delta)</math> are simulated by the algorithms in the sections Truncated Gaussian and Quadratic-exponential; the results are excellent, particularly when the QE algorithm in the section Quadratic-exponential is used to sample <math display=\"inline\">x</math>.</p>",
+          "polygon": [
+            [
+              304.99240506329113,
+              400.9840954274354
+            ],
+            [
+              517.0632911392405,
+              400.9840954274354
+            ],
+            [
+              517.0632911392405,
+              571.390625
+            ],
+            [
+              304.99240506329113,
+              571.390625
+            ]
+          ],
+          "bbox": [
+            304.99240506329113,
+            400.9840954274354,
+            517.0632911392405,
+            571.390625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/TextInlineMath/17",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">Martingale Correction. Finally, let us note that some of the schemes outlined above (including equation (29) and the one in the section Simplified Broadie-Kaya) generally do not lead to martingalebehavior of <math display=\"inline\">\\hat{Y}</math>; that is, <math display=\"inline\">E(\\hat{Y}(t+\\Delta)) \\neq E(\\hat{Y}(t))</math>. For</p>",
+          "polygon": [
+            [
+              305.7417721518987,
+              588.3598409542743
+            ],
+            [
+              517.0632911392405,
+              588.3598409542743
+            ],
+            [
+              517.0632911392405,
+              644.287109375
+            ],
+            [
+              305.7417721518987,
+              644.287109375
+            ]
+          ],
+          "bbox": [
+            305.7417721518987,
+            588.3598409542743,
+            517.0632911392405,
+            644.287109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/3",
+        "2": "/page/4/SectionHeader/14",
+        "3": "/page/5/SectionHeader/6"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/6/Page/391",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/6/PageHeader/10'></content-ref><content-ref src='/page/6/TextInlineMath/0'></content-ref><content-ref src='/page/6/SectionHeader/1'></content-ref><content-ref src='/page/6/Text/2'></content-ref><content-ref src='/page/6/Text/3'></content-ref><content-ref src='/page/6/SectionHeader/4'></content-ref><content-ref src='/page/6/Text/5'></content-ref><content-ref src='/page/6/SectionHeader/6'></content-ref><content-ref src='/page/6/ListGroup/390'></content-ref><content-ref src='/page/6/ListGroup/391'></content-ref><content-ref src='/page/6/SectionHeader/23'></content-ref><content-ref src='/page/6/Text/24'></content-ref><content-ref src='/page/6/Footnote/25'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "children": [
+        {
+          "id": "/page/6/PageHeader/10",
+          "block_type": "PageHeader",
+          "html": "",
+          "polygon": [
+            [
+              332.1000061035156,
+              45.49365234375
+            ],
+            [
+              512.306396484375,
+              45.49365234375
+            ],
+            [
+              512.306396484375,
+              56.70166015625
+            ],
+            [
+              332.1000061035156,
+              56.70166015625
+            ]
+          ],
+          "bbox": [
+            332.1000061035156,
+            45.49365234375,
+            512.306396484375,
+            56.70166015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/TextInlineMath/0",
+          "block_type": "TextInlineMath",
+          "html": "<p block-type=\"TextInlineMath\">the cases where the error <i>e</i> = E<i>(Y (t</i> ˆ + <i>))</i> − E<i>(Y (t))</i> ˆ is analytically computable, it is, however, straightforward to remove the bias by simply adding −<i>e</i> to the sample value for <i>Y (t</i> ˆ + <i>)</i>. Andersen [3] gives several examples of this idea.</p>",
+          "polygon": [
+            [
+              75.95999908447266,
+              71.865478515625
+            ],
+            [
+              287.0390625,
+              71.865478515625
+            ],
+            [
+              287.0390625,
+              130.62139892578125
+            ],
+            [
+              75.95999908447266,
+              130.62139892578125
+            ]
+          ],
+          "bbox": [
+            75.95999908447266,
+            71.865478515625,
+            287.0390625,
+            130.62139892578125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/3",
+            "2": "/page/4/SectionHeader/14",
+            "3": "/page/5/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/SectionHeader/1",
+          "block_type": "SectionHeader",
+          "html": "<h1><b>Further Reading</b></h1>",
+          "polygon": [
+            [
+              75.30078125,
+              154.03363037109375
+            ],
+            [
+              157.97265625,
+              154.03363037109375
+            ],
+            [
+              157.97265625,
+              165.24163818359375
+            ],
+            [
+              75.30078125,
+              165.24163818359375
+            ]
+          ],
+          "bbox": [
+            75.30078125,
+            154.03363037109375,
+            157.97265625,
+            165.24163818359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">In this article, we restricted ourselves to the presentation of relatively simple methods, which in the two-dimensional Heston model setting only require two variates per time step. Such schemes are often the most convenient in actual trading systems and for implementations that rely on Wiener processes built from low discrepancy numbers. More complicated high-order Taylor schemes, which often require extra variates, are described in [13]. The efficacy of such methods are, however, unproven in the specific setting of the Heston model.</p>",
+          "polygon": [
+            [
+              75.4453125,
+              175.6875
+            ],
+            [
+              286.4609375,
+              175.6875
+            ],
+            [
+              286.4609375,
+              299.94195556640625
+            ],
+            [
+              75.4453125,
+              299.94195556640625
+            ]
+          ],
+          "bbox": [
+            75.4453125,
+            175.6875,
+            286.4609375,
+            299.94195556640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/3",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">In recent work, Alfonsi [1] constructs a secondorder scheme for the CIR process, using a switching idea similar to that of the QE scheme. For the Heston process, Alfonsi develops a \"second-order scheme candidate\" involving three variates per time step; the numerical performance of the scheme compares favorably with Euler-type schemes.</p>",
+          "polygon": [
+            [
+              75.30078125,
+              301.6884765625
+            ],
+            [
+              286.31640625,
+              301.6884765625
+            ],
+            [
+              286.31640625,
+              380.1627197265625
+            ],
+            [
+              75.30078125,
+              380.1627197265625
+            ]
+          ],
+          "bbox": [
+            75.30078125,
+            301.6884765625,
+            286.31640625,
+            380.1627197265625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/SectionHeader/4",
+          "block_type": "SectionHeader",
+          "html": "<h1><b>End Notes</b></h1>",
+          "polygon": [
+            [
+              75.4453125,
+              397.8135681152344
+            ],
+            [
+              126.40496063232422,
+              397.8135681152344
+            ],
+            [
+              126.40496063232422,
+              409.02154541015625
+            ],
+            [
+              75.4453125,
+              409.02154541015625
+            ]
+          ],
+          "bbox": [
+            75.4453125,
+            397.8135681152344,
+            126.40496063232422,
+            409.02154541015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/5",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">a<i>.</i> We assume that <i>Y</i> is a martingale in the chosen measure; adding a drift is straightforward.</p>",
+          "polygon": [
+            [
+              74.939453125,
+              422.4311218261719
+            ],
+            [
+              285.8828125,
+              422.4311218261719
+            ],
+            [
+              285.8828125,
+              442.32550048828125
+            ],
+            [
+              74.939453125,
+              442.32550048828125
+            ]
+          ],
+          "bbox": [
+            74.939453125,
+            422.4311218261719,
+            285.8828125,
+            442.32550048828125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/SectionHeader/6",
+          "block_type": "SectionHeader",
+          "html": "<h1><b>References</b></h1>",
+          "polygon": [
+            [
+              75.517578125,
+              458.7736511230469
+            ],
+            [
+              128.0771942138672,
+              458.7736511230469
+            ],
+            [
+              128.0771942138672,
+              469.98162841796875
+            ],
+            [
+              75.517578125,
+              469.98162841796875
+            ]
+          ],
+          "bbox": [
+            75.517578125,
+            458.7736511230469,
+            128.0771942138672,
+            469.98162841796875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/ListGroup/390",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup' class='has-continuation'><ul><content-ref src='/page/6/ListItem/7'></content-ref><content-ref src='/page/6/ListItem/8'></content-ref><content-ref src='/page/6/ListItem/9'></content-ref></ul></p>",
+          "polygon": [
+            [
+              75.4453125,
+              484.50390625
+            ],
+            [
+              286.4609375,
+              484.50390625
+            ],
+            [
+              286.4609375,
+              582.8472595214844
+            ],
+            [
+              75.4453125,
+              582.8472595214844
+            ]
+          ],
+          "bbox": [
+            75.4453125,
+            484.50390625,
+            286.4609375,
+            582.8472595214844
+          ],
+          "children": [
+            {
+              "id": "/page/6/ListItem/7",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[1] Alfonsi, A. (2008). <i>A Second-Order Discretization</i> <i>Scheme for the CIR Process: Application to the Hes</i><i>ton Model</i>, Working Paper, Institut fur Mathematik, TU, ¨ Berlin.</li>",
+              "polygon": [
+                [
+                  75.4453125,
+                  484.50390625
+                ],
+                [
+                  286.171875,
+                  484.50390625
+                ],
+                [
+                  286.171875,
+                  523.0870971679688
+                ],
+                [
+                  75.4453125,
+                  523.0870971679688
+                ]
+              ],
+              "bbox": [
+                75.4453125,
+                484.50390625,
+                286.171875,
+                523.0870971679688
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/8",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[2] Andersen, L. &amp; Brotherton-Ratcliffe, R. (2005). Extended Libor market models with stochastic volatility, <i>Journal of Computational Finance</i> <b>9</b>(1), 1–40.</li>",
+              "polygon": [
+                [
+                  75.517578125,
+                  524.8279266357422
+                ],
+                [
+                  285.1412353515625,
+                  524.8279266357422
+                ],
+                [
+                  285.1412353515625,
+                  552.9671783447266
+                ],
+                [
+                  75.517578125,
+                  552.9671783447266
+                ]
+              ],
+              "bbox": [
+                75.517578125,
+                524.8279266357422,
+                285.1412353515625,
+                552.9671783447266
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/9",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[3] Andersen, L. (2008). Simple and efficient simulation of the Heston stochastic volatility model, <i>Journal of</i> <i>Computational Finance</i> <b>11</b>(3), 1–42.</li>",
+              "polygon": [
+                [
+                  75.4453125,
+                  554.7080078125
+                ],
+                [
+                  286.4609375,
+                  554.7080078125
+                ],
+                [
+                  286.4609375,
+                  582.8472595214844
+                ],
+                [
+                  75.4453125,
+                  582.8472595214844
+                ]
+              ],
+              "bbox": [
+                75.4453125,
+                554.7080078125,
+                286.4609375,
+                582.8472595214844
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/6"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/6/ListGroup/391",
+          "block_type": "ListGroup",
+          "html": "<p block-type='ListGroup'><ul><content-ref src='/page/6/ListItem/11'></content-ref><content-ref src='/page/6/ListItem/12'></content-ref><content-ref src='/page/6/ListItem/13'></content-ref><content-ref src='/page/6/ListItem/14'></content-ref><content-ref src='/page/6/ListItem/15'></content-ref><content-ref src='/page/6/ListItem/16'></content-ref><content-ref src='/page/6/ListItem/17'></content-ref><content-ref src='/page/6/ListItem/18'></content-ref><content-ref src='/page/6/ListItem/19'></content-ref><content-ref src='/page/6/ListItem/20'></content-ref><content-ref src='/page/6/ListItem/21'></content-ref><content-ref src='/page/6/ListItem/22'></content-ref></ul></p>",
+          "polygon": [
+            [
+              300.3359375,
+              71.4058837890625
+            ],
+            [
+              513.0859375,
+              71.4058837890625
+            ],
+            [
+              513.0859375,
+              420.443359375
+            ],
+            [
+              300.3359375,
+              420.443359375
+            ]
+          ],
+          "bbox": [
+            300.3359375,
+            71.4058837890625,
+            513.0859375,
+            420.443359375
+          ],
+          "children": [
+            {
+              "id": "/page/6/ListItem/11",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[4] Broadie, M. &amp; Kaya, O. (2006). Exact simulation of ¨ stochastic volatility and other affine jump diffusion processes, <i>Operations Research</i> <b>54</b>(2), 217–231.</li>",
+              "polygon": [
+                [
+                  302.0703125,
+                  71.4058837890625
+                ],
+                [
+                  512.33544921875,
+                  71.4058837890625
+                ],
+                [
+                  512.33544921875,
+                  101.34515380859375
+                ],
+                [
+                  302.0703125,
+                  101.34515380859375
+                ]
+              ],
+              "bbox": [
+                302.0703125,
+                71.4058837890625,
+                512.33544921875,
+                101.34515380859375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/12",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[5] Cheng, R. &amp; Feast, G. (1980). Gamma variate generators with increased shape parameter range, <i>Communications</i> <i>of the ACM</i> <b>23</b>(7), 389–394.</li>",
+              "polygon": [
+                [
+                  301.203125,
+                  103.0859375
+                ],
+                [
+                  512.2794799804688,
+                  103.0859375
+                ],
+                [
+                  512.2794799804688,
+                  131.2252197265625
+                ],
+                [
+                  301.203125,
+                  131.2252197265625
+                ]
+              ],
+              "bbox": [
+                301.203125,
+                103.0859375,
+                512.2794799804688,
+                131.2252197265625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/13",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[6] DiDonato, A.R. &amp; Morris, A.H. (1987). Incomplete gamma function ratios and their inverse, <i>ACM TOMS</i> <b>13</b>, 318–319.</li>",
+              "polygon": [
+                [
+                  301.4921875,
+                  132.966064453125
+                ],
+                [
+                  512.5078125,
+                  132.966064453125
+                ],
+                [
+                  512.5078125,
+                  161.1053466796875
+                ],
+                [
+                  301.4921875,
+                  161.1053466796875
+                ]
+              ],
+              "bbox": [
+                301.4921875,
+                132.966064453125,
+                512.5078125,
+                161.1053466796875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/14",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[7] Duffie, D., Pan, J. &amp; Singleton, K. (2000). Transform analysis and asset pricing for affine jump diffusions, <i>Econometrica</i> <b>68</b>, 1343–1376.</li>",
+              "polygon": [
+                [
+                  300.3359375,
+                  162.9061279296875
+                ],
+                [
+                  512.5078125,
+                  162.9061279296875
+                ],
+                [
+                  512.5078125,
+                  191.26123046875
+                ],
+                [
+                  300.3359375,
+                  191.26123046875
+                ]
+              ],
+              "bbox": [
+                300.3359375,
+                162.9061279296875,
+                512.5078125,
+                191.26123046875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/15",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[8] Dufresne, D. (2001). <i>The Integrated Square-Root Pro</i><i>cess</i>, Working Paper, University of Montreal.</li>",
+              "polygon": [
+                [
+                  301.203125,
+                  192.702880859375
+                ],
+                [
+                  512.3123779296875,
+                  192.702880859375
+                ],
+                [
+                  512.3123779296875,
+                  210.9654541015625
+                ],
+                [
+                  301.203125,
+                  210.9654541015625
+                ]
+              ],
+              "bbox": [
+                301.203125,
+                192.702880859375,
+                512.3123779296875,
+                210.9654541015625
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/16",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[9] Glasserman, P. (2003). <i>Monte Carlo Methods in Finan</i><i>cial Engineering</i>, Springer Verlag, New York.</li>",
+              "polygon": [
+                [
+                  301.4921875,
+                  212.6229248046875
+                ],
+                [
+                  512.261474609375,
+                  212.6229248046875
+                ],
+                [
+                  512.261474609375,
+                  231.02294921875
+                ],
+                [
+                  301.4921875,
+                  231.02294921875
+                ]
+              ],
+              "bbox": [
+                301.4921875,
+                212.6229248046875,
+                512.261474609375,
+                231.02294921875
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/17",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[10] Heston, S.L. (1993). A closed-form solution for options with stochastic volatility with applications to bond and currency options, <i>Review of Financial Studies</i> <b>6</b>(2), 327–343.</li>",
+              "polygon": [
+                [
+                  302.0703125,
+                  232.62628173828125
+                ],
+                [
+                  512.3042602539062,
+                  232.62628173828125
+                ],
+                [
+                  512.3042602539062,
+                  270.7255554199219
+                ],
+                [
+                  302.0703125,
+                  270.7255554199219
+                ]
+              ],
+              "bbox": [
+                302.0703125,
+                232.62628173828125,
+                512.3042602539062,
+                270.7255554199219
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/18",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[11] Kahl, C. &amp; Jackel, P. (2006). Fast strong approximation ¨ Monte Carlo schemes for stochastic volatility models, <i>Journal of Quantitative Finance</i> <b>6</b>(6), 513–536.</li>",
+              "polygon": [
+                [
+                  301.78125,
+                  272.4664001464844
+                ],
+                [
+                  512.796875,
+                  272.4664001464844
+                ],
+                [
+                  512.796875,
+                  300.6056213378906
+                ],
+                [
+                  301.78125,
+                  300.6056213378906
+                ]
+              ],
+              "bbox": [
+                301.78125,
+                272.4664001464844,
+                512.796875,
+                300.6056213378906
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/19",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[12] Karlin, S. &amp; Taylor, H. (1981). <i>A Second Course in</i> <i>Stochastic Processes</i>, Academic Press.</li>",
+              "polygon": [
+                [
+                  302.0703125,
+                  302.26318359375
+                ],
+                [
+                  513.0859375,
+                  302.26318359375
+                ],
+                [
+                  513.0859375,
+                  320.5256652832031
+                ],
+                [
+                  302.0703125,
+                  320.5256652832031
+                ]
+              ],
+              "bbox": [
+                302.0703125,
+                302.26318359375,
+                513.0859375,
+                320.5256652832031
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/20",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[13] Kloeden, P. &amp; Platen, E. (1999). <i>Numerical Solution of</i> <i>Stochastic Differential Equations</i>, 3rd Edition, Springer Verlag, New York.</li>",
+              "polygon": [
+                [
+                  302.6484375,
+                  322.1832275390625
+                ],
+                [
+                  512.5078125,
+                  322.1832275390625
+                ],
+                [
+                  512.5078125,
+                  350.4057312011719
+                ],
+                [
+                  302.6484375,
+                  350.4057312011719
+                ]
+              ],
+              "bbox": [
+                302.6484375,
+                322.1832275390625,
+                512.5078125,
+                350.4057312011719
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/21",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[14] Lord, R., Koekkoek, R. &amp; van Dijk, D. (2006). <i>A</i> <i>Comparison of Biased Simulation Schemes for Stochastic</i> <i>Volatility Models</i>, Working Paper, Tinbergen Institute, Amsterdam.</li>",
+              "polygon": [
+                [
+                  301.78125,
+                  351.96484375
+                ],
+                [
+                  512.3322143554688,
+                  351.96484375
+                ],
+                [
+                  512.3322143554688,
+                  390.2458190917969
+                ],
+                [
+                  301.78125,
+                  390.2458190917969
+                ]
+              ],
+              "bbox": [
+                301.78125,
+                351.96484375,
+                512.3322143554688,
+                390.2458190917969
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            },
+            {
+              "id": "/page/6/ListItem/22",
+              "block_type": "ListItem",
+              "html": "<li block-type=\"ListItem\">[15] Smith, R. (2007). An almost exact simulation method for the Heston model, <i>Journal of Computational Finance</i> <b>11</b>(1), 115–125.</li>",
+              "polygon": [
+                [
+                  302.359375,
+                  392.0466613769531
+                ],
+                [
+                  512.308349609375,
+                  392.0466613769531
+                ],
+                [
+                  512.308349609375,
+                  420.443359375
+                ],
+                [
+                  302.359375,
+                  420.443359375
+                ]
+              ],
+              "bbox": [
+                302.359375,
+                392.0466613769531,
+                512.308349609375,
+                420.443359375
+              ],
+              "children": null,
+              "section_hierarchy": {
+                "1": "/page/6/SectionHeader/6"
+              },
+              "images": {}
+            }
+          ],
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/6"
+          },
+          "images": null
+        },
+        {
+          "id": "/page/6/SectionHeader/23",
+          "block_type": "SectionHeader",
+          "html": "<h1><b>Related Articles</b></h1>",
+          "polygon": [
+            [
+              301.203125,
+              438.1936340332031
+            ],
+            [
+              380.9158630371094,
+              438.1936340332031
+            ],
+            [
+              380.9158630371094,
+              449.401611328125
+            ],
+            [
+              301.203125,
+              449.401611328125
+            ]
+          ],
+          "bbox": [
+            301.203125,
+            438.1936340332031,
+            380.9158630371094,
+            449.401611328125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/24",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><b>Affine Models</b>; <b>Cox–Ingersoll–Ross (CIR) Model</b>; <b>Heston Model</b>; <b>Monte Carlo Simulation for</b> <b>Stochastic Differential Equations</b>; <b>Stochastic Dif</b><b>ferential Equations: Scenario Simulation</b>; <b>Stochas</b><b>tic Taylor Expansions</b>.</p>",
+          "polygon": [
+            [
+              303.1180419921875,
+              464.60919189453125
+            ],
+            [
+              512.5078125,
+              464.60919189453125
+            ],
+            [
+              512.5078125,
+              520.2615966796875
+            ],
+            [
+              303.1180419921875,
+              520.2615966796875
+            ]
+          ],
+          "bbox": [
+            303.1180419921875,
+            464.60919189453125,
+            512.5078125,
+            520.2615966796875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/23"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Footnote/25",
+          "block_type": "Footnote",
+          "html": "<p>LEIF B.G. ANDERSEN, PETER JACKEL ¨ &amp; CHRISTIAN KAHL</p>",
+          "polygon": [
+            [
+              339.9375,
+              530.9681091308594
+            ],
+            [
+              501.234375,
+              530.9681091308594
+            ],
+            [
+              501.234375,
+              552.30126953125
+            ],
+            [
+              339.9375,
+              552.30126953125
+            ]
+          ],
+          "bbox": [
+            339.9375,
+            530.9681091308594,
+            501.234375,
+            552.30126953125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/6/SectionHeader/23"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/6/SectionHeader/23"
+      },
+      "images": null
+    }
+  ],
+  "block_type": "Document"
+}

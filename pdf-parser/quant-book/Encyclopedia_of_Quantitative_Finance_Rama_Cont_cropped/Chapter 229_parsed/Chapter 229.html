@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Cox-Ingersoll-Ross (CIR) Model
+  </h1>
+  <p block-type="TextInlineMath">
+   The Cox-Ingersoll-Ross (CIR) model, one of the most well-known short-rate models (see Term
+   <b>
+    Structure Models
+   </b>
+   ), was proposed in 1985 by Cox, Ingersoll, and Ross (see Ross, Stephen). In their pioneering work [3], they use an equilibrium approach to derive an explicit formula for the interest rate as a function of the wealth and the state of technology. On the basis of economic arguments, they specify their general framework in [4] and obtain the following dynamics for the short rate
+   <math display="inline">
+    (r_t, t &gt; 0)
+   </math>
+   under the objective probability measure
+   <math display="inline">
+    \mathbb{P}^o
+   </math>
+   with a risk premium factor
+   <math display="inline">
+    \Lambda
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    t \ge 0, \, \mathrm{d}r_t = \left[\kappa\theta - (\kappa + \Lambda)r_t\right] \mathrm{d}t + \sigma\sqrt{r_t} \,\mathrm{d}W_t^o \quad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here, the process
+   <math display="inline">
+    (W_t^o, t \ge 0)
+   </math>
+   is a standard Brownian motion, and the real parameters
+   <math display="inline">
+    \kappa, \theta, \sigma
+   </math>
+   satisfy
+   <math display="inline">
+    \kappa \theta \ge 0
+   </math>
+   and
+   <math display="inline">
+    \sigma &gt; 0
+   </math>
+   . To deal with pricing, we, however, consider in the sequel the dynamics under the risk-neutral measure
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   (see
+   <b>
+    Hedging
+   </b>
+   ). The usual assumption is to take a risk premia function equal to
+   <math display="inline">
+    \Lambda \sqrt{r}/\sigma
+   </math>
+   (see Risk Premia). This choice allows to keep a similar dynamics under
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    t \ge 0, \, \mathrm{d}r_t = \kappa (\theta - r_t) \, \mathrm{d}t + \sigma \sqrt{r_t} \, \mathrm{d}W_t \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <math display="inline">
+    W_t = W_t^o - \int_0^t (\Lambda \sqrt{r_s}/\sigma) \, ds
+   </math>
+   being a Brownian motion under
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   . Indeed, using
+   <math display="inline">
+    \int_0^t \sqrt{r_s} \, \mathrm{d}W_s^o =
+   </math>
+   <math display="inline">
+    [r_t - r_0 - \kappa \theta t + \int_0^t (\kappa + \Lambda) r_s \, ds] / \sigma
+   </math>
+   , we can check from equation (3) that
+   <math display="inline">
+    \mathbb{E}^o[\exp[\int_0^t (\Lambda \sqrt{r_s}/\sigma) \, \mathrm{d}W_s^o  \frac{1}{2}\int_0^t (\Lambda/\sigma)^2 r_s \, ds = 1
+   </math>
+   , so
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   is indeed equivalent to
+   <math display="inline">
+    \mathbb{P}^o
+   </math>
+   . The parameters have a clear interpretation. First,
+   <math display="inline">
+    \sigma
+   </math>
+   determines the volatility of the interest rate. Moreover, for the common practical choice
+   <math display="inline">
+    \kappa, \theta &gt; 0
+   </math>
+   that we assume in the following, the short rate has a mean reversion toward
+   <math display="inline">
+    \theta
+   </math>
+   with a speed driven by
+   <math display="inline">
+    \kappa
+   </math>
+   . It is known that equation
+   <math display="inline">
+    (2)
+   </math>
+   has a (pathwise) unique nonnegative solution for any starting value
+   <math display="inline">
+    r_0 \geq 0
+   </math>
+   . Furthermore, the short rate remains positive at any time as long as
+   <math display="inline">
+    r_0 &gt; 0
+   </math>
+   and
+   <math display="inline">
+    2\kappa \theta \geq \sigma^2
+   </math>
+   . Nonnegativity is, of course, a nice feature when modeling interest rates. This is the main qualitative difference between CIR and Vasicek models (see Term Structure Models)
+  </p>
+  <p block-type="Text">
+   that have otherwise similar properties for pricing derivatives.
+  </p>
+  <h4>
+   <b>
+    Analytical Results
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Beyond the natural meaning of its parameters, the CIR model strength is to provide analytical formulas for the main financial quantities. It belongs to the class of affine models (see Affine Models), which means that the Laplace transform of the joint distribution
+   <math display="inline">
+    (r_t, \int_0^t r_s \, ds)
+   </math>
+   is known to be for
+   <math display="inline">
+    \lambda, \mu &gt; 0
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[e^{-\lambda r_t - \mu \int_0^t r_s \mathrm{d}s}\right] = A_{\lambda,\mu}(t) \exp(-r_0 B_{\lambda,\mu}(t)) \quad (3)
+   </math>
+  </p>
+  <p block-type="Text">
+   We have the following formulas (see
+   <math display="inline">
+    [10]
+   </math>
+   ):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_{\lambda,\mu}(t) = \left[ \frac{2\gamma_{\mu}e^{t\frac{\gamma_{\mu}+\kappa}{2}}}{\{\sigma^{2}\lambda(e^{\gamma_{\mu}t}-1)+\gamma_{\mu}}\} \right]^{\frac{2\kappa\theta}{\sigma^{2}}},
+   </math>
+   <math display="block">
+    B_{\lambda,\mu}(t) = \frac{\lambda[\gamma_{\mu}+\kappa+e^{\gamma_{\mu}t}(\gamma_{\mu}+\kappa)]}{\sigma^{2}\lambda(e^{\gamma_{\mu}t}-1)+\gamma_{\mu}-\kappa+e^{\gamma_{\mu}t}(\gamma_{\mu}+\kappa)}
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \gamma_{\mu} = \sqrt{\kappa^2 + 2\sigma^2\mu}
+   </math>
+   . An analogous formula to equation (3) holds for the Fourier transform, handling complex logarithms with care, and even for a wider range of complex values of
+   <math display="inline">
+    \lambda
+   </math>
+   and
+   <math display="inline">
+    \mu
+   </math>
+   as long as the left-hand side is well defined. Thanks to equation (3), the law of
+   <math display="inline">
+    r_t
+   </math>
+   is known. Defining
+   <math display="inline">
+    c_t = \frac{4\kappa}{\sigma^2(1-\mathbf{e}^{-\kappa t})}
+   </math>
+   ,
+   <math display="inline">
+    c_t r_t
+   </math>
+   is distributed as a chi-square distribution with
+   <math display="inline">
+    v =
+   </math>
+   <math display="inline">
+    \frac{4\kappa\theta}{\sigma^2}
+   </math>
+   degrees of freedom and noncentrality parameter
+   <math display="inline">
+    d_t = c_t r_0 e^{-\kappa t}
+   </math>
+   More explicitly, this means that
+   <math display="inline">
+    r_t
+   </math>
+   has the following density function for
+   <math display="inline">
+    r &gt; 0
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{i=0}^{\infty} \frac{\mathrm{e}^{-\frac{d_{t}}{2}} \left(\frac{d_{t}}{2}\right)^{i}}{i!} \frac{c_{t}/2}{\Gamma\left(i+\frac{\nu}{2}\right)} \left(\frac{c_{t}r}{2}\right)^{i-1+\frac{\nu}{2}} \mathrm{e}^{-\frac{c_{t}r}{2}} \quad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In particular, one can see that
+   <math display="inline">
+    r_t
+   </math>
+   converges to a steady-state distribution with density
+   <math display="inline">
+    \frac{(c_{\infty}/2)^{\frac{\nu}{2}}}{\Gamma(\frac{\nu}{2})}r^{\frac{\nu}{2}-1}
+   </math>
+   <math display="inline">
+    e^{-\frac{c_{\infty}}{2}r}
+   </math>
+   where
+   <math display="inline">
+    c_{\infty} = 4\kappa/\sigma^2
+   </math>
+   when
+   <math display="inline">
+    t \to +\infty
+   </math>
+   . This is a Gamma distribution with mean
+   <math display="inline">
+    \theta
+   </math>
+   and variance
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \theta \sigma^2/(2\kappa)
+   </math>
+   . It is the stationary law of the stochastic differential equation (2).
+  </p>
+  <h4>
+   <b>
+    Derivative Pricing
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Under a short-rate model, the initial price of a zerocoupon bond with maturity
+   <math display="inline">
+    T &gt; 0
+   </math>
+   (see definition in
+   <b>
+    Bond
+   </b>
+   ) is given by
+   <math display="inline">
+    \mathbb{E}[\mathrm{e}^{-\int_0^T r_s ds}]
+   </math>
+   . It is here analytically known and is equal to
+   <math display="inline">
+    A_{0,1}(T) \exp(-r_0 B_{0,1}(T)).
+   </math>
+   More generally, the price at time
+   <math display="inline">
+    t &gt; 0
+   </math>
+   of a zerocoupon bond with maturity
+   <math display="inline">
+    T
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(r_t, t, T) = A_{0,1}(T - t) \exp(-r_t B_{0,1}(T - t)) \quad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   The CIR model also provides closed form formulas for some option prices. For instance, let us consider a call option with strike
+   <math display="inline">
+    K
+   </math>
+   and maturity
+   <math display="inline">
+    T
+   </math>
+   , written on a zero-coupon bond with maturity
+   <math display="inline">
+    S \geq T
+   </math>
+   . Its initial price is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{C} = \mathbb{E}[\mathrm{e}^{-\int_{0}^{T} r_{s} ds} (P(r_{T}, T, S) - K)^{+}] \qquad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   To calculate
+   <math display="inline">
+    C
+   </math>
+   , we use another nice feature of the CIR model: the short-rate distribution is known under the forward measure. Let us recall that for a fixed maturity
+   <math display="inline">
+    T &gt; 0
+   </math>
+   , the
+   <i>
+    T
+   </i>
+   -forward measure is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}^{T}(A) = \frac{\mathbb{E}\left[e^{-\int_{0}^{T} r_{s} \mathrm{d}s} \mathbf{1}_{A}\right]}{P(r_{0}, 0, T)} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for any event
+   <math display="inline">
+    A
+   </math>
+   anterior to time
+   <math display="inline">
+    T
+   </math>
+   (see Forward and Swap Measures), which amounts to taking the zerocoupon bond as a numeraire. Under
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   ,
+   <math display="inline">
+    (r_t, 0 \le t \le t)
+   </math>
+   <math display="inline">
+    T
+   </math>
+   ) solves the following SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dr_t = [\kappa \theta - (\kappa + \sigma^2 B_{0,1}(T-t))r_t] dt + \sigma \sqrt{r_t} dW_t^T
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (W_t^T, 0 \le t \le T)
+   </math>
+   is a Brownian motion under
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   . This diffusion is again of the affine type and is tractable. In particular, for
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   , the law of
+   <math display="inline">
+    r_t
+   </math>
+   under
+   <math display="inline">
+    \mathbb{P}^T
+   </math>
+   is known: it is distributed as
+   <math display="inline">
+    1/(2\alpha_T(t))
+   </math>
+   times a chi-square random variable with
+   <math display="inline">
+    \nu
+   </math>
+   degrees of freedom and noncentrality parameter
+   <math display="inline">
+    \frac{8r_0\gamma_1^2e^{\gamma_1t}}{\sigma^4(e^{\gamma_1t}-1)^2\alpha_T(t)}
+   </math>
+   , where
+   <math display="inline">
+    \alpha_T(t) = \frac{2\gamma_1}{\sigma^2(e^{\gamma_1t}-1)} +
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \frac{\kappa + \gamma_1}{\sigma^2} + B_{0,1}(T - t)
+   </math>
+   (see [2, 4, 8]). Then, from equations
+   <math display="inline">
+    (6 \text{ and } 7)
+   </math>
+   , we easily get the call price
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{C} = P(r_0, 0, S) \mathbb{P}^S(r_T \le r^\star)
+   </math>
+   <math display="block">
+    - K P(r_0, 0, T) \mathbb{P}^T(r_T \le r^\star) \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    r^* = \ln(A_{0,1}(S-T)/K)/B_{0,1}(S-T)
+   </math>
+   . Obviously, we have a similar formula for put options. Nonetheless, options on zero-coupon bonds are not standard in practice, and products like caps, floors, and swaptions are mostly preferred to get hedge against interest-rate fluctuations (see Caps and
+   <b>
+    Floors
+   </b>
+   ). A well-known relation is that the price of a floorlet (resp. caplet) between maturities
+   <math display="inline">
+    T
+   </math>
+   and
+   <math display="inline">
+    S
+   </math>
+   can be written as a simple function of a call (resp. put) option on the zero-coupon bond between
+   <math display="inline">
+    T
+   </math>
+   and
+   <math display="inline">
+    S
+   </math>
+   (see, e.g., [2]). This way, from equation (10), we derive closed form formulas for cap and floor prices also. Receiver (resp. payer) European swaptions can readily be seen as call (resp. put) option with a unit strike on a bond whose coupon rate corresponds to the swaption strike (see
+   <b>
+    Bond Options
+   </b>
+   ). Thus, denoting the maturity by T, and with
+   <math display="inline">
+    T &lt;
+   </math>
+   <math display="inline">
+    S_1 &lt; \ldots &lt; S_n
+   </math>
+   , the payment grid, its price has the following form
+   <math display="inline">
+    \mathbb{E}[\mathrm{e}^{-\int_0^T r_s \mathrm{d}s} (\sum_{i=1}^n \alpha_i P(r_T, T, S_i) - 1)^+]
+   </math>
+   &lt;br&gt;with
+   <math display="inline">
+    \alpha_i \geq 0
+   </math>
+   ,
+   <math display="inline">
+    \sum_{i=1}^n \alpha_i &gt; 1
+   </math>
+   . Thanks to the strike decomposition introduced by Jamshidian [7], it turns out to be a combination of call prices on zerocoupon bonds. Indeed,
+   <math display="inline">
+    P(r, T, S)
+   </math>
+   being decreasing with respect to r, there is a unique
+   <math display="inline">
+    \rho &gt; 0
+   </math>
+   such that
+   <math display="inline">
+    \sum_{i=1}^{n} \alpha_i P(\rho, T, S_i) = 1
+   </math>
+   , and we have
+   <math display="inline">
+    (\sum_{i=1}^{n} \alpha_i [P(r_T, T, S_i) - P(\rho, T, S_i)])^+ = \sum_{i=1}^{n}
+   </math>
+   <math display="inline">
+    \overline{\alpha_i(P(r_T,T,S_i)-P(\rho,T,S_i))^{+}}
+   </math>
+   .
+  </p>
+  <h4>
+   Calibration
+  </h4>
+  <p block-type="Text">
+   Let us turn to the calibration of the CIR model to the market prices. We have analytical formulas for zero-coupon bond, cap, and floor prices. Swaption prices can also be computed very quickly,
+   <math display="inline">
+    \rho
+   </math>
+   being obtained, for example, by dichotomy. Therefore, the distance between the market prices and the theoretical ones obtained from the CIR model can be computed quickly and minimized with the use of any optimization algorithm. In this way, we can identify optimal parameters
+   <math display="inline">
+    r_0
+   </math>
+   ,
+   <math display="inline">
+    \kappa
+   </math>
+   ,
+   <math display="inline">
+    \theta
+   </math>
+   , and
+   <math display="inline">
+    \sigma
+   </math>
+   . In practice, it is likely to better fit swaption prices than cap and floor prices. Indeed, they do not only
+  </p>
+  <p block-type="Text">
+   describe the evolution of each single rate for different maturities but also the dependence between them. Unfortunately, these four parameters are anyway not enough in practice, if we want to accurately capture all the market data. For this reason, many works have been done to extend the CIR model. While doing this, the challenge is to preserve the nice analytical tractability of the CIR model. Without being exhaustive, we mention here the extended CIR model [9] where parameters
+   <i>
+    κ
+   </i>
+   ,
+   <i>
+    θ
+   </i>
+   and
+   <i>
+    σ
+   </i>
+   are supposed to be time dependent, and the particular case where
+   <i>
+    κ(t )θ (t )/σ
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    (t)
+   </i>
+   is constant that allow to preserve some closed formulas [8]. Other generalizations have been proposed, like adding a deterministic shift or another independent CIR process (see [2] for some numerical experiments). Most of these extensions are embedded in the general affine framework described in [5] (
+   <i>
+    see
+   </i>
+   <b>
+    Term Structure Models
+   </b>
+   ).
+  </p>
+  <h2>
+   <b>
+    Monte Carlo Simulation
+   </b>
+  </h2>
+  <p block-type="Text">
+   Finally, it is important to mention the simulation issues concerning square-root diffusions. This topic goes beyond the world of interest derivatives because these diffusions are widespread in finance, such as in the Heston model (
+   <i>
+    see
+   </i>
+   <b>
+    Heston Model
+   </b>
+   ). First, exact simulation is possible for the CIR model since we know how to simulate a noncentral chi-square distribution [6]. However, in some applications, it may be more convenient to use discretization schemes that often lead to smaller computation times. We face the difficulty that usual schemes such as Euler and Milstein generally fail. This is due to the square root in the CIR dynamics, which is non-Lipschitzian near the origin and is not defined for negative values. Tailored schemes should then be considered as in [1]. More information on the simulation of the CIR process can be found in
+   <b>
+    Simulation of Square-root Processes
+   </b>
+   .
+  </p>
+  <h3>
+   <b>
+    Conclusion
+   </b>
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   The fundamental features of the CIR model—intuitive parameterization, nonnegativity, pricing formulas for main options—explain why it has been widely used for hedging risk on interest-rate derivatives. Nowadays, owing to the complexity of the fixed income market, more sophisticated models are required, such as Libor or Swap Market models (
+   <i>
+    see
+   </i>
+  </p>
+  <p block-type="Text">
+   <b>
+    LIBOR Market Model
+   </b>
+   and
+   <b>
+    Swap Market Models
+   </b>
+   ). Nonetheless, the CIR model is often used as a building block for more complex models. Many extensions that rely on the same mathematical properties are widespread for interest-rate modeling (multifactor quadratic Gaussian models (
+   <i>
+    see
+   </i>
+   <b>
+    Quadratic Gaussian Models
+   </b>
+   , affine models (
+   <i>
+    see
+   </i>
+   <b>
+    Affine Models
+   </b>
+   ), the Heston model for equity (
+   <i>
+    see
+   </i>
+   <b>
+    Heston Model
+   </b>
+   ), or the Duffie–Singleton model on credit derivatives (
+   <i>
+    see
+   </i>
+   <b>
+    Duffie–Singleton Model
+   </b>
+   ).
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Alfonsi A. (2008).
+     <i>
+      High Order Discretization Schemes for the CIR Process: Application to Affine Term Structure and Heston Models
+     </i>
+     , available on http://hal.archivesouvertes.fr/
+    </li>
+    <li block-type="ListItem">
+     [2] Brigo D. &amp; Mercurio, F. (2006).
+     <i>
+      Interest Rate Models: Theory and Practice
+     </i>
+     , 2nd Edition, Springer-Verlag.
+    </li>
+    <li block-type="ListItem">
+     [3] Cox, J.C., Ingersoll, J.E. &amp; Ross, S.A. (1985). An intertemporal general equilibrium model of asset prices,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      53
+     </b>
+     , 363–384.
+    </li>
+    <li block-type="ListItem">
+     [4] Cox, J.C., Ingersoll, J.E. &amp; Ross, S.A. (1985). A theory of the term structure of interest rates,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      53
+     </b>
+     , 385–407.
+    </li>
+    <li block-type="ListItem">
+     [5] Duffie, D., Pan, J. &amp; Singleton, S.A. (2000). Transform analysis and asset pricing for affine jump diffusions,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      68
+     </b>
+     , 1343–1376.
+    </li>
+    <li block-type="ListItem">
+     [6] Glasserman, P. (2003).
+     <i>
+      Monte Carlo Methods in Financial Engineering
+     </i>
+     , Series: Applications of Mathematics, Vol. 53, Springer.
+    </li>
+    <li block-type="ListItem">
+     [7] Jamshidian, F. (1989). An exact bond option formula,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      44
+     </b>
+     , 205–209.
+    </li>
+    <li block-type="ListItem">
+     [8] Jamshidian, F. (1995). A simple class of square-root interest-rate models,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 61–72.
+    </li>
+    <li block-type="ListItem">
+     [9] Hull, J. &amp; White, A. (1990). Pricing interest rate derivative securities,
+     <i>
+      The Review of Financial Studies
+     </i>
+     <b>
+      3
+     </b>
+     , 573–592.
+    </li>
+    <li block-type="ListItem">
+     [10] Lamberton, D. &amp; Lapeyre, B. (1996).
+     <i>
+      An Introduction to Stochastic Calculus Applied to Finance
+     </i>
+     , Chapman &amp; Hall.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Affine Models
+   </b>
+   ;
+   <b>
+    Bond
+   </b>
+   ;
+   <b>
+    Bond Options
+   </b>
+   ;
+   <b>
+    Caps and Floors
+   </b>
+   ;
+   <b>
+    Duffie–Singleton Model
+   </b>
+   ;
+   <b>
+    Forward and Swap Measures
+   </b>
+   ;
+   <b>
+    Hedging
+   </b>
+   ;
+   <b>
+    Heston Model
+   </b>
+   ;
+   <b>
+    LIBOR Market Model
+   </b>
+   ;
+   <b>
+    Quadratic Gaussian Models
+   </b>
+   ;
+   <b>
+    Risk Premia
+   </b>
+   ;
+   <b>
+    Ross, Stephen
+   </b>
+   ;
+   <b>
+    Simulation of Square-root Processes
+   </b>
+   ;
+   <b>
+    Swap Market Models
+   </b>
+   ;
+   <b>
+    Term Structure Models
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   AURELIEN ´ ALFONSI
+  </p>
+ </body>
+</html>

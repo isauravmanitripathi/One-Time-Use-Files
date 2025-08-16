@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Ornstein-Uhlenbeck Processes
+  </h1>
+  <p block-type="Text">
+   There are several reasons why Ornstein-Uhlenbeck processes are of practical interest in financial stochastic modeling. These continuous-time stochastic processes offer the possibility of capturing important distributional deviations from Gaussianity and for flexible modeling of dependence structures, while retaining analytic tractability.
+  </p>
+  <p block-type="TextInlineMath">
+   An
+   <i>
+    Ornstein-Uhlenbeck
+   </i>
+   (OU) process is defined as the solution
+   <math display="inline">
+    X_t
+   </math>
+   of a Langevin-type stochastic differential equation (SDE)
+   <math display="inline">
+    dX_t = -\lambda X_t dt + dZ_t
+   </math>
+   where
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   and
+   <math display="inline">
+    Z_t
+   </math>
+   is a Lévy process (see Lévy
+   <b>
+    Processes
+   </b>
+   ). The process is named after L. S. Ornstein and G. E. Uhlenbeck who, in 1930, considered the classical Langevin equation when
+   <math display="inline">
+    Z
+   </math>
+   is a Brownian motion, and hence
+   <math display="inline">
+    X_t
+   </math>
+   is a Gaussian process. Historical notes, references, and details are found in [6, 7] while modeling aspects are found in
+   <math display="inline">
+    [1]
+   </math>
+   . At the time of writing, new extensions and applications of OU processes are thriving, many of them motivated by financial modeling.
+  </p>
+  <h4>
+   The Gaussian OU Process
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \{B_t : t \ge 0\}
+   </math>
+   be a standard Brownian motion,
+   <math display="inline">
+    \sigma
+   </math>
+   a positive constant, and
+   <math display="inline">
+    x_0
+   </math>
+   a real constant. The classical OU process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = e^{-\lambda t} x_0 + \sigma \int_0^t e^{-\lambda(t-s)} dB_s, \quad t \ge 0 \qquad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is the solution of the classical Langevin equation
+   <math display="inline">
+    dX_t = -\lambda X_t dt + \sigma dB_t
+   </math>
+   ,
+   <math display="inline">
+    X_0 = x_0
+   </math>
+   . It was originally proposed as a model for the velocity of a Brownian motion and it is the continuous-time analog of the discrete-time autoregressive process
+   <math display="inline">
+    AR(1)
+   </math>
+   . In mathematical finance, OU is used for modeling of the dynamics of interest rates and volatilities of asset prices. The process
+   <math display="inline">
+    X_t
+   </math>
+   is a Gaussian process with (almost surely) continuous sample paths, mean function
+   <math display="inline">
+    E(X_t) = x_0 \sigma e^{-\lambda t}
+   </math>
+   , and covariance
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{Cov}(X_{t}, X_{s}) = \frac{\sigma^{2}}{2\lambda} \left( e^{-\lambda|t-s|} - e^{-\lambda(t+s)} \right) \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For
+   <math display="inline">
+    t = s
+   </math>
+   , we obtain
+   <math display="inline">
+    \text{var}(X_t) = \frac{\sigma^2}{2\lambda}(1 - e^{-2\lambda t})
+   </math>
+   .&lt;br&gt;Let
+   <i>
+    N
+   </i>
+   be a zero-mean Gaussian random variable with variance
+   <math display="inline">
+    \frac{\sigma^2}{2\lambda}
+   </math>
+   , independent of the Brownian motion
+   <math display="inline">
+    \{B_t : t \ge 0\}
+   </math>
+   . The process
+   <math display="inline">
+    X_t = \sigma e^{-\lambda t} \int_0^t e^{\lambda s} dB_s + N
+   </math>
+   is a stationary Gaussian process with
+   <math display="inline">
+    \text{Cov}(X_t, X_s) =
+   </math>
+   <math display="inline">
+    \frac{\sigma^2}{2\lambda}e^{-\lambda|t-s|}
+   </math>
+   . Moreover,
+   <math display="inline">
+    X_t
+   </math>
+   is a Markov process with stationary transition probability
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_t(x, B) = \frac{\sqrt{\lambda}}{\sigma\sqrt{\pi(1 - e^{-2\lambda t})}}
+   </math>
+   <math display="block">
+    \times \int_B \exp\left\{-\frac{\lambda}{\sigma^2} \frac{(y - xe^{-\lambda t})^2}{1 - e^{-2\lambda t}}\right\} dy
+   </math>
+   (3)
+  </p>
+  <h4>
+   Non-Gaussian OU Processes
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \{Z_t : t \ge 0\}
+   </math>
+   be a Lévy process (see Lévy Processes). A solution of the Langevin-type SDE
+   <math display="inline">
+    dX_t =
+   </math>
+   <math display="inline">
+    -\lambda X_t dt + dZ_t
+   </math>
+   is a stochastic process
+   <math display="inline">
+    \{X_t : t \ge 0\}
+   </math>
+   with right-continuous and left-limit paths satisfying the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = X_0 - \lambda \int_0^t X_s \mathrm{d}s + Z_s, \quad t \ge 0 \qquad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    X_0
+   </math>
+   is independent of
+   <math display="inline">
+    \{Z_t : t \ge 0\}
+   </math>
+   , the unique (almost surely) solution is the OU process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = e^{-\lambda t} X_0 + \int_0^t e^{-\lambda(t-s)} dZ_s, \quad t \ge 0 \quad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We call
+   <math display="inline">
+    Z_t
+   </math>
+   the background driving Lévy process (BDLP). Of special relevance in financial modeling is the case when
+   <math display="inline">
+    Z_t
+   </math>
+   is a nonnegative increasing Lévy process (a subordinator) and
+   <math display="inline">
+    X_0
+   </math>
+   is nonnegative. The corresponding OU process is positive, moves up entirely by jumps, and then tails off exponentially. Hence it can be used as a variance process.
+  </p>
+  <p block-type="TextInlineMath">
+   Every OU process is a time-homogeneous Markov process starting from
+   <math display="inline">
+    X_0
+   </math>
+   and its transition probability
+   <math display="inline">
+    P_t(x, dy)
+   </math>
+   is infinitely divisible (see Infinite Divisibility) with characteristic function (see
+   <b>
+    Filtering
+   </b>
+   )
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{\mathbb{R}} e^{iuy} P_t(x, dy) = \exp\left[ixue^{-\lambda t} + \int_0^t \Psi(e^{-\lambda s}u)ds\right]
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \Psi
+   </math>
+   is the
+   <i>
+    characteristic exponent
+   </i>
+   of the Lévy process
+   <math display="inline">
+    Z_t
+   </math>
+   given by the Lévy-Khintchine representation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(u) = iau - \frac{1}{2}u^2\sigma^2\n
+   </math>
+   <math display="block">
+    \n+ \int_{\mathbb{R}} (e^{iux} - 1 - iux1_{|x| \le 1})\Pi(dx), \quad u \in \mathbb{R}\n
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma^2 \ge 0
+   </math>
+   ,
+   <math display="inline">
+    a \in \mathbb{R}
+   </math>
+   , and
+   <math display="inline">
+    \Pi
+   </math>
+   , the Lévy measure, is a positive measure on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   with
+   <math display="inline">
+    \Pi(\{0\}) = 0
+   </math>
+   and
+   <math display="inline">
+    \int_{\mathbb{R}} \min(1, |x|^2) \Pi(dx) &lt; \infty
+   </math>
+   . For each
+   <math display="inline">
+    t &gt; 0
+   </math>
+   , the probability distribution of
+   <math display="inline">
+    Z_t
+   </math>
+   has characteristic function
+   <math display="inline">
+    \varphi_t(u) = E[e^{iuX_t}] = \exp(t\Psi(u))
+   </math>
+   . When the Lévy measure is zero,
+   <math display="inline">
+    Z_t
+   </math>
+   is a Brownian motion with variance
+   <math display="inline">
+    \sigma^2
+   </math>
+   and drift a.
+  </p>
+  <h2>
+   The Integrated OU Process
+  </h2>
+  <p block-type="TextInlineMath">
+   A non-Gaussian OU process
+   <math display="inline">
+    X_t
+   </math>
+   has the same jump times of
+   <math display="inline">
+    Z_t
+   </math>
+   , as one sees from equation (4). However,
+   <math display="inline">
+    X_t
+   </math>
+   and
+   <math display="inline">
+    Z_t
+   </math>
+   cobreak in the sense that a linear combination of the two does not jump. We see this by considering the continuous integrated OU process
+   <math display="inline">
+    I_t^X =
+   </math>
+   <math display="inline">
+    \int_0^t X_s ds
+   </math>
+   , which has two alternative representations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_t^X = \lambda^{-1} \{ X_0 - X_t + Z_t \} = \lambda^{-1} (1 - e^{-\lambda t}) X_0
+   </math>
+   <math display="block">
+    + \lambda^{-1} \int_0^t \left\{ 1 - e^{-\lambda (t-s)} \right\} dZ_s \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the Gaussian case, the process
+   <math display="inline">
+    I_t^X
+   </math>
+   is interpreted as the displacement of the Brownian particle. In financial applications,
+   <math display="inline">
+    I_t^X
+   </math>
+   is used to model integrated variance
+   <math display="inline">
+    [1]
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Stationary Distribution and the Stationary OU Process
+   </b>
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   An OU process has an asymptotic distribution
+   <math display="inline">
+    \mu
+   </math>
+   when
+   <math display="inline">
+    t \to \infty
+   </math>
+   if it does not have too many big jumps. This is achieved if
+   <math display="inline">
+    Z_1
+   </math>
+   is
+   <math display="inline">
+    \text{ID}_{\text{log}}
+   </math>
+   :
+   <math display="inline">
+    \int_{|x|&gt;2} \ln |x| \Pi(dx)
+   </math>
+   <math display="inline">
+    &lt; \infty
+   </math>
+   , where
+   <math display="inline">
+    \Pi
+   </math>
+   is the Lévy measure of
+   <math display="inline">
+    Z_1
+   </math>
+   . In this case,
+   <math display="inline">
+    \mu
+   </math>
+   does not depend on
+   <math display="inline">
+    X_0
+   </math>
+   and we call
+   <math display="inline">
+    \mu
+   </math>
+   the stationary distribution of
+   <math display="inline">
+    X_t
+   </math>
+   . Moreover,
+   <math display="inline">
+    \mu
+   </math>
+   is a selfdecomposable (SD) distribution (and hence infinitely
+  </p>
+  <p block-type="TextInlineMath">
+   divisible): for any
+   <math display="inline">
+    \theta \in (0, 1)
+   </math>
+   , there is a random variable
+   <math display="inline">
+    \varepsilon_{\theta}
+   </math>
+   independent of X such that
+   <math display="inline">
+    X \stackrel{d}{=} \theta X + \varepsilon_{\theta}
+   </math>
+   . Conversely, for every SD distribution
+   <math display="inline">
+    \mu
+   </math>
+   there exists a Lévy process
+   <math display="inline">
+    Z_t
+   </math>
+   with
+   <math display="inline">
+    Z_1
+   </math>
+   being ID&lt;sub&gt;log&lt;/sub&gt; and such that
+   <math display="inline">
+    \mu
+   </math>
+   is the stationary distribution of the OU process driven by
+   <math display="inline">
+    Z_t
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The strictly stationary OU process is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{t} = e^{-\lambda t} \int_{-\infty}^{t} e^{\lambda s} dZ_{s}, \quad t \in \mathbb{R}
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \{Z_t : t \in \mathbb{R}\}
+   </math>
+   is a Lévy process constructed as follows: let
+   <math display="inline">
+    \{Z_t^1 : t \ge 0\}
+   </math>
+   be a Lévy process with characteristic exponent
+   <math display="inline">
+    \Psi_1
+   </math>
+   and let
+   <math display="inline">
+    \{Z_t^2 : t \ge 0\}
+   </math>
+   be a Lévy process with characteristic exponent
+   <math display="inline">
+    \Psi_2(u) =
+   </math>
+   <math display="inline">
+    \Psi_1(-u)
+   </math>
+   and independent of
+   <math display="inline">
+    Z^1
+   </math>
+   . Then
+   <math display="inline">
+    Z_t = Z_t^1
+   </math>
+   for
+   <math display="inline">
+    t \ge 0
+   </math>
+   and
+   <math display="inline">
+    Z_t = \overline{Z}_{-t}^2
+   </math>
+   for
+   <math display="inline">
+    t &lt; 0
+   </math>
+   . In this case, the law of
+   <math display="inline">
+    X_t
+   </math>
+   is SD and conversely, for any SD law
+   <math display="inline">
+    \mu
+   </math>
+   there exists a BDLP
+   <math display="inline">
+    Z_t
+   </math>
+   such that equation (9) determines a stationary OU process with distribution
+   <math display="inline">
+    \mu
+   </math>
+   . As a result, taking
+   <math display="inline">
+    X_0 = \int_{-\infty}^0 e^{\lambda s} dZ_s
+   </math>
+   , we can always consider (5) as a strictly stationary OU process with a prescribed SD distribution
+   <math display="inline">
+    \mu
+   </math>
+   . It is an important example of a continuous-time moving average process.
+  </p>
+  <h4>
+   Generalizations
+  </h4>
+  <p block-type="TextInlineMath">
+   The monographs
+   <math display="inline">
+    [6, 7]
+   </math>
+   contain a detailed study of multivariate OU process, while matrix extensions are considered in [2]. Another extension is the
+   <math display="inline">
+    generalized \ OU \ process
+   </math>
+   , which has arisen in several financial applications
+   <math display="inline">
+    [4, 8]
+   </math>
+   . It is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = e^{-\xi_t} X_0 + e^{-\xi_t} \int_0^t e^{-\xi_s -} d\eta_s, \quad t \ge 0 \quad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \{(\xi_t, \eta_t) : t \ge 0\}
+   </math>
+   is a bivariate Lévy process, independent of
+   <math display="inline">
+    X_0
+   </math>
+   . This process is a homogeneous Markov process starting from
+   <math display="inline">
+    X_0
+   </math>
+   , and, in general, the existence of the stationary solution depends on the convergence of integrals of exponentials of Lévy processes. For example, when
+   <math display="inline">
+    \xi
+   </math>
+   and
+   <math display="inline">
+    \eta
+   </math>
+   are independent, and if
+   <math display="inline">
+    \xi_t \to \infty
+   </math>
+   and
+   <math display="inline">
+    V_{\infty} = \int_0^{\infty} e^{-\xi_s} d\eta_s
+   </math>
+   is defined and finite, then the law of
+   <math display="inline">
+    V_{\infty}
+   </math>
+   is the unique stationary solution of
+   <math display="inline">
+    X_t
+   </math>
+   . In the dependent case, the generalized OU process admits a stationary solution that does not degenerate to a constant process if and only if
+   <math display="inline">
+    V_{\infty} = \lim_{t \to \infty} \int_0^t e^{-\xi_s} dL_s
+   </math>
+   exists and is finite almost surely and does not
+  </p>
+  <p block-type="TextInlineMath">
+   degenerate to constant random variable, and where
+   <math display="inline">
+    L_t
+   </math>
+   is the accompanying Lévy process
+   <math display="inline">
+    L_t = \eta_t +
+   </math>
+   <math display="inline">
+    \sum_{0 &lt; s \le t} (e^{-\Delta \xi_s} - 1) \Delta \eta_s - t \mathbf{E}(B_1^{\xi}, B_1^{\eta}), \text{ where } \Delta \xi_s =
+   </math>
+   <math display="inline">
+    \xi_s - \xi_{s-}
+   </math>
+   , with
+   <math display="inline">
+    B_1^{\xi}, B_1^{\eta}
+   </math>
+   the Gaussian parts of
+   <math display="inline">
+    \xi
+   </math>
+   and
+   <math display="inline">
+    \eta
+   </math>
+   respectively
+   <math display="inline">
+    [3, 5]
+   </math>
+   .
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Barndorff-Nielsen, O.E. &amp; Shephard, N. (2001). Non-Gaussian Ornstein-Uhlenbeck-based models and some of their uses in financial economics (with discussion), The Journal of the Royal Statistical Society B 63, 167–241.
+    </li>
+    <li block-type="ListItem">
+     [2] Barndorff-Nielsen, O.E. &amp; Stelzer, R. (2007). Positivedefinite matrix processes of finite variation, Probability and Mathematical Statistics 27, 3-43.
+    </li>
+    <li block-type="ListItem">
+     [3] Carmona, P., Petit, F. &amp; Yor, M. (2001). Exponential functionals of Lévy processes, in Lévy Processes. Theory and Applications, O.E. Barndorff-Nielsen, T. Mikosch &amp; S.I. Resnick, eds, Birkhäuser, pp. 41-55.
+    </li>
+    <li block-type="ListItem">
+     [4] Klüppelberg, C., Linder, A. &amp; Maller, R. (2006). Continuous time volatility modelling: COGARCH versus Ornstein-Uhlenbeck models, in The Shiryaev Festschrift: From Stochastic Calculus to Mathematical Finance,
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Y. Kabanov, R. Lipster &amp; J. Stovanov, eds. Springer, рр. 392-419.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [5] Linder, A. &amp; Maller, R. (2005). Lévy processes and the stationarity of generalised Ornstein-Uhlenbeck processes, Stochastic Processes and Their Applications 115, 1701-1722.
+    </li>
+    <li block-type="ListItem">
+     [6] Rocha-Arteaga, A. &amp; Sato, K. (2003). Topics in Infinitely Divisible Distributions and Lévy Processes, Aportaciones Matemáticas Investigación, Mexican Mathematical Society, 17.
+    </li>
+    <li block-type="ListItem">
+     [7] Sato, K. (1999). Lévy Processes and Infinitely Divisible Distributions, Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     Yor, M. (2001). Exponential Functionals of Brownian [8] Motion and Related Processes, Springer, New York.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   Infinite Divisibility; Lévy Processes; Stochastic Integrals.
+  </p>
+  <p block-type="Text">
+   Víctor Pérez-Abreu
+  </p>
+ </body>
+</html>
