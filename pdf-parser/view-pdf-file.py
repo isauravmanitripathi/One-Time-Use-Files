@@ -24,7 +24,7 @@ class PDFEPUBViewer:
         self.file_type = None  # 'pdf' or 'epub'
         
         # Custom base directory for output folders
-        self.base_output_directory = "/Volumes/hard-drive/miscellaneous-files/pdf-parser/Books"
+        self.base_output_directory = "/Volumes/hard-drive/miscellaneous-files/pdf-parser/quant-book"
         
         # Cropping variables
         self.crop_start_page = None
@@ -625,7 +625,7 @@ def get_output_folder():
     """Ask user for output folder"""
     print("\nOutput folder options:")
     print("1. Select a custom output folder")
-    print("2. Auto-create folder (in /Volumes/hard-drive/miscellaneous-files/pdf-parser/Books)")
+    print("2. Auto-create folder (in /Volumes/hard-drive/miscellaneous-files/pdf-parser/quant-book)")
     
     while True:
         choice = input("Enter your choice (1 or 2): ").strip()
@@ -641,7 +641,7 @@ def get_output_folder():
 
 def main():
     print("PDF & EPUB Viewer & Cropper Starting...")
-    print("Custom output directory: /Volumes/hard-drive/miscellaneous-files/pdf-parser/Books")
+    print("Custom output directory: /Volumes/hard-drive/miscellaneous-files/pdf-parser/quant-book")
     
     # Get user choice for file input method
     choice = get_user_choice()
@@ -678,7 +678,7 @@ def main():
     print("- Cropped pages always saved as PDF")
     print("- Better duplicate filename handling")
     print("- Reset counter button for starting over")
-    print("- Custom output directory: /Volumes/hard-drive/miscellaneous-files/pdf-parser/Books")
+    print("- Custom output directory: /Volumes/hard-drive/miscellaneous-files/pdf-parser/quant-book")
     
     # Start the GUI
     root.mainloop()
