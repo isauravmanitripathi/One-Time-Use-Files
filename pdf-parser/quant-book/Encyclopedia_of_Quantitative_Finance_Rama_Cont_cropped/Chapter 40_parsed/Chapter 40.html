@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Skorokhod Embedding
+   </b>
+  </h1>
+  <p block-type="Text">
+   Analysis of a random evolution focuses initially on the behavior at a fixed deterministic, or random, time. The process and time horizon are known and we investigate the marginal law of the process. If we reverse this point of view, we face the embedding problem. We fix a probability distribution and a (wellunderstood) stochastic process and we try to design a random time such that the process at this time behaves according to the specified distribution. In other words, we know what we want to see and we ask when to look for it.
+  </p>
+  <p block-type="Text">
+   This Skorokhod embedding problem (SEP) or the Skorokhod stopping problem, first formulated and solved by A.V. Skorokhod in 1961 (English translation in 1965
+   <math display="inline">
+    [20]
+   </math>
+   ), is thus the problem of representing a given distribution
+   <math display="inline">
+    \mu
+   </math>
+   as the distribution of a given stochastic process (such as a Brownian motion) at some stopping time. It has stimulated research in probability theory for over 40 years now—the problem has been changed, generalized, or specialized in various ways. We discuss some key results in the domain, along with the applications in quantitative finance, namely to the computation of robust marketconsistent prices and hedges of exotic derivatives.
+  </p>
+  <h3>
+   The Skorokhod Embedding Problem
+  </h3>
+  <p block-type="Text">
+   The
+   <i>
+    SEP
+   </i>
+   problem can be stated as follows:
+  </p>
+  <p block-type="TextInlineMath">
+   Given a stochastic process
+   <math display="inline">
+    (X_t : t \ge 0)
+   </math>
+   and a probability measure
+   <math display="inline">
+    \mu
+   </math>
+   , find a minimal stopping time
+   <math display="inline">
+    \tau
+   </math>
+   such that
+   <math display="inline">
+    X_{\tau}
+   </math>
+   has the law
+   <math display="inline">
+    \mu: X_{\tau} \sim \mu
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   At first, there seems to be a trivial solution to the SEP when
+   <math display="inline">
+    X_t = B_t
+   </math>
+   is a Brownian motion. Write
+   <math display="inline">
+    \Phi
+   </math>
+   and
+   <math display="inline">
+    F_{\mu}
+   </math>
+   for the cumulative distribution function of the standard normal distribution and of
+   <math display="inline">
+    \mu
+   </math>
+   , respectively. Then
+   <math display="inline">
+    F_{\mu}^{-1}(\Phi(B_1))
+   </math>
+   has law
+   <math display="inline">
+    \mu
+   </math>
+   and hence the stopping time
+   <math display="inline">
+    \tau = \inf\{t \ge 2 : B_t = F_{\mu}^{-1}(\Phi(B_1))\}
+   </math>
+   satisfies
+   <math display="inline">
+    B_{\tau} \sim \mu
+   </math>
+   . However, this solution is intuitively "too large", in particular
+   <math display="inline">
+    \mathbb{E}\tau = \infty
+   </math>
+   . A meaningful solution needs to be "small". To express this, Skorokhod [20] imposed
+   <math display="inline">
+    \mathbb{E}\tau &lt; \infty
+   </math>
+   and solved the problem explicitly for any centered target measure with finite variance. To avoid the restriction on the set of target measures, in general, one requires
+   <math display="inline">
+    \tau
+   </math>
+   to be
+   <i>
+    minimal
+   </i>
+   . Minimality of
+   <math display="inline">
+    \tau
+   </math>
+   signifies that if a stopping time
+   <math display="inline">
+    \rho
+   </math>
+   satisfies
+   <math display="inline">
+    \rho \leq \tau
+   </math>
+   and
+   <math display="inline">
+    X_{\rho} \sim X_{\tau}
+   </math>
+   then
+   <math display="inline">
+    \rho = \tau
+   </math>
+   . When
+   <math display="inline">
+    \mathbb{E}B_{\tau} = 0
+   </math>
+   ,
+  </p>
+  <p block-type="TextInlineMath">
+   minimality of
+   <math display="inline">
+    \tau
+   </math>
+   is equivalent to
+   <math display="inline">
+    (B_{t \wedge \tau} : t \ge 0)
+   </math>
+   being a uniformly integrable martingale (see
+   <math display="inline">
+    [6, 12]
+   </math>
+   ) and, in consequence, when
+   <math display="inline">
+    \mathbb{E}B_{\tau}^2 &lt; \infty
+   </math>
+   , it is further equivalent to
+   <math display="inline">
+    \mathbb{E}\tau &lt; \infty
+   </math>
+   . Note that we can have many, in fact, infinitely many, minimal stopping times all of which embed the same distribution
+   <math display="inline">
+    \mu
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   We want
+   <math display="inline">
+    \tau
+   </math>
+   to be "small" to enable us to iterate the embedding procedure. In this way, Skorokhod [20] represented a random walk as a Brownian motion stopped at an increasing sequence of stopping times and deduced properties of the random walk from the well-understood behavior of Brownian motion. As a simple example, one can use the representation to deduce the central limit theorem from the strong law of large numbers (cf. [14, Sec. 11.2]). The ideas of embedding processes into Brownian motion were extended and finally led to the celebrated work of Monroe [13], who proved that any semimartingale is a time-changed Brownian motion.
+  </p>
+  <p block-type="TextInlineMath">
+   The SEP, as stated above, does not necessarily have a solution—existence of a solution depends greatly on X and
+   <math display="inline">
+    \mu
+   </math>
+   . This can be seen already for realvalued diffusions [6]. However, for Brownian motion on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   , or any continuous local martingale
+   <math display="inline">
+    (X_t)
+   </math>
+   with
+   <math display="inline">
+    \langle X \rangle_{\infty} = \infty
+   </math>
+   a.s., there is always a solution to the SEP and there are numerous explicit constructions (typically, for the case of centered
+   <math display="inline">
+    \mu
+   </math>
+   ), of which we give two examples below (cf.
+   <math display="inline">
+    [14]
+   </math>
+   ).
+  </p>
+  <h3>
+   Explicit Solutions
+  </h3>
+  <p block-type="Text">
+   Skorokhod [20] and Dubins [8] solved the SEP for Brownian motion and arbitrary centered&lt;sup&gt;a&lt;/sup&gt; probability measure
+   <math display="inline">
+    \mu
+   </math>
+   . However, the search for new solutions continued and was, to a large extent, motivated by the properties of the stopping times. Researchers sought simple explicit solutions that would have additional optimal properties. Several solutions were obtained using stopping times of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau = \inf\{t : (A_t, B_t) \in \Gamma\}, \quad \Gamma = \Gamma(\mu) \subset \mathbb{R}^2 \quad (1)
+   </math>
+  </p>
+  <p block-type="Text">
+   which is a first hitting time for the Markov process
+   <math display="inline">
+    (A_t, B_t)
+   </math>
+   , where
+   <math display="inline">
+    (A_t)
+   </math>
+   is some auxiliary increasing process. We now give two examples.
+  </p>
+  <p block-type="TextInlineMath">
+   Consider
+   <math display="inline">
+    A_t = t
+   </math>
+   and let
+   <math display="inline">
+    \tau_R
+   </math>
+   be the resulting stopping time in (1). Root [17] proved that for any centered
+   <math display="inline">
+    \mu
+   </math>
+   there is a
+   <i>
+    barrier
+   </i>
+   <math display="inline">
+    \Gamma = \Gamma(\mu)
+   </math>
+   such that
+   <math display="inline">
+    B_{\tau} \sim \mu
+   </math>
+   , where a
+   <i>
+    barrier
+   </i>
+   is a set in
+   <math display="inline">
+    \mathbb{R}_+ \times \mathbb{R}
+   </math>
+   (time-space) such that if a point is in
+   <math display="inline">
+    \Gamma
+   </math>
+   , then all points to the right of it are also in
+   <math display="inline">
+    \Gamma
+   </math>
+   (see Figure 1).
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   The barrier
+   <math display="inline">
+    \Gamma
+   </math>
+   and Root stopping time
+   <math display="inline">
+    \tau_R
+   </math>
+   embedding a uniform law
+  </p>
+  <p block-type="TextInlineMath">
+   Later Rost (cf. [14]) proved an analogous result replacing
+   <math display="inline">
+    \Gamma(\mu)
+   </math>
+   with a reversed barrier
+   <math display="inline">
+    \tilde{\Gamma} = \tilde{\Gamma}(\mu)
+   </math>
+   , which is a set in time-space such that if a point is in
+   <math display="inline">
+    \Gamma
+   </math>
+   , then all the points to the left of it are also in
+   <math display="inline">
+    \Gamma
+   </math>
+   . We denote
+   <math display="inline">
+    \tilde{\tau}_R
+   </math>
+   the first hitting of
+   <math display="inline">
+    \tilde{\Gamma}(\mu)
+   </math>
+   . Rost (cf. [14, 19]) proved that for any other solution
+   <math display="inline">
+    \tau
+   </math>
+   to the SEP and any positive convex function
+   <math display="inline">
+    f
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}f(\tau_R) \le \mathbb{E}f(\tau) \le \mathbb{E}f(\tilde{\tau}_R) \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In financial terms, as we will see, this implies bounds on the prices of volatility derivatives. Given a measure
+   <math display="inline">
+    \mu
+   </math>
+   , the barrier
+   <math display="inline">
+    \Gamma
+   </math>
+   and the reversed barrier
+   <math display="inline">
+    \Gamma
+   </math>
+   are not known explicitly. However, using techniques of partial differential equations, they can be computed numerically together with the bounds in equation
+   <math display="inline">
+    (2)
+   </math>
+   (see [9]).
+  </p>
+  <p block-type="TextInlineMath">
+   Consider now
+   <math display="inline">
+    A_t = \overline{B}_t = \sup_{u \le t} B_u
+   </math>
+   in equation (1). Azéma and Yor [1] proved that, for a probability measure
+   <math display="inline">
+    \mu
+   </math>
+   satisfying
+   <math display="inline">
+    \int x\mu(dx) = B_0
+   </math>
+   , the stopping time
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_{AY} = \inf\{t : \Psi_{\mu}(B_t) \le B_t\},\
+   </math>
+   <br/>
+   where
+   <math display="block">
+    \Psi_{\mu}(x) = \frac{1}{\mu([x,\infty))} \int_{[x,\infty)} u\mu(\mathrm{d}u) \quad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is minimal and
+   <math display="inline">
+    B_{\tau_{AY}} \sim \mu
+   </math>
+   . The Azéma–Yor stopping time is also optimal as it stochastically maximizes the maximum:
+   <math display="inline">
+    \mathbb{P}(\overline{B}_{\tau} \geq \alpha) \leq \mathbb{P}(\overline{B}_{\tau_{AY}} \geq \alpha)
+   </math>
+   , for all
+   <math display="inline">
+    \alpha \geq 0
+   </math>
+   and any minimal
+   <math display="inline">
+    \tau
+   </math>
+   with
+   <math display="inline">
+    B_{\tau} \sim B_{\tau_{AV}}
+   </math>
+   . Later, Perkins [16] developed a stopping time
+   <math display="inline">
+    \tau_P
+   </math>
+   , which, in turn, stochastically minimizes the maximum. As we will
+  </p>
+  <p block-type="Text">
+   see, these two solutions induce upper and lower bounds on the price of a one-touch option.
+  </p>
+  <h1>
+   Applications
+  </h1>
+  <h2>
+   Robust Price Bounds
+  </h2>
+  <p block-type="Text">
+   In the standard approach to pricing and hedging, one postulates a model for the underlying, calibrates it to the market prices of liquidly traded vanilla options (see
+   <b>
+    Call Options
+   </b>
+   ), and then uses the model to derive prices and associated hedges for exotic over-thecounter products (such as Barrier Options; Lookback Options; Foreign Exchange Options). Prices and hedges will be correct only if the model describes the real world perfectly, which is not very likely. The SEP-driven approach uses the market data to deduce bounds on the prices consistent with
+   <i>
+    no-arbitrage
+   </i>
+   and the associated super-replicating strategies (see
+   <b>
+    Superhedging
+   </b>
+   ), which are robust to model misspecification.
+  </p>
+  <p block-type="TextInlineMath">
+   Assume absence of arbitrage (see Fundamental Theorem of Asset Pricing) and work under a risk-neutral measure (see Risk-neutral Pricing) so that the forward price process (see Forwards and
+   <b>
+    Futures
+   </b>
+   )
+   <math display="inline">
+    (S_t : t &lt; T)
+   </math>
+   is a martingale. Equivalently, under a simplifying assumption of zero interest rates,
+   <math display="inline">
+    S_t
+   </math>
+   is simply the stock price process. We are interested in pricing an exotic option with payoff given by a path-dependent functional
+   <math display="inline">
+    F(S)_T
+   </math>
+   . Our main example considered below is a
+   <i>
+    one-touch
+   </i>
+   option struck at
+   <math display="inline">
+    \alpha
+   </math>
+   that pays 1 if the stock price reaches
+   <math display="inline">
+    \alpha
+   </math>
+   before maturity T:
+   <math display="inline">
+    O^{\alpha}(S)_T = \mathbf{1}_{\overline{S}_T &gt; \alpha}
+   </math>
+   , where
+   <math display="inline">
+    \overline{S}_T = \sup_{t &lt; T} S_t
+   </math>
+   . It follows from Monroe's theorem that
+   <math display="inline">
+    S_t = B_{\rho_t}
+   </math>
+   , for a Brownian motion
+   <math display="inline">
+    (B_t)
+   </math>
+   with
+   <math display="inline">
+    B_0 = S_0
+   </math>
+   and some increasing sequence of stopping times
+   <math display="inline">
+    \rho_t : t \leq T
+   </math>
+   (possibly relative to an enlarged filtration). We make no other assumptions about the dynamics of the underlying. Instead, we propose to investigate the restrictions induced by the market data.
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose, first, that we know the market prices of calls and puts (see
+   <b>
+    Call Options
+   </b>
+   ) for all strikes at one maturity
+   <math display="inline">
+    T
+   </math>
+   . This is equivalent to knowing the distribution
+   <math display="inline">
+    \mu
+   </math>
+   of
+   <math display="inline">
+    S_T
+   </math>
+   (cf. [3]). Thus, we can see the stopping time
+   <math display="inline">
+    \rho = \rho_T
+   </math>
+   as a solution to the SEP for
+   <math display="inline">
+    \mu
+   </math>
+   . Conversely, given a solution
+   <math display="inline">
+    \tau
+   </math>
+   to the SEP for
+   <math display="inline">
+    \mu
+   </math>
+   , the process
+   <math display="inline">
+    \tilde{S}_t = B_{\tau \wedge \frac{t}{T-t}}
+   </math>
+   is a model for the stockprice process consistent with the observed prices of calls and puts at maturity
+   <math display="inline">
+    T
+   </math>
+   . In this way, we obtain
+  </p>
+  <p block-type="TextInlineMath">
+   a correspondence that allows us to identify market models with solutions to the SEP and vice versa. In consequence, to estimate the fair price of the exotic option
+   <math display="inline">
+    \mathbb{E} F(S)_T
+   </math>
+   , it suffices to bound
+   <math display="inline">
+    \mathbb{E} F(B)_T
+   </math>
+   among all solutions
+   <math display="inline">
+    \tau
+   </math>
+   to the SEP. More precisely, if
+   <math display="inline">
+    F(S)_T = F(B)_{\rho_T}
+   </math>
+   a.s., then we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{\tau: B_{\tau} \sim \mu} \mathbb{E} F(B)_{\tau} \le \mathbb{E} F(S)_{T} \le \sup_{\tau: B_{\tau} \sim \mu} \mathbb{E} F(B)_{\tau} \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where all stopping times
+   <math display="inline">
+    \tau
+   </math>
+   are minimal. Consider, for example, a volatility derivative&lt;sup&gt;b&lt;/sup&gt; paying
+   <math display="inline">
+    F(S)_T =
+   </math>
+   <math display="inline">
+    f(\langle S \rangle_T)
+   </math>
+   , for some positive convex function f, and suppose that the underlying
+   <math display="inline">
+    (S_t)
+   </math>
+   is continuous. Then, by Dubins-Schwarz theorem, we can take the time change
+   <math display="inline">
+    \rho_t = \langle S \rangle_t
+   </math>
+   so that
+   <math display="inline">
+    f(\langle S \rangle_T) = f(\rho_T) =
+   </math>
+   <math display="inline">
+    F(B)_{\rho_T}
+   </math>
+   . Using inequality (2), inequality (4) becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}f(\tau_R) \le \mathbb{E}f(\langle S \rangle_T) \le \mathbb{E}f(\tilde{\tau}_R) \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    B_{\tau_R} \sim S_T \sim B_{\tilde{\tau}_R}
+   </math>
+   (cf. [9]).
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    (S_t)
+   </math>
+   has jumps typically one of the bounds in inequality (4) remains true and the other degenerates. In the example of a one-touch option, one sees that
+   <math display="inline">
+    O^{\alpha}(S)_T \leq O^{\alpha}(B)_{\rho_T}
+   </math>
+   and the fair price is always bounded above by
+   <math display="inline">
+    \sup_{\tau} \{ \mathbb{P}(\overline{B}_{\tau} \geq \alpha) : B_{\tau} \sim
+   </math>
+   <math display="inline">
+    \mu
+   </math>
+   . Furthermore, the supremum is attained by the Azéma-Yor construction discussed above. The best lower bound on the price in the presence of jumps is the obvious bound
+   <math display="inline">
+    \mu([\alpha, \infty))
+   </math>
+   . In consequence, the price of a one-touch option
+   <math display="inline">
+    \mathbb{E} O^{\alpha}(S)_T = \mathbb{P}(\overline{S}_T \geq \alpha)
+   </math>
+   is bounded by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu([\alpha,\infty)) \leq \mathbb{P}(\overline{S}_T \geq \alpha) \leq \mathbb{P}(\overline{B}_{\tau_{AY}} \geq \alpha)
+   </math>
+   <math display="block">
+    = \mu([\Psi_{\mu}^{-1}(\alpha))) \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the lower bound can be improved to
+   <math display="inline">
+    \mathbb{P}(\overline{B}_{\tau_P} \geq \alpha)
+   </math>
+   under the hypothesis that
+   <math display="inline">
+    (S_t)
+   </math>
+   is continuous, where
+   <math display="inline">
+    \tau_P
+   </math>
+   is Perkins' stopping time (see [5] for detailed discussion and numerical examples). Selling a onetouch option for a lower price then the upper bound in equation (6) necessarily involves some risk. If additional modeling assumptions are made, then a lower price can be justified, but this new price is not necessarily robust to model misspecification.
+  </p>
+  <p block-type="Text">
+   The above analysis can be extended if we know more market data. For example, knowing prices of puts and calls at some earlier expiry
+   <math display="inline">
+    T_1 &lt; T
+   </math>
+   would lead to solving the SEP, constrained by embedding an intermediate law
+   <math display="inline">
+    \mu_1
+   </math>
+   before
+   <math display="inline">
+    \mu
+   </math>
+   . This was achieved by Brown et al. [4] who gave an explicit construction
+  </p>
+  <p block-type="Text">
+   of an embedding that maximizes the maximum. As we have seen, in financial terms, this amounts to obtaining the least upper bound on the price of a one-touch option.
+  </p>
+  <p block-type="Text">
+   In practice, we do not observe the prices of calls and puts for all strikes but only for a finite family of strikes. As a result, the terminal law of
+   <math display="inline">
+    S_T
+   </math>
+   is not specified entirely and one needs to optimize among possible terminal laws (cf. [5, 10]). In general, different sets of market prices lead to embedding problems with different constraints. The resulting problems can be complex. In particular, to our best knowledge, there are no known optimal solutions to the SEP with multiple intermediate law constraints.
+  </p>
+  <h1>
+   Robust Hedging
+  </h1>
+  <p block-type="Text">
+   Once we know the price-range for an option, we want to understand model-free super-replicating strategies (see
+   <b>
+    Superhedging
+   </b>
+   ). In general, to achieve this, we need to develop a pathwise approach to the SEP. Following
+   <math display="inline">
+    [5]
+   </math>
+   , we treat the example of a one-touch option. We develop a super-replicating portfolio with the initial wealth equal to the upper bound displayed in equation
+   <math display="inline">
+    (6)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The key observation lies in the following simple inequality:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{1}_{\overline{S}_T \ge \alpha} \le \frac{(S_T - K)^+}{\alpha - K} + \frac{S_{\varsigma \wedge T} - S_T}{\alpha - K} \mathbf{1}_{\overline{S}_T \ge \alpha} \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \alpha &gt; S_0
+   </math>
+   ,
+   <math display="inline">
+    K
+   </math>
+   and
+   <math display="inline">
+    \varsigma = \inf\{t : S_t \ge \alpha\}
+   </math>
+   . Taking expectations yields
+   <math display="inline">
+    \mathbb{P}(\overline{S}_T \geq \alpha) \leq C(K)/(\alpha - K)
+   </math>
+   , where
+   <math display="inline">
+    C(K)
+   </math>
+   denotes the price of a European call with strike K and maturity T. Taking the optimal
+   <math display="inline">
+    K =
+   </math>
+   <math display="inline">
+    K^*
+   </math>
+   such that
+   <math display="inline">
+    C(K^*) = (\alpha - K^*)|C'(K^*)|
+   </math>
+   we find
+   <math display="inline">
+    \mathbb{P}(\overline{S}_T \geq \alpha) \leq |C'(K^*)| = \mathbb{P}(S_T \geq K^*)
+   </math>
+   . On the other hand, using
+   <math display="inline">
+    |C'(K)| = \mu([K, \infty))
+   </math>
+   , where
+   <math display="inline">
+    \mu \sim S_T
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(K) = \int_{K}^{\infty} (u - K)\mu(du) = |C'(K)| \Big(\Psi_{\mu}(K) - K\Big)
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   The equation for
+   <math display="inline">
+    K^*
+   </math>
+   implies readily that
+   <math display="inline">
+    K^* =
+   </math>
+   <math display="inline">
+    \Psi_{\mu}^{-1}(\alpha)
+   </math>
+   and the bound we have derived coincides with equation
+   <math display="inline">
+    (6)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Inequality (7) encodes the super-replicating strategy. The first term of the right-hand side means we buy
+   <math display="inline">
+    1/(\alpha - K^*)
+   </math>
+   calls with strike
+   <math display="inline">
+    K^*
+   </math>
+   . The second
+  </p>
+  <p block-type="TextInlineMath">
+   term is a simple dynamic trading: if the price reaches level
+   <math display="inline">
+    \alpha
+   </math>
+   , we sell
+   <math display="inline">
+    1/(\alpha - K^*)
+   </math>
+   forwards on the stock. At the cost of
+   <math display="inline">
+    C_1 = C(K^*)/(\alpha - K^*)
+   </math>
+   we are then guaranteed to super-replicate the one-touch regardless of the dynamics of the underlying. In consequence, selling the one-touch for
+   <math display="inline">
+    C_2 &gt; C_1
+   </math>
+   would be an arbitrage opportunity as we would make a riskless profit of
+   <math display="inline">
+    C_2 - C_1
+   </math>
+   . Finally, note that our derivation of the superhedge is pathwise and makes no assumptions about the existence (or uniqueness) of the pricing measure.
+  </p>
+  <h4>
+   Other Resources
+  </h4>
+  <p block-type="Text">
+   The arguments for robust pricing and hedging of lookback (see
+   <b>
+    Lookback Options
+   </b>
+   ) and barrier (see
+   <b>
+    Barrier Options
+   </b>
+   ) options can be found in the pioneering work of Hobson [10] and in [5]. Dupire [9] investigated volatility derivatives using the SEP.
+   <math display="inline">
+    \text{Cox } et \text{ al.}
+   </math>
+   [7] designed pathwise inequalities to derive price range and robust super-replicating strategies for derivatives paying a convex function of the local time (see Local Times; Corridor Variance Swap). The idea of
+   <i>
+    no-arbitrage
+   </i>
+   bounds on the prices goes back to Merton [11] (see Arbitrage Bounds). This was refined in
+   <i>
+    no-good deals
+   </i>
+   (see
+   <b>
+    Good-deal Bounds
+   </b>
+   ) pricing, where one postulates that markets not only exclude arbitrage opportunities but also any
+   <i>
+    highly
+   </i>
+   desirable investments. No-good deals pricing yields tighter bounds on the prices but requires an arbitrary choice of utility function.
+  </p>
+  <p block-type="Text">
+   We refer to [14] for an extended survey of the SEP, including its history and overview of its applications. We have not discussed here the SEP for processes other than Brownian motion. Rost [18] investigated the problem for a general Markov process and has a necessary and sufficient condition on the target measure
+   <math display="inline">
+    \mu
+   </math>
+   for existence of an embedding. Bertoin and Le Jan [2] then developed an explicit solution, in a broad class of Markov processes, which was based on additive functionals. More recently, the approach of Vallois
+   <math display="inline">
+    [21]
+   </math>
+   was extended to provide explicit solutions for classes of discontinuous processes including Azéma's martingale [15].
+  </p>
+  <h3>
+   Acknowledgments
+  </h3>
+  <p block-type="Text">
+   This research was supported by a Marie Curie Intra-European Fellowship at Imperial College London within the 6th European Community Framework Programme.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt; When modeling the stock price process, implicitly we shift both B and
+   <math display="inline">
+    \mu
+   </math>
+   by a constant
+   <math display="inline">
+    S_0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;b.&lt;/sup&gt;Here, written on the realized quadratic variation of the stock itself and not the log process.
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Azéma, J. &amp; Yor, M. (1979). Une solution simple au
+     <math display="inline">
+      [1]
+     </math>
+     problème de Skorokhod, in
+     <i>
+      Séminaire de Probabilités
+     </i>
+     . XIII, Lecture Notes in Mathematics, Springer, Berlin, Vol. 721, pp. 90-115.
+    </li>
+    <li block-type="ListItem">
+     Bertoin, J. &amp; Le Jan, Y. (1992). Representation of [2] measures by balayage from a regular recurrent point. Annals of Probability 20(1), 538-548.
+    </li>
+    <li block-type="ListItem">
+     [3] Breeden, D.T. &amp; Litzenberger, R.H. (1978). Prices of state-contingent claims implicit in option prices, The Journal of Business 51(4), 621-651.
+    </li>
+    <li block-type="ListItem">
+     Brown, H., Hobson, D. &amp; Rogers, L.C.G. (2001). The [4] maximum maximum of a martingale constrained by an intermediate law, Probability Theory and Related Fields 119(4), 558-578.
+    </li>
+    <li block-type="ListItem">
+     Brown, H., Hobson, D. &amp; Rogers, L.C.G. (2001). Robust [5] hedging of barrier options,
+     <i>
+      Mathematical Finance
+     </i>
+     <math display="inline">
+      11(3)
+     </math>
+     ,
+     <math display="inline">
+      285 - 314.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Cox, A. &amp; Hobson, D. (2006). Skorokhod embeddings, [6] minimality and non-centered target distributions, Probability Theory and Related Fields 135(3), 395-414.
+    </li>
+    <li block-type="ListItem">
+     Cox, A., Hobson, D. &amp; Obłój, J. (2008). Pathwise [7] inequalities for local time: applications to Skorokhod embeddings and optimal stopping, Annals of Applied Probability 18(5), 1870-1896.
+    </li>
+    <li block-type="ListItem">
+     [8] Dubins, L.E. (1968). On a theorem of Skorohod, The Annals of Mathematical Statistics 39, 2094-2097.
+    </li>
+    <li block-type="ListItem">
+     [9] Dupire, B. (2005). Arbitrage Bounds for Volatility Derivatives as a Free Boundary Problem, http://www. math.kth.se/pde_finance/presentations/Bruno.pdf.
+    </li>
+    <li block-type="ListItem">
+     [10] Hobson, D. (1998). Robust hedging of the lookback option, Finance and Stochastics 2, 329-347.
+    </li>
+    <li block-type="ListItem">
+     [11] Merton, R.C. (1973). Theory of rational option pricing, Bell Journal of Economics and Management Science 4,
+     <math display="inline">
+      141 - 183.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [12] Monroe, I. (1972). On embedding right continuous martingales in Brownian motion, The Annals of Mathematical Statistics 43, 1293-1311.
+    </li>
+    <li block-type="ListItem">
+     [13] Monroe, I. (1978). Processes that can be embedded in Brownian motion, The Annals of Probability
+     <math display="inline">
+      6(1)
+     </math>
+     ,
+     <math display="inline">
+      42 - 56.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [14] Obłój, J. (2004). The Skorokhod embedding problem and its offspring,
+     <i>
+      Probability Surveys
+     </i>
+     1, 321–392.
+    </li>
+    <li block-type="ListItem">
+     [15] Obłój, J. (2007). An explicit solution to the Skorokhod embedding problem for functionals of excursions of Markov processes, Stochastic Process and their Application. 117(4), 409-431.
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

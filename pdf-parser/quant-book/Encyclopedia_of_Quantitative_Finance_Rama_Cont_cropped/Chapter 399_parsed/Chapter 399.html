@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Life Insurance
+   </b>
+  </h1>
+  <p block-type="Text">
+   Finance and life insurance have a lot in common. Life insurance contracts specify an exchange of streams of payments between the insurance company and the contract holder. These payment streams may cover the lifetime of the contract holder. Therefore, time valuation of money is crucial for any measurement of payments due in the past as well as in the future. Life insurance companies never keep their money idle, and accumulation and distribution of capital gains are always a part of the insurance business. With respect to the future, appropriate discounting of contractual obligations improves the estimates of liabilities.
+  </p>
+  <p block-type="Text">
+   The subject matter of life insurance draws on a wide set of mathematical disciplines including probability theory, stochastic processes, statistics, economics, and mathematical finance. However, in addition, less positivistic areas such as accounting and law, in general, and insurance accounting, contractual law, and regulatory law, in particular, often play important roles when theory meets practice. The broad title covers a survey of the mathematics of life insurance rather than life insurance in general.
+  </p>
+  <p block-type="Text">
+   At the end of the day, life insurance is a betting game on life history events such as death, survival, and disability. Betting in this context is very different from betting on horses or football since the benefit is paid conditional on a life history event that has already caused financial distress of the betting party: one buys a coverage against death to protect one's dependants—typically spouse and children—financially against the loss of future income upon death; one buys life annuities to protect oneself financially against living long by stretching out capital holdings until an uncertain time of death; and one buys a coverage against disability to protect oneself and one's dependants financially against the loss of income upon disability. In this respect, insurance and pension saving are betting games that hedge the personal financial position against financially adverse events. However, this explains why the society encourages its members to play this betting game (partly in contrast to other betting games) under slightly regulated conditions: it has a stabilizing effect on the financial position of individuals and families and thereby on the society as a whole.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The insurance companies and pension funds are the counterparts of this betting game. This exposition
+  </p>
+  <p block-type="Text">
+   deals, first of all, with the technical toolbox they use in order to provide relevant, fair, and reliable bets. However, it also deals with the enlargement of the toolbox caused by the integration of mathematical finance as a part of life insurance mathematics. New paradigms lead to new answers to what the terms relevant, fair, and reliable mean at all. However, the enlightenment is not one way: some of the classical tools of life insurance are relevant to modern finance and we provide an example.
+  </p>
+  <p block-type="Text">
+   The section Modeling of Payment Streams presents the classical modeling framework for life history risk and the payment streams linked to it, first in the so-called survival model and second in a multistate model. The section Valuation of Payment Streams deals with the valuation of and fairness criteria for these payment streams. First, we evaluate on the basis of classical actuarial assumptions and then discuss how the financial market helps to relax some of these assumptions. Finally, we exemplify by credit risk modeling and valuation, how methods of classical life insurance can also contribute to a structured view on modern financial topics. The section Design of Payment Streams formalizes the so-called participation feature in typical practical arrangements that add a dimension to the risk sharing taking place in an insurance contract. We distinguish between the classical with-profit construction, where design and decision is primarily a matter for the insurance company, and the more modern unit-link, where design and decision, to a larger extent, is a matter for the policy holder. Finally, in the section Management of Payment Streams, we focus on these decision processes. Optimal decision making on both sides of the balance scheme is the essence of asset-liability management (ALM). We conclude by relating these decision processes to those in the classical investment–consumption problem of personal finance.
+  </p>
+  <h2>
+   <b>
+    Modeling of Payment Streams
+   </b>
+  </h2>
+  <h4>
+   <i>
+    The Survival Model Payment Streams
+   </i>
+  </h4>
+  <p block-type="TextInlineMath">
+   The payments of an insurance contract can be formalized by a payment process
+   <i>
+    B
+   </i>
+   , where
+   <i>
+    B (t)
+   </i>
+   represents the accumulated payments from the insurance company to the policy holder until time
+   <i>
+    t
+   </i>
+   . The payments are then the increments
+   <i>
+    (
+   </i>
+   d
+   <i>
+    B (t))t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   <sup>
+    0
+   </sup>
+   and we have that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B(t) = \int_{0-}^{t} \mathrm{d}B(s) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where, by definition,
+   <math display="inline">
+    \int_0^t = \int_{(0,t]}
+   </math>
+   and
+   <math display="inline">
+    \int_{0-}^t = \int_{[0,t]}
+   </math>
+   .&lt;br&gt;Thus, payments going from the insurance company to the policy holder (benefits) appear in
+   <math display="inline">
+    B
+   </math>
+   as positive increments, whereas payments going from the policy holder to the insurance company (premiums/contributions) appear in
+   <math display="inline">
+    B
+   </math>
+   as negative increments. In the formation of
+   <math display="inline">
+    B
+   </math>
+   , we have assumed that there are no payments before inception of the contract at time 0, that is,
+   <math display="inline">
+    B(0-) = 0
+   </math>
+   . We specify the payments in a continuous-time framework. We denote by
+   <math display="inline">
+    T
+   </math>
+   the time of death of a policy holder. To formalize the connection between payments and the life history of the insured, we introduce the indicator process
+   <math display="inline">
+    I(t)
+   </math>
+   . This process indicates whether the insured is alive in the sense that
+   <math display="inline">
+    I(t) = 1
+   </math>
+   if the insured is alive at time t and
+   <math display="inline">
+    I(t) = 0
+   </math>
+   if the insured is dead at time t. The process
+   <math display="inline">
+    Z(t) = 1 - I(t)
+   </math>
+   indicates whether the insured is dead, which is illustrated in Figure 1.
+  </p>
+  <p block-type="TextInlineMath">
+   We also introduce a counting process
+   <math display="inline">
+    (N(t))_{t&gt;0}
+   </math>
+   , counting the number of deaths of the insured (equals 0 or 1) over [0, t]. Note that
+   <math display="inline">
+    N = Z = 1 - I
+   </math>
+   . Finally, we introduce the notation
+   <math display="inline">
+    (\varepsilon^{u}(t))_{t&gt;0}
+   </math>
+   for the deterministic indicator process, indicating that
+   <math display="inline">
+    t
+   </math>
+   exceeds u, that is,
+   <math display="inline">
+    \varepsilon^{u}(t) = 1 \, [t &gt; u]
+   </math>
+   . Fixing a time horizon
+   <math display="inline">
+    n
+   </math>
+   for the insurance contract and introducing a retirement time
+   <math display="inline">
+    m &lt; n
+   </math>
+   , most insurance payment processes in a survival model are given by a payment process
+   <math display="inline">
+    B
+   </math>
+   in the following form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathsf{d}B\left(t\right) &amp;= \Delta B^{0}(t)\mathsf{d}\varepsilon^{0}(t) + b^{0}(t)I(t)\mathsf{d}t + b^{01}(t) \\ &amp;\quad \times \mathsf{d}N(t) + \Delta B^{0}(t)I(t)\mathsf{d}\varepsilon^{m}(t), \quad t \leq n \end{aligned} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    \Delta B^{0}
+   </math>
+   (0) is a possible single premium (negative) triggered at time 0,
+   <math display="inline">
+    b^0(t)
+   </math>
+   is an annuity benefit rate (positive) or a level premium rate (negative) at time
+   <math display="inline">
+    t
+   </math>
+   , both conditional on survival by multiplication of I,
+   <math display="inline">
+    b^{01}(t)
+   </math>
+   is a death benefit triggered upon death before time
+   <i>
+    n
+   </i>
+   , and
+   <math display="inline">
+    \Delta B^{0}(m)
+   </math>
+   is a pension sum benefit triggered at time
+   <math display="inline">
+    m
+   </math>
+   upon survival to time
+   <math display="inline">
+    m
+   </math>
+   . In Table 1, we specify the elements in some standard forms of benefit and premium payment processes.
+  </p>
+  <p block-type="Text">
+   To have an idea about the future prospects of
+   <math display="inline">
+    B
+   </math>
+   , we need to specify the distribution of
+   <math display="inline">
+    T
+   </math>
+   . We form the
+  </p>
+  <p>
+   <img src="_page_1_Figure_6.jpeg"/>
+  </p>
+  <p block-type="Text">
+   Figure 1 Survival model
+  </p>
+  <p block-type="Text">
+   survival function
+   <math display="inline">
+    \overline{F}
+   </math>
+   , the lifetime distribution function
+   <math display="inline">
+    F
+   </math>
+   , and the death density, respectively,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(t) = P(T &gt; t) = P(I(t) = 1)
+   </math>
+   <br/>
+   <math display="block">
+    F(t) = P(T \le t) = P(I(t) = 0) = 1 - \overline{F}(t)
+   </math>
+   <br/>
+   <math display="block">
+    f(t) = \frac{d}{dt}F(t)
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   The distribution of
+   <math display="inline">
+    T
+   </math>
+   is typically parameterized by the hazard rate conventionally denoted by
+   <math display="inline">
+    \mu
+   </math>
+   (Greek
+   <math display="inline">
+    m
+   </math>
+   for mortality rate) and defined as the death rate conditional on survival,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu(t) dt = P(t \le T &lt; t + dt | T &gt; t)
+   </math>
+   <math display="block">
+    = \frac{f(t) dt}{\overline{F}(t)} = -\frac{\overline{F}'(t) dt}{\overline{F}(t)} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This forms a differential equation for
+   <math display="inline">
+    \overline{F}
+   </math>
+   with initial condition
+   <math display="inline">
+    \overline{F}(0) = 1
+   </math>
+   . Its solution
+   <math display="inline">
+    \overline{F}
+   </math>
+   and the resulting
+   <math display="inline">
+    F
+   </math>
+   and
+   <math display="inline">
+    f
+   </math>
+   are given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{F}(t) = e^{-\int_0^t \mu(s)ds}, \quad F(t) = 1 - e^{-\int_0^t \mu(s)ds},
+   </math>
+   <br/>
+   <math display="block">
+    f(t) = e^{-\int_0^t \mu(s)ds} \mu(t) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   thereby forming the elementary distribution characteristics in terms of the mortality rate. One of the advantages from representing these characteristics in terms of the mortality rate is that the corresponding quantities conditional on survival until a given age, say x, have the same structure with
+   <math display="inline">
+    \mu(t)
+   </math>
+   replaced by
+   <math display="inline">
+    \mu
+   </math>
+   (x + t), for example,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(T &gt; x + t | T &gt; x) = e^{-\int_0^t \mu(x+s)ds} \qquad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   This is useful when the insurance company sells a contract to an
+   <math display="inline">
+    x
+   </math>
+   -year old and takes into account the fact that he/she survived so far. There are many candidates for the mortality rate that can take any form as long as
+   <math display="inline">
+    \mu(t) &gt; 0
+   </math>
+   and it integrates to infinity over
+   <math display="inline">
+    [0, \infty)
+   </math>
+   . The Gompertz–Makeham mortality rate
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu\left(t\right) = \alpha + \beta e^{\gamma t} \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   allows for a nonage-dependent effect
+   <math display="inline">
+    \alpha
+   </math>
+   (death from accident) and an exponential age-dependent effect (death from deterioration of health over time). This is classic due to its good fit to data relative to its low number of parameters. In the Danish mortality law
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      B0 (0)
+      <br/>
+     </th>
+     <th>
+      b0 (t)
+     </th>
+     <th>
+      b01 (t)
+     </th>
+     <th>
+      B0 (m)
+      <br/>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Benefits
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Pure endowment
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      1
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Term insurance
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      1 [t ≤ m]
+     </td>
+     <td>
+      0
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Endowment insurance
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      1 [t ≤ m]
+     </td>
+     <td>
+      1
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Temporary life annuity
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      1 [t ≤ n]
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Deferred temporary life annuity
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      1 [m
+      <t n]<="" td="" ≤="">
+       <td>
+       </td>
+       <td>
+       </td>
+      </t>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Premiums
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Single premium
+     </td>
+     <td>
+      −1
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Level premium
+     </td>
+     <td>
+     </td>
+     <td>
+      −1 [t ≤ m]
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="TextInlineMath">
+   G82 for Danish males, the parameters are
+   <i>
+    α
+   </i>
+   = 5 × 10
+   <sup>
+    −
+   </sup>
+   <sup>
+    4
+   </sup>
+   <i>
+    , β
+   </i>
+   = 7
+   <i>
+    .
+   </i>
+   5858 × 10
+   <sup>
+    −
+   </sup>
+   <sup>
+    5
+   </sup>
+   <i>
+    ,
+   </i>
+   and
+   <i>
+    γ
+   </i>
+   = log
+   <i>
+    (
+   </i>
+   1
+   <i>
+    .
+   </i>
+   09144
+   <i>
+    ).
+   </i>
+  </p>
+  <h4>
+   <i>
+    The Multistate Model Payment Streams
+   </i>
+  </h4>
+  <p block-type="Text">
+   Although the payment process in equation (2) formalizes a number of standard forms of benefits and premium payment processes, there is a number of contracts that are not covered. An example is a contract where the level premium is not paid during periods of disability, that is, the level premium is contingent on the state of health. Such so-called premium waiver conditions and different types of disability annuities can be covered by extending the survival model with a third state, "disabled" (Figure 2).
+  </p>
+  <p block-type="Text">
+   Another example is a widow's/widower's pension where the two spouses in a married couple are insured such that, for example, an annuity rate is payable in the time period where one spouse survives another. Insurances on two lives can be covered by combining two survival models (Figure 3). It is now easy to
+  </p>
+  <p>
+   <img src="_page_2_Figure_7.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Disability model
+  </p>
+  <p>
+   <img src="_page_2_Figure_9.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 3
+   </b>
+   Dependent lives model
+  </p>
+  <p block-type="Text">
+   imagine a combination of Figures 2 and 3 into a dependent lives model with disability.
+  </p>
+  <p block-type="TextInlineMath">
+   In general, we let
+   <i>
+    Z
+   </i>
+   be a process moving around in a finite number of states numbered from 0 to
+   <i>
+    J
+   </i>
+   . For such a process, we introduce two vectors of processes: the indicator process
+   <i>
+    I
+    <sup>
+     j
+    </sup>
+   </i>
+   ,
+   <i>
+    j
+   </i>
+   ∈ {0
+   <i>
+    ,...,J
+   </i>
+   } indicates sojourn in state
+   <i>
+    j
+   </i>
+   and the counting process
+   <i>
+    N
+    <sup>
+     j
+    </sup>
+   </i>
+   ,
+   <i>
+    j
+   </i>
+   ∈ {0
+   <i>
+    ,...,J
+   </i>
+   } counts the number of jumps into state
+   <i>
+    j
+   </i>
+   . Note that, in contrast to the survival model, the counting processes are in general not necessarily equal to 0 or 1: for example, in a disability model, the policy holder can move back and forth between "disabled" and "active". Formally,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I^{j}(t) = 1 [Z(t) = j]
+   </math>
+   <br/>
+   <math display="block">
+    N^{j}(t) = \#\{s \le t : Z(s-) \ne j, Z(s) = j\}
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   We can now formalize a set of general payment processes driven by a multistate model (by convention,
+   <i>
+    Z (
+   </i>
+   0
+   <i>
+    )
+   </i>
+   = 0),
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathrm{d}B\left(t\right) &amp;= \Delta B^{0}\left(t\right) \mathrm{d}\varepsilon^{0}\left(t\right) + \sum_{j} I^{j}\left(t\right) b^{j}\left(t\right) \mathrm{d}t \\ &amp;+ \sum_{k} \sum_{j:j\neq k} I^{j}\left(t\right) b^{jk}\left(t\right) \mathrm{d}N^{k}\left(t\right) \\ &amp;+ \sum_{j} I^{j}\left(t\right) \Delta B^{j}\left(t\right) \mathrm{d}\varepsilon^{m}\left(t\right), t \leq n \end{split} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Here,
+   <i>
+    -B
+   </i>
+   <sup>
+    0
+   </sup>
+   <i>
+    (
+   </i>
+   0
+   <i>
+    )
+   </i>
+   is a possible single premium (negative) triggered at time 0,
+   <i>
+    b
+    <sup>
+     j
+    </sup>
+    (t)
+   </i>
+   is a payment rate (positive or negative) at time
+   <i>
+    t
+   </i>
+   conditional on sojourn in state
+   <i>
+    j
+   </i>
+   ,
+   <i>
+    -B
+    <sup>
+     j
+    </sup>
+    (t)
+   </i>
+   is a lump sum payment at time
+   <i>
+    t
+   </i>
+   conditional on sojourn in state
+   <i>
+    j
+   </i>
+   , and
+   <i>
+    bjk (t)
+   </i>
+   is an insurance sum triggered and paid upon a transition from state
+   <i>
+    j
+   </i>
+   to state
+   <i>
+    k
+   </i>
+   . Note that, for example, in
+  </p>
+  <p block-type="TextInlineMath">
+   the disability model,
+   <math display="inline">
+    N^2
+   </math>
+   counts the number of deaths no matter from which state the death occurs; but by the specification of
+   <i>
+    j
+   </i>
+   in
+   <math display="inline">
+    b^{j2}
+   </math>
+   and multiplication by
+   <math display="inline">
+    I^{j}(t-)
+   </math>
+   the death sum is allowed to depend on this information.
+  </p>
+  <p block-type="TextInlineMath">
+   To have an idea about the future prospects of
+   <math display="inline">
+    B
+   </math>
+   , we need to specify the distribution of
+   <math display="inline">
+    Z
+   </math>
+   . The traditional approach is to assume the existence of deterministic piecewise continuous functions
+   <math display="inline">
+    \mu^{jk}(t)
+   </math>
+   such that the distribution of
+   <math display="inline">
+    N^k
+   </math>
+   is characterized by its intensity
+   <math display="inline">
+    \mu^{Z(t-k)}(t)
+   </math>
+   . This means that the probability of experiencing a transition into state
+   <math display="inline">
+    k
+   </math>
+   over
+   <math display="inline">
+    [t, t + dt)
+   </math>
+   is proportional to the time interval dt with proportionality factor
+   <math display="inline">
+    \mu^{Z(t-k)}(t)
+   </math>
+   . We allow this to depend on
+   <math display="inline">
+    Z(t-)
+   </math>
+   such that, for example, in the disability model we can have a mortality intensity that depends on whether the policy holder is active or disabled. Given that these intensities exist,
+   <math display="inline">
+    Z
+   </math>
+   is a time-inhomogeneous multistate Markov process.
+  </p>
+  <p block-type="Text">
+   In more general models, one loosens up the Markov assumption (see Markov Processes) and works with, for example, semi-Markov models where the transition intensity into a given state does not only depend on where the policy holder is but also depends on how much time he/she has spent there. This is relevant in the disability model, where the mortality rate from the state "disabled" at a given age may depend on the duration of disability. Even if one sticks to a Markov model for
+   <math display="inline">
+    Z
+   </math>
+   , the duration of sojourn may still be needed as a state process to formalize, for example, the annuity payments depending on the duration. The main example is the so-called qualification period that has to be spent as disabled before the disability annuity starts. Note carefully the difference between taking duration as a part of the probability model and taking it as a part of the state process formalizing the payment process. In the following section, we give more examples of relaxation of the Markov property of
+   <math display="inline">
+    Z
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Valuation of Payment Streams
+   </b>
+  </h4>
+  <h4>
+   Classical Valuation Based on Three Assumptions
+  </h4>
+  <p block-type="Text">
+   We assume that the payments are currently deposited on (or withdrawn from) an account that bears interest at rate
+   <math display="inline">
+    r(t)
+   </math>
+   at time
+   <math display="inline">
+    t
+   </math>
+   . We can now arrive at the present value at time
+   <math display="inline">
+    t
+   </math>
+   of a payment process by adding up the values of all elements in the payment process. We get the present value at time
+   <math display="inline">
+    t
+   </math>
+   of the payment process
+   <math display="inline">
+    B
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{0-}^{n} e^{-\int_{t}^{s} r(\tau)d\tau} dB(s) \qquad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   The value at time 0 of a payment process
+   <math display="inline">
+    B
+   </math>
+   is the net loss at time
+   <math display="inline">
+    0
+   </math>
+   that the insurance company faces by initiation of the contract. If the processes describing the policy holder's life history and the interest rate were known at time 0, this net loss could be calculated at time 0. To avoid losses (and gains), one should ideally balance the elements in the payment process such that the net loss is 0:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{0-}^{n} e^{-\int_{0}^{t} r(s) ds} dB(t) = 0 \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   However, the processes for the policy holder's life history and the interest rate are not known at time 0. We consider these processes as stochastic processes defined on a filtered (see
+   <b>
+    Filtrations
+   </b>
+   ) probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \{\mathcal{F}(t)\}_{t\geq 0}, P)
+   </math>
+   such that the present value at time 0 becomes a stochastic variable and its outcome is revealed over time. The question is how one should balance the elements of the insurance contract in that situation.
+  </p>
+  <p block-type="Text">
+   A particular situation arises if we work under the following condition.
+  </p>
+  <h4>
+   Condition 1
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     The insurance company issues (or can issue) 1. contracts to a "large" number
+     <math display="inline">
+      \nu
+     </math>
+     of individuals with identically distributed payment processes
+     <math display="inline">
+      \left(B^{i}\right)_{i=1,\ldots,\nu}
+     </math>
+    </li>
+    <li block-type="ListItem">
+     For all
+     <math display="inline">
+      i, j, i \neq j
+     </math>
+     ,
+     <math display="inline">
+      B^i
+     </math>
+     is independent of
+     <math display="inline">
+      B^j
+     </math>
+     . 2.
+    </li>
+    <li block-type="ListItem">
+     The interest rate is deterministic. 3
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Then the law of large numbers applies and provides that the average gain from a contract converges toward the expected gain from a single contract (skipping the
+   <math display="inline">
+    i
+   </math>
+   then) as the number of contracts tends to infinity, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{\nu} \sum_{i=1}^{\nu} \int_{0-}^{n} e^{-\int_{0}^{t} r(s) ds} dB^{i}(t)
+   </math>
+   <math display="block">
+    \stackrel{P}{\to} E\left[\int_{0-}^{n} e^{-\int_{0}^{t} r(s) ds} dB(t)\right] \tag{12}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   To avoid
+   <i>
+    systematic
+   </i>
+   gains (and losses), one should, therefore, balance the elements in the payment
+  </p>
+  <p block-type="Text">
+   process such that the expected net gain is equal to 0,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\int_{0-}^{n} e^{-\int_{0}^{t} r(\tau)d\tau} \mathrm{d}B\left(t\right)\right] = 0\tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   This balance equation formalizes the
+   <i>
+    principle
+   </i>
+   of equivalence that is fundamental in classical life insurance mathematics.
+  </p>
+  <p block-type="Text">
+   If one of the three assumptions fails, the classical principle of equivalence fails as a balancing tool for the elements in the payment process: if the insurance company cannot issue a large number of contracts, it makes no sense to draw conclusions from the law of large numbers; if
+   <math display="inline">
+    B^i
+   </math>
+   and
+   <math display="inline">
+    B^j
+   </math>
+   are dependent for
+   <math display="inline">
+    i \neq j
+   </math>
+   , the law of large numbers does not apply; and if the interest rate is not deterministic, we cannot deduce independence between present values from independence between payment processes. It should be mentioned, however, that Condition 1 can be weakened such that it holds only in a certain asymptotic sense.
+  </p>
+  <p block-type="TextInlineMath">
+   Actually, the insurance company is interested in the valuation of the future payments not only at time 0 but also at any point in time
+   <math display="inline">
+    t
+   </math>
+   during the term of contract. This is required to inform the policy holder about the financial status of his/her contract and to inform the financial market and the regulators about the financial status of the insurance company. To estimate the present value of future payments at time
+   <math display="inline">
+    t
+   </math>
+   ,
+   <math display="inline">
+    \int_{t}^{n} e^{-\int_{t}^{s} r(\tau)d\tau} dB(s)
+   </math>
+   , the insurance company naturally takes into account all information it possesses at that point in time. If we work under Condition 1 and in the multistate Markov model, we can argue, by the law of large numbers, for the valuation formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\int_{t}^{n} e^{-\int_{t}^{s} r(\tau)d\tau} dB(s) \middle| Z(t) \right] = \sum_{j} I^{j}(t) V^{j}(t)
+   </math>
+   (14)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^{j}(t) = E\left[\int_{t}^{n} e^{-\int_{t}^{s} r(\tau)d\tau} dB(s) \middle| Z(t) = j\right] (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   These so-called statewise reserves are fundamental quantities in classical life insurance mathematics. They are characterized by a system of ordinary differential equations and presented in [6] as an inevitable tool for life insurance mathematicians. Substituting the payment process
+   <math display="inline">
+    (9)
+   </math>
+   into the reserve for state
+   <math display="inline">
+    j
+   </math>
+   , we get the differential equation (see Markov Processes):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}}{\mathrm{d}t}V^{j}(t) = r(t)V^{j}(t) - b^{j}(t) - \sum_{k:k\neq j} \mu^{jk}(t) \left(b^{jk}(t) + V^{k}(t) - V^{j}(t)\right)
+   </math>
+   (16)
+  </p>
+  <p block-type="Text">
+   which holds outside
+   <math display="inline">
+    \{0, m, n\}
+   </math>
+   . Inside
+   <math display="inline">
+    \{0, m, n\}
+   </math>
+   , the conditions are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^{j}(n) = 0
+   </math>
+   <br/>
+   <math display="block">
+    V^{j}(m-) = \Delta B^{j}(m) + V^{j}(m)
+   </math>
+   <br/>
+   <math display="block">
+    V^{j}(0-) = \Delta B^{j}(0) + V^{j}(0)
+   </math>
+   (17)
+  </p>
+  <p block-type="Text">
+   Note that, by taking the process
+   <math display="inline">
+    Z
+   </math>
+   to start in state 0 by convention, we can formulate the equivalence principle in terms of the statewise reserve:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^{0}(0-) = \Delta B^{0}(0) + V^{0}(0) = 0 \qquad (18)
+   </math>
+  </p>
+  <p block-type="Text">
+   The special case of the differential equation
+   <math display="inline">
+    (16)
+   </math>
+   that holds for the survival model was discovered by Thiele in 1875. In addition, generalized versions like, for example, equation (16) are spoken of as Thiele's differential equation. Interestingly, Thiele was actually also the first to model the Brownian motion mathematically in connection with his study of time series [5, 19]. Classical valuation formulas of classical life insurance products can be found in the textbook [4]. See also [13] for an account of different notions of reserves.
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 1
+   </b>
+   Let us calculate the equivalence level premium for an endowment insurance sold to an
+   <math display="inline">
+    x
+   </math>
+   -year old based on the assumptions above. Plugging in the elementary endowment insurance benefits and a level premium rate
+   <math display="inline">
+    \pi
+   </math>
+   (Greek p for premium), the equivalence principle reads
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\int_{0-}^{m} e^{-\int_{0}^{t} r(s)ds} \left(-\pi I(t)dt + dN(t)\right) + I(t) d\varepsilon^{m}(t)\right]
+   </math>
+   <br/>
+   <math display="block">
+    = E\left[\int_{0-}^{m} e^{-\int_{0}^{t} r(s)ds} \left(-\pi I(t)dt + dN(t)\right) + e^{-\int_{0}^{m} r(s)ds} I(m)\right] = 0 \qquad (19)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where expectation is actually conditional expectation given that the policy holder is
+   <math display="inline">
+    x
+   </math>
+   years old, that is,
+   <math display="inline">
+    T &gt; x
+   </math>
+   . This forms one equation (the principle of equivalence) with one unknown
+   <math display="inline">
+    (\pi)
+   </math>
+   and its solution is called the equivalence premium. By plugging in the characteristics of the lifetime distribution in equation
+   <math display="inline">
+    (5)
+   </math>
+   and collecting terms, we get
+  </p>
+  <p block-type="Text">
+   with the terminal condition given by definition,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^0(m-) = 1 \tag{24}
+   </math>
+  </p>
+  <p block-type="Text">
+   and the initial condition as a result of inserting the equivalence premium calculated above,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^0(0) = 0 \tag{25}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{0-}^{m} e^{-\int_{0}^{t} (r(s) + \mu(x+s))ds} \left(-\pi + \mu(x+t)\right) dt + e^{-\int_{0}^{m} (r(s) + \mu(x+s))ds} = 0
+   </math>
+   <math display="block">
+    \Rightarrow \frac{\int_{0-}^{m} e^{-\int_{0}^{t} (r(s) + \mu(x+s))ds} \mu(x+t) dt + e^{-\int_{0}^{m} (r(s) + \mu(x+s))ds}}{\int_{0-}^{m} e^{-\int_{0}^{t} (r(s) + \mu(x+s))ds} dt} = \pi \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   Actuaries have developed a shorthand notation for expected present values of standard payment streams. An actuary could write the premium formula above in code:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi = \frac{A_{x\overline{m}}}{a_{x\overline{m}}} = \frac{A_{x\overline{m}}^{1} + {}_{m}E_{x}}{a_{x\overline{m}}}
+   </math>
+   (21)
+  </p>
+  <p block-type="Text">
+   The reserve to set up at time
+   <math display="inline">
+    t
+   </math>
+   given that the policy holder is alive is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V^{0}(t) = E\left[\int_{t}^{m} e^{-\int_{t}^{s} r(\tau)d\tau} \left(-\pi I\left(s\right)ds + dN\left(s\right)\right) + e^{-\int_{t}^{m} r(s)ds} I\left(m\right) \middle| I\left(t\right) = 1\right]
+   </math>
+   <math display="block">
+    = \int_{t}^{m} e^{-\int_{t}^{s} (r(\tau) + \mu(x+\tau))d\tau} \left(-\pi + \mu\left(x+s\right)\right)ds + e^{-\int_{t}^{m} (r(s) + \mu(x+s))ds} \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   It is easy to verify that this reserve actually fulfills the special case of the Thiele differential equation,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}}{\mathrm{d}t}V^{0}(t) = r(t)V^{0}(t) + \pi - \mu(t)(1 - V^{0}(t))
+   </math>
+   (23)
+  </p>
+  <h2>
+   Can the Financial Market Relax the Three Assumptions?
+  </h2>
+  <p block-type="Text">
+   In this subsection, we discuss how mathematical finance can help us relax parts of Condition 1 and the valuation principles and formulas that follow from such a relaxation.
+  </p>
+  <h3>
+   The "Large Number" Assumption
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   This is inevitable for the law of large numbers to apply and we mention just, in passing, some of its counterparts in finance. In capital asset pricing model (CAPM; see Capital Asset Pricing Model) the hypothesis is that only systematic risk (aka systemic risk, market risk (see Market Risk), and nondiversifiable risk and is the risk that hits large numbers of assets in the market or the whole economy) has a price, in terms of expected return, while there is no price for taking unsystematic risk (aka idiosyncratic risk and diversifiable risk and is the risk that hits only one or a small number of assets in the market). The motivation is that unsystematic risk can be avoided without loss of expected return by choosing a sufficiently diversified portfolio. In arbitrage pricing theory (APT; see Arbitrage Pricing Theory), the CAPM is connected to arbitrage pricing by introducing the notion of asymptotic arbitrage. The conclusion is that to avoid asymptotic arbitrage (excess return for taking risk that can be cleared away
+  </p>
+  <p block-type="Text">
+   by diversification), the price of unsystematic risk cannot be systematically positive, but one cannot say much about the price of unsystematic risk in a particular asset.
+  </p>
+  <p block-type="Text">
+   In insurance terms, the explanation is as follows: to avoid systematic gains (and losses), the price for taking unsystematic risk must be zero, leading to the equivalence principle under the objective measure. An asymptotic arbitrage argument would give access to a positive price for taking on insurance risk from particular policy holders as long as this does not happen systematically across the policy holders in a large portfolio. However, competition among insurance companies and/or regulation will typically prevent that particular policy holders pay premiums that are larger than their expected benefits.
+  </p>
+  <h4>
+   The Independence Assumption
+  </h4>
+  <p block-type="Text">
+   This can be relaxed to some extent with some help from financial market considerations and actions. This is convenient since the independence assumption is difficult to justify in practice. The help from financial market considerations and actions depends on the source of dependence. Here, we distinguish between two different sources both coming from insufficiency in the model presented in the section Modeling of Payment Streams: first, in practice, the payment coefficients
+   <math display="inline">
+    b^j(t)
+   </math>
+   ,
+   <math display="inline">
+    b^{jk}(t)
+   </math>
+   , and
+   <math display="inline">
+    \Delta B^j(t)
+   </math>
+   are typically not only dependent on the policy holder state but also on the financial performance of some investment fund or index. Second, in practice, the Markov assumption is violated by uncertainties in demographic trends and movements coming from sociological, medicinal, and economic developments.
+  </p>
+  <p block-type="Text">
+   First, the payment coefficients are supposed to protect buying power upon insurance events rather than nominal values. Therefore, the contracts typically contain participation features in the sense that the policy holder participates in the capital gains of some investment fund. The participation is either directly spelled out in the contract (unit-linked life insurance) or indirectly enforced by the legislative environment in which the contract is underwritten (with-profit life insurance). Additionally, the payments may be linked to the policy holder's salary or some salary index. We take a closer look at these participation features in the section Design of Payment Streams.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Such participation features affect the valuation since they create dependence between payment processes. To the extent that the dependence is created
+  </p>
+  <p block-type="TextInlineMath">
+   by financial market risk, a natural idea is to adopt other valuation techniques available for that part of the risk, for example, no arbitrage pricing. A example is to let the payment coefficients be contingent claims formalized as functions of an asset price. Consider, for example, the endowment insurance studied in Example 1, with the modification that a function f of the asset price at time m,
+   <math display="inline">
+    S(m)
+   </math>
+   , is paid out as benefit conditional on survival to time
+   <math display="inline">
+    m
+   </math>
+   . Formally
+   <math display="inline">
+    \Delta B^{0}(m) = f(S(m))
+   </math>
+   , and the (unknown) present value at time 0 of the payment process is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{0-}^{m} e^{-\int_{0}^{t} r(s)ds} \left(-\pi I(t) dt + dN(t)\right)
+   </math>
+   <math display="block">
+    + e^{-\int_{0}^{m} r(\tau) d\tau} I(m) f(S(m)) \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   What is the financial value of this present value and what is the equivalence premium? Questions of this type were first approached with financial methods in
+   <math display="inline">
+    [2]
+   </math>
+   and since then by several other financial economists and insurance mathematicians [1]. To formalize the standard answer, we introduce two filtrations (see
+   <b>
+    Filtrations
+   </b>
+   ) and corresponding measures generated by insurance risk and financial risk, respectively. Formally,
+   <math display="inline">
+    \mathcal{F}^Z(t) = \sigma(Z(s), 0 \le s \le t)
+   </math>
+   and
+   <math display="inline">
+    \mathcal{F}^S(t) = \sigma(S(s), 0 &lt; s &lt; t)
+   </math>
+   such that
+   <math display="inline">
+    (\Omega^Z, \mathcal{F}^Z)
+   </math>
+   <math display="inline">
+    P^{Z}
+   </math>
+   ) and
+   <math display="inline">
+    (\Omega^{S}, \mathcal{F}^{S}, P^{S})
+   </math>
+   form two filtered probability spaces from which we can construct the filtered product probability space (
+   <math display="inline">
+    \Omega^Z \times \Omega^S
+   </math>
+   ,
+   <math display="inline">
+    \mathcal{F}^Z \otimes \mathcal{F}^S
+   </math>
+   ,
+   <math display="inline">
+    P^Z \otimes P^S
+   </math>
+   ). The standard answer to the valuation problem above is then to take a product measure combining the objective measure
+   <math display="inline">
+    P^Z
+   </math>
+   with respect to insurance risk in
+   <math display="inline">
+    Z
+   </math>
+   and some martingale measure (see
+   <b>
+    Equivalent Martingale Measures
+   </b>
+   )
+   <math display="inline">
+    Q^S
+   </math>
+   with respect to financial risk in
+   <math display="inline">
+    S
+   </math>
+   , that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^{P^{Z} \otimes Q^{S}} \left[ \int_{0-}^{m} e^{-\int_{0}^{t} r(s) ds} \left( -\pi I(t) dt + dN(t) \right) \right.
+   </math>
+   <br/>
+   <math display="block">
+    \left. + e^{-\int_{0}^{m} r(\tau) d\tau} I(m) f(S(m)) \right]
+   </math>
+   <br/>
+   <math display="block">
+    = \int_{0-}^{m} e^{-\int_{0}^{t} (r(s) + \mu(x+s)) ds} \left( -\pi + \mu(x+t) \right) dt
+   </math>
+   <br/>
+   <math display="block">
+    \left. + e^{-\int_{0}^{m} (r(s) + \mu(x+s)) ds} E^{Q^{S}} \left[ f(S(m)) \right] \right]
+   </math>
+   (27)
+  </p>
+  <p block-type="Text">
+   If the martingale measure is unique, so is the financial value of the payment process and the equivalence premium is obtained as in Example 1
+  </p>
+  <p block-type="Text">
+   by equating the financial value to zero and isolating
+   <math display="inline">
+    \pi
+   </math>
+   . It is a delicate issue to argue for equation (27) to be the "correct" value. It is clear that one somehow uses the diversification argument for the insurance risk and the no arbitrage argument for the financial risk. However, to make this precise, it takes arguments from incomplete markets pricing typically based on quadratic hedging or no asymptotic arbitrage approaches. Optimal investment is also an issue since, in general, no investment strategy hedges (see
+   <b>
+    Hedging
+   </b>
+   ) the payment process for any outcome of the stochastic lifetime. In fact, parts of the development of quadratic hedging approaches (see [17] and references therein) are directly inspired by insurance applications in general and to life insurance payment processes in particular,
+   <math display="inline">
+    [10, 11, 16]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The statewise reserves introduced above generalize to reserves for more general future payments. In the case of a Markov model for
+   <math display="inline">
+    S
+   </math>
+   , these are characterized by deterministic differential equations that generalize Thiele's differential equation (16) [18].
+  </p>
+  <p block-type="Text">
+   Second, the transition intensities in the process
+   <math display="inline">
+    Z
+   </math>
+   move not only over age but also over calendar time in the sense that a mortality intensity for an
+   <math display="inline">
+    x
+   </math>
+   -year old is not necessarily the same in two different calendar years. If these movements are stochastic, this also creates dependence between policy holders and, thereby, between the payment processes written on their lives, and the Markov property of
+   <math display="inline">
+    Z
+   </math>
+   is lost. This is clear since the prospects of an insured's life not only depends on his/her state of health but also on the historical demographic development that is common for all insured.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   There are different approaches to the modeling of, for example, mortality intensities. These are typically either sociobiologically flavored or financially flavored. By sociobiological flavor we mean that the starting point for the modeling is the biological, medicinal, and sociological sources of uncertainties. If, say, the future invention of a particular vaccine is expected to have a significant impact on the mortality intensity, then one should try to predict the finding of such a vaccine. By financial flavor we mean that the main source of inspiration is modeling of the short rate of interest. The benefits of such an inspiration are clear when comparing the survival probability
+   <math display="inline">
+    e^{-\int_0^t \mu(s)ds}
+   </math>
+   with a discount factor
+   <math display="inline">
+    e^{-\int_0^t r(s)ds}
+   </math>
+   . If we assume some kind of affine mortality intensity model, we achieve particularly simple expressions for, for
+  </p>
+  <p block-type="Text">
+   example, the expected survival probability,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[e^{-\int_0^t \mu(s) \mathrm{d}s}\right] \tag{28}
+   </math>
+  </p>
+  <p block-type="Text">
+   Such particularly simple expressions are appealing but suffer from mainly two disadvantages: it is difficult to motivate by sociobiological arguments that Vasicek or CIR (see Cox-Ingersoll-Ross (CIR)
+   <b>
+    Model
+   </b>
+   ) model behavior should be present in mortality rates, and it is difficult to generalize the modeling advantages from the survival model to a multistate model.
+  </p>
+  <p block-type="Text">
+   The main challenge in stochastic modeling of the mortality intensity is the financial valuation of the demographic risk in a given model. Demographic risk is clearly nondiversifiable since the same mortality intensity hits a whole population or portfolio of insured. Is it priced by the financial market then? From the beginning of the millennium, there have been a few attempts by participants in the financial market to form a market for mortality derivatives. The idea is to involve the rest of the financial market, in addition to insurers and reinsurers, in taking part in mortality risk. The motivation for the investors is diversification since mortality intensities are not perfectly correlated with classical financial market risk. There are a lot of delicate questions concerning institutional and contractual design of products in such a market in addition to the modeling issues mentioned above. These questions are not so far answered sufficiently well by neither the market nor the academicians working in the field and, therefore, such a market is not flying yet. The prices in such a possible market place would give hints concerning the valuation of a survival probability, for example, under which probability measure (martingale measure) the expectation in equation
+   <math display="inline">
+    (28)
+   </math>
+   should be taken in order to form a market price. However, so far, the market is not sufficiently rich of assets and liquid to be really informative. See
+   <math display="inline">
+    [3]
+   </math>
+   for a review of the challenges of mortality risk.
+  </p>
+  <h4>
+   The Deterministic Interest Rate Assumption
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   If this is not fulfilled we cannot, in the first place, say anything certain about the value at time
+   <math display="inline">
+    t
+   </math>
+   of one unit paid at time
+   <math display="inline">
+    u &gt; t
+   </math>
+   . However, if there exists a sufficiently rich market of risk-free bonds, then we
+  </p>
+  <p block-type="TextInlineMath">
+   can say something: if at time
+   <math display="inline">
+    t
+   </math>
+   we have access to a risk-free zero-coupon bond (see
+   <b>
+    Bond
+   </b>
+   ) maturing at time
+   <math display="inline">
+    u
+   </math>
+   , then the value of that bond, denoted by
+   <math display="inline">
+    P(t, u)
+   </math>
+   , is the only value of the payment of one unit at time
+   <math display="inline">
+    u
+   </math>
+   that prevents arbitrage. From bond market theory, it is known that the zero-coupon price can be represented as the conditional expected value of the stochastic discount factor under an equivalent martingale measure
+   <math display="inline">
+    O^r
+   </math>
+   derived from the price processes of the bond market. The question is, how can we use the bond market to update the valuation formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\int_{0-}^{n} e^{-\int_{0}^{t} r(s)ds} dB(t)\right] \tag{29}
+   </math>
+  </p>
+  <p block-type="Text">
+   Here, the independence between payment processes does not carry over to the independence of present values in the following form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{0-}^{n} e^{-\int_{0}^{t} r(s)ds} dB(t) \qquad (30)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   since it is the same interest rate process that hits all policies. Again, we can take a product measure, now combining the objective measure
+   <math display="inline">
+    P^Z
+   </math>
+   with respect to insurance risk in
+   <math display="inline">
+    Z
+   </math>
+   and some martingale measure
+   <math display="inline">
+    O^r
+   </math>
+   with respect to financial risk in r, and form the expectation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^{P^{Z}\otimes Q^{r}}\left[\int_{0-}^{n}\mathrm{e}^{-\int_{0}^{t}r(s)\mathrm{d}s}\mathrm{d}B\left(t\right)\right]\tag{31}
+   </math>
+  </p>
+  <p block-type="Text">
+   If the payments are in nominal terms, that is, independent of market risk including interest rate risk, this formula reduces to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^{P^{Z}}\left[\int_{0-}^{n}P\left(0,t\right)\mathrm{d}B\left(t\right)\right]\tag{32}
+   </math>
+  </p>
+  <p block-type="Text">
+   Again, the considerations apply: we cannot motivate equation
+   <math display="inline">
+    (32)
+   </math>
+   by either diversification or the no arbitrage principle but must rely on a combination of the two, introducing, for example, quadratic hedging in incomplete markets pricing and/or no asymptotic arbitrage arguments. No bond portfolio hedges the payment processes for all outcomes of
+   <math display="inline">
+    Z
+   </math>
+   , so the bond portfolio must reflect some optimization criterion.
+  </p>
+  <h3>
+   <i>
+    What Can Finance Learn from Life Insurance:
+   </i>
+   An Example
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   After a section about "what finance has done for life insurance", we partly balance out things by a remark
+  </p>
+  <p block-type="TextInlineMath">
+   on "what life insurance has done for finance." Taking Figure 1 to represent the life history of a corporate rather than that of a human being, we have a simple credit risk model and in equation (2) a formalization of simple single-name credit risk derivatives. The default hazard rate
+   <math display="inline">
+    \mu
+   </math>
+   is, however, usually then modeled as a stochastic process, depending on some underlying macroeconomic variables or processes creating cross-corporate dependence similar to the dependence between life histories of policy holders. Following this idea and replacing in Figure (3) the husband by Corporate A and his wife by Corporate B, we have a simple two-name model. In the payment
+   <math display="inline">
+    process (9)
+   </math>
+   , we have formalized simple two-corporate credit risk derivatives. This model can from there be generalized to an arbitrary number of corporates. The cost of an exploding number of states and intensities as the number of corporates increases can be dealt by using appropriate cross-corporate homogeneity assumptions.
+  </p>
+  <p block-type="TextInlineMath">
+   Figure (3) illustrates three sources of dependence playing distinct roles in the dependence modeling and in the calculation of expected values. One type of dependence between the two corporates exists, as mentioned in the previous paragraph, even if
+   <math display="inline">
+    \mu^{02} =
+   </math>
+   <math display="inline">
+    \mu^{13}
+   </math>
+   and
+   <math display="inline">
+    \mu^{01} = \mu^{23}
+   </math>
+   , but these intensities are functions of the same underlying economic processes. Then the corporates are dependent by being part of the same economy (or in the human life model by the two spouses being part of the same generation). Stronger dependence is present if, in addition,
+   <math display="inline">
+    \mu^{02} \neq \mu^{13}
+   </math>
+   and/or
+   <math display="inline">
+    \mu^{01} \neq \mu^{23}
+   </math>
+   . The so-called positive contagion, for example,
+   <math display="inline">
+    \mu^{13} &gt; \mu^{02}
+   </math>
+   , appears if, for example, there is some kind of contractual relation between the corporates (or in the human life model if, upon the death of his spouse, the widower tends to die from loneliness and isolation). The so-called negative contagion, for example,
+   <math display="inline">
+    \mu^{23} &lt; \mu^{01}
+   </math>
+   , appears if, for example, the two corporates are competing and the surviving corporate wins market shares after the default of the other (or in the human life model if, upon the death of her spouse, the widow finds a young lover and lives out her second youth). Even stronger dependence is present if we, in addition, allow for a transition from state 0 to state 3. The so-called joint default appears if the corporates are so closely connected, for example, through some mother-daughter relationship, that one credit risk event draws down both corporates simultaneously (or in the human life model, if both spouses in
+  </p>
+  <p block-type="Text">
+   the married couple are sitting in the same lethally crashing car.)
+  </p>
+  <p block-type="Text">
+   Note that here the dependence is introduced in a dynamic way such that one clearly sees what is going on. The valuation of payment processes and fairness principles studied in this section carry over directly to dynamic valuation of involved multicorporate credit risk derivatives. Furthermore, nondiversifiable risk is probably less of a problem here, since much of the macroeconomic risk driving default intensities are actually priced by the market, for example, interest rate risk. The dynamic atomic modeling has some advantages over the usual copula approach to dependence modeling that aggregates static effects by the cost of opaqueness [7].
+  </p>
+  <h3>
+   <b>
+    Design of Payment Streams
+   </b>
+  </h3>
+  <h4>
+   With-profit Life Insurance
+  </h4>
+  <p block-type="Text">
+   On the one hand, the policy holder is interested in protecting buying power upon insurance events rather than nominal values. On the other hand, the insurance company is not necessarily interested in taking on nondiversifiable risk. Thus, the parties have delicate interests in sharing this risk, and this risk sharing takes many different institutional and contractual forms. In the traditional method for risk sharing, the payments finally paid are a consequence of the contract and the institutional management within certain regulatory constraints. The idea is, in the first place, to charge nominal premiums that are sufficiently high to cover nominal benefits under all possible outcomes of the economic-demographic environment. The surplus created by such a prudent payment stream belongs to the policy holder and should be redistributed as dividend payments to policy holders. The investment strategy and the redistribution are chosen at the discretion of the insurance company within a set of regulatory requirements.
+  </p>
+  <p block-type="Text">
+   The traditional way of forming the prudent nominal payment stream is to put up a set of artificial assumptions on the transition intensities
+   <math display="inline">
+    \mu^{jk*}
+   </math>
+   and the interest rate
+   <math display="inline">
+    r^*
+   </math>
+   , thereby forming the so-called technical basis, representing some kind of worstcase scenario. Now the nominal payment stream
+   <math display="inline">
+    B
+   </math>
+   is settled in accordance with the equivalence principle under these artificial assumptions, that is, fulfilling
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^* \left[ \int_{0-}^n e^{-\int_0^t r^*(\tau) d\tau} dB(t) \right] = 0 \tag{33}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    E^*
+   </math>
+   denotes expectation with respect to the measure under which the transition intensities are given by
+   <math display="inline">
+    \mu^{jk*}
+   </math>
+   . Under the technical basis, the independence assumption is fulfilled by construction, since the payments are nominal and all transitions intensities are deterministic such that
+   <math display="inline">
+    Z
+   </math>
+   is Markov under the technical measure. In addition, under the technical basis, the deterministic interest rate assumption is fulfilled by construction. Thus, since Condition 1 is fulfilled, the expectation on the left-hand side of equation (33) expresses a financial value, however, under the technical assumptions.
+  </p>
+  <p block-type="Text">
+   The surplus is created when capital gains different from
+   <math display="inline">
+    r^*
+   </math>
+   are realized and real transitions different from the ones expected through
+   <math display="inline">
+    \mu^{jk*}
+   </math>
+   are experienced. This surplus is redistributed as dividend payments. We introduce a dividend payment process
+   <math display="inline">
+    D
+   </math>
+   with a structure similar to the one presented for
+   <math display="inline">
+    B
+   </math>
+   in equation (9). However, here we emphasize that the dividend payment process is not adapted to the filtration
+   <math display="inline">
+    \mathcal{F}^Z
+   </math>
+   generated by Z, as is B in this case, but adapted to a larger filtration
+   <math display="inline">
+    \mathcal{F}^Z \vee \mathcal{F}^Y
+   </math>
+   , where
+   <math display="inline">
+    \mathcal{F}^Y
+   </math>
+   is generated by realized capital gains and realized intensities. Now, what can we require from such a dividend payment process for the policy to be fair?
+  </p>
+  <p block-type="Text">
+   The classical approach is first to note that if the capital gains process and the transition intensities were known up to time
+   <math display="inline">
+    n
+   </math>
+   , this would be as working under Condition 1, and we could put up the usual equivalence principle. This observation inspires to an equivalence formula where the equivalence is required given the economic-demographic development, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\int_{0-}^{n} \frac{1}{G\left(t\right)} \mathrm{d}\left(B+D\right)\left(t\right) \middle| \mathcal{F}^{Y}\left(n\right)\right] = 0 \qquad (34)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    G
+   </math>
+   is the portfolio value corresponding to a self-financing investment strategy chosen by the insurance company. This means that all economicdemographic risk coming from the payment process
+   <math display="inline">
+    B
+   </math>
+   is returned to the policy holder through the payment process
+   <math display="inline">
+    D
+   </math>
+   . One can view this approach as careful risk management by design of the contract. This approach is discussed in
+   <math display="inline">
+    [14]
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The modern approach, inspired from mathematical finance, is actually to allow for an exchange of economic-demographic risk as long as this risk is priced in accordance with the market. This gives rise
+  </p>
+  <p block-type="Text">
+   to a substantial relaxation of equation (34) into
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^{P^{Z} \otimes Q^{Y}} \left[ \int_{0-}^{n} e^{-\int_{0}^{t} r(s)} d(B+D)(t) \right] = 0 \quad (35)
+   </math>
+  </p>
+  <p block-type="Text">
+   This method does not necessarily return all economic-demographic risk to the policy holders but leaves parts of it at the insurer who is, in return, appropriately paid for this risk through the valuation measure
+   <math display="inline">
+    Q^Y
+   </math>
+   . There are, however, two main challenges in replacing equation
+   <math display="inline">
+    (34)
+   </math>
+   by equation
+   <math display="inline">
+    (35)
+   </math>
+   : first, there is no (sufficiently rich and liquid) market to make the
+   <math display="inline">
+    Q^Y
+   </math>
+   measure unique with respect to demographic risk. Second, in the classical approach (34), all the risk management has been taken care of by the design of the contract. Introducing equation (35), risk management also means optimal decision making during the terms of the contract, for example, through optimal investment in incomplete markets. This approach is taken in many publications in the area, see the textbook
+   <math display="inline">
+    [11]
+   </math>
+   and references therein
+  </p>
+  <p block-type="Text">
+   The insurance companies decide on the dividend process and the investment strategy to which it is adapted within certain constraints given by the contractual, institutional, and regulatory environment. There are, however, substantial regional and institutional differences in how this decision is constrained and made around the world. In addition, given the payment process
+   <math display="inline">
+    D
+   </math>
+   , there are differences in how this payment process materializes into payments experienced by the policy holders. In other words, these dividends are not necessarily paid out in cash. More often they are kept within in the insurance company but assigned to the policy holder who will then, in return, receive the so-called bonus payments in connection with either future premium payments and/or benefit payments in the payment process
+   <math display="inline">
+    B
+   </math>
+   . Here, we describe two of the more important arrangements. The first arrangement is important due to its major role in the UK/US tradition in the past, but during these decades it is partly superseded by the second arrangement that has a long tradition in the continental Europe.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In pension funding, the contract is part of an employment contract: the employer pays the premiums and the employee receives the benefits. The benefits are typically not nominal but rather linked to the policy holder's salary or some salary index. In general, prudent technical assumptions give rise to a positive and increasing dividend payment stream
+  </p>
+  <p block-type="Text">
+   that is experienced by the employer as a current or future discount in the premium level. However, if at all, one is not so concerned about prudence because a negative surplus can be filled by paying out negative dividends in terms of increasing current or future premiums paid by the employer. This arrangement splits the financial-demographic risk between the insurance company (pension fund) and the employer, whereas the employee goes free (apart from salary risk). This class of arrangements is called
+   <i>
+    defined ben
+   </i>
+   -
+   <math display="inline">
+    \text{efits } (DBs)
+   </math>
+   since the benefits are determined initially (possibly in terms of the salary), whereas the future premiums are unknown to the employer and will go up or down, respectively, when a negative or positive surplus is returned.
+  </p>
+  <p block-type="Text">
+   In with-profit life insurance, the contract is either a private contract or part of an employment contract. The employee or the employer pays the premium and the employee receives the benefits. Here, in contrast, the premiums are nominal or linked to some salary index. Sufficiently prudent technical assumptions give rise to a positive and increasing dividend payment stream that is experienced by the employee as a current or future bonus benefit level. One is here, in contrast, indeed concerned about prudence because a negative surplus can typically not be returned to the policy holder who is contractually protected from decreasing benefits: these are considered as binding minimum guarantees. The financial-demographic risk is shared between the policy holder who receives unknown benefits and the insurance company who bears the risk that the surplus becomes negative, whereas the employer goes free. This class of arrangements is called
+   <i>
+    defined
+   </i>
+   <math display="inline">
+    contributions
+   </math>
+   (DCs) since the contributions (premiums) are determined initially (possibly in terms of the salary), whereas the future benefits are unknown to the employee (but often constrained downward by minimum guarantees).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   It is clear that understanding the mathematics of finance in general and no arbitrage valuation in particular has played a crucial role in replacing the fairness constraint
+   <math display="inline">
+    (34)
+   </math>
+   by the fairness constraint
+   <math display="inline">
+    (35)
+   </math>
+   . This replacement has given the involved parties, that is, policy holders typically represented by regulators, investors, and insurance companies, access to measuring and appropriately evaluating the exchanged risk. Note, however, that part of this risk is neither diversifiable nor hedgeable and therefore there is still some ambiguity left in the fairness criterion (35),
+  </p>
+  <p block-type="Text">
+   which is not present in equation
+   <math display="inline">
+    (34)
+   </math>
+   . Also note that valuation is closely connected to existence of efficient hedging strategies—strategies that may be difficult to follow for leading insurance companies and pension funds due to regulatory restrictions and, more importantly, from a real economic point of view—these funds are often large investors in the sense that their actions in the market have adverse feedback effects in market prices.
+  </p>
+  <h4>
+   Unit-linked Life Insurance
+  </h4>
+  <p block-type="Text">
+   Unit-linked life insurance has partly replaced the traditional contracts described above, in particular in the private market. The idea comes from the US market and is making up an increasing part of the private market also in Europe with considerable regional differences, though. The idea is to formalize the adaptation to the economic-demographic environment explicitly in the contract in such a way that the investment strategy can be chosen at the discretion of the policy holder rather than the insurance company.
+  </p>
+  <p block-type="Text">
+   In pure unit-link insurance, that is, without any form of guarantee, all risks from the investment are eventually returned to the policy holder in one way or another. Then we can naturally take the counterpart to the equivalence criterion
+   <math display="inline">
+    (34)
+   </math>
+   and require equivalence of the payment process
+   <math display="inline">
+    B
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\int_{0-}^{n} \frac{1}{G\left(t\right)} \mathrm{d}B\left(t\right) \middle| \mathcal{F}^{Y}\left(n\right)\right] = 0 \qquad (36)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    G
+   </math>
+   is the portfolio value corresponding to a selffinancing investment strategy chosen partly by the policy holder. By multiplication of
+   <math display="inline">
+    G(n)
+   </math>
+   , which is
+   <math display="inline">
+    \mathcal{F}^{Y}(n)
+   </math>
+   -measurable, and splitting up the integral, one sees that this is equivalent to the following settlement of the final lump sum payment:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\Delta B^{Z(n)}\left(n\right)\middle|\mathcal{F}^{Y}\left(n\right)\right]
+   </math>
+   <br/>
+   =
+   <math>
+    -E\left[\int_{0-}^{n-}\frac{G\left(n\right)}{G\left(t\right)}\mathrm{d}B\left(t\right)\middle|\mathcal{F}^{Y}\left(n\right)\right]
+   </math>
+   (37)
+  </p>
+  <p block-type="Text">
+   This relation restricts the terminal lump sum to finally make up for all movements on capital gains and transition intensities in the past. For this relation to hold, it is sufficient to formalize the payment process by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}B\left(t\right) = G\left(t\right)\mathrm{d}B^*\left(t\right) \tag{38}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    B^*(t)
+   </math>
+   is a nominal payment process fulfilling the relation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\int_{0-}^{n} \mathrm{d}B^{*}\left(t\right)\right] = 0\tag{39}
+   </math>
+  </p>
+  <p block-type="Text">
+   In pure unit-link insurance, the (risk-minimizing) investment strategy implemented by the insurance company coincides essentially with the investment strategy stipulated in the contract.
+  </p>
+  <p block-type="Text">
+   Such an insurance contract is not provided in practice due to legislative constraints and the policy holder's demand for specification of guaranteed levels of premiums and benefits, typically nominal, that protect the policy holder from large capital losses. Such features introduce a genuine sharing of risk between the policy holder and the insurance company, and the criterion
+   <math display="inline">
+    (36)
+   </math>
+   is too tight. We can relax equation
+   <math display="inline">
+    (36)
+   </math>
+   by introducing the counterpart to equation (35) and require that the payment process
+   <math display="inline">
+    B
+   </math>
+   fulfills
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^{P^{Z}\otimes Q^{Y}}\left[\int_{0-}^{n}e^{-\int_{0}^{t}r(s)}dB\left(t\right)\right]=0\qquad(40)
+   </math>
+  </p>
+  <p block-type="Text">
+   For example, let us say that the terminal lump sum payment given in equation
+   <math display="inline">
+    (37)
+   </math>
+   is floored off at some guarantee level
+   <math display="inline">
+    K
+   </math>
+   . This guarantee must be compensated, for example, by specifying that only a proportion
+   <math display="inline">
+    a
+   </math>
+   of the sum is paid out if it is larger than
+   <math display="inline">
+    K
+   </math>
+   , that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\Delta B^{Z(n)}\left(n\right)\middle|\mathcal{F}^{Y}\left(n\right)\right]
+   </math>
+   <br/>
+   =
+   <math>
+    \max\left(-aE\left[\int_{0-}^{n-}\frac{G\left(n\right)}{G\left(t\right)}\mathrm{d}B\left(t\right)\middle|\mathcal{F}^{Y}\left(n\right)\right],K\right)
+   </math>
+   <br/>
+   (41)
+  </p>
+  <p block-type="Text">
+   Looking closer at this, the terminal payment is some kind of delicate Asian option on
+   <math display="inline">
+    G
+   </math>
+   . Now, financial mathematics helps us in calculating fair pairs of
+   <math display="inline">
+    a
+   </math>
+   and
+   <math display="inline">
+    K
+   </math>
+   such that equation (40) is fulfilled. Such pairs will depend on the riskiness in the portfolio underlying G. The pair
+   <math display="inline">
+    (1, -\infty)
+   </math>
+   is one example, corresponding to equation (37), that does not depend on the investment portfolio, though. In such more advanced types of unit-link insurance, the (riskminimizing) investment strategy implemented by the insurance company does not essentially coincide with the investment strategy chosen by the policy holder but contains some investment in or hedging of the embedded derivatives
+  </p>
+  <p block-type="Text">
+   In the section Design of Payment Streams, we set the framework for the design of the payment streams. Furthermore, we discussed fairness constraints. Within the fairness constraints, there are a series of decisions to be made by the insurance company and/or the policy holder. In this section, we focus on these decisions. In with-profit life insurance and pension funding, there are two decision processes of paramount interest: the investment decisions underlying
+   <math display="inline">
+    G
+   </math>
+   and the dividend payment stream
+   <math display="inline">
+    D
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   We form the surplus
+   <math display="inline">
+    X
+   </math>
+   at time
+   <math display="inline">
+    t
+   </math>
+   as the assets at time
+   <math display="inline">
+    t
+   </math>
+   minus the liabilities at time
+   <math display="inline">
+    t
+   </math>
+   with respect to the contract or portfolio of contracts in focus. The assets are the payments to the insurance company (premiums less benefits) in the past accumulated with capital gains. The liabilities are some measure of the future obligations in the payment process
+   <math display="inline">
+    B
+   </math>
+   , here denoted by
+   <math display="inline">
+    V(t)
+   </math>
+   . Thus,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X(t) = -\int_{0-}^{t} \frac{G(t)}{G(s)} \mathrm{d}(B+D)(s) - V(t) \quad (42)
+   </math>
+  </p>
+  <p block-type="Text">
+   From our analysis in the section Valuation of Payment Streams, we have several candidates for the liabilities to be plugged in: the classical liability is the technical reserve
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^* \left[ \left. \int_t^n e^{-\int_t^s r^*(\tau) d\tau} dB\left(s\right) \right| Z\left(t\right) \right] \tag{43}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which is the present value of future payments under the same artificial assumptions as the ones used in the equivalence principle. This ensures that, by the equivalence principle, the surplus prior to inception is equal to 0, that is,
+   <math display="inline">
+    X(0-) = 0
+   </math>
+   . A more realistic estimate of the future obligations is a market consistent valuation along the lines of equation (32) of the future payments conditional on all information up to time
+   <i>
+    t
+   </i>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^{P^{Z}}\left[\left.\int_{t}^{n}P\left(t,s\right)\mathrm{d}B\left(s\right)\right|Z\left(t\right)\right]\tag{44}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Anyway, the surplus will evolve according to the investment and dividend decisions made in the past. In fact, the surplus can be considered as the policy holder's extra wealth, in excess of
+   <math display="inline">
+    V
+   </math>
+   , which is managed by the insurance company. Since the investment strategy can be parameterized as an investment strategy for the surplus itself, this investment-dividend
+  </p>
+  <p block-type="TextInlineMath">
+   problem is a delicate version of the classical investment-consumption problem known from finance. It is certainly a nonstandard version due to a series of particularities (related to financial topics mentioned in brackets): (i) the decision maker and the consumer do not coincide since the dividends go to the policy holder while the investment-dividend decisions are made by the insurance company (principal agent problem); (ii) usually, the dividends are not paid out as cash but transferred to a future payment stream (habit formation); (iii) obligations are nonhedgeable due to diversifiable death risk and nondiversifiable mortality risk (nonhedgeable income process); (iv) there are regional solvency constraints on the surplus-varying in strictness and underlying valuation principles (intermediate constraints on wealth); (v) there are regional constraints on investment and surplus redistribution strategies (intermediate constraints on investment and consumption); (vi) usually, the surplus is accounted for on (sub)portfolio level rather than individual level and the portfolio members have possibly inhomogeneous attitudes to risk; and (vii) short-fall risk due to nonhedgeable obligations or aggressive investment decisions is borne by the equity holders who should be appropriately paid for it.
+  </p>
+  <p block-type="Text">
+   The list of particularities is all parts of the subject matter of ALM, which is essential in modern mathematics of life insurance and its merger with parts of mathematical finance, including incomplete market valuation, liability-driven investments, constrained asset allocation, and strategic asset allocation. These areas of finance have gained momentum from their applications in life insurance and versions of these problems stemming from practical problems in the insurance market continue to challenge asset managers both on the theoretical and the practical side.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   With the prevalence of unit-link insurance comes the importance for the policy holders to make good investment decisions and for the insurance companies to advise them in doing so. At first glance, this is a classical personal finance problem of optimal investment of pension savings, with or without uncertain lifetime. However, the appearance of genuine insurance elements in the contract, that is, financial protection against life history events, brings to the surface a more delicate process of decision making. This includes the financial protection bought throughout
+  </p>
+  <p block-type="Text">
+   life in terms of insurance payments: given the financial situation at time
+   <i>
+    t
+   </i>
+   , what is the best death sum, disability sum/annuity, and unemployment sum/annuity to buy? Optimal decisions are naturally influenced by the market price of risk and risk aversion of the policy holder, as is the investment decision in classical personal finance. However, the market price of risk is not necessarily easy to deduct from a market offering contracts with nonexplicit participation features and constraints in a heavily regulated environment. And should risk aversion with respect to life history risk be parameterized in the same way as risk aversion with respect to financial risk?
+  </p>
+  <p block-type="Text">
+   Clearly, the formulation of the optimization problem is much more involved in the area of personal finance and insurance than in the area of pure personal finance. Ambiguity in the way the optimization problem should be formulated at all and the opaque insurance market in which the decisions are to be taken contribute to a complication of the subject matter. However, it also turns out facilitating in some respects to introduce access to the insurance market: it is by now well-accepted that human wealth, that is, the financial value of future labor earnings, is an important asset in personal decision making. This explains partly the rationale of life cycle investment saying that younger people should hold a larger proportion of their financial assets in risky investments than should older people. However, uncertainties in future earnings in general and the risk of loosing the human wealth in an insurance event— for example, disability or unemployment—make the human wealth difficult to assess. The introduction of an insurance market and insurance decisions has a completing effect on the market that makes the assessment of human wealth less ambiguous.
+  </p>
+  <p block-type="Text">
+   In the literature, the approach to personal finance and insurance go in two distinct directions: one direction is inspired from ruin considerations and formulates the optimization problem in terms of the probability of life time ruin in the sense of ever living below some defined level of poverty [9]. Another direction is inspired from personal finance and formulates the optimization problem in terms of expected utility of future consumption across life history events and uncertain lifetimes. This direction was initiated in [15] and recent contributions are [8, 12].
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Aase, K.K. &amp; Persson, S.-A. (1994). Pricing of unitlinked life insurance policies,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     <b>
+      1994
+     </b>
+     , 26–52.
+    </li>
+    <li block-type="ListItem">
+     [2] Brennan, M.J. &amp; Schwartz, E.S. (1976). The pricing of equity-linked life insurance policies with an asset value guarantee,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      3
+     </b>
+     , 195–213.
+    </li>
+    <li block-type="ListItem">
+     [3] Cairns, A.J.G., Blake, D. &amp; Dowd, K. (2008). Modelling and management of mortality risk: a review,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     <b>
+      2008
+     </b>
+     (2–3), 79–113.
+    </li>
+    <li block-type="ListItem">
+     [4] Gerber, H.U. (1995).
+     <i>
+      Life Insurance Mathematics
+     </i>
+     , 2nd edition, Springer-Verlag.
+    </li>
+    <li block-type="ListItem">
+     [5] Hald, A. (1981). T. N. Thiele's contributions to statistics,
+     <i>
+      International Statistic Review
+     </i>
+     <b>
+      49
+     </b>
+     , 1–20.
+    </li>
+    <li block-type="ListItem">
+     [6] Hoem, J.M. (1969). Markov chain models in life insurance,
+     <i>
+      Bl¨atter der Deutschen Gesellschaft f¨ur Versicherungsmathematik
+     </i>
+     <b>
+      9
+     </b>
+     , 91–107.
+    </li>
+    <li block-type="ListItem">
+     [7] Kraft, H. &amp; Steffensen, M. (2007). Bankruptcy, counterparty risk, and contagion,
+     <i>
+      Review of Finance
+     </i>
+     <b>
+      11
+     </b>
+     , 209–252.
+    </li>
+    <li block-type="ListItem">
+     [8] Kraft, H. &amp; Steffensen, M. (2008). Optimal consumption and insurance: a continuous-time Markov chain approach, to appear in
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      28
+     </b>
+     (1), 231–257.
+    </li>
+    <li block-type="ListItem">
+     [9] Milevsky, M., Moore, K. &amp; Young, V. (2006). Asset allocation and annuity-purchase strategies to minimize the probability of ruin,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      16
+     </b>
+     (4), 647–671.
+    </li>
+    <li block-type="ListItem">
+     [10] Møller, T. (2001). Risk-minimizing hedging strategies for insurance payment processes,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      5
+     </b>
+     (4), 419–446.
+    </li>
+    <li block-type="ListItem">
+     [11] Møller, T. &amp; Steffensen, M. (2007).
+     <i>
+      Market-Valuation Methods in Life and Pension Insurance
+     </i>
+     , Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [12] Nielsen, P.H. &amp; Steffensen, M. (2008). Optimal investment and life insurance strategies under minimum and maximum constraints, to appear in
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [13] Norberg, R. (1991). Reserves in life and pension insurance,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     3–24.
+    </li>
+    <li block-type="ListItem">
+     [14] Norberg, R. (1999). A theory of bonus in life insurance,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      3
+     </b>
+     (4), 373–390.
+    </li>
+    <li block-type="ListItem">
+     [15] Richard, S.F. (1975). Optimal consumption, portfolio and life insurance rules for an uncertain lived individual in a continuous time model,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      2
+     </b>
+     , 187–203.
+    </li>
+    <li block-type="ListItem">
+     [16] Schweizer, M. (2001). From actuarial to financial valuation principles,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      28
+     </b>
+     , 31–47.
+    </li>
+    <li block-type="ListItem">
+     [17] Schweizer, M. (2001). A guided tour through quadratic hedging approaches, in
+     <i>
+      Option Pricing, Interest Rates and Risk Management
+     </i>
+     . E. Jouini, J. Cvitanic &amp; M. Musiela, eds, Cambridge University Press.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [18] Steffensen, M. (2000). A no arbitrage approach to Thiele's differential equation,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      27
+     </b>
+     , 201–214.
+    </li>
+    <li block-type="ListItem">
+     [19] Thiele, T.N. (1880).
+     <i>
+      Sur la Compensation de Quelques Erreurs Quasisystematiques par la Methodes de Moindres Carres
+     </i>
+     , Reitzel, Copenhagen.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Credit Risk
+   </b>
+   ;
+   <b>
+    Hedging
+   </b>
+   ;
+   <b>
+    Market Risk
+   </b>
+   ;
+   <b>
+    Risk-neutral Pricing
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   MOGENS STEFFENSEN
+  </p>
+ </body>
+</html>

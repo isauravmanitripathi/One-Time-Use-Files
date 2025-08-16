@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Backward Stochastic Differential Equations: Numerical Methods
+   </b>
+  </h1>
+  <p block-type="Text">
+   Nonlinear backward stochastic differential equations (BSDEs) were introduced in 1990 by Pardoux and Peng [34]. The interest in BSDEs comes form their connections with partial differential equations (PDEs) [14, 38]; stochastic control (see Stochastic Control); and mathematical finance (see [16, 17], among others). In particular, as shown in [15], BSDEs are a useful tool in the pricing and hedging of European options. In a complete market, the price process
+   <math display="inline">
+    Y
+   </math>
+   of
+   <math display="inline">
+    \xi
+   </math>
+   is a solution of a BSDE. BSDEs are also useful in quadratic hedging problems in incomplete markets (see Mean-Variance Hedging).
+  </p>
+  <p block-type="TextInlineMath">
+   The result that there exist unique BSDE equations under the assumption that the generator is locally Lipschitz can be found in [19]. A similar result was obtained in the case when the coefficient is continuous with linear growth [24]. The same authors, Lepeltier and San Martín [23], generalized these results under the assumption that the coefficients have a superlinear quadratic growth. Other extensions of existence and uniqueness of BSDE are dealt with in [20, 25, 30]. Stability of solutions for BSDE have been studied, for example, in [1], where the authors analyze stability under disturbances in the filtration. In [6], the authors show the existence and uniqueness of the solution and the link with integral-PDEs (see Partial Integro-differential Equations (PIDEs)). An existence theorem for BSDEs with jumps is presented in [25, 36]. The authors state a theorem for Lipschitz generators proved by fixed point techniques [37].
+  </p>
+  <p block-type="Text">
+   Since BSDE solutions are explicit in only a few cases, it is natural to search for numerical methods approximating the unique solution of such equations and to know the associated type of convergence. Some methods of approximation have been developed.
+  </p>
+  <p block-type="Text">
+   A four-step algorithm is proposed in [27] to solve equations of forward-backward type, relating the type of approximation to PDEs theory. On the other hand, in [3], a method of random discretization in time is used where the convergence of the method for the solution
+   <math display="inline">
+    (Y, Z)
+   </math>
+   needs regularity
+  </p>
+  <p block-type="Text">
+   assumptions only, but for simulation studies multiple approximations are needed. See also [10, 13, 28] for forward-backward systems of SDE (FBSDE) solutions, [18] for a regression-based Monte Carlo method, [39] for approximating solutions of BSDEs, and [35] for Monte Carlo valuation of American Options.
+  </p>
+  <p block-type="TextInlineMath">
+   On the other hand, in [2, 9, 11, 26] the authors replace Brownian motion by simple random walks in order to define numerical approximations for BSDEs. This technique simplifies the computation of conditional expectations involved at each time step.
+  </p>
+  <p block-type="Text">
+   A quantization (see
+   <b>
+    Quantization Methods
+   </b>
+   ) technique was suggested in
+   <math display="inline">
+    [4, 5]
+   </math>
+   for the resolution of reflected backward stochastic differential equations (RBSDEs) when the generator
+   <math display="inline">
+    f
+   </math>
+   does not depend on the control variable
+   <math display="inline">
+    z
+   </math>
+   . This method is based on the approximation of continuous time processes on a finite grid, and requires a further estimation of the transition probabilities on the grid.
+  </p>
+  <p block-type="Text">
+   In [8], the authors propose a discrete-time approximation for approximations of RBSDEs. The
+   <math display="inline">
+    L^p
+   </math>
+   norm of the error is shown to be of the order of the time step. On the other hand, a numerical approximation for a class of RBSDEs based on numerical approximations for BSDE and approximations given in [29], can be found in [31, 33].
+  </p>
+  <p block-type="Text">
+   Recently, work on numerical schemes for jumps is given in
+   <math display="inline">
+    [22]
+   </math>
+   and is based on the approximation for the Brownian motion and a Poisson process by two simple random walks. Finally, for decoupled FBSDEs with jumps a numerical scheme is proposed in [7].
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \Omega = \mathcal{C}([0, 1], \mathbb{R}^d)
+   </math>
+   and consider the canonical Wiener space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{P}, \mathcal{F}_t)
+   </math>
+   , in which
+   <math display="inline">
+    B_t(\omega) = \omega(t)
+   </math>
+   is a standard
+   <math display="inline">
+    d
+   </math>
+   -dimensional Brownian motion. We consider the following BSDE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = \xi + \int_t^T f(s, Y_s, Z_s) \mathrm{d}s - \int_t^T Z_s \mathrm{d}B_s \qquad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \xi
+   </math>
+   is a
+   <math display="inline">
+    \mathcal{F}_T
+   </math>
+   -measurable square integrable random variable and
+   <math display="inline">
+    f
+   </math>
+   is Lipschitz continuous in the space variable with Lipschitz constant
+   <math display="inline">
+    L
+   </math>
+   . The solution of equation (1) is a pair of adapted processes
+   <math display="inline">
+    (Y, Z)
+   </math>
+   , which satisfies the equation.
+  </p>
+  <h2>
+   <b>
+    Numerical Methods for BSDEs
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   One approach for a numerical scheme for solving BSDEs is based upon a discretization of the equation
+  </p>
+  <p block-type="Text">
+   (1) by replacing
+   <math display="inline">
+    B
+   </math>
+   with a simple random walk. To be more precise, let us consider the symmetric random walk
+   <math display="inline">
+    W^n
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W_t^n := \frac{1}{\sqrt{n}} \sum_{k=0}^{c_n(t)} \zeta_k^n, \quad 0 \le t \le T \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \{\zeta_k^n\}_{1 \le k \le n}
+   </math>
+   is an i.i.d. Bernoulli symmetric sequence. We define
+   <math display="inline">
+    \mathcal{G}_k^n := \sigma(\zeta_1^n, \ldots, \zeta_k^n)
+   </math>
+   . Throughout this section
+   <math display="inline">
+    c_n(t) = [nt]/n
+   </math>
+   , and
+   <math display="inline">
+    \xi^n
+   </math>
+   denotes a square integrable random variable, measurable w.r.t.
+   <math display="inline">
+    \mathcal{G}_n^n
+   </math>
+   that should converge to
+   <math display="inline">
+    \xi
+   </math>
+   . We assume that
+   <math display="inline">
+    W^n
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are defined in the same probability space.
+  </p>
+  <p block-type="Text">
+   In [26], the authors consider the case when the generator depends only on the variable
+   <math display="inline">
+    Y
+   </math>
+   , which makes the analysis simpler. In this situation, the BSDE
+   <math display="inline">
+    (1)
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = \xi + \int_t^T f(Y_s) \mathrm{d}s - \int_t^T Z_s \mathrm{d}B_s \qquad (3)
+   </math>
+  </p>
+  <p block-type="Text">
+   whose solution is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = \mathbb{E}\left(\xi + \int_{t}^{T} f(Y_{s}) \mathrm{d}s \Big| \mathcal{F}_{t}\right) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which can be discretized in time with step-size
+   <math display="inline">
+    h =
+   </math>
+   <math display="inline">
+    T/n
+   </math>
+   by solving a discrete BSDE given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t_i}^n = \xi^n + \frac{1}{n} \sum_{j=i}^n f(Y_{t_j}^n) - \sum_{j=i}^{n-1} Z_{t_j}^n \triangle W_{t_{j+1}}^n \qquad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This equation has a unique solution
+   <math display="inline">
+    (Y_t^n, Z_t^n)
+   </math>
+   since the martingale
+   <math display="inline">
+    W^n
+   </math>
+   has the predictable representation property. It can be checked that solving this equation is equivalent to finding a solution to the following implicit iteration problem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t_i}^n = \mathbb{E}\left\{Y_{t_{i+1}}^n + \frac{1}{n}f(Y_{t_i}^n)\Big|\mathcal{G}_i^n\right\} \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   which, due to the adaptedness condition, is equivalent to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t_i}^n - \frac{1}{n} f(Y_{t_i}^n) = \mathbb{E}\left\{Y_{t_{i+1}}^n \middle| \mathcal{G}_i^n\right\} \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Furthermore, once
+   <math display="inline">
+    Y_{t_{i+1}}^n
+   </math>
+   is determined,
+   <math display="inline">
+    Y_{t_i}^n
+   </math>
+   is solved
+   <math display="inline">
+    via
+   </math>
+   equation (7) by a fixed point technique:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\nX^0 = \mathbb{E}\left\{Y_{t_{i+1}} \middle| \mathcal{G}_i^n\right\} \\
+X^1 = X^0 + \frac{1}{n} f(X^k)\n\end{cases} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is standard to show that if
+   <math display="inline">
+    f
+   </math>
+   is uniformly Lipschitz in the spatial variable
+   <math display="inline">
+    x
+   </math>
+   with Lipschitz constant
+   <math display="inline">
+    L
+   </math>
+   (we also assume that
+   <math display="inline">
+    f
+   </math>
+   is bounded by
+   <math display="inline">
+    R
+   </math>
+   ), then the iterations of this procedure will converge to the true solution of equation (7) at a geometric rate
+   <math display="inline">
+    L/n
+   </math>
+   . Therefore, in the case where
+   <i>
+    n
+   </i>
+   is large enough, one iteration would already give us the error estimate:
+   <math display="inline">
+    |Y_{t_i}^n - X^1| \leq \frac{LR}{n^2}
+   </math>
+   , producing a good approximate solution of equation (7). Consequently, the explicit numerical scheme is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\hat{Y}_{T}^{n} = \xi^{n}; \hat{Z}_{T}^{n} = 0 \\
+X_{t_{i}}^{n} = \mathbb{E} \left\{ \hat{Y}_{t_{i+1}} \middle| \mathcal{G}_{i}^{n} \right\} \\
+\hat{Y}_{t_{i}}^{n} = X_{t_{i}}^{n} + \frac{1}{n} f(X_{t_{i}}^{n}) \\
+\hat{Z}_{t_{i}}^{n} = \mathbb{E} \left\{ \left[ \hat{Y}_{t_{i+1}} + \frac{1}{n} f(\hat{Y}_{t_{i}}^{n}) - \hat{Y}_{t_{i}}^{n} \right] (\triangle W_{t_{i+1}}^{n})^{-1} \middle| \mathcal{G}_{i}^{n} \right\} \n\end{cases} \n
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   The convergence of
+   <math display="inline">
+    \hat{Y}^n
+   </math>
+   to Y is proved in the sense of the Skorohod topology in [9, 26]. In [11], the convergence of the sequence
+   <math display="inline">
+    Y^n
+   </math>
+   is established using the tool of convergence of filtrations. See also [3] for the case where
+   <math display="inline">
+    f
+   </math>
+   depends on both variables
+   <math display="inline">
+    y
+   </math>
+   and
+   <math display="inline">
+    z
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Application to European Options
+   </b>
+  </h2>
+  <p block-type="Text">
+   In the Black-Scholes model (see Black-Scholes Formula)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = \mu S_t dt + \sigma S_t dB_t \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   which is the continuous version of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{S_{t+\Delta t} - S_t}{S_t} \approx \mu \Delta t + \sigma \Delta B_t \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the relative return has linear growth plus a random perturbation.
+   <math display="inline">
+    \sigma
+   </math>
+   is called the
+   <i>
+    volatility
+   </i>
+   and it is a measure of uncertainty. In this particular case,
+   <math display="inline">
+    S
+   </math>
+   has an explicit solution given by the Doleans-Dade exponential
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = S_0 e^{(\mu - \frac{1}{2}\sigma^2 t) + \sigma B_t}
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   We assume the existence of a riskless asset whose evolution is given by
+   <math display="inline">
+    \beta_t = \beta_0 e^{rt}
+   </math>
+   , where r is a constant interest rate. Then
+   <math display="inline">
+    \beta
+   </math>
+   satisfies the ODE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \beta_t = \beta_0 + r \int_0^t \beta_s \, \mathrm{d}s \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A portfolio is a pair of adapted processes
+   <math display="inline">
+    (a_t, b_t)
+   </math>
+   that represent the amount of investment in both assets at time
+   <math display="inline">
+    t
+   </math>
+   (both can be positive or negative). The wealth process is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = a_t S_t + b_t \beta_t \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   We assume
+   <math display="inline">
+    Y
+   </math>
+   is self-financing:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = a_t dS_t + b_t d\beta_t \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A call option gives the holder the right to buy an agreed quantity of a particular commodity
+   <math display="inline">
+    S
+   </math>
+   at a certain time (the expiration date,
+   <math display="inline">
+    T
+   </math>
+   ) for a certain price (the strike price
+   <math display="inline">
+    K
+   </math>
+   ). The holder has to pay a fee (called a premium
+   <math display="inline">
+    q
+   </math>
+   ) for this right. If the option can be exercised only at
+   <math display="inline">
+    T
+   </math>
+   , the option is called
+   <i>
+    European
+   </i>
+   . If it can be exercised at any time before
+   <math display="inline">
+    T
+   </math>
+   , it is called
+   <i>
+    American.
+   </i>
+   The main question is, what is the right price for an option? Mathematically,
+   <math display="inline">
+    q
+   </math>
+   is determined by the existence of a replication strategy with the initial value
+   <math display="inline">
+    q
+   </math>
+   and final value
+   <math display="inline">
+    (S_T - K)^+
+   </math>
+   ; that is, find
+   <math display="inline">
+    (a_t, b_t)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = a_t S_t + b_t \beta_t \quad Y_T = (S_T - K)^+ \quad Y_0 = q \quad (16)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We look for a solution to this problem of the form
+   <math display="inline">
+    Y_t = w(t, S_t)
+   </math>
+   with
+   <math display="inline">
+    w(T, x) = (x - K)^+
+   </math>
+   . Using Itô's formula, we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = Y_{0} + \int_{0}^{t} \frac{\partial w}{\partial x} dS_{s} + \int_{0}^{t} \frac{\partial^{2} w}{\partial x^{2}} d[S, S]_{s}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} \frac{\partial w}{\partial t} ds = Y_{0} + \int_{0}^{t} \frac{\partial w}{\partial x} \{ \mu S_{s} ds + \sigma S_{s} dB_{s} \}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} \frac{1}{2} \frac{\partial^{2} w}{\partial x^{2}} \sigma^{2} S_{s}^{2} ds
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} \frac{\partial w}{\partial t} ds = Y_{0} + \int_{0}^{t} \frac{\partial w}{\partial x} \sigma S_{s} dB_{s}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} \left( \frac{1}{2} \frac{\partial^{2} w}{\partial x^{2}} \sigma^{2} S_{s}^{2} + \mu S_{s} \frac{\partial w}{\partial x} + \frac{\partial w}{\partial t} \right) ds \quad (17)
+   </math>
+  </p>
+  <p block-type="Text">
+   Using the self-financing property, we obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = Y_0 + \int_0^t a_s \mathrm{d}S_s + \int_0^t b_s \mathrm{d}\beta_s = Y_0 + \int_0^t a_s \left\{ \mu S_s \, \mathrm{d}s \right\}
+   </math>
+   <math display="block">
+    + \sigma S_s \mathrm{d}B_s \right\} + \int_0^t b_s \mathrm{d}\beta_s = Y_0 + \int_0^t a_s \sigma S_s \, \mathrm{d}B_s
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    +\int_{0}^{t}\left(rb_{s}\beta_{s}+a_{s}\mu S_{s}\right)\mathrm{d}s\tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   Using the uniqueness in the predictable representation property for Brownian motion (see
+   <b>
+    Martingale Representation Theorem
+   </b>
+   ), we obtain that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a_{s}\sigma S_{s} = \sigma S_{s}\frac{\partial w}{\partial x}
+   </math>
+   <br/>
+   <math display="block">
+    rb_{s}\beta_{s} + a_{s}\mu S_{s} = \frac{1}{2}\sigma^{2}S_{s}^{2}\frac{\partial^{2}w}{\partial x^{2}} + \mu S_{s}\frac{\partial w}{\partial x} + \frac{\partial w}{\partial t}
+   </math>
+   <br/>
+   <math display="block">
+    a_{s} = \frac{\partial w}{\partial x}(s, S_{s})
+   </math>
+   <br/>
+   <math display="block">
+    b_{s} = \frac{Y_{s} - a_{s}S_{s}}{\beta_{s}}
+   </math>
+   (19)
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <math display="inline">
+    r \frac{(Y_s - a_s S_s)}{\beta_s} \beta_s + a_s \mu S_s = \frac{1}{2} \sigma^2 S_s^2 \frac{\partial^2 w}{\partial x^2} + \mu S_s \frac{\partial w}{\partial x} + \frac{\partial w}{\partial t}
+   </math>
+   , the equation for
+   <math display="inline">
+    w
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r\frac{\partial w}{\partial t} + \frac{1}{2}\sigma^2 x^2 \frac{\partial^2 w}{\partial x^2} = -rx\frac{\partial w}{\partial x} + rw
+   </math>
+   <math display="block">
+    w(T, x) = (x - K)^+ \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   The solution of this PDE is related to a BSDE, which we deduce now. Let us start again from the self-financing assumption
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (S_{T} - K)^{+} = Y_{T} = Y_{t} + \int_{t}^{T} \frac{\partial w}{\partial x} dS_{s}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{t}^{T} r \left( Y_{s} - S_{s} \frac{\partial w}{\partial x} \right) ds = Y_{t}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{t}^{T} \sigma S_{s} \frac{\partial w}{\partial x} dB_{s}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{t}^{T} \left( rY_{s} + (\mu - r)S_{s} \frac{\partial w}{\partial x} \right) ds
+   </math>
+   <br/>
+   (21)
+  </p>
+  <p block-type="Text">
+   from which we deduce
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = \xi + \int_t^T (\alpha Z_s - rY_s) \mathrm{d}s - \int_t^T Z_s \mathrm{d}B_s \qquad (22)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \alpha = \frac{r-\mu}{\sigma}
+   </math>
+   ,
+   <math display="inline">
+    \xi = (S_0 e^{(\mu-\frac{1}{2}\sigma^2T)+\sigma B_T} - K)^+
+   </math>
+   , and
+   <math display="inline">
+    Z_s = \sigma S_s \frac{\partial w}{\partial r}
+   </math>
+   . In this case, we have an explicit solution for
+   <math display="inline">
+    w
+   </math>
+   given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_0 = S_0 \Phi(g(T, S_0)) - K e^{-rT} \Phi(h(T, S_0))
+   </math>
+   (23)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    w(t,x) = x\Phi(g(T-t,x))
+   </math>
+   <math display="block">
+    -Ke^{-r(T-t)}\Phi(h(T-t,x)) \tag{24}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    g(t, x) = \frac{\ln(x/K) + (r+1/2\sigma^2)t}{\sigma\sqrt{t}}, h(t, x) = g(t, x)  \sigma\sqrt{t}
+   </math>
+   and
+   <math display="inline">
+    \Phi(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{x} e^{\frac{-y^2}{2}} dy
+   </math>
+   is the standard normal distribution. In general, for example, when
+   <math display="inline">
+    \sigma
+   </math>
+   may depend on time and
+   <math display="inline">
+    (S_t)
+   </math>
+   , we obtain a BSDE for
+   <math display="inline">
+    (Y_t)
+   </math>
+   coupled with a forward equation for
+   <math display="inline">
+    (S_t)
+   </math>
+   , that can be solved numerically.
+  </p>
+  <h2>
+   <b>
+    Numerical Methods for RBSDEs
+   </b>
+  </h2>
+  <p block-type="Text">
+   In this section, we are interested in the numerical approximation of BSDEs with reflection (in short, RBSDEs). We present here the case of one lower barrier, which we assume is an Itô process (a sum of a Brownian martingale and a continuous finite variation process).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = \xi + \int_{t}^{T} f(s, Y_{s}, Z_{s}) \mathrm{d}s
+   </math>
+   <math display="block">
+    - \int_{t}^{T} Z_{s} \mathrm{d}B_{s} + K_{T} - K_{t} \quad 0 \le t \le T \qquad (25)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t \ge L_t, \quad 0 \le t \le T, \quad \text{and} \quad \int_0^T \left(Y_t - L_t\right) \mathrm{d}K_t = 0 \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where, as before,
+   <math display="inline">
+    f
+   </math>
+   is the generator,
+   <math display="inline">
+    \xi
+   </math>
+   is the terminal condition, and
+   <math display="inline">
+    L = (L_t)
+   </math>
+   is the reflecting barrier. Under the Lipschitz assumption of
+   <math display="inline">
+    f
+   </math>
+   (see
+   <math display="inline">
+    [14]
+   </math>
+   and for generalizations see
+   <math display="inline">
+    [12, 21, 32]
+   </math>
+   ) there is a unique solution
+   <math display="inline">
+    (Y, Z, K)
+   </math>
+   of adapted processes, with the condition that
+   <math display="inline">
+    K
+   </math>
+   is increasing and minimal in the sense that it is supported at the times
+   <math display="inline">
+    Y
+   </math>
+   touches the boundary.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The numerical scheme for RBSDEs that we present here is based on a penalization of equation
+  </p>
+  <p block-type="Text">
+   (26) [14] coupled with a use of the standard Euler scheme. The penalization equation is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t^{\varepsilon} = \xi + \int_t^1 f(s, Y_s^{\varepsilon}, Z_s^{\varepsilon}) \mathrm{d}s
+   </math>
+   <math display="block">
+    - \int_t^1 Z_s^{\varepsilon} \mathrm{d}B_s + \frac{1}{\varepsilon} \int_t^1 (L_s - Y_s^{\varepsilon})^+ \mathrm{d}s \tag{27}
+   </math>
+  </p>
+  <p block-type="Text">
+   In this framework, we define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_t^{\varepsilon} := \frac{1}{\varepsilon} \int_0^t (L_s - Y_s^{\varepsilon})^+ \mathrm{d}s, \quad 0 \le t \le 1 \qquad (28)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \varepsilon
+   </math>
+   is the penalization parameter. In order to have an explicit iteration, we include an extra Picard iteration, and the numerical procedure is then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t_{i}}^{\varepsilon,p+1,n} = Y_{t_{i+1}}^{\varepsilon,p+1,n} + \frac{1}{n}f(t_{i}, Y_{t_{i}}^{\varepsilon,p,n}, Z_{t_{i}}^{\varepsilon,p,n}) + \frac{1}{n\varepsilon}(L_{t_{i}} - Y_{t_{i}}^{\varepsilon,p,n})^{+} - \frac{1}{\sqrt{n}}Z_{t_{i}}^{\varepsilon,p+1,n}\zeta_{i+1}
+   </math>
+   (29)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{t_{i+1}}^{\varepsilon, p+1, n} - K_{t_i}^{\varepsilon, p+1, n} := \frac{1}{n\varepsilon} \left( S - \ddot{Y}_{t_i}^{\varepsilon, p+1, n} \right)
+   </math>
+   <br/>
+   for
+   <math>
+    i \in \{n-1, \dots, 0\}
+   </math>
+   (30)
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 1
+   </b>
+   Under the assumptions
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <b>
+      A1.
+     </b>
+     <math display="inline">
+      f
+     </math>
+     is Lipschitz continuous and bounded;
+    </li>
+    <li block-type="ListItem">
+     <b>
+      A2.
+     </b>
+     L is assumed to be an Itô process;
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <b>
+    A3.
+   </b>
+   <math display="block">
+    \lim_{n \to +\infty} \mathbb{E} \left[ \sup_{s \in [0,T]} \left| \mathbb{E}[\xi | \mathcal{F}_s] - \mathbb{E}[\xi^n | \mathcal{G}_{c_n(s)}^n] \right| \right] = 0
+   </math>
+  </p>
+  <p block-type="Text">
+   ٦
+  </p>
+  <p block-type="TextInlineMath">
+   the triplet
+   <math display="inline">
+    (\xi^n, Y^{\varepsilon,p,n}, Z^{\varepsilon,p,n}, K^{\varepsilon,p,n})
+   </math>
+   converges in the Skorohod topology toward the solution
+   <math display="inline">
+    (\xi, Y, Z, K)
+   </math>
+   of the RBSDE (26) (the order is first
+   <math display="inline">
+    p \rightarrow \infty
+   </math>
+   , then
+   <math display="inline">
+    n \to \infty
+   </math>
+   and finally
+   <math display="inline">
+    \varepsilon \to 0
+   </math>
+   ).
+  </p>
+  <h2>
+   A Procedure Based on Ma and Zhang's Method
+  </h2>
+  <p block-type="Text">
+   We now introduce a numerical scheme based on a suggestion given in [29]. The new ingredient is to use a standard BSDE with no reflection and then
+  </p>
+  <p block-type="Text">
+   impose in the final condition of every step of the discretization that the solution must be above the barrier. Schematically we have
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      \bullet \quad Y_1^n := \xi^n
+     </math>
+    </li>
+    <li block-type="ListItem">
+     for
+     <math display="inline">
+      i=n, n-1, \ldots 1
+     </math>
+     let
+     <math display="inline">
+      \left(\tilde{Y}^n, Z^n\right)
+     </math>
+     be the solution of the BSDE:
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{Y}_{t_{i+1}}^n = Y_{t_i}^n + \frac{1}{n} f(s, \tilde{Y}_s^n, Z_s^n) - Z_s^n (W_{t_{i+1}}^n - W_{t_i}^n)
+   </math>
+   (31)
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \bullet \quad \text{define } Y^n_{t_{i+1}} = \tilde{Y}^n_{t_{i+1}} \vee L_{t_{i+1}}
+   </math>
+  </p>
+  <p block-type="Equation">
+   • let
+   <math display="block">
+    K_0^n = 0
+   </math>
+   and define
+   <math>
+    K_{t_i}^n := \sum_{j=1}^l (Y_{t_{j-1}}^n - \tilde{Y}_{t_{j-1}}^n)
+   </math>
+  </p>
+  <p block-type="Text">
+   Clearly
+   <math display="inline">
+    K^n
+   </math>
+   is predictable and we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t_{i-1}}^{n} = Y_{t_{i}}^{n} + \int_{t_{i-1}}^{t_{i}} f\left(s, \tilde{Y}_{s}^{n}, Z_{s}^{n}\right) ds
+   </math>
+   <math display="block">
+    - \int_{t_{i-1}}^{t_{i}} Z_{s}^{n} dW_{s}^{n} + K_{t_{i}}^{n} - K_{t_{i-1}}^{n} \qquad (32)
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 2
+   </b>
+   Under the assumptions A1, A2 of Theorem 1 and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to +\infty} \mathbb{E} \left[ \sup_{s \in [0,T]} \left| \mathbb{E}[\xi | \mathcal{F}_s] - \mathbb{E}[\xi^n | \mathcal{G}_{c_n(s)}^n] \right| \right]^2 = 0 \tag{33}
+   </math>
+  </p>
+  <p>
+   <img src="_page_4_Figure_11.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Binomial tree for six time steps,
+   <math display="inline">
+    r = 0.06
+   </math>
+   ,
+   <math display="inline">
+    \sigma = 0.4
+   </math>
+   , and
+   <math display="inline">
+    T = 0.5
+   </math>
+  </p>
+  <p block-type="Text">
+   we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} \mathit{I\!E} \left[ \sup_{0 \le i \le n} \left| Y_{t_i} - Y_{t_i}^n \right|^2 + \int_0^1 \left| Z_t - Z_t^n \right|^2 \mathrm{d}t \right] = 0 \tag{34}
+   </math>
+  </p>
+  <h4>
+   Application to American Options
+  </h4>
+  <p block-type="Text">
+   An American option (see
+   <b>
+    American Options
+   </b>
+   ) is one that can be exercised at any time between the purchase date and the expiration date
+   <math display="inline">
+    T
+   </math>
+   , which we assume is nonrandom and for the sake of simplicity we take
+   <math display="inline">
+    T = 1
+   </math>
+   . This situation is more general than the European-style option, which can only be exercised on the date of expiration. Since an American option provides an investor with a greater degree of flexibility, the premium for this option should be higher than the premium for a European-style option.
+  </p>
+  <p block-type="TextInlineMath">
+   We consider a financial market described by a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathcal{F}_{0 \le t \le T}, \mathbb{P})
+   </math>
+   . As above, we consider the following adapted processes: the price of the risk asset
+   <math display="inline">
+    S = (S_t)_{0 \le t \le T}
+   </math>
+   and the wealth process
+   <math display="inline">
+    Y = (Y_t)_{0 \le t \le T}
+   </math>
+   . We assume that the rate interest r is constant. The aim is to obtain
+   <math display="inline">
+    Y_0
+   </math>
+   , the value of the American Option.
+  </p>
+  <p block-type="Text">
+   We assume that there exists a risk-neutral measure (see Equivalent Martingale Measures) allowing one to compute prices of all contingent claims as the expected value of their discounted cash flows. The equation that describes the evolution of
+   <math display="inline">
+    Y
+   </math>
+   is given by a linear reflected BSDE coupled with the forward equation for
+   <math display="inline">
+    S
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = (K - S_1)^+ - \int_t^1 (rY_s + (\mu - r)Z_s) \, \mathrm{d}s
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    + K_1 - K_t - \int_t Z_s \mathrm{d}B_s \tag{35}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = S_0 + \int_0^t \mu S_s \mathrm{d}s + \int_0^t \sigma S_s \mathrm{d}B_s \tag{36}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The increasing process
+   <math display="inline">
+    K
+   </math>
+   keeps the process
+   <math display="inline">
+    Y
+   </math>
+   above the barrier
+   <math display="inline">
+    L_t = (S_t - K)^+
+   </math>
+   (for a call option) in a minimal way, that is,
+   <math display="inline">
+    Y_t \ge L_t
+   </math>
+   ,
+   <math display="inline">
+    dK_t \ge 0
+   </math>
+   , and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^1 (Y_t - L_t) \mathrm{d}K_t = 0 \tag{37}
+   </math>
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Numerical scheme for an American option with 18 steps,
+   <math display="inline">
+    K = 100
+   </math>
+   ,
+   <math display="inline">
+    r = 0.06
+   </math>
+   ,
+   <math display="inline">
+    \sigma = 0.4
+   </math>
+   , and
+   <math display="inline">
+    T = 0.5
+   </math>
+   , and different values of
+   <math display="inline">
+    S_0
+   </math>
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      n
+     </th>
+     <th>
+      <math>
+       S_0 = 80
+      </math>
+     </th>
+     <th>
+      <math>
+       S_0 = 100
+      </math>
+     </th>
+     <th>
+      <math>
+       S_0 = 120
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      20
+     </td>
+     <td>
+      11.2773
+     </td>
+     <td>
+      4.1187
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2
+     </td>
+     <td>
+      22.1952
+     </td>
+     <td>
+      10.0171
+     </td>
+     <td>
+      3.8841
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3
+     </td>
+     <td>
+      21.8707
+     </td>
+     <td>
+      10.7979
+     </td>
+     <td>
+      3.1489
+     </td>
+    </tr>
+    <tr>
+     <td>
+      4
+     </td>
+     <td>
+      22.8245
+     </td>
+     <td>
+      10.1496
+     </td>
+     <td>
+      3.9042
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      15
+     </td>
+     <td>
+      22.6775
+     </td>
+     <td>
+      10.8116
+     </td>
+     <td>
+      3.7119
+     </td>
+    </tr>
+    <tr>
+     <td>
+      16
+     </td>
+     <td>
+      22.6068
+     </td>
+     <td>
+      10.6171
+     </td>
+     <td>
+      3.6070
+     </td>
+    </tr>
+    <tr>
+     <td>
+      17
+     </td>
+     <td>
+      22.7144
+     </td>
+     <td>
+      10.7798
+     </td>
+     <td>
+      3.6811
+     </td>
+    </tr>
+    <tr>
+     <td>
+      18
+     </td>
+     <td>
+      22.6271
+     </td>
+     <td>
+      10.6125
+     </td>
+     <td>
+      3.6364
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Real values
+     </td>
+     <td>
+      21.6059
+     </td>
+     <td>
+      9.9458
+     </td>
+     <td>
+      4.0611
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="TextInlineMath">
+   The exercise random time is given by the following stopping time
+   <math display="inline">
+    \tau = \inf\{t : Y_t - L_t &lt; 0\}
+   </math>
+   that represents the exit time from the market for the investor. As usual, we take
+   <math display="inline">
+    \tau = 1
+   </math>
+   if Y never touches the boundary L. At
+   <math display="inline">
+    \tau
+   </math>
+   the investor will buy the stock if
+   <math display="inline">
+    \tau &lt; 1
+   </math>
+   , otherwise he/she does not exercise the option. In this problem, we are interested in finding
+   <math display="inline">
+    Y_t
+   </math>
+   ,
+   <math display="inline">
+    Z_t
+   </math>
+   , and
+   <math display="inline">
+    \tau
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In Table 1 and Figure 1, we summarize the results of a simulation for the American option.
+  </p>
+  <h4>
+   Acknowledgments
+  </h4>
+  <p block-type="Text">
+   Jaime San Martín's research is supported by Nucleus Millennium Information and Randomness P04-069-F and BASAL project. Soledad Torres' research is supported by PBCT-ACT 13 Stochastic Analysis Laboratory, Chile.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Antonelli, F. (1996). Stability of backward stochastic [1] differential equations, Stochastic Processes and Their Applications
+     <math display="inline">
+      62(1)
+     </math>
+     , 103–114.
+    </li>
+    <li block-type="ListItem">
+     Antonelli, F. &amp; Kohatsu-Higa, A. (2000). Filtration [2] stability of backward SDE's, Stochastic Analysis and
+     <i>
+      Applications
+     </i>
+     <math display="inline">
+      18(1)
+     </math>
+     , 11–37.
+    </li>
+    <li block-type="ListItem">
+     Bally, V. (1997). Approximation Scheme for Solutions [3] of BSDE. Backward Stochastic Differential Equations. (Paris, 1995-1996), Pitman Research Notes Mathematics Series, Longman, Harlow, Vol. 364, pp. 177-191.
+    </li>
+    <li block-type="ListItem">
+     [4] Bally, V. &amp; Pagès, G. (2003). A quantization algorithm for solving multi-dimensional discrete-time optimal stopping problems,
+     <i>
+      Bernoulli
+     </i>
+     <b>
+      9
+     </b>
+     (6), 1003–1049.
+    </li>
+    <li block-type="ListItem">
+     [5] Bally, V., Pagès, G. &amp; Printems, J. (2001). A Stochastic Quantization Method for Nonlinear Problems. Monte
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

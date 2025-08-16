@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Risk-sensitive Asset
+   </b>
+   Management
+  </h2>
+  <p block-type="Text">
+   In risk-sensitive asset management, maximization of the criterion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J(v_0;T) = \frac{1}{\gamma} \log E[e^{\gamma \log V_T}] = \frac{1}{\gamma} \log E[V_T^{\gamma}] \quad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    \gamma &lt; 1, \neq 0
+   </math>
+   is considered, where
+   <math display="inline">
+    V_T
+   </math>
+   is the total wealth an investor possesses, defined by
+   <math display="inline">
+    V_T =
+   </math>
+   <math display="inline">
+    \sum_i N_T^i S_T^i
+   </math>
+   with
+   <math display="inline">
+    N_T^i
+   </math>
+   the number of shares invested into
+   <i>
+    i
+   </i>
+   th security
+   <math display="inline">
+    S_T^i
+   </math>
+   at time T and
+   <math display="inline">
+    v_0
+   </math>
+   the initial wealth. It is equivalent to expected power utility maximization with the criterion
+   <math display="inline">
+    \frac{1}{\nu}E[V_T^{\gamma}]
+   </math>
+   . Looking at asymptotics as
+   <math display="inline">
+    \gamma \to 0
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{\gamma} \log E[e^{\gamma \log V_T}] \sim E[\log V_T]
+   </math>
+   <math display="block">
+    + \gamma \operatorname{Var}[\log V_T] + O(\gamma^2) \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   we see that maximizing the criterion amounts asymptotically to maximizing expected log utility while minimizing its variance if
+   <math display="inline">
+    \gamma &lt; 0
+   </math>
+   . In that sense,
+   <math display="inline">
+    \gamma &lt; 0
+   </math>
+   means risk averse. On the other hand,
+   <math display="inline">
+    \gamma &gt; 0
+   </math>
+   means risk seeking since it comes to maximizing log utility as well as its variance.
+  </p>
+  <p block-type="Text">
+   The infinite time horizon problem of maximizing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{\lim}_{T \to \infty} \frac{1}{T} J(v_0, x; T) = \overline{\lim}_{T \to \infty} \frac{1}{\gamma T} \log E[e^{\gamma \log V_T}]
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   is often considered in an incomplete market model, where security prices are defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS^{0}(t) = r(X_{t})S^{0}(t) dt
+   </math>
+   (4)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS^{i}(t) = S^{i}(t) \left\{ \alpha^{i}(X_{t}) dt + \sum_{k=1}^{n+m} \sigma_{k}^{i}(X_{t}) dW_{t}^{k} \right\} \quad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    i = 1, \ldots m
+   </math>
+   , with an
+   <math display="inline">
+    (n + m)
+   </math>
+   -dimensional Brownian motion process
+   <math display="inline">
+    W_t = (W_t^1, W_t^2, ..., W_t^{n+m})
+   </math>
+   defined on a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, P; \mathcal{F}_t)
+   </math>
+   . Its volatilities
+   <math display="inline">
+    \sigma
+   </math>
+   , instantaneous mean returns
+   <math display="inline">
+    \alpha
+   </math>
+   , and interest rate
+   <math display="inline">
+    r
+   </math>
+   , are affected by economic factors
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    (X_t^1,\ldots,X_t^n)
+   </math>
+   defined as the solution of the stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = \beta(X_t) dt + \lambda(X_t) dW_t, \quad X(0) = x \in R^n
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   Introducing portfolio proportion
+   <math display="inline">
+    h_t^i
+   </math>
+   invested into
+   <i>
+    i
+   </i>
+   th security defined by
+   <math display="inline">
+    h^{i}(t) = \frac{N^{i}(t)S^{i}(t)}{V(t)}
+   </math>
+   for each
+   <math display="inline">
+    i =
+   </math>
+   <math display="inline">
+    0, \ldots, m
+   </math>
+   and setting
+   <math display="inline">
+    h(t) = (h^1(t), h^2(t), \ldots, h^m(t)),
+   </math>
+   the total wealth
+   <math display="inline">
+    V_t
+   </math>
+   turns out to satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}V(t)}{V(t)} = \{r(X_t) + h(t)^* \hat{\alpha}(X_t)\} \mathrm{d}t
+   </math>
+   <math display="block">
+    + h(t)^* \sigma(X_t) W_t \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   under the self-financing condition, where
+   <math display="inline">
+    \hat{\alpha}(x)
+   </math>
+   =
+   <math display="inline">
+    \alpha(x) - r(x)
+   </math>
+   <b>
+    1
+   </b>
+   . In these maximization problems, the portfolio proportion
+   <math display="inline">
+    h_t
+   </math>
+   is considered an investment strategy and assumed to be
+   <math display="inline">
+    \mathcal{G}^{S,X}_t := \sigma(S(u), X(u),
+   </math>
+   <math display="inline">
+    u \leq t
+   </math>
+   ) progressively measurable in the case of full information. The problem is often considered under partial information where
+   <math display="inline">
+    h_t
+   </math>
+   is assumed to be
+   <math display="inline">
+    \mathcal{G}_t^S
+   </math>
+   :=
+   <math display="inline">
+    \sigma(S(u), u \leq t)
+   </math>
+   measurable. Here we discuss the case of full information and the set of admissible strategies
+   <math display="inline">
+    \mathcal{A}(T)
+   </math>
+   (or
+   <math display="inline">
+    \mathcal{A}
+   </math>
+   ) is determined as the totality of
+   <math display="inline">
+    \mathcal{G}^{S,X}_t
+   </math>
+   progressively measurable investment strategies satisfying some suitably defined integrability conditions.
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \gamma &lt; 0
+   </math>
+   , introducing the value function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{v}(t,x) = \inf_{h \in \mathcal{A}(T-t)} \log E[e^{\gamma \log V_{T-t}(h)}] \qquad (8)
+   </math>
+  </p>
+  <p block-type="Text">
+   we see that
+  </p>
+  <p block-type="Text">
+   1
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sup_{h} J(v_0, x; T) = \frac{1}{\gamma} \hat{v}(0, x) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   Under the change of measure,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P^{h}(A) = E\left[e^{\gamma \int_{0}^{T} h_{s}^{*}\sigma(X_{s})dW_{s} - \frac{\gamma^{2}}{2} \int_{0}^{T} h_{s}^{*}\sigma\sigma^{*}(X_{s})h_{s}ds} : A\right]
+   </math>
+   (10)
+  </p>
+  <p block-type="Text">
+   the value function is expressed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{v}(t,x) = \gamma \log v_0 + \inf_{h \in \mathcal{A}(T)} \log E^h \left[ e^{\gamma \int_0^{T-t} \eta(X_s, h_s) \mathrm{d}s} \right]
+   </math>
+   (11)
+  </p>
+  <p block-type="Text">
+   with the initial wealth
+   <math display="inline">
+    v_0
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \eta(x,h) = h^*\hat{\alpha}(x) - \frac{1-\gamma}{2}h^*\sigma\sigma^*(x)h + r(x) \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   By using the Brownian motion
+   <math display="inline">
+    W_t^h := W_t  \gamma \int_0^t \sigma^*(X_s) h_s \, ds
+   </math>
+   under the new probability measure
+   <math display="inline">
+    P^h
+   </math>
+   the dynamics of economic factor
+   <math display="inline">
+    X_t
+   </math>
+   is written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_{t} = \left\{ \beta(X_{t}) + \gamma \lambda \sigma^{*}(X_{t}) h_{t} \right\} dt + \lambda(X_{t}) dW_{t}^{h}
+   </math>
+   (13)
+  </p>
+  <p block-type="TextInlineMath">
+   Thus the Hamilton–Jacobi–Bellman
+   <math display="inline">
+    (H-J-B)
+   </math>
+   equation for the value function is deduced as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial v}{\partial t} + \frac{1}{2} \text{tr}[\lambda \lambda^* D^2 v] + \frac{1}{2} (Dv)^* \lambda \lambda^* Dv \\ + \inf_h \{ [\beta + \gamma \lambda \sigma^* h]^* Dv + \gamma \eta(x, h) \} = 0 \\ v(T, x) = \gamma \log v_0 \end{cases}
+   </math>
+   (14)
+  </p>
+  <p block-type="Text">
+   which can be rewritten as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial v}{\partial t} + \frac{1}{2} \text{tr}[\lambda \lambda^* D^2 v] + \beta_\gamma^* D v \\ + \frac{1}{2} (D v)^* \lambda N_\gamma^{-1} \lambda^* D v - U_\gamma = 0 \\ v(t, x) = \gamma \log v_0 = 0 \end{cases}
+   </math>
+   (15)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \beta_{\gamma} = \beta + \frac{\gamma}{1 - \gamma} \lambda \sigma^* (\sigma \sigma^*)^{-1} \hat{\alpha} \tag{16}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N_{\gamma}^{-1} = I + \frac{\gamma}{1-\gamma} \sigma^* (\sigma \sigma^*)^{-1} \sigma \tag{17}
+   </math>
+   <math display="block">
+    U = \frac{\gamma}{\gamma} \hat{\sigma}^* (\sigma \sigma^*)^{-1} \hat{\sigma} + r(r) \tag{18}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U_{\gamma} = -\frac{r}{2(1-\gamma)}\hat{\alpha}^*(\sigma\sigma^*)^{-1}\hat{\alpha} + r(x) \quad (18)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Under suitable conditions the H-J-B equation (15) has a solution with sufficient regularity [1, 13]. Moreover, if the condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\alpha}^*(\sigma\sigma^*)^{-1}\hat{\alpha}\to\infty, \ |x|\to\infty \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is assumed, then the solution such that
+   <math display="inline">
+    v(t,x) \rightarrow
+   </math>
+   <math display="inline">
+    -\infty
+   </math>
+   ,
+   <math display="inline">
+    \forall t &lt; T
+   </math>
+   , as
+   <math display="inline">
+    |x| \to \infty
+   </math>
+   is unique and the identification
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(0, x; T) \equiv v(0, x) = \hat{v}(0, x) \equiv \inf_{h \in \mathcal{A}(T)} J^0(v, x; h; T)
+   </math>
+   (20)
+  </p>
+  <p block-type="Text">
+   can be verified.
+  </p>
+  <p block-type="Text">
+   The value for the problem on infinite time horizon is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\chi}(\gamma) = \inf_{h \in \mathcal{A}} \underline{\chi}(h; \gamma) \tag{21}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \underline{\chi}(h;\gamma) = \underline{\lim}_{T \to \infty} \frac{1}{T} \log E[V_T(h)^{\gamma}] \qquad (22)
+   </math>
+  </p>
+  <p block-type="Text">
+   by suitably setting the set
+   <math display="inline">
+    \mathcal{A}
+   </math>
+   of admissible strategies. The corresponding
+   <math display="inline">
+    H-J-B
+   </math>
+   equation of ergodic type for the problem is considered
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \chi(\gamma) &amp;= \frac{1}{2} \text{tr}[\lambda \lambda^* D^2 w] + \frac{1}{2} (Dw)^* \lambda \lambda^* Dv \\ &amp;+ \inf_h \left\{ [\beta + \gamma \lambda \sigma^* h]^* Dw + \gamma \eta(x, h) \right\}, \\ &amp;= \frac{1}{2} \text{tr}[\lambda \lambda^* D^2 w] + \beta^*_{\gamma} Dw \\ &amp;+ \frac{1}{2} (Dw)^* \lambda N_{\gamma}^{-1} \lambda^* Dw - U_{\gamma} \end{split} \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   However, even if we set as
+   <math display="inline">
+    \mathcal{A} = \{h_{\cdot}|_{[0,T]} \in \mathcal{A}(T), \forall T\}
+   </math>
+   identification of
+   <math display="inline">
+    \hat{\chi}(\gamma)
+   </math>
+   with the solution
+   <math display="inline">
+    \chi(\gamma)
+   </math>
+   to the
+   <math display="inline">
+    H-J-B
+   </math>
+   equation (23) cannot be shown in general. Indeed, even in the case of a linear Gaussian model (see below), such identification cannot be seen always to hold [5, 11, 13]. Instead, we introduce the asymptotic value
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{\chi}(\gamma) = \lim_{T \to \infty} \frac{1}{T} v(0, x; T) \tag{24}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then, a general discussion is possible for linear Gaussian models. Since the verification
+   <math display="inline">
+    v(0, x) =
+   </math>
+   <math display="inline">
+    \hat{v}(0,x)
+   </math>
+   holds in general for the problem on a finite time horizon, in the case of linear Gaussian models,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{T \to \infty} \frac{1}{T} \inf_{h \in \mathcal{A}} J^{0}(v, x; h; T) = \tilde{\chi}(\gamma) \qquad (25)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is verified. Assume that
+   <math display="inline">
+    r(x) = r
+   </math>
+   ,
+   <math display="inline">
+    \alpha(x) = Ax +
+   </math>
+   <math display="inline">
+    a, \ \sigma(x) = \Sigma, \ \beta(x) = Bx + b, \ \lambda(x) = \Lambda, \ \text{where}
+   </math>
+   A, B,
+   <math display="inline">
+    \Sigma
+   </math>
+   ,
+   <math display="inline">
+    \Lambda
+   </math>
+   are constant matrices, a, b are constant vectors and
+   <math display="inline">
+    r
+   </math>
+   is a constant. Then, the solution to equation
+   <math display="inline">
+    (15)
+   </math>
+   has an explicit expression as
+   <math display="inline">
+    v(t, x) = \frac{1}{2}x^*P(t)x + q(t)^*x + k(t)
+   </math>
+   , where
+   <math display="inline">
+    P(t)
+   </math>
+   is a nonpositive definite solution to the Riccati equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \dot{P}(t) + P(t)\Lambda N^{-1}\Lambda^* P(t) + K_1^* P(t)
+   </math>
+   <math display="block">
+    + P(t)K_1 - C^* C = 0, \quad P(T) = 0 \quad (26)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+   <math display="inline">
+    q(t)
+   </math>
+   ,
+   <math display="inline">
+    K(t)
+   </math>
+   are respectively solutions to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \dot{q}(t) + (K_1 + \Lambda N^{-1} \Lambda P(t))^* q(t) + P(t)b
+   </math>
+   <math display="block">
+    + \frac{\gamma}{1 - \gamma} (A^* + P(t) \Lambda \Sigma^*)
+   </math>
+   <math display="block">
+    \times (\Sigma \Sigma^*)^{-1} \hat{a} = 0, \quad q(T) = 0 \qquad (27)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \dot{k}(t) + \frac{1}{2} \text{tr}[\Lambda \Lambda^* P(t)] + \frac{1}{2} q(t)^* \Lambda \Lambda^* q(t)
+   </math>
+   <math display="block">
+    + \frac{\gamma}{2(1-\gamma)} (\hat{a} + \Sigma \Lambda^* q(t))^* (\Sigma \Sigma^*)^{-1}
+   </math>
+   <math display="block">
+    \times (\hat{a} + \Sigma \Lambda^* q(t)) = 0 \tag{28}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k(T) = \gamma \log v_0 \tag{29}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_1 := B + \frac{\gamma}{1 - \gamma} \Lambda \Sigma^* (\Sigma \Sigma^*)^{-1} A \qquad (30)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C := \sqrt{-\frac{\gamma}{1-\gamma}} \Sigma^* (\Sigma \Sigma^*)^{-1} A \tag{31}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N^{-1} := I + \frac{\gamma}{1-\gamma} \Sigma^* (\Sigma \Sigma^*)^{-1} \Sigma \tag{32}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    G := B - \Lambda \Sigma (\Sigma \Sigma^*)^{-1} A
+   </math>
+   is stable, then
+   <math display="inline">
+    P(t) =
+   </math>
+   <math display="inline">
+    P(t;T), q(t) = q(t;T)
+   </math>
+   converge as
+   <math display="inline">
+    T \to \infty
+   </math>
+   respectively to
+   <math display="inline">
+    \overline{P}
+   </math>
+   ,
+   <math display="inline">
+    \overline{q}
+   </math>
+   , which are respectively solutions to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_1^* \overline{P} + \overline{P} K_1 + \overline{P} \Lambda N^{-1} \Lambda^* \overline{P} - C^* C = 0 \quad (33)
+   </math>
+   <math display="block">
+    (K_1 + \Lambda N^{-1} \Lambda^* \overline{P})^* \overline{q} + \overline{P} b
+   </math>
+   <math display="block">
+    + \frac{\gamma}{1 - \gamma} (A^* + \overline{P} \Lambda \Sigma^*) (\Sigma \Sigma^*)^{-1} \hat{a} = 0 \quad (34)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    -\dot{k}(t) = -\dot{k}(t;T)
+   </math>
+   converges to
+   <math display="inline">
+    \chi(\gamma)
+   </math>
+   determined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \chi(\gamma) = \frac{1}{2} \text{tr}[\Lambda \Lambda^* \overline{P}] + \frac{1}{2} \overline{q}^* \Lambda \Lambda^* \overline{q} \\
++ \frac{\gamma}{2(1-\gamma)} (\hat{a} + \Sigma \Lambda^* \overline{q})^* (\Sigma \Sigma^*)^{-1} \\
+\times (\hat{a} + \Sigma \Lambda^* \overline{q}) \tag{35}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The nonpositive definite solutions to equations
+   <math display="inline">
+    (33)
+   </math>
+   and (34) are unique and
+   <math display="inline">
+    (K_1 + \Lambda N^{-1} \Lambda^* \overline{P})
+   </math>
+   is stable under the present assumptions. Thus
+   <math display="inline">
+    \frac{1}{T}v(0;x;T)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   converges to
+   <math display="inline">
+    \tilde{\chi}(\gamma) = \chi(\gamma)
+   </math>
+   and
+   <math display="inline">
+    (\chi(\gamma), w)
+   </math>
+   defined by
+   <math display="inline">
+    w(x) = \frac{1}{2}x^*\overline{P}x + \overline{q}^*x
+   </math>
+   turns out to be a solution to equation
+   <math display="inline">
+    (23)
+   </math>
+   . If, furthermore,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{P}\Lambda\Sigma^*(\Sigma\Sigma^*)^{-1}\Sigma\Lambda^*\overline{P} &lt; A^*(\Sigma\Sigma^*)^{-1}A \qquad (36)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   holds, then one can show that
+   <math display="inline">
+    \chi(\gamma) = \hat{\chi}(\gamma)
+   </math>
+   [11, 13]. The infimum in equation (23) is attained by
+   <math display="inline">
+    \hat{h}(x) =
+   </math>
+   <math display="inline">
+    \frac{1}{1-\nu}(\sigma\sigma^*)^{-1}(\hat{\alpha}+\sigma\lambda^*Dw)(x)
+   </math>
+   and in the linear Gaussian model
+   <math display="inline">
+    \hat{h}(x) = \frac{1}{1-\nu} (\Sigma \Sigma^*)^{-1} [\hat{a} + \Sigma \Lambda^* \overline{q} + (A +
+   </math>
+   <math display="inline">
+    \Sigma \Lambda^* \overline{P} x
+   </math>
+   . Thus, under condition (37) optimal strategy for
+   <math display="inline">
+    \hat{\chi}(\gamma)
+   </math>
+   is defined as
+   <math display="inline">
+    \hat{h}_t = \hat{h}(X_t), t &lt; \infty
+   </math>
+   &lt;br&gt;[11]. Decomposing as
+   <math display="inline">
+    \hat{h}_t = \frac{1}{1-\gamma}\hat{h}_t^1 + \frac{1}{1-\gamma}\hat{h}_t^2 := \frac{1}{1-\gamma}
+   </math>
+   &lt;br&gt;
+   <math display="inline">
+    (\Sigma\Sigma^*)^{-1}[\hat{a} + AX_t] + \frac{1}{1-\gamma}(\Sigma\Sigma^*)^{-1}[\Sigma\Lambda^*\overline{q} + \Sigma\Lambda^*]
+   </math>
+   <math display="inline">
+    \overline{P}X_t
+   </math>
+   ], Davis-Lleo [4] regard this decomposition as
+  </p>
+  <p block-type="TextInlineMath">
+   a generalization of Merton's mutual funds theorem (see
+   <b>
+    Merton Problem
+   </b>
+   ). Here
+   <math display="inline">
+    \hat{h}_t^1
+   </math>
+   is a log utility portfolio (Kelly portfolio, see below and in Kelly Problem).
+  </p>
+  <p block-type="Text">
+   When
+   <math display="inline">
+    0 &lt; \gamma &lt; 1
+   </math>
+   maximizing the criterion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \check{\chi}(h;\gamma) = \overline{\lim_{T \to \infty}} \frac{1}{T} \log E[V_T(h))^{\gamma}] \tag{37}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is considered. As a generic structure it can be seen that there exists
+   <math display="inline">
+    \gamma^f
+   </math>
+   such that
+   <math display="inline">
+    \check{\chi}(\gamma) = \sup_h \check{\chi}(h;\gamma)
+   </math>
+   diverges for
+   <math display="inline">
+    \gamma^f &lt; \gamma &lt; 1
+   </math>
+   . However, it is only in onedimensional linear Gaussian models that one can find the infimum of such
+   <math display="inline">
+    \gamma^f
+   </math>
+   explicitly [6].
+  </p>
+  <p block-type="Text">
+   The problems under bench-marked setting can be considered similarly (
+   <math display="inline">
+    cf
+   </math>
+   [2, 4]).
+  </p>
+  <p block-type="Text">
+   Noting that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{T} \log V_T(h) = \frac{-1}{2T} \int_0^T \left\{ h_t - \rho^{-1} \hat{\alpha}(X_t) \right\}^* \times \rho \left\{ h_t - \rho^{-1} \hat{\alpha}(X_t) \right\} dt \n+ \frac{1}{2T} \int_0^T \left\{ r(X_t) + \hat{\alpha}^* \rho^{-1} \hat{\alpha}(X_t) \right\} dt \n+ \frac{1}{T} \int_0^T h_t^* \sigma(X_t) dW_t \tag{38}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \rho = \sigma \sigma^*, h_t^K := (\sigma \sigma^*)^{-1} \hat{\alpha}(X_t)
+   </math>
+   turns out to maximize pathwise the growth rate of
+   <math display="inline">
+    V_T(h)
+   </math>
+   on the long run and it is called Kelly portfolio (logutility portfolio) [10] or numéraire portfolio. This is a control problem at the level of the law of large numbers.
+  </p>
+  <p block-type="Text">
+   The problem of maximizing the criterion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{J}(\kappa, h) = \overline{\lim_{T \to \infty}} \frac{1}{T} \log P(\log V_T(h) \ge \kappa T) \quad (39)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is a kind of large deviation control problem and it is considered as the dual to risk-sensitive asset management in the risk-seeking case
+   <math display="inline">
+    0 &lt; \nu &lt; 1
+   </math>
+   [7, 9, 17, 18, 20]. On the other hand, the problem of minimizing the criterion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \underline{J}(\kappa, h) = \underline{\lim}_{T \to \infty} \frac{1}{T} \log P(\log V_T(h) \leq \kappa T) \quad (40)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is also a kind of large deviation control problem and it is considered as the dual to risk-sensitive asset management in the risk-averse case
+   <math display="inline">
+    \gamma &lt; 0
+   </math>
+   [3, 8, 15, 20]. Studies of these problems are still in progress.
+  </p>
+  <p block-type="TextInlineMath">
+   Choosing as admissible strategies the set of all
+   <math display="inline">
+    \mathcal{G}^S_t := \sigma(S(u), \ u \leq t)
+   </math>
+   progressively measurable processes satisfying some integrability conditions, the problems under partial information are considered as well [7, 12, 14-16, 19].
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Bensoussan, A., Frehse, J. &amp; Nagai, H. (1998). Some [1] results on risk-sensitive control with full information, Applied Mathematics and Optimization 37, 1–41.
+    </li>
+    <li block-type="ListItem">
+     [2] Browne, S. (1999). Beating a moving target : optimal portfolio strategies for outperforming a stochastic benchmark, Finance and Stochastics 3, 275-294.
+    </li>
+    <li block-type="ListItem">
+     [3] Browne, S. (1999). The risk and rewards of minimizing shortfall probability, Journal of Portfolio Management 25(4), 76–85.
+    </li>
+    <li block-type="ListItem">
+     Davis, M. &amp; Lleo, S. (2008). Risk-sensitive bench-[4] marked asset management, Quantitative Finance 8,
+     <math display="inline">
+      415 - 426.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Fleming, W.H. &amp; Sheu, S.J. (1999). Optimal long term [5] growth rate of expected utility of wealth, Annals of Applied Probability 9(3), 871-903.
+    </li>
+    <li block-type="ListItem">
+     Fleming, W.H. &amp; Sheu, S.J. (2002). Risk-sensitive [6] control and an optimal investment model. II, Annals of Appliede Probability 12(2), 730-767.
+    </li>
+    <li block-type="ListItem">
+     Hata, H. &amp; Iida, Y. (2006). A risk-sensitive stochastic [7] control approach to an optimal investment problem with partial information, Finance and Stochastics 10, 395-426.
+    </li>
+    <li block-type="ListItem">
+     Hata, H., Nagai, H. &amp; Sheu, S.J. Asymptotics of the [8] probability minimizing a "down-side" risk, to appear in Annals of Applied Probability.
+    </li>
+    <li block-type="ListItem">
+     Hata, H. &amp; Sekine, J. (2005). Solving long term optimal [9] investment problems with Cox-Ingersoll-Ross interest rates, Advances in Mathematical Economics 8, 231-255.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [10] Kelly, J. (1956). A new interpretation of information rate, Bell System Technical Journal 35, 917-926.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      [11]
+     </math>
+     Kuroda, K. &amp; Nagai, H. (2002). Risk sensitive portfolio optimization infinite time horizon, Stochastics and Stochastics Reports 73, 309-331.
+    </li>
+    <li block-type="ListItem">
+     Nagai, H. (1999). Risk-sensitive dynamic asset manage-[12] ment with partial information, in Stochastics in Finite and Infinite Dimensions, a volume in honor of G. Kallianpur, J. Xiong ed, Birkhäuser, pp. 321-340.
+    </li>
+    <li block-type="ListItem">
+     [13] Nagai, H. (2003). Optimal strategies for risk-sensitive portfolio optimization problems for general factor models, SIAM Journal of Control and Optimization 41, 1779-1800.
+    </li>
+    <li block-type="ListItem">
+     [14] Nagai, H. (2004). Risk-sensitive portfolio optimization with full and partial information, Stochastic Analysis and Related Topics, Advanced Studies in Pure Mathematics 41, 257-278.
+    </li>
+    <li block-type="ListItem">
+     [15] Nagai, H. Asymptotics of the probability minimizing a "down-side" risk under partial information, Preprint.
+    </li>
+    <li block-type="ListItem">
+     Nagai, H. &amp; Peng, S. (2002). Risk-sensitive dynamic [16] portfolio optimization with partial informationon infinite time horizon, Annals of Applied Probability 12(1), 173-195.
+    </li>
+    <li block-type="ListItem">
+     [17] Pham, H. (2003). A large deviations approach to optimal long term investment, Finance and Stochastics 7,
+     <math display="inline">
+      169 - 195
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [18] Pham, H. (2003). A risk-sensitive control dual approach to a large deviations control problem, Systems and Control Letters 49, 295-309.
+    </li>
+    <li block-type="ListItem">
+     [19] Rishel, R. (1999). Optimal portfolio management with partial observation and power utility function, Stochastic Analysis, Control, Optimization and Applications, a volume in honor of W.H. Fleming. 605-620.
+    </li>
+    <li block-type="ListItem">
+     [20] Stutzer, M. (2003). Portfolio choice with endogeneous utility: a large deviations approach, Journal of Econometrics 116, 365-386.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Bielecki, T.R. &amp; Pliska, S.R. (1999). Risk sensitive dynamic asset management, Applied Mathematics and Optimization 39. 337-360.
+    </li>
+    <li block-type="ListItem">
+     Merton, R.C. (1990). Continuous Time Finance, Blackwell, Malden.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Expected Utility Maximization: Duality Methods;
+   </b>
+   Expected Utility Maximization; Kelly Problem; Merton Problem; Stochastic Control.
+  </p>
+  <p block-type="Text">
+   HIDEO NAGAI
+  </p>
+ </body>
+</html>

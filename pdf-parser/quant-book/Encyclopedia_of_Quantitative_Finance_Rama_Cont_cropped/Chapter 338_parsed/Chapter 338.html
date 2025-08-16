@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Glosten–Milgrom Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   Glosten–Milgrom models analyze transaction prices arising from quotes of competing risk-neutral dealers making a market in a single security and facing both privately informed and uninformed traders. The dealers must quote bid and offer prices at which they are willing to, respectively, buy and sell. A trader arrives and decides to buy, sell, or leave. Upon seeing the outcome of the trader's decision, the dealers modify their quotes in preparation for the next arrival. Implementation of the model thus requires a specification of the arrival processes of informed and uninformed traders and the nature of public and private information. This specification, in turn, leads to the calculation of quotes and the time series of quotes and transaction prices.
+  </p>
+  <h2>
+   <b>
+    Mathematical Structure and Results
+   </b>
+  </h2>
+  <p block-type="Text">
+   The discussion follows the analysis in [7], and proofs can be found there. The model is designed to describe trade over a relatively small interval of time in which there is private information about the future cash flows of the security, but this private information will depreciate, either through information revealed in trade or
+   <i>
+    via
+   </i>
+   public announcements of the information. By the time all asymmetric information has been resolved, at
+   <i>
+    T
+   </i>
+   , the value of a share of the security will be
+   <i>
+    V
+   </i>
+   . Prior to
+   <i>
+    T
+   </i>
+   , this value is not known, but at time
+   <i>
+    t
+   </i>
+   , there has been a history of trade and public announcements. This information is summarized by the filtration
+   <i>
+    Ht
+   </i>
+   . Justified by the fact that a relatively short period of time is being analyzed, the time value of money and risk aversion can be reasonably ignored, and the value of a share of stock at time
+   <i>
+    t
+   </i>
+   is just its expected value conditional on time
+   <i>
+    t
+   </i>
+   information,
+   <i>
+    E
+   </i>
+   [
+   <i>
+    V
+   </i>
+   |
+   <i>
+    Ht
+   </i>
+   ].
+  </p>
+  <p block-type="TextInlineMath">
+   During the trading period, potential traders arrive at the market one by one. An arriving trader at time
+   <i>
+    t
+   </i>
+   observes the bid and ask quotes
+   <i>
+    Bt
+   </i>
+   and
+   <i>
+    At
+   </i>
+   , respectively. If the trader is informed, with information represented by
+   <i>
+    Ft
+   </i>
+   , a refinement of the history
+   <i>
+    Ht
+   </i>
+   , then the trader is presumed to buy if
+   <i>
+    E
+   </i>
+   [
+   <i>
+    V
+   </i>
+   |
+   <i>
+    Ft
+   </i>
+   ] exceeds the ask and sell, if this expectation is below the bid. Otherwise, the trader does not trade. A trader who is uninformed is presumed to have a value
+   <i>
+    Mt
+   </i>
+   , which could be a function of the history
+   <i>
+    Ht
+   </i>
+  </p>
+  <p block-type="TextInlineMath">
+   as well as other features of the trader's preferences. This private valuation should be thought of as a random variable independent of private information. The uninformed trader will buy if
+   <i>
+    Mt
+   </i>
+   exceeds the ask price, and sell if this idiosyncratic valuation is below the bid. Describing the arrival process by an indicator variable
+   <i>
+    It
+   </i>
+   , which is one if an arrival at time
+   <i>
+    t
+   </i>
+   is informed and zero if uninformed, we can describe the personal valuation of an arrival at time
+   <i>
+    t
+   </i>
+   by
+   <i>
+    Zt
+   </i>
+   =
+   <i>
+    ItE
+   </i>
+   [
+   <i>
+    V
+   </i>
+   |
+   <i>
+    Ft
+   </i>
+   ] +
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    It)Mt
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Consider the quoting problem of a market maker at time
+   <i>
+    t
+   </i>
+   facing a possible arrival. Should the arrival buy, the market maker will receive the ask price and give up a share of stock ultimately worth
+   <i>
+    V
+   </i>
+   . This will happen if
+   <i>
+    Zt
+   </i>
+   exceeds the ask price. Similarly, if the arrival sells at the bid, the market maker will receive a share ultimately worth
+   <i>
+    V
+   </i>
+   and pay the bid price. Otherwise, there will be no transaction and no profit. Thus, the expected profit to a market maker quoting bid
+   <i>
+    B
+   </i>
+   and ask
+   <i>
+    A
+   </i>
+   , is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[(A-V)\mathbf{1}\{Z_t &gt; A\} + (V-B)\mathbf{1}\{Z_t &lt; B\}|H_t]
+   </math>
+   (1)
+  </p>
+  <p block-type="Text">
+   Assuming that dealer competition drives the expected profit for both a buy and a sell to zero, the ask and bid quotes are the solutions, if they exist, to the two fixed-point problems:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_t = E[V|H_t, Z_t &gt; A_t] \quad \text{and}
+   </math>
+   <br/>
+   <math display="block">
+    B_t = E[V|H_t, Z_t &lt; B_t] \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   If solutions do not exist, the market is said to close down.
+  </p>
+  <p block-type="Text">
+   The zero-profit bid and ask prices are "no regret" prices in the sense that the market maker, after having sold to an order at the ask price will revise expectations and the revised expectation is precisely the ask price. That is, to quote the ask price the dealer must determine what the revised expectations will be in the event of a purchase.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The first result is immediate and intuitive: the ask price exceeds the expectation at the time of the quote that exceeds the bid. If a buy occurs, one possibility is that the arriving trader is informed and has a valuation higher than the ask price. It could never be the case that the arriving trader is informed and has a valuation less than the ask price and buys. This alone requires that the market increase the conditional expected value in response to a buy. This argument justifies
+  </p>
+  <p block-type="Text">
+   the term
+   <i>
+    adverse selection spread
+   </i>
+   as a description of the difference between the ask price and bid in the model (
+   <i>
+    see
+   </i>
+   <b>
+    Adverse Selection
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   The second observation follows from the fact that transaction prices occur at the "no regret" quotes. The transaction price is a conditional expectation of the terminal value,
+   <i>
+    V
+   </i>
+   . A transaction at time
+   <i>
+    t
+   </i>
+   can be written, where
+   <i>
+    Ht
+   </i>
+   <sup>
+    +
+   </sup>
+   indicates the information available following a transaction at time
+   <i>
+    t
+   </i>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_{t} = A_{t} \mathbf{1}_{\{Z_{t} &gt; A_{t}\}} + B_{t} \mathbf{1}_{\{Z_{t} &lt; B_{t}\}}
+   </math>
+   <math display="block">
+    = E[V|H_{t}, Z_{t} &gt; A_{t}] \mathbf{1}_{\{Z_{t} &gt; A_{t}\}}
+   </math>
+   <math display="block">
+    + E[V|H_{t}, Z_{t} &lt; B_{t}] \mathbf{1}_{\{Z_{t} &lt; B_{t}\}}
+   </math>
+   <math display="block">
+    = E[V|H_{t+}] \qquad (3)
+   </math>
+  </p>
+  <p block-type="Text">
+   Thus, transaction prices form a martingale. From this observation, flow a number of immediate conclusions. Since reasonably behaved martingales such as this one converge, the absolute differences between transaction prices must get small. As long as trade continues, it must be the case that the spread gets small and that the informational difference between the informed traders and the market gets small.
+  </p>
+  <p block-type="Text">
+   A number of comparative statics results are readily obtained. At a point in time, an increase in the probability of informed arrival or an increase in the precision of private information increases the spread. As the elasticity of uninformed demand and supply increases, the spread increases as well. It is important to note, however, that these results hold only at a point in time—when the probability of informed trade increases, the rate at which trade reveals private information increases reducing spreads in the future.
+  </p>
+  <p block-type="Text">
+   The uninformed valuation plays a crucial role in the model. If the uninformed valuation varies little from the mean, then it is quite possible that the only bid and ask prices satisfying the condition are, respectively, the lowest and highest possible realizations of
+   <i>
+    V
+   </i>
+   . In this case, there is no trade and the market shuts down. On the other hand, if there is significant variation, so that the uninformed demand and supply are inelastic, then interior solutions for the quotes are guaranteed.
+  </p>
+  <h2>
+   <b>
+    Canonical Example
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   The most common implementation of a Glosten– Milgrom model assumes that uninformed demand
+  </p>
+  <p block-type="TextInlineMath">
+   and supply are perfectly inelastic and equally likely, the terminal value
+   <i>
+    V
+   </i>
+   has a two-point distribution and informed traders know what value of
+   <i>
+    V
+   </i>
+   will be realized. Without losing much generality, the two possible values of
+   <i>
+    V
+   </i>
+   can be taken to be zero and one. Define
+   <i>
+    α
+   </i>
+   to be the probability that an informed trader arrives in any time period. If
+   <i>
+    p
+   </i>
+   is the probability, conditional on past history, that the realization of
+   <i>
+    V
+   </i>
+   is one, then the conditional probability of a buy is
+   <i>
+    αp
+   </i>
+   + 0
+   <i>
+    .
+   </i>
+   5
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    α)
+   </i>
+   and the conditional probability of a sell is
+   <i>
+    α(
+   </i>
+   1 −
+   <i>
+    p)
+   </i>
+   + 0
+   <i>
+    .
+   </i>
+   5
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    α)
+   </i>
+   . The ask and bid prices are thus
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A = P\{V = 1 | \text{buy}\} = P\{\text{buy}|V = 1\}p/P\{\text{buy}\}\
+   </math>
+   <math display="block">
+    = \frac{(\alpha + 0.5(1 - \alpha))p}{\alpha p + 0.5(1 - \alpha)}
+   </math>
+   <math display="block">
+    B = P\{V = 1 | \text{sell}\} = \frac{0.5(1 - \alpha)p}{\alpha(1 - p) + 0.5(1 - \alpha)} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The spread is thus
+   <i>
+    αp(
+   </i>
+   1 −
+   <i>
+    p)/(P
+   </i>
+   {buy}
+   <i>
+    P
+   </i>
+   {sell}
+   <i>
+    )
+   </i>
+   . Ignoring the denominator, which is approximately 0.25, the spread is increasing in the unresolved variance of
+   <i>
+    V , p(
+   </i>
+   1 −
+   <i>
+    p)
+   </i>
+   , and the probability of informed trade,
+   <i>
+    α
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   This model has particularly tractable transaction price dynamics. Recalling that transaction prices are updated expectations, it is readily seen that, denoting by
+   <i>
+    p
+   </i>
+   <sup>
+    +
+   </sup>
+   the updated probability, and letting
+   <i>
+    Q
+   </i>
+   be a trade direction indicator (+1 for buy at ask and −1 for sell at bid), the following holds:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{p^{+}}{1-p^{+}} = \left(\frac{p}{1-p}\right) \left(\frac{1+\alpha}{1-\alpha}\right)^{Q} \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   Assuming that, initially, it is equally likely that
+   <i>
+    V
+   </i>
+   be high or low, and denoting by
+   <i>
+    pt
+   </i>
+   the revised probability that
+   <i>
+    V
+   </i>
+   is one, after t transactions, it is immediate that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \ln\left(\frac{p_t}{1-p_t}\right) = \ln\left(\frac{1+\alpha}{1-\alpha}\right)\{Q_1 + \dots + Q_t\} \quad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Conditional on
+   <i>
+    V
+   </i>
+   , the log odds ratio is proportional to a random walk with expected increment
+   <i>
+    α(
+   </i>
+   2
+   <i>
+    V
+   </i>
+   − 1
+   <i>
+    )
+   </i>
+   . The larger the probability of informed trade is, the faster the log odds ratio increases in the case
+   <i>
+    V
+   </i>
+   = 1 and decreases in the case
+   <i>
+    V
+   </i>
+   = 0. The larger
+   <i>
+    α
+   </i>
+   is, the larger is the initial spread, but the faster the information gets impounded in prices and the faster the spread will fall.
+  </p>
+  <p block-type="TextInlineMath">
+   In this model, expectations will not converge to one or zero in finite time. However, the convergence to almost one or zero can be quite fast. Let
+   <i>
+    TN
+   </i>
+   be the first time that the log odds ratio hits
+   <i>
+    N
+   </i>
+   in the case
+   <i>
+    V
+   </i>
+   = 1 and −
+   <i>
+    N
+   </i>
+   in the case
+   <i>
+    V
+   </i>
+   = 0, starting from
+   <i>
+    p
+   </i>
+   <sup>
+    0
+   </sup>
+   = 0
+   <i>
+    .
+   </i>
+   5. Straightforward calculations show that the expectation of this stopping time is
+   <i>
+    N/
+   </i>
+   [
+   <i>
+    α
+   </i>
+   ln
+   <i>
+    ((
+   </i>
+   1 +
+   <i>
+    α)/(
+   </i>
+   1 −
+   <i>
+    α))
+   </i>
+   ]. For example, if the threshold odds ratio is 0.99/0.01, then
+   <i>
+    N
+   </i>
+   is less than 5. Setting
+   <i>
+    N
+   </i>
+   = 5, and letting
+   <i>
+    α
+   </i>
+   be 0.2, the expected first passage time is roughly 62 trades. The spread at these threshold odds and with
+   <i>
+    α
+   </i>
+   equal to 0.2 is 0.008. Setting
+   <i>
+    α
+   </i>
+   to 0.1 increases the expected number of trades to 250. The spread at these threshold odds and
+   <i>
+    α
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   1 is 0.004. Thus, a stock with even moderate trading will reveal private information relatively rapidly, and the spread will decline quickly.
+  </p>
+  <p block-type="TextInlineMath">
+   Relating the expected first passage time and the spread at the first passage time indicates an interesting trade-off. As the percentage of informed trading goes up, the initial spread increases, yet the speed with which the spread declines goes up as well. For
+   <i>
+    α
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   2, the spread starts out at 0.2, but declines rapidly, becoming near zero with fewer than 100 expected transactions. In contrast, when
+   <i>
+    α
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   05, the initial spread is 0.05, yet it takes an expected 300 trades to become minimal.
+  </p>
+  <p block-type="Text">
+   This raises intriguing questions about the welfare effects of informed trading; but these are not issues that this example of a Glosten–Milgrom model can handle. Since the uninformed trade, no matter what the spread, informed profit is merely uninformed loss and the total welfare is unaffected by how much informed trade there is. The spread is often related to a welfare measure, but this requires a questionable value judgment—informed are not entitled to their profits. To measure the welfare loss associated with informed trade, a model must incorporate elastic trade on the part of the uninformed.
+  </p>
+  <h2>
+   <b>
+    Example with Elastic Uninformed Trade
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   The literature does not offer an analysis of transaction price dynamics with elastic uninformed trade. The following is a tractable model. As in the model above, the informed arrive with probability
+   <i>
+    α
+   </i>
+   , and know the terminal value. An uninformed trader arrives with private valuation,
+   <i>
+    M
+   </i>
+   , and buys if
+   <i>
+    M
+   </i>
+   exceeds the ask, sells if
+   <i>
+    M
+   </i>
+   is below the bid, and leaves otherwise.
+  </p>
+  <p block-type="Text">
+   Market makers do not know the private valuation, but know that if the current estimate of the security's value is
+   <i>
+    p
+   </i>
+   , then an uninformed trader's valuation has the following distribution:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P\{M &lt; t\} = \frac{t(1-p)}{t(1-p) + p(1-t)};
+   </math>
+   <br/>
+   0 &lt; 1 (7)
+  </p>
+  <p block-type="TextInlineMath">
+   In this case, the probability of a buy, when the current valuation is
+   <i>
+    p
+   </i>
+   and the offer is
+   <i>
+    A
+   </i>
+   is
+   <i>
+    αp
+   </i>
+   +
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    α) P
+   </i>
+   {
+   <i>
+    M&gt;A
+   </i>
+   }. The probability of a buy given that
+   <i>
+    V
+   </i>
+   is one is
+   <i>
+    α
+   </i>
+   +
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    α)P
+   </i>
+   {
+   <i>
+    M&gt;A
+   </i>
+   } where
+   <i>
+    P
+   </i>
+   {
+   <i>
+    M&gt;A
+   </i>
+   } =
+   <i>
+    p(
+   </i>
+   1 −
+   <i>
+    A)/
+   </i>
+   [
+   <i>
+    A(
+   </i>
+   1 −
+   <i>
+    p)
+   </i>
+   +
+   <i>
+    p(
+   </i>
+   1 −
+   <i>
+    A)
+   </i>
+   ] from equation (7). The ask,
+   <i>
+    A
+   </i>
+   , is the solution to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A = \frac{p(\alpha + (1 - \alpha)P\{M &gt; A\})}{\alpha p + (1 - \alpha)P\{M &gt; A\}}\tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    A
+   </i>
+   = 1 is one solution, but this will lead to no trade. Another solution is
+   <i>
+    A
+   </i>
+   =
+   <i>
+    p/(
+   </i>
+   1 − 2
+   <i>
+    α(
+   </i>
+   1 −
+   <i>
+    p))
+   </i>
+   , as long as this is less than one and greater than zero, which is true if and only if
+   <i>
+    α &lt;
+   </i>
+   0
+   <i>
+    .
+   </i>
+   5. Similarly, on the bid side,
+   <i>
+    B
+   </i>
+   =
+   <i>
+    p(
+   </i>
+   1 − 2
+   <i>
+    α)/(
+   </i>
+   1 − 2
+   <i>
+    αp)
+   </i>
+   is the solution as long as
+   <i>
+    α &lt;
+   </i>
+   0
+   <i>
+    .
+   </i>
+   5. If
+   <i>
+    α
+   </i>
+   exceeds 0.5, the market does not open since
+   <i>
+    A
+   </i>
+   = 1 and
+   <i>
+    B
+   </i>
+   = 0 are the only feasible solutions.
+  </p>
+  <p block-type="TextInlineMath">
+   Because of assuming elastic uninformed trade, the initial spread is larger by the factor 1
+   <i>
+    /(
+   </i>
+   1 −
+   <i>
+    α)
+   </i>
+   . As the dealer increases the spread, he or she loses less to the informed, per trade, but as uninformed with less-extreme valuations drop out, the probability of transacting with an informed trader increases. This requires a greater widening of the spread.
+  </p>
+  <p block-type="TextInlineMath">
+   In this model, not every arrival leads to a trade. The probability that an uninformed trader arrives and decides not to trade is
+   <i>
+    α
+   </i>
+   , precisely the probability of an informed trade. This model also has convenient dynamics. Conditional on
+   <i>
+    V
+   </i>
+   , the log odds ratio is −ln
+   <i>
+    (
+   </i>
+   1 − 2
+   <i>
+    α)
+   </i>
+   times a random walk with drift
+   <i>
+    (
+   </i>
+   2
+   <i>
+    V
+   </i>
+   − 1
+   <i>
+    )α
+   </i>
+   .
+  </p>
+  <h2>
+   <b>
+    Assumptions and Extensions
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   One feature of the model leads to its immediate refutation—trades are for a single quantity. Several papers have extended the basic analysis to multiple trade sizes. Two possible trade sizes is considered by Easley and O'Hara [3], while Glosten [5] considers a continuum of trade sizes. Glosten [6] analyzes
+  </p>
+  <p block-type="Text">
+   continuous trade sizes in an electronic limit order book (
+   <i>
+    see
+   </i>
+   <b>
+    Limit Order Markets
+   </b>
+   ). Interestingly, there is evidence in [8] that the number of trades, as opposed to quantity is what contributes to volatility. Furthermore, [1] shows that a Kyle model ([9]; also
+   <i>
+    see
+   </i>
+   <b>
+    Kyle Model
+   </b>
+   ) with a continuum of allowable trades can, under some conditions, be thought of as a temporal aggregation of a dynamic Glosten–Milgrom model with a strategic informed trader.
+  </p>
+  <p block-type="Text">
+   One unreasonable assumption of the model is that the bid and offer are determined by a zero-profit assumption. The assumption implies that there is no compensation for the time and effort market making requires. The reason for the assumption is that the analysis can then focus on only the informational source of the spread. It is easy to extend the model to include compensation for market-maker opportunity (and other) cost by specifying that the bid, for example, satisfy
+   <i>
+    B
+   </i>
+   =
+   <i>
+    E
+   </i>
+   [
+   <i>
+    V
+   </i>
+   |
+   <i>
+    Z&lt;B
+   </i>
+   ] −
+   <i>
+    c
+   </i>
+   , where
+   <i>
+    c
+   </i>
+   is the economic cost that needs to be covered. With this more realistic specification, it is now apparent that the spread consists of two components—the cost component and the adverse selection component.
+  </p>
+  <p block-type="Text">
+   When there is no cost component, the martingale property of transaction prices implies that there will be no serial correlation in price changes. When there is only a cost component, however, it is easy to see that transaction prices will bounce back and forth between bid and ask, inducing negative serial correlation in price changes. That the different spread components lead to different transaction price dynamics informs empirical investigations of the spread (
+   <i>
+    see
+   </i>
+   <b>
+    Adverse Selection
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   A strong assumption of the model is that the existence of informed traders is common knowledge. This is relaxed, first in [4] and then in a series of papers by Easley, O'Hara, and coauthors, in which the
+   <i>
+    probability of informed trade
+   </i>
+   (PIN) is theoretically derived and empirically investigated (
+   <i>
+    see
+   </i>
+   <b>
+    Probability of Informed Trading
+   </b>
+   ).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   While the model is described in terms of competing market makers, it is somewhat more general than that. In particular, the model is not necessarily inconsistent with modeling trade on the New York Stock Exchange, or even an electronic limit order book. In the first case, the competing providers of liquidity are the specialist, floor brokers, and limit order submitters. In the second, limit order submitters com-
+  </p>
+  <p block-type="Text">
+   pete to provide the quote. Significantly, however, the model does not consider the trader choice between using a market or limit order, an important feature of trading on the NYSE and electronic limit order book markets (
+   <i>
+    see
+   </i>
+   <b>
+    Adverse Selection
+   </b>
+   ;
+   <b>
+    Limit Order Markets
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   Two survey papers on market microstructure, [10] and [2], are recommended. The first is stronger on a survey of empirical analyses, while the second is stronger on modeling issues.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Back, K. &amp; Baruch, S. (2004). Information in securities markets: Kyle meets Glosten and Milgrom,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      72
+     </b>
+     , 433–465.
+    </li>
+    <li block-type="ListItem">
+     [2] Biais, B., Glosten, L.R. &amp; Spatt, C. (2005). Market microstructure: a survey of microfoundations, empirical results, and policy implications,
+     <i>
+      Journal of Financial Markets
+     </i>
+     <b>
+      8
+     </b>
+     , 217–264.
+    </li>
+    <li block-type="ListItem">
+     [3] Easley, D. &amp; O'Hara, M. (1987). Price, trade size, and information in securities markets,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      19
+     </b>
+     , 69–90.
+    </li>
+    <li block-type="ListItem">
+     [4] Easley, D. &amp; O'Hara, M. (1992). Time and the process of security price adjustment,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      47
+     </b>
+     , 576–605.
+    </li>
+    <li block-type="ListItem">
+     [5] Glosten, L.R. (1989). Insider Trading, liquidity, and the role of the monopolist specialist,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      62
+     </b>
+     , 211–236.
+    </li>
+    <li block-type="ListItem">
+     [6] Glosten, L.R. (1994). Is the electronic open limit order book inevitable?
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      49
+     </b>
+     , 1127–1161.
+    </li>
+    <li block-type="ListItem">
+     [7] Glosten, L.R. &amp; Milgrom, P.R. (1985). Bid, ask and transaction prices in a specialist market with heterogeneously informed traders,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      14
+     </b>
+     , 71–100.
+    </li>
+    <li block-type="ListItem">
+     [8] Jones, C., Kaul, G. &amp; Lipson, M.L. (1994). Transactions, volume, and volatility,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      7
+     </b>
+     , 631–651.
+    </li>
+    <li block-type="ListItem">
+     [9] Kyle, A.S. (1985). Continuous auctions and insider trading,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      53
+     </b>
+     , 1315–1335.
+    </li>
+    <li block-type="ListItem">
+     [10] Madhavan, A. (2000). Market microstructure,
+     <i>
+      Journal of Financial Markets
+     </i>
+     <b>
+      3
+     </b>
+     , 205–258.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Adverse Selection
+   </b>
+   ;
+   <b>
+    Kyle Model
+   </b>
+   ;
+   <b>
+    Limit Order Markets
+   </b>
+   ;
+   <b>
+    Probability of Informed Trading
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   LAWRENCE R. GLOSTEN
+  </p>
+ </body>
+</html>

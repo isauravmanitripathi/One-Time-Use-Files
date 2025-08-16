@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Probability of Informed
+   </b>
+   Trading
+  </h1>
+  <p block-type="Text">
+   The extent of private information in markets is a critical determinant in the price formation process. By modeling the trading process and the market maker's learning process, we can use trade data to make inferences about this private information, or more precisely, about the probability of informed trading (PIN). The extent of private information affects bid and ask prices and, hence, the available liquidity in an asset. Perhaps more importantly, the effect of PIN transcends pure market microstructure issues, as evidence suggests that PIN affects the required rate of return on stocks.
+  </p>
+  <h3>
+   The PIN Model
+  </h3>
+  <p block-type="TextInlineMath">
+   In a series of papers, Easley et al. model a market in which a competitive market maker trades a risky asset with informed and uninformed traders
+   <math display="inline">
+    [4-8]
+   </math>
+   . As a simple example, consider the sequential trade tree diagram shown in Figure 1. Trade occurs over
+   <math display="inline">
+    t = 1, \ldots, T
+   </math>
+   discrete trading days and, within each trading day, trade occurs in continuous time. Information events occur between trading days with probability
+   <math display="inline">
+    \alpha
+   </math>
+   . When an information event occurs, it is either bad news, with probability
+   <math display="inline">
+    \delta
+   </math>
+   , or good news with probability,
+   <math display="inline">
+    1 - \delta
+   </math>
+   . Good news at date t is that the asset is worth
+   <math display="inline">
+    \bar{V}_t
+   </math>
+   , and bad news is that it is worth
+   <math display="inline">
+    V_t
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   During any trading day, orders arrive at the market according to Poisson processes. The market maker sets prices to buy or sell throughout the day, and then executes orders as they arrive. Traders informed of bad news sell and those informed of good news buy. Orders from the informed traders follow a Poisson process, with daily arrival rate
+   <math display="inline">
+    \mu
+   </math>
+   . Uninformed traders trade for liquidity reasons. Buy and sell orders from uninformed traders arrive at the market according to independent Poisson processes, with daily arrival rates
+   <math display="inline">
+    \varepsilon_b
+   </math>
+   for buy orders and
+   <math display="inline">
+    \varepsilon_s
+   </math>
+   for sell orders. If an order arrives at some time, the market maker observes the trade (either a buy or a sale), and he/she uses this information to update his/her beliefs. New prices are set, trades evolve, and the price process
+  </p>
+  <p block-type="Text">
+   moves in response to the market maker's changing beliefs.
+  </p>
+  <p block-type="Text">
+   We can use the model parameters to compute the probability that the opening trade on a day is information based, PIN, as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{PIN} = \frac{\alpha \mu}{\alpha \mu + \varepsilon_b + \varepsilon_s} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \alpha \mu + \varepsilon_b + \varepsilon_s
+   </math>
+   is the arrival rate for all orders and
+   <math display="inline">
+    \alpha\mu
+   </math>
+   is the arrival rate for information-based orders. Thus, the ratio is the fraction of orders that arise from informed traders or the probability that the opening trade is information based.
+  </p>
+  <p block-type="Text">
+   The model is quite flexible and allows for extensions with greater complexity in the trading and information processes. Easley et al. [3], for instance, present a dynamic extension with time variation in the traders' arrival rates.
+  </p>
+  <h4>
+   <b>
+    Estimating the PIN Model
+   </b>
+  </h4>
+  <p block-type="Text">
+   Suppose that we now view this problem from the perspective of an econometrician. If we, like the market maker, can observe the sequence of trades, we can use this to estimate the structural model via maximum likelihood. That is, we can determine the probability of information-based trading in a given stock.
+  </p>
+  <p block-type="Text">
+   The first step in the estimation is to note that the total number of buys and sells per day is a sufficient statistic for the trade data. This occurs because of the assumption that arrivals follow independent Poisson processes. The likelihood function induced by this model for the total number of buys and sells on a single trading day is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}((B, S)|\theta) = \alpha (1 - \delta) e^{-(\mu + \varepsilon_b + \varepsilon_s)} \frac{(\mu + \varepsilon_b)^B (\varepsilon_s)^S}{B!S!}
+   </math>
+   <math display="block">
+    + \alpha \delta e^{-(\mu + \varepsilon_b + \varepsilon_s)} \frac{(\mu + \varepsilon_s)^S (\varepsilon_b)^B}{B!S!}
+   </math>
+   <math display="block">
+    + (1 - \alpha) e^{-(\varepsilon_b + \varepsilon_s)} \frac{(\varepsilon_b)^B (\varepsilon_s)^S}{B!S!} \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (B, S)
+   </math>
+   is the total number of buys and sells for the day and
+   <math display="inline">
+    \theta = (\mu, \epsilon_b, \epsilon_s, \alpha, \delta)
+   </math>
+   is the parameter vector. This likelihood function is a mixture of three Poisson probabilities, weighted by the probability of having a "good news day"
+   <math display="inline">
+    \alpha(1-\delta)
+   </math>
+   , a "bad news day"
+   <math display="inline">
+    \alpha\delta
+   </math>
+   , and a "no news day"
+   <math display="inline">
+    (1 - \alpha)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The model assumes that each day the arrivals of an information event and trades, conditional on information events, are drawn from identical and independent distributions. Thus, the likelihood function for
+   <math display="inline">
+    T
+   </math>
+   days is a product of the above likelihood over days. The log likelihood function, after dropping a constant term and rearranging, can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;\mathcal{L}((B_t, S_t)_{t=1}^T | \theta) \\ &amp;= \sum_{t=1}^T \left[ -\varepsilon_b - \varepsilon_s + M_t (\ln x_b + \ln x_s) \right. \\ &amp;\quad + B_t \ln(\mu + \varepsilon_b) + S_t \ln(\mu + \varepsilon_s)] \\ &amp;\quad + \sum_{t=1}^T \ln \left[ \alpha (1 - \delta) \mathrm{e}^{-\mu} x_s^{S_t - M_t} x_b^{-M_t} \right. \\ &amp;\quad + \alpha \delta \mathrm{e}^{-\mu} x_b^{B_t - M_T} x_s^{-M_t} + (1 - \alpha) x_s^{S_t - M_t} x_b^{B_t - M_t} \right] \end{split} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    M_t = \min(B_t, S_t) + \max(B_t, S_t)/2
+   </math>
+   ,
+   <math display="inline">
+    x_s = \frac{\varepsilon_s}{\mu + \varepsilon_s}
+   </math>
+   , and
+   <math display="inline">
+    x_b = \frac{\varepsilon_b}{\mu + \varepsilon_b}
+   </math>
+   . The factoring of
+   <math display="inline">
+    x_b^{M_t}
+   </math>
+   and
+   <math display="inline">
+    x_{s}^{M_{t}}
+   </math>
+   increases the computing efficiency and reduces the truncation error. This is particularly important for stocks with a large number of buys and sells as it avoids computation of small fractions (arrival rates) taken to large powers (numbers of trades).
+  </p>
+  <p block-type="Text">
+   The likelihood function (3) depends upon the number of buys and sells per day. In the United States, the most widely available high-frequency data sets do not contain information about the underlying orders, only the resulting transactions. Therefore, researchers rely on algorithms such as the Lee and Ready [10] algorithm, which mainly uses trade placement relative to the current bid and ask quotes to determine trade direction.
+  </p>
+  <p block-type="Text">
+   Easley et al. [4] obtain yearly PIN estimates for all New York Stock Exchange (NYSE)-listed stocks. They find that PIN is on average 0.19 across stocks and its cross-sectional standard deviation is 0.057. That is, for an average stock, 19% of trades are motivated by private information.
+  </p>
+  <h1>
+   Applications
+  </h1>
+  <p block-type="Text">
+   The estimates of the model's structural parameters can be used to construct the theoretical opening bid and ask prices. As is standard in microstructure models, the market maker sets trading prices such that his/her expected losses to informed traders just offset his/her expected gains from trading with uninformed traders. This balancing of gains and losses gives rise to the bid-ask spread. The opening spread is easiest to interpret if we express it explicitly in terms of PIN. In the case where the uninformed are equally likely to
+  </p>
+  <p>
+   <img src="_page_1_Figure_8.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Tree diagram of the trading process.
+   <math display="inline">
+    \alpha
+   </math>
+   is the probability of an information event,
+   <math display="inline">
+    \delta
+   </math>
+   is the probability of a low signal,
+   <math display="inline">
+    \mu
+   </math>
+   is the rate of informed trade arrival,
+   <math display="inline">
+    \varepsilon_b
+   </math>
+   is the arrival rate of uninformed buy orders, and
+   <math display="inline">
+    \varepsilon_s
+   </math>
+   is the arrival rate of uninformed sell orders. Nodes to the left-hand side of the dotted line occur once per day
+  </p>
+  <p block-type="TextInlineMath">
+   buy and sell
+   <math display="inline">
+    (\varepsilon_b = \varepsilon_s = \varepsilon)
+   </math>
+   and news is equally likely to be good or bad (
+   <math display="inline">
+    \delta = 0.5
+   </math>
+   ), the percentage opening spread is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\Sigma}{V_t^*} = \text{PIN}\frac{(V_t - V_t)}{V_t^*} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Sigma
+   </math>
+   is the spread, ask minus bid price, and
+   <math display="inline">
+    V_t^*
+   </math>
+   is the unconditional expected value of the asset given by
+   <math display="inline">
+    V_t^* = \delta \bar{V}_t + (1 - \delta) \bar{V}_t
+   </math>
+   . The opening spread is therefore directly related to the probability of informed trading. Note that if PIN equals zero, because of the absence of either new information (
+   <math display="inline">
+    \alpha = 0
+   </math>
+   ) or traders informed of it (
+   <math display="inline">
+    \mu = 0
+   </math>
+   ), the spread is also zero. This reflects the fact that only asymmetric information affects spreads when market makers are risk neutral. Neither the estimated measure of informationbased trading nor the predicted spread is related to market maker inventory because these factors do not enter into the model. Instead, these estimates represent a pure measure of the risk of private information.
+  </p>
+  <p block-type="Text">
+   Indeed, Easley et al. [8] and [4] find a strong relationship between PIN and the opening bid-ask spreads, consistent with the predictions of the model. In addition, PIN is negatively related crosssectionally to variables such as firm size and the level trading activity and positively related to the level of insider and institutional holdings [1].
+  </p>
+  <p block-type="Text">
+   Informational asymmetry has implications for a firm's cost of capital. An increase in PIN represents a risk not only to the market maker but also to the uninformed investors who cannot adjust their portfolios to take the private information into account. Therefore, uninformed investors would need to be compensated to invest in high PIN stocks. Easley and O'Hara [9] formalize this notion in a rational expectations model and show that more private information and less public information lead to higher expected returns. Easley et al. [4] find that a difference in PIN of 10 percentage points (about 2 standard deviations) between two stocks leads to a difference in expected returns of 2.5% per year.
+  </p>
+  <p block-type="Text">
+   The PIN variable also represents a straightforward control or interaction variable for researchers interested in the impact of a third variable on, say, stock prices. As an example, Duarte
+   <i>
+    et al.
+   </i>
+   [2] find that the effect of regulation fair disclosure on a firms' cost of capital is negative related to PIN, which is consistent with the notion that high PIN firms benefit more from decreases in the informational asymmetry resulting from increased disclosure.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Aslan, H., Easley, D., Hvidkjaer, S. &amp; O'Hara, M. [1] (2007). Firm Characteristics and Informed Trading: Implications for Asset Pricing. Working paper, University of Houston, Cornell University and INSEAD.
+    </li>
+    <li block-type="ListItem">
+     Duarte, J., Han, X., Harford, J. &amp; Young, L. (2008). [2] Information asymmetry, information dissemination and the effect of regulation FD on the cost of capital, Journal of Financial Economics 87, 24-44.
+    </li>
+    <li block-type="ListItem">
+     [3] Easley, D., Engle, R., O'Hara, M. &amp; Wu, L. (2008). Time-varying arrival rates of informed and uninformed trades, Journal of Financial Econometrics 6(2), 171-207.
+    </li>
+    <li block-type="ListItem">
+     [4] Easley, D., Hvidkjaer, S. &amp; O'Hara, M. (2002). Is information risk a determinant of asset returns? Journal of Finance 57, 2185-2221.
+    </li>
+    <li block-type="ListItem">
+     [5] Easley, D., Kiefer, N.M. &amp; O'Hara, M. (1996). Creamskimming or profit-sharing? The curios role of purchased order flow, Journal of Finance 51, 811-833.
+    </li>
+    <li block-type="ListItem">
+     Easley, D., Kiefer, N.M. &amp; O'Hara, M. (1997). The [6] information content of the trading process, Journal of Empirical Finance 4, 159-186.
+    </li>
+    <li block-type="ListItem">
+     [7] Easley, D., Kiefer, N.M. &amp; O'Hara, M. (1997). One day in the life of a very common stock, Review of Financial Studies 10, 805-835.
+    </li>
+    <li block-type="ListItem">
+     Easley, D., Kiefer, N.M., O'Hara, M. &amp; Paperman, J.B. [8] (1996). Liquidity, information, and infrequently traded stocks, Journal of Finance 51, 1405-1436.
+    </li>
+    <li block-type="ListItem">
+     [9] Easley, D. &amp; O'Hara, M. (2004). Information and the cost of capital, Journal of Finance 59(4), 1553-1583.
+    </li>
+    <li block-type="ListItem">
+     Lee, C.M.C. &amp; Ready, M.J. (1991). Inferring trade [10] direction from intraday data, Journal of Finance 46, 733-746.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Soeren Hvidkjaer
+  </p>
+ </body>
+</html>

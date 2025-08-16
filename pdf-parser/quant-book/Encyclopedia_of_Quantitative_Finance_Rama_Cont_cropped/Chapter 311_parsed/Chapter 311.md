@@ -1,0 +1,111 @@
+# **Stress Testing**
+
+It is widely recognized that the most popular statistical financial risk measure, Value at Risk (VaR), is not, except under highly restrictive conditions, a sufficient statistic for describing risk in portfolios of financial assets. It is slightly ironic that nonstatistical techniques increasingly have come to be relied upon as tools for overcoming the deficiencies in VaR, signaling an (implicit) rejection of a risk epistemology based on objective principles and deductive reasoning in favor of a subjective alternative reliant on inductive reasoning. The prescriptions of regulatory authorities have added significant impetus to this trend. Partly as a result of this exogenous motivating force, these tools have experienced an incomplete ontogeny. Although various mathematical techniques of stress testing and scenario analysis have been developed, an axiomatic treatment justifying the incorporation of these tools into economic decision making is still missing.
+
+Stress testing and scenario analysis aim to elicit information about how risk assessments are affected by extreme changes in either valuation-driving factors or exogenously determined parameters. Scenario analysis generally involves a more holistic approach, in which many factors are assumed to change simultaneously. Stress testing usually refers to techniques in which a single factor or parameter is changed, possibly repeatedly. Unfortunately, the two sobriquets are frequently used interchangeably.
+
+These techniques are widely used in banks and other financial institutions. Some financial regulation requires regulated entities to use these techniques in risk measurement as a condition for allowing the use of (more favorable) risk-based capital calculations.
+
+## **Historical Origins**
+
+Following several, high profile, financial derivativesrelated trading losses incurred by financial and nonfinancial firms in the early 1990s, various government-sponsored studies seeking ways to ameliorate future adverse events called for improved risk assessment. An increased focus on stress testing and scenario analysis was among the specific recommendations therein.
+
+The earliest of these recommendations came from the Group of Thirty's Report of the Global Derivatives Study Group (1993). Recommendation six of the report states, "Dealers should regularly perform simulations to determine how their portfolios would perform under stress conditions." The most detailed prescriptions came from the Basel Committee for Banking Supervision in its (1996) "Amendment to the Capital Accord to Incorporate Market Risks". For example, the document states, "Banks should subject their portfolios to a series of simulated stress scenarios *...* for example, the 1987 equity crash, the ERM crises of 1992 and 1993, or the fall in the bond markets in the first quarter of 1994." The perceived importance of these techniques continues to wax large in the regulatory agenda. For example, in 2006 the Committee of European Banking Supervisors issued a consultative paper on stress testing in which it opined, "Stress testing is a valuable risk management technique whose potential applications are quite varied *...*" A comprehensive system of stress testing and scenario analysis is generally a required concomitant to risk-based methods for regulatory capital adequacy determination.
+
+## **Stress Testing**
+
+Stress testing, as the name suggests, seeks to gauge risk by examination of extreme changes in the underlying random factors that affect valuation. By factor, we mean a source of random variation in the price of a financial instrument. For example, two random factors affect the value of an exchange traded equity call (or put) option, variation in the market price of the underlying equity and variation in the volatility of the underlying equity.
+
+In its basic form, stress testing involves changing one factor at a time only, holding all others constant. This technique can be applied to a portfolio of instruments or to a single position.
+
+### *Factor-push*
+
+One common flavor of this sort of stress test is called *factor-push*, because the stress test outcome is the result of "pushing" each factor in the direction resulting in portfolio loss. This approach can be implemented mechanically as follows.
+
+First, a "push" size must be selected. This push size will be applied sequentially to each factor, *i*, where  $f_i$  refers to the current value of the *i*th factor. The push size is subjective. One way it may be given a heuristic justification is if, for each factor, it is taken to be a constant,  $c$ , multiplied by the factor's standard deviation,  $s_i$ .
+
+Second, every position under consideration is valued twice, using the following two alternative values for the factor:
+
+$$f_i^+ = f_i(1 + cs_i), \quad f_i^- = f_i(1 - cs_i)$$
+ (1)
+
+The value for the factor that results in the larger total portfolio reduction in value is retained, whereas the other is discarded. This process is then repeated for the remaining factors.
+
+Third, every position is valued once more, this time simultaneously using all the factor changes that were retained during the previous step.
+
+As noted earlier, there is no rigorously defensible rationale for the selection of any particular size for the push factor. This method can introduce other undesirable effects into the final portfolio stress loss estimate as well
+
+Because the ultimate step uses factor changes that are each chosen independently, the set of factor changes may make no economic sense, if viewed together as a single economic scenario. Also, to the extent that the portfolio contains instruments that have nonzero second-order cross-factor sensitivities, these will be ignored in developing the final set of factor changes.
+
+If the portfolio contains some instruments whose values are either nonlinear or discontinuous functions of some of the factors, then for any given scheme for determining the push size, it can be shown that the resulting portfolio stress loss may not be greater than alternative schemes that have a strictly smaller push size. Such would be the case, for example, if the portfolio consisted of only a long position in an option straddle.
+
+Another variation of the factor-push method is used by some derivatives exchanges and over the counter (OTC) market dealers for the determination of the customers' portfolio margin requirements. In this method, each factor is allowed to take on a range of values. For example, the current factor level may be scaled up or down in increments of 1 standard deviation until the increment reaches  $c$ standard deviations. A zero factor change is included (for a reason which will shortly be obvious), giving in this case  $2c$  alternative values for each factor. In this method, all factors are allowed to change simultaneously. Therefore, if there are  $n$  factors and  $2c + 1$  possible values for each, then  $(2c + 1)^n$ portfolio revaluations are performed, and the one yielding the greatest portfolio loss is taken to be the stress loss.
+
+The factor-push method is also related to a common method for managing trading portfolio risk when the portfolio includes instruments whose values are a nonlinear function of the factors driving pricing. A *sensitivity ladder* is a set of possible changes specified for each factor, where the instruments are revalued (and typically first-order sensitivities recalculated as well) for each specified change in a factor.
+
+#### Maximum Loss
+
+A stress testing technique that attempts to account for the deficiencies in the factor-push type of stress test is called *maximum loss* and was first developed by Studer [8].
+
+Maximum loss is defined as the  $n$ -tuple of factor changes for which the corresponding portfolio loss is a maximum, subject to the factor changes being a member of a feasible set. Studer defines the feasible set of factor changes with respect to a (continuous) joint distribution of factor returns. Specifically, he requires that the likelihood of any feasible  $n$ -tuple of factor returns must exceed some given probability.
+
+This approach is difficult to implement. For an arbitrary portfolio of financial instruments, this approach requires evaluating every feasible point, both boundary and interior points, in the space of factor returns. Random or quasirandom methods might be employed to create a practical implementation of this method. Any sampling technique would potentially run into problems with portfolios that exhibit nonlinear sensitivities to the factors. With detailed knowledge of the instruments in the portfolio, it may be possible to construct a computationally efficient search algorithm that samples only from areas of the factor return distribution that are likely to result in the maximum loss.
+
+#### Stress Testing of Correlation Matrices
+
+This technique focuses on the impact of changing the joint dynamics of factors affecting portfolio valuation. It is common belief that volatile market environments are characterized by different correlation dynamics. Several authors have argued inconclusively for a mixture of normals as description of factor returns over time.
+
+To implement stress testing for changes in a correlation matrix, a "shocked" matrix is used to calculate the change in portfolio value. Typically, the shocked matrix is intended to represent a "high correlation" environment. The shocks are typically specified based on subjective rules similar to those used in the techniques discussed earlier. However, because the covariance matrix must be positive definite, shocks that can be validly applied to the correlations are constrained.
+
+The usual technique to deal with this issue is to apply the subjectively determined shocks, then manipulate the resulting covariance matrix to ensure positive definiteness with the goal of departing minimally from the intended shocks. Much has been written on the problem of determining the closest positive definite matrix to a given matrix by elimination of the negative eigenvalues from the stressed correlation matrix, for example, see [7].
+
+## **Scenario Analysis**
+
+The intent of scenario analysis is to analyze the performance of a portfolio when subjected to an ensemble of factor changes intended to represent a specific market event, one typically characterized as extreme but plausible and relevant.
+
+The "extremeness" of a scenario may be defined in two ways. First, it may be measured with respect to the magnitude of factor changes considered. In this case, there is no guarantee that the scenario will correspond to a significant loss in portfolio value. Alternatively, it may be measured with respect to the magnitude of the change in portfolio value resulting from factor changes, that is, an ensemble of factor changes that corresponds to a portfolio loss greater than a threshold level.
+
+The concept of plausibility is usually judged in reference to the set of factor changes, not the portfolio positions. No standards of plausibility exist. However, Breuer and Krenn [5] propose to define the plausibility of a given scenario as the cumulative probability, under the assumption that factor returns are distributed multivariate normal, of all the scenarios with probability less than or equal to the given scenario. To justify this criterion, Basel Committee on Banking Supervision [3] refers to its intuitive appeal.
+
+Without an arbitrary definition of plausibility, it may not be possible to establish necessary conditions for a scenario to be deemed plausible. For example, no-arbitrage and nonnegative price conditions may be violated under severe market stresses. As illustrations, note that during the equity market crash of 1987, the arbitrage relationship between the US equity index cash market and index futures prices did not hold at all times. Similarly, negative yields for discount bills of the US Treasury were observed at times during the market crisis of 2007–2008.
+
+Relevance is defined with respect to the positions in the portfolio and the current market environment. For example, an "oil embargo" scenario might be thought not relevant to a portfolio containing only interest rate derivatives. There is no objective method for evaluating (or ranking) relevance. Therefore, relevance is incorporated into scenario selection by judgment.
+
+The selection of factor changes used in the scenario selection is, therefore, in the final analysis, a subjective exercise. Scenarios are typically modeled in one of the two ways. First, an actual historical period is used as the basis for the scenario. Historical scenarios may be generally agreed "events" or may be selected mechanically, for example, by "data-snooping" histories of factor changes, selecting as candidate scenarios those dates where more than a minimum number of factor changes exceeds a given threshold. Also, financial regulators have identified certain historical events, which they have deemed to be suitable stress scenarios, such as the equity market crash of 1987 (see, e.g. [3]).
+
+Given the chosen period, factor returns from that period are collected and applied to the current levels of market factors, yielding "shocked" factor values. For market factors that did not trade during the chosen period, a proxy must be used to create an estimated shock. Changes in the dynamical properties of factors, arising, for example, from market microstructure changes between the historical period chosen and the present, are typically ignored, and the factor shocks applied as if those changes would have no effect in a replay of the scenario. Finally, the shocked factor values are used to revalue the portfolio and a stress loss (or profit) is calculated.
+
+Second, an ensemble of factor changes is created by employing (explicitly or implicitly) a structural or reduced form model of market dynamics to generate a hypothetical scenario. The result may yield quantitative shocks for only a subset of the market factors relevant to a portfolio. The remaining factor shocks are set based on judgment. A variation on this approach employs scenarios in which a subset of factors are shocked in highly stylized ways (e.g., see [6]), such as by a parallel move in yields or a change in all equity market prices of a single percentage amount. Historical scenarios claim general assent to plausibility because they have actually happened. However, the claim may sometimes be questioned, for, as noted above, the passage of time may render an historical scenario increasingly artificial, as reliance on proxies for shocks and the extent of changes in market dynamics increase.
+
+It has been documented in the experimental psychology literature that individuals systematically underestimate the probability of rare events, and they overestimate probabilities for events that have occurred more recently. The subjective nature of scenario selection may therefore *ipso facto* lead to systematic biases in scenario selection.
+
+It is claimed by some that scenario analysis will provide incremental knowledge about the risk of a portfolio beyond which it might be available using other risk measures, such as VaR. The arguments in support of this claim are not rigorous. In the absence of a probability model, what may be extreme and plausible can only be evaluated subjectively. Thus, if one individual claims some quantum of knowledge derived from evaluating a scenario, then a general assent as to the claim may be difficult to achieve (beyond the trivial sense in which all would agree with the statement, "if these shocks are applied in this way to this set of mathematical relations describing portfolio value, then this change in portfolio value is observed").
+
+Even if the problem of intersubjectivity is put aside, it is not obvious how to measure the increment to knowledge from scenario analysis. A scenario maps an *n-tuple* of factor changes to a single value for the portfolio return. If the space of factor changes is continuous and the set of possible (extreme) values for portfolio return is continuous, it can be argued that the measure of the information from a scenario is zero, unless a not-small (subjective) probability is assigned to the specific set of factor changes considered. This conclusion might be modified if it can be shown that (i) small perturbations in the *ntuple* of factor changes from the base case scenario result in portfolio returns that are close the return in the base case and (ii) small perturbations in the portfolio return map to only *n-tuples* of factor changes that are "close" to the base case set of factor changes. For a large and complex portfolio containing instruments, whose price is nonlinear or discontinuous in terms of factor changes, neither of these conditions can be guaranteed.
+
+It has been shown in [1, 2] and related research that a scenario can be interpreted as a worst-case loss on a countable, finite event space, and as such satisfies the axioms of a coherent risk measure. It has also been shown that a coherent risk measure can be obtained from scenarios. These results place scenario analysis squarely within the framework of risk theory. In limited contexts, it is possible to construct decision-theoretic justifications for rules based on stress scenarios. The key element in so doing is the ability to completely specify the event space of portfolio outcomes. This can be accomplished selfreferentially, as when a decision maker, regulator, and so on, defines the set of relevant outcomes, where any other outcome not included in (or derivable from) this set of predefined outcomes is ignored or declared irrelevant. A widely cited example is the Standard Portfolio Analysis of Risk (SPAN) margining system used by many derivatives exchanges in which a given set of scenarios is deemed to be relevant for determining capital adequacy for a market participant.
+
+Historical scenarios are typically constructed to mimic factor moves that span multiple trading days in order to encompass an entire period of market disturbance. The identification of either a beginning or ending date may be ambiguous, if the goal is to capture peak-to-trough factor changes, as these may not be synchronous across all markets. A subjective choice of dates to be employed must be made in such cases.
+
+In general, no allowances are made for timerelated valuation effects in a scenario, such as cash flows, time decay ("theta"), expiration, and reinvestment of net cash inflows. However, long horizon (e.g., several months to over one year) scenario analyses, such as the one performed by some financial firms for nontrading books, do include these effects.
+
+The static portfolio assumption is most often justified by the argument that illiquidity would make it very difficult and costly either to trade out of any positions or to put on hedge positions during the market event. To some extent, this can be observed in markets undergoing stress.
+
+This static approach to scenario-based stress testing does not allow for an active assessment of liquidity risk, which is greatest during a crisis. Only a dynamic scenario can capture the losses resulting from portfolio adjustment subsequent to a change in market liquidity, as manifest in widening of bid-ask spreads, and an increase in the price impact of trades.
+
+The potential usefulness of a given historical scenario will fall over time, making scenario analysis a dynamic process; over time it is necessary to replace or revise scenarios. The deterioration has several origins. Market microstructure changes will affect factor price dynamics. Examples are the switch from eighths to decimals on the US equity exchanges in 2001 and the replacement of floor execution with electronic trading systems. Also, the set of traded instruments changes as a result of bankruptcy, merger, financial innovation, and so on. Changes in market liquidity (perhaps arising from the entrance or exit of new market participants) will affect price dynamics as well. Even large changes in price levels can adversely affect the usability of an historical scenario, potentially causing the historical factor changes to defy common sense by being large or too small.
+
+Since 2001 the International Monetary Fund, in cooperation with member central banks, has conducted model-based scenario analysis for certain member countries. In each country, *macro stress testing* employs a central-bank model of the entire banking system and focuses on factor changes and their impacts on balance sheets, which might result in a system-wide event, for example, contagious default and systemic contraction of lending to preserve capital. These factors might include the change in corporate defaults, changes in counterparty default, or changes in foreign exchange (FX) rates, trade balance or FX reserves, or shocks to asset prices, such as real estate. For a survey of these methods, see [4].
+
+## **References**
+
+- [1] Artzner, P. (1999). Application of coherent risk measures to capital requirements in insurance, *North American Actuarial Journal* **3**, 11–25.
+- [2] Artzner, P., Delbaen, F., Eber, J.-M. & Heath, D. (1999). Coherent measures of risk, *Mathematical Finance* **9**, 203–228.
+- [3] Basel Committee on Banking Supervision (1996). *Amendment to the Capital Accord to Incorporate Market Risks*, Mimeo, 46.
+- [4] Blaschke, W., Jones, M., Majnoni, G., Martinez, P. & Soledad, M. (2001). *Stress Testing of Financial Systems*, International Monetary Fund, Mimeo.
+- [5] Breuer, T. & Krenn, G. (1999). Reliving past crises: identifying stress scenarios from historical data, *Third International Stockholm Seminar on Risk Behaviour and Risk Management*, Complementary Papers, Stockholm, pp. 111–119.
+- [6] Derivatives Policy Group (1995). *Framework for Voluntary Oversight*, Mimeo.
+- [7] Rebonato, R. & Jaeckel, P. (1999). The most general methodology to create a valid correlation matrix for risk management and option pricing purposes, *Journal of Risk* **2**(Winter), 1–16.
+- [8] Studer, G. (1997). *Maximum Loss Measurement for Market Risk* , Doctoral Thesis, Swiss Federal Institute of Technology.
+
+#### BARRY SCHACHTER

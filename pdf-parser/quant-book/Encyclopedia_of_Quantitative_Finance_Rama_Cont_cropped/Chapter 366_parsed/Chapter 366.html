@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Jump Processes
+   </b>
+  </h1>
+  <h1>
+   <b>
+    Processes with Jumps in General
+   </b>
+  </h1>
+  <p block-type="Text">
+   Although, historically, models in mathematical finance were based on Brownian motion and thus are models with continuous price paths, jump processes now play a key role across all areas of finance (see, e.g., [5]). One reason for this move into a new class of processes is that because of their distributional properties, diffusions in many cases cannot provide a realistic picture of empirically observed facts. Another reason is the enormous progress made in understanding and handling jump processes due to the development of semimartingale theory on one side and of computational power on the other side.
+  </p>
+  <p block-type="TextInlineMath">
+   The simplest jump process is a process with just one jump. Let
+   <i>
+    T
+   </i>
+   be a random time—actually a stopping time with respect to an information structure given by a filtration
+   <i>
+    (
+   </i>
+   F
+   <i>
+    t)t
+   </i>
+   ≥0—then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = \mathbb{1}_{\{T \le t\}} \quad (t \ge 0) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   has the value 0 until a certain event occurs and then 1. Although this process looks simple, it is important in modeling credit risk, namely as the process that describes the time of default of a company. The next step leads to processes that have integer values with positive jumps of size 1 only, the so-called
+   <i>
+    counting processes (Xt)t
+   </i>
+   ≥0.
+   <i>
+    Xt
+   </i>
+   describes the number of events that have occurred between time 0 and
+   <i>
+    t
+   </i>
+   . This could be the number of defaults in a large credit portfolio or the number of claims customers report to an insurance company. The standard case is a
+   <i>
+    Poisson process (Nt)t
+   </i>
+   ≥0, where the distribution of
+   <i>
+    Xt
+   </i>
+   is given by a Poisson distribution with parameter
+   <i>
+    λt
+   </i>
+   . Equivalently, one can describe this process by requiring that the waiting times between successive jumps are independent, exponentially distributed random variables with parameter
+   <i>
+    λ
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The natural extension is a
+   <i>
+    compound Poisson process (Xt)t
+   </i>
+   ≥0, that is, a process with stationary independent increments where the jump size is no longer 1, but given by a probability law
+   <i>
+    µ
+   </i>
+   . Let
+   <i>
+    (Yk )k
+   </i>
+   <sup>
+    ≥
+   </sup>
+   <sup>
+    1
+   </sup>
+   be a sequence of independent random variables with distribution L
+   <i>
+    (Yk )
+   </i>
+   =
+   <i>
+    µ
+   </i>
+   for all
+   <i>
+    k
+   </i>
+   ≥ 1. Denote by
+   <i>
+    (Nt)t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   <sup>
+    0
+   </sup>
+   a standard Poisson process with parameter
+   <i>
+    λ &gt;
+   </i>
+   0 as described above, which is independent of
+   <i>
+    (Yk )k
+   </i>
+   ≥1.
+  </p>
+  <p block-type="Text">
+   Then we can represent
+   <i>
+    (Xt)t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   <sup>
+    0
+   </sup>
+   in the following form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = \sum_{k=1}^{N_t} Y_k \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A typical application of compound Poisson processes is to model the cumulative claim size up to time
+   <i>
+    t
+   </i>
+   in a portfolio of insurance contracts where the individual claim size is distributed according to
+   <i>
+    µ
+   </i>
+   . For the sake of analytical tractability, it is often useful to
+   <i>
+    compensate
+   </i>
+   this process, that is, to subtract the average claim size
+   <i>
+    E
+   </i>
+   [
+   <i>
+    Xt
+   </i>
+   ]. Assuming that
+   <i>
+    µ
+   </i>
+   has a finite expectation and using stationarity and independence, we conclude
+   <i>
+    E
+   </i>
+   [
+   <i>
+    Xt
+   </i>
+   ] =
+   <i>
+    tE
+   </i>
+   [
+   <i>
+    X
+   </i>
+   1] and therefore get the following representation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = tE[X_1] + (X_t - E[X_t])
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   The compensated process
+   <i>
+    (Xt
+   </i>
+   −
+   <i>
+    E
+   </i>
+   [
+   <i>
+    Xt
+   </i>
+   ]
+   <i>
+    )t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   <sup>
+    0
+   </sup>
+   is a martingale and, therefore, equation (3) is a decomposition of the process in a linear drift
+   <i>
+    E
+   </i>
+   [
+   <i>
+    X
+   </i>
+   1] ·
+   <i>
+    t
+   </i>
+   and a martingale. Representation (3) motivates the definition of a general
+   <i>
+    semimartingale
+   </i>
+   as a process that is adapted to a filtration
+   <i>
+    (
+   </i>
+   F
+   <i>
+    t)t
+   </i>
+   ≥0, has paths that are right-continuous and have left limits (cadl ` ag paths), ` and allows a decomposition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = X_0 + V_t + M_t \quad (t \ge 0) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    V
+   </i>
+   =
+   <i>
+    (Vt)t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   <sup>
+    0
+   </sup>
+   is an adapted cadl ` ag process of ` finite variation and
+   <i>
+    M
+   </i>
+   =
+   <i>
+    (Mt)t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   <sup>
+    0
+   </sup>
+   is a local martingale. There exist processes that are not semimartingales. An important class of examples is fractional Brownian motions with the exception of usual Brownian motion, which is a semimartingale. We do not go beyond semimartingales in this discussion mainly because for semimartingales there is a well-developed theory of stochastic integration, a fact which is crucial for modeling in finance.
+  </p>
+  <p block-type="TextInlineMath">
+   In general, the representation (4) is not unique. It becomes unique with a
+   <i>
+    predictable
+   </i>
+   process
+   <i>
+    V
+   </i>
+   if we consider
+   <i>
+    special semimartingales
+   </i>
+   . A semimartingale can be made special by taking the big jumps away, for example, jumps with absolute jump size larger than 1. This follows from the well-known fact that a semimartingale with bounded jumps is special [11, I.4.24]. Denote by
+   <i>
+    -Xt
+   </i>
+   =
+   <i>
+    Xt
+   </i>
+   −
+   <i>
+    Xt
+   </i>
+   <sup>
+    −
+   </sup>
+   the jump at time
+   <i>
+    t
+   </i>
+   if there is any. Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t - \sum_{s \le t} \Delta X_s \mathbbm{1}_{\{|\Delta X_s| &gt; 1\}} \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   has bounded jumps. Further, let us note that any local martingale M (with
+   <math display="inline">
+    M_0 = 0
+   </math>
+   ) admits a unique (orthogonal) decomposition into a local martingale with continuous paths
+   <math display="inline">
+    M^c
+   </math>
+   and a purely discontinuous, local martingale
+   <math display="inline">
+    M^d
+   </math>
+   ([11, I.4.18]). Assuming
+   <math display="inline">
+    X_0 = 0
+   </math>
+   , we got the following unique representation for semimartingales:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = V_t + M^c + M^d + \sum_{s \le t} \Delta X_s \mathbb{1}_{\{|\Delta X_s| &gt; 1\}} \qquad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   To analyze
+   <math display="inline">
+    M^d
+   </math>
+   in more detail, we introduce the random measure of jumps
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu^{X}(\omega; \mathrm{d}t, \mathrm{d}x) = \sum_{s&gt;0} \mathbbm{1}_{\{\Delta X_{s}(\omega) \neq 0\}} \varepsilon_{(s, \Delta X_{s}(\omega))}(\mathrm{d}t, \mathrm{d}x) \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \varepsilon_a
+   </math>
+   denotes as usual the unit mass in a. Thus,
+   <math display="inline">
+    \mu^{X}
+   </math>
+   is a random measure which, for fixed
+   <math display="inline">
+    \omega
+   </math>
+   , places a point mass of size 1 on each pair
+   <math display="inline">
+    (s, \Delta X_s(\omega)) \in
+   </math>
+   <math display="inline">
+    \mathbb{R}_+ \times \mathbb{R}
+   </math>
+   whenever for this
+   <math display="inline">
+    \omega
+   </math>
+   the process jumps by
+   <math display="inline">
+    \Delta X_s(\omega)
+   </math>
+   at time s. Expressed differently for any Borel subset
+   <math display="inline">
+    B \subset \mathbb{R}, \mu^X(\omega; [0, t] \times B)
+   </math>
+   counts the number of jumps with size in
+   <math display="inline">
+    B
+   </math>
+   which can be observed along the path
+   <math display="inline">
+    (X_s(\omega))_{0 \le s \le t}
+   </math>
+   . With this notation, equation
+   <math display="inline">
+    (5)
+   </math>
+   can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{t} - \int_{0}^{t} \int_{\mathbb{R}} x \, \mathbb{1}_{\{|x|&gt;1\}} \mu^{X}(\mathrm{d}s, \mathrm{d}x) \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   The purely discontinuous local martingale
+   <math display="inline">
+    M^d
+   </math>
+   , that is, the process of
+   <i>
+    compensated jumps
+   </i>
+   of absolute size less than 1, has then the following form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_t^d = \int_0^t \int_{\mathbb{R}} x \, \mathbb{1}_{\{|x| \le 1\}} (\mu^X - \nu^X)(\mathrm{d}s, \mathrm{d}x) \quad (9)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    v^X
+   </math>
+   is another random measure, the (
+   <i>
+    predictable
+   </i>
+   ) compensator of
+   <math display="inline">
+    \mu^X
+   </math>
+   . Whereas
+   <math display="inline">
+    \mu^X
+   </math>
+   counts the exact number of jumps,
+   <math display="inline">
+    v^X
+   </math>
+   roughly stands for the expected, that is, the average number of jumps. The integral with respect to
+   <math display="inline">
+    \mu^X - \nu^X
+   </math>
+   in equation (9), in general, cannot be separated in an integral with respect to
+   <math display="inline">
+    \mu^X
+   </math>
+   and another one with respect to
+   <math display="inline">
+    \nu^X
+   </math>
+   . This is because the sum of the small jumps
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{s\leq t} \Delta X_s \mathbbm{1}_{\{|\Delta X_s|\leq 1\}} = \int_0^t \int_{\mathbb{R}} x \mathbbm{1}_{\{|x|\leq 1\}} \mu^X(\mathrm{d}s, \mathrm{d}x) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   does not converge, in general.
+  </p>
+  <h2>
+   Lévy Processes
+  </h2>
+  <p block-type="Text">
+   For many applications, it is sufficient to reduce generality and to consider the subclass of
+   <i>
+    Lévy processes
+   </i>
+   , that is, processes with stationary and independent increments. The components in equations
+   <math display="inline">
+    (6)
+   </math>
+   and
+   <math display="inline">
+    (9)
+   </math>
+   are then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t = bt \quad (t \ge 0)
+   </math>
+   <br/>
+   <math display="block">
+    M_t^c = \sqrt{c} W_t \quad (t \ge 0)
+   </math>
+   <br/>
+   <math display="block">
+    v^X([0, t] \times B) = tK(B) \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where b and c are real numbers,
+   <math display="inline">
+    c \ge 0
+   </math>
+   ,
+   <math display="inline">
+    (W_t)_{t \ge 0}
+   </math>
+   is a standard Brownian motion, and
+   <math display="inline">
+    K
+   </math>
+   , the Lévy mea
+   <i>
+    sure
+   </i>
+   , is a (possibly infinite) measure on the real line that satisfies
+   <math display="inline">
+    \int (1 \wedge x^2) K(\mathrm{d}x) &lt; \infty
+   </math>
+   . The law of X is completely determined by the triplet of local char
+   <i>
+    acteristics
+   </i>
+   <math display="inline">
+    (b, c, K)
+   </math>
+   since these are the parameters that appear in the classical Lévy-Khintchine formula. This formula expresses the characteristic function
+   <math display="inline">
+    \varphi_{X_t}(u) = E[\exp(iuX_t)]
+   </math>
+   in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varphi_{X_t}(u) = \exp(t\psi(u)) \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   with the characteristic exponent
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \psi(u) &amp;= \mathrm{i} u b - \frac{1}{2} u^2 c \\ &amp;+ \int \left( \mathrm{e}^{\mathrm{i} u x} - 1 - \mathrm{i} u x \, \mathbb{1}_{\{|x| \le 1\}} \right) K(\mathrm{d} x) \, (13) \end{split}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The
+   <i>
+    truncation function
+   </i>
+   <math display="inline">
+    h(x) = x \mathbb{1}_{\{|x| &lt; 1\}}
+   </math>
+   could be replaced by other versions of truncation functions, for example, smooth functions that are identical to the identity in a neighborhood of the origin and go to 0 outside this neighborhood. Changing
+   <math display="inline">
+    h
+   </math>
+   affects the drift parameter
+   <math display="inline">
+    b
+   </math>
+   , but not
+   <math display="inline">
+    c
+   </math>
+   or
+   <math display="inline">
+    K
+   </math>
+   . All the information on the jump behavior of the process
+   <math display="inline">
+    (X_t)_{t&gt;0}
+   </math>
+   is contained in K. The frequency of large jumps, expressed by the weight
+   <math display="inline">
+    K
+   </math>
+   puts on the tails, determines finiteness of the moments of the process as the following result states (for proofs of the propositions see
+   <math display="inline">
+    [15]
+   </math>
+   ).
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   Let
+   <math display="inline">
+    X = (X_t)_{t&gt;0}
+   </math>
+   be a Lévy process with Lévy measure K. Then
+   <math display="inline">
+    E[|X_t|^p]
+   </math>
+   is finite for any
+   <math display="inline">
+    p \in \mathbb{R}_+
+   </math>
+   if and only if
+   <math display="inline">
+    \int_{\{|x|&gt;1\}} |x|^p K(\mathrm{d}x) &lt; \infty.
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   We note that if
+   <math display="inline">
+    X_1
+   </math>
+   and consequently any
+   <math display="inline">
+    X_t
+   </math>
+   has finite expectation, then one does not have to
+  </p>
+  <p block-type="TextInlineMath">
+   truncate in equation (13), that is,
+   <math display="inline">
+    h(x) = x \mathbb{1}_{\{|x| &lt; 1\}}
+   </math>
+   can be replaced by
+   <math display="inline">
+    h(x) = x
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The sum of the big jumps which is subtracted in equation
+   <math display="inline">
+    (5)
+   </math>
+   is finite since there are only finitely many of them from 0 to
+   <math display="inline">
+    t
+   </math>
+   for every path. The fine structure of the paths is determined by the frequency of the small jumps. A process is said to have
+   <i>
+    finite activity
+   </i>
+   if almost all paths have only a finite number of jumps along finite time intervals. The simplest examples are Poisson and compound Poisson processes. A process is said to have
+   <i>
+    infinite activity
+   </i>
+   if almost all paths have infinitely many jumps along any time interval of finite length.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 2
+   </b>
+   Let
+   <math display="inline">
+    X = (X_t)_{t \ge 0}
+   </math>
+   be a Lévy process with Lévy measure K. Then
+   <math display="inline">
+    \overline{X}
+   </math>
+   has finite activity if
+   <math display="inline">
+    K(R) &lt; \infty
+   </math>
+   and has infinite activity if
+   <math display="inline">
+    K(R) = \infty
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Since a Lévy measure has
+   <i>
+    a priori
+   </i>
+   finite mass in the tails, that is,
+   <math display="inline">
+    \int_{\{|x|&gt;1\}} K(dx) &lt; \infty
+   </math>
+   , the finiteness of
+   <math display="inline">
+    K(R)
+   </math>
+   means finiteness of
+   <math display="inline">
+    \int_{\{|x|\leq 1\}} K(dx)
+   </math>
+   . Consequently, having a finite or an infinite number of jumps along finite time intervals is determined by the mass of
+   <math display="inline">
+    K
+   </math>
+   around the origin. From the distribution of mass around the origin, one can also see if the sum of (infinitely many) small jumps converges or not. First, let us recall that a standard Brownian motion has paths of infinite variation. Therefore, a Lévy process has infinite variation as soon as it has a continuous martingale component, that is,
+   <math display="inline">
+    c &gt; 0
+   </math>
+   in equation (11), but infinite variation can also come from the jumps.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 3
+   </b>
+   Let
+   <math display="inline">
+    X = (X_t)_{t&gt;0}
+   </math>
+   be a Lévy process with triplet
+   <math display="inline">
+    (b, c, K)
+   </math>
+   . Then almost all paths of X have
+   <i>
+    finite variation if
+   </i>
+   <math display="inline">
+    c = 0
+   </math>
+   <i>
+    and
+   </i>
+   <math display="inline">
+    \int_{\{|x| &lt; 1\}} |x| K(\mathrm{d}x) &lt; \infty
+   </math>
+   .
+   <i>
+    If
+   </i>
+   this integral is infinite or
+   <math display="inline">
+    c &gt; 0
+   </math>
+   , then almost all paths of
+   <math display="inline">
+    X
+   </math>
+   have infinite variation.
+  </p>
+  <p block-type="Text">
+   Figure 1 shows a simulated path of a purely discontinuous, infinite activity process with finite variation, whereas Figure 2 shows a corresponding path with infinite variation.
+  </p>
+  <h4>
+   <b>
+    Important Examples
+   </b>
+  </h4>
+  <p block-type="Text">
+   Now we discuss some of the standard examples. The Poisson process with intensity parameter
+   <math display="inline">
+    \lambda
+   </math>
+   that we considered at the beginning has a finite number of jumps in any finite time interval and is constant between successive jumps. In terms of equation
+   <math display="inline">
+    (11)
+   </math>
+   ,
+  </p>
+  <p>
+   <img src="_page_2_Figure_9.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Simulation of a purely discontinuous Lévy process with infinite activity and finite variation
+  </p>
+  <p>
+   <img src="_page_2_Figure_11.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Simulation of a purely discontinuous Lévy process with infinite activity and infinite variation
+  </p>
+  <p block-type="TextInlineMath">
+   it is characterized by
+   <math display="inline">
+    b = E[X_1] = \lambda
+   </math>
+   ,
+   <math display="inline">
+    c = 0
+   </math>
+   , and
+   <math display="inline">
+    K = \lambda \varepsilon_1
+   </math>
+   . For the compound Poisson process (2), the unit mass
+   <math display="inline">
+    \varepsilon_1
+   </math>
+   in K is replaced by a probability measure
+   <math display="inline">
+    \mu
+   </math>
+   , the law of
+   <math display="inline">
+    Y_1
+   </math>
+   , that is,
+   <math display="inline">
+    K = \lambda \mu
+   </math>
+   . For the drift parameter b, one gets
+   <math display="inline">
+    \lambda E[Y_1]
+   </math>
+   . One gets a Lévy jump diffusion by adding a general drift term bt and a scaled Brownian motion to equation
+   <math display="inline">
+    (2)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{t} = bt + \sqrt{c}W_{t} + \sum_{k=1}^{N_{t}} Y_{k}
+   </math>
+   (14)
+  </p>
+  <p block-type="Text">
+   This is the model introduced by Merton [14] to describe asset returns. Merton chose normally distributed variables
+   <math display="inline">
+    Y_k
+   </math>
+   . In an article, Kou [12] used
+  </p>
+  <p block-type="Text">
+   double-exponentially distributed jump sizes
+   <math display="inline">
+    Y_k
+   </math>
+   . If one replaces in equation (14) the Brownian motion with drift by a general diffusion process one gets a
+   <i>
+    jump diffusion
+   </i>
+   . The key property of jump diffusions is that one adds only a finite number of jumps in any finite time interval to a process with continuous paths. In other words, the jump times can be given by successive stopping times
+   <math display="inline">
+    T_1 &lt; T_2 &lt; T_3 &lt; \cdots
+   </math>
+   . We also note that the distribution of
+   <math display="inline">
+    X_t
+   </math>
+   is not known for diffusions, in general. The same holds for jump diffusions. This reduces their applicability in mathematical finance. A key advantage of the pure jump Lévy processes that we discuss now is that they are distributionally very flexible and the distributions are known explicitly.
+  </p>
+  <p block-type="TextInlineMath">
+   Generalized hyperbolic (GH) Lévy motions
+   <math display="inline">
+    (X_t)_{t&gt;0}
+   </math>
+   (see Generalized hyperbolic models in this encyclopedia or in [6, 9]) represent a very large class of Lévy processes which are generated by GH distributions [1], that is, the distribution of
+   <math display="inline">
+    X_1
+   </math>
+   ,
+   <math display="inline">
+    \mathcal{L}(X_1)
+   </math>
+   , is GH. Using equation
+   <math display="inline">
+    (12)
+   </math>
+   all other distributions
+   <math display="inline">
+    \mathcal{L}(X_t)
+   </math>
+   are determined. GH distributions have an explicit Lebesgue density as has the corresponding Lévy measure. GH distributions can be represented as normal mean-variance mixtures, where the mixing distribution is a generalized inverse Gaussian (GIG) distribution. Moments of any order exist. Since
+   <math display="inline">
+    c = 0
+   </math>
+   in equation (13) GH Lévy motions have purely discontinuous paths. They are infinite activity processes. Important subclasses are hyperbolic Lévy motions ([7]) and normal inverse Gaussian (NIG) Lévy motions ([2]). Many well-known distributions can be obtained as limiting cases of GH distributions, which generate the corresponding processes [10]. Among those are the variance gamma distributions (see [13]), scaled and shifted Cauchy distributions, shifted Student-
+   <math display="inline">
+    t
+   </math>
+   distributions, GIG distributions, and the gamma, as well as the normal distributions.
+  </p>
+  <p block-type="Text">
+   The CGMY process introduced in [4] is another purely discontinuous Lévy process, which can be defined by the Lévy density of
+   <math display="inline">
+    \mathcal{L}(X_1)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g_{\text{CGMY}}(x) = \begin{cases} C \frac{\exp(-G|x|)}{|x|^{1+Y}} &amp; x &lt; 0\\ C \frac{\exp(-Mx)}{x^{1+Y}} &amp; x &gt; 0 \end{cases}
+   </math>
+   (15)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    Y \in (-\infty, 2)
+   </math>
+   . The process has infinite activity iff
+   <math display="inline">
+    Y \in [0, 2)
+   </math>
+   and it has infinite variation iff
+   <math display="inline">
+    Y \in
+   </math>
+   <math display="inline">
+    [1, 2)
+   </math>
+   . For
+   <math display="inline">
+    Y = 0
+   </math>
+   , it reduces to the variance gamma process.
+  </p>
+  <p block-type="TextInlineMath">
+   A very classical class is given by
+   <math display="inline">
+    \alpha
+   </math>
+   -stable Lévy processes where
+   <math display="inline">
+    0 &lt; \alpha &lt; 2
+   </math>
+   . For
+   <math display="inline">
+    \alpha = 2
+   </math>
+   one gets Brownian motion, whereas for
+   <math display="inline">
+    \alpha &lt; 2
+   </math>
+   one gets purely discontinuous processes. Only for three special cases explicit densities are known: the Gaussian, the Cauchy, and the Lévy distribution.
+  </p>
+  <p block-type="TextInlineMath">
+   A tractable extension of Lévy processes are timeinhomogeneous, Lévy processes that is, processes with independent increments and absolutely continuous characteristics, called
+   <math display="inline">
+    PIIAC
+   </math>
+   in [11]. For any fixed t, the triplet of
+   <math display="inline">
+    \mathcal{L}(X_t)
+   </math>
+   for these processes is given in the form
+   <math display="inline">
+    b = \int_0^t b_s \mathrm{d}s
+   </math>
+   ,
+   <math display="inline">
+    c = \int_0^t c_s \mathrm{d}s
+   </math>
+   , and
+   <math display="inline">
+    K(\mathrm{d}x) = \int_0^t K_s(\mathrm{d}x) \mathrm{d}s
+   </math>
+   . This class of processes has been used extensively in the context of interest rate models (see e.g.,
+   <math display="inline">
+    [8]
+   </math>
+   ).
+  </p>
+  <p block-type="TextInlineMath">
+   Jump processes with paths that are rather different from those discussed so far were introduced by Barndorff-Nielsen and Shephard [3] in the context of stochastic volatility models. Let
+   <math display="inline">
+    (Z_t)_{t\geq 0}
+   </math>
+   be a subordinator, that is, a Lévy process, starting at 0 with increasing paths and consequently without a Gaussian component. The volatility process
+   <math display="inline">
+    (\sigma_t^2)_{t&gt;0}
+   </math>
+   is modeled by an Ornstein–Uhlenbeck-type stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}\sigma_t^2 = -\lambda \sigma_t^2 \mathrm{d}t + \mathrm{d}Z_{\lambda t} \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   . The solution
+   <math display="inline">
+    (\sigma_t^2)_{t \ge 0}
+   </math>
+   moves up entirely by jumps and then tails off exponentially.
+   <math display="inline">
+    \sigma_t
+   </math>
+   is fed into a Brownian semimartingale that then represents the price process.
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      [1]
+     </math>
+     Barndorff-Nielsen, O.E. (1978). Hyperbolic distributions and distributions on hyperbolae, Scandinavian Journal of Statistics 5, 151-157.
+    </li>
+    <li block-type="ListItem">
+     Barndorff-Nielsen, O.E. (1998). Processes of normal [2] inverse Gaussian type, Finance and Stochastics 2(1),
+     <math display="inline">
+      41 - 68
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Barndorff-Nielsen, O.E. &amp; Shephard, O.E. (2001). Non-[3] Gaussian Ornstein-Uhlenbeck-based models and some of their uses in financial economics. Journal of the Royal Statistical Society, Series B 63, 167-207.
+    </li>
+    <li block-type="ListItem">
+     Carr, P., Geman, H., Madan, D. &amp; Yor, M. (2002). The [4] fine structure of asset returns: an empirical investigation, Journal of Business 75, 305-332.
+    </li>
+    <li block-type="ListItem">
+     [5] Cont, R. &amp; Tankov, P. (2004). Financial Modelling with Jump Processes, Chapman &amp; Hall/CRC.
+    </li>
+    <li block-type="ListItem">
+     [6] Eberlein, E. (2001). Application of generalized hyperbolic Lévy motions to finance, in Lévy Processes. Theory and Applications, O.E. Barndorff-Nielsen, T. Mikosch &amp; S.I. Resnick, eds, Birkhäuser, 319-336.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [7] Eberlein, E. &amp; Keller, U. (1995). Hyperbolic distributions in finance,
+     <i>
+      Bernoulli
+     </i>
+     <b>
+      1
+     </b>
+     (3), 281–299.
+    </li>
+    <li block-type="ListItem">
+     [8] Eberlein, E. &amp; Kluge, W. (2006). Exact pricing formulae for caps and swaptions in a Levy term structure model, ´
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      9
+     </b>
+     , 99–125.
+    </li>
+    <li block-type="ListItem">
+     [9] Eberlein, E., Prause, K. (2002). The generalized hyperbolic model: financial derivatives and risk measures, in
+     <i>
+      Mathematical Finance—Bachelier Congress
+     </i>
+     , Springer, Paris, pp. 245–267.
+    </li>
+    <li block-type="ListItem">
+     [10] Eberlein, E. &amp; von Hammerstein, E.A. (2004). Generalized hyperbolic and inverse Gaussian distributions: limiting cases and approximation of processes, in R.C. Dalang, M. Dozzi &amp; F. Russo, eds,
+     <i>
+      Seminar on Stochastic Analysis, Random Fields and Applications IV
+     </i>
+     ,
+     <i>
+      Progress in Probability 58
+     </i>
+     , Birkhauser, pp. 221–264. ¨
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [11] Jacod, J. &amp; Shiryaev, A.N. (1987).
+     <i>
+      Limit Theorems for Stochastic Processes
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [12] Kou, S.G. (2002). A jump diffusion model for option pricing,
+     <i>
+      Management Science
+     </i>
+     <b>
+      48
+     </b>
+     , 1086–1101.
+    </li>
+    <li block-type="ListItem">
+     [13] Madan, D. &amp; Seneta, E. (1990). The variance gamma (V.G.) model for share market returns,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      63
+     </b>
+     , 511–524.
+    </li>
+    <li block-type="ListItem">
+     [14] Merton, R.C. (1976). Option pricing when underlying stock returns are discontinuous,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      3
+     </b>
+     , 125–144.
+    </li>
+    <li block-type="ListItem">
+     [15] Sato, K.-I. (1999).
+     <i>
+      L´evy Processes and Infinitely Divisible Distributions
+     </i>
+     , Cambridge University Press.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   ERNST EBERLEIN
+  </p>
+ </body>
+</html>

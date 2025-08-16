@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Heavy Tails in Insurance
+   </b>
+  </h1>
+  <h4>
+   <b>
+    Heavy-tailed Distributions
+   </b>
+  </h4>
+  <p block-type="Text">
+   In the class of heavy-tailed distribution functions, subexponential distribution functions are a special class, which have just the right level of generality for risk measurement in insurance and finance models. The name arises from one of their properties: the fact that their right tail decreases more slowly than any exponential tail. This implies that large values can occur in a sample with nonnegligible probability, which proposes the subexponential distribution functions as natural candidates for situations where extremely large values occur in a sample compared to the mean size of the data. Such a pattern is often seen not only in insurance data, for instance, in fire, wind-storm, or flood insurance (collectively known as
+   <i>
+    catastrophe insurance
+   </i>
+   ) but also in data from finance and communications engineering; see, for example
+   <math display="inline">
+    [1, 6, 7]
+   </math>
+   . Subexponential insurance claims can account for large fluctuations in the risk process of a company. Textbook accounts can be found in
+   <math display="inline">
+    [2, 4, 6-8]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   We present two defining properties of subexponential distribution functions. Let
+   <math display="inline">
+    (X_k)_{k \in \mathbb{N}}
+   </math>
+   be independently and identically distributed positive random variables with distribution function
+   <math display="inline">
+    F
+   </math>
+   such that
+   <math display="inline">
+    F(x) &lt; 1
+   </math>
+   for all
+   <math display="inline">
+    x &gt; 0
+   </math>
+   . Denote by
+   <math display="inline">
+    \overline{F}(x) = 1 - F(x)
+   </math>
+   for
+   <math display="inline">
+    x \ge 0
+   </math>
+   , the tail of F, and for
+   <math display="inline">
+    n \in \mathbb{N}
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{F^{n*}}(x) = 1 - F^{n*}(x)
+   </math>
+   <br/>
+   =
+   <math>
+    \mathbb{P}(X_1 + \dots + X_n &gt; x), \quad x \ge 0
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   the tail of the
+   <math display="inline">
+    n
+   </math>
+   -fold convolution of
+   <math display="inline">
+    F
+   </math>
+   . We then say that F (or X) is subexponential (written
+   <math display="inline">
+    F \in \mathcal{S}
+   </math>
+   ) if one of the following equivalent conditions holds:
+  </p>
+  <p block-type="Equation">
+   (a)
+   <math display="block">
+    \lim_{x \to \infty} \frac{F^{n*}(x)}{\overline{F}(x)} = n
+   </math>
+   for some (all)
+   <math>
+    n \ge 2
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   (b)
+   <math display="block">
+    \lim_{x \to \infty} \frac{\mathbb{P}(X_1 + \dots + X_n &gt; x)}{\mathbb{P}(\max(X_1, \dots, X_n) &gt; x)} = 1 \text{ for some}
+   </math>
+   <br/>
+   (all)
+   <math>
+    n \ge 2
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The heavy-tailedness of
+   <math display="inline">
+    F \in \mathcal{S}
+   </math>
+   is demonstrated by the implications
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F \in \mathcal{S} \Longrightarrow \lim_{x \to \infty} \frac{\overline{F}(x - y)}{\overline{F}(x)} = 1 \quad \forall y \in \mathbb{R} \quad (2)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Longrightarrow \frac{\overline{F}(x)}{e^{-\varepsilon x}} \xrightarrow{x \to \infty} \infty \quad \forall \varepsilon &gt; 0 \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A famous subclass of
+   <math display="inline">
+    S
+   </math>
+   is the class of distribution functions with regularly varying tails; see [3]. For a positive measurable function
+   <math display="inline">
+    f
+   </math>
+   , we write
+   <math display="inline">
+    f \in \mathcal{R}(\alpha)
+   </math>
+   for
+   <math display="inline">
+    \alpha \in \mathbb{R}
+   </math>
+   (f is regularly varying with index
+   <math display="inline">
+    \alpha
+   </math>
+   ) if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{x \to \infty} \frac{f(tx)}{f(x)} = t^{\alpha} \quad \forall t &gt; 0 \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \overline{F} \in \mathcal{R}(-\alpha)
+   </math>
+   for
+   <math display="inline">
+    \alpha \ge 0
+   </math>
+   ; then it has the representation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{F}(x) = x^{-\alpha}\ell(x), \quad x &gt; 0 \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some
+   <math display="inline">
+    \ell \in \mathcal{R}(0)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   For regularly varying distribution tails, we can check (a) for
+   <math display="inline">
+    n = 2
+   </math>
+   by splitting the convolution integral and use partial integration to obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\overline{F^{2*}}(x)}{\overline{F}(x)} = 2 \int_0^{x/2} \frac{\overline{F}(x-y)}{\overline{F}(x)} dF(y)
+   </math>
+   <math display="block">
+    + \frac{(\overline{F}(x/2))^2}{\overline{F}(x)}, \quad x &gt; 0 \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Immediately, by equation (4), the last term tends to 0. The integrand satisfies
+   <math display="inline">
+    \overline{F}(x-y)/\overline{F}(x) \leq \overline{F}(x/2)/
+   </math>
+   <math display="inline">
+    \overline{F}(x)
+   </math>
+   for
+   <math display="inline">
+    0 \le y \le x/2
+   </math>
+   ; hence, Lebesgue-dominated convergence applies and, since
+   <math display="inline">
+    F
+   </math>
+   satisfies equation
+   <math display="inline">
+    (2)
+   </math>
+   , the integral on the right-hand side tends to 1 as
+   <math display="inline">
+    x \to \infty
+   </math>
+   . Examples of distribution functions with regularly varying tail include the Pareto, Burr, transformed beta (also called
+   <i>
+    generalized F
+   </i>
+   ), log-gamma, and stable distribution functions (see Table 1.2.6 in [4]).
+  </p>
+  <p block-type="Text">
+   In addition, the lognormal, the two Benktander families, and the heavy-tailed Weibull (shape parameter less than 1) belong to
+   <math display="inline">
+    S
+   </math>
+   ; see again Table 1.2.6 in [4]. However, a direct proof of this is more difficult than that for the regularly varying case. Subexponentiality is typically established via an integral test for the hazard rate known as
+   <i>
+    Pitman's criterion
+   </i>
+   [2].
+  </p>
+  <h2>
+   <b>
+    Application to Insurance
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   The two main examples in insurance risk theory that use the tail properties of subexponential distributions
+  </p>
+  <p block-type="Text">
+   are aggregated claims tails and ruin probabilities. The
+   <i>
+    aggregated claims
+   </i>
+   denoted by
+   <i>
+    A
+   </i>
+   (
+   <i>
+    see
+   </i>
+   <b>
+    Accumulated Claims
+   </b>
+   ) are defined as the sum of all claims to the insurance company in a given period. The usual model is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A = X_1 + \dots + X_N \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    N
+   </i>
+   is the number of claims and
+   <i>
+    X
+   </i>
+   1
+   <i>
+    , X
+   </i>
+   2
+   <i>
+    ,...
+   </i>
+   are the
+   <i>
+    claim sizes
+   </i>
+   in the given time interval (
+   <i>
+    N
+   </i>
+   and
+   <i>
+    (Xk )k
+   </i>
+   <sup>
+    ∈
+   </sup>
+   are assumed to be independent and
+   <i>
+    (Xk )k
+   </i>
+   <sup>
+    ∈
+   </sup>
+   is an independently and identically distributed sequence). The tail of
+   <i>
+    A
+   </i>
+   and the associated quantiles are important for assessing the probability of big losses and for Value-at-Risk (
+   <i>
+    see
+   </i>
+   <b>
+    Value-at-Risk
+   </b>
+   ) calculations. The main result in the heavytailed case states that if the
+   <i>
+    Xk
+   </i>
+   are subexponential, then (
+   <i>
+    a(u)
+   </i>
+   ∼
+   <i>
+    b(u)
+   </i>
+   as
+   <i>
+    u
+   </i>
+   → ∞ means that lim
+   <i>
+    u
+   </i>
+   →∞
+   <i>
+    a(u)/b(u)
+   </i>
+   = 1)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}(A &gt; x) \sim \mathbb{E}(N)\mathbb{P}(X_1 &gt; x)
+   </math>
+   as
+   <math>
+    x \to \infty
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   provided in addition
+   <i>
+    Ɛ(z
+    <sup>
+     N
+    </sup>
+    ) &lt;
+   </i>
+   ∞ for some
+   <i>
+    z &gt;
+   </i>
+   1 (cf. [2], Chapter IX, Lemma 2.2).
+  </p>
+  <p block-type="TextInlineMath">
+   The classical insurance risk model is the
+   <i>
+    Cram´er— Lundberg model
+   </i>
+   (cf. [2, 4, 6, 8] and
+   <i>
+    see
+   </i>
+   <b>
+    Ruin Theory
+   </b>
+   ), where the
+   <i>
+    claim times
+   </i>
+   occur at the jump times of a Poisson
+   <i>
+    (λ)
+   </i>
+   process
+   <i>
+    (N (t))t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   <sup>
+    0
+   </sup>
+   (
+   <i>
+    see
+   </i>
+   <b>
+    Poisson Process
+   </b>
+   ) and the claims
+   <i>
+    (Xk )k
+   </i>
+   <sup>
+    ∈
+   </sup>
+   are again an independently and identically distributed sequence with finite mean. The
+   <i>
+    risk process
+   </i>
+   is for
+   <i>
+    initial reserve u
+   </i>
+   ≥ 0 and
+   <i>
+    premium rate c &gt;
+   </i>
+   0 defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) = u + ct - \sum_{k=1}^{N(t)} X_k, \quad t \ge 0 \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then the
+   <i>
+    ruin probability ψ(u) in infinite time
+   </i>
+   is the probability that
+   <i>
+    R
+   </i>
+   ever falls below 0, that is,
+   <i>
+    ψ(u)
+   </i>
+   =
+   <i>
+    -(
+   </i>
+   inf
+   <i>
+    t
+   </i>
+   ≥
+   <sup>
+    0
+   </sup>
+   <i>
+    R(t) &lt;
+   </i>
+   0
+   <i>
+    )
+   </i>
+   . Define the
+   <i>
+    integrated tail distribution function FI
+   </i>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_I(x) = \frac{1}{\mathbb{E}(X_1)} \int_0^x \overline{F}(y) \mathrm{d}y, \quad x \ge 0 \quad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <i>
+    FI
+   </i>
+   is subexponential (which is satisfied for all subexponential distributions
+   <i>
+    F
+   </i>
+   mentioned above under the condition that they have a finite mean) and
+   <i>
+    ρ
+   </i>
+   =
+   <i>
+    λƐ(X
+   </i>
+   1
+   <i>
+    )/c &lt;
+   </i>
+   1, then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) \sim \frac{\rho}{1-\rho} \int_{u}^{\infty} \overline{F_I}(y) \mathrm{d}y \quad \text{as } u \to \infty \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   a result that is often associated with the names of (in alphabetical order) Borovkov, Cohen, Embrechts, Pakes, Veraverbeke, and von Bahr.
+  </p>
+  <p block-type="TextInlineMath">
+   That
+   <i>
+    FI
+   </i>
+   plays a role may be understood from the fact that
+   <i>
+    FI
+   </i>
+   is the distribution function of the first undershoot of
+   <i>
+    R(t)
+   </i>
+   −
+   <i>
+    u
+   </i>
+   below 0 under the condition that
+   <i>
+    R(t)
+   </i>
+   falls below
+   <i>
+    u
+   </i>
+   in finite time. The number
+   <i>
+    M
+   </i>
+   of times, where
+   <i>
+    R(t)
+   </i>
+   achieves a new local minimum in finite time plus 1, is geometrically distributed with parameter
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    ρ)
+   </i>
+   , that is,
+   <i>
+    -(M
+   </i>
+   =
+   <i>
+    n)
+   </i>
+   =
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    ρ)ρn, n
+   </i>
+   ∈ 0. This easily leads to the
+   <i>
+    Beekman–Bowers–Pollaczek–Khinchine formula
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) = (1 - \rho) \sum_{n=1}^{\infty} \rho^n \overline{F_I^{n*}}(u), \quad u \ge 0 \quad (12)
+   </math>
+  </p>
+  <p block-type="Text">
+   from which equation (11) is an easy consequence.
+  </p>
+  <p block-type="Text">
+   For further aspects of ruin theory with heavy tails and a comprehensive set of recent references, see [5].
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Adler, R. &amp; Feldman, R.E. (1998).
+     <i>
+      A Practical Guide to Heavy Tails: Statistical Techniques and Applications
+     </i>
+     , Birkhauser, Boston. ¨
+    </li>
+    <li block-type="ListItem">
+     [2] Asmussen, S. (2001).
+     <i>
+      Ruin Probabilities
+     </i>
+     , World Scientific, Singapore.
+    </li>
+    <li block-type="ListItem">
+     [3] Bingham, N.H., Goldie, C.M. &amp; Teugels, J.L. (1987).
+     <i>
+      Regular Variation
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [4] Embrechts, P., Kluppelberg, C. &amp; Mikosch, T. (1997). ¨
+     <i>
+      Modelling Extremal Events for Insurance and Finance
+     </i>
+     , Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [5] Fasen, V. &amp; Kluppelberg, C. (2008). Large insurance ¨ losses distributions, in E. Melnick &amp; B. Everitt, eds,
+     <i>
+      Encyclopedia of Quantitative Risk Analysis and Assessment
+     </i>
+     , John Wiley &amp; Sons, 961–969.
+    </li>
+    <li block-type="ListItem">
+     [6] Mikosch, T. (2004).
+     <i>
+      Non-Life Insurance Mathematics
+     </i>
+     , Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [7] Resnick, S.I. (2007).
+     <i>
+      Heavy-Tail Phenomena: Probabilistic and Statistical Modeling
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [8] Rolski, T., Schmidli, H., Schmidt, V. &amp; Teugels, J. (1999).
+     <i>
+      Stochastic Processes for Insurance and Finance
+     </i>
+     , Wiley, Chichester.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <h4>
+   <b>
+    Accumulated Claims
+   </b>
+   ;
+   <b>
+    Heavy Tails
+   </b>
+   ;
+   <b>
+    Ruin Theory
+   </b>
+   .
+  </h4>
+  <p block-type="Text">
+   SØREN ASMUSSEN, VICKY FASEN &amp; CLAUDIA KLUPPELBERG ¨
+  </p>
+ </body>
+</html>

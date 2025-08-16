@@ -1,0 +1,3394 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Extreme Value Theory
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Univariate extreme value theory is primarily concerned with the limiting behavior of large (respectively,
+   <i>
+    small
+   </i>
+   ) values of real-valued random observations
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   as the
+   <i>
+    sample size
+   </i>
+   n increases indefinitely. We denote this by
+   <math display="inline">
+    n \to \infty
+   </math>
+   , bearing in mind that, in applications,
+   <math display="inline">
+    n
+   </math>
+   may be as small as 10 or 20. In some models,
+   <math display="inline">
+    n
+   </math>
+   may also be random, which brings some added technicalities (see, e.g.,
+   <math display="inline">
+    \S
+   </math>
+   6.2 in [25]). For example, the number
+   <i>
+    n
+   </i>
+   of insurance claims
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   observed in a time period is often assumed to follow a Poisson distri
+   <i>
+    bution
+   </i>
+   independent of the claim sequence [3]. In the following, we let
+   <math display="inline">
+    n \ge 1
+   </math>
+   be nonrandom, and denote by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{1,n} \le \dots \le X_{n,n} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   the
+   <i>
+    order statistics
+   </i>
+   of
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   , obtained by sorting the observations in increasing order. Of interest is the study of the
+   <i>
+    extreme values
+   </i>
+   <math display="inline">
+    M_n := X_{n,n} =
+   </math>
+   <math display="inline">
+    \max\{X_1,\ldots,X_n\}
+   </math>
+   and
+   <math display="inline">
+    m_n := X_{1,n} = \min\{X_1,\ldots,X_n\}
+   </math>
+   as
+   <math display="inline">
+    n \to \infty
+   </math>
+   . Multivariate extreme value theory concerns observations
+   <math display="inline">
+    \mathbf{X}_1,\ldots,\mathbf{X}_n
+   </math>
+   in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , with
+   <i>
+    extremal
+   </i>
+   vectors obtained by taking maxima (or minima) coordinate-wise. We start with the univariate case
+   <math display="inline">
+    d = 1
+   </math>
+   , before briefly considering extremes in higher dimensions, in the section Multivariate Extremes. We note that the multivariate theory of extreme values relies heavily on the notion of
+   <i>
+    copula
+   </i>
+   , which has given rise to intensive research in the last decades
+   <math display="inline">
+    [12,
+   </math>
+   45]. An example of its application to
+   <i>
+    option pricing
+   </i>
+   is provided in
+   <math display="inline">
+    [34]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The study of limit laws for
+   <math display="inline">
+    M_n
+   </math>
+   and
+   <math display="inline">
+    m_n
+   </math>
+   is motivated by the quest of
+   <i>
+    realistic probabilistic models
+   </i>
+   for extreme values of large collections of random variables (rv's). This is inspired by the common practice of statistical science, which often uses asymptotic formulae to approximate finite sample distributions. In the setup of estimation based on
+   <i>
+    sample means
+   </i>
+   , rates of convergence to limiting Gaussian laws are of order
+   <math display="inline">
+    O(n^{-1/2})
+   </math>
+   , which is accurate enough for a number of applications, even when
+   <math display="inline">
+    n = 50
+   </math>
+   or less. In extreme value theory, one may obtain convergence rates as slow as
+   <math display="inline">
+    O((\log n)^{-1/2})
+   </math>
+   , in which case, the limiting theory becomes irrelevant unless the sample size
+   <math display="inline">
+    n
+   </math>
+   is huge (see, e.g., [29] and § 2.10 in [25]). Unfortunately, other than the
+   <i>
+    standard limit laws
+   </i>
+   discussed in the section Extremes of Independent and Identically
+  </p>
+  <p block-type="Text">
+   Distributed (IID) Sequences, there are not many alternative models adapted to this situation, especially when not much is known about the data structure. One should therefore always remain extremely cautious in the conclusions that may be drawn from a blunt application of extreme value models. This drawback (the
+   <i>
+    curse of small sample sizes
+   </i>
+   ) turns out here to be one of the major practical difficulties to cope with.
+  </p>
+  <p block-type="TextInlineMath">
+   There are two great families of statistical problems dealing with extremes, depending on whether the
+   <i>
+    sample components
+   </i>
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   are observed or not. In the first case, one infers from
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   information concerning the law of
+   <math display="inline">
+    M_n
+   </math>
+   (or
+   <math display="inline">
+    m_n
+   </math>
+   ), and, possibly, on extremes of future observations from analog sequences. This may often be reduced to tail estimation, where one evaluates the tail behavior of the component distributions out of a selected number of extreme order statistics (see the section Tail Estimation). In the second case,
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   are generally unknown, and only extremes generated by these hidden quantities are at hand. Extreme value theory is then used for
+   <i>
+    model building
+   </i>
+   , and statistical applications rely on observations of random samples of extreme values. In this case, there are many competing methods of
+   <i>
+    parametric estimation
+   </i>
+   for the standard extreme-value distributions (refer to [8, 39], Chapter
+   <math display="inline">
+    19-21
+   </math>
+   in [35] and Chapter 22 in [36]); however, this problem is not discussed here. We mention that these estimation techniques are always difficult to use in practice, especially for small sample sizes. A major application can be found in
+   <i>
+    reliability theory
+   </i>
+   and
+   <i>
+    life
+   </i>
+   time analysis, where the basic historical references are the books of Barlow and Proschan [1], Crowder et al. [10], and Kalbfleisch and Prentice [37].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Univariate extreme values has received considerable attention since the pioneering work of Fréchet [24], Fisher and Tippett [22] and Gnedenko [28], from 1925 to 1945. Somewhat later, between 1935 and 1965, Gumbel [30] illustrated the statistical interest of these methods on a number of natural phenomenon (in particular,
+   <i>
+    floods
+   </i>
+   ). The probabilistic aspects of the theory made serious progress after 1960. In particular, the contributions of de Haan [13] in the years
+   <math display="inline">
+    1970-1985
+   </math>
+   , through a use of the theory of slow and regular variation, allowed to fully characterize the domains of attraction of extremal limit laws for independent and identically distributed (i.i.d.) sequences [5, 51]. Other remarkable developments include the point process theory related to records and extremal processes. These are not considered
+  </p>
+  <p block-type="Text">
+   here, and we refer to [46] and [49] for details. Multivariate extreme value theory was mostly initiated by Geffroy [27], Sibuya [52], and Tiago de Oliveira [54] during 1958–1960. We refer to [7, 15, 16, 47, 53], and the references therein for more recent contributions. A series of books on the subject are available. We may cite, among others, the monographs, surveys and proceedings volumes [4, 8, 9,
+   <math display="inline">
+    13, 14, 19-21, 23, 25, 26, 39, 40, 48, 55
+   </math>
+   , and [57]. We have not attempted to cite more than a tiny fraction of the thousands of papers of interest, and limit ourselves to a few selected references.
+  </p>
+  <h4>
+   <b>
+    Upper and Lower Extremes
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Given an integer
+   <math display="inline">
+    k \ge 1
+   </math>
+   , the
+   <i>
+    k
+   </i>
+   upper (respectively,
+   <i>
+    lower
+   </i>
+   ) sample
+   <i>
+    extremes
+   </i>
+   of
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   , are denoted by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_n^{(1)} := X_{n,n} \ge \dots \ge M_n^{(k)} := X_{n-k+1,n}
+   </math>
+   <br/>
+   (respectively
+   <math>
+    m_n^{(1)} := X_{1,n} \le \dots \le m_n^{(k)} := X_{k,n}
+   </math>
+   )
+   <br/>
+   (2)
+  </p>
+  <p block-type="Text">
+   for each
+   <math display="inline">
+    n &gt; k
+   </math>
+   . The (sample)
+   <i>
+    maximum
+   </i>
+   and
+   <i>
+    minimum
+   </i>
+   , are, respectively given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_n := M_n^{(1)} = X_{n,n} = \max\{X_1, \dots, X_n\} \quad \text{and}
+   </math>
+   <br/>
+   <math display="block">
+    m_n := m_n^{(1)} = X_{1,n} = \min\{X_1, \dots, X_n\} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   These quantities are of major interest in various fields, especially in economics and finance [3, 14, 19, 21]. For example, when
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   denote the successive claims registered in an insurance port
+   <i>
+    folio
+   </i>
+   , the upper extremes
+   <math display="inline">
+    M_n^{(1)} \ge M_n^{(2)} \ge \ldots
+   </math>
+   , must be closely monitored to evaluate reinsurance premi
+   <i>
+    ums
+   </i>
+   [3]. Extreme values are also critical in a number of natural phenomenon, especially when
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   are measures of
+   <i>
+    wind speeds
+   </i>
+   ,
+   <i>
+    sea levels
+   </i>
+   ,
+   <i>
+    temperature
+   </i>
+   , or other environmental indicators of interest [6, 8]. Lower extreme values are essential to life studies and
+   <i>
+    reliability
+   </i>
+   [1]. In the latter application,
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   denote the
+   <i>
+    life spans
+   </i>
+   of the
+   <math display="inline">
+    n
+   </math>
+   critical components of an equipment. Failure occurs (under the weakest link principle, see, e.g., p. 25 in [8]) at time
+   <math display="inline">
+    m_n^{(1)} = \min\{X_1, \ldots, X_n\}
+   </math>
+   . All kind of variants of this basic model are at hand (such as the
+   <math display="inline">
+    k
+   </math>
+   -out-of-
+   <math display="inline">
+    n
+   </math>
+   rule, where the equipment fails when
+   <math display="inline">
+    k
+   </math>
+   of its components have stopped functioning (see, e.g., p. 25 in
+   <math display="inline">
+    [8]
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   In the sequel, we concentrate on
+   <i>
+    upper extremes
+   </i>
+   . The description of lower extremes is identical after a scale reversal. Namely, the change of
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   into
+   <math display="inline">
+    -X_1, \ldots, -X_n
+   </math>
+   replaces the upper (respectively, lower) extremes of the first sequence, into
+   <math display="inline">
+    (-1)
+   </math>
+   times the lower (respectively, upper) extremes of the second sequence.
+  </p>
+  <h4>
+   <b>
+    Extremes of Independent and Identically Distributed (IID) Sequences
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   In the standard (or i.i.d.) model of extreme value theory,
+   <math display="inline">
+    X = X_1, X_2, \ldots
+   </math>
+   are
+   <i>
+    i.i.d.
+   </i>
+   rv's with distribution function (df)
+   <math display="inline">
+    F(x) = \mathbb{P}(X \leq x)
+   </math>
+   . Here,
+   <math display="inline">
+    \mathbb{P}(A)
+   </math>
+   denotes the probability of the event
+   <math display="inline">
+    A
+   </math>
+   . Even though this model may be far from reality (because of departures from the i.i.d. assumption caused by
+   <i>
+    trends
+   </i>
+   , dependence between observations or nonidentically distributed components), it is useful as a starting point in a number of real-life applications [8, 39]. The fundamental results of this model are captured into the following facts.
+  </p>
+  <p block-type="TextInlineMath">
+   We first seek conditions for the maximum
+   <math display="inline">
+    M_n :=
+   </math>
+   <math display="inline">
+    M_n^{(1)}
+   </math>
+   to have a limiting
+   <i>
+    nondegenerate
+   </i>
+   distribution (meaning the law of a nonconstant rv)
+   <math display="inline">
+    G(\cdot)
+   </math>
+   . This is equivalent to the existence of constants
+   <math display="inline">
+    a_n &gt; 0
+   </math>
+   and
+   <math display="inline">
+    b_n, n = 1, 2, \ldots
+   </math>
+   , such that, as
+   <math display="inline">
+    n \to \infty
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}\left(\frac{M_n - b_n}{a_n} \le x\right) = F^n(a_n x + b_n) \longrightarrow G(x) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for almost all x in
+   <math display="inline">
+    \mathbb{R} := (-\infty, \infty)
+   </math>
+   . The choice of
+   <math display="inline">
+    a_n
+   </math>
+   ,
+   <math display="inline">
+    b_n
+   </math>
+   , and
+   <math display="inline">
+    G(\cdot)
+   </math>
+   in equation (4) being not unique, the limiting
+   <math display="inline">
+    G(\cdot)
+   </math>
+   , when it exists, is only defined through its type (two df's
+   <math display="inline">
+    G_1(\cdot)
+   </math>
+   and
+   <math display="inline">
+    G_2(\cdot)
+   </math>
+   are of the same type iff there are constants
+   <math display="inline">
+    A &gt; 0
+   </math>
+   and B fulfilling
+   <math display="inline">
+    G_1(Ax + B) = G_2(x)
+   </math>
+   for almost all
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   ).
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Fact 1
+   </b>
+   The limit law (4) holds for some
+   <math display="inline">
+    F(\cdot)
+   </math>
+   , and appropriate
+   <i>
+    norming sequences
+   </i>
+   <math display="inline">
+    a_n &gt; 0
+   </math>
+   and
+   <math display="inline">
+    b_n
+   </math>
+   iff, up to a type equivalence (through the replacement of
+   <math display="inline">
+    G(x)
+   </math>
+   by
+   <math display="inline">
+    G((x - \mu)/\sigma)
+   </math>
+   for some
+   <math display="inline">
+    \sigma &gt; 0
+   </math>
+   and
+   <math display="inline">
+    \mu
+   </math>
+   ),
+   <math display="inline">
+    G(\cdot)
+   </math>
+   belongs to the class of extreme value distributions, collecting the following df's.
+  </p>
+  <p block-type="Text">
+   The
+   <i>
+    Gumbel
+   </i>
+   df:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(x) = \Lambda(x) := \exp\left(-e^{-x}\right) \text{ for } x \in \mathbb{R} \quad (5)
+   </math>
+  </p>
+  <p block-type="Text">
+   • The
+   <i>
+    Fr´echet
+   </i>
+   (class of) distribution function(s), defined, for
+   <i>
+    α &gt;
+   </i>
+   0 by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(x) = \Phi_{\alpha}(x) := \begin{cases} \exp(-x^{-\alpha}) &amp; \text{for } x &gt; 0\\ 0 &amp; \text{for } x \le 0 \end{cases}
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   • The (reverse)
+   <i>
+    Weibull
+   </i>
+   (class of) distribution function(s), defined, for
+   <i>
+    α &gt;
+   </i>
+   0, by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(x) = \Psi_{\alpha}(x) := \begin{cases} 1 &amp; \text{for } x \ge 0 \\ \exp(-(-x)^{\alpha}) &amp; \text{for } x &lt; 0 \end{cases}
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Remark 1
+   </b>
+   Whenever equation
+   <i>
+    (
+   </i>
+   4
+   <i>
+    )
+   </i>
+   holds, we say that
+   <i>
+    F (
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   belongs to the
+   <i>
+    domain of attraction
+   </i>
+   of
+   <i>
+    G(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   and write
+   <i>
+    F
+   </i>
+   ∈ D
+   <i>
+    (G)
+   </i>
+   . An extreme value df, given by
+   <i>
+    (
+   </i>
+   5
+   <i>
+    )
+   </i>
+   ,
+   <i>
+    (
+   </i>
+   6
+   <i>
+    )
+   </i>
+   , or
+   <i>
+    (
+   </i>
+   7
+   <i>
+    )
+   </i>
+   , is always of the form
+   <i>
+    G(x)
+   </i>
+   = exp
+   <i>
+    (
+   </i>
+   −
+   <i>
+    H (x))
+   </i>
+   , where
+   <i>
+    H (x)
+   </i>
+   is either exponential (in the Gumbel case), or a power function (in the Frechet and Weibull cases). In the section, Beyond the ´ Independent and Identically Distributed (IID) Case, this property is extended to nonidentically distributed sequences. In the present setup,
+   <i>
+    (
+   </i>
+   4
+   <i>
+    )
+   </i>
+   holds iff, for all
+   <i>
+    x
+   </i>
+   ∈ , as
+   <i>
+    n
+   </i>
+   → ∞,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    n\left(1 - F(a_n x + b_n)\right) \longrightarrow H(x) \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 2
+   </b>
+   In extreme value theory, Fact 1 plays a role of the same importance as the
+   <i>
+    central limit theorem
+   </i>
+   (CLT) in "classical" statistics. The CLT leads experimenters to favor the use of
+   <i>
+    Gaussian
+   </i>
+   distributions (within the class of
+   <i>
+    stable
+   </i>
+   laws) to describe statistics based on
+   <i>
+    sums
+   </i>
+   (or
+   <i>
+    means
+   </i>
+   ) of large numbers of i.i.d. components. In the same spirit, Fact 1, hints that extreme value laws should provide
+   <i>
+    reasonable candidates
+   </i>
+   to model the distributions of extremes of large numbers of rv's. This point is discussed further in the section, Beyond the Independent and Identically Distributed (IID) Case.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <b>
+    Fact 2
+   </b>
+   The existence of a limiting df
+   <i>
+    G(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   , such that
+   <i>
+    F
+   </i>
+   ∈ D
+   <i>
+    (G))
+   </i>
+   , is, unfortunately, limited to a
+   <i>
+    relatively small class of smooth distributions F (
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   , and applied scientists should not always take it for granted that this property is fulfilled by the data they consider. The characterizations of D
+   <i>
+    (α)
+   </i>
+   and D
+   <i>
+    (α)
+   </i>
+   are simple in terms of the
+   <i>
+    survivor function
+   </i>
+   1 −
+   <i>
+    F (x)
+   </i>
+   =
+   <i>
+    -(X &gt; x)
+   </i>
+   (see, for example,
+   <i>
+    (.
+   </i>
+   1–2
+   <i>
+    )
+   </i>
+   and
+   <i>
+    (.
+   </i>
+   1–2
+   <i>
+    )
+   </i>
+   below). On the other hand, the characterization
+  </p>
+  <p block-type="TextInlineMath">
+   of D
+   <i>
+    (-)
+   </i>
+   is a difficult mathematical question, which was only solved, after decades of research, by De Haan [13], Mejzler [43] and Marcus and Pinsky [41], among others, in terms of the
+   <i>
+    upper quantile function U (t)
+   </i>
+   =
+   <i>
+    F
+   </i>
+   inv
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    t)
+   </i>
+   = inf{
+   <i>
+    x
+   </i>
+   :
+   <i>
+    F (x)
+   </i>
+   ≥ 1 −
+   <i>
+    t
+   </i>
+   } for 0
+   <i>
+    &lt;t&lt;
+   </i>
+   1. These results (see equations (11)– (13) below) rely on the notion of
+   <i>
+    slow variation
+   </i>
+   . A positive function
+   <i>
+    L(t)
+   </i>
+   defined for
+   <i>
+    t
+   </i>
+   ≥
+   <i>
+    t
+   </i>
+   <sup>
+    0
+   </sup>
+   is
+   <i>
+    slowly varying
+   </i>
+   (in the neighborhood of infinity) iff, independently of
+   <i>
+    λ &gt;
+   </i>
+   0,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{t \to \infty} \frac{L(\lambda t)}{L(t)} = 1\tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For example, for
+   <i>
+    C &gt;
+   </i>
+   0 and
+   <i>
+    r
+   </i>
+   ∈ ,
+   <i>
+    L(t)
+   </i>
+   =
+   <i>
+    C(
+   </i>
+   log
+   <i>
+    t)r
+   </i>
+   is slowly varying. Such functions have been used in various branches of mathematics, such as
+   <i>
+    Tauberian theory
+   </i>
+   (see, e.g., Chapter V in [56]). Their structure is governed by
+   <i>
+    Karamata's theorem
+   </i>
+   (see [38], and [51]), showing that
+   <i>
+    L(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   fulfills equation
+   <i>
+    (
+   </i>
+   9
+   <i>
+    )
+   </i>
+   iff there exist functions
+   <i>
+    c(t)
+   </i>
+   →
+   <i>
+    c
+   </i>
+   ∈
+   <i>
+    (
+   </i>
+   0
+   <i>
+    ,
+   </i>
+   ∞
+   <i>
+    )
+   </i>
+   and
+   <i>
+    (t)
+   </i>
+   → 0 as
+   <i>
+    t
+   </i>
+   → ∞, such that, for all
+   <i>
+    t
+   </i>
+   ≥
+   <i>
+    t
+   </i>
+   0,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(t) = c(t) \exp\left(\int_{t_0}^t \frac{\epsilon(u)}{u} \, \mathrm{d}u\right) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   In view of equation
+   <i>
+    (
+   </i>
+   10
+   <i>
+    )
+   </i>
+   , we may characterize the domains of attraction of the extreme value laws as follows:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <i>
+      F
+     </i>
+     ∈ D
+     <i>
+      (α)
+     </i>
+     iff
+     <i>
+      F
+     </i>
+     has an infinite upper endpoint
+     <i>
+      ω
+     </i>
+     = sup{
+     <i>
+      x
+     </i>
+     :
+     <i>
+      F (x) &lt;
+     </i>
+     1}=∞, and fulfills one of the following equivalent conditions.
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       <i>
+        (.
+       </i>
+       1
+       <i>
+        )
+       </i>
+       There exists a slowly varying function
+       <i>
+        L
+       </i>
+       1
+       <i>
+        (
+       </i>
+       ·
+       <i>
+        )
+       </i>
+       such that 1 −
+       <i>
+        F (x)
+       </i>
+       =
+       <i>
+        x
+       </i>
+       <sup>
+        −
+       </sup>
+       <i>
+        αL
+       </i>
+       1
+       <i>
+        (x)
+       </i>
+       .
+      </li>
+     </ul>
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       <i>
+        (.
+       </i>
+       2
+       <i>
+        )
+       </i>
+       There exists a slowly varying function
+       <i>
+       </i>
+       <sup>
+        1
+       </sup>
+       <i>
+        (
+       </i>
+       ·
+       <i>
+        )
+       </i>
+       such that
+       <i>
+        U (t)
+       </i>
+       =
+       <i>
+        t
+       </i>
+       <sup>
+        −
+       </sup>
+       1
+       <i>
+        /α
+       </i>
+       1
+       <i>
+        (
+       </i>
+       1
+       <i>
+        /t)
+       </i>
+       (0
+       <i>
+        &lt; t &lt;
+       </i>
+       1).
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The df's
+   <i>
+    F (
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   fulfilling
+   <i>
+    (.
+   </i>
+   1
+   <i>
+    )
+   </i>
+   compose the class of
+   <i>
+    Pareto-type
+   </i>
+   laws, which is of major importance in applications of extreme value theory to distributions with infinite upper endpoints.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     2.
+     <i>
+      F
+     </i>
+     ∈ D
+     <i>
+      (α)
+     </i>
+     , iff
+     <i>
+      F
+     </i>
+     has a finite upper endpoint
+     <i>
+      ω
+     </i>
+     = sup{
+     <i>
+      x
+     </i>
+     :
+     <i>
+      F (x) &lt;
+     </i>
+     1}
+     <i>
+      &lt;
+     </i>
+     ∞, and fulfills one of the following equivalent conditions.
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       <i>
+        (.
+       </i>
+       1
+       <i>
+        )
+       </i>
+       There exists a slowly varying function
+       <i>
+        L
+       </i>
+       2
+       <i>
+        (
+       </i>
+       ·
+       <i>
+        )
+       </i>
+       such that 1−
+       <i>
+        F (ω
+       </i>
+       −
+       <i>
+        x)
+       </i>
+       =
+       <i>
+        xαL
+       </i>
+       2
+       <i>
+        (
+       </i>
+       1
+       <i>
+        /x)
+       </i>
+       (
+       <i>
+        x &gt;
+       </i>
+       0).
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     There exists a slowly varying function
+     <math display="inline">
+      (\Psi.2)
+     </math>
+     <math display="inline">
+      \ell_2(\cdot)
+     </math>
+     such that
+     <math display="inline">
+      U(t) = \omega - t^{1/\alpha} \ell_2(1/t)
+     </math>
+     <math display="inline">
+      (0 &lt; t &lt; 1)
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     3.
+     <math display="inline">
+      F \in \mathcal{D}(\Lambda)
+     </math>
+     for distributions with arbitrary upper endpoint, iff, the following condition holds.
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       <math display="inline">
+        (\Lambda)
+       </math>
+       There exists a slowly varying function
+       <math display="inline">
+        \ell_3(\cdot)
+       </math>
+       such that, for each
+       <math display="inline">
+        r &gt; 0
+       </math>
+       , as
+       <math display="inline">
+        t \downarrow 0
+       </math>
+       ,
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(rt) - U(t) = -(1 + o(1))(\log r)\ell_3(1/t)
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   The conditions
+   <math display="inline">
+    (\Phi.1)-(\Phi.2)
+   </math>
+   ,
+   <math display="inline">
+    (\Psi.1)-(\Psi.2)
+   </math>
+   and
+   <math display="inline">
+    (\Lambda)
+   </math>
+   , may be combined as follows [13]. The existence of
+   <math display="inline">
+    G \in \{\Phi_{\alpha}, \Psi_{\alpha}, \Lambda\}
+   </math>
+   such that
+   <math display="inline">
+    F \in \mathcal{D}(G)
+   </math>
+   is equivalent to the existence (in
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   ) of the limit, for all
+   <math display="inline">
+    r &gt; 0
+   </math>
+   and
+   <math display="inline">
+    s &gt; 0
+   </math>
+   with
+   <math display="inline">
+    s \neq 1
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(r,s) = \lim_{t \downarrow 0} \frac{U(rt) - U(t)}{U(st) - U(t)}
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   Whenever it exists, the limit in equation
+   <math display="inline">
+    (12)
+   </math>
+   can only be of the form
+   <math display="inline">
+    L_{\nu}(r, s)
+   </math>
+   , for some
+   <math display="inline">
+    \gamma \in \mathbb{R}
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(r,s) = L_{\gamma}(r,s) := \frac{r^{-\gamma} - 1}{s^{-\gamma} - 1} \quad \text{when} \quad \gamma \neq 0
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   or
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(r,s) = L_0(r,s) := \frac{\log r}{\log s} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The constant
+   <math display="inline">
+    \gamma \in \mathbb{R}
+   </math>
+   is usually called the
+   <i>
+    extremal index
+   </i>
+   pertaining to
+   <math display="inline">
+    F(\cdot)
+   </math>
+   (or
+   <math display="inline">
+    U(\cdot)
+   </math>
+   ). We have the following equivalent statements:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \gamma &gt; 0 \Longleftrightarrow F \in \mathcal{D}(\Phi_{\alpha}) \quad \text{with} \quad \alpha = 1/\gamma \quad (15)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \n\gamma &lt; 0 \Longleftrightarrow F \in \mathcal{D}(\Psi_{\alpha}) \quad \text{with} \quad \alpha = -1/\gamma\n
+   </math>
+   <math display="inline">
+    (16)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \gamma = 0 \Longleftrightarrow F \in \mathcal{D}(\Lambda) \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Remark 3 As follows from Fact 2, a serious
+   <i>
+    amount of smoothness
+   </i>
+   is needed for a df
+   <math display="inline">
+    F(\cdot)
+   </math>
+   to belong to
+   <math display="inline">
+    \mathcal{D}(G)
+   </math>
+   for some
+   <math display="inline">
+    G(\cdot)
+   </math>
+   . This is especially the case for
+   <math display="inline">
+    \mathcal{D}(\Lambda)
+   </math>
+   and somewhat less for
+   <math display="inline">
+    \mathcal{D}(\Phi_{\alpha})
+   </math>
+   and
+   <math display="inline">
+    \mathcal{D}(\Psi_{\alpha})
+   </math>
+   . A number of
+   <i>
+    standard distributions
+   </i>
+   of the literature fulfill the appropriate conditions, but there are some notable exceptions (in particular for the discrete df's, as mentioned below). Also, one should observe that the
+   <i>
+    standard
+   </i>
+   continuous distributions of
+  </p>
+  <p block-type="TextInlineMath">
+   statistics [35, 36] are always extremely smooth, and this property may not be shared by
+   <i>
+    real-life
+   </i>
+   distributions originating from experimental data. Therefore, one should always keep in mind that
+   <i>
+    the basic
+   </i>
+   assumptions needed for extreme value models are not likely to be fulfilled by real-life observations. For example, distributions
+   <math display="inline">
+    F(\cdot)
+   </math>
+   with
+   <math display="inline">
+    U(1/t)
+   </math>
+   slowly varying as
+   <math display="inline">
+    t \to \infty
+   </math>
+   do not necessarily fulfill (
+   <math display="inline">
+    \Lambda
+   </math>
+   ), and may very well not belong to
+   <math display="inline">
+    \mathcal{D}(\Lambda)
+   </math>
+   . This illustrates the fact that the use of Gumbel laws to model extremal data is often problematic. For standard distributions, the situation is more clear cut, as follows
+   <math display="inline">
+    [35, 36]
+   </math>
+   :
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     All standard continuous df's
+     <math display="inline">
+      F(\cdot)
+     </math>
+     of interest do belong to
+     <math display="inline">
+      \mathcal{D}(G)
+     </math>
+     for some
+     <math display="inline">
+      G \in \{\Lambda, \Phi_{\alpha}, \Psi_{\alpha}\}
+     </math>
+     . In particular, upper extremes of smooth
+     <i>
+      exponentialtailed
+     </i>
+     distributions, such as the exponential, gamma, normal, lognormal, and Weibull laws, belong to the domain of attraction
+     <math display="inline">
+      \mathcal{D}(\Lambda)
+     </math>
+     of the Gumbel law. The Fréchet
+     <math display="inline">
+      \mathcal{D}(\Phi_{\alpha})
+     </math>
+     domain holds for distributions with polynomial-type tails, such as exact Pareto laws of the form
+     <math display="inline">
+      1 - F(x) =
+     </math>
+     <math display="inline">
+      C(x-a)^{-\alpha}
+     </math>
+     for
+     <math display="inline">
+      x \ge x_0 &gt; a
+     </math>
+     , which are special cases of
+     <math display="inline">
+      (\Phi.1)
+     </math>
+     . Another important example of distributions in the Fréchet domain
+     <math display="inline">
+      \mathcal{D}(\Phi_{\alpha})
+     </math>
+     is given by the non-Gaussian stable laws. The case of the (reverse) Weibull law
+     <math display="inline">
+      \Psi_{\alpha}
+     </math>
+     is somewhat similar to
+     <math display="inline">
+      \Phi_{\alpha}
+     </math>
+     , and is not discussed here.
+    </li>
+    <li block-type="ListItem">
+     Almost all standard
+     <i>
+      discrete
+     </i>
+     df's
+     <math display="inline">
+      F(\cdot)
+     </math>
+     of interest do not belong to
+     <math display="inline">
+      \mathcal{D}(G)
+     </math>
+     for any possible
+     <math display="inline">
+      G \in
+     </math>
+     <math display="inline">
+      \{\Lambda, \Phi_{\alpha}, \Psi_{\alpha}\}\.
+     </math>
+     For example, the upper extremes of Poisson, geometric, or negative binomial distributions are not in the domain of attraction of an extreme value law. This disappointing fact brings some obvious practical difficulties, since all possible data sets are given on discrete scales.
+    </li>
+    <li block-type="ListItem">
+     Whenever the upper endpoint
+     <math display="inline">
+      \omega := \sup\{x :
+     </math>
+     <math display="inline">
+      F(x) &lt; 1
+     </math>
+     of the distribution
+     <math display="inline">
+      F \in \mathcal{D}(G)
+     </math>
+     is finite, the only possible choice for
+     <math display="inline">
+      G(\cdot)
+     </math>
+     is either Weibull
+     <math display="inline">
+      \Psi_{\alpha}
+     </math>
+     or Gumbel
+     <math display="inline">
+      \Lambda
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     Whenever the upper endpoint
+     <math display="inline">
+      \omega := \sup\{x :
+     </math>
+     <math display="inline">
+      F(x) &lt; 1
+     </math>
+     of the distribution
+     <math display="inline">
+      F \in \mathcal{D}(G)
+     </math>
+     is infi
+     <i>
+      nite
+     </i>
+     , the only possible choice for
+     <math display="inline">
+      G(\cdot)
+     </math>
+     is either Fréchet
+     <math display="inline">
+      \n\Phi_{\alpha}\n
+     </math>
+     or Gumbel Λ.
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <b>
+    Remark 4
+   </b>
+   Because of Fact 2, the study of upper extremes for
+   <i>
+    unbounded
+   </i>
+   distributions may be limited to df's
+   <math display="inline">
+    F(\cdot)
+   </math>
+   belonging to the Fréchet and Gumbel domains of attraction, with a nonnegative extremal index
+   <math display="inline">
+    \gamma &gt; 0
+   </math>
+   . In the sequel, we concentrate on this case, which is the most relevant for financial
+  </p>
+  <p block-type="Text">
+   models. Our point of view would be different if we had been concerned with
+   <i>
+    reliability theory
+   </i>
+   , for which the underlying distributions are bounded below by 0 (since the lifetime of a component cannot be negative). For this reason, the (direct or usual) Weibull distributions (including the exponential law) have become reference models for lifetime distributions. These laws correspond to
+   <math display="inline">
+    \gamma \leq 0
+   </math>
+   . We note that the standard form of a Weibull survival time
+   <math display="inline">
+    T
+   </math>
+   is obtained by changing signs in equation (7), so that (after some proper changes of scale and origin)
+   <math display="inline">
+    \mathbb{P}(T &gt; t) = \exp(-t^{\alpha})
+   </math>
+   for
+   <math display="inline">
+    t &gt; 0
+   </math>
+   and some
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . The special case
+   <math display="inline">
+    \alpha = 1
+   </math>
+   yields the
+   <i>
+    exponential law
+   </i>
+   , which appears as the foremost example of extreme value law for minima.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Fact 3
+   </b>
+   The constants
+   <math display="inline">
+    a_n
+   </math>
+   and
+   <math display="inline">
+    b_n
+   </math>
+   in equation (4) can be chosen as follows. Recall the definition
+   <math display="inline">
+    U(t) = F^{\text{inv}}(1 - t) := \inf\{x : F(x) \ge 1 - t\} \text{ for } 0 &lt;
+   </math>
+   <math display="inline">
+    t &lt; 1
+   </math>
+   of the
+   <i>
+    upper quantile function
+   </i>
+   of F.
+  </p>
+  <p block-type="Text">
+   When
+   <math display="inline">
+    F \in \mathcal{D}(\Phi_{\alpha})
+   </math>
+   , we may set
+   <math display="inline">
+    a_n = U(1/n)
+   </math>
+   and
+   <math display="inline">
+    b_n = 0
+   </math>
+   in equation (4), so that, as
+   <math display="inline">
+    n \to \infty
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}\left(\frac{M_n}{a_n} \le x\right) \longrightarrow \Phi_{\alpha}(x) = \exp(-x^{-\alpha})
+   </math>
+   for
+   <math>
+    x &gt; 0
+   </math>
+   (18)
+  </p>
+  <p block-type="Text">
+   When
+   <math display="inline">
+    F \in \mathcal{D}(\Lambda)
+   </math>
+   , we may set
+   <math display="inline">
+    a_n = U(1/(ne))
+   </math>
+   –
+   <math display="inline">
+    U(1/n)
+   </math>
+   and
+   <math display="inline">
+    b_n = U(1/n)
+   </math>
+   in equation (4).
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Remark 5
+   </b>
+   As a consequence of the results above, when
+   <math display="inline">
+    F \in \mathcal{D}(\Phi_{\alpha})
+   </math>
+   , we have, for some slowly varying function
+   <math display="inline">
+    L_0(\cdot)
+   </math>
+   , the convergence in distribution, as
+   <math display="inline">
+    n \to \infty
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{M_n}{n^{1/\alpha}L_0(n)} \stackrel{d}{\to} \Phi_\alpha \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This implies a very fast rate of increase for
+   <math display="inline">
+    M_n
+   </math>
+   as
+   <math display="inline">
+    n \to \infty
+   </math>
+   , especially when
+   <math display="inline">
+    0 &lt; \alpha &lt; 1
+   </math>
+   , in which case, it may be shown (see, e.g.,
+   <math display="inline">
+    §4.5
+   </math>
+   in [25]) that the sample sum
+   <math display="inline">
+    X_1 + \ldots + X_n
+   </math>
+   and maximum
+   <math display="inline">
+    \max\{X_1, \ldots, X_n\}
+   </math>
+   have the same order of magnitude. On the other hand, when
+   <math display="inline">
+    F \in \mathcal{D}(\Lambda)
+   </math>
+   , we have, for any choice of
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   and
+   <math display="inline">
+    L_0(\cdot)
+   </math>
+   , the convergence in probability, as
+   <math display="inline">
+    n \to \infty
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{M_n}{n^{1/\alpha}L_0(n)} \stackrel{\mathbb{P}}{\to} 0 \tag{20}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   This has important practical consequences. In many real-life examples, the data sets are mixtures
+  </p>
+  <p block-type="Text">
+   of rv's with different distributions. For example, in an insurance portfolio, it is often the case that the central part of the claim distribution is well fitted with a
+   <i>
+    lognormal distribution
+   </i>
+   . The exceptions, when they occur, are mostly in the upper tails, where one often detects a small proportion of
+   <i>
+    outliers
+   </i>
+   [2]. which cannot fit into the lognormal model. When such a phenomenon occurs, it should be interpreted as the presence in the data set of a
+   <i>
+    Pareto-type
+   </i>
+   component (fulfilling
+   <math display="inline">
+    (\Phi.1)
+   </math>
+   ), by definition, in the domain of attraction of a Fréchet law [50]. What one should do then is to perform some tail-estimation procedure on the outlying data. This, however, is always problematic, especially if the number of outliers (or identified as such) is relatively small. On the other hand, the presence of Pareto-type claims in a portfolio may generate huge losses if they are not properly taken into account.
+  </p>
+  <p block-type="TextInlineMath">
+   Fact 4 In the standard model, the limiting behavior of the maximum
+   <math display="inline">
+    M_n = M_n^{(1)}
+   </math>
+   governs the joint limiting behavior of any fixed number
+   <math display="inline">
+    k \ge 1
+   </math>
+   of upper extremes
+   <math display="inline">
+    M_n^{(1)}, \ldots, M_n^{(k)}
+   </math>
+   . More specifically, for each fixed
+   <math display="inline">
+    k \ge 1
+   </math>
+   , the existence of a nondegenerate limiting distribution
+   <math display="inline">
+    G(\cdot)
+   </math>
+   for the maximum
+   <math display="inline">
+    M_n^{(1)}
+   </math>
+   fulfilling equation
+   <math display="inline">
+    (4)
+   </math>
+   is equivalent to the existence of a limiting joint distribution for any (nonempty) subset of the
+   <math display="inline">
+    k \ge 1
+   </math>
+   upper extremes
+   <math display="inline">
+    M_n^{(1)}, \ldots, M_n^{(k)}
+   </math>
+   . In particular, equation (4) holds if and only if, for each
+   <math display="inline">
+    x_1,\ldots,x_k\in\mathbb{R}
+   </math>
+   , as
+   <math display="inline">
+    n\to\infty
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}\left(\frac{M_n^{(1)} - b_n}{a_n} \le x_1, \dots, \frac{M_n^{(k)} - b_n}{a_n} \le x_k\right) \longrightarrow G_k(x_1, \dots, x_k) \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    G_k
+   </math>
+   is a nondegenerate multivariate distribution depending only upon G and
+   <math display="inline">
+    k \ge 1
+   </math>
+   . Its structure is of major interest, and is detailed below. First, we consider the
+   <math display="inline">
+    k
+   </math>
+   th maximum, for an arbitrary (but fixed)
+   <math display="inline">
+    k \ge 1
+   </math>
+   . Let
+   <math display="inline">
+    G(x) = \exp(-H(x))
+   </math>
+   in equation (4). This statement is equivalent to having, for each specified
+   <math display="inline">
+    k \ge 1
+   </math>
+   and all
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   , as
+   <math display="inline">
+    n \to \infty
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}\left(\frac{M_n^{(k)} - b_n}{a_n} \le x\right) \longrightarrow \Big\{ \sum_{j=0}^{k-1} \frac{H(x)^j}{j!} \Big\} \times \exp(-H(x)) \quad (22)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is convenient to define the inverse function of
+   <math display="inline">
+    H(x) = -\log G(x)
+   </math>
+   by
+   <math display="inline">
+    H^{\text{inv}}(t) = \inf\{x : H(x) \ge t\}
+   </math>
+  </p>
+  <p>
+   &lt;table&gt;
+   <b>
+    Table 1
+   </b>
+   Scaling functions for extreme value laws
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      G(x)
+     </th>
+     <th>
+      H(x)
+     </th>
+     <th>
+      <math>
+       H^{\text{inv}}(t)
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \Lambda(x)
+      </math>
+     </td>
+     <td>
+      <math>
+       e^{-x}
+      </math>
+      for
+      <math>
+       x \in \mathbb{R}
+      </math>
+     </td>
+     <td>
+      <math>
+       -\log t
+      </math>
+      for
+      <math>
+       t &gt; 0
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \Phi_{\alpha}(x)
+      </math>
+     </td>
+     <td>
+      <math>
+       x^{-\alpha}
+      </math>
+      for
+      <math>
+       x &gt; 0
+      </math>
+     </td>
+     <td>
+      <math>
+       t^{-1/\alpha}
+      </math>
+      for
+      <math>
+       t &gt; 0
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \Psi_{\alpha}(x)
+      </math>
+     </td>
+     <td>
+      <math>
+       (-x)^{-\alpha}
+      </math>
+      for
+      <math>
+       x &lt; 0
+      </math>
+     </td>
+     <td>
+      <math>
+       -t^{-1/\alpha}
+      </math>
+      for
+      <math>
+       t&gt;0
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   for
+   <math display="inline">
+    t &gt; 0
+   </math>
+   . We obtain the particular cases given in Table 1.
+  </p>
+  <p block-type="TextInlineMath">
+   In view of Table 1, we may give an explicit form for the limit law in equation (21). Denote by
+   <math display="inline">
+    \omega_1, \omega_2, \ldots
+   </math>
+   i.i.d. exponential rv's with mean 1. In other words,
+   <math display="inline">
+    \mathbb{P}(\omega_i &gt; y) = e^{-y}
+   </math>
+   for
+   <math display="inline">
+    y \ge 0
+   </math>
+   . Then, for each specified
+   <math display="inline">
+    k &gt; 1
+   </math>
+   , we have the convergence in distribution, as
+   <math display="inline">
+    n \to \infty
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left\{\frac{M_n^{(1)} - b_n}{a_n}, \dots, \frac{M_n^{(k)} - b_n}{a_n}\right\}\n
+   </math>
+   <math display="block">
+    \n\stackrel{d}{\rightarrow} \left\{H^{\text{inv}}(\omega_1), \dots, H^{\text{inv}}(\omega_1 + \dots + \omega_k)\right\}\n
+   </math>
+   (23)
+  </p>
+  <p block-type="TextInlineMath">
+   Remark 6 This result has the important consequence that (in the standard model, subject to
+   <math display="inline">
+    F \in
+   </math>
+   <math display="inline">
+    \mathcal{D}(G)
+   </math>
+   , for each fixed
+   <math display="inline">
+    k &gt; 1
+   </math>
+   , the limiting structure of the k upper extremes depends only upon
+   <math display="inline">
+    G(x)
+   </math>
+   =
+   <math display="inline">
+    \exp(-H(x))
+   </math>
+   through the nonlinear change of scale
+   <math display="inline">
+    t \to H^{\text{inv}}(t)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Remark 7 The fact that the Gumbel class is a boundary case between the Fréchet and Weibull laws becomes straightforward when
+   <math display="inline">
+    \Lambda
+   </math>
+   ,
+   <math display="inline">
+    \Phi_{\alpha}
+   </math>
+   ,
+   <math display="inline">
+    \Psi_{\alpha}
+   </math>
+   are united into the class of generalized extreme value (GEV) laws. The latter, in standard form, depend only upon the
+   <i>
+    extreme
+   </i>
+   value index
+   <math display="inline">
+    \gamma
+   </math>
+   (or shape parameter) through
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G_{\gamma}(x) = \begin{cases} \exp(-(1+\gamma x)^{1/\gamma})\\ \text{for } 1+\gamma x &gt; 0 \text{ and } \gamma \neq 0\\ \exp(-\mathrm{e}^{-x})\\ \text{for } x \in \mathbb{R} \text{ and } \xi = 0 \end{cases}
+   </math>
+   (24)
+  </p>
+  <p block-type="TextInlineMath">
+   In the GEV setup,
+   <math display="inline">
+    G_{\gamma}
+   </math>
+   is of Weibull
+   <math display="inline">
+    \Psi_{-1/\gamma}
+   </math>
+   type when
+   <math display="inline">
+    \gamma &lt; 0
+   </math>
+   , of Fréchet
+   <math display="inline">
+    \Phi_{1/\gamma}
+   </math>
+   type when
+   <math display="inline">
+    \gamma &gt; 0
+   </math>
+   , and Gumbel
+   <math display="inline">
+    \Lambda
+   </math>
+   type when
+   <math display="inline">
+    \gamma = 0
+   </math>
+   . The representation of extreme value laws through
+   <math display="inline">
+    \Lambda
+   </math>
+   ,
+   <math display="inline">
+    \Phi_{\alpha}
+   </math>
+   , and
+   <math display="inline">
+    \Psi_{\alpha}
+   </math>
+   with
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   , or through
+   <math display="inline">
+    G_{\gamma}
+   </math>
+   with
+   <math display="inline">
+    \gamma \in \mathbb{R}
+   </math>
+   is a matter of pure convenience, and corresponds to identical
+  </p>
+  <p block-type="TextInlineMath">
+   models. In each case, an extreme value distribution is characterized by the extremal index (also called the
+   <i>
+    shape parameter
+   </i>
+   )
+   <math display="inline">
+    \gamma
+   </math>
+   , and by centering and scale factors
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    \sigma &gt; 0
+   </math>
+   . The general form of
+   <math display="inline">
+    G(\cdot)
+   </math>
+   in equation
+   <math display="inline">
+    (4)
+   </math>
+   is therefore given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(x) = G_{\gamma} \left(\frac{x-\mu}{\sigma}\right) \tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    G_{\gamma}
+   </math>
+   is as in equation (24). The GEV model has the advantage of characterizing an extreme value distribution through the triplet of parameters
+   <math display="inline">
+    \gamma \in \mathbb{R}
+   </math>
+   ,
+   <math display="inline">
+    \mu \in \mathbb{R}
+   </math>
+   , and
+   <math display="inline">
+    \sigma &gt; 0
+   </math>
+   .
+  </p>
+  <h1>
+   <b>
+    Beyond the Independent and Identically
+   </b>
+   Distributed (IID) Case
+  </h1>
+  <p block-type="TextInlineMath">
+   The simplest variant of the standard model of the section, Extremes of Independent and Identically Distributed (IID) Sequences, is when
+   <math display="inline">
+    X_1, X_2, \ldots
+   </math>
+   are independent but nonidentically distributed. Setting
+   <math display="inline">
+    F_i(x) = \mathbb{P}(X_i &lt; x)
+   </math>
+   for
+   <math display="inline">
+    i = 1, 2, \ldots
+   </math>
+   , the corresponding version of equation
+   <math display="inline">
+    (4)
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}\left(\frac{M_n - b_n}{a_n} \le x\right) = \prod_{j=1}^n F_j(a_n x + b_n) \longrightarrow G(x)
+   </math>
+   (26)
+  </p>
+  <p block-type="TextInlineMath">
+   If no further assumption is made, then the asymptotic theory based upon equation (26) is rather disappointing, since any given df
+   <math display="inline">
+    G(\cdot)
+   </math>
+   may be the limit law of
+   <math display="inline">
+    (M_n - b_n)/a_n
+   </math>
+   for some suitable
+   <math display="inline">
+    b_n
+   </math>
+   and
+   <math display="inline">
+    a_n &gt; 0
+   </math>
+   , subject to the proper choice of
+   <math display="inline">
+    F_1, F_2, \ldots
+   </math>
+   [33]. It is natural to impose some additional
+   <i>
+    uniformity assumptions
+   </i>
+   (see, e.g.,
+   <math display="inline">
+    \S
+   </math>
+   3.10 in [25]) implying, in particular, that the limiting law in equation
+   <math display="inline">
+    (26)
+   </math>
+   is unaffected by deleting one component of the sequence. If so, setting
+   <math display="inline">
+    G(x) = \exp(-H(x))
+   </math>
+   , in view of equation (8), we see that equation
+   <math display="inline">
+    (26)
+   </math>
+   (subject to the uniformity assumptions) is equivalent to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{j=1}^{n} (1 - F_j(a_n x + b_n)) \longrightarrow H(x) \tag{27}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In this case (see, e.g., § 3.9 in [25]), the class of
+   <math display="inline">
+    H(\cdot)
+   </math>
+   on the right-hand side of equation (27) is limited to the functions fulfilling one among the following conditions.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <math display="inline">
+      H(\cdot) = -\log G(\cdot)
+     </math>
+     is convex.
+    </li>
+    <li block-type="ListItem">
+     The upper endpoint
+     <math display="inline">
+      \omega_G := \sup\{x : G(x) &lt; \infty\}
+     </math>
+     2. of
+     <math display="inline">
+      G(\cdot)
+     </math>
+     is finite and
+     <math display="inline">
+      H(\omega_G - e^{-x})
+     </math>
+     is convex.
+    </li>
+    <li block-type="ListItem">
+     The lower endpoint
+     <math display="inline">
+      a_G := \inf\{x : G(x) &gt; 0\}
+     </math>
+     of 3.
+     <math display="inline">
+      G(\cdot)
+     </math>
+     is finite and
+     <math display="inline">
+      H(a_G + e^x)
+     </math>
+     is convex.
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   It follows that (1) holds when
+   <math display="inline">
+    G(x) = \Lambda(x)
+   </math>
+   , since
+   <math display="inline">
+    H(x) = e^{-x}
+   </math>
+   is convex. When
+   <math display="inline">
+    G(x) = \Phi_{\alpha}(x)
+   </math>
+   , we have
+   <math display="inline">
+    a_G = 0
+   </math>
+   and
+   <math display="inline">
+    H(x) = x^{\alpha}
+   </math>
+   . In this case, (3) holds, since
+   <math display="inline">
+    H(e^x) = e^{-\alpha x}
+   </math>
+   is convex. A similar result holds for
+   <math display="inline">
+    G(x) = \Psi_{\alpha}(x)
+   </math>
+   , which is covered by (2).
+  </p>
+  <p block-type="Text">
+   At this point, we reach the unpleasant conclusion that some slight variations in the assumption that the sample components are identically distributed may result in extremes with distributions far away from the classical triplet
+   <math display="inline">
+    \Phi_{\alpha}
+   </math>
+   ,
+   <math display="inline">
+    \Psi_{\alpha}
+   </math>
+   , and
+   <math display="inline">
+    \Lambda
+   </math>
+   of the section Extremes of Independent and Identically Distributed (IID) Sequences. Recalling Remark (2), we may compare this with the erroneous belief (which is quite common among nonexpert statisticians) that most distributions generated by sums of random components should be close to Gaussian laws. Any serious applied scientist knows quite well that this is very often untrue. Moreover, there is no such thing as a
+   <i>
+    perfect Gaussian sample
+   </i>
+   , even when it comes from simulated data. In the same spirit, there is no such thing as a
+   <i>
+    perfect extreme-value sample
+   </i>
+   , in the sense that, on real-life data sets,
+   <math display="inline">
+    \Phi_{\alpha}
+   </math>
+   ,
+   <math display="inline">
+    \Psi_{\alpha}
+   </math>
+   , and
+   <math display="inline">
+    \Lambda
+   </math>
+   provide, at best, some rough approximations of some more complex unknown distributions. There is no general recipe available in the scientific literature to go beyond extreme value laws, and one must, therefore, proceed with care in the interpretation of data by extreme value laws, in particular, by using nonparametric methods when the sample size allows their application.
+  </p>
+  <p block-type="Text">
+   There is a very important literature on extremes generated by
+   <i>
+    dependent sequences
+   </i>
+   . We refer to [25] for details on exchangeable and related models, and to [40] for a general treatment of extremes generated by various types of stochastic processes, such as stationary sequences. As far as financial time series are concerned, the recent review
+   <math display="inline">
+    [44]
+   </math>
+   is most useful. It turns out that, under rather weak
+   <i>
+    tail-mixing conditions
+   </i>
+   , measuring the asymptotic independence of random components, subject to the fact that they
+  </p>
+  <p block-type="Text">
+   are simultaneously large and with indices far form each other, most of the results of the standard case still apply. This is even true for
+   <i>
+    tail estimators
+   </i>
+   [32]. Extremes generated by
+   <i>
+    continuous processes
+   </i>
+   tend to be much more complex than those that we have been considering up to now for integer-indexed sequences. For this reason, this question is not discussed here. The case of
+   <i>
+    Gaussian processes
+   </i>
+   has been extensively explored, and we refer to [40] for an advanced initiation to this problem.
+  </p>
+  <h4>
+   <b>
+    Tail Estimation
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   We limit ourselves to the case where the upper endpoint
+   <math display="inline">
+    \omega = \sup\{x : F(x) &lt; 1\}
+   </math>
+   of the df F is infinite
+   <math display="inline">
+    (\omega = \infty)
+   </math>
+   , and where F is in the domain of attraction of an (upper) extreme value distribution. As discussed in the section Upper and Lower Extremes we have, either
+   <math display="inline">
+    F \in \mathcal{D}(\Lambda)
+   </math>
+   , or
+   <math display="inline">
+    F \in \mathcal{D}(\Phi_{\alpha})
+   </math>
+   for some
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . Since the Gumbel law
+   <math display="inline">
+    \Lambda
+   </math>
+   is the limit of
+   <math display="inline">
+    \Phi_{\alpha}
+   </math>
+   when
+   <math display="inline">
+    \alpha \to \infty
+   </math>
+   , we set, for convenience,
+   <math display="inline">
+    \Lambda = \Phi_{\infty}
+   </math>
+   , and assume that
+   <math display="inline">
+    F \in \mathcal{D}(\Phi_{\alpha})
+   </math>
+   for some
+   <math display="inline">
+    \alpha \in (0, \infty]
+   </math>
+   . The problem is then to estimate the regular varia
+   <i>
+    tion index
+   </i>
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   , or equivalently, the
+   <i>
+    tail index
+   </i>
+   <math display="inline">
+    \gamma =
+   </math>
+   <math display="inline">
+    1/\alpha \in [0,\infty)
+   </math>
+   , out of
+   <math display="inline">
+    X_1,\ldots,X_n
+   </math>
+   . In the following, we restrict our study to
+   <math display="inline">
+    \gamma \in (0, \infty)
+   </math>
+   , for Pareto-type laws, fulfilling, as
+   <math display="inline">
+    x \to \infty
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    1 - F(x) = x^{-1/\gamma} L_1(x) = x^{-1/\gamma} L_1(x) \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    L_0(\cdot)
+   </math>
+   is a slowly varying function. The modern approach to this problem was initiated in 1975 by Hill [31], who introduced the estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{\gamma}_n = \frac{1}{k} \sum_{j=1}^k \left\{ \log X_{n-j+1,n} - \log X_{n-k,n} \right\}
+   </math>
+   <math display="block">
+    = \sum_{j=1}^k \frac{j}{k} \left\{ \log X_{n-j+1,n} - \log X_{n-j,n} \right\} \tag{29}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    1 \leq k = k_n &lt; n
+   </math>
+   is an integer sequence varying with n. The use of
+   <math display="inline">
+    \widehat{\gamma}_n
+   </math>
+   is motivated by its
+   <i>
+    optimal character
+   </i>
+   as an estimator of
+   <math display="inline">
+    \gamma
+   </math>
+   based upon the k upper extremes
+   <math display="inline">
+    \{X_{n-j+1,n}: 1 \le j \le k+1\},\
+   </math>
+   in the particular case where
+   <math display="inline">
+    F(x) = 1 - x^{-\alpha}
+   </math>
+   for
+   <math display="inline">
+    x \ge 1
+   </math>
+   , follows an
+   <i>
+    exact
+   </i>
+   Pareto law. Moreover, the
+   <i>
+    Hill estimator
+   </i>
+   remains consistent under equation (28) subject to minimal conditions imposed upon
+   <math display="inline">
+    k_n
+   </math>
+   . This was proved in 1982 by Mason [42]
+  </p>
+  <p block-type="TextInlineMath">
+   (see also Deheuvels
+   <i>
+    et al.
+   </i>
+   <math display="inline">
+    [17]
+   </math>
+   ), who showed that the conditions
+   <math display="inline">
+    k = k_n \to \infty
+   </math>
+   and
+   <math display="inline">
+    k_n/n \to 0
+   </math>
+   are
+   <i>
+    necessary
+   </i>
+   and sufficient for the convergence (in probability) of
+   <math display="inline">
+    \gamma_n
+   </math>
+   to
+   <math display="inline">
+    \gamma
+   </math>
+   as
+   <math display="inline">
+    n \to \infty
+   </math>
+   for all
+   <math display="inline">
+    F \in \mathcal{D}(\Phi_{1/\gamma})
+   </math>
+   . For an
+   <i>
+    exact
+   </i>
+   Pareto law, these conditions also imply the asymptotic normality of
+   <math display="inline">
+    \widehat{\gamma}_n
+   </math>
+   , which fulfills the convergence in distribution (with
+   <math display="inline">
+    N(0, 1)
+   </math>
+   denoting the standard normal law), as
+   <math display="inline">
+    n \to \infty
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sqrt{k_n} \left\{ \frac{\widehat{\gamma}_n}{\gamma} - 1 \right\} \stackrel{d}{\to} N(0, 1) \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Unfortunately, with the exception of the special case of exact Pareto laws, the Hill estimator is always
+   <i>
+    biased
+   </i>
+   , and problematic to use. Besides the choice of the origin (to allow the definition of the logarithms in equation 29), the selection of
+   <math display="inline">
+    k = k_n
+   </math>
+   is quite delicate. This was illustrated in a number of papers where the performance of the Hill estimator was investigated on simulated and real data sets [3, 50], with different choices of
+   <math display="inline">
+    k
+   </math>
+   . At times, the results are so poor that these graphs have been called Hill horror plots. Hill's estimator as well as a number of alternative estimators of
+   <math display="inline">
+    \gamma
+   </math>
+   fall into the general class of
+   <i>
+    Kernel
+   </i>
+   estimators introduced in 1985 by Csörgő et al. [11]. These require a nonincreasing kernel
+   <math display="inline">
+    K(t) &gt; 0
+   </math>
+   on
+   <math display="inline">
+    [0, 1]
+   </math>
+   and are defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widetilde{\gamma}_{n} = \left(\sum_{j=1}^{k} \frac{j}{k} K\left(\frac{j}{k}\right) \left\{\log X_{n-j+1,n} - \log X_{n-j,n}\right\}\right)
+   </math>
+   <math display="block">
+    \times \left(\sum_{j=1}^{k} \frac{1}{k} K\left(\frac{j}{k}\right)\right)^{-1} \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Hill's estimator is the special case of equation (31) obtained by choosing
+   <math display="inline">
+    K(t) = 1
+   </math>
+   for
+   <math display="inline">
+    0 &lt; t &lt; 1
+   </math>
+   . As seen from the results of [11], the optimality of Hill's estimator is restricted to exact Pareto laws. An interesting application is given when
+   <math display="inline">
+    \widetilde{\gamma}_n
+   </math>
+   is applied to non-Gaussian stable laws. It turns out that in this case, the optimal choice of
+   <math display="inline">
+    K(\cdot)
+   </math>
+   is given by
+   <math display="inline">
+    K(t) = 1 - t
+   </math>
+   for
+   <math display="inline">
+    0 \le t \le 1
+   </math>
+   , and the optimal choice of
+   <math display="inline">
+    k_n
+   </math>
+   is of the form
+   <math display="inline">
+    Rn^{1/3}
+   </math>
+   for some appropriate constant R. This illustrates again the curse of small sample sizes. For example, when
+   <math display="inline">
+    n = 1000
+   </math>
+   , which is a rather large sample, we get
+   <math display="inline">
+    n^{1/3} = 10
+   </math>
+   . It is then rather difficult to admit that such a small value should fall within the range of
+   <math display="inline">
+    k_n \to \infty
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In applied science, tail estimation is a mix between know-how and advanced mathematics. The latter provides nice limit laws, with assumptions which are, more or less, never really fulfilled by the data of interest. At this point, an expert opinion becomes closer to a fancy guess than a seriously established scientific fact. We omit a detailed discussion of the various methods in use [3, 8, 14, 18, 19, 21, 39].
+  </p>
+  <h4>
+   Multivariate Extremes
+  </h4>
+  <p block-type="TextInlineMath">
+   For convenience, we limit our exposition to an i.i.d. sequence
+   <math display="inline">
+    (X_1, Y_1), \ldots, (X_n, Y_n)
+   </math>
+   of random vectors in
+   <math display="inline">
+    \mathbb{R}^2
+   </math>
+   . We are concerned with the limiting behavior of
+   <math display="inline">
+    (U_n, V_n) := (\max\{X_1, \ldots, X_n\}, \max\{Y_1, \ldots, Y_n\})
+   </math>
+   as
+   <math display="inline">
+    n \to \infty
+   </math>
+   , assuming the existence of sequences of constants
+   <math display="inline">
+    a'_n &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    a''_n &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    b'_n
+   </math>
+   and
+   <math display="inline">
+    b''_n
+   </math>
+   such that, as
+   <math display="inline">
+    n \to \infty
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}\Big(\frac{U_n - b'_n}{a'_n} \le x, \frac{V_n - b''_n}{a''_n} \le y\Big) \longrightarrow G(x, y) \tag{32}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    G(\cdot, \cdot)
+   </math>
+   denotes a bivariate df with nondegenerate marginal df's
+   <math display="inline">
+    K_1(x) = G(x, \infty)
+   </math>
+   and
+   <math display="inline">
+    K_2(y) =
+   </math>
+   <math display="inline">
+    G(\infty, y)
+   </math>
+   . This implies that
+   <math display="inline">
+    K_1
+   </math>
+   and
+   <math display="inline">
+    K_2
+   </math>
+   belong to the class
+   <math display="inline">
+    \{\Phi_{\alpha}, \Psi_{\alpha}, \Lambda : \alpha &gt; 0\}
+   </math>
+   of extreme value laws. This, however, is not enough. The copula function
+   <math display="inline">
+    C(\cdot,\cdot)
+   </math>
+   of
+   <math display="inline">
+    G(\cdot,\cdot)
+   </math>
+   defined through the identity
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(x, y) = C(K_1(x), K_2(y))
+   </math>
+   (33)
+  </p>
+  <p block-type="TextInlineMath">
+   must belong to the class of extreme value copulas. As shown by Pickands
+   <math display="inline">
+    [47]
+   </math>
+   , the characterization of a bivariate extreme value copula reduces to a convex function
+   <math display="inline">
+    \{D(x) : x \in [0, 1]\}
+   </math>
+   fulfilling the inequalities max
+   <math display="inline">
+    \{x, 1 - x\} \le D(x) \le 1
+   </math>
+   . Several nonparametric estimation procedures have been proposed (
+   <math display="inline">
+    [7, 16,
+   </math>
+   53, 57], and, for example, Chapter 3 [39]) to estimate
+   <math display="inline">
+    D(\cdot)
+   </math>
+   , which is often called the
+   <i>
+    dependence function
+   </i>
+   (even though this denomination is ambiguous, having been used with other meanings) of
+   <math display="inline">
+    G(\cdot, \cdot)
+   </math>
+   . This is a very active research field at the present time. The situation in higher dimensions (
+   <math display="inline">
+    d \ge 3
+   </math>
+   ) is even more complex, and has not yet led to very practical solutions.
+  </p>
+  <h3>
+   <b>
+    Conclusion
+   </b>
+  </h3>
+  <p block-type="Text">
+   Extreme value theory is a fascinating mathematical domain, which is often rather difficult to apply to real-life experiments, mostly because it relies on
+   <i>
+    tail properties
+   </i>
+   of the underlying distributions, for which very few observations are available. One should therefore always keep in mind, in this domain, the general principle that
+   <i>
+    statistical conclusions are always limited by the information carried by the data itself
+   </i>
+   . When this information is sparse or not available, scientists should remain careful about its interpretation.
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Barlow, R.E. &amp; Proschan, F. (1975).
+     <i>
+      Statistical Theory of Reliability and Life Testing: Probability Models
+     </i>
+     , Holt, Rinehart and Winston, New York.
+    </li>
+    <li block-type="ListItem">
+     [2] Barnett, V. &amp; Lewis, T. (1995).
+     <i>
+      Outliers in Statistical Data
+     </i>
+     , 3rd Edition, Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [3] Beirlant, J., Teugels, J.L. &amp; Vynckier, P. (1994). Extremes in non-life insurance, in
+     <i>
+      Extreme Value Theory and Applications
+     </i>
+     , J. Galambos, J. Lechner, E. Simiu &amp; N. Macri, eds, Kluwer, Dordrecht, pp. 489–510.
+    </li>
+    <li block-type="ListItem">
+     [4] Beirlant, J., Teugels, J.L. &amp; Vynckier, P. (1996).
+     <i>
+      Practical Analysis of Extreme Values
+     </i>
+     , Leuven University Press, Leuven.
+    </li>
+    <li block-type="ListItem">
+     [5] Bingham, N.H., Goldie, C. &amp; Teugels, J. (1987).
+     <i>
+      Regular Variation
+     </i>
+     , Encyclopedia of Mathematics and its Applications, Cambridge University Press, Cambridge, Vol. 27.
+    </li>
+    <li block-type="ListItem">
+     [6] Buishand, T.A. (1989). Statistics of extremes in climatology,
+     <i>
+      Statistica Neerlandica
+     </i>
+     <b>
+      43
+     </b>
+     , 1–30.
+    </li>
+    <li block-type="ListItem">
+     [7] Capera ´ a, P. &amp; Foug ` eres, A.-L. (2000). Estimation of ` a bivariate extreme value distribution,
+     <i>
+      Extremes
+     </i>
+     <b>
+      3
+     </b>
+     , 311–329.
+    </li>
+    <li block-type="ListItem">
+     [8] Castillo, E. (1988).
+     <i>
+      Extreme Value Theory in Engineering
+     </i>
+     , Academic Press, New York.
+    </li>
+    <li block-type="ListItem">
+     [9] Coles, S.G. (2001).
+     <i>
+      An Introduction to Statistical Modeling of Extreme Values
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [10] Crowder, M.J., Kimber, A.C., Smith, R.L. &amp; Sweeting, T.J. (1991).
+     <i>
+      Statistical Analysis of Reliability Data
+     </i>
+     , Chapman &amp; Hall, London.
+    </li>
+    <li block-type="ListItem">
+     [11] Csorg ¨ o, S., Deheuvels, P. &amp; Mason, D. (1985). Kernel ˝ estimates of the tail index of a distribution,
+     <i>
+      Annals of Statistics
+     </i>
+     <b>
+      13
+     </b>
+     , 1050–1077.
+    </li>
+    <li block-type="ListItem">
+     [12] Dall'Aglio, G. (1991).
+     <i>
+      Advances in Probability Distributions with given Marginals
+     </i>
+     , Kluwer, Dordrecht.
+    </li>
+    <li block-type="ListItem">
+     [13] De Haan, L. (1970).
+     <i>
+      On Regular Variation and Its Application to the Weak Convergence of Sample Extremes
+     </i>
+     , Mathematical Centre Tracts, Mathematisch Centrum, Amsterdam, Vol. 32.
+    </li>
+    <li block-type="ListItem">
+     [14] De Haan, L., De Vries, C.G., Husler, J. &amp; Smith, W.B. ¨ (1996). Multivariate extreme value estimation with
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   applications to economics and finance,
+   <i>
+    Communications in Statistics – Theory and Methods
+   </i>
+   <b>
+    25
+   </b>
+   (4), 685–908.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [15] Deheuvels, P. (1978). Caracterisation compl ´ ete des lois ` extremes multivari ˆ ees et de la convergence des types ´ extremes. ˆ
+     <i>
+      Publications de l'Institut de Statistique de l'Universit´e de Paris
+     </i>
+     <b>
+      23
+     </b>
+     , 1–36.
+    </li>
+    <li block-type="ListItem">
+     [16] Deheuvels, P. (1991). On the limiting behavior of the Pickands estimator for bivariate extreme value distributions,
+     <i>
+      Statistics and Probability Letters
+     </i>
+     <b>
+      12
+     </b>
+     , 429–439.
+    </li>
+    <li block-type="ListItem">
+     [17] Deheuvels, P., Haeusler, E. &amp; Mason, D.M. (1988). Almost sure convergence of the Hill estimator,
+     <i>
+      Mathematical Proceedings of the Cambridge Philosophical Society
+     </i>
+     <b>
+      104
+     </b>
+     , 371–381.
+    </li>
+    <li block-type="ListItem">
+     [18] Dekkers, A.L.M., Einmahl, J.H.J. &amp; De Haan, L. (1989). A moment estimator for the index of an extreme value distribution,
+     <i>
+      Annals of Statistics
+     </i>
+     <b>
+      17
+     </b>
+     , 1833–1855.
+    </li>
+    <li block-type="ListItem">
+     [19] Embrechts, P., Kluppelberg, C. &amp; Mikosch, T. (1997). ¨
+     <i>
+      Modelling Extremal Events for Insurance and Finance
+     </i>
+     , Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [20] Epstein, N. (1960). Elements of the theory of extreme values,
+     <i>
+      Technometrics
+     </i>
+     <b>
+      2
+     </b>
+     , 27–41.
+    </li>
+    <li block-type="ListItem">
+     [21] Finkenstadt, B. &amp; Rootz ¨ en, H. (2004). ´
+     <i>
+      Extreme Values in Finance, Telecommunications, and the Environment
+     </i>
+     , Chapman &amp; Hall/CRC, Boca Raton.
+    </li>
+    <li block-type="ListItem">
+     [22] Fisher, R.A. &amp; Tippett, L.H.C. (1928). Limiting forms of the frequency distributions of largest or smallest member of a sample,
+     <i>
+      Mathematical Proceedings of the Cambridge Philosophical Society
+     </i>
+     <b>
+      24
+     </b>
+     , 180–190.
+    </li>
+    <li block-type="ListItem">
+     [23] Fougeres, A.-L. (2004). Multivariate extremes, in `
+     <i>
+      Extreme Values in Finance, Telecommunications, and the Environment.
+     </i>
+     , B. Finkenstadt &amp; H. Rootzen, eds, Chapman &amp; Hall/CRC, Boca Raton, pp. 373–388.
+    </li>
+    <li block-type="ListItem">
+     [24] Frechet, M. (1927). Sur la loi de probabilit ´ e de l' ´ ecart ´ maximum.
+     <i>
+      Annales de la Soci´et´e Math´ematique Polonaise de Cracovie (Krak´ow),
+     </i>
+     <b>
+      6
+     </b>
+     , 93–116.
+    </li>
+    <li block-type="ListItem">
+     [25] Galambos, J. (1987).
+     <i>
+      The Asymptotic Theory of Extreme Order Statistics
+     </i>
+     , 2nd Edition, Krieger, Dordrecht.
+    </li>
+    <li block-type="ListItem">
+     [26] Galambos, J., Lechner, J. &amp; Simiu, E. (1994).
+     <i>
+      Extreme Value Theory and Applications
+     </i>
+     , Kluwer, Dordrecht.
+    </li>
+    <li block-type="ListItem">
+     [27] Geffroy, J. (1958–59). Contributions a la th ` eorie ´ des valeurs extremes. I,II, ˆ
+     <i>
+      Publications de l'Institut de. Statistique de l'Universit´e de Paris
+     </i>
+     <b>
+      7,8
+     </b>
+     , 37–121,124 –184.
+    </li>
+    <li block-type="ListItem">
+     [28] Gnedenko, B. (1943). Sur la distribution limite du terme maximum d'une serie al ´ eatoire, ´
+     <i>
+      Annals of Mathematics
+     </i>
+     <b>
+      44
+     </b>
+     , 423–453.
+    </li>
+    <li block-type="ListItem">
+     [29] Gomes, M.I. (1984). Penultimate limiting forms in extreme value theory,
+     <i>
+      Annals of the Institute of Statistical Mathematics
+     </i>
+     <b>
+      36
+     </b>
+     , 71–85.
+    </li>
+    <li block-type="ListItem">
+     [30] Gumbel, E.J. (1958).
+     <i>
+      Statistics of Extremes
+     </i>
+     , Columbia University Press, New York.
+    </li>
+    <li block-type="ListItem">
+     [31] Hill, B.M. (1975). A simple general approach to inference about the tail of a distribution,
+     <i>
+      Annals of Statistics
+     </i>
+     <b>
+      3
+     </b>
+     , 1163–1174.
+    </li>
+    <li block-type="ListItem">
+     [32] Hsing, T. (1991). On tail index estimation using dependent data,
+     <i>
+      Annals of Statistics
+     </i>
+     <b>
+      19
+     </b>
+     , 1547–1569.
+    </li>
+    <li block-type="ListItem">
+     [33] Husler, J. (1994). Extremes: limit results for univari- ¨ ate and multivariate nonstationary sequences, in
+     <i>
+      Extreme
+     </i>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <i>
+    Value Theory and Applications
+   </i>
+   , J. Galambos, J. Lechner, E. Simiu &amp; N. Macri, eds, Kluwer, Dordrecht, pp. 283–304.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [34] Husler, J. (1996). Multivariate option pricing and ¨ extremes, in
+     <i>
+      Multivariate Extreme Value Estimation with Applications to Economics and Finance
+     </i>
+     , W.B. Smith, J. Husler, L. DeHaan &amp; C.G. DeVries, eds, Communications in Statistics, Special Issue, pp. 853–870, Vol. 25.
+    </li>
+    <li block-type="ListItem">
+     [35] Johnson, N.L., Kotz, S. &amp; Balakrishnan, N. (1994).
+     <i>
+      Continuous Univariate Distributions
+     </i>
+     , 2nd Edition, Wiley, New York, Vol. 1.
+    </li>
+    <li block-type="ListItem">
+     [36] Johnson, N.L., Kotz, S. &amp; Balakrishnan, N. (1995).
+     <i>
+      Continuous Univariate Distributions
+     </i>
+     , 2nd Edition, Wiley, New York, Vol. 2.
+    </li>
+    <li block-type="ListItem">
+     [37] Kalbfleisch, J.D. &amp; Prentice, R.L. (1980).
+     <i>
+      The Statistical Analysis of Failure Time Data
+     </i>
+     , Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [38] Karamata, J. (1933). Sur un mode de croissance reguli ´ ere. Th ` eor ´ emes fondamentaux, `
+     <i>
+      Bulletin de la Soci´et´e Math´ematique de France
+     </i>
+     <b>
+      61
+     </b>
+     , 55–62.
+    </li>
+    <li block-type="ListItem">
+     [39] Kotz, S. &amp; Nadarajah, S. (2000).
+     <i>
+      Extreme Value Distributions – Theory and Applications
+     </i>
+     , Imperial College Press, London.
+    </li>
+    <li block-type="ListItem">
+     [40] Leadbetter, M.R., Lindgren, G. &amp; Rootzen, H. (1983). ´
+     <i>
+      Extremes and Related Properties of Random Sequences and Processes
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [41] Marcus, M.B. &amp; Pinsky, M.A. (1969). On the domain of attraction of exp
+     <i>
+      (
+     </i>
+     −e
+     <sup>
+      −
+     </sup>
+     <i>
+      <sup>
+       x
+      </sup>
+      )
+     </i>
+     ,
+     <i>
+      Journal of Mathematical Analysis and Applications
+     </i>
+     <b>
+      28
+     </b>
+     , 440–449.
+    </li>
+    <li block-type="ListItem">
+     [42] Mason, D.M. (1982). Laws of large numbers for sums of extreme values,
+     <i>
+      Annals of Probability
+     </i>
+     <b>
+      10
+     </b>
+     , 754–764.
+    </li>
+    <li block-type="ListItem">
+     [43] Mejzler, D.G. (1949). On a theorem of B.V. Gnedenko (Russian).
+     <i>
+      Sbornik Nauchnik Trudov Institut Akademiya Nauk Ukrainskoyi SSR,
+     </i>
+     <b>
+      12
+     </b>
+     , 31–35.
+    </li>
+    <li block-type="ListItem">
+     [44] Mikosch, T. (2004). Modeling dependence and tails of financial time series, in
+     <i>
+      Extreme Values in Finance, Telecommunications, and the Environment.
+     </i>
+     , B. Finkenstadt &amp; H. Rootzen, eds, Chapman &amp; Hall/CRC, Boca Raton, pp. 187–278.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [45] Nelsen, R.B. (1998).
+     <i>
+      An Introduction to Copulas
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [46] Nevzorov, V.B (2001).
+     <i>
+      Records: Mathematical Theory
+     </i>
+     . Translation of Mathematical Monographs, American Mathematical Society, Providence. Vol. 194.
+    </li>
+    <li block-type="ListItem">
+     [47] Pickands, J. (1981). Multivariate extreme value distributions.
+     <i>
+      Proceedings of the 43d ISI Session, Buenos Aires,
+     </i>
+     859–878.
+    </li>
+    <li block-type="ListItem">
+     [48] Reiss, R.D. &amp; Thomas, M. (1997).
+     <i>
+      Statistical Analysis of Extreme Values
+     </i>
+     , Birkhauser, Basel. ¨
+    </li>
+    <li block-type="ListItem">
+     [49] Resnick, S. (1987).
+     <i>
+      Extreme Values, Regular Variation and Point Processes
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [50] Resnick, S. (2004). Modeling data networks, in
+     <i>
+      Extreme Values in Finance, Telecommunications, and the Environment
+     </i>
+     , B. Finkenstadt &amp; H. Rootzen, eds, Chapman &amp; Hall/CRC, Boca Raton, pp. 289–361.
+    </li>
+    <li block-type="ListItem">
+     [51] Seneta, E. (1976).
+     <i>
+      Regularly Varying Functions
+     </i>
+     , Lecture Notes in Mathematics, Springer, Berlin, Vol. 508.
+    </li>
+    <li block-type="ListItem">
+     [52] Sibuya, M. (1960). Bivariate extremal statistics,
+     <i>
+      Ann. Inst. Statist. Math.
+     </i>
+     <b>
+      11
+     </b>
+     , 195–210.
+    </li>
+    <li block-type="ListItem">
+     [53] Tawn, J.A. (1988). Bivariate extreme value theory: models and estimation,
+     <i>
+      Biometrika
+     </i>
+     <b>
+      75
+     </b>
+     , 397–415.
+    </li>
+    <li block-type="ListItem">
+     [54] Tiago de Oliveira, J. (1958). Extremal distributions,
+     <i>
+      Revista da Faculdade Ciˆencias. Lisboa
+     </i>
+     <b>
+      2
+     </b>
+     , Ser. A Math.,
+     <b>
+      7
+     </b>
+     , 215–227.
+    </li>
+    <li block-type="ListItem">
+     [55] Tiago de Oliveira, J. (1984).
+     <i>
+      Statistical Extremes and Applications
+     </i>
+     , Reidel, Dordrecht.
+    </li>
+    <li block-type="ListItem">
+     [56] Widder, D.V. (1972).
+     <i>
+      The Laplace Transform
+     </i>
+     , Princeton University Press, Princeton.
+    </li>
+    <li block-type="ListItem">
+     [57] Xin, H. (1992).
+     <i>
+      Statistics of Bivariate Extreme Values
+     </i>
+     . Tinbergen Institute Research Series, Tinbergen.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Copulas in Econometrics
+   </b>
+   ;
+   <b>
+    Heavy Tails
+   </b>
+   ;
+   <b>
+    Moment Explosions
+   </b>
+   ;
+   <b>
+    Risk Measures: Statistical Estimation
+   </b>
+   ;
+   <b>
+    Stylized Properties of Asset Returns
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   PAUL DEHEUVELS
+  </p>
+ </body>
+</html>

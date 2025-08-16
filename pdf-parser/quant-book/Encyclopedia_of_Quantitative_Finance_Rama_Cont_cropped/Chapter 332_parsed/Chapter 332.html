@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Adverse Selection
+   </b>
+  </h1>
+  <p block-type="Text">
+   Adverse selection is potentially an important issue in a financial market whenever any trader has private information related to the value of an asset. An informed trader will strategically adjust his or her trade across states in a manner that reduces the payoff of an uninformed counterparty. The latter is subject to adverse selection: the likelihood of a transaction increases precisely in those states of the world in which the payoff from the transaction is lower.
+  </p>
+  <h2>
+   <b>
+    Adverse Selection in Quote-driven
+   </b>
+   Markets
+  </h2>
+  <p block-type="TextInlineMath">
+   Consider a single-period binomial model for one stock. In standard fashion, at time 1, the value of the stock is
+   <math display="inline">
+    v_h
+   </math>
+   with probability
+   <math display="inline">
+    \pi
+   </math>
+   and
+   <math display="inline">
+    v_\ell
+   </math>
+   with probability
+   <math display="inline">
+    (1 - \pi)
+   </math>
+   (see Figure 1). Suppose the riskfree rate is normalized to zero. Then, at time 0, a risk-neutral agent is indifferent between buying and selling any quantity of the stock at the expected value
+   <math display="inline">
+    v_0 = \pi v_h + (1 - \pi)v_\ell.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Now, suppose our risk-neutral agent at time 0 is asked to trade with an omniscient "informed" counterparty who knows the time 1 value of the stock. If our "uninformed" agent trades at a price
+   <math display="inline">
+    v_0 = \pi v_h + (1 - \pi)v_\ell
+   </math>
+   , he or she will always lose money: the counterparty buys the asset only if the value will be
+   <math display="inline">
+    v_h
+   </math>
+   at time 1, and sells the asset only if the value will be
+   <math display="inline">
+    v_{\ell}
+   </math>
+   at time 1.
+  </p>
+  <p block-type="Text">
+   In equilibrium, of course, the uninformed trader rationally anticipates such adverse selection. Thus, if the informed counterparty wishes to buy the stock,
+  </p>
+  <p>
+   <img src="_page_0_Figure_6.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Single-period binomial tree
+  </p>
+  <p block-type="Text">
+   the uninformed trader is only willing to sell it at
+   <math display="inline">
+    v_h
+   </math>
+   . Similarly, the uninformed trader is only willing to buy the stock at
+   <math display="inline">
+    v_{\ell}
+   </math>
+   . The possibility of adverse selection thus manifests itself as a spread between the ask price (the price at which he or she sells the stock) and the bid price (the price at which he or she buys the stock), thereby imposing a cost on all traders in the market.
+  </p>
+  <p block-type="TextInlineMath">
+   The binomial example is perforce stark: we assumed that the counterparty was perfectly informed. More generally, suppose the counterparty is perfectly informed with some probability
+   <math display="inline">
+    \gamma &gt; 0
+   </math>
+   , and uninformed with probability
+   <math display="inline">
+    1 - \gamma
+   </math>
+   . Then, we recover the essence of the Glosten and Milgrom [7] model (see Glosten-Milgrom Models). The bid-ask spread is easily seen to be increasing in
+   <math display="inline">
+    \gamma
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   To take the argument one step further, suppose there are a continuum of states at time 1, and the quantity an informed trader wishes to trade at time
+   <math display="inline">
+    0
+   </math>
+   is strictly increasing in value at time 1,
+   <math display="inline">
+    v_1
+   </math>
+   , holding fixed the price of the asset. Then, the uninformed agent should infer that
+   <math display="inline">
+    v_1
+   </math>
+   is higher when the net buy order is higher, so the bid-ask spread is naturally increasing in the quantity of shares traded. This intuition lies behind the Kyle [11] model (see Kyle Model).
+  </p>
+  <h3>
+   Adverse Selection in Limit Order Markets
+  </h3>
+  <p block-type="Text">
+   There is no market-maker in a limit order market; rather, traders transact directly with each other by posting orders (or price-quantity pairs) in a limit order book, and accepting the orders of other traders. The passage of time since a limit order was submitted allows for new information to arrive at the market. Thus, as Copeland and Galai [3] demonstrate, a limit order is inherently subject to adverse selection.
+  </p>
+  <p block-type="Text">
+   Suppose
+   <math display="inline">
+    v_s
+   </math>
+   , the expected value of the asset at time
+   <math display="inline">
+    t_s
+   </math>
+   , given all information available to that time, follows some stochastic process. Two kinds of agents are willing to trade in the market: liquidity or noise traders, who are uninformed, and informed traders. Liquidity traders are motivated to trade by unmodeled hedging or portfolio considerations. Each liquidity buyer
+   <i>
+    i
+   </i>
+   has a reservation value
+   <math display="inline">
+    v_i^b
+   </math>
+   , which comes from some distribution
+   <math display="inline">
+    F
+   </math>
+   , and is willing to buy at any price less than
+   <math display="inline">
+    v_i^b
+   </math>
+   . Informed traders, on the other hand, will buy only at a price less than
+   <math display="inline">
+    v_s
+   </math>
+   and sell only at a price above
+   <math display="inline">
+    v_s
+   </math>
+   . Each arriving trader is a liquidity trader with probability
+   <math display="inline">
+    q_{\ell}
+   </math>
+   and an informed trader with probability
+   <math display="inline">
+    1 - q_{\ell}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Now, consider an agent who places a sell order at time
+   <math display="inline">
+    t_0
+   </math>
+   , at an ask price
+   <math display="inline">
+    p_0 &gt; v_0
+   </math>
+   . Suppose a new trader arrives in the market at time
+   <math display="inline">
+    t_1 &gt; t_0
+   </math>
+   . There are two possibilities: (i) The buyer is an uninformed trader. Then, with probability
+   <math display="inline">
+    1 - F(p_0)
+   </math>
+   , no trade occurs. A transaction occurs with probability
+   <math display="inline">
+    F(p_0)
+   </math>
+   , with the limit order seller earning a payoff
+   <math display="inline">
+    p_0 - E(v_1)
+   </math>
+   <math display="inline">
+    v_0
+   </math>
+   ). (ii) The buyer is an informed trader. Then, with probability
+   <math display="inline">
+    Pr(v_1 &lt; p_0)
+   </math>
+   , no trade occurs. With probability
+   <math display="inline">
+    Pr(v_1 \ge p_0)
+   </math>
+   , a transaction occurs, and the payoff to the limit order seller is
+   <math display="inline">
+    p_0 - E(v_1 \mid v_0, v_1 &gt;
+   </math>
+   <math display="inline">
+    p_0) &lt; 0.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Adverse selection results in the overall transaction probability,
+   <math display="inline">
+    q_{\ell}F(p_0) + (1-q_{\ell})\Pr(v_1 \geq p_0),
+   </math>
+   being higher when
+   <math display="inline">
+    v_1 &gt; p_0
+   </math>
+   . As Glosten [5] points out, the knowledge that the seller traded with an informed buyer raises the expected value of the asset from
+   <math display="inline">
+    E(v_1 \mid v_0)
+   </math>
+   to the upper tail expectation
+   <math display="inline">
+    E(v_1 \mid v_0, v_1 &gt; p_0).
+   </math>
+  </p>
+  <p block-type="Text">
+   The price at which the sell limit order is posted,
+   <math display="inline">
+    p_0
+   </math>
+   , is chosen to maximize the submitter's overall expected payoff. Thus, even a relatively simple model of limit orders with asymmetric information involves a complicated decision on the part of a limit order submitter.
+  </p>
+  <h4>
+   Informed Traders Submitting Limit Orders
+  </h4>
+  <p block-type="Text">
+   To take this one step further, an informed trader may submit a limit order. Then, we have double-sided adverse selection: both the trader at
+   <math display="inline">
+    t_0
+   </math>
+   and the trader at
+   <math display="inline">
+    t_1
+   </math>
+   may find themselves trading with a counterparty who possesses better information about the asset's value.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   In equilibrium in such a model, will an informed trader submit limit or market orders? This question is posed by Goettler et al. [8]. In their infinite horizon model, a Poisson process determines trader arrival. An uninformed trader observes
+   <math display="inline">
+    v
+   </math>
+   with a lag
+   <math display="inline">
+    \Delta
+   </math>
+   . Traders may reenter the market with some delay. Let
+   <math display="inline">
+    \omega_s = \{L_s, (\hat{x}_s, \hat{p}_s), v_{s-\Delta}, v_s\}
+   </math>
+   denote the state at time
+   <math display="inline">
+    t_s
+   </math>
+   ; the state includes the current limit order book
+   <math display="inline">
+    L_s
+   </math>
+   , whether the most recent transaction resulted from a market buy (
+   <math display="inline">
+    \hat{x}_s = 1
+   </math>
+   ) or sell (
+   <math display="inline">
+    \hat{x}_s = -1
+   </math>
+   ) order, the price
+   <math display="inline">
+    \hat{p}_s
+   </math>
+   at which the most recent transaction occurred, and the lagged
+   <math display="inline">
+    (v_{s-\Delta})
+   </math>
+   and current
+   <math display="inline">
+    (v_s)
+   </math>
+   expectations of asset value. An informed trader observes the state at the time he or she enters the market. An uninformed trader observes a subset of the state,
+   <math display="inline">
+    \{L_s, (\hat{x}_s, \hat{p}_s), v_{s-\Delta}\}
+   </math>
+   . A trader
+   <i>
+    i
+   </i>
+   who executes an order
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    (x, p)
+   </math>
+   when the asset value is v obtains a payoff
+   <math display="inline">
+    x(\alpha_i + v - p)
+   </math>
+   , where
+   <math display="inline">
+    x = \pm 1
+   </math>
+   denotes the direction of the order,
+   <math display="inline">
+    p
+   </math>
+   the price at which it is submitted, and
+   <math display="inline">
+    \alpha_i
+   </math>
+   is a private benefit to trade (in the absence of such a private benefit, a no-trade theorem applies, and no transactions occur). A limit order changes the book to
+   <math display="inline">
+    L'_{s}
+   </math>
+   , thus affecting the states viewed by future traders.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \phi(v, \tau \mid \omega, x, p)
+   </math>
+   be the probability that a trader executes at time
+   <math display="inline">
+    t_{s+\tau}
+   </math>
+   when the value of the asset is
+   <math display="inline">
+    v
+   </math>
+   , if he or she takes action
+   <math display="inline">
+    (x, p)
+   </math>
+   in state
+   <math display="inline">
+    \omega
+   </math>
+   . For an informed trader, adverse selection is manifested in the
+   <math display="inline">
+    \phi(\cdot)
+   </math>
+   function, which, in equilibrium, is increasing in
+   <math display="inline">
+    v
+   </math>
+   for sell orders and decreasing in
+   <math display="inline">
+    v
+   </math>
+   for buy orders. In other words, sell orders are more likely to execute when the asset value has increased (so the sell price is too low) and buy orders when the asset value has decreased (so the buy price is too high). An uninformed trader must take a further expectation over the true state
+   <math display="inline">
+    \omega
+   </math>
+   and thus faces an added layer of adverse selection.
+  </p>
+  <p block-type="Text">
+   The model is solved numerically. Given the parameters chosen, in equilibrium, over 50% of the time, informed traders have limit orders at the best quotes, the exact proportion varying with asset characteristics. As a result, both the bid and ask prices and order depths from the limit order book are informative about the value of the asset. Uninformed traders therefore update their beliefs about value on observing the book, which mitigates adverse selection.
+  </p>
+  <p block-type="Text">
+   Thus, in a limit order market, we can expect both limit order submitters and market order submitters in a limit order market to face adverse selection. This result is consistent with the earlier analytic work of Chakravarty and Holden [2], who predict that an informed trader will use both market and limit orders. Bloomfield et al. [1] find that informed traders do use both market and limit orders in an experimental asset market.
+  </p>
+  <h2>
+   <b>
+    Empirical Evidence
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Ouantitative estimates of the adverse selection component of the bid-ask spread vary by sample. Glosten and Harris [6] propose using the direction of trade to estimate the adverse selection component of the bid-ask spread in a quote-driven market. Their basic
+  </p>
+  <p block-type="Text">
+   regression equation may be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta P_t = c_0(Q_t - Q_{t-1}) + \alpha Q_t V_t + \epsilon_t \qquad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    Pt
+   </i>
+   is the change in transaction price from
+   <i>
+    t
+   </i>
+   − 1 to
+   <i>
+    t
+   </i>
+   ,
+   <i>
+    Qt
+   </i>
+   is a trade direction indicator (+1 for a market buy and −1 for a market sell),
+   <i>
+    Vt
+   </i>
+   is the size of the order, and
+   <i>
+    t
+   </i>
+   is the change in price due to public information. Here,
+   <i>
+    c
+   </i>
+   <sup>
+    0
+   </sup>
+   +
+   <i>
+    α
+   </i>
+   equals the halfspread, with
+   <i>
+    c
+   </i>
+   <sup>
+    0
+   </sup>
+   representing the transitory component due to market-maker costs of supplying liquidity and
+   <i>
+    α
+   </i>
+   the permanent component due to adverse selection. On a sample of 250 NYSE stocks over a 14-month period from December 1981 to January 1983, they estimate that the adverse selection component is on average about 18% of the bid–ask spread.
+  </p>
+  <p block-type="TextInlineMath">
+   Madhavan
+   <i>
+    et al.
+   </i>
+   [12] extend the basic model to allow for
+   <i>
+    E
+   </i>
+   [
+   <i>
+    Qt
+   </i>
+   |
+   <i>
+    Qt
+   </i>
+   <sup>
+    −
+   </sup>
+   <sup>
+    1
+   </sup>
+   = 1] =
+   <i>
+    ρ
+   </i>
+   , the first-order autocorrelation in order flow. The adverse selection component depends on the innovation in order flow. They use generalized method of moments to estimate the model on 274 NYSE stocks over the year 1990, and find that the spread and the adverse selection component both vary by time of day, being largest in the initial half-hour of trading. Estimates of the adverse selection component vary from 51% of the spread in the first half-hour to 35–36% over the latter half of the day. Gibson
+   <i>
+    et al.
+   </i>
+   [4] conduct a spread decomposition in the postdecimalization era, and find that although overall spreads are lower, the proportion due to adverse selection and inventory holding costs has increased to 55–59% of the total spread.
+  </p>
+  <p block-type="Text">
+   A different approach to determining the effect of information on prices is taken by Hasbrouck [9], who specifies a vector autoregression for trade direction and the midpoint of the bid and ask quotes. The permanent price impact of an innovation in the trade process then reflects the effect of information in the market. He finds that the full price impact occurs with a protracted lag, suggesting that information is revealed slowly in the market.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Empirical work on adverse selection in limit order markets is based on Glosten's [5] model of an electronic limit order book. de Jong
+   <i>
+    et al.
+   </i>
+   [10] find that adverse selection accounts for 25% (small orders) to 60% (large orders) of the spread on the Paris Bourse over a 44-day period in 1991. Sandas [13] conducts a structural test of the model's ˚ restriction that bid prices be equal to the lower tail
+  </p>
+  <p block-type="Text">
+   expectation of asset value given the order size, and ask prices be equal to the corresponding upper tail expectation. The model is rejected, with the slope of the limit order book being too steep. This finding, interestingly, is consistent with noncompetitive limit order submission, suggesting that informed traders submit some proportion of limit orders.
+  </p>
+  <h2>
+   <b>
+    Conclusion
+   </b>
+  </h2>
+  <p block-type="Text">
+   Adverse selection is important to asset pricing for two reasons. First, in a frictionless market, the bid–ask spread should be zero, with all trades occurring at the price
+   <i>
+    v
+   </i>
+   0. However, because of the potential asymmetric information between traders, there is now a cost associated with changing a position in the asset. Indeed, if the adverse selection problem is sufficiently severe, the market may even close down.
+  </p>
+  <p block-type="Text">
+   Second, adverse selection represents a dimension of counterparty risk that is unhedgeable: one cannot directly trade on the event that the counterparty is informed, since such information is typically unverifiable in a court. Thus, we cannot create a replicating portfolio to hedge this risk, so that asymmetric information across traders implies that markets are fundamentally incomplete. This incompleteness may directly affect traders' valuation for an asset and therefore the risk-neutral probabilities themselves.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bloomfield, R., O' Hara, M. &amp; Saar, G. (2005). The 'make or take' decision in an electronic market: evidence on the evolution of liquidity,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      75
+     </b>
+     , 165–199.
+    </li>
+    <li block-type="ListItem">
+     [2] Chakravarty, S. &amp; Holden, C. (1995). An integrated model of market and limit orders,
+     <i>
+      Journal of Financial Intermediation
+     </i>
+     <b>
+      4
+     </b>
+     , 213–241.
+    </li>
+    <li block-type="ListItem">
+     [3] Copeland, T. &amp; Galai, D. (1983). Information effects on the bid-ask spread,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      38
+     </b>
+     (5), 1457–1469.
+    </li>
+    <li block-type="ListItem">
+     [4] de Jong, F., Nijman, T. &amp; Roell, A. (1996). Price effects ¨ of trading and components of the bid-ask spread on the Paris Bourse,
+     <i>
+      Journal of Empirical Finance
+     </i>
+     <b>
+      3
+     </b>
+     (2), 193–213.
+    </li>
+    <li block-type="ListItem">
+     [5] Gibson, S., Singh, R. &amp; Yerramilli, V. (2003). The effects of decimalization on the components of the bid-ask spread,
+     <i>
+      Journal of Financial Intermediation
+     </i>
+     <b>
+      12
+     </b>
+     , 121–148.
+    </li>
+    <li block-type="ListItem">
+     [6] Glosten, L. (1994). Is the electronic limit order book inevitable?
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      49
+     </b>
+     , 1127–1161.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [7] Glosten, L. &amp; Harris, L. (1988). Estimating the components of the bid/ask spread,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      21
+     </b>
+     (1), 123–142.
+    </li>
+    <li block-type="ListItem">
+     [8] Glosten, L. &amp; Milgrom, P. (1985). Bid, ask and transaction prices in a specialist market with heterogeneously informed traders,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      14
+     </b>
+     , 71–100.
+    </li>
+    <li block-type="ListItem">
+     [9] Goettler, R., Parlour, C. &amp; Rajan, U. (2008). Informed traders and limit order markets,
+     <i>
+      Journal of Financial Economics
+     </i>
+     . Forthcoming.
+    </li>
+    <li block-type="ListItem">
+     [10] Hasbrouck, J. (1991). Measuring the information content of stock trades,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      46
+     </b>
+     (1), 179–207.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [11] Kyle, A. (1985). Continuous auctions and insider trading,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      53
+     </b>
+     , 1315–1335.
+    </li>
+    <li block-type="ListItem">
+     [12] Madhavan, A., Richardson, M. &amp; Roomans, M. (1997). Why do security prices change? A transaction-level analysis of NYSE stocks,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      10
+     </b>
+     (4), 1035–1064.
+    </li>
+    <li block-type="ListItem">
+     [13] Sandas, P. (2001). Adverse selection and competitive ˚ market-making: empirical evidence from a limit order market,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      14
+     </b>
+     , 705–734.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   CHRISTINE A. PARLOUR &amp; UDAY RAJAN
+  </p>
+ </body>
+</html>

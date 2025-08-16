@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Model Validation
+   </b>
+  </h1>
+  <p block-type="Text">
+   One important way to mitigate model risk (
+   <i>
+    see
+   </i>
+   <b>
+    Models
+   </b>
+   ; for a more detailed discussion of model risk and how to mitigate model risk, see Crouhy
+   <i>
+    et al.
+   </i>
+   [1], chapter 14) is to invest in research to improve models and to develop better statistical tools, either internally at the bank or externally at a university (or at an analytically oriented consulting organization).
+  </p>
+  <p block-type="Text">
+   An even more vital way of reducing model risk is to establish a process for the independent vetting of how models are both selected and constructed. This should be complemented by independent oversight of the profit and loss (P&amp;L) calculation. In this article, we address the
+   <i>
+    ex ante
+   </i>
+   validation of pricing models developed for the front office of a trading institution.
+   <i>
+    Ex post
+   </i>
+   validation of risk models, or back testing, is addressed in
+   <b>
+    Backtesting
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   The role of vetting is to offer assurance to the firm's management that any model proposed by, say, a trading desk for the valuation of a given security, is reasonable. In other words, the model offers a reasonable representation of how the market itself values the instrument, and that the model has been implemented correctly. Vetting should consist of the following phases:
+  </p>
+  <h4>
+   <b>
+    1. Documentation
+   </b>
+  </h4>
+  <p block-type="Text">
+   The vetting team should ask for a full documentation of the model, including both the assumptions underlying the model and its mathematical expression. This should be independent of any particular implementation, such as a spreadsheet or a C++ computer code, and should include the following:
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     The term sheet or, equivalently, a complete description of the transaction.
+    </li>
+    <li block-type="ListItem">
+     A mathematical statement of the model, which should include the following:
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       An explicit statement of all the components of the model: stochastic variables and their processes, parameters, equations, and so on.
+      </li>
+     </ul>
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       The payoff function and/or any pricing algorithm for complex structured deals.
+      </li>
+     </ul>
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       The calibration procedure for the model parameters.
+      </li>
+     </ul>
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       The hedge ratios/sensitivities.
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Implementation features, that is, inputs, outputs, and numerical methods employed.
+    </li>
+    <li block-type="ListItem">
+     A working version of the implementation.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    2. Soundness of model
+   </b>
+  </h4>
+  <p block-type="Text">
+   An independent model vetter needs to verify that the mathematical model is a reasonable representation of the instrument that is being valued. For example, the manager might reasonably accept the use of a particular model (e.g., the Black model) for valuing a short-term option on a long maturity bond, but reject (without even looking at the computer code) the use of the same model to value a two-year option on a three-year bond. At this stage, the risk manager should concentrate on the finance aspects, and not become overly focused on the mathematics.
+  </p>
+  <h4>
+   <b>
+    3. Independent access to financial rates
+   </b>
+  </h4>
+  <p block-type="Text">
+   The model vetter should check that the bank's middle office has independent access to an independent market risk management financial rates database (to facilitate independent parameter estimation).
+  </p>
+  <h4>
+   <b>
+    4. Benchmark modeling
+   </b>
+  </h4>
+  <p block-type="Text">
+   The model vetter should develop a benchmark model based on the assumptions that are being made and on the specifications of the deal. Here, the model vetter may use a different implementation from the implementation that is being proposed. A proposed analytical model can be tested against a numerical approximation technique or against a simulation approach. (For example, if the model to be vetted is based on a "tree" implementation, one may instead rely on the partial differential equation approach and use the finite element technique to derive the numerical results.) The results of the benchmark test can be then compared with those of the proposed model.
+  </p>
+  <h4>
+   <b>
+    5. Health check and stress test the model
+   </b>
+  </h4>
+  <p block-type="Text">
+   Also, make sure that the model possesses the basic properties that all derivatives models should possess, such as put–call parity and other nonarbitrage conditions. Finally, the vetter should stress-test the model. The model can be stress-tested by looking at some limit scenario, in order to identify the range of parameter values for which the model provides accurate pricing. This is especially important for implementations that rely on numerical techniques.
+  </p>
+  <h3>
+   <b>
+    6. Build a formal treatment of model risk into the overall risk management procedures, and periodically reevaluate models
+   </b>
+  </h3>
+  <p block-type="Text">
+   Also, reestimate parameters using best-practice statistical procedures. Experience shows that simple, but robust models tend to work better than more ambitious, but fragile models. It is essential to monitor and control model performance over time.
+  </p>
+  <h2>
+   <b>
+    Reference
+   </b>
+  </h2>
+  <p block-type="Text">
+   [1] Crouhy, M., Galai, D. &amp; Mark, R. (2006).
+   <i>
+    The Essentials of Risk Management
+   </i>
+   , McGraw-Hill.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <h4>
+   <b>
+    Backtesting
+   </b>
+   ;
+   <b>
+    Models
+   </b>
+   .
+  </h4>
+  <p block-type="Text">
+   MICHEL CROUHY, DAN GALAI &amp; ROBERT MARK
+  </p>
+ </body>
+</html>

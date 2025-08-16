@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Factor Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   Factor models of security returns decompose the random return on each of a cross section of assets into factor-related and asset-specific returns. Letting
+   <math display="inline">
+    r
+   </math>
+   denote the vector of random returns on
+   <math display="inline">
+    n
+   </math>
+   assets, and assuming
+   <math display="inline">
+    k
+   </math>
+   factors, a factor decomposition has the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r = a + Bf + \varepsilon \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where B is an
+   <math display="inline">
+    n \times k
+   </math>
+   -matrix of factor betas, f is a random k-vector of factor returns, and
+   <math display="inline">
+    \varepsilon
+   </math>
+   is an
+   <i>
+    n
+   </i>
+   -vector of asset-specific returns. The
+   <math display="inline">
+    n
+   </math>
+   -vector of coefficients
+   <i>
+    a
+   </i>
+   is set so that
+   <math display="inline">
+    E[\varepsilon] = 0
+   </math>
+   . By defining
+   <i>
+    B
+   </i>
+   as the least squares projection
+   <math display="inline">
+    B = cov(r, f)C_f^{-1}
+   </math>
+   , it follows that
+   <math display="inline">
+    cov(f, \varepsilon) = 0^{k \times n}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The factor decomposition (1) puts no empirical restrictions on returns beyond requiring that the means and variances of
+   <math display="inline">
+    r
+   </math>
+   and
+   <math display="inline">
+    f
+   </math>
+   exist. So in this sense it is empty of empirical content. To add empirical structure, it is commonly assumed that the assetspecific returns
+   <math display="inline">
+    \varepsilon
+   </math>
+   are cross-sectionally uncorrelated,
+   <math display="inline">
+    E[\varepsilon \varepsilon'] = D
+   </math>
+   where D is a diagonal matrix. This implies that the covariance matrix of returns can be written as the sum of a matrix of rank
+   <math display="inline">
+    k
+   </math>
+   and a diagonal matrix:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    cov(r, r') = Bcov(f, f')B' + D \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This is called a
+   <i>
+    strict factor model
+   </i>
+   . Without loss of generality, one can assume that
+   <math display="inline">
+    cov(f, f')
+   </math>
+   has rank
+   <math display="inline">
+    k
+   </math>
+   , since otherwise one of the factors can be removed (giving a
+   <math display="inline">
+    k-1
+   </math>
+   factor model) without affecting the fit of the model.
+  </p>
+  <p block-type="TextInlineMath">
+   An important (and often troublesome) feature of factor models is their rotational indeterminacy. Let
+   <math display="inline">
+    L
+   </math>
+   denote any nonsingular
+   <math display="inline">
+    k \times k
+   </math>
+   -matrix and consider the set of factors
+   <math display="inline">
+    f^* = Lf
+   </math>
+   and factor betas
+   <math display="inline">
+    B^* = L^{-1}B
+   </math>
+   . Note that
+   <math display="inline">
+    f^*, B^*
+   </math>
+   can be used in place of
+   <math display="inline">
+    f, B
+   </math>
+   since only their matrix product affects returns and the linear "rotation"
+   <math display="inline">
+    L
+   </math>
+   disappears from this product. This means that factors
+   <math display="inline">
+    f
+   </math>
+   and associated factor betas
+   <math display="inline">
+    B
+   </math>
+   are only defined up to a
+   <math display="inline">
+    k \times k
+   </math>
+   linear transformation. In order to empirically identify the factor model, one can set the covariance matrix of the factors equal to an identity matrix,
+   <math display="inline">
+    E[ff'] = I_k
+   </math>
+   , without loss of generality.
+  </p>
+  <h1>
+   <b>
+    Approximate Factor Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   Security market returns have strong comovements, but the assumption that returns obey a strict factor model is easily rejected. In practice, for any reasonable value of
+   <math display="inline">
+    k
+   </math>
+   , there will be at least some discernible positive correlations between the assetspecific returns of at least some assets. An approximate factor model (originally developed by Chamberlain and Rothschild [7]) weakens the strict factor model of exactly zero correlations between all asset-specific returns. Instead, it assumes that there is a large number,
+   <math display="inline">
+    n
+   </math>
+   , of assets and the proportion of the correlations that are nonnegligibly different from zero is close to zero. This condition is formalized as a bound on the eigenvalues of the asset-specific return covariance matrix:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} \max \, eigval[cov(\varepsilon, \varepsilon')] &lt; c \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some fixed
+   <math display="inline">
+    c &lt; \infty
+   </math>
+   . Crucially, this condition implies that asset-specific returns are
+   <i>
+    diversifiable risk
+   </i>
+   in the sense that any well-spread portfolio
+   <math display="inline">
+    w
+   </math>
+   will have asset-specific variance near zero:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} w' \operatorname{cov}(\varepsilon, \varepsilon') w = 0 \text{ for any } w
+   </math>
+   <br/>
+   such that
+   <math display="block">
+    \lim_{n \to \infty} w' w = 0 \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   Note that an approximate factor model uses a "large
+   <math display="inline">
+    n
+   </math>
+   " modeling approach; the restrictions on the covariance matrix need only hold approximately as the number of assets
+   <math display="inline">
+    n
+   </math>
+   grows large.
+  </p>
+  <p block-type="TextInlineMath">
+   Letting
+   <math display="inline">
+    V = cov(\varepsilon, \varepsilon')
+   </math>
+   which is no longer diagonal, and choosing the rotation so that
+   <math display="inline">
+    cov(f, f') = I
+   </math>
+   , we can write the covariance matrix of returns as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    cov(r, r') = BB' + V \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   In addition to equation (4), it is appropriate to impose the condition that
+   <math display="inline">
+    \lim \min \text{eigval}[BB']
+   </math>
+   <math display="inline">
+    =\infty
+   </math>
+   . This ensures that each of the k factors represents a pervasive source of risk in the cross section of returns.
+  </p>
+  <h2>
+   <b>
+    Statistical Factor Models
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Financial researchers differentiate between characteristic-based, macroeconomic, and statistical factor models [2]). In a characteristic-based model, the
+  </p>
+  <p block-type="Text">
+   factor betas of asset are tied to observable characteristics of the securities, such as company size or the book-to-price ratio, or the industry categories to which each security belongs. In macroeconomic factor models, the factors are linked to the innovations in observable economic time series such as inflation and unemployment. In a statistical factor model, neither factors nor betas are tied to any external data sources and the model is identified from the covariances of asset returns alone.
+  </p>
+  <p block-type="TextInlineMath">
+   Recall the convenient rotation
+   <math display="inline">
+    E[ff'] = I
+   </math>
+   that allows us to write the strict factor model
+   <math display="inline">
+    (1)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    cov(r, r') = BB' + D \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   Assuming that the cross section of return is multivariate normal and independent and identically distributed (i.i.d.) through time, the sample covariance matrix
+   <math display="inline">
+    \widehat{cov}(r, r')
+   </math>
+   has a Wishart distribution. Imposing the strict factor model assumption
+   <math display="inline">
+    (6)
+   </math>
+   on the true covariance matrix, it is possible to estimate the set of parameters
+   <math display="inline">
+    B, D
+   </math>
+   by maximum likelihood. This maximum likelihood problem requires high-dimensional nonlinear maximization: there are
+   <math display="inline">
+    nK + n
+   </math>
+   parameters to estimate in
+   <math display="inline">
+    B, D
+   </math>
+   . There is also an inequality constraint on the maximization problem: the diagonal elements of
+   <math display="inline">
+    D
+   </math>
+   must be nonnegative, since they represent variances. The solution to the maximum likelihood problem yields estimates of
+   <math display="inline">
+    B
+   </math>
+   and
+   <math display="inline">
+    D
+   </math>
+   , which correspond to the systematic and unsystematic risk measures. It is often the case that estimates of the time series of factors,
+   <math display="inline">
+    f
+   </math>
+   , are of interest. These are called
+   <i>
+    factor scores
+   </i>
+   in the statistical literature and can be obtained through cross-sectional generalized least squares (GLS) regressions of
+   <math display="inline">
+    r
+   </math>
+   on
+   <math display="inline">
+    \widehat{B}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{f}_t = (\widehat{B}\widehat{D}^{-1}\widehat{B})^{-1}\widehat{B}\widehat{D}^{-1}r_t \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   See [5] for a review of the various iterative algorithms, which can be used to numerically solve the maximum likelihood factor analysis problem and estimate the factor scores. Roll and Ross [25] provide an early empirical application to equity returns data.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The first
+   <math display="inline">
+    k
+   </math>
+   eigenvectors of the return covariance matrix scaled by the square roots of their respective eigenvalues are called the
+   <math display="inline">
+    k
+   </math>
+   principal components of the covariance matrix. A restrictive version of the strict factor model is the
+   <i>
+    scalar fac
+   </i>
+   tor model, given by equation (2) plus the scalar matrix condition
+   <math display="inline">
+    D = \sigma_s^2 I
+   </math>
+   . Under the assumption of a scalar factor model, the maximum likelihood
+  </p>
+  <p block-type="TextInlineMath">
+   problem simplifies, and the principal components are the maximum likelihood estimates of the factor beta matrix
+   <math display="inline">
+    B
+   </math>
+   (the arbitrary choice of rotation is slightly different in this case). This provides a quick and simple alternative to maximum likelihood factor analysis, under the restrictive assumption
+   <math display="inline">
+    D = \sigma_{\rm c}^2 I.
+   </math>
+  </p>
+  <h3>
+   <b>
+    Asymptotic Principal Components
+   </b>
+  </h3>
+  <p block-type="Text">
+   The maximum likelihood method of factor model estimation relies on a strict factor model assumption and a time-series sample which is large relative to the number of assets in the cross section. Standard principal components require the even stronger condition of a scalar factor model. Neither method is well suited for asset returns where the cross section tends to be very large. Connor and Korajczyk [11] develop an alternative method called asymptotic principal components, building on the approximate factor model theory of Chamberlain and Rothschild [7]. Connor and Korajczyk analyze the eigenvector decomposition of the
+   <math display="inline">
+    T \times T
+   </math>
+   cross product matrix of returns rather than that of the
+   <math display="inline">
+    n \times n
+   </math>
+   covariance matrix of returns. They show that given a large cross section, the first
+   <math display="inline">
+    k
+   </math>
+   eigenvectors of this cross-product matrix provide consistent estimates of the
+   <math display="inline">
+    k \times T
+   </math>
+   matrix of factor returns. Stock and Watson [31] extend the theory to allow both large time series and large crosssectional samples, time-varying factor betas, and provide a quasi-maximum likelihood interpretation of the technique. Bai [3] analyzes the large-sample distributions of the factor returns and factor beta matrix estimates in a generalized version of this approach.
+  </p>
+  <h4>
+   <b>
+    Macroeconomic Factor Models
+   </b>
+  </h4>
+  <p block-type="Text">
+   The rotational indeterminacy in statistical factor models makes these unsuitable for the application of factor models to many research problems. Statistical factor models do not allow the analyst to assign meaningful labels to the factors and betas; one can identify the
+   <math display="inline">
+    k
+   </math>
+   pervasive risks in the cross section of returns, but not what these risks represent in terms of economic and financial theory.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   One approach to making the factor decomposition more interpretable is to rotate the statistical factors so that the rotated factors are maximally correlated with prespecified macroeconomic factors. If
+   <math display="inline">
+    f_t
+   </math>
+   is a
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    k
+   </i>
+   -vector of statistical factors and
+   <i>
+    mt
+   </i>
+   is a
+   <i>
+    k
+   </i>
+   -vector of macroeconomic innovations, we can regress the macroeconomic factors on the statistical factors:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    m_t = \Pi f_t + \eta_t \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   As long as  has rank
+   <i>
+    k
+   </i>
+   , the span of the rotated factors,
+   <i>
+    ft
+   </i>
+   , is the span of the original statistical factors,
+   <i>
+    ft
+   </i>
+   . However, the rotated factors can now be interpreted as the return factors that are correlated with the specified macroeconomic series. With this rotation the new factors are no longer orthogonal, in general. This approach is described in [12].
+  </p>
+  <p block-type="Text">
+   Alternatively, one can work with the prespecified macroeconomic series directly. Chan
+   <i>
+    et al.
+   </i>
+   [8] and Chen
+   <i>
+    et al.
+   </i>
+   [9] develop a macroeconomic factor model in which the factor innovations
+   <i>
+    f
+   </i>
+   are observed directly (using innovations in economic time series) and the factor betas are estimated via time-series regression of each asset's return on the time series of factors. They begin with the standard description of the current price of each asset,
+   <i>
+    pit,
+   </i>
+   as the present discounted value of its expected cash flows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{it} = \sum_{s=1}^{\infty} \frac{E[c_{it}]}{(1+\rho_{st})^s}
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    ρst
+   </i>
+   is the discount rate at time
+   <i>
+    t
+   </i>
+   for expected cash flows at time
+   <i>
+    t
+   </i>
+   +
+   <i>
+    s.
+   </i>
+   Chen, Roll, and Ross note that the common factors in returns must be variables which cause pervasive shocks to expected cash flows
+   <i>
+    E
+   </i>
+   [
+   <i>
+    cit
+   </i>
+   ] and/or risk-adjusted discount rates
+   <i>
+    ρst .
+   </i>
+   They propose inflation-, interest-rate-, and business-cyclerelated variates to capture these common factors. Shanken and Weinstein [29] find that empirically the model lacks robustness in that small changes in the included factors or the sample period have large effects on the estimates. Connor [10] argues that although macroeconomic factor models are theoretically attractive since they provide a deeper explanation for return comovement than statistical factor models, their empirical fit is substantially weaker than statistical and characteristic-based models. Vassalou [33] argues, on the other hand, that the ability of the Fama–French model (see below) to explain the cross section of mean returns can be attributed to the fact that Fama–French factors provide good proxies for macroeconomic factors.
+  </p>
+  <h1>
+   <b>
+    Characteristic-based Factor Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   A surprisingly powerful method for factor modeling of security returns is the characteristic-based factor model. Rosenberg [26] was the first to suggest that suitably scaled versions of standard accounting ratios (book-to-price ratio, market value of equity) could serve as factor betas. Using these predefined betas, he estimates the factor realizations
+   <i>
+    ft
+   </i>
+   by cross-sectional regression of time-
+   <i>
+    t
+   </i>
+   asset returns on the predefined matrix of betas.
+  </p>
+  <p block-type="Text">
+   In a series of very influential papers, Fama and French [16, 17, 18] propose a two-stage method for estimating characteristic-based factor models. In the first stage, they sort assets into fractile portfolios based on book-to-price and market value characteristics. They use the differences between returns on the top and bottom fractile portfolios as proxies for the factor returns. They also include a market factor proxied by the return on a capitalization-weighted market index. In the second stage, the factor betas of portfolios and/or assets are estimated by time-series regression of asset returns on the derived factors. Carhart [6] and Jegadeesh and Titman [22, 23] show that the addition of a momentum factor (proxied by high 12-month return minus low 12-month return) adds explanatory power to the Fama–French threefactor model, both in terms of explaining comovements and mean returns. Goyal and Santa-Clara [19] and Ang
+   <i>
+    et al.
+   </i>
+   [1, 2] also find evidence for an ownvolatility-related factor, for explaining both return comovements and mean returns.
+  </p>
+  <h1>
+   <b>
+    Industry–Country Components Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   One of the most empirically powerful factor decompositions for equity returns is an error-components model using industry affiliations. This involves setting the factor beta matrix equal to zero/one dummies, with row
+   <i>
+    i
+   </i>
+   containing a one in the
+   <i>
+    j
+   </i>
+   th column if and only if firm
+   <i>
+    i
+   </i>
+   belongs to industry
+   <i>
+    j
+   </i>
+   . This is the simplest type of characteristic-based factor model of equity returns.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The first statistical factor is dominant in equity returns, accounting for 80–90% of the explanatory power in a multifactor model. The standard specification of an error-components model does not isolate the "first" factor since its influence is spread across the factors. Heston and Rouwenhorst [20] describe an alternative specification in which this factor is
+  </p>
+  <p block-type="Text">
+   separated from the
+   <math display="inline">
+    k
+   </math>
+   industry factors. They add a constant to the model, so that the expanded set of factors
+   <math display="inline">
+    k + 1
+   </math>
+   is not directly identified (this lack of identification is sometimes called the dummy variable trap, referring to a model that includes a full set of zero-one dummies plus a constant). Heston and Rouwenhorst, impose an adding-up restriction on the estimated
+   <math display="inline">
+    k+1
+   </math>
+   factors; the set of industry factors must sum to zero. This adding-up restriction on the factors restores statistical identification to the model, requiring constrained least squared in place of standard least squares estimation. It also provides a useful interpretation of the estimated factors: the factor associated with the constant term is the "marketwide" or "first" factor, and the factors associated with the industry dummies are the extra-market industry factors. This specification has been widely adopted in the literature.
+  </p>
+  <p block-type="Text">
+   Heston and Rouwenhorst's adding-up condition is particularly useful in a multicountry context. It allows one to include an overlapping set of country and industry dummies without encountering the problem of the dummy variable trap. Including a constant, an international industry-country factor model must impose adding-up conditions both on the estimated industry factors and on the estimated country factors. This type of country-industry specification is useful, for example, in measuring the relative contribution of cross-border and national influences to return comovements; see, for example, [21].
+  </p>
+  <h2>
+   <b>
+    Determining the Number of Factors
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   In the case of maximum likelihood estimation of a strict factor model, it is possible to test for the correct number of factors by comparing the likelihood of the model with k factors to that of a
+   <math display="inline">
+    k + 1
+   </math>
+   factor model. Under the standard assumptions, for large timeseries samples, the ratio of the log likelihoods has an approximate chi-squared distribution. There are drawbacks to this test in the context of asset returns data and its performance has been problematic; see, for example, [14, 15], and [28], in which the test is found to be unreliable. The test may rely too strongly on the assumption of a strict factor model (an exactly diagonal covariance matrix of asset-specific returns), which is at best a convenient fiction in the case of asset returns. Also, it tests the hypothesis that the correct number of factors has been prespecified,
+  </p>
+  <p block-type="Text">
+   rather than optimally determining the best number of factors to use.
+  </p>
+  <p block-type="Text">
+   Connor and Korajczyk [13] derive a test for the number of factors, which is robust to having an approximate, rather than strict factor model. It is based on the decline in average idiosyncratic variance as additional factors are added.
+  </p>
+  <p block-type="Text">
+   Bai and Ng [4] take a different approach to the factor-number decision. They view the choice of the number of factors as a model selection problem. and build on the Akaike and Bayesian information criterea (BIC) information criteria-based tests for model selection. Bai and Ng compute the average asset-specific variance (both across time and across securities) in a model with
+   <math display="inline">
+    k
+   </math>
+   factors:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{\varepsilon}^{2}(k) = \frac{1}{nT} \sum_{i=1}^{n} \sum_{t=1}^{T} \widehat{\varepsilon}_{it}^{2} \qquad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   The Bai-Ng procedure involves choosing
+   <math display="inline">
+    k
+   </math>
+   to minimize a degrees-of-freedom adjusted variant of average asset-specific variance:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k^* = \arg\min \sigma_s^2 + kg(n, T) \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the penalty function
+   <math display="inline">
+    g(n, T)
+   </math>
+   serves to compensate for the lost degrees of freedom when estimating the model with more factors.
+  </p>
+  <h4>
+   <b>
+    Factor Beta Pricing Theory
+   </b>
+  </h4>
+  <p block-type="Text">
+   A central concern in asset pricing theory is the determination of asset risk premia and their connection to sources of pervasive risk. Factor models have been central to this research area. In a factor beta pricing model, the expected return of each asset equals the risk-free return plus a linear combination of the factor betas of the assets, with the linear weights (factor risk premia) constant across securities:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[r] = 1^n r_0 + B\pi \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    r_0
+   </math>
+   is the risk-free return and
+   <math display="inline">
+    \pi
+   </math>
+   is a k-vector of factor risk premia. Important special cases include the capital asset pricing model [30] (Treynor, J.L. (1961). Toward a Theory of Market Value of Risky Assets.(unpublished working paper).) [32], the arbitrage pricing theory [27], the Fama-French model [17, 18], and [24] intertemporal capital asset pricing model.
+  </p>
+  <h1>
+   <b>
+    Acknowledgments
+   </b>
+  </h1>
+  <p block-type="Text">
+   Author Korajczyk would like to acknowledge financial support from the Zell Center for Risk Research and the Jerome Kenney Fund.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Ang, A., Hodrick, R.J., Xing, Y. &amp; Zhang, X. (2006). The cross-section of volatility and expected returns,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      61
+     </b>
+     , 259–299.
+    </li>
+    <li block-type="ListItem">
+     [2] Ang, A., Hodrick, R.J., Xing, Y. &amp; Zhang, X. (2009). High idiosyncratic risk and low returns: international and further U.S. evidence,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      91
+     </b>
+     , 1–23.
+    </li>
+    <li block-type="ListItem">
+     [3] Bai, J. (2003). Inferential theory for factor models of large dimension,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      71
+     </b>
+     , 135–171.
+    </li>
+    <li block-type="ListItem">
+     [4] Bai, J. &amp; Ng, S. (2002). Determining the number of factors in approximate factor models,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      70
+     </b>
+     , 191–221.
+    </li>
+    <li block-type="ListItem">
+     [5] Basilevsky, A. (1994).
+     <i>
+      Statistical Factor Analysis and Related Methods
+     </i>
+     , Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [6] Carhart, M.M. (1997). On persistence in mutual fund performance,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      52
+     </b>
+     , 57–82.
+    </li>
+    <li block-type="ListItem">
+     [7] Chamberlain, G. &amp; Rothschild, M. (1983). Arbitrage, factor structure and mean–variance analysis in large asset markets,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      51
+     </b>
+     , 1305–1324.
+    </li>
+    <li block-type="ListItem">
+     [8] Chan, K.C., Chen, N.-F. &amp; Hsieh, D.A. (1985). An exploratory investigation of the firm size effect,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      14
+     </b>
+     , 451–471.
+    </li>
+    <li block-type="ListItem">
+     [9] Chen, N.-F., Roll, R. &amp; Ross, S.A. (1986). Economic forces and the stock market,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      59
+     </b>
+     , 383–403.
+    </li>
+    <li block-type="ListItem">
+     [10] Connor, G. (1995). The three types of factor models: a comparison of their explanatory power,
+     <i>
+      Financial Analysts Journal
+     </i>
+     <b>
+      51
+     </b>
+     , 42–46.
+    </li>
+    <li block-type="ListItem">
+     [11] Connor, G. &amp; Korajczyk, R.A. (1986). Performance measurement with the arbitrage pricing theory: a new framework for analysis,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      15
+     </b>
+     , 373–394.
+    </li>
+    <li block-type="ListItem">
+     [12] Connor, G. &amp; Korajczyk, R.A. (1991). The attributes, behavior, and performance of U.S. mutual funds,
+     <i>
+      Review of Quantitative Finance and Accounting
+     </i>
+     <b>
+      1
+     </b>
+     , 5–26.
+    </li>
+    <li block-type="ListItem">
+     [13] Connor, G. &amp; Korajczyk, R.A. (1993). A test for the number of factors in an approximate factor model,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      48
+     </b>
+     , 1263–1291.
+    </li>
+    <li block-type="ListItem">
+     [14] Conway, D.A. &amp; Reinganum, M.R. (1988). Stable factors in security returns: identification using crossvalidation,
+     <i>
+      Journal of Business &amp; Economic Statistics
+     </i>
+     <b>
+      6
+     </b>
+     , 1–15.
+    </li>
+    <li block-type="ListItem">
+     [15] Dhrymes, P.J., Friend, I. &amp; Gultekin, N.B. (1984). A critical reexamination of the empirical evidence on the arbitrage pricing theory,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      39
+     </b>
+     , 323–246.
+    </li>
+    <li block-type="ListItem">
+     [16] Fama, E.F. &amp; French, K.R. (1992). The cross-section of expected stock returns,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      47
+     </b>
+     , 427–465.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [17] Fama, E.F. &amp; French, K.R. (1993). Common risk factors in the returns on stocks and bonds,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      33
+     </b>
+     , 3–56.
+    </li>
+    <li block-type="ListItem">
+     [18] Fama, E.F. &amp; French, K.R. (1996). Multifactor explanations of asset pricing anomalies,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      51
+     </b>
+     , 55–84.
+    </li>
+    <li block-type="ListItem">
+     [19] Goyal, A. &amp; Santa-Clara, P. (2003). Idiosyncratic risk matters,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      58
+     </b>
+     , 975–1007.
+    </li>
+    <li block-type="ListItem">
+     [20] Heston, S.L. &amp; Rouwenhorst, K.G. (1994). Does industrial structure explain the benefits of international diversification?
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      36
+     </b>
+     , 3–27.
+    </li>
+    <li block-type="ListItem">
+     [21] Hopkins, P.J.B. &amp; Miller, C.H. (2001).
+     <i>
+      Country, Sector and Company Factors in Global Equity Models
+     </i>
+     , The Research Foundation of AIMR and the Blackwell Series in Finance, Charlottesvile, VA.
+    </li>
+    <li block-type="ListItem">
+     [22] Jegadeesh, N. &amp; Titman, S. (1993). Returns to buying winners and selling losers: implications for stock market efficiency,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      48
+     </b>
+     , 65–91.
+    </li>
+    <li block-type="ListItem">
+     [23] Jegadeesh, N. &amp; Titman, S. (2001). Profitability of momentum strategies: an evaluation of alternative explanations,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      56
+     </b>
+     , 699–718.
+    </li>
+    <li block-type="ListItem">
+     [24] Merton, R.C. (1973). An intertemporal capital asset pricing model,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      41
+     </b>
+     , 867–887.
+    </li>
+    <li block-type="ListItem">
+     [25] Roll, R. &amp; Ross, S. (1980). An empirical investigation of the arbitrage pricing theory,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      35
+     </b>
+     , 1073–1103.
+    </li>
+    <li block-type="ListItem">
+     [26] Rosenberg, B. (1974). Extra-market components of covariance in security returns,
+     <i>
+      Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      9
+     </b>
+     , 263–274.
+    </li>
+    <li block-type="ListItem">
+     [27] Ross, S. (1976). The arbitrage theory of capital asset pricing,
+     <i>
+      Journal of Economic Theory
+     </i>
+     <b>
+      13
+     </b>
+     , 341–360.
+    </li>
+    <li block-type="ListItem">
+     [28] Shanken, J. (1987). Nonsynchronous data and the covariance-factor structure of returns,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      42
+     </b>
+     , 221–231.
+    </li>
+    <li block-type="ListItem">
+     [29] Shanken, J. &amp; Weinstein, M.I. (2006). Economic forces and the stock market revisited,
+     <i>
+      Journal of Empirical Finance
+     </i>
+     <b>
+      13
+     </b>
+     , 129–144.
+    </li>
+    <li block-type="ListItem">
+     [30] Sharpe, W.F. (1964). Capital asset prices: a theory of market equilibrium under conditions of risk,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      19
+     </b>
+     , 425–442.
+    </li>
+    <li block-type="ListItem">
+     [31] Stock, J.H. &amp; Watson, M.W. (2002). Macroeconomic forecasting using diffusion indexes,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      20
+     </b>
+     , 147–162.
+    </li>
+    <li block-type="ListItem">
+     [32] Treynor, J.L. (1999). Towards a theory of market value of risky assets, in
+     <i>
+      Asset Pricing and Portfolio Performance: Models, Strategy, and Performance Metrics
+     </i>
+     , R.A. Korajczyk, ed, Risk Publications, London.
+    </li>
+    <li block-type="ListItem">
+     [33] Vassalou, M. (2003). News related to future gdp growth as a risk factor in equity returns,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      68
+     </b>
+     , 47–73.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <h4>
+   <b>
+    Capital Asset Pricing Model
+   </b>
+   ;
+   <b>
+    Style Analysis
+   </b>
+   .
+  </h4>
+  <p block-type="Text">
+   GREGORY CONNOR &amp; ROBERT KORAJCZYK
+  </p>
+ </body>
+</html>

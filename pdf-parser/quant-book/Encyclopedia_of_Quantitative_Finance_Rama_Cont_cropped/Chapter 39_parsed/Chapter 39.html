@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Equivalence of Probability Measures
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   In finance it is often important to consider different probability measures. The statistical measure, commonly denoted by
+   <i>
+    P
+   </i>
+   , is supposed to (ideally) reflect the real-world dynamics of financial assets. A risk-neutral measure (
+   <i>
+    see
+   </i>
+   <b>
+    Equivalent Martingale Measures
+   </b>
+   ), often denoted by
+   <i>
+    Q
+   </i>
+   , is the measure of choice for the valuation of derivative securities. Prices of traded assets are supposed to be (local)
+   <i>
+    Q
+   </i>
+   -martingales, and hence their dynamics (as seen under
+   <i>
+    Q
+   </i>
+   ) typically differs from their actual behavior (as modeled under
+   <i>
+    P
+   </i>
+   ). How far can the dynamics with respect to these two measures be away in terms of qualitative behavior? We would not expect that events that do not occur in the real world, in the sense that they have
+   <i>
+    P
+   </i>
+   -probability zero, like a stock price exploding to infinity, would have positive
+   <i>
+    Q
+   </i>
+   probability in the risk-neutral world. This discussion leads to the notion of absolute continuity.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   <i>
+    Let P, Q be two probability measures defined on a measurable space (,
+   </i>
+   F
+   <i>
+    ). We say that Q is absolutely continuous with respect to P, denoted by Q P, if all P-zero sets are also Q-zero sets. If Q P and P Q we say that P and Q are equivalent, denoted by P
+   </i>
+   ∼
+   <i>
+    Q. In other words, two equivalent measures have the same zero sets.
+   </i>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <i>
+    Q P
+   </i>
+   . By the Radon–Nikodym theorem there exists a
+   <i>
+    density Z
+   </i>
+   = d
+   <i>
+    Q/
+   </i>
+   d
+   <i>
+    P
+   </i>
+   so that for
+   <i>
+    f
+   </i>
+   ∈
+   <i>
+    L
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    (Q)
+   </i>
+   we can calculate its expectation with respect to
+   <i>
+    Q
+   </i>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_{\mathcal{Q}}[f] = E_{\mathcal{P}}[Zf] \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that if
+   <i>
+    Q
+   </i>
+   is absolutely continuous, but not equivalent to
+   <i>
+    P
+   </i>
+   , then we have
+   <i>
+    P (Z
+   </i>
+   = 0
+   <i>
+    ) &gt;
+   </i>
+   0.
+  </p>
+  <p block-type="TextInlineMath">
+   We now look at a dynamic picture, and assume that we also have a filtration
+   <i>
+    (
+   </i>
+   F
+   <i>
+    t)
+   </i>
+   0≤
+   <i>
+    t
+   </i>
+   ≤
+   <i>
+    <sup>
+     T
+    </sup>
+   </i>
+   at our disposal where
+   <i>
+    T
+   </i>
+   is some fixed finite time horizon. For
+   <i>
+    t
+   </i>
+   ≤
+   <i>
+    T
+   </i>
+   let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_t = E_P \left[ Z | \mathcal{F}_t \right] \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   We call the martingale
+   <i>
+    Z
+   </i>
+   =
+   <i>
+    (Zt)
+   </i>
+   the
+   <i>
+    density process
+   </i>
+   of
+   <i>
+    Q
+   </i>
+   . The
+   <i>
+    Bayes formula
+   </i>
+   tells us how to calculate conditional expectations with respect to
+   <i>
+    Q
+   </i>
+   in terms of
+   <i>
+    P
+   </i>
+   . Let 0 ≤
+   <i>
+    s
+   </i>
+   ≤
+   <i>
+    t
+   </i>
+   ≤
+   <i>
+    T
+   </i>
+   and
+   <i>
+    f
+   </i>
+   be F
+   <i>
+    t
+   </i>
+   -measurable and
+  </p>
+  <p block-type="TextInlineMath">
+   in
+   <i>
+    L
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    (Q)
+   </i>
+   . We then have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_{s}E_{Q}\left[f|\mathcal{F}_{s}\right] = E_{P}\left[Z_{t}f|\mathcal{F}_{s}\right] \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   As consequence of Bayes' formula, we get that if
+   <i>
+    M
+   </i>
+   is a
+   <i>
+    Q
+   </i>
+   -martingale then
+   <i>
+    ZM
+   </i>
+   is a
+   <i>
+    P
+   </i>
+   -martingale and
+   <i>
+    vice versa
+   </i>
+   . Hence, we can turn any
+   <i>
+    Q
+   </i>
+   -martingale into a
+   <i>
+    P
+   </i>
+   -martingale by just multiplying it with the density process. It follows that the martingale property is
+   <i>
+    not
+   </i>
+   invariant under equivalent measure changes.
+  </p>
+  <p block-type="TextInlineMath">
+   There are, however, a couple of important objects like stochastic integrals and quadratic variations which do remain invariant under equivalent measure changes although they depend, by their definition,
+   <i>
+    a priori
+   </i>
+   on some probability measure. Let us illustrate this in case of the quadratic variation of a semimartingale
+   <i>
+    S
+   </i>
+   . This is defined to be the limit in
+   <i>
+    P
+   </i>
+   -probability of the sum of the squared
+   <i>
+    S
+   </i>
+   -increments over a time grid, for vanishing mesh size. It is elementary that convergence in
+   <i>
+    P
+   </i>
+   -probability implies convergence in
+   <i>
+    Q
+   </i>
+   -probability if
+   <i>
+    Q P
+   </i>
+   , and thus convergence in
+   <i>
+    P
+   </i>
+   -probability is equivalent to the convergence in
+   <i>
+    Q
+   </i>
+   -probability when
+   <i>
+    P
+   </i>
+   and
+   <i>
+    Q
+   </i>
+   are equivalent. This implies, for example, that quadratic variations remain the same under a change to an equivalent probability measure.
+  </p>
+  <p block-type="TextInlineMath">
+   The compensator or angle bracket process, however, is
+   <i>
+    not
+   </i>
+   invariant with respect to equivalent measure changes. It is defined (for reasonable processes
+   <i>
+    S
+   </i>
+   ) as the process
+   <i>
+    S
+   </i>
+   one has to subtract from the quadratic variation process [
+   <i>
+    S
+   </i>
+   ] to turn it into a local martingale. But, as we have seen, the martingale property typically gets lost by switching the measure. As an example, consider a Poisson process
+   <i>
+    N
+   </i>
+   with intensity
+   <i>
+    λ
+   </i>
+   . We have [
+   <i>
+    N
+   </i>
+   ] =
+   <i>
+    N
+   </i>
+   , so the compensator equals
+   <i>
+    λt
+   </i>
+   . As we shall see below, the effect of an equivalent measure change is that the intensity changes as well, to
+   <i>
+    µ
+   </i>
+   , say, so the compensator under the new measure would be
+   <i>
+    µt
+   </i>
+   .
+  </p>
+  <h1>
+   <b>
+    Girsanov's Theorem
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   As we have discussed above, the martingale property is not preserved under measure changes. Fortunately, it turns out that at least the semimartingale property is preserved. Moreover, it is possible to state the precise semimartingale decomposition under the new measure
+   <i>
+    Q
+   </i>
+   . This result is known in the literature as the
+   <i>
+    Girsanov's theorem
+   </i>
+   , although it was rather Cameron and Martin who proved a first version of
+  </p>
+  <p block-type="Text">
+   it in a Wiener space setting. Later on it was extended in various levels of generality by Girsanov, Meyer, and Lenglart, among many others.
+  </p>
+  <p block-type="Text">
+   Let us first give some examples. They are all the consequences of the general formulation of Girsanov's theorem to be given below.
+  </p>
+  <p block-type="Text">
+   1. Let B be a P-Brownian motion,
+   <math display="inline">
+    \mu \in \mathbb{R}
+   </math>
+   , and define an equivalent measure
+   <math display="inline">
+    Q
+   </math>
+   by the stochastic exponential
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}Q}{\mathrm{d}P} = \mathcal{E}(-\mu B)_T = \exp\left(-\mu B_T - \frac{1}{2}\mu^2 T\right) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then
+   <math display="inline">
+    \widehat{B} = B + \mu t
+   </math>
+   is a Q-Brownian motion (up to time
+   <math display="inline">
+    T
+   </math>
+   ). Alternatively stated, the semimartingale decomposition of B under O is
+   <math display="inline">
+    B = \widehat{B}
+   </math>
+   -
+   <math display="inline">
+    \mu t
+   </math>
+   . Hence the effect of the measure change is to add a drift term to the Brownian motion.
+  </p>
+  <p block-type="Text">
+   2. Let
+   <math display="inline">
+    N_t - \lambda t
+   </math>
+   be a compensated Poisson process on an interval [0, T] with P-intensity
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   , and let
+   <math display="inline">
+    \kappa &gt; 0
+   </math>
+   . Define an equivalent measure
+   <math display="inline">
+    Q
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}Q}{\mathrm{d}P} = \mathrm{e}^{-\kappa\lambda T} \prod_{0 &lt; s \le T} (1 + \kappa \Delta N_s)
+   </math>
+   <math display="block">
+    = \mathrm{e}^{-\kappa\lambda T} (1 + \kappa)^{N_T}
+   </math>
+   <math display="block">
+    = \exp\left(N_T \ln\left(1 + \kappa\right) - \kappa\lambda T\right) \qquad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then N is a Poisson process on
+   <math display="inline">
+    [0, T]
+   </math>
+   under Q with intensity
+   <math display="inline">
+    (1 + \kappa) \lambda
+   </math>
+   . The process
+   <math display="inline">
+    N_t - (1 + \kappa) \lambda t
+   </math>
+   is a compensated Poisson process under
+   <math display="inline">
+    Q
+   </math>
+   and thus a O-martingale. Hence the effect of the measure change is to change the intensity of the Poisson process, or in other words, to add a drift term to the compensated Poisson process.
+  </p>
+  <p block-type="Text">
+   One of the most important applications of measure changes in mathematical finance is to find martingale measures for the price process
+   <math display="inline">
+    S
+   </math>
+   of some risky asset.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 2
+   </b>
+   A martingale measure for
+   <math display="inline">
+    S
+   </math>
+   is a probability measure
+   <math display="inline">
+    Q
+   </math>
+   such that
+   <math display="inline">
+    S
+   </math>
+   is a
+   <math display="inline">
+    Q
+   </math>
+   -local martingale.
+  </p>
+  <p block-type="Text">
+   Let us now state a general form of Girsanov's theorem. It is not the most general setting, though, since we will assume that
+   <math display="inline">
+    Q
+   </math>
+   is equivalent to
+   <math display="inline">
+    P
+   </math>
+   which suffices for most applications in finance. This is due to the fact that one would often choose
+   <math display="inline">
+    Q
+   </math>
+  </p>
+  <p block-type="Text">
+   to be a martingale measure for the price process, and then equivalence is a necessary condition to exclude arbitrage opportunities [1]. There is, however, also a result which covers the case where
+   <math display="inline">
+    O
+   </math>
+   is only absolutely continuous, but not equivalent to
+   <math display="inline">
+    P
+   </math>
+   , and which has been proven by Lenglart [2].
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 1 (Girsanov's Theorem: Standard
+   <b>
+    Version).
+   </b>
+   Let
+   <math display="inline">
+    P \sim Q
+   </math>
+   , with density process given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_t = E\left[\left.\frac{\mathrm{d}Q}{\mathrm{d}P}\right|\mathcal{F}_t\right] \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If S is a semimartingale under
+   <math display="inline">
+    P
+   </math>
+   with decomposition
+   <math display="inline">
+    S = M + A
+   </math>
+   (here M is a local martingale, and A a process of locally finite variation), then
+   <math display="inline">
+    S
+   </math>
+   is a semimartingale under
+   <math display="inline">
+    Q
+   </math>
+   as well and has decomposition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S = \left(M - \int \frac{1}{Z} d[Z, M]\right) + \left(A + \int \frac{1}{Z} d[Z, M]\right) \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In particular,
+   <math display="inline">
+    M - \int \frac{1}{Z} d[Z, M]
+   </math>
+   is a local Qmartingale.
+  </p>
+  <p block-type="Text">
+   In situations where the process
+   <math display="inline">
+    S
+   </math>
+   may exhibit jumps, it is often more convenient to apply a version of Girsanov which uses the angle bracket instead of the quadratic covariation.
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 2 (Girsanov's Theorem: Predictable
+   <b>
+    Version).
+   </b>
+   Let
+   <math display="inline">
+    P \sim Q
+   </math>
+   , with density process as above, and
+   <math display="inline">
+    S = M + A
+   </math>
+   be a P-semimartingale. Given that
+   <math display="inline">
+    \langle Z, M \rangle
+   </math>
+   exists (with respect to P), then the decomposition of
+   <math display="inline">
+    S
+   </math>
+   under
+   <math display="inline">
+    Q
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S = \left( M - \int \frac{1}{Z_{-}} d\langle Z, M \rangle \right) + \left( A + \int \frac{1}{Z_{-}} d\langle Z, M \rangle \right) \tag{8}
+   </math>
+  </p>
+  <h3>
+   Here
+   <math display="inline">
+    Z_{-}
+   </math>
+   denotes the left-continuous version of Z.
+  </h3>
+  <p block-type="Text">
+   Whereas the standard version of Girsanov's theorem always works, we need an integrability condition (existence of
+   <math display="inline">
+    \langle Z, M \rangle
+   </math>
+   ) for the predictable version.
+  </p>
+  <p block-type="TextInlineMath">
+   However, in case
+   <math display="inline">
+    S = M + A
+   </math>
+   for a local martingale
+   <math display="inline">
+    M
+   </math>
+   and a finite variation process
+   <math display="inline">
+    A
+   </math>
+   , it is rarely the case in a discontinuous framework that
+   <math display="inline">
+    dA \ll d[M]
+   </math>
+   , whereas it is quite natural in financial applications that
+   <math display="inline">
+    dA \ll d \langle M \rangle
+   </math>
+   (see below).
+  </p>
+  <p block-type="TextInlineMath">
+   In mathematical finance, these results are often applied to find a martingale measure for the price process S. Consider, for example, the Bachelier model where
+   <math display="inline">
+    S = B + \mu t
+   </math>
+   is a Brownian motion plus drift. If we now take as above the measure change as given by a density process
+   <math display="inline">
+    Z_t = \exp\left(-\mu B_t - \frac{1}{2}\mu^2 t\right)
+   </math>
+   , then we have (since
+   <math display="inline">
+    dZ = -\mu Z dB
+   </math>
+   )
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A + \int \frac{1}{Z} d[Z, M] = \mu t + \int \frac{1}{Z} d\left[-\mu \int Z dB, B\right]
+   </math>
+   <math display="block">
+    = \mu t + \int \frac{1}{Z} d\left(-\mu \int Z dt\right)
+   </math>
+   <math display="block">
+    = 0 \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   According to Girsanov's theorem (here the standard version coincides with the predictable one since
+   <math display="inline">
+    S
+   </math>
+   is continuous), the price process
+   <math display="inline">
+    S
+   </math>
+   is therefore a
+   <math display="inline">
+    Q
+   </math>
+   -local martingale (and, in fact, a Brownian motion according to Lévy's characterization), and hence
+   <math display="inline">
+    Q
+   </math>
+   is a martingale measure for
+   <math display="inline">
+    S
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   More generally, Girsanov's theorem implies an important structural result for the price process
+   <math display="inline">
+    S
+   </math>
+   in an arbitrage-free market. As has been mentioned above, it is essentially true that some no-arbitrage property implies the existence of an equivalent martingale measure Q for
+   <math display="inline">
+    S = M + A
+   </math>
+   , with density process
+   <math display="inline">
+    Z
+   </math>
+   . Therefore, we must have by the predictable version (8), given that
+   <math display="inline">
+    \langle Z, M \rangle
+   </math>
+   exists, that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A = -\int \frac{1}{Z_{-}} \mathrm{d} \left\langle Z, M \right\rangle \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   to get that
+   <math display="inline">
+    S
+   </math>
+   is a local
+   <math display="inline">
+    Q
+   </math>
+   -martingale. As it follows from the so-called Kunita-Watanabe inequality that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\langle Z,M\rangle \ll d\langle M\rangle \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   (here
+   <math display="inline">
+    \langle Z, M \rangle
+   </math>
+   respectively
+   <math display="inline">
+    \langle M \rangle
+   </math>
+   are interpreted as the associated measures on the nonnegative real line), we conclude that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}A \ll \mathrm{d}\left\langle M\right\rangle \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   and hence there exists some predictable process
+   <math display="inline">
+    \lambda
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S = M + \int \lambda \, \mathrm{d} \langle M \rangle \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For example, in the Bachelier model
+   <math display="inline">
+    S = B + \mu t
+   </math>
+   we have that
+   <math display="inline">
+    \langle B \rangle_t = t
+   </math>
+   , and hence
+   <math display="inline">
+    \lambda
+   </math>
+   equals the constant
+   <math display="inline">
+    \mu
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The predictable version of Girsanov's theorem can now be applied to remove the drift
+   <math display="inline">
+    \int \lambda d \langle M \rangle
+   </math>
+   as follows: we define a probability measure
+   <math display="inline">
+    Q
+   </math>
+   via
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}Q}{\mathrm{d}P} = \mathcal{E}\bigg(-\int \lambda \,\mathrm{d}M\bigg)_T \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathcal{E}
+   </math>
+   denotes the Doléans-Dade stochastic exponential, assuming that
+   <math display="inline">
+    \mathcal{E}(-\int \lambda \mathrm{d}M)
+   </math>
+   is a martingale. The corresponding density process
+   <math display="inline">
+    Z
+   </math>
+   therefore satisfies the stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dZ = -Z_{-}\lambda \, dM \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   It follows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \langle Z, M \rangle = \left\langle -\int Z_{-\lambda} \, \mathrm{d}M, M \right\rangle = -\int Z_{-\lambda} \mathrm{d} \, \langle M \rangle \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S = M + \int \lambda d \langle M \rangle = M - \int \frac{1}{Z_{-}} d \langle Z, M \rangle \quad (17)
+   </math>
+  </p>
+  <p block-type="Text">
+   is by the (predictable version) of the Girsanov theorem a local
+   <math display="inline">
+    Q
+   </math>
+   -martingale: the drift has been removed by the measure change.
+  </p>
+  <p block-type="Text">
+   This representation of
+   <math display="inline">
+    S
+   </math>
+   has an important consequence for the structure of martingale measures, provided the so-called
+   <i>
+    structure condition
+   </i>
+   holds:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^T \lambda_s^2 \mathrm{d} \, \langle M \rangle_s &lt; \infty \qquad P-\text{a.s.} \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   In that case, the remarkable conclusion we can draw from
+   <math display="inline">
+    (13)
+   </math>
+   is that the existence of an equivalent martingale measure for
+   <math display="inline">
+    S
+   </math>
+   implies that
+   <math display="inline">
+    S
+   </math>
+   is a special semimartingale, for example, its finite variation part is predictable and therefore the semimartingale decomposition (13) is unique. Moreover, the following result holds.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   Let
+   <math display="inline">
+    Q
+   </math>
+   be an equivalent martingale measure for S, and the structure condition (18) hold. Then the density process
+   <math display="inline">
+    Z
+   </math>
+   of
+   <math display="inline">
+    Q
+   </math>
+   with respect to
+   <math display="inline">
+    P
+   </math>
+   is given by the stochastic exponential
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z = \mathcal{E}\bigg(-\int \lambda \,\mathrm{d}M + L\bigg) \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   <i>
+    for some process L such that L as well as
+   </i>
+   [
+   <i>
+    M,L
+   </i>
+   ]
+   <i>
+    are local P-martingales. The converse statement is true as well, assuming that all involved processes are locally bounded: if Q is a probability measure whose density process can be written like in equation (19) with L as above, then Q is a martingale measure for S.
+   </i>
+  </p>
+  <p block-type="Text">
+   This result is fundamental in incomplete markets (
+   <i>
+    see
+   </i>
+   <b>
+    Complete Markets
+   </b>
+   ), where there are many equivalent martingale measures for the price process
+   <i>
+    S
+   </i>
+   . Indeed, any choice of
+   <i>
+    L
+   </i>
+   as in the statement of the proposition gives one particular pricing measure.
+  </p>
+  <p block-type="Text">
+   In applications in finance, the density process
+   <i>
+    Z
+   </i>
+   can also be interpreted in terms of a
+   <b>
+    change of numeraire
+   </b>
+   .
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Delbaen, F. &amp; Schachermayer, W. (2006).
+     <i>
+      The Mathematics of Arbitrage
+     </i>
+     , Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [2] Protter, P.E. (2005).
+     <i>
+      Stochastic Integration and Differential Equations
+     </i>
+     , 2nd Edition, Version 2.1, Springer, Heidelberg.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Change of Numeraire
+   </b>
+   ;
+   <b>
+    Equivalent Martingale Measures
+   </b>
+   ;
+   <b>
+    Semimartingale
+   </b>
+   ;
+   <b>
+    Stochastic Exponential
+   </b>
+   ;
+   <b>
+    Stochastic Integrals
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   THORSTEN RHEINLANDER ¨
+  </p>
+ </body>
+</html>

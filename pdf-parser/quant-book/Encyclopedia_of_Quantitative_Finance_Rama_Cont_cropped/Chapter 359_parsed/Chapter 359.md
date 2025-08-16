@@ -1,0 +1,79 @@
+# **Market Microstructure Effects**
+
+Most asset pricing models assume that markets are in equilibrium, but not how asset prices move from one equilibrium to another. Market microstructure is the area of economics that studies how prices adjust to new information and how the trading mechanism affects this adjustment process. In a perfect market, new information would be immediately disseminated and interpreted by all market participants. In this full information setting, prices would immediately adjust to a new equilibrium value determined by the agents' preferences and the content of the information. This immediate adjustment, however, is not likely to hold in practice. Not all relevant information is known by all market participants at the same time. Furthermore, information that becomes available is not processed at the same speed by all market participants, implying variable lag time between a news announcement and the agents' realization of price implications. Much of modern microstructure theory is, therefore, driven by models of asymmetric information and the learning process of the market.
+
+In this asymmetric information setting, there are two general areas of interest. First, we can study the process by which the market prices converge to prices that accurately reflect new information. This is termed the *price discovery process*. Learning occurs through time and therefore empirical analysis of this process examines time series properties of asset prices.
+
+The second area of interest studies market quality. In an ideal market, all trades would occur costlessly at a single price where that price accurately reflects all relevant information. In reality, prices for buyers and sellers differ. This difference is determined by the cost of making market (day-to-day operations costs), the risk faced by a market maker that the price will move against their current inventory position, and the risk of trading against better informed agents. All these risks imply that a market maker must be compensated for his/her risk. Higher quality markets will exhibit smaller cost. O'Hara [5] provides a thorough introduction to the economics of market microstructure.
+
+Both these areas, price discovery and market quality, require the study of the fine grain, detailed price data. In an asymmetric information setting, agents learn about the value of the asset from order flow. A trader with information that says the asset is undervalued will tend to buy the asset and *vice versa*. In this spirit, price impact studies measure how prices adjust to characteristics of order flow. Market quality measures assess the difference between available prices (such as quotes) or trade prices and a notional fair market price. Much of empirical market microstructure uses high-frequency, intraday and often trade-by-trade data.
+
+Here, we focus on econometric issues and models for high-frequency data. We begin with a discussion of the types of data available. Properties of the data are discussed and relevant models are presented.
+
+## **Data**
+
+High-frequency data generally refer to data that are collected at a very rapid rate. The most fundamental data are prices and quantities; however, there might be more than one type of price and more than one type of quantity that can be reported. Many data sets report transaction prices that are the price paid for in a given trade and the quantity (the number of shares) transacted. These are usually referred to as *transaction prices* and *trade size*. The second type of price and quantity data is the limit order book. The limit order book refers to a set of prices and quantities available for sale (on the ask side of the market) and buy (on the bid side of the market). New information arrival might correspond to a change in any of these prices or quantities. These data sets can be quite large. A frequently traded asset such as IBM might have more than 30 000 trades in a single day and significantly many more updates to the limit order book.
+
+In most markets, trades or updates to the limit order book do not occur at regularly spaced intervals, but rather at the pace of the market. Most data sets contain one observation each time that a new piece of information arrives and a time stamp indicating a recorded time at which the transaction or change took place.
+
+The most popular data source for high-frequency US equities is the trades and quotes (TAQ) data set available through Wharton Research Data Services. High-frequency foreign exchange data are becoming more readily available now. One source that has been around for a while is Olsen and Associates. Other markets such as options and futures markets are slowly becoming available as well. High-frequency data sets are now more readily available for fixed income, such as GovPX, which offers tick-by-tick US treasury prices and volume.
+
+## **Features of High-frequency Data**
+
+Figure 1 presents 2 h of trade-by-trade price data for the stock Airgas (ticker symbol ARG). The horizontal axis is the local time of day. Price data are probably the most fundamental data and there are several things that become immediately apparent. First, the data are not regularly spaced in time. From 10:30 to 11:00 there are about eight trades that occur, but from 11:00 to 11:30 there are many more. Trades occur when individuals make trade decisions, not on a regular schedule.
+
+The second feature that is apparent is that the prices fall on a grid. The smallest increment in the grid is referred to as the *tick size*. US stocks have recently undergone a transition from trading in oneeighth of a dollar to decimalization. This transition was initially tested for 7 NYSE stocks in August 2000 and was completed for the NYSE listed stocks on January 29, 2001. NASDAQ began testing with 14 stocks on March 12, 2001 and completed the transition on April 9, 2001. In June 1997, NYSE permitted 1/16th prices.
+
+When high-frequency data are viewed across multiple days, many relevant variables exhibit diurnal,
+
+![](_page_1_Figure_6.jpeg)
+
+**Figure 1** Trade-by-trade transaction prices for airgas
+
+or within day patterns. For example, the volatility of asset price returns over fixed intervals tends to exhibit a U shape in most markets. Volatility is highest in just after the open and just before the close. Other examples of a similar pattern driven by the open and close of the market can be found in bid–ask spreads, trading activity, and traded volume.
+
+Unlike their lower frequency counterparts, market microstructure effects sometimes induce strong correlations in observed, high-frequency returns. Tradeto-trade returns often exhibit negative correlation as the price "bounces" back and forth between trades at the ask price and trades at the bid price.
+
+## **Some Useful Modeling Approaches**
+
+High-frequency data have interesting features to challenge the empirical investigator. In this section, we provide a brief introduction to different modeling approaches that have proven useful. Engle and Russell [3] provide a more detailed discussion of high-frequency data and modeling approaches.
+
+#### *Fixed Interval Models*
+
+Most econometric techniques are designed for models with equally spaced data. There is a natural inclination to aggregate irregularly spaced data into the familiar fixed interval setting and apply standard techniques. Returns can be computed over fixed intervals such as 5 min. Since prices are not continuous, there will, in general, not be a price posted exactly at the end of each interval. Hence, a choice will have to be made as to how to define the prices. The prevailing price method uses the last available price before, or at, the end of the interval. Another choice is to interpolate a value for the price given the two prices immediately surrounding the end of the interval. For very frequently traded assets (relative to the interval size), there will generally be a price near the end of the interval, but for short intervals or infrequently traded assets this is not guaranteed. The lack of welldefined prices becomes particularly important when multivariate models are considered. Prices may be stale (old) if the prevailing price method is used so that prices do not reflect recent information if a trade has not occurred in some time, or prices will reflect future information if interpolation is used. Either case can result in erroneous relationships.
+
+Once the prices are aggregated to the fixed interval, then standard techniques can be applied. This temporal aggregation has proven particularly attractive in modeling volatility. Once the spacing of the data is regular, standard volatility models such as GARCH models (*see* **GARCH Models**) can be applied. Dynamics of the mean can be studied using traditional ARMA or vector autoregression (VAR) time series approaches.
+
+#### *Event Time Models*
+
+This class of models indexes the observation in event time. If the data are trade-by-trade data, then these models index time by the trade number. The first observation is the first trade, the second observation is the second trade, and so on. This approach neglects the temporal (clock time) spacing of the data and treats the data series as if the clock that determines the updating to the process is a "trade clock". If traders update their beliefs about prices each time a trade is made, then there is no role for clock time and this approach appears reasonable. Again, standard time series techniques can be applied to the series such as GARCH models (*see* **GARCH Models**) or ARMA models (*see* **Autoregressive Moving Average (ARMA) Processes**).
+
+This approach is not well suited for simultaneously modeling more than one return series, as each will be operating on their own trade time. For this reason, multivariate analysis of return series for more than one asset generally relies on fixed interval approaches. A notable exception is multivariate models for characteristics of a trade (like volume or whether the trade is a buyer or seller initiated) and returns for the same stock. Since both series are updated at the same random time intervals, they both operate on the same time scale. A seminal paper by Hasbrouck [4] uses VAR models for TAQ to study the price impact of a trade on future prices.
+
+Tick time models are also unlikely to be suitable for volatility modeling. Clearly, the longer the time interval between price observations, the larger the volatility should be. While a component of volatility is related to the transaction process and therefore is updated in trade time, another component of volatility is due to the passage of time and potential (nontrade) information.
+
+#### *Point Process Models*
+
+A different approach views the data as a point process (*see* **Point Processes**). A point process is simply a sequence of random arrival times *t*1*, t*2*, t*3*,...*, where *ti* ≥ *ti*−1. These arrival times might correspond to trade times so that *t*<sup>1</sup> is the time (clock time) that the first trade occurred, *t*<sup>2</sup> is the time of the second trade, and so on. There may be information associated with each arrival time such as the price or the volume associated with the trade. If *ri* denotes the return from the *i* − 1th trade to the *i*th trade, then the sequence of arrival times and prices *(ti, ri)* forms a marked point process. Many questions of economic interest can be formulated in the context of the joint conditional distribution *f (ti, ri*|*Fi*<sup>−</sup>1*)*, where *Fi*<sup>−</sup><sup>1</sup> is information available at the time of the *i* − 1th trade. This distribution completely describes the probability of when and what will happen to the price.
+
+Clearly, the sequence event arrival times can be described by *ti* or by the durations between events *xi* = *ti* − *ti*−1. It may be difficult to directly specify this joint conditional distribution, so Engle [1] proposed decomposing the distribution into *f (xi, ri*|*Fi*<sup>−</sup>1*)* = *g(ri*|*xi, Fi*<sup>−</sup>1*)h(xi*|*Fi*<sup>−</sup>1*)*, where *g* is the distribution of the price given the time the event happened (and the history *Fi*−1) and *h* is the marginal distribution of when the event occurs. Engle and Russell [2] proposed the autoregressive conditional duration (ACD) model for the distribution of the arrival times *h(xi*|*Fi*<sup>−</sup>1*)* (*see* **Duration Models**). Models for the mark (the price in this case) can then be fit using standard techniques conditional on the duration. The model operates in event time, but as the distribution is conditional on the time since the last trade, calendar time effects can be captured.
+
+Engle [1] proposed a GARCH model for *g(ri*|*xi, Fi*<sup>−</sup>1*)* where the volatility explicitly depends on the time passed since the last trade. Russell and Engle [6] proposed a model for discrete returns *g(ri*|*xi, Fi*<sup>−</sup>1*)* that explicitly accounts the time passed since the last trade. Both models suggest that the passage of calendar time is important in models of returns.
+
+The three modeling strategies outlined here (fixed interval, event time, and point processes) comprise the bulk of the approaches but there are others. We do not discuss unobserved component models where the price is modeled as a latent process with bid and ask prices determined by noisy perturbations of a true price. We also did not touch on an important and growing literature that links market microstructure effects to asset prices. That is, if investors have preferences for assets that can be easily traded, then the ease of trade of the asset may affect the equilibrium price. Finally, we do not discuss optimal execution strategies or models of transaction cost.
+
+## **References**
+
+- [1] Engle, R. (2000). The econometrics of ultra-high frequency data, *Econometrica* **68**(1), 1–22.
+- [2] Engle, R. & Russell, J. (1998). Autoregressive conditional duration: a new model for irregularly spaced data, *Econometrica* **66**(5), 1127–1162.
+- [3] Engle, R. & Russell, J. (2009). Analysis of high frequency data, Forthcoming in *Handbook of Financial Econometrics*, Y. Ait-Sahalia & L. Hansen, eds, Elsevier.
+
+- [4] Hasbrouck, J. (1991). Measuring the information content of stock trades, *The Journal of Finance* **66**(1), 179–207.
+- [5] O'Hara, M. (1995). *Market Microstructure Theory*, Blackwell Publishers.
+- [6] Russell, J. & Engle, R. (2005). A discrete-state continuous time model for transaction prices and times: the ACM-ACD model, *Journal of Business Economics and Statistics* **23**, 166–180.
+
+## **Related Articles**
+
+**Algorithmic Trading**; **Bid–Ask Spreads**; **Duration Models**; **GARCH Models**; **Order Flow**; **Pricing Kernels**.
+
+JEFFREY R. RUSSELL

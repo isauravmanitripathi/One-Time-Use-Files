@@ -1,0 +1,51 @@
+## **Black, Fischer**
+
+The central focus of the career of Fischer Black (1938–1995) was on teasing out the implications of the capital asset pricing model (CAPM) for the changing institutional framework of financial markets of his day. He became famous for the Black–Scholes options formula [14], an achievement that is now widely recognized as having opened the door to modern quantitative finance and financial engineering. Fischer was the first quant, but a very special kind of quant because of his taste for the big picture [16].
+
+Regarding that big picture, as early as 1970, he sketched a vision of the future that has by now largely come true:
+
+Thus a long term corporate bond could actually be sold to three separate persons. One would supply the money for the bond; one would bear the interest rate risk; and one would bear the risk of default. The last two would not have to put up any capital for the bonds, although they might have to post some sort of collateral.
+
+Today we recognize the last two instruments as an interest rate swap and a credit default swap, the two instruments that have been the central focus of financial engineering ever since.
+
+All of the technology involved in this engineering can be traced back to roots in the original Black–Scholes option pricing formula [14]. Black himself came up with a formula through CAPM, by thinking about the exposure to systemic risk that was involved in an option, and how that exposure changes as the price of the underlying changes. Today the formula is more commonly derived using the Ito formula and the option replication idea introduced by Merton [17]. For a long time, Black himself was unsure about the social utility of equity options. If all they do is to allow people to achieve the same risk exposure they could achieve by holding equity outright with leverage, then what is the point?
+
+The Black–Scholes formula and the hedging methodology behind it subsequently became a central pillar in the pricing of contingent claims of all kinds and in doing so gave rise to many innovations that contributed to making the world more like his 1970 vision. Black and Cox [9] represents an early attempt to use the option pricing technology to price default risk. Black [4] similarly uses the option pricing technology to price currency risk. Perhaps, Black's most important use of the tools was in his work on interest rate derivatives, in the famous Black–Derman–Toy term structure model [10].
+
+Black got his start in finance after already earning his PhD in applied mathematics (Harvard, 1964) when he learned about CAPM from Treynor [18], his colleague at the business consulting firm Arthur D. Little, Inc. Fischer had never taken a single course in economics or finance, nor did he ever do so subsequently. Nevertheless, the field was underdeveloped at the time, and Fischer managed to set himself up as a financial consultant and to parlay his success in that capacity into a career in academia (University of Chicago 1971–1975, Massachusetts Institute of Technology 1975–1984), and then into a partnership at the Wall Street investment firm of Goldman Sachs (1984–1995). There can be no doubt that his early success with the options pricing formula opened these doors. The more important point is how, in each of these settings, Fischer used the opportunity he had been given to help promote his vision of a CAPM future for the financial side of the economy.
+
+CAPM is only about a world of debt and equity, and the debt in that world is both short term and risk free. In such a world, everyone holds the fully diversified market portfolio of equity and then adjusts risk exposure by borrowing or lending in the market for risk-free debt. As equity values fluctuate, outstanding debt also fluctuates, as people adjust their portfolios to maintain desired risk exposure. One implication of CAPM, therefore, is that there should be a market for passively managed index mutual funds [15]. Another implication is that the regulatory apparatus surrounding banking, both lending and deposit taking, should be drastically relaxed to facilitate dynamic adjustment of risk exposure [3]. And yet a third implication is that there might be a role for an automatic risk rebalancing instrument, essentially what is known today as *portfolio insurance* [6, 13].
+
+Even while Black was working on remaking the world in the image of CAPM, he was also expanding the image of the original CAPM to include a world without a riskless asset in his famous zero-beta model [1] and to include a world with multiple currencies in his controversial universal hedging model [2, 7] that subsequently formed the analytical core of the Black–Litterman model of global asset allocation [11, 12].
+
+These and other contributions to quantitative finance made Fischer Black famous, but according to him, his most important work was the two books he wrote that extended the image of CAPM to the real economy, including the theory of money and business cycles [5, 8]. The fluctuation of aggregate output, he reasoned, was nothing more than the fluctuating yield on the national stock of capital. Just as risk is the price we pay for higher expected yield, business fluctuation is also the price we pay for higher expected rates of economic growth.
+
+The rise of modern finance in the last third of twentieth century transformed the financial infrastructure within which businesses and households interact. A system of banking institutions was replaced by a system of capital markets, as financial engineering developed ways to turn loans into bonds. This revolution in institutions has also brought with it a revolution in our thinking about how the economy works, including the role of government regulation and stabilization policy. Crises in the old banking system gave rise to the old macroeconomics. Crises in the new capital markets system will give rise to a new macroeconomics, possibly built on the foundations laid by Fischer Black.
+
+## **References**
+
+- [1] Black, F. (1972). Capital market equilibrium with restricted borrowing, *Journal of Business* **45**, 444–455.
+- [2] Black, F. (1974). International capital market equilibrium with investment barriers, *Journal of Financial Economics* **1**, 337–352.
+- [3] Black, F. (1975). Bank funds management in an efficient market, *Journal of Financial Economics* **2**, 323–339.
+- [4] Black, F. (1976). The pricing of commodity contracts, *Journal of Financial Economics* **3**, 167–179.
+- [5] Black, F. (1987). *Business Cycles and Equilibrium*, Basil Blackwell, Cambridge, MA.
+- [6] Black, F. (1988). Individual investment and consumption under uncertainty, in *Portfolio Insurance, A Guide to Dynamic Hedging*, D.L. Luskin, ed, John Wiley & Sons, New York, pp. 207–225.
+
+- [7] Black, F. (1990). Equilibrium exchange rate hedging, *Journal of Finance* **45**, 899–907.
+- [8] Black, F. (1995). *Exploring General Equilibrium*, MIT Press, Cambridge, MA.
+- [9] Black, F. & Cox, J.C. (1976). Valuing corporate securities: some effects of bond indenture provisions, *Journal of Finance* **31**, 351–368.
+- [10] Black, F., Derman, E. & Toy, W.T. (1990). A one-factor model of interest rates and its application to treasury bond options, *Financial Analysts Journal* **46**, 33–39.
+- [11] Black, F. & Litterman, R. (1991). Asset allocation: combining investor views with market equilibrium, *Journal of Fixed Income* **1**, 7–18.
+- [12] Black, F. & Litterman, R. (1992). Global portfolio optimization, *Financial Analysts Journal* **48**, 28–43.
+- [13] Black, F. & Perold, A.F. (1992). Theory of constant proportion portfolio insurance, *Journal of Economic Dynamics and Control* **16**, 403–426.
+- [14] Black, F. & Scholes, M. (1973). The pricing of options and corporate liabilities, *Journal of Political Economy* **81**, 637–654.
+- [15] Black, F. & Scholes, M. (1974). From theory to a new financial product, *Journal of Finance* **19**, 399–412.
+- [16] Mehrling, P.G. (2005). *Fischer Black and the Revolutionary Idea of Finance*, John Wiley & Sons, Hoboken, New Jersey.
+- [17] Merton, R.C. (1973). Theory of rational option pricing, *Bell Journal of Economics and Management Science* **4**, 141–183.
+- [18] Treynor, J.L. (1962). Toward a theory of market value of risky assets, in *Asset Pricing and Portfolio Performance*, R.A. Korajczyk, ed, Risk Books, London, pp. 15–22.
+
+## **Related Articles**
+
+**Black–Scholes Formula**; **Black–Litterman Approach**; **Option Pricing Theory: Historical Perspectives**; **Merton, Robert C.**; **Modern Portfolio Theory**; **Term Structure Models**; **Sharpe, William F.**
+
+PERRY MEHRLING

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Roll Model
+  </h1>
+  <p block-type="Text">
+   In his 1984 article entitled "A Simple Implicit Measure of the Effective Bid-Ask Spread in an Efficient Market", Roll [4] developed a model that made it possible to measure an estimate of the bid-ask spread. This estimate depended only on the firstorder serial covariance of price changes over time. As one of the first theoretical models to estimate the bid-ask spread, Roll's model has served as a strong foundation upon which many future expansions and improvements have emerged to estimate the spread and its determinants.
+  </p>
+  <h4>
+   <b>
+    Bid-Ask Bounce
+   </b>
+  </h4>
+  <p block-type="Text">
+   One of the key concepts considered in the development of the Roll model is the idea of a "bid-ask bounce". When a trade is undertaken by a market maker, it is generally executed at a price different from the actual market value of the asset. Instead a trader's purchase from the market maker will be completed at the market maker's ask price, while a sale to a market maker will be completed at the market maker's bid price. The difference between the ask and the bid prices is referred to as the
+   <i>
+    spread
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   To estimate the bid-ask spread using the observed transaction prices, Roll assumed that the probability that the next transaction is a buy is equal to the probability of it being a sell. If the market maker's previous transaction was a purchase at the bid price, then there is an equal probability that the next transaction will be executed at either the bid or the ask. The same logic holds if the market maker's previous transaction were to be a sale to a customer at the ask price. For example, assume that the market maker's trade at time
+   <math display="inline">
+    t-1
+   </math>
+   was executed at the ask price, then there is an equal probability that the next trade at time
+   <math display="inline">
+    t
+   </math>
+   will be at the bid or the ask. If at time
+   <math display="inline">
+    t
+   </math>
+   , the trade is again at the ask, then the change in price is zero. However, if it is at the bid, then the change in price is equal to the spread "
+   <math display="inline">
+    -s
+   </math>
+   " (Figure 1), where
+   <math display="inline">
+    s
+   </math>
+   is the difference between the bid and the ask prices.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Figure 1 shows the possible sequence of trades given that a trade at time
+   <math display="inline">
+    t - 1
+   </math>
+   takes place at the ask price. The fundamental value of the asset,
+   <math display="inline">
+    P^*
+   </math>
+   , is at the midpoint between the bid and the ask prices and
+  </p>
+  <p block-type="TextInlineMath">
+   it follows a random walk.
+   <math display="inline">
+    P_t^* = P_{t-1}^* + \tilde{\eta}_t
+   </math>
+   , where
+   <math display="inline">
+    \tilde{\eta}_t
+   </math>
+   is white noise such that
+  </p>
+  <p block-type="Text">
+   a
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[\eta_t] = 0, \text{Var}[\tilde{\eta}_t] = \sigma^2
+   </math>
+   <br/>
+   and
+   <math>
+    E[\tilde{\eta}_t \tilde{\eta}_{t-s}] = 0 \quad \forall t \neq s
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   Given Roll's assumption that it is equally likely for the next trade to be at the bid or the ask, the probabilities associated with successive price changes are given in Table 1. The probabilities are based on the observation that there are a total of eight paths from
+   <math display="inline">
+    t-1
+   </math>
+   to
+   <math display="inline">
+    t+1
+   </math>
+   , starting from either the ask or the bid prices. Therefore, each path has a probability of 1/8. Each path is associated with joint price changes of
+   <math display="inline">
+    \Delta P_t
+   </math>
+   (where
+   <math display="inline">
+    \Delta P_t = P_t - P_{t-1}
+   </math>
+   ) and
+   <math display="inline">
+    \Delta P_{t+1}
+   </math>
+   that is a combination of
+   <math display="inline">
+    0
+   </math>
+   ,
+   <math display="inline">
+    s
+   </math>
+   , and
+   <math display="inline">
+    -s
+   </math>
+   . For example, there is only one path for
+   <math display="inline">
+    \Delta P_t = 0
+   </math>
+   and
+   <math display="inline">
+    \Delta P_{t+1} =
+   </math>
+   <math display="inline">
+    -s
+   </math>
+   starting from the ask price at
+   <math display="inline">
+    t-1
+   </math>
+   . Hence, the probability of this joint event is
+   <math display="inline">
+    1/8
+   </math>
+   . Similarly, we can find the probabilities for each combination of price changes.
+  </p>
+  <p block-type="TextInlineMath">
+   On the basis of Table 1, the serial covariance of price changes
+   <math display="inline">
+    SCov(\Delta P_t, \Delta P_{t+1})
+   </math>
+   is
+   <math display="inline">
+    -s^2/4
+   </math>
+   and
+   <math display="inline">
+    s = 2\sqrt{-S\text{Cov}(\Delta P_t, \Delta P_{t+1})}
+   </math>
+   . With this equation, an estimate of the spread can be obtained based on the estimate for the serial covariance of successive price changes. The standard serial covariance estimator used is the mean cross product:
+   <math display="inline">
+    \widehat{\text{SCov}} =
+   </math>
+   <math display="inline">
+    \frac{1}{n}\sum_{t=1}^{n}\Delta P_{t}\Delta P_{t+1}-\overline{\Delta P}^{2}
+   </math>
+   , where
+   <math display="inline">
+    \overline{\Delta P}
+   </math>
+   is the sample mean of
+   <math display="inline">
+    P_t
+   </math>
+   . Initially, Roll's model was developed to estimate bid-ask spread from transaction prices. However, there are some drawbacks to its practical use. Some of the model's assumptions are very specific and may not carry over to real-life application. For example, the Roll estimator is based on the assumption that the stock's fundamental value follows a random walk and that there is an equal probability that the next trade will be a buy or sell. Hence, the probability of a future trade at the ask or the bid prices is independent of the prior trade direction. However, there is some evidence that the probability of a trade continuation might be different from a trade reversal. The model also assumes that the spread is entirely due to order processing costs and does not include adverse selection or inventory costs, implying that
+   <math display="inline">
+    \Delta P_t
+   </math>
+   is independent of whether the transaction at time
+   <math display="inline">
+    t
+   </math>
+   is at the bid or the ask. Harris [2] provided a detailed analysis of the small sample properties of the Roll serial covariance estimator
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Possible sequence of trades given that the trade at time
+   <math display="inline">
+    t-1
+   </math>
+   takes place at the ask price (based on Roll [4])
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Joint price change distribution for
+   <math display="inline">
+    \Delta P_t
+   </math>
+   and
+   <math display="inline">
+    \Delta P_{t+1}
+   </math>
+   (based on Roll [4])
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+      <math>
+       \Delta P_t
+      </math>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+      <math>
+       +s
+      </math>
+     </th>
+     <th>
+      0
+     </th>
+     <th>
+      <math>
+       -s
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td rowspan="3">
+      <math>
+       \Delta P_{t+1}
+      </math>
+     </td>
+     <td>
+      <math>
+       +s
+      </math>
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      1/8
+     </td>
+     <td>
+      1/8
+     </td>
+    </tr>
+    <tr>
+     <td>
+      0
+     </td>
+     <td>
+      1/8
+     </td>
+     <td>
+      1/4
+     </td>
+     <td>
+      1/8
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       -s
+      </math>
+     </td>
+     <td>
+      1/8
+     </td>
+     <td>
+      1/8
+     </td>
+     <td>
+      0
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   for the bid-ask spread. He concluded that the serial covariance estimator is very noisy in daily data and is biased downward in small samples. Using weekly data would reduce the bias, but it will also lead to smaller sample sizes. He also found that the bias from Jensen's inequality is very serious in daily and weekly data.
+  </p>
+  <h2>
+   <b>
+    Bid-Ask Spread-induced Bias in Volatility
+   </b>
+   Estimator
+  </h2>
+  <p block-type="TextInlineMath">
+   Stock return volatility estimates based on transaction prices will lead to an upward bias due to the bid-ask bounce. The transaction price,
+   <math display="inline">
+    P_t
+   </math>
+   , consists of the unobserved "true" price
+   <math display="inline">
+    P_t^*
+   </math>
+   , and the half-spread,
+   <math display="inline">
+    +\frac{s}{2}
+   </math>
+   if the transaction was at the ask price and
+   <math display="inline">
+    -\frac{s}{2}
+   </math>
+   if the transaction was at the bid price. Therefore,
+   <math display="inline">
+    \bar{P}_t
+   </math>
+   <math display="inline">
+    P_t^* + \frac{s}{2} \tilde{D}_t
+   </math>
+   , where
+   <math display="inline">
+    \tilde{D}_t
+   </math>
+   is the buy/sell indicator, which is equal to 1 with probability 0.5 (buyer-initiated trade) and equal to
+   <math display="inline">
+    -1
+   </math>
+   with probability 0.5 (sellerinitiated trade).
+  </p>
+  <p block-type="TextInlineMath">
+   If we assume that
+   <math display="inline">
+    P_t^*
+   </math>
+   evolves as a random walk, such that
+   <math display="inline">
+    P_t^* = P_{t-1}^* + \tilde{\eta}_t
+   </math>
+   , then the variance of the price change based on transaction prices can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{Var}(\Delta P_{t}) = \operatorname{Var}(\tilde{\eta}_{t}) + \operatorname{Var}\left(\frac{s}{2}\Delta\tilde{D}_{t}\right)
+   </math>
+   <math display="block">
+    = \sigma^{2} + \frac{s^{2}}{4}\operatorname{Var}(\Delta\tilde{D}_{t}) = \sigma^{2} + \frac{s^{2}}{2} \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Delta P_t = P_t - P_{t-1}
+   </math>
+   and
+   <math display="inline">
+    \Delta \tilde{D}_t = \tilde{D}_t - \tilde{D}_{t-1}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Since the variance calculated using transaction prices will include both the variance from the bid-ask bounce as well as the actual price variance, the calculated variance will overstate the fundamental volatility by
+   <math display="inline">
+    \frac{s}{2}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The magnitude of the bid-ask bounce-induced volatility remains the same whether we look at short-interval (high-frequency) or long-interval (lowfrequency) returns. However, volatility due to the bid-ask bounce becomes a larger proportion of the fundamental return volatility with a decrease in the return horizon. French and Roll [1] provided a variance estimator that is unbiased but noisy.
+  </p>
+  <h2>
+   A Generalized Roll Model with Adverse Selection
+  </h2>
+  <p block-type="Text">
+   Since the publication of Roll's paper in 1984, there have been many related papers that relax some of the assumptions made by Roll, and others have used Roll's model as a foundation to develop general models to include asymmetric information, inventory costs, price discreteness, and other microstructure related effects. We can generalize the Roll model to include the adverse selection cost as follows.
+  </p>
+  <p block-type="Text">
+   The unobserved fundamental value
+   <math display="inline">
+    P_t^*
+   </math>
+   is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_t^* = P_{t-1}^* + \tilde{\eta}_t + (1 - \pi) \left(\frac{s}{2}\tilde{D}_t\right) \tag{3}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   where
+   <math display="inline">
+    (1 - \pi)
+   </math>
+   is the fraction of the half-spread due to adverse selection and
+   <math display="inline">
+    \tilde{\eta}_t
+   </math>
+   is a serially uncorrelated public information shock. If the fraction of the half-spread due to order processing is
+   <math display="inline">
+    \pi
+   </math>
+   , then the
+  </p>
+  <p block-type="Text">
+   transaction price is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_t = P_t^* + \pi \left(\frac{s}{2}\tilde{D}_t\right) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \pi
+   </math>
+   is set to equal 1, we get back to the original Roll model. Under this model, it can be shown that
+   <math display="inline">
+    \text{SCov}(\Delta P_t, \Delta P_{t-1}) = -\pi \frac{s^2}{4}
+   </math>
+   . Hence, only when
+   <math display="inline">
+    \pi = 1
+   </math>
+   (i.e., no adverse selection) can we obtain an unbiased estimator of "s" using the
+   <math display="inline">
+    SCov(\Delta P_t, \Delta P_{t-1})
+   </math>
+   as in [4]. A more detailed description of a generalized Roll model can be found in [3].
+  </p>
+  <h2>
+   Summary
+  </h2>
+  <p block-type="Text">
+   Roll's 1984 article developed a relatively simple model to estimate the bid-ask spread based on observable trade prices. This model has been very useful in situations where direct bid-ask data were not available. The Roll model has been a foundation upon which several extensions and other models have emerged to estimate the spread and its determinants.
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] French, K.R. &amp; Roll, R. (1986). Stock return variances: the arrival of information and reaction of traders, Journal of Financial Economics 17, 5–26.
+    </li>
+    <li block-type="ListItem">
+     Harris, L. (1990). Statistical properties of the roll serial [2] covariance bid/ask spread estimator, Journal of Finance XLV(2), 579-590.
+    </li>
+    <li block-type="ListItem">
+     [3] Hasbrouck, J. (2007). Empirical Market Microstructure, Oxford University Press.
+    </li>
+    <li block-type="ListItem">
+     Roll, R. (1984). A simple implicit measure of the effective [4] bid-ask spread in an efficient market.
+     <i>
+      Journal of Finance
+     </i>
+     39, 1127–1139.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   Adverse Selection; Bid-Ask Spreads; Glosten-Milgrom Models; High-frequency Data; Market Microstructure Effects.
+  </p>
+  <p block-type="Text">
+   MAHENDRARAJAH NIMALENDRAN
+  </p>
+ </body>
+</html>

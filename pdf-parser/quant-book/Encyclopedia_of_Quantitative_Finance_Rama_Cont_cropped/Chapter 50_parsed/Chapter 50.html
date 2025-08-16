@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Lévy Copulas
+  </h1>
+  <p block-type="Text">
+   Lévy copulas characterize the dependence among components of multidimensional Lévy processes. They are similar to copulas of probability distributions but are defined at the level of Lévy measures. Lévy copulas separate the dependence structure of a Lévy measure from the one-dimensional marginal measures meaning that any
+   <math display="inline">
+    d
+   </math>
+   -dimensional Lévy measure can be constructed from a set of one-dimensional margins and a Lévy copula. This suggests the construction of parametric multidimensional Lévy models by combining arbitrary one-dimensional Lévy processes with a Lévy copula from a parametric family. The Lévy copulas were introduced in [4] for spectrally one-sided Lévy processes and in [6, 7] in the general case. Subsequent theoretical developments include Barndorff-Nielsen and Lindner [1], who discuss further interpretations of Lévy copulas and various transformations of these objects. Farkas et al. [5] develop deterministic numerical methods for option pricing in models based on Lévy copulas, and the simulation algorithms for multidimensional Lévy processes based on their Lévy copulas are discussed in
+   <math display="inline">
+    [4, 7]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In finance, Lévy copulas are useful to model joint moves of several assets in various settings including portfolio risk management, option pricing [8], insurance [3], and operational risk modeling [2].
+  </p>
+  <h2>
+   <b>
+    Lévy Measures and Tail Integrals
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   A Lévy process on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   is described by its characteristic triplet
+   <math display="inline">
+    (A, \nu, \gamma)
+   </math>
+   , where A is a positive semidefinite
+   <math display="inline">
+    d \times d
+   </math>
+   matrix,
+   <math display="inline">
+    \gamma \in \mathbb{R}^d
+   </math>
+   , and
+   <math display="inline">
+    \nu
+   </math>
+   is a positive Radon measure on
+   <math display="inline">
+    \mathbb{R}^d \setminus \{0\}
+   </math>
+   , satisfying
+   <math display="inline">
+    \int_{\mathbb{R}^d \setminus \{0\}} (\|x\|^2 \wedge 1) \nu(dx) &lt;
+   </math>
+   <math display="inline">
+    \infty
+   </math>
+   and called the
+   <i>
+    Lévy measure of X
+   </i>
+   . The matrix A is the covariance matrix of the continuous martingale (Brownian motion) part of X, and
+   <math display="inline">
+    \nu
+   </math>
+   describes the independent jump part. It makes sense, therefore, to describe the dependence structure of the jump part of
+   <math display="inline">
+    X
+   </math>
+   with a suitable notion of copula at the level of the Lévy measure.
+  </p>
+  <p block-type="Text">
+   In the same way that the distribution of a random vector can be represented by its distribution function, the Lévy measure of a Lévy process will be represented by its tail integral. If we are only interested in,
+  </p>
+  <p block-type="TextInlineMath">
+   say, positive jumps, the definition of the tail integral is simple: given a
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued Lévy process with Lévy measure
+   <math display="inline">
+    \nu
+   </math>
+   supported by
+   <math display="inline">
+    [0,\infty)^d
+   </math>
+   , the tail integral of
+   <math display="inline">
+    \nu
+   </math>
+   is the function
+   <math display="inline">
+    U:(0,\infty)^d\to [0,\infty)
+   </math>
+   defined by
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    U(x_1,\ldots,x_d) = \nu((x_1,\infty)\times\cdots\times(x_d,\infty)) \quad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the general case, care must be taken to avoid the possible singularity of
+   <math display="inline">
+    \nu
+   </math>
+   near zero: so the tail integral is a function
+   <math display="inline">
+    U : (\mathbb{R} \setminus \{0\})^d \to \mathbb{R}
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(x_1,\ldots,x_d) := \prod_{i=1}^d \operatorname{sgn}(x_i) \nu \left( \prod_{j=1}^d \mathcal{I}(x_j) \right) \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathcal{I} := (x, \infty)
+   </math>
+   if
+   <math display="inline">
+    x &gt; 0
+   </math>
+   and
+   <math display="inline">
+    \mathcal{I}(x) := (-\infty, x]
+   </math>
+   if
+   <math display="inline">
+    x &lt; 0.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Given an
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued Lévy process X and a nonempty set of indices
+   <math display="inline">
+    I \subset \{1, \ldots, d\}
+   </math>
+   , the
+   <i>
+    I
+   </i>
+   margin of
+   <math display="inline">
+    X
+   </math>
+   is the Lévy process of lower dimension that contains only those components of
+   <math display="inline">
+    X
+   </math>
+   whose indices are in
+   <math display="inline">
+    I: X^I := (X^i)_{i \in I}
+   </math>
+   . The
+   <i>
+    I
+   </i>
+   -marginal tail integral
+   <math display="inline">
+    U^I
+   </math>
+   of X is then simply the tail integral of the process
+   <math display="inline">
+    X^I
+   </math>
+   .
+  </p>
+  <h4>
+   Lévy Copulas: The General Case
+  </h4>
+  <p block-type="TextInlineMath">
+   Central to the theory of Lévy copulas are the notions of a
+   <math display="inline">
+    d
+   </math>
+   -increasing function and the margins of a
+   <math display="inline">
+    d
+   </math>
+   increasing function. Intuitively speaking, a function
+   <math display="inline">
+    F
+   </math>
+   is
+   <i>
+    d
+   </i>
+   -increasing if
+   <math display="inline">
+    dF
+   </math>
+   is a positive measure on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   in the sense of Lebesgue-Stieltjes integration. Similarly, the margin
+   <math display="inline">
+    F^{I}
+   </math>
+   is defined so that the measure
+   <math display="inline">
+    d(F^I)
+   </math>
+   induced by
+   <math display="inline">
+    F^I
+   </math>
+   coincides with the I margin of the measure
+   <math display="inline">
+    dF
+   </math>
+   . Let us now turn to precise definitions.
+  </p>
+  <p block-type="TextInlineMath">
+   We set
+   <math display="inline">
+    \overline{\mathbb{R}} := (-\infty, \infty]
+   </math>
+   and for
+   <math display="inline">
+    a, b \in \overline{\mathbb{R}}^d
+   </math>
+   , we write
+   <math display="inline">
+    a \leq b
+   </math>
+   if
+   <math display="inline">
+    a_k \leq b_k
+   </math>
+   ,
+   <math display="inline">
+    k = 1, \ldots, d
+   </math>
+   . In this case,
+   <math display="inline">
+    (a, b]
+   </math>
+   denotes the interval
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (a,b] := (a_1,b_1] \times \cdots \times (a_d,b_d] \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For a function
+   <math display="inline">
+    F : \overline{\mathbb{R}}^d \to \overline{\mathbb{R}}
+   </math>
+   , the
+   <i>
+    F
+   </i>
+   -volume of
+   <math display="inline">
+    (a, b]
+   </math>
+   is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_F((a,b]) := \sum_{u \in \{a_1,b_1\} \times \dots \times \{a_d,b_d\}} (-1)^{N(u)} F(u) \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    N(u) := \#\{k : u_k = a_k\}
+   </math>
+   . In particular,
+   <math display="inline">
+    V_F
+   </math>
+   <math display="inline">
+    ((a, b]) = F(b) - F(a)
+   </math>
+   for
+   <math display="inline">
+    d = 1
+   </math>
+   and
+   <math display="inline">
+    V_F((a, b]) =
+   </math>
+   <math display="inline">
+    F(b_1, b_2) + F(a_1, a_2) - F(a_1, b_2) - F(b_1, a_2)
+   </math>
+   for
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    d = 2
+   </math>
+   . If
+   <math display="inline">
+    F(u) = \prod_{i=1}^{d} u_i
+   </math>
+   , the F volume of any interval is equal to its Lebesgue measure.
+  </p>
+  <p block-type="TextInlineMath">
+   A function
+   <math display="inline">
+    F: \overline{\mathbb{R}}^d \to \overline{\mathbb{R}}
+   </math>
+   is called
+   <i>
+    d
+   </i>
+   increasing if
+   <math display="inline">
+    V_F((a, b]) &gt; 0
+   </math>
+   for all
+   <math display="inline">
+    a &lt; b
+   </math>
+   . The distribution function of a random vector is one example of a
+   <math display="inline">
+    d
+   </math>
+   increasing function. The tail integral
+   <math display="inline">
+    U
+   </math>
+   was defined in such way that
+   <math display="inline">
+    (-1)^d U
+   </math>
+   is d increasing in every orthant (but not on the entire space).
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    F: \overline{\mathbb{R}}^d \to \overline{\mathbb{R}}
+   </math>
+   be a
+   <i>
+    d
+   </i>
+   -increasing function such that
+   <math display="inline">
+    F(u_1, \ldots, u_d) = 0
+   </math>
+   if
+   <math display="inline">
+    u_i = 0
+   </math>
+   for at least one
+   <i>
+    i
+   </i>
+   . For an index set
+   <math display="inline">
+    I
+   </math>
+   , the
+   <math display="inline">
+    I
+   </math>
+   margin of
+   <math display="inline">
+    F
+   </math>
+   is the function
+   <math display="inline">
+    F^I: \overline{\mathbb{R}}^{|I|} \to \overline{\mathbb{R}}
+   </math>
+   , defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{I}((u_{i})_{i\in I}) := \lim_{a\to\infty} \sum_{(u_{i})_{i\in I^{c}\in\{-a,\infty\}^{|I^{c}|}\atop k\in I^{c}} \operatorname{sgn} u_{i}} \quad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    I^c := \{1, \ldots, d\} \setminus I
+   </math>
+   . In particular, we have
+   <math display="inline">
+    F^{\{1\}}(u) = F(u, \infty) - \lim_{a \to -\infty} F(u, a)
+   </math>
+   for
+   <math display="inline">
+    d = 2
+   </math>
+   . To understand the reasoning leading to the above definition of margins, note that any positive measure
+   <math display="inline">
+    \mu
+   </math>
+   on
+   <math display="inline">
+    \overline{\mathbb{R}}^a
+   </math>
+   naturally induces an increasing function
+   <i>
+    F
+   </i>
+   via
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(u_1, \ldots, u_d) :=
+   </math>
+   <math display="block">
+    \mu \Big( (u_1 \wedge 0, u_1 \vee 0] \times \cdots \times (u_d \wedge 0, u_d \vee 0] \Big) \prod_{i=1}^d \operatorname{sgn} u_i
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    u_1, \ldots, u_d \in \overline{\mathbb{R}}
+   </math>
+   . The margins of
+   <math display="inline">
+    \mu
+   </math>
+   are usually defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu^{I}(A) = \mu\left(\{u \in \overline{\mathbb{R}}^{d} : (u_{i})_{i \in I} \in A\}\right), \quad A \subset \overline{\mathbb{R}}^{|I|}
+   </math>
+   (7)
+  </p>
+  <p block-type="Text">
+   It is now easy to see that the margins of
+   <math display="inline">
+    F
+   </math>
+   are induced by the margins of
+   <math display="inline">
+    \mu
+   </math>
+   in the sense of equation (6).
+  </p>
+  <p block-type="TextInlineMath">
+   A function
+   <math display="inline">
+    F: \overline{\mathbb{R}}^d \to \overline{\mathbb{R}}
+   </math>
+   is called
+   <i>
+    Lévy copula
+   </i>
+   if it satisfies the following four conditions (the first one is just a nontriviality requirement):
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      (u_1,\ldots,u_d) \neq
+     </math>
+     1.
+     <math display="inline">
+      F(u_1,\ldots,u_d) \neq \infty
+     </math>
+     for
+     <math display="inline">
+      (\infty,\ldots,\infty);
+     </math>
+    </li>
+    <li block-type="ListItem">
+     2.
+     <math display="inline">
+      F(u_1, \ldots, u_d) = 0
+     </math>
+     if
+     <math display="inline">
+      u_i = 0
+     </math>
+     for at least one
+     <math display="inline">
+      i \in \{1, \ldots, d\};
+     </math>
+    </li>
+    <li block-type="ListItem">
+     3.
+     <math display="inline">
+      F
+     </math>
+     is
+     <math display="inline">
+      d
+     </math>
+     -increasing; and
+    </li>
+    <li block-type="ListItem">
+     4.
+     <math display="inline">
+      F^{\{i\}}(u) = u
+     </math>
+     for any
+     <math display="inline">
+      i \in \{1, \ldots, d\}, u \in \mathbb{R}
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <h2>
+   Lévy Copulas: The Spectrally One-sided Case
+  </h2>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    X
+   </math>
+   has only positive jumps in each component, or if we are only interested in the positive jumps of X, only the values
+   <math display="inline">
+    F(u_1, \ldots, u_d)
+   </math>
+   for
+   <math display="inline">
+    u_1, \ldots, u_d &gt; 0
+   </math>
+   are relevant. We can then set
+   <math display="inline">
+    F(u_1, \ldots, u_d) = 0
+   </math>
+   if
+   <math display="inline">
+    u_i &lt; 0
+   </math>
+   for at least one
+   <i>
+    i
+   </i>
+   , which greatly simplifies the definition of the margins:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F^{I}((u_{i})_{i\in I}) = F(u_{1}, \dots, u_{d})|_{u_{j} = +\infty, j \notin I} \qquad (8)
+   </math>
+  </p>
+  <p block-type="Text">
+   Taking the margins now amounts to replacing the variable that is being integrated out with infinity-exactly the same procedure as for probability distribution functions. Restricting a Lévy copula to
+   <math display="inline">
+    [0,\infty]^d
+   </math>
+   in such way, we obtain a Lévy copula for spectrally positive Lévy processes, or, for short, a positive Lévy copula.
+  </p>
+  <h4>
+   Sklar's Theorem for Lévy Processes
+  </h4>
+  <p block-type="Text">
+   The following theorem
+   <math display="inline">
+    [4, 7]
+   </math>
+   characterizes the dependence structure of Lévy processes in terms of Lévy copulas:
+  </p>
+  <h4>
+   Theorem 1
+  </h4>
+  <p block-type="Text">
+   1. Let
+   <math display="inline">
+    X = (X^1, \ldots, X^d)
+   </math>
+   be a
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued Lévy process. Then there exists a Lévy copula
+   <math display="inline">
+    F
+   </math>
+   such that the tail integrals of
+   <math display="inline">
+    X
+   </math>
+   satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U^{I}((x_{i})_{i\in I}) = F^{I}((U_{i}(x_{i}))_{i\in I}) \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for any nonempty index set
+   <math display="inline">
+    I \subset \{1, \ldots, d\}
+   </math>
+   and any
+   <math display="inline">
+    (x_i)_{i \in I} \in (\mathbb{R} \setminus \{0\})^{|I|}
+   </math>
+   . The Lévy copula F is unique on
+   <math display="inline">
+    \prod_{i=1}^d \overline{\text{Ran } U_i}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   2. Let F be a d-dimensional Lévy copula and
+   <math display="inline">
+    U_i, i = 1, \ldots, d
+   </math>
+   , tail integrals of real-valued Lévy processes. Then there exists a
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued Lévy
+   <math display="inline">
+    process\ X\ whose\ components\ have\ tail\ integrals
+   </math>
+   <math display="inline">
+    U_1, \ldots, U_d
+   </math>
+   and whose marginal tail integrals satisfy equation (9) for any nonempty
+   <math display="inline">
+    I \subset \{1, \ldots, d\}
+   </math>
+   and any
+   <math display="inline">
+    (x_i)_{i \in I} \in (\mathbb{R} \setminus \{0\})^{|I|}
+   </math>
+   . The Lévy measure
+   <math display="inline">
+    v
+   </math>
+   of
+   <math display="inline">
+    X
+   </math>
+   is uniquely determined by
+   <math display="inline">
+    F
+   </math>
+   and
+   <math display="inline">
+    U_i
+   </math>
+   ,
+   <math display="inline">
+    i =
+   </math>
+   <math display="inline">
+    1, \ldots, d.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In particular, applying the above theorem with
+   <math display="inline">
+    I =
+   </math>
+   <math display="inline">
+    \{1, \ldots, d\}
+   </math>
+   , we obtain the usual formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(x_1, \ldots, x_d) = F(U_1(x_1), \ldots, U_d(x_d)) \qquad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If the one-dimensional marginal Lévy measures are infinite and have no atoms,
+   <math display="inline">
+    \text{Ran } U_i = (-\infty, 0) \cup
+   </math>
+   <math display="inline">
+    (0,\infty)
+   </math>
+   for any
+   <i>
+    i
+   </i>
+   and one can compute
+   <i>
+    F
+   </i>
+   directly
+   <i>
+    via
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(u_1, \dots, u_d) = U\big(U_1^{-1}(u_1), \dots, U_d^{-1}(u_d)\big) \quad (11)
+   </math>
+  </p>
+  <h4>
+   <b>
+    Examples and Parametric Families
+   </b>
+  </h4>
+  <p block-type="Text">
+   The components of a pure-iump Lévy process are independent if and only if they never jump together, that is, if the Lévy measure is supported by the coordinate axes. This leads to a characterization of Lévy processes with independent components in terms of their Lévy copulas: the components
+   <math display="inline">
+    X^1,\ldots,X^d
+   </math>
+   of a
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued Lévy process X are independent if and only if their Brownian motion parts are independent and if
+   <math display="inline">
+    X
+   </math>
+   has a Lévy copula of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{\perp}(x_1,\ldots,x_d) := \sum_{i=1}^d x_i \prod_{j \neq i} 1_{\{\infty\}}(x_j) \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The Lévy copula of independence is thus different from the copula of independent random variables
+   <math display="inline">
+    C_{\perp}(u_1,\ldots,u_d)=u_1\ldots u_d
+   </math>
+   , which emphasizes the fact that the two notions are far from being the same and the "copula" intuition cannot always be applied to Lévy copulas.
+  </p>
+  <p block-type="TextInlineMath">
+   The complete dependence copula, on the other hand, turns out to have a similar form to the classical case. Recall that a subset S of
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   is called
+   <i>
+    ordered
+   </i>
+   if, for any two vectors
+   <math display="inline">
+    u, v \in S
+   </math>
+   , either
+   <math display="inline">
+    u_k &lt; v_k
+   </math>
+   ,
+   <math display="inline">
+    k =
+   </math>
+   <math display="inline">
+    1,\ldots,d
+   </math>
+   or
+   <math display="inline">
+    u_k \geq v_k, k = 1,\ldots,d
+   </math>
+   . Similarly, S is called
+   <i>
+    strictly ordered
+   </i>
+   if, for any two different vectors
+   <math display="inline">
+    u, v \in S
+   </math>
+   , either
+   <math display="inline">
+    u_k &lt; v_k
+   </math>
+   ,
+   <math display="inline">
+    k = 1, \ldots, d
+   </math>
+   or
+   <math display="inline">
+    u_k &gt; v_k
+   </math>
+   ,
+   <math display="inline">
+    k = 1, \ldots, d
+   </math>
+   . Furthermore, set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K := \{x \in \mathbb{R}^d : \operatorname{sgn} x_1 = \ldots = \operatorname{sgn} x_d\} \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The jumps of an
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued Lévy process
+   <math display="inline">
+    X
+   </math>
+   are said to be completely dependent or comonotonic if there exists a strictly ordered subset
+   <math display="inline">
+    S \subset K
+   </math>
+   such that
+   <math display="inline">
+    \Delta X_t := X_t - X_{t-} \in S, t \in \mathbb{R}_+
+   </math>
+   (except for some null set of paths). The condition
+   <math display="inline">
+    \Delta X_t \in K
+   </math>
+   means that if the components of a Lévy process are comonotonic, they always jump in the same direction. A
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued Lévy process whose Lévy measure is supported by an ordered set
+   <math display="inline">
+    S \subset K
+   </math>
+   is described by the
+   <i>
+    complete
+   </i>
+  </p>
+  <p block-type="Text">
+   dependence Lévy copula given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{\parallel}(x) := \min(|x_1|, \dots, |x_d|) 1_K(x) \prod_{i=1}^d \operatorname{sgn} x_i \quad (14)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Conversely, if
+   <math display="inline">
+    F_{\parallel}
+   </math>
+   is a Lévy copula of X, then the Lévy measure of
+   <math display="inline">
+    X
+   </math>
+   is supported by an ordered subset of
+   <math display="inline">
+    K
+   </math>
+   . If, in addition, the tail integrals
+   <math display="inline">
+    U_i
+   </math>
+   of
+   <math display="inline">
+    X^i
+   </math>
+   are continuous and satisfy
+   <math display="inline">
+    \lim_{x\to 0} U_i(x) = \infty
+   </math>
+   ,
+   <math display="inline">
+    i = 1, \ldots, d
+   </math>
+   , then
+   <math display="inline">
+    F_{\parallel}
+   </math>
+   is the unique Lévy copula of
+   <math display="inline">
+    X
+   </math>
+   and the jumps of
+   <math display="inline">
+    \hat{X}
+   </math>
+   are completely dependent. For positive Lévy copulas, expression (14) simplifies to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{\parallel}(x_1,\ldots,x_d) := \min(x_1,\ldots,x_d) \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   that is, we recover the expression of the complete dependence copula of random variables (but the two functions are defined on different domains!).
+  </p>
+  <p block-type="Text">
+   One simple and convenient parametric family of positive Lévy copulas is similar to the Clayton family of copulas; it is therefore called the
+   <i>
+    Clayton–Lévy
+   </i>
+   copula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(u_1, \dots, u_d) = \left(\sum_{i=1}^d u_i^{-\theta}\right)^{-1/\theta}, \quad u_1, \dots, u_d \ge 0
+   </math>
+   (16)
+  </p>
+  <p block-type="TextInlineMath">
+   The reader can easily check that this copula converges to the complete dependence copula
+   <math display="inline">
+    F_{\parallel}
+   </math>
+   as
+   <math display="inline">
+    \theta \rightarrow \infty
+   </math>
+   and to the independence copula
+   <math display="inline">
+    F_{\perp}
+   </math>
+   as
+   <math display="inline">
+    \theta \to 0
+   </math>
+   . This construction can be generalized to a Lévy copula on
+   <math display="inline">
+    \overline{\mathbb{R}}^a
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(u_1, \ldots, u_d) = 2^{2-d} \left( \sum_{i=1}^d |u_i|^{-\theta} \right)^{-1/\theta} \times \left( \eta \mathbf{1}_{\{u_1 \cdots u_d \ge 0\}} - (1-\eta) \mathbf{1}_{\{u_1 \cdots u_d &lt; 0\}} \right) \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   defines a two-parameter family of Lévy copulas. The role of the parameters is easiest to analyze in the case
+   <math display="inline">
+    d = 2
+   </math>
+   , when equation (17) becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(u,v) = \left( |u|^{-\theta} + |v|^{-\theta} \right)^{-1/\theta} \times \left( \eta \mathbf{1}_{\{uv \ge 0\}} - (1-\eta) \mathbf{1}_{\{uv &lt; 0\}} \right) \tag{18}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   From this equation, it is readily seen that the parameter
+   <math display="inline">
+    \eta
+   </math>
+   determines the dependence of the
+   <i>
+    sign
+   </i>
+   of jumps: when
+   <math display="inline">
+    \eta = 1
+   </math>
+   , the two components always jump in the
+  </p>
+  <p block-type="Text">
+   same direction, and when
+   <i>
+    η
+   </i>
+   = 0, positive jumps in one component are accompanied by negative jumps in the other and
+   <i>
+    vice versa
+   </i>
+   . The parameter
+   <i>
+    θ
+   </i>
+   is responsible for the dependence of absolute values of jumps in different components.
+  </p>
+  <p block-type="Text">
+   Figure 1 shows the scatter plots of weekly returns in an exponential Levy model with variance gamma ´ (
+   <i>
+    see
+   </i>
+   <b>
+    Variance-gamma Model
+   </b>
+   ) margins and the dependence pattern given by the Levy copula (18) ´ with two different sets of dependence parameters,
+  </p>
+  <p>
+   <img src="_page_3_Figure_3.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Scatter plots of returns in a two-dimensional variance gamma model with correlation
+   <i>
+    ρ
+   </i>
+   = 50% and different tail dependence. (a) Strong tail dependence (
+   <i>
+    η
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   75 and
+   <i>
+    θ
+   </i>
+   = 10) and (b) weak tail dependence (
+   <i>
+    η
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   99 and
+   <i>
+    θ
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   61)
+  </p>
+  <p block-type="Text">
+   both of which lead to a correlation of 50% but have different tail dependence patterns. It is clear that when a precise description of tail events such as simultaneous large jumps is necessary, Levy cop- ´ ulas offer more freedom in modeling dependence than traditional correlation-based approaches. A natural application of Levy copulas arises in the context ´ of multidimensional gap options [8] that are exotic products whose payoff depends on the total number of sharp downside moves in a basket of assets.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Barndorff-Nielsen, O.E. &amp; Lindner, A.M. (2007). Levy ´ copulas: dynamics and transforms of upsilon type,
+     <i>
+      Scandinavian Journal of Statistics
+     </i>
+     <b>
+      34
+     </b>
+     , 298–316.
+    </li>
+    <li block-type="ListItem">
+     [2] Bocker, K. &amp; Kl ¨ uppelberg, C. (2007). Multivariate oper- ¨ ational risk: dependence modelling with Levy copulas, ´
+     <i>
+      ERM Symposium Online Monograph
+     </i>
+     , Society of Actuaries, and Joint Risk Management, section newsletter.
+    </li>
+    <li block-type="ListItem">
+     [3] Bregman, Y. &amp; Kluppelberg, C. (2005). Ruin estimation ¨ in multivariate models with Clayton dependence structure,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     <b>
+      November
+     </b>
+     (6), 462–480.
+    </li>
+    <li block-type="ListItem">
+     [4] Cont, R. &amp; Tankov, P. (2004).
+     <i>
+      Financial Modelling with Jump Processes
+     </i>
+     , Chapman &amp; Hall/CRC Press.
+    </li>
+    <li block-type="ListItem">
+     [5] Farkas, W., Reich, N. &amp; Schwab, C. (2007). Anisotropic stable Levy copula processes-analytical and numerical ´ aspects,
+     <i>
+      Mathematical Models and Methods in Applied Sciences
+     </i>
+     <b>
+      17
+     </b>
+     , 1405–1443.
+    </li>
+    <li block-type="ListItem">
+     [6] Kallsen, J. &amp; Tankov, P. (2006). Characterization of dependence of multidimensional Levy processes using ´ Levy copulas, ´
+     <i>
+      Journal of Multivariate Analysis
+     </i>
+     <b>
+      97
+     </b>
+     , 1551–1572.
+    </li>
+    <li block-type="ListItem">
+     [7] Tankov, P. (2004).
+     <i>
+      L´evy Processes in Finance: Inverse Problems and Dependence Modelling
+     </i>
+     , PhD thesis, Ecole Polytechnique, France.
+    </li>
+    <li block-type="ListItem">
+     [8] Tankov, P. (2008).
+     <i>
+      Pricing and Hedging Gap Risk
+     </i>
+     , preprint, available at http://papers.ssrn.com.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Copulas: Estimation
+   </b>
+   ;
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ;
+   <b>
+    Levy Processes ´
+   </b>
+   ;
+   <b>
+    Multivariate Distributions
+   </b>
+   ;
+   <b>
+    Operational Risk
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   PETER TANKOV
+  </p>
+ </body>
+</html>

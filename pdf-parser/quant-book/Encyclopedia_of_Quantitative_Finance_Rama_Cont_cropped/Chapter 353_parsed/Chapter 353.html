@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Duration Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   Duration models appear when studying the moment in time that certain events occur. Next to general applications in economics and medical sciences, their financial applications are in the more specific field of market microstructure (transaction times of assets or derivatives in a given market), and also in corporate governance (tenure of management).
+  </p>
+  <p block-type="Text">
+   Denote the unknown times at which the events of interest occur as
+   <math display="inline">
+    T_i
+   </math>
+   ,
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   . Almost invariable in the literature, it is assumed that the times
+   <math display="inline">
+    T_i
+   </math>
+   form an
+   <i>
+    increasing
+   </i>
+   sequence of
+   <i>
+    stopping times
+   </i>
+   . The random times are increasing if
+   <math display="inline">
+    T_{i+1} \geq T_i
+   </math>
+   (almost surely (a.s.)). In that case, the
+   <i>
+    duration
+   </i>
+   <math display="inline">
+    D_i
+   </math>
+   is defined by
+   <math display="inline">
+    D_i = T_i - T_{i-1} \ge 0
+   </math>
+   , with the usual convention
+   <math display="inline">
+    T_0 = 0
+   </math>
+   , which explains the name duration models. The stopping time property is with respect to a given underlying filtration
+   <math display="inline">
+    (\mathcal{F}_t)_{t&gt;0}
+   </math>
+   . This filtration is supposed to model the information available to either the investigator (in order to perform inference) or an agent in a financial market (in order to take, e.g., investment decisions). Care is to be taken when extrapolating results on inference to actual financial market decisions if these information sets are different (where, often, the investigator's information set is smallest). Mathematically, the information structure is generally assumed to satisfy the so-called
+   <i>
+    usual
+   </i>
+   conditions [5].
+  </p>
+  <p block-type="TextInlineMath">
+   The stopping-time property of
+   <math display="inline">
+    T_i
+   </math>
+   formally states that, for each
+   <math display="inline">
+    t &gt; 0
+   </math>
+   , the event
+   <math display="inline">
+    \{T_i &lt; t\}
+   </math>
+   belongs to
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   . As the filtration is, by definition, increasing
+   <math display="inline">
+    (\mathcal{F}_s \subset \mathcal{F}_t)
+   </math>
+   for
+   <math display="inline">
+    s \leq t
+   </math>
+   ), we also have
+   <math display="inline">
+    \{T_i \leq s\} \in \mathcal{F}_t
+   </math>
+   for
+   <math display="inline">
+    s \leq t
+   </math>
+   . Thus, informally, if
+   <math display="inline">
+    T_i
+   </math>
+   is a stopping time denoting the occurrence of an event then, at each time
+   <math display="inline">
+    t \ge 0
+   </math>
+   , we know whether the event has occurred already. Also, in case the event has occurred by time
+   <math display="inline">
+    t
+   </math>
+   , we know at which time
+   <math display="inline">
+    s \leq t
+   </math>
+   it occurred.
+  </p>
+  <h4>
+   Scale Models
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   A popular way to model the times
+   <math display="inline">
+    T_i
+   </math>
+   or, equivalently, the durations
+   <math display="inline">
+    D_i
+   </math>
+   is via a scale model. This method became popular in the financial econometrics literature because of its resemblance to volatility modeling (see, for instance, the
+   <i>
+    autoregressive
+   </i>
+   conditional duration (ACD) specification of [2]). In
+  </p>
+  <p block-type="TextInlineMath">
+   these models, we write the
+   <math display="inline">
+    i
+   </math>
+   th duration as the product of two positive random variables,
+   <math display="inline">
+    D_i = \psi_i \varepsilon_i
+   </math>
+   . Here
+   <math display="inline">
+    (\varepsilon_i)_{i=1}^n
+   </math>
+   is some
+   <i>
+    innovation sequence
+   </i>
+   and the properties of the model depend on the assumptions made on this innovation sequence. The scale factor
+   <math display="inline">
+    \psi_i
+   </math>
+   is assumed to be predetermined, meaning that
+   <math display="inline">
+    \psi_i
+   </math>
+   is measurable with respect to
+   <math display="inline">
+    \mathcal{F}_{T_{i-1}}
+   </math>
+   , the information available at time
+   <math display="inline">
+    T_{i-1}
+   </math>
+   . This information set allows the formalization of, for example, the expectation given the information at
+   <math display="inline">
+    T_{i-1}
+   </math>
+   and, in particular, leads to the optional stopping theorem [5]. Most of the literature identifies the scale of the innovation sequence by
+   <math display="inline">
+    E\{\varepsilon_i | \mathcal{F}_{T_{i-1}}\} = 1
+   </math>
+   . Such an assumption is innocuous insofar as the modeling is concerned, but may change the interpretation of parameters specifying
+   <math display="inline">
+    \psi_i
+   </math>
+   and thus inferential aspects as (semiparametric) adaptivity [1]. In the ACD specification, it is assumed that
+   <math display="inline">
+    \mathcal{F}_{T_i}
+   </math>
+   is observed by the investigator, so that
+   <math display="inline">
+    \psi_i
+   </math>
+   is observed as well (up to unknown parameters). An alternative is given by the stochastic volatility duration (SVD) model of [3], where the expected duration
+   <math display="inline">
+    \psi_i
+   </math>
+   is modeled using an unobserved factor allowing for unobserved heterogeneity.
+  </p>
+  <h4>
+   <b>
+    Point or Counting Process Models
+   </b>
+  </h4>
+  <p block-type="Text">
+   In the probabilistic literature, point processes refer to stochastic processes that generate random points in a set [4]. Applied to the positive half line, this leads to models for random times/durations. As describing the location of certain points is equivalent to count the number of points in general sets, these processes are also called
+   <i>
+    counting processes
+   </i>
+   . The distributional properties of these processes are characterized by, for instance, the (conditional) intensity measure, which essentially gives the (conditionally) expected number of events in a small (time) interval.
+  </p>
+  <h4>
+   <b>
+    Passage Time Models
+   </b>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   A structural approach to duration models can be obtained, using as a duration the time it takes for a stochastic process to pass a certain threshold. In particular, if the underlying process is a Brownian motion this leads to Brownian hitting times, which are well studied. In this simplest setting, these hitting times (durations) are distributed according to the
+  </p>
+  <p block-type="Text">
+   inverse Gaussian distribution, which also explains the name for this distribution.
+  </p>
+  <h2>
+   <b>
+    Proportional Hazard and Survival Models
+   </b>
+  </h2>
+  <p block-type="Text">
+   Survival analysis is used in (bio)statistics to model uncertain lifetimes and can be adopted to model other (financial) durations. This literature uses, in particular, the
+   <i>
+    hazard
+   </i>
+   rate to model the duration of an event. The hazard rate is the (instantaneous) probability that the event will occur in the next time instance, given that it has not occurred so far. Mathematically, the hazard rate equals the density of the duration distribution, divided by it survival function (one minus the cumulative distribution function). In particular, the proportional hazard model has been used a lot. In such a model, predetermined variables multiply the baseline hazard, to give a conditional hazard.
+  </p>
+  <h2>
+   <b>
+    Multivariate Models
+   </b>
+  </h2>
+  <p block-type="Text">
+   In financial applications, there is much interest in jointly modeling several durations, for example, the transaction times for multiple assets. Owing to the nonsynchronous occurrence of events, this is a nontrivial exercise. In general, the point process approach is most suited in these circumstances, as the multivariate intensities can be modeled. Inference, though, is fairly involved.
+  </p>
+  <p block-type="Text">
+   Similarly, one is often interested in the joint behavior of durations and other quantities as volume or volatility. Such multivariate extensions can be complicated by possible subtle causality relations (both instantaneous and Granger) between the processes. Moment-based inference that takes these effects into account has been proposed in [6].
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Drost, F.C. &amp; Werker, B.J.M. (2004). Semiparametric duration models,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      22
+     </b>
+     , 40–50.
+    </li>
+    <li block-type="ListItem">
+     [2] Engle, R.F. &amp; Russell, J.R. (1998). Autoregressive conditional duration: a new model for irregularly spaced transaction data,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      66
+     </b>
+     , 1127–1162.
+    </li>
+    <li block-type="ListItem">
+     [3] Ghysels, E., Gourieroux, C. &amp; Jasiak, J. (2004). Stochastic ´ volatility duration models,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      119
+     </b>
+     , 413–433.
+    </li>
+    <li block-type="ListItem">
+     [4] Last, G. &amp; Brandt, A. (1995).
+     <i>
+      Marked Point Processes on the Real Line: The Dynamic Approach
+     </i>
+     , Springer-Verlag.
+    </li>
+    <li block-type="ListItem">
+     [5] Protter, P.E. (1990).
+     <i>
+      Stochastic Integration and Differential Equations : A New Approach
+     </i>
+     , Springer-Verlag.
+    </li>
+    <li block-type="ListItem">
+     [6] Renault, E. &amp; Werker, B.J.M. (2009). Causality effects in return volatility measures with random times,
+     <i>
+      Journal of Econometrics
+     </i>
+     Forthcoming.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   <b>
+    High-frequency Data
+   </b>
+   ;
+   <b>
+    Order Flow
+   </b>
+   ;
+   <b>
+    Point Processes
+   </b>
+   ;
+   <b>
+    Poisson Process
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   BAS J.M. WERKER
+  </p>
+ </body>
+</html>

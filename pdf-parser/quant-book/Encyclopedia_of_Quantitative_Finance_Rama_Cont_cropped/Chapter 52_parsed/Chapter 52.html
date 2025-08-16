@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Sauared Bessel Processes
+   </b>
+  </h1>
+  <p block-type="Text">
+   Squares of Bessel processes enjoy both an additivity property and a scaling property, which are, arguably, the main reasons why these processes occur naturally in a number of Brownian, or linear diffusion, studies. This survey is written in a minimalist manner; the aim is to refer the reader to a few references where many facts and formulae are discussed in detail.
+  </p>
+  <h4>
+   Squared Bessel (BESO) Processes
+  </h4>
+  <p block-type="TextInlineMath">
+   A squared Bessel (BESQ) process
+   <math display="inline">
+    (X_t^{(x,\delta)}, t \ge 0)
+   </math>
+   may be defined (in law) as the solution of the stochastic differential equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = x + 2 \int_0^t \sqrt{X_s} \mathrm{d}\beta_s + \delta t \ , \quad X_t \ge 0 \quad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where x is the starting value:
+   <math display="inline">
+    X_0 = x
+   </math>
+   ,
+   <math display="inline">
+    \delta
+   </math>
+   is the so-called dimension of X, and
+   <math display="inline">
+    (\beta_s)_{s&gt;0}
+   </math>
+   is standard Brownian motion. For any integer dimension
+   <math display="inline">
+    \delta
+   </math>
+   ,
+   <math display="inline">
+    (X_t, t &gt; 0)
+   </math>
+   may be obtained as the square of the Euclidean norm of
+   <math display="inline">
+    \delta
+   </math>
+   -dimensional Brownian motion.
+  </p>
+  <p block-type="TextInlineMath">
+   The general theory of stochastic differential equations (SDEs) ensures that equation
+   <math display="inline">
+    (1)
+   </math>
+   enjoys pathwise uniqueness, hence uniqueness in law, and consequently the strong Markov property. Denoting by
+   <math display="inline">
+    Q_r^{\delta}
+   </math>
+   the law of
+   <math display="inline">
+    (X_t)_{t&gt;0}
+   </math>
+   , solution of equation (1), on the canonical space
+   <math display="inline">
+    C_{+} \equiv C(\mathbb{R}_{+}, \mathbb{R}_{+}),
+   </math>
+   where
+   <math display="inline">
+    (Z_{u}, u \geq
+   </math>
+   0) is taken as the coordinate process, there is the convolution property:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q_x^{\delta} * Q_{x'}^{\delta'} = Q_{x+x'}^{\delta+\delta'} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which holds for all
+   <math display="inline">
+    x, \delta \ge 0
+   </math>
+   ([7]); in other terms, adding two independent BESQ processes yields another BESQ process, whose starting point, respectively dimension, is the sum of the starting points, respectively dimensions.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   It follows from equation (2) that for any positive measure
+   <math display="inline">
+    \mu(\mathrm{d}u)
+   </math>
+   on
+   <math display="inline">
+    \mathbb{R}_+
+   </math>
+   such that
+   <math display="inline">
+    \int \mu(\mathrm{d}u)(1+u) &lt;
+   </math>
+   <math display="inline">
+    \infty
+   </math>
+   , then, if
+   <math display="inline">
+    I_{\mu} = \int \mu(\mathrm{d}u) Z_{u}
+   </math>
+   ,
+   <math display="inline">
+    Q_x^{\delta} \left( \exp{-\frac{1}{2}I_{\mu}} \right) = (A_{\mu})^{\delta} (B_{\mu})^x
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    A_{\mu} = (\phi_{\mu}(\infty))^{1/2}
+   </math>
+   ;
+   <math display="inline">
+    B_{\mu} = \exp(\phi_{\mu}'(0+))
+   </math>
+   for
+   <math display="inline">
+    \phi_{\mu}
+   </math>
+   ,&lt;br&gt;the unique decreasing solution of the Sturm-Liouville equation:
+   <math display="inline">
+    \phi'' = \phi \mu
+   </math>
+   ;
+   <math display="inline">
+    \phi(0) = 1
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Equation (3) may be considered as the (generalized) Laplace transform (with argument
+   <math display="inline">
+    \mu
+   </math>
+   ) of the probability
+   <math display="inline">
+    Q_x^{\delta}
+   </math>
+   , while as
+   <math display="inline">
+    Q_x^{\delta}
+   </math>
+   , for any fixed
+   <math display="inline">
+    \delta
+   </math>
+   and x, is infinitely divisible, the next formula is the Lévy Khintchine representation of
+   <math display="inline">
+    Q_r^{\delta}
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q_x^{\delta} \left( \exp{-\frac{1}{2}I_{\mu}} \right)
+   </math>
+   <br/>
+   =
+   <math>
+    \exp\left(-\int_{C_+} M_{x,\delta}(\mathrm{d}z) \left(1 - \mathrm{e}^{-\frac{1}{2}I_{\mu}(z)}\right) \right)
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    M_{x,\delta} = xM + \delta N
+   </math>
+   , for M and N two
+   <math display="inline">
+    \sigma
+   </math>
+   -finite measures on
+   <math display="inline">
+    C_{+}
+   </math>
+   , which are described in detail in, for example, [5] and [6].
+  </p>
+  <h2>
+   <b>
+    Brownian Local Times and BESQ
+   </b>
+   Processes
+  </h2>
+  <p block-type="TextInlineMath">
+   The Ray-Knight theorems for Brownian local times
+   <math display="inline">
+    (L^y_t; y \in \mathbb{R}, t \ge 0)
+   </math>
+   express the laws of
+   <math display="inline">
+    (L^y_T; y \in \mathbb{R})
+   </math>
+   for some very particular stopping times in terms of certain
+   <math display="inline">
+    Q_r^{\delta}
+   </math>
+   's, namely,
+  </p>
+  <p block-type="Text">
+   1. if
+   <math display="inline">
+    T = T_a
+   </math>
+   is the first hitting time of
+   <i>
+    a
+   </i>
+   by Brownian motion then
+   <math display="inline">
+    \widetilde{Z}_y^{(a)} \equiv L_{T_a}^{a-y}, y \ge 0
+   </math>
+   , satisfies the following:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widetilde{Z}_{y} = 2 \int_{0}^{y} \sqrt{\widetilde{Z}_{z}} d\beta_{z} + 2(y \wedge a) \qquad (5)
+   </math>
+  </p>
+  <p block-type="Text">
+   2. if
+   <math display="inline">
+    T = \tau_{\ell}
+   </math>
+   is the first time
+   <math display="inline">
+    (L_t^0, t \ge 0)
+   </math>
+   the Brownian local time at level 0 reaches
+   <math display="inline">
+    \ell
+   </math>
+   , then
+   <math display="inline">
+    (L_{\tau_{\ell}}^{y}, y \geq
+   </math>
+   0) and
+   <math display="inline">
+    (L_{\tau_{\ell}}^{-y}, y \ge 0)
+   </math>
+   are two independent BESQ processes, distributed as
+   <math display="inline">
+    Q_{\ell}^{0}
+   </math>
+   .
+  </p>
+  <h2>
+   An Implicit Representation in Terms of
+   <b>
+    Geometric Brownian Motions
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Lamperti [3] showed a one-to-one correspondence between Lévy processes
+   <math display="inline">
+    (\xi_t, t \ge 0)
+   </math>
+   and semistable Markov processes (
+   <math display="inline">
+    \Sigma_u, u \ge 0
+   </math>
+   ) via the (implicit) formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \exp(\xi_t) = \sum \int_0^t \mathrm{d}s \exp(\xi_s) \quad , \quad t \ge 0 \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the particular case where
+   <math display="inline">
+    \xi_t = 2(B_t + vt), t \ge
+   </math>
+   <math display="inline">
+    0
+   </math>
+   , formula
+   <math display="inline">
+    (6)
+   </math>
+   becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \exp(2(B_t + \nu t)) = X^{(1,\delta)}_{\begin{subarray}{c}0\\ \end{subarray}} \text{ds} \exp(2(B_s + \nu s)) \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where, in agreement with our notation,
+   <math display="inline">
+    (X_u^{(1,\delta)}, u \geq
+   </math>
+   0) denotes a BESQ process starting from 1 with dimension
+   <math display="inline">
+    \delta = 2(1 + \nu)
+   </math>
+   . We note that in equation (7),
+   <math display="inline">
+    \delta
+   </math>
+   may be negative, that is,
+   <math display="inline">
+    \nu &lt; -1
+   </math>
+   ; however, formula (7) reveals
+   <math display="inline">
+    (X_u^{(1,\delta)})
+   </math>
+   for
+   <math display="inline">
+    u &lt; T_0(X^{(1,\delta)})
+   </math>
+   the first hitting time of 0 by
+   <math display="inline">
+    (X^{(1,\delta)})
+   </math>
+   . Nonetheless, the study of BESQ&lt;sup&gt;
+   <math display="inline">
+    \delta
+   </math>
+   &lt;/sup&gt;, for any
+   <math display="inline">
+    \delta \in \mathbb{R}
+   </math>
+   , has been developed in [1].
+  </p>
+  <p block-type="TextInlineMath">
+   Absolute continuity relationships between the laws of different BESQ processes may be derived from equation (7), combined with the Cameron-Martin relationship between the laws of
+   <math display="inline">
+    (B_t + vt, t \ge 0)
+   </math>
+   and
+   <math display="inline">
+    (B_t, t &gt; 0).
+   </math>
+  </p>
+  <p block-type="Text">
+   Precisely, one obtains thus, for
+   <math display="inline">
+    \delta \geq 2
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q_{x|\mathcal{Z}_{u}}^{\delta} = \left(\frac{Z_{u}}{x}\right)^{\frac{\nu}{2}} \exp\left(-\frac{\nu^{2}}{2} \int_{0}^{u} \frac{\mathrm{d}s}{Z_{s}}\right) \cdot Q_{x|\mathcal{Z}_{u}}^{2} \quad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathcal{Z}_u \equiv \sigma \{Z_s, s \leq u\}
+   </math>
+   , and
+   <math display="inline">
+    \nu = \frac{\delta}{2} - 1
+   </math>
+   . The combination of equations (7) and (8) may be used to derive results about
+   <math display="inline">
+    (B_t + vt, t \ge 0)
+   </math>
+   from results about
+   <math display="inline">
+    X^{x,\delta}
+   </math>
+   (and
+   <i>
+    vice versa
+   </i>
+   ). In particular, the law of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_{T_{\lambda}}^{(\nu)} := \int_0^{T_{\lambda}} \mathrm{d}s \exp(2(B_s + \nu s)) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    T_{\lambda}
+   </math>
+   denotes an independent exponential time, was derived in ([8], Paper
+   <math display="inline">
+    \sharp
+   </math>
+   2) from this combination.
+  </p>
+  <h3>
+   Some Explicit Formulae for BESQ Functionals
+  </h3>
+  <p block-type="TextInlineMath">
+   Formula (3), when
+   <math display="inline">
+    \mu
+   </math>
+   is replaced by
+   <math display="inline">
+    \lambda \mu
+   </math>
+   , for any scalar
+   <math display="inline">
+    \lambda \geq 0
+   </math>
+   , yields the explicit Laplace transform
+  </p>
+  <p block-type="TextInlineMath">
+   of
+   <math display="inline">
+    I_{\mu}
+   </math>
+   , provided the function
+   <math display="inline">
+    \phi_{\lambda\mu}
+   </math>
+   is known explicitly, which is the case for
+   <math display="inline">
+    \mu(\mathrm{d}t) = at^{\alpha}1_{(t &lt; A)}\mathrm{d}t + b\varepsilon_A(\mathrm{d}t)
+   </math>
+   and many other examples.
+  </p>
+  <p block-type="Text">
+   Consequently, the semigroup of BESQ may be expressed explicitly in terms of Bessel functions, as well as the Laplace transforms of first hitting times (see, for example, [2]) and distributions of last passage times (see, for example, [4]). Chapter XI of [6] is entirely devoted to Bessel processes.
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Goïng-Jaeschke, A. &amp; Yor, M. (2003). A survey and some generalizations of Bessel processes, Bernoulli 9(2),
+     <math display="inline">
+      313 - 350
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [2] Kent, J. (1978). Some probabilistic properties of Bessel functions,
+     <i>
+      The Annals of Probability
+     </i>
+     <b>
+      6
+     </b>
+     , 760–770.
+    </li>
+    <li block-type="ListItem">
+     [3] Lamperti, J. (1972). Semi-stable Markov processes, Zeitschrift fur Wahrscheinlichkeitstheorie und verwandte Gebiete 22, 205-225.
+    </li>
+    <li block-type="ListItem">
+     [4] Pitman, J. &amp; Yor, M. (1981). Bessel processes and infinitely divisible laws, in Stochastic Integrals, D. Williams, ed., LNM 851, Springer, pp. 285-370.
+    </li>
+    <li block-type="ListItem">
+     [5] Pitman, J. &amp; Yor, M. (1982). A decomposition of Bessel Bridges, Zeitschrift fur Wahrscheinlichkeitstheorie und verwandte Gebiete 59, 425-457.
+    </li>
+    <li block-type="ListItem">
+     [6] Revuz, D. &amp; Yor, M. (1999).
+     <i>
+      Continuous Martingales and
+     </i>
+     Brownian Motion, 3rd Edition, Springer.
+    </li>
+    <li block-type="ListItem">
+     Shiga, T. &amp; Watanabe, S. (1973). Bessel diffusions as [7] a one-parameter family of diffusion processes, Zeitschrift fur Wahrscheinlichkeitstheorie und verwandte Gebiete 27,
+     <math display="inline">
+      37 - 46
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [8] Yor, M. (2001). Exponential Functionals of Brownian Motion and Related Processes, Springer-Finance.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Related Articles
+   </b>
+  </h4>
+  <p block-type="Text">
+   Affine Models; Cox-Ingersoll-Ross (CIR) Model; Heston Model; Simulation of Square-root Processes.
+  </p>
+  <p block-type="Text">
+   MARC J. YOR
+  </p>
+ </body>
+</html>

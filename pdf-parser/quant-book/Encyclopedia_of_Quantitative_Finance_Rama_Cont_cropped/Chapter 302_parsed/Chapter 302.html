@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Expected Shortfall
+   </b>
+  </h1>
+  <p block-type="Text">
+   The synonymous terms conditional Value at Risk
+   <math display="inline">
+    (CV@R)
+   </math>
+   and expected shortfall (ES) refer to a particular statistics of a random variable, which is widely adopted as a measure of portfolio risk. It is also known as tail Value at Risk (TV@R) or average Value at Risk (AV@R) among other names. Here we adopt the name ES.
+  </p>
+  <p block-type="TextInlineMath">
+   The "ES of a random variable
+   <math display="inline">
+    X
+   </math>
+   ", denoted by
+   <math display="inline">
+    ES_{\alpha}(X)
+   </math>
+   , is most easily defined in plain English as minus the average of the
+   <math display="inline">
+    \alpha
+   </math>
+   lowest outcomes of X, where
+   <math display="inline">
+    \alpha \in [0, 1]
+   </math>
+   is a chosen confidence level (e.g.,
+   <math display="inline">
+    \alpha = 5\%
+   </math>
+   ). There are several equivalent mathematical expressions of this definition. We discuss the most useful ones in the section "Mathematical Expressions for ES".
+  </p>
+  <p block-type="TextInlineMath">
+   In financial risk management, the "ES of a portfolio
+   <math display="inline">
+    \pi
+   </math>
+   " is usually meant as the expected shortfall
+   <math display="inline">
+    ES_{\alpha}(r_T^{(\pi)})
+   </math>
+   of the return
+   <math display="inline">
+    r_T^{(\pi)} = \pi_T - (1 +
+   </math>
+   <math display="inline">
+    R\pi_0
+   </math>
+   between the current date
+   <math display="inline">
+    t=0
+   </math>
+   and a chosen future date
+   <math display="inline">
+    t = T
+   </math>
+   , in perfect analogy with the practice introduced by V@R (see Value-at-Risk). Here,
+   <math display="inline">
+    R
+   </math>
+   is the risk-free interest on
+   <math display="inline">
+    [0, T]
+   </math>
+   . It is then clear that
+   <math display="inline">
+    ES_{\alpha}(r_T^{(\pi)})
+   </math>
+   represents the
+   <i>
+    average portfolio loss
+   </i>
+   at time T in the
+   <math display="inline">
+    \alpha
+   </math>
+   worst cases.
+  </p>
+  <p block-type="Text">
+   Measures of risk similar to ES (in particular TCE, equation (2), and "average shortfall" [10]) appeared in the practice of risk management already in the early 1990s, along with the diffusion of V@R methods. The main motivation for their introduction was to remedy the fact that
+   <math display="inline">
+    V@R
+   </math>
+   is totally blind to the severity of the losses contained in the tail beyond the specified confidence level. The idea of averaging the outcomes contained in the tail instead of detecting only its threshold quantile is so natural that it came simultaneously from several academicians and practitioners, and this is probably the reason why no consensus was ever achieved on the name of this risk measure.
+  </p>
+  <p block-type="Text">
+   The interest around ES increased considerably after the appearance of [5] with the advent of coherent measures of risk (CMRs) (see Convex Risk Measures) and the consequent criticism that was addressed to V@R when it was recognized to be not subadditive, that is, not compatible with the risk diversification principle. ES, in fact, in the modern version introduced in
+   <math display="inline">
+    [1, 12]
+   </math>
+   , turned out to be a subadditive measure of risk and, in fact, it provides
+  </p>
+  <p block-type="Text">
+   the best-known example of a coherent measure of risk.
+  </p>
+  <p block-type="Text">
+   A lively debate has arisen in the past years on whether ES should replace
+   <math display="inline">
+    V@R
+   </math>
+   in the regulatory framework of the Basel Committee on Banking Supervision. A number of arguments [3, 5, 6] have been given to display the superiority of a coherent measure of risk for capital adequacy purposes, like absence of regulatory arbitrage opportunities, huge computational advantages related to subadditivity and convexity, and absence of risk paradoxes. No sound arguments have ever been given to display why
+   <math display="inline">
+    V@R
+   </math>
+   should be more appropriate than ES, instead. Yet, to date, ES still plays no role in the Basel II Accord (see Regulatory Capital).
+  </p>
+  <h4>
+   <b>
+    Mathematical Expressions for ES
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   We denote with
+   <math display="inline">
+    F_X(x) = \mathbb{P}\{X \le x\}
+   </math>
+   the probability distribution function of
+   <math display="inline">
+    X
+   </math>
+   in a chosen probability space and we define for any
+   <math display="inline">
+    p \in (0, 1)
+   </math>
+   the lower
+   <i>
+    p
+   </i>
+   -quantile
+   <math display="inline">
+    q_p(X) = \inf \{x \in \mathbb{R} | F_X(x) \ge p \}
+   </math>
+   and the upper
+   <i>
+    p
+   </i>
+   -quantile
+   <math display="inline">
+    q^p(X) = \inf \{x \in \mathbb{R} | F_X(x) &gt; p \}.
+   </math>
+   A (generic)
+   <math display="inline">
+    p
+   </math>
+   -quantile
+   <math display="inline">
+    X_p
+   </math>
+   is defined as any value in the interval
+   <math display="inline">
+    [q_p(X), q^p(X)].
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For any
+   <math display="inline">
+    \alpha \in (0, 1]
+   </math>
+   ,
+   <math display="inline">
+    ES_{\alpha}
+   </math>
+   can then be expressed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(X) = -\frac{1}{\alpha} \int_{0}^{\alpha} X_{p} \, \mathrm{d}p \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    X_p
+   </math>
+   is a
+   <i>
+    p
+   </i>
+   -quantile whose choice is irrelevant, showing that there exists a unique definition for ES. For V@R, on the contrary, which is defined as
+   <math display="inline">
+    V@R_{\alpha}(X) = -X_{\alpha}
+   </math>
+   , this choice does indeed affect the result, leading to possible alternative different notions (upper and lower
+   <math display="inline">
+    V@R
+   </math>
+   , for instance) when the quantiles
+   <math display="inline">
+    p \mapsto X_p
+   </math>
+   turn out not to be single valued.
+  </p>
+  <p block-type="TextInlineMath">
+   For the extreme case
+   <math display="inline">
+    \alpha = 0
+   </math>
+   , the definition is naturally extended by placing
+   <math display="inline">
+    ES_0(X) = -\text{ess inf } X =
+   </math>
+   <math display="inline">
+    -\inf\{x\in[-\infty,+\infty]|F_X(x)&gt;0\}
+   </math>
+   , while for
+   <math display="inline">
+    \alpha=1
+   </math>
+   one easily recognizes that
+   <math display="inline">
+    ES_1(X) = -\mathbb{E}[X]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Note how equation
+   <math display="inline">
+    (1)
+   </math>
+   clearly expresses the fact that ES is indeed
+   <i>
+    minus the average of the
+   </i>
+   <math display="inline">
+    \alpha
+   </math>
+   <i>
+    lowest
+   </i>
+   outcomes of
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   It is important to distinguish ES from the so-called tail conditional expectation (TCE) defined as
+   <math display="inline">
+    [5]
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    TCE_{\alpha}(X) = -\mathbb{E}[X|X \le q_{\alpha}(X)]
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   This expression can be shown to coincide with
+   <math display="inline">
+    ES_{\alpha}(X)
+   </math>
+   only under special conditions on the distribution function, for instance, when
+   <math display="inline">
+    F_X(x)
+   </math>
+   is a continuous function. However, for general distribution functions, ES and TCE differ and it is only the former, which can be shown to be subadditive
+   <math display="inline">
+    [1, 12]
+   </math>
+   . Equation
+   <math display="inline">
+    (2)
+   </math>
+   is, in any case, a useful expression for ES when one works with parametric distributions whose continuity is assumed to hold
+   <math display="inline">
+    a
+   </math>
+   priori.
+  </p>
+  <p block-type="Text">
+   The correction to expression
+   <math display="inline">
+    (2)
+   </math>
+   needed to express ES on general (noncontinuous) probability distributions is contained in the following formula
+   <math display="inline">
+    [1]
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(X) = -\frac{1}{\alpha} \left\{ \mathbb{E} \left[ X \mathbf{1}_{\{X \le X_{\alpha}\}} \right] - X_{\alpha}(F_X(X_{\alpha}) - \alpha) \right\}
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   where the choice of the
+   <math display="inline">
+    \alpha
+   </math>
+   -quantile
+   <math display="inline">
+    X_{\alpha}
+   </math>
+   is again irrelevant. This formula shows that
+   <math display="inline">
+    ES_{\alpha}(X) = TCE_{\alpha}(X)
+   </math>
+   if and only if
+   <math display="inline">
+    F_X(X_\alpha) = \alpha
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   ES can also be defined as the solution of a convex minimization problem [9, 11, 12]:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(X) = \min_{s} \left\{-s + \frac{1}{\alpha} \mathbb{E}\left[s - X\right]^{+}\right\} \qquad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   attaining the minimum in any
+   <math display="inline">
+    s \in [q_{\alpha}(X), q^{\alpha}(X)].
+   </math>
+   This formulation of ES is very important because it allows to obtain fast algorithms for portfolio ESoptimization
+   <math display="inline">
+    [11, 12]
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Properties of ES
+   </b>
+  </h2>
+  <p block-type="Text">
+   ES satisfies the following important properties for any
+   <math display="inline">
+    \alpha \in [0, 1]
+   </math>
+   and random variables X, Y [1, 7, 9]:
+  </p>
+  <p block-type="Text">
+   (i)
+   <i>
+    monotonicity
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(X) \ge ES_{\alpha}(Y)
+   </math>
+   if
+   <math>
+    X \le Y
+   </math>
+   a.s. (5)
+  </p>
+  <p block-type="Text">
+   (ii) translational invariance
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(X+c) = ES_{\alpha}(X) - c \quad \text{if} \quad c \in \mathbb{R} \quad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (iii) positive homogeneity
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(\lambda X) = \lambda ES_{\alpha}(X) \quad \text{if} \quad \lambda \ge 0 \quad (7)
+   </math>
+  </p>
+  <p block-type="Text">
+   (iv)
+   <i>
+    subadditivity
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(X+Y) \le ES_{\alpha}(X) + ES_{\alpha}(Y) \qquad (8)
+   </math>
+  </p>
+  <p block-type="Text">
+   Formally, these properties coincide with the axioms of coherence [5]. However, it has to be kept in mind that the concept of coherence is not just a property of a statistics of a generic random variable but a property of a portfolio statistics with a precise economic interpretation. To speak of coherence of a portfolio measure of risk, it is also necessary that the random variables
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   in these conditions represent future "portfolio values" (as opposed to "portfolio returns"). This fact is crucial for the correct economic interpretation of condition
+   <math display="inline">
+    (6)
+   </math>
+   in the spirit of capital adequacy. A CMR is, in fact, supposed to decrease by the amount
+   <math display="inline">
+    c
+   </math>
+   when a risk-free capital of future deterministic value
+   <math display="inline">
+    c
+   </math>
+   (and not a portfolio yielding a deterministic return
+   <math display="inline">
+    c
+   </math>
+   ) is added to any portfolio
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Hence, strictly speaking, the expected shortfall of a portfolio
+   <math display="inline">
+    ES_{\alpha}(r_{T}^{(\pi)})
+   </math>
+   , widely adopted by practitioners as on alternative to V@R, although monotonic, translational invariant, positive homogeneous, and subadditive with respect to its return argument, is, nevertheless, not a CMR in the sense of [5]. It is the
+   <i>
+    expected shortfall of a portfolio value
+   </i>
+   <math display="inline">
+    ES_{\alpha}(\pi_T)
+   </math>
+   , which represents a truly CMR. The connection between the two notions is however just a constant offset, thanks to property (2).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(\pi_T) = ES_{\alpha} \left( r_T^{(\pi)} \right) - (1 + R)\pi_0 \qquad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   Properties
+   <math display="inline">
+    (5)
+   </math>
+   –
+   <math display="inline">
+    (8)
+   </math>
+   are, in any case, extremely important also for return-based measures, in particular for the convexity properties they induce on portfolio optimization problems. That is why some authors (e.g.,
+   <math display="inline">
+    [3, 6]
+   </math>
+   ) (somehow improperly) call them
+   <i>
+    axioms
+   </i>
+   of
+   <i>
+    coherence
+   </i>
+   also when referred to statistics acting on portfolio returns.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Particularly important is the subadditivity property, which V@R fails to satisfy. Inequality (8) formalizes the fact that the risk (expressed by ES) of the sum of two portfolios
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   never exceeds the sum of their individual risks. The difference between right- and left-hand side of the inequality expresses the hedging benefit of merging the two portfolios. In a CMR this benefit is positive, and just in exceptional cases vanishing, but never negative, a situation that would give rise to paradoxes and
+  </p>
+  <p block-type="Text">
+   regulatory arbitrages (see, for instance,
+   <math display="inline">
+    [3-5]
+   </math>
+   for a discussion).
+  </p>
+  <p block-type="Text">
+   An important immediate consequence of properties
+   <math display="inline">
+    (7)
+   </math>
+   and
+   <math display="inline">
+    (8)
+   </math>
+   is convexity.
+  </p>
+  <p block-type="Text">
+   (v)
+   <i>
+    convexity
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} ES_{\alpha}(\mu X + (1 - \mu)Y) \\ \le \mu ES_{\alpha}(X) + (1 - \mu)ES_{\alpha}(Y) \quad \text{if} \quad \mu \in [0, 1] \end{aligned} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   which states that the risk of a blend of two portfolios is less than the blend of the individual risks. This expresses the clearest formalization of the risk diversification principle and is of utmost importance for portfolio optimization problems [3, 11, 12], because they generally turn out to be convex.
+  </p>
+  <p block-type="TextInlineMath">
+   Other important properties of ES are related to the concepts of portfolio preference under first or second stochastic dominance. We recall that a random variable
+   <math display="inline">
+    X
+   </math>
+   is said to dominate
+   <math display="inline">
+    Y
+   </math>
+   according to first-order stochastic dominance (notation:
+   <math display="inline">
+    X \stackrel{1''}{\succ} Y
+   </math>
+   if
+   <math display="inline">
+    F_X(z) \leq F_Y(z)
+   </math>
+   for all
+   <math display="inline">
+    z \in \mathbb{R}
+   </math>
+   , while
+   <math display="inline">
+    X
+   </math>
+   is said to dominate
+   <math display="inline">
+    Y
+   </math>
+   according to secondorder stochastic dominance (notation:
+   <math display="inline">
+    X \stackrel{2^{nd}}{\succ} Y
+   </math>
+   ) if
+   <math display="inline">
+    \int_{-\infty}^{z} [F_Y(t) - F_X(t)] dt \ge 0 \text{ for all } z \in \mathbb{R}. \text{ First order}
+   </math>
+   implies second-order stochastic dominance. It can be shown
+   <math display="inline">
+    [7-9]
+   </math>
+   that ES is compatible with both these preferences.
+  </p>
+  <h3>
+   (vi)
+   <i>
+    monotonicity with respect to first- and second
+   </i>
+   order stochastic dominance
+  </h3>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(X) \le ES_{\alpha}(Y) \quad \text{if} \quad X \stackrel{1^{s_{1}},2^{na}}{\succ} Y \quad (11)
+   </math>
+  </p>
+  <p block-type="Text">
+   which tells us that if a portfolio
+   <math display="inline">
+    X
+   </math>
+   is preferable to
+   <math display="inline">
+    Y
+   </math>
+   under either first- or second-order stochastic dominance, its ES will be smaller.
+  </p>
+  <p block-type="Text">
+   Furthermore, one can show comonotonic additivity [7, 8].
+  </p>
+  <p block-type="Text">
+   (vii)
+   <i>
+    comonotonic additivity
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{\alpha}(X + Y) = ES_{\alpha}(X) + ES_{\alpha}(Y) \quad \text{if}
+   </math>
+   <br/>
+   X, Y comonotonic (12)
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Comonotonic additivity represents the limiting case of subadditivity, achieved when two random variables
+  </p>
+  <p block-type="Text">
+   happen to be comonotonic and therefore ineffective to hedge each other. It is in this case that the hedging benefit of subadditivity is expected to vanish. Comonotonic additivity is not implied by the axioms of coherence and this is sometimes argued to be a weakness of the axioms, because noncomonotonic additive CMRs can give rise to capital regulatory arbitrages [4].
+  </p>
+  <p block-type="Text">
+   Furthermore, ES belongs to the class of lawinvariant, comonotonic additive CMRs [8], also known as spectral measures of risk (SMRs) [2] (see Spectral Measures of Risk). Actually, the set
+   <math display="inline">
+    \{ES_{\alpha} | \alpha \in [0, 1]\}
+   </math>
+   of all possible ES is the smallest set whose convex hull corresponds to the class of SMRs. In other words, any SMR can be uniquely expressed as a convex combination of ESs [8].
+  </p>
+  <p block-type="Text">
+   Law-invariance plays a special role as the distinguishing property of the CMRs, which may be estimated from data sets.
+  </p>
+  <h2>
+   <b>
+    Estimation of ES
+   </b>
+  </h2>
+  <p block-type="Text">
+   A number of cases are known where exact expressions of ES can be computed directly from equation (1) by direct calculation (analytical or numerical) knowing the distribution of
+   <math display="inline">
+    X
+   </math>
+   . However, in general cases, and in particular when parametric distributions are not assumed
+   <i>
+    a priori
+   </i>
+   like in many risk management platforms, ES is obtained by estimation.
+  </p>
+  <p block-type="TextInlineMath">
+   Given a sample of
+   <math display="inline">
+    N
+   </math>
+   independent and identically distributed outcomes
+   <math display="inline">
+    x_i
+   </math>
+   , of a random variable X, a consistent estimator of
+   <math display="inline">
+    ES_{\alpha}(X)
+   </math>
+   can be obtained by
+   <math display="inline">
+    [1, 3]
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{ES}_{\alpha}(X) = -\frac{1}{N\alpha} \left( \sum_{i=1}^{\lfloor N\alpha \rfloor} x_{i:N} + (N\alpha - \lfloor N\alpha \rfloor) x_{\lfloor N\alpha \rfloor + 1:N} \right)
+   </math>
+   <math display="block">
+    = \frac{1}{\lfloor N\alpha \rfloor} \sum_{i=1}^{\lfloor N\alpha \rfloor} x_{i:N} + o(1/N) \qquad (13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    [n]
+   </math>
+   denotes the integer part of
+   <i>
+    n
+   </i>
+   and
+   <math display="inline">
+    x_{i:N}
+   </math>
+   denotes the ordered statistics, that is, the vector
+   <math display="inline">
+    \{x_{i:N}\}_{i=1,...,N}
+   </math>
+   of values
+   <math display="inline">
+    x_{1:N} \leq \cdots \leq x_{N:N}
+   </math>
+   obtained sorting the vector
+   <math display="inline">
+    \{x_i\}_{i=1,\dots,N}
+   </math>
+   . This expression converges to
+   <math display="inline">
+    ES_{\alpha}(X)
+   </math>
+   for
+   <math display="inline">
+    N \to \infty
+   </math>
+   . It can be shown to
+  </p>
+  <p block-type="Text">
+   be nothing but the ES of the empirical distribution of the sample, and as such, it is clearly coherent for any finite
+   <i>
+    N
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In equation (13) the
+   <i>
+    o(
+   </i>
+   1
+   <i>
+    /N )
+   </i>
+   term can be neglected for simplicity in those applications where
+   <i>
+    N
+   </i>
+   is large like some Monte Carlo simulations, but it is not at all negligible, for instance, in a historical simulation of
+   <i>
+    N
+   </i>
+   = 252 data, with a confidence level of say, 5%. In general, it is always safer, and not computationally penalizing, to adopt the complete estimator.
+  </p>
+  <p block-type="Text">
+   An equivalent expression [11, 12] can be obtained by exploiting equation (4):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{ES}_{\alpha}(X) = \min_{s} \left\{ -s + \frac{1}{N\alpha} \sum_{i=1}^{N} \left[ s - x_i \right]^+ \right\} \quad (14)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which has the solution
+   <i>
+    s
+   </i>
+   ∈ [
+   <i>
+    xNα , xNα
+   </i>
+   <sup>
+    +
+   </sup>
+   1]. From a computational point of view, there may be cases where the cost of minimization of equation (14) is smaller than the cost of the sorting procedure needed for equation (13). These formulas are essential tools for any risk management application based on exact Monte Carlo or historical simulation.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Acerbi, C., Tasche, D. (2002). On the coherence of expected shortfall,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      26
+     </b>
+     , 1487–1503.
+    </li>
+    <li block-type="ListItem">
+     [2] Acerbi, C. (2002). Spectral measures of risk: a coherent representation of subjective risk aversion,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      26
+     </b>
+     , 1505–1518.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [3] Acerbi, C. (2004). Coherent representations of subjective risk aversion, in
+     <i>
+      Risk Measures for the 21st Century
+     </i>
+     , G. Szego, ed., Wiley &amp; Sons, pp. 147–207.
+    </li>
+    <li block-type="ListItem">
+     [4] Acerbi, C. (2007). Coherent measures of risk in everyday market practice,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      7
+     </b>
+     (4), 359–364.
+    </li>
+    <li block-type="ListItem">
+     [5] Artzner, P., Delbaen, F., Eber, J.-M. &amp; Heath, D. (1999). Coherent measures of risk,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      9
+     </b>
+     (3), 203–228.
+    </li>
+    <li block-type="ListItem">
+     [6] Embrechts, P., Frey, R. &amp; McNeil, A.J. (2005).
+     <i>
+      Quantitative Risk Management
+     </i>
+     , Princeton University Press.
+    </li>
+    <li block-type="ListItem">
+     [7] Follmer, H. &amp; Schied, A. (2004). ¨
+     <i>
+      Stochastic Finance
+     </i>
+     , 2nd Edition, de Gruyter.
+    </li>
+    <li block-type="ListItem">
+     [8] Kusuoka, S. (2001). On law invariant coherent risk measures,
+     <i>
+      Advances in Mathematical Economics
+     </i>
+     <b>
+      3
+     </b>
+     , 83–95.
+    </li>
+    <li block-type="ListItem">
+     [9] Pflug, G. (2000). Some remarks on the value-atrisk and the conditional value-at-risk, in
+     <i>
+      Probabilistic Constrained Optimization: Methodology and Applications
+     </i>
+     , S. Uryasev, ed., Kluwer Academic Publishers, pp. 278–287.
+    </li>
+    <li block-type="ListItem">
+     [10] Rappoport, P. (1993).
+     <i>
+      A New Approach: Average Shortfall
+     </i>
+     J.P. Morgan, Fixed Income Research. (44–71) pp. 325–399.
+    </li>
+    <li block-type="ListItem">
+     [11] Rockafellar, R.T. &amp; Uryasev, S. (2000). Optimization of conditional value-at-risk,
+     <i>
+      Journal of Risk
+     </i>
+     <b>
+      2
+     </b>
+     (3), 21–42.
+    </li>
+    <li block-type="ListItem">
+     [12] Rockafellar, R.T. &amp; Uryasev, S. (2001). Conditional value-at-risk for general loss distributions,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      26
+     </b>
+     , 1443–1471.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Convex Risk Measures
+   </b>
+   ;
+   <b>
+    Spectral Measures of Risk
+   </b>
+   ;
+   <b>
+    Value-at-Risk
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   CARLO ACERBI
+  </p>
+ </body>
+</html>

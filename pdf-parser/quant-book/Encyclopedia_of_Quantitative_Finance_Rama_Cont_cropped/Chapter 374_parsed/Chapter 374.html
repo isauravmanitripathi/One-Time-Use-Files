@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    ABS Indices
+   </b>
+  </h1>
+  <p block-type="Text">
+   Asset back securities (ABS) are financial debt securities based on a pool of underlying assets or collateral assets. When the assets are backed by mortgages, they are called
+   <i>
+    mortgage backed securities
+   </i>
+   (MBS). ABSs are backed by nonmortgage assets. This includes auto loans, credit card receivables, home equity loans, student loans, and so on. Owing to government guarantees, MBS typically entail no credit risk. However, ABSs generally lack such guarantees, so they entail credit risk. It might be for this reason that ABS backed by subprime mortgages are still called
+   <i>
+    ABS
+   </i>
+   , or more explicitly,
+   <i>
+    subprime residential mortgagebacked security
+   </i>
+   (
+   <i>
+    RMBS
+   </i>
+   ) instead of MBS.
+  </p>
+  <p block-type="Text">
+   The basic building blocks of credit derivatives are credit default swaps (CDS). It was the standardization of the settlement terms and conditions of the corporate CDS contracts by International Swaps and Derivatives Association (ISDA) in early 1990s that allowed the corporate CDS market to grow and evolve quickly. The credit risk in subprime RMBS differs in fundamental ways from credit risk in corporate bonds. ISDA published its first pay-as-yougo (PAUG) CDS documentation for RMBS in June 2005, and followed up with amended versions in April 2006 and November 2006. This ISDA documentation standardization for PAUG CDS on subprime RMBS helped create a synthetic CDS market on the subprime RMBS bonds. In late 2005, 15 security firms, representing major brokers and dealers, along with an index company CDS Index Co. and a data provider, Mark-It Partner came up with the ABS CDS benchmark index, ABX.HE, for subprime RMBS, and the trading of ABX started on January 19, 2006. The index is supposed to roll every six months with newly issued subprime RMBS bonds as collateral assets. Owing to the subprime crisis and a lack of newly issued subprime RMBS bonds, we have only four series of ABX indices up to now; they are simply called
+   <i>
+    ABX
+   </i>
+   2006-1,
+   <i>
+    ABX
+   </i>
+   2006-2,
+   <i>
+    ABX
+   </i>
+   2007-1, and
+   <i>
+    ABX
+   </i>
+   2007-2 based on the vintage year of underlying subprime RMBS bonds.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Tranched ABX or TABX is the benchmark index tranche product based on ABX. Owing to the relatively small number of collateral ABS bonds of each vintage ABX index, we use the underlying ABS bonds of two conjacent ABX indices as collateral assets for the TABX. Shortly after the introduction
+  </p>
+  <p block-type="Text">
+   of TABX, the subprime crisis emerged. In practice, TABX has never been liquidly traded. However, there are a large number of issuances of bespoke ABS collateralized debt obligations (CDOs) with non-ABX bonds as collateral assets.
+  </p>
+  <p block-type="Text">
+   We simply present the contract parts of the ABX and TABX and briefly discuss the modeling of TABX.
+  </p>
+  <h2>
+   <b>
+    ABX
+   </b>
+  </h2>
+  <p block-type="Text">
+   ABX.HE indices are CDS benchmark index for a standard basket of subprime home equity ABS bonds. For each vintage ABX.HE, we have five indices based upon the rating of reference ABS bonds: AAA, AA, A, BBB and BBB− by both Moody's and S&amp;P. The selection of the included bonds is rule-based according to the deal size (at least 500 millions) of the subprime home equity ABS shelf program with a limit from the same loan originator (four deals) and from the same master servicer (to six deals), and the weighted average life (4–6 years from the issuance for other ratings except AAA, and more than 5 years for AAA). Each vintage ABX.HE has 20 underlying collateral bonds, and a new series of index is supposed to be issued every six months.
+  </p>
+  <p block-type="Text">
+   As stated early, ABX is a CDS spread index whose premium leg or fixed leg is based on two parts: up-front payment in terms of percentage and a running payment in terms of a spread in basis point. This running spread is called a
+   <i>
+    fixed rate
+   </i>
+   , which is determined at the beginning so that the initial quote for the index is 100 or we do not need to pay any up-front premium if you buy protection or short the index. The following shows the market quote for ABX on November 28, 2009. Owing to the subprime crisis, most of the current "price" is very low. This implies that we need to pay a very high up-front payment to buy protection. For example, if we want to buy default protection on 2006-01 BBB−, we need to pay
+   <i>
+    (
+   </i>
+   100 − 5 16
+   <i>
+    /
+   </i>
+   32
+   <i>
+    )
+   </i>
+   % = 94
+   <i>
+    .
+   </i>
+   5% up-front premium based on the notional amount and 267 bps (basis points) running spread per annum, but paid monthly, on the basis of the outstanding notional amount. The outstanding notional amount declines over time on the basis of the reference obligations amortization.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The loss leg includes interest shortfall, writedown, principal shortfall adjusted by interest rate shortfall reimbursement, principal shortfall reimbursement, and write-down reimbursement. The protection buyer receives any interest shortfall, but the
+  </p>
+  <p block-type="Text">
+   total amount is capped at a fixed rate. A credit event is defined as principal shortfall and write-down according to the 2005 ISDA PAUG template definition.
+  </p>
+  <p block-type="Text">
+   For example, if any one of the 20 referenced ABS bonds incurs a write-down of 1% in the amount of its current principal balance, and the referenced bond current factor is 70%, then the protection buyer of 100 millions receives the following payment:
+  </p>
+  <p block-type="Text">
+   Notional amount × current factor × weighting
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \times
+   </math>
+   loss rate = 100 millions
+   <math>
+    \times
+   </math>
+   0.7
+   <math>
+    \times
+   </math>
+   0.05
+   <br/>
+   <math>
+    \times
+   </math>
+   0.1 = 35 000 (1)
+  </p>
+  <p block-type="Text">
+   After this credit event, the notional amount based on which that fixed rate is paid would be reduced by $35 000 until the earlier of the next credit event or scheduled termination. ABX has been actively traded since its inception on a daily basis. Table 1 provides a market quote for ABX on Nov 28, 2008.
+  </p>
+  <h2>
+   <b>
+    TABX
+   </b>
+  </h2>
+  <p block-type="Text">
+   TABX was introduced in February 2007 just before the subprime crisis emerged. TABX tranches reference a portfolio of 40 names from underlying bonds from 06-2 and 07-1 ABX.HE series and 07-1 and 07-2 ABX.HE series of a similar rating. Only two tranche baskets were traded initially: BBB and BBB−. The attachment and detachment points for the 06-2 and 07-1 portfolio and the fixed running spreads for all tranches are given in Table 2.
+  </p>
+  <p block-type="Text">
+   The tranche protection buyer receives protection against the write-downs and principal shortfalls on the reference ABS bonds. No interest shortfalls are
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Market quote for ABX, November 28, 2008
+  </p>
+  <p block-type="Text">
+   covered by the tranche protection. On the fixed side, all tranches have a specified or fixed running spreads in bps as given in Table 1, and are traded on price up front. Fixed running spreads are capped on roll date at 500 bps. The subordination level is the initial subordination notional amount less write-downs, principal shortfalls, and amortization. Therefore, the detachment and attachment points of the tranche can change over each period depending on the loss evolution and amortization. We could think of TABX, or, broadly speaking, of ABS CDOs as CDOs with changing subordination levels.
+  </p>
+  <h2>
+   <b>
+    Modeling of ABX and TABX
+   </b>
+  </h2>
+  <p block-type="Text">
+   The TABX market was a short-lived one. It was introduced in February 2007. Shortly after its introduction, we observed the first crash of the ABX indices. But there were billions of dollars of ABS CDOs structured and issued by Wall Street firms without ABX index bonds as collateral assets. There is no market consensus with respect to the ABS CDO valuation. Some practitioners tried to adapt the Gaussian copula model for ABS CDOs, which were hard to interpret since the results depended critically on the prepayment assumptions for the underlying subprime loans.
+  </p>
+  <p block-type="Text">
+   Figure 1 shows the whole securities involved in the TABX or ABS CDOs. The first layer of collateral assets for ABS bonds consists of individual mortgage loans underlying the ABS bonds. Each ABS bond takes about 5000–10 000 individual mortgage loans as collateral assets. Then ABX takes 20 ABS bonds as its underlying assets. The TABX takes 40 ABS bonds as collateral assets and goes through another tranche. The TABX is thus more like a CDO squared transaction. In the market, there is no consensus with
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Series
+     </th>
+     <th>
+      Fixing rate
+     </th>
+     <th>
+      Rating
+     </th>
+     <th>
+      Quote
+     </th>
+     <th>
+      Series
+     </th>
+     <th>
+      Fixed rate
+     </th>
+     <th>
+      Rating
+     </th>
+     <th>
+      Quote
+     </th>
+    </tr>
+    <tr>
+     <td>
+      07-2
+     </td>
+     <td>
+      76
+     </td>
+     <td>
+      AAA
+     </td>
+     <td>
+      33-24/36-24
+     </td>
+     <td>
+      06-2
+     </td>
+     <td>
+      11
+     </td>
+     <td>
+      AAA
+     </td>
+     <td>
+      46-00/49-00
+     </td>
+    </tr>
+    <tr>
+     <td>
+      07-2
+     </td>
+     <td>
+      192
+     </td>
+     <td>
+      AA
+     </td>
+     <td>
+      6.00/8.00
+     </td>
+     <td>
+      06-2
+     </td>
+     <td>
+      17
+     </td>
+     <td>
+      AA
+     </td>
+     <td>
+      11-00/14-00
+     </td>
+    </tr>
+    <tr>
+     <td>
+      07-2
+     </td>
+     <td>
+      369
+     </td>
+     <td>
+      A
+     </td>
+     <td>
+      4.00/7.00
+     </td>
+     <td>
+      06-2
+     </td>
+     <td>
+      44
+     </td>
+     <td>
+      A
+     </td>
+     <td>
+      5-00/8-00
+     </td>
+    </tr>
+    <tr>
+     <td>
+      07-2
+     </td>
+     <td>
+      500
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      3.00/5.00
+     </td>
+     <td>
+      06-2
+     </td>
+     <td>
+      133
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      2-16/4-16
+     </td>
+    </tr>
+    <tr>
+     <td>
+      07-2
+     </td>
+     <td>
+      500
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      3.00/5.00
+     </td>
+     <td>
+      06-2
+     </td>
+     <td>
+      242
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      2-16/4-16
+     </td>
+    </tr>
+    <tr>
+     <td>
+      07-1
+     </td>
+     <td>
+      9
+     </td>
+     <td>
+      AAA
+     </td>
+     <td>
+      33-24/36-24
+     </td>
+     <td>
+      06-1
+     </td>
+     <td>
+      18
+     </td>
+     <td>
+      AAA
+     </td>
+     <td>
+      75-00/78-00
+     </td>
+    </tr>
+    <tr>
+     <td>
+      07-1
+     </td>
+     <td>
+      15
+     </td>
+     <td>
+      AA
+     </td>
+     <td>
+      4-16/6-16
+     </td>
+     <td>
+      06-1
+     </td>
+     <td>
+      32
+     </td>
+     <td>
+      AA
+     </td>
+     <td>
+      30-00/33-00
+     </td>
+    </tr>
+    <tr>
+     <td>
+      07-1
+     </td>
+     <td>
+      64
+     </td>
+     <td>
+      A
+     </td>
+     <td>
+      3.00/6-4-16
+     </td>
+     <td>
+      06-1
+     </td>
+     <td>
+      54
+     </td>
+     <td>
+      A
+     </td>
+     <td>
+      11-00/14-00
+     </td>
+    </tr>
+    <tr>
+     <td>
+      07-1
+     </td>
+     <td>
+      224
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      2-16/4-00
+     </td>
+     <td>
+      06-1
+     </td>
+     <td>
+      154
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      4-24/6-24
+     </td>
+    </tr>
+    <tr>
+     <td>
+      07-1
+     </td>
+     <td>
+      389
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      2-16/4-00
+     </td>
+     <td>
+      06-1
+     </td>
+     <td>
+      267
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      4-16/6-16
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Index pool
+     </th>
+     <th>
+      ABX rating
+     </th>
+     <th>
+      Attachment (%)
+     </th>
+     <th>
+      Detachment (%)
+     </th>
+     <th>
+      Fixed rate
+     </th>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      3
+     </td>
+     <td>
+      500
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      3
+     </td>
+     <td>
+      7
+     </td>
+     <td>
+      500
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      7
+     </td>
+     <td>
+      12
+     </td>
+     <td>
+      500
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      12
+     </td>
+     <td>
+      20
+     </td>
+     <td>
+      467
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      20
+     </td>
+     <td>
+      35
+     </td>
+     <td>
+      200
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB
+     </td>
+     <td>
+      35
+     </td>
+     <td>
+      100
+     </td>
+     <td>
+      51
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      0
+     </td>
+     <td>
+      5
+     </td>
+     <td>
+      500
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      5
+     </td>
+     <td>
+      10
+     </td>
+     <td>
+      500
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      10
+     </td>
+     <td>
+      15
+     </td>
+     <td>
+      500
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      15
+     </td>
+     <td>
+      25
+     </td>
+     <td>
+      500
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      25
+     </td>
+     <td>
+      40
+     </td>
+     <td>
+      267
+     </td>
+    </tr>
+    <tr>
+     <td>
+      06-2 and 07-1
+     </td>
+     <td>
+      BBB−
+     </td>
+     <td>
+      40
+     </td>
+     <td>
+      100
+     </td>
+     <td>
+      72
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 2
+   </b>
+   Attachment and detachment point for TABX tranches (06-2 and 07-1 portfolio) and running spreads
+  </p>
+  <p>
+   <img src="_page_2_Figure_3.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   An overview of subprime RMBS products
+  </p>
+  <p block-type="Text">
+   respect to the CDO squared transaction even though attempts have been made to tackle this problem. One example is the approach in [1] in which the authors use a mixed Gaussian copula function along with the mapping of loss distributions. But this is only for corporate credits that have one risk or "decrement". For subprime loans, each loan is subject to two decrements: default and prepayment.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   We believe the only approach to capture all features and complexities of the TABX or ABS CDOs is a bottom-up approach. In this approach, we model the fundamental driving factors for the mortgage loan pool: prepayment and default. We then generate the cash flows for the ABS bonds using the waterfall structure for each collateral ABS bond (like a cash-flow CDO tranche). This can be accomplished by running Intex. These cash flows include the write-downs, principal, interest rate, and coupon cap shortfalls. We can then aggregate the cash flows for the whole underlying pool of the TABX. The TABX tranche can then be assessed by the aggregate cash flows for the collateral pool. The
+  </p>
+  <p block-type="Text">
+   dynamics and correlation have been introduced since there are common driving factors for prepayment and default, such as the home price appreciation (HPA) index. All other features are incorporated since we use the waterfall structure for each ABS bond. Calibration of the model to the observed ABX prices can be achieved if we use a few parameters for the prepayment and default curves.
+  </p>
+  <h2>
+   <b>
+    Reference
+   </b>
+  </h2>
+  <p block-type="Text">
+   [1] Li, D.X. &amp; Liang, M.H. (2005).
+   <i>
+    CDO Squared Pricing Using Gaussian Mixture Model with Transformation of Loss Distribution
+   </i>
+   at http://ssrn.com/abstract=890766.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    CDO Square
+   </b>
+   ;
+   <b>
+    Credit Default Swap (CDS) Indices
+   </b>
+   ;
+   <b>
+    Securitization
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   DAVID X. LI
+  </p>
+ </body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Value-at-Risk
+   </b>
+  </h1>
+  <p block-type="Text">
+   The Value at Risk (VaR) is the maximum likely loss that a portfolio experiences over a specified horizon period, where the key term is "likely" to be interpreted in terms of a specified probability, known as a
+   <i>
+    confidence level
+   </i>
+   . For example, if the daily VaR at the 95% confidence level is $1m, then we would expect a maximum loss of $1m on the best prospective 95 days out of 100. More formally, the VaR at the confidence level
+   <i>
+    p
+   </i>
+   can be defined as the 100 ×
+   <i>
+    p
+   </i>
+   % quantile of the loss distribution [8, 9, 16]. Note, therefore, that the VaR is measured in units of loss: a positive VaR means that the likely worst outcome is a monetary loss, whereas a negative VaR implies that the likely worst outcome is a profit. Also note that although we have defined the VaR here in terms of a quantile of the loss distribution, the VaR can equivalently be defined in terms of a quantile of the profit/loss (P/L) distribution (i.e., the negative of our loss distribution) or in terms of a quantile of the distribution of financial returns (
+   <i>
+    see
+   </i>
+   <b>
+    Market Risk
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   The values of the parameters on which the VaR is defined, the horizon period and the confidence level, would be chosen by the user and depend on the context and the use to which the VaR is put. The horizon might be anything from a fraction of a day to decades ahead, but is typically somewhere between 1 day and a month. Confidence levels are typically in the 95%+ range and can be well above 99%.
+  </p>
+  <p block-type="Text">
+   Virtually unknown in 1990, the VaR risk measure rose rapidly to prominence in the early 1990s, as leading financial institutions competed with one another to build risk models that would forecast daily VaRs on traded market portfolios. The best known was Morgan's RiskMetrics model, which was published on the web in October 1994. The resulting debate on the merits and demerits of the RiskMetrics model did much to stimulate interest in and awareness of the issues involved in risk modeling [13, 14]. Since then, risk models have become much more sophisticated, and VaR methodologies have been used to forecast other types of risks such as credit, operational, liquidity, and cash flow risks.
+  </p>
+  <h1>
+   <b>
+    Uses of VaR
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   VaR models have been used for many different risk management purposes. They can be used by senior
+  </p>
+  <p block-type="Text">
+   management to determine an institution's overall risk target and can be used to determine risk targets and position limits down the line. They can be used to determine internal capital requirements, both at the level of the firm and at the level of individual business units. They can also be used to identify risk-expected return trade-offs and to assess investment, trading, and hedging decisions. They can be used to determine the remuneration of managers and traders in ways that take into account not just the profits made but also the risks taken to achieve those profits. And, finally, they can be used for risk reporting and risk disclosure purposes.
+  </p>
+  <h1>
+   <b>
+    Attractions of VaR as a Risk Measure
+   </b>
+  </h1>
+  <p block-type="Text">
+   The VaR has a number of attractive properties as a risk measure: (i) It is expressed in the simplest and most easily understood unit of measurement, namely, "lost money". (ii) The VaR provides a common consistent risk measure across different positions and risk factors and can be applied to any type of portfolio. It enables us to compare the risk of an equity position, say, against that of a fixedincome position, and do so in a consistent way. The VaR can be applied to a broader range of risks than the traditional measures such as beta (which is restricted to equity and commodity risks), duration and convexity (which are restricted to fixedincome risks), and the Greeks (which are restricted to derivatives risks). (iii) The VaR enables us to aggregate the risks of individual positions in a way that takes into account how the risk factors in those positions interact, that is, the VaR can take account of correlations between different risk factors. For their part, most traditional risk measures do not easily allow for the "sensible" aggregation of component risks. (iv) The VaR is holistic in the sense that it takes into account all risk factors, whereas traditional risk measures look at one risk factor at a time (e.g., the Greeks) or collapse multiple risk factors into one (e.g., duration, beta). The VaR is also holistic in the sense that it can readily be applied to forecast a firm's corporate-wide risk exposure, as well as the exposures of individual desks or business units. (v) The VaR is probabilistic and gives a risk manager a sense of the probabilities associated with possible loss outcomes. Traditional risk measures do not give any such information and only give the answers to questions about "what if?" scenarios.
+  </p>
+  <h1>
+   <b>
+    Limitations of the VaR as a Risk Measure
+   </b>
+  </h1>
+  <p block-type="Text">
+   The VaR also has major limitations as a risk measure. The underlying problem with the VaR is that it takes no account of the sizes of possible losses bigger than itself. It tells us the worst we can expect on the, say, 95 "good" days out of a possible 100, but tells us nothing about we can expect on the "bad" 5 remaining days. It is therefore "blind" to the sizes of tail losses and does not tell us how bad "bad" might be. This is a serious drawback for risk managers concerned with the managing of their firm's exposure to "lower tail" loss outcomes.
+  </p>
+  <p block-type="Text">
+   A consequence of this "tail blindness" is that the VaR risk measure fails to satisfy the important property of subadditivity [3, 4]. A risk measure
+   <i>
+    ρ(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   is said to be subadditive if, for
+   <i>
+    any
+   </i>
+   two position
+   <i>
+    A
+   </i>
+   and
+   <i>
+    B
+   </i>
+   , the risk measure always satisfies the condition
+   <i>
+    ρ(A
+   </i>
+   +
+   <i>
+    B)
+   </i>
+   ≤
+   <i>
+    ρ(A)
+   </i>
+   +
+   <i>
+    ρ(B)
+   </i>
+   , that is, the risk of the sum is always less than or equal to the sum of the risks. This subadditivity condition reflects the intuitive expectation that a "reasonable" risk measure should exhibit some or, at worst, no diversification when two positions are aggregated. We would certainly
+   <i>
+    not
+   </i>
+   expect the overall risk exposure as measured by a "respectable" risk measure to increase when individual risks are put together (
+   <i>
+    see
+   </i>
+   <b>
+    Convex Risk Measures
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   Yet the VaR does not satisfy this basic property. For example, consider the case where we have 100 bonds and 100 possible equally likely states of nature, in each one of which one of the bonds defaults and inflicts a loss of $10 on the holder. The probability of loss on any given bond is therefore 1%, but the probability of loss on a fully diversified portfolio is 100%. Thus, if an investor holds any one of these bonds, the VaR at the 95% confidence level will be 0, but if the investor holds a fully diversified bond portfolio, the VaR at the 95% confidence level will be equal to $10/100 = $0
+   <i>
+    .
+   </i>
+   1. This example suffices to prove that the VaR is not subadditive.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   VaRs "tail blindness" can lead to other problems. For example, if a prospective investment involves the possibility of low-probability high loss, a VaR-based decision calculus might suggest that the investor should go ahead with the investment regardless of the size of the possible loss, provided only that the probability of loss is small enough. In effect, the risk involved can fall under the VaRs radar screen. Such a categorical acceptance of a risk— regardless
+  </p>
+  <p block-type="Text">
+   of the size of the possible loss, provided that only the probability involved is sufficiently low—undermines sensible risk-return analysis and can leave an investor very exposed without realizing it.
+  </p>
+  <p block-type="Text">
+   A further problem that can occur in the context of decentralized decision making—that is, when traders or asset managers are managing other people's funds—is the danger of traders or asset managers "gaming" VaR systems that are used to control or remunerate their risk-taking. A standard example is where traders facing a VaR-based risk target have an incentive to sell out-of-the-money options that lead to greater income in most states of the world and the occasional large hit when the firm is unlucky. If the options are suitably chosen, the probabilities of them expiring in the money will be sufficiently low that they will have no impact on the VaR. The trader then benefits from the higher income and hence higher bonuses earned in "normal" times when the options expire worthless. The fact that the VaR does not take into account the possible large losses involved can distort incentives and encourage traders to "game" the VaR system and promote their own interests at the expense of the institutions that employ them.
+  </p>
+  <h1>
+   <b>
+    Alternative Risk Measures
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   These problems have encouraged research into alternative risk measures—most particularly, other quantile-based risk measures that share the attractions of the VaR but avoid its main drawbacks. The seminal work in this area is the theory of coherent risk measures proposed by Artzner
+   <i>
+    et al.
+   </i>
+   [3, 4]. The best-known coherent risk measure is the expected shortfall (ES) also referred to as
+   <i>
+    conditional VaR
+   </i>
+   (
+   <i>
+    CVaR
+   </i>
+   ), which is the loss we can expect if a tail loss should occur (
+   <i>
+    see
+   </i>
+   <b>
+    Convex Risk Measures
+   </b>
+   ;
+   <b>
+    Expected Shortfall
+   </b>
+   ;
+   <b>
+    Market Risk
+   </b>
+   ). Hence, although the VaR gives us the maximum loss we can expect if a tail loss does not occur, the ES tells us what to expect in the tail itself. The ES is therefore not "blind" to the tail in the way that the VaR is. At the same time, the ES shares the attractive properties of the VaR—it is measured in units of lost money, provides a common consistent measure of risk across different positions, is probabilistic, and so forth. Another type of coherent risk measure is a spectral risk measure that takes into account a user's risk aversion ([1, 2];
+   <i>
+    see
+   </i>
+   <b>
+    Spectral Measures of Risk
+   </b>
+   ). It is also interesting to note
+  </p>
+  <p block-type="Text">
+   that the outcomes of scenario analyses are coherent risk measures as well (
+   <i>
+    see
+   </i>
+   <b>
+    Stress Testing
+   </b>
+   ). Thus, the ES, spectral risk measures and scenario analyses each give us financial risk measures that are "respectable" in a sense that the VaR is not.
+  </p>
+  <h1>
+   <b>
+    When to Choose the VaR?
+   </b>
+  </h1>
+  <p block-type="Text">
+   This raises a natural question: when would a rational user choose the VaR as a preferred risk measure? The answer is that although the VaR is not generally a suitable risk measure for the reasons already mentioned, it
+   <i>
+    can
+   </i>
+   be suitable in special case circumstances where we restrict either the return distribution or the user's utility function (or, if you prefer, the user's risk preferences). An example of the former would be where a user believes that he/she faces normally (or, more generally, elliptically) distributed risks. In such circumstances, the VaR obeys the subadditivity property and might be used both to measure risks in a portfolio analysis framework and to determine capital requirements. Examples of the latter would be where a user has a quadratic utility function (which implies that the user does not care about the skewness or kurtosis of the return distribution), a lexicographic utility function (in which the risk-expected return trade-off becomes degenerate) or, in the context of the theory of lower partial moments, where the user has a lower partial moment of zero (which reflects a rather extreme form of negative risk aversion [12]). However, each of these special cases is implausible: most empirical return distributions are not elliptical, and experts would regard quadratic and lexicographic utility functions and lower partial moments of zero as inconsistent with any notions of "well-behaved" risk preferences. The implausibility of these special cases reinforces the point that the VaR is not, in general, an advisable risk measure to choose.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   This said, the special case circumstances where VaR
+   <i>
+    is
+   </i>
+   appropriate include probability-of-ruin problems, where the VaR is the quantile associated with the probability of ruin [11]. An important example of this type of problem is where the VaR might be used to determine the capital requirements necessary to achieve some target probability of insolvency. Typically, the target insolvency probability would be set to some very small value
+   <i>
+    p
+   </i>
+   and the capital requirement would be equal to the VaR at the confidence level 1 −
+   <i>
+    p
+   </i>
+   . Since
+   <i>
+    p
+   </i>
+   is very small, the VaR itself
+  </p>
+  <p block-type="Text">
+   should then be estimated by using extreme value (EV) methods rather than some arbitrary approach picked off the shelf, as it were (
+   <i>
+    see
+   </i>
+   <b>
+    Operational Risk
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   Methods to estimate VaR are discussed in
+   <b>
+    Market Risk
+   </b>
+   .
+  </p>
+  <h1>
+   <b>
+    VaR in Practice
+   </b>
+  </h1>
+  <p block-type="Text">
+   There is considerable evidence that real-world VaR estimates are often highly inaccurate. This evidence is both direct, in studies such as [6, 7, 15], and indirect. Indirect evidence comes from the many instances since the early 1990s where firms suffered large losses, such as alleged "25 sigma" losses, that are much greater than their VaR models anticipated [10]. The causes of this inaccuracy include model risk (i.e., that we do not in practice know what the "true" distributions actually are;
+   <i>
+    see
+   </i>
+   <b>
+    Models
+   </b>
+   ), parameter risk (i.e., that, for given any distribution, we do not know the "true" values of its parameters but have to work with estimates of those parameters instead), and implementation risk (i.e., that different institutions will implement any given VaR system in different ways, so leading to different VaR estimates).
+  </p>
+  <p block-type="Text">
+   In practice, VaR systems often perform fairly well under "normal" stable market conditions, but perform badly during crises. A common problem is where VaR models predicated on "everyday" confidence levels (such as 95 or even 99%) perform very poorly when "tail events" when very large losses occur. Other common problems are the radicalization of correlations and the disappearance of market liquidity during crises. VaR models can also perform badly in circumstances where they are used to control or remunerate traders, who respond by "gaming" the models and exploiting their weaknesses. There is also the problem of systemic risk, where a bank's risk models perform poorly because they failed to allow for other institutions following similar risk management strategies—a problem analogous to the mistake a cinema-goer makes when he fails to anticipate that everyone else will also run for the exit in the event of a fire [5].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   All these problems can contribute to institutions experiencing much larger losses than their risk models anticipated. They also highlight the importance of backtesting risk models and complementing risk forecasts with stress tests and scenario analyses that seek to determine an institution's vulnerability to "what
+  </p>
+  <p block-type="Text">
+   if?" events that might not be present in the data used to calibrate those models ([9];
+   <i>
+    see
+   </i>
+   <b>
+    Stress Testing
+   </b>
+   ;
+   <b>
+    Backtesting
+   </b>
+   ).
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Acerbi, C. (2002). Spectral measures of risk: a coherent representation of subjective risk aversion,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      26
+     </b>
+     , 1505–1518.
+    </li>
+    <li block-type="ListItem">
+     [2] Acerbi, C. (2004). Coherent representations of subjective risk aversion, in
+     <i>
+      Risk Measures for the 21st Century
+     </i>
+     , G. Szego, ed, John Wiley &amp; Sons, New York, p. ¨ 147–207.
+    </li>
+    <li block-type="ListItem">
+     [3] Artzner, P., Delbaen, F., Eber, J.-M. &amp; Heath, D. (1997). Thinking coherently,
+     <i>
+      Risk
+     </i>
+     <b>
+      10
+     </b>
+     , 68–71.
+    </li>
+    <li block-type="ListItem">
+     [4] Artzner, P., Delbaen, F., Eber, J.-M. &amp; Heath, D. (1999). Coherent measures of risk,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      9
+     </b>
+     , 203–228.
+    </li>
+    <li block-type="ListItem">
+     [5] Basak, S. &amp; Shapiro, A. (2001). Value-at-risk-based risk management: optimal policies and asset prices,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      14
+     </b>
+     , 371–405.
+    </li>
+    <li block-type="ListItem">
+     [6] Beder, T. (1995). VaR: seductive but dangerous,
+     <i>
+      Financial Analysts Journal
+     </i>
+     <b>
+      51
+     </b>
+     , 12–24.
+    </li>
+    <li block-type="ListItem">
+     [7] Berkowitz, J. &amp; O'Brien, J. (2002). How accurate are value-at-risk models at commercial banks?
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      57
+     </b>
+     , 1093–1112.
+    </li>
+    <li block-type="ListItem">
+     [8] Crouhy, M., Galai, D. &amp; Mark, R. (2001).
+     <i>
+      Risk Management
+     </i>
+     . McGraw Hill, New York.
+    </li>
+    <li block-type="ListItem">
+     [9] Dowd, K. (2005).
+     <i>
+      Measuring Market Risk
+     </i>
+     , 2nd Edition, John Wiley &amp; Sons, Chichester.
+    </li>
+    <li block-type="ListItem">
+     [10] Dowd, K., Cotter, J., Humphrey, C.G. &amp; Woods, M. (2008). How unlucky is 25-sigma?
+     <i>
+      Journal of Portfolio Management
+     </i>
+     ,
+     <b>
+      34
+     </b>
+     (4), 76–80.
+    </li>
+    <li block-type="ListItem">
+     [11] Embrechts, P., Kluppelberg, C. &amp; Mikosch, T. (1997). ¨
+     <i>
+      Modelling Extreme Events for Insurance and Finance
+     </i>
+     , Springer Verlag, Berlin.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [12] Grootveld, H. &amp; Hallerbach, W.G. (2004). Upgrading value-at-risk from diagnostic metric to decision variable: a wise thing to do?, in
+     <i>
+      Risk Measures for the 21st Century
+     </i>
+     , G. Szego, ed, Wiley, New York, p. ¨ 33–50.
+    </li>
+    <li block-type="ListItem">
+     [13] Lawrence, C. &amp; Robinson, G. (1995). How safe is RiskMetrics?
+     <i>
+      Risk
+     </i>
+     <b>
+      8
+     </b>
+     , 26–29.
+    </li>
+    <li block-type="ListItem">
+     [14] Longerstaey, J. &amp; Zangari, P. (1995). A transparent tool.
+     <i>
+      Risk
+     </i>
+     <b>
+      8
+     </b>
+     , 30–32.
+    </li>
+    <li block-type="ListItem">
+     [15] Marshall, C. &amp; Siegel, M. (1997). Value at risk: implementing a risk measurement standard.
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      4
+     </b>
+     , 91–110.
+    </li>
+    <li block-type="ListItem">
+     [16] McNeil, A.J., Frey, R. &amp; Embrechts, P. (2005).
+     <i>
+      Quantitative Risk Management: Concepts, Techniques, Tools
+     </i>
+     , Princeton University Press, Princeton.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Beirlant, J., Goegebeur, Y., Teugels, J., Seger, J., De Waal, D. &amp; Ferro, C. (2004).
+   <i>
+    Statistics of Extremes: Theory and Applications
+   </i>
+   , John Wiley &amp; Sons, Chichester.
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Backtesting
+   </b>
+   ;
+   <b>
+    Convex Risk Measures
+   </b>
+   ;
+   <b>
+    Expected Shortfall
+   </b>
+   ;
+   <b>
+    Economic Capital Allocation
+   </b>
+   ;
+   <b>
+    Extreme Value Theory
+   </b>
+   ;
+   <b>
+    Market Risk
+   </b>
+   ;
+   <b>
+    Models
+   </b>
+   ;
+   <b>
+    Operational Risk
+   </b>
+   ;
+   <b>
+    Ruin Theory
+   </b>
+   ;
+   <b>
+    Simulation-based Estimation
+   </b>
+   ;
+   <b>
+    Spectral Measures of Risk
+   </b>
+   ;
+   <b>
+    Stress Testing
+   </b>
+   ;
+   <b>
+    Risk Measures: Statistical Estimation
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   KEVIN DOWD
+  </p>
+ </body>
+</html>

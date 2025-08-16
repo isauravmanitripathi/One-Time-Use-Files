@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Convex Duality
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Convex duality
+   </b>
+   refers to a general principle that allows us to associate with an original minimization program (the
+   <i>
+    primal problem
+   </i>
+   ) a class of concave maximization concave programs (the
+   <i>
+    dual problem
+   </i>
+   ), which, under some conditions, are equivalent to the primal. The unifying principles underlying these methods can be traced back to the basic duality that exists between a convex set of points in the plane and the set of supporting lines (hyperplanes). Duality tools can be applied to nonconvex programs too, but are most effective for convex problems.
+  </p>
+  <p block-type="Text">
+   Convex optimization problems naturally arise in many areas of finance; we mention just few of them (see the list of the related entries at the end of this article): maximization of expected utility in complete or incomplete markets, mean–variance portfolio selection and CAPM, utility indifference pricing, selection of the minimal entropy martingale measure, and model calibration. This short and nonexhaustive list should give a hint of the scope of convex duality methods in financial applications.
+  </p>
+  <p block-type="Text">
+   Consider the following
+   <i>
+    primal
+   </i>
+   minimization (convex) problem:
+  </p>
+  <p block-type="Equation">
+   (P):
+   <math display="block">
+    \min f(v)
+   </math>
+   <br/>
+   subject to
+   <math>
+    v \in A
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    A
+   </i>
+   is a convex subset of some vector space
+   <i>
+    V
+   </i>
+   and
+   <i>
+    f
+   </i>
+   :
+   <i>
+    A
+   </i>
+   →  is a convex function. Convex duality principles consist in pairing this problem with a
+   <i>
+    dual
+   </i>
+   maximization (concave) problem:
+  </p>
+  <p block-type="Equation">
+   (D):
+   <math display="block">
+    \max g(w)
+   </math>
+   sub
+   <math>
+    w \in B
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    B
+   </i>
+   is a convex subset of some other vector space
+   <i>
+    W
+   </i>
+   (possibly
+   <i>
+    W
+   </i>
+   =
+   <i>
+    V
+   </i>
+   ) and
+   <i>
+    g
+   </i>
+   :
+   <i>
+    B
+   </i>
+   →  is a concave function.
+  </p>
+  <p block-type="Text">
+   In general, by applying a duality principle, we usually try to
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. find a lower bound for the value of the primal problem, or, better
+    </li>
+    <li block-type="ListItem">
+     2. find the value of the primal problem, or, even better
+    </li>
+    <li block-type="ListItem">
+     3. find the solutions, if any, of the primal problem.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Different duality principles differ in the way the dual problem is built. Two main principles are Lagrange duality and Fenchel duality. Even though they are formally equivalent, at least in the finite-dimensional case, they provide different insights into the problem. We will see below how the Lagrange and Fenchel duality principles practically accomplish the tasks 1 to 3 above.
+  </p>
+  <p block-type="Text">
+   For the topics to be presented below, comprehensive references are [4] and [1] for the finitedimensional case ([1] also provides an extensive account of numerical methods) and [2] for the infinite-dimensional case.
+  </p>
+  <h1>
+   <b>
+    Lagrange Duality in Finite-dimensional Problems
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   We consider finite-dimensional problems, that is,
+   <i>
+    V
+   </i>
+   =
+   <i>
+    <sup>
+     N
+    </sup>
+   </i>
+   for some
+   <i>
+    N
+   </i>
+   ≥ 1. We denote
+   <i>
+    v
+   </i>
+   ·
+   <i>
+    w
+   </i>
+   the inner product between two vectors
+   <i>
+    v, w
+   </i>
+   ∈
+   <i>
+    <sup>
+     N
+    </sup>
+   </i>
+   and use
+   <i>
+    v
+   </i>
+   ≥ 0 as a shorthand for
+   <i>
+    vn
+   </i>
+   ≥ 0 ∀
+   <i>
+    n
+   </i>
+   . Let
+   <i>
+    f, h
+   </i>
+   1
+   <i>
+    ,...,hM
+   </i>
+   :
+   <i>
+    C
+   </i>
+   →  be
+   <i>
+    M
+   </i>
+   + 1 convex functions, where
+   <i>
+    C
+   </i>
+   ⊆
+   <i>
+    <sup>
+     N
+    </sup>
+   </i>
+   is a convex set. Setting
+   <i>
+    h
+   </i>
+   =
+   <i>
+    (h
+   </i>
+   1
+   <i>
+    ,...,hM )
+   </i>
+   , so that
+   <i>
+    h
+   </i>
+   is a convex function from
+   <i>
+    C
+   </i>
+   to
+   <i>
+    <sup>
+     M
+    </sup>
+   </i>
+   , we consider, as the primal problem, the minimization of
+   <i>
+    f
+   </i>
+   under
+   <i>
+    M
+   </i>
+   inequality constraints:
+  </p>
+  <p block-type="Equation">
+   (P):
+   <math display="block">
+    \min f(v)
+   </math>
+   sub
+   <math>
+    v \in A
+   </math>
+   <br/>
+   =
+   <math>
+    \{v \in C : h(v) \le 0\} \subset \mathbb{R}^N
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   To build a dual problem, we define the so-called Lagrangian function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}(v, w) := f(v) + w \cdot h(v)
+   </math>
+   <br/>
+   <math display="block">
+    v \in C, \ w \in \mathbb{R}^M
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   and note that
+   <i>
+    f (v)
+   </i>
+   = sup
+   <i>
+    w
+   </i>
+   ≥
+   <sup>
+    0
+   </sup>
+   L
+   <i>
+    (v, w)
+   </i>
+   for any
+   <i>
+    v
+   </i>
+   ∈
+   <i>
+    A
+   </i>
+   . As a consequence, we can write the primal problem in terms of L:
+  </p>
+  <p block-type="Equation">
+   (P):
+   <math display="block">
+    \inf_{v \in C} \sup_{w \ge 0} \mathcal{L}(v, w) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   The dual problem is then defined by switching the supremum with the infimum
+  </p>
+  <p block-type="Equation">
+   (D):
+   <math display="block">
+    \sup_{w \ge 0} \inf_{v \in C} \mathcal{L}(v, w)
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   In the terminology of the introductory section, the dual problem is then
+  </p>
+  <p block-type="Equation">
+   (D):
+   <math display="block">
+    \max g(w)
+   </math>
+   sub
+   <math>
+    w \in B
+   </math>
+   <br/>
+   =
+   <math>
+    \{w \in D : w \ge 0\} \subset \mathbb{R}^M
+   </math>
+   (7)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g(w) = \inf_{v \in C} \mathcal{L}(v, w) \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    D = \{w \in \mathbb{R}^M : g(w) &gt; -\infty\}
+   </math>
+   is the domain of
+   <math display="inline">
+    g
+   </math>
+   . It can be proved that
+   <math display="inline">
+    D
+   </math>
+   is a convex set and
+   <math display="inline">
+    g
+   </math>
+   is a concave function on
+   <math display="inline">
+    D
+   </math>
+   even if
+   <math display="inline">
+    f
+   </math>
+   is not convex: therefore
+   <i>
+    the dual problem is always concave
+   </i>
+   , even when the primal problem is not convex.
+  </p>
+  <p block-type="TextInlineMath">
+   We assume throughout
+   <i>
+    primal
+   </i>
+   and
+   <i>
+    dual feasibility
+   </i>
+   , that is,
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are assumed to be nonempty. Dual feasibility would however be ensured under Slater conditions for A (see below). Let
+   <math display="inline">
+    p = \inf_A f
+   </math>
+   and
+   <math display="inline">
+    d = \sup_{B} g
+   </math>
+   be the (possibly infinite) values of the primal and the dual. A
+   <i>
+    primal
+   </i>
+   (dual) solution is
+   <math display="inline">
+    \widehat{v} \in A
+   </math>
+   <math display="inline">
+    (\widehat{w} \in B)
+   </math>
+   , if any, such that
+   <math display="inline">
+    f(\widehat{v}) = p
+   </math>
+   <math display="inline">
+    (g(\widehat{w}) = d)
+   </math>
+   ; a
+   <i>
+    solution pair
+   </i>
+   is a feasible pair
+   <math display="inline">
+    (\widehat{v}, \widehat{w}) \in A \times B
+   </math>
+   made by a primal and a dual solution.
+  </p>
+  <p block-type="Text">
+   Lagrange Duality Theorem
+  </p>
+  <h1>
+   1. Weak duality
+  </h1>
+  <p block-type="TextInlineMath">
+   Primal boundedness
+   <math display="inline">
+    (p &gt; -\infty)
+   </math>
+   implies dual boundedness
+   <math display="inline">
+    (d &lt; +\infty)
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p \ge d \quad (p - d \ge 0 \text{ is called the duality gap}) \quad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   Moreover, if there is no duality gap
+   <math display="inline">
+    (p = d)
+   </math>
+   , then
+   <math display="inline">
+    (\widehat{v}, \widehat{w}) \in A \times B
+   </math>
+   is a solution pair if and only if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{w} \cdot h(\widehat{v}) = 0 \quad \text{and} \quad \mathcal{L}(\widehat{v}, \widehat{w}) = g(\widehat{w}) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   In this case,
+   <math display="inline">
+    \widehat{w}
+   </math>
+   is usually called a Lagrange multipliers vector.
+  </p>
+  <h1>
+   2. Strong duality
+  </h1>
+  <p block-type="TextInlineMath">
+   If, in addition, there exists
+   <math display="inline">
+    v \in C
+   </math>
+   such that
+   <math display="inline">
+    h_m(v) &lt; 0
+   </math>
+   for all m (Slater condition), then there is no duality gap and there exists a dual solution.
+  </p>
+  <p block-type="Text">
+   See
+   <math display="inline">
+    [4]
+   </math>
+   or
+   <math display="inline">
+    [1]
+   </math>
+   for a proof.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Weak duality, whose proof is trivial, holds under very general conditions: in particular, the primal problem need not be convex. It gives a lower bound for the value of the primal problem, which is useful in many
+  </p>
+  <p block-type="Text">
+   practical situations, "branch and bound" algorithms in integer programming being a prominent example. It also provides a workable condition that characterizes a solution pair, at least when there is no duality gap.
+  </p>
+  <p block-type="Text">
+   Strong duality, on the contrary, requires a precise topological assumption: the interior of the constraint set has to be nonempty (Slater condition). We note, however, that this condition is satisfied in most cases, at least in the present finite-dimensional setting. The proof is then based on a separating hyperplane theorem, that in turn requires convexity assumptions about
+   <math display="inline">
+    f
+   </math>
+   and
+   <math display="inline">
+    h
+   </math>
+   . When strong duality holds, and provided we are able to actually solve the dual problem, we obtain the exact value of the primal (no duality gap).
+  </p>
+  <p block-type="Text">
+   We can add a finite number (say
+   <math display="inline">
+    L
+   </math>
+   ) of linear equality constraints to
+   <math display="inline">
+    (P)
+   </math>
+   , obtaining
+  </p>
+  <p block-type="Equation">
+   (P): min
+   <math display="block">
+    f(v)
+   </math>
+   sub
+   <math>
+    v \in A
+   </math>
+   <br/>
+   =
+   <math>
+    \{v \in C : h(v) \le 0, Qv = r\} \subset \mathbb{R}^N
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   where O is an
+   <math display="inline">
+    L \times N
+   </math>
+   matrix and
+   <math display="inline">
+    r \in \mathbb{R}^L
+   </math>
+   . The Lagrangian is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}(v, w) = f(v) + w^{\text{in}} \cdot h(v) + w^{\text{eq}} \cdot (Qv - r)
+   </math>
+   <math display="block">
+    v \in C, \ w = (w^{\text{in}}, w^{\text{eq}}) \in \mathbb{R}^{M \times L} \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   in such a way that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{v \in A} f(v) = \inf_{v \in C} \sup_{w^{\text{in}} \ge 0, \, w^{\text{eq}} \in \mathbb{R}^L} \mathcal{L}(v, w) \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   The dual problem is then
+  </p>
+  <p block-type="Equation">
+   (D):
+   <math display="block">
+    \max g(w)
+   </math>
+   sub
+   <math>
+    w \in B
+   </math>
+   <br/>
+   =
+   <math>
+    \{w \in D : w^{\text{in}} \ge 0\} \subset \mathbb{R}^{M \times L}
+   </math>
+   (14)
+  </p>
+  <p block-type="TextInlineMath">
+   where, as before,
+   <math display="inline">
+    g(w) = \inf_{v \in C} \mathcal{L}(v, w)
+   </math>
+   , and D is the domain of
+   <math display="inline">
+    g
+   </math>
+   . It is worth noting that if the primal problem has equality constraints only, then the only constraint of the dual problem is
+   <math display="inline">
+    w \in D
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   A Lagrange duality theorem can then be stated and also proved in this case, reaching similar conclusions. We have just to replace
+   <math display="inline">
+    \widehat{w}
+   </math>
+   with
+   <math display="inline">
+    \widehat{w}^{\text{in}}
+   </math>
+   in the first condition in (10), and modify the Slater condition as follows:
+  </p>
+  <p block-type="Text" class="has-continuation">
+   • There exists
+   <math display="inline">
+    v \in \text{ri}(C)
+   </math>
+   such that
+   <math display="inline">
+    h_m(v) &lt; 0
+   </math>
+   for all m and
+   <math display="inline">
+    Ov = r
+   </math>
+   <math display="inline">
+    (15)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The relative interior
+   <math display="inline">
+    ri(C)
+   </math>
+   is the interior of the convex set
+   <math display="inline">
+    C
+   </math>
+   relative to the affine hull of
+   <math display="inline">
+    C
+   </math>
+   . For instance, if
+   <math display="inline">
+    C = [0, 1] \times \{0\} \subset \mathbb{R}^2
+   </math>
+   , then
+   <math display="inline">
+    \text{ri}(C) = (0, 1) \times \{0\}
+   </math>
+   (because the affine hull of C is
+   <math display="inline">
+    \mathbb{R} \times \{0\}
+   </math>
+   ), while the interior of
+   <math display="inline">
+    C
+   </math>
+   is clearly empty (see [4] for more on relative interiors and related topics about convex sets).
+  </p>
+  <p block-type="Text">
+   In many concrete problems,
+   <math display="inline">
+    C
+   </math>
+   is a polyhedron, that is, it is the (convex and closed) set defined by a certain finite set of linear inequalities, and all the functions
+   <math display="inline">
+    h_m
+   </math>
+   are affine. If we assume, in addition, that
+   <math display="inline">
+    f
+   </math>
+   may be extended to a finite convex function over
+   <i>
+    all
+   </i>
+   <math display="inline">
+    \mathbb{R}^N
+   </math>
+   , Farkas Lemma allows us to prove strong duality without requiring any Slater condition. Remarkably, if
+   <math display="inline">
+    f
+   </math>
+   is linear too, then the existence of a primal solution is ensured.
+  </p>
+  <p block-type="Text">
+   The Lagrange duality theorem provides us a simple criterion for the existence of a dual solution and a set of conditions characterizing a possible primal solution. It is, however, not directly concerned with the existence of a primal solution. To ensure this, one has to assume stronger conditions such as compactness of
+   <math display="inline">
+    C
+   </math>
+   or coercivity of
+   <math display="inline">
+    f
+   </math>
+   . A third condition (
+   <math display="inline">
+    f
+   </math>
+   linear) has been described above.
+  </p>
+  <p block-type="Text">
+   We have seen that the dual problem usually looks much better than the primal: it is always concave and its solvability is guaranteed under mild assumptions about the primal. This fact is particularly useful in designing numerical procedures. Moreover, even when the primal is solvable, the dual often proves easier to handle. We provide a simple example that should clarify the point.
+  </p>
+  <p block-type="Text">
+   A standard linear programming (LP) problem comes, by definition, in the form
+  </p>
+  <p block-type="Equation">
+   (P):
+   <math display="block">
+    \min c \cdot v
+   </math>
+   sub
+   <math>
+    Qv = r
+   </math>
+   ,
+   <math>
+    v \ge 0
+   </math>
+   ,
+   <math>
+    v \in \mathbb{R}^N
+   </math>
+   (16)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    c \in \mathbb{R}^N
+   </math>
+   , Q is a
+   <math display="inline">
+    L \times N
+   </math>
+   matrix and
+   <math display="inline">
+    r \in \mathbb{R}^L
+   </math>
+   . An easy computation shows that the dual problem is
+   <math display="inline">
+    (T
+   </math>
+   denotes transposition)
+  </p>
+  <p block-type="Equation">
+   (D):
+   <math display="block">
+    \max r \cdot w
+   </math>
+   sub
+   <math>
+    Q^T w \le c
+   </math>
+   ,
+   <math>
+    w \in \mathbb{R}^L
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   We know that strong duality holds in this case, and that the existence of a solution pair is guaranteed. In particular,
+   <math display="inline">
+    (Q^T \widehat{w} - c) \cdot \widehat{v} = 0
+   </math>
+   is a necessary condition for a pair
+   <math display="inline">
+    (\widehat{v}, \widehat{w})
+   </math>
+   to be a solution. The dual problem, however, has
+   <math display="inline">
+    L
+   </math>
+   variables and
+   <math display="inline">
+    N
+   </math>
+   constraints and thus can often be more tractable than the primal
+  </p>
+  <p block-type="Text">
+   if
+   <math display="inline">
+    N
+   </math>
+   is much larger than
+   <math display="inline">
+    L
+   </math>
+   . This is the basis for great enhancements in existing numerical methods.
+  </p>
+  <p block-type="Text">
+   A last remark concerns the word "duality": any dual problem can be turned into an equivalent minimization primal problem. It turns out that the bidual, that is, the dual of this new primal problem, seldom coincides with the original primal problem. LP problems are an important exception: the bidual of an LP problem is the problem itself.
+  </p>
+  <h1>
+   <b>
+    Fenchel Duality in Finite-dimensional
+   </b>
+   Problems
+  </h1>
+  <p block-type="Text">
+   Fenchel duality, that we will derive from Lagrange duality, may be applied to primal problems in the form
+  </p>
+  <p block-type="Equation">
+   (P):
+   <math display="block">
+    \min \{f_1(v) - f_2(v)\}
+   </math>
+   <br/>
+   sub
+   <math>
+    v \in A = C_1 \cap C_2 \subset \mathbb{R}^N
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C_1, C_2 \subseteq \mathbb{R}^N
+   </math>
+   are convex,
+   <math display="inline">
+    f_1: C_1 \to \mathbb{R}
+   </math>
+   is convex, and
+   <math display="inline">
+    f_2: C_2 \to \mathbb{R}
+   </math>
+   is concave.
+  </p>
+  <p block-type="TextInlineMath">
+   Consider the function
+   <math display="inline">
+    f(x, y) = f_1(x) - f_2(y)
+   </math>
+   defined on
+   <math display="inline">
+    \mathbb{R}^{2N}
+   </math>
+   and clearly convex. We can restate the primal as
+  </p>
+  <p block-type="Equation">
+   (P):
+   <math display="block">
+    \min f(x, y)
+   </math>
+   sub
+   <math>
+    (x, y) \in A'
+   </math>
+   <br/>
+   =
+   <math>
+    \{(x, y) \in C_1 \times C_2 : x = y\} \subset \mathbb{R}^{2N}
+   </math>
+   (19)
+  </p>
+  <p block-type="TextInlineMath">
+   where the N fictitious linear constraints
+   <math display="inline">
+    (x_n = y_n \forall n)
+   </math>
+   allow us to apply the Lagrange duality machinery. The Lagrangian function is
+   <math display="inline">
+    \mathcal{L}(x, y, w) = f_1(x) - f_2(x)
+   </math>
+   <math display="inline">
+    f_2(y) + w \cdot (x - y)
+   </math>
+   and, using some simple algebra, we compute
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g(w) = \inf_{x \in C_1, y \in C_2} \mathcal{L}(x, y, w) = f_2^*(w) - f_1^*(w)
+   </math>
+   (20)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_1^*(w) = \sup_{x \in C_1} \{w \cdot x - f_1(x)\}\tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is, by definition, the convex conjugate (indeed,
+   <math display="inline">
+    f_1^*
+   </math>
+   is convex) of the convex function
+   <math display="inline">
+    f_1
+   </math>
+   , and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_2^*(w) = \inf_{y \in C_2} \{w \cdot y - f_2(y)\}\tag{22}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is the concave conjugate (indeed,
+   <math display="inline">
+    f_2^*
+   </math>
+   is concave) of the concave function
+   <math display="inline">
+    f_2
+   </math>
+   . As a consequence, the dual problem is
+  </p>
+  <p block-type="Equation">
+   (D):
+   <math display="block">
+    \max \{ f_2^*(w) - f_1^*(w) \}
+   </math>
+   <br/>
+   sub
+   <math>
+    w \in B = C_1^* \cap C_2^* \subset \mathbb{R}^N
+   </math>
+   (23)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C_1^*
+   </math>
+   and
+   <math display="inline">
+    C_2^*
+   </math>
+   are the domains of
+   <math display="inline">
+    f_1^*
+   </math>
+   and
+   <math display="inline">
+    f_2^*
+   </math>
+   , respectively. Assuming primal feasibility and boundedness, the Lagrange duality theorem yields the Fenchel duality theorem.
+  </p>
+  <h2>
+   Fenchel Duality Theorem
+  </h2>
+  <h4>
+   1. Weak duality
+  </h4>
+  <p block-type="Text">
+   If there is no duality gap,
+   <math display="inline">
+    (\widehat{v}, \widehat{w})
+   </math>
+   is a solution pair if and only if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{v} \cdot \widehat{w} = f_1(\widehat{v}) + f_1^*(\widehat{w}) = f_2(\widehat{v}) + f_2^*(\widehat{w}) \qquad (24)
+   </math>
+  </p>
+  <h4>
+   2. Strong duality
+  </h4>
+  <p block-type="Text">
+   There is no duality gap between the primal and the dual, and there is a dual solution, provided one of the following conditions is satisfied:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     (
+     <i>
+      a
+     </i>
+     )
+     <math display="inline">
+      ri(C_1) \cap ri(C_2)
+     </math>
+     is nonempty
+    </li>
+    <li block-type="ListItem">
+     (b)
+     <math display="inline">
+      C_1
+     </math>
+     and
+     <math display="inline">
+      C_2
+     </math>
+     are polyhedra and
+     <math display="inline">
+      f_1
+     </math>
+     (resp.
+     <math display="inline">
+      f_2
+     </math>
+     )
+     <i>
+      may be extended to a finite convex (concave)
+     </i>
+     function over all
+     <math display="inline">
+      \mathbb{R}^N
+     </math>
+    </li>
+   </ul>
+  </p>
+  <h1>
+   See [4] or [1] for a proof.
+  </h1>
+  <p block-type="TextInlineMath">
+   We say that a convex function
+   <math display="inline">
+    f
+   </math>
+   is closed if, for any
+   <math display="inline">
+    a \in \mathbb{R}
+   </math>
+   , the set
+   <math display="inline">
+    \Gamma_a = \{v : f(v) \le a\}
+   </math>
+   is closed; a similar definitions applies to concave functions, where the inequality inside
+   <math display="inline">
+    \Gamma_a
+   </math>
+   is reversed. A sufficient, though not necessary condition for
+   <math display="inline">
+    f
+   </math>
+   to be closed is continuity on all
+   <math display="inline">
+    C
+   </math>
+   . A celebrated result (the Fenchel– Moreau theorem) states that
+   <math display="inline">
+    (f^*)^* \equiv f
+   </math>
+   , provided f is a closed (convex or concave) function. Therefore, if in the primal problem
+   <math display="inline">
+    f_1
+   </math>
+   and
+   <math display="inline">
+    f_2
+   </math>
+   are closed, then the dual problem of the dual coincides with the primal, and the duality is therefore
+   <i>
+    complete
+   </i>
+   . Thanks to this fact, an application of the Fenchel duality theorem to the dual problem allows us to state that the primal has a solution provided one of the following conditions is satisfied:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <math display="inline">
+      \operatorname{ri}(C_1^*) \cap \operatorname{ri}(C_2^*)
+     </math>
+     is nonempty.
+    </li>
+    <li block-type="ListItem">
+     2.
+     <math display="inline">
+      C_1^*
+     </math>
+     and
+     <math display="inline">
+      C_2^*
+     </math>
+     are polyhedra, and
+     <math display="inline">
+      f_1^*
+     </math>
+     (resp.
+     <math display="inline">
+      f_2^*
+     </math>
+     ) may be extended to a finite convex (concave) function over all
+     <math display="inline">
+      \mathbb{R}^N
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Fenchel duality can sometimes be effectively used for general problems in the form
+  </p>
+  <p block-type="Equation">
+   (P):
+   <math display="block">
+    \min f(v)
+   </math>
+   sub
+   <math>
+    v \in C \subset \mathbb{R}^N
+   </math>
+   (25)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    f
+   </math>
+   and
+   <math display="inline">
+    C
+   </math>
+   are convex. Indeed, such a problem can be cast in the form (18) provided we set
+   <math display="inline">
+    f_1 = f
+   </math>
+   ,
+   <math display="inline">
+    f_2 = 0
+   </math>
+   (concave),
+   <math display="inline">
+    C_1 = \mathbb{R}^N
+   </math>
+   , and
+   <math display="inline">
+    C_2 = C
+   </math>
+   . The dual problem is given by equation
+   <math display="inline">
+    (23)
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_1^*(w) = \sup_{v \in \mathbb{R}^N} \{w \cdot v - f(v)\}\tag{26}
+   </math>
+  </p>
+  <p block-type="Text">
+   is an unconstrained problem and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_2^*(w) = \inf_{v \in C} w \cdot v \tag{27}
+   </math>
+  </p>
+  <p block-type="Text">
+   has a simple goal function.
+  </p>
+  <p block-type="Text">
+   We have derived Fenchel duality as a by product of Lagrange duality. However, it is possible to go in the opposite direction, by first proving Fenchel duality (unsurprisingly, using hyperplane separation arguments, see [2]) and then writing a Lagrange problem in the Fenchel form, so that Lagrange duality can be derived (see [3]). Therefore, at least in the finite-dimensional setting, Lagrange and Fenchel duality are formally equivalent.
+  </p>
+  <h2>
+   <b>
+    Duality in Infinite-dimensional Problems
+   </b>
+  </h2>
+  <p block-type="Text">
+   For infinite-dimensional problems, Lagrange or Fenchel duality exhibit a large formal similarity with the finite-dimensional counterparts we have described so far. Nevertheless, the technical topological assumptions, which are needed to ensure duality, become much less trivial when the space
+   <math display="inline">
+    V = \mathbb{R}^N
+   </math>
+   is replaced by an infinite-dimensional Banach space. We give a brief account of these differences.
+  </p>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    V
+   </math>
+   be a Banach space and consider the primal problem
+  </p>
+  <p block-type="Equation">
+   (P):
+   <math display="block">
+    \min f(v) \quad \text{sub } v \in A
+   </math>
+   <math display="block">
+    = \{ v \in C : h(v) \le 0 \} \subset V \qquad (28)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C \subseteq V
+   </math>
+   is a convex set, and
+   <math display="inline">
+    f : C \to \mathbb{R}
+   </math>
+   and
+   <math display="inline">
+    h :
+   </math>
+   <math display="inline">
+    C \to \mathbb{R}^M
+   </math>
+   are convex functions. Then, by mimicking the finite-dimensional case, the dual problem is
+  </p>
+  <p block-type="Equation">
+   (D):
+   <math display="block">
+    \max g(w)
+   </math>
+   sub
+   <math>
+    w \in B
+   </math>
+   <br/>
+   =
+   <math>
+    \{w \in D : w \ge 0\} \subset \mathbb{R}^M
+   </math>
+   (29)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    g(w) = \inf_{v \in C} \{f(v) + w \cdot h(v)\}\
+   </math>
+   , and D is the domain of
+   <math display="inline">
+    g
+   </math>
+   . We can note that the dual is finitedimensional, but the definition of
+   <math display="inline">
+    g
+   </math>
+   involves an infinite-dimensional problem. A perfect analog of the finite-dimensional Lagrange duality theorem may be derived in this more general case too (see [2]) with essentially the same Slater condition (existence of some
+   <math display="inline">
+    v \in C
+   </math>
+   such that
+   <math display="inline">
+    h_m(v) &lt; 0
+   </math>
+   for any m). We can also introduce a finite set of linear inequalities: this case can be handled in exactly the same way as in the finite-dimensional case. However, the hypothesis
+   <math display="inline">
+    \text{ri}(C) \neq \emptyset
+   </math>
+   is not completely trivial here.
+  </p>
+  <p block-type="TextInlineMath">
+   Fenchel duality too can be much generalized. Indeed, let V be a Banach space,
+   <math display="inline">
+    W = V^*
+   </math>
+   its dual space (the Banach space of continuous linear forms on V), and denote by
+   <math display="inline">
+    \langle v, v^* \rangle
+   </math>
+   the action of
+   <math display="inline">
+    v^* \in V^*
+   </math>
+   on
+   <math display="inline">
+    v \in V
+   </math>
+   . Consider the primal problem
+  </p>
+  <p block-type="Equation">
+   (P):
+   <math display="block">
+    \min \{f_1(v) - f_2(v)\}
+   </math>
+   sub
+   <math>
+    v \in A
+   </math>
+   <br/>
+   =
+   <math>
+    C_1 \cap C_2 \subset V
+   </math>
+   (30)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C_1, C_2 \subseteq V
+   </math>
+   are convex sets,
+   <math display="inline">
+    f_1
+   </math>
+   is convex on
+   <math display="inline">
+    C_1
+   </math>
+   , and
+   <math display="inline">
+    f_2
+   </math>
+   is concave on
+   <math display="inline">
+    C_2
+   </math>
+   . Then, again by mimicking the finite-dimensional case, we associate the primal with the dual
+  </p>
+  <p block-type="Equation">
+   (D):
+   <math display="block">
+    \max \{f_2^*(v^*) - f_1^*(v^*)\}
+   </math>
+   sub
+   <math>
+    v^* \in B
+   </math>
+   <br/>
+   =
+   <math>
+    C_1^* \cap C_2^* \subset V^*
+   </math>
+   (31)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_1^*(v^*) = \sup_{v \in C_1} \{ \langle v, v^* \rangle - f_1(v) \} \quad \text{and} \quad f_2^*(v^*)
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \inf_{v \in C_2} \{ \langle v, v^* \rangle - f_2(v) \}
+   </math>
+   (32)
+  </p>
+  <p block-type="TextInlineMath">
+   are the convex and concave conjugates of
+   <math display="inline">
+    f_1
+   </math>
+   and
+   <math display="inline">
+    f_2
+   </math>
+   , respectively, and
+   <math display="inline">
+    C_1^*
+   </math>
+   and
+   <math display="inline">
+    C_2^*
+   </math>
+   are their domains. Then, with obvious formal modifications, Fenchel duality theorem holds in this case, too (see again [2]). However, to obtain strong duality, we must supplement conditions (a) or (b) with the following
+  </p>
+  <p block-type="Text">
+   • Either
+   <math display="inline">
+    \{(v, a) \in V \times \mathbb{R} : f_1(v) &lt; a\}
+   </math>
+   or
+   <math display="inline">
+    \{(v, a) \in V \times \mathbb{R} : f_2(v) &gt; a\}
+   </math>
+   has a nonempty interior.
+  </p>
+  <p block-type="Text">
+   This latter condition, which, in the finite-dimensional setting, follows from (a) or (b), must be checked separately in the present case.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bertsekas, D.P. (1995).
+     <i>
+      Nonlinear Programming
+     </i>
+     , Athena Scientific, Belmont.
+    </li>
+    <li block-type="ListItem">
+     [2] Luenberger, D.G. (1969).
+     <i>
+      Optimization by Vector Space
+     </i>
+     Methods, Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [3] Magnanti, T.L. (1974). Fenchel and Lagrange duality are equivalent, Mathematical Programming 7, 253-258.
+    </li>
+    <li block-type="ListItem">
+     [4] Rockafellar, R.T. (1970). Convex Analysis, Princeton University Press, Princeton.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Capital Asset Pricing Model; Expected Utility
+   </b>
+   Maximization; Expected Utility Maximization: Duality Methods; Minimal Entropy Martingale Measure; Model Calibration; Optimization Methods; Risk-Return Analysis; Robust Portfolio Optimization; Stochastic Control; Utility
+   <b>
+    Function; Utility Indifference Valuation.
+   </b>
+  </p>
+  <p block-type="Equation">
+  </p>
+ </body>
+</html>

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Simulation-based
+   </b>
+   Estimation
+  </h1>
+  <p block-type="Text">
+   Simulation-based estimation methods were first used in microeconometric models involving qualitative or limited dependent endogenous variables and, possibly, lagged endogenous variables (see, in particular, [13, 14]) and in macroeconometric models [11, 12]. In this literature, the role of simulations was to approximate likelihood functions or moments which are not computable exactly, and the origin of the computational problem was often the occurrence of large-size integrals when passing from characteristics of the latent model to those of the observable model.
+  </p>
+  <p block-type="Text">
+   In financial econometrics, the computational problem comes from the simultaneous presence of dynamics and latent variables. Such a situation may imply, for instance, a likelihood function defined as a multivariate integral the size of which is astronomical. Let us look more precisely at the genesis of the problem.
+  </p>
+  <p block-type="Text">
+   Many financial econometric models can be written in the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n y_t = r_{1t}(\underline{y_{t-1}}, \underline{y_t^*}, \varepsilon_{1t}; \theta) \\
+y_t^* = r_{2t}(\underline{y_{t-1}}, \underline{y_{t-1}^*}, \varepsilon_{2t}; \theta)t = 1, \dots, T\n\end{cases} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    y_t
+   </math>
+   is an observable endogenous vector,
+   <math display="inline">
+    y_t^*
+   </math>
+   is an unobservable endogenous vector,
+   <math display="inline">
+    \theta
+   </math>
+   is an unknown vector,
+   <math display="inline">
+    \varepsilon_{1t}
+   </math>
+   and
+   <math display="inline">
+    \varepsilon_{2t}
+   </math>
+   are independent unobservable error white noises (the distributions of which can be assumed to be known without loss of generality),
+   <math display="inline">
+    y_t
+   </math>
+   is a notation for
+   <math display="inline">
+    (y_t, y_{t-1}, \ldots)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   From system (1) it is, in general, easy to derive the conditional probability density function (pdf):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(y_t/\underline{y_{t-1}}, \underline{y_t^*}; \theta)
+   </math>
+   <br/>
+   and
+   <math display="block">
+    f(y_t^*/\underline{y_{t-1}}, \underline{y_{t-1}^*}; \theta)
+   </math>
+  </p>
+  <p block-type="Text">
+   and, therefore, the joint pdf:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\underline{y_T}, \underline{y_T^*}; \theta) = \prod_{t=1}^{T} f(y_t / \underline{y_{t-1}}, \underline{y_t^*}, \theta)
+   </math>
+   <math display="block">
+    f(y_t^* / \underline{y_{t-1}}, \underline{y_{t-1}^*}, \theta) \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   However since
+   <math display="inline">
+    y_T^*
+   </math>
+   is unobserved the likelihood function is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    l_T(\underline{y_T};\theta) = \int f(\underline{y_T}, \underline{y_T^*}; \theta) d\underline{y_T^*} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Even if
+   <math display="inline">
+    y_T^*
+   </math>
+   is scalar, we are facing an integral of size
+   <math display="inline">
+    T
+   </math>
+   , to which the standard numerical methods cannot be applied. For instance, in the simplest case where each
+   <math display="inline">
+    y_t^*
+   </math>
+   can take only two values the previous integral is a sum of
+   <math display="inline">
+    2^T
+   </math>
+   terms. If
+   <math display="inline">
+    T = 100
+   </math>
+   , which is very small in finance, we have
+   <math display="inline">
+    2^{100}
+   </math>
+   terms. So standard numerical procedures are of no use. Note, however, that recursive algorithms are available in some special cases (the Kalman filter in the linear case and the Kitagawa-Hamilton in the case where
+   <math display="inline">
+    y_{t}^{*}
+   </math>
+   takes a finite number of values and appears in the model with a fixed number of lags).
+  </p>
+  <h1>
+   <b>
+    Examples of Models of Type Governed by
+   </b>
+   Equations (1)
+  </h1>
+  <p block-type="Text">
+   1. Stochastic volatility models
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    y_t = \exp(y_t^*) \varepsilon_{1t} \tag{4}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    y_t^* = \theta_1 + \theta_2 y_{t-1}^* + \varepsilon_{2t} \tag{5}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varepsilon_{1t} \sim N(0, 1), \varepsilon_{2t} \sim N(0, \theta_3) \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   Factor ARCH model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    y_t = \theta_1 y_t^* + \varepsilon_{1t}, \quad y_t
+   </math>
+   : multivariate
+   <br/>
+   <math>
+    (\theta_{11} = 1)
+   </math>
+   (7)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    y_t^* = (\theta_2 + \theta_3 y_{t-1}^{*2})^{1/2} \varepsilon_{2t}
+   </math>
+   (8)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varepsilon_{1t} \sim N(0, \Sigma(\theta_4)) \tag{9}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varepsilon_{2t} \sim N(0, 1) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    y_t
+   </math>
+   is a vector and
+   <math display="inline">
+    y_t^*
+   </math>
+   a univariate latent ARCH driving the whole dynamics.
+  </p>
+  <p block-type="Text">
+   Diffusion process observed at discrete dates 3. If we observe the diffusion,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\tilde{y}_t = a(\tilde{y}_t, \theta) + \sigma(\tilde{y}_t, \theta) dW_t \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   (where
+   <math display="inline">
+    W_t
+   </math>
+   is a standard Brownian motion) at
+   <math display="inline">
+    t =
+   </math>
+   <math display="inline">
+    1, \ldots, T
+   </math>
+   , we can consider the Euler approximation corresponding to time unit
+   <math display="inline">
+    \frac{1}{n}
+   </math>
+   (
+   <i>
+    n
+   </i>
+   is an integer chosen by the econometrician to have a good
+  </p>
+  <p block-type="Text">
+   approximation):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{y}_{\tau} = \tilde{y}_{\tau - \frac{1}{n}} + \frac{1}{n} a(\tilde{y}_{\tau - \frac{1}{n}}, \theta) + \frac{1}{\sqrt{n}} \sigma(\tilde{y}_{\tau - \frac{1}{n}}, \theta) \varepsilon_{\tau}
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tau
+   </math>
+   takes the values
+   <math display="inline">
+    \frac{k}{n}
+   </math>
+   ,
+   <math display="inline">
+    k = 1, 2, \ldots
+   </math>
+   and the sequence
+   <math display="inline">
+    \varepsilon_{\tau}
+   </math>
+   is a standard Gaussian white noise. The
+   <math display="inline">
+    \tilde{y}_{\tau}
+   </math>
+   are observed only if
+   <math display="inline">
+    \tau
+   </math>
+   is an integer. Renaming
+   <math display="inline">
+    \tilde{y}_{\tau} = y_{k}^{*}, \varepsilon_{\tau} = \varepsilon_{1k}
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    y_{k}^{*} = y_{k-1}^{*} + \frac{1}{n}a(y_{k-1}^{*}, \theta) + \frac{1}{\sqrt{n}}
+   </math>
+   <math display="block">
+    \times \sigma(y_{k-1}^{*}, \theta)\varepsilon_{1k}
+   </math>
+   (13)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    y_k = y_k^*
+   </math>
+   , if
+   <i>
+    k
+   </i>
+   multiple of
+   <i>
+    n
+   </i>
+   <br/>
+   = 0, otherwise (by convention) (14)
+  </p>
+  <p block-type="Text">
+   which is of type (1) (
+   <math display="inline">
+    k
+   </math>
+   replacing
+   <math display="inline">
+    t
+   </math>
+   ).
+  </p>
+  <h4>
+   <b>
+    Simulation Methods
+   </b>
+  </h4>
+  <p block-type="Text">
+   The econometric methods described below are based on different simulation methods, which can be partitioned into three categories.
+  </p>
+  <p block-type="TextInlineMath">
+   The first category is made of
+   <i>
+    unconditional sim
+   </i>
+   ulations obtained in the following way. Drawing a sequence
+   <math display="inline">
+    (\tilde{\varepsilon}_{1t}^s, \tilde{\varepsilon}_{2t}^s, t = 1, \ldots, T)
+   </math>
+   in the known distribution of
+   <math display="inline">
+    (\varepsilon_{1t}, \varepsilon_{2t})
+   </math>
+   , choosing initial values for
+   <math display="inline">
+    y_t
+   </math>
+   and
+   <math display="inline">
+    y_t^*
+   </math>
+   , and using equation (1), we can, for any value of
+   <math display="inline">
+    \theta
+   </math>
+   , compute simulated paths
+   <math display="inline">
+    \{y_t^s(\theta), y_t^{*s}(\theta), t =
+   </math>
+   <math display="inline">
+    1, \ldots, T
+   </math>
+   . These simulations are unconditional in the sense that they do not depend on the observed values
+   <math display="inline">
+    y_1, \ldots, y_T.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The second category is made of
+   <i>
+    sequentially con
+   </i>
+   ditional simulations. Using formulas (2) and (3) we see that if, for a given value of
+   <math display="inline">
+    \theta
+   </math>
+   , we draw sequentially
+   <math display="inline">
+    y_t^{*s}
+   </math>
+   , = 1, ..., T in
+   <math display="inline">
+    f(y_t^*/y_{t-1}, y_{t-1}^*; \theta)
+   </math>
+   , where
+   <math display="inline">
+    y_{t-1}
+   </math>
+   are the observed values, we get an
+   <i>
+    unbiased simulator
+   </i>
+   of the likelihood function
+   <math display="inline">
+    f(y_T; \theta)
+   </math>
+   , namely,
+   <math display="inline">
+    \n\Pi_{t=1}^{T} f(y_{t}/y_{t-1}, y_{t}^{*s}, \theta),\n
+   </math>
+   since
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    l(\underline{y_T};\theta) = E\prod_{t=1}^{T} f(y_t/\underline{y_{t-1}}, \underline{y_t}^{*s}, \theta) \qquad (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   the expectation being taken with respect to the probability with pdf
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \n\Pi_{t=1}^{T} f(y_{t}^{*s} / y_{t-1}, y_{t-1}^{*s}; \theta)\n
+   </math>
+   . Therefore,
+   <math display="inline">
+    f(y_{T}; \theta)
+   </math>
+   is the limit when
+   <math display="inline">
+    S
+   </math>
+   goes to infinity of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{S} \sum_{s=1}^{S} f(y_t^{*s} / \underline{y_{t-1}}, \underline{y_{t-1}^{*s}}; \theta) \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   However, in practice, this convergence is often very slow and must be improved by importance sampling methods
+   <math display="inline">
+    [1, 4]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In the third category, we have the globally conditional simulations. The aim is to simulate in the global conditional distribution with pdf
+   <math display="inline">
+    f(y_T^*/y_T, \theta)
+   </math>
+   , for a given
+   <math display="inline">
+    \theta
+   </math>
+   . Note that the previous sequential drawing does not provide such a global drawing; a sequential procedure giving such a drawing should be based on the sequence of pdfs
+   <math display="inline">
+    f(y_t^*/y_T, y_{t-1}^*;\theta)
+   </math>
+   <math display="inline">
+    (y_T \text{ replacing } y_{t-1}), \text{ but this is not feasible since}
+   </math>
+   <math display="inline">
+    \overline{f(y_t^*/y_T, y_{t-1}^*; \theta)}
+   </math>
+   is not computable. More generally, the problem seems to have s no solution since
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\underline{y_T^*}/\underline{y_T};\theta) = \frac{f(\underline{y_T},\underline{y_T^*};\theta)}{f(\underline{y_T};\theta)}\tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   and the denominator is not computable. The key remark to solve the problem is that this denominator is constant, for given
+   <math display="inline">
+    (y_T, \theta)
+   </math>
+   , and therefore we can use simulation techniques that only require us to know the pdf up to a multiplicative constant. The more important techniques satisfying these conditions are Monte Carlo Matkov chain (MCMC) techniques like the Hastings–Metropolis algorithm.
+  </p>
+  <p block-type="Text">
+   In a first method, the likelihood function, which is not easily computable, is replaced by another objective function, the optimization of which gives consistent asymptotically normal estimators. Examples of such a method are the indirect inference (II) method [9], briefly described below, and the method of simulated moments [5], which is a particular case of the II method.
+  </p>
+  <p block-type="Text">
+   The second kind of methods is based on an approximation of the maximum likelihood estimator. For instance, the simulated likelihood ratio method
+   <math display="inline">
+    [2]
+   </math>
+   is based on the identity
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{l(\underline{y_T}, \theta)}{l(\underline{y_T}; \bar{\theta})} = E_{\bar{\theta}} \left[ \frac{l(\underline{y_T}, \underline{y_T^*}; \theta)}{l(\underline{y_T}, \underline{y_T^*}; \bar{\theta})} / \underline{y_T} \right] \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for any given
+   <math display="inline">
+    \bar{\theta}
+   </math>
+   . Therefore a globally conditional simulation
+   <math display="inline">
+    y_T^{*s}
+   </math>
+   in
+   <math display="inline">
+    f(y_T^*/y_T;\theta)
+   </math>
+   provides the unbiased simulator
+   <math display="inline">
+    \frac{l(y_T, y_T^{*s}; \theta)}{l(y_T, y_T^{*s}; \theta)}
+   </math>
+   of
+   <math display="inline">
+    \frac{l(y_T; \theta)}{l(y_T; \theta)}
+   </math>
+   and the ratio can be consistently approximated by an empirical mean of such unbiased simulations. Another example is the simulated expectation maximization (EM) method [15]. The EM algorithm is based on the maximization in
+   <math display="inline">
+    \theta
+   </math>
+   at iteration
+   <i>
+    m
+   </i>
+   of
+   <math display="inline">
+    E_{\theta^{(m)}}[\log f(y_T, y_T^*, \theta)/y_T]
+   </math>
+   ; this conditional expectation is, in general,
+   <math display="inline">
+    \overline{\text{not}}
+   </math>
+   computable but, again, can be approximated using globally conditional simulations.
+  </p>
+  <p block-type="TextInlineMath">
+   The third approach is the Bayesian approach. Given a prior distribution of
+   <math display="inline">
+    \theta
+   </math>
+   , with pdf
+   <math display="inline">
+    \pi(\theta)
+   </math>
+   , the Bayesian approach is based on the posterior pdf
+   <math display="inline">
+    \pi(\theta/y_T)
+   </math>
+   . Since
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi(\theta/\underline{y_T}) = \frac{f(\theta, \underline{y_T})}{f(\underline{y_T})} = \frac{f(\underline{y_T}; \theta)\pi(\theta)}{f(\underline{y_T})} \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   the computation of
+   <math display="inline">
+    \pi(\theta/y_T)
+   </math>
+   seems impossible and, moreover, a simulation in this pdf seems also impossible since it is not even known up to a multiplicative constant
+  </p>
+  <p block-type="TextInlineMath">
+   The key idea here is to consider the joint posterior pdf of
+   <math display="inline">
+    \theta
+   </math>
+   and
+   <math display="inline">
+    y_T^*
+   </math>
+   given
+   <math display="inline">
+    y_T
+   </math>
+   , which is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\theta, \underline{y_T^*}/\underline{y_T}) = \frac{f(\underline{y_T}, \underline{y_T^*}; \theta)\pi(\theta)}{f(y_T)} \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The numerator of equation
+   <math display="inline">
+    (20)
+   </math>
+   is now computable and therefore, simulations in this joint distribution can be made, giving approximations of not only
+   <math display="inline">
+    \pi(\theta/y_T)
+   </math>
+   but also of the
+   <i>
+    smoothing
+   </i>
+   distribution
+   <math display="inline">
+    f(y_T^*/y_T)
+   </math>
+   . See [3].
+  </p>
+  <h4>
+   <b>
+    Indirect Inference
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Let us consider an auxiliary criterion
+   <math display="inline">
+    Q_T(y_T, \beta)
+   </math>
+   , where
+   <math display="inline">
+    \beta
+   </math>
+   is an auxiliary parameter. We assume that, when T goes to infinity,
+   <math display="inline">
+    Q_T(y_T, \beta)
+   </math>
+   converges to a deterministic function
+   <math display="inline">
+    Q_{\infty}(\theta_0, \beta)
+   </math>
+   , and we denote by
+   <math display="inline">
+    b(\theta)
+   </math>
+   the function obtained by
+   <math display="inline">
+    b(\theta)
+   </math>
+   =
+   <math display="inline">
+    \arg \max_{\beta} Q_{\infty}(\theta, \beta)
+   </math>
+   . The function
+   <math display="inline">
+    b(.)
+   </math>
+   is called a
+   <i>
+    binding function
+   </i>
+   and is assumed to be injective. The II estimators are obtained in the following way:
+  </p>
+  <p block-type="Text">
+   First step Compute .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\beta}_T = \arg\max_{\beta} Q_T(\underline{y}_T, \beta) \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Second step Compute 4
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\theta}_{ST}(\Omega) = \arg\min_{\theta} [\hat{\beta}_T - \hat{\beta}_{ST}(\theta)]' \Omega[\hat{\beta}_T - \hat{\beta}_{ST}(\theta)] \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\beta}_{ST} = \arg\max_{\beta} \sum_{s=1}^{S} Q_T[\underline{y_T^s}(\theta), \beta] \qquad (23)
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    y_T^s(\theta)
+   </math>
+   being an unconditional simulated path corresponding the value
+   <math display="inline">
+    \theta
+   </math>
+   of the parameter of interest and
+   <math display="inline">
+    \Omega
+   </math>
+   a symmetric positive definite matrix.
+  </p>
+  <p block-type="TextInlineMath">
+   Two asymptotic equivalent versions of
+   <math display="inline">
+    \hat{\theta}_{ST}(\Omega)
+   </math>
+   are obtained if in equation (21)
+   <math display="inline">
+    \hat{\beta}_{ST}(\theta)
+   </math>
+   is replaced either by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{S} \sum_{s=1}^{S} \beta_T^S(\theta) \tag{24}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \beta_T^S(\theta) = \arg \max_{\beta} Q_T[y_T^s(\theta), \beta]
+   </math>
+   or by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{\beta}_{ST}(\theta) = \arg\max_{\beta} Q_{ST}[y_{ST}^{s}(\theta), \beta] \qquad (25)
+   </math>
+  </p>
+  <p block-type="Text">
+   Note, however, that the latter equivalence requires that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial Q_T}{\partial \beta}(\underline{y_T}, \beta) = \sum_{t=1}^T \frac{\partial Q_1(y_t; \beta)}{\partial \beta} \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Finally we also obtain a class of estimators
+   <math display="inline">
+    \hat{\theta}_{ST}(\Sigma)
+   </math>
+   , which is globally asymptotically equivalent to the class
+   <math display="inline">
+    \hat{\theta}_{ST}(\Omega)
+   </math>
+   [6] by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\hat{\theta}}_{ST}(\Sigma) = \arg\min_{\theta} \left( \sum_{s=1}^{S} \frac{\partial Q_{T}[\underline{y_{T}^{s}}(\theta), \hat{\beta}_{T}]}{\partial \beta'} \right)
+   </math>
+   <math display="block">
+    \Sigma \left( \sum_{s=1}^{S} \frac{\partial Q_{T}[\underline{y_{T}^{s}}(\theta), \hat{\beta}_{T}]}{\partial \beta} \right) (27)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A clear advantage of these methods is that the basic model has only been used through the path simulations
+   <i>
+    y
+    <sup>
+     s
+    </sup>
+    <sup>
+     T
+    </sup>
+    (θ )
+   </i>
+   . Therefore the only requirement made on the model is the possibility of performing these path simulations, which is generally satisfied.
+  </p>
+  <p block-type="Text">
+   When
+   <i>
+    S
+   </i>
+   is fixed and
+   <i>
+    T
+   </i>
+   goes to infinity the II estimators are consistent and asymptotically normal. The asymptotic variance–covariance matrix depends on
+   <i>
+   </i>
+   and this matrix can be optimally chosen. Note, however, that, if
+   <i>
+    θ
+   </i>
+   and
+   <i>
+    β
+   </i>
+   have the same size,
+   <i>
+   </i>
+   does not matter asymptotically. Specification tests can be based on the optimal values of equation (21) for the optimal matrix
+   <i>
+   </i>
+   , and the classical asymptotic significance tests (score test, Wald test, or a test based on the optimal values of the criteria providing the estimators) are also available.
+  </p>
+  <p block-type="Text">
+   The general ideas of the II can also be used in other domains: corrections for second-order bias [10], notions of indirect information and indirect identification [8, 9], and encompassing [7].
+  </p>
+  <p block-type="Text">
+   An important issue of the II methodology is the choice of
+   <i>
+    QT
+   </i>
+   and natural candidates are loglikelihood functions of approximations of the model retained or approximations of the log-likelihood function of this model.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Billio, M. &amp; Monfort, A. (1998). Switching state space models likelihood function, filtering and smoothing,
+     <i>
+      Journal of Statistical Planning and Inference
+     </i>
+     <b>
+      68
+     </b>
+     (1), 64–103.
+    </li>
+    <li block-type="ListItem">
+     [2] Billio, M., Monfort, A. &amp; Robert, C. (1997).
+     <i>
+      The Simulated Likelihood Ratio Method
+     </i>
+     . CREST Discussion paper no. 9821.
+    </li>
+    <li block-type="ListItem">
+     [3] Billio, M., Monfort, A. &amp; Robert, C. (1999). Bayesian methods for switching ARMA models,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      93
+     </b>
+     , 229–255.
+    </li>
+    <li block-type="ListItem">
+     [4] Danielsson, J. &amp; Richard, J.F. (1995). Accelerated Gaussian importance sampler with application to dynamic latent variable model, in
+     <i>
+      Econometric Inference using Simulation Techniques
+     </i>
+     , H. Van Dijk, A. Monfort &amp; B.W. Brown, eds, John Wiley &amp; Sons.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [5] Duffie, D. &amp; Singleton, K. (1993). Simulated moments estimation of Markov models of asset prices,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      61
+     </b>
+     , 929–952.
+    </li>
+    <li block-type="ListItem">
+     [6] Gallant, A.R. &amp; Tauchen, G. (1996). Which moments to match?
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      12
+     </b>
+     , 657–668.
+    </li>
+    <li block-type="ListItem">
+     [7] Gourieroux, C. &amp; Monfort, A. (1995). Testing encom- ´ passing, and simulating dynamic econometric models,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      11
+     </b>
+     , 195–228.
+    </li>
+    <li block-type="ListItem">
+     [8] Gourieroux, C. &amp; Monfort, A. (1996). ´
+     <i>
+      Simulation Based Econometric Methods
+     </i>
+     , Oxford University Press.
+    </li>
+    <li block-type="ListItem">
+     [9] Gourieroux, C., Monfort, A. &amp; Renault, E. (1993). ´ Indirect inference,
+     <i>
+      Journal of Applied Econometrics
+     </i>
+     <b>
+      8
+     </b>
+     , 85–118.
+    </li>
+    <li block-type="ListItem">
+     [10] Gourieroux, C., Renault, E. &amp; Touzi, N. (1999). Cali- ´ bration by simulation for small sample bias correction, in
+     <i>
+      Simulation Based Inference in Econometrics, Methods and Applications
+     </i>
+     , R. Mariano, T. Schuermann &amp; M. Weeks, eds, Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [11] Laroque, G. &amp; Salanie, B. (1989). Estimation of mul- ´ timarket fixed-price models: an application of pseudomaximum likelihood methods,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      57
+     </b>
+     , 831–860.
+    </li>
+    <li block-type="ListItem">
+     [12] Laroque, G. &amp; Salanie, B. (1995). Simulation-based esti- ´ mation of models with lagged latent variables, in
+     <i>
+      Econometric Inference Using Simulation Techniques
+     </i>
+     , H. Van Dijk, A. Monfort, B.W. Brown, eds, John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [13] Lerman, S. &amp; Manski, C. (1981). On the use of simulated frequencies to approximate choice probabilities, in
+     <i>
+      Structural Analysis of Discrete Data with Econometric Applications
+     </i>
+     , C. Manski &amp; D. McFadden, eds, MIT Press, Cambridge, MA, pp. 305–319.
+    </li>
+    <li block-type="ListItem">
+     [14] McFadden, D. (1989). A method of simulated moments for estimation of discrete response model without numerical integration,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      57
+     </b>
+     , 995–1026.
+    </li>
+    <li block-type="ListItem">
+     [15] Shephard, N. (1995). Fitting nonlinear time series with applications to stochastic variance model, in
+     <i>
+      Econometric Inference Using Simulation Techniques
+     </i>
+     , H.A. Van Dijk, B.W. Monfort &amp; B.W. Brown, eds, John Wiley &amp; Sons.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Generalized Method of Moments (GMM)
+   </b>
+   ;
+   <b>
+    Monte Carlo Simulation
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ALAIN MONFORT
+  </p>
+ </body>
+</html>

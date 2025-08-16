@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Backtesting
+  </h1>
+  <p block-type="Text">
+   The term
+   <i>
+    backtesting
+   </i>
+   is used in several ways in finance. Most commonly, backtesting denotes either (i) an assessment of the hypothetical historical performance of a suggested trading strategy or (ii) the evaluation of financial risk models using historical data on risk forecasts and profit and loss realizations. The following discussion is about the evaluation of risk models.
+  </p>
+  <p block-type="Text">
+   The procedure is to consider the daily
+   <i>
+    ex ante
+   </i>
+   risk measure forecasts from a model and test it against the daily ex post realized portfolio loss. The risk measure forecast could take the form of a Value-at-Risk (VaR), an expected shortfall, or a distributional forecast. The goal is to be able to backtest any of these risk measures of interest. The backtesting procedures can be seen as a final diagnostic check on the risk model carried out by the risk management team that constructed the risk model, or they can be used by external model evaluators such as bank supervisors.
+  </p>
+  <p block-type="Text">
+   Evidence on actual bank VaRs and their backtesting performance can be found in
+   <math display="inline">
+    [7, 22, 28,
+   </math>
+   29, 31]. The regulatory considerations involved in backtesting are detailed by the Basel Committee on Banking Supervision [2–4]. Lopez [24] analyzes the regulatory approach to backtesting and Campbell [9] provides a survey of backtesting that includes a discussion of regulatory considerations. Backtesting of credit risk models is investigated in [25].
+  </p>
+  <p block-type="Text">
+   First, we discuss procedures for backtesting the VaR metric (see Value-at-Risk; Market Risk). Second, we consider increasing backtesting power by using explanatory variables to backtest the VaR. Third, we consider the increasing power by backtesting risk measures other than VaR, and we discuss various other issues in backtesting.
+  </p>
+  <h2>
+   <b>
+    Backtesting VaR
+   </b>
+  </h2>
+  <p block-type="Text">
+   By now, VaR is by far the most popular portfolio risk measure used by risk management practitioners. The VaR revolution in risk management was triggered by JP Morgans RiskMetrics approach launched in 1994. Supervisory authorities immediately recognized the need for methods to backtest VaR and the first research on backtesting was published soon after in
+  </p>
+  <p block-type="Text">
+   [21, 23]. Christoffersen [10] extended Kupiec's test of unconditional VaR coverage to tests of conditional VaR coverage. These concepts are defined later.
+  </p>
+  <h4>
+   Defining the Hit Sequence
+  </h4>
+  <p block-type="TextInlineMath">
+   First, define
+   <math display="inline">
+    VaR_{t+1}^p
+   </math>
+   to be a number constructed on day t such that the portfolio losses on day
+   <math display="inline">
+    t + 1
+   </math>
+   will only be larger than the
+   <math display="inline">
+    VaR_{t+1}^p
+   </math>
+   forecast with probability
+   <math display="inline">
+    p
+   </math>
+   . If we observe a time series of past ex ante VaR forecasts and past ex post losses, PL, we can define the "hit sequence" of VaR violations as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{t+1} = 1
+   </math>
+   if
+   <math>
+    PL_{t+1} &gt; VaR_{t+1}^p
+   </math>
+   (1)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = 0 \qquad \text{if} \qquad PL_{t+1} &lt; VaR_{t+1}^p \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The hit sequence returns a 1 on day
+   <math display="inline">
+    t + 1
+   </math>
+   if the loss on that day is larger than the VaR number predicted in advance for that day. If the VaR is not exceeded (or violated), then the hit sequence returns a 0. When backtesting the risk model, we construct a sequence
+   <math display="inline">
+    \{I_{t+1}\}_{t=1}^T
+   </math>
+   across T days, indicating when the past violations occurred.
+  </p>
+  <h4>
+   The Null Hypothesis
+  </h4>
+  <p block-type="Text">
+   If we use the perfect VaR model, then given all the information available to us at the time the VaR forecast is made, we should not be able to predict whether the VaR will be violated. We should be expecting a
+   <math display="inline">
+    1
+   </math>
+   in the hit sequence with probability
+   <math display="inline">
+    p
+   </math>
+   and we should be expecting a 0 with probability
+   <math display="inline">
+    1 - p
+   </math>
+   and the occurrences of the hits should be random over time.
+  </p>
+  <p block-type="Text">
+   We say that a risk model has correct
+   <i>
+    unconditional
+   </i>
+   VaR coverage if
+   <math display="inline">
+    Pr(I_{t+1} = 1) = p
+   </math>
+   and we say that a risk model has correct conditional VaR coverage if
+   <math display="inline">
+    Pr_t(I_{t+1} = 1) = p
+   </math>
+   . Roughly speaking, correct
+   <i>
+    unconditional
+   </i>
+   VaR coverage just means that the risk model delivers VaR hits with probability
+   <math display="inline">
+    p
+   </math>
+   on average across the days. Correct
+   <i>
+    conditional
+   </i>
+   VaR coverage means that the risk model gives a VaR hit with probability
+   <math display="inline">
+    p
+   </math>
+   on every day given all the information available on the day before. Note that correct conditional coverage implies correct unconditional coverage but not vice versa.
+  </p>
+  <p block-type="Text">
+   We can think of VaR backtesting as testing the hypothesis:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_0: I_{t+1} \sim \text{i.i.d. Bernoulli}(p)
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   If
+   <math display="inline">
+    p
+   </math>
+   is one half, then the i.i.d. Bernoulli distribution describes the distribution of getting a head when tossing a fair coin. When backtesting risk models,
+   <math display="inline">
+    p
+   </math>
+   will not be one half but instead on the order of
+   <math display="inline">
+    0.01
+   </math>
+   or
+   <math display="inline">
+    0.05
+   </math>
+   depending on the coverage rate of the VaR. The hit sequence from a correctly specified risk model should look like a sequence of random tosses of a coin that comes up heads
+   <math display="inline">
+    1
+   </math>
+   or
+   <math display="inline">
+    5\%
+   </math>
+   of the time depending on the VaR coverage rate.
+  </p>
+  <p block-type="TextInlineMath">
+   Note that, in general, the expected value of a binary sequence is simply the probability of getting a 1:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_t \left[ I_{t+1} \right] = \Pr_t \left( I_{t+1} = 1 \right) 1 + \Pr_t \left( I_{t+1} = 0 \right) 0
+   </math>
+   <br/>
+   =
+   <math>
+    \Pr_t \left( I_{t+1} = 1 \right) \equiv \pi_{t+1|t}
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   We denote this conditional hit probability by
+   <math display="inline">
+    \pi_{t+1|t}
+   </math>
+   and its unconditional counterpart is defined
+   <math display="inline">
+    E[I_{t+1}] \equiv \pi.
+   </math>
+  </p>
+  <p block-type="Text">
+   We can therefore construct the following null hypothesis of correct conditional coverage for the hit sequence from a VaR model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_0: E_t \left[ I_{t+1} \right] = \pi_{t+1|t} = p \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   namely that the conditionally expected value of the hit sequence at time
+   <math display="inline">
+    t + 1
+   </math>
+   , given all the information available at time
+   <math display="inline">
+    t
+   </math>
+   is the promised VaR coverage rate
+   <math display="inline">
+    p
+   </math>
+   .
+  </p>
+  <h4>
+   Unconditional Coverage Testing
+  </h4>
+  <p block-type="TextInlineMath">
+   First, we want to test if the unconditional probability of a violation in the risk model,
+   <math display="inline">
+    \pi
+   </math>
+   , is significantly different from the promised probability,
+   <math display="inline">
+    p
+   </math>
+   . We call this the
+   <i>
+    unconditional coverage hypothesis
+   </i>
+   . We can write
+   <math display="inline">
+    H_0: E[I_t] \equiv \pi = p
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The expected value of the hit sequence can be estimated by the sample average,
+   <math display="inline">
+    \hat{\pi} = \frac{1}{T} \sum_{t=1}^{T} I_t = T_1/T
+   </math>
+   , where
+   <math display="inline">
+    T_1
+   </math>
+   is the number of 1s in the sample. Note that if the null hypothesis is true, we have that
+   <math display="inline">
+    E\left[\hat{\pi}\right] = E\left[\frac{1}{T}\sum_{t=1}^{T} I_t\right] = p
+   </math>
+   . Assuming that the observations on the hit sequence are independent over time, the variance of the
+   <math display="inline">
+    \hat{\pi}
+   </math>
+   estimate is
+   <math display="inline">
+    1/T \text{ Var}(I_t)
+   </math>
+   where Var
+   <math display="inline">
+    (I_t)
+   </math>
+   can be estimated as the sample variance of the hit sequence. The hypothesis that
+   <math display="inline">
+    E[I_t] =
+   </math>
+   <math display="inline">
+    p
+   </math>
+   can therefore be tested in a simple means test
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    MT = \sqrt{T} \frac{\hat{\pi} - p}{\sqrt{Var(I_t)}} \sim N(0, 1) \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   We can also implement the unconditional coverage test as a likelihood ratio test. For this, we write the likelihood of an i.i.d. Bernoulli(
+   <math display="inline">
+    \pi
+   </math>
+   ) hit sequence:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(\pi) = \prod_{t=1}^{T} (1-\pi)^{1-I_{t+1}} \pi^{I_{t+1}} = (1-\pi)^{T_0} \pi^{T_1} \quad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    T_0
+   </math>
+   and
+   <math display="inline">
+    T_1
+   </math>
+   are the number of 0s and 1s in the sample. We can easily estimate
+   <math display="inline">
+    \pi
+   </math>
+   from
+   <math display="inline">
+    \hat{\pi} = T_1/T
+   </math>
+   , that is, the observed fraction of violations in the sequence. Plugging the ML estimates back into the likelihood function gives the optimized likelihood as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L\left(\hat{\pi}\right) = \left(1 - \frac{T_1}{T}\right)^{T_0} \left(\frac{T_1}{T}\right)^{T_1} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   Under the unconditional coverage null hypothesis that
+   <math display="inline">
+    \pi = p
+   </math>
+   , where p is the known VaR coverage rate, we have the likelihood
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(p) = \prod_{t=1}^{T} (1-p)^{1-I_{t+1}} p^{I_{t+1}} = (1-p)^{T_0} p^{T_1} \quad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   And we can check the unconditional coverage hypothesis using a likelihood ratio test
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    LR_{uc} = -2\ln\left[\frac{L\left(p\right)}{L\left(\hat{\pi}\right)}\right] \sim \chi_{1}^{2} \qquad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   Asymptotically, that is, as the number of observations,
+   <math display="inline">
+    T
+   </math>
+   , goes to infinity, the test will be distributed as a
+   <math display="inline">
+    \chi^2
+   </math>
+   with one degree of freedom.
+  </p>
+  <p block-type="Text">
+   The choice of significance level comes down to an assessment of the costs of making two types of mistakes: we could reject a correct model (type I error) or we could fail to reject (that is accept) an incorrect model (type II error). Increasing the significance level implies larger type I errors but smaller type II errors and vice versa. In academic work, a significant level of 1, 5, or
+   <math display="inline">
+    10\%
+   </math>
+   is typically used. In risk management, type II errors may be very costly so that a significance level of 10% may be appropriate.
+  </p>
+  <p block-type="TextInlineMath">
+   Often, we do not have a large number of observations available for backtesting, and we certainly will typically not have a large number of violations,
+   <math display="inline">
+    T_1
+   </math>
+   , which are the informative observations. It is, therefore, often better to rely on Monte-Carlo-simulated P values rather than those from the
+   <math display="inline">
+    \chi^2
+   </math>
+   distribution. Christoffersen and Pelletier [14] discuss how
+  </p>
+  <p block-type="Text">
+   to implement the
+   <math display="inline">
+    [17]
+   </math>
+   Monte Carlo
+   <i>
+    P
+   </i>
+   -values in a backtesting setting.
+  </p>
+  <h4>
+   Independence Testing
+  </h4>
+  <p block-type="Text">
+   There is strong evidence of time-varying volatility in daily asset returns as surveyed in [1]. If the risk model ignores such dynamics, then the VaR will react slowly to the changing market conditions and VaR violations will appear clustered in time. Pritsker [30] illustrates this problem using VaRs computed from historical simulation. If the VaR violations are clustered, then the risk manager can essentially predict that if today has a VaR hit, then there is a probability larger than
+   <math display="inline">
+    p
+   </math>
+   of getting a hit tomorrow, which violates that the VaR is based on an adequate model. This is clearly not satisfactory. In such a situation, the risk manager should increase the VaR in order to lower the conditional probability of a violation to the promised
+   <math display="inline">
+    p
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The most common way to test for dynamics in time series analysis is to rely on the autocorrelation function and the associated portmanteau or Ljung-Box-type tests. We can implement this approach for backtesting as well. Let
+   <math display="inline">
+    \gamma_k
+   </math>
+   be the autocorrelation at lag k for the hit sequence. Plotting
+   <math display="inline">
+    \gamma_k
+   </math>
+   against k for
+   <math display="inline">
+    k = 1, \ldots, m
+   </math>
+   will give a visual impression of the correlation of between a hit in one of the last
+   <math display="inline">
+    m
+   </math>
+   trading days and a hit today. The Ljung-Box test provides a formal check of the null hypothesis that all of the first
+   <math display="inline">
+    m
+   </math>
+   autocorrelations are zero against the alternative that any of them is not. The test is easily constructed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    LB(m) = T (T + 2) \sum_{k=1}^{m} \frac{\gamma_k^2}{T - k} \sim \chi_m^2 \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \chi^2_m
+   </math>
+   denotes the chi-squared distribution with
+   <math display="inline">
+    m
+   </math>
+   degrees of freedom. Berkowitz
+   <i>
+    et al.
+   </i>
+   [6] find that setting
+   <math display="inline">
+    m = 5
+   </math>
+   gives good testing power in a realistic daily VaR backtesting setting.
+  </p>
+  <p block-type="Text">
+   Independence testing can also be done using the likelihood approach. Assume that the hit sequence is dependent over time and that it can be described as a first-order Markov sequence with transition probability matrix:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pi_1 = \begin{bmatrix} 1 - \pi_{01} &amp; \pi_{01} \\ 1 - \pi_{11} &amp; \pi_{11} \end{bmatrix} \n
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   These transition probabilities simply mean that conditional on today being a nonviolation (i.e.,
+   <math display="inline">
+    I_t = 0
+   </math>
+   ) then the probability of tomorrow being a violation (i.e.,
+   <math display="inline">
+    I_{t+1} = 1
+   </math>
+   ) is
+   <math display="inline">
+    \pi_{01}
+   </math>
+   . The probability of tomorrow being a violation given today is also a violation is
+   <math display="inline">
+    \pi_{11} = \Pr(I_t = 1 \text{ and } I_{t+1} = 1)
+   </math>
+   . The probability of a nonviolation following a nonviolation is
+   <math display="inline">
+    1 - \pi_{01}
+   </math>
+   and the probability of a nonviolation following a violation is
+   <math display="inline">
+    1 - \pi_{11}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   If we observe a sample of
+   <math display="inline">
+    T
+   </math>
+   observations, then we can write the likelihood function of the first-order Markov process as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L\left(\Pi_{1}\right) = \left(1 - \pi_{01}\right)^{T_{00}} \pi_{01}^{T_{01}} \left(1 - \pi_{11}\right)^{T_{10}} \pi_{11}^{T_{11}} \quad (13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    T_{ij}
+   </math>
+   ,
+   <math display="inline">
+    i, j = 0, 1
+   </math>
+   , is the number of observations with a
+   <math display="inline">
+    j
+   </math>
+   following an
+   <math display="inline">
+    i
+   </math>
+   . Taking first derivatives with respect to
+   <math display="inline">
+    \pi_{01}
+   </math>
+   and
+   <math display="inline">
+    \pi_{11}
+   </math>
+   and setting these derivatives to zero, one can solve for the maximum likelihood estimates:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \hat{\pi}_{01} = \frac{T_{01}}{T_{00} + T_{01}}, \quad \hat{\pi}_{11} = \frac{T_{11}}{T_{10} + T_{11}} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then using the fact that the probabilities have to sum to one, we have
+   <math display="inline">
+    \hat{\pi}_{00} = 1 - \hat{\pi}_{01}
+   </math>
+   ,
+   <math display="inline">
+    \hat{\pi}_{10} = 1 - \hat{\pi}_{11}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Allowing for dependence in the hit sequence corresponds to allowing
+   <math display="inline">
+    \pi_{01}
+   </math>
+   to be different from
+   <math display="inline">
+    \pi_{11}
+   </math>
+   . Positive dependence is a matter of concern, which amounts to the probability of a violation following a violation
+   <math display="inline">
+    (\pi_{11})
+   </math>
+   being larger than the probability of a violation following a nonviolation
+   <math display="inline">
+    (\pi_{01})
+   </math>
+   . If, on the other hand, the hits are independent over time, then the probability of a violation tomorrow does not depend on today being a violation or not and we write
+   <math display="inline">
+    \pi_{01} = \pi_{11} = \pi
+   </math>
+   . We can test the independence hypothesis that
+   <math display="inline">
+    \pi_{01} = \pi_{11}
+   </math>
+   using a likelihood ratio test
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    LR_{\text{ind}} = -2 \ln \left[ \frac{L\left(\hat{\pi}\right)}{L\left(\hat{\Pi}_1\right)} \right] \sim \chi_1^2 \qquad (15)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    L(\hat{\pi})
+   </math>
+   is the likelihood under the alternative hypothesis from the
+   <math display="inline">
+    LR_{\text{uc}}
+   </math>
+   test.
+  </p>
+  <p block-type="Text">
+   Other methods for independence testing based on the duration of time between hits can be found in [14].
+  </p>
+  <h4>
+   <b>
+    Backtesting with Information Variables
+   </b>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   The preceding tests are quick and easy to implement. However, as they only use information on past VaR
+  </p>
+  <p block-type="Text">
+   hits, they might not have much power to detect misspecified risk models. To increase the testing power, we consider using the information in past market variables, such as interest rate spreads or volatility measures. The basic idea is to test the model using information that may explain when violations occur. The advantage of increasing the information set is not only to increase power but also to help us understand the areas in which the risk model is misspecified. This understanding is key in improving the risk models further.
+  </p>
+  <p block-type="Text">
+   If we define the
+   <math display="inline">
+    q
+   </math>
+   -dimensional vector of information variables available to the backtester at time
+   <math display="inline">
+    t
+   </math>
+   as
+   <math display="inline">
+    X_t
+   </math>
+   , then the null hypothesis of a correct risk model can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_0: \Pr(I_{t+1} = 1 | X_t) = p \Leftrightarrow E[I_{t+1} - p | X_t] = 0
+   </math>
+   (16)
+  </p>
+  <p block-type="Text">
+   The hypothesis says that the conditional probability of getting a VaR violation on day
+   <math display="inline">
+    t + 1
+   </math>
+   should be independent of any variable observed at time
+   <math display="inline">
+    t
+   </math>
+   and it should simply be equal to the promised VaR coverage rate,
+   <math display="inline">
+    p
+   </math>
+   . This hypothesis is equivalent to the conditional expectation of the hit sequence less
+   <math display="inline">
+    p
+   </math>
+   being equal to
+   <math display="inline">
+    0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Engle and Manganelli [18] develop a conditional autoregressive VaR by regression quantiles approach. For backtesting, they suggest the following dynamic quantile test:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    DQ = \frac{(I - p)' X (X'X)^{-1} X' (I - p)}{(Tp (1 - p))} \sim \chi_q^2 (17)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where X is the
+   <math display="inline">
+    T \times q
+   </math>
+   matrix of information variables, and
+   <math display="inline">
+    (I - p)
+   </math>
+   is the
+   <math display="inline">
+    T \times 1
+   </math>
+   vector of hits where each element has been subtracted by the desired covered rate
+   <math display="inline">
+    p
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Berkowitz
+   <i>
+    et al.
+   </i>
+   [6] find that implementing the
+   <math display="inline">
+    DQ
+   </math>
+   test using simply the lagged VaR from a GARCH model as well as the lagged hit gives good power in a realistic daily VaR experiment. Smith [31] also finds good power when applying the
+   <math display="inline">
+    DQ
+   </math>
+   test. A regression-based approach to backtesting is also used in [11, 12]. Christoffersen et al. [13] develop tests for comparing different VaR models.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Smith [31] further suggests a probit approach where the potentially time-varying probability of a hit is modeled using the normal cumulative density
+  </p>
+  <p block-type="Text">
+   function and where Lagrange multiplier tests are used.
+  </p>
+  <p block-type="Text">
+   When backtesting with information variables, the question of which variables to include in the vector
+   <math display="inline">
+    X_t
+   </math>
+   immediately arises. It is difficult to give a general answer as it depends on the particular portfolio at hand. It is likely that variables that are thought to be correlated with the future volatility in the portfolio are good candidates. In equity portfolios option, implied volatility measures such as the VIX would be an obvious candidate. In FX portfolios option, implied volatility measures could be constructed as well. In bond portfolios, variables such as term spreads and credit spreads are likely candidates as are variables capturing the level, slope, and curvature of the term structure.
+  </p>
+  <h4>
+   <b>
+    Other Issues in Backtesting
+   </b>
+  </h4>
+  <p block-type="Text">
+   When correctly specified, the one-day VaR measure tells the user that there is a probability
+   <math display="inline">
+    p
+   </math>
+   of losing more than the VaR over the next day. Importantly, it does not, for example, say how much one can expect to lose on the days where the VaR is violated. Thus, the VaR only contains partial information about the distribution of losses. This limitation of the VaR is reflected in the definition of the hit variable in equation (1), which in turn limits the possibilities for backtesting in the VaR setting. We can only backtest on the hit occurrences and not, for example, on the magnitude of the losses when the hits occur because the VaR does not promise hits of a certain magnitude.
+  </p>
+  <h4>
+   Backtesting Expected Shortfall
+  </h4>
+  <p block-type="Text">
+   The limitations of the VaR as a risk measure suggest alternative risk measures, most prominently expected shortfall
+   <math display="inline">
+    (ES)
+   </math>
+   , also referred to as
+   <i>
+    conditional VaR
+   </i>
+   (CVAR) (see Value-at-Risk; Market Risk), which denotes the expected loss on the days where the VaR is violated. We can define it formally as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    ES_{t+1}^{p} = E_{t} \left[ PL_{t+1} | PL_{t+1} &gt; VaR_{t+1}^{p} \right] \qquad (18)
+   </math>
+  </p>
+  <p block-type="Text">
+   Note that
+   <math display="inline">
+    ES
+   </math>
+   provides information on the expected magnitude of the loss whenever the VaR is violated. We now consider ways to backtest the
+   <math display="inline">
+    ES
+   </math>
+   risk measure
+  </p>
+  <p block-type="TextInlineMath">
+   Consider again a vector of variables,
+   <math display="inline">
+    X_t
+   </math>
+   , which are known to the risk manager and which may help explain potential portfolio losses beyond what is explained by the risk model. The
+   <math display="inline">
+    ES
+   </math>
+   risk measure promises that whenever we violate the VaR, the expected value of the violation will be equal to
+   <math display="inline">
+    ES_{t+1}^p
+   </math>
+   . We can therefore test the
+   <math display="inline">
+    ES
+   </math>
+   measure by checking if the vector
+   <math display="inline">
+    X_t
+   </math>
+   has any ability to explain the deviation of the observed shortfall or loss,
+   <math display="inline">
+    PL_{t+1}
+   </math>
+   , from the expected shortfall on the days where the VaR was violated. Mathematically, we can write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    PL_{t+1} - ES_{t+1}^p = b_0 + b_1' X_t + e_{t+1}
+   </math>
+   for
+   <br/>
+   <math>
+    t+1 \text{ where } PL_{t+1} &gt; VaR_{t+1}^p
+   </math>
+   (19)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    t + 1
+   </math>
+   now refers only to days where the VaR was violated. The observations where the VaR was not violated are simply removed from the sample. The error term
+   <math display="inline">
+    e_{t+1}
+   </math>
+   is assumed to be independent of the regressor,
+   <math display="inline">
+    X_t
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   To test the null hypothesis that the risk model from which the
+   <math display="inline">
+    ES
+   </math>
+   forecasts were made uses all information optimally
+   <math display="inline">
+    (b_1 = 0)
+   </math>
+   and that it is not biased
+   <math display="inline">
+    (b_0 = 0)
+   </math>
+   , we can jointly test that
+   <math display="inline">
+    b_0 =
+   </math>
+   <math display="inline">
+    b_1 = 0.
+   </math>
+  </p>
+  <p block-type="Text">
+   Note that now the magnitude of the violation shows up on the left-hand side of the regression. However, note that we can still only use information in the tail to backtest. The
+   <math display="inline">
+    ES
+   </math>
+   measure does not reveal any particular properties about the remainder of the distribution, and therefore we only use the observations where the losses were larger than the VaR.
+  </p>
+  <p block-type="Text">
+   Further, discussion of
+   <math display="inline">
+    ES
+   </math>
+   backtesting can be found in
+   <math display="inline">
+    [26]
+   </math>
+   .
+  </p>
+  <h4>
+   Backtesting the Entire Distribution
+  </h4>
+  <p block-type="Text">
+   Rather than focusing on particular risk measures from the loss distribution such as the VaR or the expected shortfall, we could instead decide to backtest the entire loss distribution from the risk model. This would have the benefit of potentially increasing further the power to reject bad risk models.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Assuming that the risk model produces a cumulative distribution of portfolio losses, call it
+   <math display="inline">
+    F_t(*)
+   </math>
+   . Then at the end of every day, after having observed the actual portfolio loss (or profit), we can calculate the risk model's probability of observing a
+  </p>
+  <p block-type="TextInlineMath">
+   loss below the actual. We denote this probability by
+   <math display="inline">
+    p_{t+1} \equiv F_t \left( PL_{t+1} \right).
+   </math>
+  </p>
+  <p block-type="Text">
+   If we use the correct risk model to forecast the loss distribution, then we should not be able to forecast the risk model's probability of falling below the actual return. In other words, the time series of observed probabilities
+   <math display="inline">
+    p_{t+1}
+   </math>
+   should be distributed independently over time as a
+   <math display="inline">
+    Uniform(0,1)
+   </math>
+   variable. We therefore want to consider tests of the null hypothesis:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_0: p_{t+1} \sim \text{i.i.d. Uniform}(0, 1)
+   </math>
+   (20)
+  </p>
+  <p block-type="TextInlineMath">
+   The Uniform
+   <math display="inline">
+    (0,1)
+   </math>
+   distribution function is flat on the interval 0-1 and 0 everywhere else. As the
+   <math display="inline">
+    p_{t+1}
+   </math>
+   variable is a probability, it is a must that it should lie in the
+   <math display="inline">
+    0-1
+   </math>
+   interval. Constructing a histogram and checking if it looks reasonably flat provide a useful visual diagnostic. If systematic deviations from a flat line appear in the histogram, then we would conclude that the distribution from the risk model is misspecified. A detailed discussion of this approach is found in
+   <math display="inline">
+    [16]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Unfortunately, testing the i.i.d. uniform distribution hypothesis is cumbersome due to the restricted support of the uniform distribution. However, we can transform the i.i.d. Uniform
+   <math display="inline">
+    p_{t+1}
+   </math>
+   to an i.i.d. standard normal variable,
+   <math display="inline">
+    z_{t+1}
+   </math>
+   , using the inverse cumulative distribution function,
+   <math display="inline">
+    z_{t+1} = \Phi^{-1}(p_{t+1})
+   </math>
+   . We are then left with a test of a variable conforming to the standard normal distribution, which can easily be implemented. The i.i.d. property of
+   <math display="inline">
+    z_{t+1}
+   </math>
+   can be assessed via the autocorrelation functions and by using the
+   <math display="inline">
+    LB(m)
+   </math>
+   test in equation (4) on
+   <math display="inline">
+    z_{t+1}
+   </math>
+   and
+   <math display="inline">
+    |z_{t+1}|
+   </math>
+   , for example. The normal distribution property can be tested using the method of moments approach in [8]. Regression-based tests using information variables can also be constructed. Further analysis of distribution backtesting can be found in
+   <math display="inline">
+    [5, 15]
+   </math>
+   .
+  </p>
+  <h2>
+   Dirty Profits and Losses
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The backtesting procedures compare the ex ante forecast from a risk model to the
+   <i>
+    ex post
+   </i>
+   profit and losses
+   <math display="inline">
+    (P/L)
+   </math>
+   . It is therefore obviously essential, but unfortunately not always the case, that the
+   <i>
+    ex post
+   </i>
+   recorded
+   <math display="inline">
+    P/L
+   </math>
+   arise directly from the portfolio used to make the ex ante model predictions.
+  </p>
+  <p block-type="Text">
+   The risk model will typically produce a risk forecast for the loss distributions of a particular portfolio of assets. The
+   <i>
+    ex post
+   </i>
+   profits and losses should only contain cash flows directly related to the portfolio of assets assumed in the risk models. However, the total
+   <i>
+    P/L
+   </i>
+   of a trading desk may contain trading commission revenues as well as costs that are not directly related to holding the portfolio of assets assumed in the risk model. This extraneous cash flows should be stripped from the
+   <i>
+    P/L
+   </i>
+   before backtesting.
+  </p>
+  <p block-type="Text">
+   The daily
+   <i>
+    P/L
+   </i>
+   may also include cash flows from intraday transactions, that is, the
+   <i>
+    P/L
+   </i>
+   from selling an asset that was bought the same day. Such cash flows are not directly related to the end-of-day portfolio entered into the risk model and should ideally be stripped away as well. A detailed discussion of these issues can be found in [27].
+  </p>
+  <h2>
+   <i>
+    Multiple-day Horizons and Changing Portfolio Weights
+   </i>
+  </h2>
+  <p block-type="Text">
+   The backtesting procedures described earlier can be relatively easily adopted to the multiday risk-horizon setting. If, for example, a 10-day VaR forecast is observed daily along with the
+   <i>
+    ex post
+   </i>
+   10-day
+   <i>
+    P/L
+   </i>
+   , then the hit sequence can be constructed daily as in equation (1). The 10-day VaR horizons implies that 9-day autocorrelation is to be expected in the hit sequence and that this should be allowed for when constructing its variance as in equation (6). Similarly, in the
+   <i>
+    DQ
+   </i>
+   test as in equation (17), one should use information variables available 10 days before the observed
+   <i>
+    P/L
+   </i>
+   . Smith [31] discusses backtesting with multiday VaRs.
+  </p>
+  <h1>
+   <i>
+    Allowing for Risk Model Parameter Estimation Error
+   </i>
+  </h1>
+  <p block-type="Text">
+   In the discussion so far, we have abstracted from the fact that the risk models in use most likely contain parameters that are estimated with errors. This parameter estimation error will in turn render the hit sequence observed with error. As a consequence when backtesting the risk model, we may reject the "true" risk model just because its parameters were estimated with error. As discussed in [18], this is mainly an issue when the risk model is evaluated insample, that is, when the model is evaluated on the same data it was estimated on. In typical external
+  </p>
+  <p block-type="Text">
+   backtesting applications, the backtesting procedures are used in a more realistic out-of-sample manner where the model is estimated on data until day
+   <i>
+    t
+   </i>
+   and then used to forecast risk for day
+   <i>
+    t
+   </i>
+   + 1. In this setting, parameter estimation error is less likely to be critical. Parameter estimation issues in relation to VaR modeling has been analyzed in detail in [19, 20].
+  </p>
+  <h1>
+   <b>
+    Acknowledgments
+   </b>
+  </h1>
+  <p block-type="Text">
+   The author is grateful for the financial support from FQRSC, IFM2, and SSHRC and from the Center for Research in Econometric Analysis of Time Series, CREATES, funded by the Danish National Research Foundation.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Andersen, T., Bollerslev, T., Christoffersen, P. &amp; Diebold, F. (2005). Practical volatility and correlation modeling for financial market risk management, in
+     <i>
+      Risks of Financial Institutions
+     </i>
+     , M. Carey &amp; R. Stulz, eds, University of Chicago Press for NBER, pp. 513–548.
+    </li>
+    <li block-type="ListItem">
+     [2] Basel Committee on Banking Supervision (1996).
+     <i>
+      Amendment to the Capital Accord to Incorporate Market Risks
+     </i>
+     , Bank for International Settlements.
+    </li>
+    <li block-type="ListItem">
+     [3] Basel Committee on Banking Supervision (1996).
+     <i>
+      Supervisory Framework for the Use of 'Backtesting' in Conjunction With the Internal Models Approach to Market Risk Capital Requirements
+     </i>
+     , Bank for International Settlements.
+    </li>
+    <li block-type="ListItem">
+     [4] Basel Committee on Banking Supervision (2004).
+     <i>
+      International Convergence of Capital Measurement and Capital Standards: a Revised Framework
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [5] Berkowitz, J. (2001). Testing density forecasts, applications to risk management,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      19
+     </b>
+     , 465–474.
+    </li>
+    <li block-type="ListItem">
+     [6] Berkowitz, J., Christoffersen, P. &amp; Pelletier, D. (2007).
+     <i>
+      Evaluating Value-at-Risk Models with Desk-level Data
+     </i>
+     , Management Science, forthcoming.
+    </li>
+    <li block-type="ListItem">
+     [7] Berkowitz, J. &amp; O'Brien, J. (2002). How accurate are the Value-at-Risk models at commercial banks?
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      57
+     </b>
+     , 1093–1112.
+    </li>
+    <li block-type="ListItem">
+     [8] Bontemps, C. &amp; Meddahi, N. (2005). Testing normality: a GMM approach,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      124
+     </b>
+     , 149–186.
+    </li>
+    <li block-type="ListItem">
+     [9] Campbell, S. (2007). A review of backtesting and backtesting procedures,
+     <i>
+      Journal of Risk
+     </i>
+     <b>
+      9
+     </b>
+     , 1–17.
+    </li>
+    <li block-type="ListItem">
+     [10] Christoffersen, P. (1998). Evaluating interval forecasts,
+     <i>
+      International Economic Review
+     </i>
+     <b>
+      39
+     </b>
+     , 841–862.
+    </li>
+    <li block-type="ListItem">
+     [11] Christoffersen, P. (2003).
+     <i>
+      Elements of Financial Risk Management
+     </i>
+     , Academic Press.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [12] Christoffersen, P. &amp; Diebold, F. (2000). How relevant is volatility forecasting for financial risk management?
+     <i>
+      Review of Economics and Statistics
+     </i>
+     <b>
+      82
+     </b>
+     , 1–11.
+    </li>
+    <li block-type="ListItem">
+     [13] Christoffersen, P., Hahn, J. &amp; Inoue, A. (2001). Testing and comparing Value-at-Risk measures,
+     <i>
+      Journal of Empirical Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 325–342.
+    </li>
+    <li block-type="ListItem">
+     [14] Christoffersen, P.F. &amp; Pelletier, D. (2004). Backtesting Value-at-Risk: a duration-based approach,
+     <i>
+      Journal of Financial Econometrics
+     </i>
+     <b>
+      2
+     </b>
+     , 84–108.
+    </li>
+    <li block-type="ListItem">
+     [15] Crnkovic, C. &amp; Drachman, J. (1996). Quality control,
+     <i>
+      Risk
+     </i>
+     <b>
+      9
+     </b>
+     , 138–143.
+    </li>
+    <li block-type="ListItem">
+     [16] Diebold, F.X., Gunther, T. &amp; Tay, A. (1998). Evaluating density forecasts, with applications to financial risk management,
+     <i>
+      International Economic Review
+     </i>
+     <b>
+      39
+     </b>
+     , 863–883.
+    </li>
+    <li block-type="ListItem">
+     [17] Dufour, J.-M. (2006). Monte Carlo tests with nuisance parameters: a general approach to finite-sample inference and nonstandard asymptotics in econometrics,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      133
+     </b>
+     , 443–477.
+    </li>
+    <li block-type="ListItem">
+     [18] Engle, R.F. &amp; Manganelli, S. (2004). CAViaR: conditional autoregressive Value-at-Risk by regression quantiles,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      22
+     </b>
+     , 367–381.
+    </li>
+    <li block-type="ListItem">
+     [19] Escanciano, J. &amp; Olmo, J. (2007).
+     <i>
+      Estimation Risk Effects on Backtesting For Parametric Value-at-Risk Models
+     </i>
+     , City University London (Manuscript).
+    </li>
+    <li block-type="ListItem">
+     [20] Giacomini, R. &amp; Komunjer, I. (2005). Evaluation and combination of conditional quantile forecasts,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      23
+     </b>
+     , 416–431.
+    </li>
+    <li block-type="ListItem">
+     [21] Hendricks, D. (1996). Evaluation of Value-at-Risk models using historical data,
+     <i>
+      Economic Policy Review
+     </i>
+     , Federal Reserve Bank of New York, 39–69.
+    </li>
+    <li block-type="ListItem">
+     [22] Jorion, P. (2002). How informative are Value-at-Risk disclosures?
+     <i>
+      Accounting Review
+     </i>
+     <b>
+      77
+     </b>
+     , 911–931.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [23] Kupiec, P. (1995). Techniques for verifying the accuracy of risk measurement models,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      3
+     </b>
+     , 73–84.
+    </li>
+    <li block-type="ListItem">
+     [24] Lopez, J. (1999). Regulatory evaluation of Value-at-Risk models,
+     <i>
+      Journal of Risk
+     </i>
+     <b>
+      1
+     </b>
+     , 37–64.
+    </li>
+    <li block-type="ListItem">
+     [25] Lopez, J. &amp; Saidenberg, M. (2000). Evaluating credit risk models,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      24
+     </b>
+     , 151–165.
+    </li>
+    <li block-type="ListItem">
+     [26] McNeil, A. &amp; Frey, R. (2000). Estimation of tailrelated risk measures for heteroskedastic financial time series: an extreme value approach,
+     <i>
+      Journal of Empirical Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 271–300.
+    </li>
+    <li block-type="ListItem">
+     [27] O'Brien, J. &amp; Berkowitz, J. (2005). Bank trading revenues, VaR and market risk, in
+     <i>
+      Risks of Financial Institutions
+     </i>
+     , M. Carey &amp; R. Stulz, eds, University of Chicago Press for NBER.
+    </li>
+    <li block-type="ListItem">
+     [28] Perignon, C., Deng, Z. &amp; Wang, Z. (2006).
+     <i>
+      Do Banks Overstate their Value-at-Risk?
+     </i>
+     , HEC, Paris (Manuscript).
+    </li>
+    <li block-type="ListItem">
+     [29] Perignon, C. &amp; Smith, D. (2006).
+     <i>
+      The Level and Quality of Value-at-Risk Disclosure by Commercial Banks
+     </i>
+     , Simon Fraser University (Manuscript).
+    </li>
+    <li block-type="ListItem">
+     [30] Pritsker, M. (2001).
+     <i>
+      The Hidden Dangers of Historical Simulation
+     </i>
+     ,
+     <i>
+      Finance and Economics Discussion Series 2001–27
+     </i>
+     , Board of Governors of the Federal Reserve System.
+    </li>
+    <li block-type="ListItem">
+     [31] Smith, D. (2007).
+     <i>
+      Conditional Backtesting of Value-at-Risk Models
+     </i>
+     , Simon Fraser University (Manuscript).
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <h2>
+   <b>
+    Expected Shortfall
+   </b>
+   ;
+   <b>
+    Market Risk
+   </b>
+   ;
+   <b>
+    Model Validation
+   </b>
+   ;
+   <b>
+    Value-at-Risk
+   </b>
+   .
+  </h2>
+  <p block-type="Text">
+   PETER CHRISTOFFERSEN
+  </p>
+ </body>
+</html>

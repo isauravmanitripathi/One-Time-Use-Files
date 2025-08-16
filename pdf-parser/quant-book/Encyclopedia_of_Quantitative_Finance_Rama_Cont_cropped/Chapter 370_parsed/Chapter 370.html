@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Time Change
+   </b>
+  </h1>
+  <p block-type="Text">
+   The mathematical concept of time-changing continuous-time stochastic processes has first been studied in [11, 17, 18, 23, 24, 29, 39] and has later been introduced to the finance literature in [14]. Today, it can be regarded as one of the standard tools for building financial models (see also [22, 32]).
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    X = (X_t)_{t \ge 0}
+   </math>
+   denote a stochastic process, sometimes referred to as the base process, and let
+   <math display="inline">
+    T = (T_s)_{s&gt;0}
+   </math>
+   denote a nonnegative, nondecreasing stochastic process not necessarily independent of
+   <math display="inline">
+    X
+   </math>
+   . The
+   <i>
+    time-changed process
+   </i>
+   is then defined as
+   <math display="inline">
+    Y = (Y_s)_{s&gt;0}
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_s = X_{T_s} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The process
+   <math display="inline">
+    X
+   </math>
+   is said to evolve in
+   <i>
+    operational time
+   </i>
+   . The process
+   <math display="inline">
+    T
+   </math>
+   is referred to as a
+   <i>
+    time change
+   </i>
+   , stochastic clock, chronometer, or business time. It reflects the varying
+   <i>
+    speed
+   </i>
+   of
+   <math display="inline">
+    Y
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   This article is structured as follows. First we link the use of time-changed stochastic processes to the construction of univariate stochastic volatility models in finance. Then we focus on the choice of an appropriate base process and, next, on popular examples for the time change. Finally, we briefly discuss the potential and the limitations of the methodology of time-changing stochastic processes to construct multivariate models in finance.
+  </p>
+  <h4>
+   <b>
+    Stochastic Volatility Models
+   </b>
+  </h4>
+  <p block-type="Text">
+   The use of time-changed stochastic processes in finance is closely linked to the concept of stochastic volatility models for asset prices. Numerous empirical studies have revealed the fact that asset price volatility tends to be time varying and tends to show clustering effects. The concept of stochastic volatility (
+   <i>
+    see
+   </i>
+   <b>
+    Volatility
+   </b>
+   ) in continuous-time asset price models on a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{A}, (\mathcal{F}_t)_{t&gt;0}, \mathbb{P})
+   </math>
+   can basically be introduced by two methods.
+  </p>
+  <p block-type="TextInlineMath">
+   One of the methods is to use time-changed stochastic processes as in equation
+   <math display="inline">
+    (1)
+   </math>
+   , where natural assumptions are that
+   <math display="inline">
+    X = (X_t)_{t \ge 0}
+   </math>
+   is an
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   semimartingale and
+   <math display="inline">
+    (T_s)_{s&gt;0}
+   </math>
+   is an increasing family of
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -stopping times. The base process X is often assumed to possess some homogeneity properties,
+  </p>
+  <p block-type="Text">
+   whereas a nonlinear time change can induce deviations from homogeneity.
+  </p>
+  <p block-type="Text">
+   The other method is to use stochastic integrals (see
+   <b>
+    Stochastic Integrals
+   </b>
+   ) of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = \int_0^t \sigma_{r-} \, \mathrm{d}X_r \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma = (\sigma_t)_{t&gt;0}
+   </math>
+   is a nonnegative
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -predictable stochastic volatility process and
+   <math display="inline">
+    X = (X_t, t \ge 0)
+   </math>
+   is an
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -semimartingale. Often, X is assumed to possess some homogeneity properties so that nonconstant
+   <math display="inline">
+    \sigma
+   </math>
+   can induce deviations from homogeneity.
+  </p>
+  <p block-type="Text">
+   Under certain conditions, the models
+   <math display="inline">
+    (1)
+   </math>
+   and
+   <math display="inline">
+    (2)
+   </math>
+   lead to equivalent models. However, in general, this is not true, and we highlight in the following text some of the main differences between these two modeling approaches.
+  </p>
+  <h4>
+   <b>
+    Time-changed Lévy Processes
+   </b>
+  </h4>
+  <p block-type="Text">
+   In the finance literature, the main focus is on timechanged Brownian motion or, more generally, on time-changed Lévy processes (see Lévy Processes; Time-changed Lévy Process), since these processes possess natural homogeneity properties of stationary and independent increments (returns).
+  </p>
+  <p block-type="TextInlineMath">
+   Time-changed Brownian motion has first been used as a model for (logarithmic) asset prices by Clark [14]. He investigated the case where
+   <math display="inline">
+    X = B =
+   </math>
+   <math display="inline">
+    (B_t)_{t&gt;0}
+   </math>
+   is a standard Brownian motion and where T is an independent continuous-time change. Clearly, in such a setting, the time-changed process
+   <math display="inline">
+    Y_s = B_{T_s}
+   </math>
+   has a mixed normal distribution, that is,
+   <math display="inline">
+    Y_s|T_s \sim
+   </math>
+   <math display="inline">
+    N(0, T
+    <sub>
+     s
+    </sub>
+    )
+   </math>
+   , and is a continuous local martingale. The power of such models and those with the assumptions of independence and/or continuity relaxed is expressed in the following key results.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   (
+   <i>
+    Dubins–Schwarz
+   </i>
+   ). [18, 34, 35] Every continuous local martingale
+   <math display="inline">
+    M = (M_s)_{s \ge 0}
+   </math>
+   can be written as a time-changed Brownian motion
+   <math display="inline">
+    (B_{[M]_s})_{s&gt;0}
+   </math>
+   , where
+   <math display="inline">
+    [M] = ([M]_s)_{s\geq 0}
+   </math>
+   is the (continuous) quadratic variation of M.
+  </p>
+  <p block-type="TextInlineMath">
+   Also
+   <math display="inline">
+    M_t = \int_0^t \sigma_{r-} \mathrm{d}W_r
+   </math>
+   for
+   <math display="inline">
+    X = W = (W_t)_{t \ge 0}
+   </math>
+   Brownian motion and
+   <math display="inline">
+    \sigma = (\sigma_t)_{t&gt;0}
+   </math>
+   independent nonnegative with càdlàg sample paths is a continuous local martingale with quadratic variation
+   <math display="inline">
+    [M]_t =
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \left[\int_0^{\cdot} \sigma_{r-} \mathrm{d}W_r\right]_t = \int_0^t \sigma_r^2 \mathrm{d}r
+   </math>
+   , which is often referred to as integrated variance.
+  </p>
+  <p block-type="TextInlineMath">
+   Corollary 1 In the context of the Dubins-Schwarz theorem, for the local martingale
+   <math display="inline">
+    M_s = \int_0^s \sigma_{r-} dW_r =
+   </math>
+   <math display="inline">
+    B_{[M]_s}
+   </math>
+   independence of W and
+   <math display="inline">
+    \sigma
+   </math>
+   is equivalent to independence of B and
+   <math display="inline">
+    T = [M]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, the models
+   <math display="inline">
+    (1)
+   </math>
+   and
+   <math display="inline">
+    (2)
+   </math>
+   are equivalent if X is a Brownian motion and
+   <math display="inline">
+    T_s = \int_0^s \sigma_r^2 dr
+   </math>
+   is an absolutely continuous time change. Regarding Clark's independence assumption, we note that independence of
+   <math display="inline">
+    \sigma
+   </math>
+   and X is also equivalent in models (1) and (2); however, this excludes the leverage effect, that is, the usually negative correlation between asset returns and volatility.
+  </p>
+  <p block-type="TextInlineMath">
+   Fundamentally, these results are due to the scaling property of Brownian motion
+   <math display="inline">
+    X
+   </math>
+   , which translates spatial scaling
+   <math display="inline">
+    \sigma X_t
+   </math>
+   or model (2) into temporal scaling
+   <math display="inline">
+    X_{\sigma^2 t}
+   </math>
+   or model (1). Also, if Brownian motion is replaced by an
+   <math display="inline">
+    \alpha
+   </math>
+   -stable Lévy process and
+   <math display="inline">
+    T_t =
+   </math>
+   <math display="inline">
+    \int_0^{\iota} \sigma_s^{\alpha} ds
+   </math>
+   , the two models (1) and (2) are basically equivalent [25, 26]. No other Lévy process has such a scaling property, and indeed, the models (1) and (2) will be different. If we relate higher volatility to higher market activity, then model (1) suggests that markets move at a higher speed, and model (2) suggests that the volumes traded are higher.
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 2 (Monroe [33]). Every (càdlàg) semimartingale
+   <math display="inline">
+    Z = (Z_s)_{s \ge 0}
+   </math>
+   can be written as a timechanged Brownian motion
+   <math display="inline">
+    (B_{T_s})_{s\geq 0}
+   </math>
+   for a (càdlàg)
+   <i>
+    family of stopping times
+   </i>
+   <math display="inline">
+    (T_s)_{s\geq 0}
+   </math>
+   <i>
+    on a suitably extended
+   </i>
+   probability space.
+  </p>
+  <p block-type="Text">
+   In the light of the fundamental theorem of asset pricing (see Fundamental Theorem of Asset Pri
+   <b>
+    cing
+   </b>
+   ), this means that every arbitrage-free model can be viewed as time-changed Brownian motion. However, this result is of limited use for the construction of simple and natural parametric models.
+  </p>
+  <p block-type="Text">
+   In the finance literature, we find many asset price models where the base process is chosen to be a Lévy process other than Brownian motion (see, e.g., [12, 13]). Here, we refer to
+   <b>
+    Time-changed Lévy Process
+   </b>
+   for a detailed treatment of this class of models.
+  </p>
+  <p block-type="Text">
+   We also mention Lamperti's representations [27, 28] of continuous-state branching processes and of self-similar Markov processes as time-changed Lévy processes very much in the spirit of the
+  </p>
+  <p block-type="Text">
+   Dubins-Schwarz Theorem. Salminen and Yor [36] use Lamperti's time change to study Dufresne's functional [20] that arises in the computation of discounted values in certain models of continuously payable perpetuities in actuarial science.
+  </p>
+  <h4>
+   <b>
+    Choice of Time Change
+   </b>
+  </h4>
+  <p block-type="Text">
+   There are different methods for choosing a time change that is suitable for financial models. Two classes of such processes are particularly popular: subordinators and absolutely continuous time changes [1].
+  </p>
+  <p block-type="Text">
+   In the finance literature, the terms time change and
+   <i>
+    subordinator
+   </i>
+   are sometimes used synonymously. However, in probability theory, the term subordinator describes a particular class of stochastic processes (as defined below) and does not include all time changes.
+  </p>
+  <h4>
+   Subordinators
+  </h4>
+  <p block-type="Text">
+   Subordinators are nondecreasing Lévy processes [10, 15, 37] and hence possess stationary and independent increments. They are pure jump processes of possibly infinite activity plus a deterministic linear drift. Clearly, they have no Brownian component and are of finite variation. Important examples include simple Poisson processes, increasing compound Poisson processes, gamma processes, and (tempered) stable subordinators. Note that many popular models in finance are based on time-changed Brownian motion where the time change is chosen to be a subordinator. For example, the variance gamma process [30, 31] can be represented as Brownian motion time-changed by a gamma process, the normal tempered stable process (including the normal inverse gaussian process [2, 3]) can be written as a Brownian motion timechanged by a tempered stable subordinator. Brownian motion, time-changed by an independent subordinator, yields a Lévy process always.
+  </p>
+  <h4>
+   Absolutely Continuous Time Changes
+  </h4>
+  <p block-type="TextInlineMath">
+   Another important class of time changes is given by the class of absolutely continuous time changes of the form
+   <math display="inline">
+    T_s = \int_0^s \tau_u du
+   </math>
+   , for a positive and integrable process
+   <math display="inline">
+    \tau = (\tau_s)_{s \ge 0}
+   </math>
+   . Note that in such a setting T is always continuous, but
+   <math display="inline">
+    \tau
+   </math>
+   can exhibit jumps. The process
+   <math display="inline">
+    \tau
+   </math>
+   is often called
+   <i>
+    instantaneous
+   </i>
+   (business)
+  </p>
+  <p block-type="Text">
+   <i>
+    activity rate
+   </i>
+   . Such models have been studied in the context when
+   <i>
+    X
+   </i>
+   is a Levy process by Carr ´
+   <i>
+    et al.
+   </i>
+   [12] and [13] among others. The advantage of this model class is that it leads to affine models that are highly analytically tractable (see, e.g., [19, 25]), whereas stochastic integrals with respect to Levy ´ processes are in general not affine. Popular examples for the instantaneous activity rate are given by the Cox– Ingersoll–Ross process and the non-Gaussian Ornstein–Uhlenbeck process [7, 8, 16].
+  </p>
+  <h1>
+   <b>
+    Multivariate Setting
+   </b>
+  </h1>
+  <p block-type="Text">
+   Time-changed stochastic processes are also used in the finance literature to construct multivariate models. Usually, the base process
+   <i>
+    X
+   </i>
+   is then assumed to be multivariate (e.g., a multivariate Brownian motion) and the time-change process
+   <i>
+    T
+   </i>
+   is still assumed to be univariate ([15, 21] and the references therein). The advantage of such a modeling framework is the fact that such processes are highly analytically tractable and easy to simulate from. However, the range of dependence between the univariate components in such a multivariate model is rather limited (and, in particular, does not even include complete independence). Furthermore, such a model does not allow for an arbitrary choice of univariate models for the components [15]. The mathematical properties of multivariate processes
+   <i>
+    X
+   </i>
+   time-changed by a multivariate vector of time changes
+   <i>
+    T
+   </i>
+   have recently been studied in [5], but this has so far not been considered as a standard tool for constructing multivariate models in finance. So far, it has been much more common to use multivariate extensions of a stochastic integral (2) to construct multivariate stochastic volatility models, than to use time-changed processes. Finally, note that the concept of subordinators can also be generalized to matrix subordinators [4, 6] and their applicability in financial models is subject to ongoing research (see, e.g., [9, 38] for some first references).
+  </p>
+  <h1>
+   <b>
+    Acknowledgments
+   </b>
+  </h1>
+  <p block-type="Text">
+   We would like to thank Marc Yor and Ole Barndorff-Nielsen for suggesting relevant references. The first author acknowledges financial support by the Center for Research in Econometric Analysis of Time Series, CREATES, funded by the Danish National Research Foundation.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Ane, T. &amp; Geman, H. (2000). Order flow, transaction ´ clock, and normality of asset returns,
+     <i>
+      The Journal of Finance
+     </i>
+     <b>
+      55
+     </b>
+     (5), 2259–2284.
+    </li>
+    <li block-type="ListItem">
+     [2] Barndorff-Nielsen, O.E. (1997). Normal inverse gaussian distributions and stochastic volatility modelling,
+     <i>
+      Scandinavian Journal of Statistics
+     </i>
+     <b>
+      24
+     </b>
+     , 1–13.
+    </li>
+    <li block-type="ListItem">
+     [3] Barndorff-Nielsen, O.E. (1998). Processes of normal inverse Gaussian type,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      2
+     </b>
+     , 41–68.
+    </li>
+    <li block-type="ListItem">
+     [4] Barndorff-Nielsen, O.E., Maejima, M. &amp; Sato, K.-I. (2006). Some classes of multivariate infinitely divisible distributions admitting stochastic integral representation,
+     <i>
+      Bernoulli
+     </i>
+     <b>
+      12
+     </b>
+     , 1–33.
+    </li>
+    <li block-type="ListItem">
+     [5] Barndorff-Nielsen, O.E., Pedersen, J. &amp; Sato, K.-I. (2001). Multivariate subordination, selfdecomposability and stability,
+     <i>
+      Advances in Applied Probability
+     </i>
+     <b>
+      33
+     </b>
+     , 160–187.
+    </li>
+    <li block-type="ListItem">
+     [6] Barndorff-Nielsen, O.E. &amp; Perez-Abreu, V. (2008). ´ Matrix subordinators and related upsilon transformations,
+     <i>
+      Theory of Probability and its Applications
+     </i>
+     <b>
+      52
+     </b>
+     (1), 1–23.
+    </li>
+    <li block-type="ListItem">
+     [7] Barndorff-Nielsen, O.E. &amp; Shephard, N. (2001). Non– Gaussian Ornstein–Uhlenbeck–based models and some of their uses in financial economics (with discussion),
+     <i>
+      Journal of the Royal Statistical Society, Series B-Statistical Methodology
+     </i>
+     <b>
+      63
+     </b>
+     , 167–241.
+    </li>
+    <li block-type="ListItem">
+     [8] Barndorff-Nielsen, O.E. &amp; Shephard, N. (2002). Econometric analysis of realised volatility and its use in estimating stochastic volatility models,
+     <i>
+      Journal of the Royal Statistical Society. Series B
+     </i>
+     <b>
+      B 64
+     </b>
+     , 253–280.
+    </li>
+    <li block-type="ListItem">
+     [9] Barndorff-Nielsen, O.E. &amp; Stelzer, R. (2007). Positive–definite matrix processes of finite variation,
+     <i>
+      Probability and Mathematical Statistics
+     </i>
+     <b>
+      27
+     </b>
+     (1), 3–43.
+    </li>
+    <li block-type="ListItem">
+     [10] Bertoin, J. (1996).
+     <i>
+      L´evy Processes
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [11] Bochner, S. (1949). Diffusion equation and stochastic processes,
+     <i>
+      Proceedings of the National Academy of Sciences of the United States of America
+     </i>
+     <b>
+      85
+     </b>
+     , 369–370.
+    </li>
+    <li block-type="ListItem">
+     [12] Carr, P., Geman, H., Madan, D.B. &amp; Yor, M. (2003). Stochastic volatility for Levy processes, ´
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      13
+     </b>
+     (3), 345–382.
+    </li>
+    <li block-type="ListItem">
+     [13] Carr, P. &amp; Wu, L. (2004). Time–changed Levy pro- ´ cesses and option pricing,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      71
+     </b>
+     , 113–141.
+    </li>
+    <li block-type="ListItem">
+     [14] Clark, P.K. (1973). A subordinated stochastic process model with fixed variance for speculative prices,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      41
+     </b>
+     , 135–156.
+    </li>
+    <li block-type="ListItem">
+     [15] Cont, R. &amp; Tankov, P. (2004).
+     <i>
+      Financial Modelling With Jump Processes
+     </i>
+     ,
+     <i>
+      Financial Mathematics Series
+     </i>
+     , Chapman &amp; Hall, Boca Raton, Florida.
+    </li>
+    <li block-type="ListItem">
+     [16] Cox, J.C., Ingersoll, J.E. &amp; Ross, S.A. (1985). An intertemporal general equilibrium model of asset prices,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      53
+     </b>
+     , 363–384.
+    </li>
+    <li block-type="ListItem">
+     [17] Doeblin, W. (2000). Sur l'equation de Kolmogoroff, ´
+     <i>
+      Les Comptes Rendus de l'Acad´emie des Sciences
+     </i>
+     <b>
+      I
+     </b>
+     (331),
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   1031–1187. Pli cachete d´ epos ´ e le 26 f ´ evrier 1940, ouvert ´ le 18 mai 2000.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [18] Dubins, L. &amp; Schwarz, G. (1965). On continuous martingales,
+     <i>
+      Proceedings of the National Academy of Sciences of the United States of America
+     </i>
+     <b>
+      53
+     </b>
+     (5), 913–916.
+    </li>
+    <li block-type="ListItem">
+     [19] Duffie, D., Filipovic, D. &amp; Schachermayer, W. (2003). Affine processes and applications in finance,
+     <i>
+      Annals of Applied Probability
+     </i>
+     <b>
+      13
+     </b>
+     , 984–1053.
+    </li>
+    <li block-type="ListItem">
+     [20] Dufresne, D. (1990). The distribution of a perpetuity, with applications to risk theory and pension funding,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     <b>
+      1990
+     </b>
+     , 39–79.
+    </li>
+    <li block-type="ListItem">
+     [21] Eberlein, E. (2001). Application of generalized hyperbolic Levy motion to finance, in ´
+     <i>
+      L´evy Processes: Theory and Applications
+     </i>
+     , O.E. Barndorff-Nielsen, T. Mikosch &amp; S. Resnick, eds, Birkhauser, Basel, pp. 319–337. ¨
+    </li>
+    <li block-type="ListItem">
+     [22] Geman, H. (2005). From measure changes to time changes in asset pricing,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      29
+     </b>
+     , 2701–2722.
+    </li>
+    <li block-type="ListItem">
+     [23] Hunt, G. (1957). Markov processes and potentials I, II and III,
+     <i>
+      Illinois Journal of Mathematics
+     </i>
+     <b>
+      1
+     </b>
+     , 44–93; 316–396; (1958).
+     <b>
+      2
+     </b>
+     , 151–213.
+    </li>
+    <li block-type="ListItem">
+     [24] Ito, K. &amp; McKean, H.P. (1965). ˆ
+     <i>
+      Diffusion Processes and Their Sample Paths
+     </i>
+     , Springer–Verlag, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [25] Kallsen, J. (2006). A didactic note on affine stochastic volatility models, in
+     <i>
+      From Stochastic Calculus to Mathematical Finance
+     </i>
+     , Y. Kabanov, R. Liptser &amp; J. Stoyanov, eds, Springer–Verlag, Berlin, pp. 343–368.
+    </li>
+    <li block-type="ListItem">
+     [26] Kallsen, J. &amp; Shiryaev, A. (2002). Time change representation of stochastic integrals,
+     <i>
+      Theory of Probability and its Applications
+     </i>
+     <b>
+      46
+     </b>
+     , 522–528.
+    </li>
+    <li block-type="ListItem">
+     [27] Lamperti, J. (1967). Continuous–state branching processes,
+     <i>
+      Bulletin of The American Mathematical Society
+     </i>
+     <b>
+      73
+     </b>
+     , 382–386.
+    </li>
+    <li block-type="ListItem">
+     [28] Lamperti, J. (1972).
+     <i>
+      Semi–Stable Markov Processes. I
+     </i>
+     ,
+     <i>
+      Probability Theory and Related Fields
+     </i>
+     , Springer–Verlag, Vol. 22, pp. 205–225.
+    </li>
+    <li block-type="ListItem">
+     [29] Levy, P. (1948). ´
+     <i>
+      Processus Stochastiques Et Mouvement Brownien
+     </i>
+     , Gauthier–Villars, Paris.
+    </li>
+    <li block-type="ListItem">
+     [30] Madan, D., Carr, P. &amp; Chang, E. (1998). The variance gamma process and option pricing,
+     <i>
+      European Finance Review
+     </i>
+     <b>
+      2
+     </b>
+     , 79–105.
+    </li>
+    <li block-type="ListItem">
+     [31] Madan, D.B. &amp; Seneta, E. (1990). The VG model for share market returns,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      63
+     </b>
+     , 511–524.
+    </li>
+    <li block-type="ListItem">
+     [32] McKean, H. (2002). Scale and clock, in
+     <i>
+      Mathematical Finance—Bachelier Congress 2000
+     </i>
+     ,
+     <i>
+      Springer Finance
+     </i>
+     ,
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   H. Geman, D. Madan, S. Pliska &amp; T. Vorst, eds, Springer-Verlag, Berlin.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [33] Monroe, I. (1978). Processes that can be embedded in Brownian motion,
+     <i>
+      The Annals of Probability
+     </i>
+     <b>
+      6
+     </b>
+     (1), 42–56.
+    </li>
+    <li block-type="ListItem">
+     [34] Protter, P.E. (2004).
+     <i>
+      Stochastic Integration and Differential Equations
+     </i>
+     , 2nd Edition, Springer, London.
+    </li>
+    <li block-type="ListItem">
+     [35] Revuz, D. &amp; Yor, M. (2001).
+     <i>
+      Continuous Martingales and Brownian Motion
+     </i>
+     , 3rd Edition, Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [36] Salminen, P. &amp; Yor, M. (2005). Perpetual integral functionals as hitting and occupation times,
+     <i>
+      Electronic Journal of Probability
+     </i>
+     <b>
+      10
+     </b>
+     , 371–419.
+    </li>
+    <li block-type="ListItem">
+     [37] Sato, K. (1999).
+     <i>
+      L´evy processes and Infinitely Divisible Distributions
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [38] Stelzer, R.J. (2007).
+     <i>
+      Multivariate Continuous time stochastic volatility models driven by a L´evy process
+     </i>
+     , Dissertation, Technische Universitat M¨ unchen, M ¨ unchen. Urn: ¨ http://d-nb.info/986220337.
+    </li>
+    <li block-type="ListItem">
+     [39] Volkonski, V. (1958). Random time changes in strong Markov processes,
+     <i>
+      Theory of Probability and its Applications
+     </i>
+     <b>
+      3
+     </b>
+     , 310–326.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Fu, M., Jarrow, R., Yen, J.-Y. &amp; Elliott, R. (eds) (2007).
+     <i>
+      Advances in Mathematical Finance
+     </i>
+     ,
+     <i>
+      Applied and Numerical Harmonic Analysis
+     </i>
+     , Birkhauser, Boston. ¨
+    </li>
+    <li block-type="ListItem">
+     Jeanblanc, M., Yor, M. &amp; Chesney, M. (2009).
+     <i>
+      Mathematical Methods for Financial Markets
+     </i>
+     ,
+     <i>
+      Springer Finance
+     </i>
+     , Springer-Verlag, Berlin.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Jump Processes
+   </b>
+   ;
+   <b>
+    Levy Processes ´
+   </b>
+   ;
+   <b>
+    Martingales
+   </b>
+   ;
+   <b>
+    Normal Inverse Gaussian Model
+   </b>
+   ;
+   <b>
+    Realized Volatility and Multipower Variation
+   </b>
+   ;
+   <b>
+    Stochastic Integrals
+   </b>
+   ;
+   <b>
+    Time-changed Levy Process ´
+   </b>
+   ;
+   <b>
+    Variancegamma Model
+   </b>
+   ;
+   <b>
+    Volatility
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ALMUT E.D. VERAART &amp; MATTHIAS WINKEL
+  </p>
+ </body>
+</html>

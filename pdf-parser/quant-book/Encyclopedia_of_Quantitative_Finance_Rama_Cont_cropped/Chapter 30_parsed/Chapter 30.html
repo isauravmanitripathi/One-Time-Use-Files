@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Wiener–Hopf Decomposition
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   A fundamental part of the theory of random walks and Levy processes is a set of conclusions, which, ´ in modern times, are loosely referred to as
+   <i>
+    the Wiener–Hopf factorization
+   </i>
+   . Historically, the identities around which the Wiener–Hopf factorization is centered are the culmination of a number of works that include [2–4, 6–8, 14–17], and many others; although the analytical roots of the so-called Wiener–Hopf method go much further back than these probabilistic references; see, for example, [9, 13]. The importance of the Wiener–Hopf factorization for either a random walk or a Levy process is that ´ it characterizes the range of the running maximum of the process as well as the times at which new maxima are attained. We deal with the Wiener–Hopf factorization for random walks before moving to the case of Levy processes. The discussion very closely follows ´ the ideas of [6, 7]. Indeed, for the case of random walks, we shall not deter from providing proofs as their penetrating and yet elementary nature reveals a simple path decomposition that is arguably more fundamental than the Wiener–Hopf factorization itself. The Wiener–Hopf factorization for Levy processes is ´ essentially a technical variant of the case for random walks and we only state it without proof.
+  </p>
+  <h1>
+   <b>
+    Random Walks and Infinite Divisibility
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Suppose that {
+   <i>
+    ξi
+   </i>
+   :
+   <i>
+    i
+   </i>
+   = 1
+   <i>
+    ,
+   </i>
+   2
+   <i>
+    ,...
+   </i>
+   } are a sequence of  valued independent and identically distributed (i.i.d.) random variables defined on the common probability space
+   <i>
+    (-,
+   </i>
+   F
+   <i>
+    , -)
+   </i>
+   with common distribution function
+   <i>
+    F
+   </i>
+   . Let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_0 = 0 \text{ and } S_n = \sum_{i=1}^n \xi_i
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   The process
+   <i>
+    S
+   </i>
+   = {
+   <i>
+    Sn
+   </i>
+   :
+   <i>
+    n
+   </i>
+   ≥ 0} is called a (
+   <i>
+    real valued
+   </i>
+   ) random walk. For convenience, we make a number of assumptions on
+   <i>
+    F
+   </i>
+   . First,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \min\{F(0,\infty), F(-\infty,0)\} &gt; 0 \tag{2}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   meaning that the random walk may experience both positive and negative jumps, and second,
+   <i>
+    F
+   </i>
+   has no atoms. In the prevailing analysis, we repeatedly refer
+  </p>
+  <p block-type="Text">
+   to general and specific classes of infinitely divisible random variables (
+   <i>
+    see
+   </i>
+   <b>
+    Infinite Divisibility
+   </b>
+   ). An
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   valued random variable
+   <i>
+    X
+   </i>
+   is infinitely divisible if for each
+   <i>
+    n
+   </i>
+   = 1
+   <i>
+    ,
+   </i>
+   2
+   <i>
+    ,
+   </i>
+   3
+   <i>
+    ,...
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X \stackrel{d}{=} X_{(1,n)} + \dots + X_{(n,n)} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where {
+   <i>
+    X(i,n)
+   </i>
+   :
+   <i>
+    i
+   </i>
+   = 1
+   <i>
+    ,...,n
+   </i>
+   } are i.i.d. distributed and the equality is in the distribution. In other words, if
+   <i>
+    µ
+   </i>
+   is the characteristic function of
+   <i>
+    X
+   </i>
+   , then for each
+   <i>
+    n
+   </i>
+   = 1
+   <i>
+    ,
+   </i>
+   2
+   <i>
+    ,
+   </i>
+   3
+   <i>
+    ,...
+   </i>
+   we have
+   <i>
+    µ
+   </i>
+   =
+   <i>
+    (µn)n
+   </i>
+   , where
+   <i>
+    µn
+   </i>
+   is the the characteristic function of some
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   -valued random variable.
+  </p>
+  <p block-type="TextInlineMath">
+   In general, if
+   <i>
+    X
+   </i>
+   is any
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   -valued random variable that is also infinitely divisible, then for each
+   <i>
+    θ
+   </i>
+   ∈
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   ,
+   <i>
+    E(
+   </i>
+   e
+   <i>
+    iθ
+   </i>
+   ·
+   <i>
+    X)
+   </i>
+   = e
+   <sup>
+    −
+   </sup>
+   <i>
+    (θ )
+   </i>
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Psi(\theta) = ia \cdot \theta + \frac{1}{2} \mathcal{Q}(\theta) \n+ \int_{\mathbb{R}^d} \left( 1 - e^{i\theta \cdot x} + i\theta \cdot x \mathbf{1}_{(|x| &lt; 1)} \right) \Pi(\mathrm{d}x) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    a
+   </i>
+   ∈
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   ,
+   <i>
+    Q
+   </i>
+   is a positive semidefinite quadratic form on
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   and  is a measure supported in
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   \{0} such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{\mathbb{R}^d} 1 \wedge |x|^2 \Pi(\mathrm{d}x) &lt; \infty \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here, |·| is Euclidean distance and, for
+   <i>
+    a, b
+   </i>
+   ∈
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   ,
+   <i>
+    a
+   </i>
+   ·
+   <i>
+    b
+   </i>
+   is the usual Euclidean inner product.
+  </p>
+  <p block-type="TextInlineMath">
+   A special example of an infinitely divisible distribution is the geometric distribution. The symbol
+   <i>
+    <sup>
+     p
+    </sup>
+   </i>
+   always denotes a geometric distribution with parameter
+   <i>
+    p
+   </i>
+   ∈
+   <i>
+    (
+   </i>
+   0
+   <i>
+    ,
+   </i>
+   1
+   <i>
+    )
+   </i>
+   defined on
+   <i>
+    (-,
+   </i>
+   F
+   <i>
+    , -)
+   </i>
+   . In particular,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(\Gamma_p = k) = pq^k, \quad k = 0, 1, 2, \dots
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    q
+   </i>
+   = 1 −
+   <i>
+    p
+   </i>
+   . The geometric distribution has the following properties that are worth recalling for the forthcoming discussion. First,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(\Gamma_p \ge k) = q^k \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   and, second, the lack-of-memory property:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(\Gamma_p \ge n + m | \Gamma_p \ge m) = P(\Gamma_p \ge n),
+   </math>
+   <br/>
+   <math display="block">
+    n, m = 0, 1, 2, \dots
+   </math>
+   (8)
+  </p>
+  <p block-type="Text" class="has-continuation">
+   A more general class of infinitely divisible distributions than the latter, which will shortly be of use,
+  </p>
+  <p block-type="TextInlineMath">
+   are those that may be expressed as the distribution of a random walk sampled at an independent and geometrically distributed time;
+   <math display="inline">
+    S_{\Gamma_p} = \sum_{i=1}^{\Gamma_p} \xi_i
+   </math>
+   . (Note, we interpret
+   <math display="inline">
+    \sum_{i=1}^{0}
+   </math>
+   as the empty sum). To justify the previous claim, a straightforward computation shows that for each
+   <math display="inline">
+    n = 1, 2, 3, \ldots
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left(\mathbf{e}^{i\theta S_{\Gamma_p}}\right) = \left(\left(\frac{p}{1 - q\,\mathbb{E}\left(\mathbf{e}^{i\theta \xi_1}\right)}\right)^{\frac{1}{n}}\right)^n
+   </math>
+   <math display="block">
+    = \mathbb{E}\left(\mathbf{e}^{i\theta S_{\mathbf{A}_{1/n,p}}}\right)^n\tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Lambda_{1/n,p}
+   </math>
+   is a negative binomial random variable with parameters
+   <math display="inline">
+    1/n
+   </math>
+   and
+   <math display="inline">
+    p
+   </math>
+   , which is independent of S. The latter has distribution mass function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}(\mathbf{\Lambda}_{1/n,p}=k) = \frac{1}{k!} \frac{\Gamma(k+1/n)}{\Gamma(1/n)} p^{1/n} q^k \qquad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    k = 0, 1, 2, \ldots
+   </math>
+  </p>
+  <h2>
+   <b>
+    Wiener–Hopf Factorization for Random
+   </b>
+   Walks
+  </h2>
+  <p block-type="TextInlineMath">
+   We now turn our attention to the Wiener-Hopf factorization. Fix
+   <math display="inline">
+    0 &lt; p &lt; 1
+   </math>
+   and define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G = \inf \left\{ k = 0, 1, \dots, \mathbf{\Gamma}_p : S_k = \max_{j = 0, 1, \dots, \mathbf{\Gamma}_p} S_j \right\}
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Gamma_p
+   </math>
+   is a geometrically distributed random variable with parameter
+   <math display="inline">
+    p
+   </math>
+   , which is independent of the random walk
+   <math display="inline">
+    S
+   </math>
+   , that is,
+   <math display="inline">
+    G
+   </math>
+   is the first visit of
+   <math display="inline">
+    S
+   </math>
+   to its maximum over the time period
+   <math display="inline">
+    \{0, 1, \ldots, \Gamma_p\}
+   </math>
+   . Now define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N = \inf\{n &gt; 0 : S_n &gt; 0\} \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   In other words, the first visit of S to
+   <math display="inline">
+    (0, \infty)
+   </math>
+   after
+   <math display="inline">
+    time 0.
+   </math>
+  </p>
+  <p block-type="Text">
+   Theorem 1 (Wiener-Hopf Factorization for Ran
+   <b>
+    dom Walks
+   </b>
+   ) Assume all of the notation and conventions above.
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    (G, S_G)
+   </math>
+   is independent of
+   <math display="inline">
+    (\Gamma_p - G, S_{\Gamma_p} - S_G)
+   </math>
+   (i) and both pairs are infinitely divisible.
+  </p>
+  <p block-type="Text">
+   (ii) For
+   <math display="inline">
+    0 &lt; s &lt; 1
+   </math>
+   and
+   <math display="inline">
+    \theta \in \mathbb{R}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left(s^{G}e^{i\theta S_{G}}\right)
+   </math>
+   <br/>
+   =
+   <math>
+    \exp\left\{-\int_{(0,\infty)}\sum_{n=1}^{\infty}\left(1-s^{n}e^{i\theta x}\right)q^{n}\frac{1}{n}F^{*n}(\mathrm{d}x)\right\}
+   </math>
+   (13)
+  </p>
+  <p block-type="Equation">
+   (iii) For
+   <math display="block">
+    0 &lt; s \le 1
+   </math>
+   and
+   <math>
+    \theta \in \mathbb{R}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left(s^{N}e^{i\theta S_{N}}\right)
+   </math>
+   <br/>
+   = 1 - exp
+   <math>
+    \left\{-\int_{(0,\infty)}\sum_{n=1}^{\infty}s^{n}e^{i\theta x}\frac{1}{n}F^{*n}(\mathrm{d}x)\right\}
+   </math>
+   (14)
+  </p>
+  <p block-type="TextInlineMath">
+   Note that the third part of the Wiener-Hopf factorization characterizes what is known as the ladder height process of the random walk S. The latter is the bivariate random walk
+   <math display="inline">
+    (T, H) := \{(T_n, H_n) : n =
+   </math>
+   <math display="inline">
+    0, 1, 2, \ldots
+   </math>
+   } where
+   <math display="inline">
+    (T_0, H_0) = (0, 0)
+   </math>
+   , and otherwise for
+   <math display="inline">
+    n = 1, 2, 3, \ldots
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T_n = \begin{cases} \min\left\{k \ge 1 : S_{T_{n-1}+k} &gt; H_{n-1}\right\} &amp; \text{if } T_{n-1} &lt; \infty \\ \infty &amp; \text{if } T_{n-1} = \infty \end{cases}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_n = \begin{cases} S_{T_n} &amp; \text{if } T_n &lt; \infty \\ \infty &amp; \text{if } T_n = \infty \end{cases} \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   That is to say, the process
+   <math display="inline">
+    (T, H)
+   </math>
+   , until becoming infinite in value, represents the times and positions of the running maxima of
+   <math display="inline">
+    S
+   </math>
+   , the so-called ladder times and ladder heights. It is not difficult to see that
+   <math display="inline">
+    T_n
+   </math>
+   is a stopping time for each
+   <math display="inline">
+    n = 0, 1, 2, \ldots
+   </math>
+   and hence thanks to the i.i.d. increments of
+   <math display="inline">
+    S
+   </math>
+   , the increments of
+   <math display="inline">
+    (T, H)
+   </math>
+   are i.i.d. with the same law as the pair
+   <math display="inline">
+    (N, S_N).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proof
+   </b>
+   (i) The path of the random walk may be broken into
+   <math display="inline">
+    v \in \{0, 1, 2, \ldots\}
+   </math>
+   finite (or completed) excursions from the maximum followed by an additional excursion, which straddles the random time
+   <math display="inline">
+    \Gamma_{p}
+   </math>
+   . Here, we understand the use of the word straddle to mean that if
+   <math display="inline">
+    \ell
+   </math>
+   is the index of the left end point of the straddling excursion then
+   <math display="inline">
+    \ell \leq \Gamma_p
+   </math>
+   . By the strong Markov property for random walks and lack of memory, the completed excursions must have the same law, namely, that of a random walk sampled on the time points
+   <math display="inline">
+    \{1, 2, \ldots, N\}
+   </math>
+   conditioned on the
+  </p>
+  <p block-type="TextInlineMath">
+   event that
+   <math display="inline">
+    \{N \leq \Gamma_p\}
+   </math>
+   and hence
+   <math display="inline">
+    \nu
+   </math>
+   is geometrically distributed with parameter
+   <math display="inline">
+    1 - P(N \leq \Gamma_p)
+   </math>
+   . Mathematically, we express
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (G, S_G) = \sum_{i=1}^{\nu} \left( N^{(i)}, H^{(i)} \right) \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the pairs
+   <math display="inline">
+    \{(N^{(i)}, H^{(i)}): i = 1, 2, ...\}
+   </math>
+   are independent having the same distribution as
+   <math display="inline">
+    (N, S_N)
+   </math>
+   conditioned on
+   <math display="inline">
+    \{N \leq \Gamma_p\}
+   </math>
+   . Note also that G is the sum of the lengths of the latter conditioned excursions and
+   <math display="inline">
+    S_G
+   </math>
+   is the sum of the respective increment of the terminal value over the initial value of each excursion. In other words,
+   <math display="inline">
+    (G, S_G)
+   </math>
+   is the componentwise sum of
+   <math display="inline">
+    \nu
+   </math>
+   independent copies of
+   <math display="inline">
+    (N, S_N)
+   </math>
+   (with
+   <math display="inline">
+    (G, S_G) = (0, 0)
+   </math>
+   if
+   <math display="inline">
+    v = 0
+   </math>
+   ). Infinite divisibility follows as a consequence of the fact that
+   <math display="inline">
+    (G, S_G)
+   </math>
+   is a geometric sum of i.i.d. random variables. The independence of
+   <math display="inline">
+    (G, S_G)
+   </math>
+   and
+   <math display="inline">
+    (\Gamma_p - G, S_{\Gamma_p} - S_G)
+   </math>
+   is immediate from the decomposition described above.
+  </p>
+  <p block-type="TextInlineMath">
+   Feller's classic duality lemma (cf [3]) for random walks says that for any
+   <math display="inline">
+    n = 0, 1, 2, \ldots
+   </math>
+   (which may later be randomized with an independent geometric distribution), the independence and common distribution of increments implies that
+   <math display="inline">
+    \{S_{n-k} - S_n :
+   </math>
+   <math display="inline">
+    k = 0, 1, \ldots, n
+   </math>
+   has the same law as
+   <math display="inline">
+    \{-S_k : k =
+   </math>
+   <math display="inline">
+    0, 1, \ldots, n
+   </math>
+   . In the current context, the duality lemma also implies that the pair
+   <math display="inline">
+    (\Gamma_p - G, S_{\Gamma_p} - S_G)
+   </math>
+   is equal in distribution to
+   <math display="inline">
+    (D, S_D)
+   </math>
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D := \sup \left\{ k = 0, 1, \dots, \mathbf{\Gamma}_p : S_k = \min_{j = 0, 1, \dots, \mathbf{\Gamma}_p} S_j \right\}
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   (ii) Note that, as a geometric sum of i.i.d. random variables, the pair
+   <math display="inline">
+    (\Gamma_p, S_{\Gamma_p})
+   </math>
+   is infinitely divisible for
+   <math display="inline">
+    s \in (0, 1)
+   </math>
+   and
+   <math display="inline">
+    \theta \in \mathbb{R}
+   </math>
+   , let
+   <math display="inline">
+    q = 1 - p
+   </math>
+   and also that, on one hand,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(s^{\Gamma_{p}}e^{i\theta S_{\Gamma_{p}}}) = E\left(E\left(se^{i\theta S_{1}}\right)^{\Gamma_{p}}\right)
+   </math>
+   <math display="block">
+    = \sum_{k\geq 0} p\left(qsE\left(e^{i\theta S_{1}}\right)\right)^{k}
+   </math>
+   <math display="block">
+    = \frac{p}{1 - qsE\left(e^{i\theta S_{1}}\right)}
+   </math>
+   (18)
+  </p>
+  <p block-type="Text">
+   and, on the other hand, with the help of Fubini's Theorem,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \exp\left\{-\int_{\mathbb{R}}\sum_{n=1}^{\infty}\left(1-s^{n}e^{i\theta x}\right)q^{n}\frac{1}{n}F^{*n}(\mathrm{d}x)\right\}
+   </math>
+   <math display="block">
+    =\exp\left\{-\sum_{n=1}^{\infty}\left(1-s^{n}E\left(\mathrm{e}^{i\theta S_{n}}\right)\right)q^{n}\frac{1}{n}\right\}
+   </math>
+   <math display="block">
+    =\exp\left\{-\sum_{n=1}^{\infty}\left(1-s^{n}E\left(\mathrm{e}^{i\theta S_{1}}\right)^{n}\right)q^{n}\frac{1}{n}\right\}
+   </math>
+   <math display="block">
+    =\exp\left\{\log(1-q)-\log\left(1-sqE\left(\mathrm{e}^{i\theta S_{1}}\right)\right)\right\}
+   </math>
+   <math display="block">
+    =\frac{p}{1-qsE(\mathrm{e}^{i\theta S_{1}})}\tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where, in the last equality, we have applied the Mercator–Newton series expansion of the logarithm. Comparing the conclusions of the last two series of equalities, the required expression for
+   <math display="inline">
+    E(s^{\Gamma_p}e^{i\theta S_{\Gamma_p}})
+   </math>
+   follows. The Lévy measure mentioned in equation
+   <math display="inline">
+    (4)
+   </math>
+   is thus identifiable as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pi(\mathrm{d}y,\,\mathrm{d}x) = \sum_{n=1}^{\infty} \delta_{\{n\}}(\mathrm{d}y) F^{*n}(\mathrm{d}x) \frac{1}{n} q^n \qquad (20)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    (y, x) \in \mathbb{R}^2
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   We know that
+   <math display="inline">
+    (\Gamma_p, S_{\Gamma_p})
+   </math>
+   may be written as the independent sum of
+   <math display="inline">
+    (G, S_G)
+   </math>
+   and
+   <math display="inline">
+    (\Gamma_p - G, S_{\Gamma_p}  S_G
+   </math>
+   ), where both are infinitely divisible. Further, the former has Lévy measure supported on
+   <math display="inline">
+    \{1, 2, \ldots\} \times
+   </math>
+   <math display="inline">
+    (0,\infty)
+   </math>
+   and the latter has Lévy measure supported on
+   <math display="inline">
+    \{1, 2, \ldots\} \times (-\infty, 0)
+   </math>
+   . In addition,
+   <math display="inline">
+    E(s^{\overline{G}}e^{i\theta S_G})
+   </math>
+   extends to the upper half of the complex plane in
+   <math display="inline">
+    \theta
+   </math>
+   (and is continuous on the real axis) and
+   <math display="inline">
+    E\left(s^{\Gamma_p-G}e^{i\theta(S_{\Gamma_p}-S_G)}\right)
+   </math>
+   extends to the lower half of the complex plane in
+   <math display="inline">
+    \acute{\theta}
+   </math>
+   (and is continuous on the real axis).&lt;sup&gt;
+   <math display="inline">
+    a
+   </math>
+   &lt;/sup&gt; Taking account of equation (4), this forces the factorization of the expression for
+   <math display="inline">
+    E(s^{\Gamma_p}e^{i\theta S_{\Gamma_p}})
+   </math>
+   in such a way that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(s^{G}e^{i\theta S_{G}}) = e^{-\int_{(0,\infty)} \sum_{n=1}^{\infty} (1-s^{n}e^{i\theta x})q^{n}F^{*n}(\mathrm{d}x)/n}
+   </math>
+   (21)
+  </p>
+  <p block-type="Text">
+   (iii) Note that the path decomposition given in part (i) shows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left(s^{G}e^{i\theta S_{G}}\right) = E\left(s^{\sum_{i=1}^{\nu}N^{(i)}}e^{i\theta\sum_{i=1}^{\nu}H^{(i)}}\right) \qquad (22)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the pairs
+   <math display="inline">
+    \{(N^{(i)}, H^{(i)}): i = 1, 2, ...\}
+   </math>
+   are independent having the same distribution as
+   <math display="inline">
+    (N, S_N)
+   </math>
+   conditioned on
+   <math display="inline">
+    \{N &lt; \Gamma_n\}
+   </math>
+   . Hence, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;E\left(s^{G}\mathbf{e}^{i\theta S_{G}}\right) \\ &amp;= \sum_{k\geq 0} P(N&gt;\Gamma_{p})P(N\leq\Gamma_{p})^{k} \\ &amp;\times E\left(s^{\sum_{i=1}^{k}N^{(i)}}\mathbf{e}^{i\theta\sum_{i=1}^{k}H^{(i)}}\right) \\ &amp;= \sum_{k\geq 0} P(N&gt;\Gamma_{p})P(N\leq\Gamma_{p})^{k}E\left(s^{N}\mathbf{e}^{i\theta S_{N}}|N\leq\Gamma_{p}\right)^{k} \\ &amp;= \sum_{k\geq 0} P(N&gt;\Gamma_{p})E\left(s^{N}\mathbf{e}^{i\theta S_{N}}\mathbf{1}_{\{N\leq\Gamma_{p}\}}\right)^{k} \\ &amp;= \sum_{k\geq 0} P(N&gt;\Gamma_{p})E\left((qs)^{N}\mathbf{e}^{i\theta S_{N}}\right)^{k} \\ &amp;= \frac{P(N&gt;\Gamma_{p})}{1-E\left((qs)^{N}\mathbf{e}^{i\theta S_{N}}\right)} \end{split} \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that in the fourth equality we use the fact that
+   <math display="inline">
+    P(\Gamma_p \ge n) = q^n
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The required equality to be proved follows by setting
+   <math display="inline">
+    s = 0
+   </math>
+   in equation (21) to recover
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(N &gt; \Gamma_p) = \exp\left\{-\int_{(0,\infty)} \sum_{n=1}^{\infty} \frac{q^n}{n} F^{*n}(\mathrm{d}x)\right\}
+   </math>
+   (24)
+  </p>
+  <p block-type="Text">
+   and then plugging this back into the right-hand side of equation (23) and rearranging.
+  </p>
+  <h4>
+   Lévy Processes and Infinite Divisibility
+  </h4>
+  <p block-type="TextInlineMath">
+   A (one-dimensional) stochastic process
+   <math display="inline">
+    X = \{X_t :
+   </math>
+   <math display="inline">
+    t \ge 0
+   </math>
+   } is called a
+   <i>
+    Lévy process
+   </i>
+   (see
+   <b>
+    Lévy Processes
+   </b>
+   ) on some probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{P})
+   </math>
+   if
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     X has paths that are
+     <math display="inline">
+      \mathbb{P}
+     </math>
+     -almost surely right 1. continuous with left limits;
+    </li>
+    <li block-type="ListItem">
+     2. given
+     <math display="inline">
+      0 \le s \le t &lt; \infty
+     </math>
+     ,
+     <math display="inline">
+      X_t  X_s
+     </math>
+     is independent of
+     <math display="inline">
+      \{X_u : u &lt; s\};
+     </math>
+    </li>
+    <li block-type="ListItem">
+     3. given
+     <math display="inline">
+      0 \le s \le t &lt; \infty
+     </math>
+     ,
+     <math display="inline">
+      X_t  X_s
+     </math>
+     is equal in distribution to
+     <math display="inline">
+      X_{t-s}
+     </math>
+     ; and
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}(X_0 = 0) = 1\tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is easy to deduce that if
+   <math display="inline">
+    X
+   </math>
+   is a Lévy process, then for each
+   <math display="inline">
+    t &gt; 0
+   </math>
+   the random variable
+   <math display="inline">
+    X_t
+   </math>
+   is infinitely divisible. Indeed, one may also show via a straightforward computation that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left(\mathrm{e}^{i\theta X_{t}}\right) = \mathrm{e}^{-\Psi(\theta)t} \text{ for all } \theta \in \mathbb{R}, \quad t \ge 0 \quad (26)
+   </math>
+  </p>
+  <p block-type="Text">
+   where, in its most general form,
+   <math display="inline">
+    \Psi
+   </math>
+   takes the form given in equation (4). Conversely, it can also be shown that given a Lévy–Khintchine exponent (4) of an infinitely divisible random variable, there exists a Lévy process that satisfies equation (26). In the special case that the Lévy-Khintchine exponent
+   <math display="inline">
+    \Psi
+   </math>
+   belongs to that of a positive-valued infinitely divisible distribution, it follows that the increments of the associated Lévy process must be positive and hence its paths are necessarily monotone increasing. In full generality, a Lévy process may be naively thought of as the independent sum of a linear Brownian motion plus an independent process with discontinuities in its path, which, in turn, may be seen as the limit (in an appropriate sense) of the partial sums of a sequence of compound Poisson processes with drift. The book by Bertoin [1] gives a comprehensive account of the above details.
+  </p>
+  <p block-type="TextInlineMath">
+   The definition of a Lévy process suggests that it may be thought of as a continuous-time analog of a random walk. Let us introduce the exponential random variable with parameter
+   <math display="inline">
+    p
+   </math>
+   , denoted by
+   <math display="inline">
+    \mathbf{e}_p
+   </math>
+   , which henceforth is assumed to be independent of all other random quantities under discussion and defined on the same probability space. Like the geometric distribution, the exponential distribution also has a lack-of-memory property in the sense that for all
+   <math display="inline">
+    0 \le s, t &lt; \infty
+   </math>
+   we have
+   <math display="inline">
+    \mathbb{P}(\mathbf{e}_p &gt; t + s | \mathbf{e}_p &gt; t) =
+   </math>
+   <math display="inline">
+    \mathbb{P}(\mathbf{e}_p &gt; s) = e^{-ps}
+   </math>
+   . Moreover,
+   <math display="inline">
+    \mathbf{e}_p
+   </math>
+   , and, more generally,
+   <math display="inline">
+    X_{e_n}
+   </math>
+   , is infinitely divisible. Indeed, straightforward computations show that for each
+   <math display="inline">
+    n = 1, 2, 3, \ldots
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(\mathrm{e}^{i\theta X_{\mathbf{e}_p}}) = \left(\left(\frac{p}{p+\Psi(\theta)}\right)^{\frac{1}{n}}\right)^n = \mathbb{E}\left(\mathrm{e}^{i\theta X_{\gamma_{1/n,p}}}\right)^n\tag{27}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \gamma_{1/n,p}
+   </math>
+   is a gamma distribution with parameters
+   <math display="inline">
+    1/n
+   </math>
+   and p, which is independent of X. The latter has distribution
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}(\gamma_{1/n,p} \in \mathrm{d}x) = \frac{p^{1/n}}{\Gamma(1/n)} x^{-1+1/n} \mathrm{e}^{-\mathrm{p}x} \, \mathrm{d}x \qquad (28)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    x &gt; 0
+   </math>
+   .
+  </p>
+  <h1>
+   Wiener-Hopf Factorization for Lévy Processes
+  </h1>
+  <p block-type="Text">
+   The Wiener-Hopf factorization for a one-dimensional Lévy processes is slightly more technical than for random walks but, in principle, appeals to essentially the same ideas that have been exhibited in the above exposition of the Wiener-Hopf factorization for random walks. In this section, therefore, we give only a statement of the Wiener-Hopf factorization. The reader who is interested in the full technical details is directed primarily to the article by Greenwood and Pitman [6] for a natural and insightful probabilistic presentation (in the author's opinion). Alternative accounts based on the aforementioned article can be found in the books by Bertoin [1] and Kyprianou [12], and derivation of the Wiener–Hopf factorization for Lévy processes from the Wiener-Hopf factorization for random walks can be found in
+   <math display="inline">
+    [18]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Before proceeding to the statement of the Wiener-Hopf factorization, we first need to introduce the ladder process associated with any Lévy process
+   <math display="inline">
+    X
+   </math>
+   . Here, we encounter more subtleties than for the random walk. Consider the range of the times and positions at which the process
+   <math display="inline">
+    X
+   </math>
+   attains new maxima. That is to say, the random set
+   <math display="inline">
+    \{(t, \overline{X}_t) : \overline{X}_t = X_t\}
+   </math>
+   where
+   <math display="inline">
+    \overline{X}_t = \sup_{s \leq t} X_s
+   </math>
+   is the running maximum. It turns out that this range is equal in law to the range of a killed bivariate subordinator
+   <math display="inline">
+    (\tau, H) = \{(\tau_t, H_t) :
+   </math>
+   <math display="inline">
+    t &lt; \zeta
+   </math>
+   , where the killing time
+   <math display="inline">
+    \zeta
+   </math>
+   is an independent and exponentially distributed random variable with some rate
+   <math display="inline">
+    \lambda \geq 0
+   </math>
+   . In the case that
+   <math display="inline">
+    \lim_{t \uparrow \infty} X_t = \infty
+   </math>
+   , there should be no killing in the process
+   <math display="inline">
+    (\tau, H)
+   </math>
+   and hence
+   <math display="inline">
+    \lambda = 0
+   </math>
+   and we interpret
+   <math display="inline">
+    \mathbb{P}(\zeta = \infty) = 1
+   </math>
+   . Note that we may readily define the Laplace exponent of the killed process
+   <math display="inline">
+    (\tau, H)
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(\mathrm{e}^{-\alpha\tau_{t}-\beta H_{t}}\mathbf{1}_{(t&lt;\zeta)}) = \mathrm{e}^{-\kappa(\alpha,\beta)t} \tag{29}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for all
+   <math display="inline">
+    \alpha, \beta \ge 0
+   </math>
+   where, necessarily,
+   <math display="inline">
+    \kappa(\alpha, \beta) = \lambda +
+   </math>
+   <math display="inline">
+    \phi(\alpha, \beta)
+   </math>
+   is the rate of
+   <math display="inline">
+    \zeta
+   </math>
+   , and
+   <math display="inline">
+    \phi
+   </math>
+   is the bivariate Laplace exponent of the unkilled process
+   <math display="inline">
+    \{(\tau_t, H_t) : t \ge 0\}.
+   </math>
+   Analogous to the role played by joint probability generating and characteristic exponent of the pair
+   <math display="inline">
+    (N, S_N)
+   </math>
+   in Theorem 1 (iii), the quantity
+   <math display="inline">
+    \kappa(\alpha, \beta)
+   </math>
+   also is prominent in the Wiener-Hopf factorization for Lévy processes, which we state below. To do so, we give one final definition. For each
+   <math display="inline">
+    t &gt; 0
+   </math>
+   , let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{G}_{\mathbf{e}_p} = \sup\{s &lt; \mathbf{e}_p : X_s = \overline{X}_s\} \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 2 (The Wiener-Hopf Factorization for
+   <b>
+    Lévy Processes)
+   </b>
+   Suppose that
+   <math display="inline">
+    X
+   </math>
+   is any Lévy process other than a compound Poisson process. As usual, denote by
+   <math display="inline">
+    \mathbf{e}_p
+   </math>
+   an independent and exponentially distributed random variable.
+  </p>
+  <p block-type="Text">
+   (i) The pairs
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (\overline{G}_{\mathbf{e}_p}, \overline{X}_{\mathbf{e}_p})
+   </math>
+   and
+   <math>
+    (\mathbf{e}_p - \overline{G}_{\mathbf{e}_p}, \overline{X}_{\mathbf{e}_p} - X_{\mathbf{e}_p})
+   </math>
+   (31)
+  </p>
+  <p block-type="TextInlineMath">
+   are independent and infinitely divisible. (ii)
+   <i>
+    For
+   </i>
+   <math display="inline">
+    \alpha, \beta \ge 0
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left(\mathrm{e}^{-\alpha\overline{G}_{\mathbf{e}_{p}}-\beta\overline{X}_{\mathbf{e}_{p}}}\right) = \frac{\kappa(p,0)}{\kappa(p+\alpha,\beta)}\qquad(32)
+   </math>
+  </p>
+  <p block-type="Text">
+   (iii) The Laplace exponent
+   <math display="inline">
+    \kappa(\alpha, \beta)
+   </math>
+   may be identified in terms of the law of
+   <math display="inline">
+    X
+   </math>
+   in the following way,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \kappa(\alpha,\beta) = k \exp\left(\int_0^\infty \int_0^\infty \left(e^{-t} - e^{-\alpha t - \beta x}\right) \times \mathbb{P}(X_t \in dx) \frac{dt}{t}\right)
+   </math>
+   (33)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \alpha, \beta \ge 0
+   </math>
+   and k is a dimensionless strictly positive constant.
+  </p>
+  <h1>
+   The First Passage Problem and
+   <b>
+    Mathematical Finance
+   </b>
+  </h1>
+  <p block-type="Text">
+   There are many applications of the Wiener-Hopf factorization in applied probability, and mathematical finance is no exception in this respect. One of the most prolific links is the relationship between the information contained in the Wiener-Hopf factorization and the distributions of the first passage times
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_x^+ := \inf\{t &gt; 0 : X_t &gt; x\} \text{ and}
+   </math>
+   <br/>
+   <math>
+    \tau_x^- := \inf\{t &gt; 0 : X_t &lt; x\}
+   </math>
+   (34)
+  </p>
+  <p block-type="TextInlineMath">
+   together with the overshoots
+   <math display="inline">
+    X_{\tau^+} - x
+   </math>
+   and
+   <math display="inline">
+    x - X_{\tau^-}
+   </math>
+   , where
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   . In turn, this is helpful for the pricing of certain types of exotic options.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   For example, in a simple market model for which there is one risky asset modeled by an exponential Lévy process and one riskless asset with a fixed rate of return, say
+   <math display="inline">
+    r &gt; 0
+   </math>
+   , the value of a perpetual American put, or indeed a perpetual down-and-in
+  </p>
+  <p block-type="Text">
+   put, boils down to the computation of the following quantity:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_{y}(x) := \mathbb{E}\left(\mathrm{e}^{-r\tau_{y}^{-}}\left(K - \mathrm{e}^{X_{\tau_{y}^{-}}}\right)^{+} | X_{0} = x\right) \quad (35)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    y \in \mathbb{R}
+   </math>
+   and
+   <math display="inline">
+    z^+ = \max\{0, z\}
+   </math>
+   and the expectation is taken with respect to an appropriate risk-neutral measure that keeps
+   <math display="inline">
+    X
+   </math>
+   in the class of Lévy processes (e.g., the measure that occurs as a result of the Escher transform). To see the connection with the Wiener-Hopf factorization consider the following lemma and its corollary:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Lemma 1
+   </b>
+   For all
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   and
+   <math display="inline">
+    x &gt; 0
+   </math>
+   we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left(\mathrm{e}^{-\alpha\tau_{x}^{+}-\beta X_{\tau_{x}^{+}}}\mathbf{1}_{(\tau_{x}^{+}&lt;\infty)}\right) = \frac{\mathbb{E}\left(\mathrm{e}^{-\beta\overline{X}_{\mathbf{e}_{\alpha}}}\mathbf{1}_{\left(\overline{X}_{\mathbf{e}_{\alpha}}&gt;x\right)}\right)}{\mathbb{E}\left(\mathrm{e}^{-\beta\overline{X}_{\mathbf{e}_{\alpha}}}\right)}\tag{36}
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Proof
+   </b>
+   First, assume that
+   <math display="inline">
+    \alpha
+   </math>
+   ,
+   <math display="inline">
+    \beta
+   </math>
+   ,
+   <math display="inline">
+    x &gt; 0
+   </math>
+   and note that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;\mathbb{E}\left(\mathrm{e}^{-\beta\overline{X}_{\mathbf{e}_{\alpha}}}\mathbf{1}_{\left(\overline{X}_{\mathbf{e}_{\alpha}}&gt;x\right)}\right) \\ &amp;= \mathbb{E}\left(\mathrm{e}^{-\beta\overline{X}_{\mathbf{e}_{\alpha}}}\mathbf{1}_{\left(\tau_{x}^{+}&lt;\mathbf{e}_{\alpha}\right)}\right) \\ &amp;= \mathbb{E}\left(\mathbf{1}_{\left(\tau_{x}^{+}&lt;\mathbf{e}_{\alpha}\right)}\mathrm{e}^{-\beta X_{\tau_{x}^{+}}}\mathbb{E}\left(\mathrm{e}^{-\beta\left(\overline{X}_{\mathbf{e}_{\alpha}}-X_{\tau_{x}^{+}}\right)}\middle|\mathcal{F}_{\tau_{x}^{+}}\right)\right) \tag{37} \end{split}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Now, conditionally on
+   <math display="inline">
+    \underline{\mathcal{F}}_{\tau_x^+}
+   </math>
+   and on the event
+   <math display="inline">
+    \tau_x^+ &lt; \mathbf{e}_{\alpha}
+   </math>
+   , the random variables
+   <math display="inline">
+    \overline{X}_{\mathbf{e}_{\alpha}}-X_{\tau_{x}^{+}}
+   </math>
+   and
+   <math display="inline">
+    \overline{X}_{\mathbf{e}_{\alpha}}
+   </math>
+   have the same distribution, thanks to the lack-of-memory property of
+   <math display="inline">
+    \mathbf{e}_{\alpha}
+   </math>
+   and the strong Markov property. Hence, we have the factorization
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left(\mathrm{e}^{-\beta\overline{X}_{\mathbf{e}_{\alpha}}}\mathbf{1}_{\left(\overline{X}_{\mathbf{e}_{\alpha}}&gt;x\right)}\right) = \mathbb{E}\left(\mathrm{e}^{-\alpha\tau_{x}^{+}-\beta X_{\tau_{x}^{+}}}\right)\mathbb{E}\left(\mathrm{e}^{-\beta\overline{X}_{\mathbf{e}_{\alpha}}}\right)
+   </math>
+   (38)
+  </p>
+  <p block-type="Text">
+   The case that
+   <math display="inline">
+    \beta
+   </math>
+   or x is equal to zero can be achieved by taking limits on both sides of the above equality.
+  </p>
+  <p block-type="Text">
+   By replacing X by
+   <math display="inline">
+    -X
+   </math>
+   in Lemma 1, we get the following analogous result for first passage into the negative half line.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Corollary 1
+   </b>
+   <i>
+    For all
+   </i>
+   <math display="inline">
+    \alpha, \beta \ge 0
+   </math>
+   <i>
+    and
+   </i>
+   <math display="inline">
+    x \ge 0
+   </math>
+   <i>
+    , we have
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left(\mathrm{e}^{-\alpha\tau_{-x}^{-}+\beta X_{\tau_{-x}^{-}}}\mathbf{1}_{(\tau_{-x}^{-}&lt;\infty)}\right) = \frac{\mathbb{E}\left(\mathrm{e}^{\beta \underline{X}_{\mathbf{e}_{\alpha}}}\mathbf{1}_{(-\underline{X}_{\mathbf{e}_{\alpha}}&gt;x)}\right)}{\mathbb{E}\left(\mathrm{e}^{\beta \underline{X}_{\mathbf{e}_{\alpha}}}\right)}\tag{39}
+   </math>
+  </p>
+  <p block-type="Text">
+   In that case, we may develop the expression in equation
+   <math display="inline">
+    (35)
+   </math>
+   by using Corollary 1 to obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_{y}(x) = \frac{\mathbb{E}\left(\left(K\mathbb{E}\left[e^{\underline{X}_{e_{r}}}\right] - e^{x + \underline{X}_{e_{r}}}\right)\mathbf{1}_{\left(-\underline{X}_{e_{r}} &gt; x - y\right)}\right)}{\mathbb{E}\left(e^{\underline{X}_{e_{r}}}\right)}
+   </math>
+   (40)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \underline{X}_{t} = \inf_{s &lt; t} X_{s}
+   </math>
+   is the running infimum. Ultimately, further development of the expression on the right-hand side above requires knowledge of the distribution of
+   <math display="inline">
+    X_{\bullet}
+   </math>
+   . This is information, which, in principle, can be extracted from the Wiener-Hopf factorization.
+  </p>
+  <p block-type="Text">
+   We conclude by mentioning the articles
+   <math display="inline">
+    [5, 10]
+   </math>
+   and [11] in which the Wiener-Hopf factorization is used for the pricing of barrier options (see Lookback Options).
+  </p>
+  <h4>
+   <b>
+    End Notes
+   </b>
+  </h4>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;It is this part of the proof that makes the connection with the general analytic technique of the Wiener-Hopf method of factorizing operators. This also explains the origin of the terminology Weiner-Hopf factorization for what is otherwise a path, and consequently distributional, decomposition.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bertoin, J. (1996). Lévy Processes, Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [2] Borovkov, A.A. (1976). Stochastic Processes in Oueueing Theory, Springer-Verlag.
+    </li>
+    <li block-type="ListItem">
+     [3] Feller, W. (1971). An Introduction to Probability Theory and its Applications, 2nd Edition, Wiley, Vol. II.
+    </li>
+    <li block-type="ListItem">
+     Fristedt, B.E. (1974). Sample functions of stochastic pro-[4] cesses with stationary independent increments, Advances in Probability 3, 241-396.
+    </li>
+    <li block-type="ListItem">
+     [5] Fusai, G., Abrahams, I.D. &amp; Sgarra, C. (2006). An exact analytical solution for discrete barrier options, Finance and Stochastics
+     <math display="inline">
+      10
+     </math>
+     , 1–26.
+    </li>
+    <li block-type="ListItem">
+     Greenwood, P.E. &amp; Pitman, J.W. (1979). Fluctua-[6] tion identities for Lévy processes and splitting at
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   the maximum,
+   <i>
+    Advances in Applied Probability
+   </i>
+   <b>
+    12
+   </b>
+   , 839–902.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [7] Greenwood, P.E. &amp; Pitman, J.W. (1980). Fluctuation identities for random walk by path decomposition at the maximum. Abstracts of the Ninth Conference on Stochastic Processes and Their Applications, Evanston, Illinois, 6–10 August 1979,
+     <i>
+      Advances in Applied Probability
+     </i>
+     <b>
+      12
+     </b>
+     , 291–293.
+    </li>
+    <li block-type="ListItem">
+     [8] Gusak, D.V. &amp; Korolyuk, V.S. (1969). On the joint distribution of a process with stationary independent increments and its maximum.
+     <i>
+      Theory of Probability
+     </i>
+     <b>
+      14
+     </b>
+     , 400–409.
+    </li>
+    <li block-type="ListItem">
+     [9] Hopf, E. (1934).
+     <i>
+      Mathematical Problems of Radiative Equilibrium
+     </i>
+     . Cambridge tracts, No. 31.
+    </li>
+    <li block-type="ListItem">
+     [10] Jeannin, M. &amp; Pistorius, M.R. (2007).
+     <i>
+      A Transform Approach to Calculate Prices and Greeks of Barrier Options Driven by a Class of L´evy
+     </i>
+     . Available at arXiv: http://arxiv.org/abs/0812.3128.
+    </li>
+    <li block-type="ListItem">
+     [11] Kudryavtsev, O. &amp; Levendorski, S.Z. (2007).
+     <i>
+      Fast and Accurate Pricing of Barrier Options Under Levy Processes
+     </i>
+     . Available at SSRN: http://ssrn.com/abstract= 1040061.
+    </li>
+    <li block-type="ListItem">
+     [12] Kyprianou, A.E. (2006).
+     <i>
+      Introductory Lectures on Fluctuations of L´evy Processes with Applications
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [13] Payley, R. &amp; Wiener, N. (1934).
+     <i>
+      Fourier Transforms in the Complex Domain
+     </i>
+     , American Mathematical Society. Colloquium Publications, New York, Vol. 19.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [14] Percheskii, E.A. &amp; Rogozin, B.A. (1969). On the joint distribution of random variables associated with fluctuations of a process with independent increments,
+     <i>
+      Theory of Probability and its Applications
+     </i>
+     <b>
+      14
+     </b>
+     , 410–423.
+    </li>
+    <li block-type="ListItem">
+     [15] Spitzer, E. (1956). A combinatorial lemma and its application to probability theory,
+     <i>
+      Transactions of the American Mathematical Society
+     </i>
+     <b>
+      82
+     </b>
+     , 323–339.
+    </li>
+    <li block-type="ListItem">
+     [16] Spitzer, E. (1957). The Wiener-Hopf equation whose kernel is a probability density,
+     <i>
+      Duke Mathematical Journal
+     </i>
+     <b>
+      24
+     </b>
+     , 327–343.
+    </li>
+    <li block-type="ListItem">
+     [17] Spitzer, E. (1964).
+     <i>
+      Principles of Random Walk
+     </i>
+     , Van Nostrand.
+    </li>
+    <li block-type="ListItem">
+     [18] Sato, K.-I. (1999).
+     <i>
+      L´evy Processes and Infinitely Divisible Distributions
+     </i>
+     , Cambridge University Press.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Fractional Brownian Motion
+   </b>
+   ;
+   <b>
+    Infinite Divisibility
+   </b>
+   ;
+   <b>
+    Levy Processes ´
+   </b>
+   ;
+   <b>
+    Lookback Options
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ANDREAS E. KYPRIANOU
+  </p>
+ </body>
+</html>

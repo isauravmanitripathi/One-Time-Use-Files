@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Stochastic Control in
+   </b>
+   Insurance
+  </h1>
+  <h1>
+   <b>
+    Classification of Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   The stochastic control problem in insurance can be classified according to the type of models used to describe the
+   <i>
+    surplus
+   </i>
+   or the
+   <i>
+    risk
+   </i>
+   process (see Insurance Risk Models), the particular controls that are allowed, and the nature of the objective function.
+  </p>
+  <h2>
+   Modeling of the Surplus
+  </h2>
+  <p block-type="Text">
+   In the classical Cramér-Lundberg model, the risk process is modeled by a compound Poisson process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) = R(0) + pt - \sum_{0}^{A(t)} U_i \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    A(t)
+   </math>
+   is the Poisson process of the incoming claims, whose intensity
+   <math display="inline">
+    \beta
+   </math>
+   without loss of generality can be set to 1, the i.i.d. sequence
+   <math display="inline">
+    U_i
+   </math>
+   represents the sizes of the successive claims and
+   <math display="inline">
+    p
+   </math>
+   is the premium rate with
+   <math display="inline">
+    p = (1 + \eta)EU
+   </math>
+   , with
+   <math display="inline">
+    \eta
+   </math>
+   being the
+   <i>
+    relative
+   </i>
+   safety loading. If one considers a sequence of such models with
+   <math display="inline">
+    R^n(0) = xn^{1/2}
+   </math>
+   and
+   <math display="inline">
+    \eta^n = \mu n^{-1/2}
+   </math>
+   , then
+   <math display="inline">
+    R^n(nt)n^{-1/2}
+   </math>
+   converges weakly to a Brownian motion with drift
+   <math display="inline">
+    \mu
+   </math>
+   and diffusion coefficient
+   <math display="inline">
+    \sigma = [EU^2]^{1/2}
+   </math>
+   .
+  </p>
+  <h1>
+   Reinsurance
+  </h1>
+  <p block-type="Text">
+   The risk control in either of such models is done by way of reinsurance (see Reinsurance). This is a contract that the
+   <i>
+    cedent
+   </i>
+   (the original insurance company) makes with the reinsurance company so that the reinsurance company pays a part or all of each of the incoming claims in exchange for the portion of the premiums coming to the cedent. The cedent makes a decision on the
+   <i>
+    retention level
+   </i>
+   <math display="inline">
+    a
+   </math>
+   , and the size of each claim is reduced from
+   <math display="inline">
+    U_i
+   </math>
+   to
+   <math display="inline">
+    U_i^a
+   </math>
+   , while the premium rate is simultaneously reduced from p to
+   <math display="inline">
+    p^a
+   </math>
+   ; the precise meaning of this is different for different types of the reinsurances involved. The following are the most common types of reinsurances considered in the literature:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Proportional reinsurance.
+     <math display="inline">
+      U^a = aU
+     </math>
+     ,
+     <math display="inline">
+      0 \le a \le 1
+     </math>
+     . .
+    </li>
+    <li block-type="ListItem">
+     Excess-of-loss reinsurance.
+     <math display="inline">
+      U^a = U \wedge a
+     </math>
+     ,
+     <math display="inline">
+      0 \le
+     </math>
+     <math display="inline">
+      a &lt; \infty
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   •
+   <i>
+    XL
+   </i>
+   -reinsurance.
+   <math display="inline">
+    U^a = U \wedge M + (U - M - L)^+
+   </math>
+   . Here
+   <math display="inline">
+    a = (M, L)
+   </math>
+   is described by two parameters
+   <math display="inline">
+    0 &lt; L, M &lt; \infty
+   </math>
+   , with M being called the retention level and
+   <math display="inline">
+    L
+   </math>
+   being called the
+   <i>
+    limit
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   When the type of the reinsurance is fixed, the premium rate
+   <math display="inline">
+    p^a
+   </math>
+   depends on the premium calculation principle:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Expected value principle.
+     <math display="inline">
+      p^a = p  (1 + \eta_1)E(U)
+     </math>
+     <math display="inline">
+      \bullet
+     </math>
+     <math display="inline">
+      -U^{a}
+     </math>
+     ), where
+     <math display="inline">
+      \eta_{1}
+     </math>
+     is the safety loading of the reinsurer.
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       <i>
+        Cheap reinsurance.
+       </i>
+       <math display="inline">
+        \eta_1 = \eta
+       </math>
+       . In this case,
+       <math display="inline">
+        p^a = (1 + \eta)E(U^a).
+       </math>
+      </li>
+     </ul>
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       Noncheap reinsurance.
+       <math display="inline">
+        \eta_1 &gt; \eta
+       </math>
+       .
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Variance principle.
+   <math display="inline">
+    \bullet
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p^{a} = p - [E(U - U^{a}) + p_{1} \text{var}(U - U^{a})]
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Given the reinsurance scheme, once the level
+   <math display="inline">
+    a
+   </math>
+   is chosen, the dynamics of the surplus process
+   <math display="inline">
+    R^{a}(t)
+   </math>
+   will be governed by equation (1) with
+   <math display="inline">
+    U
+   </math>
+   replaced by
+   <math display="inline">
+    U^a
+   </math>
+   and p replaced by
+   <math display="inline">
+    p^a
+   </math>
+   . If one makes a diffusion approximation then the limiting process will be a linear diffusion with drift
+   <math display="inline">
+    \mu^a
+   </math>
+   and diffusion coefficient
+   <math display="inline">
+    \sigma^a
+   </math>
+   , while
+   <math display="inline">
+    \sigma^a = E[(U^a)^2]^{1/2}
+   </math>
+   is the same as before. Further,
+   <math display="inline">
+    \mu^a
+   </math>
+   is equal to the difference between the premium rate per unit time and the expected losses per unit time.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     proportional reinsurance.
+     <math display="inline">
+      \mu^a = a\mu
+     </math>
+     , Cheap
+     <math display="inline">
+      \sigma^a = a\sigma.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Noncheap proportional reinsurance.
+     <math display="inline">
+      \mu^a = \mu
+     </math>
+     <math display="inline">
+      (1-a)\lambda
+     </math>
+     ,
+     <math display="inline">
+      \sigma^a = a\sigma
+     </math>
+     ,
+     <math display="inline">
+      \lambda &gt; \mu
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     Excess-of-loss reinsurance.
+     <math display="inline">
+      \mu^a = \int_0^a (1  F(x)) dx
+     </math>
+     ,
+     <math display="inline">
+      \sigma^a = \left[ \int_0^a 2x(1  F(x)) dx \right]^{1/2}
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   In stochastic control models, the reinsurance is dynamically controlled, that is,
+   <math display="inline">
+    a = a(t)
+   </math>
+   , where
+   <math display="inline">
+    a(t)
+   </math>
+   is a process adapted to the information filtration. Other controls used in the insurance optimization models are given below.
+  </p>
+  <h2>
+   Dividend Control
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   In the problems where the objective is to maximize the present value of the dividends, the latter is controlled. The corresponding control is described by an increasing functional
+   <math display="inline">
+    L(t)
+   </math>
+   which is the cumulative amount of dividends paid out up to time
+   <math display="inline">
+    t
+   </math>
+   . From the definition, it follows that
+   <math display="inline">
+    L(t)
+   </math>
+   is an increasing
+  </p>
+  <p block-type="TextInlineMath">
+   right-continuous process with
+   <math display="inline">
+    L(0-) = 0
+   </math>
+   . As with any control functional, it should be adapted to the information filtration, and in addition we require that for any t (deterministic or random)
+   <math display="inline">
+    L(t) - L(t-) &lt;
+   </math>
+   <math display="inline">
+    R(t)
+   </math>
+   , where
+   <math display="inline">
+    R(t)
+   </math>
+   is the value of the surplus at time t.
+  </p>
+  <h2>
+   Investment Control
+  </h2>
+  <p block-type="Text">
+   In case the models allow the surplus to be invested in the financial market we have a third control
+   <math display="inline">
+    b(t)
+   </math>
+   representing the amount invested in the risky asset at time
+   <math display="inline">
+    t
+   </math>
+   (for simplicity, we consider here only the Black-Scholes financial market (see Black-Scholes
+   <b>
+    Formula
+   </b>
+   ) with one risky asset; the generalization to multiple assets and other markets is obvious).
+  </p>
+  <h2>
+   Model Formulation and the Hamilton-Jacobi-Bellman Equation
+  </h2>
+  <p block-type="TextInlineMath">
+   Any stochastic control model starts with a probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, P)
+   </math>
+   endowed with a filtration (see
+   <b>
+    Filtrations
+   </b>
+   )
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   ,
+   <math display="inline">
+    t \ge 0
+   </math>
+   and a process
+   <math display="inline">
+    \sum_{i=1}^{A(t)} U_i
+   </math>
+   (in the case of Cramér-Lundberg modeling) or a standard Brownian motion
+   <math display="inline">
+    w(t)
+   </math>
+   adapted to
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   . A control
+   <math display="inline">
+    \pi
+   </math>
+   consists of a triple
+   <math display="inline">
+    (a(\cdot), b(\cdot), L(\cdot))
+   </math>
+   of functionals adapted to the information filtration
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   . If it satisfies the previously mentioned restrictions, then the control is admissible. Once the control
+   <math display="inline">
+    \pi
+   </math>
+   is chosen, then in the case of the Cramér-Lundberg model the dynamics of the controlled surplus process becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dR(t) = p^{a(t)} dt - dN^{a(t)}(t)
+   </math>
+   <br/>
+   + b(t) dS
+   <sub>
+    1
+   </sub>
+   (t)/S
+   <sub>
+    1
+   </sub>
+   (t) + (R(t)
+   <br/>
+   - b(t)) dS
+   <sub>
+    0
+   </sub>
+   (t)/S
+   <sub>
+    0
+   </sub>
+   (t) - dL(t) (2)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(0) = x \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    dN^{a}(t)(t) = U^{a(t)}1_{A(t)-A(t-)=1}
+   </math>
+   . In the case of the diffusion approximation, the surplus is governed by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX(t) = \mu^{a(t)} dt + \sigma^{a(t)} dw(t)
+   </math>
+   <br/>
+   + b(t) dS
+   <sub>
+    1
+   </sub>
+   (t)/S
+   <sub>
+    1
+   </sub>
+   (t) + (X(t)
+   <br/>
+   - b(t)) dS
+   <sub>
+    0
+   </sub>
+   (t)/S
+   <sub>
+    0
+   </sub>
+   (t) - dL(t) (4)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X(0) = x \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+   <math display="inline">
+    S_0(t)
+   </math>
+   and
+   <math display="inline">
+    S_1(t)
+   </math>
+   being the price process for riskfree and risky asset, respectively.
+  </p>
+  <h4>
+   Objectives
+  </h4>
+  <p block-type="Text">
+   We describe below the two most popular objectives that are studied in the optimization models in insurance.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Ruin probability minimization. In this case, the third control related to dividends payouts is not present and
+     <math display="inline">
+      \pi = (a(\cdot), b(\cdot))
+     </math>
+     . The stopping time
+     <math display="inline">
+      \tau
+     </math>
+     , which is the hitting time of
+     <math display="inline">
+      (-\infty, 0)
+     </math>
+     by the surplus process (that is the first time when the surplus process becomes negative) is called the ruin time (see
+     <b>
+      Ruin Theory
+     </b>
+     ). With each control
+     <math display="inline">
+      \pi
+     </math>
+     , a performance index
+     <math display="inline">
+      J_{\rm x}(\pi) = P(\tau &lt;
+     </math>
+     <math display="inline">
+      \infty
+     </math>
+     ) is defined, where x stands for the initial surplus. The objective is to find the
+     <i>
+      value function
+     </i>
+     <math display="inline">
+      V(x) = \inf_{\pi} J_x(\pi)
+     </math>
+     and the associated
+     <i>
+      optimal control
+     </i>
+     <math display="inline">
+      \pi^*
+     </math>
+     , such that
+     <math display="inline">
+      V(x) = J_x(\pi^*)
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     <i>
+      Dividend optimization
+     </i>
+     . The performance index in this case is related to the expected cumulative present value of the total dividend payouts until the time of bankruptcy. If there is no setup cost each time the dividend payments are initiated and the payments can be paid in a continuous manner, then
+     <math display="inline">
+      J_x(\pi) = E\left[\int_0^{\tau} e^{-ct} dL(t)\right]
+     </math>
+     , where c is the discount rate. The value function and the optimal control are defined as
+     <math display="inline">
+      V(x) = \sup_{\pi} J_{x}(\pi)
+     </math>
+     and
+     <math display="inline">
+      J_x(\pi^*) = V(x)
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   In the models with a setup cost,
+   <math display="inline">
+    L(t) = \sum_{0}^{\infty} \xi_{i}
+   </math>
+   <math display="inline">
+    1_{\zeta_i \leq t}
+   </math>
+   where
+   <math display="inline">
+    \zeta_i
+   </math>
+   is an increasing sequence of stopping times, corresponding to the times when the dividends are paid out and
+   <math display="inline">
+    \xi_i
+   </math>
+   is a positive
+   <math display="inline">
+    \mathcal{F}_{\zeta}
+   </math>
+   -measurable random variable representing the amount of dividends paid out at the times
+   <math display="inline">
+    \zeta_i
+   </math>
+   . In this case,
+   <math display="inline">
+    J_x(\pi) = E\left[\sum_{i=1}^{\infty} e^{-c\zeta_i} g(\xi_i)\right]
+   </math>
+   , where
+   <math display="inline">
+    g(y)
+   </math>
+   is a function showing the amount of dividends that reaches shareholders, if
+   <math display="inline">
+    \nu
+   </math>
+   of the surplus is used for the dividend distribution, for example,
+   <math display="inline">
+    g(x) = x - K.
+   </math>
+  </p>
+  <h2>
+   Optimality Equations and the Optimal Control
+  </h2>
+  <p block-type="TextInlineMath">
+   For any fixed pair
+   <math display="inline">
+    a, b
+   </math>
+   , let
+   <math display="inline">
+    R^{a,b}
+   </math>
+   or
+   <math display="inline">
+    X^{a,b}
+   </math>
+   be the process defined by equation (2) or (4), respectively, with
+   <math display="inline">
+    a(t) \equiv a, b(t) \equiv b
+   </math>
+   and
+   <math display="inline">
+    L(t) \equiv 0
+   </math>
+   , and let
+   <math display="inline">
+    \mathcal{L}^{a,b}
+   </math>
+   be the infinitesimal generator of this process. Then dynamic programming shows that if
+   <math display="inline">
+    V(x)
+   </math>
+   is a
+   <math display="inline">
+    C^2
+   </math>
+   function, then in the case of ruin probability minimization it satisfies the Hamilton–Jacobi–Bellman equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \min_{a,b} \mathcal{L}^{a,b} V(x) = 0 \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In diffusion models, equation (6) is a fully nonlinear second-order differential equation, while in the Cramer–Lundberg case it is a second order integro- ´ differential equation. One of the boundary conditions for equation (6) is
+   <i>
+    V (
+   </i>
+   ∞
+   <i>
+    )
+   </i>
+   = 0, and the second boundary condition is at the point 0. For the diffusion case, it is
+   <i>
+    V (
+   </i>
+   0
+   <i>
+    )
+   </i>
+   = 1, while in the Cramer–Lundberg case ´ it is
+   <i>
+    γV(
+   </i>
+   0
+   <i>
+    )
+   </i>
+   +
+   <i>
+    δV (
+   </i>
+   0
+   <i>
+    )
+   </i>
+   = 0, with
+   <i>
+    γ
+   </i>
+   and
+   <i>
+    δ
+   </i>
+   determined from the exogenous parameters of the problem. The argmin
+   <i>
+    (A
+   </i>
+   <sup>
+    ∗
+   </sup>
+   <i>
+    (x), B
+   </i>
+   <sup>
+    ∗
+   </sup>
+   <i>
+    (x))
+   </i>
+   of the left-hand side of equation (6) provides the
+   <i>
+    optimal feedback control functions
+   </i>
+   , which when substituted into equation (2) or (4) as
+   <i>
+    (A
+   </i>
+   <sup>
+    ∗
+   </sup>
+   <i>
+    (R(t)), B
+   </i>
+   <sup>
+    ∗
+   </sup>
+   <i>
+    (R(t)))
+   </i>
+   or as
+   <i>
+    (A
+   </i>
+   <sup>
+    ∗
+   </sup>
+   <i>
+    (X(t)), B
+   </i>
+   <sup>
+    ∗
+   </sup>
+   <i>
+    (X(t)))
+   </i>
+   in the place of
+   <i>
+    a(t)
+   </i>
+   and
+   <i>
+    b(t)
+   </i>
+   results in the stochastic differential equation whose solution yields the optimal surplus process and the optimal control as a function of time.
+  </p>
+  <p block-type="Text">
+   For the dividend optimization problem, the Hamilton–Jacobi–Bellman equation for the value function takes on the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \max[\max_{a,b} \mathcal{L}^{a,b} V(x) - cV(x), \mathcal{M}V(x)] = 0 \quad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The operator M, in the case of continuous dividend payments, is the first-order differential operator 1 −
+   <i>
+    V (x)
+   </i>
+   , while in the case of discrete payments it is of a quasi-variational form max
+   <i>
+    y&lt;x
+   </i>
+   [
+   <i>
+    V (x)
+   </i>
+   −
+   <i>
+    V (y)
+   </i>
+   +
+   <i>
+    (x
+   </i>
+   −
+   <i>
+    y)
+   </i>
+   −
+   <i>
+    K
+   </i>
+   ]. The boundary conditions at ∞ are of a polynomial growth type. The boundary condition at 0 for the Cramer–Lundberg model is similar to the ´ ruin minimization case, and for the diffusion model it is
+   <i>
+    V (
+   </i>
+   0
+   <i>
+    )
+   </i>
+   = 0. The optimal feedback risk and investment control functions are determined the same way as before, while the smallest point where the solution satisfies M
+   <i>
+    V (x)
+   </i>
+   = 0 determines the level which the surplus under the optimal control should never exceed and reaching which triggers the dividends payments.
+  </p>
+  <h1>
+   <b>
+    Bibliographical Remarks
+   </b>
+  </h1>
+  <p block-type="Text">
+   A discrete time model of ruin probability minimization in which reinsurance and investment are present was considered in [16]. Ruin probability minimization in the Cramer–Lundberg case was studied [9–11]. For diffusion models, this problem was treated in [15, 17, 18, 20].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   One of the first dividend maximization problems in the framework of the classical risk process was considered in [4] and [7]. There, the optimality of the
+  </p>
+  <p block-type="Text">
+   barrier strategy was stated. A dividend distribution model with the reinsurance control was studied in [3].
+  </p>
+  <p block-type="Text">
+   Dividend optimization in diffusion models with continuous dividend payouts was considered in [1, 2, 12–14]. An analysis of the model in which a setup cost leads to discrete optimal dividend payouts is done in [5].
+  </p>
+  <p block-type="Text">
+   Problems of optimal control of a pension fund were studied in [6] and [8]. The monograph [19] is a good source of the methods and techniques used in application of stochastic control in insurance. It also provides a comprehensive list of the literature.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Asmussen, S., Højgaard, B. &amp; Taksar, M. (1999). Optimal risk control and dividend distribution policies. Example of Excess-of-Loss reinsurance,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      4
+     </b>
+     , 299–324.
+    </li>
+    <li block-type="ListItem">
+     [2] Asmussen, S. &amp; Taksar, M. (1997). Controlled diffusion models for optimal dividend pay-out,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      20
+     </b>
+     , 1–15.
+    </li>
+    <li block-type="ListItem">
+     [3] Azcue, P. &amp; Muler, N. (2005). Optimal reinsurance and dividend distribution policies in Cramer-Lundberg model,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      15
+     </b>
+     , 261–308.
+    </li>
+    <li block-type="ListItem">
+     [4] Buhlmann, H. (1970). ¨
+     <i>
+      Mathematical Methods in Risk Theory
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [5] Cadenillas, A., Choulli, T., Taksar, M. &amp; Zhang, L. (2006). Classical and impulse stochastic control for the optimization of the dividend and risk policies of an insurance firm,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      16
+     </b>
+     , 181–202.
+    </li>
+    <li block-type="ListItem">
+     [6] Cairns, A. (2000). Some notes on the dynamic and optimal control of stochastic pension fund models in continuous time,
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      30
+     </b>
+     , 19–55.
+    </li>
+    <li block-type="ListItem">
+     [7] Gerber, H. (1969). Entscheidungsskriterien fur den ¨ zusammengesetzten poisson-prozess,
+     <i>
+      Mitteilungen der Vereinigung Schweizerischer Versicherungsmathe matiker
+     </i>
+     <b>
+      69
+     </b>
+     , 185–228.
+    </li>
+    <li block-type="ListItem">
+     [8] Gerber, H. &amp; Shiu, E. (2000). Investing for retirement: optimal capital growth and dynamic asset allocation,
+     <i>
+      North American Actuarial Journal
+     </i>
+     <b>
+      4
+     </b>
+     , 42–62.
+    </li>
+    <li block-type="ListItem">
+     [9] Hipp, C. &amp; Plum, M. (2000). Optimal investment for insurers,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      27
+     </b>
+     , 215–228.
+    </li>
+    <li block-type="ListItem">
+     [10] Hipp, C. &amp; Plum, M. (2003). Optimal investment for investors with state dependent income, and for insurers,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      27
+     </b>
+     , 215–228.
+    </li>
+    <li block-type="ListItem">
+     [11] Hipp, C. &amp; Vogt, M. (2003). Optimal dynamic XLreinsurance,
+     <i>
+      ASTIN Bulletin
+     </i>
+     ,
+     <b>
+      33
+     </b>
+     , 193–207.
+    </li>
+    <li block-type="ListItem">
+     [12] Højgaard, B. &amp; Taksar, M. (1998). Optimal proportional reinsurance policies for diffusion models,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     <b>
+      2
+     </b>
+     , 166–168.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    4 Stochastic Control in Insurance
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [13] Højgaard, B. &amp; Taksar, M. (1998). Optimal proportional reinsurance policies for diffusion models with transaction costs,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      22
+     </b>
+     , 41–51.
+    </li>
+    <li block-type="ListItem">
+     [14] Højgaard, B. &amp; Taksar, M. (1999). Controlling risk exposure and dividend pay-out schemes: insurance company example,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 153–182.
+    </li>
+    <li block-type="ListItem">
+     [15] Luo, S., Taksar, M. &amp; Tsoi, A. (2008). On reinsurance and investment for large insurance portfolios,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      42
+     </b>
+     , 434–444.
+    </li>
+    <li block-type="ListItem">
+     [16] Schal, M. (2004). On discrete time dynamic program- ¨ ming in insurance: exponential utility and minimization of the ruin probability,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     <b>
+      3
+     </b>
+     , 189–210.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [17] Schmidli, H. (2002). On minimizing the ruin probability by investment and reinsurance,
+     <i>
+      The Annals of Applied Probability
+     </i>
+     <b>
+      12
+     </b>
+     , 890–907.
+    </li>
+    <li block-type="ListItem">
+     [18] Schmidli, H. (2004). Asymptotics of ruin probabilities for risk processes under optimal reinsurance policies,
+     <i>
+      QUESTA
+     </i>
+     <b>
+      46
+     </b>
+     , 149–157.
+    </li>
+    <li block-type="ListItem">
+     [19] Schmidli, H. (2008).
+     <i>
+      Stochastic Control in Insurance
+     </i>
+     , Springer-Verlag, London.
+    </li>
+    <li block-type="ListItem">
+     [20] Taksar, M. &amp; Markussen, C. (2003). Optimal dynamic reinsurance policies for large insurance portfolios,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      7
+     </b>
+     , 97–121.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   MICHAEL TAKSAR
+  </h2>
+ </body>
+</html>

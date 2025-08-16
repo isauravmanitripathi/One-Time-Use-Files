@@ -1,0 +1,5933 @@
+{
+  "blocks": [
+    {
+      "id": "/page/0/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Convex Risk Measures</b></h1>",
+      "page": 512,
+      "polygon": [
+        [
+          75.58984375,
+          70.9412841796875
+        ],
+        [
+          256.5470886230469,
+          70.9412841796875
+        ],
+        [
+          256.5470886230469,
+          89.12310791015625
+        ],
+        [
+          75.58984375,
+          89.12310791015625
+        ]
+      ],
+      "bbox": [
+        75.58984375,
+        70.9412841796875,
+        256.5470886230469,
+        89.12310791015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Quantifying the risk of the uncertainty in the future value of a portfolio is one of the key tasks of risk management. This quantification is usually achieved by modeling the uncertain payoff as a random variable, to which then a certain functional is applied. Such functionals are usually called <i>risk measures</i>. The corresponding industry standard, Value at Risk, is often criticized for encouraging the accumulation of shortfall risk in particular scenarios. This deficiency has lead to a search for more appropriate alternatives. The first step of this search consists in specifying certain desirable axioms for risk measures. In the second step, one then tries to characterize those risk measures that satisfy these axioms and to identify suitable examples. In the section Monetary, Convex, and Coherent Risk Measures, we first provide the various axiom sets for <i>monetary, convex,</i> and <i>coherent</i> risk measures. In the section Acceptance Sets, the representation of monetary risk measures in terms of their <i>acceptance sets</i> is briefly discussed. The general <i>dual representation</i> for convex and coherent risk measures is given in the section Dual Representation. Various examples are provided in the section Examples and Applications. In many situations, it is reasonable to assume that a risk measure depends on the randomness of the portfolio value only through its probability law. Such risk measures are usually called <i>law invariant</i>. They are discussed in the section Law-invariant Risk Measures. Finally, section Conditional Convex Risk Measures and Time Consistency analyzes various notions of <i>dynamic consistency</i> that naturally arise in a multiperiod setting.</p>",
+      "page": 512,
+      "polygon": [
+        [
+          75.95610046386719,
+          111.54754638671875
+        ],
+        [
+          286.4609375,
+          111.54754638671875
+        ],
+        [
+          286.4609375,
+          476.04266357421875
+        ],
+        [
+          75.95610046386719,
+          476.04266357421875
+        ]
+      ],
+      "bbox": [
+        75.95610046386719,
+        111.54754638671875,
+        286.4609375,
+        476.04266357421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Monetary, Convex, and Coherent Risk</b> <b>Measures</b></h1>",
+      "page": 512,
+      "polygon": [
+        [
+          75.228515625,
+          497.4736328125
+        ],
+        [
+          265.9375,
+          497.4736328125
+        ],
+        [
+          265.9375,
+          521.6414489746094
+        ],
+        [
+          75.228515625,
+          521.6414489746094
+        ]
+      ],
+      "bbox": [
+        75.228515625,
+        497.4736328125,
+        265.9375,
+        521.6414489746094
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">The uncertainty in the future value of a portfolio is usually described by a function <i>X</i> :  → , where  is a fixed set of scenarios. For instance, <i>X</i> can be the (discounted) value of the portfolio or the sum of its P&amp;L and some economic capital. The goal is to determine a number <i>ρ(X)</i> that quantifies the risk and can serve as a capital requirement, that is, as the minimal amount of capital that, if added to the position and invested in a risk-free manner, makes the position acceptable. The following axiomatic approach</p>",
+      "page": 512,
+      "polygon": [
+        [
+          75.58984375,
+          532.0275573730469
+        ],
+        [
+          285.73828125,
+          532.0275573730469
+        ],
+        [
+          285.73828125,
+          645.0234375
+        ],
+        [
+          75.58984375,
+          645.0234375
+        ]
+      ],
+      "bbox": [
+        75.58984375,
+        532.0275573730469,
+        285.73828125,
+        645.0234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">to such risk measures was initiated in the coherent case by [1] and later extended to the class of convex risk measures in [26, 30, 33]. In the sequel, X denotes a given linear space of functions <i>X</i> :  →  containing the constants.</p>",
+      "page": 512,
+      "polygon": [
+        [
+          301.78125,
+          71.88641357421875
+        ],
+        [
+          512.796875,
+          71.88641357421875
+        ],
+        [
+          512.796875,
+          130.6982421875
+        ],
+        [
+          301.78125,
+          130.6982421875
+        ]
+      ],
+      "bbox": [
+        301.78125,
+        71.88641357421875,
+        512.796875,
+        130.6982421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><b>Definition 1</b> <i>A mapping</i> <i>ρ</i> : X →  ∪ {+∞} <i>is call</i><i>ed a monetary risk measure if</i> <i>ρ(</i>0<i>)</i> <i>is finite and if</i> <i>ρ</i> <i>satisfies the following conditions for all</i> <i>X</i><i>,</i> <i>Y</i> ∈ X<i>.</i></p>",
+      "page": 512,
+      "polygon": [
+        [
+          301.78125,
+          141.28533935546875
+        ],
+        [
+          512.3336791992188,
+          141.28533935546875
+        ],
+        [
+          512.3336791992188,
+          179.141845703125
+        ],
+        [
+          301.78125,
+          179.141845703125
+        ]
+      ],
+      "bbox": [
+        301.78125,
+        141.28533935546875,
+        512.3336791992188,
+        179.141845703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/ListGroup/511",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\"> <i>Monotonicity</i>: <i>if</i> <i>X</i> ≤ <i>Y</i> <i>, then</i> <i>ρ(X)</i> ≥ <i>ρ(Y )</i><i>.</i></li><li block-type=\"ListItem\"> <i>Cash invariance</i>: <i>if</i> <i>m</i> ∈ <i>, then</i> <i>ρ(X</i> + <i>m)</i> = <i>ρ(X)</i> − <i>m</i><i>.</i></li></ul></p>",
+      "page": 512,
+      "polygon": [
+        [
+          303.2265625,
+          186.34503173828125
+        ],
+        [
+          512.5078125,
+          186.34503173828125
+        ],
+        [
+          512.5078125,
+          221.04901123046875
+        ],
+        [
+          303.2265625,
+          221.04901123046875
+        ]
+      ],
+      "bbox": [
+        303.2265625,
+        186.34503173828125,
+        512.5078125,
+        221.04901123046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The financial meaning of monotonicity is clear: the downside risk of a position is reduced if the payoff profile is increased. Cash invariance is also called <i>translation property</i>; in the normalized case <i>ρ(</i>0<i>)</i> = 0 and <i>ρ(</i>1<i>)</i> = −1, it is equivalent to <i>cash</i> <i>additivity</i>, that is, <i>ρ(X</i> + <i>m)</i> = <i>ρ(X)</i> + <i>ρ(m)</i>. This is motivated by the interpretation of <i>ρ(X)</i> as a capital requirement, that is, <i>ρ(X)</i> is the amount that should be raised in order to make <i>X</i> acceptable from the point of view of a supervising agency. Thus, if the risk-free amount <i>m</i> is appropriately added to the position or to the economic capital, then the capital requirement is reduced by the same amount. Note that we work with discounted quantities (cf. [22] for a discussion of forward risk measures and interest rate ambiguity).</p>",
+      "page": 512,
+      "polygon": [
+        [
+          302.359375,
+          231.5751953125
+        ],
+        [
+          513.375,
+          231.5751953125
+        ],
+        [
+          513.375,
+          424.4931640625
+        ],
+        [
+          302.359375,
+          424.4931640625
+        ]
+      ],
+      "bbox": [
+        302.359375,
+        231.5751953125,
+        513.375,
+        424.4931640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/9",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><b>Definition 2</b> <i>A monetary risk measure</i> <i>ρ</i> <i>is called a</i> <i>convex risk measure if it satisfies the following</i>:</p>",
+      "page": 512,
+      "polygon": [
+        [
+          302.0703125,
+          435.2672424316406
+        ],
+        [
+          512.3345947265625,
+          435.2672424316406
+        ],
+        [
+          512.3345947265625,
+          457.259765625
+        ],
+        [
+          302.0703125,
+          457.259765625
+        ]
+      ],
+      "bbox": [
+        302.0703125,
+        435.2672424316406,
+        512.3345947265625,
+        457.259765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/512",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">• <i>Convexity</i>: <i>ρ(λX</i> + <i>(</i>1 − <i>λ)Y )</i> ≤ <i>λρ(X)</i> + <i>(</i>1 − <i>λ)ρ(Y )</i><i>, for</i> 0 ≤ <i>λ</i> ≤ 1<i>.</i></p>",
+      "page": 512,
+      "polygon": [
+        [
+          302.9375,
+          467.56298828125
+        ],
+        [
+          512.796875,
+          467.56298828125
+        ],
+        [
+          512.796875,
+          490.138671875
+        ],
+        [
+          302.9375,
+          490.138671875
+        ]
+      ],
+      "bbox": [
+        302.9375,
+        467.56298828125,
+        512.796875,
+        490.138671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Consider the collection of possible future outcomes that can be generated with the resources available to an investor: one investment strategy leads to <i>X</i>, while a second strategy leads to <i>Y</i> . If one <i>diversi</i><i>fies</i>, spending only the fraction <i>λ</i> of the resources on the first possibility and using the remaining part for the second alternative, one obtains <i>λX</i> + <i>(</i>1 − <i>λ)Y</i> . Thus, the axiom of convexity gives a precise meaning to the idea that diversification should not increase the risk. This idea becomes even clearer when we note that, for a monetary risk measure, convexity is in fact equivalent to the weaker requirement of</p>",
+      "page": 512,
+      "polygon": [
+        [
+          302.359375,
+          501.0052795410156
+        ],
+        [
+          513.375,
+          501.0052795410156
+        ],
+        [
+          513.375,
+          644.7576904296875
+        ],
+        [
+          302.359375,
+          644.7576904296875
+        ]
+      ],
+      "bbox": [
+        302.359375,
+        501.0052795410156,
+        513.375,
+        644.7576904296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h4>2 <b>Convex Risk Measures </b></h4>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          204.5772151898734,
+          45.71968190854871
+        ],
+        [
+          204.5772151898734,
+          55.7308349609375
+        ],
+        [
+          77.93417721518988,
+          55.7308349609375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        204.5772151898734,
+        55.7308349609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/279",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><math display=\"inline\">\\rho(\\lambda X + (1 - \\lambda)Y) \\leq</math>. Quasi <i>convexity</i>: <math display=\"inline\">\\max (\\rho(X), \\rho(Y)), \\text{ for } 0 \\le \\lambda \\le 1.</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          80.18227848101266,
+          71.95228628230616
+        ],
+        [
+          289.3515625,
+          71.95228628230616
+        ],
+        [
+          289.3515625,
+          93.6517333984375
+        ],
+        [
+          80.18227848101266,
+          93.6517333984375
+        ]
+      ],
+      "bbox": [
+        80.18227848101266,
+        71.95228628230616,
+        289.3515625,
+        93.6517333984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/2",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><b>Definition 3</b> A convex measure of risk <math display=\"inline\">\\rho</math> is called a <i>coherent risk measure if it satisfies the following: </i></p>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          104.18091451292247
+        ],
+        [
+          290.00506329113927,
+          104.18091451292247
+        ],
+        [
+          290.00506329113927,
+          124.62353515625
+        ],
+        [
+          77.93417721518988,
+          124.62353515625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        104.18091451292247,
+        290.00506329113927,
+        124.62353515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/280",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Positive homogeneity: if <math display=\"inline\">\\lambda &gt; 0</math>, then <math display=\"inline\">\\rho(\\lambda X) =</math><math display=\"inline\">\\lambda \\rho(X)</math>.</p>",
+      "page": 281,
+      "polygon": [
+        [
+          80.359375,
+          134.91053677932405
+        ],
+        [
+          290.00506329113927,
+          134.91053677932405
+        ],
+        [
+          290.00506329113927,
+          157.2060546875
+        ],
+        [
+          80.359375,
+          157.2060546875
+        ]
+      ],
+      "bbox": [
+        80.359375,
+        134.91053677932405,
+        290.00506329113927,
+        157.2060546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Under the assumption of positive homogeneity, the convexity of a monetary risk measure is equivalent to the following:</p>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          167.13916500994037
+        ],
+        [
+          290.00506329113927,
+          167.88866799204771
+        ],
+        [
+          290.00506329113927,
+          199.9130859375
+        ],
+        [
+          77.93417721518988,
+          199.9130859375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        167.13916500994037,
+        290.00506329113927,
+        199.9130859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/281",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Subadditivity: <math display=\"inline\">\\rho(X + Y) \\leq \\rho(X) + \\rho(Y)</math>. .</p>",
+      "page": 281,
+      "polygon": [
+        [
+          79.998046875,
+          210.610337972167
+        ],
+        [
+          266.7746835443038,
+          210.610337972167
+        ],
+        [
+          266.7746835443038,
+          221.08251953125
+        ],
+        [
+          79.998046875,
+          221.08251953125
+        ]
+      ],
+      "bbox": [
+        79.998046875,
+        210.610337972167,
+        266.7746835443038,
+        221.08251953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">This property allows to decentralize the task of managing the risk arising from a collection of different positions: if separate risk limits are given to different \"desks\", then the risk of the aggregate position is bounded by the sum of the individual risk limits.</p>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          228.59840954274355
+        ],
+        [
+          290.36328125,
+          228.59840954274355
+        ],
+        [
+          290.36328125,
+          283.8544921875
+        ],
+        [
+          77.93417721518988,
+          283.8544921875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        228.59840954274355,
+        290.36328125,
+        283.8544921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><i>Value at Risk</i> at level <math display=\"inline\">\\alpha \\in ]0, 1[</math>, defined for random variables X on a probability space <math display=\"inline\">(\\Omega, \\mathcal{F}, \\mathbb{P})</math> by</p>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          286.31013916500996
+        ],
+        [
+          290.00506329113927,
+          286.31013916500996
+        ],
+        [
+          290.00506329113927,
+          307.4169921875
+        ],
+        [
+          77.93417721518988,
+          307.4169921875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        286.31013916500996,
+        290.00506329113927,
+        307.4169921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">V@R_{\\alpha}(X) = \\inf\\{m \\in \\mathbb{R} \\mid \\mathbb{P}[X + m &lt; 0] \\le \\alpha\\} \\tag{1}</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          85.056640625,
+          318.64599609375
+        ],
+        [
+          289.640625,
+          318.64599609375
+        ],
+        [
+          289.640625,
+          328.21826171875
+        ],
+        [
+          85.056640625,
+          328.21826171875
+        ]
+      ],
+      "bbox": [
+        85.056640625,
+        318.64599609375,
+        289.640625,
+        328.21826171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/9",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">is a monetary risk measure that is positively homogeneous but not subadditive and hence not convex (see Value-at-Risk). Average Value at Risk at level λ ∈]0, 1],</p>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          338.77534791252486
+        ],
+        [
+          290.00506329113927,
+          338.77534791252486
+        ],
+        [
+          290.00506329113927,
+          382.890625
+        ],
+        [
+          77.93417721518988,
+          382.890625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        338.77534791252486,
+        290.00506329113927,
+        382.890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">AV@R_{\\lambda} = \\frac{1}{\\lambda} \\int_{0}^{\\lambda} V@R_{\\alpha}(X) d\\alpha \\qquad (2)</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          118.876953125,
+          390.990234375
+        ],
+        [
+          288.7734375,
+          390.990234375
+        ],
+        [
+          288.7734375,
+          416.76171875
+        ],
+        [
+          118.876953125,
+          416.76171875
+        ]
+      ],
+      "bbox": [
+        118.876953125,
+        390.990234375,
+        288.7734375,
+        416.76171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">also called <i>Conditional Value at Risk</i>, expected shortfall, or Tail Value at Risk (see Expected Shortfall), is a coherent risk measure. Other examples are discussed in Section \"Examples and Applications\".</p>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          424.21868787276344
+        ],
+        [
+          290.00506329113927,
+          424.21868787276344
+        ],
+        [
+          290.00506329113927,
+          467.9365234375
+        ],
+        [
+          77.93417721518988,
+          467.9365234375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        424.21868787276344,
+        290.00506329113927,
+        467.9365234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/12",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">It is sometimes convenient to reverse signs and to emphasize on the <i>utility</i> of a position rather than on its risk. Thus, if <math display=\"inline\">\\rho</math> is a convex risk measure, then <math display=\"inline\">\\phi(X) := -\\rho(X)</math> is called a <i>concave monetary utility </i><i>functional.</i> If <math display=\"inline\">\\rho</math> is coherent, then <math display=\"inline\">\\phi</math> is called a <i>coherent </i><i>monetary utility functional. </i></p>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          469.93836978131213
+        ],
+        [
+          290.00506329113927,
+          469.93836978131213
+        ],
+        [
+          290.00506329113927,
+          536.783203125
+        ],
+        [
+          77.93417721518988,
+          536.783203125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        469.93836978131213,
+        290.00506329113927,
+        536.783203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/13",
+      "block_type": "SectionHeader",
+      "html": "<h4><b>Acceptance Sets </b></h4>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          561.3777335984096
+        ],
+        [
+          158.11645569620254,
+          561.3777335984096
+        ],
+        [
+          158.11645569620254,
+          571.390625
+        ],
+        [
+          77.93417721518988,
+          571.390625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        561.3777335984096,
+        158.11645569620254,
+        571.390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">A monetary measure of risk <math display=\"inline\">\\rho</math> induces the set</p>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          582.3638170974156
+        ],
+        [
+          263.7772151898734,
+          582.3638170974156
+        ],
+        [
+          263.7772151898734,
+          592.0078125
+        ],
+        [
+          77.93417721518988,
+          592.0078125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        582.3638170974156,
+        263.7772151898734,
+        592.0078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathcal{A}_{\\rho} := \\{ X \\in \\mathcal{X} \\mid \\rho(X) \\le 0 \\} \\tag{3}</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          130.65625,
+          603.052734375
+        ],
+        [
+          289.640625,
+          603.052734375
+        ],
+        [
+          289.640625,
+          613.361328125
+        ],
+        [
+          130.65625,
+          613.361328125
+        ]
+      ],
+      "bbox": [
+        130.65625,
+        603.052734375,
+        289.640625,
+        613.361328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">of positions that are acceptable in the sense that they do not require additional capital. The set <math display=\"inline\">\\mathcal{A}_{\\rho}</math> is called</p>",
+      "page": 281,
+      "polygon": [
+        [
+          77.93417721518988,
+          623.5864811133201
+        ],
+        [
+          289.2556962025316,
+          623.5864811133201
+        ],
+        [
+          289.2556962025316,
+          644.6552734375
+        ],
+        [
+          77.93417721518988,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        623.5864811133201,
+        289.2556962025316,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/17",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">the <i>acceptance set</i> of <math display=\"inline\">\\rho</math>. One can show that <math display=\"inline\">\\rho</math> is a convex risk measure if and only if <math display=\"inline\">\\mathcal{A}_{\\rho}</math> is a convex set and that <math display=\"inline\">\\rho</math> is positively homogeneous if and only if <math display=\"inline\">\\mathcal{A}_{\\rho}</math> is a cone. In particular, <math display=\"inline\">\\rho</math> is coherent if and only if <math display=\"inline\">\\mathcal{A}_{\\rho}</math> is a convex cone. The acceptance set completely determines <math display=\"inline\">\\rho</math>, because</p>",
+      "page": 281,
+      "polygon": [
+        [
+          304.99240506329113,
+          71.95228628230616
+        ],
+        [
+          516.3139240506329,
+          70.45328031809146
+        ],
+        [
+          516.3139240506329,
+          137.90854870775348
+        ],
+        [
+          304.99240506329113,
+          137.90854870775348
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        70.45328031809146,
+        516.3139240506329,
+        137.90854870775348
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/18",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho(X) = \\inf\\{m \\in \\mathbb{R} \\mid m + X \\in \\mathcal{A}_{\\rho}\\}\\tag{4}</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          341.3828125,
+          148.73828125
+        ],
+        [
+          515.9765625,
+          148.73828125
+        ],
+        [
+          515.9765625,
+          158.6787109375
+        ],
+        [
+          341.3828125,
+          158.6787109375
+        ]
+      ],
+      "bbox": [
+        341.3828125,
+        148.73828125,
+        515.9765625,
+        158.6787109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/19",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Moreover, <math display=\"inline\">\\mathcal{A} := \\mathcal{A}_{\\rho}</math> satisfies the following properties.</p>",
+      "page": 281,
+      "polygon": [
+        [
+          305.7417721518987,
+          170.13717693836978
+        ],
+        [
+          516.3139240506329,
+          170.13717693836978
+        ],
+        [
+          516.3139240506329,
+          180.21630859375
+        ],
+        [
+          305.7417721518987,
+          180.21630859375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        170.13717693836978,
+        516.3139240506329,
+        180.21630859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/20",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathcal{A} \\cap \\mathbb{R} \\neq \\emptyset \\tag{5}</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          311.609375,
+          195.4951171875
+        ],
+        [
+          516.265625,
+          195.4951171875
+        ],
+        [
+          516.265625,
+          205.8037109375
+        ],
+        [
+          311.609375,
+          205.8037109375
+        ]
+      ],
+      "bbox": [
+        311.609375,
+        195.4951171875,
+        516.265625,
+        205.8037109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/21",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><math display=\"inline\">\\inf\\{m \\in \\mathbb{R} \\mid X + m \\in \\mathcal{A}\\} &gt; -\\infty \\text{ for all } X \\in \\mathcal{X} \\tag{6}</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          310.2379746835443,
+          212.85884691848906
+        ],
+        [
+          516.84375,
+          212.85884691848906
+        ],
+        [
+          516.84375,
+          222.7392578125
+        ],
+        [
+          310.2379746835443,
+          222.7392578125
+        ]
+      ],
+      "bbox": [
+        310.2379746835443,
+        212.85884691848906,
+        516.84375,
+        222.7392578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/22",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">X \\in \\mathcal{A}, \\ Y \\in \\mathcal{X}, \\ Y \\ge X \\quad \\Longrightarrow \\quad Y \\in \\mathcal{A} \\tag{7}</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          311.3203125,
+          230.470703125
+        ],
+        [
+          515.9765625,
+          230.470703125
+        ],
+        [
+          515.9765625,
+          244.8291015625
+        ],
+        [
+          311.3203125,
+          244.8291015625
+        ]
+      ],
+      "bbox": [
+        311.3203125,
+        230.470703125,
+        515.9765625,
+        244.8291015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/23",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Conversely, one can take a given class <math display=\"inline\">\\mathcal{A} \\subset \\mathcal{X}</math> of acceptable positions as the primary object. For a position <math display=\"inline\">X \\in \\mathcal{X}</math>, we can then define</p>",
+      "page": 281,
+      "polygon": [
+        [
+          305.7417721518987,
+          251.83300198807157
+        ],
+        [
+          517.0632911392405,
+          251.83300198807157
+        ],
+        [
+          517.0632911392405,
+          284.03857421875
+        ],
+        [
+          305.7417721518987,
+          284.03857421875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        251.83300198807157,
+        517.0632911392405,
+        284.03857421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/24",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_{\\mathcal{A}}(X) := \\inf\\{m \\in \\mathbb{R} \\mid m + X \\in \\mathcal{A}\\}\\tag{8}</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          339.0703125,
+          294.34716796875
+        ],
+        [
+          516.5546875,
+          294.34716796875
+        ],
+        [
+          516.5546875,
+          304.28759765625
+        ],
+        [
+          339.0703125,
+          304.28759765625
+        ]
+      ],
+      "bbox": [
+        339.0703125,
+        294.34716796875,
+        516.5546875,
+        304.28759765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/25",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">If A satisfies the properties (5)–(7), then <math display=\"inline\">\\rho_A</math> is a monetary risk measure. If A is convex, then so is <math display=\"inline\">\\rho_A</math>. If <math display=\"inline\">\\mathcal{A}</math> is a cone, then <math display=\"inline\">\\rho_{\\mathcal{A}}</math> is positively homogeneous. Note that, with this notation, equation (4) takes the form <math display=\"inline\">\\rho_{A_{\\rho}} = \\rho</math>. The validity of the analogous identity <math display=\"inline\">\\mathcal{A}_{\\rho_A} = \\mathcal{A}</math> requires that <math display=\"inline\">\\mathcal{A}</math> satisfies a certain closure property.</p>",
+      "page": 281,
+      "polygon": [
+        [
+          304.99240506329113,
+          315.54075546719685
+        ],
+        [
+          517.0632911392405,
+          315.54075546719685
+        ],
+        [
+          517.0632911392405,
+          393.19921875
+        ],
+        [
+          304.99240506329113,
+          393.19921875
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        315.54075546719685,
+        517.0632911392405,
+        393.19921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/26",
+      "block_type": "SectionHeader",
+      "html": "<h4><b>Dual Representation </b></h4>",
+      "page": 281,
+      "polygon": [
+        [
+          305.7417721518987,
+          417.4731610337972
+        ],
+        [
+          406.9063291139241,
+          417.4731610337972
+        ],
+        [
+          406.9063291139241,
+          427.4384765625
+        ],
+        [
+          305.7417721518987,
+          427.4384765625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        417.4731610337972,
+        406.9063291139241,
+        427.4384765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/27",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Suppose now that <math display=\"inline\">\\mathcal{X}</math> consists of measurable functions on <math display=\"inline\">(\\Omega, \\mathcal{F})</math>. A dual representation of a convex risk measure <math display=\"inline\">\\rho</math> has the form</p>",
+      "page": 281,
+      "polygon": [
+        [
+          304.99240506329113,
+          438.4592445328032
+        ],
+        [
+          517.0632911392405,
+          437.7097415506958
+        ],
+        [
+          517.0632911392405,
+          471.25
+        ],
+        [
+          304.99240506329113,
+          471.25
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        437.7097415506958,
+        517.0632911392405,
+        471.25
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/28",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho(X) = \\sup_{Q \\in \\mathcal{M}} \\left( E_Q[-X] - \\alpha(Q) \\right) \\tag{9}</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          342.5390625,
+          480.4541015625
+        ],
+        [
+          515.9765625,
+          480.4541015625
+        ],
+        [
+          515.9765625,
+          500.3349609375
+        ],
+        [
+          342.5390625,
+          500.3349609375
+        ]
+      ],
+      "bbox": [
+        342.5390625,
+        480.4541015625,
+        515.9765625,
+        500.3349609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/29",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Here, <math display=\"inline\">\\mathcal{M}</math> is a set of probability measures on <math display=\"inline\">(\\Omega, \\mathcal{F})</math>such that <math display=\"inline\">E_Q[X]</math> is well defined for all <math display=\"inline\">Q \\in \\mathcal{M}</math> and <math display=\"inline\">X \\in \\mathcal{X}</math>. The functional <math display=\"inline\">\\alpha : \\mathcal{M} \\to \\mathbb{R} \\cup \\{+\\infty\\}</math> is called penalty function.</p>",
+      "page": 281,
+      "polygon": [
+        [
+          304.99240506329113,
+          508.16302186878727
+        ],
+        [
+          516.3139240506329,
+          508.16302186878727
+        ],
+        [
+          516.3139240506329,
+          552.6142578125
+        ],
+        [
+          304.99240506329113,
+          552.6142578125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        508.16302186878727,
+        516.3139240506329,
+        552.6142578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/30",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The elements of <math display=\"inline\">\\mathcal{M}</math> can be interpreted as possible probabilistic models, which are taken more or less seriously according to the size of the penalty <math display=\"inline\">\\alpha(Q)</math>. Thus, the value <math display=\"inline\">\\rho(X)</math> is computed as the worstcase expectation taken over all models <math display=\"inline\">Q \\in \\mathcal{M}</math> and penalized by <math display=\"inline\">\\alpha(Q)</math> (see [8, 28, 42]).</p>",
+      "page": 281,
+      "polygon": [
+        [
+          304.99240506329113,
+          553.882703777336
+        ],
+        [
+          516.3139240506329,
+          553.882703777336
+        ],
+        [
+          516.3139240506329,
+          621.4609375
+        ],
+        [
+          304.99240506329113,
+          621.4609375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        553.882703777336,
+        516.3139240506329,
+        621.4609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/31",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">In the dual representation theory of convex risk measures, one aims at deriving a representation <math display=\"inline\">(9)</math></p>",
+      "page": 281,
+      "polygon": [
+        [
+          304.99240506329113,
+          623.5864811133201
+        ],
+        [
+          517.0632911392405,
+          623.5864811133201
+        ],
+        [
+          517.0632911392405,
+          644.287109375
+        ],
+        [
+          304.99240506329113,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        623.5864811133201,
+        517.0632911392405,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 253,
+      "polygon": [
+        [
+          386.673417721519,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          55.5927734375
+        ],
+        [
+          386.673417721519,
+          55.5927734375
+        ]
+      ],
+      "bbox": [
+        386.673417721519,
+        45.71968190854871,
+        513.3164556962025,
+        55.5927734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">in a systematic manner. The general idea is to apply convex duality. For every <math display=\"inline\">O \\in \\mathcal{M}</math>, we define the minimal penalty function of <math display=\"inline\">\\rho</math> by</p>",
+      "page": 253,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.2027833001988
+        ],
+        [
+          286.02734375,
+          71.2027833001988
+        ],
+        [
+          286.02734375,
+          104.466552734375
+        ],
+        [
+          74.1873417721519,
+          104.466552734375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.2027833001988,
+        286.02734375,
+        104.466552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\alpha_{\\rho}(Q) := \\sup_{X \\in \\mathcal{X}} \\left( E_{\\mathcal{Q}}[-X] - \\rho(X) \\right) = \\sup_{X \\in \\mathcal{A}_{\\rho}} E_{\\mathcal{Q}}[-X] </math>(10)</p>",
+      "page": 253,
+      "polygon": [
+        [
+          75.373046875,
+          119.6533203125
+        ],
+        [
+          285.59375,
+          119.6533203125
+        ],
+        [
+          285.59375,
+          155.365234375
+        ],
+        [
+          75.373046875,
+          155.365234375
+        ]
+      ],
+      "bbox": [
+        75.373046875,
+        119.6533203125,
+        285.59375,
+        155.365234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">With additional assumptions on the structure of <math display=\"inline\">\\mathcal{X}</math> and on continuity properties of <math display=\"inline\">\\rho</math>, it is often possible to derive the representation</p>",
+      "page": 253,
+      "polygon": [
+        [
+          74.1873417721519,
+          165.64015904572565
+        ],
+        [
+          285.59375,
+          165.64015904572565
+        ],
+        [
+          285.59375,
+          198.80859375
+        ],
+        [
+          74.1873417721519,
+          198.80859375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        165.64015904572565,
+        285.59375,
+        198.80859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho(X) = \\sup_{Q \\in \\mathcal{M}} \\left( E_Q[-X] - \\alpha_\\rho(Q) \\right) \\tag{11}</math></p>",
+      "page": 253,
+      "polygon": [
+        [
+          110.349609375,
+          209.30126953125
+        ],
+        [
+          285.015625,
+          209.30126953125
+        ],
+        [
+          285.015625,
+          228.81396484375
+        ],
+        [
+          110.349609375,
+          228.81396484375
+        ]
+      ],
+      "bbox": [
+        110.349609375,
+        209.30126953125,
+        285.015625,
+        228.81396484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><i>via</i> Fenchel-Legendre duality. In this case, <math display=\"inline\">\\rho</math> is coherent if and only if <math display=\"inline\">\\alpha_{\\rho}</math> takes only the values 0 and <math display=\"inline\">+\\infty</math>, and so</p>",
+      "page": 253,
+      "polygon": [
+        [
+          74.1873417721519,
+          236.84294234592446
+        ],
+        [
+          286.75,
+          236.84294234592446
+        ],
+        [
+          286.75,
+          270.04833984375
+        ],
+        [
+          74.1873417721519,
+          270.04833984375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        236.84294234592446,
+        286.75,
+        270.04833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho(X) = \\sup_{Q \\in \\mathcal{Q}_{\\rho}} E_Q[-X] \\tag{12}</math></p>",
+      "page": 253,
+      "polygon": [
+        [
+          134.125,
+          279.4365234375
+        ],
+        [
+          286.171875,
+          279.4365234375
+        ],
+        [
+          286.171875,
+          299.3173828125
+        ],
+        [
+          134.125,
+          299.3173828125
+        ]
+      ],
+      "bbox": [
+        134.125,
+        279.4365234375,
+        286.171875,
+        299.3173828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/7",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\mathcal{Q}_{\\rho}</math> consists of all <math display=\"inline\">Q \\in \\mathcal{M}</math> with <math display=\"inline\">\\alpha_{\\rho}(Q) = 0</math>. We now discuss some situations in which representation (11) can be obtained. In general, however, it may be necessary to consider extended sets <math display=\"inline\">\\mathcal{M}</math> that also contain, for example, finitely additive set functions. Dual representation theory goes back to [1, 18, 26, 30, 32-34].</p>",
+      "page": 253,
+      "polygon": [
+        [
+          74.1873417721519,
+          308.79522862823063
+        ],
+        [
+          285.8828125,
+          308.79522862823063
+        ],
+        [
+          285.8828125,
+          387.6767578125
+        ],
+        [
+          74.1873417721519,
+          387.6767578125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        308.79522862823063,
+        285.8828125,
+        387.6767578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">First, let <math display=\"inline\">\\mathcal{X}</math> be the space of all bounded measurable functions on <math display=\"inline\">(\\Omega, \\mathcal{F})</math>. Then, every convex risk measure <math display=\"inline\">\\rho</math> takes only finite values and is Lipschitz continuous with respect to the supremum norm. For <math display=\"inline\">\\mathcal{M}</math>, we can take the set of all probability measures on <math display=\"inline\">(\\Omega, \\mathcal{F})</math>. The validity of the dual representation (9) implies that <math display=\"inline\">\\rho</math> is <i>continuous from above</i> in the sense that</p>",
+      "page": 253,
+      "polygon": [
+        [
+          74.1873417721519,
+          388.9920477137177
+        ],
+        [
+          286.2582278481013,
+          388.9920477137177
+        ],
+        [
+          286.2582278481013,
+          478.2451171875
+        ],
+        [
+          74.1873417721519,
+          478.2451171875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        388.9920477137177,
+        286.2582278481013,
+        478.2451171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">X_n \\searrow X \\quad \\Longrightarrow \\quad \\rho(X_n) \\nearrow \\rho(X) \\tag{13}</math></p>",
+      "page": 253,
+      "polygon": [
+        [
+          101.75,
+          488.921875
+        ],
+        [
+          283.859375,
+          488.921875
+        ],
+        [
+          283.859375,
+          501.439453125
+        ],
+        [
+          101.75,
+          501.439453125
+        ]
+      ],
+      "bbox": [
+        101.75,
+        488.921875,
+        283.859375,
+        501.439453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">On the other hand, the condition of continuity from below,</p>",
+      "page": 253,
+      "polygon": [
+        [
+          74.1873417721519,
+          510.41153081510936
+        ],
+        [
+          286.75,
+          510.41153081510936
+        ],
+        [
+          286.75,
+          530.6481113320079
+        ],
+        [
+          74.1873417721519,
+          530.6481113320079
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        510.41153081510936,
+        286.75,
+        530.6481113320079
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">X_n \\nearrow X \\quad \\Longrightarrow \\quad \\rho(X_n) \\searrow \\rho(X) \\tag{14}</math></p>",
+      "page": 253,
+      "polygon": [
+        [
+          101.244140625,
+          541.9375
+        ],
+        [
+          284.75949367088606,
+          541.9375
+        ],
+        [
+          284.75949367088606,
+          554.455078125
+        ],
+        [
+          101.244140625,
+          554.455078125
+        ]
+      ],
+      "bbox": [
+        101.244140625,
+        541.9375,
+        284.75949367088606,
+        554.455078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">is equivalent to the validity of the <i>strong representa</i>tion</p>",
+      "page": 253,
+      "polygon": [
+        [
+          74.1873417721519,
+          562.8767395626243
+        ],
+        [
+          284.75949367088606,
+          562.8767395626243
+        ],
+        [
+          284.75949367088606,
+          583.5400390625
+        ],
+        [
+          74.1873417721519,
+          583.5400390625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        562.8767395626243,
+        284.75949367088606,
+        583.5400390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho(X) = \\max_{Q \\in \\mathcal{M}} \\left( E_Q[-X] - \\alpha_\\rho(Q) \\right) \\tag{15}</math></p>",
+      "page": 253,
+      "polygon": [
+        [
+          108.181640625,
+          585.0126953125
+        ],
+        [
+          284.7265625,
+          585.0126953125
+        ],
+        [
+          284.7265625,
+          604.1572265625
+        ],
+        [
+          108.181640625,
+          604.1572265625
+        ]
+      ],
+      "bbox": [
+        108.181640625,
+        585.0126953125,
+        284.7265625,
+        604.1572265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">in which for every <math display=\"inline\">X \\in \\mathcal{X}</math> the maximum is attained by some <math display=\"inline\">Q \\in \\mathcal{M}</math>. In particular, continuity from below is stronger than the continuity from above. Continuity</p>",
+      "page": 253,
+      "polygon": [
+        [
+          74.1873417721519,
+          611.5944333996024
+        ],
+        [
+          286.2582278481013,
+          611.5944333996024
+        ],
+        [
+          286.2582278481013,
+          644.287109375
+        ],
+        [
+          74.1873417721519,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        611.5944333996024,
+        286.2582278481013,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/15",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">from above is equivalent to the so-called Fatou property,</p>",
+      "page": 253,
+      "polygon": [
+        [
+          301.24556962025315,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          93.237548828125
+        ],
+        [
+          301.24556962025315,
+          93.237548828125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        71.2027833001988,
+        513.3164556962025,
+        93.237548828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/16",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\liminf_{n \\uparrow \\infty} \\rho(X_n) \\ge \\rho(X) \\text{ for any bounded sequence} </math><br/>(<i>X<sub>n</sub></i>) converging pointwise to <i>X</i> (16)</p>",
+      "page": 253,
+      "polygon": [
+        [
+          310.7421875,
+          109.804931640625
+        ],
+        [
+          513.3164556962025,
+          109.804931640625
+        ],
+        [
+          513.3164556962025,
+          141.65606361829026
+        ],
+        [
+          310.7421875,
+          141.65606361829026
+        ]
+      ],
+      "bbox": [
+        310.7421875,
+        109.804931640625,
+        513.3164556962025,
+        141.65606361829026
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/17",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Continuity from below is equivalent to the stronger Lebesgue property,</p>",
+      "page": 253,
+      "polygon": [
+        [
+          301.24556962025315,
+          152.696044921875
+        ],
+        [
+          513.3164556962025,
+          152.696044921875
+        ],
+        [
+          513.3164556962025,
+          174.049560546875
+        ],
+        [
+          301.24556962025315,
+          174.049560546875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        152.696044921875,
+        513.3164556962025,
+        174.049560546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/18",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\lim_{n \\uparrow \\infty} \\rho(X_n) = \\rho(X) \\text{ for any bounded sequence}</math><br/>(X<sub>n</sub>) converging pointwise to X (17)</p>",
+      "page": 253,
+      "polygon": [
+        [
+          317.6796875,
+          190.3408203125
+        ],
+        [
+          512.5670886075949,
+          190.3408203125
+        ],
+        [
+          512.5670886075949,
+          221.85288270377734
+        ],
+        [
+          317.6796875,
+          221.85288270377734
+        ]
+      ],
+      "bbox": [
+        317.6796875,
+        190.3408203125,
+        512.5670886075949,
+        221.85288270377734
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/19",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Next, we fix a reference probability measure <math display=\"inline\">\\mathbb{P}</math> on <math display=\"inline\">(\\Omega, \\mathcal{F})</math> and consider the case in which <math display=\"inline\">\\mathcal{X} = L^p := L^p(\\Omega, \\mathcal{F}, \\mathbb{P})</math> for some <math display=\"inline\">p \\in [1, \\infty]</math>. This choice implicitly requires that <math display=\"inline\">\\rho(X) = \\rho(\\widetilde{X})</math> whenever <math display=\"inline\">X = \\widetilde{X}</math> <math display=\"inline\">\\mathbb{P}</math>-almost surely. For <math display=\"inline\">\\mathcal{M}</math>, we take the set of all probability measures that are absolutely continuous with respect to <math display=\"inline\">\\mathbb{P}</math> and whose density belongs to <math display=\"inline\">L^q</math>, where <math display=\"inline\">q = p/(p-1)</math> is the dual exponent.</p>",
+      "page": 253,
+      "polygon": [
+        [
+          301.24556962025315,
+          233.84493041749505
+        ],
+        [
+          513.3164556962025,
+          233.84493041749505
+        ],
+        [
+          513.3164556962025,
+          324.16845703125
+        ],
+        [
+          301.24556962025315,
+          324.5347912524851
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        233.84493041749505,
+        513.3164556962025,
+        324.5347912524851
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/20",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The space <math display=\"inline\">\\mathcal{X} = L^{\\infty}</math> can be regarded as a subset of the space of all bounded measurable functions, and so all corresponding results carry over. In addition, continuity from above (or, equivalently, the Fatou property) of <math display=\"inline\">\\rho</math> is now even equivalent to a dual representation (11) in terms of probability measures.</p>",
+      "page": 253,
+      "polygon": [
+        [
+          301.24556962025315,
+          324.5347912524851
+        ],
+        [
+          513.3164556962025,
+          324.5347912524851
+        ],
+        [
+          513.3164556962025,
+          391.9900596421471
+        ],
+        [
+          301.24556962025315,
+          391.9900596421471
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        324.5347912524851,
+        513.3164556962025,
+        391.9900596421471
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/21",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">For a convex risk measure <math display=\"inline\">\\rho</math> on <math display=\"inline\">\\mathcal{X} = L^p</math> with <math display=\"inline\">1 \\le p &lt; \\infty</math>, the existence of a dual representation (11) is equivalent to the lower semicontinuity of <math display=\"inline\">\\rho</math>with respect to the standard <math display=\"inline\">L^p</math>-norm. If <math display=\"inline\">\\rho</math> takes only finite values, then it is even Lipschitz continuous and admits a strong representation <math display=\"inline\">(15)</math>. Here, we assume for simplicity that <math display=\"inline\">(\\Omega, \\mathcal{F}, \\mathbb{P})</math> is atomless and <math display=\"inline\">L^2</math> is separable.</p>",
+      "page": 253,
+      "polygon": [
+        [
+          301.24556962025315,
+          394.2385685884692
+        ],
+        [
+          513.3164556962025,
+          394.2385685884692
+        ],
+        [
+          513.3164556962025,
+          484.1357421875
+        ],
+        [
+          301.24556962025315,
+          484.1357421875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        394.2385685884692,
+        513.3164556962025,
+        484.1357421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/22",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">For the discussion of the dual representation of convex risk measures on spaces of bounded measurable functions, we refer to [28, 37, 38]. For <math display=\"inline\">L^p</math> spaces, see [23, 36] and the references therein. Representation theory on Orlicz spaces is considered in [9].</p>",
+      "page": 253,
+      "polygon": [
+        [
+          301.24556962025315,
+          485.6779324055666
+        ],
+        [
+          513.3164556962025,
+          485.6779324055666
+        ],
+        [
+          513.3164556962025,
+          552.982421875
+        ],
+        [
+          301.24556962025315,
+          552.982421875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        485.6779324055666,
+        513.3164556962025,
+        552.982421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "4": "/page/1/SectionHeader/26"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/23",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Examples and Applications </b></h2>",
+      "page": 253,
+      "polygon": [
+        [
+          301.203125,
+          577.8667992047714
+        ],
+        [
+          436.1316455696203,
+          577.8667992047714
+        ],
+        [
+          436.1316455696203,
+          589.0625
+        ],
+        [
+          301.203125,
+          589.0625
+        ]
+      ],
+      "bbox": [
+        301.203125,
+        577.8667992047714,
+        436.1316455696203,
+        589.0625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/24",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">In this section, we take <math display=\"inline\">\\mathcal{X} = L^{\\infty}(\\Omega, \\mathcal{F}, \\mathbb{P})</math>. The class of convex risk measures comprises many of the common valuation methods in finance and economics. The risk-neutral expectation in a nice arbitrage-free</p>",
+      "page": 253,
+      "polygon": [
+        [
+          301.24556962025315,
+          599.6023856858847
+        ],
+        [
+          513.3164556962025,
+          599.6023856858847
+        ],
+        [
+          513.3164556962025,
+          644.6552734375
+        ],
+        [
+          301.24556962025315,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        599.6023856858847,
+        513.3164556962025,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 227,
+      "polygon": [
+        [
+          78.263671875,
+          45.71968190854871
+        ],
+        [
+          204.5772151898734,
+          45.71968190854871
+        ],
+        [
+          204.5772151898734,
+          55.8228759765625
+        ],
+        [
+          78.263671875,
+          55.8228759765625
+        ]
+      ],
+      "bbox": [
+        78.263671875,
+        45.71968190854871,
+        204.5772151898734,
+        55.8228759765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">market model, for instance, clearly corresponds to a coherent risk measure. If the market model is incomplete, then the cost of superhedging a position <math display=\"inline\">X \\in \\mathcal{X}</math>is given by the coherent risk measure</p>",
+      "page": 227,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.2027833001988
+        ],
+        [
+          290.75443037974685,
+          71.2027833001988
+        ],
+        [
+          290.75443037974685,
+          115.2353515625
+        ],
+        [
+          77.93417721518988,
+          115.2353515625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.2027833001988,
+        290.75443037974685,
+        115.2353515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\sup_{Q \\in \\mathcal{P}} E_Q[-X] \\tag{18}</math></p>",
+      "page": 227,
+      "polygon": [
+        [
+          156.3828125,
+          126.372314453125
+        ],
+        [
+          287.90625,
+          126.372314453125
+        ],
+        [
+          287.90625,
+          144.780517578125
+        ],
+        [
+          156.3828125,
+          144.780517578125
+        ]
+      ],
+      "bbox": [
+        156.3828125,
+        126.372314453125,
+        287.90625,
+        144.780517578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\mathcal{P}</math> is the set of equivalent local martingale measures (see <b>Superhedging</b>). If one imposes additional convex trading constraints, the cost of superhedging is a convex risk measure whose representation <math display=\"inline\">(9)</math> is explicitly known (see [24, 26, 28]).</p>",
+      "page": 227,
+      "polygon": [
+        [
+          77.93417721518988,
+          155.89662027833003
+        ],
+        [
+          290.00506329113927,
+          155.89662027833003
+        ],
+        [
+          290.00506329113927,
+          212.61474609375
+        ],
+        [
+          77.93417721518988,
+          212.61474609375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        155.89662027833003,
+        290.00506329113927,
+        212.61474609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Let us now consider the case in which valuation of positions <math display=\"inline\">X \\in \\mathcal{X}</math> is based on the expected utility <math display=\"inline\">\\mathbb{E}[u(X)]</math> for a concave and strictly increasing function <math display=\"inline\">u : \\mathbb{R} \\to \\mathbb{R}</math>. Then, a position can be called <i>acceptable</i> if <math display=\"inline\">E_{O}[u(X)]</math> is bounded from below by <math display=\"inline\">u(c)</math> for a given threshold c. The set</p>",
+      "page": 227,
+      "polygon": [
+        [
+          77.93417721518988,
+          213.60834990059644
+        ],
+        [
+          290.00506329113927,
+          213.60834990059644
+        ],
+        [
+          290.00506329113927,
+          281.82958984375
+        ],
+        [
+          77.93417721518988,
+          281.82958984375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        213.60834990059644,
+        290.00506329113927,
+        281.82958984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/5",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathcal{A} := \\{ X \\in \\mathcal{X} \\mid E_{\\mathcal{Q}}[u(X)] \\ge u(c) \\} \\tag{19}</math></p>",
+      "page": 227,
+      "polygon": [
+        [
+          113.74609375,
+          292.6904296875
+        ],
+        [
+          288.91796875,
+          292.6904296875
+        ],
+        [
+          288.91796875,
+          303.3671875
+        ],
+        [
+          113.74609375,
+          303.3671875
+        ]
+      ],
+      "bbox": [
+        113.74609375,
+        292.6904296875,
+        288.91796875,
+        303.3671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/6",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">is a valid and convex acceptance set. Hence, <math display=\"inline\">\\rho_A</math>, defined by equation (8), is a convex risk measure called utility-based shortfall risk measure. It is continuous from below and admits the strong representation <math display=\"inline\">(15)</math> with minimal penalty function</p>",
+      "page": 227,
+      "polygon": [
+        [
+          77.93417721518988,
+          314.79125248508944
+        ],
+        [
+          290.00506329113927,
+          314.79125248508944
+        ],
+        [
+          290.00506329113927,
+          370.92529296875
+        ],
+        [
+          77.93417721518988,
+          370.92529296875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        314.79125248508944,
+        290.00506329113927,
+        370.92529296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\alpha_{\\rho}(Q) = \\inf_{\\lambda &gt; 0} \\frac{1}{\\lambda} \\left( \\mathbb{E} \\left[ \\widetilde{u} \\left( \\lambda \\frac{\\mathrm{d}Q}{\\mathrm{d}\\mathbb{P}} \\right) \\right] - u(c) \\right) \\quad (20)</math></p>",
+      "page": 227,
+      "polygon": [
+        [
+          90.04296875,
+          379.5771484375
+        ],
+        [
+          288.05078125,
+          379.5771484375
+        ],
+        [
+          288.05078125,
+          409.7666015625
+        ],
+        [
+          90.04296875,
+          409.7666015625
+        ]
+      ],
+      "bbox": [
+        90.04296875,
+        379.5771484375,
+        288.05078125,
+        409.7666015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\widetilde{u}(y) = \\sup_{x} (u(x) - xy)</math> denotes the convex conjugate function of <math display=\"inline\">u</math> (see [26] or [28]). In the exponential utility case with <math display=\"inline\">u(x) = -e^{-\\theta x}</math> for some <math display=\"inline\">\\theta &gt; 0</math>, we obtain for <math display=\"inline\">c = 0</math> the <i>entropic risk measure</i>,</p>",
+      "page": 227,
+      "polygon": [
+        [
+          77.93417721518988,
+          414.4751491053678
+        ],
+        [
+          290.00506329113927,
+          414.4751491053678
+        ],
+        [
+          290.00506329113927,
+          459.1005859375
+        ],
+        [
+          77.93417721518988,
+          459.1005859375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        414.4751491053678,
+        290.00506329113927,
+        459.1005859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho^{\\text{ent}}(X) = \\frac{1}{\\theta} \\log \\mathbb{E}\\left[e^{-\\theta X}\\right] \\tag{21}</math></p>",
+      "page": 227,
+      "polygon": [
+        [
+          131.95703125,
+          469.041015625
+        ],
+        [
+          288.33984375,
+          469.041015625
+        ],
+        [
+          288.33984375,
+          492.603515625
+        ],
+        [
+          131.95703125,
+          492.603515625
+        ]
+      ],
+      "bbox": [
+        131.95703125,
+        469.041015625,
+        288.33984375,
+        492.603515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Its minimal penalty function is given by <math display=\"inline\">\\alpha_{\\rho}(Q) =</math><math display=\"inline\">\\theta^{-1}H(Q|\\mathbb{P})</math>, where</p>",
+      "page": 227,
+      "polygon": [
+        [
+          77.93417721518988,
+          498.8623046875
+        ],
+        [
+          290.00506329113927,
+          498.8623046875
+        ],
+        [
+          290.00506329113927,
+          520.2158203125
+        ],
+        [
+          77.93417721518988,
+          520.2158203125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        498.8623046875,
+        290.00506329113927,
+        520.2158203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">H(Q|\\mathbb{P}) = \\mathbb{E}\\left[\\begin{array}{c} \\mathrm{d}Q\\\\ \\mathrm{d}\\mathbb{P} \\end{array}\\log \\begin{array}{c} \\mathrm{d}Q\\\\ \\mathrm{d}\\mathbb{P} \\end{array}\\right] \\tag{22}</math></p>",
+      "page": 227,
+      "polygon": [
+        [
+          121.40625,
+          531.2607421875
+        ],
+        [
+          287.328125,
+          531.2607421875
+        ],
+        [
+          287.328125,
+          558.5048828125
+        ],
+        [
+          121.40625,
+          558.5048828125
+        ]
+      ],
+      "bbox": [
+        121.40625,
+        531.2607421875,
+        287.328125,
+        558.5048828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/12",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">is the relative entropy of <math display=\"inline\">Q \\ll \\mathbb{P}</math> (see [28]). For the role of entropic risk measures in problems of risk transfer, (see [3]).</p>",
+      "page": 227,
+      "polygon": [
+        [
+          77.93417721518988,
+          565.1252485089464
+        ],
+        [
+          290.00506329113927,
+          565.1252485089464
+        ],
+        [
+          290.00506329113927,
+          598.634765625
+        ],
+        [
+          77.93417721518988,
+          598.634765625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        565.1252485089464,
+        290.00506329113927,
+        598.634765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/13",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">To introduce another closely related class of concave monetary utility functionals, let <math display=\"inline\">g: [0, \\infty[ \\rightarrow</math><math display=\"inline\">\\mathbb{R} \\cup \\{+\\infty\\}</math> be a lower semicontinuous convex function satisfying <math display=\"inline\">g(1) &lt; \\infty</math> and the superlinear growth</p>",
+      "page": 227,
+      "polygon": [
+        [
+          77.93417721518988,
+          601.1013916500995
+        ],
+        [
+          290.00506329113927,
+          601.1013916500995
+        ],
+        [
+          290.00506329113927,
+          645.0234375
+        ],
+        [
+          77.93417721518988,
+          645.0234375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        601.1013916500995,
+        290.00506329113927,
+        645.0234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">condition <math display=\"inline\">g(x)/x \\to +\\infty</math> as <math display=\"inline\">x \\uparrow \\infty</math>. Associated to it is the <i>g</i>-divergence</p>",
+      "page": 227,
+      "polygon": [
+        [
+          304.99240506329113,
+          71.60791015625
+        ],
+        [
+          517.0632911392405,
+          71.60791015625
+        ],
+        [
+          517.0632911392405,
+          92.133056640625
+        ],
+        [
+          304.99240506329113,
+          92.133056640625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        71.60791015625,
+        517.0632911392405,
+        92.133056640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">I_g(Q|\\mathbb{P}) := \\mathbb{E}\\left[g\\left(\\frac{\\mathrm{d}Q}{\\mathrm{d}\\mathbb{P}}\\right)\\right], \\qquad Q \\ll \\mathbb{P} </math>(23)</p>",
+      "page": 227,
+      "polygon": [
+        [
+          328.6640625,
+          109.989013671875
+        ],
+        [
+          514.8203125,
+          109.989013671875
+        ],
+        [
+          514.8203125,
+          148.830322265625
+        ],
+        [
+          328.6640625,
+          148.830322265625
+        ]
+      ],
+      "bbox": [
+        328.6640625,
+        109.989013671875,
+        514.8203125,
+        148.830322265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/16",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">as introduced in [14, 15]. The <i>g</i>-divergence <math display=\"inline\">I_g(Q|\\mathbb{P})</math>can be interpreted as a statistical distance between the hypothetical model <math display=\"inline\">Q</math> and the reference measure <math display=\"inline\">\\mathbb{P}</math>, so that <math display=\"inline\">\\gamma_{\\mathfrak{g}}(Q) := I_{\\mathfrak{g}}(Q|\\mathbb{P})</math> is a natural choice for a penalty function. The risk measure</p>",
+      "page": 227,
+      "polygon": [
+        [
+          305.7417721518987,
+          161.80810546875
+        ],
+        [
+          517.0632911392405,
+          161.80810546875
+        ],
+        [
+          517.0632911392405,
+          217.40087890625
+        ],
+        [
+          305.7417721518987,
+          217.40087890625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        161.80810546875,
+        517.0632911392405,
+        217.40087890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_g(X) := \\sup_{Q \\ll \\mathbb{P}} \\left( E_Q[-X] - I_g(Q|\\mathbb{P}) \\right) \\tag{24}</math></p>",
+      "page": 227,
+      "polygon": [
+        [
+          326.9296875,
+          228.998046875
+        ],
+        [
+          516.5546875,
+          228.998046875
+        ],
+        [
+          516.5546875,
+          248.87890625
+        ],
+        [
+          326.9296875,
+          248.87890625
+        ]
+      ],
+      "bbox": [
+        326.9296875,
+        228.998046875,
+        516.5546875,
+        248.87890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/18",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">corresponding to such a divergence penalty, is continuous from below, and <math display=\"inline\">I_{\\sigma}(\\cdot|\\mathbb{P})</math> is its minimal penalty function. The corresponding concave utility functional, <math display=\"inline\">\\phi_g = -\\rho_g</math>, was called <i>optimized certainty </i>equivalent in [5]. This name stems from the variational identity</p>",
+      "page": 227,
+      "polygon": [
+        [
+          304.99240506329113,
+          259.32803180914516
+        ],
+        [
+          516.84375,
+          259.32803180914516
+        ],
+        [
+          516.84375,
+          326.9296875
+        ],
+        [
+          304.99240506329113,
+          326.9296875
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        259.32803180914516,
+        516.84375,
+        326.9296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/19",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\phi_g(X) = \\sup_{z \\in \\mathbb{R}} \\left( \\mathbb{E}[u(X-z)] + z \\right), \\qquad X \\in L^{\\infty} </math>\n(25)</p>",
+      "page": 227,
+      "polygon": [
+        [
+          317.390625,
+          345.15380859375
+        ],
+        [
+          516.265625,
+          345.15380859375
+        ],
+        [
+          516.265625,
+          378.1044921875
+        ],
+        [
+          317.390625,
+          378.1044921875
+        ]
+      ],
+      "bbox": [
+        317.390625,
+        345.15380859375,
+        516.265625,
+        378.1044921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/20",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">u(x) = \\inf_{z&gt;0} (xz + g(z))</math> is the concave conjugate function of <math display=\"inline\">g</math> (see [4, 47]). In [13], the name divergence utility is used. Note that the particular choice <math display=\"inline\">g(x) = x \\log x</math> corresponds to the relative entropy, <math display=\"inline\">I_g(Q|\\mathbb{P}) = H(Q|\\mathbb{P})</math>, and so <math display=\"inline\">\\rho_g</math> coincides with the entropic risk measure. Another important example is provided by taking <math display=\"inline\">g(x) = 0</math> for <math display=\"inline\">x \\le \\lambda^{-1}</math>and <math display=\"inline\">g(x) = \\infty</math> otherwise, so that the corresponding coherent risk measure is given by Average Value at Risk at level <math display=\"inline\">\\lambda</math>:</p>",
+      "page": 227,
+      "polygon": [
+        [
+          304.99240506329113,
+          391.2405566600398
+        ],
+        [
+          517.0632911392405,
+          391.9900596421471
+        ],
+        [
+          517.0632911392405,
+          505.12109375
+        ],
+        [
+          304.99240506329113,
+          505.12109375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        391.2405566600398,
+        517.0632911392405,
+        505.12109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/21",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">AV@R_{\\lambda}(X) = \\inf_{Q \\in \\mathcal{Q}_{\\lambda}} E_{Q}[X] \\quad \\text{for}</math><math display=\"block\">\\mathcal{Q}_{\\lambda} := \\left\\{ Q \\ll \\mathbb{P} \\, \\big| \\, \\frac{\\mathrm{d}Q}{\\mathrm{d}\\mathbb{P}} \\leq \\frac{1}{\\lambda} \\right\\} \\quad (26)</math></p>",
+      "page": 227,
+      "polygon": [
+        [
+          337.3359375,
+          523.529296875
+        ],
+        [
+          517.1328125,
+          523.529296875
+        ],
+        [
+          517.1328125,
+          571.390625
+        ],
+        [
+          337.3359375,
+          571.390625
+        ]
+      ],
+      "bbox": [
+        337.3359375,
+        523.529296875,
+        517.1328125,
+        571.390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/22",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">see Definition (1) and <b>Expected Shortfall</b>. In this case, we have <math display=\"inline\">u(x) = 0 \\land x/\\lambda</math> and hence get the classical duality formula</p>",
+      "page": 227,
+      "polygon": [
+        [
+          304.99240506329113,
+          580.1153081510935
+        ],
+        [
+          517.0632911392405,
+          580.1153081510935
+        ],
+        [
+          517.0632911392405,
+          613.361328125
+        ],
+        [
+          304.99240506329113,
+          613.361328125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        580.1153081510935,
+        517.0632911392405,
+        613.361328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/24",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">1</p>",
+      "page": 227,
+      "polygon": [
+        [
+          333.46835443037975,
+          524.6520874751491
+        ],
+        [
+          337.2151898734177,
+          524.6520874751491
+        ],
+        [
+          337.2151898734177,
+          531.3976143141153
+        ],
+        [
+          333.46835443037975,
+          531.3976143141153
+        ]
+      ],
+      "bbox": [
+        333.46835443037975,
+        524.6520874751491,
+        337.2151898734177,
+        531.3976143141153
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/23",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">AV@R_{\\lambda}(X) = \\frac{1}{\\lambda} \\inf_{z \\in \\mathbb{R}} \\left( \\mathbb{E}[\\left(z - X\\right)^{+}] - \\lambda z \\right) \\quad (27)</math></p>",
+      "page": 227,
+      "polygon": [
+        [
+          314.2109375,
+          624.0380859375
+        ],
+        [
+          515.9765625,
+          624.0380859375
+        ],
+        [
+          515.9765625,
+          648.3369140625
+        ],
+        [
+          314.2109375,
+          648.3369140625
+        ]
+      ],
+      "bbox": [
+        314.2109375,
+        624.0380859375,
+        515.9765625,
+        648.3369140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 229,
+      "polygon": [
+        [
+          386.673417721519,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          55.5467529296875
+        ],
+        [
+          386.673417721519,
+          55.5467529296875
+        ]
+      ],
+      "bbox": [
+        386.673417721519,
+        45.71968190854871,
+        513.3164556962025,
+        55.5467529296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">as a special case of equation (25). The mixtures of Average Value at Risk at various levels <math display=\"inline\">\\lambda</math> are called spectral risk measures. They are again coherent risk measures and discussed in more detail in Spectral Measures of Risk</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.2027833001988
+        ],
+        [
+          287.00759493670887,
+          71.2027833001988
+        ],
+        [
+          287.00759493670887,
+          128.029052734375
+        ],
+        [
+          74.1873417721519,
+          128.029052734375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.2027833001988,
+        287.00759493670887,
+        128.029052734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/2",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Many of these risk measures can be extended in a straightforward manner to spaces of unbounded random variables (see [23] for a systematic study of such extensions). For Gaussian random variables <math display=\"inline\">X</math>, Value at Risk, Average Value at Risk, and the spectral risk measures all take the form</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          128.9145129224652
+        ],
+        [
+          286.2582278481013,
+          128.9145129224652
+        ],
+        [
+          286.2582278481013,
+          196.78369140625
+        ],
+        [
+          74.1873417721519,
+          196.78369140625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        128.9145129224652,
+        286.2582278481013,
+        196.78369140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/3",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho(X) = \\mathbb{E} \\big[ -X \\big] + c \\cdot \\sigma(X) \\tag{28}</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          123.357421875,
+          210.58984375
+        ],
+        [
+          284.1484375,
+          210.58984375
+        ],
+        [
+          284.1484375,
+          222.7392578125
+        ],
+        [
+          123.357421875,
+          222.7392578125
+        ]
+      ],
+      "bbox": [
+        123.357421875,
+        210.58984375,
+        284.1484375,
+        222.7392578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">with different constants <math display=\"inline\">c</math>; for the entropic risk measure, the standard deviation <math display=\"inline\">\\sigma(X)</math> is replaced by the variance <math display=\"inline\">\\sigma^2(X)</math>.</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          235.80908203125
+        ],
+        [
+          286.2582278481013,
+          235.80908203125
+        ],
+        [
+          286.2582278481013,
+          268.57568359375
+        ],
+        [
+          74.1873417721519,
+          268.57568359375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        235.80908203125,
+        286.2582278481013,
+        268.57568359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Model uncertainty is another situation in which it is natural to consider risk measures, due to the interpretation of the measures <math display=\"inline\">Q</math> in the dual representation (9) as suitably penalized probabilistic models. This idea already appears in robust statistics [34]. More recently, coherent and convex risk measures were applied in obtaining numerical representations of investors who are averse against both risk and model uncertainty [27, 29, 32, 43] or to define measures of model uncertainty [16].</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          269.8210735586481
+        ],
+        [
+          286.2582278481013,
+          269.8210735586481
+        ],
+        [
+          286.2582278481013,
+          384.36328125
+        ],
+        [
+          74.1873417721519,
+          384.36328125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        269.8210735586481,
+        286.2582278481013,
+        384.36328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In a financial market model, it makes sense to combine risk measurement with dynamic or static hedges. For instance, measuring the residual risk of a position after hedging by a convex risk measure <math display=\"inline\">\\rho</math> is equivalent to using the convex risk measure that arises as the <i>inf-convolution</i> of <math display=\"inline\">\\rho</math> and the superhedging risk measure, defined at the beginning of this section (cf. [3, 26, 28, 46] and the references therein).</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          385.2445328031809
+        ],
+        [
+          286.75,
+          385.2445328031809
+        ],
+        [
+          286.75,
+          487.44921875
+        ],
+        [
+          74.1873417721519,
+          487.44921875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        385.2445328031809,
+        286.75,
+        487.44921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/SectionHeader/7",
+      "block_type": "SectionHeader",
+      "html": "<h4>Law-invariant Risk Measures</h4>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          517.9065606361829
+        ],
+        [
+          221.0632911392405,
+          517.9065606361829
+        ],
+        [
+          221.0632911392405,
+          528.3154296875
+        ],
+        [
+          74.1873417721519,
+          528.3154296875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        517.9065606361829,
+        221.0632911392405,
+        528.3154296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23",
+        "4": "/page/4/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Here, we discuss those convex risk measures <math display=\"inline\">\\rho</math> on <math display=\"inline\">\\mathcal{X} = L^{\\infty}(\\Omega, \\mathcal{F}, \\mathbb{P})</math> that satisfy <math display=\"inline\">\\rho(X) = \\rho(\\widetilde{X})</math> for random variables <math display=\"inline\">X, \\widetilde{X} \\in \\mathcal{X}</math> that have the same law under <math display=\"inline\">\\mathbb{P}</math>. These risk measures are usually called law invariant. Examples from the preceding section are Average Value at Risk, the spectral risk measures, the utility-based shortfall risk measures, and the optimized certainty equivalents. Under mild conditions on the underlying probability space, every</p>",
+      "page": 229,
+      "polygon": [
+        [
+          74.1873417721519,
+          542.3056640625
+        ],
+        [
+          286.2582278481013,
+          542.3056640625
+        ],
+        [
+          286.2582278481013,
+          644.6552734375
+        ],
+        [
+          74.1873417721519,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        542.3056640625,
+        286.2582278481013,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23",
+        "4": "/page/4/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">law-invariant convex risk measure <math display=\"inline\">\\rho</math> can be represented in the form</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          71.2027833001988
+        ],
+        [
+          513.3164556962025,
+          92.317138671875
+        ],
+        [
+          301.24556962025315,
+          92.317138671875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        71.2027833001988,
+        513.3164556962025,
+        92.317138671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23",
+        "4": "/page/4/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho(X) = \\sup_{\\mu} \\left( \\int_{(0,1]} AV \\circledast R_{\\lambda}(X) \\,\\mu(\\,\\mathrm{d}\\lambda) - \\beta(\\mu) \\right) \\tag{29}</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          310.7421875,
+          106.95166015625
+        ],
+        [
+          512.5078125,
+          106.95166015625
+        ],
+        [
+          512.5078125,
+          147.265625
+        ],
+        [
+          310.7421875,
+          147.265625
+        ]
+      ],
+      "bbox": [
+        310.7421875,
+        106.95166015625,
+        512.5078125,
+        147.265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23",
+        "4": "/page/4/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where the supremum is taken over all Borel probability measures <math display=\"inline\">\\mu</math> on [0,1] and <math display=\"inline\">\\beta(\\mu)</math> is a penalty for <math display=\"inline\">\\mu</math>. Under the additional assumption of continuity from above, this representation was obtained in the coherent case by [41] and later extended by [17, 28, 31, 39]. More recently, it was shown in [35] that the condition of continuity from above can actually be dropped.</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          159.6441351888668
+        ],
+        [
+          513.375,
+          159.6441351888668
+        ],
+        [
+          513.375,
+          249.9833984375
+        ],
+        [
+          301.24556962025315,
+          249.9833984375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        159.6441351888668,
+        513.375,
+        249.9833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/2",
+        "2": "/page/2/SectionHeader/23",
+        "4": "/page/4/SectionHeader/7"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/SectionHeader/12",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Conditional Convex Risk Measures and </b><b>Time Consistency </b></h1>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          275.0675944333996
+        ],
+        [
+          498.3291139240506,
+          275.0675944333996
+        ],
+        [
+          498.3291139240506,
+          298.5810546875
+        ],
+        [
+          301.24556962025315,
+          298.5810546875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        275.0675944333996,
+        498.3291139240506,
+        298.5810546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/13",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">A risk measure should take into account the available information, and it should do so in a consistent manner as new information comes in. Here, we limit the discussion to discrete time and fix a filtration <math display=\"inline\">(\\mathcal{F}_t)_{t=0,1,\\dots}</math> on <math display=\"inline\">(\\Omega, \\mathcal{F}, \\mathbb{P})</math>; for continuous time and the connection to backward stochastic differential equations (BSDEs), (see <math display=\"inline\">[10, 20]</math>) and the references therein. A <i>conditional convex risk measure</i> at time <math display=\"inline\">t</math>is now defined as a map</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          309.544731610338
+        ],
+        [
+          514.0658227848102,
+          309.544731610338
+        ],
+        [
+          514.0658227848102,
+          413.080078125
+        ],
+        [
+          301.24556962025315,
+          413.080078125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        309.544731610338,
+        514.0658227848102,
+        413.080078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/14",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_t: L^{\\infty} \\to L^{\\infty}_t := L^{\\infty}(\\Omega, \\mathcal{F}_t, \\mathbb{P}) \\qquad (30)</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          337.046875,
+          424.861328125
+        ],
+        [
+          512.21875,
+          424.861328125
+        ],
+        [
+          512.21875,
+          435.90625
+        ],
+        [
+          337.046875,
+          435.90625
+        ]
+      ],
+      "bbox": [
+        337.046875,
+        424.861328125,
+        512.21875,
+        435.90625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/15",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">which satisfies the obvious conditional versions of monotonicity, cash invariance, and convexity where the constants <math display=\"inline\">m</math> and <math display=\"inline\">\\lambda</math> are replaced by functions in <math display=\"inline\">L^{\\infty}_{t}</math>. The associated <i>acceptance set </i></p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          446.7037773359841
+        ],
+        [
+          514.0658227848102,
+          446.7037773359841
+        ],
+        [
+          514.0658227848102,
+          491.4990234375
+        ],
+        [
+          301.24556962025315,
+          491.4990234375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        446.7037773359841,
+        514.0658227848102,
+        491.4990234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/16",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathcal{A}_t := \\{ X \\in L^\\infty \\mid \\rho_t(X) \\le 0 \\} \\tag{31}</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          350.0546875,
+          502.912109375
+        ],
+        [
+          511.9296875,
+          502.912109375
+        ],
+        [
+          511.9296875,
+          513.95703125
+        ],
+        [
+          350.0546875,
+          513.95703125
+        ]
+      ],
+      "bbox": [
+        350.0546875,
+        502.912109375,
+        511.9296875,
+        513.95703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/TextInlineMath/17",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">is conditionally convex (i.e., <math display=\"inline\">\\alpha X + (1 - \\alpha)Y \\in \\mathcal{A}_t</math>for <math display=\"inline\">X, Y \\in \\mathcal{A}_t</math> and <math display=\"inline\">\\mathcal{F}_{t-1}</math>-measurable <math display=\"inline\">\\alpha</math> with <math display=\"inline\">0 \\leq \\alpha \\leq</math>1) and it determines <math display=\"inline\">\\rho_t</math> via</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          526.1510934393639
+        ],
+        [
+          513.3164556962025,
+          526.1510934393639
+        ],
+        [
+          513.3164556962025,
+          559.2412109375
+        ],
+        [
+          301.24556962025315,
+          559.2412109375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        526.1510934393639,
+        513.3164556962025,
+        559.2412109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/18",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_t(X) = \\text{ess inf}\\left\\{Y \\in L_t^{\\infty} \\mid X + Y \\in \\mathcal{A}_t\\right\\} \\tag{32}</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          318.8359375,
+          570.654296875
+        ],
+        [
+          512.5078125,
+          570.654296875
+        ],
+        [
+          512.5078125,
+          583.908203125
+        ],
+        [
+          318.8359375,
+          583.908203125
+        ]
+      ],
+      "bbox": [
+        318.8359375,
+        570.654296875,
+        512.5078125,
+        583.908203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/19",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The Fatou property is now equivalent to a dual <i>representation</i> of the form</p>",
+      "page": 229,
+      "polygon": [
+        [
+          301.24556962025315,
+          593.6063618290259
+        ],
+        [
+          513.3164556962025,
+          593.6063618290259
+        ],
+        [
+          513.3164556962025,
+          614.833984375
+        ],
+        [
+          301.24556962025315,
+          614.833984375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        593.6063618290259,
+        513.3164556962025,
+        614.833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/20",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_t(X) = \\operatorname*{ess\\,sup}_{Q \\in \\mathcal{M}} \\left( E_Q[-X \\,|\\, \\mathcal{F}_t \\,] - \\alpha_t(Q) \\right) \\tag{33}</math></p>",
+      "page": 229,
+      "polygon": [
+        [
+          317.96875,
+          626.2470703125
+        ],
+        [
+          511.640625,
+          626.2470703125
+        ],
+        [
+          511.640625,
+          646.1279296875
+        ],
+        [
+          317.96875,
+          646.1279296875
+        ]
+      ],
+      "bbox": [
+        317.96875,
+        626.2470703125,
+        511.640625,
+        646.1279296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          204.5772151898734,
+          45.71968190854871
+        ],
+        [
+          204.5772151898734,
+          55.77685546875
+        ],
+        [
+          77.93417721518988,
+          55.77685546875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        204.5772151898734,
+        55.77685546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where the conditional penalty function <math display=\"inline\">\\alpha_t</math> is given by</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.2027833001988
+        ],
+        [
+          290.07421875,
+          71.2027833001988
+        ],
+        [
+          290.07421875,
+          81.640380859375
+        ],
+        [
+          77.93417721518988,
+          81.640380859375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.2027833001988,
+        290.07421875,
+        81.640380859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\alpha_t(Q) = \\underset{X \\in \\mathcal{A}_t}{\\text{ess sup}} E_Q[-X \\mid \\mathcal{F}_t] \\tag{34}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          121.044921875,
+          90.844482421875
+        ],
+        [
+          288.1953125,
+          90.844482421875
+        ],
+        [
+          288.1953125,
+          110.541259765625
+        ],
+        [
+          121.044921875,
+          110.541259765625
+        ]
+      ],
+      "bbox": [
+        121.044921875,
+        90.844482421875,
+        288.1953125,
+        110.541259765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The inequality <math display=\"inline\">\\geq</math> immediately follows from the definition of <math display=\"inline\">\\alpha_t</math>, and the converse inequality is obtained by using the dual representation of the unconditional convex risk measure <math display=\"inline\">\\rho(X) := \\mathbb{E}[\\rho_t(X)]</math> (cf. [6, 11, 21, 25, 45]).</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          118.42147117296223
+        ],
+        [
+          290.00506329113927,
+          118.42147117296223
+        ],
+        [
+          290.00506329113927,
+          173.88469184890656
+        ],
+        [
+          77.93417721518988,
+          173.88469184890656
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        118.42147117296223,
+        290.00506329113927,
+        173.88469184890656
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">For the conditional entropic risk measure,</p>",
+      "page": 215,
+      "polygon": [
+        [
+          89.92405063291139,
+          175.38369781312127
+        ],
+        [
+          258.53164556962025,
+          175.38369781312127
+        ],
+        [
+          258.53164556962025,
+          185.462646484375
+        ],
+        [
+          89.92405063291139,
+          185.462646484375
+        ]
+      ],
+      "bbox": [
+        89.92405063291139,
+        175.38369781312127,
+        258.53164556962025,
+        185.462646484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/5",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_t^{\\text{ent}}(X) = \\frac{1}{\\theta} \\log \\mathbb{E}\\left[e^{-\\theta X} \\mid \\mathcal{F}_t\\right] \\tag{35}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          122.70703125,
+          196.2314453125
+        ],
+        [
+          288.91796875,
+          196.2314453125
+        ],
+        [
+          288.91796875,
+          217.953125
+        ],
+        [
+          122.70703125,
+          217.953125
+        ]
+      ],
+      "bbox": [
+        122.70703125,
+        196.2314453125,
+        288.91796875,
+        217.953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">the dual representation holds with</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          224.1013916500994
+        ],
+        [
+          215.06835443037974,
+          224.1013916500994
+        ],
+        [
+          215.06835443037974,
+          234.15234375
+        ],
+        [
+          77.93417721518988,
+          234.15234375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        224.1013916500994,
+        215.06835443037974,
+        234.15234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\alpha_t(Q) = \\frac{1}{\\theta} \\widehat{H}_t(Q|P) \\tag{36}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          139.38227848101266,
+          242.98828125
+        ],
+        [
+          289.640625,
+          242.98828125
+        ],
+        [
+          289.640625,
+          265.078125
+        ],
+        [
+          139.38227848101266,
+          265.078125
+        ]
+      ],
+      "bbox": [
+        139.38227848101266,
+        242.98828125,
+        289.640625,
+        265.078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          281.81312127236583
+        ],
+        [
+          104.1620253164557,
+          281.81312127236583
+        ],
+        [
+          104.1620253164557,
+          291.03369140625
+        ],
+        [
+          77.93417721518988,
+          291.03369140625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        281.81312127236583,
+        104.1620253164557,
+        291.03369140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\widehat{H}_{t}(Q|P) := \\mathbb{E}\\left[\\left.\\frac{Z}{Z_{t}}\\log\\left.\\frac{Z}{Z_{t}}\\right|\\mathcal{F}_{t}\\right]I_{\\{Z_{t}&gt;0\\}}\\right] </math>(37)</p>",
+      "page": 215,
+      "polygon": [
+        [
+          93.150390625,
+          297.8447265625
+        ],
+        [
+          290.00506329113927,
+          297.8447265625
+        ],
+        [
+          290.00506329113927,
+          326.5615234375
+        ],
+        [
+          93.150390625,
+          326.5615234375
+        ]
+      ],
+      "bbox": [
+        93.150390625,
+        297.8447265625,
+        290.00506329113927,
+        326.5615234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">denotes the <i>conditional entropy</i> of <math display=\"inline\">Q \\in \\mathcal{M}</math> with respect to P, defined in terms of the densities <math display=\"inline\">Z =</math><math display=\"inline\">dQ/dP</math> and <math display=\"inline\">Z_t = dQ/dP|_{\\mathcal{F}_t}</math>.</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          329.7813121272366
+        ],
+        [
+          290.00506329113927,
+          329.7813121272366
+        ],
+        [
+          290.00506329113927,
+          364.482421875
+        ],
+        [
+          77.93417721518988,
+          364.482421875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        329.7813121272366,
+        290.00506329113927,
+        364.482421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In our dynamic setting, the key question is how the conditional risk assessments of a financial position at different times are connected to each other.</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          364.258449304175
+        ],
+        [
+          290.00506329113927,
+          364.258449304175
+        ],
+        [
+          290.00506329113927,
+          397.6171875
+        ],
+        [
+          77.93417721518988,
+          397.6171875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        364.258449304175,
+        290.00506329113927,
+        397.6171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/12",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\"><b>Definition</b> A dynamic risk measure given by a seq<i>uence of conditional convex risk measures</i> <math display=\"inline\">(\\rho_t)_{t=0,1,...}</math>is called time-consistent if</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          406.98011928429423
+        ],
+        [
+          290.00506329113927,
+          406.98011928429423
+        ],
+        [
+          290.00506329113927,
+          438.4833984375
+        ],
+        [
+          77.93417721518988,
+          438.4833984375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        406.98011928429423,
+        290.00506329113927,
+        438.4833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_{t+1}(X) \\le \\rho_{t+1}(Y) \\quad \\Longrightarrow \\quad \\rho_t(X) \\le \\rho_t(Y) \\tag{38}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          85.345703125,
+          450.2646484375
+        ],
+        [
+          289.3515625,
+          450.2646484375
+        ],
+        [
+          289.3515625,
+          463.5185546875
+        ],
+        [
+          85.345703125,
+          463.5185546875
+        ]
+      ],
+      "bbox": [
+        85.345703125,
+        450.2646484375,
+        289.3515625,
+        463.5185546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">and this is equivalent to recursiveness:</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          469.93836978131213
+        ],
+        [
+          233.05316455696203,
+          469.93836978131213
+        ],
+        [
+          233.05316455696203,
+          480.4541015625
+        ],
+        [
+          77.93417721518988,
+          480.4541015625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        469.93836978131213,
+        233.05316455696203,
+        480.4541015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_t = \\rho_t(-\\rho_{t+1}) \\quad \\text{for } t = 0, 1, \\dots\\n</math>\n(39)</p>",
+      "page": 215,
+      "polygon": [
+        [
+          117.6506329113924,
+          491.4990234375
+        ],
+        [
+          289.0625,
+          491.4990234375
+        ],
+        [
+          289.0625,
+          501.0712890625
+        ],
+        [
+          117.6506329113924,
+          501.0712890625
+        ]
+      ],
+      "bbox": [
+        117.6506329113924,
+        491.4990234375,
+        289.0625,
+        501.0712890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">To characterize time consistency in terms of acceptance sets and penalty functions, we define the \"myopic\" acceptance sets</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          511.1610337972167
+        ],
+        [
+          290.00506329113927,
+          511.1610337972167
+        ],
+        [
+          290.00506329113927,
+          543.7783203125
+        ],
+        [
+          77.93417721518988,
+          543.7783203125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        511.1610337972167,
+        290.00506329113927,
+        543.7783203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\mathcal{A}_{t,t+1} := \\left\\{ X \\in L_{t+1}^{\\infty} \\; \\middle| \\; \\rho_t(X) \\le 0 \\right\\} \\tag{40}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          114.46875,
+          553.71875
+        ],
+        [
+          288.484375,
+          553.71875
+        ],
+        [
+          288.484375,
+          566.97265625
+        ],
+        [
+          114.46875,
+          566.97265625
+        ]
+      ],
+      "bbox": [
+        114.46875,
+        553.71875,
+        288.484375,
+        566.97265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/18",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">and the corresponding \"myopic\" penalty functions</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          574.868787276342
+        ],
+        [
+          280.2632911392405,
+          574.868787276342
+        ],
+        [
+          280.2632911392405,
+          585.380859375
+        ],
+        [
+          77.93417721518988,
+          585.380859375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        574.868787276342,
+        280.2632911392405,
+        585.380859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/19",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\alpha_{t,t+1}(Q) := \\underset{X \\in \\mathcal{A}_{t,t+1}}{\\text{ess sup}} E_Q[-X \\mid \\mathcal{F}_t] \\qquad (41)</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          114.46875,
+          594.5849609375
+        ],
+        [
+          289.0625,
+          594.5849609375
+        ],
+        [
+          289.0625,
+          614.4658203125
+        ],
+        [
+          114.46875,
+          614.4658203125
+        ]
+      ],
+      "bbox": [
+        114.46875,
+        594.5849609375,
+        289.0625,
+        614.4658203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/20",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\" class=\"has-continuation\">We also assume that the class <math display=\"inline\">Q^*</math> of all equivalent probability measures Q with <math display=\"inline\">\\alpha_0(Q) &lt; \\infty</math> is not</p>",
+      "page": 215,
+      "polygon": [
+        [
+          77.93417721518988,
+          623.5864811133201
+        ],
+        [
+          290.00506329113927,
+          623.5864811133201
+        ],
+        [
+          290.00506329113927,
+          644.287109375
+        ],
+        [
+          77.93417721518988,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        623.5864811133201,
+        290.00506329113927,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/21",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">empty. Then time consistency is equivalent to each of the following conditions:</p>",
+      "page": 215,
+      "polygon": [
+        [
+          304.99240506329113,
+          71.2027833001988
+        ],
+        [
+          517.0632911392405,
+          71.2027833001988
+        ],
+        [
+          517.0632911392405,
+          92.5472412109375
+        ],
+        [
+          304.99240506329113,
+          92.5472412109375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        71.2027833001988,
+        517.0632911392405,
+        92.5472412109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/ListGroup/214",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\"><math display=\"inline\">A_t = A_{t,t+1} + A_{t+1}</math> for <math display=\"inline\">t = 0, 1, ...</math></li><li block-type=\"ListItem\">For any <math display=\"inline\">O \\in \\mathcal{M}</math>,</li></ul></p>",
+      "page": 215,
+      "polygon": [
+        [
+          308.140625,
+          103.43141153081511
+        ],
+        [
+          480.34430379746834,
+          103.43141153081511
+        ],
+        [
+          480.34430379746834,
+          125.72802734375
+        ],
+        [
+          308.140625,
+          125.72802734375
+        ]
+      ],
+      "bbox": [
+        308.140625,
+        103.43141153081511,
+        480.34430379746834,
+        125.72802734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/24",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\alpha_t(Q) = \\alpha_{t,t+1}(Q) + E_Q[\\alpha_{t+1} | \\mathcal{F}_t] \\quad \\text{for}</math><br/><math display=\"block\">t = 0, 1, \\dots \\tag{42}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          335.3125,
+          140.45458984375
+        ],
+        [
+          515.6875,
+          140.45458984375
+        ],
+        [
+          515.6875,
+          167.146484375
+        ],
+        [
+          335.3125,
+          167.146484375
+        ]
+      ],
+      "bbox": [
+        335.3125,
+        140.45458984375,
+        515.6875,
+        167.146484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/215",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">For any <math display=\"inline\">Q \\in \\mathcal{Q}^*</math> and any <math display=\"inline\">X \\in L^{\\infty}</math>, the process 0.1</p>",
+      "page": 215,
+      "polygon": [
+        [
+          308.71875,
+          186.6262425447316
+        ],
+        [
+          515.6875,
+          186.6262425447316
+        ],
+        [
+          515.6875,
+          209.86083499005966
+        ],
+        [
+          308.71875,
+          209.86083499005966
+        ]
+      ],
+      "bbox": [
+        308.71875,
+        186.6262425447316,
+        515.6875,
+        209.86083499005966
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/26",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_t(X) + \\alpha_t(Q), \\quad t = 0, 1, \\dots</math> (43)</p>",
+      "page": 215,
+      "polygon": [
+        [
+          351.2109375,
+          208.93310546875
+        ],
+        [
+          514.8203125,
+          208.93310546875
+        ],
+        [
+          514.8203125,
+          218.50537109375
+        ],
+        [
+          351.2109375,
+          218.50537109375
+        ]
+      ],
+      "bbox": [
+        351.2109375,
+        208.93310546875,
+        514.8203125,
+        218.50537109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/27",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">is a <math display=\"inline\">Q</math>-supermartingale</p>",
+      "page": 215,
+      "polygon": [
+        [
+          325.9746835443038,
+          224.85089463220677
+        ],
+        [
+          420.39493670886077,
+          224.85089463220677
+        ],
+        [
+          420.39493670886077,
+          235.07275390625
+        ],
+        [
+          325.9746835443038,
+          235.07275390625
+        ]
+      ],
+      "bbox": [
+        325.9746835443038,
+        224.85089463220677,
+        420.39493670886077,
+        235.07275390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/28",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">(cf. [2, 7, 11, 12, 19, 25]). Moreover, each condition implies that the dynamic risk measure admits a robust representation in terms of the set <math display=\"inline\">Q^*</math>, that is,</p>",
+      "page": 215,
+      "polygon": [
+        [
+          304.99240506329113,
+          243.58846918489067
+        ],
+        [
+          517.0632911392405,
+          243.58846918489067
+        ],
+        [
+          517.0632911392405,
+          275.81709741550696
+        ],
+        [
+          304.99240506329113,
+          275.81709741550696
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        243.58846918489067,
+        517.0632911392405,
+        275.81709741550696
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/29",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_t(X) = \\operatorname*{ess\\,sup}_{Q \\in \\mathcal{Q}^*} \\left( E_Q[-X \\mid \\mathcal{F}_t] - \\alpha_t(Q) \\right) \\tag{44}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          318.546875,
+          284.5908203125
+        ],
+        [
+          516.265625,
+          284.5908203125
+        ],
+        [
+          516.265625,
+          305.576171875
+        ],
+        [
+          318.546875,
+          305.576171875
+        ]
+      ],
+      "bbox": [
+        318.546875,
+        284.5908203125,
+        516.265625,
+        305.576171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/30",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">for all <math display=\"inline\">X \\in L^{\\infty}</math> and all <math display=\"inline\">t &gt; 0</math> (cf. [25]).</p>",
+      "page": 215,
+      "polygon": [
+        [
+          304.99240506329113,
+          309.544731610338
+        ],
+        [
+          465.3569620253165,
+          309.544731610338
+        ],
+        [
+          465.3569620253165,
+          319.9345703125
+        ],
+        [
+          304.99240506329113,
+          319.9345703125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        309.544731610338,
+        465.3569620253165,
+        319.9345703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/31",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The entropic dynamic risk measure is time consistent as long as the parameter <math display=\"inline\">\\theta</math> remains constant. On the other hand, time consistency fails for the dynamic risk measure defined by conditional Average Value at Risk. Under the assumption of law invariance, the entropic case is in fact the only time-consistent example, if we include the limiting cases <math display=\"inline\">\\theta = 0</math> and <math display=\"inline\">\\theta = \\infty</math>corresponding to the conditional expected loss under <math display=\"inline\">\\mathbb{P}</math> and the <i>conditional worst-case risk measure</i>,</p>",
+      "page": 215,
+      "polygon": [
+        [
+          304.99240506329113,
+          321.53677932405566
+        ],
+        [
+          517.0632911392405,
+          321.53677932405566
+        ],
+        [
+          517.0632911392405,
+          424.4931640625
+        ],
+        [
+          304.99240506329113,
+          424.4931640625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        321.53677932405566,
+        517.0632911392405,
+        424.4931640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/32",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_t(X) = \\operatorname{ess\\,inf} \\left\\{ Y \\in L_t^{\\infty} \\mid Y \\ge -X \\right\\} \\tag{45}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          331.84375,
+          431.8564453125
+        ],
+        [
+          516.265625,
+          431.8564453125
+        ],
+        [
+          516.265625,
+          442.1650390625
+        ],
+        [
+          331.84375,
+          442.1650390625
+        ]
+      ],
+      "bbox": [
+        331.84375,
+        431.8564453125,
+        516.265625,
+        442.1650390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/33",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">respectively (cf. [40]). This suggests to consider weaker versions of time consistency. For example, the supermartingale property above implies that for each <math display=\"inline\">Q \\in \\mathcal{Q}^*</math> the process <math display=\"inline\">\\alpha_t(Q), t = 0, 1, \\ldots</math>, is a Qsupermartingale, and this is equivalent to the weaker requirement</p>",
+      "page": 215,
+      "polygon": [
+        [
+          304.99240506329113,
+          451.20079522862824
+        ],
+        [
+          517.8126582278481,
+          451.20079522862824
+        ],
+        [
+          517.8126582278481,
+          518.7431640625
+        ],
+        [
+          304.99240506329113,
+          518.7431640625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        451.20079522862824,
+        517.8126582278481,
+        518.7431640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/34",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_{t+1}(X) \\le 0 \\quad \\Longrightarrow \\quad \\rho_t(X) \\le 0 \\qquad (46)</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          342.828125,
+          527.5791015625
+        ],
+        [
+          516.265625,
+          527.5791015625
+        ],
+        [
+          516.265625,
+          538.6240234375
+        ],
+        [
+          342.828125,
+          538.6240234375
+        ]
+      ],
+      "bbox": [
+        342.828125,
+        527.5791015625,
+        516.265625,
+        538.6240234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/35",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">that is, <math display=\"inline\">\\mathcal{A}_t \\subseteq \\mathcal{A}_{t+1}</math> for all <math display=\"inline\">t = 0, 1, \\ldots</math> In the law invariant case, such weaker notions of consistency may be used for a characterization of utility-based shortfall risk (cf. [48]). The notion of <i>prudence </i>introduced in <math display=\"inline\">[44]</math> requires</p>",
+      "page": 215,
+      "polygon": [
+        [
+          304.99240506329113,
+          546.3876739562625
+        ],
+        [
+          517.0632911392405,
+          545.6381709741551
+        ],
+        [
+          517.0632911392405,
+          603.4208984375
+        ],
+        [
+          304.99240506329113,
+          603.4208984375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        545.6381709741551,
+        517.0632911392405,
+        603.4208984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/36",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">X \\in \\mathcal{A}_t \\quad \\Longrightarrow \\quad -\\rho_{t+s}(X) \\in \\mathcal{A}_t \\text{ for all } s \\ge 0 \\tag{47}</math></p>",
+      "page": 215,
+      "polygon": [
+        [
+          318.8359375,
+          617.04296875
+        ],
+        [
+          515.9765625,
+          617.04296875
+        ],
+        [
+          515.9765625,
+          642.078125
+        ],
+        [
+          318.8359375,
+          642.078125
+        ]
+      ],
+      "bbox": [
+        318.8359375,
+        617.04296875,
+        515.9765625,
+        642.078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 558,
+      "polygon": [
+        [
+          387.8999938964844,
+          45.49365234375
+        ],
+        [
+          512.3054809570312,
+          45.49365234375
+        ],
+        [
+          512.3054809570312,
+          56.70166015625
+        ],
+        [
+          387.8999938964844,
+          56.70166015625
+        ]
+      ],
+      "bbox": [
+        387.8999938964844,
+        45.49365234375,
+        512.3054809570312,
+        56.70166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">and this is characterized by the fact that</p>",
+      "page": 558,
+      "polygon": [
+        [
+          75.662109375,
+          71.88751220703125
+        ],
+        [
+          235.69332885742188,
+          71.88751220703125
+        ],
+        [
+          235.69332885742188,
+          81.60113525390625
+        ],
+        [
+          75.662109375,
+          81.60113525390625
+        ]
+      ],
+      "bbox": [
+        75.662109375,
+        71.88751220703125,
+        235.69332885742188,
+        81.60113525390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\rho_t(X) - \\sum_{k=0}^{t-1} \\alpha_k(Q), \\quad t = 0, 1, \\dots \\qquad (48)</math></p>",
+      "page": 558,
+      "polygon": [
+        [
+          109.482421875,
+          90.31439208984375
+        ],
+        [
+          285.59375,
+          90.31439208984375
+        ],
+        [
+          285.59375,
+          121.53057861328125
+        ],
+        [
+          109.482421875,
+          121.53057861328125
+        ]
+      ],
+      "bbox": [
+        109.482421875,
+        90.31439208984375,
+        285.59375,
+        121.53057861328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">is a <i><sup>Q</sup></i>-supermartingale for any <i><sup>Q</sup></i> <sup>∈</sup> <sup>Q</sup><sup>∗</sup> and any <i>X</i> ∈ <i>L</i><sup>∞</sup>.</p>",
+      "page": 558,
+      "polygon": [
+        [
+          75.228515625,
+          127.514404296875
+        ],
+        [
+          286.171875,
+          127.514404296875
+        ],
+        [
+          286.171875,
+          150.421142578125
+        ],
+        [
+          75.228515625,
+          150.421142578125
+        ]
+      ],
+      "bbox": [
+        75.228515625,
+        127.514404296875,
+        286.171875,
+        150.421142578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">For an infinite time horizon, the supermartingale criteria for time consistency and for prudence both yield almost sure convergence of the capital requirements <i>ρt(X)</i> to an asymptotic capital requirement <i>ρ</i>∞<i>(X)</i>. We may now ask whether the sequence is <i>asymptotically safe</i> in the sense that <i>ρ</i>∞<i>(X)</i> ≥ −<i>X,</i> or even <i>asymptotically precise</i> in the sense of <i>ρ</i>∞<i>(X)</i> = −<i>X</i>; note that asymptotic precision can be viewed as a nonlinear analog of martingale convergence. Criteria in terms of acceptance sets and penalty functions are derived in [25] for the time-consistent case and in [44] for the case of prudence.</p>",
+      "page": 558,
+      "polygon": [
+        [
+          75.517578125,
+          152.1676025390625
+        ],
+        [
+          285.8828125,
+          152.1676025390625
+        ],
+        [
+          285.8828125,
+          287.5812072753906
+        ],
+        [
+          75.517578125,
+          287.5812072753906
+        ]
+      ],
+      "bbox": [
+        75.517578125,
+        152.1676025390625,
+        285.8828125,
+        287.5812072753906
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/SectionHeader/5",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>References</b></h2>",
+      "page": 558,
+      "polygon": [
+        [
+          75.517578125,
+          302.233642578125
+        ],
+        [
+          128.560546875,
+          302.233642578125
+        ],
+        [
+          128.560546875,
+          313.4416198730469
+        ],
+        [
+          75.517578125,
+          313.4416198730469
+        ]
+      ],
+      "bbox": [
+        75.517578125,
+        302.233642578125,
+        128.560546875,
+        313.4416198730469
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/6/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/ListGroup/557",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">[1] Artzner, P., Delbaen, F., Eber, J.-M. &amp; Heath, D. (1999). Coherent measures of risk, <i>Mathematical Finance</i> <b>9</b>(3), 203–228.</li><li block-type=\"ListItem\">[2] Artzner, P., Delbaen, F., Eber, J.-M., Heath, D. &amp; Ku, H. (2007). Coherent multiperiod risk adjusted values and Bellman's principle, <i>Annals of Operational Research</i> <b>152</b>, 5–22.</li><li block-type=\"ListItem\">[3] Barrieu, P. &amp; El Karoui, N. (2005). Inf-convolution of risk measures and optimal risk transfer, <i>Finance and</i> <i>Stochastics</i> <b>9</b>(2), 269–298.</li><li block-type=\"ListItem\">[4] Ben-Tal, A. &amp; Teboulle, M. (1987). Penalty functions and duality in stochastic programming via <i>φ</i>-divergence functionals, <i>Mathematical Operational Research</i> <b>12</b>, 224–240.</li><li block-type=\"ListItem\">[5] Ben-Tal, A. &amp; Teboulle, M. (2007). An old-new concept of convex risk measures: the optimized certainty equivalent, <i>Mathematical Finance</i> <b>17</b>(3), 449–476.</li><li block-type=\"ListItem\">[6] Bion-Nadal, J. (2004). <i>Conditional Risk Measure and</i> <i>Robust Representation of Convex Conditional Risk</i> <i>Measures</i>, CMAP preprint 557, Ecole Polytechnique Palaiseau.</li><li block-type=\"ListItem\">[7] Bion-Nadal, J. (2006). <i>Dynamic Risk Measuring: Dis</i><i>crete Time in a Context of Uncertainty, and Continuous</i> <i>Time on a Probability Space</i>, CMAP preprint 596, Ecole Polytechnique Palaiseau.</li><li block-type=\"ListItem\">[8] Carr, P., Geman, H. &amp; Madan, D. (2001). Pricing and hedging in incomplete markets, <i>Journal of Financial</i> <i>Economics</i> <b>62</b>, 131–167.</li><li block-type=\"ListItem\">[9] Cheridito, P. &amp; Li, T. Risk measures on Orlicz hearts, <i>Mathematical Finance</i>, to appear.</li><li block-type=\"ListItem\">[10] Cheridito, P., Delbaen, F. &amp; Kupper, M. (2005). Coherent and convex monetary risk measures for</li></ul></p>",
+      "page": 558,
+      "polygon": [
+        [
+          74.72265625,
+          328.2678527832031
+        ],
+        [
+          286.4609375,
+          328.2678527832031
+        ],
+        [
+          286.4609375,
+          644.6552734375
+        ],
+        [
+          74.72265625,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        74.72265625,
+        328.2678527832031,
+        286.4609375,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/6/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">unbounded cadl ` ag processes, ` <i>Finance and Stochastics</i> <b>9</b>, 1713–1732.</p>",
+      "page": 558,
+      "polygon": [
+        [
+          323.171875,
+          71.9222412109375
+        ],
+        [
+          512.796875,
+          71.9222412109375
+        ],
+        [
+          512.796875,
+          90.3382568359375
+        ],
+        [
+          323.171875,
+          90.3382568359375
+        ]
+      ],
+      "bbox": [
+        323.171875,
+        71.9222412109375,
+        512.796875,
+        90.3382568359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/6/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/6/ListGroup/558",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\" class=\"has-continuation\"><ul><li block-type=\"ListItem\">[11] Cheridito, P. Delbaen, F. &amp; Kupper, M. (2006). Dynamic monetary risk measures for bounded discrete-time processes, <i>Electronic Journal of Probability</i> <b>11</b>, 57–106.</li><li block-type=\"ListItem\">[12] Cheridito, P. &amp; Kupper, M. (2006). <i>Composition of</i> <i>Time-Consistent Dynamic Monetary Risk Measures in</i> <i>Discrete Time</i>, Preprint.</li><li block-type=\"ListItem\">[13] Cherny, A. &amp; Kupper, M. (2007). <i>Divergence Utilities</i>, Preprint, Moscow State University.</li><li block-type=\"ListItem\">[14] Csiszar, I. (1963). Eine informationstheoretische Ungleichung und ihre Anwendung auf den Beweis der Ergodizitat von Markoffschen Ketten, ¨ <i>Magyar Tudo</i><i>manyos Akademia Mathematica Kutat´o International</i> <i>K¨ozl</i> <b>8</b>, 85–108.</li><li block-type=\"ListItem\">[15] Csiszar, I. (1967). On topological properties of <i>f</i> divergences, <i>Studia Scientiarum Mathematicarum Hun</i><i>garica</i> <b>2</b>, 329–339.</li><li block-type=\"ListItem\">[16] Cont, R. (2006). Model uncertainty and its impact on the pricing of derivative instruments, <i>Mathematical Finance</i> <b>16</b>, 519–542.</li><li block-type=\"ListItem\">[17] Dana, R.-A. (2005). A representation result for concave Schur concave functions, <i>Mathematical Finance</i> <b>15</b>, 613–634.</li><li block-type=\"ListItem\">[18] Delbaen, F. (2002). Coherent measures of risk on general probability spaces, <i>Advances in Finance and</i> <i>Stochastics. Essays in Honour of Dieter Sondermann</i>, Springer-Verlag, pp. 1–37.</li><li block-type=\"ListItem\">[19] Delbaen, F. (2006). The structure of m-stable sets and in particular of the set of risk neutral measures, in <i>Memo</i><i>riam Paul-Andr´e Meyer – S´eminaire de Probabilit´es</i> <i>XXXIX</i>, M. Yor &amp; M. Emery, eds, Springer, Berlin, pp. ´ 215–258.</li><li block-type=\"ListItem\">[20] Delbaen, F., Peng, S. &amp; Rosazza Gianin, E. (2008). <i>Representation of the Penalty Term of Dynamic Concave</i> <i>Utilities</i>, arXiv:0802.1121.</li><li block-type=\"ListItem\">[21] Detlefsen, K. &amp; Scandolo, G. (2005). Conditional and dynamic convex risk measures, <i>Finance and Stochastics</i> <b>9</b>(4), 539–561.</li><li block-type=\"ListItem\">[22] El Karoui, N. &amp; Ravanelli, C. (2008). Cash sub-additive risk measures and interest rate ambiguity, <i>Mathematical</i> <i>Finance</i>, to appear.</li><li block-type=\"ListItem\">[23] Filipovic, D. &amp; Svindland, G. (2008). ´ <i>Convex Risk</i> <i>Measures Beyond Bounded Risks, or The Canonical</i> <i>Model Space for Law-Invariant Convex Risk Measures</i> <i>is $L 1$</i>, Preprint, University of Vienna.</li><li block-type=\"ListItem\">[24] Follmer, H. &amp; Kramkov, D. (1997). Optional decompo- ¨ sitions under constraints, <i>Probability Theory and Related</i> <i>Fields</i> <b>109</b>, 1–25.</li><li block-type=\"ListItem\">[25] Follmer, H. &amp; Penner, I. (2006). Convex risk measures ¨ and the dynamics of their penalty functions, <i>Statistics</i> <i>and Decisions</i> <b>24</b>(1), 61–96.</li><li block-type=\"ListItem\">[26] Follmer, H. &amp; Schied, A. (2002). Convex measures of ¨ risk and trading constraints, <i>Finance and Stochastics</i> <b>6</b>, 429–447.</li><li block-type=\"ListItem\">[27] Follmer, H. &amp; Schied, A. (2002). Robust preferences ¨ and convex measures of risk, in <i>Advances in Finance</i> <i>and Stochastics</i>, Springer, Berlin, pp. 39–56.</li></ul></p>",
+      "page": 558,
+      "polygon": [
+        [
+          300.625,
+          91.8055419921875
+        ],
+        [
+          512.796875,
+          91.8055419921875
+        ],
+        [
+          512.796875,
+          644.6552734375
+        ],
+        [
+          300.625,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        300.625,
+        91.8055419921875,
+        512.796875,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/6/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 374,
+      "polygon": [
+        [
+          79.34765625,
+          45.49365234375
+        ],
+        [
+          204.17730712890625,
+          45.49365234375
+        ],
+        [
+          204.17730712890625,
+          56.70166015625
+        ],
+        [
+          79.34765625,
+          56.70166015625
+        ]
+      ],
+      "bbox": [
+        79.34765625,
+        45.49365234375,
+        204.17730712890625,
+        56.70166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/6/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/ListGroup/373",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\" class=\"has-continuation\"><ul><li block-type=\"ListItem\">[28] Follmer, H. &amp; Schied, A. (2004). ¨ <i>Stochastic Finance: An</i> <i>Introduction in Discrete Time</i>, 2nd revised and extended edition, <i>de Gruyter Studies in Mathematics 27</i> Walter de Gruyter, Berlin.</li><li block-type=\"ListItem\">[29] Follmer, H., Schied, A., Weber, S. (2007). Robust ¨ preferences and robust portfolio choice, in <i>Handbook</i> <i>on Mathematical Finance</i>, A. Bensoussan, ed, Elsevier, Amsterdam, forthcoming.</li><li block-type=\"ListItem\">[30] Frittelli, M. &amp; Rosazza Gianin, E. (2002). Putting order in risk measures, <i>Journal of Banking and Finance</i> <b>26</b>, 1473–1486.</li><li block-type=\"ListItem\">[31] Frittelli, M. &amp; Rosazza Gianin, E. (2005). Law-invariant convex risk measures, <i>Advances in Mathematical Eco</i><i>nomics</i> <b>7</b>, 33–46.</li><li block-type=\"ListItem\">[32] Gilboa, I. &amp; Schmeidler, D. (1989). Maxmin expected utility with non-unique prior, <i>Journal of Mathematical</i> <i>Economics</i> <b>18</b>, 141–153.</li><li block-type=\"ListItem\">[33] Heath, D. (2000). <i>Back to the Future</i>, Plenary Lecture, First World Congress of the Bachelier Finance Society, Paris.</li><li block-type=\"ListItem\">[34] Huber, P. (1981). Robust statistics, <i>Wiley Series in</i> <i>Probability and Mathematical Statistics</i>, Wiley, New York.</li><li block-type=\"ListItem\">[35] Jouini, E., Schachermayer, W. &amp; Touzi, N. (2006). Law invariant risk measures have the Fatou property, <i>Advances in Mathematical Economics</i> <b>9</b>, 49–71.</li><li block-type=\"ListItem\">[36] Kaina, M. &amp; Ruschendorf, L. On convex risk measures ¨ on Lp-spaces, <i>Mathematical Methods in Operations</i> <i>Research</i>, to appear.</li><li block-type=\"ListItem\">[37] Kratschmer, V. (2005). Robust representation of convex ¨ risk measures by probability measures, <i>Finance and</i> <i>Stochastics</i> <b>9</b>, 597–608.</li><li block-type=\"ListItem\">[38] Kratschmer, V. (2007). ¨ <i>On Sigma-Additive Robust Rep</i><i>resentation of Convex Risk Measures for Unbounded</i> <i>Financial Positions in the Presence of Uncertainty About</i> <i>the Market Model</i>, Preprint, TU, Berlin.</li><li block-type=\"ListItem\">[39] Kunze, M. (2003). <i>Verteilungsinvariante konvexe Risik</i><i>omaße</i>, Diplomarbeit, Humboldt-Universitat zu Berlin. ¨</li></ul></p>",
+      "page": 374,
+      "polygon": [
+        [
+          78.263671875,
+          71.92462158203125
+        ],
+        [
+          291.0859375,
+          71.92462158203125
+        ],
+        [
+          291.0859375,
+          448.8680114746094
+        ],
+        [
+          78.263671875,
+          448.8680114746094
+        ]
+      ],
+      "bbox": [
+        78.263671875,
+        71.92462158203125,
+        291.0859375,
+        448.8680114746094
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/6/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/ListGroup/374",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">[40] Kupper, M. &amp; Schachermayer, W. (2008). <i>Representa</i><i>tion Results for Law Invariant Time Consistent Func</i><i>tions</i>, Preprint TU, Vienna.</li><li block-type=\"ListItem\">[41] Kusuoka, S. (2001). On law invariant coherent risk measures, <i>Advances in Mathematical Economics</i> <b>3</b>, 83–95.</li><li block-type=\"ListItem\">[42] Larsen, K., Pirvu, T., Shreve, S. &amp; Tut¨ unc ¨ u, R. (2005). ¨ Satisfying Convex Risk Limits by Trading, <i>Finance and</i> <i>Stochastics</i> <b>9</b>(2), 177–195.</li><li block-type=\"ListItem\">[43] Maccheroni, F., Marinaci, M. &amp; Rustichini, A. (2006). Ambiguity aversion, robustness, and the variational representation of preferences, <i>Econometrica</i> <b>74</b>, 1447–1498.</li><li block-type=\"ListItem\">[44] Penner, I. (2007). <i>Dynamic Convex Risk Measures: Time</i> <i>Consistency, Prudence, and Sustainability</i>, Ph.D. Thesis, Humboldt-Universitat zu Berlin, Berlin. ¨</li><li block-type=\"ListItem\">[45] Riedel, F. (2004). Dynamic coherent risk measures, <i>Stochastic Processes and their Applications</i> <b>112</b>(2), 185–200.</li><li block-type=\"ListItem\">[46] Schied, A. (2006). Risk measures and robust optimization problems, <i>Stochastic Models</i> <b>22</b>, 753–831.</li><li block-type=\"ListItem\">[47] Schied, A. (2007). Optimal investments for risk- and ambiguity-averse preferences: a duality approach, <i>Fin</i><i>ance and Stochastics</i> <b>11</b>(1), 107–129.</li><li block-type=\"ListItem\">[48] Weber, S. (2006). Distribution-invariant risk measures, information, and dynamic consistency, <i>Mathematical</i> <i>Finance</i> <b>16</b>, 419–442.</li></ul></p>",
+      "page": 374,
+      "polygon": [
+        [
+          304.671875,
+          71.9237060546875
+        ],
+        [
+          516.84375,
+          71.9237060546875
+        ],
+        [
+          516.84375,
+          329.32275390625
+        ],
+        [
+          304.671875,
+          329.32275390625
+        ]
+      ],
+      "bbox": [
+        304.671875,
+        71.9237060546875,
+        516.84375,
+        329.32275390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/6/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/SectionHeader/22",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Related Articles</b></h2>",
+      "page": 374,
+      "polygon": [
+        [
+          305.25,
+          347.29364013671875
+        ],
+        [
+          385.03125,
+          347.29364013671875
+        ],
+        [
+          385.03125,
+          358.5016174316406
+        ],
+        [
+          305.25,
+          358.5016174316406
+        ]
+      ],
+      "bbox": [
+        305.25,
+        347.29364013671875,
+        385.03125,
+        358.5016174316406
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/7/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/Text/23",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Convex Duality</b>; <b>Expected Shortfall</b>; <b>Expected</b> <b>Utility Maximization: Duality Methods</b>; <b>Risk Mea</b><b>sures: Statistical Estimation</b>; <b>Spectral Measures</b> <b>of Risk</b>; <b>Superhedging</b>; <b>Utility Function</b>; <b>Utility</b> <b>Indifference Valuation</b>; <b>Value-at-Risk</b>.</p>",
+      "page": 374,
+      "polygon": [
+        [
+          305.828125,
+          373.70916748046875
+        ],
+        [
+          516.265625,
+          373.70916748046875
+        ],
+        [
+          516.265625,
+          429.361572265625
+        ],
+        [
+          305.828125,
+          429.361572265625
+        ]
+      ],
+      "bbox": [
+        305.828125,
+        373.70916748046875,
+        516.265625,
+        429.361572265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/7/SectionHeader/22"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/7/Text/24",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">HANS FOLLMER ¨ &amp; ALEXANDER SCHIED</p>",
+      "page": 374,
+      "polygon": [
+        [
+          346.296875,
+          440.0680847167969
+        ],
+        [
+          505.28125,
+          440.0680847167969
+        ],
+        [
+          505.28125,
+          449.9417724609375
+        ],
+        [
+          346.296875,
+          449.9417724609375
+        ]
+      ],
+      "bbox": [
+        346.296875,
+        440.0680847167969,
+        505.28125,
+        449.9417724609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/4/SectionHeader/12",
+        "2": "/page/7/SectionHeader/22"
+      },
+      "images": {}
+    }
+  ],
+  "page_info": {
+    "0": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "1": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "2": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "3": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "4": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "5": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "6": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "7": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    }
+  }
+}

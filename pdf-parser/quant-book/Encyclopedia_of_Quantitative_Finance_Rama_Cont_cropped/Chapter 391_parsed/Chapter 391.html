@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Insurance Risk Models
+   </b>
+  </h1>
+  <h2>
+   The Classical Risk Model
+  </h2>
+  <p block-type="Text">
+   We start by formulating the simplest risk model, which is based on the following independent objects:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. a Poisson process (see
+     <b>
+      Poisson Process
+     </b>
+     )
+     <math display="inline">
+      N =
+     </math>
+     <math display="inline">
+      \{N(t); t &gt; 0\}
+     </math>
+     with
+     <math display="inline">
+      N(0) = 0
+     </math>
+     and intensity
+     <math display="inline">
+      \lambda_0
+     </math>
+     , that is,
+     <math display="inline">
+      E[N(t)] = \lambda_0 t
+     </math>
+     ;
+    </li>
+    <li block-type="ListItem">
+     2. a sequence
+     <math display="inline">
+      \{Z_k\}_1^{\infty}
+     </math>
+     of independent and identically distributed (i.i.d.) random variables, having the common distribution function F, with
+     <math display="inline">
+      F(0) = 0
+     </math>
+     , mean value
+     <math display="inline">
+      \mu
+     </math>
+     , and variance
+     <math display="inline">
+      \sigma^2
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The
+   <i>
+    risk process
+   </i>
+   ,
+   <math display="inline">
+    X
+   </math>
+   , is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X(t) = ct - \sum_{k=1}^{N(t)} Z_k, \quad \left(\sum_{k=1}^{0} Z_k \stackrel{\text{def}}{=} 0\right) \quad (1)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    c
+   </math>
+   is a real constant.
+  </p>
+  <p block-type="Text">
+   This is the classical model of the risk business of an insurance company, where
+   <math display="inline">
+    N(t)
+   </math>
+   is to be interpreted as the number of claims on the company during the interval
+   <math display="inline">
+    (0, t]
+   </math>
+   . At each point of N, the company has to pay out a stochastic amount of money, and the company receives (deterministically)
+   <math display="inline">
+    c
+   </math>
+   units of money per unit time. The constant
+   <math display="inline">
+    c
+   </math>
+   is called the
+   <i>
+    gross risk premium
+   </i>
+   rate.
+  </p>
+  <p block-type="Text">
+   Many studies based on this model treat
+   <i>
+    ruin theory
+   </i>
+   (see Ruin Theory). Basic results about ruin probabilities for the classical risk model go back to 1926 [17] and 1930 [6], while the general ideas underlying the risk model go even farther back to 1903 [16]. A stringent treatment, based on Wiener-Hopf methods, is due to Cramér [7].
+  </p>
+  <p block-type="Text">
+   In risk theory, the most interesting situation is when
+   <math display="inline">
+    c &gt; 0
+   </math>
+   and
+   <math display="inline">
+    F(0) = 0
+   </math>
+   . This case is generally called
+   <i>
+    positive risk sums
+   </i>
+   , and includes most nonlife branches and also the ordinary types of life insurance, where a certain amount of money is paid on the death of a policyholder.
+  </p>
+  <p block-type="Text">
+   There are, however, situations where the circumstances are reversed, that is, where
+   <math display="inline">
+    c &lt; 0
+   </math>
+   and
+   <math display="inline">
+    F(0) =
+   </math>
+   1 (see
+   <b>
+    Life Insurance
+   </b>
+   ). The typical example is life annuity—or pension—insurance, where a life annuity rate
+   <math display="inline">
+    -c
+   </math>
+   is paid from the company to the policyholder and where the claim, that is, the death of the policyholder, will place an amount of money
+  </p>
+  <p block-type="Text">
+   corresponding to the "expected pension to be paid" at the company's free disposal. Thus the claim means an income, or a negative cost, for the company. This situation is generally called
+   <i>
+    negative risk sums
+   </i>
+   .
+  </p>
+  <h3>
+   <b>
+    Models for the Occurrence of Claims
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   A natural extension, at least from a mathematical point of view, of the Poisson process is to consider the case where the occurrence of the claims is described by a renewal process
+   <math display="inline">
+    N
+   </math>
+   . Let
+   <math display="inline">
+    S_k
+   </math>
+   denote the epoch of the kth claim. A point process is called a
+   <i>
+    renewal process
+   </i>
+   (with interoccurrence time distribution
+   <math display="inline">
+    K^0
+   </math>
+   ) if the variables
+   <math display="inline">
+    S_1
+   </math>
+   ,
+   <math display="inline">
+    S_2 - S_1
+   </math>
+   ,
+   <math display="inline">
+    S_3 - S_2, \ldots
+   </math>
+   are independent and if
+   <math display="inline">
+    S_2 - S_1, S_3  S_2, \ldots
+   </math>
+   have the same distribution
+   <math display="inline">
+    K^0
+   </math>
+   . Further, N is called an
+   <i>
+    ordinary
+   </i>
+   renewal process if
+   <math display="inline">
+    S_1
+   </math>
+   also has distribution
+   <math display="inline">
+    K^0
+   </math>
+   . N is called a
+   <i>
+    stationary
+   </i>
+   renewal process if
+   <math display="inline">
+    K^0
+   </math>
+   has finite mean
+   <math display="inline">
+    1/\lambda_0
+   </math>
+   and if
+   <math display="inline">
+    S_1
+   </math>
+   has distribution
+   <math display="inline">
+    K
+   </math>
+   given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K(t) = \lambda_0 \int_0^t (1 - K^0(s)) \, \mathrm{d}s \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   A Poisson process (
+   <i>
+    see
+   </i>
+   <b>
+    Poisson Process
+   </b>
+   ) is a renewal process with exponentially distributed interoccurrence times. In that case, the ordinary and stationary versions coincide. Probably, the Poisson process is the most realistic renewal process for describing the occurrence of the claims. This, however, does not mean that it is uninteresting to consider renewal models, since often better mathematical clarity is achieved by explicit use of an interoccurrence time distribution. In connection with ruin theory, the renewal model was first studied in [2] and the corresponding risk process is often called the
+   <i>
+    Sparre Andersen model
+   </i>
+   . A detailed treatment is given in [21].
+  </p>
+  <p block-type="Text">
+   Let us now go back to the Poisson case. It is natural to assume that
+   <math display="inline">
+    \lambda_0
+   </math>
+   is proportional to the size of the insurance company. Naturally, the size of the company may vary in time. A simple way to take size variation into account is to let
+   <math display="inline">
+    N
+   </math>
+   be a nonhomogeneous Poisson process.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 1
+   </b>
+   A point process
+   <math display="inline">
+    N
+   </math>
+   is called a nonhomogeneous Poisson process with intensity function
+   <math display="inline">
+    \lambda_0(t)
+   </math>
+   if
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     (i)
+     <math display="inline">
+      N(t)
+     </math>
+     has independent increments;
+    </li>
+    <li block-type="ListItem">
+     (ii)
+     <math display="inline">
+      N(t)-N(s)
+     </math>
+     is Poisson distributed with mean
+     <math display="inline">
+      \int_s^t \lambda_0(\tau) d\tau.
+     </math>
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <i>
+    λ
+   </i>
+   0
+   <i>
+    (t)
+   </i>
+   ≡
+   <i>
+    λ
+   </i>
+   0, we are back to the Poisson process. The
+   <i>
+    intensity measure
+   </i>
+   is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Lambda_0(t) \stackrel{\text{def}}{=} \int_0^t \lambda_0(s) \, \text{d}s, \quad t \ge 0 \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is natural to let 0
+   <i>
+    (t)
+   </i>
+   have the representation (3), but it is enough to assume that 0
+   <i>
+    (t)
+   </i>
+   is a nondecreasing function with 0
+   <i>
+    (
+   </i>
+   0
+   <i>
+    )
+   </i>
+   = 0 and 0
+   <i>
+    (t) &lt;
+   </i>
+   ∞ for each
+   <i>
+    t &lt;
+   </i>
+   ∞. If 0
+   <i>
+    (t)
+   </i>
+   is continuous, then
+   <i>
+    N
+   </i>
+   is
+   <i>
+    simple
+   </i>
+   , that is,
+   <i>
+    N (t)
+   </i>
+   increases exactly one unit at its epochs of increase.
+  </p>
+  <p block-type="TextInlineMath">
+   There may also be variation in the underlying risk. Typical examples are automobile insurance and fire insurance. It is natural to describe the underlying risk as a random process
+   <i>
+    λ
+   </i>
+   = {
+   <i>
+    λ(t)
+   </i>
+   ;
+   <i>
+    t
+   </i>
+   ≥ 0} and to let
+   <i>
+    N
+   </i>
+   be the corresponding
+   <i>
+    Cox process.
+   </i>
+  </p>
+  <p block-type="TextInlineMath">
+   We think of a Cox process
+   <i>
+    N
+   </i>
+   as generated in the following way. First, a realization
+   <i>
+    λ
+   </i>
+   <sup>
+    0
+   </sup>
+   of a random process
+   <i>
+    λ
+   </i>
+   is generated. Conditioned upon that realization,
+   <i>
+    N
+   </i>
+   is a nonhomogeneous Poisson process with intensity function
+   <i>
+    λ
+   </i>
+   0. A Cox process is stationary if and only if the underlying random process is stationary.
+  </p>
+  <p block-type="Text">
+   Let equation (3) the
+   <i>
+    random intensity measure
+   </i>
+   be defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Lambda(t) \stackrel{\text{def}}{=} \int_0^t \lambda(s) \, \mathrm{d}s, \quad t \ge 0 \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Assume that
+   <i>
+    E
+   </i>
+   [
+   <i>
+    (t )
+   </i>
+   2]
+   <i>
+    &lt;
+   </i>
+   ∞ for all
+   <i>
+    t
+   </i>
+   ≥ 0. Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[N(t)] = E[\Lambda(t)] \text{ and } \text{Var}[N(t)]
+   </math>
+   <br/>
+   =
+   <math>
+    E[\Lambda(t)] + \text{Var}[\Lambda(t)] \text{ for all } t \ge 0 \quad (5)
+   </math>
+  </p>
+  <p block-type="Text">
+   Thus a Cox process is overdispersed relative to a Poisson process.
+  </p>
+  <p block-type="Text">
+   For details of Cox processes, we refer to [12] or [13].
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 1 The Mixed Poisson Process
+   </b>
+   A Cox process with underlying random process
+   <i>
+    λ(t)
+   </i>
+   ≡
+   <i>
+    λ
+   </i>
+   , where
+   <i>
+    λ
+   </i>
+   is a random variable, is called a
+   <i>
+    mixed Poisson process
+   </i>
+   . A mixed Poisson process where
+   <i>
+    λ
+   </i>
+   is -distributed is called a
+   <i>
+    P´olya process
+   </i>
+   and for any fixed value of
+   <i>
+    t
+   </i>
+   the random variable
+   <i>
+    N (t)
+   </i>
+   is negatively binomially distributed.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The mixed Poisson process is a natural model for the accident pattern of an individual policyholder. For instance, in automobile insurance,
+   <i>
+    λ
+   </i>
+   may describe the skillfulness of the individual as a driver.
+  </p>
+  <p block-type="Text">
+   The distribution of
+   <i>
+    λ
+   </i>
+   may be regarded as a prior distribution. When the company knows more about the driver, the posterior distribution may be used instead.
+  </p>
+  <p block-type="Text">
+   In 1940, Ove Lundberg had already presented his thesis [18] about Markov point processes and, more particularly, mixed Poisson processes. The mixed Poisson processes have ever since played a prominent role in actuarial mathematics. A survey of mixed Poisson processes is found in [15].
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 2 The Ammeter Process
+   </b>
+   Let
+   <i>
+    &gt;
+   </i>
+   0 be a fixed value and {
+   <i>
+    Lk
+   </i>
+   ;
+   <i>
+    k
+   </i>
+   = 0
+   <i>
+    ,
+   </i>
+   1
+   <i>
+    ,...
+   </i>
+   } a sequence of nonnegative, i.i.d. random variables. A rather simple Cox process is obtained by letting
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lambda(t) = L_k \quad \text{for } k\Delta \le t &lt; (k+1)\Delta \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   The Cox process with this intensity is called an
+   <i>
+    Ammeter process
+   </i>
+   , since it is essentially the model considered by Ammeter [1]. A modern treatment of the Ammeter process is found in [14] and [15].
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 3 The Markov-modulated Poisson Process
+   </b>
+   Let
+   <i>
+    J
+   </i>
+   = {
+   <i>
+    J (t)
+   </i>
+   ;
+   <i>
+    t
+   </i>
+   ≥ 0} be an
+   <i>
+    M
+   </i>
+   -state Markov process with state space {1
+   <i>
+    ,
+   </i>
+   2
+   <i>
+    ,..., M
+   </i>
+   } and {
+   <i>
+    λ
+   </i>
+   1
+   <i>
+    , λ
+   </i>
+   2
+   <i>
+    , ..., λM
+   </i>
+   } a set of nonnegative numbers. The Cox process
+   <i>
+    N (t)
+   </i>
+   with
+   <i>
+    λ(t)
+   </i>
+   =
+   <i>
+    λJ (t)
+   </i>
+   is called a
+   <i>
+    Markovmodulated Poisson process
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   An equivalent way to express
+   <i>
+    N
+   </i>
+   is to consider
+   <i>
+    M
+   </i>
+   independent Poisson processes {
+   <i>
+    N
+   </i>
+   1
+   <i>
+    , N
+   </i>
+   2
+   <i>
+    ,..., NM
+   </i>
+   } with intensities {
+   <i>
+    λ
+   </i>
+   1
+   <i>
+    , λ
+   </i>
+   2
+   <i>
+    ,..., λM
+   </i>
+   } and to let the occurrence of the claims follow
+   <i>
+    Nk
+   </i>
+   when
+   <i>
+    J
+   </i>
+   =
+   <i>
+    k
+   </i>
+   . More formally, we let d
+   <i>
+    N (t)
+   </i>
+   = d
+   <i>
+    NJ (t)(t)
+   </i>
+   . This model was first studied in insurance by Reinhard [19], in the case
+   <i>
+    M
+   </i>
+   = 2 and exponentially distributed claims, and by Asmussen [3] in the general case.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 4 Independent Jump Intensity
+   </b>
+   Intuitively, an independent jump intensity is a jump process where the jump times form a renewal process and where the value of the intensity between two successive jumps may depend only on the distance between these two jumps. More formally, let
+   <i>
+    k
+   </i>
+   ,
+   <i>
+    k
+   </i>
+   = 1
+   <i>
+    ,
+   </i>
+   2
+   <i>
+    ,...
+   </i>
+   denote the epoch of the
+   <i>
+    k
+   </i>
+   th jump of the intensity process and let
+   <sup>
+    0
+   </sup>
+   def =0. Put
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_n = \Sigma_n - \Sigma_{n-1}\n
+   </math>
+   <br/>
+   <math>
+    \nn = 1, 2, 3, \dots\n
+   </math>
+   (7)
+   <br/>
+   <math>
+    \nL_n = \lambda(\Sigma_{n-1})
+   </math>
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Illustration of notation
+  </p>
+  <p block-type="TextInlineMath">
+   Here we understand that
+   <math display="inline">
+    \lambda
+   </math>
+   has right-continuous realizations so that
+   <math display="inline">
+    \lambda(t) = L_n
+   </math>
+   for
+   <math display="inline">
+    \Sigma_{n-1} \le t &lt; \Sigma_n
+   </math>
+   . These notations are illustrated in Figure 1.
+  </p>
+  <p block-type="Text">
+   An intensity process
+   <math display="inline">
+    \lambda
+   </math>
+   is called
+   <i>
+    an independent
+   </i>
+   jump intensity if the random vectors
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (L_1, \sigma_1), (L_2, \sigma_2), (L_3, \sigma_3), \ldots
+   </math>
+  </p>
+  <p block-type="Text">
+   are independent and if
+   <math display="inline">
+    (L_2, \sigma_2), (L_3, \sigma_3), \ldots
+   </math>
+   have the same distribution.
+  </p>
+  <p block-type="Text">
+   This model was introduced in [4].
+  </p>
+  <h4>
+   <b>
+    Models for Cost of Claims and Income
+   </b>
+  </h4>
+  <p block-type="Text">
+   In the classical risk model, the random variables
+   <math display="inline">
+    \{Z_k\}_1^\infty
+   </math>
+   represent the cost of the claims and the gross risk premium rate
+   <math display="inline">
+    c
+   </math>
+   , the income. We, when nothing else is said, assume that
+   <math display="inline">
+    \{Z_k\}_1^{\infty}
+   </math>
+   is i.i.d. and independent of
+   <math display="inline">
+    N
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Usually, the distribution
+   <math display="inline">
+    F
+   </math>
+   of
+   <math display="inline">
+    Z_k
+   </math>
+   is assumed to be either
+   <i>
+    exponentially bounded
+   </i>
+   (see Cramér-Lund
+   <b>
+    berg Estimates
+   </b>
+   ) or to belong to the class
+   <math display="inline">
+    S
+   </math>
+   of subexponential distributions (see Heavy Tails in Insurance). These classes of distributions are also referred to as light tailed and heavy tailed, respectively.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 2
+   </b>
+   A distribution F on
+   <math display="inline">
+    [0, \infty)
+   </math>
+   belongs to
+   <math display="inline">
+    \mathcal{S}
+   </math>
+   if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{z \to \infty} \frac{1 - F^{2*}(z)}{1 - F(z)} = 2 \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   The
+   <math display="inline">
+    \Gamma
+   </math>
+   -distribution is a typical example of an exponentially bounded distribution, while the Pareto distribution and the lognormal distribution are subexponential. A class of exponentially distributed distributions of great interest is that of the phase-type distributions (see
+   <b>
+    Phase-type Distribution
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   It may very well be the case that a light-tailed
+   <math display="inline">
+    F
+   </math>
+   is too "kind" while an
+   <math display="inline">
+    F \in \mathcal{S}
+   </math>
+   is too "dangerous". Then it may be tempting to try to find some intermediate case with nice properties.
+   <math display="inline">
+    S(\beta)
+   </math>
+   is such a class:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 3
+   </b>
+   A distribution F on
+   <math display="inline">
+    [0, \infty)
+   </math>
+   belongs to the class
+   <math display="inline">
+    S(\beta)
+   </math>
+   ,
+   <math display="inline">
+    \beta \geq 0
+   </math>
+   , if
+  </p>
+  <p block-type="Equation">
+   (i)
+   <math display="block">
+    \hat{h}(\beta) &lt; \infty;
+   </math>
+   <br/>
+   (ii)
+   <math>
+    \lim_{z \to \infty} (1 - F^{2*}(z))/(1 - F(z)) = c,
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \ddot{o} &lt; c &lt; \infty;
+   </math>
+  </p>
+  <p block-type="Equation">
+   (iii)
+   <math display="block">
+    \lim_{z \to \infty} \left(1 - F(z+y)\right) / \left(1 - F(z)\right) = e^{-\beta y}
+   </math>
+  </p>
+  <p block-type="Text">
+   for all real y.
+  </p>
+  <p block-type="Text">
+   Embrechts [11] has shown that certain generalized inverse Gaussian distributions belong to
+   <math display="inline">
+    S(\beta)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The classes
+   <math display="inline">
+    S
+   </math>
+   and
+   <math display="inline">
+    S(\beta)
+   </math>
+   were introduced by Chistvakov [5].
+  </p>
+  <p block-type="Text">
+   Sometimes, it may be natural to allow for dependence between
+   <math display="inline">
+    \{Z_k\}_1^{\infty}
+   </math>
+   and N. As an example, consider the Markov-modulated Poisson process motioned in Example 3. Let
+   <math display="inline">
+    \{X_1, X_2, \ldots, X_M\}
+   </math>
+   be M independent risk processes, as in equation
+   <math display="inline">
+    (1)
+   </math>
+   , where
+   <math display="inline">
+    X_k
+   </math>
+   has Poisson intensity
+   <math display="inline">
+    \lambda_k
+   </math>
+   , claim cost distribution
+   <math display="inline">
+    F_k
+   </math>
+   , and gross risk premium rate
+   <math display="inline">
+    c_k
+   </math>
+   . In automobile insurance, it is natural to allow the weather situation to have influence on both the intensity and the cost. The risk business X now follows
+   <math display="inline">
+    X_k
+   </math>
+   when
+   <math display="inline">
+    J = k
+   </math>
+   , that is,
+   <math display="inline">
+    dX(t) = dX_{J(t)}(t)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The generalization of a constant premium rate
+   <math display="inline">
+    c
+   </math>
+   mentioned above, may not be the most natural one. Examples of more relevant extensions of the premium rate within the risk model are given below:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. The premiums may depend on the result of the risk business. It is natural to let the premium decrease when risk business increases and vice versa.
+    </li>
+    <li block-type="ListItem">
+     2. Inflation and interest may be included in the model. If the interest is higher than the inflation, then the premium decreases when risk business decreases and vice versa.
+    </li>
+    <li block-type="ListItem">
+     Part of the risk business may be risky investments 3. (see Ruin Models with Investment Income).
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   References
+   <math display="inline">
+    [8, 10]
+   </math>
+   are very readable studies focusing mainly on generalizations
+   <math display="inline">
+    (1)
+   </math>
+   and
+   <math display="inline">
+    (2)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Early studies of generalizations
+   <math display="inline">
+    (1)
+   </math>
+   and
+   <math display="inline">
+    (2)
+   </math>
+   are found in [9, 20], respectively.
+  </p>
+  <p block-type="Text">
+   The question of "fair" premiums for an individual policyholder is of utmost importance for a company (
+   <i>
+    see
+   </i>
+   <b>
+    Actuarial Premium Principles
+   </b>
+   and
+   <b>
+    Credibility Theory
+   </b>
+   ). The discussion in Example 1 about prior and posterior distributions of
+   <i>
+    λ
+   </i>
+   is related to credibility theory.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Ammeter, H. (1948). A generalization of the collective theory of risk in regard to fluctuating basic probabilities,
+     <i>
+      Skandinavisk Aktuarietidskrift
+     </i>
+     , 171–198.
+    </li>
+    <li block-type="ListItem">
+     [2] Sparre Andersen, E. (1957). On the collective theory of risk in the case of contagion between the claims,
+     <i>
+      Transactions XVth International Congress of Actuaries
+     </i>
+     , Vol. 2, New York, 219–229.
+    </li>
+    <li block-type="ListItem">
+     [3] Asmussen, S. (1989). Risk theory in a Markovian environment,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     , 66–100.
+    </li>
+    <li block-type="ListItem">
+     [4] Bjork, T. &amp; Grandell, J. (1988) ¨ . Exponential inequalities for ruin probabilities in the Cox case,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     , 77–111.
+    </li>
+    <li block-type="ListItem">
+     [5] Chistyakov, P. (1964). Teorema o summah nezavisimyh poloitelnyh sluqa nyh veliqn i ee priloeni k vetvwims sluqa nym processam. Teori Verotnoste i ee Primeneni
+     <b>
+      9
+     </b>
+     710–718 (English translation: A theorem on sums of independent random variables and its applications to branching processes.
+     <i>
+      Theory of Probability and its Applications
+     </i>
+     <b>
+      9
+     </b>
+     , 640–648).
+    </li>
+    <li block-type="ListItem">
+     [6] Cramer, H. (1930). ´
+     <i>
+      On the Mathematical Theory of Risk
+     </i>
+     , Skandia Jubilee Volume, Stockholm (Reprinted in 1994
+     <i>
+      Harald Cram´er Collected Works
+     </i>
+     , Vol. 1, Martin-Lof, A., ed, Skandia Insurance Company, Springer-Verlag, Berlin, p. 601–678).
+    </li>
+    <li block-type="ListItem">
+     [7] Cramer, H. (1955). ´
+     <i>
+      Collective Risk Theory
+     </i>
+     , Skandia Jubilee Volume, Stockholm (Reprinted in
+     <i>
+      Harald Cram´er Collected works Vol. II.
+     </i>
+     (1994), Ed. by Martin-Lof, A., Skandia Insurance Company, Springer-Verlag, Berlin, 1028–1115).
+    </li>
+    <li block-type="ListItem">
+     [8] Dassios, A. &amp; Embrechts, P. (1989). Martingales and insurance risk.
+     <i>
+      Communications in Statistics. Stochastic Models
+     </i>
+     <b>
+      5
+     </b>
+     , 181–217.
+    </li>
+    <li block-type="ListItem">
+     [9] Davidson, A.A. (1946).
+     <i>
+      Om ruinproblemet i den kollektiva riskteorin under antagande av variabel s¨akerhetsbelastning
+     </i>
+     , Fors ¨ akringsmatematiska studier till ¨ agnade ¨
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Filip Lundberg, Stockholm, 32–47 (English translation: (1969). On the ruin problem in the collective theory of risk under the assumption of variable safety loading.
+   <i>
+    Skand. AktuarTidskr.Suppl.
+   </i>
+   70–83).
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [10] Delbaen, F. &amp; Haezendonck, J. (1987). Classical risk theory in an economic environment.
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      6
+     </b>
+     , 85–116.
+    </li>
+    <li block-type="ListItem">
+     [11] Embrechts, P. (1983). A property of the generalized inverse Gaussian distribution with some applications.
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      20
+     </b>
+     , 537–544.
+    </li>
+    <li block-type="ListItem">
+     [12] Grandell, J. (1976).
+     <i>
+      Doubly Stochastic Poisson Processes
+     </i>
+     , Lecture Notes in Mathematics, 529, Springer-Verlag, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [13] Grandell, J. (1991).
+     <i>
+      Aspects of Risk Theory
+     </i>
+     , Springer-Verlag, New York.
+    </li>
+    <li block-type="ListItem">
+     [14] Grandell, J. (1995). Some remarks on the Ammeter risk process.
+     <i>
+      Mitteilungen der Vereinigung schweizerischer Versicherungsmathematiker
+     </i>
+     <b>
+      95
+     </b>
+     , 43–72.
+    </li>
+    <li block-type="ListItem">
+     [15] Grandell, J. (1997).
+     <i>
+      Mixed Poisson processes
+     </i>
+     , Chapman &amp; Hall, London.
+    </li>
+    <li block-type="ListItem">
+     [16] Lundberg, F. (1903).
+     <i>
+      I. Approximerad Framst¨allning av Sannolikhetsfunktionen. II. Aterf¨ ˚ ors¨akring av Kollektivrisker
+     </i>
+     , Almqvist &amp; Wiksell, Uppsala.
+    </li>
+    <li block-type="ListItem">
+     [17] Lundberg, F. (1926).
+     <i>
+      F¨ors¨akringsteknisk Riskutj¨amning
+     </i>
+     , F. Englunds boktryckeri A.B., Stockholm.
+    </li>
+    <li block-type="ListItem">
+     [18] Lundberg, O. (1964).
+     <i>
+      On Random Processes and their Application to Sickness and Accident Statistics
+     </i>
+     , 2nd Edition, Almqvist &amp; Wiksell, Uppsala.
+    </li>
+    <li block-type="ListItem">
+     [19] Reinhard, J.M. (1984).
+     <i>
+      On a class of semi-Markov risk models obtained as classical risk models in a Markovian environment
+     </i>
+     ,
+     <i>
+      Astin Bulletin
+     </i>
+     ,
+     <b>
+      16
+     </b>
+     , 23–43.
+    </li>
+    <li block-type="ListItem">
+     [20] Segerdahl, C.O. (1942). Uber einige risikotheoretische Fragestellungen,
+     <i>
+      Skandinacisk Aktuarietidskrift
+     </i>
+     , 43–83.
+    </li>
+    <li block-type="ListItem">
+     [21] Thorin, O. (1982). Probabilities of ruin,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     65–102.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Actuarial Premium Principles
+   </b>
+   ;
+   <b>
+    Cramer–Lundberg ´ Estimates
+   </b>
+   ;
+   <b>
+    Gerber–Shiu Function
+   </b>
+   ;
+   <b>
+    Poisson Process
+   </b>
+   ;
+   <b>
+    Point Processes
+   </b>
+   ;
+   <b>
+    Ruin Theory
+   </b>
+   ;
+   <b>
+    Ruin Models with Investment Income
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   JAN GRANDELL
+  </p>
+ </body>
+</html>

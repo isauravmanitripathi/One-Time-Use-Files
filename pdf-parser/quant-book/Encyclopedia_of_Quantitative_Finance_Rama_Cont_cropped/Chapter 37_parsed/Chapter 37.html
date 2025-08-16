@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Local Times
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   The most obvious way to measure the time that a random process
+   <math display="inline">
+    X
+   </math>
+   spends at a value
+   <math display="inline">
+    b
+   </math>
+   on a time interval [0,
+   <i>
+    t
+   </i>
+   ] is to compute
+   <math display="inline">
+    \int_0^t 1_{\{X_s=b\}} ds
+   </math>
+   . The problem is that this expression might be equal to 0, although the process
+   <math display="inline">
+    X
+   </math>
+   actually visits the value
+   <math display="inline">
+    b
+   </math>
+   . This is realized by the real Brownian motion (for a definition of this process, see Lévy Processes). Indeed, if we denote this process
+   <math display="inline">
+    B
+   </math>
+   , then for every fixed real b the set
+   <math display="inline">
+    \{s \ge 0 : B_s = b\}
+   </math>
+   has 0 Lebesgue measure and is infinite (and uncountable). However, one can measure the time that
+   <math display="inline">
+    B
+   </math>
+   spends at
+   <math display="inline">
+    b
+   </math>
+   by using the notion of
+   <i>
+    local time
+   </i>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_t^b = \lim_{\epsilon \to 0} \frac{1}{2\epsilon} \int_0^t 1_{\{|B_s - b| &lt; \epsilon\}} \, \mathrm{d}s \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the limit is a pathwise limit.
+  </p>
+  <p block-type="TextInlineMath">
+   For a fixed b, the process
+   <math display="inline">
+    (L^b_t, t \ge 0)
+   </math>
+   is an increasing process that only increases at times when
+   <math display="inline">
+    B
+   </math>
+   takes the value
+   <math display="inline">
+    b
+   </math>
+   . Under the assumption that
+   <math display="inline">
+    B
+   </math>
+   starts at 0, the processes
+   <math display="inline">
+    (L^0_t, t \ge 0)
+   </math>
+   and
+   <math display="inline">
+    (2 \sup_{0 \le s \le t} B_s, s \ge 0)
+   </math>
+   have the same law. This identity is due to Paul Lévy.
+  </p>
+  <p block-type="TextInlineMath">
+   As
+   <math display="inline">
+    b
+   </math>
+   varies and
+   <math display="inline">
+    t
+   </math>
+   is fixed, one obtains the process
+   <math display="inline">
+    (L_t^b, b \in \mathbb{R})
+   </math>
+   , which actually represents the density of occupation time of
+   <math display="inline">
+    B
+   </math>
+   during the time interval
+   <math display="inline">
+    [0, t]
+   </math>
+   . This fact corresponds to the following formula called the occupation time formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^t f(B_s) \, \mathrm{d}s = \int_{\mathbb{R}} f(b) L_t^b \, \mathrm{d}b \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for every measurable bounded function
+   <math display="inline">
+    f
+   </math>
+   . This formula provides a definition of the local time equivalent to definition (1). For a fixed
+   <math display="inline">
+    t
+   </math>
+   , one does not know, special times excepted, the law of the process
+   <math display="inline">
+    (L_t^b, b \in \mathbb{R})
+   </math>
+   , but a lot of trajectorial results are established. For example, from [6], we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \liminf_{t \to \infty} \sup_{x \in \mathbb{R}} L_t^x (t^{-1} \log \log t)^{1/2} = c \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    0 &lt; c &lt; \infty
+   </math>
+   , and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \limsup_{t \to \infty} \sup_{x \in \mathbb{R}} L_t^x(t \log \log t)^{-1/2} = \sqrt{2} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   One of these special times is
+   <math display="inline">
+    T_a
+   </math>
+   , the first hitting time by
+   <i>
+    B
+   </i>
+   of a given value
+   <i>
+    a
+   </i>
+   . The law of
+   <math display="inline">
+    (L_{T}^{b}, b \in
+   </math>
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   ) is described by one of the famous
+   <math display="inline">
+    Ray-\overline{Knight}
+   </math>
+   Theorems (see [8, Chapter XI]).
+  </p>
+  <p block-type="TextInlineMath">
+   The local time of
+   <math display="inline">
+    B
+   </math>
+   can also be considered as a doubly indexed process. As such it is a.s. jointly continuous in
+   <math display="inline">
+    b
+   </math>
+   and
+   <math display="inline">
+    t
+   </math>
+   (see [9]) and deterministic functions on
+   <math display="inline">
+    \mathbb{R} \times \mathbb{R}_+
+   </math>
+   can be integrated with respect to
+   <math display="inline">
+    (L_t^b, b \in \mathbb{R}, t \ge 0)
+   </math>
+   (see Itô's Formula).
+  </p>
+  <h1>
+   <b>
+    Local Time of a Semimartingale
+   </b>
+  </h1>
+  <p block-type="Text">
+   Similarly to formula (2), one can define the local time process of a semimartingale
+   <math display="inline">
+    Y
+   </math>
+   (for the definition of a semimartingale, see Stochastic Integrals) by using the following occupation time formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^t f(Y_s) \, \mathrm{d}[Y]_s^c = \int_{\mathbb{R}} f(b) L_t^b(Y) \, \mathrm{d}b \qquad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    ([Y]_c^c, s &gt; 0)
+   </math>
+   is the continuous part of the quadratic variation of Y also denoted by
+   <math display="inline">
+    \langle Y \rangle
+   </math>
+   (for the definition see Stochastic Integrals). For a fixed
+   <math display="inline">
+    b\ (L^b(t), t&gt;0)
+   </math>
+   is a.s. continuous.
+  </p>
+  <p block-type="TextInlineMath">
+   The obtained local time process
+   <math display="inline">
+    (L_t^b(Y), b \in
+   </math>
+   <math display="inline">
+    \mathbb{R}, t \ge 0
+   </math>
+   ) satisfies the following formula, called Tanaka's formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |Y_t - b| = |Y_0 - b| + \int_0^t \text{sgn}(Y_s - b) \, dY_s + \mathbf{L}_t^b
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \sum_{0 &lt; s \le t} \{ |Y_s - b| - |Y_{s-} - b| - \text{sgn}(Y_{s-} - b) \Delta Y_s \}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   where the function sgn is defined by
+   <math display="inline">
+    sgn(x) = 1_{x&gt;0}
+   </math>
+   -
+   <math display="inline">
+    1_{x&lt;0}
+   </math>
+   . Tanaka's formula actually provides a definition of the local time equivalent to formula (5). Thanks to this formula, Paul Lévy's identity is extended in
+   <math display="inline">
+    [5]
+   </math>
+   to the continuous semimartingales starting from 0 under the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (L_t^0, t \ge 0) \stackrel{\text{(law)}}{=} \left( 2 \sup_{0 \le s \le t} \int_0^s \text{sgn}(-Y_u) \, \text{d}Y_u, t \ge 0 \right) \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   One can actually see Tanaka's formula as an example of extension of Itô's formula (see Itô's Formula).
+  </p>
+  <p block-type="Text">
+   Local time is also involved in inequalities reminiscent of the Burkholder-Davis-Gundy ones. Indeed, in [2], it is shown that there exist two universal positive and finite constants
+   <math display="inline">
+    c
+   </math>
+   and
+   <math display="inline">
+    C
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    cE[\sup_{t} |X_{t}|] \leq E[\sup_{a} L_{\infty}^{a}] \leq CE[\sup_{t} |X_{t}|] \quad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for any continuous local martingale
+   <math display="inline">
+    X
+   </math>
+   with
+   <math display="inline">
+    X_0 = 0.
+   </math>
+  </p>
+  <h3>
+   <b>
+    Local Time of a Markov Process
+   </b>
+  </h3>
+  <p block-type="Text">
+   One can define the local time process of a Markov process
+   <math display="inline">
+    X
+   </math>
+   at a value
+   <math display="inline">
+    b
+   </math>
+   of its state space only if
+   <math display="inline">
+    b
+   </math>
+   is regular for
+   <math display="inline">
+    X
+   </math>
+   (see Markov Processes for the definition of Markov process). This means that starting from
+   <math display="inline">
+    b
+   </math>
+   , the process
+   <math display="inline">
+    X
+   </math>
+   then visits
+   <math display="inline">
+    b
+   </math>
+   at arbitrarily small times. Not every Markov process has this property. For example, a real-valued Lévy process (see Lévy Processes for the definition of that process) has this property at every point if its characteristic exponent
+   <math display="inline">
+    \psi
+   </math>
+   satisfies [3, Chapter II]
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{-\infty}^{+\infty} \mathcal{R}\left(\frac{1}{1+\psi(x)}\right) \mathrm{d}x &lt; \infty \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    b
+   </math>
+   is regular for
+   <math display="inline">
+    X
+   </math>
+   , there exists a unique (up to a multiplicative constant) increasing continuous
+   <i>
+    additive functional
+   </i>
+   , that is, an adapted process
+   <math display="inline">
+    (\ell_t^b(X), t &gt; 0)
+   </math>
+   starting from 0 such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \ell^b_{t+s}(X) = \ell^b_t(X) + \ell^b_s(X) o\theta_t \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   increasing only at times when
+   <math display="inline">
+    X
+   </math>
+   takes the value
+   <math display="inline">
+    b
+   </math>
+   . This process is called the
+   <i>
+    local time
+   </i>
+   at
+   <math display="inline">
+    b
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   When it exists, the local time process
+   <math display="inline">
+    (\ell^b(X), b \in
+   </math>
+   <math display="inline">
+    E, t &gt; 0
+   </math>
+   ) of a Markov process X with state space
+   <math display="inline">
+    E
+   </math>
+   might be jointly continuous in
+   <math display="inline">
+    b
+   </math>
+   and
+   <math display="inline">
+    t
+   </math>
+   . A necessary and sufficient condition for that property is given in [1] for Lévy processes as follows: set
+   <math display="inline">
+    h(a) = \frac{1}{\pi} \int_{-\infty}^{\infty} (1 - \cos ab) \mathcal{R}(1/\psi(b)) \, \mathrm{d}b \text{ and } m(\varepsilon) =
+   </math>
+   <math display="inline">
+    \int_{\mathbb{R}} da 1_{\{h(a)&lt;\varepsilon\}}
+   </math>
+   for
+   <math display="inline">
+    \varepsilon &gt; 0
+   </math>
+   ; then the considered Lévy process has a continuous local time process if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{0+} \sqrt{\text{Log}\left(\frac{1}{m(\varepsilon)}\right)} \,\mathrm{d}\varepsilon &lt; \infty \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   This result concerning Lévy processes has been extended to symmetric Markov processes in [7] and to general Markov processes in [4].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   We mention that under condition
+   <math display="inline">
+    (9)
+   </math>
+   , the local time process of a Lévy process
+   <math display="inline">
+    X
+   </math>
+   satisfies the same
+  </p>
+  <p block-type="Text">
+   occupation time formula as for the real Brownian motion:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^t f(X_s) \, \mathrm{d}s = \int_E f(b) \ell_t^b(X) \, \mathrm{d}b \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   In case a random process is both a Markov process with regular points and a semimartingale, it then admits two local time processes that are different (they might coincide as in the case of the Brownian motion). As an example, consider a symmetric stable process
+   <math display="inline">
+    X
+   </math>
+   with index in
+   <math display="inline">
+    (1, 2)
+   </math>
+   (for definition see
+   <b>
+    Lévy Processes
+   </b>
+   ). We have
+   <math display="inline">
+    [X]^{c} = 0
+   </math>
+   ; hence, as a semimartingale,
+   <math display="inline">
+    X
+   </math>
+   has a local time process that identically equals 0. However, as a Markov process,
+   <math display="inline">
+    X
+   </math>
+   has a local time process that satisfies formula
+   <math display="inline">
+    (12)
+   </math>
+   and hence differs from 0. Besides, in this case, condition
+   <math display="inline">
+    (11)
+   </math>
+   is satisfied.
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Barlow, M.T. (1988). Necessary and sufficient conditions for the continuity of local times for Levy processes, Annals of Probability 16, 1389-1427.
+    </li>
+    <li block-type="ListItem">
+     [2] Barlow, M.T. &amp; Yor, M. (1981). (Semi-) Martingale inequalities and local times, Zeitschrift fur Wahrscheinlichkeitstheorie verw Gebiete 55, 237-254.
+    </li>
+    <li block-type="ListItem">
+     Bertoin, J. (1996). Lévy Processes, Cambridge University [3] Press.
+    </li>
+    <li block-type="ListItem">
+     [4] Eisenbaum, N. &amp; Kaspi, H. (2007). On the continuity of local times of Borel right Markov processes, Annals of Probability 35, 915-934.
+    </li>
+    <li block-type="ListItem">
+     [5] El Karoui, N. &amp; Chaleyat-Maurel, M. (1978). Un problème de réflexion et ses applications au temps local et aux équations différentielles stochastiques sur
+     <math display="inline">
+      \mathbb{R}
+     </math>
+     , in
+     <i>
+      Temps
+     </i>
+     locaux-Astérisque, Société mathématiques de France, Paris, Vol. 52-53, pp. 117-144.
+    </li>
+    <li block-type="ListItem">
+     [6] Kesten, H. (1965). An iterated logarithm law for local time, Duke Mathematical Journal 32, 447-456.
+    </li>
+    <li block-type="ListItem">
+     [7] Marcus, M. &amp; Rosen, J. (1995). Sample path properties of the local times of strongly symmetric Markov processes via Gaussian processes, Annals of Probability 20,
+     <math display="inline">
+      1603 - 1684
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [8] Revuz, D. &amp; Yor, M. (1999). Continuous Martingale and Brownian Motion, 3rd Edition, Springer.
+    </li>
+    <li block-type="ListItem">
+     [9] Trotter, H. (1958). A property of Brownian motion paths, Illinois Journal of Mathematics 2, 425-433.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   NATHALIE EISENBAUM
+  </h4>
+ </body>
+</html>

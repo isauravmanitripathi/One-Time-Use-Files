@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Merton Problem
+   </b>
+  </h1>
+  <p block-type="Text">
+   How does an individual decide on where to invest his wealth and how much of it to use during his lifetime? This is a basic question that needs to be answered in order to understand and predict individual economic behavior and also in order to derive the aggregate demands for securities that, together with their supply schedules, determine their prices in equilibrium.
+  </p>
+  <p block-type="Text">
+   In two path-breaking papers, Merton [21, 22] has formulated and derived the individual's optimal consumption-investment behavior in a continuoustime framework that allows the introduction of a useful structure that can be appropriately molded to model different interesting situations and to yield concrete results. This formulation has come to be known as the
+   <i>
+    Merton problem
+   </i>
+   .
+  </p>
+  <h2>
+   Formulation of the Merton Problem
+  </h2>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    P(t) = (P_0(t), \ldots, P_n(t)), 0 \le t \le T
+   </math>
+   , denote the prices at time t of
+   <math display="inline">
+    n + 1
+   </math>
+   limited liability assets paying no dividends and traded continuously in a perfect market. The price dynamics of
+   <math display="inline">
+    P(t)
+   </math>
+   is assumed to follow a correlated vector Ito process whose
+   <math display="inline">
+    i
+   </math>
+   th component obeys the general stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}P_i}{P_i} = \alpha_i(P, t) \,\mathrm{d}t + \sigma_i(P, t) \,\mathrm{d}z_i \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For
+   <math display="inline">
+    i, j = 0, \ldots, n
+   </math>
+   , the
+   <math display="inline">
+    dz_i
+   </math>
+   s are correlated Wiener processes satisfying
+   <math display="inline">
+    dz_i dz_j = \rho_{ij}(P, t) dt
+   </math>
+   for given real functions
+   <math display="inline">
+    \rho_{ij}(\cdot,\cdot)
+   </math>
+   ;
+   <math display="inline">
+    dz_i dt = 0
+   </math>
+   ; the expectations
+   <math display="inline">
+    E(dz_i)
+   </math>
+   equal zero; and denote
+   <math display="inline">
+    \sigma_{ij}(\cdot, \cdot) := \sigma_i \sigma_i \rho_{ij}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   At time 0, the individual is endowed with an initial number of units of wealth
+   <math display="inline">
+    W_0
+   </math>
+   and he then selects a complete plan of consumption and investment spanning his lifetime
+   <math display="inline">
+    [0, T]
+   </math>
+   so as to maximize his expected utility of consumption and the bequest he will leave at time
+   <math display="inline">
+    T
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Formally, at any future time
+   <math display="inline">
+    t
+   </math>
+   in
+   <math display="inline">
+    (0, T]
+   </math>
+   , based on the history of the prices, his previous consumption, and previous investment choices, the individual plans to consume at a rate
+   <math display="inline">
+    c(t)
+   </math>
+   and trade so as to hold his remaining wealth
+   <math display="inline">
+    W(t)
+   </math>
+   in a portfolio that is invested in
+   <math display="inline">
+    N_i(t)
+   </math>
+   shares of asset
+   <i>
+    i
+   </i>
+   . The consumption and investment choices are said to be the individual's controls.
+  </p>
+  <p block-type="Text">
+   The individual plans to control his consumption and investment so as to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \max E_0 \left[ \int_0^T u(c(t), t) \, \mathrm{d}t + B(W(T)) \right] \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   subject to his wealth constraint
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W(0) = W_0, W(t) = \sum_{i=0}^{n} N_i(t) P(t), \quad 0 \le t \le T
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    u
+   </math>
+   is the individual's instantaneous utility, and
+   <math display="inline">
+    B(\cdot)
+   </math>
+   is the bequest function.
+  </p>
+  <h2>
+   <b>
+    Solution by Dynamic Programming
+   </b>
+  </h2>
+  <p block-type="Text">
+   To solve the Merton problem by dynamic programming, the wealth constraint (3) is needed in differential form. Taking the total stochastic differential in equation (3), noting that both the number of shares and their prices are Ito processes, results in
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dW(t) = \sum_{i=0}^{n} N_i(t) dP_i(t) + \sum_{i=0}^{n} dN_i(t) dP_i(t)
+   </math>
+   <math display="block">
+    + \sum_{i=0}^{n} dN_i(t) P_i(t) \qquad (4)
+   </math>
+  </p>
+  <p block-type="Text">
+   Clearly, the first term on the right-hand side (RHS) of equation (4) is associated with the capital gains to the portfolio over the interval
+   <math display="inline">
+    dt
+   </math>
+   resulting from the change in the asset prices. Equally clearly, the third term on the RHS of that equation is associated with the inflow of wealth from external sources that is used to buy additional shares for the portfolio (negative inflow would mean outflow, as when shares are sold to finance consumption.). It is not clear, though, how to associate the middle term on the RHS-with the capital gain or with the cash inflow to the portfolio.
+  </p>
+  <p block-type="TextInlineMath">
+   Taking care that choices made at any given time do not anticipate the future, Merton [22] shows that the middle term on the RHS of equation (4), along with the third term, comprise together the total inflow of funds to the portfolio. Therefore, in the absence of other income, the incremental inflow to the portfolio at time
+   <math display="inline">
+    t
+   </math>
+   in this problem is given by
+   <math display="inline">
+    -c(t) dt = \sum_{i=0}^{n} dN_i(t) dP_i(t)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    +\sum_{i=0}^{n} dN_i(t)P_i(t)
+   </math>
+   , and equation (4) becomes the Merton self-financing condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dW(t) = \sum_{i=0}^{n} N_i(t) dP_i(t) - c(t) dt
+   </math>
+   (5)
+  </p>
+  <p block-type="Text">
+   It is remarkable that a special case of Merton's self-financing condition in equation
+   <math display="inline">
+    (5)
+   </math>
+   is equivalent to the Black-Scholes partial differential equation (PDE), which is prominent in derivative pricing.&lt;sup&gt;a&lt;/sup&gt;
+  </p>
+  <p block-type="TextInlineMath">
+   It is convenient to express the Merton selffinancing condition, equation (4), in terms of portfolio weights,
+   <math display="inline">
+    w_i(t) := N_i(t)P_i(t)/W(t)
+   </math>
+   , which would serve as the portfolio controls from now on instead of the number of shares. Substituting the weights and the asset returns from equation
+   <math display="inline">
+    (1)
+   </math>
+   in equation
+   <math display="inline">
+    (5)
+   </math>
+   yields the differential wealth dynamics,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dW(t) = \left(-c + W \sum_{i=0}^{n} w_i \alpha_i\right) dt
+   </math>
+   <math display="block">
+    + W \sum_{i=0}^{n} w_i \sigma_i dz_i, \text{ with } \sum_{i=0}^{n} w_i = 1
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   which the individual obeys when solving for the consumption and investment controls in the expected utility maximization problem (2).
+  </p>
+  <p block-type="Text">
+   Since the utility functional in equation
+   <math display="inline">
+    (2)
+   </math>
+   is time-additive, the Merton problem can be solved by dynamic programming. To that end, define the value function (also called the indirect utility of
+   <math display="inline">
+    wealth)
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J(W(t), t) := \max_{c(\tau), \{w_i(\tau)\}, t \le \tau \le T}
+   </math>
+   <math display="block">
+    E_t \left[ \int_t^T u(c(\tau), \tau) \, \mathrm{d}\tau + B(W(T)) \right] \qquad (7)
+   </math>
+  </p>
+  <p block-type="Text">
+   subject to the wealth dynamics in equation
+   <math display="inline">
+    (6)
+   </math>
+   , and where
+   <math display="inline">
+    E_t
+   </math>
+   denotes the expectation operator given the information at time
+   <math display="inline">
+    t
+   </math>
+   , that is, the knowledge at time
+   <math display="inline">
+    t
+   </math>
+   of the prices, wealth, and consumption rate that determine the conditional probabilities of the future prices.
+  </p>
+  <p block-type="Equation">
+   Then,
+   <math display="block">
+    J(W(t), t) = \max_{c(\tau), \{w_i(\tau)\}, t \le \tau \le T}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_{t} \bigg[ \int_{t}^{t+\Delta t} \bigg[ u(c(\tau), \tau) \, \mathrm{d}\tau
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{t+\Delta t}^{T} u(c(\tau), \tau) \, \mathrm{d}\tau + B(W(T)) \bigg]
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \max_{c(\tau), \{w_{t}(\tau)\}, t \leq \tau \leq t+\Delta t} E_{t} \bigg\{ \int_{t}^{t+\Delta t} u(c(\tau), \tau) \, \mathrm{d}\tau
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \max_{c(\tau), \{w_{t}(\tau)\}, t+\Delta t \leq \tau \leq T} E_{t+\Delta t} \bigg[ \int_{t+\Delta t}^{T} u(c(\tau), \tau) \, \mathrm{d}\tau
+   </math>
+   <br/>
+   +
+   <math display="block">
+    B(W(T)) \bigg] \bigg\}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (the law of iterated expectations was used above:
+   <math display="inline">
+    E_t E_{t+\Delta t}[\ ] = E_t[\ ])
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = \max_{c(\tau), \{w_{l}(\tau)\}, t \leq \tau \leq t + \Delta t} E_{t} \bigg\{ \int_{t}^{t + \Delta t} u(c(\tau), \tau) \, \mathrm{d}\tau
+   </math>
+   <math display="block">
+    + J(W(t + \Delta t), t + \Delta t) \bigg\}
+   </math>
+   <math display="block">
+    = \max_{c(t), \{w_{l}(t)\}} E_{t}[u(c(t), t) \Delta t + o(\Delta t)
+   </math>
+   <math display="block">
+    + J(W(t), t) + \Delta J]
+   </math>
+   <math display="block">
+    = J(W(t), t) + \max_{c(t), \{w_{l}(t)\}} \{u(c(t), t) \Delta t + o(\Delta t)
+   </math>
+   <math display="block">
+    + E_{t}[\Delta J] \} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    o(x)
+   </math>
+   means a quantity that tends to zero faster than does
+   <math display="inline">
+    x
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   By Ito's lemma and by the wealth equation
+   <math display="inline">
+    (5)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_{t}[\Delta J] = E_{t} \bigg[ J_{t} \Delta t + J_{W} \Delta W + \frac{1}{2} J_{\text{WW}} (\Delta W)^{2}
+   </math>
+   <br/>
+   +
+   <math>
+    o(\Delta t) \bigg] = J_{t} \Delta t + J_{\text{W}} \bigg( -c + W \sum_{i=0}^{n} w_{i} \alpha_{i} \bigg) \Delta t
+   </math>
+   <br/>
+   +
+   <math>
+    \frac{1}{2} J_{\text{WW}} W^{2} \bigg( \sum_{i=0}^{n} \sum_{j=0}^{n} w_{i} w_{j} \sigma_{ij} \bigg) \Delta t + o(\Delta t)
+   </math>
+   <br/>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   Substituting the last expression in equation
+   <math display="inline">
+    (8)
+   </math>
+   , subtracting
+   <math display="inline">
+    J(W(t), t)
+   </math>
+   from both sides, dividing by
+   <math display="inline">
+    \Delta t
+   </math>
+   , and taking the limit
+   <math display="inline">
+    \Delta t \rightarrow 0
+   </math>
+   , yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 = \max_{c(t), \{w_i(t)\}_0^n} \left\{ u(c(t), t) + J_t \right\}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    + J_{W} \bigg( -c + W \sum_{i=0}^{n} w_{i} \alpha_{i} \bigg) + \frac{1}{2} J_{WW} W^{2}
+   </math>
+   <math display="block">
+    \times \bigg( \sum_{i=0}^{n} \sum_{j=0}^{n} w_{i} w_{j} \sigma_{ij} \bigg) \bigg\}
+   </math>
+   <math display="block">
+    \text{subject to } \sum_{i=0}^{n} w_{i} = 1 \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   Equation (10) is the Hamilton-Jacobi-Bellman (HJB) equation for the Merton problem.
+  </p>
+  <h4>
+   A Solved Example
+  </h4>
+  <p block-type="TextInlineMath">
+   The HJB equation yields a nonlinear partial differential equation in the unknown function of two variables
+   <math display="inline">
+    J(W, t)
+   </math>
+   with the end condition
+   <math display="inline">
+    J(W, T) =
+   </math>
+   <math display="inline">
+    B(W(T))
+   </math>
+   , the utility from bequest. A solution example is illustrated next for the case with one riskless asset yielding a constant rate of return
+   <math display="inline">
+    \alpha_0 = r
+   </math>
+   and with
+   <math display="inline">
+    n
+   </math>
+   risky assets following correlated geometric Brownian motions, that is,
+   <math display="inline">
+    \alpha_i
+   </math>
+   ,
+   <math display="inline">
+    \sigma_i
+   </math>
+   , and
+   <math display="inline">
+    \sigma_{ii}
+   </math>
+   are all constants, and
+   <math display="inline">
+    \sigma_{0i} = \sigma_{i0} = 0
+   </math>
+   , for
+   <math display="inline">
+    i, j = 0, \ldots, n
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Substituting
+   <math display="inline">
+    w_0 = 1 - \sum_{i=1}^n w_i
+   </math>
+   and
+   <math display="inline">
+    \sum_{i=0}^n w_i \alpha_i =
+   </math>
+   <math display="inline">
+    r + \sum_{i=1}^{n} w_i (\alpha_i - r)
+   </math>
+   in the HJB equation
+   <math display="inline">
+    (10)
+   </math>
+   yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 = \max_{c(t), \{w_i(t)\}_1^n} G(c(t), w_1(t), \dots, w_n(t)), \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    G(c, w_1, \dots, w_n) := u(c, t) + J_t + J_W
+   </math>
+   <math display="inline">
+    \begin{bmatrix} -c &amp; + &amp; rW &amp; + &amp; W\sum_{i=1}^n w_i(\alpha_i - r) \end{bmatrix} + (1/2)
+   </math>
+   <math display="inline">
+    J_{\rm WW}W^2\left(\sum_{i=1}^n\sum_{j=1}^n w_i w_j \sigma_{ij}\right)
+   </math>
+   is a real function of
+   <math display="inline">
+    n+1
+   </math>
+   free real variables, and the maximization problem exhibits no constraints.
+  </p>
+  <p block-type="TextInlineMath">
+   To locate the point
+   <math display="inline">
+    (c^*, w_1^*, \ldots, w_n^*)
+   </math>
+   that maximizes G, requires the
+   <math display="inline">
+    n + 1
+   </math>
+   first-order conditions,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial G}{\partial c} = 0 = \frac{\partial u}{\partial c}(c, t) - J_w \tag{12}
+   </math>
+   <math display="block">
+    \frac{\partial G}{\partial w_i} = 0 = J_w(\alpha_i - r) + J_{\rm WW}W \sum_{j=1}^n w_j \sigma_{ij},
+   </math>
+   <math display="block">
+    (i = 1, \dots, n) \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   If for every time t,
+   <math display="inline">
+    u(c, t)
+   </math>
+   is strictly concave and twice continuously differentiable in
+   <math display="inline">
+    c
+   </math>
+   , then equation (12) can be inverted to yield
+   <math display="inline">
+    c^* = f(J_W, t)
+   </math>
+   . The system of linear equations (13) can be solved for
+  </p>
+  <p block-type="TextInlineMath">
+   the weights on the risky assets
+   <math display="inline">
+    w_i^*
+   </math>
+   as functions of
+   <math display="inline">
+    J_W
+   </math>
+   ,
+   <math display="inline">
+    J_{\text{WW}}
+   </math>
+   , and W. Then these
+   <math display="inline">
+    (c^*, w_1^*, \ldots, w_n^*)
+   </math>
+   are substituted back in equation
+   <math display="inline">
+    (11)
+   </math>
+   to yield
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 = G(c^*, w_1^*, \dots, w_n^*) \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which then becomes a nonlinear partial differential equation of the second order in the unknown function
+   <math display="inline">
+    J(W, t)
+   </math>
+   with the end condition
+   <math display="inline">
+    J(W, T) =
+   </math>
+   <math display="inline">
+    B(W(T)).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Merton [21] demonstrates closed-form solutions to equation
+   <math display="inline">
+    (14)
+   </math>
+   for some special cases. For example, assume that the instantaneous utility of consumption is the isoelastic,
+   <math display="inline">
+    u(c, t) = \exp(-\rho t)c^{\gamma}/\gamma
+   </math>
+   ; utility from bequest is 0; there are two available assets, one is risk-free returning at a rate
+   <math display="inline">
+    r
+   </math>
+   and the other risky, following a Geometric Brownian motion with a constant drift,
+   <math display="inline">
+    \alpha
+   </math>
+   , and a constant variance per unit time,
+   <math display="inline">
+    \sigma^2
+   </math>
+   . Then the optimal weight that the portfolio puts on the risky asset is the constant
+   <math display="inline">
+    w^*(t) = (\alpha - r)/[(1 - \alpha - r)]
+   </math>
+   <math display="inline">
+    (\gamma)\sigma^2
+   </math>
+   ,
+   <math display="inline">
+    0 \le t \le T
+   </math>
+   , and the optimal consumption rate is given by
+   <math display="inline">
+    c^*(t) = W(t)a/[(1 - \exp(-a(T - t))],
+   </math>
+   <math display="inline">
+    0 \le t \le T
+   </math>
+   , where
+   <math display="inline">
+    W(t)
+   </math>
+   is the value of the portfolio at time
+   <math display="inline">
+    t
+   </math>
+   , and where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a := \frac{\gamma}{1-\gamma} \left[ \frac{\rho}{\gamma} - r - \frac{1}{2} \left( \frac{\alpha-r}{\sigma} \right)^2 \frac{1}{1-\gamma} \right] \quad (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   Generally, however, equation
+   <math display="inline">
+    (14)
+   </math>
+   must be solved numerically.
+  </p>
+  <h2>
+   The Merton Problem with State-dependent
+   <b>
+    Price Process Parameters
+   </b>
+  </h2>
+  <p block-type="Text">
+   Merton [23] extends his problem to include parameters of the price processes that depend on a state variable
+   <math display="inline">
+    x
+   </math>
+   which itself follows an Ito process, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}P_i}{P_i} = \alpha_i(x, t) \,\mathrm{d}t + \sigma_i(x, t) \,\mathrm{d}z_i,
+   </math>
+   <br/>
+   (0 \le t \le T, i = 0, \ldots, n) (16)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dx = a(x, t) dt + s(x, t) dz
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   where the
+   <math display="inline">
+    dz_i
+   </math>
+   and dz are correlated Wiener processes satisfying
+   <math display="inline">
+    dz_i dz_i = \rho_{ij}(x, t) dt
+   </math>
+   ;
+   <math display="inline">
+    dz_i dz = \rho_{ix} dt
+   </math>
+   ;
+   <math display="inline">
+    dz_i dt = dz dt = 0
+   </math>
+   ,
+   <math display="inline">
+    E(dz_i) = 0
+   </math>
+   ;
+   <math display="inline">
+    (i, j = 0, ..., n)
+   </math>
+   . Denote
+   <math display="inline">
+    \boldsymbol{\alpha} := (\alpha_1, \ldots, \alpha_n), \quad \mathbf{r} := (r, \ldots, r), \quad \boldsymbol{\sigma}_x :=
+   </math>
+   <math display="inline">
+    (\rho_{1x}\sigma_1s,\ldots,\rho_{nx}\sigma_ns)
+   </math>
+   , and
+   <math display="inline">
+    \sigma
+   </math>
+   denote by the matrix with
+   <math display="inline">
+    \sigma_{ij} := \sigma_i \sigma_i \rho_{ij}
+   </math>
+   in the
+   <i>
+    ij
+   </i>
+   place.
+  </p>
+  <p block-type="TextInlineMath">
+   Defining the indirect utility
+   <math display="inline">
+    J(W, x, t)
+   </math>
+   as before, but recognizing that it now depends also on the state variable, and following the same derivation as before with the obvious modifications, Merton [23] shows that in the presence of a riskless asset returning at the constant rate
+   <math display="inline">
+    r
+   </math>
+   , the optimal investment plan described by the control vector process of weights on the risky assets in the portfolio that maximizes lifetime utility of consumption is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{w}_{t}^{*} = \left(-\frac{J_{W}}{WJ_{\text{WW}}}\right)\boldsymbol{\sigma}^{-1}(\boldsymbol{\alpha} - \mathbf{r}) + \left(-\frac{J_{\text{xW}}}{WJ_{\text{WW}}}\right)\boldsymbol{\sigma}^{-1}\boldsymbol{\sigma}_{\text{x}}
+   </math>
+   <math display="block">
+    =: D\mathbf{d} + H\mathbf{h}, \quad 0 \le t \le T \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   The scalars
+   <math display="inline">
+    D
+   </math>
+   and
+   <math display="inline">
+    H
+   </math>
+   are agent specific, but the vectors
+   <math display="inline">
+    \mathbf{d}
+   </math>
+   and
+   <math display="inline">
+    \mathbf{h}
+   </math>
+   are not. It follows that every investor behaves as if the risky part of his portfolio is split between two mutual funds holding total portfolios with weights that are proportional to
+   <math display="inline">
+    \mathbf{d}
+   </math>
+   and
+   <math display="inline">
+    \mathbf{h}
+   </math>
+   , respectively; then there is also the part that is invested in the risk-free asset. The result is a three-fund separation theorem. Merton [23] shows that while the first risky mutual fund is used to diversify, that is, to obtain the largest expected return for a given amount of risk borne, the second risky mutual fund is used to hedge unfavorable shifts in the state variable
+   <math display="inline">
+    x
+   </math>
+   , in the sense that if an increase in
+   <math display="inline">
+    x
+   </math>
+   diminishes planned consumption, then the investor compensates himself by shifting wealth to the asset with returns that increase with
+   <math display="inline">
+    x
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The Merton problem was first formulated and solved using stochastic control in
+   <math display="inline">
+    [21, 22]
+   </math>
+   . It provides the basis for the intertemporal capital asset pricing model in
+   <math display="inline">
+    [23]
+   </math>
+   . Extensions of the problem include
+   <math display="inline">
+    [19]
+   </math>
+   , 20, 26]. In references
+   <math display="inline">
+    [3, 4, 12-15]
+   </math>
+   , the problem is treated in incomplete markets and under other market constraints. Transaction costs are introduced into the Merton problem in
+   <math display="inline">
+    [1, 5, 11, 29]
+   </math>
+   . The problem is extended to incomplete information settings in
+   <math display="inline">
+    [6, 8,
+   </math>
+   27]; to settings with habit formation utilities in [7,
+   <math display="inline">
+    17, 28
+   </math>
+   ; and to settings with recursive utilities in [2, 10]. Textbooks that provide a detailed treatment of the Merton problem include [9, 16, 25].
+  </p>
+  <h4>
+   <b>
+    End Notes
+   </b>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   &lt;sup&gt;a.&lt;/sup&gt;Specifically, suppose the portfolio comprises two assets, one risky and one riskless, and that there are no inflows to or outflows from the portfolio, that is,
+   <math display="inline">
+    c(t) = 0
+   </math>
+   for all t. Then, if only Markov controls of the portfolio are considered,
+  </p>
+  <p block-type="Text">
+   namely, number of units of the two assets that depend only on time and the concurrent price, it follows that the value of the portfolio which then obviously depends only on time and the concurrent price of the risky asset, can be shown to necessarily satisfy the Black-Scholes PDE. Moreover, the number of shares of the risky asset in the portfolio is equal to the partial derivative of the said portfolio value function with respect to the price of the risky asset (see [18, 24]). The converse is also true.
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      [1]
+     </math>
+     Akian, M., Menaldi, J.-L. &amp; Sulem, A. (1996). On an investment-consumption model with transaction costs, SIAM Journal on Control and Optimization 34, 329-364.
+    </li>
+    <li block-type="ListItem">
+     Bergman, Y.Z. (1985). Time preference and capital asset [2] pricing models, Journal of Financial Economics 14,
+     <math display="inline">
+      145 - 159.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Brennan, M., Schwartz, E. &amp; Lagnado, R. (1997). Strate-[3] gic asset allocation, Journal of Economic Dynamics and Control 21, 1377-1403.
+    </li>
+    <li block-type="ListItem">
+     Cvitanic, J. &amp; Karatzas, I. (1996). Hedging and port-[4] folio optimization under transaction costs: a martingale approach, Mathematical Finance 6, 133-165.
+    </li>
+    <li block-type="ListItem">
+     Davis, M. &amp; Norman, A. (1990). Portfolio selection with [5] transaction costs. Mathematics of Operations Research 15, 676–713.
+    </li>
+    <li block-type="ListItem">
+     [6] Detemple, J. (1986). Asset pricing in a production economy with incomplete information, Journal of Finance 41, 383-391.
+    </li>
+    <li block-type="ListItem">
+     Detemple, J. &amp; Zapatero, F. (1992). Optimal [7] consumption-portfolio policies with habit formation, Mathematical Finance 2, 251-274.
+    </li>
+    <li block-type="ListItem">
+     Dotan, M. &amp; Feldman, D. (1986). Equilibrium interest [8] rates and multiperiod bonds in a partially observable economy, Journal of Finance 41, 369-382.
+    </li>
+    <li block-type="ListItem">
+     [9] Duffie, D. (2001). Dynamic Asset Pricing Theory, Princeton University Press, Princeton.
+    </li>
+    <li block-type="ListItem">
+     [10] Duffie, D. &amp; Epstein, L. (1992). Asset pricing with stochastic differential utility, Review of Financial Studies 5, 411–436.
+    </li>
+    <li block-type="ListItem">
+     [11] Duffie, D. &amp; Sun, T.S. (1990). Transactions costs and portfolio choice in a discrete-continuous time setting, Journal of Economic Dynamics and Control 14, 35-51.
+    </li>
+    <li block-type="ListItem">
+     [12] Dybvig, P. (1995). Duesenberry's ratcheting of consumption: optimal dynamic consumption and investment given intolerance for any decline in standard of living, Review of Economic Studies 62, 287-313.
+    </li>
+    <li block-type="ListItem">
+     [13] Fleming, A. &amp; Zariphopoulou, T. (1991). An optimal Investment-consumption model with borrowing constraints, Mathematics of Operations Research 16, 802-822.
+    </li>
+    <li block-type="ListItem">
+     [14] He, H. &amp; Pagès, H. (1993). Labor income, borrowing constraints, and equilibrium asset prices, Economic Theory 3, 663–696.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [15] Hindy, A. (1995). Viable prices in financial markets with solvency constraints,
+     <i>
+      Journal of Mathematical Economics
+     </i>
+     <b>
+      24
+     </b>
+     , 105–136.
+    </li>
+    <li block-type="ListItem">
+     [16] Ingersoll, J. (1987).
+     <i>
+      Theory of Financial Decision Making
+     </i>
+     , Rowman and Littlefield, Totowa.
+    </li>
+    <li block-type="ListItem">
+     [17] Ingersoll, J. (1992). Optimal consumption and portfolio rules with intertemporally dependent utility of consumption,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      16
+     </b>
+     , 681–712.
+    </li>
+    <li block-type="ListItem">
+     [18] Jarrow, R.A. &amp; Rudd, A. (1983).
+     <i>
+      Option Pricing
+     </i>
+     , Irwin, 100–105.
+    </li>
+    <li block-type="ListItem">
+     [19] Karatzas, I., Lehoczky, J., Sethi, S. &amp; Shreve, S. (1986). Explicit solution of a general consumption-investment problem,
+     <i>
+      Mathematics of Operations Research
+     </i>
+     <b>
+      11
+     </b>
+     , 261–264.
+    </li>
+    <li block-type="ListItem">
+     [20] Lehoczky, J., Sethi, S. &amp; Shreve, S. (1983). Optimal consumption and investment policies allowing consumption constraints and bankruptcy,
+     <i>
+      Mathematics of Operations Research
+     </i>
+     <b>
+      8
+     </b>
+     , 613–636.
+    </li>
+    <li block-type="ListItem">
+     [21] Merton, R.C. (1969). Lifetime portfolio selection under uncertainty—continuous-time case,
+     <i>
+      Review of Economics and Statistics
+     </i>
+     <b>
+      51
+     </b>
+     , 247–257.
+    </li>
+    <li block-type="ListItem">
+     [22] Merton, R.C. (1971). Optimum consumption and portfolio rules in a continuous-time model,
+     <i>
+      Journal of Economic Theory
+     </i>
+     <b>
+      3
+     </b>
+     , 373–413.
+    </li>
+    <li block-type="ListItem">
+     [23] Merton, R.C. (1973). Intertemporal capital asset pricing model,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      41
+     </b>
+     , 867–887.
+    </li>
+    <li block-type="ListItem">
+     [24] Merton, R.C. (1977). On the pricing of contingent claims and the Modigliani–Miller theorem,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      5
+     </b>
+     , 241–250.
+    </li>
+    <li block-type="ListItem">
+     [25] Merton, R.C. (1990).
+     <i>
+      Continuous-Time Finance
+     </i>
+     , Basil Blackwell.
+    </li>
+    <li block-type="ListItem">
+     [26] Richard, S. (1975). Optimal consumption, portfolio, and life insurance rules for an uncertain lived individual in a continuous time model,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      2
+     </b>
+     , 187–203.
+    </li>
+    <li block-type="ListItem">
+     [27] Schweizer, M. (1994). Risk-minimizing hedging strategies under restricted information,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      4
+     </b>
+     , 327–342.
+    </li>
+    <li block-type="ListItem">
+     [28] Sundaresan, S. (1989). Intertemporally dependent preferences in the theories of consumption, portfolio choices and equilibrium asset pricing,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      2
+     </b>
+     , 73–89.
+    </li>
+    <li block-type="ListItem">
+     [29] Vayanos, D. (1998). Transaction costs and asset pricing: a dynamic equilibrium model,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      11
+     </b>
+     , 1–58.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   YAACOV Z. BERGMAN
+  </p>
+ </body>
+</html>

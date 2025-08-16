@@ -1,0 +1,4295 @@
+{
+  "blocks": [
+    {
+      "id": "/page/0/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Backward Stochastic </b><b>Differential Equations: </b><b>Numerical Methods </b></h1>",
+      "page": 228,
+      "polygon": [
+        [
+          73.4379746835443,
+          70.45328031809146
+        ],
+        [
+          257.84375,
+          70.45328031809146
+        ],
+        [
+          257.84375,
+          128.765380859375
+        ],
+        [
+          73.4379746835443,
+          128.765380859375
+        ]
+      ],
+      "bbox": [
+        73.4379746835443,
+        70.45328031809146,
+        257.84375,
+        128.765380859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Nonlinear backward stochastic differential equations (BSDEs) were introduced in 1990 by Pardoux and Peng [34]. The interest in BSDEs comes form their connections with partial differential equations (PDEs) [14, 38]; stochastic control (see Stochastic Control); and mathematical finance (see [16, 17], among others). In particular, as shown in [15], BSDEs are a useful tool in the pricing and hedging of European options. In a complete market, the price process <math display=\"inline\">Y</math>of <math display=\"inline\">\\xi</math> is a solution of a BSDE. BSDEs are also useful in quadratic hedging problems in incomplete markets (see Mean-Variance Hedging).</p>",
+      "page": 228,
+      "polygon": [
+        [
+          74.1873417721519,
+          152.14910536779325
+        ],
+        [
+          286.75,
+          152.14910536779325
+        ],
+        [
+          286.75,
+          288.45654296875
+        ],
+        [
+          74.1873417721519,
+          288.45654296875
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        152.14910536779325,
+        286.75,
+        288.45654296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/2",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The result that there exist unique BSDE equations under the assumption that the generator is locally Lipschitz can be found in [19]. A similar result was obtained in the case when the coefficient is continuous with linear growth [24]. The same authors, Lepeltier and San Martín [23], generalized these results under the assumption that the coefficients have a superlinear quadratic growth. Other extensions of existence and uniqueness of BSDE are dealt with in [20, 25, 30]. Stability of solutions for BSDE have been studied, for example, in [1], where the authors analyze stability under disturbances in the filtration. In [6], the authors show the existence and uniqueness of the solution and the link with integral-PDEs (see Partial Integro-differential Equations (PIDEs)). An existence theorem for BSDEs with jumps is presented in [25, 36]. The authors state a theorem for Lipschitz generators proved by fixed point techniques [37].</p>",
+      "page": 228,
+      "polygon": [
+        [
+          74.1873417721519,
+          289.7451171875
+        ],
+        [
+          287.0390625,
+          289.7451171875
+        ],
+        [
+          287.0390625,
+          506.9619140625
+        ],
+        [
+          74.1873417721519,
+          506.9619140625
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        289.7451171875,
+        287.0390625,
+        506.9619140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Since BSDE solutions are explicit in only a few cases, it is natural to search for numerical methods approximating the unique solution of such equations and to know the associated type of convergence. Some methods of approximation have been developed.</p>",
+      "page": 228,
+      "polygon": [
+        [
+          74.1873417721519,
+          508.16302186878727
+        ],
+        [
+          287.6171875,
+          508.16302186878727
+        ],
+        [
+          287.6171875,
+          576.1767578125
+        ],
+        [
+          74.1873417721519,
+          576.1767578125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        508.16302186878727,
+        287.6171875,
+        576.1767578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">A four-step algorithm is proposed in [27] to solve equations of forward-backward type, relating the type of approximation to PDEs theory. On the other hand, in [3], a method of random discretization in time is used where the convergence of the method for the solution <math display=\"inline\">(Y, Z)</math> needs regularity</p>",
+      "page": 228,
+      "polygon": [
+        [
+          74.1873417721519,
+          577.6494140625
+        ],
+        [
+          286.2582278481013,
+          577.6494140625
+        ],
+        [
+          286.2582278481013,
+          643.9189453125
+        ],
+        [
+          74.1873417721519,
+          643.9189453125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        577.6494140625,
+        286.2582278481013,
+        643.9189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">assumptions only, but for simulation studies multiple approximations are needed. See also [10, 13, 28] for forward-backward systems of SDE (FBSDE) solutions, [18] for a regression-based Monte Carlo method, [39] for approximating solutions of BSDEs, and [35] for Monte Carlo valuation of American Options.</p>",
+      "page": 228,
+      "polygon": [
+        [
+          301.24556962025315,
+          71.2027833001988
+        ],
+        [
+          514.2421875,
+          71.2027833001988
+        ],
+        [
+          514.2421875,
+          149.29052734375
+        ],
+        [
+          301.24556962025315,
+          149.29052734375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        71.2027833001988,
+        514.2421875,
+        149.29052734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/6",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">On the other hand, in [2, 9, 11, 26] the authors replace Brownian motion by simple random walks in order to define numerical approximations for BSDEs. This technique simplifies the computation of conditional expectations involved at each time step.</p>",
+      "page": 228,
+      "polygon": [
+        [
+          301.24556962025315,
+          151.223388671875
+        ],
+        [
+          513.953125,
+          151.223388671875
+        ],
+        [
+          513.953125,
+          208.0126953125
+        ],
+        [
+          301.24556962025315,
+          208.0126953125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        151.223388671875,
+        513.953125,
+        208.0126953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">A quantization (see <b>Quantization Methods</b>) technique was suggested in <math display=\"inline\">[4, 5]</math> for the resolution of reflected backward stochastic differential equations (RBSDEs) when the generator <math display=\"inline\">f</math> does not depend on the control variable <math display=\"inline\">z</math>. This method is based on the approximation of continuous time processes on a finite grid, and requires a further estimation of the transition probabilities on the grid.</p>",
+      "page": 228,
+      "polygon": [
+        [
+          301.24556962025315,
+          209.11133200795229
+        ],
+        [
+          514.2421875,
+          209.11133200795229
+        ],
+        [
+          514.2421875,
+          298.5810546875
+        ],
+        [
+          301.24556962025315,
+          298.5810546875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        209.11133200795229,
+        514.2421875,
+        298.5810546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In [8], the authors propose a discrete-time approximation for approximations of RBSDEs. The <math display=\"inline\">L^p</math> norm of the error is shown to be of the order of the time step. On the other hand, a numerical approximation for a class of RBSDEs based on numerical approximations for BSDE and approximations given in [29], can be found in [31, 33].</p>",
+      "page": 228,
+      "polygon": [
+        [
+          301.24556962025315,
+          299.8011928429423
+        ],
+        [
+          513.6640625,
+          299.8011928429423
+        ],
+        [
+          513.6640625,
+          378.8408203125
+        ],
+        [
+          301.24556962025315,
+          378.8408203125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        299.8011928429423,
+        513.6640625,
+        378.8408203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Recently, work on numerical schemes for jumps is given in <math display=\"inline\">[22]</math> and is based on the approximation for the Brownian motion and a Poisson process by two simple random walks. Finally, for decoupled FBSDEs with jumps a numerical scheme is proposed in [7].</p>",
+      "page": 228,
+      "polygon": [
+        [
+          301.24556962025315,
+          379.99801192842943
+        ],
+        [
+          514.53125,
+          379.99801192842943
+        ],
+        [
+          514.53125,
+          434.71172962226643
+        ],
+        [
+          301.24556962025315,
+          434.71172962226643
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        379.99801192842943,
+        514.53125,
+        434.71172962226643
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Let <math display=\"inline\">\\Omega = \\mathcal{C}([0, 1], \\mathbb{R}^d)</math> and consider the canonical Wiener space <math display=\"inline\">(\\Omega, \\mathcal{F}, \\mathbb{P}, \\mathcal{F}_t)</math>, in which <math display=\"inline\">B_t(\\omega) = \\omega(t)</math>is a standard <math display=\"inline\">d</math>-dimensional Brownian motion. We consider the following BSDE:</p>",
+      "page": 228,
+      "polygon": [
+        [
+          301.24556962025315,
+          436.2107355864811
+        ],
+        [
+          513.953125,
+          436.2107355864811
+        ],
+        [
+          513.953125,
+          481.18091451292247
+        ],
+        [
+          301.24556962025315,
+          481.18091451292247
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        436.2107355864811,
+        513.953125,
+        481.18091451292247
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_t = \\xi + \\int_t^T f(s, Y_s, Z_s) \\mathrm{d}s - \\int_t^T Z_s \\mathrm{d}B_s \\qquad (1)</math></p>",
+      "page": 228,
+      "polygon": [
+        [
+          316.8125,
+          490.39453125
+        ],
+        [
+          512.21875,
+          490.39453125
+        ],
+        [
+          512.21875,
+          519.111328125
+        ],
+        [
+          316.8125,
+          519.111328125
+        ]
+      ],
+      "bbox": [
+        316.8125,
+        490.39453125,
+        512.21875,
+        519.111328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/12",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\xi</math> is a <math display=\"inline\">\\mathcal{F}_T</math>-measurable square integrable random variable and <math display=\"inline\">f</math> is Lipschitz continuous in the space variable with Lipschitz constant <math display=\"inline\">L</math>. The solution of equation (1) is a pair of adapted processes <math display=\"inline\">(Y, Z)</math>, which satisfies the equation.</p>",
+      "page": 228,
+      "polygon": [
+        [
+          301.24556962025315,
+          523.1530815109344
+        ],
+        [
+          514.0658227848102,
+          523.1530815109344
+        ],
+        [
+          514.0658227848102,
+          579.490234375
+        ],
+        [
+          301.24556962025315,
+          579.490234375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        523.1530815109344,
+        514.0658227848102,
+        579.490234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/13",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Numerical Methods for BSDEs </b></h2>",
+      "page": 228,
+      "polygon": [
+        [
+          301.24556962025315,
+          601.8508946322067
+        ],
+        [
+          455.6151898734177,
+          601.8508946322067
+        ],
+        [
+          455.6151898734177,
+          612.9931640625
+        ],
+        [
+          301.24556962025315,
+          612.9931640625
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        601.8508946322067,
+        455.6151898734177,
+        612.9931640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/14",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">One approach for a numerical scheme for solving BSDEs is based upon a discretization of the equation</p>",
+      "page": 228,
+      "polygon": [
+        [
+          301.99493670886073,
+          623.5864811133201
+        ],
+        [
+          513.375,
+          623.5864811133201
+        ],
+        [
+          513.375,
+          644.287109375
+        ],
+        [
+          301.99493670886073,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        623.5864811133201,
+        513.375,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 204,
+      "polygon": [
+        [
+          77.7578125,
+          45.71968190854871
+        ],
+        [
+          382.4296875,
+          45.71968190854871
+        ],
+        [
+          382.4296875,
+          55.8228759765625
+        ],
+        [
+          77.7578125,
+          55.8228759765625
+        ]
+      ],
+      "bbox": [
+        77.7578125,
+        45.71968190854871,
+        382.4296875,
+        55.8228759765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">(1) by replacing <math display=\"inline\">B</math> with a simple random walk. To be more precise, let us consider the symmetric random walk <math display=\"inline\">W^n</math>:</p>",
+      "page": 204,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.2027833001988
+        ],
+        [
+          290.00506329113927,
+          71.2027833001988
+        ],
+        [
+          290.00506329113927,
+          104.1904296875
+        ],
+        [
+          77.93417721518988,
+          104.1904296875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.2027833001988,
+        290.00506329113927,
+        104.1904296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">W_t^n := \\frac{1}{\\sqrt{n}} \\sum_{k=0}^{c_n(t)} \\zeta_k^n, \\quad 0 \\le t \\le T \\tag{2}</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          119.310546875,
+          114.775146484375
+        ],
+        [
+          289.640625,
+          114.775146484375
+        ],
+        [
+          289.640625,
+          142.939697265625
+        ],
+        [
+          119.310546875,
+          142.939697265625
+        ]
+      ],
+      "bbox": [
+        119.310546875,
+        114.775146484375,
+        289.640625,
+        142.939697265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/3",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">\\{\\zeta_k^n\\}_{1 \\le k \\le n}</math> is an i.i.d. Bernoulli symmetric sequence. We define <math display=\"inline\">\\mathcal{G}_k^n := \\sigma(\\zeta_1^n, \\ldots, \\zeta_k^n)</math>. Throughout this section <math display=\"inline\">c_n(t) = [nt]/n</math>, and <math display=\"inline\">\\xi^n</math> denotes a square integrable random variable, measurable w.r.t. <math display=\"inline\">\\mathcal{G}_n^n</math> that should converge to <math display=\"inline\">\\xi</math>. We assume that <math display=\"inline\">W^n</math>and <math display=\"inline\">B</math> are defined in the same probability space.</p>",
+      "page": 204,
+      "polygon": [
+        [
+          77.93417721518988,
+          152.60400390625
+        ],
+        [
+          290.00506329113927,
+          152.60400390625
+        ],
+        [
+          290.00506329113927,
+          220.34619140625
+        ],
+        [
+          77.93417721518988,
+          220.35387673956262
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        152.60400390625,
+        290.00506329113927,
+        220.35387673956262
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In [26], the authors consider the case when the generator depends only on the variable <math display=\"inline\">Y</math>, which makes the analysis simpler. In this situation, the BSDE <math display=\"inline\">(1)</math> is given by</p>",
+      "page": 204,
+      "polygon": [
+        [
+          77.93417721518988,
+          221.10337972167
+        ],
+        [
+          290.00506329113927,
+          221.10337972167
+        ],
+        [
+          290.00506329113927,
+          266.1826171875
+        ],
+        [
+          77.93417721518988,
+          266.1826171875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        221.10337972167,
+        290.00506329113927,
+        266.1826171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/5",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_t = \\xi + \\int_t^T f(Y_s) \\mathrm{d}s - \\int_t^T Z_s \\mathrm{d}B_s \\qquad (3)</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          113.3125,
+          275.0185546875
+        ],
+        [
+          288.50632911392404,
+          275.0185546875
+        ],
+        [
+          288.50632911392404,
+          304.4716796875
+        ],
+        [
+          113.3125,
+          304.4716796875
+        ]
+      ],
+      "bbox": [
+        113.3125,
+        275.0185546875,
+        288.50632911392404,
+        304.4716796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">whose solution is given by</p>",
+      "page": 204,
+      "polygon": [
+        [
+          77.93417721518988,
+          309.544731610338
+        ],
+        [
+          186.59240506329112,
+          309.544731610338
+        ],
+        [
+          186.59240506329112,
+          319.01416015625
+        ],
+        [
+          77.93417721518988,
+          319.01416015625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        309.544731610338,
+        186.59240506329112,
+        319.01416015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_{t} = \\mathbb{E}\\left(\\xi + \\int_{t}^{T} f(Y_{s}) \\mathrm{d}s \\Big| \\mathcal{F}_{t}\\right) \\tag{4}</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          122.490234375,
+          328.95458984375
+        ],
+        [
+          287.328125,
+          328.95458984375
+        ],
+        [
+          287.328125,
+          358.77587890625
+        ],
+        [
+          122.490234375,
+          358.77587890625
+        ]
+      ],
+      "bbox": [
+        122.490234375,
+        328.95458984375,
+        287.328125,
+        358.77587890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">which can be discretized in time with step-size <math display=\"inline\">h =</math><math display=\"inline\">T/n</math> by solving a discrete BSDE given by</p>",
+      "page": 204,
+      "polygon": [
+        [
+          77.93417721518988,
+          362.7594433399602
+        ],
+        [
+          289.2556962025316,
+          362.7594433399602
+        ],
+        [
+          289.2556962025316,
+          383.7455268389662
+        ],
+        [
+          77.93417721518988,
+          383.7455268389662
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        362.7594433399602,
+        289.2556962025316,
+        383.7455268389662
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_{t_i}^n = \\xi^n + \\frac{1}{n} \\sum_{j=i}^n f(Y_{t_j}^n) - \\sum_{j=i}^{n-1} Z_{t_j}^n \\triangle W_{t_{j+1}}^n \\qquad (5)</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          96.40234375,
+          395.408203125
+        ],
+        [
+          287.76171875,
+          395.408203125
+        ],
+        [
+          287.76171875,
+          427.806640625
+        ],
+        [
+          96.40234375,
+          427.806640625
+        ]
+      ],
+      "bbox": [
+        96.40234375,
+        395.408203125,
+        287.76171875,
+        427.806640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">This equation has a unique solution <math display=\"inline\">(Y_t^n, Z_t^n)</math> since the martingale <math display=\"inline\">W^n</math> has the predictable representation property. It can be checked that solving this equation is equivalent to finding a solution to the following implicit iteration problem:</p>",
+      "page": 204,
+      "polygon": [
+        [
+          77.93417721518988,
+          434.71172962226643
+        ],
+        [
+          290.00506329113927,
+          434.71172962226643
+        ],
+        [
+          290.00506329113927,
+          491.130859375
+        ],
+        [
+          77.93417721518988,
+          491.130859375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        434.71172962226643,
+        290.00506329113927,
+        491.130859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_{t_i}^n = \\mathbb{E}\\left\\{Y_{t_{i+1}}^n + \\frac{1}{n}f(Y_{t_i}^n)\\Big|\\mathcal{G}_i^n\\right\\} \\tag{6}</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          125.1640625,
+          501.439453125
+        ],
+        [
+          289.0625,
+          501.439453125
+        ],
+        [
+          289.0625,
+          527.2109375
+        ],
+        [
+          125.1640625,
+          527.2109375
+        ]
+      ],
+      "bbox": [
+        125.1640625,
+        501.439453125,
+        289.0625,
+        527.2109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">which, due to the adaptedness condition, is equivalent to</p>",
+      "page": 204,
+      "polygon": [
+        [
+          77.93417721518988,
+          534.3956262425447
+        ],
+        [
+          290.00506329113927,
+          534.3956262425447
+        ],
+        [
+          290.00506329113927,
+          555.5595703125
+        ],
+        [
+          77.93417721518988,
+          555.5595703125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        534.3956262425447,
+        290.00506329113927,
+        555.5595703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_{t_i}^n - \\frac{1}{n} f(Y_{t_i}^n) = \\mathbb{E}\\left\\{Y_{t_{i+1}}^n \\middle| \\mathcal{G}_i^n\\right\\} \\tag{7}</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          125.814453125,
+          555.927734375
+        ],
+        [
+          290.796875,
+          555.927734375
+        ],
+        [
+          290.796875,
+          578.75390625
+        ],
+        [
+          125.814453125,
+          578.75390625
+        ]
+      ],
+      "bbox": [
+        125.814453125,
+        555.927734375,
+        290.796875,
+        578.75390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Furthermore, once <math display=\"inline\">Y_{t_{i+1}}^n</math> is determined, <math display=\"inline\">Y_{t_i}^n</math> is solved <math display=\"inline\">via</math> equation (7) by a fixed point technique:</p>",
+      "page": 204,
+      "polygon": [
+        [
+          77.93417721518988,
+          583.8628230616303
+        ],
+        [
+          290.00506329113927,
+          583.8628230616303
+        ],
+        [
+          290.00506329113927,
+          605.6298828125
+        ],
+        [
+          77.93417721518988,
+          605.6298828125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        583.8628230616303,
+        290.00506329113927,
+        605.6298828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases}\\nX^0 = \\mathbb{E}\\left\\{Y_{t_{i+1}} \\middle| \\mathcal{G}_i^n\\right\\} \\\\\nX^1 = X^0 + \\frac{1}{n} f(X^k)\\n\\end{cases} \\tag{8}</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          141.712890625,
+          615.5703125
+        ],
+        [
+          289.9296875,
+          615.5703125
+        ],
+        [
+          289.9296875,
+          647.96875
+        ],
+        [
+          141.712890625,
+          647.96875
+        ]
+      ],
+      "bbox": [
+        141.712890625,
+        615.5703125,
+        289.9296875,
+        647.96875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/16",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">It is standard to show that if <math display=\"inline\">f</math> is uniformly Lipschitz in the spatial variable <math display=\"inline\">x</math> with Lipschitz constant <math display=\"inline\">L</math> (we also assume that <math display=\"inline\">f</math> is bounded by <math display=\"inline\">R</math>), then the iterations of this procedure will converge to the true solution of equation (7) at a geometric rate <math display=\"inline\">L/n</math>. Therefore, in the case where <i>n</i> is large enough, one iteration would already give us the error estimate: <math display=\"inline\">|Y_{t_i}^n - X^1| \\leq \\frac{LR}{n^2}</math>, producing a good approximate solution of equation (7). Consequently, the explicit numerical scheme is given by</p>",
+      "page": 204,
+      "polygon": [
+        [
+          304.99240506329113,
+          71.2027833001988
+        ],
+        [
+          517.1328125,
+          71.2027833001988
+        ],
+        [
+          517.1328125,
+          183.345703125
+        ],
+        [
+          304.99240506329113,
+          183.345703125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        71.2027833001988,
+        517.1328125,
+        183.345703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\begin{cases}\\n\\hat{Y}_{T}^{n} = \\xi^{n}; \\hat{Z}_{T}^{n} = 0 \\\\\nX_{t_{i}}^{n} = \\mathbb{E} \\left\\{ \\hat{Y}_{t_{i+1}} \\middle| \\mathcal{G}_{i}^{n} \\right\\} \\\\\n\\hat{Y}_{t_{i}}^{n} = X_{t_{i}}^{n} + \\frac{1}{n} f(X_{t_{i}}^{n}) \\\\\n\\hat{Z}_{t_{i}}^{n} = \\mathbb{E} \\left\\{ \\left[ \\hat{Y}_{t_{i+1}} + \\frac{1}{n} f(\\hat{Y}_{t_{i}}^{n}) - \\hat{Y}_{t_{i}}^{n} \\right] (\\triangle W_{t_{i+1}}^{n})^{-1} \\middle| \\mathcal{G}_{i}^{n} \\right\\} \\n\\end{cases} \\n</math>\n(9)</p>",
+      "page": 204,
+      "polygon": [
+        [
+          313.34375,
+          201.3857421875
+        ],
+        [
+          515.6875,
+          201.3857421875
+        ],
+        [
+          515.6875,
+          280.541015625
+        ],
+        [
+          313.34375,
+          280.541015625
+        ]
+      ],
+      "bbox": [
+        313.34375,
+        201.3857421875,
+        515.6875,
+        280.541015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/18",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The convergence of <math display=\"inline\">\\hat{Y}^n</math> to Y is proved in the sense of the Skorohod topology in [9, 26]. In [11], the convergence of the sequence <math display=\"inline\">Y^n</math> is established using the tool of convergence of filtrations. See also [3] for the case where <math display=\"inline\">f</math> depends on both variables <math display=\"inline\">y</math> and <math display=\"inline\">z</math>.</p>",
+      "page": 204,
+      "polygon": [
+        [
+          304.99240506329113,
+          289.3081510934394
+        ],
+        [
+          517.0632911392405,
+          289.3081510934394
+        ],
+        [
+          517.0632911392405,
+          347.01988071570577
+        ],
+        [
+          304.99240506329113,
+          347.01988071570577
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        289.3081510934394,
+        517.0632911392405,
+        347.01988071570577
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/13"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/19",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Application to European Options </b></h2>",
+      "page": 204,
+      "polygon": [
+        [
+          305.7417721518987,
+          369.50497017892644
+        ],
+        [
+          469.1484375,
+          369.50497017892644
+        ],
+        [
+          469.1484375,
+          379.9453125
+        ],
+        [
+          305.7417721518987,
+          379.9453125
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        369.50497017892644,
+        469.1484375,
+        379.9453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/20",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In the Black-Scholes model (see Black-Scholes Formula)</p>",
+      "page": 204,
+      "polygon": [
+        [
+          305.7417721518987,
+          391.2405566600398
+        ],
+        [
+          516.5546875,
+          391.2405566600398
+        ],
+        [
+          516.5546875,
+          412.7119140625
+        ],
+        [
+          305.7417721518987,
+          412.7119140625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        391.2405566600398,
+        516.5546875,
+        412.7119140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/21",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">dS_t = \\mu S_t dt + \\sigma S_t dB_t \\tag{10}</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          364.796875,
+          416.76171875
+        ],
+        [
+          515.6875,
+          416.76171875
+        ],
+        [
+          515.6875,
+          427.0703125
+        ],
+        [
+          364.796875,
+          427.0703125
+        ]
+      ],
+      "bbox": [
+        364.796875,
+        416.76171875,
+        515.6875,
+        427.0703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/22",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">which is the continuous version of</p>",
+      "page": 204,
+      "polygon": [
+        [
+          305.7417721518987,
+          438.4592445328032
+        ],
+        [
+          445.873417721519,
+          438.4592445328032
+        ],
+        [
+          445.873417721519,
+          448.423828125
+        ],
+        [
+          305.7417721518987,
+          448.423828125
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        438.4592445328032,
+        445.873417721519,
+        448.423828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/23",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\frac{S_{t+\\Delta t} - S_t}{S_t} \\approx \\mu \\Delta t + \\sigma \\Delta B_t \\tag{11}</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          360.171875,
+          456.5234375
+        ],
+        [
+          515.6875,
+          456.5234375
+        ],
+        [
+          515.6875,
+          480.0859375
+        ],
+        [
+          360.171875,
+          480.0859375
+        ]
+      ],
+      "bbox": [
+        360.171875,
+        456.5234375,
+        515.6875,
+        480.0859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/24",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where the relative return has linear growth plus a random perturbation. <math display=\"inline\">\\sigma</math> is called the <i>volatility</i> and it is a measure of uncertainty. In this particular case, <math display=\"inline\">S</math>has an explicit solution given by the Doleans-Dade exponential</p>",
+      "page": 204,
+      "polygon": [
+        [
+          304.99240506329113,
+          490.1749502982108
+        ],
+        [
+          517.0632911392405,
+          490.1749502982108
+        ],
+        [
+          517.0632911392405,
+          545.2509765625
+        ],
+        [
+          304.99240506329113,
+          545.2509765625
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        490.1749502982108,
+        517.0632911392405,
+        545.2509765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/25",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">S_t = S_0 e^{(\\mu - \\frac{1}{2}\\sigma^2 t) + \\sigma B_t} </math>(12)</p>",
+      "page": 204,
+      "polygon": [
+        [
+          367.3984375,
+          555.927734375
+        ],
+        [
+          515.9765625,
+          555.927734375
+        ],
+        [
+          515.9765625,
+          566.97265625
+        ],
+        [
+          367.3984375,
+          566.97265625
+        ]
+      ],
+      "bbox": [
+        367.3984375,
+        555.927734375,
+        515.9765625,
+        566.97265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/26",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">We assume the existence of a riskless asset whose evolution is given by <math display=\"inline\">\\beta_t = \\beta_0 e^{rt}</math>, where r is a constant interest rate. Then <math display=\"inline\">\\beta</math> satisfies the ODE:</p>",
+      "page": 204,
+      "polygon": [
+        [
+          305.5390625,
+          580.1153081510935
+        ],
+        [
+          517.0632911392405,
+          580.1153081510935
+        ],
+        [
+          517.0632911392405,
+          612.625
+        ],
+        [
+          305.5390625,
+          612.625
+        ]
+      ],
+      "bbox": [
+        305.5390625,
+        580.1153081510935,
+        517.0632911392405,
+        612.625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Equation/27",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\beta_t = \\beta_0 + r \\int_0^t \\beta_s \\, \\mathrm{d}s \\tag{13}</math></p>",
+      "page": 204,
+      "polygon": [
+        [
+          368.84375,
+          622.93359375
+        ],
+        [
+          515.6875,
+          622.93359375
+        ],
+        [
+          515.6875,
+          649.44140625
+        ],
+        [
+          368.84375,
+          649.44140625
+        ]
+      ],
+      "bbox": [
+        368.84375,
+        622.93359375,
+        515.6875,
+        649.44140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 121,
+      "polygon": [
+        [
+          209.07341772151898,
+          44.970178926441356
+        ],
+        [
+          513.3164556962025,
+          45.71968190854871
+        ],
+        [
+          513.3164556962025,
+          56.212723658051694
+        ],
+        [
+          209.07341772151898,
+          55.9609375
+        ]
+      ],
+      "bbox": [
+        209.07341772151898,
+        44.970178926441356,
+        513.3164556962025,
+        56.212723658051694
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">A portfolio is a pair of adapted processes <math display=\"inline\">(a_t, b_t)</math>that represent the amount of investment in both assets at time <math display=\"inline\">t</math> (both can be positive or negative). The wealth process is then given by</p>",
+      "page": 121,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.2027833001988
+        ],
+        [
+          286.2582278481013,
+          71.2027833001988
+        ],
+        [
+          286.2582278481013,
+          116.247802734375
+        ],
+        [
+          74.1873417721519,
+          116.247802734375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.2027833001988,
+        286.2582278481013,
+        116.247802734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_t = a_t S_t + b_t \\beta_t \\tag{14}</math></p>",
+      "page": 121,
+      "polygon": [
+        [
+          145.83203125,
+          127.292724609375
+        ],
+        [
+          284.00390625,
+          127.292724609375
+        ],
+        [
+          284.00390625,
+          137.049072265625
+        ],
+        [
+          145.83203125,
+          137.049072265625
+        ]
+      ],
+      "bbox": [
+        145.83203125,
+        127.292724609375,
+        284.00390625,
+        137.049072265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">We assume <math display=\"inline\">Y</math> is self-financing:</p>",
+      "page": 121,
+      "polygon": [
+        [
+          86.17721518987342,
+          149.15109343936382
+        ],
+        [
+          212.07088607594937,
+          149.15109343936382
+        ],
+        [
+          212.07088607594937,
+          158.954833984375
+        ],
+        [
+          86.17721518987342,
+          158.954833984375
+        ]
+      ],
+      "bbox": [
+        86.17721518987342,
+        149.15109343936382,
+        212.07088607594937,
+        158.954833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">dY_t = a_t dS_t + b_t d\\beta_t \\tag{15}</math></p>",
+      "page": 121,
+      "polygon": [
+        [
+          137.88354430379746,
+          171.288330078125
+        ],
+        [
+          286.60546875,
+          171.288330078125
+        ],
+        [
+          286.60546875,
+          181.412841796875
+        ],
+        [
+          137.88354430379746,
+          181.412841796875
+        ]
+      ],
+      "bbox": [
+        137.88354430379746,
+        171.288330078125,
+        286.60546875,
+        181.412841796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">A call option gives the holder the right to buy an agreed quantity of a particular commodity <math display=\"inline\">S</math> at a certain time (the expiration date, <math display=\"inline\">T</math>) for a certain price (the strike price <math display=\"inline\">K</math>). The holder has to pay a fee (called a premium <math display=\"inline\">q</math>) for this right. If the option can be exercised only at <math display=\"inline\">T</math>, the option is called <i>European</i>. If it can be exercised at any time before <math display=\"inline\">T</math>, it is called <i>American.</i> The main question is, what is the right price for an option? Mathematically, <math display=\"inline\">q</math> is determined by the existence of a replication strategy with the initial value <math display=\"inline\">q</math> and final value <math display=\"inline\">(S_T - K)^+</math>; that is, find <math display=\"inline\">(a_t, b_t)</math> such that</p>",
+      "page": 121,
+      "polygon": [
+        [
+          74.1873417721519,
+          193.37176938369782
+        ],
+        [
+          286.60546875,
+          193.37176938369782
+        ],
+        [
+          286.60546875,
+          329.7813121272366
+        ],
+        [
+          74.1873417721519,
+          329.7813121272366
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        193.37176938369782,
+        286.60546875,
+        329.7813121272366
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_t = a_t S_t + b_t \\beta_t \\quad Y_T = (S_T - K)^+ \\quad Y_0 = q \\quad (16)</math></p>",
+      "page": 121,
+      "polygon": [
+        [
+          80.142578125,
+          341.10400390625
+        ],
+        [
+          285.3046875,
+          341.10400390625
+        ],
+        [
+          285.3046875,
+          353.25341796875
+        ],
+        [
+          80.142578125,
+          353.25341796875
+        ]
+      ],
+      "bbox": [
+        80.142578125,
+        341.10400390625,
+        285.3046875,
+        353.25341796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/7",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">We look for a solution to this problem of the form <math display=\"inline\">Y_t = w(t, S_t)</math> with <math display=\"inline\">w(T, x) = (x - K)^+</math>. Using Itô's formula, we get</p>",
+      "page": 121,
+      "polygon": [
+        [
+          74.1873417721519,
+          364.1142578125
+        ],
+        [
+          286.31640625,
+          364.1142578125
+        ],
+        [
+          286.31640625,
+          397.2490234375
+        ],
+        [
+          74.1873417721519,
+          397.2490234375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        364.1142578125,
+        286.31640625,
+        397.2490234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_{t} = Y_{0} + \\int_{0}^{t} \\frac{\\partial w}{\\partial x} dS_{s} + \\int_{0}^{t} \\frac{\\partial^{2} w}{\\partial x^{2}} d[S, S]_{s}</math><br/>+ <math display=\"block\">\\int_{0}^{t} \\frac{\\partial w}{\\partial t} ds = Y_{0} + \\int_{0}^{t} \\frac{\\partial w}{\\partial x} \\{ \\mu S_{s} ds + \\sigma S_{s} dB_{s} \\}</math><br/>+ <math display=\"block\">\\int_{0}^{t} \\frac{1}{2} \\frac{\\partial^{2} w}{\\partial x^{2}} \\sigma^{2} S_{s}^{2} ds</math><br/>+ <math display=\"block\">\\int_{0}^{t} \\frac{\\partial w}{\\partial t} ds = Y_{0} + \\int_{0}^{t} \\frac{\\partial w}{\\partial x} \\sigma S_{s} dB_{s}</math><br/>+ <math display=\"block\">\\int_{0}^{t} \\left( \\frac{1}{2} \\frac{\\partial^{2} w}{\\partial x^{2}} \\sigma^{2} S_{s}^{2} + \\mu S_{s} \\frac{\\partial w}{\\partial x} + \\frac{\\partial w}{\\partial t} \\right) ds \\quad (17)</math></p>",
+      "page": 121,
+      "polygon": [
+        [
+          74.505859375,
+          412.34375
+        ],
+        [
+          287.90625,
+          412.34375
+        ],
+        [
+          287.90625,
+          562.5546875
+        ],
+        [
+          74.505859375,
+          562.5546875
+        ]
+      ],
+      "bbox": [
+        74.505859375,
+        412.34375,
+        287.90625,
+        562.5546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Using the self-financing property, we obtain</p>",
+      "page": 121,
+      "polygon": [
+        [
+          86.17721518987342,
+          566.624254473161
+        ],
+        [
+          264.526582278481,
+          566.624254473161
+        ],
+        [
+          264.526582278481,
+          576.9130859375
+        ],
+        [
+          86.17721518987342,
+          576.9130859375
+        ]
+      ],
+      "bbox": [
+        86.17721518987342,
+        566.624254473161,
+        264.526582278481,
+        576.9130859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_t = Y_0 + \\int_0^t a_s \\mathrm{d}S_s + \\int_0^t b_s \\mathrm{d}\\beta_s = Y_0 + \\int_0^t a_s \\left\\{ \\mu S_s \\, \\mathrm{d}s \\right\\}</math><math display=\"block\">+ \\sigma S_s \\mathrm{d}B_s \\right\\} + \\int_0^t b_s \\mathrm{d}\\beta_s = Y_0 + \\int_0^t a_s \\sigma S_s \\, \\mathrm{d}B_s</math></p>",
+      "page": 121,
+      "polygon": [
+        [
+          74.2890625,
+          591.6396484375
+        ],
+        [
+          286.171875,
+          591.6396484375
+        ],
+        [
+          286.171875,
+          649.0732421875
+        ],
+        [
+          74.2890625,
+          649.0732421875
+        ]
+      ],
+      "bbox": [
+        74.2890625,
+        591.6396484375,
+        286.171875,
+        649.0732421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">+\\int_{0}^{t}\\left(rb_{s}\\beta_{s}+a_{s}\\mu S_{s}\\right)\\mathrm{d}s\\tag{18}</math></p>",
+      "page": 121,
+      "polygon": [
+        [
+          324.90625,
+          70.779541015625
+        ],
+        [
+          513.375,
+          70.779541015625
+        ],
+        [
+          513.375,
+          97.01123046875
+        ],
+        [
+          324.90625,
+          97.01123046875
+        ]
+      ],
+      "bbox": [
+        324.90625,
+        70.779541015625,
+        513.375,
+        97.01123046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/12",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Using the uniqueness in the predictable representation property for Brownian motion (see <b>Martingale </b><b>Representation Theorem</b>), we obtain that</p>",
+      "page": 121,
+      "polygon": [
+        [
+          301.99493670886073,
+          108.67793240556661
+        ],
+        [
+          513.3164556962025,
+          108.67793240556661
+        ],
+        [
+          513.3164556962025,
+          142.4794921875
+        ],
+        [
+          301.99493670886073,
+          142.4794921875
+        ]
+      ],
+      "bbox": [
+        301.99493670886073,
+        108.67793240556661,
+        513.3164556962025,
+        142.4794921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/13",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">a_{s}\\sigma S_{s} = \\sigma S_{s}\\frac{\\partial w}{\\partial x}</math><br/><math display=\"block\">rb_{s}\\beta_{s} + a_{s}\\mu S_{s} = \\frac{1}{2}\\sigma^{2}S_{s}^{2}\\frac{\\partial^{2}w}{\\partial x^{2}} + \\mu S_{s}\\frac{\\partial w}{\\partial x} + \\frac{\\partial w}{\\partial t}</math><br/><math display=\"block\">a_{s} = \\frac{\\partial w}{\\partial x}(s, S_{s})</math><br/><math display=\"block\">b_{s} = \\frac{Y_{s} - a_{s}S_{s}}{\\beta_{s}}</math> (19)</p>",
+      "page": 121,
+      "polygon": [
+        [
+          313.2354430379747,
+          166.96240234375
+        ],
+        [
+          512.796875,
+          166.96240234375
+        ],
+        [
+          512.796875,
+          269.68017578125
+        ],
+        [
+          313.2354430379747,
+          269.68017578125
+        ]
+      ],
+      "bbox": [
+        313.2354430379747,
+        166.96240234375,
+        512.796875,
+        269.68017578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Since <math display=\"inline\">r \\frac{(Y_s - a_s S_s)}{\\beta_s} \\beta_s + a_s \\mu S_s = \\frac{1}{2} \\sigma^2 S_s^2 \\frac{\\partial^2 w}{\\partial x^2} + \\mu S_s \\frac{\\partial w}{\\partial x} + \\frac{\\partial w}{\\partial t}</math>, the equation for <math display=\"inline\">w</math> is</p>",
+      "page": 121,
+      "polygon": [
+        [
+          300.49620253164557,
+          284.06163021868787
+        ],
+        [
+          511.81772151898736,
+          283.3121272365805
+        ],
+        [
+          512.5670886075949,
+          313.3076171875
+        ],
+        [
+          300.49620253164557,
+          314.79125248508944
+        ]
+      ],
+      "bbox": [
+        300.49620253164557,
+        283.3121272365805,
+        512.5670886075949,
+        314.79125248508944
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/15",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">r\\frac{\\partial w}{\\partial t} + \\frac{1}{2}\\sigma^2 x^2 \\frac{\\partial^2 w}{\\partial x^2} = -rx\\frac{\\partial w}{\\partial x} + rw</math><math display=\"block\">w(T, x) = (x - K)^+ \\tag{20}</math></p>",
+      "page": 121,
+      "polygon": [
+        [
+          333.0,
+          336.8701171875
+        ],
+        [
+          511.640625,
+          336.8701171875
+        ],
+        [
+          511.640625,
+          375.8955078125
+        ],
+        [
+          333.0,
+          375.8955078125
+        ]
+      ],
+      "bbox": [
+        333.0,
+        336.8701171875,
+        511.640625,
+        375.8955078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/16",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">The solution of this PDE is related to a BSDE, which we deduce now. Let us start again from the self-financing assumption</p>",
+      "page": 121,
+      "polygon": [
+        [
+          301.24556962025315,
+          391.9900596421471
+        ],
+        [
+          513.3164556962025,
+          391.9900596421471
+        ],
+        [
+          513.3164556962025,
+          426.333984375
+        ],
+        [
+          301.24556962025315,
+          426.333984375
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        391.9900596421471,
+        513.3164556962025,
+        426.333984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">(S_{T} - K)^{+} = Y_{T} = Y_{t} + \\int_{t}^{T} \\frac{\\partial w}{\\partial x} dS_{s}</math><br/>+ <math display=\"block\">\\int_{t}^{T} r \\left( Y_{s} - S_{s} \\frac{\\partial w}{\\partial x} \\right) ds = Y_{t}</math><br/>+ <math display=\"block\">\\int_{t}^{T} \\sigma S_{s} \\frac{\\partial w}{\\partial x} dB_{s}</math><br/>+ <math display=\"block\">\\int_{t}^{T} \\left( rY_{s} + (\\mu - r)S_{s} \\frac{\\partial w}{\\partial x} \\right) ds</math><br/>(21)</p>",
+      "page": 121,
+      "polygon": [
+        [
+          311.03125,
+          448.0556640625
+        ],
+        [
+          513.3164556962025,
+          448.0556640625
+        ],
+        [
+          513.3164556962025,
+          579.3658051689861
+        ],
+        [
+          311.03125,
+          579.3658051689861
+        ]
+      ],
+      "bbox": [
+        311.03125,
+        448.0556640625,
+        513.3164556962025,
+        579.3658051689861
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/18",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">from which we deduce</p>",
+      "page": 121,
+      "polygon": [
+        [
+          301.24556962025315,
+          597.3538767395627
+        ],
+        [
+          394.91645569620255,
+          597.3538767395627
+        ],
+        [
+          394.91645569620255,
+          607.470703125
+        ],
+        [
+          301.24556962025315,
+          607.470703125
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        597.3538767395627,
+        394.91645569620255,
+        607.470703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/19",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_t = \\xi + \\int_t^T (\\alpha Z_s - rY_s) \\mathrm{d}s - \\int_t^T Z_s \\mathrm{d}B_s \\qquad (22)</math></p>",
+      "page": 121,
+      "polygon": [
+        [
+          313.921875,
+          619.98828125
+        ],
+        [
+          511.640625,
+          619.98828125
+        ],
+        [
+          511.640625,
+          650.9140625
+        ],
+        [
+          313.921875,
+          650.9140625
+        ]
+      ],
+      "bbox": [
+        313.921875,
+        619.98828125,
+        511.640625,
+        650.9140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 169,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          382.17721518987344,
+          45.71968190854871
+        ],
+        [
+          382.17721518987344,
+          56.0069580078125
+        ],
+        [
+          77.93417721518988,
+          56.0069580078125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        382.17721518987344,
+        56.0069580078125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/1",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">with <math display=\"inline\">\\alpha = \\frac{r-\\mu}{\\sigma}</math>, <math display=\"inline\">\\xi = (S_0 e^{(\\mu-\\frac{1}{2}\\sigma^2T)+\\sigma B_T} - K)^+</math>, and <math display=\"inline\">Z_s = \\sigma S_s \\frac{\\partial w}{\\partial r}</math>. In this case, we have an explicit solution for <math display=\"inline\">w</math> given by</p>",
+      "page": 169,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.95228628230616
+        ],
+        [
+          290.00506329113927,
+          71.95228628230616
+        ],
+        [
+          290.00506329113927,
+          108.516357421875
+        ],
+        [
+          77.93417721518988,
+          108.516357421875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.95228628230616,
+        290.00506329113927,
+        108.516357421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_0 = S_0 \\Phi(g(T, S_0)) - K e^{-rT} \\Phi(h(T, S_0))</math>\n(23)</p>",
+      "page": 169,
+      "polygon": [
+        [
+          108.83203125,
+          126.2802734375
+        ],
+        [
+          288.05078125,
+          126.2802734375
+        ],
+        [
+          288.05078125,
+          158.310546875
+        ],
+        [
+          108.83203125,
+          158.310546875
+        ]
+      ],
+      "bbox": [
+        108.83203125,
+        126.2802734375,
+        288.05078125,
+        158.310546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/3",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">w(t,x) = x\\Phi(g(T-t,x))</math><math display=\"block\">-Ke^{-r(T-t)}\\Phi(h(T-t,x)) \\tag{24}</math></p>",
+      "page": 169,
+      "polygon": [
+        [
+          92.06640625,
+          164.845458984375
+        ],
+        [
+          288.50632911392404,
+          164.845458984375
+        ],
+        [
+          288.50632911392404,
+          191.4453125
+        ],
+        [
+          92.06640625,
+          191.4453125
+        ]
+      ],
+      "bbox": [
+        92.06640625,
+        164.845458984375,
+        288.50632911392404,
+        191.4453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <math display=\"inline\">g(t, x) = \\frac{\\ln(x/K) + (r+1/2\\sigma^2)t}{\\sigma\\sqrt{t}}, h(t, x) = g(t, x) -</math><math display=\"inline\">\\sigma\\sqrt{t}</math> and <math display=\"inline\">\\Phi(x) = \\frac{1}{\\sqrt{2\\pi}} \\int_{-\\infty}^{x} e^{\\frac{-y^2}{2}} dy</math> is the standard normal distribution. In general, for example, when <math display=\"inline\">\\sigma</math> may depend on time and <math display=\"inline\">(S_t)</math>, we obtain a BSDE for <math display=\"inline\">(Y_t)</math> coupled with a forward equation for <math display=\"inline\">(S_t)</math>, that can be solved numerically.</p>",
+      "page": 169,
+      "polygon": [
+        [
+          76.43544303797468,
+          200.117296222664
+        ],
+        [
+          290.00506329113927,
+          200.117296222664
+        ],
+        [
+          290.00506329113927,
+          279.98876953125
+        ],
+        [
+          76.43544303797468,
+          279.98876953125
+        ]
+      ],
+      "bbox": [
+        76.43544303797468,
+        200.117296222664,
+        290.00506329113927,
+        279.98876953125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/1/SectionHeader/19"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/5",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Numerical Methods for RBSDEs </b></h2>",
+      "page": 169,
+      "polygon": [
+        [
+          77.93417721518988,
+          307.2962226640159
+        ],
+        [
+          239.0481012658228,
+          307.2962226640159
+        ],
+        [
+          239.0481012658228,
+          317.7255859375
+        ],
+        [
+          77.93417721518988,
+          317.7255859375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        307.2962226640159,
+        239.0481012658228,
+        317.7255859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In this section, we are interested in the numerical approximation of BSDEs with reflection (in short, RBSDEs). We present here the case of one lower barrier, which we assume is an Itô process (a sum of a Brownian martingale and a continuous finite variation process).</p>",
+      "page": 169,
+      "polygon": [
+        [
+          77.93417721518988,
+          330.53081510934396
+        ],
+        [
+          290.00506329113927,
+          330.53081510934396
+        ],
+        [
+          290.00506329113927,
+          397.9853515625
+        ],
+        [
+          77.93417721518988,
+          397.9853515625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        330.53081510934396,
+        290.00506329113927,
+        397.9853515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_{t} = \\xi + \\int_{t}^{T} f(s, Y_{s}, Z_{s}) \\mathrm{d}s</math><math display=\"block\">- \\int_{t}^{T} Z_{s} \\mathrm{d}B_{s} + K_{T} - K_{t} \\quad 0 \\le t \\le T \\qquad (25)</math></p>",
+      "page": 169,
+      "polygon": [
+        [
+          79.419921875,
+          414.552734375
+        ],
+        [
+          291.0859375,
+          414.552734375
+        ],
+        [
+          291.0859375,
+          478.61328125
+        ],
+        [
+          79.419921875,
+          478.61328125
+        ]
+      ],
+      "bbox": [
+        79.419921875,
+        414.552734375,
+        291.0859375,
+        478.61328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_t \\ge L_t, \\quad 0 \\le t \\le T, \\quad \\text{and} \\quad \\int_0^T \\left(Y_t - L_t\\right) \\mathrm{d}K_t = 0 \\tag{26}</math></p>",
+      "page": 169,
+      "polygon": [
+        [
+          78.697265625,
+          480.0859375
+        ],
+        [
+          288.484375,
+          480.0859375
+        ],
+        [
+          288.484375,
+          516.166015625
+        ],
+        [
+          78.697265625,
+          516.166015625
+        ]
+      ],
+      "bbox": [
+        78.697265625,
+        480.0859375,
+        288.484375,
+        516.166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/9",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where, as before, <math display=\"inline\">f</math> is the generator, <math display=\"inline\">\\xi</math> is the terminal condition, and <math display=\"inline\">L = (L_t)</math> is the reflecting barrier. Under the Lipschitz assumption of <math display=\"inline\">f</math> (see <math display=\"inline\">[14]</math> and for generalizations see <math display=\"inline\">[12, 21, 32]</math>) there is a unique solution <math display=\"inline\">(Y, Z, K)</math> of adapted processes, with the condition that <math display=\"inline\">K</math> is increasing and minimal in the sense that it is supported at the times <math display=\"inline\">Y</math> touches the boundary.</p>",
+      "page": 169,
+      "polygon": [
+        [
+          77.93417721518988,
+          530.6481113320079
+        ],
+        [
+          290.00506329113927,
+          530.6481113320079
+        ],
+        [
+          290.00506329113927,
+          621.8291015625
+        ],
+        [
+          77.93417721518988,
+          621.8291015625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        530.6481113320079,
+        290.00506329113927,
+        621.8291015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">The numerical scheme for RBSDEs that we present here is based on a penalization of equation</p>",
+      "page": 169,
+      "polygon": [
+        [
+          77.93417721518988,
+          623.5864811133201
+        ],
+        [
+          290.00506329113927,
+          623.5864811133201
+        ],
+        [
+          290.00506329113927,
+          644.287109375
+        ],
+        [
+          77.93417721518988,
+          644.287109375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        623.5864811133201,
+        290.00506329113927,
+        644.287109375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">(26) [14] coupled with a use of the standard Euler scheme. The penalization equation is given by</p>",
+      "page": 169,
+      "polygon": [
+        [
+          304.99240506329113,
+          71.2027833001988
+        ],
+        [
+          517.0632911392405,
+          71.2027833001988
+        ],
+        [
+          517.0632911392405,
+          92.59326171875
+        ],
+        [
+          304.99240506329113,
+          92.59326171875
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        71.2027833001988,
+        517.0632911392405,
+        92.59326171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/12",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_t^{\\varepsilon} = \\xi + \\int_t^1 f(s, Y_s^{\\varepsilon}, Z_s^{\\varepsilon}) \\mathrm{d}s</math><math display=\"block\">- \\int_t^1 Z_s^{\\varepsilon} \\mathrm{d}B_s + \\frac{1}{\\varepsilon} \\int_t^1 (L_s - Y_s^{\\varepsilon})^+ \\mathrm{d}s \\tag{27}</math></p>",
+      "page": 169,
+      "polygon": [
+        [
+          322.59375,
+          109.068603515625
+        ],
+        [
+          516.265625,
+          109.068603515625
+        ],
+        [
+          516.265625,
+          181.781005859375
+        ],
+        [
+          322.59375,
+          181.781005859375
+        ]
+      ],
+      "bbox": [
+        322.59375,
+        109.068603515625,
+        516.265625,
+        181.781005859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/13",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In this framework, we define</p>",
+      "page": 169,
+      "polygon": [
+        [
+          305.7417721518987,
+          193.37176938369782
+        ],
+        [
+          422.6430379746835,
+          193.37176938369782
+        ],
+        [
+          422.6430379746835,
+          203.04248046875
+        ],
+        [
+          305.7417721518987,
+          203.04248046875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        193.37176938369782,
+        422.6430379746835,
+        203.04248046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/14",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">K_t^{\\varepsilon} := \\frac{1}{\\varepsilon} \\int_0^t (L_s - Y_s^{\\varepsilon})^+ \\mathrm{d}s, \\quad 0 \\le t \\le 1 \\qquad (28)</math></p>",
+      "page": 169,
+      "polygon": [
+        [
+          323.75,
+          213.53515625
+        ],
+        [
+          516.84375,
+          213.53515625
+        ],
+        [
+          516.84375,
+          241.515625
+        ],
+        [
+          323.75,
+          241.515625
+        ]
+      ],
+      "bbox": [
+        323.75,
+        213.53515625,
+        516.84375,
+        241.515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/15",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">where <math display=\"inline\">\\varepsilon</math> is the penalization parameter. In order to have an explicit iteration, we include an extra Picard iteration, and the numerical procedure is then</p>",
+      "page": 169,
+      "polygon": [
+        [
+          304.99240506329113,
+          248.83499005964217
+        ],
+        [
+          517.0632911392405,
+          248.83499005964217
+        ],
+        [
+          517.0632911392405,
+          282.3818359375
+        ],
+        [
+          304.99240506329113,
+          282.3818359375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        248.83499005964217,
+        517.0632911392405,
+        282.3818359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/16",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_{t_{i}}^{\\varepsilon,p+1,n} = Y_{t_{i+1}}^{\\varepsilon,p+1,n} + \\frac{1}{n}f(t_{i}, Y_{t_{i}}^{\\varepsilon,p,n}, Z_{t_{i}}^{\\varepsilon,p,n}) + \\frac{1}{n\\varepsilon}(L_{t_{i}} - Y_{t_{i}}^{\\varepsilon,p,n})^{+} - \\frac{1}{\\sqrt{n}}Z_{t_{i}}^{\\varepsilon,p+1,n}\\zeta_{i+1} </math>(29)</p>",
+      "page": 169,
+      "polygon": [
+        [
+          313.34375,
+          298.02880859375
+        ],
+        [
+          515.6875,
+          298.02880859375
+        ],
+        [
+          515.6875,
+          376.44775390625
+        ],
+        [
+          313.34375,
+          376.44775390625
+        ]
+      ],
+      "bbox": [
+        313.34375,
+        298.02880859375,
+        515.6875,
+        376.44775390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/17",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">K_{t_{i+1}}^{\\varepsilon, p+1, n} - K_{t_i}^{\\varepsilon, p+1, n} := \\frac{1}{n\\varepsilon} \\left( S - \\ddot{Y}_{t_i}^{\\varepsilon, p+1, n} \\right)</math><br/>for <math>i \\in \\{n-1, \\dots, 0\\}</math> (30)</p>",
+      "page": 169,
+      "polygon": [
+        [
+          312.1875,
+          376.263671875
+        ],
+        [
+          516.265625,
+          376.263671875
+        ],
+        [
+          516.265625,
+          409.3984375
+        ],
+        [
+          312.1875,
+          409.3984375
+        ]
+      ],
+      "bbox": [
+        312.1875,
+        376.263671875,
+        516.265625,
+        409.3984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/18",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Theorem 1</b> Under the assumptions</p>",
+      "page": 169,
+      "polygon": [
+        [
+          305.7417721518987,
+          421.916015625
+        ],
+        [
+          452.3828125,
+          421.916015625
+        ],
+        [
+          452.3828125,
+          431.48828125
+        ],
+        [
+          305.7417721518987,
+          431.48828125
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        421.916015625,
+        452.3828125,
+        431.48828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/ListGroup/169",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\"><b>A1.</b> <math display=\"inline\">f</math> is Lipschitz continuous and bounded;</li><li block-type=\"ListItem\"><b>A2.</b> L is assumed to be an Itô process;</li></ul></p>",
+      "page": 169,
+      "polygon": [
+        [
+          305.7417721518987,
+          442.20675944334
+        ],
+        [
+          487.8379746835443,
+          442.20675944334
+        ],
+        [
+          487.8379746835443,
+          465.359375
+        ],
+        [
+          305.7417721518987,
+          465.359375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        442.20675944334,
+        487.8379746835443,
+        465.359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Equation/21",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><b>A3.</b> <math display=\"block\">\\lim_{n \\to +\\infty} \\mathbb{E} \\left[ \\sup_{s \\in [0,T]} \\left| \\mathbb{E}[\\xi | \\mathcal{F}_s] - \\mathbb{E}[\\xi^n | \\mathcal{G}_{c_n(s)}^n] \\right| \\right] = 0</math></p>",
+      "page": 169,
+      "polygon": [
+        [
+          306.984375,
+          470.1455078125
+        ],
+        [
+          511.640625,
+          470.1455078125
+        ],
+        [
+          511.640625,
+          495.9169921875
+        ],
+        [
+          306.984375,
+          495.9169921875
+        ]
+      ],
+      "bbox": [
+        306.984375,
+        470.1455078125,
+        511.640625,
+        495.9169921875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/25",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">٦</p>",
+      "page": 169,
+      "polygon": [
+        [
+          487.8379746835443,
+          460.9443339960239
+        ],
+        [
+          493.83291139240504,
+          460.9443339960239
+        ],
+        [
+          493.83291139240504,
+          469.93836978131213
+        ],
+        [
+          487.8379746835443,
+          469.93836978131213
+        ]
+      ],
+      "bbox": [
+        487.8379746835443,
+        460.9443339960239,
+        493.83291139240504,
+        469.93836978131213
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/TextInlineMath/22",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">the triplet <math display=\"inline\">(\\xi^n, Y^{\\varepsilon,p,n}, Z^{\\varepsilon,p,n}, K^{\\varepsilon,p,n})</math> converges in the Skorohod topology toward the solution <math display=\"inline\">(\\xi, Y, Z, K)</math>of the RBSDE (26) (the order is first <math display=\"inline\">p \\rightarrow \\infty</math>, then <math display=\"inline\">n \\to \\infty</math> and finally <math display=\"inline\">\\varepsilon \\to 0</math>).</p>",
+      "page": 169,
+      "polygon": [
+        [
+          304.99240506329113,
+          502.9165009940358
+        ],
+        [
+          517.0632911392405,
+          502.9165009940358
+        ],
+        [
+          517.0632911392405,
+          547.8866799204771
+        ],
+        [
+          304.99240506329113,
+          547.8866799204771
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        502.9165009940358,
+        517.0632911392405,
+        547.8866799204771
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/SectionHeader/23",
+      "block_type": "SectionHeader",
+      "html": "<h2>A Procedure Based on Ma and Zhang's Method</h2>",
+      "page": 169,
+      "polygon": [
+        [
+          305.7417721518987,
+          575.6182902584493
+        ],
+        [
+          502.6796875,
+          575.6182902584493
+        ],
+        [
+          502.6796875,
+          598.2666015625
+        ],
+        [
+          305.7417721518987,
+          598.2666015625
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        575.6182902584493,
+        502.6796875,
+        598.2666015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/3/Text/24",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">We now introduce a numerical scheme based on a suggestion given in [29]. The new ingredient is to use a standard BSDE with no reflection and then</p>",
+      "page": 169,
+      "polygon": [
+        [
+          305.7417721518987,
+          612.3439363817098
+        ],
+        [
+          517.0632911392405,
+          612.3439363817098
+        ],
+        [
+          517.0632911392405,
+          643.9189453125
+        ],
+        [
+          305.7417721518987,
+          643.9189453125
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        612.3439363817098,
+        517.0632911392405,
+        643.9189453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 131,
+      "polygon": [
+        [
+          209.07341772151898,
+          44.970178926441356
+        ],
+        [
+          513.3164556962025,
+          44.970178926441356
+        ],
+        [
+          513.3164556962025,
+          55.8228759765625
+        ],
+        [
+          209.07341772151898,
+          55.8228759765625
+        ]
+      ],
+      "bbox": [
+        209.07341772151898,
+        44.970178926441356,
+        513.3164556962025,
+        55.8228759765625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">impose in the final condition of every step of the discretization that the solution must be above the barrier. Schematically we have</p>",
+      "page": 131,
+      "polygon": [
+        [
+          74.1873417721519,
+          71.2027833001988
+        ],
+        [
+          287.90625,
+          71.2027833001988
+        ],
+        [
+          287.90625,
+          105.11083984375
+        ],
+        [
+          74.1873417721519,
+          105.11083984375
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        71.2027833001988,
+        287.90625,
+        105.11083984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/ListGroup/130",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\"><math display=\"inline\">\\bullet \\quad Y_1^n := \\xi^n</math></li><li block-type=\"ListItem\"> for <math display=\"inline\">i=n, n-1, \\ldots 1</math> let <math display=\"inline\">\\left(\\tilde{Y}^n, Z^n\\right)</math> be the solution of the BSDE:</li></ul></p>",
+      "page": 131,
+      "polygon": [
+        [
+          74.1873417721519,
+          115.42345924453281
+        ],
+        [
+          285.50886075949364,
+          115.42345924453281
+        ],
+        [
+          285.50886075949364,
+          154.9970703125
+        ],
+        [
+          74.1873417721519,
+          154.9970703125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        115.42345924453281,
+        285.50886075949364,
+        154.9970703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/4",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\tilde{Y}_{t_{i+1}}^n = Y_{t_i}^n + \\frac{1}{n} f(s, \\tilde{Y}_s^n, Z_s^n) - Z_s^n (W_{t_{i+1}}^n - W_{t_i}^n) </math>(31)</p>",
+      "page": 131,
+      "polygon": [
+        [
+          93.51171875,
+          187.855712890625
+        ],
+        [
+          284.75949367088606,
+          187.855712890625
+        ],
+        [
+          284.75949367088606,
+          218.8548707753479
+        ],
+        [
+          93.51171875,
+          218.8548707753479
+        ]
+      ],
+      "bbox": [
+        93.51171875,
+        187.855712890625,
+        284.75949367088606,
+        218.8548707753479
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/131",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><math display=\"inline\">\\bullet \\quad \\text{define } Y^n_{t_{i+1}} = \\tilde{Y}^n_{t_{i+1}} \\vee L_{t_{i+1}}</math></p>",
+      "page": 131,
+      "polygon": [
+        [
+          73.4379746835443,
+          215.8568588469185
+        ],
+        [
+          191.8379746835443,
+          215.8568588469185
+        ],
+        [
+          191.8379746835443,
+          233.84493041749505
+        ],
+        [
+          73.4379746835443,
+          233.84493041749505
+        ]
+      ],
+      "bbox": [
+        73.4379746835443,
+        215.8568588469185,
+        191.8379746835443,
+        233.84493041749505
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/6",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\">• let <math display=\"block\">K_0^n = 0</math> and define <math>K_{t_i}^n := \\sum_{j=1}^l (Y_{t_{j-1}}^n - \\tilde{Y}_{t_{j-1}}^n)</math></p>",
+      "page": 131,
+      "polygon": [
+        [
+          76.0234375,
+          233.60009765625
+        ],
+        [
+          284.7265625,
+          233.60009765625
+        ],
+        [
+          284.7265625,
+          247.22216796875
+        ],
+        [
+          76.0234375,
+          247.22216796875
+        ]
+      ],
+      "bbox": [
+        76.0234375,
+        233.60009765625,
+        284.7265625,
+        247.22216796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Clearly <math display=\"inline\">K^n</math> is predictable and we have</p>",
+      "page": 131,
+      "polygon": [
+        [
+          313.2354430379747,
+          70.45328031809146
+        ],
+        [
+          469.85316455696204,
+          70.45328031809146
+        ],
+        [
+          469.85316455696204,
+          81.640380859375
+        ],
+        [
+          313.2354430379747,
+          81.640380859375
+        ]
+      ],
+      "bbox": [
+        313.2354430379747,
+        70.45328031809146,
+        469.85316455696204,
+        81.640380859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_{t_{i-1}}^{n} = Y_{t_{i}}^{n} + \\int_{t_{i-1}}^{t_{i}} f\\left(s, \\tilde{Y}_{s}^{n}, Z_{s}^{n}\\right) ds</math><math display=\"block\">- \\int_{t_{i-1}}^{t_{i}} Z_{s}^{n} dW_{s}^{n} + K_{t_{i}}^{n} - K_{t_{i-1}}^{n} \\qquad (32)</math></p>",
+      "page": 131,
+      "polygon": [
+        [
+          335.890625,
+          100.600830078125
+        ],
+        [
+          511.640625,
+          100.600830078125
+        ],
+        [
+          511.640625,
+          154.905029296875
+        ],
+        [
+          335.890625,
+          154.905029296875
+        ]
+      ],
+      "bbox": [
+        335.890625,
+        100.600830078125,
+        511.640625,
+        154.905029296875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Text/9",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Theorem 2</b> Under the assumptions A1, A2 of Theorem 1 and</p>",
+      "page": 131,
+      "polygon": [
+        [
+          301.24556962025315,
+          162.64214711729622
+        ],
+        [
+          513.3164556962025,
+          162.64214711729622
+        ],
+        [
+          513.3164556962025,
+          183.7138671875
+        ],
+        [
+          301.24556962025315,
+          183.7138671875
+        ]
+      ],
+      "bbox": [
+        301.24556962025315,
+        162.64214711729622,
+        513.3164556962025,
+        183.7138671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/Equation/10",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\lim_{n \\to +\\infty} \\mathbb{E} \\left[ \\sup_{s \\in [0,T]} \\left| \\mathbb{E}[\\xi | \\mathcal{F}_s] - \\mathbb{E}[\\xi^n | \\mathcal{G}_{c_n(s)}^n] \\right| \\right]^2 = 0 \\tag{33}</math></p>",
+      "page": 131,
+      "polygon": [
+        [
+          311.609375,
+          200.28125
+        ],
+        [
+          511.640625,
+          200.28125
+        ],
+        [
+          511.640625,
+          245.197265625
+        ],
+        [
+          311.609375,
+          245.197265625
+        ]
+      ],
+      "bbox": [
+        311.609375,
+        200.28125,
+        511.640625,
+        245.197265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/4/FigureGroup/129",
+      "block_type": "FigureGroup",
+      "html": "<p><img src='/page/4/Figure/11'></p><p><b>Figure 1</b> Binomial tree for six time steps, <math display=\"inline\">r = 0.06</math>, <math display=\"inline\">\\sigma = 0.4</math>, and <math display=\"inline\">T = 0.5</math></p>",
+      "page": 131,
+      "polygon": [
+        [
+          74.1873417721519,
+          255.8740234375
+        ],
+        [
+          487.158203125,
+          255.8740234375
+        ],
+        [
+          487.158203125,
+          646.8642578125
+        ],
+        [
+          74.1873417721519,
+          646.8642578125
+        ]
+      ],
+      "bbox": [
+        74.1873417721519,
+        255.8740234375,
+        487.158203125,
+        646.8642578125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {
+        "/page/4/Figure/11": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAH/AgQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAK4rxNptnqnjXTYL6ATwrp1w4RicbvMhGceuCfzrta5TVv+R90/wD7Blx/6NhoApf8If4e/wCgVB+v+NH/AAh/h7/oFQfr/jW5RQB5JqEFnp1x4jE1ha/ZkMkVhL5f+pmWIPtb13ZJGe4I7itVzoFvG1zP4chOnRTfZpLkSHf5u3JxHj7ueM7s57Y5rsNQ0LRrjTtQgv7eM2l2/nXXmSEAsABuzn5fujpjpVW20jw5f3rXNq0Vy6sHaOO6Lx7tu0MYw23djjJGaAOJuJtMstQR73w5awwz2kclvAJtwZpHwCz7crgZyACPTNdPoWjeHta083J0OCF0kaN1BZlyO6scZB4wcCr0XhHQFeSNIpWlVETm8lZ4lB3IFJbKAEcYxWxYWFvptt5FsrhNxdi8jOzMepLMSSfqaAMz/hD/AA9/0CoP1/xqC/8ACOgJp9yy6XCrCJiCM5BwfeujqtqP/IMu/wDri/8A6CaANDwuxbwlozMSWNjASSck/u1rVrJ8Lf8AIoaL/wBeEH/ota1qACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACuU1b/kfdP/AOwZcf8Ao2Gurrj9c0a21nx7p0VzLeRqmmXDA2t3JAc+bCOSjAkc9P8ACgDUornte8JQWNvG9nd6jHHlmnu7zXboRQIBnJHmgnJwODx1rlGuLNzaqH1S2k+yx3NwLjV9QZcOxUAMrYjXC53vxyBjrQB6TKqPC6yIHQj5lK5yPTHeuf8ADlsljYHUbiyeC71KYM8cduQYlJxGhAHyhR1J4BJJrK0/Tbe61OzaV9UXTL+6ntLcprd55qtHu+Zv3mCG2NwOnHWoLyCwtvGY0YXOpeWLmK38ttavfMcOu7eG8zYAP7p5OPcUAb2iaaLDxPr8kdvJHDP5Dq7biHba27BPXt06V0NecaLAmvajNY2l1diYxSSorazffuNkgTa58zD5GTlOBj8amh0i7k0qS+kuZYbMSSYv5NcvVh8tOM7TNk7myAc9BnuBQB6DVbUf+QZd/wDXF/8A0E155cT2sN1YRudUtmmgtZXtptavTI5mbaQrCTCbevz9fau51DwNpSabdMLzW8iFyM6zdEdD28ygDZ8Lf8ihov8A14Qf+i1rWrI8Kjb4P0RRnAsIByc/8s1rXoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBHYIjMeijJrk7Px01/ZQXlt4X1x4J41ljbFsNysMg4M3oa6m4/49pf9w/yrjvCP/Il6F/2Drf8A9FrQBe/4S+4/6FXXP/Jb/wCPVFceOfskXm3PhzWIY9wXdI9qoyTgDJn6k1oVz3jLTv7V0WGzNu9xHJeW4lRVJ+TzBuJx0AHftQBpjxs5naAeGdZMyqGaMNa7gDnBI8/pwfypX8ZSxozv4X1tUUEszG1AA9T++rgmg1201W9juIr8wQJa28l7boxee3DuSyFed20qG28jkjtTbs6pNaXcVyddOntDcLp3lpMZXbI2CUAbjxnHmcEdaAO/TxlLIiunhfW2RgCrKbUgj1H76nf8Jfcf9Crrn/kt/wDHq4Ox/wCEgj1izikN7Fsa3WJAk3l+T5a7wwA8vruyWO4HGOwPo9AFT/hL7j/oVdc/8lv/AI9WM3iW6m8d2kieGNZLLpk6+Xm23EGWLkfvsYGPXPI4rpKzrX/koVr/ANgq4/8ARsNAFPXmu9eazaTw/wCJ7U2khlTyPsDBmxgFlkkcHHbjiql9ZXV+WM2jeLC08C294wNgDdxgkgPh8D7xGUC8GvRKKAPOVsrq3uHmtdA8TqIzNLaW7PZeXbyyAhnX95k/eOAxIGTxSmxuZLrzptC8UNFJPHdXFsDYiOadAoDk+buHKg4BA4r0WigDzm006a02qND8VvFDbSW1ohexH2ZJMbtpEgJPAwWzjFS31pNeQ6VFDoHiizTTF226w/2e4zgAMRI7DcAOCAMZNeg0UAec3dhc3k0rzaN4sKXKxLepmwxdeX90th/lPY7Nua37zXtRnsbiFPCOubpImVcta9SMf8966eigDO0C2ms/Dml2twmyaG0ijkTIO1ggBHHuK0aKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAjuP+PaX/cP8q47wj/yJehf9g63/APRa12FwcWsp/wBg/wAq838LeJIIfCOi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"
+      }
+    },
+    {
+      "id": "/page/5/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 270,
+      "polygon": [
+        [
+          77.93417721518988,
+          45.71968190854871
+        ],
+        [
+          382.17721518987344,
+          45.71968190854871
+        ],
+        [
+          382.17721518987344,
+          55.6387939453125
+        ],
+        [
+          77.93417721518988,
+          55.6387939453125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        45.71968190854871,
+        382.17721518987344,
+        55.6387939453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">we have</p>",
+      "page": 270,
+      "polygon": [
+        [
+          77.93417721518988,
+          71.95228628230616
+        ],
+        [
+          112.40506329113924,
+          71.95228628230616
+        ],
+        [
+          112.40506329113924,
+          81.2261962890625
+        ],
+        [
+          77.93417721518988,
+          81.2261962890625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        71.95228628230616,
+        112.40506329113924,
+        81.2261962890625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\lim_{n \\to \\infty} \\mathit{I\\!E} \\left[ \\sup_{0 \\le i \\le n} \\left| Y_{t_i} - Y_{t_i}^n \\right|^2 + \\int_0^1 \\left| Z_t - Z_t^n \\right|^2 \\mathrm{d}t \\right] = 0 \\tag{34}</math></p>",
+      "page": 270,
+      "polygon": [
+        [
+          80.720703125,
+          103.546142578125
+        ],
+        [
+          287.328125,
+          103.546142578125
+        ],
+        [
+          287.328125,
+          144.596435546875
+        ],
+        [
+          80.720703125,
+          144.596435546875
+        ]
+      ],
+      "bbox": [
+        80.720703125,
+        103.546142578125,
+        287.328125,
+        144.596435546875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/SectionHeader/3",
+      "block_type": "SectionHeader",
+      "html": "<h4>Application to American Options</h4>",
+      "page": 270,
+      "polygon": [
+        [
+          77.93417721518988,
+          165.64015904572565
+        ],
+        [
+          217.31645569620252,
+          165.64015904572565
+        ],
+        [
+          217.31645569620252,
+          175.79833984375
+        ],
+        [
+          77.93417721518988,
+          175.79833984375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        165.64015904572565,
+        217.31645569620252,
+        175.79833984375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/4",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">An American option (see <b>American Options</b>) is one that can be exercised at any time between the purchase date and the expiration date <math display=\"inline\">T</math>, which we assume is nonrandom and for the sake of simplicity we take <math display=\"inline\">T = 1</math>. This situation is more general than the European-style option, which can only be exercised on the date of expiration. Since an American option provides an investor with a greater degree of flexibility, the premium for this option should be higher than the premium for a European-style option.</p>",
+      "page": 270,
+      "polygon": [
+        [
+          77.93417721518988,
+          189.62425447316105
+        ],
+        [
+          290.00506329113927,
+          189.62425447316105
+        ],
+        [
+          290.00506329113927,
+          303.91943359375
+        ],
+        [
+          77.93417721518988,
+          303.91943359375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        189.62425447316105,
+        290.00506329113927,
+        303.91943359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/5",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">We consider a financial market described by a filtered probability space <math display=\"inline\">(\\Omega, \\mathcal{F}, \\mathcal{F}_{0 \\le t \\le T}, \\mathbb{P})</math>. As above, we consider the following adapted processes: the price of the risk asset <math display=\"inline\">S = (S_t)_{0 \\le t \\le T}</math> and the wealth process <math display=\"inline\">Y = (Y_t)_{0 \\le t \\le T}</math>. We assume that the rate interest r is constant. The aim is to obtain <math display=\"inline\">Y_0</math>, the value of the American Option.</p>",
+      "page": 270,
+      "polygon": [
+        [
+          77.93417721518988,
+          305.04771371769385
+        ],
+        [
+          290.21875,
+          305.04771371769385
+        ],
+        [
+          290.21875,
+          385.099609375
+        ],
+        [
+          77.93417721518988,
+          385.099609375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        305.04771371769385,
+        290.21875,
+        385.099609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">We assume that there exists a risk-neutral measure (see Equivalent Martingale Measures) allowing one to compute prices of all contingent claims as the expected value of their discounted cash flows. The equation that describes the evolution of <math display=\"inline\">Y</math> is given by a linear reflected BSDE coupled with the forward equation for <math display=\"inline\">S</math>.</p>",
+      "page": 270,
+      "polygon": [
+        [
+          77.93417721518988,
+          385.2445328031809
+        ],
+        [
+          290.5078125,
+          385.2445328031809
+        ],
+        [
+          290.5078125,
+          463.88671875
+        ],
+        [
+          77.93417721518988,
+          463.88671875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        385.2445328031809,
+        290.5078125,
+        463.88671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/7",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Y_t = (K - S_1)^+ - \\int_t^1 (rY_s + (\\mu - r)Z_s) \\, \\mathrm{d}s</math></p>",
+      "page": 270,
+      "polygon": [
+        [
+          93.728515625,
+          482.294921875
+        ],
+        [
+          282.9921875,
+          482.294921875
+        ],
+        [
+          282.9921875,
+          525.73828125
+        ],
+        [
+          93.728515625,
+          525.73828125
+        ]
+      ],
+      "bbox": [
+        93.728515625,
+        482.294921875,
+        282.9921875,
+        525.73828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/8",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">+ K_1 - K_t - \\int_t Z_s \\mathrm{d}B_s \\tag{35}</math></p>",
+      "page": 270,
+      "polygon": [
+        [
+          114.396484375,
+          520.583984375
+        ],
+        [
+          289.640625,
+          520.583984375
+        ],
+        [
+          289.640625,
+          542.673828125
+        ],
+        [
+          114.396484375,
+          542.673828125
+        ]
+      ],
+      "bbox": [
+        114.396484375,
+        520.583984375,
+        289.640625,
+        542.673828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">S_t = S_0 + \\int_0^t \\mu S_s \\mathrm{d}s + \\int_0^t \\sigma S_s \\mathrm{d}B_s \\tag{36}</math></p>",
+      "page": 270,
+      "polygon": [
+        [
+          93.9453125,
+          542.673828125
+        ],
+        [
+          289.640625,
+          542.673828125
+        ],
+        [
+          289.640625,
+          569.181640625
+        ],
+        [
+          93.9453125,
+          569.181640625
+        ]
+      ],
+      "bbox": [
+        93.9453125,
+        542.673828125,
+        289.640625,
+        569.181640625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The increasing process <math display=\"inline\">K</math> keeps the process <math display=\"inline\">Y</math>above the barrier <math display=\"inline\">L_t = (S_t - K)^+</math> (for a call option) in a minimal way, that is, <math display=\"inline\">Y_t \\ge L_t</math>, <math display=\"inline\">dK_t \\ge 0</math>, and</p>",
+      "page": 270,
+      "polygon": [
+        [
+          77.93417721518988,
+          576.3677932405567
+        ],
+        [
+          290.5078125,
+          576.3677932405567
+        ],
+        [
+          290.5078125,
+          610.7841796875
+        ],
+        [
+          77.93417721518988,
+          610.7841796875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        576.3677932405567,
+        290.5078125,
+        610.7841796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Equation/11",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">\\int_0^1 (Y_t - L_t) \\mathrm{d}K_t = 0 \\tag{37}</math></p>",
+      "page": 270,
+      "polygon": [
+        [
+          140.91796875,
+          622.5654296875
+        ],
+        [
+          296.0,
+          622.5654296875
+        ],
+        [
+          296.0,
+          649.8095703125
+        ],
+        [
+          140.91796875,
+          649.8095703125
+        ]
+      ],
+      "bbox": [
+        140.91796875,
+        622.5654296875,
+        296.0,
+        649.8095703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TableGroup/225",
+      "block_type": "TableGroup",
+      "html": "<p><b>Table 1</b> Numerical scheme for an American option with 18 steps, <math display=\"inline\">K = 100</math>, <math display=\"inline\">r = 0.06</math>, <math display=\"inline\">\\sigma = 0.4</math>, and <math display=\"inline\">T = 0.5</math>, and different values of <math display=\"inline\">S_0</math></p><table><tbody><tr><th>n</th><th><math>S_0 = 80</math></th><th><math>S_0 = 100</math></th><th><math>S_0 = 120</math></th></tr><tr><td></td><td>20</td><td>11.2773</td><td>4.1187</td></tr><tr><td>2</td><td>22.1952</td><td>10.0171</td><td>3.8841</td></tr><tr><td>3</td><td>21.8707</td><td>10.7979</td><td>3.1489</td></tr><tr><td>4</td><td>22.8245</td><td>10.1496</td><td>3.9042</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>15</td><td>22.6775</td><td>10.8116</td><td>3.7119</td></tr><tr><td>16</td><td>22.6068</td><td>10.6171</td><td>3.6070</td></tr><tr><td>17</td><td>22.7144</td><td>10.7798</td><td>3.6811</td></tr><tr><td>18</td><td>22.6271</td><td>10.6125</td><td>3.6364</td></tr><tr><td>Real values</td><td>21.6059</td><td>9.9458</td><td>4.0611</td></tr></tbody></table>",
+      "page": 270,
+      "polygon": [
+        [
+          302.9375,
+          71.2027833001988
+        ],
+        [
+          516.3139240506329,
+          71.2027833001988
+        ],
+        [
+          516.3139240506329,
+          229.91845703125
+        ],
+        [
+          302.9375,
+          229.91845703125
+        ]
+      ],
+      "bbox": [
+        302.9375,
+        71.2027833001988,
+        516.3139240506329,
+        229.91845703125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/TextInlineMath/14",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">The exercise random time is given by the following stopping time <math display=\"inline\">\\tau = \\inf\\{t : Y_t - L_t &lt; 0\\}</math> that represents the exit time from the market for the investor. As usual, we take <math display=\"inline\">\\tau = 1</math> if Y never touches the boundary L. At <math display=\"inline\">\\tau</math> the investor will buy the stock if <math display=\"inline\">\\tau &lt; 1</math>, otherwise he/she does not exercise the option. In this problem, we are interested in finding <math display=\"inline\">Y_t</math>, <math display=\"inline\">Z_t</math>, and <math display=\"inline\">\\tau</math>.</p>",
+      "page": 270,
+      "polygon": [
+        [
+          305.7417721518987,
+          248.83499005964217
+        ],
+        [
+          517.0632911392405,
+          248.83499005964217
+        ],
+        [
+          517.0632911392405,
+          337.79052734375
+        ],
+        [
+          305.7417721518987,
+          337.79052734375
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        248.83499005964217,
+        517.0632911392405,
+        337.79052734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/15",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">In Table 1 and Figure 1, we summarize the results of a simulation for the American option.</p>",
+      "page": 270,
+      "polygon": [
+        [
+          304.9609375,
+          340.27435387673955
+        ],
+        [
+          516.3139240506329,
+          340.27435387673955
+        ],
+        [
+          516.3139240506329,
+          361.35302734375
+        ],
+        [
+          304.9609375,
+          361.35302734375
+        ]
+      ],
+      "bbox": [
+        304.9609375,
+        340.27435387673955,
+        516.3139240506329,
+        361.35302734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/3"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/SectionHeader/16",
+      "block_type": "SectionHeader",
+      "html": "<h4>Acknowledgments</h4>",
+      "page": 270,
+      "polygon": [
+        [
+          305.7417721518987,
+          384.49502982107356
+        ],
+        [
+          394.91645569620255,
+          384.49502982107356
+        ],
+        [
+          394.91645569620255,
+          394.671875
+        ],
+        [
+          305.7417721518987,
+          394.671875
+        ]
+      ],
+      "bbox": [
+        305.7417721518987,
+        384.49502982107356,
+        394.91645569620255,
+        394.671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/16"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/Text/17",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Jaime San Martín's research is supported by Nucleus Millennium Information and Randomness P04-069-F and BASAL project. Soledad Torres' research is supported by PBCT-ACT 13 Stochastic Analysis Laboratory, Chile.</p>",
+      "page": 270,
+      "polygon": [
+        [
+          304.99240506329113,
+          404.7316103379722
+        ],
+        [
+          517.0632911392405,
+          404.7316103379722
+        ],
+        [
+          517.0632911392405,
+          454.314453125
+        ],
+        [
+          304.99240506329113,
+          454.314453125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        404.7316103379722,
+        517.0632911392405,
+        454.314453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/3/SectionHeader/23",
+        "4": "/page/5/SectionHeader/16"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/SectionHeader/18",
+      "block_type": "SectionHeader",
+      "html": "<h2>References</h2>",
+      "page": 270,
+      "polygon": [
+        [
+          305.5390625,
+          469.93836978131213
+        ],
+        [
+          358.94683544303797,
+          469.93836978131213
+        ],
+        [
+          358.94683544303797,
+          480.822265625
+        ],
+        [
+          305.5390625,
+          480.822265625
+        ]
+      ],
+      "bbox": [
+        305.5390625,
+        469.93836978131213,
+        358.94683544303797,
+        480.822265625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/5/SectionHeader/18"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/5/ListGroup/226",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">Antonelli, F. (1996). Stability of backward stochastic [1] differential equations, Stochastic Processes and Their Applications <math display=\"inline\">62(1)</math>, 103–114.</li><li block-type=\"ListItem\">Antonelli, F. &amp; Kohatsu-Higa, A. (2000). Filtration [2] stability of backward SDE's, Stochastic Analysis and <i>Applications</i> <math display=\"inline\">18(1)</math>, 11–37.</li><li block-type=\"ListItem\">Bally, V. (1997). Approximation Scheme for Solutions [3] of BSDE. Backward Stochastic Differential Equations. (Paris, 1995-1996), Pitman Research Notes Mathematics Series, Longman, Harlow, Vol. 364, pp. 177-191.</li><li block-type=\"ListItem\">[4] Bally, V. &amp; Pagès, G. (2003). A quantization algorithm for solving multi-dimensional discrete-time optimal stopping problems, <i>Bernoulli</i> <b>9</b>(6), 1003–1049.</li><li block-type=\"ListItem\">[5] Bally, V., Pagès, G. &amp; Printems, J. (2001). A Stochastic Quantization Method for Nonlinear Problems. Monte</li></ul></p>",
+      "page": 270,
+      "polygon": [
+        [
+          304.3828125,
+          495.42147117296224
+        ],
+        [
+          517.0632911392405,
+          495.42147117296224
+        ],
+        [
+          517.0632911392405,
+          644.6552734375
+        ],
+        [
+          304.3828125,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        304.3828125,
+        495.42147117296224,
+        517.0632911392405,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/5/SectionHeader/18"
+      },
+      "images": {}
+    }
+  ],
+  "page_info": {
+    "0": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "1": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "2": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "3": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "4": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "5": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    }
+  }
+}

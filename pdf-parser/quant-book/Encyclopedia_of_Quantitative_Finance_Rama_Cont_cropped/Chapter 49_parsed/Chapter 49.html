@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   Itô's Formula
+  </h2>
+  <p block-type="TextInlineMath">
+   For a function depending on space and time parameters, rules of differentiation are well known. For a function depending on space and time parameters and also on a randomness parameter, Itô's formulas provide rules of differentiation. These rules of differentiation are based on the complementary notion of stochastic integration (see Stochastic Integrals). More precisely, given a probability space
+   <math display="inline">
+    (\Omega, \mathbb{I}P, \mathcal{F},
+   </math>
+   <math display="inline">
+    (\mathcal{F}_t)_{t&gt;0}
+   </math>
+   ), Itô's formulas deal with
+   <math display="inline">
+    (F(X_t); t \ge 0)
+   </math>
+   , where
+   <math display="inline">
+    F
+   </math>
+   is a deterministic function defined on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   and
+   <math display="inline">
+    (X_t)_{t&gt;0}
+   </math>
+   is a random process such that integration of locally bounded predictable processes is possible with respect to
+   <math display="inline">
+    (X_t)_{t\geq 0}
+   </math>
+   and satisfies a property equivalent to the Lebesgue dominated convergence theorem. This means that
+   <math display="inline">
+    (X_t)_{t\geq 0}
+   </math>
+   is a semimartingale and therefore has a finite quadratic variation process (
+   <math display="inline">
+    [X]_t
+   </math>
+   ,
+   <math display="inline">
+    t &gt; 0
+   </math>
+   ) (see Stochastic Integrals) defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    [X]_{t} = \lim_{n \to \infty} \sum \left( X_{s_{i+1}^{n}} - X_{s_{i}^{n}} \right)^{2} \text{ in probability,}
+   </math>
+   <br/>
+   uniformly on time intervals (1)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    (s_i^n)_{1 \le i \le n}
+   </math>
+   is a subdivision of [0, t] whose mesh converges to 0 as
+   <i>
+    n
+   </i>
+   tends to
+   <math display="inline">
+    \infty
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   We will see that Itô's formulas also provide information on the stochastic structure of the process
+   <math display="inline">
+    (F(X_t), t &gt; 0)
+   </math>
+   . We first introduce the formula established by Itô in 1951. Consider a process
+   <math display="inline">
+    (X_t)_{t&gt;0}
+   </math>
+   of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = \int_0^t H_s \, \mathrm{d}B_s + \int_0^t G_s \, \mathrm{d}s \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (B_s)_{s\geq 0}
+   </math>
+   is a real-valued Brownian motion, and
+   <math display="inline">
+    (H_s)_{s\geq 0}
+   </math>
+   and
+   <math display="inline">
+    (G_s)_{s\geq 0}
+   </math>
+   are locally bounded predictable processes. Then for every
+   <math display="inline">
+    C^2
+   </math>
+   -function F from
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   to
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(X_t) = F(X_0) + \int_0^t F'(X_s) H_s \, \mathrm{d}B_s
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_0^t F'(X_s) G_s \, \mathrm{d}s + \frac{1}{2} \int_0^t H_s^2 F''(X_s) \, \mathrm{d}s
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   The process defined in formula (2) is an example of continuous semimartingale. Here is the classical Itô formula for a general semimartingale
+   <math display="inline">
+    (X_s)_{s\geq 0}
+   </math>
+   (e.g., [7, 9]) and F in
+   <math display="inline">
+    \mathcal{C}^2
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(X_t) = F(X_0) + \int_0^t F'(X_{s_-}) \, \mathrm{d}X_s
+   </math>
+   <br/>
+   +
+   <math>
+    \frac{1}{2} \int_0^t F''(X_s) \, \mathrm{d}[X]_s^c
+   </math>
+   <br/>
+   +
+   <math>
+    \sum_{0 \le s \le t} \left\{ F(X_s) - F(X_{s_-}) - F'(X_{s_-}) \Delta X_s \right\}
+   </math>
+   (4)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    [X]^c
+   </math>
+   is the continuous part of
+   <math display="inline">
+    [X]
+   </math>
+   . For continuous semimartingales, formula (4) becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(X_t) = F(X_0) + \int_0^t F'(X_s) \, \mathrm{d}X_s
+   </math>
+   <math display="block">
+    + \frac{1}{2} \int_0^t F''(X_s) \, \mathrm{d}[X]_s \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the special case when
+   <math display="inline">
+    (X_t)_{t\geq 0}
+   </math>
+   is a real Brownian motion, then
+   <math display="inline">
+    [X]_t = t
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The multidimensional version of formula (4) gives the expansion of
+   <math display="inline">
+    F(X_t^{(1)}, X_t^{(2)}, \ldots, X_t^{(d)})
+   </math>
+   for F a real-valued function of
+   <math display="inline">
+    \mathcal{C}^2(\mathbb{R}^d)
+   </math>
+   and d semimartingales
+   <math display="inline">
+    X^{(1)}, X^{(2)}, \ldots, X^{(d)}
+   </math>
+   . We set
+   <math display="inline">
+    X = (X^{(1)},
+   </math>
+   <math display="inline">
+    X^{(2)}, \ldots, X^{(d)}
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(X_{t}) = F(X_{0}) + \sum_{i=1}^{d} \int_{0}^{t} \frac{\partial F}{\partial x_{i}}(X_{s-}) \, \mathrm{d}X_{s}^{(i)}
+   </math>
+   <math display="block">
+    + \frac{1}{2} \sum_{1 \leq i, j \leq d} \int_{0}^{t} \frac{\partial^{2} F}{\partial x_{i} \partial x_{j}}(X_{s-}) \, \mathrm{d} \left[ X^{(i)}, X^{(j)} \right]_{s}^{c}
+   </math>
+   <math display="block">
+    + \sum_{0 \leq s \leq t} \left\{ F(X_{s}) - F(X_{s-}) \right\}
+   </math>
+   <math display="block">
+    - \sum_{i=1}^{d} \frac{\partial F}{\partial x_{i}}(X_{s-}) \Delta X_{s}^{(i)} \right\} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note the Itô formula corresponding to the case of the couple of semimartingales
+   <math display="inline">
+    (X_t, t)_{t \ge 0}
+   </math>
+   with X
+  </p>
+  <p block-type="TextInlineMath">
+   continuous and F in
+   <math display="inline">
+    \mathcal{C}^2(\mathbb{R}^2)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(X_t, t) = F(X_0, 0) + \int_0^t \frac{\partial F}{\partial x}(X_s, s) \, \mathrm{d}X_s
+   </math>
+   <math display="block">
+    + \int_0^t \frac{\partial F}{\partial t}(X_s, s) \, \mathrm{d}s
+   </math>
+   <math display="block">
+    + \frac{1}{2} \int_0^t \frac{\partial^2 F}{\partial x^2}(X_s, s) \, \mathrm{d}[X]_s \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Each of the above Itô formulas gives a decomposition of the process
+   <math display="inline">
+    (F(X_t), t &gt; 0)
+   </math>
+   that can be reduced to the sum of a local martingale and an adapted bounded variation process. This shows that
+   <math display="inline">
+    F(X)
+   </math>
+   is a semimartingale. In practical situations, the considered function F might not be a
+   <math display="inline">
+    C^2
+   </math>
+   -function and the process
+   <math display="inline">
+    F(X)
+   </math>
+   might not be a semimartingale. Hence, many authors have written extensions of the above formulas enlightening this
+   <math display="inline">
+    C^2
+   </math>
+   -condition. Some of them use the notion of local times (see
+   <b>
+    Local Times
+   </b>
+   ) whose definition can actually be set by the following first extension of the Itô formula.
+  </p>
+  <p block-type="Text">
+   For
+   <math display="inline">
+    F
+   </math>
+   real-valued convex function and
+   <math display="inline">
+    X
+   </math>
+   semimartingale,
+   <math display="inline">
+    F(X)
+   </math>
+   is a semimartingale too and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(X_t) = F(X_0) + \int_0^t F'(X_{s-}) \, \mathrm{d}X_s + A_t \qquad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where F' is the left derivative of F and
+   <math display="inline">
+    (A_t, t &gt; 0)
+   </math>
+   is an adapted, right continuous increasing process such that
+   <math display="inline">
+    \Delta A_s = F(X_s) - F(X_{s-}) - F'(X_{s-})\Delta X_s
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Choosing
+   <math display="inline">
+    F(x) = |x - a|
+   </math>
+   , one obtains the existence of an increasing process
+   <math display="inline">
+    (L^a_t, t \ge 0)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |X_t - a| = |X_0 - a| + \int_0^t \operatorname{sgn}(X_{s-} - a) \, \mathrm{d}X_s + L_t^a
+   </math>
+   <math display="block">
+    + \sum_{0 &lt; s \le t} \left\{ |X_s - a| - |X_{s-} - a| \right.
+   </math>
+   <math display="block">
+    - \operatorname{sgn}(X_{s-} - a) \Delta X_s \right\} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The process
+   <math display="inline">
+    L^a
+   </math>
+   is called the
+   <i>
+    local time process
+   </i>
+   of X at
+   <math display="inline">
+    a
+   </math>
+   (see
+   <b>
+    Local Times
+   </b>
+   for alternative definition and basic properties). Note that
+   <math display="inline">
+    L^a
+   </math>
+   is continuous in t.
+  </p>
+  <p block-type="TextInlineMath">
+   Coming back to formula (8), denote by
+   <math display="inline">
+    \mu
+   </math>
+   the second derivative of
+   <math display="inline">
+    F
+   </math>
+   in the generalized function sense; then the Meyer-Itô formula goes further by giving the expression of the bounded variation
+  </p>
+  <p block-type="Text">
+   process
+   <math display="inline">
+    A
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(X_{t}) = F(X_{0}) + \int_{0}^{t} F'(X_{s-}) dX_{s}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \sum_{0 &lt; s \le t} \left\{ F(X_{s}) - F(X_{s-}) - F'(X_{s-}) \Delta X_{s} \right\}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \frac{1}{2} \int_{\mathbb{R}} L_{t}^{x} \mu(dx)
+   </math>
+   (10)
+  </p>
+  <p block-type="Text">
+   The Meyer-Itô formula is also obviously available for functions
+   <math display="inline">
+    F
+   </math>
+   , which are difference of two convex functions.
+  </p>
+  <p block-type="TextInlineMath">
+   For the semimartingales
+   <math display="inline">
+    X
+   </math>
+   , such that for every
+   <math display="inline">
+    t&gt;0
+   </math>
+   :
+   <math display="inline">
+    \sum_{0\leq s\leq t}|\Delta X_{s}|&lt;\infty
+   </math>
+   a.s., Bouleau and Yor extended the Meyer-Itô formula to functions
+   <math display="inline">
+    F
+   </math>
+   , admitting a Radon-Nicodym derivative with respect to the Lebesgue measure. Indeed, the Bouleau-Yor formula
+   <math display="inline">
+    [2]
+   </math>
+   states in that case
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(X_t) = F(X_0) + \int_0^t F'(X_{s-}) \, \mathrm{d}X_s
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \sum_{0 &lt; s \le t} \left\{ F(X_s) - F(X_{s-}) - F'(X_{s-}) \Delta X_s \right\}
+   </math>
+   <br/>
+   -
+   <math display="block">
+    \frac{1}{2} \int_{\mathbb{R}} F'(x) \, \mathrm{d}_x L_t^x \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that the Bouleau-Yor formula requires the construction of a stochastic integration of deterministic functions with respect to the process
+   <math display="inline">
+    (L^x, x \in \mathbb{R})
+   </math>
+   , although this last process might not be a semimartingale. Besides, this formula shows that the process
+   <math display="inline">
+    (F(X_t), t \ge 0)
+   </math>
+   might not be a semimartingale but a Dirichlet process (i.e., the sum of a local martingale and a 0-quadratic variation process).
+  </p>
+  <p block-type="TextInlineMath">
+   In the special case of a real Brownian motion
+   <math display="inline">
+    (B_t, t \ge 0)
+   </math>
+   , Föllmer, Protter, and Shiryayev formula offers an extension of the Bouleau-Yor formula to space-time functions G defined on
+   <math display="inline">
+    \mathbb{R} \times \mathbb{R}_+
+   </math>
+   admitting a Radon-Nikodym derivative with respect to the space parameter
+   <math display="inline">
+    \partial G/\partial x
+   </math>
+   with some continuity properties (see [6], for the detailed assumptions)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(B_t, t) = G(B_0, t) + \int_0^t G(B_s, \, \mathrm{d}s)
+   </math>
+   <math display="block">
+    + \int_0^t \frac{\partial G}{\partial x}(B_s, s) \, \mathrm{d}B_s + \frac{1}{2} \left[ \frac{\partial G}{\partial x}(B_+, .), B \right]_t \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \int_0^t G(B_s, ds) = \lim_{n \to \infty} \sum_{i=1}^n (G(B_{s_{i+1}^n}, s_{i+1}^n)  G(B_{s_{i+1}^n}, s_i^n)
+   </math>
+   in probability, where
+   <math display="inline">
+    (s_i^n)_{1 \le i \le n}
+   </math>
+   is a subdivision of
+   <math display="inline">
+    [0, t]
+   </math>
+   whose mesh converges to 0 as n tends to
+   <math display="inline">
+    \infty
+   </math>
+   (Reference 5 contains a similar result and Reference 1 extends it to nondegenerate diffusions).
+  </p>
+  <p block-type="TextInlineMath">
+   Another way to extend the Bouleau-Yor formula, in the case of a real Brownian motion, consists in the construction of the stochastic integration of locally bounded deterministic space-time functions
+   <math display="inline">
+    f(x, t)
+   </math>
+   with respect to the local time process
+   <math display="inline">
+    (L^x, x \in \mathbb{R}, t &gt; 0)
+   </math>
+   of B. That way one obtains, for the functions
+   <math display="inline">
+    G
+   </math>
+   admitting locally bounded first-order derivatives, Eisenbaum's formula [3]:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(B_t, t) = G(B_0, t) + \int_0^t \frac{\partial G}{\partial x}(B_s, s) \, \mathrm{d}B_s
+   </math>
+   <math display="block">
+    + \int_0^t \frac{\partial G}{\partial t}(B_s, s) \, \mathrm{d}s
+   </math>
+   <math display="block">
+    - \frac{1}{2} \int_0^t \int_{\mathbb{R}} \frac{\partial G}{\partial x}(x, s) \, \mathrm{d}L_s^x \qquad (13)
+   </math>
+  </p>
+  <p block-type="Text">
+   The comparison of formula
+   <math display="inline">
+    (13)
+   </math>
+   with formulas
+   <math display="inline">
+    (12)
+   </math>
+   and (7) provides some rules of integration with respect to the local time process of
+   <math display="inline">
+    B
+   </math>
+   such as
+  </p>
+  <p block-type="Text">
+   for
+   <math display="inline">
+    f
+   </math>
+   continuous function on
+   <math display="inline">
+    \mathbb{R} \times \mathbb{R}_+
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^t \int_{\mathbb{R}} f(x, s) \, \mathrm{d}L_s^x = -[f(B_{.}, .), B_{.}]_t \quad (14)
+   </math>
+  </p>
+  <p block-type="Text">
+   for f locally bounded function on
+   <math display="inline">
+    \mathbb{R} \times \mathbb{R}_+
+   </math>
+   admitting a locally bounded Radon-Nikodym derivative
+   <math display="inline">
+    \partial f/\partial x
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^t \int_{\mathbb{R}} f(x,s) \, \mathrm{d}L_s^x = -\int_0^t \frac{\partial f}{\partial x}(X_s,s) \, \mathrm{d}s \quad (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   See [2] for an extension of formula (13) to Lévy processes.
+  </p>
+  <p block-type="Text">
+   We now mention the special case of a space-time function
+   <math display="inline">
+    G(x, s)
+   </math>
+   defined as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(x,s) = G_1(x,s)1_{\{x&gt;b(s)\}} + G_2(x,s)1_{\{x \le b(s)\}}
+   </math>
+   (16)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    (b(s), s \ge 0)
+   </math>
+   is a continuous curve and
+   <math display="inline">
+    G_1
+   </math>
+   and
+   <math display="inline">
+    G_2
+   </math>
+   are
+   <math display="inline">
+    C^2
+   </math>
+   -functions that coincide on
+   <math display="inline">
+    x = b(s)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (but not their derivatives). This case is treated in [8] for X continuous semimartingale and in [4] for
+   <math display="inline">
+    X
+   </math>
+   Lévy process such that
+   <math display="inline">
+    \sum_{0 \le s \le t} |\Delta X_s| &lt; \infty
+   </math>
+   a.s. Both use the notion of local time of
+   <math display="inline">
+    X
+   </math>
+   along the curve
+   <math display="inline">
+    b
+   </math>
+   denoted
+   <math display="inline">
+    (L_s^{b(.)}, s \ge 0)
+   </math>
+   , defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_t^{b(.)} = \lim_{\epsilon \to 0} \frac{1}{2\epsilon} \int_0^t 1_{(|X_s - b(s)| &lt; \epsilon)} d[X]_s^c
+   </math>
+   <br/>
+   uniformly on compacts in
+   <math>
+    L^1
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   When b is a equal to the constant a,
+   <math display="inline">
+    L^{b(.)}
+   </math>
+   coincides with the local time at the value
+   <math display="inline">
+    a
+   </math>
+   . These formulas have the following form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{t}, t) = G(X_{0}, 0) + \int_{0}^{t} \frac{\partial G}{\partial x}(X_{s-}, s) dX_{s}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} \frac{\partial G_{1}}{\partial t}(X_{s}, s)1_{(X_{s} &lt; b(s))} ds
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} \frac{\partial G_{2}}{\partial t}(X_{s}, s)1_{(X_{s} \ge b(s))} ds
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \frac{1}{2} \int_{0}^{t} \left(\frac{\partial^{2} G_{1}}{\partial x^{2}}(X_{s}, s)1_{(x &lt; b(s))}\right) ds
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \frac{\partial^{2} G_{2}}{\partial x^{2}}(X_{s}, s)1_{(x \ge b(s))} \right) d[X]_{s}^{c}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \frac{1}{2} \int_{0}^{t} \left(\frac{\partial G_{2}}{\partial x} - \frac{\partial G_{1}}{\partial x}\right) (b(s), s) d_{s}L_{s}^{b(.)}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \sum_{0 &lt; s \le t} \left\{ G(X_{s}, s) - G(X_{s-}, s) - \frac{\partial G}{\partial x}(X_{s-}, s) \Delta X_{s} \right\}
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   Note that
+   <math display="inline">
+    \partial G/\partial x
+   </math>
+   exists as a Radon-Nikodym derivative and is equal to
+   <math display="inline">
+    (\partial G_1/\partial x)(x, s)1_{(x &lt; b(s))}
+   </math>
+   +
+   <math display="inline">
+    (\partial G_2/\partial x)(x, s)1_{(x \ge b(s))}
+   </math>
+   . The formula (18) is helpful in free-boundary problems of optimal stopping. Other illustrations of formula
+   <math display="inline">
+    (13)
+   </math>
+   are given in [4] for multidimensional Lévy processes.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="Text">
+   <math display="inline">
+    G(
+   </math>
+  </p>
+  <p block-type="Text">
+   Bardina X. &amp; Jolis M. (1997). An extension of Itô's for-
+   <math display="inline">
+    [1]
+   </math>
+   mula for elliptic diffusion processes, Stochastic Processes and their Applications 69, 83-109.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [2] Bouleau N. &amp; Yor M. (1981). Sur la variation quadratique des temps locaux de certaines semimartingales,
+     <i>
+      Comptes Rendus de l'Acad´emie des Sciences
+     </i>
+     <b>
+      292
+     </b>
+     , 491–494.
+    </li>
+    <li block-type="ListItem">
+     [3] Eisenbaum N. (2000). Integration with respect to local time,
+     <i>
+      Potential Analysis
+     </i>
+     <b>
+      13
+     </b>
+     , 303–328.
+    </li>
+    <li block-type="ListItem">
+     [4] Eisenbaum N. (2006). Local time-space stochastic calculus for Levy processes, ´
+     <i>
+      Stochastic Processes and their Applications
+     </i>
+     <b>
+      116
+     </b>
+     (5), 757–778.
+    </li>
+    <li block-type="ListItem">
+     [5] Errami M., Russo F. &amp; Vallois P. (2002). Ito formula ˆ for
+     <i>
+      C
+     </i>
+     <sup>
+      1
+     </sup>
+     <i>
+      ,λ
+     </i>
+     -functions of a cadl ` ag process, `
+     <i>
+      Probability Theory and Related Fields
+     </i>
+     <b>
+      122
+     </b>
+     , 191–221.
+    </li>
+    <li block-type="ListItem">
+     [6] Follmer H., Protter P. &amp; Shiryayev A.N. (1995). Quad- ¨ ratic covariation and an extension of Ito's formula, ˆ
+     <i>
+      Bernoulli
+     </i>
+     <b>
+      1
+     </b>
+     (1/2), 149–169.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [7] Jacod J. &amp; Shiryayev A.N. (2003).
+     <i>
+      Limit Theorems for Stochastic Processes
+     </i>
+     , 2nd Edition, Springer.
+    </li>
+    <li block-type="ListItem">
+     [8] Peskir G. (2005). A change-of-variable formula with local time on curves,
+     <i>
+      Journal of Theoretical Probability
+     </i>
+     <b>
+      18
+     </b>
+     , 499–535.
+    </li>
+    <li block-type="ListItem">
+     [9] Protter, P. (2004).
+     <i>
+      Stochastic Integration and Differential Equations
+     </i>
+     , 2nd Edition, Springer.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <h2>
+   <b>
+    Levy Processes ´
+   </b>
+   ;
+   <b>
+    Local Times
+   </b>
+   ;
+   <b>
+    Stochastic Integrals
+   </b>
+   .
+  </h2>
+  <p block-type="Text">
+   NATHALIE EISENBAUM
+  </p>
+ </body>
+</html>

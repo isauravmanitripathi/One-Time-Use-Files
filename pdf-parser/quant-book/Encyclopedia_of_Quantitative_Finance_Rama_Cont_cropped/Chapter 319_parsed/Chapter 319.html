@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Commodity Risk
+   </b>
+  </h1>
+  <p block-type="Text">
+   Before the emergence of B2B exchanges and the contracting innovations of interest here, the focus in procurement was on bilateral negotiation, and the literature provides analysis of many aspects of supply contracting in this setting (see [3] for a review). Bilateral contracting and traditional supplier management practices will remain essential elements of procurement management in the future. However, the growth of commodity exchanges, and derivative instruments defined on these, has introduced a fine-tuning mechanism that improves operational performance and simultaneously helps value longer term contractual, capacity, and technology decisions. The centerpiece of this new perspective is the integration of traditional forms of contracting with shorter term market-driven physical and financial transactions. This integration is the focus of this article.
+  </p>
+  <p block-type="Text">
+   An example will help clarify the scope and importance of this subject. Consider the beverage industry. Aluminum is an important element of the cost structure. For major buyers like Anheuser Busch, a restricted set of sellers is used to source aluminum, even though the aluminum spot market price is a key benchmark for sourcing and hedging, and is determined by the actions of scores of global players. Here, sourcing arrangements with main sellers are typically set according to the spot price plus processing costs, and contracts are marked to market on a daily basis. Second, there may be value-added services undertaken by these contractors to take aluminum ingots and prepare them in a more suitable fashion for can production, and again here this would be done only with specifications for these services worked out with a few sellers. However, the typical setup in metals is for a restricted set of contract sellers, with spot purchases and hedging used to benchmark prices and to "top up" contract purchases and hedge overall supply cash flows. The same general market and contracting structure operates in many other commodity markets, including energy and agricultural markets [5].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The first question to address is the consequence of competition among multiple sellers with heterogeneous costs/technologies. This question can be addressed in two ways: one is to assume a closed spot market in which all participants in the contract market also participate in the spot market, and
+   <i>
+    vice
+   </i>
+  </p>
+  <p block-type="Text">
+   <i>
+    versa
+   </i>
+   . Alternatively, one can assume an open structure in which the spot market price is determined by a larger group of competitive sellers than the smaller, restricted group operating in the contract market for a particular buyer. In this article, we follow the latter assumption; for a discussion of closed spot markets and strategic behavior, see [10].
+  </p>
+  <h1>
+   <b>
+    A Primer on Previous Literature
+   </b>
+  </h1>
+  <p block-type="Text">
+   The literature on contracting in economics has been driven by the transactions cost framework developed by Williamson [11], and subsequently formalized in the principal–agent literature [8].
+  </p>
+  <p block-type="Text">
+   A key question addressed in the economics literature has been the efficiency of various contracting structures. A well-known result in the economics contracting literature is due to Allaz and Vila [1], which examines the efficiency of pure forward contracts in an oligopolistic setting but with a deterministic spot market (which is fixed and common knowledge). Assuming homogeneous sellers and instantaneous scalability (with no capacity limitations), they show that forward markets can yield inefficient outcomes because of strategic use of these markets by sellers with market power. Wu and Kleindorfer [12] show that the Allaz–Vila-forward-market inefficiency disappears when options contracts are introduced into the mix of traded instruments, underscoring the importance of derivative instruments for supply management.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The financial economics literature provides basic pricing results for derivative instruments traded on standard contracts in liquid markets. In the context of supply contracting, an additional distinction is required in the types of options involved, between purely financial options and those connected to physical delivery of a particular good at a particular time and place. The early discussion and literature was focused on physical delivery options to fulfill a buyer's sourcing needs. These options would entail delivery at a particular time and place (e.g., FOB Pittsburgh). In these markets, options backed by physical delivery are central to the buyer's problem of arranging for sufficient supply to meet the buyer's demand. However, once a functioning spot market exists, this market can be used to define financial options on the basis of the spot price. Major buyers then find it in their interest not only to arrange optimal sourcing from the contract and spot markets for
+  </p>
+  <p block-type="Text">
+   physical delivery of goods but also to use the financial options defined in the market for price discovery and as risk hedge instruments. As Birge [2] notes, if either revenue or costs associated with a given product line are correlated with some well-defined price (or cost) index arising from a competitive market, then this price index can be used to define an appropriate derivative or options instrument that provides not only risk hedging benefits but also valuation information for the underlying operations decisions whose outputs are correlated with the index.
+  </p>
+  <h1>
+   <b>
+    Standard Commodity Hedging Framework
+   </b>
+  </h1>
+  <p block-type="Text">
+   The standard approach to supply management commodity risk [5, 12] is based on the following threeperiod timeline for trading in the B2B exchange, either using contracts or using the spot market (Figure 1).
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Period 0: At period 0, capacity and technology choices are made by buyers and sellers. As shown in [5], these choices will be different when rational managers know that they can fine-tune demand and supply through the spot market than when such a possibility does not exist.
+    </li>
+    <li block-type="ListItem">
+     Period 1: At period 1, with updated information on the distribution of spot prices, sellers and buyers contract with one another, using options and forwards, for delivery of some good (either storable or nonstorable) at period 2.
+    </li>
+    <li block-type="ListItem">
+     Period 2: Finally, at period 2, after possibly updating additional information, options are called, forwards are executed, deliveries are made, and additional sales and purchases are made in the short-term spot (or cash) market.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Between period 1 and period 2, there may be additional trading of options and additional, possibly continuous, updating of information on spot prices. The analysis here will assumes a discrete-time framework with no secondary trading. Thus, we are only concerned with the indicated decision instants at periods 0, 1, and 2.
+  </p>
+  <p block-type="Text">
+   The objective of the buyer is to maximize expected profit by choosing among the available forward and spot contracts. The objective of sellers is to maximize expected profit, jointly obtained from sales in both the contract market and the spot market and subject to the seller's capacity constraint. Either buyer or sellers may have additional risk-based constraints on their transactions, such as those derived from a Value-at-Risk (VaR) framework, as explained further subsequently.
+  </p>
+  <p block-type="Text">
+   A key factor influencing the incentives of sellers and the buyer to sign contracts is the existence of imperfect market access on the day, capturing possible access inefficiencies of the spot market, which includes cost and quality differences between contract markets and the spot market. In addition, in supply management for commodities, different grades and specifications for commodities often require prior contracting and procurement relations. These alternative situations give rise to various forms of commodity risk management, as shown in Table 1.
+  </p>
+  <p block-type="Text">
+   Access conditions are modeled in [12]
+   <i>
+    via
+   </i>
+   a function
+   <i>
+    m(Ps)
+   </i>
+   , which is defined as the probability that the seller can find a last-minute buyer on the spot market when the realized spot price is
+   <i>
+    Ps
+   </i>
+   . This market access probability can also be thought of as the proportion of the seller's capacity that can be expected to be sold at the last minute. This function may be thought of as a measure of the liquidity of the market and the degree to which the commodity in question is standardized. When quality and yield issues are present, then
+   <i>
+    m(Ps
+   </i>
+   ) may also be
+  </p>
+  <p>
+   <img src="_page_1_Figure_11.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Market interactions in the standard commodity hedging framework
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th colspan="3">
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Description of context
+     </th>
+     <th>
+      Instruments used in optimal portfolio
+     </th>
+     <th>
+      Examples
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Cost and access differences are
+      <br/>
+      small and only standard
+      <br/>
+      commodities are sourced
+     </td>
+     <td>
+      Bilateral contracting and financial
+      <br/>
+      hedge instruments are defined on
+      <br/>
+      a common market and optimized
+      <br/>
+      jointly
+     </td>
+     <td>
+      energy commodity metals
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Cost and access differences are
+      <br/>
+      large and only standard
+      <br/>
+      commodities are sourced
+     </td>
+     <td>
+      Bilateral contracting is used for
+      <br/>
+      most physical procurement, with
+      <br/>
+      spot market used for topping up
+      <br/>
+      supply, and for financial hedge
+      <br/>
+      instruments
+     </td>
+     <td>
+      Logistics services (standard air
+      <br/>
+      and maritime cargo) Fed cattle
+      <br/>
+      (beef), hogs, and lamb markets
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Nonstandard commodities are
+      <br/>
+      sourced, but their prices are
+      <br/>
+      highly correlated with those of
+      <br/>
+      standard commodities
+     </td>
+     <td>
+      Bilateral contracting is used for all
+      <br/>
+      physical procurement, with
+      <br/>
+      financial hedge instruments,
+      <br/>
+      defined on correlated standard
+      <br/>
+      products, used as an overlay
+     </td>
+     <td>
+      Plastic resins and commodity
+      <br/>
+      chemicals
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Alternative contexts for commodity risk management of supply
+  </p>
+  <p block-type="Text">
+   thought of as the quality risk associated with spot purchases.
+  </p>
+  <p block-type="Text">
+   The standard problem of commodity sourcing and hedging for a buyer can be stated as follows (this is the problem facing the buyer at period 1 in Figure 1):
+  </p>
+  <p block-type="Equation">
+   Maximize
+   <math display="block">
+    E\left\{\Pi(Q,\tilde{D},\tilde{P}_s)\right\}
+   </math>
+   (1)
+  </p>
+  <p block-type="Text">
+   s.t.
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    G(Q, F_D, F_{P_s}) \ge 0
+   </math>
+   physical delivery constraints
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    H(Q, F_D, F_{P_s}) \ge 0
+   </math>
+   VaR constraints
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    Q \in X
+   </math>
+   other constraints on instruments
+  </p>
+  <p block-type="Text" class="has-continuation">
+   where the maximization in equation
+   <math display="inline">
+    (1)
+   </math>
+   is over the vector of available financial and physical instruments
+   <math display="inline">
+    Q
+   </math>
+   at the time of contracting, where "demand" uncertainties are represented by
+   <math display="inline">
+    \tilde{D}
+   </math>
+   , and where spot price uncertainty is represented by the random variable
+   <math display="inline">
+    \tilde{P}_s
+   </math>
+   , with respective cumulative density functions of
+   <math display="inline">
+    F_D
+   </math>
+   and
+   <math display="inline">
+    F_{Ps}
+   </math>
+   . At period 2, of course, once
+   <i>
+    D
+   </i>
+   and
+   <math display="inline">
+    P_s
+   </math>
+   are observed, instruments are executed to fulfill the physical delivery constraints and to optimize profits on the day by executing all options that are "in the money", or needed for physical fulfillment. This problem "on the day" can sometimes be interesting, but it in theory is straightforward and we do not consider its solution here. Various forms of the problem in equation (1) have been developed for various types of markets, and the details for these differ considerably across these markets. To illustrate, let us consider the structure of this problem for the case of a distribution
+  </p>
+  <p block-type="Text">
+   company or supplier in the case of electric power operating in the presence of a liquid spot market.
+  </p>
+  <h1>
+   <b>
+    Electric Power: An Illustrative Example of Commodity Hedging
+   </b>
+  </h1>
+  <p block-type="Text">
+   We imagine an integrated utility, called the
+   <i>
+    Company
+   </i>
+   , which may own or lease generation, and which has a trading division that can sign contracts for power purchase agreements (PPAs), as well as puts, calls, and forwards, based on an underlying wholesale spot market. We abstract here from transmission constraints or markets.&lt;sup&gt;a&lt;/sup&gt; For simplicity, we also imagine that the Company provides energy to retail customers at prices that are regulated. We will take the simplest possible approach to the regulated sector, assuming a fixed, exogenously determined regulated price per Kilowatt hour, independent of time. More complicated regulatory scenarios are easily incorporated into the framework developed. This feature of customer demand at regulated prices, together with the weather-driven level of spot prices and the nonstorability of electric power, makes electricity supply a risky business.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   We are interested in formulating the Company's optimal portfolio problem for procuring and hedging its purchases of energy. The portfolio will be characterized by different levels of time-indexed instruments (puts, calls, forwards, etc.) that might be called upon either to fulfill retail demand or simply as part of profit-oriented trading/hedging activities by the Company's trading division. We refer
+  </p>
+  <p block-type="Text">
+   to all potential assets for the portfolio, including owned/leased generation and PPAs, as instruments.
+  </p>
+  <p block-type="Text">
+   Following
+   <math display="inline">
+    [6]
+   </math>
+   and
+   <math display="inline">
+    [7]
+   </math>
+   , we think of each instrument as having a capacity (measured in megawatts) that can be called or sold in a specific period (consisting of specified hours during a given week or month, typically the
+   <math display="inline">
+    5 \times 16 \text{ h}
+   </math>
+   of "peak" or the
+   <math display="inline">
+    7 \times 8 \text{ h}
+   </math>
+   of "off-peak"). Each instrument entails a reservation price, possibly zero, per megawatt to reserve, and an execution price, per megawatt hour, if used. In this framework, instruments such as own generation and certain PPAs that have been precommitted have a fixed execution price (e.g., the marginal running cost of own generation), but may be thought of as available at a reservation price of zero. Purchased forwards, which are prepaid, fixed obligations to deliver power, may be viewed as call options having a zero execution price that therefore will be executed by the Company on the day. Forwards sold by the Company have the same characteristic, that is, they may be viewed as options contracts with a zero execution price (that therefore will be executed on the day).
+  </p>
+  <p block-type="Text">
+   To set up the model, we will assume that the planning period for the instruments in question is a month, with hours in the month being denoted by the set
+   <math display="inline">
+    T = \{1, \ldots, 720\}
+   </math>
+   . We will consider additional subsets of
+   <math display="inline">
+    T
+   </math>
+   below, such that certain instruments may be valid only for certain subsets of time (e.g., peak hours). We need the following additional notation:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      Q_i
+     </math>
+     = the amount (in megawatts) of instrument
+     <i>
+      i
+     </i>
+     that is purchased/sold
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      r_i
+     </math>
+     = reservation price per megawatt hour for call asset
+     <math display="inline">
+      i^{\text{b}}
+     </math>
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      c_i
+     </math>
+     = execution price per megawatt hour for call asset i
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      s_i
+     </math>
+     = reservation price per megawatt hour for put asset
+     <math display="inline">
+      i
+     </math>
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    p_i
+   </math>
+   = execution price per megawatt hour for put asset
+   <i>
+    i
+   </i>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      T_i \subseteq T = \text{index of those hours of type "j", where}
+     </math>
+     <math display="inline">
+      j = 1, \ldots, J
+     </math>
+     (types of time periods might be, for example, peak periods, off-peak periods, weekends, etc.)
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      I_{ci}
+     </math>
+     = the set of indices for all call instruments (used in the following summation) that can be executed during hours of type
+     <math display="inline">
+      j
+     </math>
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      I_{pj}
+     </math>
+     = the set of indices for all put instruments (used in the following summation) that can be executed during hours of type
+     <math display="inline">
+      j
+     </math>
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      n =
+     </math>
+     the number of all instruments (so
+     <math display="inline">
+      n = \sum_{j=1}^{J} |I_{cj}|
+     </math>
+     <math display="inline">
+      \cup I_{ni}|)
+     </math>
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      m_i =
+     </math>
+     lower bound or minimum amount allowed for instrument
+     <math display="inline">
+      Q_i
+     </math>
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      M_i
+     </math>
+     = upper bound or maximum amount allowed for instrument
+     <math display="inline">
+      Q_i
+     </math>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The random variable of "monthly cash flows" depends on the level of each instrument
+   <math display="inline">
+    Q_i
+   </math>
+   in the portfolio, where some instruments, within each month, may apply to different periods of time (e.g., just the peak periods or just the off-peak periods, or to some other selection of periods). We can write cash flows (for some period, say month
+   <math display="inline">
+    t
+   </math>
+   ) in the following general form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pi = \sum_{\tau \in T} (P_{c\tau} - P_{s\tau}) D_{c\tau} \n+ \sum_{j=1}^{J} \sum_{\tau \in T_{j}} \left[ \sum_{i \in I_{cj}} [(P_{s\tau} - c_{i\tau})^{+} - r_{i}] Q_{i} \n+ \sum_{i \in I_{pj}} [(p_{i\tau} - P_{s\tau})^{+} - s_{i}] Q_{i} \right] \n
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tau \in T
+   </math>
+   are the subperiods within the month in question, each assumed to be of length 1 h, and where we have indexed spot price
+   <math display="inline">
+    P_s
+   </math>
+   and the execution prices
+   <math display="inline">
+    c_i
+   </math>
+   and
+   <math display="inline">
+    p_i
+   </math>
+   for the options by time periods, in case these execution prices are time sensitive (e.g., different prices for peak or off-peak periods for the same instrument). Note that once an instrument is purchased, it is available for all hours covered by the instrument (e.g., a peak-period call option of
+   <math display="inline">
+    Q_i
+   </math>
+   MW is available for any peak hour in the month, subject to requirements—usually
+   <math display="inline">
+    24 \text{ h}
+   </math>
+   in advance—to execute the option).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Using equation
+   <math display="inline">
+    (2)
+   </math>
+   , it is easily seen how this problem fits the standard form of equation (1). The profit function is clear (though additional payments to capital providers would be accounted for as in equation (2) in the risk constraint). As for the physical fulfillment constraints, these are also straightforward as long as the spot market is completely reliable as a source of power on the day (and very high reliability is typical of such markets). The VaR constraint in
+  </p>
+  <p block-type="Text">
+   equation
+   <math display="inline">
+    (1)
+   </math>
+   is represented as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pr\left\{\Pi(Q,\,\tilde{D},\,\tilde{P}_s) - F \ge -VaR\right\} \ge \gamma \qquad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Pi(O, \tilde{D}, \tilde{P}_{s})
+   </math>
+   are the cash flows in equation (2) resulting from the vector of contracts
+   <math display="inline">
+    O
+   </math>
+   , where
+   <math display="inline">
+    F
+   </math>
+   represents fixed capital payment obligations, and VaR is the maximal Value-at-Risk allowed for the period in question, with confidence level
+   <math display="inline">
+    \gamma
+   </math>
+   (see Valueat-Risk and also [4, 9] for a discussion of VaR). In the case where there are sufficient subperiods in
+   <math display="inline">
+    T
+   </math>
+   to make the normality assumption reasonable for
+   <math display="inline">
+    \Pi(Q, \tilde{D}, \tilde{P}_s)
+   </math>
+   , this standard VaR constraint translates into a simple function of the mean and standard deviation of
+   <math display="inline">
+    \Pi(Q, \tilde{D}, \tilde{P}_s)
+   </math>
+   . Since the profit function is linear in
+   <math display="inline">
+    Q_i
+   </math>
+   for every realization of the random variables involved, finding the efficient frontier (in
+   <math display="inline">
+    E\{\Pi\}
+   </math>
+   , VaR space) is then easily solved in the standard fashion via quadratic programming. Multiperiod VaR constraints are also discussed in [7]. For more complex problems that arise in practice, including sophisticated models of the evolution of the spot price and various exotic options, Monte Carlo simulation (see Monte Carlo Simulation) with an appropriate optimization engine can be used.
+  </p>
+  <h4>
+   <b>
+    Implementation and Research Challenges
+   </b>
+  </h4>
+  <p block-type="Text">
+   It is unfamiliar territory for most organizations to integrate finance and supply management, and this is precisely what is required in order to have the full benefit of the options approach described here. Companies wishing to do so must radically expand the traditional focus of procurement on cost, quality, and dependability to include tracking of spot market conditions, valuing options in operational and hedging terms, and linking these activities to an appropriate risk management structure. Companies that have done this well have recognized the need to develop capabilities in trading, data management, and financial reporting and management. These include new skills in pricing and valuation of contracts, new approaches to managing the portfolio of sourcing options for key manufacturing inputs, and a very different approach to customer and customer segment valuation and management.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The open questions associated with B2B exchanges and contracting can be described under two general headings. First are the model-based
+  </p>
+  <p block-type="Text">
+   developments needed to capture the essence of the supply-demand coordination problem and the necessary options-based instruments to achieve efficiency in particular market contexts. Second is the continuing development of theory to understand the necessary guidelines for the structure and governance of sustainable business models for the exchanges supporting these instruments. Open research questions in these areas are noted in all of the references listed, especially in
+   <math display="inline">
+    [5]
+   </math>
+   .
+  </p>
+  <h3>
+   <b>
+    End Notes
+   </b>
+  </h3>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;To the extent that these are based on principles of locational marginal prices, transmission constraints and options could also be included as part of the portfolio optimization described below.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;b.&lt;/sup&gt;Thus, to reserve
+   <math display="inline">
+    Q_i
+   </math>
+   MW of callable capacity during a specific period of length L, the price paid is
+   <math display="inline">
+    r_i Q_i L
+   </math>
+   , where the maximum reserved/callable capacity during any hour of the period is
+   <math display="inline">
+    O_i
+   </math>
+   MW. The reader can think of the reservation price in dollars per megawatt hour as the allocated cost to each hour of the period in question, though instruments will be typically traded for groups of hours in a month, for example, 100 MW of capacity callable for any peak hour during the month.
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Allaz, B. &amp; Vila, J.-L. (1993). Cournot competition, forward markets and efficiency, Journal of Economic Theory 59, 1-16.
+    </li>
+    <li block-type="ListItem">
+     [2] Birge, J.R. (2000). Option methods for incorporating risk into linear capacity planning models, Manufacturing and Service Operations Management 2(1), 19-31.
+    </li>
+    <li block-type="ListItem">
+     [3] Cachon, G.P. (2003). Supply chain coordination with contracts, in Handbooks in Operations Research and Management Science: Supply Chain Management, S. Graves &amp; T. deKok, eds, North-Holland, Amsterdam, рр. 229-340.
+    </li>
+    <li block-type="ListItem">
+     [4] Crouhy, M., Mark, R. &amp; Galai, D. (2000). Risk Management, McGraw-Hill Trade, New York.
+    </li>
+    <li block-type="ListItem">
+     Geman, H. (2005). Commodities and Commodity Deriva-[5] tives, Wiley Finance, New York.
+    </li>
+    <li block-type="ListItem">
+     [6] Kaminski, V. (2004).
+     <i>
+      Managing Energy Price Risk
+     </i>
+     , Risk Books, London.
+    </li>
+    <li block-type="ListItem">
+     [7] Kleindorfer, P.R. &amp; Lide, L. (2005). Multi-period, VaRconstrained portfolio optimization in electric power,
+     <i>
+      The Energy Journal
+     </i>
+     <b>
+      26
+     </b>
+     <math display="inline">
+      (1)
+     </math>
+     , 1–26.
+    </li>
+    <li block-type="ListItem">
+     [8] Laffont, J.-J. &amp; Tirole, J. (1998). A Theory of Incentives in Procurement and Regulation, The MIT Press, Cambridge, MA.
+    </li>
+    <li block-type="ListItem">
+     [9] Marshall, C. &amp; Siegel, M. (1997). Value at risk: implementing a risk measurement standard, The Journal of
+     <i>
+      Derivatives
+     </i>
+     <b>
+      4
+     </b>
+     (Spring), 91–110.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    6 Commodity Risk
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [10] Mendelson, H. &amp; Tunca, T. (2007). Strategic spot trading in supply chains,
+     <i>
+      Management Science
+     </i>
+     <b>
+      53
+     </b>
+     , 742–759.
+    </li>
+    <li block-type="ListItem">
+     [11] Williamson, O.E. (1985).
+     <i>
+      The Economic Institutions of Capitalism
+     </i>
+     , The Free Press, New York.
+    </li>
+    <li block-type="ListItem">
+     [12] Wu, D.J. &amp; Kleindorfer, P.R. (2005). Competitive options, supply contracting and electronic markets,
+     <i>
+      Management Science
+     </i>
+     <b>
+      51
+     </b>
+     (3), 452–466.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <b>
+    Related Articles
+   </b>
+  </p>
+  <p block-type="Text">
+   <b>
+    Electricity Forward Contracts
+   </b>
+   ;
+   <b>
+    Risk Exposures
+   </b>
+   ;
+   <b>
+    Swing Options
+   </b>
+   ;
+   <b>
+    Value-at-Risk
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   PAUL R. KLEINDORFER
+  </p>
+ </body>
+</html>

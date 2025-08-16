@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Accumulated Claims
+   </b>
+  </h1>
+  <p block-type="Text">
+   For measuring operational risk (see Operational Risk) or the risk of an insurance contract or an insurance portfolio, one has to find "good" models for the losses of the contract. These models need to be simple in order to be able to get desired answers but complicated enough to reflect the "real" situation. To achieve this goal, there are two different approaches: one approach is to model the number of claims and the individual claim sizes and the other is to model the distribution of the accumulated claim sizes directly. We consider the first approach in the second section and the second approach in the third section. In the fourth section, we discuss numerical methods to calculate the distribution function.
+  </p>
+  <h4>
+   <b>
+    Compound Models
+   </b>
+  </h4>
+  <p block-type="Text">
+   The most natural way to model the accumulated claims distribution is the distribution of a random sum
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S = \sum_{k=1}^{N} Y_k \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    N \in \{0, 1, \ldots\}
+   </math>
+   is the (random) number of claims and
+   <math display="inline">
+    Y_k
+   </math>
+   is the (random) size of the kth claim. Here, we make the convention
+   <math display="inline">
+    \sum_{k=1}^{0} Y_k = 0
+   </math>
+   . In a portfolio where claims do not occur simultaneously, one can assume that N and
+   <math display="inline">
+    \{Y_k\}
+   </math>
+   are independent and that
+   <math display="inline">
+    \{Y_k\}
+   </math>
+   are independent and identically distributed (i.i.d.). If claims occur simultaneously—as, for instance, claims caused by natural catastrophes—one has to consider
+   <math display="inline">
+    Y_k
+   </math>
+   as the accumulated claim from an event. The distribution of
+   <math display="inline">
+    S
+   </math>
+   is then called a
+   <i>
+    compound distribution
+   </i>
+   (see
+   <b>
+    Ruin Theory
+   </b>
+   ; Insurance Risk Models).
+  </p>
+  <p block-type="Text">
+   One often needs some characteristics of the distribution of S. By conditioning on
+   <math display="inline">
+    N
+   </math>
+   , one finds
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[S] = \mathbb{E}[N]\mathbb{E}[Y] \tag{2}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Var[S] = Var[N]E[Y]^{2} + Var[Y]E[N]
+   </math>
+   (3)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[\mathbf{e}^{rS}] = \mathbb{E}[\exp\{N \log \mathbb{E}[\mathbf{e}^{rY}]\}] \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We see that the characteristics can be easily calculated from the corresponding quantities for
+   <math display="inline">
+    N
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    p_k = \mathbb{P}[N = k]
+   </math>
+   . Popular models for N are the binomial distribution
+   <math display="inline">
+    p_k = \binom{n}{k} q^k (1-q)^{n-k}
+   </math>
+   ,
+   <math display="inline">
+    n \in \mathbb{N}, q \in (0, 1)
+   </math>
+   ; the Poisson distribution
+   <math display="inline">
+    p_k = e^{-\lambda} \lambda^k / k!
+   </math>
+   ,
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   ; the negative binomial distribution
+   <math display="inline">
+    p_k = \binom{\alpha + k - 1}{k} q^{\alpha} (1 - q)^k, \ \alpha &gt; 0, \ q \in (0, 1);
+   </math>
+   and the logistic distribution
+   <math display="inline">
+    p_k = -q^{n+1}/[(n+1)]
+   </math>
+   <math display="inline">
+    \log(1-q)
+   </math>
+   ,
+   <math display="inline">
+    q \in (0, 1)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The Poisson distribution appears as a limit. Suppose that there are
+   <math display="inline">
+    m
+   </math>
+   independent individual contracts where a claim occurs with probability
+   <math display="inline">
+    q^{(j)}
+   </math>
+   . The average number of claims is approximately
+   <math display="inline">
+    \lambda =
+   </math>
+   <math display="inline">
+    \sum_{j=1}^{m} q^{(j)}
+   </math>
+   . If now
+   <math display="inline">
+    m \to \infty
+   </math>
+   such that
+   <math display="inline">
+    \lambda
+   </math>
+   remains constant and
+   <math display="inline">
+    \sum_{j=1}^{m} (q^{(j)})^2 \rightarrow 0
+   </math>
+   , then the number of claims converges to a Poisson distribution with parameter
+   <math display="inline">
+    \lambda
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The compound Poisson model has a few more nice properties. Suppose that there are
+   <i>
+    m
+   </i>
+   portfolios
+   <math display="inline">
+    S^{(j)}
+   </math>
+   modeled as compound Poisson with parameter
+   <math display="inline">
+    \lambda^{(j)}
+   </math>
+   and the distribution
+   <math display="inline">
+    G^{(j)}(y)
+   </math>
+   of the increments. Then
+   <math display="inline">
+    S = \sum_{i=1}^{m} S^{(i)}
+   </math>
+   has a compound Poisson distribution with parameter
+   <math display="inline">
+    \lambda = \sum_{j=1}^{m} \lambda^{(j)}
+   </math>
+   and distribution of the increments
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(y) = \sum_{j=1}^{m} \lambda^{-1} \lambda^{(j)} G^{(j)}(y) \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Conversely, if
+   <math display="inline">
+    S
+   </math>
+   has a compound Poisson distribution and
+   <math display="inline">
+    B^{(j)}
+   </math>
+   are sets such that
+   <math display="inline">
+    B^{(i)} \cap B^{(j)} = \emptyset
+   </math>
+   for
+   <math display="inline">
+    i \neq j
+   </math>
+   <i>
+    j
+   </i>
+   , then
+   <math display="inline">
+    S^{(j)} = \sum_{k=1}^{N} Y_k \mathbb{I}_{Y_k \in B^{(j)}}
+   </math>
+   are independent and compound Poisson distributed with parameter
+   <math display="inline">
+    \lambda^{(j)} =
+   </math>
+   <math display="inline">
+    \lambda \mathbb{P}[Y \in B^{(j)}]
+   </math>
+   and
+   <math display="inline">
+    Y_k^{(j)}
+   </math>
+   has the distribution
+   <math display="inline">
+    \mathbb{P}[Y \in \cdot \mid
+   </math>
+   <math display="inline">
+    Y \in B^{(j)}
+   </math>
+  </p>
+  <p block-type="Text">
+   Easy treatable models are also mixed Poisson models, where
+   <math display="inline">
+    \Lambda &gt; 0
+   </math>
+   is a random variable, and N conditioned on
+   <math display="inline">
+    \Lambda
+   </math>
+   has a Poisson distribution with parameter
+   <math display="inline">
+    \Lambda
+   </math>
+   . One finds that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[N] = \mathbb{E}[\Lambda] \tag{6}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Var[N] = Var[\Lambda] + \mathbb{E}[\Lambda] \tag{7}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[\mathbf{e}^{rN}] = \mathbb{E}[\exp{\Lambda(\mathbf{e}^r - 1)}] \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For example, if
+   <math display="inline">
+    \Lambda
+   </math>
+   follows a gamma distribution, which means that
+   <math display="inline">
+    \Lambda
+   </math>
+   has the density
+   <math display="inline">
+    \beta^{\gamma} x^{\gamma-1} e^{-\beta x} \mathbb{I}_{x&gt;0} / \Gamma(\gamma)
+   </math>
+   , then N has a negative binomial distribution with
+   <math display="inline">
+    \alpha = \gamma
+   </math>
+   and
+   <math display="inline">
+    q = \beta/(\beta + 1)
+   </math>
+   .
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Densities of
+   <math display="inline">
+    S
+   </math>
+   (solid line), its normal approximation (dotted line), and its translated gamma approximation (dashed line)
+  </p>
+  <p block-type="Text">
+   Further risk models and details can be found in
+   <math display="inline">
+    [1, 3, 4, 7, 9]
+   </math>
+   . Applications to operational risk are described in
+   <math display="inline">
+    [2, 5, 6]
+   </math>
+   .
+  </p>
+  <h4>
+   Approximations
+  </h4>
+  <p block-type="TextInlineMath">
+   The calculation of the distribution of a compound sum is in general not possible. It involves
+   <math display="inline">
+    n
+   </math>
+   -fold convolutions, that is,
+   <math display="inline">
+    n
+   </math>
+   -fold integrals, which numerically is a problem. One, therefore, has to use approximations to the aggregate claims distribution. Let us denote by
+   <math display="inline">
+    \mu_k = \mathbb{E}[S^k]
+   </math>
+   the moments of S, by
+   <math display="inline">
+    \sigma^2 =
+   </math>
+   <math display="inline">
+    \mu_2 - \mu_1^2
+   </math>
+   the variance, and by
+   <math display="inline">
+    \beta = \mathbb{E}[(S - \mu)^3] \sigma^{-3/2}
+   </math>
+   the coefficient of skewness.
+  </p>
+  <p block-type="Text">
+   The
+   <i>
+    normal approximation
+   </i>
+   is the normal distribution with the same mean and variance as
+   <math display="inline">
+    S
+   </math>
+   . This approximation usually does not fit well because it does not take care of the skewness.
+  </p>
+  <p block-type="TextInlineMath">
+   An approximation that usually works well is the translated gamma approximation. Let
+   <math display="inline">
+    \gamma = 4\beta^{-2}
+   </math>
+   ,
+   <math display="inline">
+    \alpha =
+   </math>
+   <math display="inline">
+    2/(\beta\sigma)
+   </math>
+   , and
+   <math display="inline">
+    k = \mu - \gamma/\alpha
+   </math>
+   . Let Z be a gammadistributed random variable with parameters
+   <math display="inline">
+    \nu
+   </math>
+   and
+   <math display="inline">
+    \alpha
+   </math>
+   . Then
+   <math display="inline">
+    Z + k
+   </math>
+   has the same first three moments as S. That three moments are matched is also a reason for the good fit.
+  </p>
+  <p block-type="Text">
+   As an example we consider a compound Poisson distribution with
+   <math display="inline">
+    \lambda = 20
+   </math>
+   and Pareto-distributed claim sizes with mean 1 and variance 2, that is,
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \mathbb{P}[Y &gt; y] = (3/(3 + y))^4
+   </math>
+   . Figure 1 shows the densities of the exact distribution and its normal and translated gamma approximations. Both approximations do not fit well close to the mean value 20, but for risk management this region is not very interesting. We can see that in the right tail the normal approximation underestimates the true density considerably, whereas the fit in the tail of the translated gamma approximation is quite good.
+  </p>
+  <p block-type="Text">
+   Further possibilities for approximations are Edgeworth expansions, saddle point approximations, or the normal power approximation,
+   <math display="inline">
+    [3, 4, 7, 9]
+   </math>
+   .
+  </p>
+  <h3>
+   <b>
+    Panjer Recursion
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   Suppose that
+   <math display="inline">
+    Y_i &gt; 0
+   </math>
+   takes values in N. Then also S takes values in
+   <math display="inline">
+    \mathbb{N}
+   </math>
+   . If we denote by
+   <math display="inline">
+    f_k =
+   </math>
+   <math display="inline">
+    \mathbb{P}[Y=k]
+   </math>
+   and
+   <math display="inline">
+    f_k^{*n} = \mathbb{P}[Y_1 + \cdots + Y_n = k]
+   </math>
+   , then
+   <math display="inline">
+    g_k = \mathbb{P}[S = k]
+   </math>
+   can be calculated by
+   <math display="inline">
+    g_0 = p_0
+   </math>
+   and
+   <math display="inline">
+    g_n = \sum_{k=1}^n p_k f_n^{*k}
+   </math>
+   . The convolutions are obtained recursively:
+   <math display="inline">
+    f_k^{*(n+1)} = \sum_{\ell=1}^{k-1} f_\ell^{*n} f_{k-\ell}
+   </math>
+   , where
+   <math display="inline">
+    f_\ell^{*1} = f_\ell
+   </math>
+   . The problem is that numerous calculations have to be executed, which makes the procedure slow.
+  </p>
+  <p block-type="Text">
+   A faster procedure can be found if for
+   <math display="inline">
+    r \ge 1
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_r = \left(a + \frac{b}{r}\right) p_{r-1} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some constants
+   <i>
+    a, b
+   </i>
+   . It turns out that the distribution of
+   <i>
+    N
+   </i>
+   must be binomial (
+   <i>
+    a &lt;
+   </i>
+   0, −
+   <i>
+    b/a
+   </i>
+   ∈ ), Poisson (
+   <i>
+    a
+   </i>
+   = 0,
+   <i>
+    b &gt;
+   </i>
+   0), or negative binomial (
+   <i>
+    a
+   </i>
+   ∈
+   <i>
+    (
+   </i>
+   0
+   <i>
+    ,
+   </i>
+   1
+   <i>
+    )
+   </i>
+   ,
+   <i>
+    a
+   </i>
+   +
+   <i>
+    b &gt;
+   </i>
+   0). In these cases, we have
+   <i>
+    g
+   </i>
+   <sup>
+    0
+   </sup>
+   =
+   <i>
+    p
+   </i>
+   <sup>
+    0
+   </sup>
+   and recursively
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g_r = \sum_{k=1}^r \left( a + \frac{bk}{r} \right) f_k g_{r-k} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   The method is fast and is also stable for the compound Poisson and the compound negative binomial distributions. This method goes back to Panjer [8].
+  </p>
+  <p block-type="TextInlineMath">
+   Generalizations of formula (10) are treated for the case where
+   <i>
+    f
+   </i>
+   <sup>
+    0
+   </sup>
+   <i>
+    &gt;
+   </i>
+   0 or the case where the recursion (9) holds for
+   <i>
+    r
+   </i>
+   ≥
+   <i>
+    &gt;
+   </i>
+   1 [4, 10–12].
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Asmussen, S. (2000).
+     <i>
+      Ruin Probabilities
+     </i>
+     , World Scientific, Singapore.
+    </li>
+    <li block-type="ListItem">
+     [2] Cruz, M.G. (2002).
+     <i>
+      Modeling, Measuring and Hedging Operational Risk
+     </i>
+     , Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [3] Daykin, C.D., Pentikainen, T. &amp; Pesonen, M. (1994). ¨
+     <i>
+      Practical Risk Theory for Actuaries
+     </i>
+     , Chapman &amp; Hall, London.
+    </li>
+    <li block-type="ListItem">
+     [4] Dickson, D.C.M. (2005).
+     <i>
+      Insurance Risk and Ruin
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [5] Embrechts, P., Kaufmann, R. &amp; Samorodnitsky, G. (2004). Ruin theory revisited, stochastic models for operational risk, in
+     <i>
+      Risk Management for Central Bank Foreign Reserves
+     </i>
+     , C. Bernadell, P. Cardon, J. Coche,
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   F.X. Diebold, S. Manganelli, eds, European Central Bank, Frankfurt A.M., pp. 243–261.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [6] Frachot, A., Moudoulaud, O. &amp; Roncalli, T. (2004). Loss distribution approach in practice, in M. Ong, ed.,
+     <i>
+      The Basel Handbook: A Guide for Financial Practitioners
+     </i>
+     , Risk Books, London.
+    </li>
+    <li block-type="ListItem">
+     [7] Gerber, H.U. (1979).
+     <i>
+      An Introduction to Mathematical Risk Theory
+     </i>
+     , Huebner Foundation Monographs, Philadelphia.
+    </li>
+    <li block-type="ListItem">
+     [8] Panjer, H.H. (1981). Recursive evaluation of a family of compound distributions,
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      12
+     </b>
+     , 22–26.
+    </li>
+    <li block-type="ListItem">
+     [9] Rolski, T., Schmidli, H., Schmidt, V. &amp; Teugels, J.L. (1999).
+     <i>
+      Stochastic Processes for Insurance and Finance
+     </i>
+     , Wiley, Chichester.
+    </li>
+    <li block-type="ListItem">
+     [10] Schroter, K.J. (1991). On a family of counting distribu- ¨ tions and recursions for related compound distributions,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     161–175.
+    </li>
+    <li block-type="ListItem">
+     [11] Sundt, B. (1992). On some extensions of Panjer's class of counting distributions,
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      22
+     </b>
+     , 61–80.
+    </li>
+    <li block-type="ListItem">
+     [12] Sundt, B. &amp; Jewell, W.S. (1981). Further results on recursive evaluation of compound distributions,
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      12
+     </b>
+     , 27–39.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Cramer–Lundberg Estimates ´
+   </b>
+   ;
+   <b>
+    Heavy Tails in Insurance
+   </b>
+   ;
+   <b>
+    Insurance Risk Models
+   </b>
+   ;
+   <b>
+    Operational Risk
+   </b>
+   ;
+   <b>
+    Poisson Process
+   </b>
+   ;
+   <b>
+    Ruin Theory
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   HANSPETER SCHMIDLI
+  </p>
+ </body>
+</html>

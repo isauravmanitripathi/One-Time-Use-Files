@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Entropy-based Estimation
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Let P,
+   <math display="inline">
+    \mu
+   </math>
+   be two probability measures on a probability space, with
+   <math display="inline">
+    P
+   </math>
+   absolutely continuous with respect to
+   <math display="inline">
+    \mu
+   </math>
+   (see Equivalence of Probability Measures), and denote the density of P with respect to
+   <math display="inline">
+    \mu
+   </math>
+   by
+   <math display="inline">
+    dP/d\mu &gt; 0
+   </math>
+   . The relative entropy
+   <math display="inline">
+    D(P||\mu)
+   </math>
+   , sometimes called the
+   <i>
+    Kullback-Leibler information
+   </i>
+   [9] or divergence in statistics, is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D(P \|\mu) = \int_{\Omega} \log \left(\frac{\mathrm{d}P}{\mathrm{d}\mu}\right) \mathrm{d}P
+   </math>
+   <math display="block">
+    = \int_{\Omega} \frac{\mathrm{d}P}{\mathrm{d}\mu} \log \left(\frac{\mathrm{d}P}{\mathrm{d}\mu}\right) \mathrm{d}\mu \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Jensen's inequality can be used to show
+   <math display="inline">
+    D(P||\mu) &gt; 0
+   </math>
+   and
+   <math display="inline">
+    D(P\|\mu) = 0
+   </math>
+   if and only if
+   <math display="inline">
+    P \equiv \mu
+   </math>
+   .
+   <math display="inline">
+    D(P\|\mu)
+   </math>
+   is thus an (asymmetric) index of the discrepancy between P and
+   <math display="inline">
+    \mu
+   </math>
+   , and its definition is grounded in information theory and statistical mechanics. When
+   <math display="inline">
+    P = (P_1, ..., P_H)
+   </math>
+   and
+   <math display="inline">
+    \mu = (\mu_1, ..., \mu_H)
+   </math>
+   are probability measures on a discrete set with
+   <math display="inline">
+    H
+   </math>
+   elements,
+   <math display="inline">
+    D(P\|\mu) = \sum_{h=1}^{H} P_h \log\left(\frac{P_h}{\mu_h}\right)
+   </math>
+   . In the special case where
+   <math display="inline">
+    \mu_h \equiv 1/H
+   </math>
+   is the uniform distribution,
+   <math display="inline">
+    D(P\|\mu)
+   </math>
+   is the Shannon entropy
+   <math display="inline">
+    -\sum_h P_h \log P_h.
+   </math>
+  </p>
+  <h1>
+   <b>
+    Estimation by Entropy Minimization
+   </b>
+   under Constraints
+  </h1>
+  <p block-type="TextInlineMath">
+   Let x denote a (vector) of random variable(s),
+   <math display="inline">
+    \beta
+   </math>
+   a (vector) of parameter(s), and
+   <math display="inline">
+    f(x, \beta)
+   </math>
+   a (column vector) of real-valued function(s). Let
+   <math display="inline">
+    E_P[f(x, \beta)]
+   </math>
+   denote its expectation computed with probability measure P. For a specific value of
+   <math display="inline">
+    \beta
+   </math>
+   , define the set of probability measures:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{P}(\beta) \equiv \{P : E_P[f(x,\beta)] = 0\} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which additionally are absolutely continuous with respect to a distinguished measure
+   <math display="inline">
+    \mu
+   </math>
+   that is determined by the application. Selection of a particular probability measure in
+   <math display="inline">
+    \mathcal{P}(\beta)
+   </math>
+   is an example of
+   <i>
+    lin
+   </i>
+   ear inverse problem. One way to select a solution in stable manner is by picking the probability measure,
+  </p>
+  <p block-type="Text">
+   which minimizes the relative entropy with respect to
+   <math display="inline">
+    \mu
+   </math>
+   under constraints
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} &amp; \min_{P \in \mathcal{P}(\beta)} D(P \| \mu) \\ &amp; \equiv \min_{P} \int \log(\mathrm{d}P/d\mu) \, \mathrm{d}P \ \ s.t. \ E_{P}[f(x, \beta)] \\ &amp; = 0 \end{aligned} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    \mu
+   </math>
+   is the uniform distribution on a finite set with H elements,
+   <math display="inline">
+    \mu_h \equiv 1/H
+   </math>
+   and the constrained minimization of
+   <math display="inline">
+    D(P||\mu)
+   </math>
+   is equivalent to maximization of the Shannon entropy
+   <math display="inline">
+    -\sum_h P_h \log P_h
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The solution to equation
+   <math display="inline">
+    (3)
+   </math>
+   is well known ([10],
+   <math display="inline">
+    sec.3(A)
+   </math>
+   ) to have the following
+   <i>
+    Gibbs Canonical
+   </i>
+   or Esscher Transformed density (see Esscher Transform)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}P(\beta)}{\mathrm{d}\mu} = \frac{\mathrm{e}^{\gamma(\beta)'f(x,\beta)}}{E_{\mu}[\mathrm{e}^{\gamma(\beta)'f(x,\beta)}]} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   To compute the coefficient vector
+   <math display="inline">
+    \gamma(\beta)
+   </math>
+   in equation
+   <math display="inline">
+    (4)
+   </math>
+   , solve the following problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \gamma(\beta) = \arg\max_{\gamma} I \equiv -\log E_{\mu}[\mathrm{e}^{\gamma' f(x,\beta)}] \quad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the maximized value of
+   <math display="inline">
+    I
+   </math>
+   in equation (5) turns out to be the minimal relative entropy
+   <math display="inline">
+    D(P(\beta) \| \mu)
+   </math>
+   in equation (3). This constrained minimum of relative entropy also has a frequentist interpretation from the large deviations (see
+   <b>
+    Large Deviations
+   </b>
+   ) theory of IID processes, which will prove useful in motivating the parameter estimation procedure described later.
+  </p>
+  <h1>
+   <b>
+    Application to Derivative Security
+   </b>
+   Valuation
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   Consider the simplest problem of option pricing: value a European call option, written on a single underlying stock that pays no dividends, whose price at expiration T-periods ahead is denoted
+   <math display="inline">
+    x(T)
+   </math>
+   . The riskless, continuously compounded gross interest rate
+   <math display="inline">
+    r
+   </math>
+   is constant between now and expiration. Under the familiar assumptions of complete and frictionless markets that do not admit arbitrage opportunities, there is a
+   <i>
+    risk-neutral
+   </i>
+   probability measure
+   <math display="inline">
+    P
+   </math>
+   under which the call option's price
+   <math display="inline">
+    C
+   </math>
+   is the expected
+  </p>
+  <p block-type="Text">
+   value of its risklessly discounted payoff at expiration, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C = E_P[\max[x(T) - K, 0]/r^T] \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the risk-neutral probabilities
+   <math display="inline">
+    P
+   </math>
+   satisfy the
+   <i>
+    "martingale"
+   </i>
+   constraint
+   <math display="inline">
+    x(0) = E_P \left[ \frac{x(T)}{T} \right]
+   </math>
+   , rewritten as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_P\left[\frac{x(T)}{x(0)r^T} - 1\right] = 0\tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   Risk-neutral pricing of options proceeds by specifying a parametric model for the risk-neutral stochastic price process of the underlying stock. Parameter values are found that make the model's computed stock prices and/or option prices close (e.g., in the least-squares sense) to observed stock and/or option prices [4]. In the simplest case (the Black-Scholes model), this procedure requires an estimate of the volatility parameter, found either from past stock returns (i.e., historical volatility) or from market option prices (i.e., a best-fitting implied volatility).
+  </p>
+  <p block-type="TextInlineMath">
+   However, suppose one has doubts about the correct parametric model. The formalism of the previous section provides an alternative. Let the scalar function
+   <math display="inline">
+    f(x, \beta) = \frac{x(T)}{x(0)r^T} - 1
+   </math>
+   , where
+   <math display="inline">
+    \beta = r
+   </math>
+   . The distribution
+   <math display="inline">
+    \mu
+   </math>
+   is the forecast distribution of
+   <math display="inline">
+    x(T)
+   </math>
+   . To estimate this, one could just use a histogram of past
+   <math display="inline">
+    T
+   </math>
+   -period stock returns as in [27, 29], a conditional histogram [28], or a more complex forecasting model [13]. The distribution is then substituted into equation (5) and solved to find the
+   <math display="inline">
+    \nu(\beta)
+   </math>
+   needed to estimate the density
+   <math display="inline">
+    P(\beta)
+   </math>
+   in equation (4), which is required to compute the option valuation (6). It is possible to extend the approach to handle stochastic dividends and interest rates.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Another approach presumes a particular form for
+   <math display="inline">
+    \mu
+   </math>
+   , and defines a vector
+   <math display="inline">
+    f(x, \beta)
+   </math>
+   with
+   <i>
+    i
+   </i>
+   th component
+   <math display="inline">
+    \max[x(T) - K_i, 0]/r^T - C_i
+   </math>
+   , where
+   <math display="inline">
+    C_i
+   </math>
+   is the observed market price for a call with exercise price
+   <math display="inline">
+    K_i
+   </math>
+   , as in [5, 19]. Then, equations (4)–(5) are used to study the nature of the measure
+   <math display="inline">
+    P(\beta)
+   </math>
+   implied by those options' market prices, while equation
+   <math display="inline">
+    (6)
+   </math>
+   could be used to value options other than those present in
+   <math display="inline">
+    f
+   </math>
+   . See [3, 7, 8] for some theoretical
+  </p>
+  <p block-type="Text">
+   and applied extensions of this approach. (see also Weighted Monte Carlo).
+  </p>
+  <p block-type="Text">
+   Further refinements were developed by Gray et al. [16], showing that the associated dynamic hedge (i.e., entropic hedge ratio) outperformed hedging benchmarks, and by Alcock and Carmichael [1], extending the concept to enable valuation of American options.
+  </p>
+  <p block-type="Text">
+   The entropic approaches are not necessarily inconsistent with the conventional approach. In fact, extant closed-form option pricing models can be analytically derived by specification of the process generating the stock price distributions, and systematically applying the
+   <b>
+    Esscher transform
+   </b>
+   <math display="inline">
+    (4)
+   </math>
+   as in
+   <math display="inline">
+    [12, 14]
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Application to Parameter Estimation
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   A research program initiated by Hansen [17] first developed the generalized methods of moments (GMM) parameter estimator. Two entropy-based alternatives are defined, motivated by alternative frequentist estimation criteria suggested by large deviations theory (see Cramér's Theorem; Large Deviations). We begin with this alternative frequentist criterion, and finish by describing its connection to entropy. Interpret
+   <math display="inline">
+    \beta
+   </math>
+   in equation (2) to be an unknown vector of parameters from a set
+   <math display="inline">
+    \Theta
+   </math>
+   of possible parameter vectors, and
+   <math display="inline">
+    f(x; \beta) = (f_1, \ldots, f_r)
+   </math>
+   to be an
+   <math display="inline">
+    r
+   </math>
+   -component column vector of observable, real-valued functions. A time series of the random variable x is denoted
+   <math display="inline">
+    x_1, \ldots, x_T
+   </math>
+   . The corresponding (random) sample average of the vector
+   <math display="inline">
+    f
+   </math>
+   is denoted
+   <math display="inline">
+    f_T(\beta) \equiv \sum_{t=1}^T f(x_t; \beta) / T.
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The empirical asset pricing literature considers processes for which a typical realization produces
+   <math display="inline">
+    \lim_{T\to\infty} f_T(\beta) = E[f(x;\beta)],
+   </math>
+   where the expectations operator is, unless otherwise subscripted, taken with respect to the invariant measure
+   <math display="inline">
+    \mu
+   </math>
+   of the process. So the probability of observing
+   <math display="inline">
+    f_T(\beta)
+   </math>
+   in a compact neighborhood that does not contain the population mean
+   <math display="inline">
+    E[f(x;\beta)]
+   </math>
+   must approach zero as
+   <math display="inline">
+    T \to \infty
+   </math>
+   . The asymptotic rate at which this probability goes to zero can be calculated by use of part of a powerful result of Ellis [11], exposited in [6], (pp.
+   <math display="inline">
+    20-22
+   </math>
+   ), and perhaps first used in asset pricing by Stutzer [26], (Appendix). Define the following extended, real-valued function of an
+   <math display="inline">
+    r
+   </math>
+   -component
+  </p>
+  <p block-type="Text">
+   vector
+   <math display="inline">
+    \nu
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \phi_T(\gamma;\beta) &amp;\equiv \frac{1}{T} \log E \left[ e^{\gamma' \sum_{t=1}^T f(x_t,\beta)} \right] \\ &amp;= \frac{1}{T} \log E \left[ \prod_{t=1}^T e^{\gamma' f(x_t,\beta)} \right] \end{split} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   Define the asymptotic limit of equation
+   <math display="inline">
+    (8)
+   </math>
+   to be
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi(\gamma;\beta) \equiv \lim_{T \to \infty} \phi_T(\gamma;\beta) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   and the nonnegative, probability decay
+   <i>
+    rate
+   </i>
+   function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I(c) \equiv \sup_{\gamma} [\gamma' c - \phi(\gamma; \beta)] \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   identical to the optimally weighted GMM criterion:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \arg\min_{\beta} I(0) = \frac{1}{2} E[f(x;\beta)]'
+   </math>
+   <math display="block">
+    \times \left(\sum_{\tau=-\infty}^{\tau=+\infty} \Gamma_{\tau}(\beta)\right)^{-1} E[f(x;\beta)] \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   forming the foundation for different feasible estimators, corresponding to different ways of estimating the population moments and infinite sum present in equation
+   <math display="inline">
+    (12)
+   </math>
+   , though the large deviation interpretation (see Large Deviations) of equation (12) no longer holds outside of Gaussianity.&lt;sup&gt;a&lt;/sup&gt;
+  </p>
+  <p block-type="Text">
+   What can be done in more realistic cases where the researcher does not want to commit to specific distributional assumptions? The general criterion is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \arg\min_{\beta} \left[ I(0) = \sup_{\gamma} - \lim_{T \to \infty} \left( \phi_T(\gamma; \beta) \equiv \frac{1}{T} \log E \left[ e^{\gamma' \sum_{t=1}^T f(x_t, \beta)} \right] \right) \right] \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then the probability of observing a value of the sample average lying within a closed (open) set
+   <math display="inline">
+    C
+   </math>
+   (O) that does
+   <i>
+    not
+   </i>
+   contain the population mean
+   <math display="inline">
+    E[f(x; \beta)],
+   </math>
+   decays toward zero at a positive asymptotic rate that must be weakly larger (smaller) than
+   <math display="inline">
+    \inf_{c \in C} I(c; \beta) \ (\inf_{c \in O} I(c; \beta)).
+   </math>
+  </p>
+  <p block-type="Text">
+   Hansen [17] GMM framework estimates parameters and tests theoretical implications represented by the constraints:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \exists \; !\beta^* : E[f(x;\beta^*)] = 0 \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \beta^*
+   </math>
+   is the unique parameter vector (to be estimated) that satisfies the moment constraints.
+  </p>
+  <p block-type="TextInlineMath">
+   Define
+   <math display="inline">
+    \mathcal{O}_{\epsilon}
+   </math>
+   to be the open
+   <math display="inline">
+    \epsilon
+   </math>
+   -ball about
+   <math display="inline">
+    E[f(x; \beta^*)]
+   </math>
+   <math display="inline">
+    = 0
+   </math>
+   . Because the identification condition (11) implies that
+   <math display="inline">
+    E[f(x;\beta)] \neq 0
+   </math>
+   when
+   <math display="inline">
+    \beta \neq \beta^*
+   </math>
+   , the probability of finding
+   <math display="inline">
+    f_T(\beta) \in \mathcal{O}_{\epsilon}
+   </math>
+   decays to zero at an asymptotic rate weakly lower than
+   <math display="inline">
+    \inf_{c \in \mathcal{O}_c} I(c)
+   </math>
+   . Because the limit of this as
+   <math display="inline">
+    \epsilon \downarrow 0
+   </math>
+   is
+   <math display="inline">
+    I(0)
+   </math>
+   , which is 0 if and only if
+   <math display="inline">
+    \beta = \beta^*
+   </math>
+   , a sensible estimation criterion is to search for a value of
+   <math display="inline">
+    \beta
+   </math>
+   making it as small as possible, that is, find arg
+   <math display="inline">
+    \min_{\beta} I(0)
+   </math>
+   [15]. Kitamura and Stutzer [23] show that when the vector
+   <math display="inline">
+    f
+   </math>
+   is Gaussian with stationary covariance sequence
+   <math display="inline">
+    E[(f(x_t; \beta)  E[f(x_t;\beta)]\ (f(x_t;\ \beta) - E[f(x_{t-\tau};\ \beta)])'] \equiv \Gamma_{\tau}(\beta),
+   </math>
+   <math display="inline">
+    j = -\infty, \ldots, +\infty
+   </math>
+   , this estimation criterion is
+  </p>
+  <p block-type="TextInlineMath">
+   so a feasible estimator of equation
+   <math display="inline">
+    (13)
+   </math>
+   is needed. Fortunately, Kitamura [20] developed a smoothing approach to estimation, which was used in ([22], (equation (9)) to produce an analog estimator [24] of the minimizing
+   <math display="inline">
+    \beta
+   </math>
+   in equation (13) (for proof, see [23]). Under regularity conditions listed there, they showed that this estimator is asymptotically equivalent to feasible, optimally weighted GMM in non-IID cases.
+  </p>
+  <h4>
+   Entropic Interpretation
+  </h4>
+  <p block-type="TextInlineMath">
+   When the process is IID (but not necessarily Gaussian),
+   <math display="inline">
+    \phi_T(\gamma;\beta) = \log E[e^{\gamma' f(x;\beta)}]
+   </math>
+   , so
+   <math display="inline">
+    I(0) \equiv
+   </math>
+   <math display="inline">
+    \max_{\gamma} - \log E[e^{\gamma' f(x;\beta)}]
+   </math>
+   and the large deviations estimation (see Large Deviations) criterion (13) simplifies to the exponential tilting criterion, that is,
+   <math display="inline">
+    \arg \min_{\beta} [I(0) = \max_{\gamma} - \log E[e^{\gamma' f(x;\beta)}]]
+   </math>
+   . From
+   <math display="inline">
+    \text{equation (5)}
+   </math>
+   and the comment immediately following it, we see that the optimized value of the criterion may also be interpreted as the moment-constrained minimum of relative entropy in equation
+   <math display="inline">
+    (3)
+   </math>
+   , in the IID special case.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In the general case
+   <math display="inline">
+    (13)
+   </math>
+   , the aforementioned analog estimator developed in
+   <math display="inline">
+    (22]
+   </math>
+   , equation
+   <math display="inline">
+    (9)
+   </math>
+   ) also has an entropic interpretation. It is the estimator that minimizes the relative entropy between the empirical
+  </p>
+  <p block-type="Text">
+   distribution of smoothed observations and the distribution of smoothed observations under the moment restriction.
+  </p>
+  <p block-type="Text">
+   Alternatively, when one substitutes
+   <i>
+    D(µ P )
+   </i>
+   for
+   <i>
+    D(P µ)
+   </i>
+   in equation (3) with no change in the rest of the formalism, the result is the
+   <i>
+    empirical likelihood
+   </i>
+   criterion [25]. From the view point of statistical inference and estimation, the empirical likelihood criterion
+   <i>
+    D(µ P )
+   </i>
+   achieves various optimality properties, especially in terms of large deviations [21]. First-order Taylor approximation of
+   <i>
+    D(µ P )
+   </i>
+   results in the
+   <i>
+    χ
+   </i>
+   <sup>
+    2
+   </sup>
+   distance (see [9], p. 333), so substituting it for
+   <i>
+    D(µ P )
+   </i>
+   yields the
+   <i>
+    Euclidean Empirical Likelihood
+   </i>
+   criterion [2, 18]. Of course, the large deviations interpretation is different, due to the interchange of
+   <i>
+    P
+   </i>
+   and
+   <i>
+    µ
+   </i>
+   in the formalism.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   Also, the choice of criterion function impacts the finite sample behavior of feasible estimators even under Gaussianity.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Alcock, J. &amp; Carmichael, T. (2008). Nonparametric American option pricing,
+     <i>
+      Journal of Futures Markets
+     </i>
+     <b>
+      28
+     </b>
+     , 717–748.
+    </li>
+    <li block-type="ListItem">
+     [2] Antoine, B., Bonnal, H. &amp; Renault, E. (2007). On the efficient use of informational content of estimating equations: implied probabilities and Euclidean empirical likelihood,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      138
+     </b>
+     , 461–486.
+    </li>
+    <li block-type="ListItem">
+     [3] Avellaneda, M. (1998). Minimum relative-entropy calibration of asset-pricing models,
+     <i>
+      Journal of Theoretical and Applied Finance
+     </i>
+     <b>
+      1
+     </b>
+     , 447–472.
+    </li>
+    <li block-type="ListItem">
+     [4] Bates, D.S. (1996). Testing option pricing models, in
+     <i>
+      Handbook of Statistics 15
+     </i>
+     , G.S. Maddala &amp; C.R. Rao, eds, North-Holland.
+    </li>
+    <li block-type="ListItem">
+     [5] Buchen, P.W. &amp; Kelly, M. (1996). The maximum entropy distribution of an asset inferred from option prices,
+     <i>
+      Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      31
+     </b>
+     , 143–159.
+    </li>
+    <li block-type="ListItem">
+     [6] Bucklew, J. (1990).
+     <i>
+      Large Deviation Techniques in Decision, Simulation, and Estimation
+     </i>
+     , Wiley.
+    </li>
+    <li block-type="ListItem">
+     [7] Cont, R. &amp; Tankov, P. (2004). Nonparametric calibration of jump-diffusion processes,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      7
+     </b>
+     (3), 1–49.
+    </li>
+    <li block-type="ListItem">
+     [8] Cont, R. &amp; Tankov, P. (2006). Retrieving Levy processes from option prices: regularization of a nonlinear inverse problem,
+     <i>
+      SIAM Journal of Control and Optimization
+     </i>
+     <b>
+      45
+     </b>
+     , 1–25.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [9] Cover, T.M. &amp; Thomas, J.A. (1991).
+     <i>
+      Elements of Information Theory
+     </i>
+     , Wiley.
+    </li>
+    <li block-type="ListItem">
+     [10] Csiszar, I. (1975). I-divergence geometry of probability distributions and minimization problems,
+     <i>
+      Annals of Probability
+     </i>
+     <b>
+      3
+     </b>
+     , 146–158.
+    </li>
+    <li block-type="ListItem">
+     [11] Ellis, R. (1984). Large deviations for a general class of random vectors,
+     <i>
+      Annals of Probability
+     </i>
+     <b>
+      12
+     </b>
+     , 1–12.
+    </li>
+    <li block-type="ListItem">
+     [12] Eberlein, E., Keller, U. &amp; Prause, K. (1998). New insights into smile, mispricing, and value at risk: The Hyperbolic model,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      71
+     </b>
+     , 371–405.
+    </li>
+    <li block-type="ListItem">
+     [13] Foster, F.D. &amp; Whiteman, C.H. (1999). An application of Bayesian option pricing to the soybean market,
+     <i>
+      American Journal of Agricultural Economics
+     </i>
+     <b>
+      81
+     </b>
+     , 222–272.
+    </li>
+    <li block-type="ListItem">
+     [14] Gerber, H. &amp; Shiu, E. (1994). Option pricing by Esscher Transforms,
+     <i>
+      Transactions of the Society of Actuaries
+     </i>
+     <b>
+      46
+     </b>
+     , 99–140.
+    </li>
+    <li block-type="ListItem">
+     [15] Glasserman, P. &amp; Jin, Y. (2000).
+     <i>
+      Comparing Stochastic Discount Factors Through their Implied Measures
+     </i>
+     , mimeo, Graduate School of Business, Columbia University.
+    </li>
+    <li block-type="ListItem">
+     [16] Gray, P., Edwards, S. &amp; Kalotay, E. (2007). Canonical pricing and hedging of index options,
+     <i>
+      Journal of Futures Markets
+     </i>
+     <b>
+      27
+     </b>
+     , 771–790.
+    </li>
+    <li block-type="ListItem">
+     [17] Hansen, L. (1982). Large sample properties of generalized methods of moments estimators,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      50
+     </b>
+     , 1029–1054.
+    </li>
+    <li block-type="ListItem">
+     [18] Hansen, L., Heaton, J. &amp; Yaron, A. (1996). Finite-sample properties of some alternative GMM estimators,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      14
+     </b>
+     , 262–280.
+    </li>
+    <li block-type="ListItem">
+     [19] Hawkins, R.J., Rubinstein, M. &amp; Daniell, G.J. (1996). Reconstruction of the probability density function implicit in option prices from incomplete and noisy data, in
+     <i>
+      Maximum Entropy and Bayesian Methods
+     </i>
+     , K. Hanson &amp; R. Silver, eds, Kluwer.
+    </li>
+    <li block-type="ListItem">
+     [20] Kitamura, Y. (1997). Empirical likelihood methods with weakly dependent processes,
+     <i>
+      Annuals of Statistics
+     </i>
+     <b>
+      25
+     </b>
+     , 2084–2102.
+    </li>
+    <li block-type="ListItem">
+     [21] Kitamura, Y. (2007). Empirical likelihood methods in econometrics, in
+     <i>
+      Advances in Economics and Econometrics
+     </i>
+     , R. Blundell, W. Newey &amp; T. Persson, eds, Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [22] Kitamura, Y. &amp; Stutzer, M. (1997). An informationtheoretic alternative to generalized method of moments estimation,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      65
+     </b>
+     , 861–874.
+    </li>
+    <li block-type="ListItem">
+     [23] Kitamura, Y. &amp; Stutzer, M. (2002). Connections between entropic and linear projections in asset pricing estimation,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      107
+     </b>
+     , 159–174.
+    </li>
+    <li block-type="ListItem">
+     [24] Manski, C. (1988).
+     <i>
+      Analog Estimation Methods in Economics
+     </i>
+     , Chapman and Hall, London.
+    </li>
+    <li block-type="ListItem">
+     [25] Owen, A. (2001). Chapman and Hall,
+     <i>
+      Empirical Likelihood
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [26] Stutzer, M. (1995). A Bayesian approach to diagnosis of asset pricing models,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      68
+     </b>
+     , 367–397.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [27] Stutzer, M. (1996). A simple nonparametric approach to derivative security valuation,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      51
+     </b>
+     , 1633–1652.
+    </li>
+    <li block-type="ListItem">
+     [28] Stutzer, M. &amp; Chowdhury, M. (1999). A simple nonparametric approach to bond futures option pricing,
+     <i>
+      Journal of Fixed Income
+     </i>
+     <b>
+      8
+     </b>
+     , 67–76.
+    </li>
+    <li block-type="ListItem">
+     [29] Zou, J. &amp; Derman, E. (1999).
+     <i>
+      Strike Adjusted Spread: A New Metric for Estimating the Value of Equity Options, Quantitative Strategies Research Note
+     </i>
+     , Goldman, Sachs and Co.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Osborne, M.F.M. (1970). Brownian motion in the stock market, in
+   <i>
+    The Random Character of the Stock Market
+   </i>
+   , P. Cootner, ed., MIT Press.
+  </p>
+  <p block-type="Text">
+   Stutzer, M. (2003). Portfolio choice with endogenous utility: a large deviations approach,
+   <i>
+    Journal of Econometrics
+   </i>
+   <b>
+    116
+   </b>
+   , 365–386.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Cramer's Theorem ´
+   </b>
+   ;
+   <b>
+    Esscher Transform
+   </b>
+   ;
+   <b>
+    Generalized Method of Moments (GMM)
+   </b>
+   ;
+   <b>
+    Large Deviations
+   </b>
+   ;
+   <b>
+    Minimal Entropy Martingale Measure
+   </b>
+   ;
+   <b>
+    Model Calibration
+   </b>
+   ;
+   <b>
+    Weighted Monte Carlo
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   YUICHI KITAMURA &amp; MICHAEL STUTZER
+  </p>
+ </body>
+</html>

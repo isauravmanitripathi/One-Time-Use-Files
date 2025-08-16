@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   Doob-Meyer Decomposition
+  </h2>
+  <p block-type="Text">
+   Submartingales are processes that grow on average. Subject to some condition of uniform integrability, they can be written uniquely as the sum of a martingale and a predictable increasing process. This result is known as the
+   <i>
+    Doob–Meyer decomposition
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Consider a filtered probability space
+   <math display="inline">
+    (\Omega, \mathscr{F},
+   </math>
+   <math display="inline">
+    \mathbf{F}
+   </math>
+   ,
+   <math display="inline">
+    P
+   </math>
+   ). It consists of a probability space
+   <math display="inline">
+    (\Omega, \mathscr{F}, P)
+   </math>
+   and a
+   <i>
+    filtration
+   </i>
+   <math display="inline">
+    \mathbf{F} = (\mathscr{F}_t)_{t&gt;0}
+   </math>
+   , that is, an increasing family of sub-
+   <math display="inline">
+    \sigma
+   </math>
+   -fields of
+   <math display="inline">
+    \mathscr{F}
+   </math>
+   . The
+   <math display="inline">
+    \sigma
+   </math>
+   -field
+   <math display="inline">
+    \mathscr{F}_t
+   </math>
+   stands for the information available at time
+   <math display="inline">
+    t
+   </math>
+   . A random event A belongs to
+   <math display="inline">
+    \mathscr{F}_t
+   </math>
+   , if we know at time t, whether it will take place or not, that is,
+   <math display="inline">
+    A
+   </math>
+   does not depend on randomness in the future. For technical reasons, one typically assumes right continuity, that is,
+   <math display="inline">
+    \mathscr{F}_t = \bigcap_{s&gt;t} \mathscr{F}_s
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   A martingale (see Martingales) (respectively submartingale, supermartingale) is an adapted, integrable process
+   <math display="inline">
+    (X_t)_{t \in \mathbb{R}_+}
+   </math>
+   satisfying
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(X_t|\mathscr{F}_s) = X_s \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (respectively
+   <math display="inline">
+    \geq X_s
+   </math>
+   ,
+   <math display="inline">
+    \leq X_s
+   </math>
+   ) for
+   <math display="inline">
+    s \leq t
+   </math>
+   . Moreover, we require these processes to be a.s. càdlàg, that is, rightcontinuous with left-hand limits. Adaptedness means that
+   <math display="inline">
+    X_t
+   </math>
+   is
+   <math display="inline">
+    \mathscr{F}_t
+   </math>
+   -measurable, that is, the random value
+   <math display="inline">
+    X_t
+   </math>
+   is known at the latest at time t. Integrability
+   <math display="inline">
+    E(|X_t|) &lt; \infty
+   </math>
+   is needed for the conditional expectation to be defined. The crucial martingale equality (1) means that the best prediction of future values of
+   <math display="inline">
+    X
+   </math>
+   is the current value, that is,
+   <math display="inline">
+    X
+   </math>
+   will stay on the current level on average. In other words, it does not exhibit any positive or negative trend. If
+   <math display="inline">
+    X
+   </math>
+   denotes the price of a security, this asset does not produce profits or losses on average. Submartingales, on the other hand, grow on average. Put differently, they show an upward trend compared to a martingale. This loose statement is made precise in terms of the Doob-Meyer decomposition.
+  </p>
+  <p block-type="TextInlineMath">
+   As a starting point, consider a discrete-time process
+   <math display="inline">
+    X = (X_t)_{t=0,1,2,...}
+   </math>
+   . In discrete time, a process
+   <math display="inline">
+    X
+   </math>
+   is called
+   <i>
+    predictable
+   </i>
+   if
+   <math display="inline">
+    X_t
+   </math>
+   is
+   <math display="inline">
+    \mathscr{F}_{t-1}
+   </math>
+   -measurable for
+   <math display="inline">
+    t = 1, 2, \ldots
+   </math>
+   This means that the value
+   <math display="inline">
+    X_t
+   </math>
+   is known already one period ahead. The
+   <i>
+    Doob decomposition
+   </i>
+   states that any submartingale
+   <math display="inline">
+    X
+   </math>
+   can be written uniquely as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = M_t + A_t \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with a martingale
+   <math display="inline">
+    M
+   </math>
+   and an increasing predictable process A satisfying
+   <math display="inline">
+    A_0 = 0
+   </math>
+   . While the intuitive meaning of
+   <math display="inline">
+    M
+   </math>
+   and
+   <math display="inline">
+    A
+   </math>
+   may not be obvious, the corresponding decomposition of the increments
+   <math display="inline">
+    \Delta X_t :=
+   </math>
+   <math display="inline">
+    X_t - X_{t-1}
+   </math>
+   is easier to understand.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta X_t = \Delta M_t + \Delta A_t \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   can be interpreted in the sense that the increment
+   <math display="inline">
+    \Delta X_t
+   </math>
+   consists of a predictable trend
+   <math display="inline">
+    \Delta A_t
+   </math>
+   and a random deviation
+   <math display="inline">
+    \Delta M_t
+   </math>
+   from that trend. Its implication
+   <math display="inline">
+    \Delta A_t =
+   </math>
+   <math display="inline">
+    E(\Delta X_t|\mathscr{F}_{t-1})
+   </math>
+   means that
+   <math display="inline">
+    \Delta A_t
+   </math>
+   is the best prediction of
+   <math display="inline">
+    \Delta X_t
+   </math>
+   in a mean-square sense and based on the information up to time
+   <math display="inline">
+    t-1
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The natural decomposition (3) does not make sense for continuous time processes but an analog of equation (2) still exists. To this end, the notion of predictability must be extended to continuous time. A process
+   <math display="inline">
+    X = (X_t)_{t \in \mathbb{R}_+}
+   </math>
+   is called
+   <i>
+    predictable
+   </i>
+   if—viewed as a mapping on
+   <math display="inline">
+    \Omega \times \mathbb{R}_+
+   </math>
+   —it is measurable with respect to the
+   <math display="inline">
+    \sigma
+   </math>
+   -field generated by all adapted, left-continuous processes. Intuitively, this rather abstract definition means that
+   <math display="inline">
+    X_t
+   </math>
+   is known slightly ahead of time
+   <math display="inline">
+    t
+   </math>
+   . In view of the discrete-time case, it may seem more natural to require that
+   <math display="inline">
+    X_t
+   </math>
+   be
+   <math display="inline">
+    \mathscr{F}_{t-}
+   </math>
+   -measurable, where
+   <math display="inline">
+    \mathscr{F}_{t-}
+   </math>
+   stands for the smallest sub-
+   <math display="inline">
+    \sigma
+   </math>
+   -field containing all
+   <math display="inline">
+    \mathscr{F}_s
+   </math>
+   ,
+   <math display="inline">
+    s &lt; t
+   </math>
+   . However, this slightly weaker condition turns out to be too weak for the general theory.
+  </p>
+  <p block-type="TextInlineMath">
+   In order for a decomposition
+   <math display="inline">
+    (2)
+   </math>
+   into a martingale
+   <math display="inline">
+    M
+   </math>
+   and a predictable increasing process A to exist, one must assume some uniform integrability of
+   <math display="inline">
+    X
+   </math>
+   . The process
+   <math display="inline">
+    X
+   </math>
+   must belong to the so-called
+   <i>
+    class
+   </i>
+   <math display="inline">
+    (D)
+   </math>
+   , which amounts to a rather technical condition implying
+   <math display="inline">
+    \sup_{t&gt;0} E(|X_t|) \leq \infty
+   </math>
+   but being itself implied by
+   <math display="inline">
+    E(\sup_{t&gt;0} |\bar{X}_t|) \leq \infty
+   </math>
+   . For its precise definition, we need to introduce the concept of a stopping time, which is not only an indispensable tool for the general theory of stochastic processes but also interesting for applications, for example, in mathematical finance. A
+   <math display="inline">
+    [0, \infty]
+   </math>
+   -valued random variable T is called
+   <i>
+    stopping time
+   </i>
+   if
+   <math display="inline">
+    \{T \le t\} \in \mathcal{F}_t
+   </math>
+   for any
+   <math display="inline">
+    t \ge 0
+   </math>
+   . Intuitively, T stands for a random time, which is generally not known in advance but at the latest once it has happened (e.g., the time of a phone call, the first time when a stock hits 100, the time when you crash your car into a tree). In financial applications, it appears, for example, as the exercise time of an American option.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Stopping times can be classified by their degree of suddenness.
+   <i>
+    Predictable
+   </i>
+   stopping times do not come
+  </p>
+  <p block-type="TextInlineMath">
+   entirely as a surprise because one anticipates them. Formally, a stopping time
+   <math display="inline">
+    T
+   </math>
+   is called
+   <i>
+    predictable
+   </i>
+   if it allows for an
+   <i>
+    announcing sequence
+   </i>
+   , that is, for a sequence
+   <math display="inline">
+    (T_n)_{n\in\mathbb{N}}
+   </math>
+   of stopping times satisfying
+   <math display="inline">
+    T_0
+   </math>
+   <math display="inline">
+    T_1 &lt; T_2 &lt; \dots
+   </math>
+   on
+   <math display="inline">
+    \{T &gt; 0\}
+   </math>
+   and
+   <math display="inline">
+    T_n \to T
+   </math>
+   as
+   <math display="inline">
+    n \to \infty
+   </math>
+   . This is the case for a continuous stock price hitting 100 or for the car crashing into a tree, because you can literally see the level 100 or the tree coming increasingly closer. Phone calls, strikes of lightning, or jumps of Lévy process, on the other hand, are of an entirely different kind because they happen completely out of the blue. Such stopping times
+   <math display="inline">
+    T
+   </math>
+   are called
+   <i>
+    totally inaccessible
+   </i>
+   , which formally means that
+   <math display="inline">
+    P(S = T &lt; \infty) = 0
+   </math>
+   for all predictable stopping times
+   <math display="inline">
+    S
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Coming back to our original theme, a process
+   <math display="inline">
+    X
+   </math>
+   is said to be of
+   <i>
+    class
+   </i>
+   (D) if the set
+   <math display="inline">
+    \{X_T : T \text{ finite stopping time}\}\
+   </math>
+   is uniformly integrable, which in turn means that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{c \to \infty} \sup_{T \text{ finite stopping time}} E(1_{\{|X_T| &gt; c\}} |X_T|) = 0
+   </math>
+  </p>
+  <p block-type="Text">
+   The
+   <i>
+    Doob–Meyer decomposition
+   </i>
+   can now be stated as follows:
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 1
+   </b>
+   Any submartingale
+   <math display="inline">
+    X
+   </math>
+   of class
+   <math display="inline">
+    (D)
+   </math>
+   allows for a unique decomposition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = M_t + A_t \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   with a martingale
+   <math display="inline">
+    M
+   </math>
+   and some predictable increasing process A satisfying
+   <math display="inline">
+    A_0 = 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The martingale
+   <math display="inline">
+    M
+   </math>
+   turns out to be of class (D) as well, which implies that it converges a.s. and in
+   <math display="inline">
+    L^1
+   </math>
+   to some terminal random variable
+   <math display="inline">
+    M_{\infty}
+   </math>
+   . Since the whole martingale
+   <math display="inline">
+    M
+   </math>
+   can be recovered from its limit via
+   <math display="inline">
+    M_t = E(M_{\infty}|\mathscr{F}_t)
+   </math>
+   , one can formally identify such
+   <i>
+    uniformly integrable martingales
+   </i>
+   with their limit.
+  </p>
+  <p block-type="Text">
+   In the case of an Itô process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}X_t = H_t \mathrm{d}W_t + K_t \mathrm{d}t \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   the Doob-Meyer decomposition is easily obtained. Indeed, we have
+   <math display="inline">
+    M_t = X_0 + \int_0^t H_s dW_s
+   </math>
+   and
+   <math display="inline">
+    A_t =
+   </math>
+   <math display="inline">
+    \int_0^t K_s ds
+   </math>
+   . However, a general Itô process need not, of course, be a submartingale. However, equation
+   <math display="inline">
+    (5)
+   </math>
+   suggests that a similar decomposition exists for more general processes. This is indeed the case. For a generalization covering all Itô processes we relax both the martingale property of
+   <math display="inline">
+    M
+   </math>
+   and the
+  </p>
+  <p block-type="TextInlineMath">
+   monotonicity of
+   <math display="inline">
+    A
+   </math>
+   . In general,
+   <math display="inline">
+    A
+   </math>
+   is only required to be of finite variation, that is, the difference of two increasing processes. In the Itô process example, these are
+   <math display="inline">
+    A_t^{(+)} = \int_0^t \max(K_s, 0) ds
+   </math>
+   and
+   <math display="inline">
+    A_t^{(-)} =
+   </math>
+   <math display="inline">
+    \int_0^t \max(-K_s, 0) ds
+   </math>
+   . Put differently, the trend may change its direction every now and then.
+  </p>
+  <p block-type="TextInlineMath">
+   To cover all Itô processes, one must also allow for local martingales rather than martingales.
+   <math display="inline">
+    M
+   </math>
+   is said to be a
+   <i>
+    local martingale
+   </i>
+   if there exists a sequence of stopping times
+   <math display="inline">
+    (T_n)_{n\in\mathbb{N}}
+   </math>
+   , which increases to
+   <math display="inline">
+    \infty
+   </math>
+   almost surely such that
+   <math display="inline">
+    M^{T_n}
+   </math>
+   is a martingale for any
+   <i>
+    n
+   </i>
+   . Here, the
+   <i>
+    stopped process
+   </i>
+   <math display="inline">
+    M^{T_n}
+   </math>
+   is defined as
+   <math display="inline">
+    M_t^{T_n} := M_{\min(T_n,t)}
+   </math>
+   , that is, it stays constant after time
+   <math display="inline">
+    T_n
+   </math>
+   (as e.g., your wealth does if you sell an asset at
+   <math display="inline">
+    T_n
+   </math>
+   ). This rather technical concept appears naturally in the general theory of stochastic processes. For example, stochastic integrals
+   <math display="inline">
+    M_t = \int_0^t H_s dN_s
+   </math>
+   relative to martingales
+   <math display="inline">
+    N
+   </math>
+   generally fail to be martingales but are typically local martingales or a little less, namely,
+   <math display="inline">
+    \sigma
+   </math>
+   -martingales.
+  </p>
+  <p block-type="TextInlineMath">
+   A local martingale is a uniformly integrable martingale, if and only if it is of class (D). Nevertheless, one should be careful with thinking that local martingales behave basically as martingales up to some integrability. For example, there exist local martingales
+   <math display="inline">
+    M_t = \int_0^t H_s dW_s
+   </math>
+   with
+   <math display="inline">
+    M_0 = 0
+   </math>
+   and
+   <math display="inline">
+    M_1 = 1
+   </math>
+   a.s. and such that
+   <math display="inline">
+    E(|M_t|) &lt; \infty
+   </math>
+   ,
+   <math display="inline">
+    t \ge 0
+   </math>
+   . Even though such a process has no trend in a local sense, it behaves entirely differently from a martingale on a global scale. The difference between local martingales and martingales leads to many technical problems in mathematical finance. For example, the previous example may be interpreted in the sense that dynamic investment in a perfectly reasonable martingale may lead to arbitrage unless the set of trading strategies is restricted to some admissible subset.
+  </p>
+  <p block-type="Text">
+   Let us come back to generalizing the Doob–Meyer decomposition. Without class (D) it reads as follows:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 2
+   </b>
+   Any submartingale
+   <math display="inline">
+    X
+   </math>
+   allows for a unique decomposition
+   <math display="inline">
+    (4)
+   </math>
+   with a local martingale M and some predictable increasing process A satisfying
+   <math display="inline">
+    A_0 = 0.
+   </math>
+  </p>
+  <p block-type="Text">
+   For a considerably larger class of processes
+   <math display="inline">
+    X
+   </math>
+   , there exists a canonical decomposition (4) with a local martingale
+   <math display="inline">
+    M
+   </math>
+   and some predictable process
+   <math display="inline">
+    A
+   </math>
+   of finite variation, which starts in 0. These processes are called
+   <i>
+    special semimartingales
+   </i>
+   and they play a key role in stochastic calculus. The slightly larger
+  </p>
+  <p block-type="Text">
+   class of
+   <i>
+    semimartingales
+   </i>
+   is obtained, if
+   <math display="inline">
+    A
+   </math>
+   is only required to be adapted rather than predictable. This class is, in some sense, the largest one that allows for the definition of a stochastic integral
+   <math display="inline">
+    \int_0^t H_s dX_s
+   </math>
+   satisfying a mild continuity property. In the general semimartingale case, decomposition (4) should not be called canonical because it is not unique. Moreover,
+   <math display="inline">
+    A
+   </math>
+   should not be regarded as a trend unless it is predictable. On the other hand, if the jumps of a semimartingale
+   <math display="inline">
+    X
+   </math>
+   are sufficiently integrable (e.g., bounded), then
+   <math display="inline">
+    X
+   </math>
+   is special and hence allows for a canonical decomposition resembling the Doob-Meyer decomposition of a submartingale.
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="Text">
+   Protter, P. (2004). Stochastic Integration and Differential Equations, 2nd Edition, Version 2.1, Springer, Berlin.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   American Options; Martingales; Semimartingale.
+  </p>
+  <p block-type="Text">
+   JAN KALLSEN
+  </p>
+ </body>
+</html>

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Reinsurance
+  </h1>
+  <p block-type="Text">
+   In a reinsurance contract, one party (the reinsurer) agrees to indemnify for a certain premium another party (called the
+   <i>
+    reinsured
+   </i>
+   , the
+   <i>
+    first-line insurer
+   </i>
+   or also the
+   <i>
+    ceding company
+   </i>
+   ) for specified parts of its underwritten insurance risk. Hence, reinsurance is a form of risk sharing between insurance companies (cf. [3]). One among the main motivations for an insurance company to buy reinsurance is to reduce the probability of suffering losses that it cannot easily cope with, in particular, the appearance of excessively large or unusually many claims from the underwritten policies. Also, reinsurance is a way to increase the underwriting capacity (which is particularly but not exclusively relevant for smaller insurance companies) and can be interpreted as a (virtual) increase in the solvency (see Solvency) capital of the ceding company. Replacing a part of the random costs (claims) by fixed costs (premiums) is the core insurance activity and helps the policy holders to stabilize their business. But this also applies to the first-line insurer as a reinsurance customer and reinsurance can increase the effectiveness of the marketplace. For the same reason, a reinsurance company may itself, again for some suitable premium, pass on parts of the reinsured risks to another reinsurer (both domestic and international), which is then called
+   <i>
+    retrocession
+   </i>
+   . For the general concept of the
+   <i>
+    need for reinsurance
+   </i>
+   see, for example, Gerber [16] and Schnieper [25].
+  </p>
+  <p block-type="Text">
+   The type and amount of reinsurance coverage may be negotiated for individual risks in the portfolio (
+   <i>
+    fac
+   </i>
+   ultative reinsurance). But predominantly reinsurance
+   <i>
+    treaties
+   </i>
+   are signed, which are obligatory agreements that specify the type and amount of reinsurance coverage for an entire portfolio of risks within an insurance branch (usually for a time horizon of one year).
+  </p>
+  <p block-type="Text">
+   Among the crucial questions in the context of reinsurance are:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Which type of reinsurance form is appropriate in a given situation?
+    </li>
+    <li block-type="ListItem">
+     How much reinsurance should be purchased?
+    </li>
+    <li block-type="ListItem">
+     What should be the premium?
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Forms of Reinsurance
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    X(t) := \sum_{i=1}^{N(t)} X_i
+   </math>
+   denote the aggregate claim amount in an insurance portfolio up to time
+   <math display="inline">
+    t
+   </math>
+   , where
+  </p>
+  <p block-type="Text">
+   the counting process
+   <math display="inline">
+    N_t
+   </math>
+   specifies the number of claims up to time t and the random variables
+   <math display="inline">
+    X_i
+   </math>
+   denote the individual claim sizes. In every reinsurance treaty, this amount is split into
+   <math display="inline">
+    X(t) = D(t) +
+   </math>
+   <math display="inline">
+    R(t)
+   </math>
+   , where
+   <math display="inline">
+    D(t)
+   </math>
+   is the amount that the insurance company retains for itself (the
+   <i>
+    deductible
+   </i>
+   ) and
+   <math display="inline">
+    R(t)
+   </math>
+   is the
+   <i>
+    reinsured
+   </i>
+   amount to be covered by the reinsurance company.
+  </p>
+  <p block-type="Text">
+   There are two types of proportional reinsurance forms.
+  </p>
+  <h4>
+   Quota-Share Reinsurance
+  </h4>
+  <p block-type="Text">
+   A very common and simple reinsurance form is the
+   <math display="inline">
+    \text{quota-share (QS)}
+   </math>
+   treaty, where one has
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) := a X(t), \qquad D(t) := (1 - a) X(t) \qquad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some proportionality factor
+   <math display="inline">
+    0 &lt; a &lt; 1
+   </math>
+   . In this case, it is straightforward to calculate the distribution of
+   <math display="inline">
+    R(t)
+   </math>
+   and
+   <math display="inline">
+    D(t)
+   </math>
+   , once the distribution of
+   <math display="inline">
+    X(t)
+   </math>
+   is known.
+  </p>
+  <h2>
+   Surplus Reinsurance
+  </h2>
+  <p block-type="TextInlineMath">
+   While in a QS treaty also small claims are reinsured (which the first-line insurer often wants to keep for himself), a surplus treaty only reinsures claims
+   <math display="inline">
+    X_i
+   </math>
+   whose corresponding insured sum
+   <math display="inline">
+    Q_i
+   </math>
+   exceeds some retention
+   <math display="inline">
+    M
+   </math>
+   . In the latter case, the first-line insurer deducts a proportion
+   <math display="inline">
+    M/Q_i
+   </math>
+   and shifts the remaining part to the reinsurer. Consequently,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) = \sum_{i=1}^{N(t)} \left(1 - \frac{M}{Q_i}\right) X_i \, 1_{\{Q_i \ge M\}},
+   </math>
+   <math display="block">
+    D(t) = \sum_{i=1}^{N(t)} \left(X_i I(Q_i \le M) + M \frac{X_i}{Q_i} \, 1_{\{Q_i &gt; M\}}\right) \quad (2)
+   </math>
+  </p>
+  <p block-type="Text">
+   Surplus treaties are quite popular in practice, in particular in fire, marine, and storm insurance.
+  </p>
+  <p block-type="Text">
+   Other types of reinsurance forms are of nonproportional nature.
+  </p>
+  <h2>
+   Excess-of-Loss Reinsurance
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   In an excess-of-loss (XL) treaty, for each individual claim the excess over some retention
+   <math display="inline">
+    M
+   </math>
+   is paid by
+  </p>
+  <p block-type="Text">
+   the reinsurer:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) := \sum_{i=1}^{N(t)} (X_i - M)^+, \quad D(t) := \sum_{i=1}^{N(t)} \min(X_i, M)
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   XL covers are, for instance, popular in casualty and windstorm insurance. In most situations, there is an upper limit
+   <math display="inline">
+    L
+   </math>
+   of the XL cover of each risk as well, resulting in the treaty
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) := \sum_{i=1}^{N(t)} \min\{(X_i - M)^+, L\} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    L
+   </math>
+   is then the size of the so-called
+   <i>
+    XL
+   </i>
+   reinsurance layer (the usual notation is then
+   <math display="inline">
+    L \text{ } xs \text{ } M
+   </math>
+   ). It is also common to have an upper limit
+   <math display="inline">
+    k \cdot L
+   </math>
+   on the total reinsured amount
+   <math display="inline">
+    R(t)
+   </math>
+   for some integer k. In the latter case, one is said to have
+   <math display="inline">
+    k
+   </math>
+   reinstatements and, depending on the contract, the premium for a higher reinstatement often only has to be paid once the lower reinstatement is used up.
+  </p>
+  <p block-type="Text">
+   A variant of XL reinsurance is the per-event XL cover (or sometimes called
+   <i>
+    catastrophe XL cover
+   </i>
+   ), where all claims due to some external event such as a storm or an earthquake are first added and then treated as a single claim in an XL contract (avoiding the issue that for many small claims the XL treaty may not provide sufficient protection).
+  </p>
+  <h2>
+   Stop-Loss Reinsurance
+  </h2>
+  <p block-type="Text">
+   The stop-loss
+   <math display="inline">
+    (SL)
+   </math>
+   treaty acts on the aggregate claim amount
+   <math display="inline">
+    X(t)
+   </math>
+   of the portfolio:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) := \left\{ \sum_{i=1}^{N(t)} X_i - C \right\}^+, \quad D(t) := \min(X(t), C) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    C
+   </math>
+   is some retention. In general, there is again an additional upper limit on
+   <math display="inline">
+    R(t)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In practice, often combinations of the above reinsurance forms are employed (together with upper limits on the total reinsurance cover).
+  </p>
+  <h4>
+   Large-Claim Reinsurance
+  </h4>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Let
+   <math display="inline">
+    \{X_1^*, X_2^*, \ldots, X_{N(t)}^*\}
+   </math>
+   denote the order statistics of the claims ordered according to their size. Then the
+  </p>
+  <p block-type="Text">
+   largest claims reinsurance is defined through
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) := \sum_{i=1}^{r} X_{N(t)-i+1}^{*}, \quad D(t) := \sum_{i=1}^{N(t)-r} X_{i}^{*} \quad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   that is, the reinsurer covers the
+   <math display="inline">
+    r
+   </math>
+   largest claims of the portfolio that have occurred up to time
+   <math display="inline">
+    t
+   </math>
+   (which again usually is 1 year). Another variant called excedent
+   <i>
+    du cout moyen relatif
+   </i>
+   (ECOMOR) was introduced by Thépaut [27] with a reinsured amount of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) := \sum_{i=1}^{N(t)} \left\{ X_i - X_{N(t)-r}^* \right\}^+ \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   so that in this case the reinsurer covers only that part of the
+   <math display="inline">
+    r
+   </math>
+   largest claims that overshoots the random retention
+   <math display="inline">
+    X_{N(t)-r}^*
+   </math>
+   . Such a contract gives the reinsurer protection against claim inflation, since if the claim amounts increase, the retention will also increase.
+  </p>
+  <p block-type="Text">
+   Although theoretically appealing, large-claim reinsurance treaties are rarely applied in practice.
+  </p>
+  <h2>
+   <b>
+    Reinsurance Premiums
+   </b>
+  </h2>
+  <p block-type="Text">
+   In the first place, reinsurance is a specific form of insurance. Consequently, the principles of premium calculation (see Actuarial Premium Principles) can, to some extent, also be applied in the reinsurance setting, once the moments or even the distribution of the number and the size of the reinsured claims are available (although costs and loading factors will in general be different). Extreme value statistics is of vital importance in this context, since typically the reinsured claims are heavy tailed and their distribution has to be estimated, often on the basis of only a few data points (see Heavy Tails in Insurance and
+   <math display="inline">
+    [14]
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   Whereas for proportional reinsurance the actuarial reinsurance premium will simply be the corresponding proportion of the premium that the firstline insurer has received for the underlying risks (minus some acquisition and administration costs), the situation for nonproportional reinsurance is more involved.
+  </p>
+  <p block-type="Text">
+   The claim number process for the reinsured claims in an XL treaty can be interpreted as an independent thinning of the point process (see
+   <b>
+    Point Processes
+   </b>
+   ) that generates the claims for the first-line insurer. For many practically relevant examples, the resulting
+  </p>
+  <p block-type="Text">
+   3
+  </p>
+  <p block-type="Text">
+   claim number process for the reinsurer is then of the same form with just some parameters modified (see, e.g., [4]). For the premium calculation of an XL treaty with retention
+   <math display="inline">
+    M
+   </math>
+   , under the assumption of independence between the number and the sizes of the claims as well as identically distributed claim sizes, often the reduction effect
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r(M) := \frac{E(D(t))}{E(X(t))} = \frac{1}{E(X)} \int_0^M (1 - F(w)) \, \mathrm{d}w \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   is used, which turns out to be the equilibrium
+   <i>
+    distribution function
+   </i>
+   of the distribution function
+   <math display="inline">
+    F
+   </math>
+   of an individual claim
+   <math display="inline">
+    X
+   </math>
+   . In practice, one distinguishes between
+   <i>
+    exposure rating
+   </i>
+   , where the reinsurer uses the portfolio and premium information of the first-line insurer, and
+   <i>
+    experience rating
+   </i>
+   , which is mainly based on the previous claim experience of the XL layer itself. Especially, the latter method often faces the challenge of having only a few data points available, in which case credibility estimates (see Credibility
+   <b>
+    Theory
+   </b>
+   ) may be used. Another important aspect in XL treaties is potential claims inflation, which may be substantial (as the time until settlement of a claim may be large) and would often just affect the reinsurer. Hence, typically some
+   <i>
+    index clause
+   </i>
+   is arranged, which splits the amount of claims inflation between the first-line insurer and the reinsurer.
+  </p>
+  <p block-type="Text">
+   For SL treaties, the aggregate claim distribution (see Accumulated Claims) of the first-line insurance portfolio will be the crucial quantity to determine suitable reinsurance premiums, using, for instance, generalized stop-loss transforms to determine moments of the reinsured claim amount (for numerical and algorithmic issues, see [20]).
+  </p>
+  <p block-type="Text">
+   Premium calculations for large-claim reinsurance contracts are more involved, but several asymptotic results using extreme value theory are available (see [4] for a survey). Note that for all these treaties it is also important to adequately assess the possible dependence among the risks, as this may drastically influence the appropriate premium (see, for instance, [12]).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In addition to the resulting actuarial premium, the actual reinsurance premium will also be influenced by other factors like competition, volume of the portfolio, and perhaps a loading that accounts for potential moral hazard and adverse selection. Here moral hazard refers to the tendency of the reinsured
+  </p>
+  <p block-type="Text">
+   not to be as strict in the claim settlement process as without reinsurance (see, e.g., [13]), whereas adverse selection accounts for the asymmetry of information of the cedant and the reinsurer on the underlying risk in general (see [19]). Also, for contracts like the XL treaty, the reinsurer typically has no insight into the number and sizes of the claims below the retention and needs to get information from other sources, which also increases the costs (see, e.g., [17, 18]). General considerations on planning in reinsurance can be found in
+   <math display="inline">
+    [26]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Robustness questions of reinsurance premiums are discussed in Brazauskas [8]. In addition, the economic environment influences the pricing of reinsurance risks (see
+   <math display="inline">
+    [1, 2]
+   </math>
+   ).
+  </p>
+  <h1>
+   <b>
+    Choice of Reinsurance
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   Each reinsurance form has its particular advantages and disadvantages in terms of the type of protection it provides (frequency risk, large-claim risk), premium calculation, practical handling, administration and processing of loss estimation (including issues like moral hazard and adverse selection). An insurer may have a concrete objective such as to maximize expected profit after reinsurance (subject to a certain security level condition) or to minimize the probability of ruin after reinsurance (see
+   <b>
+    Ruin Theory
+   </b>
+   ). There are a number of theoretical results available which under specific assumptions on the underlying premium principle identify the optimal reinsurance form with respect to given maximization criteria and constraints (see [4] for an overview). A natural and close connection between such optimality questions and utility theory (see
+   <b>
+    Utility Function
+   </b>
+   ) is, for example, discussed by Borch [7] and Bühlmann and Jewell [9]. For instance, under an expected value premium principle of the reinsurer and a given reinsurance premium, an SL contract maximizes the expected utility of terminal wealth for any risk-averse utility function (a result attributed to K. Arrow, see Arrow,
+   <b>
+    Kenneth
+   </b>
+   ). As a consequence, in this setting an SL contract also minimizes the retained variance
+   <math display="inline">
+    Var(D)
+   </math>
+   of the first-line insurer. On the other hand, under a variance or standard deviation premium principle and a fixed value of
+   <math display="inline">
+    Var(R)
+   </math>
+   , a QS contract minimizes
+   <math display="inline">
+    Var(D)
+   </math>
+   [5, 23]. Already these two examples illustrate that the selected reinsurance premium principle plays a decisive rule for the optimal decision. Also, the
+  </p>
+  <p block-type="Text">
+   optimality results usually heavily depend on the type and amount of transaction costs involved. In recent years many refinements of such optimality results have been developed (see [4, 21] for a general survey on this topic). For a dual approach in the framework of solvency in finance and insurance, see [29]. In the collective model, it is also quite common to look for reinsurance strategies that minimize the Lundberg adjustment coefficient (
+   <i>
+    see
+   </i>
+   <b>
+    Cramer–Lundberg ´ Estimates
+   </b>
+   ; [15] and [10]). An overview on optimal dynamic reinsurance strategies to minimize the probability of ruin can be found in [24] (
+   <i>
+    see
+   </i>
+   <b>
+    Ruin Theory
+   </b>
+   and
+   <b>
+    Stochastic Control in Insurance
+   </b>
+   ). For other optimization criteria, see [30].
+  </p>
+  <p block-type="Text">
+   In practice, the concrete form and amount of reinsurance choice for a certain portfolio often also will be influenced by experience, availability of reinsurance offers, and current market prices.
+  </p>
+  <h1>
+   <b>
+    Reinsurance and Finance
+   </b>
+  </h1>
+  <p block-type="Text">
+   The financial component in any insurance and reinsurance activity has become more important over the last years, not the least due to higher interest rates, longer time horizons for claim settlement, and the general need to combine the analysis and management of assets and liabilities (see, e.g., [28]). Financial pricing of reinsurance contracts in various contexts is discussed in [11] (
+   <i>
+    see
+   </i>
+   <b>
+    Insurance Derivatives
+   </b>
+   ), and note that a (re)insurance market is incomplete, (
+   <i>
+    see
+   </i>
+   <b>
+    Complete Markets
+   </b>
+   ). Since reinsurance is a global business, foreign exchange risk (
+   <i>
+    see
+   </i>
+   <b>
+    Foreign Exchange Markets
+   </b>
+   ) also has to be considered (cf. [6]).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Nowadays, classical reinsurance is often complemented by other mechanisms to cope with risk (summarized under the name
+   <i>
+    alternative risk transfer
+   </i>
+   ) that have a certain financial flavor such as
+   <i>
+    captives, finite risk reinsurance, multi-trigger products
+   </i>
+   , and
+   <i>
+    contingent capital
+   </i>
+   (cf. [22]). Further bridging the gap between insurance and finance, insurance companies also started to transfer some of their risk directly to the capital market (
+   <i>
+    see
+   </i>
+   <b>
+    Securitization
+   </b>
+   ). This includes
+   <i>
+    reinsurance sidecars
+   </i>
+   , where investors act like a QS reinsurer, as well as the issuance of catastrophe bonds (
+   <i>
+    see
+   </i>
+   <b>
+    Catastrophe Bonds
+   </b>
+   ). Recently, some structured insurance-linked products such as
+   <i>
+    catastrophe
+   </i>
+   collateralized debt obligations (CDOs) (
+   <i>
+    see
+   </i>
+   <b>
+    Collateralized Debt Obligations (CDO)
+   </b>
+   ) have also been issued in
+  </p>
+  <p block-type="Text">
+   the financial market, which sometimes receive quite competitive credit ratings for their tranches . At the same time, some of the traded catastrophe CDOs offer loss coverage that can be significantly cheaper than in classical reinsurance contracts.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Aase, K.K. (1993). Equilibrium in a reinsurance syndicate: existence, uniqueness and characterization,
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      23
+     </b>
+     , 185–211.
+    </li>
+    <li block-type="ListItem">
+     [2] Aase, K.K. (1993). Premiums in a dynamic model of a reinsurance market,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     (2), 134–160.
+    </li>
+    <li block-type="ListItem">
+     [3] Aase, K.K. (2002). Perspectives of risk sharing,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     (2), 73–128.
+    </li>
+    <li block-type="ListItem">
+     [4] Albrecher, H. &amp; Teugels, J. (2009).
+     <i>
+      Reinsurance: Actuarial and Financial Aspects
+     </i>
+     , John Wiley &amp; Sons, Chichester. To appear.
+    </li>
+    <li block-type="ListItem">
+     [5] Beard, R., Pentikainen, T. &amp; Pesonen, E. (1984). ¨
+     <i>
+      Risk Theory
+     </i>
+     , Chapman &amp; Hall, London.
+    </li>
+    <li block-type="ListItem">
+     [6] Blum, P., Dacorogna, M., Embrechts, P., Neghaiwi, P. &amp; Niggli, H. (2001). Using DFA for modelling the impact of foreign exchange risk on reinsurance decisions,
+     <i>
+      CAS Forum
+     </i>
+     Summer, 49–94.
+    </li>
+    <li block-type="ListItem">
+     [7] Borch, K. (1961). The utility concept applied to the theory of insurance,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      1
+     </b>
+     , 245–255.
+    </li>
+    <li block-type="ListItem">
+     [8] Brazauskas, V. (2003). Influence functions of empirical nonparametric estimators of net reinsurance premiums,
+     <i>
+      Insurance, Mathematics and Economics
+     </i>
+     <b>
+      32
+     </b>
+     (1), 115–133.
+    </li>
+    <li block-type="ListItem">
+     [9] Buhlmann, H. &amp; Jewell, W. (1979). Optimal risk ¨ exchanges,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      10
+     </b>
+     , 243–262.
+    </li>
+    <li block-type="ListItem">
+     [10] Centeno, M. (2002). Measuring the effects of reinsurance by the adjustment coefficient in the Sparre Anderson model,
+     <i>
+      Insurance, Mathematics and Economics
+     </i>
+     <b>
+      30
+     </b>
+     (1), 37–49.
+    </li>
+    <li block-type="ListItem">
+     [11] De Waegenaere, A. (1994). Equilibria in a mixed financial-reinsurance market with constrained trading possibilities,
+     <i>
+      Insurance, Mathematics and Economics
+     </i>
+     <b>
+      14
+     </b>
+     (3), 205–218.
+    </li>
+    <li block-type="ListItem">
+     [12] Denuit, M., Dhaene, J., Goovaerts, M. &amp; Kaas, R. (2005).
+     <i>
+      Actuarial Theory for Dependent Risks
+     </i>
+     , Wiley, Chichester.
+    </li>
+    <li block-type="ListItem">
+     [13] Doherty, N. &amp; Smetters, K. (2006). Moral hazard in reinsurance markets,
+     <i>
+      Journal of Risk and Insurance
+     </i>
+     <b>
+      72
+     </b>
+     (3), 375–391.
+    </li>
+    <li block-type="ListItem">
+     [14] Embrechts, P., Kluppelberg, C. &amp; Mikosch, T. (1997). ¨
+     <i>
+      Modelling Extremal Events
+     </i>
+     , Springer, New York, Berlin, Heidelberg, Tokyo.
+    </li>
+    <li block-type="ListItem">
+     [15] Gerber, H. (1979).
+     <i>
+      An Introduction to Mathematical Risk Theory
+     </i>
+     . Huebner Foundation Monograph 8, Huebner Foundation, Homewood, Ill.
+    </li>
+    <li block-type="ListItem">
+     [16] Gerber, H. (1980). Principles of premium calculation and reinsurance,
+     <i>
+      Transactions of the 21th International Congress of Actuaries
+     </i>
+     <b>
+      I
+     </b>
+     , 137–142.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [17] Hurlimann, W. (1994). A note on experience rating, ¨ reinsurance and premium principles,
+     <i>
+      Insurance, Mathematics and Economics
+     </i>
+     <b>
+      14
+     </b>
+     (3), 197–204.
+    </li>
+    <li block-type="ListItem">
+     [18] Hurlimann, W. (1995). Links between premium princi- ¨ ples and reinsurance,
+     <i>
+      Transactions of the 25th International Congress of Actuaries
+     </i>
+     , Brussels, pp. 141–168.
+    </li>
+    <li block-type="ListItem">
+     [19] Jean-Baptiste, E. &amp; Santomero, A. (2000). The design of private reinsurance contracts,
+     <i>
+      Journal of Financial Intermediation
+     </i>
+     <b>
+      9
+     </b>
+     , 274–297.
+    </li>
+    <li block-type="ListItem">
+     [20] Kaas, R. (1993). How to (and how not to) compute stoploss premiums in practice,
+     <i>
+      Insurance, Mathematics and Economics
+     </i>
+     <b>
+      13
+     </b>
+     (3), 241–254.
+    </li>
+    <li block-type="ListItem">
+     [21] Mack, T. (1996).
+     <i>
+      Schadensversicherungsmathematik
+     </i>
+     . Verlag Versicherungswirtschaft E.V., Karlsruhe.
+    </li>
+    <li block-type="ListItem">
+     [22] Neuhaus, W. (2004). Alternative risk transfer, in
+     <i>
+      Encyclopedia of Actuarial Science
+     </i>
+     , J. Teugels &amp; B. Sundt, eds John Wiley &amp; Sons, Ltd., Chichester, Chapter.
+    </li>
+    <li block-type="ListItem">
+     [23] Pesonen, M.I. (1984). Optimal reinsurances,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     (2), 65–90.
+    </li>
+    <li block-type="ListItem">
+     [24] Schmidli, H. (2008).
+     <i>
+      Stochastic Control in Insurance
+     </i>
+     , Springer-Verlag London Ltd., London.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [25] Schnieper, R. (1990). Insurance premiums, the insurance market and the need for reinsurance,
+     <i>
+      Schweizerische Vereinigung der Versicherungsmathematiker Mitteilungen
+     </i>
+     <b>
+      1990
+     </b>
+     (1), 129–147.
+    </li>
+    <li block-type="ListItem">
+     [26] Straub, E. (1984). Actuarial remarks on planning and controlling in reinsurance,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      14
+     </b>
+     , 183–191.
+    </li>
+    <li block-type="ListItem">
+     [27] Thepaut, A. (1950). Une nouvelle forme de r ´ eassurance. ´ le traite d'exc ´ edent du co ´ ut moyen relatif (ECOMOR), ˆ
+     <i>
+      Bulletin Trimestriel de l'Institut des Actuaires Francais
+     </i>
+     <b>
+      49
+     </b>
+     , 273.
+    </li>
+    <li block-type="ListItem">
+     [28] Wuthrich, M.V., B ¨ uhlmann, H., and Furrer, H. (2008). ¨
+     <i>
+      Market-consistent Actuarial Valuation
+     </i>
+     , EAA Lecture Notes, Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [29] Yaari, M. (1987). The dual theory of choice under risk,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      55
+     </b>
+     , 95–115.
+    </li>
+    <li block-type="ListItem">
+     [30] Young, V.R. (1999). Optimal insurance under Wang's premium principle,
+     <i>
+      Insurance, Mathematics and Economics
+     </i>
+     <b>
+      25
+     </b>
+     (2), 109–122.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   HANSJORG ¨ ALBRECHER
+  </p>
+ </body>
+</html>

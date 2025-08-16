@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   Robust Portfolio Optimization
+  </h2>
+  <p block-type="TextInlineMath">
+   Portfolio selection is the problem of allocating capital over a number of available assets in order to maximize the "return" on the investment while minimizing the "risk". Although the benefits of diversification in reducing risk have been appreciated since the inception of financial markets, Markowitz [25, 26] formulated the first mathematical model for portfolio selection. In the Markowitz portfolio selection model, the "return" on a portfolio is measured by the expected value of the random portfolio return, and the associated "risk" is quantified by the variance of the portfolio return. Markowitz showed that, given either an upper bound on the risk that the investor is willing to take or a lower bound on the return the investor is willing to accept, the optimal portfolio can be obtained by solving a convex quadratic programming problem. This mean-variance model has had a profound impact on the economic modeling of financial markets and the pricing of assets—the capital asset pricing model (CAPM) developed primarily by Sharpe [30], Lintner [22], and Mossin [28] was an immediate logical consequence of the Markowitz theory. In 1990, Sharpe and Markowitz shared the Nobel Memorial Prize in Economic Sciences for their work on portfolio allocation and asset pricing.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In spite of the theoretical success of the mean-vari ance model, practitioners have shied away from this model. The following quote from Michaud [27] summarizes the problem: "Although Markowitz efficiency is a convenient and useful theoretical framework for portfolio optimality, in practice it is an error prone procedure that often results in
+   <i>
+    error-maximized
+   </i>
+   and investment-irrelevant portfolios." This behavior is a reflection of the fact that solutions of optimization problems are often very sensitive to perturbations in the parameters of the problem; since the estimates of the market parameters are subject to statistical errors, the results of the subsequent optimization are not very reliable. Various aspects of this phenomenon have been extensively studied in the literature on portfolio selection. Chopra and Ziemba [8] study the cashequivalent loss from the use of estimated parameters instead of the true parameters. Broadie [5] investigates the influence of errors on the efficient frontier
+  </p>
+  <p block-type="TextInlineMath">
+   and Chopra [7] investigates the turnover in the composition of the optimal portfolio as a function of the estimation error (see also Part II of [31] for a summary of this research). Several studies have shown that imposing constraints on the portfolio weights in a mean-variance optimization problem leads to better out-of-sample performance [15, 16]. Practitioners have always imposed no short-sale constraints and/or bounds for each security to improve diversity. It is suggested that constraining portfolio weights may reduce volatility, increase realized efficiency, and decrease downside risk or shortfall probability. Jagannathan and Ma [19] provide theoretical justification for these observations. Michaud [27] suggests resampling the mean returns
+   <math display="inline">
+    \mu
+   </math>
+   and the covariance matrix
+   <math display="inline">
+    \Sigma
+   </math>
+   of the assets from a confidence region around a nominal set of parameters, and then aggregating the portfolios obtained by solving a Markowitz problem for each sample. Recently, scenario-based stochastic programming models have also been proposed for handling the uncertainty in parameters (see Part V of [31] for a survey of this research). Neither of the above two scenario based approaches provide any hard guarantees on the portfolio performance, and both become very inefficient as the number of assets grows.
+  </p>
+  <p block-type="Text">
+   Robust optimization is a deterministic optimization framework in which one explicitly models the parameter uncertainty, and the optimization problems are solved assuming worst-case behavior of these perturbations. This robust optimization framework was introduced in [3] for linear programming and in [2] for general convex programming [4]. There is also a parallel literature on robust formulations of optimization problems originating from robust control [10, 12] and
+   <math display="inline">
+    [11]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In order to clearly understand the main ideas underlying the robust portfolio selection approach, consider the following very simple model. Suppose the true (unknown) covariance matrix
+   <math display="inline">
+    \Sigma
+   </math>
+   and the true (unknown) mean return vector
+   <math display="inline">
+    \boldsymbol{\mu}
+   </math>
+   are known to lie in uncertainty sets
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_m = \left\{ \boldsymbol{\mu} : (\boldsymbol{\mu} - \boldsymbol{\mu}_0)^{\mathrm{T}} \boldsymbol{\Sigma}_0^{-1} (\boldsymbol{\mu} - \boldsymbol{\mu}_0) \leq \beta_1^2 \right\} \quad (1)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_v = \{ \mathbf{\Sigma} : \|\mathbf{\Sigma} - \mathbf{\Sigma}_0\|_F \le \beta_2 \} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    \|\mathbf{A}\|_{F} = \text{Tr}(\mathbf{A}^T \mathbf{A})
+   </math>
+   . The confidence regions associated with maximum likelihood estimates of
+  </p>
+  <p block-type="Text">
+   the parameters
+   <math display="inline">
+    (\mu, \Sigma)
+   </math>
+   have precisely the ellipsoidal structure described above and these confidence regions may be used as the uncertainty sets. The robust portfolio selection problem corresponding to the uncertainty sets
+   <math display="inline">
+    S_m
+   </math>
+   and
+   <math display="inline">
+    S_v
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \max_{\{\boldsymbol{\phi}: \mathbf{1}^{\mathrm{T}} \boldsymbol{\phi} = 1\}} \min_{\{\boldsymbol{\mu} \in S_m, \boldsymbol{\Sigma} \in S_v\}} \left\{ \boldsymbol{\mu}^{\mathrm{T}} \boldsymbol{\phi} - \tau \boldsymbol{\phi}^{\mathrm{T}} \boldsymbol{\Sigma} \boldsymbol{\phi} \right\} \qquad (3)
+   </math>
+  </p>
+  <p block-type="Text">
+   that is, the utility of holding a portfolio
+   <math display="inline">
+    \boldsymbol{\phi}
+   </math>
+   is the worstcase utility when the parameters are allowed to vary in their uncertainty sets. Thus, robust optimization implicitly assumes Knightian uncertainty, that is, the market parameters are assumed to be ambiguous.
+  </p>
+  <p block-type="Text">
+   For fixed
+   <math display="inline">
+    \boldsymbol{\phi}
+   </math>
+   , the solution of the inner minimization problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \min_{\{\boldsymbol{\mu}\in S_m, \boldsymbol{\Sigma}\in S_v\}} \left\{ \boldsymbol{\mu}^{\mathrm{T}}\boldsymbol{\phi} - \tau\boldsymbol{\phi}^{\mathrm{T}}\boldsymbol{\Sigma}\boldsymbol{\phi} \right\} \\ = \boldsymbol{\mu}_0^{\mathrm{T}}\boldsymbol{\phi} - \beta_1\sqrt{\boldsymbol{\phi}^{\mathrm{T}}\boldsymbol{\Sigma}_0\boldsymbol{\phi}} - \tau\left(\boldsymbol{\phi}^{\mathrm{T}}(\boldsymbol{\Sigma}_0 + \beta_2\mathbf{I})\boldsymbol{\phi}\right) \end{aligned} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   Thus, the robust portfolio selection problem is equivalent to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \max_{\{\boldsymbol{\phi}: \mathbf{1}^{\mathrm{T}} \boldsymbol{\phi} = 1\}} \left\{ \boldsymbol{\mu}_0^{\mathrm{T}} \boldsymbol{\phi} - \beta_1 \sqrt{\boldsymbol{\phi}^{\mathrm{T}} \boldsymbol{\Sigma}_0 \boldsymbol{\phi}} - \tau \left( \boldsymbol{\phi}^{\mathrm{T}} (\boldsymbol{\Sigma}_0 + \beta_2 \mathbf{I}) \boldsymbol{\phi} \right) \right\}
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   The objective function of this optimization problem can be reinterpreted in the following manner. The optimal portfolio
+   <math display="inline">
+    \boldsymbol{\phi}^*
+   </math>
+   is the optimal solution of the classical mean-variance optimization problem with
+  </p>
+  <p block-type="Text">
+   1. a perturbed mean vector:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu = \hat{\boldsymbol{\mu}} - \left(\frac{\beta_1}{\sqrt{(\boldsymbol{\phi}^*)^{\mathrm{T}}\boldsymbol{\Sigma}_0\boldsymbol{\phi}^*}}\right)\boldsymbol{\Sigma}_0\boldsymbol{\phi}^* \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   that is, each component of the mean vector is adjusted to reduce the return on the portfolio
+   <math display="inline">
+    \boldsymbol{\phi}^*
+   </math>
+   , and
+  </p>
+  <p block-type="Text">
+   2. a perturbed covariance matrix
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{\Sigma} = \mathbf{\Sigma}_0 + \beta_2 \mathbf{I} \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   that is, the volatility of each of the assets is increased by an amount
+   <math display="inline">
+    \beta_2
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Thus, the robust portfolio selection problem can be interpreted as a modification of the classical mean-variance optimization problem where the
+  </p>
+  <p block-type="Text">
+   parameter values are dynamically adjusted to account for the uncertainty.
+  </p>
+  <p block-type="TextInlineMath">
+   The optimization problem
+   <math display="inline">
+    (5)
+   </math>
+   can be reformulated as a second-order cone program (SOCP) (see [23] or [29] for details). This fact has important theoretical and practical implications. Since the computational complexity of an SOCP is comparable to that of a convex quadratic program, it follows that robust active portfolio selection is able to provide protection against parameter fluctuations at very moderate computational cost. Moreover, a number of commercial solvers such as MOSEK, CPLEX, and Frontline System (supplier of EXCEL SOLVER) provide the capability for solving SOCPs in a numerically robust manner.
+  </p>
+  <p block-type="TextInlineMath">
+   The simple model described in the preceding text does not scale as the number of assets grows. At the very minimum, the data required to calculate the maximum likelihood estimate
+   <math display="inline">
+    \Sigma_0
+   </math>
+   grows as
+   <math display="inline">
+    \mathcal{O}(n^2)
+   </math>
+   , where
+   <math display="inline">
+    n
+   </math>
+   is the number of assets. Goldfarb and Iyengar [17] work with a robust factor model wherein the single period return
+   <math display="inline">
+    \boldsymbol{r}
+   </math>
+   is assumed to be a random variable given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \boldsymbol{r} = \boldsymbol{\mu} + \boldsymbol{V}^{\mathrm{T}} \boldsymbol{f} + \boldsymbol{\varepsilon} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \boldsymbol{\mu} \in \mathbf{R}^n
+   </math>
+   is the vector of mean returns,
+   <math display="inline">
+    f \sim
+   </math>
+   <math display="inline">
+    \mathcal{N}(\mathbf{0}, \mathbf{F}) \in \mathbf{R}^m
+   </math>
+   is the vector of returns of the factors that drive the market,
+   <math display="inline">
+    V \in \mathbf{R}^{m \times n}
+   </math>
+   is the matrix of factor loadings of the
+   <i>
+    n
+   </i>
+   assets, and
+   <math display="inline">
+    \boldsymbol{\varepsilon} \sim \mathcal{N}(\mathbf{0}, \boldsymbol{D})
+   </math>
+   is the vector of residual returns. For a detailed discussion of appropriate uncertainty sets for the parameters
+   <math display="inline">
+    \mu
+   </math>
+   ,
+   <math display="inline">
+    V, F
+   </math>
+   , and
+   <math display="inline">
+    D
+   </math>
+   and methods used to parameterize these sets from data, see Section 6 in [17].
+  </p>
+  <p block-type="TextInlineMath">
+   Halldórsson and Tütüncü [18] show that if the uncertain mean return vector
+   <math display="inline">
+    \mu
+   </math>
+   and the uncertain covariance matrix
+   <math display="inline">
+    \Sigma
+   </math>
+   of the asset returns
+   <math display="inline">
+    r
+   </math>
+   belong to the component-wise uncertainty sets
+   <math display="inline">
+    S_m = \{\boldsymbol{\mu} : \boldsymbol{\mu}^{\tilde{L}} \leq
+   </math>
+   <math display="inline">
+    \boldsymbol{\mu} \leq \boldsymbol{\mu}^{U}
+   </math>
+   and
+   <math display="inline">
+    S_{v} = \{\boldsymbol{\Sigma} : \boldsymbol{\Sigma} \succeq 0, \boldsymbol{\Sigma}^{L} \leq \boldsymbol{\Sigma} \leq \boldsymbol{\Sigma}^{U}\},
+   </math>
+   respectively, the robust problem reduces to a nonlinear saddle-point problem that involves semidefinite constraints. Here
+   <math display="inline">
+    \mathbf{A} \succeq 0
+   </math>
+   (respectively
+   <math display="inline">
+    \succ 0
+   </math>
+   ) denotes that the matrix
+   <math display="inline">
+    \mathbf{A}
+   </math>
+   is symmetric and positive semidefinite (respectively definite). This approach has several shortcomings when applied to practical problems—the model is not a factor model (in applied work, factor models are popular because of the econometric relevance of the factors), no procedure is provided for specifying the extreme values
+   <math display="inline">
+    (\boldsymbol{\mu}^L, \boldsymbol{\mu}^U)
+   </math>
+   , and
+   <math display="inline">
+    (\mathbf{\Sigma}^L, \mathbf{\Sigma}^U)
+   </math>
+   defining the uncertainty structure and,
+  </p>
+  <p block-type="Text">
+   moreover, the solution algorithm, although polynomial, is not practicable when the number of assets is large. A multiperiod robust model, where the uncertainty sets are finite sets, was proposed in [1].
+  </p>
+  <p block-type="Text">
+   Recently, Delage and Ye [9] have proposed a distributionally robust model for portfolio selection. They assume that the distribution
+   <math display="inline">
+    f
+   </math>
+   of the random return
+   <math display="inline">
+    \xi
+   </math>
+   is uncertain and is assumed to belong to uncertainty sets of the form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{D}_{1}(\mathcal{S}, \boldsymbol{\mu}_{0}, \boldsymbol{\Sigma}_{0}, \boldsymbol{\gamma}_{1}, \boldsymbol{\gamma}_{2}) = \begin{cases} \mathbb{P}_{f}(\boldsymbol{\xi} \in \mathcal{S}) = 1\\ f: \quad (\mathbb{E}_{f}[\boldsymbol{\xi}] - \boldsymbol{\mu}_{0})' \boldsymbol{\Sigma}_{0}^{-1} (\mathbb{E}_{f}[\boldsymbol{\xi}] - \boldsymbol{\mu}_{0}) \leq \boldsymbol{\gamma}_{1} \\ \mathbb{E}_{f}[(\boldsymbol{\xi} - \boldsymbol{\mu}_{0})(\boldsymbol{\xi} - \boldsymbol{\mu}_{0})'] \leq \boldsymbol{\gamma}_{2} \boldsymbol{\Sigma}_{0} \end{cases}
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   Notice that the uncertainty set for the covariance matrix
+   <math display="inline">
+    \mathbb{E}_{f}[(\boldsymbol{\xi}-\boldsymbol{\mu}_{0})(\boldsymbol{\xi}-\boldsymbol{\mu}_{0})']
+   </math>
+   has an
+   <i>
+    upper
+   </i>
+   bound and the uncertainty set for the mean vector
+   <math display="inline">
+    \mathbb{E}_f[\boldsymbol{\xi}]
+   </math>
+   is centered around the nominal covariance matrix
+   <math display="inline">
+    \Sigma_0
+   </math>
+   instead of the true covariance matrix. Delage and Ye consider robust portfolio selection problems of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \max_{\boldsymbol{\phi}\in\boldsymbol{\Phi}}\ \min_{f\in\mathcal{D}_1}\mathbb{E}_f[u(\boldsymbol{\phi},\boldsymbol{\xi})] \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    u(\boldsymbol{\phi}, \boldsymbol{\xi})
+   </math>
+   is a piece-wise linear concave utility function of the form
+   <math display="inline">
+    u(\boldsymbol{\phi}, \boldsymbol{\xi}) = \min_{k} \{a_{k} \boldsymbol{\xi}' \boldsymbol{\phi} + b_{k}\}.
+   </math>
+   Fix
+   <math display="inline">
+    \phi \in \Phi
+   </math>
+   . Then convex duality implies that the inner optimization problem
+   <math display="inline">
+    \min_{f \in \mathcal{D}_1} \mathbb{E}_f[u(\boldsymbol{\phi}, \boldsymbol{\xi})]
+   </math>
+   is equivalent to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \max \quad &amp; r - t, \\ \text{s. t.} \quad &amp; r \le a_k \boldsymbol{\xi}' \boldsymbol{\phi} + b_k + \boldsymbol{\xi}' \mathbf{Q} \boldsymbol{\xi} + \boldsymbol{\xi}' \mathbf{q} \quad \forall k, \ \forall \boldsymbol{\xi} \in \mathcal{S} \\ &amp; t \ge (\gamma_2 \boldsymbol{\Sigma}_0 + \boldsymbol{\mu}_0 \boldsymbol{\mu}_0') \bullet \mathbf{Q} + \boldsymbol{\mu}_0' \mathbf{q} \\ &amp; + \sqrt{\gamma_1} \|\boldsymbol{\Sigma}_0^{\frac{1}{2}} (\mathbf{q} + 2\mathbf{Q}\boldsymbol{\mu}_0) \| \\ &amp; \mathbf{Q} \succeq \mathbf{0} \end{aligned} \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{A} \bullet \mathbf{B} = \text{Tr}(\mathbf{AB})
+   </math>
+   denotes the Frobenius inner product of matrices. Note that equation (11) is a semiinfinite optimization problem since the first constraint has to hold for all
+   <math display="inline">
+    \xi \in S
+   </math>
+   . Moreover, it is a semidefinite program, and is, therefore, a much harder problem compared to SOCPs or convex quadratic programs. Using results from convex optimization theory, Delage and Yu show that an
+   <math display="inline">
+    \epsilon
+   </math>
+   -approximate
+  </p>
+  <p block-type="TextInlineMath">
+   solution in
+   <math display="inline">
+    \mathcal{O}\left(n^{6.5}\log\left(\frac{1}{\epsilon}\right)\right)
+   </math>
+   iterations. This complexity is prohibitive for a portfolio selection problem of any reasonable size; however, it does provide a new perspective, namely, uncertainty sets for random returns. Lim et al. have studied a minimax regret formulation for portfolio selection in continuous time [21].
+  </p>
+  <p block-type="Text">
+   The robust optimization methodology has also been extended to
+   <i>
+    active
+   </i>
+   portfolio management problems where the goal is to beat a given benchmark by using information that is not broadly available in the market. Since errors in estimating the returns of assets are expected to have serious consequences for an active strategy, robust models are likely to result in portfolios with significantly superior performance. Erdoğan et al. [14] show how the basic robust portfolio selection model extends to robust active portfolio management. Since active portfolio strategies tend to execute many trades, properly modeling and managing trading costs are essential for the success of any practical active portfolio management model [20, 24]. Erdoğan et al. [14] show that a very large class of piecewise convex trading cost functions can be incorporated into an active portfolio selection problem in a tractable manner. Ceria and Stubbs [6] show how to impose a variety of side constraints on the exceptional return
+   <math display="inline">
+    \alpha
+   </math>
+   and still recast the portfolio selection problem as an SOCP. Erdogan et al. [13] show how to incorporate analysts' views about
+   <math display="inline">
+    \alpha
+   </math>
+   and nonparametric loss functions into robust active portfolio management.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Ben-Tal, A., Margalit, T. &amp; Nemirovski, A. (2000). [1] Robust modeling of multi-stage portfolio problems, in High Performance Optimization, Kluwer Academic Publishers, Dordrecht, pp. 303-328.
+    </li>
+    <li block-type="ListItem">
+     [2] Ben-Tal, A. &amp; Nemirovski, A. (1998). Robust convex optimization, Mathematics of Operations Research 23(4), 769-805.
+    </li>
+    <li block-type="ListItem">
+     Ben-Tal, A. &amp; Nemirovski, A. (1999). Robust solutions [3] of uncertain linear programs, Operations Research Letters
+     <math display="inline">
+      25(1)
+     </math>
+     , 1–13.
+    </li>
+    <li block-type="ListItem">
+     [4] Ben-Tal, A. &amp; Nemirovski, A. (2001). Lectures on Modern Convex Optimization: Analysis, Algorithms, and Engineering Applications, Society for Industrial and Applied Mathematics (SIAM), Philadelphia, PA.
+    </li>
+    <li block-type="ListItem">
+     [5] Broadie, M. (1993). Computing efficient frontiers using estimated parameters, Annals of Operations Research 45,
+     <math display="inline">
+      21 - 58.
+     </math>
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    4 Robust Portfolio Optimization
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [6] Ceria, S. &amp; Stubbs, R.A. (2006). Incorporating estimation errors into portfolio selection: robust portfolio construction,
+     <i>
+      Journal of Asset Management
+     </i>
+     <b>
+      7
+     </b>
+     , 109–127.
+    </li>
+    <li block-type="ListItem">
+     [7] Chopra, V.K. (1993). Improving optimization,
+     <i>
+      Journal of Investing
+     </i>
+     <b>
+      2
+     </b>
+     , (Fall), 51–59.
+    </li>
+    <li block-type="ListItem">
+     [8] Chopra, V.K. &amp; Ziemba, W.T. (1993). The effect of errors in means, variances and covariances on optimal portfolio choice,
+     <i>
+      Journal of Portfolio Management
+     </i>
+     <b>
+      19
+     </b>
+     , (Winter), 6–11.
+    </li>
+    <li block-type="ListItem">
+     [9] Delage, E. &amp; Ye, Y. Distributionally robust optimization under moment uncertainty with applications to datadriven problem, Under review in
+     <i>
+      Operations Research
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [10] El Ghaoui, L. &amp; Lebret, H. (1997). Robust solutions to least-squares problems with uncertain data,
+     <i>
+      SIAM Journal on Matrix Analysis and Applications
+     </i>
+     <b>
+      18
+     </b>
+     (4), 1035–1064.
+    </li>
+    <li block-type="ListItem">
+     [11] El Ghaoui, L. &amp; Niculescu, N. (eds) (1999).
+     <i>
+      Recent Advances on LMI Methods in Control
+     </i>
+     , SIAM.
+    </li>
+    <li block-type="ListItem">
+     [12] El Ghaoui, L., Oustry, F. &amp; Lebret, H. (1998). Robust solutions to uncertain semidefinite programs,
+     <i>
+      SIAM Journal on Optimization
+     </i>
+     <b>
+      9
+     </b>
+     (1), 33–52.
+    </li>
+    <li block-type="ListItem">
+     [13] Erdogan, E., Goldfarb, D. &amp; Iyengar, G. (2006). ˘
+     <i>
+      Robust Active Portfolio Management
+     </i>
+     , Technical Report TR-2004-11, Computational Optimization Research Center (CORC), IEOR Department, Columbia University, Avaliable at http://www.corc.ieor.columbia.edu/reports/ techreports/tr-2004-11.pdf
+    </li>
+    <li block-type="ListItem">
+     [14] Erdogan, E., Goldfarb, D. &amp; Iyengar, G. (2008). Robust ˘ active portfolio management,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      11
+     </b>
+     (4), 71–98.
+    </li>
+    <li block-type="ListItem">
+     [15] Frost, P.A. &amp; Savarino, J.E. (1986). An empirical Bayes approach to efficient portfolio selection,
+     <i>
+      Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      21
+     </b>
+     , 293–305.
+    </li>
+    <li block-type="ListItem">
+     [16] Frost, P.A. &amp; Savarino, J.E. (1988). For better performance: constrain portfolio weights,
+     <i>
+      Journal of Portfolio Management
+     </i>
+     <b>
+      15
+     </b>
+     , 29–34.
+    </li>
+    <li block-type="ListItem">
+     [17] Goldfarb, D. &amp; Iyengar, G. (2003). Robust portfolio selection problems,
+     <i>
+      Mathematics of Operations Research
+     </i>
+     <b>
+      28
+     </b>
+     (1), 1–38.
+    </li>
+    <li block-type="ListItem">
+     [18] Halldorsson, B.V. &amp; T ´ ut¨ unc ¨ u, R.H. (2000). ¨
+     <i>
+      An Interiorpoint Method for a Class of Saddle Point Problems
+     </i>
+     . Technical report, Carnegie Mellon University, April 2000.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [19] Jagannathan, R. &amp; Ma, T. (2003). Risk reduction in large portfolios: why imposing the wrong constraints helps,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      58
+     </b>
+     , 1651–1683.
+    </li>
+    <li block-type="ListItem">
+     [20] Kissell, R. &amp; Glantz, M. (2003).
+     <i>
+      Optimal Trading Strategies: Quantitative Approaches for Managing Market Impact and Trading Risk
+     </i>
+     , AMACOM.
+    </li>
+    <li block-type="ListItem">
+     [21] Lim, A.E.B., Shanthikumar, J.G. &amp; Watewai, T. Robust asset allocation with benchmarked objectives, Under review in
+     <i>
+      Mathematical Finance
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [22] Lintner, J. (1965). Valuation of risky assets and the selection of risky investments in stock portfolios and capital budgets,
+     <i>
+      Review of Economics and Statistics
+     </i>
+     <b>
+      47
+     </b>
+     , 13–37.
+    </li>
+    <li block-type="ListItem">
+     [23] Lobo, M.S., Vandenberghe, L., Boyd, S. &amp; Lebret, H. (1998). Applications of second-order cone programming,
+     <i>
+      Linear Algebra and its Applications
+     </i>
+     <b>
+      284
+     </b>
+     (1–3), 193–228.
+    </li>
+    <li block-type="ListItem">
+     [24] Loeb, T.F. (1983). Trading cost: the critical link between investment information and results,
+     <i>
+      Financial Analysts Journal
+     </i>
+     , 39–44.
+    </li>
+    <li block-type="ListItem">
+     [25] Markowitz, H.M. (1952). Portfolio selection,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 77–91.
+    </li>
+    <li block-type="ListItem">
+     [26] Markowitz, H.M. (1959).
+     <i>
+      Portfolio Selection
+     </i>
+     , Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [27] Michaud, R.O. (1998).
+     <i>
+      Efficient Asset Management: A Practical Guide to Stock Portfolio Optimization and Asset Allocation
+     </i>
+     , Harward Business School Press, Boston.
+    </li>
+    <li block-type="ListItem">
+     [28] Mossin, J. (1966). Equilibrium in capital asset markets,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      34
+     </b>
+     (4), 768–783.
+    </li>
+    <li block-type="ListItem">
+     [29] Nesterov, Y. &amp; Nemirovski, A. (1993).
+     <i>
+      Interior-point polynomial algorithms in convex programming
+     </i>
+     , SIAM, Philadelphia.
+    </li>
+    <li block-type="ListItem">
+     [30] Sharpe, W. (1964). Capital asset prices: a theory of market equilibrium under conditions of risk,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      19
+     </b>
+     (3), 425–442.
+    </li>
+    <li block-type="ListItem">
+     [31] Ziemba, W.T. &amp; Mulvey, J.M. (eds) (1998).
+     <i>
+      Worldwide Asset and Liability Modeling
+     </i>
+     , Cambridge University Press, Cambridge, UK.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   GARUD IYENGAR
+  </h2>
+ </body>
+</html>

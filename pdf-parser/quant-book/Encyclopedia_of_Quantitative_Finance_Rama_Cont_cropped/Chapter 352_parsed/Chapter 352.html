@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Stochastic Volatility
+   </b>
+   Models
+  </h1>
+  <p block-type="Text">
+   The Black-Scholes model (see Black-Scholes For
+   <b>
+    mula
+   </b>
+   ) rests upon a number of assumptions that are, to some extent, "counterfactual". Among these are continuity in time of the asset price process (they do not jump), the ability to hedge continuously without transaction costs, independent Gaussian returns, and constant volatility. Stochastic volatility models relax the last assumption by allowing volatility to be randomly varying; this is motivated by the following reason: the dependence of Black-Scholes implied volatilities computed from market prices of call and put options, known as the smile curve (see Implied Volatility Surface), is accounted for by stochastic volatility models. In other words, this modification of the Black-Scholes theory succeeds in one area where the classical model fails. In fact, it has been shown
+   <math display="inline">
+    [18, 23]
+   </math>
+   that any randomness in volatility produces a smile of implied volatilities. Empirical evidence for the smile curve of implied volatility appears in many studies, including [20], using data from before the 1987 crash, and in [16], where the postcrash skew is documented (see Implied Volatility Surface). Early work on fitting an implied volatility surface, includes [1], and [4, 6, 21]. An extensive empirical study of the stability of the fitted surfaces can be found in [5].
+  </p>
+  <p block-type="Text">
+   In fact, modeling volatility as a stochastic process is motivated
+   <i>
+    a priori
+   </i>
+   by empirical studies of stock price returns in which estimated volatility is observed to exhibit "random" characteristics. Additionally, the effects of transaction costs show up, under many models, as uncertainty in the volatility; fat-tailed returns distributions can be simulated by stochastic volatility; market "jump" phenomena are often best modeled as volatility jump processes. Stochastic volatility modeling is therefore more than a simple fix to one particular Black-Scholes assumption, but rather a powerful modification that describes a much more complex market.
+  </p>
+  <p block-type="Text">
+   Pricing derivatives in a market with stochastic volatility is an incomplete markets problem, a distinction explained below, and one which has far-reaching consequences, particularly for the hedging problem and the problem of parameter estimation. It is the
+  </p>
+  <p block-type="Text">
+   latter inverse problem that is the biggest mathematical and practical challenge introduced by such models.
+  </p>
+  <p block-type="Text">
+   Early surveys can be found in [9, 11], or [14], and books on stochastic volatility are also available [7, 17], and [10].
+  </p>
+  <p block-type="Text">
+   In most stochastic volatility models, the asset price
+   <math display="inline">
+    (X_t)_{t\geq 0}
+   </math>
+   satisfies the stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = \mu X_t dt + \sigma_t X_t dW_t \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    (\sigma_t)_{t&gt;0}
+   </math>
+   is called the volatility process. It must satisfy some regularity conditions for the model to be well defined, but it does not have to be an Itô process: it can be a jump process, a Markov chain, and so on. In order for it to be a volatility, it should be positive. Unlike the implied deterministic volatility models (see Local Volatility Model), the volatility process is
+   <i>
+    not
+   </i>
+   perfectly correlated with the Brownian motion
+   <math display="inline">
+    (W_t)
+   </math>
+   . Therefore, volatility is modeled to have an independent random component of its own. This leads to an incomplete market, that is, derivatives cannot, in general, be perfectly hedged by trading the underlying asset and money market only. In fact, there is no
+   <i>
+    unique
+   </i>
+   equivalent martingale measure.
+  </p>
+  <h4>
+   Mean-reverting Stochastic Volatility Models
+  </h4>
+  <p block-type="Text">
+   Typically, volatility is taken to be an Itô process satisfying a stochastic differential equation driven by a second Brownian motion. This is the easiest way to incorporate correlation with stock price changes. One desirable feature is
+   <i>
+    mean reversion
+   </i>
+   . The term itmean reverting refers to the characteristic (typical) time it takes for a process to get back to the mean level of its invariant distribution (the long-run distribution of the process) and "forget" about its past. From a financial modeling perspective, mean reverting refers to a linear pull-back term in the drift of the volatility process itself, or in the drift of some (underlying) process of which volatility is a function. Let us denote
+   <math display="inline">
+    \sigma_t = f(Y_t)
+   </math>
+   where f is some positive function. Then mean-reverting stochastic volatility means that the stochastic differential equation for
+   <math display="inline">
+    (Y_t)
+   </math>
+   has the following form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = \alpha (m - Y_t) dt + \cdots d\hat{Z}_t \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (\hat{Z}_t)_{t\geq 0}
+   </math>
+   is a Brownian motion correlated with
+   <math display="inline">
+    (W_t)
+   </math>
+   :
+   <math display="inline">
+    d\langle W, \hat{Z}\rangle_t = \rho dt
+   </math>
+   , with
+   <math display="inline">
+    |\rho| \leq 1
+   </math>
+   . It is often found
+  </p>
+  <p block-type="TextInlineMath">
+   from financial data that
+   <math display="inline">
+    \rho &lt; 0
+   </math>
+   , and there are economic arguments for a negative correlation or
+   <i>
+    leverage effect
+   </i>
+   between stock price and volatility shocks. From common experience and empirical studies, when volatility goes up, asset prices tend to go down. Some common driving processes
+   <math display="inline">
+    (Y_t)
+   </math>
+   are
+  </p>
+  <p block-type="Text">
+   LN Lognormal (non-mean-reverting):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = c_1 Y_t dt + c_2 Y_t d\hat{Z}_t \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   OU Ornstein-Uhlenbeck:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = \alpha (m - Y_t)dt + \beta d\hat{Z}_t \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   CIR Feller or Cox-Ingersoll-Ross:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = \kappa (m' - Y_t) dt + v \sqrt{Y_t} d\hat{Z}_t \qquad (5)
+   </math>
+  </p>
+  <p block-type="Text">
+   Some models studied in the literature are listed in Table 1.
+  </p>
+  <p block-type="Text">
+   Classical references investigating specific stochastic volatility models are [2, 13, 15, 22, 24], and [25]. These particular models are chosen for their nice properties (e.g., positivity and mean reversion) and analytical tractability, rather than from deeper financial reasons. The Heston model is very popular for its computational tractability.
+  </p>
+  <p block-type="Text">
+   Probability density functions of the stock price obtained from simulations exhibit fatter tails because of the random volatility. In particular, the negative correlation causes the tails to be asymmetric: the left tail is fatter.
+  </p>
+  <h2>
+   <b>
+    Option Pricing
+   </b>
+  </h2>
+  <p block-type="Text">
+   Suppose first that there is an equivalent martingale measure
+   <math display="inline">
+    \mathbb{I}P^{\star}
+   </math>
+   under which the discounted stock price
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Stochastic volatility models
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Authors
+     </th>
+     <th>
+      Correlation
+     </th>
+     <th>
+      f(y)
+     </th>
+     <th>
+      <math>
+       Y
+      </math>
+      Process
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       Hull - White
+      </math>
+      <br/>
+      Scott
+     </td>
+     <td>
+      <math>
+       \rho = 0
+      </math>
+      <br/>
+      <math>
+       \rho = 0
+      </math>
+     </td>
+     <td>
+      <math>
+       f(y) = \sqrt{y}
+      </math>
+      <br/>
+      <math>
+       f(y) = e^y
+      </math>
+     </td>
+     <td>
+      Lognormal
+      <br/>
+      Mean-
+      <br/>
+      reverting
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Stein-Stein
+     </td>
+     <td>
+      <math>
+       \rho = 0
+      </math>
+     </td>
+     <td>
+      <math>
+       f(y) = |y|
+      </math>
+     </td>
+     <td>
+      <math>
+       \text{OU}
+      </math>
+      <br/>
+      Mean-
+      <br/>
+      reverting
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Ball–Roma
+      <br/>
+      Heston
+     </td>
+     <td>
+      <math>
+       \rho = 0
+      </math>
+      <br/>
+      <math>
+       \rho \neq 0
+      </math>
+     </td>
+     <td>
+      <math>
+       f(y) = \sqrt{y}
+      </math>
+      <br/>
+      <math>
+       f(y) = \sqrt{y}
+      </math>
+     </td>
+     <td>
+      <math>
+       \text{OU}
+      </math>
+      <br/>
+      CIR
+      <br/>
+      CIR
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    e^{-rt}X_t
+   </math>
+   is a martingale. Then, if we price any (and all) derivatives with maturity time
+   <math display="inline">
+    T
+   </math>
+   and payoff
+   <math display="inline">
+    H
+   </math>
+   using the formula
+   <math display="inline">
+    V_t = I\!\!E^{\star} \{ e^{-r(T-t)} H | \mathcal{F}_t \}
+   </math>
+   , for all
+   <math display="inline">
+    t \leq T
+   </math>
+   where
+   <math display="inline">
+    (\mathcal{F}_t)
+   </math>
+   is the filtration generated by the two Brownian motions, then there is no arbitrage opportunity. Thus
+   <math display="inline">
+    V_t
+   </math>
+   is a possible price for the claim. Equivalent martingale measures are constructed by rewriting
+   <math display="inline">
+    \hat{Z}_t = \rho W_t + \sqrt{1 - \rho^2} Z_t
+   </math>
+   where W and Z are independent standard Brownian motions under the physical measure
+   <math display="inline">
+    \mathbb{I}P
+   </math>
+   , and by setting
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W_t^* = W_t + \int_0^t \frac{(\mu - r)}{f(Y_s)} \mathrm{d}s, \ \ Z_t^* = Z_t + \int_0^t \gamma_s \mathrm{d}s \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The shift of the second independent Brownian motion does not affect the drift of
+   <math display="inline">
+    X_t
+   </math>
+   . By Girsanov's theorem,
+   <math display="inline">
+    (W^{\star})
+   </math>
+   and
+   <math display="inline">
+    (Z^{\star})
+   </math>
+   are independent standard Brownian motions under a measure
+   <math display="inline">
+    \mathbb{P}^{(\gamma)}
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}I\!P^{\star(\gamma)}}{\mathrm{d}I\!P} = \exp\left(-\frac{1}{2}\int_{0}^{T} ((\theta_{s}^{(1)})^{2} + (\theta_{s}^{(2)})^{2})\mathrm{d}s - \int_{0}^{T} \theta_{s}^{(1)}\mathrm{d}W_{s} - \int_{0}^{T} \theta_{s}^{(2)}\mathrm{d}Z_{s}\right),
+   </math>
+   <math display="block">
+    \theta_{t}^{(1)} = \frac{\mu - r}{f(Y_{t})}, \qquad \theta_{t}^{(2)} = \gamma_{t} \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here
+   <math display="inline">
+    (\gamma_t)
+   </math>
+   is any adapted (and suitably regular) process. Technically, one needs to make an assumption on the pair
+   <math display="inline">
+    (\frac{\mu-r}{f(Y_t)}, \gamma_t)
+   </math>
+   so that
+   <math display="inline">
+    \mathbb{P}^{*(\gamma)}
+   </math>
+   is well defined as a probability measure. In particular, this is the case if
+   <math display="inline">
+    \mu
+   </math>
+   may depend on
+   <math display="inline">
+    Y_t
+   </math>
+   in such a way that the Sharpe ratio
+   <math display="inline">
+    \frac{\mu(Y_t) - r}{f(Y_t)}
+   </math>
+   and
+   <math display="inline">
+    \gamma_t
+   </math>
+   are bounded. Then, under
+   <math display="inline">
+    \mathbb{P}^{(\gamma)}
+   </math>
+   , the stochastic differential equations (1, 2) become
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = rX_t dt + f(Y_t)X_t dW_t^{\star}
+   </math>
+   (8)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = [\alpha(m - Y_t) - \beta \Lambda] dt + \beta d\hat{Z}_t^{\star} \qquad (9)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \hat{Z}_t^{\star} = \rho W_t^{\star} + \sqrt{1 - \rho^2} Z_t^{\star}
+   </math>
+   , and
+   <math display="inline">
+    \Lambda = \rho \frac{(\mu - r)}{f(Y_t)}
+   </math>
+   <math display="inline">
+    +\gamma_t\sqrt{1-\rho^2}
+   </math>
+   . Any allowable choice of
+   <math display="inline">
+    \gamma
+   </math>
+   leads to an equivalent martingale measure
+   <math display="inline">
+    \mathbb{I}P^{\star(\gamma)}
+   </math>
+   and to the no
+   <i>
+    arbitrage
+   </i>
+   derivative prices
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t = I\!E^{\star(\gamma)} \{ e^{-r(T-t)} H | \mathcal{F}_t \}
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   where the conditional expectation is taken with respect to the filtration generated by the two Brownian motions. In the Markovian case,
+   <i>
+    Vt
+   </i>
+   =
+   <i>
+    P (t, Xt, Yt)
+   </i>
+   where
+   <i>
+    P (t, x, y)
+   </i>
+   is the solution of the pricing partial differential equation (PDE) obtained by the
+   <i>
+    Feynman–Kac formula
+   </i>
+   .
+  </p>
+  <h3>
+   <i>
+    Special Case: Uncorrelated Volatility
+   </i>
+  </h3>
+  <p block-type="TextInlineMath">
+   It turns out that the
+   <i>
+    ρ
+   </i>
+   = 0 case is much easier to handle mathematically. In equity markets, it is widely believed
+   <i>
+    ρ &lt;
+   </i>
+   0, but some studies suggest
+   <i>
+    ρ
+   </i>
+   is close to zero in foreign-exchange data. We now assume
+   <i>
+    ρ
+   </i>
+   = 0 and
+   <i>
+    (γt)
+   </i>
+   is independent of the Brownian motion
+   <i>
+    (Wt)
+   </i>
+   driving the stock price so that under the risk-neutral probability
+   <i>
+    IP(γ )
+   </i>
+   the volatility remains uncorrelated with
+   <i>
+    (Wt)
+   </i>
+   . The pricing formula (10) can be simplified under these assumptions. We can condition on the path of the volatility process and by iterated expectations, the price of a call option, for example, is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(t, X_t, Y_t) = I\!\!E^{\star(\gamma)} \Big\{ I\!\!E^{\star(\gamma)} \{ e^{-r(T-t)} (X_T - K)^+ \times |\mathcal{F}_t, \sigma_s, t \le s \le T \} |\mathcal{F}_t \} \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   The inner expectation is just the Black–Scholes computation with a time-dependent volatility. The answer is the Black–Scholes formula with appropriately averaged volatility, leading to the
+   <i>
+    Hull–White formula
+   </i>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(t, x, y) = I\!E^{\star(\gamma)} \left\{ C_{\text{BS}}(t, x; K, T; \sqrt{\overline{\sigma^2}}) | Y_t = y \right\}
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{\sigma^2} = \frac{1}{T - t} \int_t^T f(Y_s)^2 \mathrm{d}s \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and, for simplicity, we have assumed
+   <i>
+    (Yt)
+   </i>
+   is a Markov process. Thus
+   <i>
+    σ
+   </i>
+   <sup>
+    2
+   </sup>
+   is the root-mean-square time average of
+   <i>
+    σ (
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   over the remaining trajectory of each realization, and the call option price is the average over all possible volatility paths. This formula admits a generalization in the correlated case obtained simultaneously in [19] and [26].
+  </p>
+  <h3>
+   <i>
+    Summary
+   </i>
+  </h3>
+  <p block-type="Text">
+   The positive aspects of the stochastic volatility approach are as follows:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     It directly models the observed random behavior of market volatility.
+    </li>
+    <li block-type="ListItem">
+     It allows to reproduce more realistic returns distributions, in particular fatter-than-lognormal tails.
+    </li>
+    <li block-type="ListItem">
+     The asymmetry of the distribution is easily incorporated by correlating the noise sources.
+    </li>
+    <li block-type="ListItem">
+     The smile/skew effect in option prices is exhibited in stochastic volatility models, where the correlation controls the skew.
+    </li>
+    <li block-type="ListItem">
+     Stochastic volatility has also been successfully used in fixed income, foreign exchange, and credit markets.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   However, new difficulties are associated with this approach:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Volatility is not directly observed. As a consequence, estimation of the parameters of a specific model and the current level of volatility is not straightforward.
+    </li>
+    <li block-type="ListItem">
+     There is no canonical stochastic volatility model that is generally accepted and the relevance of explicit formulas for particular models is not obvious.
+    </li>
+    <li block-type="ListItem">
+     We have to deal with an incomplete market, which means that derivatives cannot be perfectly hedged with just the underlying. In addition, a volatility risk premium has to be estimated from option prices.
+    </li>
+    <li block-type="ListItem">
+     Besides the choice of a particular model and its calibration, pricing with stochastic volatility models is a real challenge requiring sophisticated numerical methods. Various approximation techniques have also been proposed such as regular and singular perturbation methods in [7] and [8], WKB expansion for SABR models in [12], or small-time asymptotics in [3].
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="Text">
+   [1] Avellaneda, M., Friedman, C., Holmes, R. &amp; Samperi, D. (1997). Calibrating volatility surfaces via relativeentropy minimization,
+   <i>
+    Applied Mathematical Finance
+   </i>
+   <b>
+    4
+   </b>
+   (1), 37–64.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [2] Ball, C. &amp; Roma, A. (1994). Stochastic volatility option pricing,
+     <i>
+      Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      29
+     </b>
+     (4), 589–607.
+    </li>
+    <li block-type="ListItem">
+     [3] Berestycki, H., Busca, J. &amp; Florent, I. (2004). Computing the implied volatility in stochastic volatility models,
+     <i>
+      Communications on Pure and Applied Mathematics
+     </i>
+     <b>
+      57
+     </b>
+     (10), 1352–1373.
+    </li>
+    <li block-type="ListItem">
+     [4] Derman, E. &amp; Kani, I. (1994). Riding on a smile,
+     <i>
+      Risk
+     </i>
+     <b>
+      7
+     </b>
+     , 32–39.
+    </li>
+    <li block-type="ListItem">
+     [5] Dumas, B., Fleming, J. &amp; Whaley, R. (1998). Implied volatility functions: empirical tests,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      53
+     </b>
+     (6), 2059–2106.
+    </li>
+    <li block-type="ListItem">
+     [6] Dupire, B. (1994). Pricing with a smile,
+     <i>
+      Risk
+     </i>
+     <b>
+      7
+     </b>
+     , 18–20.
+    </li>
+    <li block-type="ListItem">
+     [7] Fouque, J.-P., Papanicolaou, G. &amp; Sircar, K. (2000).
+     <i>
+      Derivatives in Financial Markets with Stochastic Volatility
+     </i>
+     , Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [8] Fouque, J.-P., Papanicolaou, G., Sircar, K. &amp; Solna, K. (2003). Multiscale stochastic volatility asymptotics,
+     <i>
+      SIAM Journal Multiscale Modeling and Simulation
+     </i>
+     <b>
+      2
+     </b>
+     (1), 22–42.
+    </li>
+    <li block-type="ListItem">
+     [9] Frey, R. (1996). Derivative asset analysis in models with level-dependent and stochastic volatility,
+     <i>
+      CWI Quarterly
+     </i>
+     <b>
+      10
+     </b>
+     (1), 1–34.
+    </li>
+    <li block-type="ListItem">
+     [10] Gatheral, J. (2006).
+     <i>
+      The Volatility Surface: A Practitioner's Guide
+     </i>
+     , Wiley Finance.
+    </li>
+    <li block-type="ListItem">
+     [11] Ghysels, E., Harvey, A. &amp; Renault, E. (1996). Stochastic volatility, in
+     <i>
+      Statistical Methods in Finance
+     </i>
+     , G. Maddala &amp; C. Rao, eds, Handbook of Statistics, North Holland, Amsterdam, Vol. 14, chapter 5, pp. 119–191.
+    </li>
+    <li block-type="ListItem">
+     [12] Hagan, P., Kumar, D., Lesniewski, A. &amp; Woodward, D. (2002).
+     <i>
+      Managing Smile Risk
+     </i>
+     , Willmott Magazine, pp. 84–108.
+    </li>
+    <li block-type="ListItem">
+     [13] Heston, S. (1993). A closed-form solution for options with stochastic volatility with applications to bond and currency options,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      6
+     </b>
+     (2), 327–343.
+    </li>
+    <li block-type="ListItem">
+     [14] Hobson, D. (1996).
+     <i>
+      Stochastic Volatility
+     </i>
+     . Technical report, School of Mathematical Sciences, University of Bath.
+    </li>
+    <li block-type="ListItem">
+     [15] Hull, J. &amp; White, A. (1987). The pricing of options on assets with stochastic volatilities,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      XLII
+     </b>
+     (2), 281–300.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [16] Jackwerth, J. &amp; Rubinstein, M. (1996). Recovering probability distributions from contemporaneous security prices,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      51
+     </b>
+     (5), 1611–1631.
+    </li>
+    <li block-type="ListItem">
+     [17] Lewis, A. (2000).
+     <i>
+      Option Valuation under Stochastic Volatility
+     </i>
+     , Finance Press.
+    </li>
+    <li block-type="ListItem">
+     [18] Renault, E. &amp; Touzi, N. (1996). Option hedging and implied volatilities in a stochastic volatility model,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      6
+     </b>
+     (3), 279–302.
+    </li>
+    <li block-type="ListItem">
+     [19] Romano, M. &amp; Touzi, N. (1997). Contingent claims and market completeness in a stochastic volatility model,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 399–410.
+    </li>
+    <li block-type="ListItem">
+     [20] Rubinstein, M. (1985). Nonparametric tests of alternative option pricing models,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      XL
+     </b>
+     (2), 455–480.
+    </li>
+    <li block-type="ListItem">
+     [21] Rubinstein, M. (1994). Implied binomial trees,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      LXIX
+     </b>
+     (3), 771–818.
+    </li>
+    <li block-type="ListItem">
+     [22] Scott, L. (1987). Option pricing when the variance changes randomly: theory estimation, and an application,
+     <i>
+      Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      22
+     </b>
+     (4), 419–438.
+    </li>
+    <li block-type="ListItem">
+     [23] Sircar, K.R. &amp; Papanicolaou, G.C. (1999). Stochastic volatility, smile and asymptotics,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      6
+     </b>
+     (2), 107–145.
+    </li>
+    <li block-type="ListItem">
+     [24] Stein, E. &amp; Stein, J. (1991). Stock price distributions with stochastic volatility: an analytic approach,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      4
+     </b>
+     (4), 727–752.
+    </li>
+    <li block-type="ListItem">
+     [25] Wiggins, J. (1987). Option values under stochastic volatility,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      19
+     </b>
+     (2), 351–372.
+    </li>
+    <li block-type="ListItem">
+     [26] Willard, G. (1997). Calculating prices and sensitivities for path-independent derivative securities in multifactor models,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      5
+     </b>
+     , 45–61.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Barndorff-Nielsen and Shephard (BNS) Models
+   </b>
+   ;
+   <b>
+    Bates Model
+   </b>
+   ;
+   <b>
+    Heston Model
+   </b>
+   ;
+   <b>
+    Implied Volatility in Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Implied Volatility: Market Models
+   </b>
+   ;
+   <b>
+    Regime-switching Models
+   </b>
+   ;
+   <b>
+    Time Change
+   </b>
+   ;
+   <b>
+    Uncertain Volatility Model
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   JEAN-PIERRE FOUQUE
+  </p>
+ </body>
+</html>

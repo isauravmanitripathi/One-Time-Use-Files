@@ -1,0 +1,3927 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Markov Processes
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   A Markov process is a process that evolves in a memoryless way: its future law depends on the past only through the present position of the process. This property can be formalized in terms of conditional expectations: a process
+   <math display="inline">
+    (X_t, t \ge 0)
+   </math>
+   adapted to the
+   <b>
+    filtration
+   </b>
+   <math display="inline">
+    (\mathcal{F}_t)_{t&gt;0}
+   </math>
+   (representing the information available at time
+   <math display="inline">
+    t
+   </math>
+   ) is a Markov process if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(f(X_{t+s}) \mid \mathcal{F}_t) = \mathbb{E}(f(X_{t+s}) \mid X_t) \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   for all
+   <math display="inline">
+    s, t \ge 0
+   </math>
+   and
+   <math display="inline">
+    f
+   </math>
+   bounded and measurable.
+  </p>
+  <p block-type="TextInlineMath">
+   The interest of such a process in financial models becomes clear when one observes that the price of an option, or more generally, the value at time
+   <math display="inline">
+    t
+   </math>
+   of any future claim with maturity
+   <math display="inline">
+    T
+   </math>
+   , is given by the general formula (see Risk-neutral Pricing)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t = \text{value at time } t
+   </math>
+   <br/>
+   =
+   <math>
+    \mathbb{E}(\text{discounted payoff at time } T \mid \mathcal{F}_t)
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   where the expectation is computed with respect to a pricing measure (see Equivalent Martingale Measures). The Markov property is a frequent assumption in financial models because it provides powerful tools (semigroup, theory of partial differential equations (PDEs), etc.) for the quantitative analysis of such problems.
+  </p>
+  <p block-type="TextInlineMath">
+   Assuming the Markov property (1) for
+   <math display="inline">
+    (S_t, t &gt; 0)
+   </math>
+   , the value
+   <math display="inline">
+    V_t
+   </math>
+   of the option can be expressed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t = \mathbb{E}(\mathrm{e}^{-r(T-t)}f(S_T) \mid \mathcal{F}_t)
+   </math>
+   <br/>
+   =
+   <math>
+    \mathbb{E}(\mathrm{e}^{-r(T-t)}f(S_T) \mid S_t)
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   so
+   <math display="inline">
+    V_t
+   </math>
+   can be expressed as a (deterministic) function of
+   <math display="inline">
+    t, S_t: u(t, S_t) = \mathbb{E}(e^{-r(T-t)}f(S_T) | S_t)
+   </math>
+   . Furthermore, this function
+   <math display="inline">
+    u
+   </math>
+   is shown to be the solution of a parabolic PDE, the Kolmogorov backward equation.
+  </p>
+  <p block-type="Text">
+   The goal of this article is to present the Markov processes and their relation with PDEs, and to illustrate the role of Markovian models in various financial problems. We give a general overview of the links between Markov processes and PDEs without giving more details and we focus on the case of Markov processes solution to stochastic differential equations (SDEs).
+  </p>
+  <p block-type="Text">
+   We will restrict ourselves to
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued Markov processes. The set of Borel subsets of
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   is denoted
+  </p>
+  <p block-type="TextInlineMath">
+   by
+   <math display="inline">
+    \mathcal{B}
+   </math>
+   . In the following, we will denote a Markov process by
+   <math display="inline">
+    (X_t, t \ge 0)
+   </math>
+   , or simply X when no confusion is possible.
+  </p>
+  <h1>
+   <b>
+    Markov Property and Transition
+   </b>
+   Semigroup
+  </h1>
+  <p block-type="Text">
+   A Markov process retains no memory of where it has been in the past. Only the current state of the process influences its future dynamics. The following definition formalizes this notion:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   Let
+   <math display="inline">
+    (X_t, t &gt; 0)
+   </math>
+   be a stochastic process defined on a probability filtered space
+   <math display="inline">
+    (\Omega, \mathcal{F}_t, \mathbb{P})
+   </math>
+   with values in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   . X is a Markov process if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}(X_{t+s} \in \Gamma \mid \mathcal{F}_t) = \mathbb{P}(X_{t+s} \in \Gamma \mid X_t) \quad \mathbb{P}\text{-a.s.}
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   for all
+   <math display="inline">
+    s, t \ge 0
+   </math>
+   and
+   <math display="inline">
+    \Gamma \in \mathcal{B}
+   </math>
+   . Equation (4) is called the Markov property of the process
+   <math display="inline">
+    X
+   </math>
+   . The Markov process is called time homogeneous if the law of
+   <math display="inline">
+    X_{t+s}
+   </math>
+   conditionally on
+   <math display="inline">
+    X_t = x
+   </math>
+   is independent of t.
+  </p>
+  <p block-type="TextInlineMath">
+   Observe that equation
+   <math display="inline">
+    (4)
+   </math>
+   is equivalent to equation (1) and that
+   <math display="inline">
+    X
+   </math>
+   is a time-homogeneous Markov process if there exists a positive function
+   <math display="inline">
+    P
+   </math>
+   defined on
+   <math display="inline">
+    \mathbb{R}_+ \times \mathbb{R}^d \times \mathcal{B}
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(s, X_t, \Gamma) = \mathbb{P}(X_{t+s} \in \Gamma \mid \mathcal{F}_t) \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   holds
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -a.s. for all
+   <math display="inline">
+    t, s \geq 0
+   </math>
+   and
+   <math display="inline">
+    \Gamma \in \mathcal{B}
+   </math>
+   .
+   <i>
+    P
+   </i>
+   is called the transition function of the time homogeneous Markov process
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   For the moment, we restrict ourselves to the timehomogeneous case.
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 1
+   </b>
+   The transition function
+   <math display="inline">
+    P
+   </math>
+   of a timehomogeneous Markov process X satisfies
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <math display="inline">
+      P(t, x, \cdot)
+     </math>
+     is a probability measure on
+     <math display="inline">
+      \mathbb{R}^d
+     </math>
+     for any
+     <math display="inline">
+      t &gt; 0
+     </math>
+     and
+     <math display="inline">
+      x \in \mathbb{R}^d
+     </math>
+     ,
+    </li>
+    <li block-type="ListItem">
+     2.
+     <math display="inline">
+      P(0, x, \cdot) = \delta_x
+     </math>
+     (unit mass at x) for any
+     <math display="inline">
+      x \in \mathbb{R}^d
+     </math>
+     ,
+    </li>
+    <li block-type="ListItem">
+     3.
+     <math display="inline">
+      P(\cdot, \cdot, \Gamma)
+     </math>
+     is measurable for any
+     <math display="inline">
+      \Gamma \in \mathcal{B}
+     </math>
+     ,
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   and for any
+   <math display="inline">
+    s, t \ge 0, x \in \mathbb{R}^d, \Gamma \in \mathcal{B}, P
+   </math>
+   satisfies the
+   <i>
+    Chapman–Kolmogorov property
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t+s,x,\Gamma) = \int_{\mathbb{R}^d} P(s,y,\Gamma) P(t,x,\mathrm{d}y) \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   From an analytical viewpoint, we can think of the transition function as a Markov semigroup&lt;sup&gt;a&lt;/sup&gt;
+   <math display="inline">
+    (P_t, t &gt;
+   </math>
+   0), defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_t f(x) := \int_{\mathbb{R}^d} P(t, x, dy) f(dy)
+   </math>
+   <br/>
+   =
+   <math>
+    \mathbb{E}(f(X_t) | X_0 = x)
+   </math>
+   (7)
+  </p>
+  <p block-type="Text">
+   in which case the Chapman-Kolmogorov equation becomes the
+   <i>
+    semigroup property
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_s P_t = P_{t+s}, \quad s, t \ge 0 \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Conversely, given a Markov semigroup
+   <math display="inline">
+    (P_t, t &gt;
+   </math>
+   0) and a probability measure
+   <math display="inline">
+    \nu
+   </math>
+   on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , it is always possible to construct a Markov process
+   <math display="inline">
+    X
+   </math>
+   with initial law
+   <math display="inline">
+    \nu
+   </math>
+   that satisfies equation (7) (see [9, Th.4.1.1]). The links between PDEs and Markov processes are based on this equivalence between semigroups and Markov processes. This can be expressed through a single object: the infinitesimal generator.
+  </p>
+  <h4>
+   Strong Markov Property, Feller Processes
+  </h4>
+  <p block-type="TextInlineMath">
+   Recall that a random time
+   <math display="inline">
+    \tau
+   </math>
+   is called a
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -stopping
+   <i>
+    time
+   </i>
+   if
+   <math display="inline">
+    \{\tau \le t\} \in \mathcal{F}_t
+   </math>
+   for any
+   <math display="inline">
+    t \ge 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 2
+   </b>
+   A Markov process
+   <math display="inline">
+    (X_t, t &gt; 0)
+   </math>
+   with transition function
+   <math display="inline">
+    P(t, x, \Gamma)
+   </math>
+   is strong Markov if, for any
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -stopping time
+   <math display="inline">
+    \tau
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}(X_{\tau+t} \in \Gamma \mid \mathcal{F}_{\tau}) = P(t, X_{\tau}, \Gamma) \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for all
+   <math display="inline">
+    t \geq 0
+   </math>
+   and
+   <math display="inline">
+    \Gamma \in \mathcal{B}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    C_0(\mathbb{R}^d)
+   </math>
+   denote the space of bounded continuous functions on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , which vanish at infinity, equipped with the
+   <math display="inline">
+    L^{\infty}
+   </math>
+   norm denoted by
+   <math display="inline">
+    \|\cdot\|
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 3
+   </b>
+   A Feller semigroup&lt;sup&gt;b&lt;/sup&gt; is a strongly continuous,&lt;sup&gt;c&lt;/sup&gt; positive, Markov semigroup
+   <math display="inline">
+    (P_t, t &gt; 0)
+   </math>
+   such that
+   <math display="inline">
+    P_t: C_0(\mathbb{R}^d) \to C_0(\mathbb{R}^d)
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \forall f \in C_0(\mathbb{R}^d), \ \ 0 \le f \Rightarrow 0 \le P_t f \\ \forall f \in C_0(\mathbb{R}^d) \ \ \forall x \in \mathbb{R}^d, \ \ P_t f(x) \to f(x) \ \ as \ t \to 0 \end{aligned} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   For a Feller semigroup, the corresponding Markov process can be constructed as a strong Markov process.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   ([9] Th.4.2.7). Given a Feller semigroup
+   <math display="inline">
+    (P_t, t \ge 0)
+   </math>
+   and any probability measure v on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , there exists a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}_t, \mathbb{P})
+   </math>
+   and a strong Markov process
+   <math display="inline">
+    (X_t, t &gt; 0)
+   </math>
+   on this space with values in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   with initial law v and with transition function
+   <math display="inline">
+    P_t
+   </math>
+   . A strong Markov process whose semigroup is Feller is called a Feller process.
+  </p>
+  <h2>
+   <b>
+    Infinitesimal Generator
+   </b>
+  </h2>
+  <p block-type="Text">
+   We are now in a position to introduce the key notion of
+   <i>
+    infinitesimal generator
+   </i>
+   of a Feller process.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 4
+   </b>
+   For a Feller process
+   <math display="inline">
+    (X_t, t &gt; 0)
+   </math>
+   , the infinitesimal generator of
+   <math display="inline">
+    X
+   </math>
+   is the (generally unbounded) linear operator
+   <math display="inline">
+    L: \mathcal{D}(L) \to C_0(\mathbb{R}^d)
+   </math>
+   defined as follows. We write
+   <math display="inline">
+    f \in \mathcal{D}(L)
+   </math>
+   if, for some
+   <math display="inline">
+    g \in
+   </math>
+   <math display="inline">
+    C_0(\mathbb{R}^d)
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathbb{E}(f(X_t) \mid X_0 = x) - f(x)}{t} \to g(x) \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   when
+   <math display="inline">
+    t \rightarrow 0
+   </math>
+   for the norm
+   <math display="inline">
+    \|\cdot\|
+   </math>
+   , and we then define
+   <math display="inline">
+    Lf = g.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   By Theorem 1, an equivalent definition can be obtained by replacing
+   <math display="inline">
+    X
+   </math>
+   by its Feller semigroup
+   <math display="inline">
+    (P_t, t \ge 0)
+   </math>
+   . In particular, for all
+   <math display="inline">
+    f \in \mathcal{D}(L)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Lf(x) = \lim_{t \to 0} \frac{P_t f(x) - f(x)}{t}
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   An important property of the infinitesimal generator is that it allows one to construct fundamental martingales associated with a Feller process.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 2
+   </b>
+   ([21], III.10). Let
+   <math display="inline">
+    X
+   </math>
+   be a Feller process on
+   <math display="inline">
+    (\Omega, \mathcal{F}_t, \mathbb{P})
+   </math>
+   with infinitesimal generator L such that
+   <math display="inline">
+    X_0 = x \in \mathbb{R}^d
+   </math>
+   . For all
+   <math display="inline">
+    f \in \mathcal{D}(L)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(X_t) - f(x) - \int_0^t Lf(X_s) \, \mathrm{d}s \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   defines a
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -martingale. In particular,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(f(X_t)) = f(x) + \mathbb{E}\Big(\int_0^t Lf(X_s) \,\mathrm{d}s\Big) \qquad (14)
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   As explained earlier, the law of a Markov process is characterized by its semigroup. In most cases, a Feller semigroup can be itself characterized by its infinitesimal generator (the precise conditions for
+  </p>
+  <p block-type="Text">
+   this to hold are given by the Hille-Yosida theorem, see [21, Th.III.5.1]). For almost all Markov financial models, these conditions are well established and always satisfied (see Examples 1, 2, 3, and 4). As illustrated by equation (14), when
+   <math display="inline">
+    \mathcal{D}(L)
+   </math>
+   is large enough, the infinitesimal generator captures the law of the whole dynamics of a Markov process and provides an analytical tool to study the Markov process. The other major mathematical tool used in finance is the stochastic calculus (see Stochastic integral, Itô formula), which applies to Semimartingales (see
+   <math display="inline">
+    [18]
+   </math>
+   ). It is therefore crucial for applications to characterize under which conditions a Markov process is a semimartingale. This question is answered for very general processes in
+   <math display="inline">
+    [5]
+   </math>
+   . We mention that this is always the case for Feller diffusions, defined later.
+  </p>
+  <h2>
+   <b>
+    Feller Diffusions
+   </b>
+  </h2>
+  <p block-type="Text">
+   Let us consider the particular case of continuous Markov processes, which include the solutions of stochastic differential equations (SDEs).
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 5
+   </b>
+   A Feller diffusion on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   is a Feller process X on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   that has continuous paths, and such
+   <i>
+    that the domain
+   </i>
+   <math display="inline">
+    \mathcal{D}(L)
+   </math>
+   <i>
+    of the generator
+   </i>
+   <math display="inline">
+    L
+   </math>
+   <i>
+    of
+   </i>
+   <math display="inline">
+    X
+   </math>
+   <i>
+    contains
+   </i>
+   the space
+   <math display="inline">
+    C_K^{\infty}(\mathbb{R}^d)
+   </math>
+   of infinitely differentiable functions of compact support.
+  </p>
+  <p block-type="Text">
+   Feller diffusions are Markov processes admitting a second-order differential operator as infinitesimal generator.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 3
+   </b>
+   For any
+   <math display="inline">
+    f \in C_K^{\infty}(\mathbb{R}^d)
+   </math>
+   , the infinitesimal generator
+   <math display="inline">
+    L
+   </math>
+   of a Feller diffusion has the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Lf(x) = \frac{1}{2} \sum_{i,j=1}^{d} a_{ij}(x) \frac{\partial^2 f}{\partial x_i \partial x_j}(x) + \sum_{i=1}^{d} b_i(x) \frac{\partial f}{\partial x_i}(x)
+   </math>
+   (15)
+  </p>
+  <p block-type="TextInlineMath">
+   where the functions
+   <math display="inline">
+    a_{ij}(\cdot)
+   </math>
+   and
+   <math display="inline">
+    b_i(\cdot)
+   </math>
+   ,
+   <math display="inline">
+    1 \le i, j \le d
+   </math>
+   are continuous and the matrix
+   <math display="inline">
+    a = (a_{ij}(x))_{1 \le i, j \le d}
+   </math>
+   is nonnegative definite symmetric for all
+   <math display="inline">
+    x \in \mathbb{R}^d
+   </math>
+   .
+  </p>
+  <h4>
+   Kolmogorov Equations
+  </h4>
+  <p block-type="Text">
+   Observe by equation (12) that the semigroup
+   <math display="inline">
+    P_t
+   </math>
+   of a Feller process
+   <math display="inline">
+    X
+   </math>
+   satisfies the following differential
+  </p>
+  <p block-type="TextInlineMath">
+   equation; for all
+   <math display="inline">
+    f \in \mathcal{D}(L)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}}{\mathrm{d}t}P_t f = L P_t f \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This equation is called
+   <i>
+    Kolmogorov's backward equation
+   </i>
+   . In particular, if
+   <math display="inline">
+    L
+   </math>
+   is a differential operator (e.g., if X is a Feller diffusion), the function
+   <math display="inline">
+    u(t,x) =
+   </math>
+   <math display="inline">
+    P_t f(x)
+   </math>
+   is the solution of the PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial u}{\partial t} = Lu \\ u(0, x) = f(x) \end{cases} \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   Conversely, if this PDE admits a unique solution, then its solution is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \mathbb{E}(f(X_t) \mid X_0 = x) \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   This is the simplest example of a probabilistic interpretation of the solution of a PDE in terms of a Markov process.
+  </p>
+  <p block-type="Text">
+   Moreover, because Feller semigroups are strongly continuous, it is easy to check that the operators
+   <math display="inline">
+    P_t
+   </math>
+   and L commute. Therefore, equation (16) may be rewritten as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}}{\mathrm{d}t}P_t f = P_t L f \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   This equation is known as Kolmogorov's forward equation. It is the weak formulation of the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}}{\mathrm{d}t}\mu_t^x = L^*\mu_t^x \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the probability measure
+   <math display="inline">
+    \mu_t^x
+   </math>
+   on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   denotes the law of
+   <math display="inline">
+    X_t
+   </math>
+   conditioned on
+   <math display="inline">
+    X_0 = x
+   </math>
+   and where
+   <math display="inline">
+    L^*
+   </math>
+   is the adjoint operator of
+   <math display="inline">
+    L
+   </math>
+   . In particular, with the notation of Theorem 3, if
+   <i>
+    X
+   </i>
+   is a Feller diffusion and if
+   <math display="inline">
+    \mu_t^x
+   </math>
+   (dy) admits a density
+   <math display="inline">
+    q(x;t,y)
+   </math>
+   with respect to Lebesgue's measure on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   (which holds, e.g., if the functions
+   <math display="inline">
+    b_i(x)
+   </math>
+   and
+   <math display="inline">
+    a_{ii}(x)
+   </math>
+   are bounded and locally Lipschitz, if the functions
+   <math display="inline">
+    a_{ij}(x)
+   </math>
+   are globally Hölder and if the matrix
+   <math display="inline">
+    a(x)
+   </math>
+   is uniformly positive definite [10,
+   <math display="inline">
+    Th.6.5.2
+   </math>
+   ], the forward Kolmogorov equation is the weak form (in the sense of the distribution theory) of the PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial}{\partial t}q(x;t,y) = -\sum_{i=1}^{d} \frac{\partial}{\partial y_i} (b_i(y)q(x;t,y))
+   </math>
+   <math display="block">
+    + \sum_{i,j=1}^{d} \frac{\partial^2}{\partial y_i \partial y_j} (a_{ij}(y)q(x;t,y)) \quad (21)
+   </math>
+  </p>
+  <p block-type="Text">
+   This equation is known as Fokker-Planck equation and gives another family of PDEs that have probabilistic interpretations. Fokker-Planck equation has applications in finance for quantiles, Value at Risk, or risk measure computations [22], whereas Kolmogorov's backward equation (17) is more suited to financial problems related to the hedging of derivatives products or portfolio allocation (see the section "Parabolic PDEs Associated to Markov Processes". and sequel).
+  </p>
+  <h4>
+   <b>
+    Time-inhomogeneous Markov Processes
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   The law of a time-inhomogeneous Markov process is described by the doubly indexed family of operators
+   <math display="inline">
+    (P_{s,t}, 0 \le s \le t)
+   </math>
+   where, for any bounded measurable
+   <math display="inline">
+    f
+   </math>
+   and any
+   <math display="inline">
+    x \in \mathbb{R}^d
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_{s,t}f(x) = \mathbb{E}(f(X_t) \mid X_s = x) \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   Then, the semigroup property becomes, for
+   <math display="inline">
+    s \le t \le r
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_{s,t}P_{t,r} = P_{s,r} \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Definition 3 of Feller semigroups can be generalized to time-inhomogeneous processes as follows. The time-inhomogeneous Markov process
+   <math display="inline">
+    X
+   </math>
+   is called a Feller time-inhomogeneous process if
+   <math display="inline">
+    (P_{s,t}, 0 &lt; s &lt; t)
+   </math>
+   is a family of positive, Markov linear operators on
+   <math display="inline">
+    C_0(\mathbb{R}^d)
+   </math>
+   which is strongly continuous in the sense
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \forall s \ge 0, \quad x \in \mathbb{R}^d, \ f \in C_0(\mathbb{R}^d), \quad \|P_{s,t}f - f\| \to 0
+   </math>
+   <br/>
+   as
+   <math>
+    t \to s
+   </math>
+   (24)
+  </p>
+  <p block-type="Text">
+   In this case, it is possible to generalize the notion of infinitesimal generator. For any
+   <math display="inline">
+    t
+   </math>
+   , let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_{t}f(x) = \lim_{s \to 0} \frac{P_{t,t+s}f(x) - f(x)}{s}
+   </math>
+   <math display="block">
+    = \lim_{s \to 0} \frac{\mathbb{E}\left[f(X_{t+s}) \mid X_{t} = x\right] - f(x)}{s}
+   </math>
+   (25)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   for any
+   <math display="inline">
+    f \in C_0(\mathbb{R}^d)
+   </math>
+   such that
+   <math display="inline">
+    L_t f \in C_0(\mathbb{R}^d)
+   </math>
+   and the limit above holds in the sense of the norm
+   <math display="inline">
+    \|\cdot\|
+   </math>
+   . The set of such
+   <math display="inline">
+    f \in C_0(\mathbb{R}^d)
+   </math>
+   is called the
+   <i>
+    domain
+   </i>
+   <math display="inline">
+    \mathcal{D}(L_t)
+   </math>
+   of the operator
+   <math display="inline">
+    L_t
+   </math>
+   .
+   <math display="inline">
+    (L_t, t \ge 0)
+   </math>
+   is called the
+   <i>
+    family of
+   </i>
+  </p>
+  <p block-type="Text">
+   time-inhomogeneous infinitesimal generators of the process
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   All the results on Feller processes stated earlier can be easily transposed to the time-inhomogeneous case, observing that if
+   <math display="inline">
+    (X_t, t \ge 0)
+   </math>
+   is a timeinhomogeneous Markov process on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , then
+   <math display="inline">
+    (\tilde{X}_t, t \geq
+   </math>
+   0), where
+   <math display="inline">
+    \tilde{X}_t = (t, X_t)
+   </math>
+   is a time-homogeneous Markov process on
+   <math display="inline">
+    \mathbb{R}_+ \times \mathbb{R}^d
+   </math>
+   . Moreover, if
+   <i>
+    X
+   </i>
+   is timeinhomogeneous Feller, it is elementary to check that the process
+   <math display="inline">
+    \tilde{X}
+   </math>
+   is time-homogeneous Feller as defined in Definition 3. Its semigroup
+   <math display="inline">
+    (\tilde{P}_t, t \ge 0)
+   </math>
+   is linked to the time-inhomogeneous semigroup by the relation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{P}_t f(s, x) = \mathbb{E}[f(s+t, X_{s+t}) \mid X_s = x] \\
+= (P_{s, s+t} f(s+t, \cdot))(x) \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for all bounded and measurable
+   <math display="inline">
+    f: \mathbb{R}_+ \times \mathbb{R}^d \to
+   </math>
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   . If
+   <math display="inline">
+    \tilde{L}
+   </math>
+   denotes the infinitesimal generator of the process
+   <math display="inline">
+    \tilde{X}
+   </math>
+   , it is elementary to check that, for any
+   <math display="inline">
+    f(t,x) \in \mathcal{D}(\tilde{L})
+   </math>
+   that is differentiable with respect to t, with derivative uniformly continuous in
+   <math display="inline">
+    (t, x)
+   </math>
+   ,
+   <math display="inline">
+    x \mapsto f(t, x)
+   </math>
+   belongs to
+   <math display="inline">
+    \mathcal{D}(L_t)
+   </math>
+   for any
+   <math display="inline">
+    t \geq 0
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{L}f(t,x) = \frac{\partial f}{\partial t}(t,x) + \left(L_t f(t,\cdot)\right)(x) \tag{27}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   On this observation, it is possible to apply Theorem 3 to time-inhomogeneous Feller diffusions, defined as continuous time-inhomogeneous Feller processes with infinitesimal generators
+   <math display="inline">
+    (L_t, t \ge 0)
+   </math>
+   such that
+   <math display="inline">
+    C_K^{\infty}(\mathbb{R}^d) \subset \mathcal{D}(L_t)
+   </math>
+   for any
+   <math display="inline">
+    t \geq 0
+   </math>
+   . For such processes, there exist continuous functions
+   <math display="inline">
+    b_i
+   </math>
+   and
+   <math display="inline">
+    a_{ij}
+   </math>
+   ,
+   <math display="inline">
+    1 \le i, j \le j
+   </math>
+   d from
+   <math display="inline">
+    \mathbb{R}_+ \times \mathbb{R}^d
+   </math>
+   to
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   such that the matrix
+   <math display="inline">
+    a(t, x) =
+   </math>
+   <math display="inline">
+    (a_{i,j}(t,x))_{1\leq i,j\leq d}
+   </math>
+   is symmetric nonnegative definite and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_t f(x) = \frac{1}{2} \sum_{i,j=1}^d a_{ij}(t,x) \frac{\partial^2 f}{\partial x_i \partial x_j}(x)
+   </math>
+   <math display="block">
+    + \sum_{i=1}^d b_i(t,x) \frac{\partial f}{\partial x_i}(x) \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for all
+   <math display="inline">
+    t \ge 0
+   </math>
+   ,
+   <math display="inline">
+    x \in \mathbb{R}^d
+   </math>
+   and
+   <math display="inline">
+    f \in C_K^{\infty}(\mathbb{R}^d)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   For more details on time-inhomogeneous Markov processes, we refer to
+   <math display="inline">
+    [10]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Example 1 Brownian Motion The standard onedimensional Brownian motion
+   <math display="inline">
+    (B_t, t \ge 0)
+   </math>
+   is a Feller diffusion in
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   <math display="inline">
+    (d = 1)
+   </math>
+   such that
+   <math display="inline">
+    B_0 = 0
+   </math>
+   and for
+  </p>
+  <p block-type="TextInlineMath">
+   which the parameters of Theorem 3 are
+   <math display="inline">
+    b = 0
+   </math>
+   and
+   <math display="inline">
+    a = 1
+   </math>
+   . The Brownian motion is the fundamental prototype of Feller diffusions. Other diffusions are inherited from this process because they can be expressed as solutions to SDEs driven by independent Brownian motions (see later). Similarly, the standard
+   <math display="inline">
+    d
+   </math>
+   -dimensional Brownian motion is a vector of
+   <math display="inline">
+    d
+   </math>
+   independent standard one-dimensional Brownian motions and corresponds to the case
+   <math display="inline">
+    b_i = 0
+   </math>
+   and
+   <math display="inline">
+    a_{ij} = \delta_{ij}
+   </math>
+   for
+   <math display="inline">
+    1 \leq i, j \leq d
+   </math>
+   , where
+   <math display="inline">
+    \delta_{ij}
+   </math>
+   is the Kronecker delta function (
+   <math display="inline">
+    \delta_{ij} = 1
+   </math>
+   if
+   <math display="inline">
+    i = j
+   </math>
+   and 0 otherwise).
+  </p>
+  <p block-type="Text">
+   Example 2 Black-Scholes Model In the Black-Scholes model, the underlying asset price
+   <math display="inline">
+    S_t
+   </math>
+   follows a geometric Brownian motion with constant drift
+   <math display="inline">
+    \mu
+   </math>
+   and volatility
+   <math display="inline">
+    \sigma
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = S_0 \exp\left((\mu - \sigma^2/2)t + \sigma B_t\right) \tag{29}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    B
+   </math>
+   is a standard Brownian motion. With Itô's formula, it is easily checked that
+   <math display="inline">
+    S
+   </math>
+   is a Feller diffusion with infinitesimal generator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Lf(x) = \mu x f'(x) + \frac{1}{2}\sigma^2 x^2 f''(x) \tag{30}
+   </math>
+  </p>
+  <p block-type="Text">
+   Itô's formula also yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = S_0 + \mu \int_0^t S_s \, \mathrm{d}s + \sigma \int_0^t S_s \, \mathrm{d}B_s \tag{31}
+   </math>
+  </p>
+  <p block-type="Text">
+   which can be written as the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = \mu S_t dt + \sigma S_t dB_t \tag{32}
+   </math>
+  </p>
+  <p block-type="Text">
+   The correspondence between the SDE and the second-order differential operator
+   <math display="inline">
+    L
+   </math>
+   appears below as a general fact.
+  </p>
+  <p block-type="TextInlineMath">
+   Example 3 Stochastic Differential Equations SDEs are probably the most used Markov models in finance. Solutions of SDEs are examples of Feller diffusions. When the parameters
+   <math display="inline">
+    b_i
+   </math>
+   and
+   <math display="inline">
+    a_{ij}
+   </math>
+   of Theorem 3 are sufficiently regular, a Feller process
+   <math display="inline">
+    X
+   </math>
+   with generator equation
+   <math display="inline">
+    (15)
+   </math>
+   can be constructed as the solution of the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = b(X_t)dt + \sigma(X_t) dB_t \tag{33}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    b(x) \in \mathbb{R}^d
+   </math>
+   is
+   <math display="inline">
+    (b_1(x), \ldots, b_d(x))
+   </math>
+   , where the
+   <math display="inline">
+    d \times r
+   </math>
+   matrix
+   <math display="inline">
+    \sigma(x)
+   </math>
+   satisfies
+   <math display="inline">
+    a_{ij}(x) = \sum_{k=1}^r \sigma_{ik}(x) \sigma_{jk}(x)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (i.e.,
+   <math display="inline">
+    a = \sigma \sigma'
+   </math>
+   ) and where
+   <math display="inline">
+    B_t
+   </math>
+   is a r-dimensional standard Brownian motion. For example, when
+   <math display="inline">
+    d = r
+   </math>
+   , one can take for
+   <math display="inline">
+    \sigma(x)
+   </math>
+   the symmetric square root matrix of the matrix
+   <math display="inline">
+    a(x)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The construction of Markov solutions to the SDE (33) with generator (15) is possible if b and
+   <math display="inline">
+    \sigma
+   </math>
+   are globally Lipschitz with linear growth [13, Th.5.2.9], or if
+   <math display="inline">
+    b
+   </math>
+   and
+   <math display="inline">
+    a
+   </math>
+   are bounded and continuous functions [13, Th.5.4.22]. In the second case, the SDE has a solution in a weaker sense. Uniqueness (at least in law) and the strong Markov property hold if
+   <math display="inline">
+    b
+   </math>
+   and
+   <math display="inline">
+    \sigma
+   </math>
+   are locally Lipschitz [13, Th.5.2.5], or if b and a are Hölder continuous and the matrix
+   <math display="inline">
+    a
+   </math>
+   is uniformly positive definite [13, Rmk.5.4.30, Th.5.4.20]. In the one-dimensional case, existence and uniqueness for the SDE (32) can be proved under weaker assumptions [13, Sec.5.5].
+  </p>
+  <p block-type="Text">
+   In all these cases, the Markov property allows one to identify the SDE
+   <math display="inline">
+    (33)
+   </math>
+   with its generator
+   <math display="inline">
+    (15)
+   </math>
+   . This will allow us to make the link between parabolic PDEs and the corresponding SDE in the section "Parabolic PDEs Associated to Markov Processes" and sequel.
+  </p>
+  <p block-type="Text">
+   Similarly, one can associate to the time-inhomogeneous SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = b(t, X_t) dt + \sigma(t, X_t) dB_t \qquad (34)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   the time-inhomogeneous generators (28). Existence for this SDE holds if
+   <math display="inline">
+    b_i
+   </math>
+   and
+   <math display="inline">
+    \sigma_{ij}
+   </math>
+   are globally Lipschitz in x and locally bounded (uniqueness holds if
+   <math display="inline">
+    b_i
+   </math>
+   and
+   <math display="inline">
+    \sigma_{ij}
+   </math>
+   are only locally Lipschitz in x). As earlier, in this case, a solution to equation (34) is strong Markov. We refer the reader to
+   <math display="inline">
+    [16]
+   </math>
+   for more details.
+  </p>
+  <p block-type="Text">
+   Example 4 Backward Stochastic Differential
+   <b>
+    Equations Backward
+   </b>
+   stochastic differential
+   <b>
+    equations
+   </b>
+   are SDEs where a random variable is given as a terminal condition. Let us motivate the definition of a backward SDE (BSDE) by continuing the study of the elementary example of the introduction of this article.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Consider an asset
+   <math display="inline">
+    S_t
+   </math>
+   modeled by the Black-Scholes SDE (32) and assume that it is possible to borrow and lend cash at a constant risk-free interest rate
+   <math display="inline">
+    r
+   </math>
+   . A self-financed trading strategy is determined by an initial portfolio value and the amount
+   <math display="inline">
+    \pi_t
+   </math>
+   of the portfolio value placed in the risky asset at time
+   <math display="inline">
+    t
+   </math>
+   . Given the stochastic process
+   <math display="inline">
+    (\pi_t, t \ge 0)
+   </math>
+   , the portfolio
+  </p>
+  <p block-type="Text">
+   value
+   <math display="inline">
+    V_t
+   </math>
+   at time t solves the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dV_t = rV_t dt + \pi_t(\mu - r) dt + \sigma \pi_t dB_t \qquad (35)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    B
+   </math>
+   is the Brownian motion driving the dynamics (32) of the risky asset
+   <math display="inline">
+    S
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Assume that this portfolio serves to hedge a call option with strike
+   <math display="inline">
+    K
+   </math>
+   and maturity
+   <math display="inline">
+    T
+   </math>
+   . This problem can be expressed as finding a couple of processes
+   <math display="inline">
+    (V_t, \pi_t)
+   </math>
+   adapted to the Brownian filtration
+   <math display="inline">
+    \mathcal{F}_t =
+   </math>
+   <math display="inline">
+    \sigma(B_s, s \leq t)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t = (S_T - K)^+ - \int_t^T (rV_s + \pi_s(\mu - r)) \, \mathrm{d}s
+   </math>
+   <math display="block">
+    - \int_t^T \sigma \pi_s \, \mathrm{d}B_s \tag{36}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Such SDEs with terminal condition and with unknown process driving the Brownian integral are called
+   <i>
+    BSDEs
+   </i>
+   . This particular BSDE admits a unique solution (see the section "Quasi- and Semilinear PDEs and BSDEs") and can be explicitly solved. Because
+   <math display="inline">
+    V_0
+   </math>
+   is
+   <math display="inline">
+    \mathcal{F}_0
+   </math>
+   adapted, it is nonrandom and therefore
+   <math display="inline">
+    V_0
+   </math>
+   is the usual free arbitrage price of the option. In particular, choosing
+   <math display="inline">
+    \mu = r
+   </math>
+   , we recover the usual formula for the free arbitrage price
+   <math display="inline">
+    V_0 =
+   </math>
+   <math display="inline">
+    \mathbb{E}[\mathrm{e}^{-rT}(S_T-K)^+]
+   </math>
+   , and the quantity of risky asset
+   <math display="inline">
+    \pi_t/S_t
+   </math>
+   in the portfolio is given by the Black–Scholes
+   <math display="inline">
+    \Delta
+   </math>
+   -hedge
+   <math display="inline">
+    \partial u/\partial x(t, S_t)
+   </math>
+   , where
+   <math display="inline">
+    u(t, x)
+   </math>
+   is the solution of the Black–Scholes PDE (
+   <i>
+    see
+   </i>
+   <b>
+    Exchange Options
+   </b>
+   )
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\frac{\partial u}{\partial t} + rx\frac{\partial u}{\partial x} + \frac{\sigma^2}{2}x^2\frac{\partial^2 u}{\partial t^2} - ru = 0\\
+\forall (t, x) \in [0, T) \times (0, +\infty)\\
+u(T, x) = f(x) \qquad \qquad \forall x \in (0, +\infty)\n\end{cases}\n
+   </math>
+   (37)
+  </p>
+  <p block-type="TextInlineMath">
+   Applying Itô formula to
+   <math display="inline">
+    u(t, S_t)
+   </math>
+   , an elementary computation shows that
+   <math display="inline">
+    u(t, S_t)
+   </math>
+   solves the same SDE (35) with
+   <math display="inline">
+    \mu = r
+   </math>
+   as
+   <math display="inline">
+    V_t
+   </math>
+   , with the same terminal condition. Therefore, by uniqueness,
+   <math display="inline">
+    V_t = u(t, S_t)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Usually, for more general BSDEs,
+   <math display="inline">
+    (\pi_t, t \ge 0)
+   </math>
+   is an implicit process given by the martingale representation theorem. In the section "Quasi- and Semilinear PDEs and BSDEs", we give results on the existence and uniqueness of solutions of BSDEs, and on their links with nonlinear PDEs.
+  </p>
+  <h4>
+   <b>
+    Discontinuous Markov Processes
+   </b>
+  </h4>
+  <p block-type="Text">
+   In financial models, it is sometimes natural to consider discontinuous Markov processes, for example, when one wants to take into account jumps in prices. This can sometimes be done by modeling the dynamics using
+   <b>
+    Poisson processes
+   </b>
+   ,
+   <b>
+    Lévy processes
+   </b>
+   or other jump processes (see Jump Processes). In particular, it is possible to define SDEs where the Brownian motion is replaced by a Lévy process (see CGMY model, NIG model, or Generalized
+   <b>
+    hyperbolic model
+   </b>
+   for examples). In this situation, the generator is an integro-differential operator and the parabolic PDE is replaced by Partial integrodifferential Equations.
+  </p>
+  <h2>
+   <b>
+    Dimension of the State Space
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   In many pricing/hedging problems, the dimension of the pricing PDE is greater than the state space of the underlyings. In such cases, the financial problem is apparently related to non-Markov stochastic processes. However, it can usually be expressed in terms of Markov processes if one increases the dimension of the process considered. For example, in the context of Markov short rates
+   <math display="inline">
+    (r_t, t \ge 0)
+   </math>
+   , the pricing of a
+   <b>
+    zero-coupon bond
+   </b>
+   is expressed in terms of the process
+   <math display="inline">
+    R_t = \int_0^t r_s \, ds
+   </math>
+   which is not Markovian, whereas the couple
+   <math display="inline">
+    (r_t, R_t)
+   </math>
+   is Markovian. For Asian options on a Markov asset, the couple formed by the asset and its integral is Markovian. If the asset involves a stochastic volatility solution to a SDE (see Heston
+   <b>
+    model
+   </b>
+   and
+   <b>
+    SABR
+   </b>
+   model), then the couple formed by the asset value and its volatility is Markov. As mentioned earlier, another important example is given by time-inhomogeneous Markov processes that become time homogeneous when one considers the couple formed by the current time and the original process.
+  </p>
+  <p block-type="Text">
+   In some cases, the dimension of the system can be reduced while preserving the Markovian nature of the problem. In the case of the portfolio management of multidimensional Black-Scholes prices with deterministic volatility matrix, mean return vector and interest rate, the dimension of the problem is actually reduced to one (see
+   <b>
+    Merton problem
+   </b>
+   ). When the volatility matrix, the mean return vector, and the interest rate are Markov processes of dimension
+   <math display="inline">
+    d'
+   </math>
+   , the dimension of the problem is reduced to
+   <math display="inline">
+    d' + 1
+   </math>
+   .
+  </p>
+  <h1>
+   <b>
+    Parabolic PDEs Associated to Markov
+   </b>
+   Processes
+  </h1>
+  <p block-type="Text">
+   Computing the value of any future claim with fixed maturity (for example, the price of an European option on an asset solution to a SDE), or solving an optimal portfolio management problem, amounts to solve a parabolic second-order PDE, that is a PDE of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial u}{\partial t}(t,x) + L_t u(t,x)
+   </math>
+   <br/>
+   =
+   <math>
+    f(t,x,u(t,x), \nabla u(t,x)), \quad (t,x) \in \mathbb{R}_+ \times \mathbb{R}^d
+   </math>
+   <br/>
+   (38)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \nabla u(t, x)
+   </math>
+   is the gradient of
+   <math display="inline">
+    u(t, x)
+   </math>
+   with respect to x and the linear differential operators
+   <math display="inline">
+    L_t
+   </math>
+   has the form equation
+   <math display="inline">
+    (28)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The goal of this section is to explain the links between these PDEs and the original diffusion process, or some intermediate Markov process. We will distinguish between
+   <i>
+    linear
+   </i>
+   parabolic PDEs, where the function
+   <math display="inline">
+    f(t, x, y, z)
+   </math>
+   does not depend on z and is linear in y, semilinear parabolic PDEs, where the function
+   <math display="inline">
+    f(t, x, y, z)
+   </math>
+   does not depend on z but is nonlinear in
+   <math display="inline">
+    y
+   </math>
+   , and
+   <i>
+    quasi-linear
+   </i>
+   parabolic PDEs, where the function
+   <math display="inline">
+    f(t, x, y, z)
+   </math>
+   is nonlinear in
+   <math display="inline">
+    (y, z)
+   </math>
+   . We will also discuss the links between diffusion processes and some fully nonlinear PDEs (Hamilton-Jacobi-Bellman (HJB) equations or variational inequalities) of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F\left(t, \frac{\partial u}{\partial t}(t, x), u(t, x), \nabla u(t, x), Hu(t, x)\right) = 0,
+   </math>
+   <br/>
+   <math display="block">
+    (t, x) \in \mathbb{R}_+ \times \mathbb{R}^d \tag{39}
+   </math>
+  </p>
+  <p block-type="Text">
+   for some nonlinear function
+   <math display="inline">
+    F
+   </math>
+   , where
+   <math display="inline">
+    Hu
+   </math>
+   denotes the Hessian matrix of
+   <math display="inline">
+    u
+   </math>
+   with respect to the space variable
+   <math display="inline">
+    x
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Such problems involve several notions of solutions discussed in the literature (see viscosity solution). In the sections "Brownian Motion, Ornstein-Uhlenbeck Process, and the Heat Equation" and "Linear Case", we consider
+   <i>
+    classical solutions
+   </i>
+   , that is, solutions that are continuously differentiable with respect to the time variable, and twice continuously differentiable with respect to the space variables. In the sections "Ouasi- and Semilinear PDEs and BSDEs" and
+  </p>
+  <p block-type="Text">
+   "Optimal Control, Hamilton-Jacobi-Bellman Equations, and Variational Inequalities", because of the nonlinearity of the problem, classical solutions may not exist, and one must consider the weaker notion of viscosity solutions.
+  </p>
+  <p block-type="Text">
+   In the section "Brownian Motion, Ornstein-Uhlenbeck Process, and the Heat Equation", we consider heat-like equations where the solution can be explicitly computed. The section "Linear Case" deals with linear PDEs, the section "Ouasi- and Semilinear PDEs and BSDEs" deals with quasi- and semilinear PDEs and their links with BSDEs, and the section "Optimal Control, Hamilton-Jacobi-Bellman Equations, and Variational Inequalities" deals with optimal control problems.
+  </p>
+  <h1>
+   <b>
+    Brownian Motion. Ornstein-Uhlenbeck Process, and the Heat Equation
+   </b>
+  </h1>
+  <p block-type="Text">
+   The
+   <i>
+    heat equation
+   </i>
+   is the first example of a parabolic PDE with basic probabilistic interpretation (for which there is no need of stochastic calculus).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial u}{\partial t}(t,x) = \frac{1}{2}\Delta u(t,x), &amp; (t,x) \in (0,+\infty) \times \mathbb{R}^d\\ u(0,x) = f(x), &amp; x \in \mathbb{R}^d \end{cases}
+   </math>
+   (40)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Delta
+   </math>
+   denotes the Laplacian operator of
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   . When
+   <math display="inline">
+    f
+   </math>
+   is a bounded measurable function, it is well known that the solution of this problem is given by the formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \int_{\mathbb{R}^d} f(y)g(x;t,y) \, \mathrm{d}y \tag{41}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g(x;t,y) = \frac{1}{(2\pi t)^{d/2}} \exp\left(\frac{|x-y|^2}{2t}\right) \tag{42}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    |\cdot|
+   </math>
+   denotes the Euclidean norm on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   . g is often called the
+   <i>
+    fundamental solution
+   </i>
+   of the heat equation. We recognize that
+   <math display="inline">
+    g(x; t, y)
+   </math>
+   dy is the law of
+   <math display="inline">
+    x + B_t
+   </math>
+   where
+   <math display="inline">
+    B
+   </math>
+   is a standard
+   <math display="inline">
+    d
+   </math>
+   -dimensional Brownian motion. Therefore, equation (41) may be rewritten as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \mathbb{E}[f(x+B_t)] \tag{43}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   which provides a simple probabilistic interpretation of the solution of the heat equation in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   as a particular case of equation
+   <math display="inline">
+    (18)
+   </math>
+   . Note that equation
+   <math display="inline">
+    (40)
+   </math>
+  </p>
+  <p block-type="Text">
+   involves the infinitesimal generator of the Brownian motion
+   <math display="inline">
+    (1/2)\Delta
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Let us mention two other cases where the link between PDEs and stochastic processes can be done without stochastic calculus. The first one is the Black-Sholes model, solution to the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t(\mu \, dt + \sigma \, dB_t) \tag{44}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    d = 1
+   </math>
+   , its infinitesimal generator is
+   <math display="inline">
+    Lf(x) =
+   </math>
+   <math display="inline">
+    \mu x f'(x) + (\sigma^2/2) x^2 f''(x)
+   </math>
+   and its law at time t when
+   <math display="inline">
+    S_0 = x
+   </math>
+   is
+   <math display="inline">
+    l(x; t, y)
+   </math>
+   dy where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    l(x;t,y) = \frac{1}{\sigma y \sqrt{2\pi t}}
+   </math>
+   <math display="block">
+    \times \exp\left[-\frac{1}{2\sigma^2 t} \left(\log\frac{y}{x} - \left(\mu - \frac{\sigma^2}{2}\right)t\right)^2\right]
+   </math>
+   (45)
+  </p>
+  <p block-type="Text">
+   Then, for any bounded and measurable
+   <math display="inline">
+    f
+   </math>
+   , elementary computations show that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \int_0^\infty f(y)l(x;t,y) \, \mathrm{d}y \tag{46}
+   </math>
+  </p>
+  <p block-type="Text">
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\frac{\partial u}{\partial t}(t,x) = Lu(t,x), &amp; (t,x) \in (0,+\infty)^2 \\
+u(0,x) = f(x), &amp; x \in (0,+\infty)\n\end{cases}\n
+   </math>
+   (47)
+  </p>
+  <p block-type="Text">
+   Here again, this formula gives immediately the probabilistic interpretation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \mathbb{E}[f(S_t) \mid S_0 = x] \tag{48}
+   </math>
+  </p>
+  <p block-type="Text">
+   The last example is the
+   <b>
+    Ornstein-Uhlenbeck
+   </b>
+   process in
+   <math display="inline">
+    \mathbb{R}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = \beta X_t dt + \sigma dB_t \tag{49}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \beta \in \mathbb{R}
+   </math>
+   ,
+   <math display="inline">
+    \sigma &gt; 0
+   </math>
+   and
+   <math display="inline">
+    X_0 = x
+   </math>
+   . The infinitesimal generator of this process is
+   <math display="inline">
+    Af(x) = \beta x f'(x) +
+   </math>
+   <math display="inline">
+    (\sigma^2/2) f''(x)
+   </math>
+   . It can be easily checked that
+   <math display="inline">
+    X_t
+   </math>
+   is a Gaussian random variable with mean
+   <math display="inline">
+    x \exp(\beta t)
+   </math>
+   and variance
+   <math display="inline">
+    \sigma^2(\exp(2\beta t) - 1)/2\beta
+   </math>
+   with the convention that
+   <math display="inline">
+    (\exp(2\beta t) - 1)/2\beta = t
+   </math>
+   if
+   <math display="inline">
+    \beta = 0
+   </math>
+   . Therefore, its probability density function is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h(x;t,y) = \sqrt{\frac{\beta}{\sigma^2 \pi (\exp(2\beta t) - 1)}}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \times \exp\left[-\frac{2\beta(y-x\exp(\beta t))^2}{\sigma^2(\exp(2\beta t)-1)}\right] \quad (50)
+   </math>
+  </p>
+  <p block-type="Text">
+   Then, for any bounded and measurable
+   <math display="inline">
+    f
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \int_{\mathbb{R}} f(y)h(x;t,y) \, \mathrm{d}y = \mathbb{E}[f(X_t) \mid X_0 = x]
+   </math>
+   (51)
+  </p>
+  <p block-type="Text">
+   is solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial u}{\partial t}(t,x) = Au(t,x), &amp; (t,x) \in (0,+\infty) \times \mathbb{R} \\ u(0,x) = f(x), &amp; x \in \mathbb{R} \end{cases}
+   </math>
+   (52)
+  </p>
+  <h2>
+   <b>
+    Linear Case
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   The probabilistic interpretations of the previous PDEs can be generalized to a large class of linear parabolic PDEs with arbitrary second-order differential operator, interpreted as the infinitesimal generator of a Markov process. Assume that the vector
+   <math display="inline">
+    b(t, x) \in \mathbb{R}^d
+   </math>
+   and the
+   <math display="inline">
+    d \times r
+   </math>
+   matrix
+   <math display="inline">
+    \sigma(t, x)
+   </math>
+   are uniformly bounded and locally Lipschitz functions on
+   <math display="inline">
+    [0,T] \times \mathbb{R}^d
+   </math>
+   and consider the SDE in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = b(t, X_t) dt + \sigma(t, X_t) dB_t \qquad (53)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    B
+   </math>
+   is a standard r-dimensional Brownian motion. Set
+   <math display="inline">
+    a = \sigma \sigma'
+   </math>
+   and assume also that the
+   <math display="inline">
+    d \times d
+   </math>
+   matrix
+   <math display="inline">
+    a(t, x)
+   </math>
+   is uniformly Hölder and satisfies the uniform ellipticity condition: there exists
+   <math display="inline">
+    \gamma &gt; 0
+   </math>
+   such that for all
+   <math display="inline">
+    (t, x) \in [0, T] \times \mathbb{R}^d
+   </math>
+   and
+   <math display="inline">
+    \xi \in \mathbb{R}^d
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{i,j=1}^{d} a_{ij}(t,x)\xi_{i}\xi_{j} \ge \gamma |\xi|^{2} \tag{54}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (L_t)_{t\geq 0}
+   </math>
+   be the family of time-inhomogeneous infinitesimal generators of the Feller diffusion
+   <math display="inline">
+    X_t
+   </math>
+   solution to the SDE (53), given by equation (28). Consider the Cauchy problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\frac{\partial u}{\partial t}(t,x) + L_t u(t,x) \\
++c(t,x)u(t,x) = f(t,x), \quad (t,x) \in [0,T) \times \mathbb{R}^d \\
+u(T,x) = g(x), \quad x \in \mathbb{R}^d\n\end{cases} \tag{55}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    c(t, x)
+   </math>
+   is uniformly bounded and locally Hölder on
+   <math display="inline">
+    [0, T] \times \mathbb{R}^d
+   </math>
+   ,
+   <math display="inline">
+    f(t, x)
+   </math>
+   is locally Hölder on
+   <math display="inline">
+    [0,T] \times \mathbb{R}^d
+   </math>
+   ,
+   <math display="inline">
+    g(x)
+   </math>
+   is continuous on
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |f(t,x)| + |g(x)| \le A \exp(a|x|),
+   </math>
+   <br/>
+   <math display="block">
+    \forall (t,x) \in [0,T] \times \mathbb{R}^d
+   </math>
+   (56)
+  </p>
+  <p block-type="TextInlineMath">
+   for some constants
+   <math display="inline">
+    A, a &gt; 0
+   </math>
+   . Under these conditions, it follows easily from Theorems
+   <math display="inline">
+    6.4.5
+   </math>
+   and
+   <math display="inline">
+    6.4.6
+   </math>
+   of [10] that equation (55) admits a unique classical solution
+   <math display="inline">
+    u
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |u(t,x)| \le A' \exp(a|x|) \quad \forall (t,x) \in [0,T] \times \mathbb{R}^d
+   </math>
+   (57)
+  </p>
+  <p block-type="TextInlineMath">
+   for some constant
+   <math display="inline">
+    A' &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The following result is known as Feynman-Kac
+   <i>
+    formula
+   </i>
+   and can be deduced from equation
+   <math display="inline">
+    (57)
+   </math>
+   using exactly the same method as for
+   <math display="inline">
+    [10, Th.6.5.3]
+   </math>
+   and using the fact that, under our assumptions, has finite exponential moments
+   <math display="inline">
+    X_{\cdot}
+   </math>
+   <math display="inline">
+    [10, Th.6.4.5].
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 4
+   </b>
+   Under the previous assumptions, the solution of the Cauchy problem
+   <math display="inline">
+    (55)
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \mathbb{E}\left[g(X_T)\exp\left(\int_t^T c(s,X_s)\,\mathrm{d}s\right) \mid X_t = x\right]
+   </math>
+   <math display="block">
+    -\mathbb{E}\left[\int_t^T f(s,X_s)\right]
+   </math>
+   <math display="block">
+    \times \exp\left(\int_t^s c(\alpha,X_\alpha)\,\mathrm{d}\alpha\right)\,\mathrm{d}s \mid X_t = x\right]
+   </math>
+   (58)
+  </p>
+  <p block-type="Text">
+   Let us mention that this result can be extended to parabolic linear PDEs on bounded domains [10, Th.6.5.2] and to elliptic linear PDEs on bounded domains [10, Th.6.5.1].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Example 5 European Options The Feynman-Kac formula has many applications in finance. Let us consider the case of an European option on a one-dimensional Markov asset
+   <math display="inline">
+    (S_t, t \ge 0)
+   </math>
+   with payoff
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    g(S_u, 0 \le u \le T)
+   </math>
+   . The free arbitrage value at time t of this option is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t = \mathbb{E}[\mathrm{e}^{-r(T-t)}g(S_u, t \le u \le T) \mid \mathcal{F}_t] \tag{59}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   By the Markov property (1), this quantity only depends on
+   <math display="inline">
+    S_t
+   </math>
+   and
+   <math display="inline">
+    t
+   </math>
+   [10, Th.2.1.2]. The Feynman-Kac formula (58) allows one to characterize
+   <math display="inline">
+    V
+   </math>
+   in the case where
+   <math display="inline">
+    g
+   </math>
+   depends only on
+   <math display="inline">
+    S_T
+   </math>
+   and
+   <math display="inline">
+    S
+   </math>
+   is a Feller diffusion.
+  </p>
+  <p block-type="Text">
+   Most often, the asset SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t(\mu(t, S_t) dt + \sigma(t, S_t) dB_t)
+   </math>
+   (60)
+  </p>
+  <p block-type="TextInlineMath">
+   cannot satisfy the uniform ellipticity assumption (54) in the neighborhood of 0. Therefore, Theorem 4 does not apply directly. This is a general difficulty for financial models. However, in most cases (and in all the examples below), it can be overcome by taking the logarithm of the asset price. In our case, we assume that the process
+   <math display="inline">
+    (\log S_t, 0 \le t \le T)
+   </math>
+   is a Feller diffusion on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   with time-inhomogeneous generator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_t \phi(y) = \frac{1}{2} a(t, y) \phi''(y) + b(t, y) \phi'(y) \tag{61}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   that satisfy the assumptions of Theorem 4. This holds for example for the Black-Scholes model (32). This assumption implies that
+   <math display="inline">
+    S
+   </math>
+   is a Feller diffusion on
+   <math display="inline">
+    (0, +\infty)
+   </math>
+   whose generator takes the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{L}_t \phi(x) = \frac{1}{2} \tilde{a}(t, x) x^2 \phi''(x) + \tilde{b}(t, y) x \phi'(x) \quad (62)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tilde{a}(t, x) = a(t, \log x)
+   </math>
+   and
+   <math display="inline">
+    \tilde{b}(t, x) = b(t, \log x) +
+   </math>
+   <math display="inline">
+    a(t, \log x)/2
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Assume also that
+   <math display="inline">
+    g(x)
+   </math>
+   is continuous on
+   <math display="inline">
+    \mathbb{R}_+
+   </math>
+   with polynomial growth when
+   <math display="inline">
+    x \to +\infty
+   </math>
+   . Then, by Theorem 4, the function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t, y) = \mathbb{E}\left[e^{-r(T-t)}g(S_T) \mid \log S_t = y\right] \qquad (63)
+   </math>
+  </p>
+  <p block-type="Text">
+   is solution to the Cauchy problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial v}{\partial t}(t, y) + L_t v(t, y) \\ -rv(t, y) = 0, \end{cases} \quad (t, y) \in [0, T) \times \mathbb{R}_{(64)}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Making the change of variable
+   <math display="inline">
+    x = \exp(y), u(t, x) =
+   </math>
+   <math display="inline">
+    v(t, \log x)
+   </math>
+   is solution to
+  </p>
+  <p block-type="TextInlineMath">
+   It is straightforward to check that
+   <math display="inline">
+    (S, A)
+   </math>
+   is a Feller diffusion on
+   <math display="inline">
+    (0, +\infty)^2
+   </math>
+   with infinitesimal generator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\frac{\partial u}{\partial t}(t,x) + \tilde{b}(t,x)x\frac{\partial u}{\partial x}(t,x) + \frac{1}{2}\tilde{a}(t,x)x^2\frac{\partial^2 u}{\partial x^2}(t,x) - rv(t,x) = 0, &amp; (t,x) \in [0,T) \times (0,+\infty) \\
+u(T,x) = g(x), &amp; x \in (0,+\infty)\n\end{cases} \tag{65}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    V_t = u(t, S_t)
+   </math>
+   . The Black-Scholes PDE (37) is a particular case of this result.
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 6
+   </b>
+   An Asian Option We give an example of a path-dependent option for which the uniform ellipticity condition of the matrix
+   <math display="inline">
+    a
+   </math>
+   does not hold. An Asian option is an option where the payoff is determined by the average of the underlying price over the period considered. Consider the Asian call option
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(\frac{1}{T}\int_0^T S_u \, \mathrm{d}u - K\right)^+ \tag{66}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   on a Black–Scholes asset
+   <math display="inline">
+    (S_t, t \ge 0)
+   </math>
+   following
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = r S_t dt + \sigma S_t dB_t \tag{67}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial u}{\partial t} + \frac{\sigma^2}{2} x^2 \frac{\partial^2 u}{\partial x^2} + rx \frac{\partial u}{\partial x} + \frac{1}{T} x \frac{\partial u}{\partial y} - ru = 0, \\ u(T, x, y) = (y/T - K)^+, \end{cases}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    B
+   </math>
+   is a standard one-dimensional Brownian motion. The free arbitrage price at time
+   <math display="inline">
+    t
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[e^{-r(T-t)}\left(\frac{1}{T}\int_{0}^{T}S_{u}\,\mathrm{d}u-K\right)^{+}\middle|\,S_{t}\right] \qquad (68)
+   </math>
+  </p>
+  <p block-type="Text">
+   To apply the Feynman-Kac formula, one must express this quantity as the (conditional) expectation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Lf(x, y) = rx \frac{\partial f}{\partial x}(x, y) + \frac{\sigma^2}{2} x^2 \frac{\partial^2 f}{\partial x^2}(x, y) + \frac{1}{T} x \frac{\partial f}{\partial y}(x, y)
+   </math>
+   (70)
+  </p>
+  <p block-type="Text">
+   Although considering the change of variable (
+   <math display="inline">
+    \log S
+   </math>
+   ,
+   <math display="inline">
+    A
+   </math>
+   ), Theorem 4 does not apply to this process because the infinitesimal generator is degenerated (without second-order derivative in
+   <math display="inline">
+    \nu
+   </math>
+   ). Formally, the Feynman-Kac formula would give that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t, x, y)
+   </math>
+   <br/>
+   :=
+   <math>
+    \mathbb{E}[e^{-r(T-t)}(A_T/T - K)^{+} | S_t = x, A_t = y]
+   </math>
+   <br/>
+   (71)
+  </p>
+  <p block-type="Text">
+   is solution to the PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (t, x, y) \in [0, T) \times (0, +\infty) \times \mathbb{R}
+   </math>
+   <br/>
+   <math display="block">
+    (x, y) \in (0, +\infty) \times \mathbb{R}
+   </math>
+   <br/>
+   <math display="block">
+    (72)
+   </math>
+  </p>
+  <p block-type="Text">
+   Actually, it is possible to justify the previous statement in the specific case of a one-dimensional Black-Scholes asset:
+   <math display="inline">
+    \mu
+   </math>
+   can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t, x, y) = e^{-r(T-t)}x \varphi\left(t, \frac{KT-y}{x}\right) \qquad (73)
+   </math>
+  </p>
+  <p block-type="Text">
+   (see [20]) where
+   <math display="inline">
+    \varphi(t, z)
+   </math>
+   is the solution of the onedimensional parabolic PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial\varphi}{\partial t}(t,z) + \frac{\sigma^2}{2}z^2\frac{\partial^2\varphi}{\partial z^2}(t,z) - \left(\frac{1}{T} + rz\right)\frac{\partial\varphi}{\partial z}(t,z) + r\varphi(t,z) = 0, &amp; (t,z)\in[0,T)\times\mathbb{R} \\ \varphi(T,z) = -(z)^+/T, &amp; z\in\mathbb{R} \end{cases} \tag{74}
+   </math>
+  </p>
+  <p block-type="Text">
+   of the value at time
+   <math display="inline">
+    T
+   </math>
+   of some Markov quantity. This can be done by introducing the process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_t = \int_0^t S_u \, \mathrm{d}u, \quad 0 \le t \le T \tag{69}
+   </math>
+  </p>
+  <p block-type="Text">
+   From this, it is easy to check that
+   <math display="inline">
+    u
+   </math>
+   solves equation (72).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Note that this relies heavily on the fact that the underlying asset follows the Black-Scholes model. As far as we know, no rigorous justification of
+  </p>
+  <p block-type="Text">
+   Feynman-Kac formula is available for Asian options on more general assets.
+  </p>
+  <h3>
+   <b>
+    Ouasi- and Semilinear PDEs and BSDEs
+   </b>
+  </h3>
+  <p block-type="Text">
+   The link between quasi- and semilinear PDEs and BSDEs is motivated by the following formal argument. Consider the semilinear PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial u}{\partial t}(t,x) + L_t u(t,x) = f(u(t,x)) \\ &amp; (t,x) \in (0,T) \times \mathbb{R} \\ u(T,x) = g(x) &amp; x \in \mathbb{R} \end{cases}
+   </math>
+   (75)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (L_t)
+   </math>
+   is the family of infinitesimal generators of a time-inhomogeneous Feller diffusion
+   <math display="inline">
+    (X_t, t \ge 0)
+   </math>
+   . Assume that this PDE admits a classical solution
+   <math display="inline">
+    u(t, x)
+   </math>
+   . Assume also that we can find a unique adapted process
+   <math display="inline">
+    (Y_t, 0 \le t \le T)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = \mathbb{E}[g(X_{T}) - \int_{t}^{T} f(Y_{s}) \, \mathrm{d}s \mid \mathcal{F}_{t}] \quad \forall t \in [0, T]
+   </math>
+   <math display="block">
+    (76)
+   </math>
+  </p>
+  <p block-type="Text">
+   Now, by Itô's formula applied to
+   <math display="inline">
+    u(t, X_t)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t, X_t) = \mathbb{E}[g(X_T) - \int_t^T f(u(s, X_s)) \, \mathrm{d}s \mid \mathcal{F}_t]
+   </math>
+   (77)
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore,
+   <math display="inline">
+    Y_t = u(t, X_t)
+   </math>
+   and the stochastic process
+   <math display="inline">
+    Y
+   </math>
+   provides a probabilistic interpretation of the solutionof the PDE (75). Now, by the martingale decomposition theorem, if
+   <math display="inline">
+    Y
+   </math>
+   satisfies (76), there exists an adapted process
+   <math display="inline">
+    (Z_t, 0 \le t \le T)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = g(X_T) - \int_t^T f(Y_s) \, \mathrm{d}s
+   </math>
+   <math display="block">
+    - \int_t^T Z_s \, \mathrm{d}B_s \quad \forall t \in [0, T] \tag{78}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   solution of the SDE
+   <math display="inline">
+    dY_t = f(Y_t) dt + Z_t dB_t
+   </math>
+   with
+   <i>
+    terminal
+   </i>
+   condition
+   <math display="inline">
+    Y_T = g(X_T)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The following definition of a BSDE generalizes the previous situation. Given functions
+   <math display="inline">
+    b_i(t, x)
+   </math>
+   and
+   <math display="inline">
+    \sigma_{ii}(t, x)
+   </math>
+   that are globally Lipschitz in x and locally bounded
+   <math display="inline">
+    (1 \le i, j \le d)
+   </math>
+   and a standard
+   <i>
+    d
+   </i>
+   -dimensional Brownian motion
+   <math display="inline">
+    B
+   </math>
+   , consider the unique solution
+   <math display="inline">
+    X
+   </math>
+   of the time-inhomogeneous SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = b(t, X_t) dt + \sigma(t, X_t) dB_t \qquad (79)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with initial condition
+   <math display="inline">
+    X_0 = x
+   </math>
+   . Consider also two functions
+   <math display="inline">
+    f: [0, T] \times \mathbb{R}^d \times \mathbb{R}^k \times \mathbb{R}^{k \times d} \to \mathbb{R}^k
+   </math>
+   and
+   <math display="inline">
+    g: \mathbb{R}^d \to \mathbb{R}^k
+   </math>
+   . We say that
+   <math display="inline">
+    ((Y_t, Z_t), t &gt; 0)
+   </math>
+   solve the BSDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dY_t = f(t, X_t, Y_t, Z_t) dt + Z_t dB_t \qquad (80)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with terminal condition
+   <math display="inline">
+    g(X_T)
+   </math>
+   if Y and Z are progressively measurable processes with respect to the Brownian filtration
+   <math display="inline">
+    \mathcal{F}_t = \sigma(B_s, s \leq t)
+   </math>
+   such that, for any
+   <math display="inline">
+    0 \le t \le T
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = g(X_T) - \int_t^T f(s, X_s, Y_s, Z_s) \, \mathrm{d}s - \int_t^T Z_s \, \mathrm{d}B_s \tag{81}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Example 4 corresponds to
+   <math display="inline">
+    g(x) = (x - K)^{+}
+   </math>
+   ,
+   <math display="inline">
+    f(t, x, y, z) = -ry + z(\mu - r)/\sigma
+   </math>
+   and
+   <math display="inline">
+    Z_t = \sigma \pi_t
+   </math>
+   . Note that the role of the implicit unknown process Z is to make Y adapted.
+  </p>
+  <p block-type="TextInlineMath">
+   The existence and uniqueness of
+   <math display="inline">
+    (Y, Z)
+   </math>
+   solving equation (81) hold under the assumptions that
+   <math display="inline">
+    g(x)
+   </math>
+   is continuous with polynomial growth in x,
+   <math display="inline">
+    f(t, x, y, z)
+   </math>
+   is continuous with polynomial growth in
+   <math display="inline">
+    x
+   </math>
+   and linear growth in y and z, and f is uniformly Lipschitz in y and
+   <math display="inline">
+    z
+   </math>
+   . Let us denote by (A) all these assumptions. We refer to [17] for the proof of this result and the general theory of BSDEs (see also forwardbackward SDEs).
+  </p>
+  <p block-type="Text">
+   Consider the quasi-linear parabolic PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\frac{\partial u}{\partial t}(t,x) + L_t u(t,x) = f(t,x,u(t,x), \nabla_x u(t,x)\sigma(t,x)), &amp; (t,x) \in (0,T) \times \mathbb{R}^d \\
+u(T,x) = g(x), &amp; x \in \mathbb{R}^d\n\end{cases} \tag{82}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    B
+   </math>
+   is the same Brownian motion as the one driving the Feller diffusion
+   <math display="inline">
+    X
+   </math>
+   . In other words,
+   <math display="inline">
+    Y
+   </math>
+   is
+  </p>
+  <p block-type="TextInlineMath">
+   The following results give the links between the BSDE (80) and the PDE (82).
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 5
+   </b>
+   ([15], Th.4.1). Assume that
+   <math display="inline">
+    b(t, x)
+   </math>
+   ,
+   <math display="inline">
+    \sigma(t, x)
+   </math>
+   ,
+   <math display="inline">
+    f(t, x, y, z)
+   </math>
+   , and
+   <math display="inline">
+    g(x)
+   </math>
+   are continuous and dif
+   <i>
+    ferentiable with respect to the space variables
+   </i>
+   <math display="inline">
+    x, y, z
+   </math>
+   with uniformly bounded derivatives. Assume also that b,
+   <math display="inline">
+    \sigma
+   </math>
+   , and f are uniformly bounded and that
+   <math display="inline">
+    a = \sigma \sigma'
+   </math>
+   is uniformly elliptic. Then equation (82) admits a unique classical solution u and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = u(t, X_t) \quad and \quad Z_t = \nabla_x u(t, X_t) \sigma(t, X_t) \quad (83)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 6
+   </b>
+   ([17], Th.2.4). Assume
+   <math display="inline">
+    (A)
+   </math>
+   and that
+   <math display="inline">
+    b(t, x)
+   </math>
+   and
+   <math display="inline">
+    \sigma(t, x)
+   </math>
+   are globally Lipschitz in x and locally bounded. Define the function
+   <math display="inline">
+    u(t,x) = Y_t^{t,x}
+   </math>
+   ,
+   <i>
+    where
+   </i>
+   <math display="inline">
+    Y^{t,x}
+   </math>
+   <i>
+    is the solution to the BSDE
+   </i>
+   (82)
+   <i>
+    on the time
+   </i>
+   interval
+   <math display="inline">
+    [t, T]
+   </math>
+   , where X is solution to the SDE (79) with initial condition
+   <math display="inline">
+    X_t = x
+   </math>
+   . Then u is a viscosity solution of equation (82).
+  </p>
+  <p block-type="Text">
+   Theorem 5 gives an interpretation of the solution of a BSDE in terms of the solution of a quasilinear PDE. In particular, in Example 4, it gives the usual interpretation of the hedging strategy
+   <math display="inline">
+    \pi_t =
+   </math>
+   <math display="inline">
+    Z_t/\sigma
+   </math>
+   as the
+   <math display="inline">
+    \Delta
+   </math>
+   -hedge of the option price. Note also that Theorem 5 implies that the process
+   <math display="inline">
+    (X, Y, Z)
+   </math>
+   is Markov—a fact which is not obvious from the definition. Conversely, Theorem 6 shows how to construct a viscosity solution of a quasi-linear PDE from BSDEs.
+  </p>
+  <p block-type="Text">
+   BSDEs provide an indirect tool to compute quantities related to a solution
+   <math display="inline">
+    X
+   </math>
+   of the SDE (such as the hedging price and strategy of an option based on the process
+   <math display="inline">
+    X
+   </math>
+   ). BSDEs also have links with general stochastic control problems, that we will not mention (see BSDEs). Here, we give an example of application to the pricing of an American put option.
+  </p>
+  <p block-type="TextInlineMath">
+   Example 7 Pricing of an American Put Option Consider a Black-Scholes underlying asset
+   <math display="inline">
+    S
+   </math>
+   and assume for simplicity that the risk-free interest rate
+   <math display="inline">
+    r
+   </math>
+   is zero. The price of an
+   <b>
+    American put option
+   </b>
+   on
+   <math display="inline">
+    S
+   </math>
+   with strike
+   <math display="inline">
+    K
+   </math>
+   and maximal exercise policy
+   <math display="inline">
+    T
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sup_{0 \le \tau \le T} \mathbb{E}^*[(K - S_\tau)^+] \tag{84}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tau
+   </math>
+   is a stopping time and where
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   is the riskneutral probability measure, under which the process S is simply a Black-Scholes asset with zero drift.
+  </p>
+  <p block-type="Text">
+   In the case of an European put option, the price is given by the solution of the BSDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = (K - S_{T})^{+} - \int_{t}^{T} Z_{s} \, \mathrm{d}B_{s} \tag{85}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   by a similar argument as in Example 4. In the case of an American put option, the price at time t is necessarily bigger than
+   <math display="inline">
+    (K - S_t)^+
+   </math>
+   . It is therefore natural to include this condition by considering the BSDE (85) reflected on the obstacle
+   <math display="inline">
+    (K-S_t)^+
+   </math>
+   . Mathematically, this corresponds to the problem of finding adapted processes
+   <math display="inline">
+    Y
+   </math>
+   ,
+   <math display="inline">
+    Z
+   </math>
+   , and
+   <math display="inline">
+    R
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = (K - S_{T})^{+} - \int_{t}^{T} Z_{s} dB_{s} + R_{T} - R_{t}
+   </math>
+   <br/>
+   <math display="block">
+    Y_{t} \geq (K - S_{t})^{+}
+   </math>
+   <br/>
+   <i>
+    R
+   </i>
+   is continuous, increasing,
+   <math>
+    R_{0} = 0
+   </math>
+   and
+   <br/>
+   <math display="block">
+    \int_{0}^{T} [Y_{t} - (K - S_{t})^{+}] dR_{t} = 0
+   </math>
+   (86)
+  </p>
+  <p block-type="TextInlineMath">
+   The process R increases only when
+   <math display="inline">
+    Y_t = (K - S_t)^+
+   </math>
+   in such a way that
+   <math display="inline">
+    Y
+   </math>
+   cannot cross this obstacle. The existence of a solution of this problem is a particular case of general results, (see [7]). As a consequence of the following theorem, this reflected BSDE gives a way to compute the price of the American put option.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 7
+   </b>
+   ([7], Th.7.2).
+   <i>
+    The American put option
+   </i>
+   has the price
+   <math display="inline">
+    Y_0
+   </math>
+   , where
+   <math display="inline">
+    (Y, Z, R)
+   </math>
+   solves the reflected BSDE (86).
+  </p>
+  <p block-type="TextInlineMath">
+   The essential argument of the proof is the following. Fix
+   <math display="inline">
+    t \in [0, T)
+   </math>
+   and a stopping time
+   <math display="inline">
+    \tau \in [t, T]
+   </math>
+   . Since
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{\tau} - Y_{t} = R_{t} - R_{\tau} + \int_{t}^{\tau} Z_{s} \, \mathrm{d}B_{s} \qquad (87)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and because R is increasing,
+   <math display="inline">
+    Y_t = \mathbb{E}^*[Y_\tau + R_\tau  R_t \mid \mathcal{F}_t \ge \mathbb{E}^*[(K - S_\tau)^+ \mid \mathcal{F}_t]
+   </math>
+   . Conversely, if
+   <math display="inline">
+    \tau_t^* =
+   </math>
+   <math display="inline">
+    \inf\{u \in [t, T] : Y_u = (K - S_u)^+\}\text{, because } Y &gt; (K - S_u)^{-1}
+   </math>
+   <math display="inline">
+    (S)^+
+   </math>
+   on
+   <math display="inline">
+    [t, \tau_t^*)
+   </math>
+   ,
+   <math display="inline">
+    R
+   </math>
+   is constant on this interval and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = \mathbb{E}^{*}[Y_{\tau_{t}^{*}} + R_{\tau_{t}^{*}} - R_{t} \mid \mathcal{F}_{t}] = \mathbb{E}^{*}[(K - S_{\tau_{t}^{*}})^{+}]
+   </math>
+   (88)
+  </p>
+  <p block-type="Text">
+   Therefore,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = \underset{t \le \tau \le T}{\text{ess sup}} \quad \mathbb{E}^*[(K - S_\tau)^+ \mid \mathcal{F}_t] \tag{89}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which gives another interpretation for the solution
+   <math display="inline">
+    Y
+   </math>
+   of the reflected BSDE. Applying this for
+   <math display="inline">
+    t = 0
+   </math>
+   yields
+   <math display="inline">
+    Y_0 = \sup_{\tau &lt; T} \mathbb{E}^*[(K - S_\tau)^+]
+   </math>
+   as stated.
+  </p>
+  <p block-type="TextInlineMath">
+   Moreover, as shown by the previous computation, the process
+   <math display="inline">
+    Y
+   </math>
+   provides an interpretation of the optimal exercise policy as the first time where
+   <math display="inline">
+    Y
+   </math>
+   hits the obstacle
+   <math display="inline">
+    (K - S)^+
+   </math>
+   . This fact is actually natural from equation
+   <math display="inline">
+    (89)
+   </math>
+   ; the optimal exercise policy is the first time where the current payoff equals the maximal future expected payoff.
+  </p>
+  <p block-type="TextInlineMath">
+   As it will appear in the next section, as the solution of an optimal stopping problem, if
+   <math display="inline">
+    S_0 = x
+   </math>
+   , the price of this American put option is
+   <math display="inline">
+    u(0, x)
+   </math>
+   , where u is the solution of the nonlinear PDE
+  </p>
+  <h2>
+   Optimal Control,
+  </h2>
+  <h1>
+   Hamilton-Jacobi-Bellman Equations, and Variational Inequalities
+  </h1>
+  <p block-type="Text">
+   We discuss only two main families of stochastic
+   <b>
+    control problems:
+   </b>
+   finite horizon and the optimal stopping problems. Other classes of optimal problems appearing in finance are mentioned in the end of this section.
+  </p>
+  <h4>
+   Finite Horizon Problems
+  </h4>
+  <p block-type="Text">
+   The study of optimal control problems with finite horizon is motivated, for example, by the ques-
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases}\n\min\left\{u(t,x) - (K-x)^+; -\frac{\partial u}{\partial t}(t,x) - \frac{\sigma^2}{2}x^2\frac{\partial^2 u}{\partial x^2}u(t,x)\right\} = 0, &amp; (t,x) \in (0,T) \times (0,+\infty) \\
+u(T,x) = (K-x)^+, &amp; x \in (0,+\infty)\n\end{cases} \tag{90}
+   </math>
+  </p>
+  <p block-type="Text">
+   Therefore, similarly as in Theorem 6, the reflected BSDE (84) provides a probabilistic interpretation of the solution of this PDE.
+  </p>
+  <p block-type="TextInlineMath">
+   The (formal) essential argument of the proof of this result can be summarized as follows (for details, see [14, Section V.3.1]). Consider the solution
+   <math display="inline">
+    u
+   </math>
+   of equation (90) and apply Itô's formula to
+   <math display="inline">
+    u(t, S_t)
+   </math>
+   . Then, for any stopping time
+   <math display="inline">
+    \tau \in [0, T]
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(0,x) = \mathbb{E}[u(\tau, S_{\tau})] - \mathbb{E}\bigg[\int_{0}^{\tau} \bigg(\frac{\partial u}{\partial t}(t, S_{t}) + \frac{\sigma^{2}}{2}S_{t}^{2}\frac{\partial^{2} u}{\partial x^{2}}u(t, S_{t})\bigg) \mathrm{d}s\bigg]
+   </math>
+   (91)
+  </p>
+  <p block-type="TextInlineMath">
+   Because u is solution of equation (90),
+   <math display="inline">
+    u(0, x) \ge
+   </math>
+   <math display="inline">
+    \mathbb{E}[u(\tau, S_{\tau})] \ge \mathbb{E}[(K - S_{\tau})^{+}]. \quad \text{Hence,} \quad u(0, x) \ge
+   </math>
+   <math display="inline">
+    \sup_{0 \le \tau \le T} \mathbb{E}[(K - S_{\tau})^{+}].
+   </math>
+   &lt;br&gt;Conversely, if
+   <math display="inline">
+    \tau^{*} = \inf\{0 \le t \le T : u(s, S_{s}) =
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    (K-S_s)^{+}
+   </math>
+   , then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial u}{\partial t}(t, S_t) + \frac{\sigma^2}{2} S_t^2 \frac{\partial^2 u}{\partial x^2} u(t, S_t) = 0 \quad \forall t \in [0, \tau^*]
+   </math>
+   (92)
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, for
+   <math display="inline">
+    \tau = \tau^*
+   </math>
+   , all the inequalities in the previous computation are equalities and
+   <math display="inline">
+    u(0, x) =
+   </math>
+   <math display="inline">
+    \sup_{0 &lt; \tau &lt; T} \mathbb{E}[(K - S_{\tau})^+].
+   </math>
+  </p>
+  <p block-type="Text">
+   tions of portfolio management, quadratic hedging of options, or super-hedging cost for uncertain volatility models.
+  </p>
+  <p block-type="TextInlineMath">
+   Let us consider a controlled diffusion
+   <math display="inline">
+    X^{\alpha}
+   </math>
+   in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   solution to the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t^{\alpha} = b(X_t^{\alpha}, \alpha_t) dt + \sigma(X_t^{\alpha}) dB_t \qquad (93)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    B
+   </math>
+   is a standard r-dimensional Brownian motion and the control
+   <math display="inline">
+    \alpha
+   </math>
+   is a given progressively measurable process taking values in some compact metric space A. Such a control is called
+   <i>
+    admissible
+   </i>
+   . For simplicity, we consider the time-homogeneous case and we assume that the control does not act on the diffusion coefficient
+   <math display="inline">
+    \sigma
+   </math>
+   of the SDE. Assume that
+   <math display="inline">
+    b(x, a)
+   </math>
+   is bounded, continuous, and Lipschitz in the variable x, uniformly in
+   <math display="inline">
+    a \in A
+   </math>
+   . Assume also that
+   <math display="inline">
+    \sigma
+   </math>
+   is Lipschitz and bounded. For any
+   <math display="inline">
+    a \in A
+   </math>
+   , we introduce the linear differential operator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L^{a}\varphi = \frac{1}{2} \sum_{i,j=1}^{d} \left( \sum_{k=1}^{d} \sigma_{ik}(x)\sigma_{jk}(x) \right) \frac{\partial^{2}\varphi}{\partial x_{i}\partial x_{j}} + \sum_{i=1}^{d} b_{i}(x,a) \frac{\partial\varphi}{\partial x_{i}}
+   </math>
+   (94)
+  </p>
+  <p block-type="Text">
+   which is the infinitesimal generator of
+   <math display="inline">
+    X^{\alpha}
+   </math>
+   when
+   <math display="inline">
+    \alpha
+   </math>
+   is a constant equal to
+   <math display="inline">
+    a \in A
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   A typical form of finite horizon optimal control problems in finance consists in computing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t, x) = \inf_{\alpha \text{ admissible}} \mathbb{E}\bigg[e^{-rT}g(X_T^{\alpha}) + \int_t^T e^{-rt}f(X_t^{\alpha}, \alpha_t) dt \mid X_t^{\alpha} = x\bigg]
+   </math>
+   (95)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    f
+   </math>
+   and
+   <math display="inline">
+    g
+   </math>
+   are continuous and bounded functions and to find an optimal control
+   <math display="inline">
+    \alpha^*
+   </math>
+   that realizes the minimum. Moreover, it is desirable to find a Markov optimal control, that is, an optimal control having the form
+   <math display="inline">
+    \alpha_t^* = \psi(t, X_t)
+   </math>
+   . Indeed, in this case, the controlled diffusion
+   <math display="inline">
+    X^{\alpha^*}
+   </math>
+   is a Markov process.
+  </p>
+  <p block-type="Text">
+   In the case of nondegenerate diffusion coefficient, we have the following link between the optimal control problems and a semilinear PDEs.
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 8
+   </b>
+   Under the additional assumption that
+   <math display="inline">
+    \sigma
+   </math>
+   is uniformly elliptic, u is the unique bounded classical solution of the Hamilton-Jacobi-Bellman
+   <math display="inline">
+    (HJB)
+   </math>
+   equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \times \mathbb{E}\bigg[\frac{\partial v}{\partial t}(t, X_t^{\alpha}) + L^{\alpha_t} v(t, X_t^{\alpha}) + r v(t, X_t^{\alpha})\bigg] \mathrm{d}s \tag{98}
+   </math>
+  </p>
+  <p block-type="Text">
+   Therefore, by equation
+   <math display="inline">
+    (96)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(0, x)
+   </math>
+   <math display="block">
+    \leq \mathbb{E}\left[e^{-rT}g(X_T^{\alpha}) + \int_t^T e^{-rt}f(X_t^{\alpha}, \alpha_t) dt \mid X_t^{\alpha} = x\right]
+   </math>
+   (99)
+  </p>
+  <p block-type="TextInlineMath">
+   for any admissible control
+   <math display="inline">
+    \alpha
+   </math>
+   . Now, for the Markov control
+   <math display="inline">
+    \alpha^*
+   </math>
+   defined in Theorem 8, all the inequalities in the previous computation are equalities. Hence
+   <math display="inline">
+    v = u
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The cases where
+   <math display="inline">
+    \sigma
+   </math>
+   is not uniformly elliptic or where
+   <math display="inline">
+    \sigma
+   </math>
+   is also dependent on the current control
+   <math display="inline">
+    \alpha_t
+   </math>
+   are much more difficult. In both cases, it is necessary to enlarge the set of admissible control by considering
+   <i>
+    relaxed controls
+   </i>
+   , that is, controls that belong to the set
+   <math display="inline">
+    \mathcal{P}(A)
+   </math>
+   of probability measures on A. For such a control
+   <math display="inline">
+    \alpha
+   </math>
+   , the terms
+   <math display="inline">
+    b(x, \alpha_t)
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \frac{\partial u}{\partial t}(t,x) + \inf_{a \in A} \{L^a u(t,x) + f(x,a)\} - r u(t,x) = 0, &amp; (t,x) \in (0,T) \times \mathbb{R}^d \\ u(T,x) = g(x), &amp; x \in \mathbb{R}^d \end{cases} \tag{96}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    Furthermore, a Markov control
+   </i>
+   <math display="inline">
+    \alpha_t^* = \psi(t, X_t)
+   </math>
+   <i>
+    is opti
+   </i>
+   mal for a fixed initial condition
+   <math display="inline">
+    x
+   </math>
+   and initial time
+   <math display="inline">
+    t = 0
+   </math>
+   if and only if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L^{\psi(t,x)}u(t,x) + f(x,\psi(t,x))
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \inf_{a \in A} \{L^a u(t,x) + f(x,a)\}
+   </math>
+   (97)
+  </p>
+  <p block-type="TextInlineMath">
+   for almost every
+   <math display="inline">
+    (t, x) \in [0, T] \times \mathbb{R}^d
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   This is Theorem III.2.3 of [3] restricted to the case of precise controls (see later).
+  </p>
+  <p block-type="TextInlineMath">
+   Here again, the essential argument of the proof can be easily (at least formally) written: consider any admissible control
+   <math display="inline">
+    \alpha
+   </math>
+   and the corresponding controlled diffusion
+   <math display="inline">
+    X^{\alpha}
+   </math>
+   with initial condition
+   <math display="inline">
+    X_0 = x
+   </math>
+   . By Itô's formula applied to
+   <math display="inline">
+    e^{-rt}v(t,X_t^{\alpha})
+   </math>
+   , where v is the solution of equation
+   <math display="inline">
+    (96)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[\mathrm{e}^{-rT}v(T,X_T^{\alpha})] = v(0,x) + \int_0^T \mathrm{e}^{-rt}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    f(x, \alpha_t)
+   </math>
+   in equations (93) and (95) are replaced by
+   <math display="inline">
+    \int b(x,a)\alpha_t(da)
+   </math>
+   and
+   <math display="inline">
+    \int f(x,a)\alpha_t(da)
+   </math>
+   , respectively. The admissible controls of the original problem correspond to relaxed controls that are Dirac masses at each time. These are called
+   <i>
+    precise controls
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The value
+   <math display="inline">
+    \tilde{u}
+   </math>
+   of this new problem is defined as in equation (95), but the infimum is taken over all progressively measurable processes
+   <math display="inline">
+    \alpha
+   </math>
+   taking values in
+   <math display="inline">
+    \mathcal{P}(A)
+   </math>
+   . It is possible to prove under general assumptions that both problems give the same value:
+   <math display="inline">
+    \tilde{u} = u
+   </math>
+   (cf. [3, Cor.I.2.1] or [8, Th.2.3]).
+  </p>
+  <p block-type="Text">
+   In these cases, one usually cannot prove the existence of a classical solution of equation (96). The weaker notion of
+   <b>
+    viscosity solution
+   </b>
+   is generally the correct one. In all the cases treated in the literature,
+   <math display="inline">
+    u = \tilde{u}
+   </math>
+   solves the same HJB equation as in Theorem 8, except that the infimum is taken over
+   <math display="inline">
+    \mathcal{P}(A)
+   </math>
+   instead of
+   <math display="inline">
+    A
+   </math>
+   (cf. [3, Th.IV.2.2] for the case without control on
+   <math display="inline">
+    \sigma
+   </math>
+   ). However, it is not trivial at all in general to obtain a result on precise controls from the result on relaxed controls. This is due to the fact that
+  </p>
+  <p block-type="Text">
+   usually no result is available on the existence and the characterization of a Markov-relaxed optimal control. The only examples where it has been done require restrictive assumptions (cf. [8, Cor.6.8]). However, in most of the financial applications, the value function
+   <math display="inline">
+    u
+   </math>
+   is the most useful information. In practice, one usually only needs to compute a control that give an expected value arbitrarily close to the optimal one.
+  </p>
+  <h2>
+   Optimal Stopping Problems
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Optimal stopping problems arise in finance, for example, for the American options pricing (when
+  </p>
+  <p block-type="TextInlineMath">
+   assume that
+   <math display="inline">
+    g(t, x)
+   </math>
+   is differentiable with respect to
+   <math display="inline">
+    t
+   </math>
+   and twice differentiable with respect to
+   <math display="inline">
+    x
+   </math>
+   and that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |f(t,x)| + \left|\frac{\partial g}{\partial t}(t,x)\right| + \sum_{i=1}^{d} \left|\frac{\partial g}{\partial x_i}(t,x)\right| \le Ce^{\mu|x|}
+   </math>
+   (102)
+  </p>
+  <p block-type="Text">
+   for positive constants C and
+   <math display="inline">
+    \mu
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 9
+   </b>
+   ([2], Sec.III.4.9). Under the previous assumptions,
+   <math display="inline">
+    u(t, x)
+   </math>
+   admits first-order derivatives with respect to t and second-order derivatives with respect to x that are
+   <math display="inline">
+    L^p
+   </math>
+   for all
+   <math display="inline">
+    1 \le p \le \infty
+   </math>
+   . Moreover,
+   <math display="inline">
+    u
+   </math>
+   is the solution of the variational inequality
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} \max\left\{u(t,x) - g(t,x); -\frac{\partial u}{\partial t}(t,x) - L_t u(t,x) + r u(t,x) - f(t,x)\right\} = 0, &amp; (t,x) \in (0,T) \times \mathbb{R}^d\\ u(T,x) = g(T,x) &amp; x \in \mathbb{R}^d \end{cases} \tag{103}
+   </math>
+  </p>
+  <p block-type="Text">
+   to sell a claim, an asset?) or in production models (when to extract or product a good? when to stop production?).
+  </p>
+  <p block-type="Text">
+   Let us consider a Feller diffusion
+   <math display="inline">
+    X
+   </math>
+   in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   solution to the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = b(t, X_t) dt + \sigma(t, X_t) dB_t \qquad (100)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    B
+   </math>
+   is a standard
+   <math display="inline">
+    d
+   </math>
+   -dimensional Brownian motion. As in equation (28), let
+   <math display="inline">
+    (L_t)_{t&gt;0}
+   </math>
+   denote its family of time-inhomogeneous infinitesimal generators. Denote by
+   <math display="inline">
+    \Pi(t, T)
+   </math>
+   the set of stopping times valued in
+   <math display="inline">
+    [t, T]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   A typical form of optimal stopping problems consists in computing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \inf_{\tau \in \Pi(t,T)} \mathbb{E} \bigg[ e^{-r(\tau - t)} g(\tau, X_{\tau}) + \int_{t}^{\tau} e^{-r(s-t)} f(s, X_{s}) \, \mathrm{d}s \mid X_{t} = x \bigg]
+   </math>
+   (101)
+  </p>
+  <p block-type="Text">
+   and to characterize an optimal stopping time.
+  </p>
+  <p block-type="TextInlineMath">
+   Assume that
+   <math display="inline">
+    b(t, x)
+   </math>
+   is bounded and continuously differentiable with bounded derivatives and that
+   <math display="inline">
+    \sigma(t, x)
+   </math>
+   is bounded, continuously differentiable with respect to
+   <math display="inline">
+    t
+   </math>
+   and twice continuously differentiable with respect to
+   <math display="inline">
+    x
+   </math>
+   with bounded derivatives. Assume also that
+   <math display="inline">
+    \sigma
+   </math>
+   is uniformly elliptic. Finally,
+  </p>
+  <p block-type="Text">
+   The proof of this result is based on a similar (formal) justification as the one we gave for equation (90). We refer to [12] for a similar result under weaker assumptions more suited to financial models when
+   <math display="inline">
+    f = 0
+   </math>
+   (this is in particular the case for American options).
+  </p>
+  <p block-type="TextInlineMath">
+   In some cases (typically with
+   <math display="inline">
+    f = 0
+   </math>
+   , see [11]), it can be shown that the infimum in equation
+   <math display="inline">
+    (101)
+   </math>
+   is attained for the stopping time
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau^* = \inf \left\{ t \le s \le T : u(s, X_s^{t,x}) = g(s, X_s^{t,x}) \right\}
+   </math>
+   (104)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    X^{t,x}
+   </math>
+   is the solution of the SDE (100) with initial condition
+   <math display="inline">
+    X_t^{t,x} = x
+   </math>
+   .
+  </p>
+  <h3>
+   Generalizations and Extensions
+  </h3>
+  <p block-type="Text">
+   An optimal control problem can also be solved through the optimization of a family of BSDEs related to the laws of the controlled diffusions. On this question, we refer to
+   <math display="inline">
+    [19]
+   </math>
+   and
+   <b>
+    BSDEs
+   </b>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In this section, we considered only very specific optimal control problems. Other important families of optimal control problems are given by impulse control problems, where the control may induce a jump of the underlying stochastic process, or ergodic control problems, where the goal is to optimize a quantity related to the stationary behavior of the controlled
+  </p>
+  <p block-type="Text">
+   diffusion. Impulse control has applications, for example, in stock or resource management problems. In the finite horizon case, when the underlying asset follows a model with stochastic or elastic volatility or when the market is incomplete, other optimal control problems can be considered, such as characterizing the superhedging cost, or minimizing some risk measure. Various constraints can be included in the optimal control problem, such as maximizing the expectation of an utility with the constraint that this utility has a fixed volatility, or minimizing the volatility for a fixed expected utility. One can also impose Gamma constraints on the control. Another important extension of optimal control problems arises when one wants tosolve numerically an HJB equation. Usual discretization methods require to restrict to a bounded domain and to fix artificial boundary conditions. The numerical solution can be interpreted as the solution of an optimal control problem in a bounded domain. In this situation, a crucial question is to quantify the impact on the discretized solution of an error on the artificial boundary condition (which usually cannot be computed exactly).
+  </p>
+  <h1>
+   <b>
+    On Numerical Methods
+   </b>
+  </h1>
+  <p block-type="Text">
+   The Feynman–Kac formula for linear PDEs allows one to use
+   <b>
+    Monte Carlo methods
+   </b>
+   to compute the solution of the PDE. They are especially useful when the solution of the PDE has to be computed at a small number of points, or when dimension is large (typically larger or equal to 4), since they provide a rate of convergence independent of the dimension.
+  </p>
+  <p block-type="Text">
+   Concerning quasi- or semilinear PDEs and some optimal control problems (e.g., American put options in the section "Quasi- and Semilinear PDEs and BSDEs"), interpretations in terms of BSDEs provide indirect Monte Carlo methods of numerical computation (see [1] for
+   <b>
+    Bermudan options
+   </b>
+   or [4, 6] for general BSDEs schemes). These methods have the advantage that they do not require to consider artificial boundary conditions. However, their speed of convergence to the exact solution is still largely unknown, and could depend on the dimension of the problem.
+  </p>
+  <p block-type="Text">
+   For high dimensional HJB equations, the analytical discretization methods lead to important numerical problems. First, these methods need to solve an optimization problem at each node of the discretization grid, which can be very costly in high dimension
+  </p>
+  <p block-type="Text">
+   or difficult depending on the particular constraints imposed on the control. Moreover, these methods require to localize the problem, that is, to solve the problem in a bounded domain with artificial boundary conditions, which are usually difficult to compute precisely. This localization problem can be solved by computing the artificial boundary condition with a Monte Carlo method based on BSDEs. However, the error analysis of this method is based on the probabilistic interpretation of HJB equations in bounded domains, which is a difficult problem in general.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   A Markov semigroup family
+   <i>
+    (Pt, t
+   </i>
+   ≥ 0
+   <i>
+    )
+   </i>
+   on
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   is a family of bounded linear operators of norm 1 on the set of bounded measurable functions on
+   <i>
+    <sup>
+     d
+    </sup>
+   </i>
+   equipped with the
+   <i>
+    L
+   </i>
+   <sup>
+    ∞
+   </sup>
+   norm, which satisfies equation (8).
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   This is not the most general definition of Feller semigroups (see [21, Def.III.6.5]). In our context, because we only introduce analytical objects from stochastic processes, the semigroup
+   <i>
+    (Pt)
+   </i>
+   is naturally defined on the set of bounded measurable functions.
+  </p>
+  <p block-type="TextInlineMath">
+   c
+   <i>
+    .
+   </i>
+   The strong continuity of a semigroup is usually defined as
+   <i>
+    Ptf
+   </i>
+   −
+   <i>
+    f
+   </i>
+   → 0 as
+   <i>
+    t
+   </i>
+   → 0 for all
+   <i>
+    f
+   </i>
+   ∈
+   <i>
+    C
+   </i>
+   0
+   <i>
+    (
+    <sup>
+     d
+    </sup>
+    )
+   </i>
+   . However, in the case of Feller semigroups, this is equivalent to the weaker formulation (10) (see [21, Lemma III.6.7]).
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bally, V. &amp; Pages, G. (2003). Error analysis of the ` optimal quantization algorithm for obstacle problems,
+     <i>
+      Stochastic Processes and their Applications
+     </i>
+     <b>
+      106
+     </b>
+     (1), 1–40.
+    </li>
+    <li block-type="ListItem">
+     [2] Bensoussan, A. &amp; Lions, J.-L. (1982).
+     <i>
+      Applications of Variational Inequalities in Stochastic Control
+     </i>
+     ,
+     <i>
+      Studies in Mathematics and its Applications
+     </i>
+     , North-Holland Publishing, Amsterdam, Vol. 12 (Translated from the French).
+    </li>
+    <li block-type="ListItem">
+     [3] Borkar, V.S. (1989).
+     <i>
+      Optimal Control of Diffusion Processes
+     </i>
+     ,
+     <i>
+      Pitman Research Notes in Mathematics Series
+     </i>
+     , Longman Scientific &amp; Technical, Harlow, Vol. 203.
+    </li>
+    <li block-type="ListItem">
+     [4] Bouchard, B. &amp; Touzi, N. (2004). Discrete-time approximation and Monte-Carlo simulation of backward stochastic differential equations,
+     <i>
+      Stochastic Processes and their Applications
+     </i>
+     <b>
+      111
+     </b>
+     (2), 175–206.
+    </li>
+    <li block-type="ListItem">
+     [5] ¸Cinlar, E. &amp; Jacod, J. (1981). Representation of semimartingale Markov processes in terms of Wiener processes and Poisson random measures, in
+     <i>
+      Seminar on Stochastic Processes, 1981 (Evanston, Ill., 1981)
+     </i>
+     ,
+     <i>
+      Progress in Probability and Statistics
+     </i>
+     , Birkhauser, ¨ Boston, Vol. 1, pp. 159–242.
+    </li>
+    <li block-type="ListItem">
+     [6] Delarue, F. &amp; Menozzi, S. (2006). A forward-backward stochastic algorithm for quasi-linear PDEs,
+     <i>
+      Annals of Applied Probability
+     </i>
+     <b>
+      16
+     </b>
+     (1), 140–184.
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

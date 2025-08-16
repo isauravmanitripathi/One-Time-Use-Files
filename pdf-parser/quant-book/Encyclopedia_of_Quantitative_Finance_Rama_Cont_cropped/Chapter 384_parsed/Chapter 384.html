@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Ruin Theory
+   </b>
+  </h1>
+  <p block-type="Text">
+   The earliest ruin problem was formulated by de Moivre around 1730. A gambler has an initial fortune of
+   <math display="inline">
+    u
+   </math>
+   monetary units (an integer). Each time he plays (heads or tails in coin tossing, black or red at the roulette, etc.), his fortune goes one up or down according to whether he wins or loses. If the fortune becomes 0, the gambler is ruined. He decides a pri
+   <i>
+    ori
+   </i>
+   to stop gambling if his fortune reaches
+   <math display="inline">
+    v &gt; u
+   </math>
+   . If the probability of a win is p, what is then
+   <math display="inline">
+    \psi_{v}(u)
+   </math>
+   , the probability of getting ruined as opposed to reach the target
+   <math display="inline">
+    v
+   </math>
+   ?
+  </p>
+  <p block-type="Text">
+   The classical ruin problem of insurance mathematics is rather similar:
+   <math display="inline">
+    u
+   </math>
+   is the initial reserve of the insurance company, and incoming premiums make the reserve go up, payments to insurance holders make it go down. One then considers
+   <math display="inline">
+    \psi(u)
+   </math>
+   , the ruin probability defined as the probability that the reserve ever becomes nonpositive (note that this is a onebarrier problem, whereas the gambler's ruin problem involves two barriers).
+  </p>
+  <p block-type="Text">
+   A general mathematical formulation of this and related types of problems is a stochastic process
+   <math display="inline">
+    \{R(t)\}\
+   </math>
+   (corresponding to the fortune of the gambler or the insurance company at time
+   <math display="inline">
+    t
+   </math>
+   ) and the stopping times
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_v(u) = \inf\{t : R(t) \notin (0, v) | R(0) = u\}
+   </math>
+   <br/>
+   =
+   <math>
+    \inf\{t : R(t) \le 0 \text{ or } R(t) \ge v | R(0) = u\}
+   </math>
+   <br/>
+   <math display="block">
+    \tau(u) = \inf\{t : R(t) \le 0 | R(0) = u\}
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   In broad terms, ruin theory is concerned with deriving properties of these stopping times. In particular, in the two-barrier setting one typically has
+   <math display="inline">
+    \psi_{v}(u) &lt; \infty
+   </math>
+   and could ask for
+   <math display="inline">
+    \mathbb{P}(R(\tau_v(u)) \ge v)
+   </math>
+   or
+   <math display="inline">
+    \mathbb{P}(R(\tau_v(u)) \le 0)
+   </math>
+   . In the one-barrier setting, the main object of interest is the probability
+   <math display="inline">
+    \psi(u) = \mathbb{P}(\tau(u) &lt; \infty)
+   </math>
+   of eventual ruin. Other quantities of interest are the distribution of
+   <math display="inline">
+    \tau(u)
+   </math>
+   , needed to say something about the finite horizon ruin probability
+   <math display="inline">
+    \psi(u,T) = \mathbb{P}(\tau(u) \leq T)
+   </math>
+   , and the deficit
+   <math display="inline">
+    -R(\tau(u))
+   </math>
+   after ruin (see Gerber-Shiu Function).
+  </p>
+  <p block-type="Text">
+   Ruin problems occur also in finance. A simple example is an equity default swap (see Equity Swaps) that pays a certain amount if a security price drops by a certain amount (say
+   <math display="inline">
+    50\%
+   </math>
+   ) in a time period
+   <math display="inline">
+    [0, T]
+   </math>
+   . The price of the equity default
+  </p>
+  <p block-type="TextInlineMath">
+   swap then involves the risk-neutral probability (see
+   <b>
+    Risk-neutral Pricing
+   </b>
+   ) that this happens, which can easily be represented in the form
+   <math display="inline">
+    \psi(u, T)
+   </math>
+   . A few more examples occur in barrier options (see Barrier
+   <b>
+    Options
+   </b>
+   ). For example, a digital down-and-in option will pay the amount 1 if the security price
+   <math display="inline">
+    Z(t)
+   </math>
+   goes below L before T, but is above
+   <math display="inline">
+    K &gt; L
+   </math>
+   at time T
+   <math display="inline">
+    (Z(T) &gt; K)
+   </math>
+   . A standard down-and-in option will pay instead
+   <math display="inline">
+    (Z(T) - K)^{+}
+   </math>
+   under the same conditions.
+  </p>
+  <h3>
+   <b>
+    Explicit Solutions
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   In the rest of the article, we assume that
+   <math display="inline">
+    \{R(t)\}_{t&gt;0}
+   </math>
+   has stationary independent increments (though there is a considerable literature on extensions such as Markovian regime, see
+   <b>
+    Regime-switching Models
+   </b>
+   , jumps at the epochs of a renewal process, etc.). Beyond the simple random walk in the gambler's ruin problem, key examples are Brownian motion (with drift
+   <math display="inline">
+    \mu
+   </math>
+   and variance constant
+   <math display="inline">
+    \sigma^2
+   </math>
+   , say) and the Cramér-Lundberg risk model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t) = u + ct - \sum_{i=1}^{N(t)} V_i
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    c
+   </math>
+   is the premium rate,
+   <math display="inline">
+    N
+   </math>
+   is the Poisson process of times of arrivals of claims, and
+   <math display="inline">
+    V_1, V_2, \ldots
+   </math>
+   are the claim sizes.
+  </p>
+  <p block-type="Text">
+   The gambler's ruin problem is easily solvable: conditioning upon the outcome of the first play gives
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi_v(u) = p\psi_v(u+1) + (1-p)\psi_v(u-1) \qquad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   when
+   <math display="inline">
+    0 &lt; u &lt; v
+   </math>
+   . Subject to the obvious boundary conditions
+   <math display="inline">
+    \psi_v(0) = 1
+   </math>
+   ,
+   <math display="inline">
+    \psi_v(v) = 0
+   </math>
+   , this set of equations has a unique solution that can be seen to be
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi_{v}(u) = \frac{\left[ (1-p)/p \right]^{v} - \left[ (1-p)/p \right]^{u}}{\left[ (1-p)/p \right]^{v} - 1} \qquad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (for
+   <math display="inline">
+    p = 1/2
+   </math>
+   , this needs to be modified to
+   <math display="inline">
+    \psi_{v}(u) =
+   </math>
+   <math display="inline">
+    1 - u/v
+   </math>
+   ).
+  </p>
+  <p block-type="TextInlineMath">
+   What withother models? The simplest example is Brownian motion with drift
+   <math display="inline">
+    \mu
+   </math>
+   and variance
+   <math display="inline">
+    \sigma^2
+   </math>
+   , where conditioning upon
+   <math display="inline">
+    R(h)
+   </math>
+   and letting
+   <math display="inline">
+    h \downarrow 0
+   </math>
+   gives
+   <math display="inline">
+    \psi_{v}(u) = \mu \psi'_{v}(u) + \sigma^{2} \psi''_{v}(u) / 2
+   </math>
+   . Together with
+   <math display="inline">
+    \psi_v(0) = 1
+   </math>
+   ,
+   <math display="inline">
+    \psi_v(v) = 0
+   </math>
+   , this differential equation is easily solved to get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi_{v}(u) = \frac{e^{-\gamma u} - e^{-\gamma v}}{1 - e^{-\gamma v}} \text{ where } \gamma = 2\mu/\sigma^{2} \quad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <i>
+    µ &gt;
+   </i>
+   0 and
+   <i>
+    ψv(u)
+   </i>
+   = 1 −
+   <i>
+    u/v
+   </i>
+   for
+   <i>
+    µ
+   </i>
+   = 0. A more elegant and general approach uses martingales (
+   <i>
+    see
+   </i>
+   <b>
+    Martingales
+   </b>
+   ). The Wald exponential martingale is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W(t) = W_{\alpha}(t) = \exp\{-\alpha R(t) - t\kappa(\alpha)\}\qquad(6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    κ(α)
+   </i>
+   = log
+   <i>
+    Ɛ
+   </i>
+   {−
+   <i>
+    αR(
+   </i>
+   1
+   <i>
+    )
+   </i>
+   } (the so-called Levy ´ exponent,
+   <i>
+    see
+   </i>
+   <b>
+    Levy Processes ´
+   </b>
+   ). A particularly important choice of
+   <i>
+    α
+   </i>
+   is
+   <i>
+    γ
+   </i>
+   , the nonzero solution of
+   <i>
+    κ(γ )
+   </i>
+   = 0 and going under names such as the adjustment coefficient, the Cramer–Lundberg root and so ´ on. Indeed, for this case
+   <i>
+    W (t)
+   </i>
+   = exp {−
+   <i>
+    αR(t)
+   </i>
+   }, and since
+   <i>
+    R(τv (u))
+   </i>
+   =
+   <i>
+    v
+   </i>
+   when
+   <i>
+    R(τv (u))
+   </i>
+   ≥
+   <i>
+    v
+   </i>
+   (and similarly
+   <i>
+    R(τv (u))
+   </i>
+   = 0 when
+   <i>
+    R(τv (u))
+   </i>
+   ≤ 0) for Brownian motion, optional stopping gives
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-\gamma u} = W(0) = \mathbb{E} W(\tau_v(u))
+   </math>
+   <br/>
+   =
+   <math>
+    \psi_v(u)e^0 + (1 - \psi_v(u))e^{-\gamma v}
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   In the Brownian case,
+   <i>
+    κ(α)
+   </i>
+   = −
+   <i>
+    αµ
+   </i>
+   +
+   <i>
+    α
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    σ
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    /
+   </i>
+   2, and so
+   <i>
+    γ
+   </i>
+   = 2
+   <i>
+    µ/σ
+   </i>
+   2. Inserting in equation (7) and solving for
+   <i>
+    ψu(v)
+   </i>
+   , equation (5) follows easily. For the following, note that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \kappa(\alpha) = \lambda \big( \mathbb{E} e^{-\alpha V_i} - 1 \big) + \alpha c \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   for the Cramer–Lundberg model (here ´
+   <i>
+    γ
+   </i>
+   is only explicit for a few examples, in particular exponential
+   <i>
+    Vi
+   </i>
+   , cf. equation (11) below).
+  </p>
+  <p block-type="TextInlineMath">
+   For further generalizations, basically one needs to be able to say something about the overshoot
+   <i>
+    R(τv (u))
+   </i>
+   −
+   <i>
+    v
+   </i>
+   , given
+   <i>
+    R(τv (u))
+   </i>
+   ≥
+   <i>
+    v
+   </i>
+   and the undershoot −
+   <i>
+    R(τv (u)
+   </i>
+   given
+   <i>
+    R(τv (u))
+   </i>
+   ≤ 0. A basic example is the Cramer–Lundberg model with the ´
+   <i>
+    Vi
+   </i>
+   exponential, say, at rate
+   <i>
+    µ
+   </i>
+   . Then by the memoryless property of the exponential distribution, −
+   <i>
+    R(τv (u))
+   </i>
+   , given
+   <i>
+    R(τv (u))
+   </i>
+   ≤ 0 is again exponential
+   <i>
+    (µ)
+   </i>
+   so that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\bigl[\exp\left\{\gamma\,R(\tau_v(u))\right\}\bigg|R(\tau_v(u))\leq 0\bigr] = \frac{\mu}{\mu+\gamma} \quad (9)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <i>
+    R(τv (u))
+   </i>
+   =
+   <i>
+    v
+   </i>
+   when
+   <i>
+    R(τv (u))
+   </i>
+   ≥
+   <i>
+    v
+   </i>
+   (the process has no upward jumps), it follows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-\gamma u} = W(0) = \mathbb{E}W(\tau_v(u))
+   </math>
+   <br/>
+   =
+   <math>
+    \psi_v(u)\frac{\mu}{\mu + \gamma} + (1 - \psi_v(u))e^{-\gamma v}
+   </math>
+   (10)
+  </p>
+  <p block-type="Text">
+   However, if
+   <i>
+    λ
+   </i>
+   is the Poisson intensity, then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \kappa(\alpha) = \lambda \Big(\frac{\mu}{\mu + \alpha} - 1\Big) + \alpha c \Longrightarrow \gamma = \lambda/c - \mu \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Solving equation (10) for
+   <i>
+    ψv(u)
+   </i>
+   yields an explicit expression for
+   <i>
+    ψv(u)
+   </i>
+   , and letting
+   <i>
+    v
+   </i>
+   → ∞ we then get one of the classical formulas in ruin theory,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) = \frac{\lambda}{c\mu} \exp\left\{ -(\lambda/c - \mu)u \right\} \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   in the exponential case.
+  </p>
+  <p block-type="Text">
+   A generalization of equation (10) is to let the
+   <i>
+    Vi
+   </i>
+   be phase-type, say with initial vector
+   <i>
+    ν
+   </i>
+   , phase generator
+   <i>
+    T
+   </i>
+   and exit rates
+   <i>
+    t
+   </i>
+   . Then ([1 p. 227])
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) = \mathbf{v}_{+} \exp\left\{ (\boldsymbol{T} + t\mathbf{v}_{+})u \right\} \text{ where } \mathbf{v}_{+} = -\lambda \boldsymbol{v} \boldsymbol{T}^{-1}/c
+   </math>
+   (13)
+  </p>
+  <p block-type="TextInlineMath">
+   The derivation involves some additional steps, but again, the crucial feature is that one can control the undershoot: the distribution of −
+   <i>
+    R(τv (u))
+   </i>
+   , given
+   <i>
+    R(τv (u)))
+   </i>
+   ≤ 0 is determined by the phase in which 0 is downcrossed. Thus we have a finite set of unknowns, which motivates the matrix form of equation (13).
+  </p>
+  <h4>
+   <i>
+    Bounds and Symptotics
+   </i>
+  </h4>
+  <p block-type="Text">
+   Formula (13) is more or less the end of the road with regard to explicit solutions, even for the simple Cramer–Lundberg model. Therefore, inequalities and ´ approximations play a major role in the area.
+  </p>
+  <p block-type="Text">
+   The celebrated
+   <i>
+    Lundberg's inequality
+   </i>
+   states that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) \le \mathrm{e}^{-\gamma u} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A simple proof of equation (14) (and many other inequalities and approximations) is to use change of measure: for each
+   <i>
+    θ
+   </i>
+   with
+   <i>
+    κ(θ ) &lt;
+   </i>
+   ∞, consider the risk process with
+   <i>
+    λ
+   </i>
+   changed to
+   <i>
+    λθ
+   </i>
+   =
+   <i>
+    λƐ
+   </i>
+   e
+   <sup>
+    −
+   </sup>
+   <i>
+    θVi
+   </i>
+   and the distribution of
+   <i>
+    Vi
+   </i>
+   given by
+   <i>
+    Ɛ
+    <sup>
+     θ
+    </sup>
+   </i>
+   e
+   <i>
+    αVi
+   </i>
+   =
+   <i>
+    Ɛ
+   </i>
+   e
+   <i>
+    (α
+   </i>
+   −
+   <i>
+    θ )Vi /Ɛ
+   </i>
+   e
+   <sup>
+    −
+   </sup>
+   <i>
+    θVi
+   </i>
+   . Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \psi(u) &amp;= \mathbb{P}(\tau(u) &lt; \infty) \\ &amp;= \mathbb{E}_{\theta} \exp\left\{\theta \big[ R\big(\tau(u)\big) - u \big] - \theta \kappa(\theta) \tau(u) \right\} \end{aligned} \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Taking
+   <i>
+    θ
+   </i>
+   =
+   <i>
+    γ
+   </i>
+   and bounding
+   <i>
+    R τ (u)
+   </i>
+   below by 0 immediately yields equation (14). A more elaborate argument involving the
+   <i>
+    <sup>
+     θ
+    </sup>
+   </i>
+   -limit distribution of
+   <i>
+    R τ (u)
+   </i>
+   gives the other main result in the area,
+  </p>
+  <p block-type="Text">
+   going under the name of the Cramér-Lundberg approximation,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) \sim Ce^{-\gamma u}, u \to \infty, \text{ where } C = \frac{1 - \kappa'(0)/c}{\kappa'(\gamma)/c - 1}
+   </math>
+   (16)
+  </p>
+  <p block-type="TextInlineMath">
+   The results
+   <math display="inline">
+    (14)
+   </math>
+   and
+   <math display="inline">
+    (17)
+   </math>
+   , both require a lighttailed assumption, namely, the existence of
+   <math display="inline">
+    \gamma
+   </math>
+   (and for equation (17) in addition that
+   <math display="inline">
+    \kappa'(\gamma) &lt; \infty
+   </math>
+   ). With heavy tails, the situation is completely different. Assume that
+   <math display="inline">
+    V
+   </math>
+   is subexponential (see Heavy Tails in Insurance; Heavy Tails; for example, the tail is regularly varying,
+   <math display="inline">
+    \mathbb{P}(V &gt; v) = L(v)/v^{\alpha}
+   </math>
+   with
+   <math display="inline">
+    \alpha &gt; 1
+   </math>
+   and
+   <math display="inline">
+    L(\cdot)
+   </math>
+   slowly varying). Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(u) \sim \frac{\lambda/\mathbb{E}V}{(c-\lambda/\mathbb{E}V)\mathbb{E}V} \int_{u}^{\infty} \mathbb{P}(V&gt;y) \, \mathrm{d}y, u \to \infty \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   a result that is often associated with the names (in alphabetical order) of Borovkov, Cohen, Embrechts, Pakes, Veraverbeke, and von Bahr.
+  </p>
+  <h4>
+   <b>
+    Finite Horizon Ruin Probabilities
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   The density or the distribution function of
+   <math display="inline">
+    \tau(u)
+   </math>
+   is essentially only explicit for Brownian motion: if
+   <math display="inline">
+    \sigma^2 = 1
+   </math>
+   , then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}_{\mu}\big(\tau(u) \in dt\big)
+   </math>
+   <math display="block">
+    = \frac{u}{\sqrt{2\pi}t^{3/2}} \exp\Bigl\{-\mu u - \frac{1}{2}\Bigl(\frac{u^2}{t} + \mu^2 t\Bigr)\Bigr\} \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   However, if one is satisfied with transforms, the situation is somewhat better, at least for the Cramér-Lundberg model: with exponential claims, one has
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\big[e^{-a\tau(u)};\tau(u)&lt;\infty\big] = e^{-\theta u}(1-\theta/\mu) \qquad (19)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    \theta
+   </math>
+   is the largest root of
+   <math display="inline">
+    \kappa(\theta) = ac
+   </math>
+   or, equivalently, of the quadratic
+   <math display="inline">
+    \theta^2 + (\lambda/c - \mu + ac)\theta - ac\mu
+   </math>
+   . For general claim size distributions, one has to go todouble transforms to get a reasonably simple for-
+  </p>
+  <p block-type="Text">
+   mula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^\infty e^{bu} \mathbb{E}\left[e^{-a\tau(u)}; \tau(u) &lt; \infty\right] du
+   </math>
+   <math display="block">
+    = \frac{-ac/r(a) - \kappa(b)/b}{\kappa(b) + ac} \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    r(a)
+   </math>
+   is the smallest solution of
+   <math display="inline">
+    -ac = \kappa(r(a))
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The asymptotics of the ruin time
+   <math display="inline">
+    \tau(u)
+   </math>
+   is, however, well understood. In the light-tailed setting,
+   <math display="inline">
+    \tau(u)/u
+   </math>
+   has limit (conditional upon
+   <math display="inline">
+    \tau(u) &lt; \infty
+   </math>
+   )
+   <math display="inline">
+    1/\kappa'(\gamma)
+   </math>
+   as
+   <math display="inline">
+    u \rightarrow \infty
+   </math>
+   , and there is further a central limit theorem for
+   <math display="inline">
+    (\tau(u) - u/\kappa'(\gamma))/u^{1/2}
+   </math>
+   . In the subexponential case, there is again a limit for
+   <math display="inline">
+    \tau(u)/c(u)
+   </math>
+   for some suitable constants
+   <math display="inline">
+    c(u) \rightarrow \infty
+   </math>
+   ), but the limit is random (e.g., Pareto in the regularly varying case where
+   <math display="inline">
+    c(u) = u
+   </math>
+   ), not constant as for light tails. These statements translate easily into approximations for
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \psi(u,t) &amp;= \mathbb{P}\big(\tau(u) \le t\big) \\ &amp;= \psi(u)\mathbb{P}\big(\tau(u) \le t \big|\tau(u) &lt; \infty\big) \end{aligned} \tag{21}
+   </math>
+  </p>
+  <p block-type="Text">
+   Further approximations worth mentioning are the corrected diffusion approximation and the saddlepoint approximation. For these, as well as the remaining topics discussed in this article, see Asmussen [1]. Some additional standard monographs in the area are Bühlmann [2], Gerber [3], and Grandell [4].
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Asmussen, S. (2000).
+     <i>
+      Ruin Probabilities
+     </i>
+     , World Scientific, Singapore.
+    </li>
+    <li block-type="ListItem">
+     Bühlmann, H. (1976). Mathematical Methods in Risk [2] Theory, Springer-Verlag.
+    </li>
+    <li block-type="ListItem">
+     Gerber, H.U. (1979). An Introduction to Mathematical [3] Risk Theory, SS. Huebner Foundation Monographs, University of Pennsylvania.
+    </li>
+    <li block-type="ListItem">
+     [4] Grandell, J. (1990). Aspects of Risk Theory, Chapman &amp; Hall.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   Gerber-Shiu Function; Heavy Tails in Insurance; Lévy Processes; Solvency.
+  </p>
+  <p block-type="Text">
+   Søren Asmussen
+  </p>
+ </body>
+</html>

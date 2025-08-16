@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Stochastic Volatility Models: Extremal
+   </b>
+   Behavior
+  </h1>
+  <p block-type="TextInlineMath">
+   Extreme value theory for financial models mostly concerns the martingale (see
+   <b>
+    Martingales
+   </b>
+   ) component of the logarithm of a price process, since random volatility determines the extreme risk in price fluctuations. The increments
+   <math display="inline">
+    (Y_n)_{n\in\mathbb{Z}}
+   </math>
+   and
+   <math display="inline">
+    (Y_t)_{t\in\mathbb{R}}
+   </math>
+   of length 1 of this martingale part often have the structure
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_n = \sigma_n \varepsilon_n, \quad n \in \mathbb{Z}, \quad \text{or}
+   </math>
+   <br/>
+   <math display="block">
+    Y_t = \int_{(t-1,t)} \sigma_{s-} \, \mathrm{d}L_s, \quad t \in \mathbb{R} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for a discrete-time or continuous-time model, respectively. Here, the volatility is modeled by
+   <math display="inline">
+    \sigma
+   </math>
+   , and
+   <math display="inline">
+    (\varepsilon_n)_{n\in\mathbb{Z}}
+   </math>
+   or
+   <math display="inline">
+    (L_t)_{t\in\mathbb{R}}
+   </math>
+   are typically independent and identically distributed (i.i.d.) sequences or a Lévy process (see Lévy Processes), respectively. The usual prerequisite of extreme value theory for a stochastic process is its strict stationarity. Note that, in most cases, strict stationarity of the log price increment process
+   <math display="inline">
+    Y
+   </math>
+   is inherited from stationarity of the volatility process
+   <math display="inline">
+    \sigma
+   </math>
+   . Consequently, we present conditions for strict stationarity of the models below, followed by the extremal analysis of a stationary version.
+  </p>
+  <p block-type="TextInlineMath">
+   The importance of extreme value theory for such pricing models is twofold. First, the tail behavior for large absolute arguments describes the fluctuations of the prices. We distinguish between light- and heavy-tailed models: light tailed means normal or exponential models, whereas heavy-tailed models are defined
+   <i>
+    via
+   </i>
+   regular variation. We say a random variable
+   <math display="inline">
+    X
+   </math>
+   has regularly varying tail, if there are
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   and slowly varying
+   <math display="inline">
+    \ell : (0, \infty) \to (0, \infty)
+   </math>
+   , that is,
+   <math display="inline">
+    \lim_{x\to\infty} \ell(tx)/\ell(x) = 1
+   </math>
+   for all
+   <math display="inline">
+    t &gt; 0
+   </math>
+   , such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(X &gt; x) = \ell(x)x^{-\alpha}, \quad x &gt; 0 \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   We write
+   <math display="inline">
+    X \in \mathcal{R}(-\alpha)
+   </math>
+   . If the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   has regularly varying tail and the noise
+   <math display="inline">
+    \varepsilon
+   </math>
+   or L is light tailed and independent of the volatility, then the log price increments are again regularly varying by Breiman's classical result. The same holds for a light-tailed volatility and independent regularly varying noise. If both, volatility and noise, are light
+  </p>
+  <p block-type="Text">
+   tailed, the distribution of the product depends even asymptotically on both factors and may be more difficult to estimate. Symmetry or tail balance of the right and left tails of the noise often simplifies the calculations.
+  </p>
+  <p block-type="TextInlineMath">
+   Second, volatility clusters on high levels induce extreme price clusters, which can cause a particularly risky situation. For discrete-time models, such clusters are described by a limit of point processes of exceedances over high thresholds. For certain models, this limit is simply a Poisson process, indicating that exceedances happen as single points and at completely random times. However, more realistic models capture the fact that the limit process is not a Poisson process but a compound Poisson process, which describes also the cluster size distribution. A crude, but simple, measure of the cluster size of extremes is the
+   <i>
+    extremal index
+   </i>
+   <math display="inline">
+    \theta \in (0, 1]
+   </math>
+   , where
+   <math display="inline">
+    1/\theta
+   </math>
+   can be interpreted as the mean size of a cluster. It also appears in the distributional limit of the running maxima
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_n^Z = \max\{Z_1, \dots, Z_n\}, \quad n \in \mathbb{N} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   of a stationary sequence
+   <math display="inline">
+    (Z_n)_{n \in \mathbb{Z}}
+   </math>
+   . More precisely, under weak conditions on
+   <math display="inline">
+    Z_1
+   </math>
+   , there exist
+   <math display="inline">
+    a_n &gt; 0
+   </math>
+   and
+   <math display="inline">
+    b_n \in \mathbb{R}
+   </math>
+   such that the
+   <i>
+    Poisson condition
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    nP(Z_1 &gt; a_n x + b_n) = -\log G(x), \quad x \in \mathbb{R} \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   holds, and if the process satisfies further mixing conditions, then the extremal index of
+   <math display="inline">
+    (Z_n)_{n\in\mathbb{Z}}
+   </math>
+   is the unique number
+   <math display="inline">
+    \theta \in (0, 1]
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} P(a_n^{-1}(M_n^Z - b_n) \le x) = G^{\theta}(x), \quad x \in \mathbb{R}
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    G
+   </math>
+   is an extreme value distribution, that is, it is of the same type as a Fréchet distribution
+   <math display="inline">
+    \Phi_{\alpha}(x) = \mathbf{1}_{(0,\infty)}(x) \exp(-x^{-\alpha})
+   </math>
+   for some
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   (heavy-tailed case), a Gumbel distribution
+   <math display="inline">
+    \Lambda(x)
+   </math>
+   =
+   <math display="inline">
+    \exp(-e^{-x})
+   </math>
+   (light-tailed case), or a Weibull distribution
+   <math display="inline">
+    \Psi_{\alpha}
+   </math>
+   for some
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . We refer to the books [11, 24] for this and further information about extreme value theory.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   For
+   <math display="inline">
+    \theta = 1
+   </math>
+   , we interpret the stochastic process as a process without clusters in the extremes, whereas if
+   <math display="inline">
+    \theta
+   </math>
+   &lt; 1 we speak of a process with cluster possibilities in the extremes. Using a point process approach, the whole cluster size distribution can be derived, giving
+  </p>
+  <p block-type="Text">
+   much more insight into the extremal behavior of time series models. This, however, would go beyond the scope of this article and we refer to the references given throughout for more details.
+  </p>
+  <p block-type="Text">
+   As for discrete-time models, the extremal behavior of continuous-time models can be described by the limit behavior of point processes. A simple measure is again given by an extension of the extremal index: if
+   <math display="inline">
+    (Z_t)_{t \in \mathbb{R}}
+   </math>
+   is a continuous-time process, we define for fixed
+   <math display="inline">
+    h &gt; 0
+   </math>
+   the discrete-time process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_k^Z(h) := \sup_{(k-1)h \le t \le kh} Z_t, \quad k \in \mathbb{Z} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Denoting
+   <math display="inline">
+    \theta(h)
+   </math>
+   as the extremal index of the sequence
+   <math display="inline">
+    (M_k^Z(h))_{k\in\mathbb{Z}}
+   </math>
+   , we follow [13] and call
+   <math display="inline">
+    \theta(h)
+   </math>
+   for
+   <math display="inline">
+    h \in (0, \infty)
+   </math>
+   the
+   <i>
+    extremal index function
+   </i>
+   of Z. The function
+   <math display="inline">
+    \theta
+   </math>
+   is increasing, and we shall say that the continuous-time process
+   <math display="inline">
+    Z
+   </math>
+   has extremal clusters if
+   <math display="inline">
+    \lim_{h\to 0} \theta(h) &lt; 1
+   </math>
+   , that is, if there is some
+   <math display="inline">
+    h &gt; 0
+   </math>
+   such that the discrete skeleton
+   <math display="inline">
+    (M_k^Z(h))_{k\in\mathbb{Z}}
+   </math>
+   has extremal index less than 1, that is, it clusters.
+  </p>
+  <p block-type="Text">
+   There exist various publications on extreme value theory for time-dependent data; we mention, for example,
+   <math display="inline">
+    [7, 8, 11, 17-20, 24]
+   </math>
+   and references therein.
+  </p>
+  <h4>
+   <b>
+    Discrete-time Stochastic Volatility Models
+   </b>
+  </h4>
+  <p block-type="Text">
+   The simple stochastic volatility model is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_n = \sigma_n \varepsilon_n, \quad \log \sigma_n^2 = \alpha_0 + \sum_{j=0}^{\infty} c_j \eta_{n-j}, \quad n \in \mathbb{Z}
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (\eta_n)_{n\in\mathbb{Z}}
+   </math>
+   is i.i.d.
+   <math display="inline">
+    N(0, s^2)
+   </math>
+   with
+   <math display="inline">
+    \sum_{i=0}^{\infty} c_i^2 &lt; \infty
+   </math>
+   and
+   <math display="inline">
+    (\varepsilon_n)_{n\in\mathbb{Z}}
+   </math>
+   is i.i.d., independent of
+   <math display="inline">
+    (\eta_n)_{n\in\mathbb{Z}}
+   </math>
+   . This covers the case when
+   <math display="inline">
+    (\log \sigma_n^2)_{n \in \mathbb{Z}}
+   </math>
+   is a causal ARMA process with i.i.d. Gaussian noise
+   <math display="inline">
+    (\eta_n)_{n\in\mathbb{Z}}
+   </math>
+   , the most prominent case being the volatility model of Taylor [28]:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_n = \sigma_n \varepsilon_n, \quad \log \sigma_n^2 = \alpha_0 + \psi \log \sigma_{n-1}^2 + \eta_n,
+   </math>
+   <br/>
+   <math display="block">
+    n \in \mathbb{Z}, \quad |\psi| &lt; 1 \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   when the log volatility is a causal Gaussian
+   <math display="inline">
+    AR(1)
+   </math>
+   process.
+  </p>
+  <p block-type="Text">
+   Extreme value analysis for equation
+   <math display="inline">
+    (7)
+   </math>
+   is based on the transformation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_n = \log Y_n^2 = \alpha_0 + \sum_{j=0}^{\infty} c_j \eta_{n-j}
+   </math>
+   <math display="block">
+    + \log \varepsilon_n^2, \quad n \in \mathbb{Z}
+   </math>
+   (9)
+  </p>
+  <p block-type="Text">
+   which is a Gaussian linear process plus an i.i.d. noise. From
+   <math display="inline">
+    [5, 7]
+   </math>
+   we have the following theorem:
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 1
+   </b>
+   (Tail Behavior and Extremes of the Stochastic Volatility Model). Assume the stochastic volatility model (7) as above with
+   <math display="inline">
+    X_n
+   </math>
+   defined by equation (9).
+  </p>
+  <p block-type="TextInlineMath">
+   (a) If
+   <math display="inline">
+    \varepsilon_1
+   </math>
+   is
+   <math display="inline">
+    N(0, 1)
+   </math>
+   denote
+   <math display="inline">
+    \widetilde{s}^2 = s^2 \sum_{i=0}^{\infty} c_i^2
+   </math>
+   and
+   <math display="inline">
+    k = \log(2/\widetilde{s}^2)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Then the tail of the stationary process
+   <math display="inline">
+    (X_n)_{n\in\mathbb{Z}}
+   </math>
+   satisfies as
+   <math display="inline">
+    x \to \infty
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(X_1 &gt; x + \alpha_0) = \frac{\widetilde{s}^2}{\sqrt{\pi}} \exp\left\{-\frac{x^2}{2\widetilde{s}^2} + \frac{x \log x}{\widetilde{s}^2} + \frac{(k-1)x}{\widetilde{s}^2} + \frac{(k+\widetilde{s}^2)\log x}{\widetilde{s}^2} - \frac{(\log x)^2}{2\widetilde{s}^2} - \frac{k^2}{2\widetilde{s}^2} + O\left(\frac{(\log x)^2}{x}\right)\right\}
+   </math>
+   (10)
+  </p>
+  <p block-type="Text">
+   The tail of the stationary log price increments is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(Y_1 &gt; \sqrt{y}) = \frac{1}{2}P(|Y_1| &gt; \sqrt{y})
+   </math>
+   <br/>
+   =
+   <math>
+    \frac{1}{2}P(X_1 &gt; \log y), \quad n \in \mathbb{Z} \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If, furthermore, the autocorrelation function
+   <math display="inline">
+    \rho
+   </math>
+   of
+   <math display="inline">
+    (\log \sigma_n^2)_{n \in \mathbb{Z}}
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho(h) = \text{corr}(\log \sigma_n^2, \log \sigma_{n+h}^2)
+   </math>
+   <math display="block">
+    = o((\log h)^{-1}), \quad h \to \infty \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   then each of the sequences
+   <math display="inline">
+    (X_n)_{n\in\mathbb{Z}}
+   </math>
+   and
+   <math display="inline">
+    (Y_n)_{n\in\mathbb{Z}}
+   </math>
+   has extremal index 1, and the extreme value distribution
+   <math display="inline">
+    G
+   </math>
+   appearing in equations (4) and (5) is the Gumbel distribution
+   <math display="inline">
+    \Lambda
+   </math>
+   for both X and Y.
+  </p>
+  <p block-type="TextInlineMath">
+   (b) Assume that
+   <math display="inline">
+    \varepsilon_1 \in \mathcal{R}(-\alpha)
+   </math>
+   for some
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . Then as
+   <math display="inline">
+    x \to \infty
+   </math>
+   we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(Y_1 &gt; x) \sim E(\sigma_1^{\alpha}) P(\varepsilon_1 &gt; x) \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If, moreover, for
+   <math display="inline">
+    p \in (0, 1]
+   </math>
+   the tail balance condition for
+   <math display="inline">
+    x \to \infty
+   </math>
+   <math display="inline">
+    P(\varepsilon_1 &gt; x) \sim p P(|\varepsilon_1| &gt; x)
+   </math>
+   holds, then
+   <math display="inline">
+    (Y_n)_{n\in\mathbb{Z}}
+   </math>
+   has extremal index 1 and the extreme value distribution G appearing in
+   <math display="inline">
+    (4)
+   </math>
+   and
+   <math display="inline">
+    (5)
+   </math>
+   is the Fréchet distribution
+   <math display="inline">
+    \Phi_{\alpha}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    f(x) \sim g(x)
+   </math>
+   as
+   <math display="inline">
+    x \to \infty
+   </math>
+   for two strictly positive functions f and g means that
+   <math display="inline">
+    \lim_{x\to\infty} f(x)
+   </math>
+   <math display="inline">
+    g(x) = 1
+   </math>
+   . Berman's condition (12) is very weak and, for example, satisfied, whenever
+   <math display="inline">
+    \log \sigma_n^2
+   </math>
+   follows a causal ARMA equation (in particular, for the volatility model (8) of Taylor). This means that for most stochastic volatility models (7) with Gaussian
+   <math display="inline">
+    \eta
+   </math>
+   and either light- or heavy-tailed noise
+   <math display="inline">
+    \varepsilon
+   </math>
+   , the extremal index is 1, so that the point processes of exceedances over high thresholds converge to a Poisson process. The model cannot model clusters of extremes.
+  </p>
+  <p block-type="TextInlineMath">
+   Extensions of the
+   <math display="inline">
+    \eta_n
+   </math>
+   to non-Gaussian random variables in equation (7) have been considered. In most cases, the qualitative behavior remains the same provided that the processes
+   <math display="inline">
+    \sigma
+   </math>
+   and
+   <math display="inline">
+    \varepsilon
+   </math>
+   are independent and
+   <math display="inline">
+    \n\eta_1\n
+   </math>
+   is light-tailed [9, 10, 22].
+  </p>
+  <h4>
+   EGARCH model
+  </h4>
+  <p block-type="Text">
+   A model related to stochastic volatility models is the EGARCH model of Nelson [26] given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_n = \sigma_n \varepsilon_n, \quad \log \sigma_n^2 = \alpha_0 + \sum_{j=1}^{\infty} c_j g(\varepsilon_{n-j}), \quad n \in \mathbb{Z}
+   </math>
+   (14)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (\varepsilon_n)_{n\in\mathbb{Z}}
+   </math>
+   is i.i.d. normal (or more generally follows a generalized error distribution
+   <math display="inline">
+    \text{GED}(v)
+   </math>
+   ), the real coefficients
+   <math display="inline">
+    \alpha_0
+   </math>
+   and
+   <math display="inline">
+    (c_j)_{j \in \mathbb{N}}
+   </math>
+   decay sufficiently fast, and
+   <math display="inline">
+    g
+   </math>
+   is a deterministic function. The infinite moving average representation for
+   <math display="inline">
+    \log \sigma^2
+   </math>
+   typically arises from EGARCH
+   <math display="inline">
+    (p, q)
+   </math>
+   equations of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \log \sigma_n^2 = \alpha_0 + \sum_{j=1}^p \alpha_j g(\varepsilon_{n-j}) + \sum_{j=1}^q \beta_j \log(\sigma_{n-j}^2)
+   </math>
+   (15)
+  </p>
+  <p block-type="TextInlineMath">
+   with real coefficients
+   <math display="inline">
+    \alpha_i
+   </math>
+   and
+   <math display="inline">
+    \beta_i
+   </math>
+   . The standard choice for g is
+   <math display="inline">
+    g(x) = \varphi x + \gamma(|x| - E|\varepsilon_0|)
+   </math>
+   , where
+   <math display="inline">
+    \varphi
+   </math>
+   and
+   <math display="inline">
+    \gamma
+   </math>
+   are real constants, so that g is an affine linear function and
+   <math display="inline">
+    g(\varepsilon_n)
+   </math>
+   allows the volatility to respond asymmetrically to negative and positive innovations. Depending on the size of
+   <math display="inline">
+    \varphi
+   </math>
+   and
+   <math display="inline">
+    \gamma
+   </math>
+   , different cases arise, but the most important one is for
+   <math display="inline">
+    \gamma - \varphi &gt; \gamma +
+   </math>
+   <math display="inline">
+    \varphi &gt; 0
+   </math>
+   , in which case a negative innovation increases the volatility more than a positive innovation of the same modulus (i.e., it models the leverage effect).
+  </p>
+  <p block-type="Text">
+   As for stochastic volatility models, extreme value analysis for equation
+   <math display="inline">
+    (14)
+   </math>
+   is based on the transformed process (which is stationary by equation
+   <math display="inline">
+    14
+   </math>
+   )
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{n} = \log Y_{n}^{2}
+   </math>
+   <br/>
+   =
+   <math>
+    \alpha_{0} + \sum_{j=1}^{\infty} c_{j} g(\varepsilon_{n-j}) + \log \varepsilon_{n}^{2}, \quad n \in \mathbb{Z}
+   </math>
+   <br/>
+   (16)
+  </p>
+  <p block-type="Text">
+   The following theorem follows from
+   <math display="inline">
+    [9, 10, 22]
+   </math>
+   :
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 2 (Tail Behavior and Extremes of EGARCH). Assume the EGARCH model as above with
+   <math display="inline">
+    (\varepsilon_n)_{n\in\mathbb{N}}
+   </math>
+   i.i.d.
+   <math display="inline">
+    N(0,1)
+   </math>
+   and
+   <math display="inline">
+    \gamma-\varphi&gt;\gamma+\varphi&gt;
+   </math>
+   0. Suppose further that the coefficients
+   <math display="inline">
+    (c_i)_{i \in \mathbb{N}}
+   </math>
+   are nonnegative and that
+   <math display="inline">
+    c_j = O(j^{-\delta})
+   </math>
+   as
+   <math display="inline">
+    j \to \infty
+   </math>
+   for
+   <i>
+    some
+   </i>
+   <math display="inline">
+    \delta &gt; 1
+   </math>
+   .
+   <i>
+    Denote
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A := (\gamma - \varphi)^2 \sum_{j=1}^{\infty} c_j^2 \quad \text{and} \quad B := -\gamma E |\varepsilon_0| \sum_{j=1}^{\infty} c_j
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    Then the stationary processes
+   </i>
+   <math display="inline">
+    (X_n)_{n\in\mathbb{Z}}
+   </math>
+   <i>
+    and
+   </i>
+   <math display="inline">
+    (Y_n)_{n\in\mathbb{Z}}
+   </math>
+   satisfy, as
+   <math display="inline">
+    x \to \infty
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(X_1 &gt; \alpha_0 + x) = \exp\left(-[x^2 - x \log x - (B + \log(2/A) - 1)x]/A + o(x)\right)
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   and (11), respectively. Both processes
+   <math display="inline">
+    (X_n)_{n\in\mathbb{Z}}
+   </math>
+   and
+   <math display="inline">
+    (Y_n)_{n\in\mathbb{Z}}
+   </math>
+   have extremal index 1, and the extreme value distribution G appearing in equation
+   <math display="inline">
+    (4)
+   </math>
+   and
+   <math display="inline">
+    (5)
+   </math>
+   is the Gumbel distribution.
+  </p>
+  <p block-type="TextInlineMath">
+   Observe that for an EGARCH
+   <math display="inline">
+    (p, q)
+   </math>
+   process as in equation (15) with
+   <math display="inline">
+    \alpha_1, \ldots, \alpha_p, \ \beta_1, \ldots, \beta_q \ge 0
+   </math>
+   and such that
+   <math display="inline">
+    \sum_{j=1}^{q} \beta_j &lt; 1
+   </math>
+   , the coefficients
+   <math display="inline">
+    (c_j)_{j \in \mathbb{N}}
+   </math>
+  </p>
+  <p block-type="Text">
+   in equation
+   <math display="inline">
+    (14)
+   </math>
+   are automatically nonnegative and decay exponentially, so that Theorem 2 applies. In particular, the EGARCH process with normal innovations cannot cluster. Extensions to other light-tailed innovations
+   <math display="inline">
+    \varepsilon
+   </math>
+   such as GED(v) distributions with
+   <math display="inline">
+    \nu &gt; 1
+   </math>
+   are possible; cf [10].
+  </p>
+  <h3>
+   GARCH(1.1) Model
+  </h3>
+  <p block-type="TextInlineMath">
+   In the GARCH(1,1) model (see GARCH Models) of Engle [12] and Bollerslev [4] the log price increments
+   <math display="inline">
+    (Y_n)_{n\in\mathbb{Z}}
+   </math>
+   and the volatilities
+   <math display="inline">
+    (\sigma_n)_{n\in\mathbb{Z}}
+   </math>
+   are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_n = \sigma_n \varepsilon_n, \quad \sigma_n^2 = \gamma + \alpha Y_{n-1}^2 + \beta \sigma_{n-1}^2, \quad n \in \mathbb{Z}
+   </math>
+   (19)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (\varepsilon_n)_{n\in\mathbb{Z}}
+   </math>
+   are i.i.d. and
+   <math display="inline">
+    \alpha, \beta, \gamma &gt; 0
+   </math>
+   . Rewriting
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{n+1}^2 = \gamma + (\alpha \varepsilon_n^2 + \beta)\sigma_n^2, \quad n \in \mathbb{Z} \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   it becomes clear that a stationary and causal solution exists if and only if
+   <math display="inline">
+    E \log(\alpha \varepsilon_1^2 + \beta) &lt; 0
+   </math>
+   . The following result on the tail behavior is included in Kesten's seminal work: see [8] for further results and references. The calculation of the extremal index can be found in [19, 25].
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 3 (Tail Behavior and Extremes of
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   ). Assume the
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   model such that
+   <math display="inline">
+    \varepsilon_1
+   </math>
+   is symmetric and has a positive density on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   such that
+   <math display="inline">
+    E(|\varepsilon_1|^h) &lt; \infty
+   </math>
+   for
+   <math display="inline">
+    h &lt; h_0
+   </math>
+   and
+   <math display="inline">
+    E(|\varepsilon_1|^{h_0}) =
+   </math>
+   <math display="inline">
+    \infty
+   </math>
+   for
+   <math display="inline">
+    h \ge h_0
+   </math>
+   for some
+   <math display="inline">
+    h_0 \in (0, \infty]
+   </math>
+   . Then there exist unique
+   <math display="inline">
+    \kappa &gt; 0
+   </math>
+   and
+   <math display="inline">
+    c &gt; 0
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(\alpha \varepsilon_1^2 + \beta)^{\kappa/2} = 1 \tag{21}
+   </math>
+  </p>
+  <p block-type="Text">
+   and the stationary distributions have tails for
+   <math display="inline">
+    x \to \infty
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(\sigma_1 &gt; x) \sim cx^{-\kappa} \quad and
+   </math>
+   <br/>
+   <math display="block">
+    P(Y_1 &gt; x) \sim \frac{1}{2} cE(|\varepsilon_1|^{\kappa}) x^{-\kappa}
+   </math>
+   (22)
+  </p>
+  <p block-type="TextInlineMath">
+   The extremal indices of
+   <math display="inline">
+    (\sigma_n)_{n\in\mathbb{Z}}
+   </math>
+   and
+   <math display="inline">
+    (|Y_n|)_{n\in\mathbb{Z}}
+   </math>
+   are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \theta_{\sigma} = \int_{1}^{\infty} P\left(\sup_{n\geq 1} \prod_{j=1}^{n} (\alpha \varepsilon_{j}^{2} + \beta) \leq y^{-1}\right)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \times \frac{\kappa}{2} y^{-(\kappa/2)-1} \, \mathrm{d}y \in (0, 1) \quad \text{and}\n
+   </math>
+   <math display="block">
+    \n\theta_{|Y|} = \frac{E\left(|\varepsilon_1|^{\kappa} - \sup_{m \ge 1} |\varepsilon_{m+1}|^{\kappa} \prod_{j=1}^m (\alpha \varepsilon_j^2 + \beta)^{\kappa/2}\right)^+}{E|\varepsilon_1|^{\kappa}}\n
+   </math>
+   <math display="block">
+    \n\in (0, 1) \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   respectively. Also the extremal index
+   <math display="inline">
+    \theta_Y \in (0, 1)
+   </math>
+   , and for all three sequences
+   <math display="inline">
+    \sigma
+   </math>
+   ,
+   <math display="inline">
+    |Y|
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   , the extreme value distribution
+   <math display="inline">
+    G
+   </math>
+   appearing in equations (4) and (5) is the Fréchet distribution
+   <math display="inline">
+    \Phi_{\kappa}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   We conclude that the
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   process is able to model clusters in the extremes. Extensions to higher order GARCH processes are given in [3, 8].
+  </p>
+  <h1>
+   <b>
+    Continuous-time Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   While for discrete-time volatility models many results on the extremal behavior are formulated for both the volatility process and the log price increments process, with few exceptions, most of the literature on extremes for continuous-time models concentrates on the volatility process. Hence, in the following, we often state results concerning the volatility process only.
+  </p>
+  <h4>
+   The Wiggins Model
+  </h4>
+  <p block-type="TextInlineMath">
+   In the volatility model of Wiggins [30] (see also [27]) the log volatility is modeled as a Gaussian Ornstein-Uhlenbeck (OU) process. More precisely, the log price increments
+   <math display="inline">
+    Y_t
+   </math>
+   and the volatility
+   <math display="inline">
+    \sigma_t
+   </math>
+   are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = \int_{(t-1,t)} \sigma_{s-} \, \mathrm{d}B_{s},
+   </math>
+   <br/>
+   <math display="block">
+    \mathrm{d} \log \sigma_{t}^{2} = (b_{1} - b_{2} \log \sigma_{t}^{2}) \, \mathrm{d}t + \delta \, \mathrm{d}W_{t},
+   </math>
+   <br/>
+   <math display="block">
+    t \in \mathbb{R} \tag{24}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with two independent standard Brownian motions
+   <math display="inline">
+    B
+   </math>
+   and W, and real constants
+   <math display="inline">
+    b_1
+   </math>
+   ,
+   <math display="inline">
+    b_2
+   </math>
+   and
+   <math display="inline">
+    \delta \neq 0
+   </math>
+   . The volatility has a stationary solution if and only if
+   <math display="inline">
+    b_2 &gt; 0
+   </math>
+   , in which case it is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \log \sigma_t^2 = \int_{-\infty}^t e^{-b_2(t-s)} (b_1 \, \mathrm{d}s + \delta \, \mathrm{d}W_s), \quad t \in \mathbb{R}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    (25)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Sampling the log volatility at integer points results in a causal Gaussian
+   <math display="inline">
+    AR(1)
+   </math>
+   process, so that the Euler type approximation
+   <math display="inline">
+    \overline{Y}_n := \sigma_{n-1}(B_n - B_{n-1})
+   </math>
+   to equation
+   <math display="inline">
+    (24)
+   </math>
+   is the discrete-time volatility model
+   <math display="inline">
+    (8)
+   </math>
+   of Taylor.
+  </p>
+  <p block-type="TextInlineMath">
+   From the above representation, it is clear that
+   <math display="inline">
+    \log \sigma_t^2
+   </math>
+   is
+   <math display="inline">
+    N(b_1/b_2, \delta^2/(2b_2))
+   </math>
+   distributed. The extremal index function of
+   <math display="inline">
+    \log \sigma^2
+   </math>
+   and hence
+   <math display="inline">
+    \sigma^2
+   </math>
+   follows from results in [24] as shown in [13].
+  </p>
+  <p block-type="TextInlineMath">
+   Theorem 4 (Extremal Index Function of the Volatility). Under the assumptions above, the extremal index function
+   <math display="inline">
+    \theta_{\sigma}(h)
+   </math>
+   for
+   <math display="inline">
+    h \in (0, \infty)
+   </math>
+   of the stationary volatility process
+   <math display="inline">
+    \sigma^2
+   </math>
+   in (24) is identical to 1.
+  </p>
+  <p block-type="TextInlineMath">
+   We conclude that the volatility in the model (24) does not allow for extremal clusters. This continues to hold if the Gaussian OU process for the log volatility in equation
+   <math display="inline">
+    (24)
+   </math>
+   is replaced by any Gaussian process with continuous sample paths satisfying equation (12). While it is easy to show that the stationary log price increment
+   <math display="inline">
+    Y_1
+   </math>
+   in equation (24) is distributed as
+   <math display="inline">
+    \left(\int_0^1 \sigma_t^2 dt\right)^{1/2} \varepsilon_1
+   </math>
+   with
+   <math display="inline">
+    \varepsilon_1
+   </math>
+   standard normally distributed and independent of
+   <math display="inline">
+    (\sigma_t)_{t \in \mathbb{R}}
+   </math>
+   , we are not aware of any explicit expressions for the tail behavior and the extremal index function of
+   <math display="inline">
+    Y_1
+   </math>
+   or
+   <math display="inline">
+    \log Y_1^2
+   </math>
+   as in Theorem
+   <math display="inline">
+    1(a)
+   </math>
+   .
+  </p>
+  <h4>
+   Barndorff-Nielsen and Shephard (BNS) Model
+  </h4>
+  <p block-type="Text">
+   In [1, 2], Barndorff-Nielsen and Shephard (BNS) model (see Barndorff-Nielsen and Shephard (BNS)
+   <b>
+    Models
+   </b>
+   ) the volatility process as a Lévy-driven OU process, which results in the model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = \int_{(t-1,t)} \sigma_{s-} \, \mathrm{d}B_{s},
+   </math>
+   <br/>
+   <math display="block">
+    \sigma_{t}^{2} = \int_{-\infty}^{t} \mathrm{e}^{-\lambda(t-s)} \, \mathrm{d}L_{\lambda s}, \quad t \in \mathbb{R} \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where B is Brownian motion,
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   and L is a Lévy process with increasing sample paths (i.e., a subordinator), independent of
+   <math display="inline">
+    B
+   </math>
+   . The volatility process is stationary and satisfies the stochastic differential equation (SDE)
+   <math display="inline">
+    d\sigma_t^2 = -\lambda \sigma_t^2 dt + dL_{\lambda t}
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The extremal behavior of this model depends on the driving Lévy process and has been analyzed in
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    [13-15]
+   </math>
+   . For regularly varying noise, as shown in [14], one obtains the following.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 5
+   </b>
+   (Tail and Extremes for Noise in
+   <math display="inline">
+    \mathcal{R}(-\alpha)
+   </math>
+   ). Consider the stationary BNS-model (26) and assume that
+   <math display="inline">
+    L_1 \in \mathcal{R}(-\alpha)
+   </math>
+   with
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . Then
+   <math display="inline">
+    \sigma_1 \in
+   </math>
+   <math display="inline">
+    \mathcal{R}(-2\alpha)
+   </math>
+   ,
+   <math display="inline">
+    Y_1 \in \mathcal{R}(-2\alpha)
+   </math>
+   and we have for
+   <math display="inline">
+    x \to \infty
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(\sigma_1^2 &gt; x) \sim \alpha^{-1} P(L_1 &gt; x)
+   </math>
+   <br/>
+   <math display="block">
+    P(Y_1^2 &gt; x) \sim E(|\varepsilon_1|^{2\alpha}) \left(\frac{(1 - e^{-\lambda})^{\alpha}}{\alpha \lambda^{\alpha}} + \frac{1}{\lambda^{\alpha}} \int_0^1 (1 - e^{s - \lambda})^{\alpha} ds\right) P(L_1 &gt; x)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    P(Y_1 &gt; x) = \frac{1}{2}P(Y_1^2 &gt; x^2)
+   </math>
+   <math display="inline">
+    (27)
+   </math>
+  </p>
+  <p block-type="Text">
+   respectively, where
+   <math display="inline">
+    \varepsilon_1
+   </math>
+   is a standard normal random variable. The extremal index function
+   <math display="inline">
+    \theta_{\sigma}
+   </math>
+   of the
+   <i>
+    volatility process is furthermore given by
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \theta_{\sigma}(h) = (h\alpha\lambda)(h\alpha\lambda + 1)^{-1}, \quad h &gt; 0 \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Observe that for a regularly varying noise process, the tail of
+   <math display="inline">
+    \sigma^2
+   </math>
+   is of the same order as that of the driving noise process. Also, since
+   <math display="inline">
+    \theta_{\sigma}(h) &lt; 1
+   </math>
+   , the process exhibits cluster possibilities. This is in contrast to the case when
+   <math display="inline">
+    L
+   </math>
+   has exponential tail as in the next theorem; see
+   <math display="inline">
+    [13, 18]
+   </math>
+   :
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 6
+   </b>
+   (Tail and Extremes for Exponential-type Noise). Consider the stationary BNS-model (26) as above and assume that
+   <math display="inline">
+    L_1
+   </math>
+   has an exponential-type distribution tail:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(L_1 &gt; x)
+   </math>
+   <br/>
+   =
+   <math>
+    c(x) \exp\left\{-\int_0^x (a(y))^{-1} dy\right\}, \quad x &gt; 0
+   </math>
+   <br/>
+   (29)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \lim_{x\to\infty} c(x) = c &gt; 0
+   </math>
+   and
+   <math display="inline">
+    a &gt; 0
+   </math>
+   is absolutely
+   <i>
+    continuous with
+   </i>
+   <math display="inline">
+    \lim_{x\to\infty} a(x) = \gamma^{-1}
+   </math>
+   and
+   <math display="inline">
+    \lim_{x\to\infty}
+   </math>
+   <math display="inline">
+    a'(x) = 0
+   </math>
+   , where
+   <math display="inline">
+    \gamma \in [0, \infty)
+   </math>
+   . Assume also that
+   <math display="inline">
+    L_1 \in S(\gamma)
+   </math>
+   , that is,
+   <math display="inline">
+    P(L_2 &gt; x) \sim E(e^{\gamma L_1})P(L_1 &gt; x)
+   </math>
+   as
+   <math display="inline">
+    x \to \infty
+   </math>
+   with
+   <math display="inline">
+    E(e^{\gamma L_1}) &lt; \infty
+   </math>
+   . Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(\sigma_1^2 &gt; x) \sim \frac{a(x)}{x} \frac{E e^{\gamma \sigma_1^2}}{E e^{\gamma L_1}} P(L_1 &gt; x), \quad x \to \infty
+   </math>
+   (30)
+  </p>
+  <p block-type="TextInlineMath">
+   In particular,
+   <math display="inline">
+    P(\sigma_1^2 &gt; x) = o(P(L_1 &gt; x))
+   </math>
+   for
+   <math display="inline">
+    x \to \infty
+   </math>
+   . The extremal index function
+   <math display="inline">
+    \theta_{\sigma}
+   </math>
+   is equal to 1, that is,
+   <math display="inline">
+    \theta_{\sigma}(h) = 1
+   </math>
+   for all
+   <math display="inline">
+    h &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Brockwell [6] suggests to model the volatility in equation (26) by Lévy-driven continuous-time ARMA (CARMA) processes, with the
+   <math display="inline">
+    CAR(1)
+   </math>
+   process being the OU process. As shown in [13-15], for CARMA processes driven by regularly varying noise processes, clusters occur as in Theorem 5, while for driving Lévy processes as described in Theorem 6, CARMA processes may or may not model clusters, depending on the corresponding kernel function. Todorov and Tauchen [29] suggest to model the volatility by a
+   <math display="inline">
+    CARMA(2,1)
+   </math>
+   process with a mixture of gamma distributions as driving noise process. For this model the results presented here do not apply.
+  </p>
+  <h4>
+   Continuous-time GARCH(1,1) Models
+  </h4>
+  <p block-type="Text">
+   As a diffusion limit of
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   processes, Nelson [26] obtained
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t = \int_{(t-1,t)} \sigma_{s-} \, \mathrm{d}B_s,
+   </math>
+   <br/>
+   <math display="block">
+    \mathrm{d}\sigma_t^2 = (\beta - \varphi \sigma_t^2) \, \mathrm{d}t + \lambda \sigma_t^2 \, \mathrm{d}W_t, \quad t \ge 1 \quad (31)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    B
+   </math>
+   and
+   <math display="inline">
+    W
+   </math>
+   are independent standard Brownian motions and
+   <math display="inline">
+    \beta \geq 0, \lambda &gt; 0
+   </math>
+   and
+   <math display="inline">
+    \varphi \in \mathbb{R}
+   </math>
+   are parameters. It has a strictly stationary solution if and only if
+   <math display="inline">
+    2\varphi/\lambda^2 &gt; -1
+   </math>
+   and
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   , in which case the marginal distribution is inverse gamma. The two independent driving processes in equation
+   <math display="inline">
+    (31)
+   </math>
+   are in contrast to the situation for discrete-time GARCH processes, where price and volatility are both driven by the same noise sequence
+   <math display="inline">
+    (\varepsilon_n)_{n\in\mathbb{Z}}
+   </math>
+   . Inspired by this, Klüppelberg et al. [23] constructed another continuous-time GARCH model, termed COGA-
+   <math display="inline">
+    RCH(1,1)
+   </math>
+   , which meets the features of discrete-time GARCH better and for which the volatility jumps, unlike for the diffusion limit (31). Let
+   <math display="inline">
+    (L_t)_{t\geq 0}
+   </math>
+   be a Lévy process with nonzero Lévy measure and
+   <math display="inline">
+    \eta, \varphi, \beta &gt; 0
+   </math>
+   be parameters. Defining the auxiliary Lévy process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R_{t} = \eta t - \sum_{0 &lt; s \le t} \log(1 + \varphi(\Delta L_{s})^{2}), \quad t \ge 0 \quad (32)
+   </math>
+  </p>
+  <p block-type="Text">
+   the log price increments Y and the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = \int_{(t-1,t)} \sigma_{s-} \mathrm{d}L_{s},
+   </math>
+   <br/>
+   <math display="block">
+    \sigma_{t}^{2} = \left(\beta \int_{0}^{t} \mathrm{e}^{R_{s-}} \mathrm{d}s + \sigma_{0}^{2}\right) \mathrm{e}^{-R_{t}}, \ t \ge 1 \quad (33)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma_0^2
+   </math>
+   is independent of L. A sufficient condition for strict stationarity of
+   <math display="inline">
+    (33)
+   </math>
+   is the existence of some
+   <math display="inline">
+    \kappa &gt; 0
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |L_1|^{\kappa} \log^+ |L_1| &lt; \infty \quad \text{and} \quad E(e^{-R_1 \kappa/2}) = 1 \quad (34)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Observe that the volatility in Nelson's diffusion limit (31) has also a solution (33), with
+   <math display="inline">
+    R_t
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R_t := (\varphi + \lambda^2/2)t - \lambda W_t, \quad t \ge 0 \tag{35}
+   </math>
+  </p>
+  <p block-type="Text">
+   For the stationary choice, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(e^{-R_1\kappa/2}) = 1
+   </math>
+   with
+   <math>
+    \kappa := 2 + 4\varphi/\lambda^2 &gt; 0
+   </math>
+   (36)
+  </p>
+  <p block-type="Text">
+   The following result is from
+   <math display="inline">
+    [16, 18]
+   </math>
+   :
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 7
+   </b>
+   (Tail and Extremes of Continuous-time GARCH).
+   <i>
+    Consider the stationary diffusion limit (31)
+   </i>
+   or COGARCH(1,1) process as above with
+   <math display="inline">
+    \kappa &gt; 0
+   </math>
+   as given by equations
+   <math display="inline">
+    (36)
+   </math>
+   or
+   <math display="inline">
+    (34)
+   </math>
+   , respectively. Then there exists a constant
+   <math display="inline">
+    c &gt; 0
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(\sigma_1 &gt; x) \sim c x^{-\kappa}, \quad x \to \infty \tag{37}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the case of the
+   <math display="inline">
+    COGARCH(1,1)
+   </math>
+   process, assume
+   <i>
+    further that there is
+   </i>
+   <math display="inline">
+    d &gt; \max\{1, \kappa\}
+   </math>
+   <i>
+    such that
+   </i>
+   <math display="inline">
+    E|L_1|^{2d}
+   </math>
+   <math display="inline">
+    &lt; \infty
+   </math>
+   with
+   <math display="inline">
+    \kappa &gt; 0
+   </math>
+   as defined in equation (34) and that
+   <math display="inline">
+    L
+   </math>
+   is not the negative of a subordinator. Denote
+   <math display="inline">
+    M_t := B_t
+   </math>
+   for the diffusion limit (31) and
+   <math display="inline">
+    M_t := L_t
+   </math>
+   for the
+   <math display="inline">
+    COGARCH(1,1)
+   </math>
+   process. Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(Y_1 &gt; x) \sim E\left[\left(\int_0^1 e^{-R_{t-}/2} dM_t\right)^+\right]^k
+   </math>
+   <math display="block">
+    P(\sigma_1 &gt; x), \quad x \to \infty \tag{38}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+   <math display="inline">
+    \sigma
+   </math>
+   has extremal index function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \theta_{\sigma}(h) = \frac{E\left(\sup_{0 \le t \le h} e^{-R_t \kappa/2} - \sup_{t \ge h} e^{-R_t \kappa/2}\right)^{+}}{E\left(\sup_{0 \le t \le h} e^{-R_t \kappa/2}\right)}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    &lt;1, \quad h&gt;0 \tag{39}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The extremal index of the discrete-time process
+   <math display="inline">
+    (Y_n)_{n\in\mathbb{N}}
+   </math>
+   of the log price increments at integer times is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \theta = \frac{E\left[\left(I_1^{\kappa} - \max_{k\geq 2} I_k^{\kappa}\right)^+\right]}{E[I_1^{\kappa}]} &lt; 1 \tag{40}
+   </math>
+  </p>
+  <p block-type="Text">
+   It follows that both the diffusion limit and the
+   <math display="inline">
+    \text{COGARCH}(1,1)
+   </math>
+   can model extremal clusters. Since the diffusion limit
+   <math display="inline">
+    (31)
+   </math>
+   has continuous sample paths, one can also consider its clustering behavior via epsilon-upcrossings. Choosing such an approach, the diffusion limit of Nelson does not cluster, as reported in [18]. In particular, both notions of extremal clustering for processes with continuous sample paths do not lead to the same interpretation.
+  </p>
+  <p block-type="Text">
+   Similar to the definition of COGARCH, a continuous-time analog to the EGARCH process has been proposed in [21]. So far, no analog to Theorem 2 for the continuous-time EGARCH process seems to be available.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Barndorff-Nielsen, O.E. &amp; Shephard, N. (2001). [1] Non-Gaussian Ornstein-Uhlenbeck-based models and some of their uses in financial economics (with discussion), Journal of the Royal Statistical Society. Series B 63, 167-241.
+    </li>
+    <li block-type="ListItem">
+     [2] Barndorff-Nielsen, O.E. &amp; Shephard, N. (2002). Econometric analysis of realised volatility and its use in estimating stochastic volatility models, Journal of the Royal Statistical Society. Series B 64, 253-280.
+    </li>
+    <li block-type="ListItem">
+     Basrak, B., Davis, R.A. &amp; Mikosch, T. (2002). Regular [3] variation of GARCH processes, Stochastic Process and
+     <i>
+      their Applications
+     </i>
+     <b>
+      99
+     </b>
+     , 95–116.
+    </li>
+    <li block-type="ListItem">
+     [4] Bollerslev, T. (1986). Generalized autoregressive conditional heteroskedasticity, Journal of Economometrics 31, 307-327.
+    </li>
+    <li block-type="ListItem">
+     Breidt, F.J. &amp; Davis, R.A. (1998). Extremes of stochas-[5] tic volatility models, Annals of Applied Probability 8, 664-675.
+    </li>
+    <li block-type="ListItem">
+     Brockwell, P.J. (2004). Representations of continuous [6] time ARMA processes, Journal of Applied Probability 41A.
+     <math display="inline">
+      375 - 382
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     [7] Davis, R.A. &amp; Mikosch, T. (2008). Extremes of stochastic volatility models, in Handbook of Financial Time Series, T.G. Andersen, R.A. Davis, J.-P. Kreiss &amp; T. Mikosch, eds, Springer, Heidelberg, 355-364.
+    </li>
+    <li block-type="ListItem">
+     [8] Davis, R.A. &amp; Mikosch, T. (2008). Extreme value theory for GARCH processes, in Handbook of Financial Time
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Series, T.G. Andersen, R.A. Davis, J.-P. Kreiss &amp; T. Mikosch, eds, Springer, Heidelberg, 187-199.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [9] Drude, N. (2006). Extremwertverhalten von unendlichen Moving Average Prozessen mit leicht taillierten Innovationen und Anwendungen auf EGARCH Prozesse. Diplomarbeit, Technische Universität München.
+    </li>
+    <li block-type="ListItem">
+     [10] Drude, N. &amp; Lindner, A. (2008). Extremes of Sums of Infinite Moving Average Processes with Light Tails and Applications to EGARCH, in preparation.
+    </li>
+    <li block-type="ListItem">
+     [11] Embrechts, P., Klüppelberg, C. &amp; Mikosch, T. (1997). Modelling Extremal Events for Insurance and Finance, Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [12] Engle, R.F. (1982). Autoregressive conditional heteroscedasticity with estimates of the variance of United Kingdom inflation,
+     <i>
+      Econometrica
+     </i>
+     50, 987-1008.
+    </li>
+    <li block-type="ListItem">
+     [13] Fasen, V.M. (2004). Extremes of Lévy Driven Moving Average Processes with Applications in Finance. PhD thesis, Technische Universität München.
+    </li>
+    <li block-type="ListItem">
+     [14] Fasen, V. (2005). Extremes of regularly varying mixed moving average processes, Advances in Applied Probability 37, 993-1014.
+    </li>
+    <li block-type="ListItem">
+     [15] Fasen, V. (2009). Extremes of Lévy Driven Mixed MA Processes with Convolution Equivalent Distributions
+     <math display="inline">
+      12(3)
+     </math>
+     265-296.
+    </li>
+    <li block-type="ListItem">
+     [16] Fasen, V. (2008). Asymptotic Results for Sample Autocovariance Functions and Extremes of Integrated Generalized Ornstein-Uhlenbeck Processes, to appear.
+    </li>
+    <li block-type="ListItem">
+     [17] Fasen, V. (2008). Extremes of continuous-time processes, in Handbook of Financial Time Series, T.G. Andersen, R.A. Davis, J.-P. Kreiss &amp; T. Mikosch, eds, Springer, Heidelberg, 653–667.
+    </li>
+    <li block-type="ListItem">
+     [18] Fasen, V., Klüppelberg, C. &amp; Lindner, A. (2006). Extremal behavior of stochastic volatility models, in Stochastic Finance, M.D.R. Grossinho, A.N. Shiryaev, M. Esquivel &amp; P.E. Oliviera, eds, Springer, New York, pp. 107-155.
+    </li>
+    <li block-type="ListItem">
+     [19] Fasen, V., Klüppelberg, C. &amp; Schlather, M. (2007). High-level Dependence in Time Series Models, to appear.
+    </li>
+    <li block-type="ListItem">
+     [20] Finkenstädt, B. &amp; Rootzén, H. (eds) (2004). Extreme Values in Finance, Telecommunications, and the Environment, Chapman &amp; Hall/CRC, Boca Raton.
+    </li>
+    <li block-type="ListItem">
+     [21] Haug, S. &amp; Czado, C. (2007). An exponential continuous time GARCH process, Journal of Applied Probability 44, 960-976.
+    </li>
+    <li block-type="ListItem">
+     [22] Klüppelberg, C. &amp; Lindner, A. (2005). Extreme value theory for moving average processes with light-tailed innovations, Bernoulli 11, 381-410.
+    </li>
+    <li block-type="ListItem">
+     [23] Klüppelberg, C., Lindner, A. &amp; Maller, R. (2004). A continuous time GARCH process driven by a Lévy process: stationarity and second order behaviour, Journal of Applied Probability 41, 601-622.
+    </li>
+    <li block-type="ListItem">
+     [24] Leadbetter, M.R., Lindgren, G. &amp; Rootzén, H. (1983). Extremes and Related Properties of Random Sequences and Processes, Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [25] Mikosch, T. &amp; Stărică, C. (2000). Limit theory for the sample autocorrelations and extremes of a
+     <math display="inline">
+      GARCH(1,1)
+     </math>
+     process, Annals of Statistics 28, 1427-1451.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [26] Nelson, D.B. (1991). Conditional heteroskedasticity in asset returns: a new approach,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      59
+     </b>
+     , 347–370.
+    </li>
+    <li block-type="ListItem">
+     [27] Scott, L.O. (1987). Option pricing when the variance changes randomly: theory, estimation and application,
+     <i>
+      Journal of Financial Quantitative Analysis
+     </i>
+     <b>
+      22
+     </b>
+     , 419–439.
+    </li>
+    <li block-type="ListItem">
+     [28] Taylor, S.J. (1982). Financial returns modelled by the product of two stochastic processes – a study of daily sugar prices 1961–79, in
+     <i>
+      Time Series Analysis: Theory and Practice 1
+     </i>
+     , O.D. Anderson, ed., North-Holland, Amsterdam, pp. 203–226.
+    </li>
+    <li block-type="ListItem">
+     [29] Todorov, V. &amp; Tauchen, G. (2006). Simulation methods for Levy-driven CARMA sto ´ chastic volatility models,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      24
+     </b>
+     , 455–469.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   [30] Wiggins, J.B. (1987). Option values under stochastic volatility: theory and empirical estimates,
+   <i>
+    Journal of Financial Economics
+   </i>
+   <b>
+    19
+   </b>
+   , 351–372.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Autoregressive Moving Average (ARMA) Processes
+   </b>
+   ;
+   <b>
+    Barndorff-Nielsen and Shephard (BNS) Models
+   </b>
+   ;
+   <b>
+    Bates Model
+   </b>
+   ;
+   <b>
+    Extreme Value Theory
+   </b>
+   ;
+   <b>
+    GARCH Models
+   </b>
+   ;
+   <b>
+    Heavy Tails
+   </b>
+   ;
+   <b>
+    Risk Measures: Statistical Estimation
+   </b>
+   ;
+   <b>
+    Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Stylized Properties of Asset Returns
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   CLAUDIA KLUPPELBERG ¨ &amp; A. LINDNER
+  </p>
+ </body>
+</html>

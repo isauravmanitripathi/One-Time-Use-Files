@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Random Matrix Theory
+   </b>
+  </h1>
+  <p block-type="Text">
+   Random matrix theory is the study of matrices with random entries. It has been applied in quantitative finance for the estimation of large covariance matrices which are of interest in portfolio optimization (see Modern Portfolio Theory; Risk-Return Analysis). This estimation problem is linked to understanding the properties of
+   <i>
+    large-dimensional random
+   </i>
+   matrices.
+  </p>
+  <p block-type="TextInlineMath">
+   If daily returns on
+   <math display="inline">
+    n
+   </math>
+   days for
+   <math display="inline">
+    p
+   </math>
+   different assets are represented as an
+   <math display="inline">
+    n \times p
+   </math>
+   matrix X, the sample covariance matrix
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{\Sigma} = \frac{1}{n-1}(X - \bar{X})'(X - \bar{X}) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where X' is the transpose of X and
+   <math display="inline">
+    \bar{X}
+   </math>
+   is a
+   <math display="inline">
+    (n \times p)
+   </math>
+   matrix of means, that is, its
+   <math display="inline">
+    k
+   </math>
+   th column has constant value equal to the mean of the
+   <math display="inline">
+    k
+   </math>
+   th column of
+   <math display="inline">
+    X
+   </math>
+   . These matrices are important in practice because they are used to estimate from the data the (unknown) population covariance
+   <math display="inline">
+    \Sigma
+   </math>
+   , when the rows of X,
+   <math display="inline">
+    \{X_i\}_{i=1}^n
+   </math>
+   are assumed to be independent identically distributed (i.i.d.)
+   <i>
+    p
+   </i>
+   -dimensional vectors with covariance
+   <math display="inline">
+    \Sigma
+   </math>
+   . When that is the case,
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   is an unbiased estimator of
+   <math display="inline">
+    \Sigma
+   </math>
+   , that is,
+   <math display="inline">
+    \mathbf{E}(\widehat{\Sigma}) = \Sigma
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In the Markowitz portfolio optimization problem (see Risk-Return Analysis), optimal weights for different assets are allocated according to a formula involving the covariance
+   <math display="inline">
+    \Sigma
+   </math>
+   of the assets. Since
+   <math display="inline">
+    \Sigma
+   </math>
+   is unknown, it is necessary to estimate it, and the sample covariance matrix is often used as an estimator. Note that for large portfolios,
+   <math display="inline">
+    p
+   </math>
+   will be quite large, of order 100 for instance. Also, if looking at daily returns, the number of days, n, used to compute
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   is often chosen not to exceed a year or two of trading, and is also therefore of order a few 100s (roughly 250 to 500). Hence, in financial practice, it will often be the case that both
+   <math display="inline">
+    p
+   </math>
+   and
+   <math display="inline">
+    n
+   </math>
+   are "large".
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   This is in contrast to the classical theory (see
+   <math display="inline">
+    [1]
+   </math>
+   ), which is concerned with asymptotics where
+   <math display="inline">
+    p
+   </math>
+   is held fixed and
+   <math display="inline">
+    n
+   </math>
+   goes to infinity. In this setting of "small
+   <math display="inline">
+    p
+   </math>
+   , large
+   <math display="inline">
+    n
+   </math>
+   ", the sample covariance matrix is known to be a good estimator of the population covariance. For instance, the sample eigenvalues can be shown to be close to the population eigenvalues, and similarly for corresponding eigenspaces. Practically, it means that using the sample covariance matrix in the solution of
+  </p>
+  <p block-type="Text">
+   a Markowitz portfolio optimization problem with a few assets will work "well", if we observe the assets for a long enough time.
+  </p>
+  <p block-type="Text">
+   The "large
+   <math display="inline">
+    p
+   </math>
+   , large
+   <math display="inline">
+    n
+   </math>
+   " situation is very different and is the one that is studied in random matrix theory. Roughly speaking, what happens in that situation is that, under "reasonable" assumptions detailed later. the eigenvalues of
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   become inconsistent estimators of the eigenvalues of
+   <math display="inline">
+    \Sigma
+   </math>
+   . Similarly, problems develop with eigenvectors.
+  </p>
+  <p block-type="TextInlineMath">
+   The first result in this area was obtained by Marčenko-Pastur [21]. A subcase of the result shown there can, for instance, be interpreted as saying that if the entries of X are i.i.d
+   <math display="inline">
+    \mathcal{N}(0, 1)
+   </math>
+   , the histogram of eigenvalues of
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   is asymptotically
+   <i>
+    nonrandom
+   </i>
+   (though the matrix itself is random) and moreover its shape can be described. The limiting density of eigenvalues is, if
+   <math display="inline">
+    p/n \rightarrow r \in (0, 1)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_r(x) = \frac{1}{2\pi r} \frac{\sqrt{(b-x)(x-a)}}{x} 1_{a \le x \le b} \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the above equation,
+   <math display="inline">
+    b = (1 + \sqrt{r})^2
+   </math>
+   and
+   <math display="inline">
+    a = (1  \sqrt{r}
+   </math>
+   &lt;sup&gt;2&lt;/sup&gt;. The probability distribution with corresponding density is often called the
+   <i>
+    Marčenko-Pastur
+   </i>
+   law. It is illustrated in Figure 1. (If
+   <math display="inline">
+    r &gt; 1
+   </math>
+   , there is also a point mass of mass
+   <math display="inline">
+    (1 - 1/r)
+   </math>
+   at 0.)
+  </p>
+  <p block-type="TextInlineMath">
+   Several general facts about eigenvalues of random matrices can be observed in Figure 1. First, the sample eigenvalues are more dispersed than the population eigenvalues. Second, the extreme eigenvalues exhibit bias: instead of converging to the population (or "true") extreme eigenvalues, which in the case above are concentrated at 1, the largest (respectively, smallest) sample eigenvalue is asymptotically at least as large as
+   <math display="inline">
+    b = (1 + \sqrt{r})^2
+   </math>
+   (respectively, as small as
+   <math display="inline">
+    a = (1 - \sqrt{r})^2
+   </math>
+   ). Under certain moment conditions on the entries of
+   <math display="inline">
+    X
+   </math>
+   , it can actually be shown that the extreme eigenvalues of
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   converge to b and a. We now turn to a more precise presentation of the results we have hinted at.
+  </p>
+  <h2>
+   <b>
+    Eigenvalues of Sample Covariance
+   </b>
+   Matrices
+  </h2>
+  <p block-type="Text">
+   Two types of results are available for eigenvalues of sample covariance matrices: results dealing with the behavior of the "bulk" of eigenvalues and "edge" results, which deal with extreme (maximal or minimal) eigenvalues.
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Density of Marčenko-Pastur law and histogram of eigenvalues. Here the histogram of eigenvalues of
+   <math display="inline">
+    X'X/n
+   </math>
+   is plotted, for
+   <math display="inline">
+    p = 200
+   </math>
+   ,
+   <math display="inline">
+    n = 500
+   </math>
+   . The entries of X are i.i.d
+   <math display="inline">
+    \mathcal{N}(0, 1)
+   </math>
+   . Since
+   <math display="inline">
+    \Sigma = \text{id}
+   </math>
+   , the "true" (or population) eigenvalues are all equal to 1, illustrating the fact that the sample covariance matrix is not a good estimator of the population covariance when
+   <math display="inline">
+    r \neq 0
+   </math>
+   . The curve is the theoretical prediction obtained from the Marčenko–Pastur law
+  </p>
+  <p block-type="TextInlineMath">
+   "Bulk" results deal with the empirical distribution of the eigenvalues and study the convergence properties of this (random) probability measure. If
+   <math display="inline">
+    l_1 \ge l_2 \ge \ldots \ge l_p
+   </math>
+   denote the decreasingly ordered eigenvalues of the
+   <math display="inline">
+    p \times p
+   </math>
+   matrix
+   <math display="inline">
+    \hat{\Sigma}
+   </math>
+   , we call
+   <math display="inline">
+    F_p
+   </math>
+   the spectral distribution of
+   <math display="inline">
+    \Sigma
+   </math>
+   ; by definition, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF_p(x) = \frac{1}{p} \sum_{i=1}^p \delta_{l_i} dx \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here
+   <math display="inline">
+    \delta_x
+   </math>
+   denotes a Dirac mass (of mass 1) at x. Note that
+   <math display="inline">
+    F_p
+   </math>
+   is a probability measure. Also,
+   <math display="inline">
+    F_p([x, \infty))
+   </math>
+   is the proportion of eigenvalues of
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   that are larger than
+   <math display="inline">
+    x
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   To study
+   <math display="inline">
+    F_p
+   </math>
+   in random matrix theory, it is common to use the Stieltjes transform of a distribution. By definition, the Stieltjes transform of a distribution
+   <math display="inline">
+    G
+   </math>
+   is a complex-valued function of one complex variable with strictly positive imaginary part, defined
+   <math display="inline">
+    \text{as}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    m_G(z) = \int \frac{\mathrm{d}G(x)}{x - z} \,, \text{ for } z \in \mathbb{C}^+
+   </math>
+   <math display="block">
+    = \{ z \in \mathbb{C} \text{ with } \text{Im}[z] &gt; 0 \} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We note that
+   <math display="inline">
+    m_G
+   </math>
+   maps
+   <math display="inline">
+    \mathbb{C}^+
+   </math>
+   into
+   <math display="inline">
+    \mathbb{C}^+
+   </math>
+   . The importance of Stieltjes transforms in this context comes from the fact that if
+   <math display="inline">
+    F_p
+   </math>
+   is a sequence of probability distributions and
+   <math display="inline">
+    m_{F_n}(z)
+   </math>
+   converges, for all z in
+   <math display="inline">
+    \mathbb{C}^+
+   </math>
+   to
+   <math display="inline">
+    m_F(z)
+   </math>
+   , where
+   <math display="inline">
+    m_F(z)
+   </math>
+   is in
+   <math display="inline">
+    \mathbb{C}^+
+   </math>
+   , and
+   <math display="inline">
+    \lim_{y\to\infty} y m_F(iy) = -1
+   </math>
+   , then
+   <math display="inline">
+    F_p
+   </math>
+   converges weakly to
+   <math display="inline">
+    F
+   </math>
+   (and therefore
+   <math display="inline">
+    F
+   </math>
+   is a probability distribution). For a thorough introduction to the connection between convergence of Stieltjes transforms and convergence of probability distributions, we refer the reader to [15].
+  </p>
+  <p block-type="Text">
+   An important result concerning eigenvalues of sample covariance matrices is the following result shown in [26], which generalizes results in [21] and
+   <math display="inline">
+    [29]
+   </math>
+   . We note that the functional equation we are about to state was found first in
+   <math display="inline">
+    [21]
+   </math>
+   and is sometimes called the Marčenko-Pastur equation.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   (Silverstein [26]) Let Y be an
+   <math display="inline">
+    n \times p
+   </math>
+   matrix with i.i.d entries, denoted
+   <math display="inline">
+    Y_{i,j}
+   </math>
+   . Suppose that
+   <math display="inline">
+    Y_{i,j}
+   </math>
+   has two moments, that is,
+   <math display="inline">
+    \mathbf{E}\left(Y_{i,j}^{2}\right) &lt; \infty
+   </math>
+   , and variance 1. Let
+   <math display="inline">
+    \Sigma_{p}
+   </math>
+   be the population covariance matrix. In particular,
+   <math display="inline">
+    \Sigma_p
+   </math>
+   is positive semidefinite. Suppose the spectral distribution of
+   <math display="inline">
+    \Sigma_p
+   </math>
+   ,
+   <math display="inline">
+    H_p
+   </math>
+   , has
+  </p>
+  <p block-type="Text">
+   a limit,
+   <math display="inline">
+    H
+   </math>
+   , in the sense of weak convergence of distributions.
+  </p>
+  <p block-type="TextInlineMath">
+   Let the data matrix be represented by
+   <math display="inline">
+    X = Y \Sigma_p^{1/2}
+   </math>
+   . Call
+   <math display="inline">
+    F_p
+   </math>
+   the spectral distribution of
+   <math display="inline">
+    X'X/n
+   </math>
+   and
+   <math display="inline">
+    m_p
+   </math>
+   the Stieltjes transform of
+   <math display="inline">
+    F_p
+   </math>
+   . Call
+   <math display="inline">
+    v_p(z) = -(1
+   </math>
+   <math display="inline">
+    p/n)/z + p/nm_p(z)
+   </math>
+   . (
+   <math display="inline">
+    v_p
+   </math>
+   is the Stieltjes transform of the spectral distribution of the matrix
+   <math display="inline">
+    XX'/p
+   </math>
+   .)
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    p/n \rightarrow r \neq 0
+   </math>
+   ,
+   <math display="inline">
+    F_p
+   </math>
+   converges weakly almost surely (a.s.) to a deterministic (probability) distribution F. Moreover,
+   <math display="inline">
+    \forall z \in \mathbb{C}^+, v_n(z) \rightarrow v(z)
+   </math>
+   a.s., and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\frac{1}{v(z)} = z - r \int \frac{\lambda dH(\lambda)}{1 + \lambda v(z)} \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   It can be shown that there is a unique solution to the previous equation which is a Stieltjes transform.
+  </p>
+  <p block-type="Text">
+   Some comments are in order here. First, equation (5) relates the properties of the limit of the empirical spectral distribution ("encoded" by its Stielties transform in
+   <math display="inline">
+    v
+   </math>
+   ) to those of the limiting population spectral distribution represented by
+   <math display="inline">
+    H
+   </math>
+   . Also, because finite rank perturbation of matrices does not affect limiting spectral distributions (see, for instance, [2]), the same result applies to the limiting spectral distribution of
+   <math display="inline">
+    (X - \bar{X})'(X - \bar{X})/n
+   </math>
+   , the sample covariance matrix used in practice. In other respects, the Marčenko-Pastur law can be obtained fairly simply from equation
+   <math display="inline">
+    (5)
+   </math>
+   , as explained in [21] for instance. Finally, robustness properties (and lack thereof) of this functional equation have recently been investigated in [8], highlighting, in particular, geometric limitations for the data, implicitly implied by the model used in Theorem 1.
+  </p>
+  <h4>
+   Properties of Extreme Eigenvalues
+  </h4>
+  <p block-type="Text">
+   Limiting spectral distribution properties do not in general imply anything about properties of extreme eigenvalues, beside the fact that extreme eigenvalues need to be at the edge (or outside) of the support of the limiting spectral distribution. However, properties of these extreme eigenvalues are important in statistics, in particular for techniques such as principal component analysis (
+   <math display="inline">
+    PCA
+   </math>
+   ; see [22]).
+  </p>
+  <p block-type="TextInlineMath">
+   Results about extreme eigenvalues are available. An important one is for instance, when
+   <math display="inline">
+    \Sigma_p = \text{Id}_p
+   </math>
+   ; then the largest eigenvalue of
+   <math display="inline">
+    X'X/n
+   </math>
+   converges to
+   <math display="inline">
+    (1+\sqrt{r})^2
+   </math>
+   . The result was first obtained in [14], and under weaker assumptions in [30]. We cite the latter result.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 2
+   </b>
+   (
+   <i>
+    Yin et al. [30]
+   </i>
+   ) Suppose X is an
+   <math display="inline">
+    n \times p
+   </math>
+   data matrix, with i.i.d entries. Suppose that
+   <math display="inline">
+    \mathbf{E}(X_{i,j}) =
+   </math>
+   <math display="inline">
+    0, \mathbf{E}\left(X_{i,j}^{2}\right) = 1 \text{ and } \mathbf{E}\left(X_{i,j}^{4}\right) &lt; \infty. \text{ Suppose } p/n \to r \in (0, \infty), \text{ as } n \to \infty. \text{ Then, we have, if } l_{1}(X'X/n)
+   </math>
+   denotes the largest eigenvalue of
+   <math display="inline">
+    X'X/n
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    l_1\left(\frac{X'X}{n}\right) \to (1+\sqrt{r})^2 \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   As explained in
+   <math display="inline">
+    [25]
+   </math>
+   , the existence of the fourth moment is necessary for this result to hold. Similar convergence results exist concerning the smallest eigenvalue of
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   (see [3] and [2, p. 635]).
+  </p>
+  <p block-type="Text">
+   More recent theoretical work concerns fluctuation behavior of the largest eigenvalues of sample covariance matrices. Following mathematical breakthroughs in the 1990s (see [27]), it has become possible to describe the limiting distribution of
+   <math display="inline">
+    l_1(X'X/n)
+   </math>
+   . In particular, the papers [9, 13, 17, 18], show the following:
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 3
+   </b>
+   Suppose X is an
+   <math display="inline">
+    n \times p
+   </math>
+   matrix with i.i.d
+   <math display="inline">
+    \mathcal{N}(0, 1)
+   </math>
+   entries. Suppose n and p tend to infinity. Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    n^{2/3} \frac{l_1(X'X/n) - (1 + \sqrt{p/n})^2}{(1 + \sqrt{p/n})(1 + \sqrt{n/p})^{1/3}} \Longrightarrow \text{TW}_1 \quad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The most important part of the result (the case
+   <math display="inline">
+    p/n
+   </math>
+   having a finite nonzero limit) is shown in [18]. In the previous theorem,
+   <math display="inline">
+    TW_1
+   </math>
+   is a Tracy-Widom distribution. Its density is known explicitly (see
+   <math display="inline">
+    [28]
+   </math>
+   and
+   <math display="inline">
+    [18]
+   </math>
+   ).
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   In all the previous examples,
+   <math display="inline">
+    \Sigma_p = \text{Id}_p
+   </math>
+   . The case of general
+   <math display="inline">
+    \Sigma
+   </math>
+   is starting to be understood, too, and is more relevant to techniques such as PCA. The situation where
+   <math display="inline">
+    \Sigma
+   </math>
+   has a few isolated "large" eigenvalues and all the other eigenvalues are equal is now reasonably well understood (see [5, 23]). In this case, the empirical largest eigenvalue is biased and the bias can be computed explicitly. The corresponding sample eigenvector does not converge to the population eigenvector associated with the isolated eigenvalue. The situation where
+   <math display="inline">
+    \Sigma
+   </math>
+   is truly general is more complicated. A formula for the limit of the largest eigenvalue in certain class of population covariance matrices is given in [12], along with a notion of isolation of eigenvalues. Let us finally note that as described in [4] in a slightly different context (and partially generalized in
+   <math display="inline">
+    [5]
+   </math>
+   ), if the population largest eigenvalue is not isolated (or large) enough,
+  </p>
+  <p block-type="Text">
+   the largest empirical eigenvalue will asymptotically not be affected by its existence. In other words, in this situation, the existence of an isolated population eigenvalue is not detected by looking at the empirical largest eigenvalue, something that is potentially problematic in PCA.
+  </p>
+  <h2>
+   <b>
+    Estimation of Covariance Matrices
+   </b>
+  </h2>
+  <p block-type="Text">
+   Because of the increased availability of larger dimensional datasets, and in part because of recent results in random matrix theory indicating that in high dimensions (i.e.,
+   <math display="inline">
+    p
+   </math>
+   large and of the same order of magnitude as
+   <math display="inline">
+    n
+   </math>
+   ) the sample covariance matrix is not a good estimator (or proxy) for the population covariance, there has been quite a bit of activity recently in statistics to try to come up with better estimators of population covariance.
+  </p>
+  <p block-type="Text">
+   The classic paper
+   <math display="inline">
+    [16]
+   </math>
+   (see also
+   <math display="inline">
+    [1, Section 7.8]
+   </math>
+   ) has shown that one could improve estimation of
+   <math display="inline">
+    \Sigma
+   </math>
+   (i.e., decrease the expected squared error of the corresponding estimator) by using linear combinations of
+   <math display="inline">
+    \hat{\Sigma}
+   </math>
+   and any positive semidefinite matrices. These methods are often called
+   <i>
+    shrinkage
+   </i>
+   methods in statistics. More recently, Ledoit and Wolf [20] showed they could improve estimation of
+   <math display="inline">
+    \Sigma
+   </math>
+   by shrinking
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   toward the identity. Their method amounts to adding a certain quantity to all eigenvalues of
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   and keeping the same eigenvectors to get a new estimator of
+   <math display="inline">
+    \Sigma
+   </math>
+   ,
+   <math display="inline">
+    \hat{\Sigma}
+   </math>
+   . Finally, the paper [19], in the context of Markowitz portfolio optimization, proposed to use random matrix results to also shrink the eigenvalues of
+   <math display="inline">
+    \widehat{\Sigma}
+   </math>
+   , this time in a nonlinear fashion; after noting the similarity between part of the histogram of eigenvalues of a sample correlation matrix computed from financial data and the density of the Marčenko-Pastur law, the authors of [19] proposed to leave unchanged the eigenvalues falling outside the Marčenko-Pastur-looking part of the histogram, and to change those falling within it to a common value. They showed that this method improved on their dataset the predictive performance of the efficient frontier they obtained when solving the Markowitz optimization problem with
+   <math display="inline">
+    \Sigma
+   </math>
+   replaced by their estimate.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Other nonlinear methods for nonlinear shrinking of eigenvalues using random matrix theory have been proposed (see [11, 24]). Improved estimation of covariance matrices is at the moment an active topic of research in statistics [6, 7, 10], and while
+  </p>
+  <p block-type="Text">
+   it is not obvious that the results obtained there are immediately applicable in the financial context, some of the insights found in these papers might prove helpful in the future.
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Anderson, T.W. (2003). An Introduction to Multivariate
+     <math display="inline">
+      [1]
+     </math>
+     Statistical Analysis, Wiley Series in Probability and Statistics, 3rd Edition, Wiley-Interscience, John Wiley &amp; Sons, Hoboken, NJ.
+    </li>
+    <li block-type="ListItem">
+     [2] Bai, Z.D. (1999). Methodologies in spectral analysis of large-dimensional random matrices, a review, Statistica Sinica
+     <math display="inline">
+      9(3)
+     </math>
+     ,
+     <math display="inline">
+      611-677
+     </math>
+     . With comments by G. J. Rodgers and Jack W. Silverstein; and a rejoinder by the author.
+    </li>
+    <li block-type="ListItem">
+     Bai, Z.D. &amp; Yin, Y.Q. (1993). Limit of the smallest [3] eigenvalue of a large-dimensional sample covariance matrix, Annals of Probability 21(3), 1275-1294.
+    </li>
+    <li block-type="ListItem">
+     [4] Baik, J., Ben Arous, G. &amp; Péché, S. (2005). Phase transition of the largest eigenvalue for non-null complex sample covariance matrices, Annals of Probability 33(5), 1643-1697.
+    </li>
+    <li block-type="ListItem">
+     [5] Baik, J. &amp; Silverstein, J. (2006). Eigenvalues of large sample covariance matrices of spiked population models, Journal of Multivariate Analysis 97(6), 1382-1408.
+    </li>
+    <li block-type="ListItem">
+     [6] Bickel, P.J. &amp; Levina, E. (2007). Covariance Regularization by Thresholding, Technical Report 744, Department of Statistics, UC Berkeley.
+    </li>
+    <li block-type="ListItem">
+     [7] Bickel, P.J. &amp; Levina, E. (2008). Regularized estimation of large covariance matrices, The Annals of Statistics 36(1), 199-227.
+    </li>
+    <li block-type="ListItem">
+     [8] El Karoui, N. Concentration of measure and spectra of random matrices: with applications to correlation matrices, elliptical distributions and beyond,
+     <i>
+      The Annals
+     </i>
+     of Applied Probability To Appear.
+    </li>
+    <li block-type="ListItem">
+     [9] El Karoui, N. (2003). On the largest eigenvalue of Wishart matrices with identity covariance when
+     <math display="inline">
+      n
+     </math>
+     ,
+     <math display="inline">
+      p
+     </math>
+     and
+     <math display="inline">
+      p/n \rightarrow \infty
+     </math>
+     . arXiv:math.ST/0309355, September 2003.
+    </li>
+    <li block-type="ListItem">
+     [10] El Karoui, N. (2008). Operator norm consistent estimation of large dimensional sparse covariance matrices, The Annals of Statistics 36(6), 2717-2756.
+    </li>
+    <li block-type="ListItem">
+     [11] El Karoui, N. (2008). Spectrum estimation for large dimensional covariance matrices using random matrix theory, The Annals of Statistics 36(6), 2757–2790.
+    </li>
+    <li block-type="ListItem">
+     [12] El Karoui, N. (2007). Tracy-Widom limit for the largest eigenvalue of a large class of complex sample covariance matrices, The Annals of Probability 35(2), 663-714.
+    </li>
+    <li block-type="ListItem">
+     [13] Forrester, P.J. (1993). The spectrum edge of random matrix ensembles,
+     <i>
+      Nuclear Physics B
+     </i>
+     <b>
+      402
+     </b>
+     (3), 709–728.
+    </li>
+    <li block-type="ListItem">
+     [14] Geman, S. (1980). A limit theorem for the norm of random matrices, Annals of Probability
+     <math display="inline">
+      \mathbf{8}(2)
+     </math>
+     , 252–261.
+    </li>
+    <li block-type="ListItem">
+     [15] Geronimo, J.S. &amp; Hill, T.P. (2003). Necessary and sufficient condition that the limit of Stieltjes transforms is a Stieltjes transform,
+     <i>
+      Journal of Approximation Theory
+     </i>
+     121(1), 54-60.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [16] Haff, L.R. (1980). Empirical Bayes estimation of the multivariate normal covariance matrix,
+     <i>
+      Annals of Statistics
+     </i>
+     <b>
+      8
+     </b>
+     (3), 586–597.
+    </li>
+    <li block-type="ListItem">
+     [17] Johansson, K. (2000). Shape fluctuations and random matrices,
+     <i>
+      Communications in Mathematical Physics
+     </i>
+     <b>
+      209
+     </b>
+     (2), 437–476.
+    </li>
+    <li block-type="ListItem">
+     [18] Johnstone, I. (2001). On the distribution of the largest eigenvalue in principal component analysis,
+     <i>
+      Annals of Statistics
+     </i>
+     <b>
+      29
+     </b>
+     (2), 295–327.
+    </li>
+    <li block-type="ListItem">
+     [19] Laloux, L., Cizeau, P., Bouchaud, J.-P. &amp; Potters, M. (1999). Noise dressing of financial correlation matrices,
+     <i>
+      Physical Review Letters
+     </i>
+     <b>
+      83
+     </b>
+     (7), 1467–1470.
+    </li>
+    <li block-type="ListItem">
+     [20] Ledoit, O. &amp; Wolf, M. (2004). A well-conditioned estimator for large-dimensional covariance matrices,
+     <i>
+      Journal of Multivariate Analysis
+     </i>
+     <b>
+      88
+     </b>
+     (2), 365–411.
+    </li>
+    <li block-type="ListItem">
+     [21] Marcenko, V.A. &amp; Pastur, L.A. (1967). Distribution ˇ of eigenvalues in certain sets of random matrices,
+     <i>
+      Mathematics of the USSR-Sbornik
+     </i>
+     <b>
+      72
+     </b>
+     (114), 507–536.
+    </li>
+    <li block-type="ListItem">
+     [22] Mardia, K.V., Kent, J.T. &amp; Bibby, J.M. (1979).
+     <i>
+      Multivariate Analysis
+     </i>
+     ,
+     <i>
+      Probability and Mathematical Statistics: A Series of Monographs and Textbooks
+     </i>
+     , Academic Press [Harcourt Brace Jovanovich Publishers], London.
+    </li>
+    <li block-type="ListItem">
+     [23] Paul, D. (2007). Asymptotics of sample eigenstructure for a large dimensional spiked covariance model,
+     <i>
+      Statistica Sinica
+     </i>
+     <b>
+      17
+     </b>
+     (4), 1617–1642.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [24] Rao, N.R., Mingo, J., Speicher, R. &amp; Edelman, A. (2008). Statistical Eigen-Inference from Large Wishart Matrices,
+     <i>
+      The Annals of Statistics
+     </i>
+     <b>
+      36
+     </b>
+     (6), 2850–2885.
+    </li>
+    <li block-type="ListItem">
+     [25] Silverstein, J.W. (1989). On the weak limit of the largest eigenvalue of a large-dimensional sample covariance matrix,
+     <i>
+      Journal of Multivariate Analysis
+     </i>
+     <b>
+      30
+     </b>
+     (2), 307–311.
+    </li>
+    <li block-type="ListItem">
+     [26] Silverstein, J.W. (1995). Strong convergence of the empirical distribution of eigenvalues of largedimensional random matrices,
+     <i>
+      Journal of Multivariate Analysis
+     </i>
+     <b>
+      55
+     </b>
+     (2), 331–339.
+    </li>
+    <li block-type="ListItem">
+     [27] Tracy, C. &amp; Widom, H. (1994). Level-spacing distribution and the Airy kernel,
+     <i>
+      Communications in Mathematical Physics
+     </i>
+     <b>
+      159
+     </b>
+     , 151–174.
+    </li>
+    <li block-type="ListItem">
+     [28] Tracy, C. &amp; Widom, H. (1996). On orthogonal and symplectic matrix ensembles,
+     <i>
+      Communications in Mathematical Physics
+     </i>
+     <b>
+      177
+     </b>
+     , 727–754.
+    </li>
+    <li block-type="ListItem">
+     [29] Wachter, K.W. (1978). The strong limits of random matrix spectra for sample matrices of independent elements,
+     <i>
+      Annals of Probability
+     </i>
+     <b>
+      6
+     </b>
+     (1), 1–18.
+    </li>
+    <li block-type="ListItem">
+     [30] Yin, Y.Q., Bai, Z.D. &amp; Krishnaiah, P.R. (1988). On the limit of the largest eigenvalue of the largedimensional sample covariance matrix,
+     <i>
+      Probability Theory and Related Fields
+     </i>
+     <b>
+      78
+     </b>
+     (4), 509–521.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   NOUREDDINE EL KAROUI
+  </p>
+ </body>
+</html>

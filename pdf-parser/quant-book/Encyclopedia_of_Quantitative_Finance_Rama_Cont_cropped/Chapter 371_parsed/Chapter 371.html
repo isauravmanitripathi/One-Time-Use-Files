@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Stylized Properties of Asset Returns
+   </b>
+  </h2>
+  <p block-type="Text">
+   Since prices of different stocks are not necessarily influenced by the same events or information sets, price series obtained from different assets and
+   <math display="inline">
+    -a
+   </math>
+   fortiori-from different markets may exhibit different (statistical) properties. After all, why should properties of corn futures be similar to those of IBM shares or the dollar/yen exchange rate? Nevertheless, the result of more than half a century of empirical studies on financial time series indicates that this is the case if one examines their properties from a
+   <i>
+    statistical
+   </i>
+   point of view. The seemingly random variations of asset prices
+   <math display="inline">
+    do
+   </math>
+   share some nontrivial statistical properties. Such properties, common across a wide range of instruments, markets, and time periods, are called
+   <i>
+    stylized empirical facts
+   </i>
+   [10].
+  </p>
+  <p block-type="Text">
+   This assertion is backed by a vast research literature dealing with the statistical properties of financial time series which has developed during the last 50 years. Some early references include [25, 26, 29]. Surveys of stylized facts of financial time series are given in [17] for foreign exchange rates and in [5, 8, 10, 16, 30] for stocks and indices. Scaling and time-aggregation properties for high-frequency data are studied in [2] for stocks and in [17, 18, 27, 28] for foreign exchange rates. Numerous empirical studies on the scaling properties of returns can also be found in the physics literature [7].
+  </p>
+  <p block-type="Text">
+   Stylized facts are thus obtained by taking a common denominator among the properties observed in studies of different markets and instruments. Obviously, by doing so one gains in generality but tends to lose in the precision of the statements one can make about asset returns. Indeed, stylized facts are usually formulated in terms of
+   <i>
+    qualitative properties
+   </i>
+   of asset returns and may not be precise enough to distinguish among different parametric models. Nevertheless, albeit qualitative, these stylized facts are so constraining that it is not even easy to exhibit an
+   <math display="inline">
+    (ad
+   </math>
+   <i>
+    hoc
+   </i>
+   ) stochastic process which possesses the same set of properties, and stochastic modeling has gone to great lengths to reproduce these stylized facts.
+  </p>
+  <p block-type="Text">
+   Stylized facts are usually formulated in terms of asset (log-)returns defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r_t(\Delta) = \ln \frac{S_{t+\Delta}}{S_t} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    S_t
+   </math>
+   is the price of an asset at date t and
+   <math display="inline">
+    \Delta
+   </math>
+   is a time horizon. The properties of returns series
+   <math display="inline">
+    r_t(\Delta)
+   </math>
+   greatly depend on the sampling frequency, that is, on
+   <math display="inline">
+    \Delta
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   We focus here on empirical properties for daily (log-)returns of stocks and stock market indices in liquid markets and refer to
+   <b>
+    High-frequency Data
+   </b>
+   and Market Microstructure Effects for properties of intraday data.
+  </p>
+  <p block-type="Text">
+   1.
+   <b>
+    Heavy tails:
+   </b>
+   The (unconditional) distributions of returns display—at time horizons ranging from an hour to several weeks—heavy tails and positive sample excess kurtosis, properties that both reject the Gaussian assumption (Figure 1). A more precise formulation requires measuring the heaviness of the tails. For heavy tails with "regular variation" (see Extreme Value
+   <b>
+    Theory
+   </b>
+   ), that is, of the type
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(r_t \ge x) = \frac{l_-(x)}{|x|^{\alpha_+}}, \qquad P(r_t \le x) = \frac{l_-(x)}{|x|^{\alpha_-}}
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    l_{+}
+   </math>
+   (respectively
+   <math display="inline">
+    l_{-}
+   </math>
+   ) is slowly varying at
+   <math display="inline">
+    +\infty
+   </math>
+   (respectively
+   <math display="inline">
+    -\infty
+   </math>
+   ) and
+   <math display="inline">
+    \alpha_{+}, \alpha_{-} &gt; 0
+   </math>
+   are the (right/left) tail exponents, the heaviness of the tails can be measured by the value of
+   <math display="inline">
+    \alpha_+, \alpha_-, \xi_+ = 1/\alpha_+
+   </math>
+   is sometimes called the (right)
+   <i>
+    tail index
+   </i>
+   . Light tailed distributions with exponential-type tail have a zero tail index, while a strictly positive tail index indicates heavy tails of regularly varying type. Tail exponents can be estimated using a Hill estimator or using methods based on the extreme value theory (see
+   <b>
+    Extreme Value Theory
+   </b>
+   ). Figure 2 shows the estimation of right and left tail indices for SP100 daily returns: in this example we find
+   <math display="inline">
+    \alpha_{+} \simeq 4
+   </math>
+   and
+   <math display="inline">
+    \alpha_{-} \simeq 3
+   </math>
+   . For stock and index returns, tail exponents are often found to be finite, higher than two and less than five for most data sets studied [20, 23, 24]. In particular, this excludes stable laws with infinite variance and the normal distribution. Power-law or Pareto tails reproduce such behavior. But, as argued, for example, in Heyde and Kou [19], with small samples exponential tails ("semiheavy tails") may be difficult to distinguish from Pareto tails
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Kernel estimator of empirical density of SP100 daily returns (solid line) vs Gaussian density (dotted line) with same mean and variance, on a logarithmic scale. Note the dominance of the tails with respect to the Gaussian and the asymmetry of the empirical density
+  </p>
+  <p block-type="Text">
+   2.
+   <b>
+    Absence of autocorrelations:
+   </b>
+   (Linear) autocorrelations of asset returns are often insignificant, except at short lags (10 min) for which microstructure effects come into play (
+   <i>
+    see
+   </i>
+   <b>
+    Market Microstructure Effects
+   </b>
+   ). Figure 3 illustrates this fact for the yen–US dollar exchange rate. This absence of significant autocorrelation can be attributed to the existence of arbitrageurs who "whiten the spectrum of price changes", making their second-order properties indistinguishable from a white noise sequence [26]. A consequence of this absence of autocorrela-
+  </p>
+  <p block-type="TextInlineMath">
+   tion is the additivity of variance or "squareroot" scaling rule: the variance of returns at horizon
+   <i>
+    n
+   </i>
+   is
+   <i>
+    n
+   </i>
+   times the variance at horizon  in the absence of autocorrelations; thus the standard deviation should be scaled by
+   <sup>
+    √
+   </sup>
+   <i>
+    n
+   </i>
+   . This scaling is the basis of the variance ratio test
+  </p>
+  <p>
+   <img src="_page_1_Figure_5.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Hill estimators for the tail index of SP100 daily returns. We obtain
+   <i>
+    α
+   </i>
+   <sup>
+    +
+   </sup>
+   4 and
+   <i>
+    α
+   </i>
+   <sup>
+    −
+   </sup>
+   3. Note the large standard errors
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 3
+   </b>
+   Autocorrelation function of log-returns, USD/ yen exchange rate,  = 5 min
+  </p>
+  <p block-type="Text">
+   for autocorrelation [8]. Note that this scaling rule breaks down for illiquid assets for which one typically observes high autocorrelation of returns.
+  </p>
+  <p block-type="Text">
+   3.
+   <b>
+    Gain/loss asymmetry:
+   </b>
+   Unconditional distributions of stock returns are often asymmetric. Although, this asymmetry may go undetected, when using moment-based measures such as skewness, one often observes a left tail which is heavier than the right tail, as attested by the tail index (
+   <i>
+    see
+   </i>
+   <b>
+    Heavy Tails
+   </b>
+   ) or extremal index (
+   <i>
+    see
+   </i>
+   <b>
+    Extreme Value Theory
+   </b>
+   ) estimates [20, 24]. For exchange rates between major currencies, there is a higher symmetry in up/down moves and the skewness can change sign from one period to another.
+  </p>
+  <p block-type="Text">
+   Daily changes in credit spreads (e.g., credit default swap spreads,
+   <i>
+    see
+   </i>
+   <b>
+    Credit Default Swaps
+   </b>
+   ) show an opposite asymmetry: they exhibit a heavier right (upper) tail and there are more frequent large upward jumps in credit spreads.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   4.
+   <b>
+    Aggregational normality:
+   </b>
+   As one increases the timescale  over which returns are calculated, their distribution looks more and more like a normal distribution. In particular, the shape of the distribution is not the same at different timescales: the heavy-tailed feature
+  </p>
+  <p block-type="Text">
+   becomes less pronounced as the time horizon is increased.
+  </p>
+  <p block-type="Text">
+   5.
+   <b>
+    Volatility clustering:
+   </b>
+   "Large changes tend to be followed by large changes, of either sign, and small changes tend to be followed by small changes" [25]. A quantitative manifestation of this fact is that, while returns themselves are uncorrelated, absolute returns |
+   <i>
+    rt()
+   </i>
+   |, their squares, as well as other implied or historical volatility indicators display a positive, significant, and slowly decaying autocorrelation function. In particular, this observation rules out the assumption of independence of returns and points to nonlinear dependence in returns across time.
+  </p>
+  <p block-type="Text">
+   This property is sometimes called the "
+   <i>
+    ARCH effect
+   </i>
+   " in the econometrics literature, because of the fact that ARCH models (
+   <i>
+    see
+   </i>
+   <b>
+    GARCH Models
+   </b>
+   ) have this property. This is a misnomer: volatility clustering is a model-free property of data that has nothing to do with ARCH models.
+  </p>
+  <p block-type="Text">
+   6.
+   <b>
+    Conditional heavy tails:
+   </b>
+   Even after adjusting returns for volatility clustering (i.e. normalizing returns by a dynamic estimator of volatility, such as in GARCH-type models), the residuals (normalized returns) still exhibit heavy tails [5, 14]. However, the tails are less heavy than in the unconditional distribution of returns. This remark has motivated the development of
+  </p>
+  <p block-type="Text">
+   conditionally heteroskedastic models driven by non-Gaussian noise in discrete time and Levy- ´ driven stochastic volatility models in continuous time [4, 5, 13, 14] (
+   <i>
+    see
+   </i>
+   <b>
+    GARCH Models
+   </b>
+   ;
+   <b>
+    Jump Processes
+   </b>
+   ;
+   <b>
+    Time-changed Levy Pro- ´ cess
+   </b>
+   ;
+   <b>
+    Regime-switching Models
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   7.
+   <b>
+    Slow decay of autocorrelation in absolute returns:
+   </b>
+   The autocorrelation function of absolute (or squared) returns decays slowly as a function of the time lag, roughly as a power-law with an exponent
+   <i>
+    β
+   </i>
+   ≤ 1. An example is shown in Figure 4. This is sometimes interpreted as a sign of long-range dependence in volatility (
+   <i>
+    see
+   </i>
+   <b>
+    Long Range Dependence
+   </b>
+   ;
+   <b>
+    Multifractals
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   It has been argued [4, 22] that the decay of the autocorrelation of |
+   <i>
+    rt
+   </i>
+   | can also be reproduced by a superposition of several exponentials, indicating that the dependence is characterized by multiple timescales. In fact, an operational definition of long-range dependence is that the timescale of dependence in a sample of length
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 4
+   </b>
+   Autocorrelation function of squared log-returns: S&amp;P500 futures,  = 30 min
+  </p>
+  <p block-type="Text">
+   <i>
+    T
+   </i>
+   is found to be of the order of
+   <i>
+    T
+   </i>
+   : dependence extends over the whole sample. Interestingly, the largest timescale in [22] is found to be of the order of the sample size, a prediction which would be compatible with long-range dependence [11].
+  </p>
+  <p block-type="Text">
+   8.
+   <b>
+    "Leverage" effect:
+   </b>
+   Volatility increases when the stock price falls. More precisely, changes in implied or historical indicators of volatility of an asset are negatively correlated with the returns of that asset. In fact, there is evidence of a lead–lag relationship: a negative correlation between
+   <i>
+    past
+   </i>
+   returns and (current) changes in volatility [6].
+  </p>
+  <p block-type="Text">
+   The name "leverage effect" comes from a supposed explanation based on a firm's capital structure: a decrease in the market valuation of a firm's equity increases the degree of leverage in its capital structure, leading to an increase in stock volatility. However, empirical studies do not seem to confirm this "explanation" [3] and the "leverage effect" should be seen more in terms of an asymmetric impact of news on returns and volatility [15].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   9.
+   <b>
+    Volume-volatility correlation:
+   </b>
+   Trading volume in a given period (e.g., daily trading volume) is positively correlated with measures of volatility (e.g., realized volatility on the same day).
+  </p>
+  <p block-type="Text">
+   The same holds for other measures of market activity such as the number of trades.
+  </p>
+  <p block-type="Text">
+   These observations have motivated the construction of models in which the dynamics of prices is modeled as a function of cumulative volume [9] or number of transaction, and has inspired models based on time-changed processes (
+   <i>
+    see
+   </i>
+   <b>
+    Time-changed Levy Process ´
+   </b>
+   ;
+   <b>
+    Mixture of Distribution Hypothesis
+   </b>
+   ;
+   <b>
+    Time Change
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   10.
+   <b>
+    Asymmetry in time scales:
+   </b>
+   Volatility indicators computed at lower frequency predict future volatility at higher frequency, whereas past values of high-frequency volatility indicators do not necessarily have predictive power for future low-frequency volatility [18]. This observation has led to the development of "random cascade" models, in which market shocks affect price behavior at low frequencies (fine scales) and their impact trickles down to lower scales (
+   <i>
+    see
+   </i>
+   <b>
+    Multifractals
+   </b>
+   ; [27]).
+  </p>
+  <p block-type="Text">
+   It may be noted that we have not included "selfsimilarity" or scale invariance among the above properties. In fact, there is ample empirical evidence showing that asset returns are
+   <i>
+    not
+   </i>
+   scale invariant or self-similar [12]. For example, the shape of the distribution of returns
+   <i>
+    rt()
+   </i>
+   at a horizon  greatly varies with  and "scales" in a nontrivial way, which is not captured by simple self-similar models such as
+   <i>
+    α
+   </i>
+   -stable Levy processes ( ´
+   <i>
+    see
+   </i>
+   <b>
+    Levy Processes ´
+   </b>
+   ) or (fractional) Brownian motion (
+   <i>
+    see
+   </i>
+   <b>
+    Fractional Brownian Motion
+   </b>
+   ).
+  </p>
+  <h2>
+   <b>
+    Stylized Facts as Model Benchmarks
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Stylized empirical facts have motivated research in two different directions. One is the development of stochastic models—in discrete or continuous time—whose aim is to match some or all of the observed properties of financial time series. For instance, the (G)ARCH family of models (
+   <i>
+    see
+   </i>
+   <b>
+    GARCH Models
+   </b>
+   ) was mainly developed to model volatility clustering and heavy tails in asset returns, while stochastic volatility models were developed to model volatility clustering and the leverage effect. Similarly, models based on Levy processes ( ´
+   <i>
+    see
+   </i>
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ) were initially introduced to capture the time-aggregation properties (heavy tails
+  </p>
+  <p block-type="Text">
+   at high-frequency, scaling with respect to the horizon ) of the distribution of returns.
+  </p>
+  <p block-type="Text">
+   Another strand of research has aimed at proposing economic explanations for the origins of stylized facts. Representative agent models attempt to explain stylized facts in terms of the behavior of a hypothetical representative investor whose behavior generates market price changes. Ait Sahalia [1] shows that this approach can go a long way in terms of reproducing, if not explaining, stylized empirical facts. By contrast, agent-based market models [11, 21] tend to view stylized facts as properties
+   <i>
+    emerging
+   </i>
+   from the collective behavior of a large number of market participants. In all the cases, stylized empirical properties of asset returns serve as benchmarks for evaluating the plausibility of financial models before any estimation or testing is done.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] A¨ıt-Sahalia, Y. (1998). Dynamic equilibrium and volatility in financial asset markets,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      84
+     </b>
+     , 93–128.
+    </li>
+    <li block-type="ListItem">
+     [2] Andersen, T. &amp; Bollerslev, T. (1997). Intraday periodicity and volatility persistence in financial markets,
+     <i>
+      Journal of Empirical Finance
+     </i>
+     <b>
+      4
+     </b>
+     , 115–158.
+    </li>
+    <li block-type="ListItem">
+     [3] Aydemir, C., Gallmeyer, M. &amp; Hollifield, B. (2007).
+     <i>
+      Financial Leverage and the Leverage Effect: A Market and Firm Analysis
+     </i>
+     . Working Paper 2007-031, Carnegie Mellon University.
+    </li>
+    <li block-type="ListItem">
+     [4] Barndorff-Nielsen, O.E. &amp; Shephard, N. (2001). Non-Gaussian Ornstein-Uhlenbeck based models and some of their uses in financial econometrics,
+     <i>
+      Journal of the Royal Statistical Society Series B
+     </i>
+     <b>
+      63
+     </b>
+     , 167–241.
+    </li>
+    <li block-type="ListItem">
+     [5] Bollerslev, T., Chou, R. &amp; Kroner, K. (1992). ARCH modeling in finance,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      52
+     </b>
+     , 5–59.
+    </li>
+    <li block-type="ListItem">
+     [6] Bouchaud, J.-P., Matacz, A. &amp; Potters, M. (2001). The leverage effect in financial markets: retarded volatility and market panic,
+     <i>
+      Physical Review Letters
+     </i>
+     <b>
+      87
+     </b>
+     , 2287–2301.
+    </li>
+    <li block-type="ListItem">
+     [7] Bouchaud, J. &amp; Potters, M. (1997).
+     <i>
+      Th´eorie des Risques Financiers
+     </i>
+     , Alea, Saclay. ´
+    </li>
+    <li block-type="ListItem">
+     [8] Campbell, J., Lo, A. &amp; McKinlay, C. (1996).
+     <i>
+      The Econometrics of Financial Markets
+     </i>
+     , Princeton University Press, Princeton.
+    </li>
+    <li block-type="ListItem">
+     [9] Clark, P.K. (1973). A subordinated stochastic process model with finite variance for speculative prices,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      41
+     </b>
+     , 135–155.
+    </li>
+    <li block-type="ListItem">
+     [10] Cont, R. (2001). Empirical properties of asset returns: stylized facts and statistical issues,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      1
+     </b>
+     , 1–14.
+    </li>
+    <li block-type="ListItem">
+     [11] Cont, R. (2005). Volatility clustering in financial markets: empirical facts and agent-based models, in
+     <i>
+      Long
+     </i>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <i>
+    Memory in Economics
+   </i>
+   , A. Kirman &amp; G. Teyssiere, eds, Springer, Berlin.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [12] Cont, R., Bouchaud, J.-P. &amp; Potters, M. (1997). Scaling in financial data: stable laws and beyond, in
+     <i>
+      Scale Invariance and Beyond
+     </i>
+     , B. Dubrulle, F. Graner &amp; D. Sornette, eds, Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [13] Cont, R. &amp; Tankov, P. (2004).
+     <i>
+      Financial Modelling with Jump Processes
+     </i>
+     , Chapman &amp; Hall/CRC Press.
+    </li>
+    <li block-type="ListItem">
+     [14] Engle, R. (ed.) (1995). ARCH: selected readings, in
+     <i>
+      Advanced Texts in Econometrics
+     </i>
+     , Oxford University Press.
+    </li>
+    <li block-type="ListItem">
+     [15] Engle, R. &amp; Ng, V. (1993). Measuring and testing the impact of news on volatility,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      48
+     </b>
+     , 1749–1778.
+    </li>
+    <li block-type="ListItem">
+     [16] Fama, E. (1965). The behavior of stock market prices,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      38
+     </b>
+     , 34–105.
+    </li>
+    <li block-type="ListItem">
+     [17] Guillaume, D., Dacorogna, M., Dave, R., M ´ uller, U., ¨ Olsen, R. &amp; Pictet, O. (1997). From the birds eye view to the microscope: a survey of new stylized facts of the intraday foreign exchange markets,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      1
+     </b>
+     , 95–131.
+    </li>
+    <li block-type="ListItem">
+     [18] Guillaume, D., Dacorogna, M., Dave, R., M ´ uller, U., ¨ Olsen, R. &amp; Pictet, O. (1997). Volatilities at different time resolutions: analyzing the dynamics of market components,
+     <i>
+      Journal of Empirical Finance
+     </i>
+     <b>
+      4
+     </b>
+     , 213–239.
+    </li>
+    <li block-type="ListItem">
+     [19] Heyde, C. &amp; Kou, S. (2004). On the controversy over tailweight of distributions,
+     <i>
+      Operations Research Letters
+     </i>
+     <b>
+      32
+     </b>
+     , 399–408.
+    </li>
+    <li block-type="ListItem">
+     [20] Hols, M. &amp; De Vries, C. (1991). The limiting distribution of extremal exchange rate returns,
+     <i>
+      Journal of Applied Econometrics
+     </i>
+     <b>
+      6
+     </b>
+     , 287–302.
+    </li>
+    <li block-type="ListItem">
+     [21] LeBaron, B. (2000). Agent-based computational finance: suggested readings and early research,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      24
+     </b>
+     , 679–702.
+    </li>
+    <li block-type="ListItem">
+     [22] LeBaron, B. (2001). Stochastic volatility as a simple generator of apparent financial power laws and long memory,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      1
+     </b>
+     , 621–631.
+    </li>
+    <li block-type="ListItem">
+     [23] Longin, F. (1996). The asymptotic distribution of extreme stock market returns,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      69
+     </b>
+     , 383–408.
+    </li>
+    <li block-type="ListItem">
+     [24] Longin, F. (2005). The choice of the distribution of asset prices : how extreme value theory can help,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      29
+     </b>
+     , 1017–1035.
+    </li>
+    <li block-type="ListItem">
+     [25] Mandelbrot, B.B. (1963). The variation of certain speculative prices,
+     <i>
+      Journal of Business
+     </i>
+     <b>
+      XXXVI
+     </b>
+     , 392–417.
+    </li>
+    <li block-type="ListItem">
+     [26] Mandelbrot, B.B. (1971). When can price be arbitraged efficiently? A limit to the validity of the random walk and martingale models,
+     <i>
+      The Review of Economics and Statistics
+     </i>
+     <b>
+      53
+     </b>
+     , 225–236.
+    </li>
+    <li block-type="ListItem">
+     [27] Mandelbrot, B.B., Calvet, L. &amp; Fisher, A. (1997).
+     <i>
+      The Multifractality of the Deutschmark/US Dollar Exchange Rate
+     </i>
+     , Discussion paper 1166, Cowles Foundation for Economics, Yale University.
+    </li>
+    <li block-type="ListItem">
+     [28] Muller, U., Dacorogna, M. &amp; Pictet, O. (1998). ¨ Heavy tails in high-frequency financial data, in
+     <i>
+      A Practical Guide to Heavy Tails: Statistical Techniques for
+     </i>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <i>
+    Analysing Heavy Tailed Distributions
+   </i>
+   , R. Adler, R. Feldman &amp; M. Taqqu, eds, Birkhauser, Boston, pp. 55–77. ¨
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [29] Officer, R. (1972). The distribution of stock returns,
+     <i>
+      Journal of the American Statistical Association
+     </i>
+     <b>
+      67
+     </b>
+     , 807–812.
+    </li>
+    <li block-type="ListItem">
+     [30] Pagan, A. (1996). The econometrics of financial markets,
+     <i>
+      Journal of Empirical Finance
+     </i>
+     <b>
+      3
+     </b>
+     , 15–102.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ;
+   <b>
+    Extreme Value Theory
+   </b>
+   ;
+   <b>
+    GARCH Models
+   </b>
+   ;
+   <b>
+    Heavy Tails
+   </b>
+   ;
+   <b>
+    Jump Processes
+   </b>
+   ;
+  </p>
+  <p block-type="Text">
+   <b>
+    Long Range Dependence
+   </b>
+   ;
+   <b>
+    Mixture of Distribution Hypothesis
+   </b>
+   ;
+   <b>
+    Random Matrix Theory
+   </b>
+   ;
+   <b>
+    Realized Volatility and Multipower Variation
+   </b>
+   ;
+   <b>
+    Stochastic Volatility Models: Extremal Behavior
+   </b>
+   ;
+   <b>
+    Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Time Change
+   </b>
+   ;
+   <b>
+    Time-changed Levy Process ´
+   </b>
+   ;
+   <b>
+    Volatility
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   RAMA CONT
+  </p>
+ </body>
+</html>

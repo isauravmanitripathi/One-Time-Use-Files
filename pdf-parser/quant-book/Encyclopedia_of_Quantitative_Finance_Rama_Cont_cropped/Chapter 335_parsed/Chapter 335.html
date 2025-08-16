@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Intraday Price Efficiency
+   </b>
+  </h1>
+  <p block-type="Text">
+   The efficient price of a security represents the present value of expected future cash flows conditional on current information. Although observed prices are estimates of this quantity, deviations can and will occur. Price efficiency measures summarize the extent of these deviations. The measures presented here focus on deviations that arise and are subsequently corrected over very short horizons within the day, and they facilitate comparisons through time as well as across securities and markets. As these measures are intended to evaluate the closeness of actual prices to efficient prices, they relate to transaction costs and describe an important dimension of overall market quality.
+  </p>
+  <h1>
+   <b>
+    Measures
+    <sup>
+     a
+    </sup>
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Measures of intraday price efficiency, either explicitly or implicitly, define the efficient price for a security as a random walk. New information may arrive continuously, and deviations from the random-walk benchmark can be considered to be inefficiencies. These inefficiencies arise from a variety of sources including discreteness, inventory control, and other non-information-based components of the bid–ask spread. In principle, inefficiencies could also arise from irrationality among market participants (e.g., overreacting to the size of a trade).
+  </p>
+  <p block-type="TextInlineMath">
+   Hasbrouck [9] uses variance decomposition methodologies to assess inefficiencies. He defines the (log) transaction price,
+   <i>
+    pt
+   </i>
+   , as the sum of a random-walk component (the efficient price)
+   <i>
+    mt
+   </i>
+   , and a transitory, mean-zero pricing error,
+   <i>
+    st
+   </i>
+   , where
+   <i>
+    t
+   </i>
+   indexes transaction time:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_t = m_t + s_t \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   The efficient price is unobservable and its innovations are new public information as well as the information content of order flow. Because the pricing error has a mean of zero, its standard deviation,
+   <i>
+    σs
+   </i>
+   , is a measure of its magnitude. Intuitively,
+   <i>
+    σs
+   </i>
+   summarizes how closely transaction prices follow the efficient price over time and serves as an inverse measure of price efficiency.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Hasbrouck proposes a general structure for the pricing error, where
+   <i>
+    st
+   </i>
+   is related to information in
+  </p>
+  <p block-type="TextInlineMath">
+   trades, non-trade-related public information, and a disturbance. To connect this model with the data, he uses a vector autoregression (VAR) system over {
+   <i>
+    rt, xt
+   </i>
+   }, where
+   <i>
+    rt
+   </i>
+   is the first difference of
+   <i>
+    pt
+   </i>
+   and
+   <i>
+    x
+    <sup>
+     t
+    </sup>
+   </i>
+   is a vector of trading variables. This model is underidentified, so additional restrictions from the variance decomposition literature must be imposed. Specifically, the restriction of [1] effectively relates
+   <i>
+    st
+   </i>
+   only to the trading information contained in
+   <i>
+    x
+    <sup>
+     t
+    </sup>
+   </i>
+   , and the vector moving average representation is used to estimate
+   <i>
+    σs
+   </i>
+   . Because of the restriction, the estimated pricing error is a lower bound. Factors that would cause
+   <i>
+    σs
+   </i>
+   to exceed this quantity must be uncorrelated with lagged returns as well as the set of trade variables.
+  </p>
+  <p block-type="Text">
+   There is no formal model describing the conditioning information in
+   <i>
+    xt
+   </i>
+   , but it should be constructed to explain meaningful variation in the true pricing error. Hasbrouck uses a 3 × 1 vector of the following trade variables: (i) a trade sign indicator, (ii) signed trading volume, and (iii) the signed square root of trading volume. This structure of
+   <i>
+    xt
+   </i>
+   allows for a nonlinear relationship between pricing error and the trade series. For some perspective, Hasbrouck uses a sample of NYSE stocks from 1989 to demonstrate that this specification increases the estimate for
+   <i>
+    σs
+   </i>
+   by about 40% over that from a simple univariate estimation of equation (1); the added explanatory power of the
+   <i>
+    xt
+   </i>
+   strengthens the lower bound and provides a more accurate estimate of
+   <i>
+    σs
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   In addition to the structure of
+   <i>
+    x
+    <sup>
+     t
+    </sup>
+   </i>
+   , numerous methodological considerations arise. First, the VAR system must be truncated at some lag length beyond which serial dependencies are assumed negligible. There is no theoretical guidance for this decision, but one could determine a cutoff point
+   <i>
+    ad hoc
+   </i>
+   by inspecting VAR estimates over various lags. Second, trading information in
+   <i>
+    x
+    <sup>
+     t
+    </sup>
+   </i>
+   will typically require the signing of trades. A common method compares prices to midpoint quotes [15]. Third, overnight returns are considered atypical due to the time delay as well as different trading mechanisms at the opening and therefore may be neglected in the analysis.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   A number of empirical studies have used some variant of Hasbrouck's methodology in recent years. Kumar
+   <i>
+    et al.
+   </i>
+   [14] find that pricing errors decline for equities upon option listings. George and Hwang [6] extend the model to allow for heteroskedasticity in
+   <i>
+    st
+   </i>
+   , and they find that the pricing errors are similar at the opening and close of trading. Hotchkiss and Ronen
+  </p>
+  <p block-type="Text">
+   [12] show that the price efficiency of bonds resembles that of the underlying stocks. Boehmer
+   <i>
+    et al.
+   </i>
+   [3] find that the price efficiency of NYSE stocks improved in 2002 when the contents of the limit order book were made available to traders off the exchange. Finally, Boehmer and Kelley [2] find that pricing errors decline with more institutional ownership and trading.
+  </p>
+  <p block-type="Text">
+   As an alternative to the variance decompositions, one may also measure intraday efficiency using the autocorrelation properties of the return series. Consider once again an efficient price that, by definition, follows a random walk. For a simple implementation, one can construct a series of price changes over fixed increments in time (say, 30 min) and estimate the autocorrelation. Since either positive or negative autocorrelation is a deviation from a random walk, a summary (inverse) efficiency measure is the absolute value of the autocorrelation.
+  </p>
+  <p block-type="TextInlineMath">
+   A slightly more complex implementation involves variance ratios.
+   <i>
+    VR
+   </i>
+   (
+   <i>
+    n, m
+   </i>
+   ) is the ratio of an
+   <i>
+    m
+   </i>
+   -period variance to an
+   <i>
+    n
+   </i>
+   -period variance, where both variances are scaled by the number of periods. For example,
+   <i>
+    VR
+   </i>
+   (5 min, 60 min) is the ratio of a 60-min return variance to a 5-min return variance, scaled by 60 and 5, respectively. Under a random walk, variance ratios will equal 1, so the summary (inverse) efficiency measure is |1 −
+   <i>
+    V R(n, m)
+   </i>
+   |. A variance ratio contains more information than a single autocorrelation, as
+   <i>
+    VR
+   </i>
+   (
+   <i>
+    n, m
+   </i>
+   ) can be written as a linear combination of the first
+   <i>
+    n
+   </i>
+   − 1 autocorrelations (see [4], p. 49).
+  </p>
+  <p block-type="Text">
+   The use of autocorrelations or variance ratios also requires some methodological consideration. Most importantly, and in contrast to Hasbrouck's methodology, one needs to remove the bid–ask bounce described in [17]. The best way to do this is by computing returns according to bid–ask midpoints. In addition, for some securities, stale quotes may be a problem. One may mitigate stale quote issues by ignoring intervals over which no new quote was posted.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   As a summary measure of price efficiency, the Hasbrouck approach is favorable for a couple of reasons. First, the variance decomposition methods differentiate between permanent and transient price changes and attribute deviations from a random walk to the latter alone. Nonzero autocorrelation, and hence variance ratios deviating from unity, can arise from either efficient or inefficient pricing. For
+  </p>
+  <p block-type="Text">
+   example, order splitting by informed traders may lead to positive autocorrelation. Second, pricing errors are measured in trade time—the model is advanced by one period after each trade—whereas autocorrelations and variance ratios are based on returns computed in clock time. Measuring efficiency in trade time has the added benefit of granting more weight to periods of active information discovery. Moreover, the trade-time measure reflects the actual behavior of market participants and includes the information conveyed by each single trade.
+  </p>
+  <p block-type="Text">
+   It is also important to recognize that neither the variance decompositions nor the autocorrelationbased measures will pick up deviations from the efficient price persisting for more than a brief portion of the trading day, not to mention weeks or months. That is, only pricing errors that are quickly corrected will be measured. This approach ignores potential deviations from fundamentals in contexts such as long-term reversals as in [5], return momentum as in [13], or weekly return reversals as in [16].
+  </p>
+  <p block-type="Text">
+   Boehmer and Kelley [2] have estimated a variety of price-efficiency measures for all NYSE stocks for each quarter from 1983 to 2004. Figure 1 tracks the cross-sectional average for
+   <i>
+    σs
+   </i>
+   normalized by
+   <i>
+    σp
+   </i>
+   from equation (1) over the 22-year period. For comparison, the cross-sectional average of the absolute value of the first-order autocorrelation for a series of 30-min quote midpoint returns is also shown. Autocorrelations and variance ratios incorporating various other intraday horizons produce a similar picture. Both plots illustrate a general decline through time, which is interpreted as an overall
+   <i>
+    increase
+   </i>
+   in price efficiency. This matches a similar trend in other transactions costs such as execution costs. More importantly, an inspection of the plots reveals that both measures increase around the market crash of 1987, but there is a substantial drop in
+   <i>
+    σs
+   </i>
+   alone around the 16th pricing in 1997 and on decimalization in 2001—events that intuitively should lead to greater efficiency. Turning to the cross section, unreported tests show that the average cross-sectional correlation between the two measures is around 0.25, and that both measures generally decrease with firm size, execution costs, price, and trading activity.
+  </p>
+  <h1>
+   <b>
+    The Evolution of the Efficient Price
+   </b>
+  </h1>
+  <p block-type="Text">
+   While this article focuses on the extent to which transaction prices resemble an efficient price, similar
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Average price efficiency through time. The sample is based on NYSE-listed securities between 1983 and 2004. The solid line tracks the cross-sectional mean of
+   <i>
+    σs
+   </i>
+   /
+   <i>
+    σp
+   </i>
+   , which is the pricing error from Hasbrouck [9] divided by the standard deviation of transaction prices. The dashed line tracks the cross-sectional mean of |AC30|, which is the absoluted value of the 30-min return autocorrelation. The left and right vertical axes are for
+   <i>
+    σs
+   </i>
+   /
+   <i>
+    σp
+   </i>
+   and |AC30|, respectively
+  </p>
+  <p block-type="Text" class="has-continuation">
+   estimation techniques describe the evolution of the underlying efficient price itself.b Specifically, Hasbrouck [7, 8] starts with equation (1) and considers a VAR over returns and trades. In this case, however, prices and returns are based on quote midpoints (rather than transaction prices) and the trade at time
+   <i>
+    t
+   </i>
+   precedes the quote change indexed by
+   <i>
+    t
+   </i>
+   . Thus, the quote change at time
+   <i>
+    t
+   </i>
+   reflects information in the trade, but not
+   <i>
+    vice versa
+   </i>
+   . Hasbrouck [7] uses the impulse response function as a measure of the information content of a trade innovation. He also [8] uses variance decompositions similar to the ones used by him in [9] to develop two
+   <i>
+    summary measures
+   </i>
+   of trade informativeness. The first is the component of the random-walk variance attributable to trades, which serves as an absolute measure of the private information revealed by trading. The second is the first measure scaled by the total random-walk variance. It is interpreted as the importance of trade-based information relative to all public information for price discovery. These measures are superior to other metrics such as the quoted spread or the permanent price impact (as in [7]), which condition on trade size. Finally, Hasbrouck [10] provides a multiple
+  </p>
+  <p block-type="Text">
+   market extension to assess the relative price discovery for each market in which a security trades. Here, there is a single random-walk efficient price and each market's information share is defined as the proportion of the random-walk variance attributable to its trades.
+  </p>
+  <h1>
+   <b>
+    Summary
+   </b>
+  </h1>
+  <p block-type="Text">
+   Intraday price efficiency can be measured using variance decomposition methods or by various autocorrelation-based measures. Because they explicitly characterize price changes as permanent or temporary, and they employ useful transaction-time models, variance decomposition methods are preferred. Several studies using these measures are also described.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   Much of this section is adapted from the discussion in [2]. b
+   <i>
+    .
+   </i>
+   See [11] for a survey.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Beveridge, S. &amp; Nelson, C. (1981). A new approach to the decomposition of economic time series into permanent and transitory components with particular attention to the measurement of the 'business cycle',
+     <i>
+      Journal of Monetary Economics
+     </i>
+     <b>
+      7
+     </b>
+     , 151–174.
+    </li>
+    <li block-type="ListItem">
+     [2] Boehmer, E. &amp; Kelley, E. (2009). Institutional investors and the informational efficiency of prices,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      22
+     </b>
+     , 3563–3594.
+    </li>
+    <li block-type="ListItem">
+     [3] Boehmer, E., Saar, G. &amp; Yu, L. (2005). Lifting the veil: an analysis of pre-trade transparency at the NYSE,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      60
+     </b>
+     , 783–815.
+    </li>
+    <li block-type="ListItem">
+     [4] Campbell, J.Y., Lo, A.W. &amp; MacKinlay, A.C. (1997).
+     <i>
+      The Econometrics of Financial Markets
+     </i>
+     , Princeton University Press, Princeton, NJ.
+    </li>
+    <li block-type="ListItem">
+     [5] DeBondt, W.F.M. &amp; Thaler, R. (1985). Does the stock market overreact?
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      40
+     </b>
+     , 793–805.
+    </li>
+    <li block-type="ListItem">
+     [6] George, T. &amp; Hwang, C. (2001). Information flow and pricing errors: a unified approach to estimation and testing,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      14
+     </b>
+     , 979–1020.
+    </li>
+    <li block-type="ListItem">
+     [7] Hasbrouck, J. (1991). Measuring the information content of stock trades,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      46
+     </b>
+     , 179–207.
+    </li>
+    <li block-type="ListItem">
+     [8] Hasbrouck, J. (1991). The summary informativeness of stock trades: an econometric analysis,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      4
+     </b>
+     , 571–595.
+    </li>
+    <li block-type="ListItem">
+     [9] Hasbrouck, J. (1993). Assessing the quality of a security market: a new approach to transaction-cost measurement,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      6
+     </b>
+     , 191–212.
+    </li>
+    <li block-type="ListItem">
+     [10] Hasbrouck, J. (1995). One security, many markets: determining the contributions to price discovery,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      50
+     </b>
+     , 1175–1199.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [11] Hasbrouck, J. (2002). Stalking the "efficient price" in market microstructure specifications: an overview,
+     <i>
+      Journal of Financial Markets
+     </i>
+     <b>
+      5
+     </b>
+     , 329–339.
+    </li>
+    <li block-type="ListItem">
+     [12] Hotchkiss, E. &amp; Ronen, T. (2002). The informational efficiency of the corporate bond market: an intraday analysis,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      15
+     </b>
+     , 1325–1354.
+    </li>
+    <li block-type="ListItem">
+     [13] Jegadeesh, N. &amp; Titman, S. (1993). Returns to buying winners and selling losers: implications for stock market efficiency,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      48
+     </b>
+     , 65–91.
+    </li>
+    <li block-type="ListItem">
+     [14] Kumar, R., Sarin, A. &amp; Shastri, K. (1998). The impact of options trading on the market quality of underlying securities: an empirical analysis,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      53
+     </b>
+     , 717–732.
+    </li>
+    <li block-type="ListItem">
+     [15] Lee, C.M.C. &amp; Ready, M. (1991). Inferring trade direction from intraday data,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      46
+     </b>
+     , 733–746.
+    </li>
+    <li block-type="ListItem">
+     [16] Lehmann, B.N. (1990). Fads, martingales, and market efficiency,
+     <i>
+      Quarterly Journal of Economics
+     </i>
+     <b>
+      105
+     </b>
+     , 1–28.
+    </li>
+    <li block-type="ListItem">
+     [17] Roll, R. (1984). A simple implicit measure of the effective bid-ask spread in an efficient market,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      39
+     </b>
+     , 1127–1139.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Bid–Ask Spreads
+   </b>
+   ;
+   <b>
+    Efficient Market Hypothesis
+   </b>
+   ;
+   <b>
+    High-frequency Data
+   </b>
+   ;
+   <b>
+    Liquidity
+   </b>
+   ;
+   <b>
+    Price Impact
+   </b>
+   ;
+   <b>
+    Roll Model
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ERIC K. KELLEY
+  </p>
+ </body>
+</html>

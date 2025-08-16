@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Esscher Transform
+   </b>
+  </h1>
+  <p block-type="Text">
+   The
+   <i>
+    Esscher transform
+   </i>
+   has a long and remarkable history in actuarial science. Its origin can be traced back to the seminal work of a Swedish actuary, Esscher [7], whose motivation was to develop a flexible and convenient way to approximate the probability distribution of the aggregate claims of an insurance portfolio (
+   <i>
+    see
+   </i>
+   <b>
+    Accumulated Claims
+   </b>
+   ), an important problem in the classical risk theory. Buhlmann [1, 2] developed the Esscher premium ¨ calculation principle and showed that it is a particular case of an economic premium principle. Nowadays, the Esscher transform has applications in option valuation, asset allocation, and risk management, the so-called three pillars in quantitative finance.
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose
+   <i>
+    F (x)
+   </i>
+   represents the probability distribution function of a nonnegative random variable
+   <i>
+    X
+   </i>
+   and
+   <i>
+    θ
+   </i>
+   denotes a real constant so that the moment generating function of
+   <i>
+    X
+   </i>
+   exists; that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_X(\theta) := E[e^{\theta X}] &lt; \infty \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   The Esscher transform
+   <i>
+    F (x, θ )
+   </i>
+   is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x,\theta) := \frac{\int_0^x e^{\theta y} dF(y)}{M_X(\theta)}
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <i>
+    F (x, θ )
+   </i>
+   is well defined since
+   <i>
+    MX(θ ) &lt;
+   </i>
+   ∞.
+   <i>
+    MX(θ )
+   </i>
+   is a normalization constant to make
+   <i>
+    F (x, θ )
+   </i>
+   a probability distribution function.
+  </p>
+  <p block-type="TextInlineMath">
+   The main idea of the Esscher transform is to define a new probability distribution function for
+   <i>
+    X
+   </i>
+   by adjusting the original distribution
+   <i>
+    F (x)
+   </i>
+   of
+   <i>
+    X
+   </i>
+   using an exponential factor e
+   <i>
+    θy
+   </i>
+   . In particular, for each given parameter
+   <i>
+    θ
+   </i>
+   , we associate it with a transformed probability distribution function
+   <i>
+    F (x, θ )
+   </i>
+   of
+   <i>
+    X
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   In this article, we focus on the applications of the Esscher transform in quantitative finance. For an excellent survey of the applications of the Esscher transform in actuarial science, see [14]. Here, we discuss the applications of the Esscher transform to option valuation and asset allocation (
+   <i>
+    see
+   </i>
+   <b>
+    Merton Problem
+   </b>
+   ). For the applications of the Esscher transform to risk management, see [12].
+  </p>
+  <h2>
+   <b>
+    Application to Option Pricing
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   The pioneering work of Gerber and Shiu [8] used the Esscher transform for option valuation. Let {
+   <i>
+    X(t)
+   </i>
+   ;
+   <i>
+    t
+   </i>
+   ≥ 0} denote a stochastic process with stationary and independent increments and
+   <i>
+    X(
+   </i>
+   0
+   <i>
+    )
+   </i>
+   = 0. Assume that the force of interest or the risk-free interest rate
+   <i>
+    r
+   </i>
+   is a positive constant. For each
+   <i>
+    t
+   </i>
+   ≥ 0, the random variable
+   <i>
+    X(t)
+   </i>
+   has an infinitely divisible distribution. Let
+   <i>
+    S(t)
+   </i>
+   denote the price of a nondividend-paying risky asset at time
+   <i>
+    t
+   </i>
+   . Assume that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S(t) = S(0)e^{X(t)}, \quad t \ge 0
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <i>
+    X(t)
+   </i>
+   represents the continuously compounded return from the non-dividend-paying risky asset over the time horizon [0
+   <i>
+    , t
+   </i>
+   ].
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <i>
+    F (x, t)
+   </i>
+   denote the probability distribution function of
+   <i>
+    X(t)
+   </i>
+   . Suppose
+   <i>
+    MX(z, t)
+   </i>
+   represents the moment generating function of
+   <i>
+    X(t)
+   </i>
+   ; that is,
+   <i>
+    MX(z, t)
+   </i>
+   :=
+   <i>
+    E
+   </i>
+   [e
+   <i>
+    zX(t)
+   </i>
+   ]. The Esscher transform of the process {
+   <i>
+    X(t)
+   </i>
+   ;
+   <i>
+    t
+   </i>
+   ≥ 0} is also a process with stationary and independent increments. The probability distribution function of
+   <i>
+    X(t)
+   </i>
+   defined by the Esscher transform with parameter
+   <i>
+    θ
+   </i>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x,t;\theta) := \frac{\int_0^x e^{\theta y} dF(y,t)}{M_X(\theta,t)}
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   The moment generating function of
+   <i>
+    X(t)
+   </i>
+   evaluated under the probability distribution function
+   <i>
+    F (x, t
+   </i>
+   ;
+   <i>
+    θ )
+   </i>
+   defined by the Esscher transform with parameter
+   <i>
+    θ
+   </i>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_X(z,t;\theta) = \frac{M_X(\theta+z,t)}{M_X(\theta,t)}
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   By the fundamental theorem of asset pricing (
+   <i>
+    see
+   </i>
+   <b>
+    Fundamental Theorem of Asset Pricing
+   </b>
+   ) (see [10, 11]), to guarantee the absence of arbitrage (
+   <i>
+    see
+   </i>
+   <b>
+    Arbitrage Strategy
+   </b>
+   ) options should be priced by taking the expected discounted payoffs with respect to an equivalent measure under which the discounted stock price process {e
+   <sup>
+    −
+   </sup>
+   <i>
+    rtS(t)
+   </i>
+   ;
+   <i>
+    t
+   </i>
+   ≥ 0} is a martingale (
+   <i>
+    see
+   </i>
+   <b>
+    Equivalent Martingale Measures
+   </b>
+   ). Such a change of measure can be achieved using the Esscher transform in the following way. First, we look for a risk-neutral Esscher parameter
+   <i>
+    θ
+   </i>
+   <sup>
+    ∗
+   </sup>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    1 = e^{-rt} E^*[e^{X(t)}]
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    E^*[\cdot]
+   </math>
+   represents expectation taken with respect to the probability distribution function
+   <math display="inline">
+    F(x, t; \theta^*)
+   </math>
+   . Equivalently,
+   <math display="inline">
+    \theta^*
+   </math>
+   is the unique solution of the following equation (see
+   <math display="inline">
+    [8]
+   </math>
+   ):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r = \ln[M_X(1, 1; \theta^*)] \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Now, we consider a European-style option (see
+   <b>
+    Options: Basic Definitions
+   </b>
+   ) with payoff
+   <math display="inline">
+    V(T)
+   </math>
+   at maturity
+   <math display="inline">
+    T
+   </math>
+   . Then, the price of the option is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(0) = E^*[e^{-rT}V(T)] \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   The Esscher transform provides a flexible and convenient way to price options under different parametric specifications of the return process of the underlying risky asset. It is also a convenient tool for option valuation under an incomplete market, in which there is more than one equivalent martingale measure and not every contingent claim can be hedged (see
+   <b>
+    Hedg
+   </b>
+   ing) perfectly. However, an important question arises. How does one justify an option price obtained from the Esscher transform in an incomplete market? Gerber and Shiu [8] showed that an option price arising from the Esscher transform can be obtained by solving a utility maximization problem of an economic agent with power utility. Bühlmann et al. [3, 4] provided justification for the use of the Esscher transform for asset pricing under general dynamics of the underlying risky assets. The novelty of the work of Gerber and Shiu is to highlight the interplay between actuarial and financial pricing, which is coined as an important research agenda in modern actuarial science (see [3]). Since the work of Gerber and Shiu [8], there has been much work on further exploring the use of the Esscher transform for option pricing.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Bühlmann et al. [3] introduced the conditional Esscher transform to price options under general semimartingales (
+   <i>
+    see
+   </i>
+   <b>
+    Martingales
+   </b>
+   ). Bühlmann
+   <i>
+    et al.
+   </i>
+   [4] adopted the Esscher transform in a discrete financial model and investigated the no-arbitrage theory of asset pricing. Chan [5] employed the Esscher transform to price options in a continuous-time financial model driven by Lévy processes (see
+   <b>
+    Exponential
+   </b>
+   Lévy Models). Yao [15] specified a forward-riskadjusted measure and developed a consistent framework for pricing options on equities, interest rates and foreign exchange rates. Siu et al. [13] introduced the use of the Esscher transform for pricing options under a class of GARCH models with innovations having a general and flexible distribution. Elliott et al. [6]
+  </p>
+  <p block-type="Text">
+   considered the option pricing problem when the price dynamics of the underlying risky asset are governed by a Markov regime-switching model.
+  </p>
+  <h4>
+   <b>
+    Asset Allocation
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   The Esscher transform can also be used to provide an elegant solution to the asset allocation problem [9]. Here, we outline the key results from Gerber and Shiu [9] under a complete securities market with a single primitive risky asset. Let
+   <math display="inline">
+    \{X(t); t &gt; 0\}
+   </math>
+   denote a Wiener process with "real-world" expected rate of return
+   <math display="inline">
+    \mu
+   </math>
+   and diffusion coefficient
+   <math display="inline">
+    \sigma
+   </math>
+   ; that is, for each
+   <math display="inline">
+    t &gt; 0, X(t)
+   </math>
+   follows a normal distribution with mean
+   <math display="inline">
+    \mu t
+   </math>
+   and variance
+   <math display="inline">
+    \sigma^2 t
+   </math>
+   . Define a price kernel of the securities market by the Esscher transform as below:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Lambda := \frac{e^{\theta^* X(T)}}{E[e^{\theta^* X(T)}]} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   where, in this case, the risk-neutral Esscher parameter
+   <math display="inline">
+    \theta^*
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \theta^* = \frac{r - \sigma^2/2 - \mu}{\sigma^2} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \beta := \theta^* \mu + (\theta^* \sigma)^2 / 2
+   </math>
+   . Then,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Lambda = e^{\theta^* X(T) - \beta T} \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose
+   <math display="inline">
+    Y
+   </math>
+   denotes a random payment in the securities market at time
+   <math display="inline">
+    T
+   </math>
+   . Then, the price of the random payment at time 0 is
+   <math display="inline">
+    E[\Lambda Y]
+   </math>
+   . Consider an investor with initial wealth
+   <math display="inline">
+    w
+   </math>
+   and decision horizon
+   <math display="inline">
+    T
+   </math>
+   who buys the random payment
+   <math display="inline">
+    Y
+   </math>
+   . Then, the terminal wealth of the investor at time
+   <math display="inline">
+    T
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W(T) = w e^{rT} + Y - E[\Lambda Y] \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   This implies that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[\Lambda W(T)] = w e^{rT} \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Now, we suppose that the investor has a risk-averse utility function (
+   <i>
+    see
+   </i>
+   <b>
+    Utility Function
+   </b>
+   )
+   <math display="inline">
+    u(x)
+   </math>
+   such that
+   <math display="inline">
+    u'(x) &gt; 0
+   </math>
+   and
+   <math display="inline">
+    u''(x) &lt; 0
+   </math>
+   . The goal of the investor is to determine the terminal wealth
+   <math display="inline">
+    W(T)
+   </math>
+   , which maximizes the expectation
+   <math display="inline">
+    E[u(W(T))]
+   </math>
+   subject to the budget constraint imposed by equation (12).
+  </p>
+  <p block-type="Text">
+   Gerber and Shiu showed that the necessary and sufficient condition for optimality is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u'(W(T)) = E[u'(W(T))] \Lambda \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   The necessary condition can be shown by a standard tool in actuarial science, namely, the variational argument (see [9]). The sufficient condition for optimality can be shown by exploiting the concavity of the utility function.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    m := E[u'(W(T))]
+   </math>
+   . Suppose I is an inverse of the marginal utility function
+   <math display="inline">
+    u'
+   </math>
+   . Since
+   <math display="inline">
+    u'' &lt; 0
+   </math>
+   , I exists. Then, the optimal terminal wealth is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W(T) = I(m\Lambda) \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   By equations
+   <math display="inline">
+    (12)
+   </math>
+   and
+   <math display="inline">
+    (14)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[\Lambda I(m\Lambda)] = w e^{rT} \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   Consider an exponential utility function as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x) = -\frac{e^{-\alpha x}}{\alpha}, \quad x \in (-\infty, \infty) \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   and
+   <math display="inline">
+    1/\alpha
+   </math>
+   is the constant level of risk tolerance.
+  </p>
+  <p block-type="Text">
+   In this case, the optimal terminal wealth is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W(T) = w e^{rT} + \frac{\theta^* [(r - \sigma^2/2)T - X(T)]}{\alpha} \quad (17)
+   </math>
+  </p>
+  <p block-type="Text">
+   Under the assumption of a frictionless and complete market, Gerber and Shiu [9] determined an optimal dynamic strategy by replicating a contingent claim related to the optimal terminal wealth
+   <math display="inline">
+    W(T)
+   </math>
+   . In particular, for the exponential utility function, Gerber and Shiu [9] obtained the following optimal amount invested in the risky asset at time
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   using the dynamic delta hedging argument:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho(t) = \left(\frac{\mu - r + \sigma^2/2}{\alpha \sigma^2}\right) e^{-r(T-t)} \tag{18}
+   </math>
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bühlmann, H. (1980). An economic premium principle, ASTIN Bulletin 11, 52-60.
+    </li>
+    <li block-type="ListItem">
+     Bühlmann, H. (1984). The general economic premium, [2] ASTIN Bulletin 14, 13-21.
+    </li>
+    <li block-type="ListItem">
+     [3] Bühlmann, H., Delbaen, F., Embrechts, P. &amp; Shiryaev, A.N. (1996). No-arbitrage, change of measures and conditional Esscher transforms, CWI Quarterly 9, 291-317.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Bühlmann, H., Delbaen, F., Embrechts, P. &amp; Shirvaev, [4] A.N. (1998). On Esscher transforms in discrete finance models, ASTIN Bulletin 28, 171-186.
+    </li>
+    <li block-type="ListItem">
+     Chan, T. (1999). Pricing contingent claims on stocks [5] driven by Lévy processes, Annals of Applied Probability 9, 503-528.
+    </li>
+    <li block-type="ListItem">
+     [6] Elliott, R.J., Chan, L.L. &amp; Siu, T.K. (2005). Option pricing and Esscher transform under regime switching, Annals of Finance 1(4), 423-432.
+    </li>
+    <li block-type="ListItem">
+     [7] Esscher, F. (1932). On the probability function in the collective theory of risk, Skandinavisk Aktuarietidskrift 15, 175-195.
+    </li>
+    <li block-type="ListItem">
+     [8] Gerber, H.U. &amp; Shiu, E.S.W. (1994). Option pricing by Esscher transforms (with discussions), Transactions of the Society of Actuaries 46, 99-191.
+    </li>
+    <li block-type="ListItem">
+     Gerber, H.U. &amp; Shiu, E.S.W. (2000). Investing for retire-[9] ment: optimal capital growth and dynamic asset allocation, North American Actuarial Journal 4(2), 42-62.
+    </li>
+    <li block-type="ListItem">
+     [10] Harrison, J.M. &amp; Pliska, S.R. (1981). Martingales and stochastic integrals in the theory of continuous trading, Stochastic Processes and Their Applications 11,
+     <math display="inline">
+      215 - 280.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [11] Harrison, J.M. &amp; Pliska, S.R. (1983). A stochastic calculus model of continuous trading: complete markets, Stochastic Processes and their Applications 15, 313-316.
+    </li>
+    <li block-type="ListItem">
+     [12] Siu, T.K., Tong, H. &amp; Yang, H. (2001). Bayesian risk measures for derivatives via random Esscher transform,
+     <i>
+      North American Actuarial Journal
+     </i>
+     <b>
+      5
+     </b>
+     (3), 78–91.
+    </li>
+    <li block-type="ListItem">
+     [13] Siu, T.K., Tong, H. &amp; Yang, H. (2004). On pricing derivatives under GARCH models: a dynamic Gerber-Shiu approach, North American Actuarial Journal 8(3),
+     <math display="inline">
+      17 - 31
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [14] Yang, H. (2004). The Esscher transform, in
+     <i>
+      Encyclopedia
+     </i>
+     of Actuarial Science, J. Teugels &amp; B. Sundt, eds, John Wiley &amp; Sons, New York, Vol. 2, pp. 617-621.
+    </li>
+    <li block-type="ListItem">
+     [15] Yao, Y. (2001). State price density, Esscher transforms, and pricing options on stocks, bonds, and foreign exchange rates, North American Actuarial Journal 5, 104-117.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Related Articles
+   </b>
+  </h4>
+  <p block-type="Text">
+   <b>
+    Equivalence of Probability Measures; Equivalent
+   </b>
+   Martingale Measures; Exponential Lévy Models
+  </p>
+  <p block-type="Text">
+   TAK KUEN SIU
+  </p>
+ </body>
+</html>

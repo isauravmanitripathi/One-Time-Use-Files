@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Price Impact
+   </b>
+  </h1>
+  <p block-type="Text">
+   <i>
+    Price impact
+   </i>
+   refers to the correlation between an incoming order (to buy or to sell) and the subsequent price change. That a buy trade should push the price up seems at first sight obvious and is easily demonstrated empirically, as we will review below. It is also a dour reality for traders for whom price impact is tantamount to a cost: their second buy trade is on average more expensive than the first because of their own impact (and
+   <i>
+    vice versa
+   </i>
+   for sells). Monitoring and controlling impact is therefore one of the most active and rapidly expanding domains of research within trading firms. The most important questions are related to the volume dependence of impact (do larger trades impact prices more?), and the temporal behavior of impact (is the impact of a trade immediate and permanent, or is there some lag dependence of the impact?).
+  </p>
+  <p block-type="Text">
+   A moment of reflection suggests that the interpretation of price impact is far from trivial, and may even lead to contradictions–isn't a transaction a fair deal between a buyer and a seller? So why is there price impact? Three distinct possibilities come to mind:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <i>
+      Agents successfully forecast short term price movements and trade accordingly.
+     </i>
+     This can result in measurable correlation between trades and price changes, even if the trades by themselves have absolutely no effect on prices at all. If an agent correctly forecasts price movements and if the price is about to rise, the agent is likely to buy in anticipation of it. But in this framework "noise induced" trades, based on no information at all, should have no price impact.
+    </li>
+    <li block-type="ListItem">
+     2.
+     <i>
+      The impact of trades reveal some private information.
+     </i>
+     The arrival of new private information causes trades, which cause other agents to update their valuations, leading to a price change. But if trades are anonymous and there is no easy way to distinguish informed traders from noninformed traders, then all trades will impact the price since other agents will believe that a fraction of these trades might contain some private information.
+    </li>
+    <li block-type="ListItem">
+     3.
+     <i>
+      Impact is a statistical effect due to order flow fluctuations.
+     </i>
+     Imagine, for example, a completely random order flow process that leads to a certain order book dynamics (see, e.g., [7] for a description of such models). Conditional to an extra buy
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   order, the price will on average move up if everything else is kept constant. Fluctuations in supply and demand can thus be completely random, unrelated to information, and still a well-defined notion of price impact will emerge. In this case, impact is a completely mechanical–or better, statistical–phenomenon.
+  </p>
+  <p block-type="Text">
+   All three of these mechanisms result in some "price impact", that is, a positive correlation of trading volume and price movement, but they are conceptually very different. In the first two pictures, as emphasized in [13], "orders do not
+   <i>
+    impact
+   </i>
+   prices. It is more accurate to say that orders
+   <i>
+    forecast
+   </i>
+   prices." In the second picture, price impact is of paramount importance to understand how information gets incorporated into prices. If some traders really have an information on the "true" price at some time in the future, then the observation of an excess of buy trades allows the market to guess that the price will move up and to change the quotes accordingly (
+   <i>
+    see
+   </i>
+   <b>
+    Glosten–Milgrom Models
+   </b>
+   ;
+   <b>
+    Kyle Model
+   </b>
+   ; for explicit implementations). Thus, while on one hand market impact is a friction, it should also be viewed as the mechanism that allows prices to adjust to new information.
+  </p>
+  <p block-type="Text">
+   But if the third, mechanical, interpretation is correct, correlation between price changes and order flow is a tautology. If prices move only because of trades, "information revelation" may merely be a self-fulfilling prophecy that would occur even if the fraction of informed traders is zero. Possible differences between these pictures may come about in the volume dependence and temporal behavior of impact, which we discuss below.
+  </p>
+  <h1>
+   <b>
+    Linear and Permanent Impact: The Kyle Model
+   </b>
+  </h1>
+  <p block-type="Text">
+   The simplest assumption is that impact is both linear in the traded volume and permanent in time. These assumptions can be partly justified within the Kyle model [17], where an insider trader and noise traders submit orders that are cleared by a market maker (MM) every time step
+   <i>
+    t
+   </i>
+   . In this model, the price adjustment rule
+   <i>
+    p
+   </i>
+   of the MM must be linear in the total signed volume
+   <i>
+    v
+   </i>
+   , that is,a
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta p = \lambda \epsilon v \tag{1}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   where
+   <i>
+    λ
+   </i>
+   is a measure of impact, and is inversely proportional to the liquidity of the market. This price
+  </p>
+  <p block-type="TextInlineMath">
+   adjustment is furthermore
+   <i>
+    permanent
+   </i>
+   , that is, the price change between time
+   <math display="inline">
+    t = 0
+   </math>
+   and
+   <math display="inline">
+    t = T = N\Delta t
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_T = p_0 + \sum_{n=0}^{N-1} \Delta p_n = p_0 + \lambda \sum_{n=0}^{N-1} \epsilon_n v_n \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This formula assumes that the impact
+   <math display="inline">
+    \lambda \epsilon_n v_n
+   </math>
+   of trades in the
+   <math display="inline">
+    n
+   </math>
+   th time interval persists unabated up to time
+   <math display="inline">
+    T.
+   </math>
+   Huberman and Stanzl [15] and Farmer [6] show that the linear price adjustment of the Kyle model is the only specification that does not allow price manipulations,
+   <i>
+    provided impact is permanent
+   </i>
+   (see below). From the above equation, it is clear that the sign of the trades must be serially uncorrelated if the price is to follow an unpredictable random walk. Within the setting of the Kyle model, the trading schedule of the insider is precisely such that the
+   <math display="inline">
+    \epsilon_n
+   </math>
+   are uncorrelated [17]. But data from real markets reveal correlations of the sign of the traded volume over long timescales; we will come back to this important point below.
+  </p>
+  <h4>
+   <b>
+    Measures of Price Impact
+   </b>
+  </h4>
+  <p block-type="Text">
+   An interesting measure of price impact is the correlation between the price change between 0 and
+   <math display="inline">
+    T
+   </math>
+   and the sign of the trade at time 0, defined, in general, as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(T) = E\left[ (p_T - p_0) \cdot \epsilon_0 \right] - E\left[ (p_T - p_0) \right] E\left[ \epsilon_0 \right]
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   In the following, we will assume that drifts can be neglected so that only the first term in the right-hand side (RHS) is not zero. This is often the case, in practice, if
+   <math display="inline">
+    T
+   </math>
+   is chosen to be sufficiently small and/or if there is no strong buy/sell asymmetry
+   <math display="inline">
+    (E[\epsilon_0] = 0)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Within the Kyle framework where the
+   <math display="inline">
+    \epsilon
+   </math>
+   's are uncorrelated,
+   <math display="inline">
+    R(T)
+   </math>
+   is easily computed and is found to be
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(T) = \lambda \ E[v] \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The impact function
+   <math display="inline">
+    R(T)
+   </math>
+   is therefore lag independent in this model. One can, of course, also define a volume-dependent impact function by conditioning the above average on the incoming volume, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(T, v) = E\left[ (p_T - p_0) \cdot \epsilon_0 | v_0 = v \right] \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   which, in the Kyle model, is equal to
+   <math display="inline">
+    \lambda v
+   </math>
+   , for all T. Note that both
+   <math display="inline">
+    R(T)
+   </math>
+   and
+   <math display="inline">
+    R(T, v)
+   </math>
+   a priori depend
+  </p>
+  <p block-type="Text">
+   on the choice of the elementary timescale
+   <math display="inline">
+    \Delta t
+   </math>
+   , but we want to avoid heavy notations and skip this extra variable dependence.
+  </p>
+  <p block-type="TextInlineMath">
+   Another commonly used measure of impact is the correlation
+   <math display="inline">
+    \rho(T)
+   </math>
+   between the price change from 0 to
+   <math display="inline">
+    T
+   </math>
+   and the total signed volume in the same interval, or, more precisely,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho(T) = \frac{E\left[\left(p_T - p_0\right) \cdot \sum_{n=0}^{N-1} \epsilon_n v_n\right]}{\sqrt{E\left[\left(p_T - p_0\right)\right]^2 E\left[\left(\sum_{n=0}^{N-1} \epsilon_n v_n\right)^2\right]}} \quad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   In the Kyle model, this correlation is trivially equal to unity, but this correlation can decrease if liquidity fluctuates (
+   <math display="inline">
+    \lambda
+   </math>
+   becomes time dependent), or if other sources of volatility are taken into account. For example, the MM can revise his quotes in the absence of any trades, say, because of some incoming news. This can be modeled by adding an extra term in
+   <math display="inline">
+    \text{equation (2) above.}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_T = p_0 + \lambda \sum_{n=0}^{N-1} \epsilon_n v_n + \sum_{n=0}^{N-1} \eta_n \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the
+   <math display="inline">
+    \eta_n
+   </math>
+   's are uncorrelated increments, representing causes of price variations not directly related to trading.
+  </p>
+  <p block-type="TextInlineMath">
+   It is often useful to generalize the above definition of
+   <math display="inline">
+    \rho(T)
+   </math>
+   by replacing the volumes
+   <math display="inline">
+    v_n
+   </math>
+   by
+   <math display="inline">
+    v_n^{\psi}
+   </math>
+   , where
+   <math display="inline">
+    \psi
+   </math>
+   is a certain exponent. As discussed below, the measured correlations are found to be stronger when
+   <math display="inline">
+    \psi &lt; 1.
+   </math>
+  </p>
+  <h3>
+   <b>
+    Empirical Facts
+   </b>
+  </h3>
+  <p block-type="Text">
+   Here we summarize briefly the salient empirical facts that emerged in the last 20 years, concerning the volume dependence and the temporal behavior of impact (see [3] for a recent review). Note that to characterize impact empirically, one has to specify two timescales: (i) the "elementary" timescale
+   <math display="inline">
+    \Delta t
+   </math>
+   over which trades are aggregated; (ii) the timescale
+   <math display="inline">
+    T
+   </math>
+   over which the impact of the initial trade is measured.
+  </p>
+  <h4>
+   Concave Volume Dependence
+  </h4>
+  <p block-type="Text">
+   The Kyle model assumes linear dependence of impact on the traded volume. One can measure
+  </p>
+  <p block-type="TextInlineMath">
+   the volume-dependent instantaneous impact function
+   <math display="inline">
+    R(T = \Delta t, v)
+   </math>
+   for different elementary timescales
+   <math display="inline">
+    \Delta t
+   </math>
+   , ranging from the average transaction time to several hours or days. One typically finds that the volume dependence of this impact is
+   <i>
+    sublinear
+   </i>
+   and well described by a power-law:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(T = \Delta t, v) \propto v^{\psi(\Delta t)}; \qquad \psi(\Delta t) \le 1 \quad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The exponent
+   <math display="inline">
+    \psi
+   </math>
+   increases with the elementary timescale, taking rather small values
+   <math display="inline">
+    \psi \simeq 0.1 \rightarrow 0.3
+   </math>
+   for individual trades, and increasing toward
+   <math display="inline">
+    \psi = 1
+   </math>
+   when
+   <math display="inline">
+    \Delta t
+   </math>
+   corresponds to several thousands of trades, with some concavity remaining for large volumes [14, 20]. The correlation coefficient
+   <math display="inline">
+    \rho(T = \Delta t)
+   </math>
+   similarly increases as
+   <math display="inline">
+    \Delta t
+   </math>
+   increases, and reaches rather large values
+   <math display="inline">
+    &gt; 0.5
+   </math>
+   for daily returns of individual stocks, futures, or currencies [5].
+  </p>
+  <p block-type="Text">
+   Note that the small value of
+   <math display="inline">
+    \psi
+   </math>
+   at the individual trade level means that impact is only weakly dependent on volume, in line with many studies that show a stronger correlation of price changes with the
+   <i>
+    number of trades
+   </i>
+   rather than with the traded volume [16]. The small value of
+   <math display="inline">
+    \psi
+   </math>
+   is often interpreted in terms of discretionary trading: large market orders are only submitted when there is a large prevailing volume at the best quote, a conditioning that mitigates the impact of these large orders.
+  </p>
+  <p block-type="TextInlineMath">
+   The above results are established using the total aggregated signed volumes, independent of the origin of the trades. Large brokerage or trading firms can also measure the price impact of their own trades; a concave impact function is usually observed with a value of
+   <math display="inline">
+    \psi
+   </math>
+   close to 1/2 [1] (see
+   <b>
+    Execution Costs
+   </b>
+   ). For example, the BARRA price impact model posits that, on a time interval
+   <math display="inline">
+    \Delta t
+   </math>
+   needed to complete a typical trade,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(\Delta t, v) = A\sigma \sqrt{\frac{v}{V}} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \sigma
+   </math>
+   is the volatility per unit time and V the traded volume per unit time, and
+   <math display="inline">
+    A
+   </math>
+   a numerical coefficient of order unity [2]. Different theoretical justifications for this square-root impact law are given in [2, 11] and [8].
+  </p>
+  <p block-type="Text">
+   In the case of stocks, one can also study empirically the influence of the market capitalization
+   <math display="inline">
+    M
+   </math>
+   . One finds that when
+   <math display="inline">
+    \Delta t
+   </math>
+   corresponds to a single trade, the data can be approximately rescaled as [18]
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(\Delta t, v) \approx M^{-0.3} F\left(M^{0.3} \frac{v}{\overline{v}}\right) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \overline{v}
+   </math>
+   is the average volume per trade for a given stock, and
+   <math display="inline">
+    F(.)
+   </math>
+   a master function that behaves as a power law with exponent
+   <math display="inline">
+    \psi
+   </math>
+   .
+  </p>
+  <h4>
+   Impact Cannot be Permanent
+  </h4>
+  <p block-type="Text">
+   As we observed above, a permanent impact model leads to unpredictable price changes only if the signed volume is uncorrelated. However, empirical data show that on a large variety of markets the autocorrelation of the signs
+   <math display="inline">
+    \epsilon_n
+   </math>
+   decays extremely slowly with time, over at least several days, representing thousands of trades or more [3]. The order flow is therefore found to be strongly persistent and predictable. This comes from the fact that even "highly liquid" markets only offer very small volumes for immediate execution. The fact that the outstanding liquidity is so small has an immediate consequence: trades must be fragmented, and need several hours, days, or even weeks to be completed. This clearly creates long memory in the sign of the order flow and shows that private information can only be slowly incorporated into prices. This observation, however, is incompatible with a permanent impact model such as equation (2), which would lead to trends, that is, strongly autocorrelated price changes.
+  </p>
+  <h4>
+   <i>
+    Nonlinear Transient Impact
+   </i>
+  </h4>
+  <p block-type="Text">
+   To reconcile persistent order flow with nearly unpredictable price changes, one can postulate a nonlinear, transient impact model that generalizes equation (2) above.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_T = p_{-\infty} + \lambda \sum_{n=-\infty}^{N-1} G(N-n)\epsilon_n v_n^{\psi} \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    G(\ell)
+   </math>
+   describes the temporal behavior of impact. One can show that it is possible to choose a certain
+   <i>
+    decaying shape
+   </i>
+   for the impact function
+   <math display="inline">
+    G(\ell)
+   </math>
+   such as to offset exactly the autocorrelation of the order flow and ensure that the price changes are white noise.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Assume for simplicity that volumes are all equal:
+   <math display="inline">
+    v_n \equiv v, \forall n
+   </math>
+   . One can then show that if
+   <math display="inline">
+    C(\ell) = E[\epsilon_n \cdot
+   </math>
+   <math display="inline">
+    \epsilon_{n+\ell}]
+   </math>
+   decays for large
+   <math display="inline">
+    \ell
+   </math>
+   as
+   <math display="inline">
+    \ell^{-\gamma}
+   </math>
+   with
+   <math display="inline">
+    \gamma &lt; 1
+   </math>
+   (typically
+   <math display="inline">
+    \gamma \approx 0.5
+   </math>
+   for stocks), then
+   <math display="inline">
+    G(\ell)
+   </math>
+   should itself decay to zero as
+   <math display="inline">
+    \ell^{-\beta}
+   </math>
+   with
+   <math display="inline">
+    \beta = (1 - \gamma)/2
+   </math>
+   [4]. A permanent impact component
+   <math display="inline">
+    G(\ell \to \infty) &gt; 0
+   </math>
+   is only compatible with the random nature of prices if
+   <math display="inline">
+    C(\ell)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   decays fast enough (
+   <i>
+    γ &gt;
+   </i>
+   1). Within this transient impact model with fixed volume of trades, the relation between the price impact function
+   <i>
+    R(T )
+   </i>
+   ,
+   <i>
+    G()
+   </i>
+   , and
+   <i>
+    C()
+   </i>
+   reads [4] as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(T = \ell \Delta t)
+   </math>
+   <br/>
+   =
+   <math>
+    \lambda v^{\psi} \bigg[ G(\ell) + \sum_{0 &lt; j &lt; \ell} G(\ell - j) C(j)
+   </math>
+   <br/>
+   +
+   <math>
+    \sum_{j &gt; 0} \big[ G_0(\ell + j) - G_0(j) \big] C(j) \bigg]
+   </math>
+   (12)
+  </p>
+  <p block-type="TextInlineMath">
+   In other words, the impact
+   <i>
+    G()
+   </i>
+   of a single trade in isolation is different from the directly measurable impact
+   <i>
+    R(T )
+   </i>
+   , which picks up contributions from the fact that trades tend to repeat themselves in the same direction.
+  </p>
+  <p block-type="TextInlineMath">
+   Note that even if the impact
+   <i>
+    G()
+   </i>
+   of an individual trade decays with time, one can show that both the total impact
+   <i>
+    R(T )
+   </i>
+   and the correlation
+   <i>
+    ρ(T )
+   </i>
+   defined by equation (6) tend to a nonzero limit when
+   <i>
+    T
+   </i>
+   is large, whenever the relation
+   <i>
+    β
+   </i>
+   =
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    γ )/
+   </i>
+   2 holds.
+  </p>
+  <p block-type="TextInlineMath">
+   Finally, we mentioned above that the linear impact model, corresponding to
+   <i>
+    ψ
+   </i>
+   = 1, is the only choice consistent with the absence of price manipulation strategies if impact is permanent (
+   <i>
+    β
+   </i>
+   = 0). But if impact is transient, other values of
+   <i>
+    ψ
+   </i>
+   ≤ 1 become acceptable. Gatheral has recently shown that if
+   <i>
+    β
+   </i>
+   +
+   <i>
+    ψ
+   </i>
+   ≥ 1, price manipulation is not possible [9].
+  </p>
+  <h3>
+   <i>
+    Surprise in the Order Flow
+   </i>
+  </h3>
+  <p block-type="TextInlineMath">
+   If one insists
+   <i>
+    a priori
+   </i>
+   that prices must follow a strict random walk, then only the
+   <i>
+    surprise
+   </i>
+   in the order flow can impact the price. In other words, the impact of the trades in the
+   <i>
+    n
+   </i>
+   th interval of time
+   <i>
+    t
+   </i>
+   should read (neglecting volume fluctuations) as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta p_n = \lambda v^{\psi} \left( \epsilon_n - E[\epsilon_n | I_{n-1}] \right) \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <i>
+    In
+   </i>
+   <sup>
+    −
+   </sup>
+   <sup>
+    1
+   </sup>
+   is the information set available just before the
+   <i>
+    n
+   </i>
+   th interval of time. If the
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   's are independent, then
+   <i>
+    E
+   </i>
+   [
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   |
+   <i>
+    In
+   </i>
+   −1] = 0 and one recovers the specification of the Kyle model. If, on the other hand, the
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   's are correlated, then one can form a prediction for the next value of
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   based on the past realizations
+   <i>
+    m&lt;n
+   </i>
+   , such that the surprise component
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   −
+   <i>
+    E
+   </i>
+   [
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   |
+   <i>
+    In
+   </i>
+   −1] is, by construction, uncorrelated for different times. Within this simplified framework,
+  </p>
+  <p block-type="TextInlineMath">
+   there are only two possible outcomes: either the sign of the
+   <i>
+    n
+   </i>
+   th transaction matches the sign of the predictor
+   <i>
+    E
+   </i>
+   [
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   |
+   <i>
+    In
+   </i>
+   −1], or the signs are opposite. It is easy to show that the more likely outcome, that is,
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   = sign
+   <i>
+    (E
+   </i>
+   [
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   |
+   <i>
+    In
+   </i>
+   −1]
+   <i>
+    )
+   </i>
+   , has the smaller impact [10]. Because of the positive correlation in order flow, the impact of a buy following a buy should be less than the impact of a sell following a buy–otherwise trends would appear. The detailed microstructural mechanism for such an history-dependent asymmetric impact is a topic of research (see [3] and references therein).
+  </p>
+  <p block-type="TextInlineMath">
+   Using a linear autoregression model for
+   <i>
+    E
+   </i>
+   [
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   |
+   <i>
+    In
+   </i>
+   −1] allows one to identify the above surprise model, equation (13), with the transient impact model of the previous section. Following Hasbrouck's VAR model [12], one may assume that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[\epsilon_n|I_{n-1}] = \sum_{j=1}^{\infty} a_j \epsilon_{n-j} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the coefficients
+   <i>
+    aj
+   </i>
+   can be computed from the sign autocorrelation
+   <i>
+    C()
+   </i>
+   using standard methods in filtering theory. Then the above transient impact model is precisely recovered provided the following identification holds:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(\ell) = 1 - \sum_{j=1}^{\ell-1} a_j \tag{15}
+   </math>
+  </p>
+  <h1>
+   <b>
+    Spread and Impact are Two Sides of the Same Coin
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Since MMs (or liquidity providers) cannot guess the surprise of the next trade, they post a bid price
+   <i>
+    bn
+   </i>
+   and an ask price
+   <i>
+    an
+   </i>
+   given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a_n = p_{n-1} + \lambda v^{\psi} \left( 1 - E[\epsilon_n | I_{n-1}] \right);
+   </math>
+   <br/>
+   <math display="block">
+    b_n = p_{n-1} + \lambda v^{\psi} \left( -1 - E[\epsilon_n | I_{n-1}] \right) \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   The above rule ensures no
+   <i>
+    ex post
+   </i>
+   regrets for the market maker: whatever the sign of the trade, the traded price is always the "right" one [19]. The bid– ask spread
+   <i>
+    S
+   </i>
+   is then given by:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S = a_n - b_n = 2\lambda v^{\psi} \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   showing that spread and impact are two sides of the same coin: liquidity providers must be compensated for the adverse impact of market order trades (see Adverse Selection: Limit Order Markets). Conversely, one sees that the impact of trades is expected to be proportional to the bid-ask spread, suggesting that the volatility per trade
+   <math display="inline">
+    \sigma_1
+   </math>
+   is also proportional to the bid-ask spread. Such a correlation is well supported by empirical data [21]. The relation with the volatility
+   <i>
+    per unit time
+   </i>
+   <math display="inline">
+    \sigma
+   </math>
+   involves the trading frequency f, through
+   <math display="inline">
+    \sigma = \sigma_1 \sqrt{f}
+   </math>
+   .
+  </p>
+  <h2>
+   Conclusion
+  </h2>
+  <p block-type="Text">
+   Although "price impact" seems to convey the idea of a forceful and intuitive mechanism, the story behind it might not be that simple. Empirical studies show that the correlation between signed order flow and price changes is indeed strong, but the impact of trades is neither linear in volume nor permanent, as assumed in several models, such as the Kyle model. Impact is rather found to be strongly concave in volume and transient, the latter property being a necessary consequence of the long-memory nature of the order flow. Only after averaging on a long timescale (on the order of days) may an effective linear and permanent model make sense. This is an important observation not only for monitoring and control of execution costs but also for building agent-based models of market activity that often posit linear and permanent impact. Coming back to Hasbrouck's [13] comment -do trades impact prices or do they
+   <i>
+    forecast
+   </i>
+   future price changes? Since trading on modern electronic markets is anonymous, there cannot be any obvious difference between "informed" trades and "uninformed" trades if the strategies used for their execution are similar. Hence, the impact of any trade must statistically be the same, whether informed or not informed. Impact indeed allows private information to be reflected in prices, but by the same token, random fluctuations in order flow (induced by noise traders) must also contribute to the volatility of markets.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;a.&lt;/sup&gt;
+   <math display="inline">
+    \epsilon = +1
+   </math>
+   if the volume of buys
+   <math display="inline">
+    v_b
+   </math>
+   is larger than the volume of sells
+   <math display="inline">
+    v_s
+   </math>
+   in the time interval
+   <math display="inline">
+    \Delta t
+   </math>
+   , and
+   <math display="inline">
+    \epsilon = -1
+   </math>
+   in the opposite case; and
+   <math display="inline">
+    v = |v_b - v_s|
+   </math>
+   .
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Almgren, R., Thum, C., Hauptmann, H.L. &amp; Li, H.
+     <math display="inline">
+      [1]
+     </math>
+     (2005). Equity market impact, Risk 18(7, July), 57-62.
+    </li>
+    <li block-type="ListItem">
+     BARRA (1997). Market Impact Model Handbook, Barra, [2] Berkeley.
+    </li>
+    <li block-type="ListItem">
+     Bouchaud, J.-P., Farmer, J.D. &amp; Lillo, F. (2009). How [3] markets slowly digest changes in supply and demand, in Handbook of Financial Markets: Dynamics and Evolution, T. Hens &amp; K. Schenk-Hoppe, eds, Elsevier, North-Holland.
+    </li>
+    <li block-type="ListItem">
+     Bouchaud, J.-P., Gefen, Y., Potters, M. &amp; Wyart, M. [4] (2004). Fluctuations and response in financial markets: the subtle nature of "random" price changes, Quantitative Finance
+     <math display="inline">
+      4(2)
+     </math>
+     , 176–190.
+    </li>
+    <li block-type="ListItem">
+     Evans, M. &amp; Lyons, R. (2002). Order flow and [5] exchange rate dynamics. Journal of Political Economy 110, 170–180.
+    </li>
+    <li block-type="ListItem">
+     Farmer, J.D. (2002). Market force, ecology and evolu-[6] tion, Industrial and Corporate Changes 11, 895–953.
+    </li>
+    <li block-type="ListItem">
+     [7] Farmer, J.D., Patelli, P. &amp; Zovko, I. (2005). The predictive power of zero intelligence in financial markets, Proceedings of National Academy of Sciences of USA 102, 2254-2259.
+    </li>
+    <li block-type="ListItem">
+     [8] Gabaix, X., Gopikrishnan, P., Plerou, V. &amp; Stanley, H. (2006). Institutional investors and stock market volatility, Quarterly Journal of Economics 121, 461-504.
+    </li>
+    <li block-type="ListItem">
+     [9] Gatheral, J. (2008). No dynamic arbitrage and market impact, Working Paper.
+    </li>
+    <li block-type="ListItem">
+     [10] Gerig, A. (2007). A Theory for Market Impact: How Order Flow Affects Stock Price. PhD thesis, University of Illinois (available at: arXiv:0804.3818).
+    </li>
+    <li block-type="ListItem">
+     [11] Grinold, R.C. &amp; Kahn, R.N. (1999). Active Portfolio Management, McGraw-Hill.
+    </li>
+    <li block-type="ListItem">
+     [12] Hasbrouck, J. (1991). Measuring the information-content of stock trades, Journal of Finance 46, 179-207.
+    </li>
+    <li block-type="ListItem">
+     [13] Hasbrouck, J. (2007).
+     <i>
+      Empirical Market Microstructure
+     </i>
+     , Oxford University Press.
+    </li>
+    <li block-type="ListItem">
+     [14] Hasbrouck, J. &amp; Seppi, D. (2001). Common factors in prices, order flows and liquidity, Journal of Financial Economics 59, 388-411.
+    </li>
+    <li block-type="ListItem">
+     [15] Huberman, G. &amp; Stanzl, W. (2004). Price manipulation and quasi-arbitrage,
+     <i>
+      Econometrica
+     </i>
+     74, 1247-1276.
+    </li>
+    <li block-type="ListItem">
+     Jones, C., Kaul, G. &amp; Lipson, M.L. (1994). Transactions, [16] volume, and volatility, Review of Financial Studies 7, 631-651.
+    </li>
+    <li block-type="ListItem">
+     [17] Kyle, A. (1985). Continuous auctions and insider trading, Econometrica 53, 1315-1335.
+    </li>
+    <li block-type="ListItem">
+     [18] Lillo, F., Farmer, J.D. &amp; Mantegna, R.N. (2003). Master curve for price impact function, Nature 421, 129-130.
+    </li>
+    <li block-type="ListItem">
+     [19] Madhavan, A., Richardson, M. &amp; Roomans, M. (1997). Why do security prices fluctuate? A transaction-level analysis of NYSE stocks, Review of Financial Studies 10, 1035-1064.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [20] Plerou, V., Gopikrishnan, P., Gabaix, X. &amp; Stanley, H.E. (2002). Quantifying stock price response to demand fluctuations,
+     <i>
+      Physical Review E
+     </i>
+     <b>
+      66
+     </b>
+     , 027104.
+    </li>
+    <li block-type="ListItem">
+     [21] Wyart, M., Bouchaud, J.-P., Kockelkoren, J., Potters, M. &amp; Vettorazzo, M. (2008). Relation between bid-ask spread, impact and volatility in double auction markets,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 41–57.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <b>
+    Related Articles
+   </b>
+  </p>
+  <p block-type="Text">
+   <b>
+    Algorithmic Trading
+   </b>
+   ;
+   <b>
+    Inventory Effects
+   </b>
+   ;
+   <b>
+    Kyle Model
+   </b>
+   ;
+   <b>
+    Liquidity
+   </b>
+   ;
+   <b>
+    Market Microstructure Effects
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   JEAN-PHILIPPE BOUCHAUD
+  </p>
+ </body>
+</html>

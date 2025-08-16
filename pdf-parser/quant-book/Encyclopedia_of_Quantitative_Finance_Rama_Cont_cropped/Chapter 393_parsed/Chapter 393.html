@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   Cramér's Theorem
+  </h2>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    X, X_1, X_2, \ldots
+   </math>
+   be independent and identically distributed (i.i.d.) random variables with partial sums
+   <math display="inline">
+    S_n = \sum_{k=1}^n X_k
+   </math>
+   and empirical means
+   <math display="inline">
+    \hat{S}_n = n^{-1} S_n
+   </math>
+   for
+   <math display="inline">
+    n = 1, 2, \dots
+   </math>
+   Assuming a finite mean
+   <math display="inline">
+    \mu = E[X]
+   </math>
+   , by the law of large numbers, it holds for every
+   <math display="inline">
+    x &gt; \mu
+   </math>
+   that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} P\left(\hat{S}_n &gt; x\right) = 0\tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Cramér's theorem refines this result by identifying an exact exponential decay rate of the small probability in equation (1). Note that the central limit theorem cannot, in general, capture this subtle decay rate because the central limit theorem focuses on averagesized fluctuations while the rare event
+   <math display="inline">
+    (\hat{S}_n &gt; x)
+   </math>
+   is mainly determined by large values of the random variables
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Study of the probability of such a rare event has important applications in insurance and finance. For example, in insurance context, we may understand the random variables
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   as respective claim amounts of
+   <math display="inline">
+    n
+   </math>
+   policy holders during a time period or of a single policy holder during
+   <math display="inline">
+    n
+   </math>
+   time periods. The event
+   <math display="inline">
+    (\hat{S}_n &gt; x)
+   </math>
+   with
+   <math display="inline">
+    x \ge \mu + \delta
+   </math>
+   , where
+   <math display="inline">
+    \delta &gt; 0
+   </math>
+   is interpreted as the safety loading, describes a critical situation that the insurance company loses money. To make sure that the probability of this rare event is sufficiently small, we need to determine what value of
+   <math display="inline">
+    \delta
+   </math>
+   is appropriate. A good approximation for the probability
+   <math display="inline">
+    P(\hat{S}_n &gt; x)
+   </math>
+   enables us to get a simple yet powerful solution to this problem.
+  </p>
+  <p block-type="TextInlineMath">
+   Let us take another example from financial risk management. Denote by
+   <math display="inline">
+    Q_{\alpha}[S_n]
+   </math>
+   and
+   <math display="inline">
+    CTE_{\alpha}[S_n]
+   </math>
+   , respectively, the quantile (value at risk) and conditional tail expectation of the sum
+   <math display="inline">
+    S_n
+   </math>
+   of
+   <math display="inline">
+    n
+   </math>
+   risk variables, where
+   <math display="inline">
+    \alpha \in (0, 1)
+   </math>
+   represents the confidence level, usually chosen to be close to 1 (see Value-at-Risk and Expected Shortfall). By definition,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q_{\alpha} [S_n] = \inf \{ y : P(S_n &gt; y) \le 1 - \alpha \} \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{CTE}_{\alpha} \left[ S_n \right] = E \left[ S_n | S_n &gt; Q_{\alpha} \left[ S_n \right] \right]
+   </math>
+   <math display="block">
+    = Q_{\alpha} \left[ S_n \right] + \frac{\int_{Q_{\alpha} \left[ S_n \right]}^{\infty} P \left( S_n &gt; y \right) \mathrm{d}y}{P \left( S_n &gt; Q_{\alpha} \left[ S_n \right] \right)} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   Hence, an efficient approximation for the probability in equation (1) is desired for calculation of both
+   <math display="inline">
+    Q_{\alpha} [S_n]
+   </math>
+   and
+   <math display="inline">
+    CTE_{\alpha} [S_n]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Define the cumulant generating function of
+   <math display="inline">
+    X
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Lambda(\lambda) = \ln E\left[e^{\lambda X}\right], \qquad \lambda \in \mathbb{R} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that
+   <math display="inline">
+    \Lambda(0) = 0
+   </math>
+   and
+   <math display="inline">
+    -\infty &lt; \Lambda(\lambda) &lt; \infty
+   </math>
+   for all
+   <math display="inline">
+    \lambda \in \mathbb{R}.
+   </math>
+   Further define the Fenchel–Legendre transform of
+   <math display="inline">
+    \Lambda(\cdot)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Lambda^*(x) = \sup_{\lambda \in \mathbb{R}} \left\{ \lambda x - \Lambda(\lambda) \right\}, \qquad x \in \mathbb{R} \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It can be shown that both
+   <math display="inline">
+    \Lambda(\cdot)
+   </math>
+   and
+   <math display="inline">
+    \Lambda^*(\cdot)
+   </math>
+   are convex (but not necessarily strictly convex) functions on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   and that
+   <math display="inline">
+    \Lambda^*(\cdot)
+   </math>
+   is lower semicontinuous (i.e.,
+   <math display="inline">
+    \Lambda^*(\cdot)
+   </math>
+   takes values in
+   <math display="inline">
+    [0,\infty]
+   </math>
+   and is such that, for every
+   <math display="inline">
+    y \in [0, \infty)
+   </math>
+   , the level set
+   <math display="inline">
+    \{x : \Lambda^*(x) \le y\}
+   </math>
+   is closed).
+  </p>
+  <p block-type="Text">
+   The following are some concrete and easily verifiable examples for
+   <math display="inline">
+    \Lambda^*(\cdot)
+   </math>
+   (see, e.g., page 35 of [3]):
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. If
+     <math display="inline">
+      X
+     </math>
+     follows a Poisson distribution with mean
+     <math display="inline">
+      \theta &gt; 0
+     </math>
+     then
+     <math display="inline">
+      \Lambda^*(x) = \theta - x + x \ln \frac{x}{\theta}
+     </math>
+     for
+     <math display="inline">
+      x \ge 0
+     </math>
+     and
+     <math display="inline">
+      \Lambda^*(x) = \infty
+     </math>
+     otherwise.
+    </li>
+    <li block-type="ListItem">
+     2. If
+     <math display="inline">
+      X
+     </math>
+     follows a Bernoulli distribution with success probability
+     <math display="inline">
+      p \in (0, 1)
+     </math>
+     then
+     <math display="inline">
+      \Lambda^*(x) = x \ln \frac{x}{p} +
+     </math>
+     <math display="inline">
+      (1-x)\ln\frac{1-x}{1-p} \text{ for } x \in [0,1] \text{ and } \Lambda^*(x) = \infty
+     </math>
+     otherwise.
+    </li>
+    <li block-type="ListItem">
+     3. If
+     <math display="inline">
+      X
+     </math>
+     follows an exponential distribution with mean
+     <math display="inline">
+      1/\theta
+     </math>
+     then
+     <math display="inline">
+      \Lambda^*(x) = \theta x - 1 - \ln(\theta x)
+     </math>
+     for
+     <math display="inline">
+      x &gt; 0
+     </math>
+     and
+     <math display="inline">
+      \Lambda^*(x) = \infty
+     </math>
+     otherwise.
+    </li>
+    <li block-type="ListItem">
+     4. If X follows a normal distribution with mean
+     <math display="inline">
+      \mu
+     </math>
+     and variance
+     <math display="inline">
+      \sigma^2
+     </math>
+     then
+     <math display="inline">
+      \Lambda^*(x) = \frac{(x-\mu)^2}{2\sigma^2}
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   For a Borel set
+   <math display="inline">
+    \Gamma
+   </math>
+   , denote by
+   <math display="inline">
+    \Gamma
+   </math>
+   and
+   <math display="inline">
+    \overline{\Gamma}
+   </math>
+   its interior and closure, respectively. Throughout, inf
+   <math display="inline">
+    \oslash = \infty
+   </math>
+   , by convention.
+  </p>
+  <p block-type="Text">
+   Cramér's Theorem For every Borel set
+   <math display="inline">
+    \Gamma
+   </math>
+   with nonempty interior.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} -\inf_{x \in \dot{\Gamma}} \Lambda^*(x) &amp;\leq \liminf_{n \to \infty} \frac{1}{n} \ln P\left(\hat{S}_n \in \Gamma\right) \\ &amp;\leq \limsup_{n \to \infty} \frac{1}{n} \ln P\left(\hat{S}_n \in \Gamma\right) \\ &amp;\leq -\inf_{x \in \bar{\Gamma}} \Lambda^*(x) \end{split} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A sequence of probability measures,
+   <math display="inline">
+    \{P_n\}
+   </math>
+   , is said to satisfy the large deviation principle (see Large
+   <b>
+    Deviations
+   </b>
+   ) with a rate function
+   <math display="inline">
+    I(\cdot)
+   </math>
+   if, for every Borel set
+   <math display="inline">
+    \Gamma
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\inf_{x\in\dot{\Gamma}}I(x) \leq \liminf_{n\to\infty}\frac{1}{n}\ln P_n\left(\Gamma\right)
+   </math>
+   <br/>
+   <math display="block">
+    \leq \limsup_{n\to\infty}\frac{1}{n}\ln P_n\left(\Gamma\right) \leq -\inf_{x\in\bar{\Gamma}}I(x)
+   </math>
+   <br/>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   Thus, Cramér's theorem shows that the probability laws of the empirical means
+   <math display="inline">
+    \hat{S}_n
+   </math>
+   satisfy the large deviation principle with rate function
+   <math display="inline">
+    \Lambda^*(\cdot)
+   </math>
+   (see Large Deviations).
+  </p>
+  <p block-type="TextInlineMath">
+   Note that Cramér's theorem does not require
+   <math display="inline">
+    \Lambda(\lambda) &lt; \infty
+   </math>
+   for all
+   <math display="inline">
+    \lambda \in \mathbb{R}
+   </math>
+   . It is applicable even when the mean of X does not exist. For
+   <math display="inline">
+    \mu \in \Gamma
+   </math>
+   , Cramér's theorem does not contribute because both sides of equation (6) turn out to be zero. If
+   <math display="inline">
+    \inf_{x \in \mathring{\Gamma}} \Lambda^*(x) =
+   </math>
+   <math display="inline">
+    \inf_{x\in\bar{\Gamma}} \Lambda^*(x)
+   </math>
+   , as is often the case in applications, then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} \frac{1}{n} \ln P\left(\hat{S}_n \in \Gamma\right) = -\inf_{x \in \Gamma} \Lambda^*(x) \qquad (8)
+   </math>
+  </p>
+  <p block-type="Text">
+   or, equivalently,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P\left(\hat{S}_n \in \Gamma\right) = \exp\left\{-n\left(\inf_{x \in \Gamma} \Lambda^*(x) + o(1)\right)\right\} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    o(1)
+   </math>
+   tends to 0 as
+   <math display="inline">
+    n \to \infty
+   </math>
+   . It can be shown that, for every real number
+   <math display="inline">
+    y
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} \frac{1}{n} \ln P\left(\hat{S}_n \ge y\right) = -\inf_{x \ge y} \Lambda^*(x) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   see, for example, Corollary 2.2.19 of [3].
+  </p>
+  <p block-type="Text">
+   The first statement of Cramér's theorem for distributions possessing densities was given by Cramér [2], who applied it to model the insurance business (see Cramér-Lundberg Estimates). This is the first rigorous result concerning large deviations and is viewed as the historical starting point of large deviation theory. An extension to general distributions was done by Chernoff [1]. Cramér's theorem is also often cited as the Cramér-Chernoff theorem in the literature of large deviation theory.
+  </p>
+  <p block-type="Text">
+   Various versions of Cramér's theorem have been included in many monographs in large deviation theory. This most general version of Cramér's theorem is due to [3]. Textbook treatments of Cramér's theorem can be found in
+   <math display="inline">
+    [6, 16]
+   </math>
+   , and
+   <math display="inline">
+    [10]
+   </math>
+   , among others.
+  </p>
+  <p block-type="Text">
+   A similar result for the empirical means of i.i.d. random vectors in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   has been established. A further extension to dependent, not necessarily identically distributed, random vectors in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   leads to the Gärtner-Ellis theorem.
+  </p>
+  <h2>
+   Large Deviations Without Cramér's Condition
+  </h2>
+  <p block-type="TextInlineMath">
+   Note that if
+   <math display="inline">
+    \Lambda(\lambda) = \infty
+   </math>
+   for all
+   <math display="inline">
+    \lambda \neq 0
+   </math>
+   , then
+   <math display="inline">
+    \Lambda^*(x) = 0
+   </math>
+   for all
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   and consequently equation (7) gives a trivial approximation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} \frac{1}{n} \ln P\left(\hat{S}_n \in \Gamma\right) = 0 \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Similarly, if
+   <math display="inline">
+    \Lambda(\lambda) = \infty
+   </math>
+   for all
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   , then
+   <math display="inline">
+    \Lambda^*(x) = 0
+   </math>
+   for all
+   <math display="inline">
+    x &gt; \mu
+   </math>
+   and, in this case, Cramér's theorem leads to equation (11) with
+   <math display="inline">
+    \Gamma = [\mu, \infty)
+   </math>
+   , while if
+   <math display="inline">
+    \Lambda(\lambda) = \infty
+   </math>
+   for all
+   <math display="inline">
+    \lambda &lt; 0
+   </math>
+   then
+   <math display="inline">
+    \Lambda^*(x) = 0
+   </math>
+   for all
+   <math display="inline">
+    x &lt; 0
+   </math>
+   <math display="inline">
+    \mu
+   </math>
+   and in this case Cramér's theorem leads to equation (11) with
+   <math display="inline">
+    \Gamma = (-\infty, \mu]
+   </math>
+   . To avoid such trivialities, it is necessary to assume
+   <math display="inline">
+    \Lambda(\lambda) &lt; \infty
+   </math>
+   in a neighborhood of
+   <math display="inline">
+    \lambda = 0
+   </math>
+   , which is usually referred to as
+   <i>
+    Cramér's
+   </i>
+   condition.
+  </p>
+  <p block-type="TextInlineMath">
+   Study of large deviations for heavy-tailed random variables for which Cramér's condition is violated forms another important part of large deviation theory. The concept of subexponentiality plays a central role during the study in this direction. By definition, the common distribution of i.i.d. random variables
+   <math display="inline">
+    X
+   </math>
+   ,
+   <math display="inline">
+    X_1, X_2, \ldots
+   </math>
+   is said to be subexponential (on the right)
+  </p>
+  <p block-type="Text">
+   if the relation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{x \to \infty} \frac{P\left(\sum_{k=1}^{n} X_{k}^{+} &gt; x\right)}{P\left(X^{+} &gt; x\right)} = n \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   holds for some (or, equivalently, for all)
+   <math display="inline">
+    n = 2, 3, \ldots
+   </math>
+   where
+   <math display="inline">
+    X^+ = \max\{X, 0\}
+   </math>
+   (see Heavy Tails in Insurance). We remark that many popular distributions such as Pareto, lognormal, and heavy-tailed Weibull distributions are subexponential; see, for example, [5]. The very definition of subexponentiality opens a natural way to establish
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} \sup_{x \ge x_n} \left| \frac{P(S_n &gt; x)}{nP(X &gt; x)} - 1 \right| = 0 \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   for appropriate constants
+   <math display="inline">
+    x_n
+   </math>
+   serving as a threshold. The uniform asymptotic relation
+   <math display="inline">
+    (13)
+   </math>
+   is at the core of the mainstream study of large deviations in the presence of heavy tails. We usually say that results like equation
+   <math display="inline">
+    (13)
+   </math>
+   give precise asymptotics for large deviations while results like equations
+   <math display="inline">
+    (6)
+   </math>
+   and
+   <math display="inline">
+    (10)
+   </math>
+   give rough asymptotics for large deviations.
+  </p>
+  <p block-type="Text">
+   Pioneering works in the study of precise large deviations include
+   <math display="inline">
+    [12, 13]
+   </math>
+   and
+   <math display="inline">
+    [7-9]
+   </math>
+   . Overviews are available in [14] and [11], the latter of which contains a table summarizing choices of the threshold sequence
+   <math display="inline">
+    \{x_n\}
+   </math>
+   in equation (13) for most subexponential distributions. Some recent developments of precise large deviations can be found in
+   <math display="inline">
+    [15]
+   </math>
+   and
+   <math display="inline">
+    [4]
+   </math>
+   , among others.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Chernoff, H. (1952). A measure of asymptotic efficiency for tests of a hypothesis based on the sum of observations, Annals of Mathematical Statistics 23, 493-507.
+    </li>
+    <li block-type="ListItem">
+     [2] Cramér, H. (1938). Sur un nouveau théorème-limite de la théorie des probabilités, Actualités Scientifiques et Industrielles. 736, 5-23.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Dembo, A. &amp; Zeitouni, O. (1998). Large Deviations [3] Techniques and Applications, 2nd Edition, Springer-Verlag, New York.
+    </li>
+    <li block-type="ListItem">
+     Denisov, D., Dieker, A.B. &amp; Shneer, V. (2008). Large [4] deviations for random walks under subexponentiality: the big-jump domain, The Annals of Probability 36, 1946-1991
+    </li>
+    <li block-type="ListItem">
+     [5] Embrechts, P., Klüppelberg, C. &amp; Mikosch, T. (1997). Modelling Extremal Events for Insurance and Finance, Springer-Verlag, Berlin.
+    </li>
+    <li block-type="ListItem">
+     Gulinsky, O.V. &amp; Veretennikov, A.Y. (1993). Large [6] Deviations for Discrete-time Processes with Averaging, VSP, Utrecht.
+    </li>
+    <li block-type="ListItem">
+     [7] Heyde, C.C. (1967). A contribution to the theory of large deviations for sums of independent random variables. Zeitschrift für Wahrscheinlichkeitstheorie und Verwandte Gebiete 7, 303-308.
+    </li>
+    <li block-type="ListItem">
+     Heyde, C.C. (1967). On large deviation problems for [8] sums of random variables which are not attracted to the normal law, Annals of Mathematical Statistics 38, 1575-1578.
+    </li>
+    <li block-type="ListItem">
+     Heyde, C.C. (1968). On large deviation probabilities [9] in the case of attraction to a non-normal stable law, Sankhyā Series A 30, 253-258.
+    </li>
+    <li block-type="ListItem">
+     [10] Klenke, A. (2008).
+     <i>
+      Probability Theory—A Comprehen
+     </i>
+     sive Course, Springer-Verlag London, Ltd., London.
+    </li>
+    <li block-type="ListItem">
+     [11] Mikosch, T. &amp; Nagaev, A.V. (1998). Large deviations of heavy-tailed sums with applications in insurance, Extremes 1, 81-110.
+    </li>
+    <li block-type="ListItem">
+     [12] Nagaev, A.V. (1969). Integral limit theorems with regard to large deviations when Cramér's condition is not satisfied,
+     <i>
+      Theory of Probability and its Applications
+     </i>
+     <b>
+      14
+     </b>
+     ,
+     <math display="inline">
+      51 - 64.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [13] Nagaev, A.V. (1969). Integral limit theorems with regard to large deviations when Cramér's condition is not satisfied, Theory of Probability and its Applications 14, 193-208.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      [14]
+     </math>
+     Nagaev, S.V. (1979). Large deviations of sums of independent random variables, Annals of Probability 7,
+     <math display="inline">
+      745 - 789
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [15] Tang, Q. (2006). Insensitivity to negative dependence of the asymptotic behavior of precise large deviations, Electronic Journal of Probability 11, 107-120.
+    </li>
+    <li block-type="ListItem">
+     [16] Varadhan, S.R.S. (1984). Large Deviations and Applications, SIAM, Philadelphia, PA.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <b>
+    QIHE TANG
+   </b>
+  </p>
+ </body>
+</html>

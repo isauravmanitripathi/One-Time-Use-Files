@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Correlation Risk
+   </b>
+  </h1>
+  <h2>
+   Correlation
+  </h2>
+  <p block-type="Text">
+   Correlation is a well-known concept for measuring the linear relationship between two or more variables. It plays a major role in a number of classical approaches in finance: the capital asset pricing model (see Capital Asset Pricing Model) as well as arbitrage pricing theory (APT) rely on correlation as a measure for the dependence of financial assets (see [4]). In the multivariate Black-Scholes model correlation of the log-returns is used as a measure of the dependence between assets, [2, 5, 14]. The main reason for the importance of correlation in these frameworks is that the considered random variables
+   <math display="inline">
+    (rvs)
+   </math>
+   obey—under an appropriate transformation—a multivariate normal distribution. Correlation is moreover a key driver in portfolio credit models, and the term default correlation has been coined for this. Correlation as a measure of dependence fully determines the dependence structure for normal distributions and, more generally, elliptical distributions while it fails to do so outside this class. Even within this class, correlation has to be handled with care; while a correlation of zero for multivariate normally distributed rvs implies independence, a correlation of zero for, say,
+   <math display="inline">
+    t
+   </math>
+   -distributed rvs does
+   <i>
+    not
+   </i>
+   imply independence (compare the following paragraph on correlation pitfalls). More general measures of dependence help to avoid these pitfalls. Examples of more general measures for dependence are rank correlation, the coefficient of tail dependence, and association (see Copulas: Estimation).
+  </p>
+  <p block-type="Text">
+   Hence, approaches relying on multivariate Brownian motions and transformations thereof naturally determine the dependence structure via correlation. Extending this, there are a number of approaches generalizing the simple linear correlation to a timevarying and stochastic concept (see [3, 8] and references therein).
+  </p>
+  <p block-type="Text">
+   For two random variables
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   with finite and positive variances, their
+   <i>
+    correlation
+   </i>
+   is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Corr(X, Y) = \frac{Cov(X, Y)}{\sqrt{Var(X) \cdot Var(Y)}}
+   </math>
+   (1)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Cov(X, Y) = \mathbb{E}\Big[(X - \mathbb{E}(X)), (Y - \mathbb{E}(Y))\Big] \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is the
+   <i>
+    covariance
+   </i>
+   of
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   . We state some properties of correlation:
+   <math display="inline">
+    Corr(X, Y)
+   </math>
+   is a number in
+   <math display="inline">
+    [-1, 1]
+   </math>
+   and it is equal to 1 or
+   <math display="inline">
+    -1
+   </math>
+   if and only if X and Y are linearly related, that is,
+   <math display="inline">
+    Y = a + b X
+   </math>
+   for constants a, b with
+   <math display="inline">
+    b \neq 0
+   </math>
+   . The correlation is
+   <math display="inline">
+    -1
+   </math>
+   if
+   <math display="inline">
+    b &lt; 0
+   </math>
+   and 1 if
+   <math display="inline">
+    b &gt; 0
+   </math>
+   . For constants a, b
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Corr(X + a, Y + b) = Corr(X, Y)
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   If X and Y are independent, then
+   <math display="inline">
+    Corr(X, Y) = 0
+   </math>
+   . On the other hand, if
+   <math display="inline">
+    Corr(X, Y) = 0
+   </math>
+   , X and Y are called
+   <i>
+    uncorrelated
+   </i>
+   . In the case when
+   <math display="inline">
+    (X, Y)
+   </math>
+   has a bivariate normal distribution, this implies independence of
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   . Otherwise, this implication is typically wrong: even when
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   are normally distributed (but
+   <math display="inline">
+    (X, Y)
+   </math>
+   does not have a bivariate normal distribution—compare copulas and dependence measurement for an exposition how this may be achieved using copulas),
+   <math display="inline">
+    Corr(X, Y) = 0
+   </math>
+   does not imply independence.
+  </p>
+  <p block-type="Text">
+   For two random variables belonging to a given class of elliptical distributions,&lt;sup&gt;a&lt;/sup&gt; which includes the normal distribution and the Student
+   <math display="inline">
+    t
+   </math>
+   -distribution, correlation fully determines the dependence structure. However, note that uncorrelated
+   <math display="inline">
+    t
+   </math>
+   -distributed random variables are
+   <i>
+    not
+   </i>
+   independent.
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    X
+   </math>
+   is
+   <math display="inline">
+    m
+   </math>
+   -dimensional and
+   <math display="inline">
+    Y
+   </math>
+   <math display="inline">
+    n
+   </math>
+   -dimensional, then
+   <math display="inline">
+    Cov(X, Y)
+   </math>
+   is given by the
+   <math display="inline">
+    m \times n
+   </math>
+   -matrix with entries
+   <math display="inline">
+    \text{Cov}(X_i, Y_i)
+   </math>
+   .
+   <math display="inline">
+    \Sigma = \text{Cov}(X, X)
+   </math>
+   is called
+   <i>
+    covariance matrix
+   </i>
+   .
+   <math display="inline">
+    \Sigma
+   </math>
+   is symmetric and positive semidefinite, that is,
+   <math display="inline">
+    x^{\top} \Sigma x &gt; 0
+   </math>
+   for all
+   <math display="inline">
+    x \in \mathbb{R}^m
+   </math>
+   . Moreover, one has
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Cov(\mathbf{a} + BX, \mathbf{c} + DY) = B Cov(X, Y)D^{\top} \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    \mathbf{a} \in \mathbb{R}^o
+   </math>
+   ,
+   <math display="inline">
+    \mathbf{c} \in \mathbb{R}^p
+   </math>
+   ,
+   <math display="inline">
+    B \in \mathbb{R}^{o \times m}
+   </math>
+   ,
+   <math display="inline">
+    D \in \mathbb{R}^{p \times n}
+   </math>
+   . Similarly,
+   <math display="inline">
+    Corr(X, Y)
+   </math>
+   has the entries
+   <math display="inline">
+    Corr(X_i, Y_i)
+   </math>
+   ,
+   <math display="inline">
+    1 &lt;
+   </math>
+   <math display="inline">
+    i \leq m, 1 \leq j \leq n
+   </math>
+   . The
+   <i>
+    correlation matrix
+   </i>
+   of X is
+   <math display="inline">
+    Corr(X, X)
+   </math>
+   . It is again symmetric and positive semidefinite. Correlation is invariant under linear increasing transformations such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Corr(a + bX, c + dY) = Corr(X, Y)
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   if
+   <math display="inline">
+    bc &gt; 0
+   </math>
+   . If
+   <math display="inline">
+    bc &lt; 0
+   </math>
+   only the sign of the correlation changes.
+  </p>
+  <h2>
+   Correlation Pitfalls
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   When correlation is used as a measure of dependence a number of pitfalls arise; compare [7] or [13], Chapter 5.2.1 for a detailed exposition. In the following,
+  </p>
+  <p block-type="Text">
+   we list the typical pitfalls and give a hint why difficulties may arise when linear correlation is used.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. A correlation of 0 is not equivalent to inde
+     <i>
+      pendence.
+     </i>
+     For
+     <math display="inline">
+      (X, Y)
+     </math>
+     being jointly normal,
+     <math display="inline">
+      Corr(X, Y) = 0
+     </math>
+     implies independency of X and
+     <math display="inline">
+      Y
+     </math>
+     . In general this is not true; even perfectly related rvs can have zero correlation; consider
+     <math display="inline">
+      X \sim \mathcal{N}(0, 1)
+     </math>
+     and
+     <math display="inline">
+      Y = X^2
+     </math>
+     . Then
+     <math display="inline">
+      \text{Corr}(X, Y) = 0
+     </math>
+     and
+     <math display="inline">
+      X
+     </math>
+     and
+     <math display="inline">
+      Y
+     </math>
+     are clearly not independent.
+    </li>
+    <li block-type="ListItem">
+     2. Correlation is invariant under linear transformations, but not under general transformations. For example, two lognormal rvs have a different correlation than the underlying normal rvs; compare Example 5.26 in [13].
+    </li>
+    <li block-type="ListItem">
+     3. For given distributions of
+     <math display="inline">
+      X
+     </math>
+     and
+     <math display="inline">
+      Y
+     </math>
+     and some given correlation in
+     <math display="inline">
+      [-1, 1]
+     </math>
+     it is, in general, not possible to construct a joint distribution. For example, if
+     <math display="inline">
+      X
+     </math>
+     and
+     <math display="inline">
+      Y
+     </math>
+     are lognormally distributed, the interval of attainable correlations is a strict subset of
+     <math display="inline">
+      [-1, 1]
+     </math>
+     and becomes smaller with increasing volatility; compare again Example 5.26 in [13].
+    </li>
+    <li block-type="ListItem">
+     4. A small correlation does not imply a small degree of dependency. This is, in particular, implied by observation 3, and so it is, in general, wrong to deduce a small degree of dependency from a small correlation.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   Stylized Facts
+  </h2>
+  <p block-type="Text">
+   Asset correlation shows two typical stylized feat
+   <math display="inline">
+    ures:
+    <sup>
+     b
+    </sup>
+   </math>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <i>
+      Correlation clustering
+     </i>
+     : periods of high (low) correlation are likely to be followed by periods of high (low) correlation.
+    </li>
+    <li block-type="ListItem">
+     2. Asymmetry and comovement with volatility: high volatility in falling markets goes hand in hand with a strong increase in correlation, but this is not the case for rising markets; see [12] or [1].
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   In [15] the 1987 crash is analyzed and correlation risk is identified as a reason of simultaneous stockmarket declines and volatility increases. Notably, this reduces opportunities for diversification in stockmarket declines.
+  </p>
+  <h4>
+   Estimating Correlation
+  </h4>
+  <p block-type="Text">
+   The estimation of correlation in financial data is a delicate task as the underlying distribution typically has heavy tails. If this is the case, it is preferable to use robust methods in comparison to nonrobust methods like the sample correlation. Evidence of the efficiency of robust methods like Kendall's rank correlation coefficient is provided in [13], Section 3.3.4. Acknowledging that correlation changes over time, a number of approaches for dynamic correlation have been developed; see, for example, [3, 8] and references therein.
+  </p>
+  <h2>
+   <b>
+    Correlation Risk
+   </b>
+  </h2>
+  <p block-type="Text">
+   <i>
+    Correlation risk
+   </i>
+   refers to the risk of a financial loss when correlation in the market changes. It plays a central role in risk management and the pricing of basket derivatives.
+  </p>
+  <h4>
+   Risk Management
+  </h4>
+  <p block-type="Text">
+   In risk management, correlation risk refers to the risk of a loss in a financial position occurring due to a difference between anticipated correlation and realized correlation. In particular, this occurs when the estimate of correlation was wrong or the correlation in the market changed.
+  </p>
+  <p block-type="TextInlineMath">
+   The risk management of a portfolio as well as portfolio optimization heavily depends on the used correlation. This is illustrated by the following simple example: assume that a financial position is given by portfolio weights
+   <math display="inline">
+    w_1, \ldots, w_d
+   </math>
+   and the distribution of the assets
+   <math display="inline">
+    X
+   </math>
+   is multivariate normal. Then the profit and loss (P&amp;L) of the position is
+   <math display="inline">
+    \sum_{i=1}^{d} w_i X_i
+   </math>
+   , and is hence normally distributed with mean
+   <math display="inline">
+    \sum_{i=1}^{d} w_i E(X_i)
+   </math>
+   and variance
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{i,j=1}^{d} w_i w_j \operatorname{Cov}(X_i, X_j) \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which equals
+   <math display="inline">
+    \sum_{i=1}^{d} w_i^2 \text{Var}(X_i)
+   </math>
+   if the positions are uncorrelated. Otherwise, the Value at Risk depends on the correlations of all assets and therefore a change in the correlation may significantly alter the risk of the position.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In the elliptical world, the use of coherent risk measures is related to the Markowitz approach where
+  </p>
+  <p block-type="Text">
+   the variance is used as a risk measure; see [13], Section 6.1.5. The effects of stochastic correlation on hedging strategies have also been considered in [9]. Section 5 therein also gives some examples on stochastic correlation.
+  </p>
+  <h2>
+   <i>
+    Basket Derivatives
+   </i>
+  </h2>
+  <p block-type="Text">
+   If the pricing of basket derivatives (
+   <i>
+    see
+   </i>
+   <b>
+    Foreign Exchange Basket Options
+   </b>
+   ;
+   <b>
+    Basket Options
+   </b>
+   ) is considered, the value of the derivative itself depends on the (unknown) correlation. In this case, correlation risk refers to the change in the value of the derivative with changing correlation. Note that in contrast to the first example, already the
+   <i>
+    value
+   </i>
+   of the derivative itself depends on the correlation. Options of this kind typically are traded in interest markets, foreign exchange markets, or credit markets, examples being quanto (
+   <i>
+    see
+   </i>
+   <b>
+    Quanto Options
+   </b>
+   ) options, rainbow options, spread options, or collateralized debt obligations (
+   <i>
+    see
+   </i>
+   <b>
+    Collateralized Debt Obligations (CDO)
+   </b>
+   ). In particular, in credit markets, the term
+   <i>
+    default correlation
+   </i>
+   has been coined and contagion and dependencies play a central role. For more references on the role of default correlation risk in credit risky markets, see [10, 11].
+  </p>
+  <p block-type="Text">
+   By analyzing prices of options on single names and on market indices, Driessen
+   <i>
+    et al.
+   </i>
+   [6] show that correlation risk is priced in the options markets. Practitioners trade priced correlation risk by using short positions in index options and long positions in individual options, which is called
+   <i>
+    dispersion trading
+   </i>
+   (
+   <i>
+    see
+   </i>
+   <b>
+    Dispersion Trading
+   </b>
+   ). A similar position can be taken with a correlation swap (
+   <i>
+    see
+   </i>
+   <b>
+    Correlation Swap
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   In particular, in credit markets, contagion and dependencies play a central role. For more references on the role of default correlation risk in credit risky markets, see [10, 11].
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   Compare [13], Theorem 3.25. Section 3.3 therein gives a short introduction to elliptical distributions. b
+   <i>
+    .
+   </i>
+   See, for example, [16] and references therein.
+  </p>
+  <p block-type="Text">
+   <b>
+    References
+   </b>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   [1] Andersen, T.G., Bollerslev, T., Diebold, F.X. &amp; Ebense, H. (2001). The distribution of realized stock
+  </p>
+  <p block-type="Text">
+   return volatility,
+   <i>
+    Journal of Financial Economics
+   </i>
+   <b>
+    61
+   </b>
+   , 43–76.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities,
+     <i>
+      Journal of Political Economy
+     </i>
+     <b>
+      81
+     </b>
+     , 637–654.
+    </li>
+    <li block-type="ListItem">
+     [3] Campbell, R.A.J., Forbes, C.S., Koedijk, K.G. &amp; Kofman, P. (2008). Increasing correlations or just fat tails,
+     <i>
+      Journal of Empirical Finance
+     </i>
+     <b>
+      15
+     </b>
+     , 287–309.
+    </li>
+    <li block-type="ListItem">
+     [4] Campbell, J.W., Lo, A.W. &amp; MacKinlay, A.C. (1997).
+     <i>
+      The Econometrics of Financial Markets
+     </i>
+     , University Presses of CA.
+    </li>
+    <li block-type="ListItem">
+     [5] Carmona, R. &amp; Durleman, V. (2006). Generalizing the Black–Scholes formula to multivariate contingent claims,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      9
+     </b>
+     , 43–67.
+    </li>
+    <li block-type="ListItem">
+     [6] Driessen, J., Maenhout, P. &amp; Vilkov, G. The Price of Correlation Risk: Evidence from Equity Options,
+     <i>
+      Journal of Finance
+     </i>
+     , forthcoming (June 2009).
+    </li>
+    <li block-type="ListItem">
+     [7] Embrechts, P., McNeil, A.J. &amp; Straumann, D. (2001). Correlation and dependency in risk management: properties and pitfalls, in
+     <i>
+      Risk Management: Value at Risk and Beyond
+     </i>
+     , M. Dempster &amp; H.K. Moffatt, eds, Cambridge University Press, pp. 176–223.
+    </li>
+    <li block-type="ListItem">
+     [8] Engle, R.F. (2002). Dynamic conditional correlation: a simple class of multivariate generalized autoregressive conditional heteroskedasticity models,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      20
+     </b>
+     , 339–350.
+    </li>
+    <li block-type="ListItem">
+     [9] Gozzi, F. &amp; Vargiolu, T. (2002). Superreplication of European multiasset derivatives with bounded stochastic volatility,
+     <i>
+      Mathematical Methods of Operations Research
+     </i>
+     <b>
+      55
+     </b>
+     , 69–91.
+    </li>
+    <li block-type="ListItem">
+     [10] Gregory, J. &amp; Laurent, J.P. (2004). In the core of correlation,
+     <i>
+      Risk
+     </i>
+     <b>
+      17
+     </b>
+     (10), 87–91.
+    </li>
+    <li block-type="ListItem">
+     [11] Lipton, A. &amp; Rennie, A. (eds) (2007).
+     <i>
+      Credit Correlation: Life After Copulas
+     </i>
+     , World Scientific.
+    </li>
+    <li block-type="ListItem">
+     [12] Longin, F. &amp; Solnik, B. (2001). Extreme correlation of international equity markets,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      56
+     </b>
+     , 649–676.
+    </li>
+    <li block-type="ListItem">
+     [13] McNeil, A.J., Frey, R. &amp; Embrechts, P. (2005).
+     <i>
+      Quantitative Risk Management: Concepts, Techniques and Tools
+     </i>
+     , Princeton University Press.
+    </li>
+    <li block-type="ListItem">
+     [14] Merton, R. (1974). On the pricing of corporate debt: the risk structure of interest rates,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      29
+     </b>
+     , 449–470.
+    </li>
+    <li block-type="ListItem">
+     [15] Rubinstein, R. (2001). Comments on the 1987 stockmarket crash: 11 years later,
+     <i>
+      Investment Accumulation Products of Financial Institutions
+     </i>
+     , The Society of Actuaries.
+    </li>
+    <li block-type="ListItem">
+     [16] Skintzi, V.D. &amp; Refenes, A.-P.N. (2005). Implied correlation index: a new measure of diversification,
+     <i>
+      The Journal of Future Markets
+     </i>
+     <b>
+      25
+     </b>
+     , 171–1197.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Merton, R. (1973). Theory of rational option pricing,
+   <i>
+    Bell Journal of Economics and Management Science
+   </i>
+   <b>
+    4
+   </b>
+   , 141–183.
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Copulas: Estimation
+   </b>
+   ;
+   <b>
+    Correlation Swap
+   </b>
+   ;
+   <b>
+    Dispersion Trading
+   </b>
+   ;
+   <b>
+    Levy Copulas ´
+   </b>
+   ;
+   <b>
+    Multivariate Distributions
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   THORSTEN SCHMIDT
+  </p>
+ </body>
+</html>

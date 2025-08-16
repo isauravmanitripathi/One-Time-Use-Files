@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Stochastic Exponential
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Let X be a semimartingale with
+   <math display="inline">
+    X_0 = 0
+   </math>
+   . Then there exists a unique semimartingale
+   <math display="inline">
+    Z
+   </math>
+   that satisfies the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_t = 1 + \int_0^t Z_{s-} \, \mathrm{d}X_s \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   It is called the
+   <i>
+    stochastic exponential
+   </i>
+   of
+   <math display="inline">
+    X
+   </math>
+   and is denoted by
+   <math display="inline">
+    \mathcal{E}(X)
+   </math>
+   . Sometimes the stochastic exponential is also called the
+   <i>
+    Doléans exponential
+   </i>
+   , after the French mathematician Catherine Doléans-Dade, Note that
+   <math display="inline">
+    Z_{-}
+   </math>
+   denotes the left-limit process, so that the integrand in the stochastic integral is predictable.
+  </p>
+  <p block-type="Text">
+   We first give some examples as follows:
+  </p>
+  <p block-type="Text">
+   1. If
+   <math display="inline">
+    B
+   </math>
+   is a Brownian motion, then an application of Itô's formula reveals that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{E}(B)_t = \exp\left(B_t - \frac{1}{2}t\right) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   2. Likewise, the stochastic exponential for a compensated Poisson process
+   <math display="inline">
+    N - \lambda t
+   </math>
+   is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{E}(N - \lambda t)_t = \exp\left(-\frac{1}{2}\lambda t\right) \times 2^{N_t}
+   </math>
+   <math display="block">
+    = \exp\left(\ln(2)N_t - \frac{1}{2}\lambda t\right) \quad (3)
+   </math>
+  </p>
+  <p block-type="Text">
+   3. The classical Samuelson model for the evolution of stock prices is also given as a stochastic exponential. The price process
+   <math display="inline">
+    S
+   </math>
+   is modeled here as the solution of the stochastic differential eauation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_t}{S_t} = \sigma \,\mathrm{d}B_t + \mu \,\mathrm{d}t \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here, we consider the constant trend coefficient
+   <math display="inline">
+    \mu
+   </math>
+   , the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   , and a Brownian motion B. The solution to this equation is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_{t} = \mathcal{E}(\sigma B_{t} + \mu t)
+   </math>
+   <br/>
+   =
+   <math>
+    \exp\left(\sigma B_{t} + \left(\mu - \frac{1}{2}\sigma^{2}\right)t\right)
+   </math>
+   (5)
+  </p>
+  <p block-type="Text">
+   For a general semimartingale
+   <math display="inline">
+    X
+   </math>
+   as above, the expression for the stochastic exponential is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_{t} = \exp\left(X_{t} - \frac{1}{2} \left[X\right]_{t}\right) \prod_{0 &lt; s \le t} (1 + \Delta X_{s})
+   </math>
+   <math display="block">
+    \times \exp\left(-\Delta X_{s} + \frac{1}{2} \left(\Delta X_{s}\right)^{2}\right) \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the possibly infinite product converges. Here
+   <math display="inline">
+    [X]
+   </math>
+   denotes the
+   <i>
+    quadratic variation
+   </i>
+   process of X.
+  </p>
+  <p block-type="TextInlineMath">
+   In case
+   <math display="inline">
+    X
+   </math>
+   is a local martingale vanishing at zero with
+   <math display="inline">
+    \Delta X &gt; -1
+   </math>
+   , then
+   <math display="inline">
+    \mathcal{E}(X)
+   </math>
+   is a strictly positive local martingale. This property renders the stochastic exponential very useful as a model for asset prices in case the price process is directly modeled under a martingale measure, that is, in the risk neutral world. However, considering some Lévy-process
+   <math display="inline">
+    X
+   </math>
+   , many authors prefer to model the price process as
+   <math display="inline">
+    exp(X)
+   </math>
+   rather than
+   <math display="inline">
+    \mathcal{E}(X)
+   </math>
+   since this form is better suited for applying Laplace transform methods. In fact, the two representations are equivalent because starting with a model of the form
+   <math display="inline">
+    exp(X)
+   </math>
+   , one can always find a Lévy-process
+   <math display="inline">
+    \widehat{X}
+   </math>
+   such that
+   <math display="inline">
+    \exp(X) = \mathcal{E}(\widehat{X})
+   </math>
+   and vice versa (in case the stochastic exponential is positive). The detailed calculations involving characteristic triplets can be found in Goll and Kallsen [3].
+  </p>
+  <p block-type="Text">
+   Finally, for any two semimartingales
+   <math display="inline">
+    X, Y
+   </math>
+   we have the formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{E}(X)\,\mathcal{E}(Y) = \mathcal{E}(X+Y+[X,Y])\tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   which generalizes the multiplicative property of the usual exponential function.
+  </p>
+  <h2>
+   <b>
+    Martingale Property
+   </b>
+  </h2>
+  <p block-type="Text">
+   The most crucial issue from the point of mathematical finance is that, given
+   <math display="inline">
+    X
+   </math>
+   is a local martingale, the stochastic exponential
+   <math display="inline">
+    \mathcal{E}(X)
+   </math>
+   may fail to be a martingale. Let us give an illustration of this phenomenon.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   We assume that the price process of a risky asset evolves as the stochastic exponential
+   <math display="inline">
+    Z_t =
+   </math>
+   <math display="inline">
+    \exp\left(B_t - \frac{1}{2}t\right)
+   </math>
+   where
+   <i>
+    B
+   </i>
+   is a standard Brownian motion starting in zero. Since one-dimensional Brownian motion is almost-surely recurrent, and therefore gets negative for arbitrarily large times, zero must be an accumulation point of
+   <math display="inline">
+    Z
+   </math>
+   . As
+   <math display="inline">
+    Z
+   </math>
+   can be written as a stochastic integral of
+   <math display="inline">
+    B
+   </math>
+   , it is a local martingale, and hence a supermartingale by Fatou's lemma
+  </p>
+  <p block-type="Text">
+   because it is bounded from below. We conclude by the supermartingale convergence theorem that
+   <math display="inline">
+    Z
+   </math>
+   converges (necessarily to zero). This shows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{t \to \infty} Z_t = 0 \qquad P - \text{a.s} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   Holding one stock of the asset with price process
+   <math display="inline">
+    Z
+   </math>
+   therefore amounts to following a suicide strategy, since one starts with an initial capital of one and ends up with no money at all at time infinity. The mathematical explanation for this phenomenon is that
+   <math display="inline">
+    Z
+   </math>
+   is not a martingale on the closed interval
+   <math display="inline">
+    [0,\infty]
+   </math>
+   , or equivalently, the family
+   <math display="inline">
+    \{Z_t, t \in \mathbb{R}_+\}
+   </math>
+   is not uniformly integrable.
+  </p>
+  <p block-type="TextInlineMath">
+   What is more, one of the main applications of stochastic exponentials is that they are intricately related to measure changes since they qualify as candidates for density processes (see Girsanov's theorem). Let us fix a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}_{\infty}, (\mathcal{F}_{t}), P)
+   </math>
+   . In case the stochastic exponential is positive, we may define a new measure
+   <math display="inline">
+    Q
+   </math>
+   on
+   <math display="inline">
+    \mathcal{F}_{\infty}
+   </math>
+   via
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}Q}{\mathrm{d}P} = Z_{\infty} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If Z is a uniformly integrable martingale, then
+   <math display="inline">
+    Q
+   </math>
+   is a probability measure since
+   <math display="inline">
+    E[Z_{\infty}] = Z_0 = 1
+   </math>
+   . On the other hand, if
+   <math display="inline">
+    Z
+   </math>
+   is a strict local martingale, hence a strict supermartingale, then we get
+   <math display="inline">
+    Q(\Omega) =
+   </math>
+   <math display="inline">
+    E[Z_{\infty}] &lt; 1
+   </math>
+   . It is therefore of paramount interest to have criteria at hand for stochastic exponentials to be true martingales. We first focus on the continuous case.
+  </p>
+  <p block-type="Text">
+   Theorem 1 (Kazamaki's Criterion). Let
+   <math display="inline">
+    M
+   </math>
+   be a continuous local martingale. Suppose
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sup_{T} E\left[\exp\left(\frac{1}{2}M_{T}\right)\right] &lt; \infty \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the supremum is taken over all bounded stopping times T. Then
+   <math display="inline">
+    \mathcal{E}(M)
+   </math>
+   is a uniformly integrable
+   <i>
+    martingale.
+   </i>
+  </p>
+  <p block-type="Text">
+   A slightly weaker result, which, however, is often easier to apply, is given by the following criterion.
+  </p>
+  <p block-type="Text">
+   Theorem 2 (Novikov's Criterion). Let
+   <math display="inline">
+    M
+   </math>
+   be a continuous local martingale. Suppose
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\exp\left(\frac{1}{2}\left[M\right]_{\infty}\right)\right] &lt; \infty \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then
+   <math display="inline">
+    \mathcal{E}(M)
+   </math>
+   uniformly is
+   <math display="inline">
+    a
+   </math>
+   integrable martingale.
+  </p>
+  <p block-type="Text">
+   Nevertheless, these results are still not applicable in many practically important situations, for example, if one wants to construct martingale measures in stochastic volatility models driven by Brownian motions. In that case, the following result taken from Liptser and Shiryaev [8] often turns out to be useful.
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 3
+   </b>
+   Let T be a finite time horizon,
+   <math display="inline">
+    \vartheta
+   </math>
+   a predictable process with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P\left(\int_0^T \vartheta_s^2 \, \mathrm{d}s &lt; \infty\right) = 1 \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+   <math display="inline">
+    B
+   </math>
+   a Brownian motion. Provided that there is
+   <math display="inline">
+    \varepsilon &gt; 0
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sup_{0 \le t \le T} E\left[\exp\left(\varepsilon \vartheta_t^2\right)\right] &lt; \infty \qquad P - \text{a.s.} \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   then the stochastic exponential
+   <math display="inline">
+    \mathcal{E}(\int \vartheta dB)
+   </math>
+   is a martingale on
+   <math display="inline">
+    [0, T]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Let us now turn to the discontinuous case. A generalization of Novikov's criterion has been obtained by Lepingle and Mémin [7] where more results in this direction can be found.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 4
+   </b>
+   Let
+   <math display="inline">
+    M
+   </math>
+   be a locally bounded local P-martingale with
+   <math display="inline">
+    \Delta M &gt; -1
+   </math>
+   . If
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\exp\left(\frac{1}{2}\left[M^{\rm c}\right]_{\infty}\right)\prod_{t}\left(1+\Delta M_{t}\right)\right]
+   </math>
+   <math display="block">
+    \times\exp\left(-\frac{\Delta M_{t}}{1+\Delta M_{t}}\right)\right]&lt;\infty\qquad(14)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   then
+   <math display="inline">
+    \mathcal{E}(M)
+   </math>
+   is a uniformly integrable martingale. Here
+   <math display="inline">
+    M^c
+   </math>
+   denotes the continuous local martingale part of
+   <math display="inline">
+    M
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The situation is particularly transparent for Lévy processes; see Cont and Tankov [1].
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 5
+   </b>
+   If
+   <math display="inline">
+    M
+   </math>
+   is both a Lévy process and a local martingale, then its stochastic exponential
+   <math display="inline">
+    \mathcal{E}(M)
+   </math>
+   (given that it is positive) is already a martingale.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Alternative conditions for ensuring that stochastic exponentials are martingales in case of Brownian motion driven stochastic volatility models have been
+  </p>
+  <p block-type="Text">
+   provided in Hobson [4] as well as in Wong and Heyde [9]. Moreover, Kallsen and Shiryaev [6] give results generalizing and complementing the criterions in Lepingle and Memin [7]. In case of local ´ martingales of stochastic exponential form E
+   <i>
+    (X)
+   </i>
+   , where
+   <i>
+    X
+   </i>
+   denotes one component of a multivariate affine process, Kallsen and Muhle-Garbe [5] give sufficient conditions for
+   <i>
+    M
+   </i>
+   to be a true martingale. Finally, there are important links between stochastic exponentials of
+   <i>
+    BMO
+   </i>
+   -martingales, reverse Holder ¨ inequalities, and weighted norm inequalities (i.e., inequalities generalizing martingale inequalities to certain semimartingales); compare Doleans-Dade and ´ Meyer [2].
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Cont, R. &amp; Tankov P. (2003).
+     <i>
+      Financial Modelling with Jump Processes
+     </i>
+     , Chapman &amp; Hall/CRC Press, Boca Raton.
+    </li>
+    <li block-type="ListItem">
+     [2] Doleans-Dade, C. &amp; Meyer, P.A. (1979). In ´ egalit ´ es de ´ normes avec poids,
+     <i>
+      S´eminaire de Probabilit´es de Strasbourg
+     </i>
+     <b>
+      13
+     </b>
+     , 313–331.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [3] Goll, T. &amp; Kallsen, J. (2000). Optimal portfolio with logarithmic utility,
+     <i>
+      Stochastic Processes and their Applications
+     </i>
+     <b>
+      89
+     </b>
+     , 91–98.
+    </li>
+    <li block-type="ListItem">
+     [4] Hobson, D. (2004). Stochastic volatility models, correlation and the
+     <i>
+      q
+     </i>
+     -optimal measure,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     , 537–556.
+    </li>
+    <li block-type="ListItem">
+     [5] Kallsen, J. &amp; Muhle-Garbe, J. (2007).
+     <i>
+      Exponentially Affine Martingales and Affine Measure Changes
+     </i>
+     , preprint, TU Munchen. ¨
+    </li>
+    <li block-type="ListItem">
+     [6] Kallsen, J. &amp; Shiryaev, A.N. (2002). The cumulant process and Esschers's change of measure,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      6
+     </b>
+     , 397–428.
+    </li>
+    <li block-type="ListItem">
+     [7] Lepingle, D. &amp; Memin, J. (1978). Sur l'int ´ egrabilit ´ e´ uniforme des martingales exponentielles,
+     <i>
+      Zeitschrift f¨ur Wahrscheinlichkeitstheorie und verwandte Gebiete
+     </i>
+     <b>
+      42
+     </b>
+     , 175–203.
+    </li>
+    <li block-type="ListItem">
+     [8] Liptser, R. &amp; Shiryaev, A.N. (1977).
+     <i>
+      Statistics of Random Processes I
+     </i>
+     , Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [9] Wong, B. &amp; Heyde, C.C. (2004). On the martingale property of stochastic exponentials,
+     <i>
+      Journal of Probability and its Applications
+     </i>
+     <b>
+      41
+     </b>
+     , 654–664.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   THORSTEN RHEINLANDER ¨
+  </p>
+ </body>
+</html>

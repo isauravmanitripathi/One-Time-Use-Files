@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Compensators
+  </h1>
+  <p block-type="Text">
+   In probability theory, the
+   <i>
+    compensator
+   </i>
+   of a stochastic process designates a quantity that, once subtracted from a stochastic process, yields a martingale.
+  </p>
+  <h2>
+   Compensator of a Random Time
+  </h2>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (\Omega, \mathbf{G}, \mathbb{P})
+   </math>
+   be a filtered probability space and
+   <math display="inline">
+    \tau
+   </math>
+   a
+   <b>
+    G
+   </b>
+   -stopping time. The process
+   <math display="inline">
+    H_t = \mathbb{1}_{\tau \leq t}
+   </math>
+   is a
+   <b>
+    G
+   </b>
+   adapted increasing process, hence a
+   <b>
+    G
+   </b>
+   -submartingale and admits a Doob-Meyer decomposition as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_t = M_t + \Lambda_t \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    M
+   </i>
+   is a
+   <b>
+    G
+   </b>
+   -local martingale and
+   <math display="inline">
+    \Lambda
+   </math>
+   a
+   <b>
+    G
+   </b>
+   predictable increasing process. The process
+   <math display="inline">
+    \Lambda
+   </math>
+   , called the
+   <b>
+    G
+   </b>
+   -compensator of
+   <math display="inline">
+    H
+   </math>
+   , is constant after
+   <math display="inline">
+    \tau
+   </math>
+   , that is,
+   <math display="inline">
+    \Lambda_t = \Lambda_{t \wedge \tau}
+   </math>
+   . The process
+   <math display="inline">
+    \Lambda
+   </math>
+   "compensates"
+   <i>
+    H
+   </i>
+   with the meaning that
+   <math display="inline">
+    H - \Lambda
+   </math>
+   is a martingale. If
+   <math display="inline">
+    \tau
+   </math>
+   is Gpredictable, then
+   <math display="inline">
+    \Lambda_t = H_t
+   </math>
+   . The continuity of
+   <math display="inline">
+    \Lambda
+   </math>
+   is equivalent to the fact that
+   <math display="inline">
+    \tau
+   </math>
+   is a
+   <b>
+    G
+   </b>
+   -totally inaccessible stopping time. If
+   <math display="inline">
+    \Lambda
+   </math>
+   is absolutely continuous with respect to the Lebesgue measure, that is, if
+   <math display="inline">
+    \Lambda_t =
+   </math>
+   <math display="inline">
+    \int_0^t \lambda_s^{\mathbf{G}} ds
+   </math>
+   , the nonnegative
+   <b>
+    G
+   </b>
+   -adapted process
+   <math display="inline">
+    \lambda^{\mathbf{G}}
+   </math>
+   is called the
+   <i>
+    intensity rate
+   </i>
+   of
+   <math display="inline">
+    \tau
+   </math>
+   . Note that
+   <math display="inline">
+    \lambda_{\tau}^{\mathbf{G}}
+   </math>
+   is null on the set
+   <math display="inline">
+    \tau \leq t
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   For any integrable random variable
+   <math display="inline">
+    X \in \mathcal{G}_T
+   </math>
+   , one has
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(X\mathbbm{1}_{T&lt;\tau}|\mathcal{G}_t) = \mathbbm{1}_{\{t&lt;\tau\}} \left(V_t - \mathbb{E}(\Delta V_\tau \mathbbm{1}_{\tau\leq T}|\mathcal{G}_t)\right)
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    V_t = e^{\Lambda_t} \mathbb{E}(X e^{-\Lambda_T} | \mathcal{G}_t).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the following examples,
+   <math display="inline">
+    \tau
+   </math>
+   is a given random time, that is, a nonnegative random variable, and
+   <math display="inline">
+    \mathbf{H}
+   </math>
+   the natural filtration of
+   <math display="inline">
+    H
+   </math>
+   (i.e., the smallest filtration satisfying the usual conditions such that the process H is adapted). The random time
+   <math display="inline">
+    \tau
+   </math>
+   is a
+   <b>
+    H
+   </b>
+   -stopping time.
+  </p>
+  <h1>
+   Elementary Case
+  </h1>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \tau
+   </math>
+   be an exponential random variable with constant parameter
+   <math display="inline">
+    \lambda
+   </math>
+   . Then, the
+   <b>
+    H
+   </b>
+   -compensator of
+   <i>
+    H
+   </i>
+   is
+   <math display="inline">
+    \lambda(t \wedge \tau)
+   </math>
+   . More generally, if
+   <math display="inline">
+    \tau
+   </math>
+   is a nonnegative random variable with cumulative distribution function
+   <math display="inline">
+    F
+   </math>
+   , taken continuous on the right
+   <math display="inline">
+    (F(t) = \mathbb{P}(\tau \leq t))
+   </math>
+   such
+  </p>
+  <p block-type="TextInlineMath">
+   that
+   <math display="inline">
+    \forall t, F(t) &lt; 1
+   </math>
+   , the
+   <b>
+    H
+   </b>
+   -compensator of
+   <math display="inline">
+    \tau
+   </math>
+   is
+   <math display="inline">
+    \Lambda_t =
+   </math>
+   <math display="inline">
+    \int_{0}^{t \wedge \tau} \frac{\mathrm{d}F(s)}{1-F(s^{-})}
+   </math>
+   . If
+   <i>
+    F
+   </i>
+   is continuous, the
+   <b>
+    H
+   </b>
+   -compensator is
+   <math display="inline">
+    \Lambda_{t} = -\ln(1-F(t \wedge \tau))
+   </math>
+   .
+  </p>
+  <h1>
+   Cox Processes
+  </h1>
+  <p block-type="TextInlineMath">
+   Let
+   <b>
+    F
+   </b>
+   be a given filtration,
+   <math display="inline">
+    \lambda
+   </math>
+   a given
+   <b>
+    F
+   </b>
+   -adapted nonnegative process,
+   <math display="inline">
+    \Lambda_t^{\mathbf{F}} = \int_0^t \lambda_s \mathrm{d}s
+   </math>
+   , and
+   <math display="inline">
+    \Theta
+   </math>
+   a random variable with exponential law, independent of
+   <math display="inline">
+    \mathbf{F}
+   </math>
+   . Let us define the random time
+   <math display="inline">
+    \tau
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau = \inf \left\{ t \; : \; \Lambda_t^{\mathbf{F}} \ge \Theta \right\} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   Then, the process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{1}_{\tau \leq t} - \int_{0}^{t \wedge \tau} \lambda_{s} \, \mathrm{d}s = \mathbb{1}_{\tau \leq t} - \Lambda_{t \wedge \tau}^{\mathbf{F}} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is a martingale in the filtration
+   <math display="inline">
+    \mathbf{G} = \mathbf{F} \vee \mathbf{H}
+   </math>
+   , the smallest filtration that contains
+   <b>
+    F
+   </b>
+   , making
+   <math display="inline">
+    \tau
+   </math>
+   a stopping time (in fact a totally inaccessible stopping time). The Gcompensator of
+   <i>
+    H
+   </i>
+   is
+   <math display="inline">
+    \Lambda_t = \Lambda_{t \wedge \tau}^{\mathbf{F}}
+   </math>
+   , and the
+   <b>
+    G
+   </b>
+   -intensity rate is
+   <math display="inline">
+    \lambda_t^{\mathbf{G}} = \mathbb{1}_{t &lt; \tau} \lambda_t
+   </math>
+   . In that case, for an integrable random variable
+   <math display="inline">
+    X \in \mathcal{F}_T
+   </math>
+   , one has
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(X\mathbb{1}_{T&lt;\tau}|\mathcal{G}_t) = \mathbb{1}_{t&lt;\tau} \mathrm{e}^{\Lambda_t^{\mathbf{F}}} \mathbb{E}(X\mathrm{e}^{-\Lambda_T^{\mathbf{F}}}|\mathcal{F}_t) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   and, for
+   <math display="inline">
+    H
+   </math>
+   , an
+   <b>
+    F
+   </b>
+   -predictable (bounded) process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(H_{\tau} \mathbb{1}_{\tau \leq T} | \mathcal{G}_{t}) = H_{\tau} \mathbb{1}_{\tau \leq t}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \mathbb{1}_{t &lt; \tau} e^{\Lambda_{t}^{\mathbf{F}}} \mathbb{E}\left(\int_{t}^{T} H_{s} e^{-\Lambda_{s}^{\mathbf{F}}} \lambda_{s} \mathrm{d}s | \mathcal{F}_{t}\right) \qquad (6)
+   </math>
+  </p>
+  <h4>
+   Conditional Survival Probability
+  </h4>
+  <p block-type="TextInlineMath">
+   Assume now that
+   <math display="inline">
+    \tau
+   </math>
+   is a nonnegative random variable on the filtered probability space
+   <math display="inline">
+    (\Omega, \mathbf{F}, \mathbb{P})
+   </math>
+   with conditional survival probability
+   <math display="inline">
+    G_t := \mathbb{P}(\tau &gt; t | \mathcal{F}_t),
+   </math>
+   taken continuous on the right and let
+   <math display="inline">
+    \mathbf{G} = \mathbf{F} \vee \mathbf{H}
+   </math>
+   . The random time
+   <math display="inline">
+    \tau
+   </math>
+   is a
+   <b>
+    G
+   </b>
+   -stopping time.
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \tau
+   </math>
+   is an
+   <b>
+    F
+   </b>
+   -predictable stopping time (hence a
+   <b>
+    G
+   </b>
+   -predictable stopping time), then
+   <math display="inline">
+    G_t = \mathbb{1}_{\tau &gt; t}
+   </math>
+   and
+   <math display="inline">
+    \Lambda = H.
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   In what follows, we assume that
+   <math display="inline">
+    G_t &gt; 0
+   </math>
+   and we introduce the Doob-Meyer decomposition of the
+   <b>
+    F
+   </b>
+   -supermartingale G, that is,
+   <math display="inline">
+    G_t = Z_t - A_t
+   </math>
+   , where
+   <math display="inline">
+    Z
+   </math>
+   is an
+   <b>
+    F
+   </b>
+   -martingale and
+   <math display="inline">
+    A
+   </math>
+   is an increasing
+   <b>
+    F
+   </b>
+   predictable process. Then, the G-compensator of
+   <math display="inline">
+    \tau
+   </math>
+   is
+   <math display="inline">
+    \Lambda_t = \int_0^{t \wedge \tau} (G_{s^-})^{-1} dA_s
+   </math>
+   . If
+   <math display="inline">
+    dA_t = a_t dt
+   </math>
+   , the
+   <b>
+    G
+   </b>
+   -&lt;br&gt;intensity rate is
+   <math display="inline">
+    \lambda_t^{\mathbf{G}} = \mathbb{1}_{t &lt; \tau} (G_{t^-})^{-1} a_t
+   </math>
+   . Moreover, if G
+  </p>
+  <p block-type="TextInlineMath">
+   is continuous, then for an integrable random variable
+   <math display="inline">
+    X \in \mathcal{F}_T
+   </math>
+   , one has
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(X\mathbb{1}_{T&lt;\tau}|\mathcal{G}_t) = \mathbb{1}_{t&lt;\tau}(G_t)^{-1}\mathbb{E}(XG_T|\mathcal{F}_t) \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is often convenient to introduce the F-adapted process
+   <math display="inline">
+    \widetilde{\lambda}_t = (G_{t^-})^{-1} a_t
+   </math>
+   , equal to
+   <math display="inline">
+    \lambda_t^{\mathbf{G}}
+   </math>
+   on the set
+   <math display="inline">
+    t &lt; \tau
+   </math>
+   . We shall call this process the
+   <i>
+    predefault-intensity
+   </i>
+   process.
+  </p>
+  <p block-type="TextInlineMath">
+   A particular case occurs when the process
+   <math display="inline">
+    G
+   </math>
+   is nonincreasing and absolutely continuous with respect to the Lebesgue measure, that is,
+   <math display="inline">
+    G_t = \int_t^{\infty} g_s ds
+   </math>
+   , where
+   <math display="inline">
+    g \ge 0
+   </math>
+   . In that case, the
+   <b>
+    G
+   </b>
+   -adapted intensity rate is
+   <math display="inline">
+    \lambda_t^{\mathbf{G}} = (G_t)^{-1} g_t \mathbb{1}_{t &lt; \tau}
+   </math>
+   , the predefault intensity is
+   <math display="inline">
+    \widetilde{\lambda}_t = (G_t)^{-1} g_t
+   </math>
+   and, for an integrable random variable
+   <math display="inline">
+    X \in \mathcal{F}_T
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(X\mathbb{1}_{T&lt;\tau}|\mathcal{G}_t) = \mathbb{1}_{t&lt;\tau} e^{\Lambda_t^{\mathbf{F}}} \mathbb{E}(Xe^{-\Lambda_T^{\mathbf{F}}}|\mathcal{F}_t)
+   </math>
+   (8)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \Lambda^{\mathbf{F}}
+   </math>
+   is the
+   <b>
+    F
+   </b>
+   -adapted process defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Lambda_t^{\mathbf{F}} = \int_0^t \widetilde{\lambda}_s \mathrm{d}s = \int_0^t (G_s)^{-1} g_s \mathrm{d}s \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   Aven's Lemma
+  </p>
+  <p block-type="TextInlineMath">
+   The Aven lemma has the following form: let
+   <math display="inline">
+    (\Omega, \mathcal{G}_t, \mathbb{P})
+   </math>
+   be a filtered probability space and N be a counting process. Assume that
+   <math display="inline">
+    E(N_t) &lt; \infty
+   </math>
+   for any t. Let
+   <math display="inline">
+    (h_n, n \ge 1)
+   </math>
+   be a sequence of real numbers converging to
+   <math display="inline">
+    0
+   </math>
+   , and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_t^{(n)} = \frac{1}{h_n} E(N_{t+h_n} - N_t | \mathcal{G}_t)
+   </math>
+   (10)
+  </p>
+  <p block-type="Text">
+   Assume that there exists
+   <math display="inline">
+    \lambda_t
+   </math>
+   and
+   <math display="inline">
+    y_t
+   </math>
+   nonnegative G-adapted processes such that
+  </p>
+  <p block-type="Equation">
+   1. For any
+   <math display="block">
+    t
+   </math>
+   ,
+   <math>
+    \lim Y_t^{(n)} = \lambda_t
+   </math>
+   (11)
+  </p>
+  <p block-type="Text">
+   2. For any
+   <i>
+    t
+   </i>
+   , there exists for almost all
+   <math display="inline">
+    \omega
+   </math>
+   an
+   <math display="inline">
+    n_0 =
+   </math>
+   <math display="inline">
+    n_0(t,\omega)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |Y_s^{(n)} - \lambda_s(\omega)| \le y_s(\omega), \ s \le t, \ n \ge n_0(t, \omega)
+   </math>
+   (12)
+  </p>
+  <p block-type="Equation">
+   3.
+   <math display="block">
+    \int_0^t y_s \, \mathrm{d}s &lt; \infty, \forall t \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then,
+   <math display="inline">
+    N_t - \int_0^t \lambda_s ds
+   </math>
+   is a G-martingale.
+  </p>
+  <p block-type="TextInlineMath">
+   For the particular case of a random time, we obtain the following: assume that
+   <math display="inline">
+    \lim_{h\to 0} \frac{1}{h} \mathbb{P}(t &lt; \tau \leq t +
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    h|\mathcal{G}_t) = \lambda_t^{\mathbf{G}}
+   </math>
+   , and that, there exists a Lebesgue integrable process y such that
+   <math display="inline">
+    \left|\frac{1}{h}\right| \mathbb{P}(t &lt; \tau \le t + h|\mathcal{G}_t)
+   </math>
+   <math display="inline">
+    |\lambda_t^{\mathbf{G}}| \le y_t
+   </math>
+   for any h small enough. Then
+   <math display="inline">
+    \lambda^{\mathbf{G}}
+   </math>
+   is the
+   <b>
+    G
+   </b>
+   -intensity of
+   <math display="inline">
+    \tau
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In the case of conditional survival probability model, the predefault intensity
+   <math display="inline">
+    \lambda^G
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widetilde{\lambda}_{t}^{\mathbf{G}} = \lim_{h \to 0} \frac{1}{h \mathbb{P}(t &lt; \tau | \mathcal{F}_{t})} \mathbb{P}(t &lt; \tau \le t + h | \mathcal{F}_{t}) \quad (14)
+   </math>
+  </p>
+  <p block-type="Text">
+   See
+   <math display="inline">
+    [2]
+   </math>
+   for an extensive study.
+  </p>
+  <p block-type="Text">
+   Shrinking
+  </p>
+  <p block-type="TextInlineMath">
+   Assume that
+   <math display="inline">
+    \mathbf{G}^*
+   </math>
+   is a subfiltration of
+   <math display="inline">
+    \mathbf{G}
+   </math>
+   such that
+   <math display="inline">
+    \tau
+   </math>
+   is a
+   <math display="inline">
+    G^*
+   </math>
+   (and a
+   <math display="inline">
+    G
+   </math>
+   ) stopping time. Assume that
+   <math display="inline">
+    \tau
+   </math>
+   admits a
+   <b>
+    G
+   </b>
+   -intensity rate equal to
+   <math display="inline">
+    \lambda^G
+   </math>
+   . Then, the
+   <b>
+    G
+   </b>
+   &lt;sup&gt;*&lt;/sup&gt;-intensity of
+   <math display="inline">
+    \tau
+   </math>
+   is
+   <math display="inline">
+    \lambda_t^* = \mathbb{E}(\lambda_t^{\mathbf{G}} | \mathbf{G}_t^*)
+   </math>
+   (see [1]).
+  </p>
+  <p block-type="TextInlineMath">
+   As we have seen above, in the survival probability approach, the value of the intensity can be given in terms of the conditional survival probability. Assume that
+   <math display="inline">
+    G_t = \mathbb{P}(\tau &gt; t | \mathcal{F}_t) = Z_t - \int_0^t a_s \text{d}s
+   </math>
+   , where Z is an
+   <b>
+    F
+   </b>
+   -martingale and that
+   <math display="inline">
+    \mathbf{G}^* = \mathbf{F}^* \vee \mathbf{H}
+   </math>
+   where,
+   <math display="inline">
+    \mathbf{F}^* \subset
+   </math>
+   <math display="inline">
+    \mathbf{F}
+   </math>
+   . Then, the
+   <math display="inline">
+    \mathbf{F}^*
+   </math>
+   -conditional survival probability of
+   <math display="inline">
+    \tau
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G_t^* = \mathbb{P}(\tau &gt; t | \mathcal{F}_t^*) = \mathbb{E}(G_t | \mathcal{F}_t^*) = X_t^* - \int_0^t a_s^* \mathrm{d}s \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    X^*
+   </math>
+   is an
+   <math display="inline">
+    \mathbf{F}^*
+   </math>
+   -martingale and
+   <math display="inline">
+    a_s^* = \mathbb{E}(a_s|\mathcal{F}_s^*)
+   </math>
+   . It follows that the
+   <math display="inline">
+    G^*
+   </math>
+   -intensity rate of
+   <math display="inline">
+    \tau
+   </math>
+   writes as (we assume, for simplicity, that G and
+   <math display="inline">
+    G^*
+   </math>
+   are continuous)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lambda_t^* = \mathbb{1}_{t &lt; \tau} \frac{a_t^*}{G_t^*} = \mathbb{1}_{t &lt; \tau} \frac{\mathbb{E}(\lambda_t^{\mathbf{G}} G_t | \mathcal{F}_t^*)}{\mathbb{E}(G_t | \mathcal{F}_t^*)} \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   It is useful to note that one can start with a model in which
+   <math display="inline">
+    \tau
+   </math>
+   is an
+   <b>
+    F
+   </b>
+   -predictable stopping time (hence
+   <math display="inline">
+    G = F
+   </math>
+   , and a G-intensity rate does not exist) and consider a smaller filtration (e.g., the trivial filtration) for which there exists an intensity rate, computed by means of the conditional survival probability.
+  </p>
+  <h2>
+   <b>
+    Compensator of an Increasing Process
+   </b>
+  </h2>
+  <p block-type="Text">
+   The notion of interest in this section is that of
+   <i>
+    dual predictable projection
+   </i>
+   , which we define as follows:
+  </p>
+  <p block-type="Text" class="has-continuation">
+   <b>
+    Proposition 1
+   </b>
+   Let
+   <math display="inline">
+    A
+   </math>
+   be an integrable increasing process (not necessarily F-adapted). There
+  </p>
+  <p block-type="TextInlineMath">
+   exists a unique F-predictable increasing process
+   <math display="inline">
+    (A_t^{(p)}, t \ge 0)
+   </math>
+   , called the
+   <b>
+    F
+   </b>
+   -dual predictable projection of A such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left(\int_0^\infty H_s \, \mathrm{d}A_s\right) = \mathbb{E}\left(\int_0^\infty H_s \, \mathrm{d}A_s^{(p)}\right) \qquad (17)
+   </math>
+  </p>
+  <p block-type="Text">
+   for any positive
+   <math display="inline">
+    \mathbf{F}
+   </math>
+   -predictable process
+   <math display="inline">
+    H
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The definition of compensator of a random time can be interpreted in terms of dual predictable projection: if
+   <math display="inline">
+    \tau
+   </math>
+   is a random time, the
+   <i>
+    F
+   </i>
+   -predictable
+   <i>
+    compensator
+   </i>
+   associated with
+   <math display="inline">
+    \tau
+   </math>
+   is the dual predictable projection
+   <math display="inline">
+    A^{\tau}
+   </math>
+   of the increasing process
+   <math display="inline">
+    \mathbb{1}_{\{\tau &lt; t\}}
+   </math>
+   . It satisfies
+   <math display="inline">
+    \sim
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(k_{\tau}) = \mathbb{E}\left(\int_{0}^{\infty} k_{s} \mathrm{d}A_{s}^{\tau}\right) \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   for any positive,
+   <b>
+    F
+   </b>
+   -predictable process
+   <math display="inline">
+    k
+   </math>
+   .
+  </p>
+  <h4>
+   Examples
+  </h4>
+  <p block-type="Text">
+   Covariation Processes. Let
+   <math display="inline">
+    M
+   </math>
+   be a martingale and
+   <math display="inline">
+    [M]
+   </math>
+   its quadratic variation process. If
+   <math display="inline">
+    [M]
+   </math>
+   is integrable, its compensator is
+   <math display="inline">
+    \langle M \rangle
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Standard Poisson Process. If
+   <math display="inline">
+    N
+   </math>
+   is a Poisson process,
+   <math display="inline">
+    (M_t = N_t - \lambda t, t \ge 0)
+   </math>
+   is a martingale, and
+   <math display="inline">
+    \lambda t
+   </math>
+   is the compensator of N; the martingale M is called the
+   <i>
+    compensated martingale
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Compensated Poisson Integrals. Let
+   <math display="inline">
+    N
+   </math>
+   be a time inhomogeneous Poisson process with deterministic intensity
+   <math display="inline">
+    \lambda
+   </math>
+   and
+   <math display="inline">
+    \mathbf{F}^N
+   </math>
+   its natural filtration. The process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(M_t = N_t - \int_0^t \lambda(s) \mathrm{d}s, \ t \ge 0\right) \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is an
+   <math display="inline">
+    \mathbf{F}^N
+   </math>
+   -martingale. The increasing function
+   <math display="inline">
+    \Lambda(t)
+   </math>
+   :=
+   <math display="inline">
+    \int_0^t \lambda(s) ds
+   </math>
+   is called the (deterministic)
+   <i>
+    compensator
+   </i>
+   of
+   <math display="inline">
+    N
+   </math>
+   .
+  </p>
+  <h1>
+   <b>
+    Random Measures
+   </b>
+  </h1>
+  <h4>
+   Definitions
+  </h4>
+  <p block-type="Text">
+   The
+   <i>
+    compensator
+   </i>
+   of a random measure
+   <math display="inline">
+    \mu
+   </math>
+   is the unique random measure
+   <math display="inline">
+    \nu
+   </math>
+   such that
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. for every predictable process
+     <math display="inline">
+      H
+     </math>
+     , the process
+     <math display="inline">
+      (H \star v)
+     </math>
+     is predictable (the measure v is said to be predictable) and
+    </li>
+    <li block-type="ListItem">
+     2. for every predictable process
+     <math display="inline">
+      H
+     </math>
+     such that the process
+     <math display="inline">
+      |H| \star \mu
+     </math>
+     is increasing and locally integrable, the process
+     <math display="inline">
+      (H \star \mu - H \star \nu)
+     </math>
+     is a local martingale.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   Examples
+  </h4>
+  <p block-type="Text">
+   If N is a Lévy process with Lévy measure
+   <math display="inline">
+    \nu
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{\Lambda} f(x)N_{t}(\cdot, dx) - t \int_{\Lambda} f(x)\nu(dx)
+   </math>
+   <math display="block">
+    = \sum_{0 &lt; s \le t} \left( f(\Delta X_{s}) \mathbb{1}_{\Lambda}(\Delta X_{s}) \right) - t \int_{\Lambda} f(x)\nu(dx)
+   </math>
+   (20)
+  </p>
+  <p block-type="TextInlineMath">
+   is a martingale, the compensator of
+   <math display="inline">
+    \int_{\Lambda} f(x) N_t(\cdot, dx)
+   </math>
+   is
+   <math display="inline">
+    t \int_{\Lambda} f(x) \nu(\mathrm{d}x)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   For other examples see the article on point processes (see Point Processes).
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Brémaud, P. &amp; Yor, M. (1978). Changes of filtration and of probability measures, Zeit Wahr and Verw Gebiete 45,
+     <math display="inline">
+      269 - 295
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [2] Zeng, Y. (2006). Compensators of Stopping Times, PhD thesis, Cornell University.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Brémaud, P. (1981). Point Processes and Queues. Martingale Dynamics, Springer-Verlag, Berlin.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Cinlar, E. (1975). Introduction to Stochastic Processes, Prentice Hall.
+    </li>
+    <li block-type="ListItem">
+     Cont, R. &amp; Tankov, P. (2004). Financial Modeling with Jump Processes, Chapman &amp; Hall/CRC.
+    </li>
+    <li block-type="ListItem">
+     Jeanblanc, M., Yor, M. &amp; Chesney, M. (2009). Mathematical
+     <i>
+      Models for financial Markets
+     </i>
+     , Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     Karlin, S. &amp; Taylor, H. (1975). A First Course in Stochastic Processes, Academic Press, San Diego.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   Doob-Meyer Decomposition; Filtrations; Intensity-based Credit Risk Models; Point Processes.
+  </p>
+  <p block-type="Text">
+   MONIQUE JEANBLANC
+  </p>
+ </body>
+</html>

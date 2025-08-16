@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Filtrations
+  </h1>
+  <p block-type="Text">
+   The notion of
+   <i>
+    filtration
+   </i>
+   , introduced by Doob, has become a fundamental feature of the theory of stochastic processes. Most basic objects, such as martingales, semimartingales, stopping times, or Markov processes, involve the notion of filtration.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   Let
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{P})
+   </math>
+   be a probability space. A filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   , on
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{P})
+   </math>
+   , is an increasing family
+   <math display="inline">
+    (\mathcal{F}_t)_{t&gt;0}
+   </math>
+   of sub-
+   <math display="inline">
+    \sigma
+   </math>
+   -algebras of
+   <math display="inline">
+    \mathcal{F}
+   </math>
+   . In other words, for each t,
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   is a
+   <math display="inline">
+    \sigma
+   </math>
+   -algebra included in
+   <math display="inline">
+    \mathcal{F}
+   </math>
+   and if
+   <math display="inline">
+    s \leq t
+   </math>
+   ,
+   <math display="inline">
+    \mathcal{F}_s \subset \mathcal{F}_t
+   </math>
+   . A probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{P})
+   </math>
+   endowed with a filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   is called a filtered probability space.
+  </p>
+  <p block-type="Text">
+   We now give a definition that is very closely related to that of a filtration.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 2
+   </b>
+   A stochastic process
+   <math display="inline">
+    (X_t)_{t&gt;0}
+   </math>
+   on
+   <math display="inline">
+    (\Omega,
+   </math>
+   <math display="inline">
+    (\mathcal{F}, \mathbb{P})
+   </math>
+   is adapted to the filtration
+   <math display="inline">
+    (\mathcal{F}_t)
+   </math>
+   if, for each
+   <math display="inline">
+    t &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    X_t
+   </math>
+   is
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -measurable.
+  </p>
+  <p block-type="TextInlineMath">
+   A stochastic process
+   <math display="inline">
+    X
+   </math>
+   is always adapted to its
+   <i>
+    natural filtration
+   </i>
+   <math display="inline">
+    \mathbb{F}^X
+   </math>
+   , where for each
+   <math display="inline">
+    t \ge 0
+   </math>
+   ,
+   <math display="inline">
+    \mathcal{F}_t^X = \sigma(X_s, s \leq t)
+   </math>
+   (the last notation means that
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   is the smallest
+   <math display="inline">
+    \sigma
+   </math>
+   -algebra with respect to which all the variables
+   <math display="inline">
+    (X_s, s \leq t)
+   </math>
+   are measurable).
+   <math display="inline">
+    \mathbb{F}^X
+   </math>
+   is, hence, the smallest filtration to which
+   <math display="inline">
+    X
+   </math>
+   is adapted.
+  </p>
+  <p block-type="Text">
+   The parameter
+   <math display="inline">
+    t
+   </math>
+   is often thought of as time, and the
+   <math display="inline">
+    \sigma
+   </math>
+   -algebra
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   represents the set of information available at time
+   <math display="inline">
+    t
+   </math>
+   , that is, events that have occurred up to time t. Thus, the filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   represents the evolution of the information or knowledge of the world with time. If
+   <math display="inline">
+    X
+   </math>
+   is an adapted process, then
+   <math display="inline">
+    X_t
+   </math>
+   , its value at time t, depends only on the evolution of the universe prior to
+   <math display="inline">
+    t
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 3
+   </b>
+   Let
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{F}, \mathbb{P})
+   </math>
+   be a filtered probability space.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. The filtration
+     <math display="inline">
+      \mathbb{F}
+     </math>
+     is said to be complete if
+     <math display="inline">
+      (\Omega, \mathcal{F}, \mathbb{P})
+     </math>
+     is complete and if
+     <math display="inline">
+      \mathcal{F}_0
+     </math>
+     contains all the
+     <math display="inline">
+      \mathbb{P}
+     </math>
+     -null sets.
+    </li>
+    <li block-type="ListItem">
+     2. The filtration
+     <math display="inline">
+      \mathbb{F}
+     </math>
+     is said to satisfy the usual hypotheses if it is complete and right continuous, that is, for all
+     <math display="inline">
+      t \geq 0
+     </math>
+     ,
+     <math display="inline">
+      \mathcal{F}_t = \mathcal{F}_{t+}
+     </math>
+     , where
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{F}_{t+} = \bigcap_{u&gt;t} \mathcal{F}_u \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   Some fundamental theorems, such as the Début theorem, require the usual hypotheses. Hence naturally, very often in the literature on the theory of stochastic processes and mathematical finance, the underlying filtered probability spaces are assumed to satisfy the usual hypotheses. This assumption is not very restrictive for the following reasons:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. Any filtration can easily be made complete and right continuous; indeed, given a filtered probability space
+     <math display="inline">
+      (\Omega, \mathcal{F}, \mathbb{F}, \mathbb{P})
+     </math>
+     , we first complete the probability space
+     <math display="inline">
+      (\Omega, \mathcal{F}, \mathbb{P})
+     </math>
+     , and then we add all the
+     <math display="inline">
+      \mathbb{P}
+     </math>
+     -null sets to every
+     <math display="inline">
+      \mathcal{F}_{t+}, t \geq 0
+     </math>
+     . The new filtration thus obtained satisfies the usual hypotheses and is called the
+     <i>
+      usual augmentation
+     </i>
+     of
+     <math display="inline">
+      \mathbb{F}
+     </math>
+     ;
+    </li>
+    <li block-type="ListItem">
+     2. Moreover, in most classical and encountered cases, the filtration
+     <math display="inline">
+      \mathbb{F}
+     </math>
+     is right continuous. Indeed, this is the case when, for instance,
+     <math display="inline">
+      \mathbb{F}
+     </math>
+     is the natural filtration of a Brownian motion, a Lévy process, a Feller process, or a Hunt process [8, 9].
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Enlargements of Filtrations
+   </b>
+  </h1>
+  <p block-type="Text">
+   For more precise and detailed references, the reader can consult the books
+   <math display="inline">
+    [4-6, 8]
+   </math>
+   or the survey article [7].
+  </p>
+  <h2>
+   Generalities
+  </h2>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{F}, \mathbb{P})
+   </math>
+   be a filtered probability space satisfying the usual hypotheses. Let
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   be another filtration satisfying the usual hypotheses and such that
+   <math display="inline">
+    \mathcal{F}_t \subset \mathcal{G}_t
+   </math>
+   for every
+   <math display="inline">
+    t \ge 0
+   </math>
+   . One natural question is, how are the F-semimartingales modified when considered as stochastic processes in the larger filtration
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   ? Given the importance of semimartingales and martingales (in particular, in mathematical finance where they are used to model prices), it seems natural to characterize situations where the semimartingale or martingale properties are preserved.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 4
+   </b>
+   We shall say that the pair of filtrations
+   <math display="inline">
+    (\mathbb{F}, \mathbb{G})
+   </math>
+   satisfies the
+   <math display="inline">
+    (H')
+   </math>
+   hypothesis if every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -semimartingale is a
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   -semimartingale.
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 1
+   </b>
+   In fact, using a classical decomposition of semimartingales due to Jacod and Mémin, it is enough to check that every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -bounded martingale is a G-semimartingale.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 5
+   </b>
+   <i>
+    We shall say that the pair of filtrations
+   </i>
+   <math display="inline">
+    (\mathbb{F}, \mathbb{G})
+   </math>
+   satisfies the
+   <math display="inline">
+    (H)
+   </math>
+   hypothesis if every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -local martingale is a G-local martingale.
+  </p>
+  <p block-type="Text">
+   The theory of enlargements of filtrations, developed in the late 1970s, provides answers to questions such as those mentioned earlier. Currently, this theory has been widely used in mathematical finance, especially in insider trading models and in models of default risk. The insider trading models are usually based on the so-called
+   <i>
+    initial enlargements of filtra
+   </i>
+   tions, whereas the models of default risk fit well in the framework of the
+   <i>
+    progressive enlargements of filtrations.
+   </i>
+   More precisely, given a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{F}, \mathbb{P})
+   </math>
+   , there are essentially two ways of enlarging filtrations:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     initial enlargements, for which
+     <math display="inline">
+      \mathcal{G}_t = \mathcal{F}_t \setminus \mathcal{H}
+     </math>
+     for every
+     <math display="inline">
+      t &gt; 0
+     </math>
+     , that is, the new information
+     <math display="inline">
+      \mathcal{H}
+     </math>
+     is brought in at the origin of time and
+    </li>
+    <li block-type="ListItem">
+     progressive enlargements, for which
+     <math display="inline">
+      \mathcal{G}_t = \mathcal{F}_t \setminus \mathcal{H}_t
+     </math>
+     for every
+     <math display="inline">
+      t &gt; 0
+     </math>
+     , that is, the new information is brought in progressively as the time
+     <math display="inline">
+      t
+     </math>
+     increases.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Before presenting the basic theorems on enlargements of filtrations, we state a useful theorem due to Stricker.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   (Stricker [10]). Let
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   and
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   be two filtrations as above, such that for all
+   <math display="inline">
+    t \geq 0
+   </math>
+   ,
+   <math display="inline">
+    \mathcal{F}_t \subset \mathcal{G}_t
+   </math>
+   . If
+   <math display="inline">
+    (X_t)
+   </math>
+   is a
+   <math display="inline">
+    G
+   </math>
+   -semimartingale that is
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -adapted, then it is also an
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -semimartingale.
+  </p>
+  <h4>
+   Initial Enlargements of Filtrations
+  </h4>
+  <p block-type="TextInlineMath">
+   The most important theorem on initial enlargements of filtrations is due to Jacod and deals with the special case where the initial information brought in at the origin of time consists of the
+   <math display="inline">
+    \sigma
+   </math>
+   -algebra generated by a random variable. More precisely, let
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{F}, \mathbb{P})
+   </math>
+   be a filtered probability space satisfying the usual assumptions. Let Z be an
+   <math display="inline">
+    \mathcal{F}
+   </math>
+   measurable random variable. Define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{G}_{t} = \bigcap_{\varepsilon &gt; 0} \left( \mathcal{F}_{t+\varepsilon} \bigvee \sigma \left\{ Z \right\} \right), \quad t \ge 0 \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   In financial models, the filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   represents the public information in a financial market and the random variable
+   <math display="inline">
+    Z
+   </math>
+   stands for the additional (anticipating) information of an insider.
+  </p>
+  <p block-type="TextInlineMath">
+   The conditional laws of Z given
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   , for
+   <math display="inline">
+    t \geq 0
+   </math>
+   , play a crucial role in initial enlargements.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 2
+   </b>
+   (Jacod's criterion). Let Z be an
+   <math display="inline">
+    \mathcal{F}
+   </math>
+   measurable random variable and let
+   <math display="inline">
+    O_t(\omega, dx)
+   </math>
+   denote the regular conditional distribution of Z given
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   ,
+   <math display="inline">
+    t \geq 0
+   </math>
+   . Suppose that for each
+   <math display="inline">
+    t \ge 0
+   </math>
+   , there exists a positive
+   <math display="inline">
+    \sigma
+   </math>
+   -finite measure
+   <math display="inline">
+    \eta_t
+   </math>
+   (dx) (on
+   <math display="inline">
+    (\mathbb{R}, \mathcal{B}(\mathbb{R}))
+   </math>
+   ) such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q_t(\omega, dx) \ll \eta_t(dx)
+   </math>
+   almost surely (3)
+  </p>
+  <p block-type="Text">
+   Then every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -semimartingale is a
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   -semimartingale.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Remark 2
+   </b>
+   In fact, this theorem still holds for random variables with values in a standard Borel space. Moreover, the existence of the
+   <math display="inline">
+    \sigma
+   </math>
+   -finite measure
+   <math display="inline">
+    \eta_t
+   </math>
+   (dx) is equivalent to the existence of one positive
+   <math display="inline">
+    \sigma
+   </math>
+   -finite measure
+   <math display="inline">
+    \eta
+   </math>
+   (dx) such that
+   <math display="inline">
+    Q_t(\omega, dx) \ll
+   </math>
+   <math display="inline">
+    \eta
+   </math>
+   (dx) and in this case
+   <math display="inline">
+    \eta
+   </math>
+   can be taken to be the distribution of
+   <math display="inline">
+    Z
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Now we give classical corollaries of Jacod's theorem.
+  </p>
+  <p block-type="Text">
+   <b>
+    Corollary 1
+   </b>
+   Let Z be independent of
+   <math display="inline">
+    \mathcal{F}_{\infty}
+   </math>
+   . Then, every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -semimartingale is a
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   -semimartingale.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Corollary 2
+   </b>
+   Let
+   <math display="inline">
+    Z
+   </math>
+   be a random variable taking on only a countable number of values. Then every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   semimartingale is a
+   <math display="inline">
+    G
+   </math>
+   -semimartingale.
+  </p>
+  <p block-type="TextInlineMath">
+   In some cases, it is possible to obtain an explicit decomposition of an F-local martingale as a Gsemimartingale [4–8]. For example, if
+   <math display="inline">
+    Z = B_{t_0}
+   </math>
+   , for some fixed time
+   <math display="inline">
+    t_0 &gt; 0
+   </math>
+   and a Brownian Motion
+   <i>
+    B
+   </i>
+   , it can be shown that Jacod's criterion holds for
+   <math display="inline">
+    t &lt; t_0
+   </math>
+   and that every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -local martingale is a semimartingale for
+   <math display="inline">
+    0 \le t &lt; t_0
+   </math>
+   , but not necessarily including
+   <math display="inline">
+    t_0
+   </math>
+   . Indeed in this case, there are
+   <math display="inline">
+    F
+   </math>
+   -local martingales that are not
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   -semimartingales. Moreover, B is a G-semimartingale, which decomposes as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B_t = B_0 + \widetilde{B}_t + \int_0^{t \wedge t_0} \mathrm{d}s \frac{B_{t_0} - B_s}{t_0 - s} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (\widetilde{B}_t)
+   </math>
+   is a G Brownian Motion.
+  </p>
+  <p block-type="TextInlineMath">
+   Remark 3 There are cases where Jacod's criterion does not hold but where other methods apply [4, 6, 7].
+  </p>
+  <h4>
+   Progressive Enlargements of Filtrations
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{F}, \mathbb{P})
+   </math>
+   be a filtered probability space satisfying the usual hypotheses, and
+   <math display="inline">
+    \rho: (\Omega, \mathcal{F}) \to
+   </math>
+   <math display="inline">
+    (\mathbb{R}_+, \mathcal{B}(\mathbb{R}_+))
+   </math>
+   be a random time. We enlarge the initial filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   with the process
+   <math display="inline">
+    (\rho \wedge t)_{t&gt;0}
+   </math>
+   , so that the new enlarged filtration
+   <math display="inline">
+    \mathbb{F}^{\rho}
+   </math>
+   is the smallest filtration (satisfying the usual assumptions) containing F and making
+   <math display="inline">
+    \rho
+   </math>
+   a stopping time (i.e., for all
+   <math display="inline">
+    t \ge 0
+   </math>
+   ,
+   <math display="inline">
+    \mathcal{F}_t^o = \mathcal{K}_{t+}^o
+   </math>
+   , where
+   <math display="inline">
+    \mathcal{K}_t^o = \mathcal{F}_t \bigvee \sigma \ (\rho \wedge t)
+   </math>
+   ). One may interpret
+   <math display="inline">
+    \rho
+   </math>
+   as the instant of default of an issuer; the given filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   can be thought of as the filtration of default-free prices, for which
+   <math display="inline">
+    \rho
+   </math>
+   is not a stopping time. Then, the filtration
+   <math display="inline">
+    \mathbb{F}^{\rho}
+   </math>
+   is the defaultable market filtration used for the pricing of defaultable assets.
+  </p>
+  <p block-type="Text">
+   A few processes play a crucial role in our discussion:
+  </p>
+  <p block-type="Text">
+   the
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -supermartingale
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_t^{\rho} = \mathbb{P}\left[\rho &gt; t \mid \mathcal{F}_t\right] \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   chosen to be càdlàg, associated to
+   <math display="inline">
+    \rho
+   </math>
+   by Azéma [1];
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      \bullet
+     </math>
+     the
+     <math display="inline">
+      \mathbb{F}
+     </math>
+     -dual optional projection of the process
+     <math display="inline">
+      \mathbf{1}_{\{\rho &lt; t\}}
+     </math>
+     , denoted by
+     <math display="inline">
+      A_t^{\rho}
+     </math>
+     (see [7, 8] for a definition of dual optional projections); and
+    </li>
+    <li block-type="ListItem">
+     the càdlàg martingale
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu_t^{\rho} = \mathbb{E}\left[A_{\infty}^{\rho} \mid \mathcal{F}_t\right] = A_t^{\rho} + Z_t^{\rho} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 3
+   </b>
+   Every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -local martingale
+   <math display="inline">
+    (M_t)
+   </math>
+   , stopped at
+   <math display="inline">
+    \rho
+   </math>
+   , is an
+   <math display="inline">
+    \mathbb{F}^{\rho}
+   </math>
+   -semimartingale, with canonical
+   <i>
+    decomposition:
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_{t \wedge \rho} = \widetilde{M}_{t} + \int_{0}^{t \wedge \rho} \frac{\mathrm{d} \langle M, \mu^{\rho} \rangle_{s}}{Z_{s-}^{\rho}} \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    (\widetilde{M}_t)
+   </math>
+   is an
+   <math display="inline">
+    \mathbb{F}^{\rho}
+   </math>
+   -local martingale.
+  </p>
+  <p block-type="Text">
+   The most interesting case in the theory of progressive enlargements of filtrations is when
+   <math display="inline">
+    \rho
+   </math>
+   is an
+   <i>
+    honest time
+   </i>
+   or equivalently the end of an
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   optional set
+   <math display="inline">
+    \Gamma
+   </math>
+   , that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho = \sup \{ t : (t, \omega) \in \Gamma \} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Indeed, in this case, the pair of filtrations
+   <math display="inline">
+    (\mathbb{F}, \mathbb{F}^{\rho})
+   </math>
+   satisfies the
+   <math display="inline">
+    (H')
+   </math>
+   hypothesis: every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -local martingale
+   <math display="inline">
+    (M_t)
+   </math>
+   is an
+   <math display="inline">
+    \mathbb{F}^{\rho}
+   </math>
+   -semimartingale, with canonical decomposition:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_{t} = \widetilde{M}_{t} + \int_{0}^{t \wedge \rho} \frac{\mathrm{d}\langle M, \mu^{\rho} \rangle_{s}}{Z_{s-}^{\rho}} - \int_{\rho}^{t} \mathbf{1}_{\{\rho \le t\}} \frac{\mathrm{d}\langle M, \mu^{\rho} \rangle_{s}}{1 - Z_{s-}^{\rho}} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   The next decomposition formulas are used for pricing in default models:
+  </p>
+  <h2>
+   Proposition 1
+  </h2>
+  <p block-type="Text">
+   1. Let
+   <math display="inline">
+    \xi \in L^1
+   </math>
+   . Then a càdlàg version of the martingale
+   <math display="inline">
+    \xi_t = \mathbb{E}\left[\xi|\mathcal{F}_t^{\rho}\right]
+   </math>
+   , on the set
+   <math display="inline">
+    \{t &lt; \rho\}
+   </math>
+   , is given by:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \xi_t \mathbf{1}_{t &lt; \rho} = \frac{1}{Z_t^{\rho}} \mathbf{1}_{t &lt; \rho} \mathbb{E} \left[ \xi \mathbf{1}_{t &lt; \rho} | \mathcal{F}_t \right] \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   2. Let
+   <math display="inline">
+    \xi \in L^1
+   </math>
+   and let
+   <math display="inline">
+    \rho
+   </math>
+   be an honest time. Then a càdlàg version of the martingale
+   <math display="inline">
+    \xi_t = \mathbb{E}\left[\xi|\mathcal{F}_t^o\right]
+   </math>
+   is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \xi_{t} = \frac{1}{Z_{t}^{\rho}} \mathbb{E} \left[ \xi \mathbf{1}_{t &lt; \rho} | \mathcal{F}_{t} \right] \mathbf{1}_{t &lt; \rho} + \frac{1}{1 - Z_{t}^{\rho}} \mathbb{E} \left[ \xi \mathbf{1}_{t \ge \rho} | \mathcal{F}_{t} \right] \mathbf{1}_{t \ge \rho} \tag{11}
+   </math>
+  </p>
+  <h2>
+   <math display="inline">
+    The (H) Hypothesis
+   </math>
+  </h2>
+  <p block-type="TextInlineMath">
+   The
+   <math display="inline">
+    (H)
+   </math>
+   hypothesis, in contrast to the
+   <math display="inline">
+    (H')
+   </math>
+   hypothesis, is sometimes presented as a no-abitrage condition in default models. Let
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{P})
+   </math>
+   be a probability space satisfying the usual assumptions. Let
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   and
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   be two subfiltrations of
+   <math display="inline">
+    \mathcal{F}
+   </math>
+   , with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{F}_t \subset \mathcal{G}_t \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   Brémaud and Yor [2] have proven the following characterization of the
+   <math display="inline">
+    (H)
+   </math>
+   hypothesis:
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 4
+   </b>
+   The following are equivalent:
+  </p>
+  <p block-type="TextInlineMath">
+   1. Every
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -martingale is a
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   -martingale. 2. For all
+   <math display="inline">
+    t \ge 0
+   </math>
+   , the sigma fields
+   <math display="inline">
+    \mathcal{G}_t
+   </math>
+   and
+   <math display="inline">
+    \mathcal{F}_{\infty}
+   </math>
+   are independent conditionally on
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <b>
+    Remark 4
+   </b>
+   We also say that
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   is
+   <i>
+    immersed
+   </i>
+   in
+   <math display="inline">
+    \mathbb{G}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In the framework of the progressive enlargement of some filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   with a random time
+   <math display="inline">
+    \rho
+   </math>
+   , the
+   <math display="inline">
+    (H)
+   </math>
+   hypothesis is equivalent to one of the following hypothesis
+   <math display="inline">
+    [3]
+   </math>
+   :
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <math display="inline">
+      \forall t
+     </math>
+     , the
+     <math display="inline">
+      \sigma
+     </math>
+     -algebras
+     <math display="inline">
+      \mathcal{F}_{\infty}
+     </math>
+     and
+     <math display="inline">
+      \mathcal{F}_{t}^{\rho}
+     </math>
+     are conditionally independent given
+     <math display="inline">
+      \mathcal{F}_t
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     For all bounded
+     <math display="inline">
+      \mathcal{F}_{\infty}
+     </math>
+     measurable random vari-2. ables
+     <b>
+      F
+     </b>
+     and all bounded
+     <math display="inline">
+      \mathcal{F}_t^{\rho}
+     </math>
+     measurable random variables
+     <math display="inline">
+      \mathbf{G}_t
+     </math>
+     , we have
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[\mathbf{F}\mathbf{G}_{t} \mid \mathcal{F}_{t}\right] = \mathbb{E}\left[\mathbf{F} \mid \mathcal{F}_{t}\right] \mathbb{E}\left[\mathbf{G}_{t} \mid \mathcal{F}_{t}\right] \quad (13)
+   </math>
+  </p>
+  <p block-type="Text">
+   3. For all bounded
+   <math display="inline">
+    \mathcal{F}_t^{\rho}
+   </math>
+   measurable random variables
+   <math display="inline">
+    \mathbf{G}_t
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[\mathbf{G}_{t} \mid \mathcal{F}_{\infty}\right] = \mathbb{E}\left[\mathbf{G}_{t} \mid \mathcal{F}_{t}\right] \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   4. For all bounded
+   <math display="inline">
+    \mathcal{F}_{\infty}
+   </math>
+   measurable random vari-
+   <math display="inline">
+    \text{ables } \mathbf{F}.
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[\mathbf{F} \mid \mathcal{F}_t^o\right] = \mathbb{E}\left[\mathbf{F} \mid \mathcal{F}_t\right] \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   5. For all
+   <math display="inline">
+    s \leq t
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{P}\left[\rho \le s \mid \mathcal{F}_t\right] = \mathbb{P}\left[\rho \le s \mid \mathcal{F}_\infty\right] \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   In view of applications to financial mathematics, a natural question is, how is the
+   <math display="inline">
+    (H)
+   </math>
+   hypothesis affected when we make an equivalent change of probability measure?
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 2
+   </b>
+   Let
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   be a probability measure that is equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   (on
+   <math display="inline">
+    \mathcal{F}
+   </math>
+   ). Then, every
+   <math display="inline">
+    (\mathbb{F}, \mathbb{Q})
+   </math>
+   semimartingale is a
+   <math display="inline">
+    (\mathbb{G}, \mathbb{Q})
+   </math>
+   -semimartingale.
+  </p>
+  <p block-type="Text">
+   Now, define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\Big|_{\mathcal{F}_t} = R_t, \quad \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\Big|_{\mathcal{G}_t} = R'_t \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    Y = \frac{d\mathbb{Q}}{d\mathbb{P}}
+   </math>
+   , then the hypothesis
+   <math display="inline">
+    (H)
+   </math>
+   holds under
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   if and only if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \forall X \ge 0, \quad X \in \mathcal{F}_{\infty}, \quad \frac{\mathbb{E}_{\mathbf{P}}[XY|\mathcal{G}_t]}{R'_t} = \frac{\mathbb{E}_{\mathbf{P}}[XY|\mathcal{F}_t]}{R_t} \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In particular, when
+   <math display="inline">
+    \frac{d\mathbb{Q}}{d\mathbb{P}}
+   </math>
+   is
+   <math display="inline">
+    \mathcal{F}_{\infty}
+   </math>
+   measurable,
+   <math display="inline">
+    R_t = R'_t
+   </math>
+   and the hypothesis
+   <math display="inline">
+    (H)
+   </math>
+   holds under
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   . A decomposition formula is given below.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 5
+   </b>
+   If
+   <math display="inline">
+    (X_t)
+   </math>
+   is a
+   <math display="inline">
+    (\mathbb{F}, \mathbb{Q})
+   </math>
+   -local martingale, then the stochastic process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_X(t) = X_t + \int_0^t \frac{R'_{s-}}{R'_s}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \times \left(\frac{1}{R_{s-}}\,\mathrm{d}[X,\,R]_{s} - \frac{1}{R_{s-}'}\,\mathrm{d}[X,\,R']_{s}\right) \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is a
+   <math display="inline">
+    (\mathbb{G}, \mathbb{Q})
+   </math>
+   -local martingale.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Azéma, J. (1972). Quelques applications de la théorie [1] générale des processus I, Inventiones Mathematicae 18, 293-336.
+    </li>
+    <li block-type="ListItem">
+     Brémaud, P. &amp; Yor, M. (1978). Changes of filtration [2] and of probability measures, Zeitschrift fur Wahrscheinlichkeitstheorie und Verwandte Gebiete
+     <b>
+      45
+     </b>
+     . 269–295.
+    </li>
+    <li block-type="ListItem">
+     Elliott, R.J., Jeanblanc, M. &amp; Yor, M. (2000). On models [3] of default risk, Mathematical Finance 10, 179-196.
+    </li>
+    <li block-type="ListItem">
+     [4] Jeulin, T. (1980). Semi-martingales et Grossissements d'une Filtration, Lecture Notes in Mathematics, Springer, Vol. 833.
+    </li>
+    <li block-type="ListItem">
+     Jeulin, T. &amp; Yor, M. (eds) (1985). Grossissements de [5] Filtrations: Exemples et Applications, Lecture Notes in Mathematics, Springer, Vol. 1118.
+    </li>
+    <li block-type="ListItem">
+     Mansuy, R. &amp; Yor, M. (2006). Random Times and [6] (Enlargement of Filtrations) in a Brownian Setting, Lecture Notes in Mathematics, Springer, Vol. 1873.
+    </li>
+    <li block-type="ListItem">
+     [7] Nikeghbali, A. (2006). An essay on the general theory of stochastic processes,
+     <i>
+      Probability Surveys
+     </i>
+     3, 345–412.
+    </li>
+    <li block-type="ListItem">
+     [8] Protter, P.E. (2005). Stochastic Integration and Differential Equations, 2nd Edition, version 2.1, Springer.
+    </li>
+    <li block-type="ListItem">
+     [9] Revuz, D. &amp; Yor, M. (1999). Continuous Martingales and Brownian Motion, 3rd Edition, Springer.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      [10]
+     </math>
+     Stricker, C. (1977). Quasi-martingales, martingales locales, semimartingales et filtration naturelle, Zeitschrift fur Wahrscheinlichkeitstheorie und Verwandte Gebiete 39, 55-63.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Jacod, J. (1985). Grossissement initial, hypothèse (H'), et théorème de Girsanov, in Grossissements de Filtrations: Exemples et Applications, T. Jeulin &amp; M. Yor, eds, Springer, рр. 15-35.
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   Compensators; Equivalence of Probability Measures; Martingale Representation Theorem; Martingales; Poisson Process; Semimartingale.
+  </p>
+  <p block-type="Text">
+   DELIA COCULESCU &amp; ASHKAN NIKEGHBALI
+  </p>
+ </body>
+</html>

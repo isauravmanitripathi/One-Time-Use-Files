@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Catastrophe Bonds
+   </b>
+  </h1>
+  <p block-type="Text">
+   Catastrophe bonds (also called cat bonds) were developed to facilitate direct transfer of catastrophe insurance risk (see
+   <b>
+    Insurance Risk Models
+   </b>
+   ) from (re)insurers (see
+   <b>
+    Reinsurance
+   </b>
+   ) and corporations (referred to as sponsors for the cat bonds) to investors. As a market innovation in the form of insurance risk securitization, cat bonds were designed to protect sponsoring companies from financial losses caused by large natural catastrophes (such as hurricanes and earthquakes), as an alternative or supplement to traditional reinsurance (see Reinsurance). From the sponsor's perspective, the fully collateralized nature of cat bonds provides an important alternative source of capital capacity. From the investors' perspective, the past performances of cat bonds have been very attractive and cat bonds provide further diversification relative to the typical financial asset portfolios.
+  </p>
+  <p block-type="TextInlineMath">
+   Cat losses covered under the cat bond are often characterized by a loss-exceedance curve,
+   <math display="inline">
+    S(x) =
+   </math>
+   <math display="inline">
+    \Pr\{X &gt; x\}
+   </math>
+   , that is, the probability that the cat loss
+   <math display="inline">
+    X
+   </math>
+   will exceed amount
+   <math display="inline">
+    x
+   </math>
+   . Investors of a cat bond are generally provided with a loss-exceedance curve
+   <math display="inline">
+    S(x)
+   </math>
+   that is obtained either
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     by running company exposure data through commercially available cat modeling software, or
+    </li>
+    <li block-type="ListItem">
+     by designing payout functions along some parametric indicators (e.g., the Richter scale of an earthquake at a specified location, an aggregate industry loss index, etc.).
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The following information is embedded in a lossexceedance curve
+   <math display="inline">
+    S(x)
+   </math>
+   :
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     the expected frequency of default (see Credit Risk); and
+    </li>
+    <li block-type="ListItem">
+     the recovery rate, given default.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   As compensation for credit risks (see Credit Risk), cat bonds normally offer investors yields that are higher than the risk-free interest rate (e.g., the London interbank offered rate (LIBOR); see Bond). The excess yields spread over the riskfree rate should more than compensate for the expected default rate, since it should also contain risk load for uncertainties associated with the default risk.
+  </p>
+  <p block-type="Text">
+   For investors, it is desirable to compare the relative attractiveness of the yields spreads between cat bonds and corporate bonds. In order to compare riskadjusted performance of various asset classes, what is needed is a common yardstick that is applicable to all types of risks. For mutual funds (
+   <i>
+    see Mutual Funds
+   </i>
+   ), a popular measure of risk-adjusted performance is the Sharpe ratio (see Capital Asset Pricing Model), namely, the excess return per unit of volatility. The Sharpe ratio works well for assets whose returns follow normal distributions. However, for a single cat bond issue, the traditional Sharpe ratio concept is not applicable since the asset return is skewed and with jumps: most of the probability mass is centered at zero loss, although there is a small probability of potentially large negative returns. Other pricing methods have been developed for cat bonds to capture the characteristics of cat bond losses.
+  </p>
+  <h2>
+   <b>
+    Lane Pricing Model
+   </b>
+  </h2>
+  <p block-type="Text">
+   Lane [1] proposed the following model for the cat bond yields:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{EER} = \gamma (\text{PFL})^{\alpha} (\text{CEL})^{\beta} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where probability of first loss (PFL) is the expected annual frequency of incurring a loss. Conditional expected loss (CEL) represents the average severity as percentage of principal given that a loss occurs. Expected excess return (EER) represents the adjusted spread over LIBOR, further net of expected loss (that is, PFL
+   <math display="inline">
+    \times
+   </math>
+   CEL). EER represents the risk loading.
+  </p>
+  <p block-type="TextInlineMath">
+   Lane showed that his model (1) fits reasonably well to empirical prices for a dozen CAT bond transactions in 1999–2000, for which the best-fit parameters were
+   <math display="inline">
+    \gamma = 55\%
+   </math>
+   ,
+   <math display="inline">
+    \alpha = 49\%
+   </math>
+   , and
+   <math display="inline">
+    \beta = 57\%
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Probability Transform Method
+   </b>
+  </h4>
+  <p block-type="Text">
+   Wang [2] establishes a pricing method by directly applying the following Wang transform to convert a loss curve
+   <i>
+    S
+   </i>
+   to a price curve
+   <math display="inline">
+    S^*
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S^{*}(y) = t(\Phi^{-1}(S(y)) + \lambda)
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    t
+   </math>
+   represents Student-
+   <math display="inline">
+    t
+   </math>
+   distribution with degree of freedom
+   <math display="inline">
+    k
+   </math>
+   . The difference in the areas between
+   <math display="inline">
+    S^*
+   </math>
+   and S constitutes the risk load. Based on the same 1999–2000 cat bond transaction data as in [1], the estimated parameters of Wang transform in
+  </p>
+  <h3>
+   <b>
+    2 Catastrophe Bonds
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   equation (2) are
+   <i>
+    λ
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   454 and the degree of freedom
+   <i>
+    k
+   </i>
+   = 5. Here the student-
+   <i>
+    t
+   </i>
+   factor is essential to capture the low frequency and high-severity characteristic of credit losses associated with cat bonds.
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="Text">
+   [1] Lane, M.N. (2000). Pricing risk transfer transactions,
+   <i>
+    ASTIN Bulletin
+   </i>
+   <b>
+    30
+   </b>
+   (2), 259–293.
+  </p>
+  <p block-type="Text">
+   [2] Wang, S.S. (2004).
+   <i>
+    Cat Bond Pricing Using Probability Transforms
+   </i>
+   . The Geneva Papers on Risk and Insurance– Issues and Practice.
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   <b>
+    Arbitrage Pricing Theory
+   </b>
+   ;
+   <b>
+    Credit Risk
+   </b>
+   ;
+   <b>
+    Bond
+   </b>
+   ;
+   <b>
+    Insurance Risk Models
+   </b>
+   ;
+   <b>
+    Mutual Funds
+   </b>
+   ;
+   <b>
+    Reinsurance
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   SHAUN WANG
+  </p>
+ </body>
+</html>

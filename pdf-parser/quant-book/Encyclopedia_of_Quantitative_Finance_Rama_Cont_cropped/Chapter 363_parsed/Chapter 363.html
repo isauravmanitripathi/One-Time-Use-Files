@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    GARCH Models
+   </b>
+  </h1>
+  <h2>
+   <b>
+    Univariate Models of Conditional
+   </b>
+   Heteroskedasticity
+  </h2>
+  <h2>
+   The ARCH Model
+  </h2>
+  <p block-type="Text">
+   Financial economists are concerned with modeling and forecasting volatility in asset returns. This is the case since volatility is considered a measure of risk, and investors want a premium for investing in risky assets. Marginal distributions of typical return series have heavy tails, and the series show clustering of volatility. Furthermore, these series have little or no autocorrelation, but they do display higher order dependence. For example, the squared returns are positively autocorrelated. The autoregressive conditional heteroskedasticity (ARCH) model and its variants have been found useful in describing data with these properties.
+  </p>
+  <p block-type="TextInlineMath">
+   The original ARCH model, introduced by Engle [21], can be defined as follows. Let
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   be a random variable that has a mean and a variance conditionally on the information set
+   <math display="inline">
+    \mathcal{F}_{t-1}
+   </math>
+   that contains all past information up until
+   <math display="inline">
+    t-1
+   </math>
+   and available at time t. The ARCH model of
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   has the following properties. First, the conditional mean
+   <math display="inline">
+    \mathsf{E}\{\varepsilon_t|\mathcal{F}_{t-1}\}=0
+   </math>
+   and, second, the conditional variance
+   <math display="inline">
+    h_t = \mathsf{E}\{\varepsilon_t^2 | \mathcal{F}_{t-1}\}\
+   </math>
+   is a nontrivial positive-valued parametric function of
+   <math display="inline">
+    \mathcal{F}_{t-1}
+   </math>
+   . The sequence
+   <math display="inline">
+    \{\varepsilon_t\}
+   </math>
+   may be observed directly. In that case it may be, for example, a sequence of daily returns of an asset or an index. It may also be an unobserved error or innovation sequence of an econometric model. In the latter case,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varepsilon_t = y_t - \mathsf{E}\{y_t | \mathcal{F}_{t-1}\}\tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    y_t
+   </math>
+   is an observable random variable and
+   <math display="inline">
+    \mathsf{E}\{y_t|\mathcal{F}_{t-1}\}\
+   </math>
+   is the conditional mean of
+   <math display="inline">
+    y_t
+   </math>
+   given
+   <math display="inline">
+    \mathcal{F}_{t-1}
+   </math>
+   . Here, the focus is on
+   <math display="inline">
+    h_t
+   </math>
+   and it is assumed that
+   <math display="inline">
+    \mathsf{E}\{y_t|\mathcal{F}_{t-1}\}=0.
+   </math>
+  </p>
+  <p block-type="Text">
+   Engle assumed that
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   can be decomposed as follows: 1 10
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varepsilon_t = z_t h_t^{1/2} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \{z_t\}
+   </math>
+   is a sequence of independent, identically distributed (iid) random variables with zero mean and unit variance. This implies
+   <math display="inline">
+    \varepsilon_t | \mathcal{F}_{t-1} \sim \mathcal{D}(0, h_t)
+   </math>
+   where
+   <math display="inline">
+    \mathcal{D}
+   </math>
+   stands for a distribution, assumed to be
+  </p>
+  <p block-type="TextInlineMath">
+   either a normal distribution or a leptokurtic one, such as the
+   <i>
+    t
+   </i>
+   -distribution. The information set
+   <math display="inline">
+    \mathcal{F}_{t-1}
+   </math>
+   =
+   <math display="inline">
+    \{\varepsilon_{t-j}: j \ge 1\}
+   </math>
+   . The conditional variance of an ARCH model of order
+   <math display="inline">
+    q
+   </math>
+   has the following parametric form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_t = \alpha_0 + \sum_{j=1}^{q} \alpha_j \varepsilon_{t-j}^2 \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \alpha_0 &gt; 0, \alpha_j \ge 0, j = 1, ..., q - 1, \text{ and } \alpha_q &gt; 0.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The parameter restrictions in equation
+   <math display="inline">
+    (3)
+   </math>
+   form a necessary and sufficient condition for positivity of the conditional variance. Suppose the unconditional variance
+   <math display="inline">
+    \mathsf{E}\varepsilon_t^2 = \sigma^2 &lt; \infty
+   </math>
+   . The definition of
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   through the decomposition (2) involving
+   <math display="inline">
+    z_t
+   </math>
+   then guarantees the white noise property of the sequence
+   <math display="inline">
+    \{\varepsilon_t\}
+   </math>
+   , since
+   <math display="inline">
+    \{z_t\}
+   </math>
+   is a sequence of iid variables. In fact, the ARCH model can be viewed as a special case of the family of models with uncorrelated observations but higher order dependence, such that the squared observations are correlated.
+  </p>
+  <p block-type="Text">
+   The ARCH model and its generalizations are applied to modeling, among other things, highfrequency data on interest rates, exchange rates and stock and stock index returns. "High frequency" in this context means weekly, daily, or intradaily observations. Bollerslev et al. [12] already listed a large variety of applications in their survey of these models, and their number has increased enormously since then. Forecasting volatility of these series is different from forecasting the conditional mean of a process because volatility, the object to be forecast, is not observed. The question then is how volatility should be measured. Using
+   <math display="inline">
+    \varepsilon_t^2
+   </math>
+   is an obvious solution, but it is not necessarily a good one if data of higher frequency are available. Andersen and Bollersley [3] and others recommend realized volatility (see Realized Volatility and Multipower Variation) for the purpose; for a review see
+   <math display="inline">
+    [2]
+   </math>
+   .
+  </p>
+  <h4>
+   The Generalized ARCH Model and Extensions
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   Generalized ARCH. The ARCH model has since been extended by adding lagged conditional variances to equation (3). This extension, called the
+   <i>
+    generalized
+   </i>
+   ARCH (GARCH) model, proposed independently by Bollerslev [10] and Taylor [67], has since become very popular. The
+   <math display="inline">
+    GARCH(p, q)
+   </math>
+   model has the
+  </p>
+  <p block-type="Text">
+   following form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_{t} = \alpha_{0} + \sum_{j=1}^{q} \alpha_{j} \varepsilon_{t-j}^{2} + \sum_{j=1}^{p} \beta_{j} h_{t-j} \qquad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A sufficient condition for the conditional variance
+   <math display="inline">
+    h_t
+   </math>
+   in equation (4) to be positive is
+   <math display="inline">
+    \alpha_0 &gt; 0
+   </math>
+   ,
+   <math display="inline">
+    \alpha_i \ge 0
+   </math>
+   ,
+   <math display="inline">
+    j = 1, \ldots, q; \ \beta_j \ge 0, \ j = 1, \ldots, p.
+   </math>
+   This condition is not necessary if either
+   <math display="inline">
+    p
+   </math>
+   or
+   <math display="inline">
+    q
+   </math>
+   , or both, exceed 1; see [56]. For the GARCH model to be identified if at least one
+   <math display="inline">
+    \beta_i &gt; 0
+   </math>
+   (the model is a genuine GARCH model), it is required that also at least one
+   <math display="inline">
+    \alpha_i &gt; 0
+   </math>
+   . If
+   <math display="inline">
+    \alpha_1 = \ldots = \alpha_q = 0
+   </math>
+   , the conditional and unconditional variances of
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   are equal and
+   <math display="inline">
+    \beta_1, \ldots, \beta_p
+   </math>
+   are unidentified nuisance parameters. The
+   <math display="inline">
+    GARCH(p,q)
+   </math>
+   process is weakly stationary if and only if
+   <math display="inline">
+    \sum_{j=1}^{q} \alpha_j + \sum_{j=1}^{p} \beta_j &lt; 1.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The overwhelmingly most frequently applied
+   <math display="inline">
+    GARCH
+   </math>
+   model has been the
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   model. The weakly stationary
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   model only contains three parameters, but one more parameter can be saved by "variance targeting". The idea is to replace the intercept
+   <math display="inline">
+    \alpha_0
+   </math>
+   in equation (4) by
+   <math display="inline">
+    (1 - \alpha_1 - \beta_1)\sigma^2
+   </math>
+   where
+   <math display="inline">
+    \sigma^2 = \mathsf{E}\varepsilon_t^2
+   </math>
+   . The estimate
+   <math display="inline">
+    \widehat{\sigma}^2 = T^{-1} \sum_{t=1}^T \varepsilon_t^2
+   </math>
+   is substituted for
+   <math display="inline">
+    \sigma^2
+   </math>
+   before estimating the other two parameters. As a result, the conditional variance converges toward the "long-run" unconditional variance, which may be considered a desirable property of the model.
+  </p>
+  <p block-type="Text">
+   Since its introduction, the GARCH model has been generalized and extended in various directions. This has been done in order to increase the flexibility of the original model. Because it only contains squared lags of
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   , the response of the conditional variance to a shock
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   is independent of the sign of the shock and just a function of its size. Several extensions of the GARCH model aim at accommodating the asymmetry in the response, caused by the
+   <i>
+    leverage effect
+   </i>
+   present in stock returns. The most frequently applied asymmetric GARCH model is the GJR-GARCH model of [32]. It is defined as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_{t} = \alpha_{0} + \sum_{j=1}^{q} \{\alpha_{j} + \delta_{j} I(\varepsilon_{t-j} &gt; 0)\}\varepsilon_{t-j}^{2}
+   </math>
+   <math display="block">
+    + \sum_{j=1}^{p} \beta_{j} h_{t-j} \qquad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    I(\varepsilon_{t-i} &gt; 0)
+   </math>
+   is an indicator function obtaining value 1 when the argument is true and 0 otherwise. The asymmetry in the data is modeled through the terms
+   <math display="inline">
+    \delta_j I(\varepsilon_{t-j} &gt; 0) \varepsilon_{t-j}^2
+   </math>
+   ,
+   <math display="inline">
+    j = 1, \ldots, q
+   </math>
+   , in equation (5). Typically, in applications,
+   <math display="inline">
+    p = q = 1
+   </math>
+   . Other asymmetric GARCH models include the asymmetric GARCH (AGARCH) of [27] and the quadratic GARCH of [59]. Furthermore, the smooth transition GARCH (STGARCH) model, introduced by Hagerud [38] and Gonzalez-Rivera [33], can be used for describing asymmetries in return series. This model contains a continuum of regimes, whereas in the GJR-
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   model there are only two regimes with the switch point at
+   <math display="inline">
+    \varepsilon_t = 0
+   </math>
+   . The GJR-GARCH model is still linear in parameters, which makes it easier to estimate than, say, the STGARCH model that is genuinely nonlinear in parameters.
+  </p>
+  <p block-type="Text">
+   There are other nonlinear GARCH models that have been applied in practice. Perhaps the most prominent example is the Markov-switching GARCH model. It contains a finite number (usually two) of regimes, and the GARCH process switches between them according to a latent random variable. It was originally introduced as an ARCH model (see [16] and
+   <math display="inline">
+    [39]
+   </math>
+   ) and is in that form defined as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_{t} = \sum_{i=1}^{k} \left( \alpha_{0}^{(i)} + \sum_{j=1}^{q} \alpha_{j}^{(i)} \varepsilon_{t-j}^{2} \right) I(s_{t} = i) \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    s_t
+   </math>
+   is the discrete latent random variable obtaining values from the set
+   <math display="inline">
+    S = \{1, \ldots, k\}
+   </math>
+   of regime indicators. It follows a (usually first-order) homogeneous Markov chain:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Pr\{s_t = j | s_t = i\} = p_{ij}, \quad i, j = 1, \dots, k \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   hence the name Markov-switching GARCH. The transition probabilities
+   <math display="inline">
+    p_{ij}
+   </math>
+   are parameters to be estimated. An argument put forward to motivate the use of these models is that they can be applied in situations where the conditional variance process contains breaks, that is, sudden changes in parameters. Augmenting the ARCH form (6) by lags of the conditional variance causes estimation problems; see
+   <math display="inline">
+    [35, 42]
+   </math>
+   and
+   <math display="inline">
+    [37]
+   </math>
+   for discussion and solutions.
+  </p>
+  <p block-type="Text">
+   Modeling the Conditional Standard Deviation. Models for the conditional variance constitute the most popular way of modeling conditional heteroskedasticity. Similar models, however, have also
+  </p>
+  <p block-type="TextInlineMath">
+   been constructed for the conditional standard deviation. By replacing
+   <math display="inline">
+    h_t
+   </math>
+   in equation (4) by
+   <math display="inline">
+    h_t^{1/2}
+   </math>
+   ,
+   <math display="inline">
+    h_{t-j}
+   </math>
+   by
+   <math display="inline">
+    h_{t-j}^{1/2}
+   </math>
+   ,
+   <math display="inline">
+    j=1,\ldots,p
+   </math>
+   , and
+   <math display="inline">
+    \varepsilon_{t-j}^2
+   </math>
+   by
+   <math display="inline">
+    |\varepsilon_{t-j}|
+   </math>
+   ,
+   <math display="inline">
+    j=
+   </math>
+   <math display="inline">
+    1, \ldots, q
+   </math>
+   , one obtains the absolute-valued GARCH model. Doing this in the GJR-GARCH model yields the threshold GARCH (TGARCH) model that [71] considered. The TGARCH
+   <math display="inline">
+    (p, q)
+   </math>
+   model is usually parameterized somewhat differently from the GJR-GARCH model:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_t^{1/2} = \alpha_0 + \sum_{j=1}^q (\alpha_j^+ \varepsilon_{t-j}^+ - \alpha_j^- \varepsilon_{t-j}^-) + \sum_{j=1}^q \beta_j h_{t-j}^{1/2}
+   </math>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \varepsilon_{t-i}^+ = \max(\varepsilon_{t-j}, 0), \varepsilon_{t-i}^- = \min(\varepsilon_{t-j}, 0),
+   </math>
+   and
+   <math display="inline">
+    \alpha_i^+, \alpha_i^-, j = 1, \ldots, q
+   </math>
+   , are the corresponding parameters. Like the GJR-GARCH model, even the TGARCH model is linear in parameters. It can be generalized by assuming the switch point to be an unknown parameter, which makes the model nonlinear in parameters. This type of threshold ARCH model was introduced by Li and Li [46] who also considered a threshold autoregressive conditional mean, but it has not enjoyed the same popularity as the TGARCH or the GJR-GARCH model.
+  </p>
+  <h2>
+   Integrated and Fractionally Integrated GARCH. In applications it often occurs, if the time series is sufficiently long, that the estimated sum of the parameters
+   <math display="inline">
+    \alpha_1
+   </math>
+   and
+   <math display="inline">
+    \beta_1
+   </math>
+   in the GARCH(1,1) model (equation (4) with
+   <math display="inline">
+    p = q = 1
+   </math>
+   ) is close to unity. Engle and Bollerslev [24], who first paid attention to this phenomenon, suggested imposing the restriction
+   <math display="inline">
+    \alpha_1
+   </math>
+   +
+   <math display="inline">
+    \beta_1 = 1
+   </math>
+   and called the ensuing model an
+   <i>
+    integrated
+   </i>
+   GARCH (IGARCH) model. The IGARCH process is not weakly stationary as
+   <math display="inline">
+    \mathsf{E}\varepsilon_t^2
+   </math>
+   is not finite but it is,
+  </h2>
+  <p block-type="Text">
+   however, strongly stationary.
+  </p>
+  <p block-type="Text">
+   The empirical fact that the estimate of the sum
+   <math display="inline">
+    \alpha_1 + \beta_1
+   </math>
+   often lies close to unity has prompted discussion of its causes. First Diebold [18] and later Lamoureux and Lastrapes [44] suggested that this often happens if the intercept of the GARCH process does not remain constant during the estimation period. This may not be surprising as it means that the underlying GARCH process is not stationary. This has aroused interest in testing parameter constancy and finding breaks in the GARCH process; see, for example [43, 52] and [8].
+  </p>
+  <p block-type="Text">
+   The integrated GARCH model has also served as a starting point for so-called fractionally integrated GARCH (FIGARCH) models. The GARCH(1,1) equation (4) can be written in the "
+   <math display="inline">
+    ARMA(1,1)
+   </math>
+   form" as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varepsilon_t^2 = \alpha_0 + (\alpha_1 + \beta_1)\varepsilon_{t-1}^2 + \nu_t - \beta_1 \nu_{t-1} \qquad (9)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \{v_t\} = \{\varepsilon_t^2 - h_t\}
+   </math>
+   is a martingale difference sequence with respect to
+   <math display="inline">
+    h_t
+   </math>
+   . For the IGARCH process, equation (9) has the "
+   <math display="inline">
+    ARIMA(0,1,1)
+   </math>
+   form"
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (1 - \mathsf{L})\varepsilon_t^2 = \alpha_0 + \nu_t - \beta_1 \nu_{t-1} \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where L is the lag operator,
+   <math display="inline">
+    Lx_t = x_{t-1}
+   </math>
+   . The FIG-
+   <math display="inline">
+    ARCH(1,d,0)
+   </math>
+   model is obtained from equation (10) simply by assuming that the difference in equation (10) is
+   <i>
+    fractional
+   </i>
+   (see
+   <b>
+    Long Range Dependence
+   </b>
+   ) instead of the conventional one:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (1 - \mathsf{L})^{d} \varepsilon_{t}^{2} = \alpha_{0} + \nu_{t} - \beta_{1} \nu_{t-1} \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    d
+   </math>
+   is the fractional order of integration. The FIGARCH equation (11) can be written as an infinite-order ARCH model by applying the definition
+   <math display="inline">
+    v_t = \varepsilon_t^2 - h_t
+   </math>
+   to it. This yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_t = \alpha_0 (1 - \beta_1)^{-1} + \lambda(\mathsf{L}) \varepsilon_t^2 \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \lambda(L) = \{1 - (1 - L)^d (1 - \beta_1 L)^{-1}\} \varepsilon_t^2 = \sum_{i=1}^{\infty} \cdot
+   </math>
+   <math display="inline">
+    \lambda_j \mathsf{L}^j \varepsilon_t^2
+   </math>
+   , and
+   <math display="inline">
+    \lambda_j \ge 0
+   </math>
+   for all j. Expanding the fractional difference operator into an infinite sum yields the result that for long lags
+   <math display="inline">
+    j
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lambda_j = \{ (1 - \beta_1) \Gamma(d)^{-1} \} j^{-(1-d)} = c j^{-(1-d)}, \quad c &gt; 0
+   </math>
+   (13)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    d \in (0, 1)
+   </math>
+   and
+   <math display="inline">
+    \Gamma(d)
+   </math>
+   is the gamma function. When
+   <math display="inline">
+    d &gt; 0.5
+   </math>
+   , the FIGARCH model is not weakly stationary. From equation
+   <math display="inline">
+    (13)
+   </math>
+   it is seen that the effect of the lag
+   <math display="inline">
+    \varepsilon_{t-i}^2
+   </math>
+   on the conditional variance decays hyperbolically as a function of the lag length
+   <math display="inline">
+    j
+   </math>
+   . A very slow decay of the autocorrelation function of
+   <math display="inline">
+    \{\varepsilon_t^2\}
+   </math>
+   is a frequently encountered empirical fact in return series, and this is the reason for developing the FIGARCH model (see [5]). But then, it has been argued (see for example [54]) that the observed slow decay is due to breaks in the variance of the return process. The FIGARCH model thus offers a competing explanation of this empirical phenomenon.
+  </p>
+  <p block-type="Text">
+   The GARCH-in-mean Model. Since volatility is viewed as a measure of risk, GARCH models are used for assessing the risk of a portfolio. From this it follows that the GARCH type conditional variance could be useful as a representation of the timevarying risk premium in explaining excess returns, that is, returns compared to the return of a riskless asset. This extends the considerations to involve the conditional mean of the return process as well. An excess return would be a combination of the unforecastable difference
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   between the
+   <i>
+    ex ante
+   </i>
+   and ex post rates of return and a function of the conditional variance of the portfolio. Thus, if
+   <math display="inline">
+    y_t
+   </math>
+   is the excess return at time
+   <math display="inline">
+    t
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    y_t = \beta + g(h_t) + \varepsilon_t \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    h_t
+   </math>
+   is defined as a GARCH process (4) and
+   <math display="inline">
+    g(h_t)
+   </math>
+   is a well-defined function. Engle
+   <i>
+    et al.
+   </i>
+   [26] originally defined
+   <math display="inline">
+    g(h_t) = \delta h_t^{1/2}, \delta &gt; 0
+   </math>
+   , which corresponds to the assumption that changes in the conditional variance appear less than proportionally in the mean. The alternative
+   <math display="inline">
+    g(h_t) = \delta h_t
+   </math>
+   has also appeared in the literature. Equations
+   <math display="inline">
+    (4)
+   </math>
+   and
+   <math display="inline">
+    (14)
+   </math>
+   form the GARCH-in-mean or GARCH-M model. It has been quite frequently applied in the applied econometrics and finance literature. It may be mentioned that Glosten
+   <i>
+    et al.
+   </i>
+   [32] developed the GJR-GARCH model in the framework of the GARCH-M model.
+  </p>
+  <h4>
+   Family of Exponential GARCH Models
+  </h4>
+  <p block-type="TextInlineMath">
+   The standard GARCH model has some disadvantages. Parameter restrictions are required to ensure positivity of the conditional variance at every point of time. Furthermore, the model does not allow an asymmetric response to shocks. This disadvantage was overcome by the appearance of asymmetric GARCH models but this was an important reason for the introduction of the exponential GARCH (EGARCH) model by Nelson [55]. A family of EGARCH
+   <math display="inline">
+    (p, q)
+   </math>
+   models may be defined as in equation
+   <math display="inline">
+    (2)
+   </math>
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \ln h_t = \alpha_0 + \sum_{j=1}^q g_j(z_{t-j}) + \sum_{j=1}^p \beta_j \ln h_{t-j} \quad (15)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   When
+   <math display="inline">
+    g_i(z_{t-i}) = \alpha_i z_{t-i} + \psi_i(|z_{t-i}| - \mathsf{E}|z_{t-i}|),
+   </math>
+   <math display="inline">
+    j = 1, \ldots, q
+   </math>
+   , model (15) becomes the EGARCH model of
+   <math display="inline">
+    [55]
+   </math>
+   . It is seen from equation
+   <math display="inline">
+    (15)
+   </math>
+   that no parameter restrictions are necessary to ensure
+  </p>
+  <p block-type="TextInlineMath">
+   positivity of
+   <math display="inline">
+    h_t
+   </math>
+   . Parameters
+   <math display="inline">
+    \alpha_i
+   </math>
+   ,
+   <math display="inline">
+    j = 1, \ldots, q
+   </math>
+   , make an asymmetric response to shocks possible.
+  </p>
+  <p block-type="TextInlineMath">
+   As in the standard GARCH case, the first-order model
+   <math display="inline">
+    (p = q = 1)
+   </math>
+   is the most popular EGARCH model in practice. Nelson [55] derived existence conditions for moments of the general infinite-order exponential ARCH model. For the EGARCH model with
+   <math display="inline">
+    g_i(z_{t-i})
+   </math>
+   defined as above, these conditions imply that if the error process
+   <math display="inline">
+    \{z_t\}
+   </math>
+   has all moments and
+   <math display="inline">
+    \sum_{i=1}^{p} \beta_i^2 &lt; 1
+   </math>
+   in equation (15), then all moments for the EGARCH process
+   <math display="inline">
+    \{\varepsilon_t\}
+   </math>
+   exist. For example, if
+   <math display="inline">
+    \{z_t\}
+   </math>
+   is a sequence of independent standard normal variables, then the restrictions on
+   <math display="inline">
+    \beta_i
+   </math>
+   ,
+   <math display="inline">
+    j = 1, \ldots, p
+   </math>
+   , are necessary and sufficient for the existence of all moments simultaneously. For GARCH models of the previous section, the moment conditions become more and more stringent for higher and higher even moments; see [40].
+  </p>
+  <p block-type="TextInlineMath">
+   There is some similarity between the EGARCH model and the autoregressive stochastic volatility model (see Stochastic Volatility Models). Introducing a sequence
+   <math display="inline">
+    \{s_t\}
+   </math>
+   of continuous unobservable independent random variables mutually independent of
+   <math display="inline">
+    \{z_t\}
+   </math>
+   and substituting
+   <math display="inline">
+    g_j(s_{t-j})
+   </math>
+   for
+   <math display="inline">
+    g_j(z_{t-j})
+   </math>
+   in equation (15) leads to another class of models. Typically, in applications,
+   <math display="inline">
+    p = q = 1
+   </math>
+   and
+   <math display="inline">
+    g_1(s_{t-1}) =
+   </math>
+   <math display="inline">
+    \delta s_{t-1}
+   </math>
+   where
+   <math display="inline">
+    \delta
+   </math>
+   is a parameter to be estimated. This is called the
+   <i>
+    autoregressive stochastic volatility model
+   </i>
+   . Strictly speaking, it is not a model of conditional heteroskedasticity, because its information set at time
+   <math display="inline">
+    t
+   </math>
+   also contains
+   <math display="inline">
+    \{s_{t-j}, j \ge 1\}.
+   </math>
+  </p>
+  <h2>
+   Nonparametric and Semiparametric GARCH Models
+  </h2>
+  <p block-type="TextInlineMath">
+   Nonparametric GARCH models have been developed to remedy some of the disadvantages of the standard GARCH model mentioned earlier. A straightforward example is the model (2) in which
+   <math display="inline">
+    h_t =
+   </math>
+   <math display="inline">
+    h(\varepsilon_{t-1}, \ldots, \varepsilon_{t-q})
+   </math>
+   is a smooth positive-valued function estimated using nonparametric techniques. When
+   <math display="inline">
+    q
+   </math>
+   is large, however, this model suffers from the curse of dimensionality. This may be partly remedied by an additive function,
+   <math display="inline">
+    h_t = \sum_{i=1}^{q} h_j(\varepsilon_{t-j})
+   </math>
+   , where
+   <math display="inline">
+    h_i(\varepsilon_{t-i}), j = 1, \ldots, q
+   </math>
+   , are positive-valued functions that are estimated separately. Both of these models are ARCH models. Engle and Ng [27] introduced the following semiparametric GARCH model:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_t = h(\varepsilon_{t-j}) + \beta h_{t-1} \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    h(\cdot)
+   </math>
+   is a smooth unknown function to be estimated. With
+   <math display="inline">
+    i = 1
+   </math>
+   this functional form is more flexible than the standard
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   model and allows modeling possible asymmetry in returns. For more discussion of nonparametric and semiparametric ARCH and GARCH models, see [50].
+  </p>
+  <h2>
+   Estimation of GARCH Models and Properties of
+   <b>
+    Estimators
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   The parameters of the GARCH
+   <math display="inline">
+    (p, q)
+   </math>
+   model (4) and its extensions may be estimated jointly by maximum likelihood. Asymptotic theory for the estimators has been developed over the years. Weiss [70] already proved consistency and asymptotic normality for maximum likelihood estimators in the
+   <math display="inline">
+    ARCH(q)
+   </math>
+   case under the assumption
+   <math display="inline">
+    \mathsf{E}\varepsilon_t^4 &lt; \infty
+   </math>
+   , which implies
+   <math display="inline">
+    \mathsf{E}z_t^4 &lt; \infty
+   </math>
+   . General results are provided by Berkes et al. [9] who showed the asymptotic normality of the quasi-maximum likelihood (QML) estimators of the parameters of the
+   <math display="inline">
+    GARCH(p, q)
+   </math>
+   model where only the moment restriction
+   <math display="inline">
+    \mathsf{E} \left| z_{i}^{2} \right|^{2+\delta} &lt; \infty, \ \delta &gt; 0,
+   </math>
+   is required. Francq and Zakoïan [30] proved asymptotic normality of QML estimators for yet another set of conditions, and their results included the ARMA-GARCH family of models. Straumann and Mikosch [66] derived conditions for asymptotic normality of the OML estimators for a class of GARCH models that also includes some nonlinear GARCH models. In particular, they verified these conditions for the estimators of the AGARCH model. The corresponding conditions for the GARCH-in-mean model have not been verified, although consistency of the maximum likelihood estimators has been proven; see [53].
+  </p>
+  <p block-type="Text">
+   Rather often, the parameters of GARCH models are estimated assuming a
+   <math display="inline">
+    t
+   </math>
+   -distribution for the errors. This choice is based on empirical observation suggesting that the residuals of the estimated GARCH models assuming normality tend to be leptokurtic. If the
+   <math display="inline">
+    t
+   </math>
+   -distribution is applied, its degrees-of-freedom parameter or its inverse is generally estimated as well.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The parameters of GARCH models have to be estimated numerically because the conditional variances are not observed and have to be estimated separately for each iteration, that is, conditionally on parameter estimates obtained from the previous iteration. The estimated unconditional variance is used as the starting value for
+   <math display="inline">
+    h_0, h_{-1}, \ldots, h_{-(p-1)},
+   </math>
+   whereas
+   <math display="inline">
+    \widehat{\varepsilon}_0^2 = \ldots = \widehat{\varepsilon}_{-q+1}^2 = 0
+   </math>
+   . In practice, the most popular algorithm for estimating GARCH models
+  </p>
+  <p block-type="Text">
+   by maximum likelihood has been the so-called Berndt-Hall-Hall-Hausman (BHHH) algorithm. Its popularity is partly based on the fact that it does not require the second derivatives of the log-likelihood function. Those may be considered difficult to compute given their recursive structure. Nevertheless, Fiorentini et al. [29] worked out the analytical second derivatives of the log-likelihood function for the GARCH model. This makes iterative estimation of parameters by the Newton-Raphson algorithm possible.
+  </p>
+  <p block-type="Text">
+   Several econometric software packages contain a module for estimating GARCH models. Brooks
+   <i>
+    et al.
+   </i>
+   [15] studied a number of them, focusing on numerical accuracy of the estimates. Their conclusion was that the algorithms based on analytical derivatives are preferable to the other alternatives. The best performing package used both analytical first and second derivatives. The authors reported substantial differences in numerical accuracy between the packages considered.
+  </p>
+  <p block-type="TextInlineMath">
+   The parameters of the EGARCH model are also estimated by maximum likelihood. Nelson [55] gives the log-likelihood function based on the assumption that the errors follow a generalized error distribution (GED) with mean zero. The normal distribution is a special case of the GED. Nelson also discusses the role of the starting values in the estimation. In his simulations, the use of other starting values rather than the unconditional mean of
+   <math display="inline">
+    \ln h_t
+   </math>
+   very rapidly leads to values of
+   <math display="inline">
+    h_t
+   </math>
+   obtained by starting from
+   <math display="inline">
+    \mathsf{E} \ln h_t
+   </math>
+   . As in the case of GARCH models, the precision of the estimates may be expected to depend heavily on whether or not analytical derivatives of the loglikelihood are used in iterative estimation.
+  </p>
+  <p block-type="Text">
+   Properties of the QML estimators of the EG-
+   <math display="inline">
+    ARCH(1,1)
+   </math>
+   model have been considered by Straumann and Mikosch [66] who verified conditions for consistency of these estimators. The authors pointed out that verifying the corresponding conditions for asymptotic normality of the QML estimators is still an open question.
+  </p>
+  <h1>
+   <b>
+    Multivariate Models of Conditional
+   </b>
+   Heteroskedasticity
+  </h1>
+  <h4>
+   General Multivariate GARCH Model
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   The univariate GARCH model has been generalized to the vector case, which makes it possible to model
+  </p>
+  <p block-type="TextInlineMath">
+   and forecast not only conditional variances of asset returns but covariances between returns as well. This has relevance in portfolio management. In the most general multivariate GARCH model, the socalled VEC-GARCH model of [14], every conditional variance and covariance is a linear function of all previous conditional variances and covariances. Assume a vector of returns
+   <math display="inline">
+    \boldsymbol{\varepsilon}_t = (\varepsilon_{1t}, \dots, \varepsilon_{mt})'
+   </math>
+   such that
+   <math display="inline">
+    \mathsf{E}\boldsymbol{\varepsilon}_{t} = \mathbf{0}
+   </math>
+   and
+   <math display="inline">
+    \mathsf{E}(\boldsymbol{\varepsilon}_{t}\boldsymbol{\varepsilon}_{t}^{\prime}|\mathcal{F}_{t-1}) = \mathbf{H}_{t} = [h_{ijt}]
+   </math>
+   where
+   <math display="inline">
+    \mathbf{H}_{t}
+   </math>
+   is positive definite almost surely. It follows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \boldsymbol{\varepsilon}_t = \mathbf{H}_t^{1/2} \mathbf{z}_t \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{z}_t \sim \text{iid}(\mathbf{0}, \mathbf{I}_m)
+   </math>
+   . The VEC-GARCH
+   <math display="inline">
+    (p, q)
+   </math>
+   model is defined as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{vech}(\mathbf{H}_{t}) = \boldsymbol{\omega} + \sum_{k=1}^{q} \mathbf{A}_{k} \operatorname{vech}(\boldsymbol{\varepsilon}_{t-k} \boldsymbol{\varepsilon}'_{t-k})
+   </math>
+   <math display="block">
+    + \sum_{k=1}^{p} \mathbf{B}_{k} \operatorname{vech}(\mathbf{H}_{t-k}) \qquad (18)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{A}_{k} = [\alpha_{kij}]
+   </math>
+   and
+   <math display="inline">
+    \mathbf{B}_{k} = [\beta_{kij}]
+   </math>
+   are coefficient matrices with
+   <math display="inline">
+    m(m + 1)/2
+   </math>
+   rows and columns, and
+   <math display="inline">
+    \omega
+   </math>
+   is an
+   <math display="inline">
+    (m(m + 1)/2) \times 1
+   </math>
+   intercept vector with positive elements.
+  </p>
+  <p block-type="TextInlineMath">
+   In equation
+   <math display="inline">
+    (18)
+   </math>
+   , the number of parameters increases rapidly with the dimension of
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   . Besides, general conditions for positive definiteness of
+   <math display="inline">
+    \mathbf{H}_t
+   </math>
+   do not seem to exist. A simplified version in which the coefficient matrices
+   <math display="inline">
+    \mathbf{A}_k
+   </math>
+   and
+   <math display="inline">
+    \mathbf{B}_k
+   </math>
+   are diagonal has sometimes been applied. For this process, it is possible to work out the conditions for
+   <math display="inline">
+    \mathbf{H}_t
+   </math>
+   to be positive definite, at least in the first-order case. In many applications, however, this model is already too restrictive, because it excludes any interaction between the conditional variances and covariances.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Bollerslev
+   <i>
+    et al.
+   </i>
+   [14] considered estimation of the general model and concluded that under sufficient regularity conditions the maximum likelihood estimator of the parameter vector is consistent and asymptotically normal. They used the BHHH optimization algorithm for obtaining the maximum likelihood estimates. Estimation of the VEC-GARCH model is, however, computationally demanding. The number of parameters can be large. Furthermore, the matrix
+   <math display="inline">
+    \mathbf{H}_{t}
+   </math>
+   has to be inverted for each
+   <math display="inline">
+    t
+   </math>
+   in every iteration. It is likely that numerical considerations are at least as important here as they are in the univariate case. The
+  </p>
+  <p block-type="Text">
+   use of analytical first- and second-order derivatives would thus be preferable if they are available.
+  </p>
+  <h2>
+   Constant Conditional Correlation Multivariate
+   <math display="inline">
+    GARCH
+   </math>
+  </h2>
+  <p block-type="TextInlineMath">
+   There exist multivariate GARCH models with fewer parameters than the VEC-GARCH model. The conconditional correlation GARCH (CCCstant GARCH) model by Bollerslev [11] is built on the assumption that the conditional correlations between variables remain constant over time. This assumption is more parsimonious than the VEC-GARCH one, because the conditional covariances are determined through conditional variances and these correlations. Suppose again that
+   <math display="inline">
+    \boldsymbol{\varepsilon}_t = (\varepsilon_{1t}, \ldots, \varepsilon_{mt})'
+   </math>
+   such that
+   <math display="inline">
+    \mathsf{E}\boldsymbol{\varepsilon}_{t} = \mathbf{0}
+   </math>
+   and
+   <math display="inline">
+    \mathsf{E}(\boldsymbol{\varepsilon}_{t}\boldsymbol{\varepsilon}_{t}^{\prime}|\mathcal{F}_{t-1}) = \mathbf{H}_{t} = [h_{ijt}]
+   </math>
+   where
+   <math display="inline">
+    \mathbf{H}_t
+   </math>
+   is positive definite almost surely. The CCC-GARCH model has the following structure:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{H}_t = \mathbf{D}_t \mathbf{P} \mathbf{D}_t \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{D}_t = \text{diag}(h_{11t}^{1/2}, \dots, h_{mmt}^{1/2})
+   </math>
+   and
+   <math display="inline">
+    \mathbf{P} = [\rho_{ij}]
+   </math>
+   is the positive definite correlation matrix, so that
+   <math display="inline">
+    h_{ijt}
+   </math>
+   =
+   <math display="inline">
+    \rho_{ii}(h_{iit}h_{jit})^{1/2}
+   </math>
+   for
+   <math display="inline">
+    i, j = 1, \ldots, m
+   </math>
+   . Each conditional variance is assumed to follow a standard univariate GARCH model (4). The most common choice is the first-order GARCH model:
+   <math display="inline">
+    p = q = 1
+   </math>
+   . In this case, a bivariate first-order CCC-GARCH model has 7 parameters compared to 21 in the corresponding VEC-GARCH model.
+  </p>
+  <p block-type="TextInlineMath">
+   One of the attractions of the CCC-GARCH model is that the parameter estimation is not complicated. The (conditional) quasi log-likelihood function of any GARCH model with
+   <math display="inline">
+    \boldsymbol{\varepsilon}_t | \mathcal{F}_{t-1} \sim \text{iid } \mathcal{N}(\mathbf{0}, \mathbf{H}_t)
+   </math>
+   has the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(\boldsymbol{\theta}) = c - (1/2) \sum_{t=1}^{T} (\ln|\mathbf{H}_{t}| - \boldsymbol{\varepsilon}_{t}' \mathbf{H}_{t}^{-1} \boldsymbol{\varepsilon}_{t}) \qquad (20)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \boldsymbol{\theta}
+   </math>
+   is the parameter vector. As already mentioned, maximizing equation (20) can be computationally quite costly when the model is the VEC-GARCH model, because an
+   <math display="inline">
+    m \times m
+   </math>
+   matrix has to be inverted
+   <math display="inline">
+    T
+   </math>
+   times during a single iteration. The assumption of constant conditional correlations considerably simplifies things. Following Bollerslev [11], rewrite the conditional variances as
+   <math display="inline">
+    h_{ijt} = k_i \sigma_{it}^2
+   </math>
+   , where
+   <math display="inline">
+    k_j &gt; 0, j = 1, \ldots, m
+   </math>
+   . Then one may partition the covariance matrix
+   <math display="inline">
+    \mathbf{H}_t
+   </math>
+   as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{H}_t = \mathbf{D}_t^* \mathbf{\Gamma} \mathbf{D}_t^* \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{D}_{t}^{*} = \text{diag}(\sigma_{1t}, \ldots, \sigma_{mt})
+   </math>
+   and
+   <math display="inline">
+    \mathbf{\Gamma} = [\gamma_{ij}] =
+   </math>
+   <math display="inline">
+    [\rho_{ii}(k_i k_i)^{1/2}]
+   </math>
+   . Applying equation (21) to equation (20) and keeping in mind that
+   <math display="inline">
+    \mathbf{D}_{t}^{*}
+   </math>
+   is a diagonal matrix yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L(\boldsymbol{\theta}) = c - (T/2) \ln |\boldsymbol{\Gamma}| - \sum_{t=1}^{T} \sum_{j=1}^{m} \ln \sigma_{jt}
+   </math>
+   <math display="block">
+    - (1/2) \sum_{t=1}^{T} \overline{\boldsymbol{\varepsilon}}_{t}^{\prime} \boldsymbol{\Gamma}^{-1} \overline{\boldsymbol{\varepsilon}}_{t} \qquad (22)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \overline{\boldsymbol{\varepsilon}}_t = \mathbf{D}_t^{*-1} \boldsymbol{\varepsilon}_t
+   </math>
+   . In the maximization of equation (22), only a single matrix inversion is needed for each iteration. Even here, the BHHH optimization algorithm has been recommended for maximizing the log-likelihood. The calculations can be made even simpler by concentrating the log-likelihood, but the derivatives of the original log-likelihood (22) are required for obtaining an estimate of the asymptotic covariance matrix of the estimators of the parameters. The correlations are recovered from the relationship
+   <math display="inline">
+    \rho_{ii} = \gamma_{ii} (k_i k_i)^{-1/2}.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Results on statistical properties of the OML estimators of a stationary CCC-GARCH model are available. Under appropriate regularity conditions, Jeantheau [41] proved consistency of these estimators and Ling and McAleer [49] verified conditions for their asymptotic normality.
+  </p>
+  <h3>
+   The Dynamic Conditional Correlation GARCH Model
+  </h3>
+  <p block-type="Text">
+   The assumption of constant correlations, however, does not always hold in practice. Tse and Tsui [68] and Engle [23] have extended the CCC-GARCH model by introducing time variation in the correlation matrix, and the two models are quite similar. The dynamic conditional correlation (DCC-) GARCH model of [23] has the following
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   form:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_{ijt} = \rho_{ij}(z) + \alpha^*(z_{i,t-1}z_{j,t-1} - \rho_{ij}(z))
+   </math>
+   <br/>
+   +
+   <math>
+    \beta^*(q_{ij,t-1} - \rho_{ij}(z))
+   </math>
+   <br/>
+   =
+   <math>
+    (1 - \alpha^* - \beta^*)\rho_{ij}(z) + \alpha^* z_{i,t-1}z_{j,t-1}
+   </math>
+   <br/>
+   +
+   <math>
+    \beta^* q_{ij,t-1}, \quad i \neq j
+   </math>
+   (23)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    \rho_{ij}(z)
+   </math>
+   is the unconditional correlation between
+   <math display="inline">
+    z_{it}
+   </math>
+   and
+   <math display="inline">
+    z_{jt}
+   </math>
+   , and
+   <math display="inline">
+    \alpha^* + \beta^* &lt; 1
+   </math>
+   . If
+   <math display="inline">
+    \mathsf{E}q_{ijt} &lt; \infty
+   </math>
+   , it
+  </p>
+  <p block-type="TextInlineMath">
+   follows that
+   <math display="inline">
+    \mathsf{E}q_{iit} = \rho_{ii}(z)
+   </math>
+   . The intercept is defined by variance targeting. The two "GARCH parameters"
+   <math display="inline">
+    \alpha^*
+   </math>
+   and
+   <math display="inline">
+    \beta^*
+   </math>
+   are the same for all correlations. This makes it possible to model a large number of assets at the same time. The estimated conditional correlations are obtained
+   <math display="inline">
+    ex
+   </math>
+   post by making use of the relationship
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho_{ijt} = \frac{q_{ijt}}{\sqrt{q_{iit}q_{jjt}}} \tag{24}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    \alpha^* + \beta^* = 1
+   </math>
+   in (23),
+   <math display="inline">
+    \rho_{ijt}
+   </math>
+   is determined by exponential smoothing.
+  </p>
+  <p block-type="TextInlineMath">
+   Estimation of parameters of the DCC-GARCH model can be carried out as follows. The parameters of the individual GARCH equations contained in
+   <math display="inline">
+    \mathbf{D}_t
+   </math>
+   (see equation (19)) can be estimated equation by equation assuming that
+   <math display="inline">
+    \mathbf{P} = \mathbf{I}_m
+   </math>
+   . Conditionally upon the results, one can then estimate the correlation parameters using the estimated standardized residuals
+   <math display="inline">
+    z_{it}
+   </math>
+   in equation (23). For example, assuming the parameters in
+   <math display="inline">
+    \mathbf{D}_t
+   </math>
+   are known, the remaining parameters can be estimated by direct maximization of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_T(\boldsymbol{\theta}_{\text{corr}}) = c - (1/2) \sum_{t=1}^T \ln |\mathbf{P}_t|
+   </math>
+   <math display="block">
+    - (1/2) \sum_{t=1}^T \mathbf{z}_t' \mathbf{P}_t^{-1} \mathbf{z}_t \qquad (25)
+   </math>
+  </p>
+  <p block-type="Text">
+   where the elements of
+   <math display="inline">
+    \mathbf{P}_t
+   </math>
+   are defined as in equation
+   <math display="inline">
+    (23)
+   </math>
+   . Under regularity conditions, the estimators based on this two-step method are consistent but inefficient. Engle [23] also discusses simplified ways of obtaining estimates for the correlation parameters.
+  </p>
+  <p block-type="Text">
+   The CCC-GARCH model has other extensions that are not considered here. A few of them are based on the idea that the time-varying correlation matrix is a time-varying convex combination of two or more positive definite correlation matrices; see [7, 58] and [62, 63] for details.
+  </p>
+  <h4>
+   The BEKK-GARCH Model
+  </h4>
+  <p block-type="Text">
+   The BEKK-GARCH model (BEKK stands for Baba, Engle, Kraft and Kroner) is discussed in detail in [25]. It is another parsimonious GARCH model and has the property that the conditions of positive definiteness of the conditional covariance matrix are known. The
+  </p>
+  <p block-type="Text">
+   model is defined by completing equation
+   <math display="inline">
+    (17)
+   </math>
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{H}_{t} = (\mathbf{C}_{0}^{*})' \mathbf{C}_{0}^{*} + \sum_{k=1}^{K} \sum_{j=1}^{q} (\mathbf{A}_{jk}^{*})' \boldsymbol{\varepsilon}_{t-j} \boldsymbol{\varepsilon}_{t-j}^{'} \mathbf{A}_{jk}^{*}
+   </math>
+   <math display="block">
+    + \sum_{k=1}^{K} \sum_{j=1}^{p} (\mathbf{B}_{jk}^{*})' \mathbf{H}_{t-j} \mathbf{B}_{jk}^{*} \tag{26}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{C}_0^* = (\mathbf{c}_{01}', \dots, \mathbf{c}_{0m}')'
+   </math>
+   is an
+   <math display="inline">
+    m \times m
+   </math>
+   triangular matrix, and
+   <math display="inline">
+    \mathbf{A}_{ik}^* = [\alpha_{ik,il}^*]
+   </math>
+   and
+   <math display="inline">
+    \mathbf{B}_{ik}^* = [\beta_{ik,il}^*]
+   </math>
+   are
+   <math display="inline">
+    m \times m
+   </math>
+   coefficient matrices. When
+   <math display="inline">
+    \mathbf{C}_0^*
+   </math>
+   is of full rank so that
+   <math display="inline">
+    (\mathbf{C}_0^*)'\mathbf{C}_0^*
+   </math>
+   is positive definite, it follows that
+   <math display="inline">
+    \mathbf{H}_t
+   </math>
+   is positive almost surely if the starting values
+   <math display="inline">
+    \mathbf{H}_0, \mathbf{H}_{-1}, \ldots, \mathbf{H}_{-p+1}
+   </math>
+   are positive semidefinite matrices, and
+   <math display="inline">
+    \varepsilon_0, \varepsilon_{-1}, \ldots, \varepsilon_{-q+1} = \mathbf{0}
+   </math>
+   . This is the main attraction of the BEKK-GARCH model. In applications, it is typically assumed that
+   <math display="inline">
+    K = p = q = 1
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The log-likelihood function of the BEKK model is equation (20), and its partial derivatives are defined through equation (26). Engle and Kroner [25] remark that in the GARCH case (as opposed to ARCH) calculating analytical derivatives is complicated because it requires recursive computation of certain derivatives. They therefore recommend numerical derivatives and the BHHH algorithm. Nevertheless, Lucchetti [51] has worked out the analytical score for the first-order BEKK-GARCH model when
+   <math display="inline">
+    K = 1
+   </math>
+   . Given the results reported in
+   <math display="inline">
+    [15]
+   </math>
+   in the univariate case, it appears that making use of the analytical score in the estimation of the parameters of this model would be very useful. Conditions for the asymptotic normality of the QML estimators of the parameters of the BEKK-GARCH model can be found in [17].
+  </p>
+  <h4>
+   Factor GARCH Models
+  </h4>
+  <p block-type="TextInlineMath">
+   Observable Factor GARCH Models. The BEKK-GARCH model may be used as a starting point in a search for even more parsimonious models. Assume that, for each k, the matrices
+   <math display="inline">
+    \mathbf{A}_{ik}^*
+   </math>
+   and
+   <math display="inline">
+    \mathbf{B}_{ik}^*
+   </math>
+   in equation (26) have rank one and the same
+   <math display="inline">
+    m \times 1
+   </math>
+   eigenvectors,
+   <math display="inline">
+    \mathbf{g}_k
+   </math>
+   for
+   <math display="inline">
+    \mathbf{A}_{ik}^*
+   </math>
+   and
+   <math display="inline">
+    \mathbf{f}_k
+   </math>
+   for
+   <math display="inline">
+    \mathbf{B}_{ik}^*
+   </math>
+   , respectively, with
+   <math display="inline">
+    \mathbf{g}'_k \mathbf{f}_i = 0
+   </math>
+   ,
+   <math display="inline">
+    i \neq k
+   </math>
+   , and
+   <math display="inline">
+    \mathbf{g}'_k \mathbf{f}_k = 1
+   </math>
+   . Then equation (26) collapses into
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{H}_{t} = \mathbf{\Omega} + \sum_{k=1}^{K} \mathbf{g}_{k} \mathbf{g}_{k}^{\prime} \left\{ \sum_{j=1}^{q} \alpha_{kj}^{2} \gamma_{k,t-j}^{2} + \sum_{j=1}^{p} \beta_{kj}^{2} h_{k,t-i}^{(f)} \right\}
+   </math>
+   (27)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{\Omega} = (\mathbf{C}_0^*)' \mathbf{C}_0^*
+   </math>
+   ,
+   <math display="inline">
+    \gamma_{kt} = \mathbf{f}_k' \boldsymbol{\varepsilon}_t
+   </math>
+   and
+   <math display="inline">
+    h_{kt}^{(f)} = \mathbf{f}_k' \mathbf{H}_t \mathbf{f}_k
+   </math>
+   . This is the
+   <math display="inline">
+    K
+   </math>
+   -factor GARCH model of [28]. Each factor
+   <math display="inline">
+    \gamma_{kt}
+   </math>
+   has a univariate GARCH
+   <math display="inline">
+    (p, q)
+   </math>
+   structure:
+   <math display="inline">
+    \gamma_{kt}|\mathcal{F}_{t-1} \sim \mathcal{D}(0, h_{kt}^{(f)})
+   </math>
+   where
+   <math display="inline">
+    \mathcal{D}
+   </math>
+   denotes a distribution, such that the conditional variance
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h_{kt}^{(f)} = c_k + \sum_{j=1}^{q} \alpha_{kj}^2 \gamma_{k,t-j}^2 + \sum_{j=1}^{p} \beta_{kj}^2 h_{k,t-j}^{(f)} \qquad (28)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    c_k = \mathbf{f}'_k \mathbf{\Omega} \mathbf{f}_k
+   </math>
+   . Writing
+   <math display="inline">
+    \gamma_{kt} = z_{kt} (\mathbf{f}'_k \mathbf{H}_t \mathbf{f}_k)^{1/2}, k =
+   </math>
+   <math display="inline">
+    1, \ldots, K
+   </math>
+   , where
+   <math display="inline">
+    \{z_{kt}\} \sim \text{iid}(0, 1)
+   </math>
+   such that
+   <math display="inline">
+    \mathsf{E}z_{kt}z_{it} =
+   </math>
+   <math display="inline">
+    \omega_{kj}
+   </math>
+   , it follows that
+   <math display="inline">
+    \gamma_{kt}
+   </math>
+   and
+   <math display="inline">
+    \gamma_{jt}
+   </math>
+   have a constant conditional correlation
+   <math display="inline">
+    \omega_{ki}
+   </math>
+   . The model consisting of equations (17) and (27) and characterizing
+   <math display="inline">
+    \epsilon_t
+   </math>
+   is just a linear combination of the
+   <math display="inline">
+    K
+   </math>
+   conditional variances of the univariate common factors
+   <math display="inline">
+    \gamma_{kt}
+   </math>
+   . It is important to note that the factors
+   <math display="inline">
+    \gamma_{kt}
+   </math>
+   ,
+   <math display="inline">
+    k = 1, \ldots, K
+   </math>
+   , are observable and not latent variables because
+   <math display="inline">
+    \mathbf{f}_k
+   </math>
+   ,
+   <math display="inline">
+    k = 1, \ldots, K
+   </math>
+   , are assumed known.
+  </p>
+  <p block-type="Text">
+   This model has an economic interpretation. Theories of asset pricing suggest that the risk premium of an asset depends on its covariance with other assets as well as its own variance. The factor GARCH model represents those covariances in a parsimonious way and makes it possible to simultaneously consider a larger number of asset returns than many other vector GARCH models would allow in practice. The
+   <math display="inline">
+    K
+   </math>
+   factors define as many portfolios of these assets. It is then reasonable to assume that the elements of
+   <math display="inline">
+    \mathbf{f}_k
+   </math>
+   are nonnegative and sum up to one.
+  </p>
+  <p block-type="Text">
+   The predetermined factors in this model can be correlated. There are also factor models with uncorrelated factors. The factors are obtained through a one-to-one transformation of
+   <math display="inline">
+    \boldsymbol{\varepsilon}_t
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \boldsymbol{\varepsilon}_t = \mathbf{W} \mathbf{f}_t \tag{29}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <b>
+    W
+   </b>
+   is a nonsingular
+   <math display="inline">
+    m \times m
+   </math>
+   matrix. Each
+   <math display="inline">
+    f_{it}
+   </math>
+   in
+   <math display="inline">
+    \mathbf{f}_t = (f_{1t}, \ldots, f_{mt})'
+   </math>
+   is thus a function of the elements of
+   <math display="inline">
+    \boldsymbol{\varepsilon}_t
+   </math>
+   and is typically assumed to follow a GARCH process. The specification of
+   <math display="inline">
+    W
+   </math>
+   varies from one model to the next. Examples include [1, 69] and [45].
+  </p>
+  <p block-type="TextInlineMath">
+   The parameters of the factor GARCH model (17) and (27) can be estimated by QML with restrictions
+   <math display="inline">
+    \mathbf{g}'_k \mathbf{f}_i = 0, i \neq k
+   </math>
+   , and
+   <math display="inline">
+    \mathbf{g}'_k \mathbf{f}_k = 1
+   </math>
+   , but this can be numerically difficult. The fact that the common conditional variances can be viewed as generated by univariate GARCH processes suggests two-step estimation of parameters. First,
+   <math display="inline">
+    c_k
+   </math>
+   ,
+   <math display="inline">
+    \alpha_{kj}^2
+   </math>
+   and
+   <math display="inline">
+    \beta_{kj}^2
+   </math>
+   and the common conditional variances
+   <math display="inline">
+    h_{kt}^{(\widetilde{f})}
+   </math>
+   are estimated from the K
+  </p>
+  <p block-type="TextInlineMath">
+   univariate GARCH equations (28). Equation (27) is then rewritten as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{H}_{t} = \left[h_{ijt}\right] = \left\{\boldsymbol{\Omega} - \sum_{k=1}^{K} c_{k} \mathbf{g}_{k} \mathbf{g}_{k}^{\prime}\right\} + \sum_{k=1}^{K} \mathbf{g}_{k} \mathbf{g}_{k}^{\prime} h_{kt}^{(f)}
+   </math>
+   (30)
+  </p>
+  <p block-type="TextInlineMath">
+   At the second stage, the remaining parameters are estimated making use of equation
+   <math display="inline">
+    (30)
+   </math>
+   and the estimates of
+   <math display="inline">
+    c_k
+   </math>
+   and
+   <math display="inline">
+    h_{kt}^{(f)}
+   </math>
+   . Lin [48] considers the estimation of factor GARCH models, including these two methods, the QML and the two-step one. More details and references can be found in that paper.
+  </p>
+  <p block-type="TextInlineMath">
+   Unobserved Factor Models. In the factor model
+   <math display="inline">
+    (27)
+   </math>
+   , the factors at time t, as can be seen from equation (30), are functions of observed variables
+   <math display="inline">
+    \varepsilon_{t-j}, j \geq 1
+   </math>
+   . Another strand of factor GARCH models has drawn inspiration from the factor analysis and builds on genuinely unobserved factors. In a general form, one may write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \boldsymbol{\varepsilon}_t = \mathbf{C}\mathbf{f}_t + \boldsymbol{\eta}_t \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{f}_t
+   </math>
+   is now a
+   <math display="inline">
+    k \times 1
+   </math>
+   vector of unknown factors such that
+   <math display="inline">
+    \mathsf{E}\mathbf{f}_t = 0
+   </math>
+   and
+   <math display="inline">
+    \text{cov}(\mathbf{f}_t | \mathfrak{F}_{t-1}) = \mathbf{\Lambda}_t
+   </math>
+   where
+   <math display="inline">
+    \mathbf{\Lambda}_t
+   </math>
+   is a time-varying covariance matrix, often assumed diagonal, and C is an
+   <math display="inline">
+    m \times k
+   </math>
+   matrix of factor loadings with rank
+   <math display="inline">
+    k \leq m
+   </math>
+   . Furthermore, for the disturbance vector,
+   <math display="inline">
+    \mathsf{E}\boldsymbol{\eta}_t = 0
+   </math>
+   and
+   <math display="inline">
+    \text{cov}(\boldsymbol{\eta}_t | \mathfrak{F}_{t-1}) = \boldsymbol{\Sigma}_{\eta}
+   </math>
+   , and
+   <math display="inline">
+    \mathsf{E}\{\mathbf{f}_t\boldsymbol{\eta}'_t|\mathfrak{F}_{t-1}\}=\mathbf{0}.
+   </math>
+   The information set
+   <math display="inline">
+    \mathfrak{F}_{t-1}
+   </math>
+   contains the unobservable variables
+   <math display="inline">
+    \mathbf{f}_{t-j}, j \geq 1
+   </math>
+   , unlike the econometrician's information set
+   <math display="inline">
+    \mathcal{F}_{t-1}
+   </math>
+   that only contains the observable variables
+   <math display="inline">
+    \epsilon_{t-i}, j \ge 1
+   </math>
+   . In [60], it is shown that there always exists a model of type
+   <math display="inline">
+    (31)
+   </math>
+   such that the observable factor model
+   <math display="inline">
+    (27)
+   </math>
+   is observationally equivalent to it.
+  </p>
+  <p block-type="TextInlineMath">
+   Diebold and Nerlove [20] introduced a model of form (31), in which
+   <math display="inline">
+    k = 1
+   </math>
+   and
+   <math display="inline">
+    \mathbf{f}_t
+   </math>
+   has an ARCH structure. They use it to model the volatility of a set of weekly spot exchange rates. In their model,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \boldsymbol{\varepsilon}_{t} = \boldsymbol{\gamma} f_{t} + \boldsymbol{\eta}_{t}
+   </math>
+   <math display="block">
+    \mathsf{E}(f_{t}|\mathfrak{F}_{t-1}) = h_{t}^{(f)} = \alpha_{0} + \sum_{j=1}^{q} \alpha_{j} f_{t-j}^{2} \qquad (32)
+   </math>
+  </p>
+  <p block-type="Text">
+   From equation
+   <math display="inline">
+    (32)
+   </math>
+   it follows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{H}_{t} = \mathsf{E}(\boldsymbol{\varepsilon}_{t}\boldsymbol{\varepsilon}_{t}^{\prime}|\mathfrak{F}_{t-1}) = h_{t}^{(f)}\boldsymbol{\gamma}\boldsymbol{\gamma}^{\prime} + \boldsymbol{\Sigma}_{\eta} \qquad (33)
+   </math>
+  </p>
+  <p block-type="Text">
+   The conditional variances and covariances are thus determined by a single factor. Diebold and Nerlove [20] estimated the parameters of
+   <math display="inline">
+    (32)
+   </math>
+   using the Kalman filter.
+  </p>
+  <h2>
+   <b>
+    Final Remarks
+   </b>
+  </h2>
+  <p block-type="Text">
+   The literature on GARCH models is quite voluminous. Modern econometrics texts contain accounts of conditional heteroskedasticity. A number of surveys of GARCH models exist as well. Bollerslev et al. [13], Diebold and Lopez [19], Palm [57], and Guégan [36] survey developments till the early 1990s; see [31] for a very recent survey. Shephard [61] considers both univariate GARCH and stochastic volatility models. Gouriéroux [34] concentrates on ARCH models, both univariate and multivariate. The survey by Bollerslev
+   <i>
+    et al.
+   </i>
+   [12] also reviews applications to financial series. The focus in [65] is on estimation in models of conditional heteroskedasticity. Theoretical results on time series models with conditional heteroskedasticity are also reviewed in [47]. Engle [22] provides a selection of the most important articles on ARCH and GARCH models up until 1993. Recent surveys of multivariate GARCH models include [6] and [64]. Several articles in [4] provide detailed descriptions of various aspects of GARCH models and their use in applications.
+  </p>
+  <h3>
+   Acknowledgments
+  </h3>
+  <p block-type="Text">
+   This work has been supported by the Danish National Research Foundation.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Alexander, C. &amp; Chibumba, A. (1996). Multivariate orthogonal factor GARCH, Discussion Papers in Mathematics, University of Sussex.
+    </li>
+    <li block-type="ListItem">
+     [2] Andersen, T.G. (2009). Realized volatility, in
+     <i>
+      Handbook
+     </i>
+     of Financial Time Series, T.G. Andersen, R.A. Davis, J.-P. Kreiss &amp; T. Mikosch, eds, Springer, New York, pp. 555-575.
+    </li>
+    <li block-type="ListItem">
+     [3] Andersen, T.G. &amp; Bollerslev, T. (1998). Answering the skeptics: yes, standard volatility models provide accurate forecasts, International Economic Review 39, 885-905.
+    </li>
+    <li block-type="ListItem">
+     Andersen, T.G., Davis, R.A., Kreiss, J.-P. &amp; Mikosch, T. [4] (eds) (2009). Handbook of Financial Time Series, Springer, New York.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [5] Baillie, R.T., Bollerslev, T. &amp; Mikkelsen, H.O. (1996). Fractionally integrated generalized autoregressive conditional heteroskedasticity,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      74
+     </b>
+     , 3–30.
+    </li>
+    <li block-type="ListItem">
+     [6] Bauwens, L., Laurent, S. &amp; Rombouts, J.V.K. (2006). Multivariate GARCH models: a survey,
+     <i>
+      Journal of Applied Econometrics
+     </i>
+     <b>
+      21
+     </b>
+     , 79–109.
+    </li>
+    <li block-type="ListItem">
+     [7] Berben, R.-P. &amp; Jansen, W.J. (2005). Comovement in international equity markets: a sectoral view,
+     <i>
+      Journal of International Money and Finance
+     </i>
+     <b>
+      24
+     </b>
+     , 832–857.
+    </li>
+    <li block-type="ListItem">
+     [8] Berkes, I., Gombay, E., Horvath, L. &amp; Kokoszka, P. ´ (2004). Sequential change-point detection in GARCH (p,q) models,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      20
+     </b>
+     , 1140–1167.
+    </li>
+    <li block-type="ListItem">
+     [9] Berkes, I., Horvath, L. &amp; Kokoszka, P. (2003). GARCH ´ processes: structure and estimation,
+     <i>
+      Bernoulli
+     </i>
+     <b>
+      9
+     </b>
+     , 201–227.
+    </li>
+    <li block-type="ListItem">
+     [10] Bollerslev, T. (1986). Generalized autoregressive conditional heteroskedasticity,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      31
+     </b>
+     , 307–327.
+    </li>
+    <li block-type="ListItem">
+     [11] Bollerslev, T. (1990). Modelling the coherence in shortrun nominal exchange rates: a multivariate generalized ARCH model,
+     <i>
+      Review of Economics and Statistics
+     </i>
+     <b>
+      72
+     </b>
+     , 498–505.
+    </li>
+    <li block-type="ListItem">
+     [12] Bollerslev, T., Chou, R.Y. &amp; Kroner, K.F. (1992). ARCH modeling in finance. A review of the theory and empirical evidence,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      52
+     </b>
+     , 5–59.
+    </li>
+    <li block-type="ListItem">
+     [13] Bollerslev, T., Engle, R.F. &amp; Nelson, D.B. (1994). ARCH models, in
+     <i>
+      Handbook of Econometrics
+     </i>
+     , R.F. Engle &amp; D.L. McFadden, eds, North-Holland, Amsterdam, Vol. 4, pp. 2959–3038.
+    </li>
+    <li block-type="ListItem">
+     [14] Bollerslev, T., Engle, R.F. &amp; Wooldridge, J. (1988). A capital asset-pricing model with time-varying covariances,
+     <i>
+      Journal of Political Economy
+     </i>
+     <b>
+      96
+     </b>
+     , 116–131.
+    </li>
+    <li block-type="ListItem">
+     [15] Brooks, C., Burke, S.P. &amp; Persand, G. (2001). Benchmarks and the accuracy of GARCH model estimation,
+     <i>
+      International Journal of Forecasting
+     </i>
+     <b>
+      17
+     </b>
+     , 45–56.
+    </li>
+    <li block-type="ListItem">
+     [16] Cai, J. (1994). A Markov model of switching-regime ARCH,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      12
+     </b>
+     , 309–316.
+    </li>
+    <li block-type="ListItem">
+     [17] Comte, F. &amp; Lieberman, O. (2003). Asymptotic theory for multivariate GARCH processes,
+     <i>
+      Journal of Multivariate Analysis
+     </i>
+     <b>
+      84
+     </b>
+     , 61–84.
+    </li>
+    <li block-type="ListItem">
+     [18] Diebold, F.X. (1986). Modeling the persistence of conditional variances: a comment,
+     <i>
+      Econometric Reviews
+     </i>
+     <b>
+      5
+     </b>
+     , 51–56.
+    </li>
+    <li block-type="ListItem">
+     [19] Diebold, F.X. &amp; Lopez, J.A. (1995). Modeling volatility dynamics, in
+     <i>
+      Macroeconometrics: Developments, Tensions, and Prospects
+     </i>
+     , K.D. Hoover, ed, Kluwer Academic Publishers, Boston, pp. 427–472.
+    </li>
+    <li block-type="ListItem">
+     [20] Diebold, F.X. &amp; Nerlove, M. (1989). The dynamics of exchange rate volatility: a multivariate latent factor ARCH model,
+     <i>
+      Journal of Applied Econometrics
+     </i>
+     <b>
+      4
+     </b>
+     , 1–21.
+    </li>
+    <li block-type="ListItem">
+     [21] Engle, R.F. (1982). Autoregressive conditional heteroscedasticity with estimates of the variance of United Kingdom inflation,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      50
+     </b>
+     , 987–1007.
+    </li>
+    <li block-type="ListItem">
+     [22] Engle, R.F. (ed) (1995).
+     <i>
+      ARCH Selected Readings
+     </i>
+     , Oxford University Press, Oxford.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [23] Engle, R.F. (2002). Dynamic conditional correlation: a simple class of multivariate generalized autoregressive conditional heteroscedasticity models,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      20
+     </b>
+     , 339–350.
+    </li>
+    <li block-type="ListItem">
+     [24] Engle, R.F. &amp; Bollerslev, T. (1986). Modeling the persistence of conditional variances,
+     <i>
+      Econometric Reviews
+     </i>
+     <b>
+      5
+     </b>
+     , 1–50.
+    </li>
+    <li block-type="ListItem">
+     [25] Engle, R.F. &amp; Kroner, K.F. (1995). Multivariate simultaneous generalized ARCH,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      11
+     </b>
+     , 122–150.
+    </li>
+    <li block-type="ListItem">
+     [26] Engle, R.F., Lilien, D.M. &amp; Robins, R.P. (1987). Estimating time-varying risk premia in the term structure: the ARCH-M model,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      55
+     </b>
+     , 391–407.
+    </li>
+    <li block-type="ListItem">
+     [27] Engle, R.F. &amp; Ng, V.K. (1993). Measuring and testing the impact of news on volatility,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      48
+     </b>
+     , 1749–1777.
+    </li>
+    <li block-type="ListItem">
+     [28] Engle, R.F., Ng, V.K. &amp; Rotschild, M. (1990). FACTOR-ARCH covariance structure: empirical estimates for treasury bills,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      45
+     </b>
+     , 213–237.
+    </li>
+    <li block-type="ListItem">
+     [29] Fiorentini, G., Calzolari, G. &amp; Panattoni, L. (1996). Analytic derivatives and the computation of GARCH estimates,
+     <i>
+      Journal of Applied Econometrics
+     </i>
+     <b>
+      11
+     </b>
+     , 399–417.
+    </li>
+    <li block-type="ListItem">
+     [30] Francq, C. &amp; Zako¨ıan, J.-M. (2004). Maximum likelihood estimation of pure GARCH and ARMA-GARCH processes,
+     <i>
+      Bernoulli
+     </i>
+     <b>
+      10
+     </b>
+     , 605–637.
+    </li>
+    <li block-type="ListItem">
+     [31] Giraitis, L., Leipus, R. &amp; Surgailis, D. (2006). Recent advances in ARCH modelling, in
+     <i>
+      Long Memory in Economics
+     </i>
+     , A. Kirman &amp; G. Teyssiere, eds, Springer, Berlin, pp. 3–38.
+    </li>
+    <li block-type="ListItem">
+     [32] Glosten, L., Jagannathan, R. &amp; Runkle, D. (1993). On the relation between expected value and the volatility of the nominal excess return on stocks,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      48
+     </b>
+     , 1779–1801.
+    </li>
+    <li block-type="ListItem">
+     [33] Gonzalez-Rivera, G. (1998). Smooth transition GARCH models,
+     <i>
+      Studies in Nonlinear Dynamics and Econometrics
+     </i>
+     <b>
+      3
+     </b>
+     , 161–178.
+    </li>
+    <li block-type="ListItem">
+     [34] Gourieroux, C. (1997). ´
+     <i>
+      ARCH Models and Financial Applications
+     </i>
+     , Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [35] Gray, S.F. (1996). Modeling the conditional distribution of interest rates as a regime-switching process,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      42
+     </b>
+     , 27–62.
+    </li>
+    <li block-type="ListItem">
+     [36] Guegan, D. (1994). ´
+     <i>
+      S´eries chronologiques nonlin´eaires `a temps discret
+     </i>
+     , Economica, Paris.
+    </li>
+    <li block-type="ListItem">
+     [37] Haas, M., Mittnik, S. &amp; Paolella, M.S. (2004). A new approach to Markov-switching GARCH models,
+     <i>
+      Journal of Financial Econometrics
+     </i>
+     <b>
+      4
+     </b>
+     , 493–530.
+    </li>
+    <li block-type="ListItem">
+     [38] Hagerud, G. (1997).
+     <i>
+      A New Non-Linear GARCH Model
+     </i>
+     , EFI Economic Research Institute, Stockholm.
+    </li>
+    <li block-type="ListItem">
+     [39] Hamilton, J.D. &amp; Susmel, R. (1994). Autoregressive conditional heteroskedasticity and changes in regime,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      64
+     </b>
+     , 307–333.
+    </li>
+    <li block-type="ListItem">
+     [40] He, C. &amp; Terasvirta, T. (1999). Properties of moments of ¨ a family of GARCH processes,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      92
+     </b>
+     , 173–192.
+    </li>
+    <li block-type="ListItem">
+     [41] Jeantheau, T. (1998). Strong consistency of estimators for multivariate ARCH models,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      14
+     </b>
+     , 70–86.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [42] Klaassen, F. (2002). Improving GARCH volatility forecasts with regime-switching GARCH model,
+     <i>
+      Empirical Economics
+     </i>
+     <b>
+      27
+     </b>
+     , 363–394.
+    </li>
+    <li block-type="ListItem">
+     [43] Kokoszka, P. &amp; Leipus, R. (1999). Testing for parameter changes in ARCH models,
+     <i>
+      Lithuanian Mathematical Journal
+     </i>
+     <b>
+      39
+     </b>
+     , 182–195.
+    </li>
+    <li block-type="ListItem">
+     [44] Lamoureux, C.G. &amp; Lastrapes, W.G. (1990). Persistence in variance, structural change and the GARCH model,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      8
+     </b>
+     , 225–234.
+    </li>
+    <li block-type="ListItem">
+     [45] Lanne, M. &amp; Saikkonen, P. (2007). A multivariate generalized orthogonal factor GARCH model,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      25
+     </b>
+     , 61–75.
+    </li>
+    <li block-type="ListItem">
+     [46] Li, C.W. &amp; Li, W.K. (1996). On a double threshold autoregressive heteroskedasticity time series model,
+     <i>
+      Journal of Applied Econometrics
+     </i>
+     <b>
+      11
+     </b>
+     , 253–274.
+    </li>
+    <li block-type="ListItem">
+     [47] Li, W.K., Ling, S. &amp; McAleer, M. (2002). Recent theoretical results for time series models with GARCH errors,
+     <i>
+      Journal of Economic Surveys
+     </i>
+     <b>
+      16
+     </b>
+     , 245–269.
+    </li>
+    <li block-type="ListItem">
+     [48] Lin, W.-L. (1992). Alternative estimators for factor GARCH models—a Monte Carlo comparison,
+     <i>
+      Journal of Applied Econometrics
+     </i>
+     <b>
+      7
+     </b>
+     , 259–279.
+    </li>
+    <li block-type="ListItem">
+     [49] Ling, S. &amp; McAleer, M. (2003). Asymptotic theory for a vector ARMA-GARCH model,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      19
+     </b>
+     , 280–310.
+    </li>
+    <li block-type="ListItem">
+     [50] Linton, O.B. (2009). Semiparametric and nonparametric ARCH modelling, in
+     <i>
+      Handbook of Financial Econometrics
+     </i>
+     , T.G. Andersen, R.A. Davis, J.-P. Kreiss &amp; T. Mikosch, eds, Springer, New York, pp. 157–167.
+    </li>
+    <li block-type="ListItem">
+     [51] Lucchetti, R. (2002). Analytical scores for multivariate GARCH models,
+     <i>
+      Computational Economics
+     </i>
+     <b>
+      19
+     </b>
+     , 133–143.
+    </li>
+    <li block-type="ListItem">
+     [52] Lundbergh, S. &amp; Terasvirta, T. (2002). Evaluating ¨ GARCH models,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      110
+     </b>
+     , 417–435.
+    </li>
+    <li block-type="ListItem">
+     [53] Meitz, M. &amp; Saikkonen, P. (2008). Ergodicity, mixing, and existence of moments of a class of Markov models with applications to GARCH and ACD models,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      24
+     </b>
+     , 1291–1320.
+    </li>
+    <li block-type="ListItem">
+     [54] Mikosch, T. &amp; Starica, C. (2004). Nonstationarities in financial time series, the long-range dependence, and the IGARCH effects,
+     <i>
+      Review of Economics and Statistics
+     </i>
+     <b>
+      86
+     </b>
+     , 378–390.
+    </li>
+    <li block-type="ListItem">
+     [55] Nelson, D.B. (1991). Conditional heteroskedasticity in asset returns: a new approach,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      59
+     </b>
+     , 347–370.
+    </li>
+    <li block-type="ListItem">
+     [56] Nelson, D.B. &amp; Cao, C.Q. (1992). Inequality constraints in the univariate GARCH model,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      10
+     </b>
+     , 229–235.
+    </li>
+    <li block-type="ListItem">
+     [57] Palm, F.C. (1996). GARCH models of volatility, in
+     <i>
+      Handbook of Statistics 14: Statistical Methods in Finance
+     </i>
+     , G. Maddala &amp; C. Rao, eds, Elsevier, Amsterdam, pp. 209–240.
+    </li>
+    <li block-type="ListItem">
+     [58] Pelletier, D. (2006). Regime switching for dynamic correlations,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      131
+     </b>
+     , 445–473.
+    </li>
+    <li block-type="ListItem">
+     [59] Sentana, E. (1995). Quadratic ARCH models,
+     <i>
+      Review of Economic Studies
+     </i>
+     <b>
+      62
+     </b>
+     , 639–661.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [60] Sentana, E. (1998). The relation between conditionally heteroskedastic factor models and factor GARCH models,
+     <i>
+      Econometrics Journal
+     </i>
+     <b>
+      1
+     </b>
+     , 1–9.
+    </li>
+    <li block-type="ListItem">
+     [61] Shephard, N.G. (1996). Statistical aspects of ARCH and stochastic volatility, in
+     <i>
+      Time Series Models. In Econometrics, Finance and Other Fields
+     </i>
+     , D.R. Cox, D.V. Hinkley &amp; O.E. Barndorff-Nielsen, eds, Chapman &amp; Hall, London, pp. 1–67.
+    </li>
+    <li block-type="ListItem">
+     [62] Silvennoinen, A. &amp; Terasvirta, T. (2005). Multivari- ¨ ate autoregressive conditional heteroskedasticity with smooth transitions in conditional correlations,
+     <i>
+      SSE/EFI Working Papers in Economics and Finance 577
+     </i>
+     , Stockholm School of Economics.
+    </li>
+    <li block-type="ListItem">
+     [63] Silvennoinen, A. &amp; Terasvirta, T. (2007). Modelling ¨ multivariate autoregressive conditional heteroskedasticity with the double smooth transition conditional correlation GARCH model,
+     <i>
+      SSE/EFI Working Paper Series in Economics and Finance 652
+     </i>
+     , Stockholm School of Economics.
+    </li>
+    <li block-type="ListItem">
+     [64] Silvennoinen, A. &amp; Terasvirta, T. (2009). Multivariate ¨ GARCH models, in
+     <i>
+      Handbook of Financial Time Series
+     </i>
+     , T.G. Andersen, R.A. Davis, J.-P. Kreiss &amp; T. Mikosch, eds, Springer, New York, pp. 201–229.
+    </li>
+    <li block-type="ListItem">
+     [65] Straumann, D. (2004).
+     <i>
+      Estimation in Conditionally Heteroscedastic Time Series Models
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [66] Straumann, D. &amp; Mikosch, T. (2006). Quasi-maximumlikelihood estimation in conditionally heteroscedastic time series: a stochastic recurrence equations approach,
+     <i>
+      Annals of Statistics
+     </i>
+     <b>
+      34
+     </b>
+     , 2449–2495.
+    </li>
+    <li block-type="ListItem">
+     [67] Taylor, S.J. (1986).
+     <i>
+      Modelling Financial Time Series
+     </i>
+     , Wiley, Chichester.
+    </li>
+    <li block-type="ListItem">
+     [68] Tse, Y.K. &amp; Tsui, K.C. (2002). A multivariate generalized autoregressive conditional heteroscedasticity model with time-varying correlations,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      20
+     </b>
+     , 351–362.
+    </li>
+    <li block-type="ListItem">
+     [69] van der Weide, R. (2002). GO-GARCH: a multivariate generalized orthogonal GARCH model,
+     <i>
+      Journal of Applied Econometrics
+     </i>
+     <b>
+      17
+     </b>
+     , 549–564.
+    </li>
+    <li block-type="ListItem">
+     [70] Weiss, A.A. (1986). Asymptotic theory for ARCH models: estimation and testing,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      2
+     </b>
+     , 107–131.
+    </li>
+    <li block-type="ListItem">
+     [71] Zako¨ıan, J.-M. (1994). Threshold heteroskedastic models,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      18
+     </b>
+     , 931–955.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Long Range Dependence
+   </b>
+   ;
+   <b>
+    Realized Volatility and Multipower Variation
+   </b>
+   ;
+   <b>
+    Volatility
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   TIMO TERASVIRTA ¨
+  </p>
+ </body>
+</html>

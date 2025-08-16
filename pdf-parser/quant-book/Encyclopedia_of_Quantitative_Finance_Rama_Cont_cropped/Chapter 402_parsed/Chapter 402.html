@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Large Deviations
+   </b>
+  </h1>
+  <p block-type="Text">
+   Modern large deviations theory, pioneered by Donsker and Varadhan [11], concerns the study of rare events, and it has become a common tool for the analysis of stochastic systems in a variety of scientific disciplines and in engineering. The theory developed by Donsker and Varadhan is a generalization of Laplace's principle and Cramér's theorem. Here we concentrate on applications to finance and risk management.
+  </p>
+  <p block-type="Text">
+   A wealth of monographs discuss the large deviations theory in detail; see, for instance,
+   <math display="inline">
+    [8-10]
+   </math>
+   . Here, we shall discuss applications to mathematical finance, including option pricing (see Option Pricing: General Principles), risk management (see Risk Exposures; Risk Management: Historical Perspectives), and portfolio optimization (see Risk-Return Analysis; Merton Problem). The reader may also consult [21], which includes details behind many of the topics touched upon here. Before discussing these applications, however, we provide a brief introduction to some basic concepts underlying the theory of large deviations.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   A sequence of random objects
+   <math display="inline">
+    (Z_n : n \ge 0)
+   </math>
+   taking values on some topological space S satisfies a, large deviations principle with rate function
+   <math display="inline">
+    (J(z): z \in \mathcal{S})
+   </math>
+   , if for each Borel measurable set
+   <math display="inline">
+    A \in \mathcal{S}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp; \inf_{z \in A^{o}} J\left(z\right) \leq \underline{\lim}_{n \to \infty} - \frac{1}{n} \log P\left(Z_{n} \in A\right) \\ &amp; \leq \overline{\lim}_{n \to \infty} - \frac{1}{n} \log P\left(Z_{n} \in A\right) \leq \inf_{z \in \overline{A}} J\left(z\right) \end{split} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    J(\cdot)
+   </math>
+   is nonnegative and upper semicontinuous. Here
+   <math display="inline">
+    A^o
+   </math>
+   and
+   <math display="inline">
+    \overline{A}
+   </math>
+   stand for the interior and closure of A, respectively.
+  </p>
+  <p block-type="TextInlineMath">
+   Throughout this article, we assume that
+   <math display="inline">
+    S
+   </math>
+   is a Polish space (i.e., a separable, completely metrizable topological space). One can show that if a large deviations principle holds, then there exists a deterministic element
+   <math display="inline">
+    \widetilde{z} \in \mathcal{S}
+   </math>
+   such that
+   <math display="inline">
+    Z_n \Rightarrow \widetilde{z}
+   </math>
+   (where
+   <math display="inline">
+    \Rightarrow
+   </math>
+   denotes weak convergence). In many applications,
+   <math display="inline">
+    S
+   </math>
+   is a function space, so
+   <math display="inline">
+    Z_n
+   </math>
+   is a stochastic process and
+   <math display="inline">
+    \widetilde{z}
+   </math>
+   is the asymptotically most likely path.
+  </p>
+  <p block-type="Text">
+   A large deviations principle is intuitively interpreted as having the formal approximation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P\left(Z_n \approx z\right) \approx \exp\left(-nJ\left(z\right)\right) \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for z outside a neighborhood of
+   <math display="inline">
+    \tilde{z}
+   </math>
+   . The previous approximation does not carry any rigorous meaning. Nevertheless, the formal use of equation (2) often allows to infer large deviations properties of stochastic systems that can be later justified rigorously using large deviations theory. The rigorous meaning behind equation (2) is given by Varadhan's lemma (see [8], p. 137), which states that, in the presence of a large deviations principle, for every continuous function
+   <math display="inline">
+    (F(z): z \in \mathcal{S})
+   </math>
+   bounded from below we have that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \log \frac{1}{n} E \exp\left(-nF\left(Z_n\right)\right) \longrightarrow -\inf_{z \in \mathcal{S}} \left(J\left(z\right) + F\left(z\right)\right) \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   as
+   <math display="inline">
+    n \nearrow \infty
+   </math>
+   . Varadhan's lemma is a generalized version of Laplace's principle. Indeed, note that in view of representation (2), Varadhan's lemma makes perfect intuitive sense after applying Laplace's principle since
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E \exp(-nF(Z_n)) \approx \int \exp(-n(J(z) + F(z))) dz
+   </math>
+   <br/>
+   <math display="block">
+    \approx \exp\left(-n \inf_{z \in S} (J(z) + F(z))\right)
+   </math>
+   <br/>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   The solution to the optimization problem
+   <math display="inline">
+    \inf_{z \in S} (I(z) + F(z))
+   </math>
+   is the so-called minimum energy path or optimal path. Formally, if we put
+   <math display="inline">
+    F(z) = \infty \times I_{A^c}(z)
+   </math>
+   , then
+   <math display="inline">
+    E \exp(-nF(Y)) =
+   </math>
+   <math display="inline">
+    P(Y \in A)
+   </math>
+   and if
+   <math display="inline">
+    \widetilde{z} \notin A
+   </math>
+   and regularity assumptions on the set
+   <math display="inline">
+    A
+   </math>
+   hold, Varadhan's lemma yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P\left(Z_n \in A\right) \approx \exp\left(-n \inf_{z \in A} J\left(z\right)\right) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   A related class of asymptotic approximations arises in the setting of dynamical systems with a small random perturbation, for instance,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}Z_{\varepsilon}\left(t\right) &amp;= \mu\left(Z_{\varepsilon}\left(t\right)\right) \,\mathrm{d}t + \varepsilon\sigma\left(Z_{\varepsilon}\left(t\right)\right) \,\mathrm{d}B\left(t\right); \\ Z_{\varepsilon}\left(0\right) &amp;= z_{\varepsilon}\left(0\right) \end{aligned} \tag{6}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   assuming the necessary regularity conditions for the existence of a solution to the previous stochastic
+  </p>
+  <p block-type="TextInlineMath">
+   differential equations (SDEs) driven by a standard Brownian motion
+   <math display="inline">
+    B(\cdot)
+   </math>
+   . Note that, formally, if we send
+   <math display="inline">
+    \varepsilon \to 0
+   </math>
+   and assume that
+   <math display="inline">
+    z_{\varepsilon}(0) \to \widetilde{z}(0)
+   </math>
+   , we obtain convergence of
+   <math display="inline">
+    Z_{\varepsilon}
+   </math>
+   to a deterministic dynamical system satisfying
+   <math display="inline">
+    \widetilde{z}'(t) = \mu(\widetilde{z}(t))
+   </math>
+   given
+   <math display="inline">
+    \widetilde{z}(0)
+   </math>
+   . Therefore, under appropriate conditions, one would expect the existence of a theory backing up approximations such as equation
+   <math display="inline">
+    (2)
+   </math>
+   given by an appropriate rate function
+   <math display="inline">
+    I(\cdot)
+   </math>
+   . Such a theory has indeed been developed, and it is known as the Freidlin-Wentzel theory (see, [8], p. 212 or [22], p. 129). The rest of this article concentrates on the application of the ideas of large deviations in finance.
+  </p>
+  <h1>
+   <b>
+    Option Pricing
+   </b>
+  </h1>
+  <h2>
+   Direct Use of Large Deviations Approximations
+  </h2>
+  <p block-type="Text">
+   Large deviations principles are applied in finance to develop approximations for option prices (see
+   <b>
+    Option Pricing: General Principles
+   </b>
+   ). It is easier to explain the techniques with a simple example. Consider the problem of pricing a digital knock-in call option (see
+   <b>
+    Barrier Options
+   </b>
+   ) with maturity time
+   <math display="inline">
+    T
+   </math>
+   under a Black-Scholes economy (see Black-Scholes For
+   <b>
+    mula
+   </b>
+   ), in particular,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_T = P\left(\min_{0 \le s \le T} B(s) \le -a, B(T) &gt; b\right) \qquad (7)
+   </math>
+  </p>
+  <p block-type="Text">
+   for some barrier values
+   <math display="inline">
+    a, b &gt; 0
+   </math>
+   , where
+   <math display="inline">
+    B(\cdot)
+   </math>
+   is a standard Brownian motion. This probability can be, of course, evaluated in closed form
+   <math display="inline">
+    (17, 18]
+   </math>
+   , or see equation 12 below), but we illustrate the use of large deviations theory here. We develop approximations that can be asymptotically validated when the time to maturity and the barriers are large. First, we embed the problem in a large deviations setting by introducing an appropriate scaling
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_T = P\left(\min_{0 \le u \le 1} Z_T\left(u\right) \le -c, Z_T\left(1\right) \ge d\right) \quad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    a = -Tc
+   </math>
+   and
+   <math display="inline">
+    b = Td
+   </math>
+   , and
+   <math display="inline">
+    Z_T(u) = B(uT)/T
+   </math>
+   ,
+   <math display="inline">
+    u \in [0, 1]
+   </math>
+   . The rate function of
+   <math display="inline">
+    Z_T(\cdot)
+   </math>
+   is defined on the space
+   <math display="inline">
+    C_1 := C_1[0, 1]
+   </math>
+   of absolutely continuous functions and takes the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J(z) = \frac{1}{2} \int_0^1 \dot{z} (u)^2 du \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that
+   <math display="inline">
+    Z_T \rightarrow \widetilde{z} = 0
+   </math>
+   uniformly in probability. A formal application of equation (2) combined with Laplace's principle then yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_T \approx \exp\left(-T \inf_{z \in A} J(z) + o(T)\right) \n
+   </math>
+   (10)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A = \{ z \in C_1 : z(0) = 0, \min_{0 \le u \le 1} z(u) \le -c, z(1) \ge d \}
+   </math>
+   (11)
+  </p>
+  <p block-type="Text">
+   One can then show directly using standard techniques from calculus of variations (applying Euler-Lagrange's principle) that the optimal path is a piecewise linear function. Note that equation
+   <math display="inline">
+    (2)
+   </math>
+   also suggests that the optimal path is the most likely way in which the particular large deviations event, given by A, can occur. In our simple example one can directly evaluate such an optimal path by using the reflection principle. In particular, note that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_T = P(B(T) &gt; (2a + b)T)
+   </math>
+   <br/>
+   =
+   <math>
+    P(Z_T(1) &gt; 2c + d)
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   which allows to conclude (again by reflection) that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    z^*(t) = I(t \le t^*) \theta_{-}t + (\theta_{+}t - c) I(1 \le t \le t^*)
+   </math>
+   (13)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \theta_{-} = -(2c + d)
+   </math>
+   ,
+   <math display="inline">
+    \theta_{+} = -\theta_{-}
+   </math>
+   and
+   <math display="inline">
+    t^{*} = c/(2c + d)
+   </math>
+   d). Moreover, we have that
+   <math display="inline">
+    J(z^*) = (2c+d)^2/2
+   </math>
+   . It is important to note using equation
+   <math display="inline">
+    (12)
+   </math>
+   and elementary properties of the Gaussian density that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_T = \frac{\exp\left(-T\,J\left(z^*\right)\right)}{\left(2\pi\right)^{1/2}\,T^{1/2}}\tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   as
+   <math display="inline">
+    T \nearrow \infty
+   </math>
+   . In particular, it is worth noting that the large deviations results such as equation
+   <math display="inline">
+    (11)
+   </math>
+   provide only rough approximations because no information is given about premultiplying terms like the factor
+   <math display="inline">
+    T^{-1/2}
+   </math>
+   , which appears in equation (14).
+  </p>
+  <h3>
+   <b>
+    Enhancing Monte Carlo Simulations
+   </b>
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   As indicated above, large deviations approximations typically provide only logarithmic asymptotics (i.e.,
+  </p>
+  <p block-type="Text">
+   only the exponential rate of decay is identified without any additional information). Sharp asymptotics (i.e., asymptotics with information about premultiplying factors such as equation 14) can only be developed under an additional problem structure. We continue with our discussion on pricing issues in the context of
+   <b>
+    barrier options
+   </b>
+   ; the option pricing described in the previous paragraph is just an example of one of many types that are possible. In evaluating barrier options, an important aspect relates to the calculation of exit probabilities. For instance, in [5] such calculations are treated combining both Monte Carlo methods and large deviation principles. The model in use is a geometric Brownian motion under the risk-neutral measure (see Fundamental Theorem of Asset Pricing; Risk-neutral Pricing)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = rS_t dt + \sigma S_t dB_t, \ S_0 = x \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Using this model, we consider computing the probability that the process
+   <math display="inline">
+    S
+   </math>
+   solving equation (15) does not hit any of two barriers, a lower or an upper barrier, which are suitable, positive, twice continuously differentiable functions
+   <math display="inline">
+    (l(t), t &gt; 0)
+   </math>
+   and
+   <math display="inline">
+    (u(t), t &gt; 0)
+   </math>
+   , respectively.
+  </p>
+  <p block-type="Text">
+   The approach suggested by Baldi
+   <i>
+    et al.
+   </i>
+   [5] consists in using sharp large deviations to reduce bias in
+   <b>
+    Monte Carlo simulation.
+   </b>
+   The simulation of
+   <math display="inline">
+    S
+   </math>
+   is done by making an equidistant partition of the time interval
+   <math display="inline">
+    [0, T]
+   </math>
+   , where T indicates the expiration of the contract. Then, the sample path is the collection
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_{t_{i+1}} = S_{t_i} \exp\left(\left(r - \frac{\sigma}{2}\right)\epsilon + \sigma(B_{t_{i+1}} - B_{t_i})\right)
+   </math>
+   <br/>
+   <math display="block">
+    i = 0, 1, \dots, m \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    t_0 = 0 &lt; t_1 &lt; \ldots &lt; t_m = T
+   </math>
+   and
+   <math display="inline">
+    t_{i+1} - t_i =
+   </math>
+   <math display="inline">
+    \epsilon &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Using sharp asymptotics, it is possible to find approximations of the exit probabilities over small intervals, that is, when
+   <math display="inline">
+    \epsilon
+   </math>
+   becomes small. Let
+   <math display="inline">
+    \zeta \in (l(t_i), u(t_i))
+   </math>
+   and
+   <math display="inline">
+    y \in (l(t_{i+1}), u(t_{i+1}))
+   </math>
+   . Then the approximation appears as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} p_i^{\circ} &amp;:= \\ P(\exists t \in [t_i, t_{i+1}] : S_t \notin (l(t), u(t)) \mid S_{t_i} = \varsigma, S_{t_{i+1}} = y) \\ &amp;= f(t_i, \varsigma, y, \epsilon)(1 + O(\epsilon)) \end{aligned} \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the function
+   <math display="inline">
+    f
+   </math>
+   is indeed known explicitly:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t,\varsigma,y,\epsilon) = \exp\left\{-\frac{Q(t,\varsigma,y)}{\epsilon} - R(t,\varsigma,y)\right\}
+   </math>
+   (18)
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q(t,\varsigma,y) = \begin{cases} \frac{2(u(t) - \varsigma)(u(t) - y)}{\sigma^2} \\ \text{if } \varsigma + y &gt; u(t) + l(t) \\ \frac{2(\varsigma - l(t))(y - l(t))}{\sigma^2} \\ \text{if } \varsigma + y &lt; u(t) + l(t) \end{cases}
+   </math>
+   (19)
+  </p>
+  <p block-type="Text">
+   The service of
+  </p>
+  <p block-type="Text">
+   2000
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(t,\zeta,y) = \begin{cases} \frac{2(u(t) - \zeta)u'(t)}{\sigma^2} \\ \text{if } \zeta + y &gt; u(t) + l(t) \\ \frac{2(\zeta - l(t))l'(t)}{\sigma^2} \\ \text{if } \zeta + y &lt; u(t) + l(t) \end{cases}
+   </math>
+   (20)
+  </p>
+  <p block-type="TextInlineMath">
+   The final estimator, with reduced bias, for the probability that
+   <math display="inline">
+    S
+   </math>
+   does not hit the barriers in the interval
+   <math display="inline">
+    [0, T]
+   </math>
+   is constructed by simulating N independent identically distributed (i.i.d.) replications
+   <math display="inline">
+    (S^{(j)}: j \leq N)
+   </math>
+   of the process S and obtaining
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{N} \sum_{j=1}^{N} \prod_{i=0}^{m-1} I\left(S_{t_{i}}^{(j)} \in (l\left(t_{i}\right), u\left(t_{i}\right))\right) p\left(t_{i}, S_{t_{i}}^{(j)}, S_{t_{i+1}}^{(j)}\right)
+   </math>
+   (21)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p\left(t_{i}, S_{t_{i}}^{(j)}, S_{t_{i+1}}^{(j)}\right) = 1 - f\left(t_{i}, S_{t_{i}}^{(j)}, S_{t_{i+1}}^{(j)}, \varepsilon\right) \quad (22)
+   </math>
+  </p>
+  <p block-type="Text">
+   Large deviations analysis can also aid the application of variance reduction techniques for Monte Carlo simulation via importance sampling, as is discussed next.
+  </p>
+  <h3>
+   <i>
+    Importance Sampling
+   </i>
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   Once again, we concentrate on a concrete problem to illustrate the use of large deviations in the design of importance sampling (see Variance Reduction). Consider the problem of calculating equation (7). The optimal path equation
+   <math display="inline">
+    (13)
+   </math>
+   suggests a particular way in which one could bias the occurrence of the large deviations event; here we also consider time to maturity and barrier values to be large and thus we would be dealing with small probabilities (see
+  </p>
+  <p block-type="TextInlineMath">
+   Rare-event Simulation). In particular, consider a probability measure, say
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   , under which a process
+   <math display="inline">
+    (Y(u): 0 &lt; u &lt; T)
+   </math>
+   follows a Brownian motion with
+   <i>
+    drift
+   </i>
+   <math display="inline">
+    \theta_-
+   </math>
+   up to time
+   <math display="inline">
+    \tau_{-a} = \inf\{s \ge 0 : Y(u) \le -Ta\},\
+   </math>
+   and from time
+   <math display="inline">
+    \tau_{-a}
+   </math>
+   up to time T (assuming
+   <math display="inline">
+    \tau_{-a} &lt; T
+   </math>
+   ) the drift of
+   <math display="inline">
+    Y(\cdot)
+   </math>
+   is switched to the value
+   <math display="inline">
+    \theta_{+}
+   </math>
+   . Using the process
+   <math display="inline">
+    Y
+   </math>
+   , we obtain the representation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_T = E_{\mathbb{Q}} \left\{ I(\min_{0 \le s \le T} Y(s) \le -aT, Y(T) &gt; bT) \times h \right\}
+   </math>
+   (23)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h = e^{-\theta_{-}a + \theta_{-}^{2}\tau_{-a}/2 - \theta_{+}(T - \tau_{a})(Y(T) + a) + \theta_{+}^{2}(T - \tau_{a})/2} \quad (24)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The expression above, involving the exponentials, is nothing but the likelihood ratio between the Wiener measure
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   (corresponding to the process
+   <math display="inline">
+    (B(s): 0 &lt; s &lt; T)
+   </math>
+   and the measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   on the set
+   <math display="inline">
+    I(\tau_{-a} &lt; T)
+   </math>
+   . More precisely,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\mathbb{P}}{\mathrm{d}\mathbb{Q}}I\left(\tau_{-a} &lt; T\right) = I\left(\tau_{-a} &lt; T\right)
+   </math>
+   <math display="block">
+    \times \mathrm{e}^{-\theta_{-}a + \theta_{-}^{2}\tau_{-a}/2 - \theta_{+}(T - \tau_{-a})(Y(T) + a) + \theta_{+}^{2}(T - \tau_{-a})/2} \tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The use of importance sampling proceeds by simulating, say, N i.i.d. replications
+   <math display="inline">
+    (Y_i : i &lt; N)
+   </math>
+   of the process
+   <math display="inline">
+    (Y(s): 0 \le s \le T)
+   </math>
+   and estimating
+   <math display="inline">
+    P\left(\min_{0\leq s\leq T}B\left(s\right)\leq-a,\,B\left(T\right)&gt;b\right)
+   </math>
+   via
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_T^{(N)} = \frac{1}{N} \sum_{i=1}^{N} I\left(\tau_{-a}^{(i)} &lt; T, Y_i\left(T\right) &gt; bT\right) \times h^{(i)}
+   </math>
+   (26)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h^{(i)} = e^{-\theta_{-}a + \theta_{-}^{2}\tau_{-a}^{(i)}/2 - \theta_{+} \left(T - \tau_{-a}^{(i)}\right)(Y_{i}(T) + a) + \theta_{+}^{2} \left(T - \tau_{-a}^{(i)}\right)/2}
+   </math>
+   (27)
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    \tau_{-a}^{(i)}
+   </math>
+   ,
+   <math display="inline">
+    i = 1, \ldots, N
+   </math>
+   are the i.i.d. replications of
+   <math display="inline">
+    \tau_{-a}
+   </math>
+   obtained from the corresponding i.i.d. processes
+   <math display="inline">
+    Y_i
+   </math>
+   . Moreover, large deviations theory allows to conclude that the previous importance sampling estimator satisfies certain optimality properties as
+   <math display="inline">
+    T \nearrow \infty
+   </math>
+   (see, for instance, [3], Ch. 7). Additional extensions of this methodology are applicable to
+  </p>
+  <p block-type="Text">
+   other types of processes. However, to design optimal importance sampling estimators, it is required to compute the associated optimal path under the corresponding rate function of the underlying process. Research in this direction has been developed recently [3, 16].
+  </p>
+  <p block-type="Text">
+   We now give a broader description of the importance sampling technique in option pricing. When pricing an option, the question is to find the expectation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_g = E(g(S_t : 0 \le t \le T)) \tag{28}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    g
+   </math>
+   is a payoff function (possibly path dependent) (see Options: Basic Definitions), and S is governed by a suitable SDE. Let us concentrate here on the geometric Brownian motion given by equation (15). The naive Monte Carlo estimator based on
+   <math display="inline">
+    N
+   </math>
+   replications is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{I}_{g}^{N} = \frac{1}{N} \sum_{i=1}^{N} g(S_{t}^{(i)} : 0 \le t \le T) \tag{29}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the
+   <math display="inline">
+    S^{(i)}
+   </math>
+   's are i.i.d. replications ([3], a general reference on stochastic simulation) of the process
+   <math display="inline">
+    S
+   </math>
+   following equation
+   <math display="inline">
+    (15)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The importance sampling procedure turns
+   <math display="inline">
+    (28)
+   </math>
+   into
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_g = E_{\mathbb{Q}}(g(S_t^{\phi}, 0 \le t \le T) \times L_T^{-1}) \qquad (30)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathrm{d}S_t^{\phi} &amp;= (r + \sigma \phi_t) \, S_t^{\phi} \, \mathrm{d}t + \sigma \, S_t^{\phi} \, \mathrm{d}B_t^{\mathbb{Q}} \\ &amp;= r \, S_t^{\phi} \, \mathrm{d}t + \sigma \, S_t^{\phi} \, \mathrm{d}B_t \end{split} \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the process
+   <math display="inline">
+    \left(B_t^{\mathbb{Q}}: 0 \leq t \leq T\right)
+   </math>
+   is a standard Brownian motion under
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   . The relation between
+   <math display="inline">
+    B_t^{\mathbb{Q}}
+   </math>
+   and
+   <math display="inline">
+    B_t
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}B_t = \phi_t \,\mathrm{d}t + \mathrm{d}B_t^{\mathbb{Q}} \tag{32}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The likelihood ratio
+   <math display="inline">
+    L_T^{-1} = d\mathbb{P}/d\mathbb{Q}
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_T^{-1} = \exp\left(-\int_0^T \phi_s \, \mathrm{d}B_s + \frac{1}{2} \int_0^T \phi_s^2 \, \mathrm{d}s\right)
+   </math>
+   <br/>
+   =
+   <math>
+    \exp\left(-\int_0^T \phi_s \, \mathrm{d}B_s^{\mathbb{Q}} - \frac{1}{2} \int_0^T \phi_s^2 \, \mathrm{d}s\right)
+   </math>
+   (33)
+  </p>
+  <p block-type="Text">
+   Under this specification, the importance sampling estimator takes the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{g,IS}^{N} = \frac{1}{N} \sum_{i=1}^{N} g(S_{t,i}^{\phi}, 0 \le t \le T)) L_T^{-1}(i) \qquad (34)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    S^{\phi}_{\cdot,i}
+   </math>
+   and
+   <math display="inline">
+    L_T^{-1}(i)
+   </math>
+   are obtained from the corresponding i.i.d. copies of the process
+   <math display="inline">
+    S^{\phi}
+   </math>
+   , which follows the evolution equations (31). Therefore, the ultimate problem is to find a process
+   <math display="inline">
+    \phi
+   </math>
+   (which might or might not be deterministic) that guaranties an efficient estimation of
+   <math display="inline">
+    I_g
+   </math>
+   in terms of variance reduction. As we indicated in the simple barrier example, large deviation techniques provide tools to find such a process
+   <math display="inline">
+    \phi
+   </math>
+   . In the next subsection we discuss another example.
+  </p>
+  <h4>
+   Freidlin-Wentzel Theory
+  </h4>
+  <p block-type="Text">
+   Let us suppose that we are dealing with a European option (see Options: Basic Definitions). Thus equa-
+   <math display="inline">
+    (28)
+   </math>
+   becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{g}(x) = E(g(S_{T})|S_{0} = x)
+   </math>
+   (35)
+  </p>
+  <p block-type="TextInlineMath">
+   and we write
+   <math display="inline">
+    I_{g}(x)
+   </math>
+   to emphasize the dependence on the initial position.
+  </p>
+  <p block-type="TextInlineMath">
+   Using
+   <b>
+    Itô's formula
+   </b>
+   , under measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   , the variance of
+   <math display="inline">
+    I_{g,IS}^N
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Var_{\mathbb{Q}}(I_{g,IS}^{N})
+   </math>
+   <math display="block">
+    = \frac{1}{N} E_{\mathbb{Q}} \left( \int_{0}^{T} L_{t} (\sigma I_{g}^{\prime}(S_{t}^{\phi}) + \phi_{t} I_{g}(S_{t}^{\phi}))^{2} \mathrm{d}t \right)
+   </math>
+   <math display="block">
+    (36)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    I'_{g}
+   </math>
+   is the derivative with respect to x. One can readily see that if
+   <math display="inline">
+    \phi_s = -\sigma I'_o(S_t^{\phi})/I_g(S_t^{\phi})
+   </math>
+   the variance of the estimator would vanish. Unfortunately, the function
+   <math display="inline">
+    I_g(\cdot)
+   </math>
+   is precisely what we want to find, but the idea is to find an approximation to
+   <math display="inline">
+    I_{\rho}(\cdot)
+   </math>
+   , say
+   <math display="inline">
+    \widetilde{I}_{g}(\cdot)
+   </math>
+   , and consider
+   <math display="inline">
+    \widetilde{\phi}_{s} = -\sigma \widetilde{I}'_{g}\left(S_{t}^{\widetilde{\phi}}\right) / I_{g}\left(S_{t}^{\widetilde{\phi}}\right)
+   </math>
+   which can be used to generate a change of measure that reduces the variance of the associated importance sampling estimator. For instance, Fourniè et al. [13] suggest developing a parametric expansion for
+   <math display="inline">
+    I_g(x)
+   </math>
+   as a function of
+   <math display="inline">
+    \sigma
+   </math>
+   as
+   <math display="inline">
+    \sigma \searrow 0
+   </math>
+   . In turn, such an expansion is based, for options out of the money, on the Freidlin-Wentzel theory.
+  </p>
+  <h4>
+   Varadhan–Laplace Principle
+  </h4>
+  <p block-type="Text">
+   Recall that under the geometric Brownian motion, model
+   <math display="inline">
+    (15)
+   </math>
+   , the path simulation at discrete-time points satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_{t_{i+1}} = S_{t_i} \exp\left(\left(r - \frac{\sigma^2}{2}\right)\epsilon + \sigma\sqrt{\epsilon}Z_i\right) \tag{37}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    Z_i \sim N(0, 1)
+   </math>
+   for
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   . Let
+   <math display="inline">
+    \mathbf{Z} =
+   </math>
+   <math display="inline">
+    (Z_1,\ldots,Z_n)^\top
+   </math>
+   (
+   <math display="inline">
+    \top
+   </math>
+   stands for the transpose), then we denote by
+   <math display="inline">
+    G(Z)
+   </math>
+   the payoff of the option under a sample
+   <math display="inline">
+    Z
+   </math>
+   , for instance, for the Asian option we have
+   <math display="inline">
+    G(Z) = \max\left(0, \frac{1}{n}\sum_{i=1}^{n} S_{t_i} - K\right)
+   </math>
+   . In this case, the partition indicates the times when the process is monitored to take the average.
+  </p>
+  <p block-type="TextInlineMath">
+   The procedure developed in
+   <math display="inline">
+    [14]
+   </math>
+   is to change the mean of
+   <b>
+    Z
+   </b>
+   from 0 to a vector
+   <math display="inline">
+    \boldsymbol{\mu}
+   </math>
+   to obtain an estimator of
+   <math display="inline">
+    I_{\rho}
+   </math>
+   . Multiplying each sample by the corresponding importance sampling weight or likelihood ratio the estimator is then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_g^N = \frac{1}{N} \sum_{i=1}^N G(Z^{(i)}) \exp\left(-\boldsymbol{\mu}^\top Z^{(i)} + \frac{1}{2}\boldsymbol{\mu}^\top \boldsymbol{\mu}\right)
+   </math>
+   (38)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{Z}^{(i)}
+   </math>
+   is the vector
+   <math display="inline">
+    (Z_1^{(i)}, \ldots, Z_n^{(i)})^{\top}
+   </math>
+   of independent random variables such that
+   <math display="inline">
+    Z_j^{(i)} \sim N(\mu_j, 1)
+   </math>
+   ,
+   <math display="inline">
+    j = 1, ..., n
+   </math>
+   . The
+   <math display="inline">
+    Z^{(i)}
+   </math>
+   's,
+   <math display="inline">
+    i = 1, ..., N
+   </math>
+   are i.i.d. replications. To choose
+   <math display="inline">
+    \mu
+   </math>
+   it suffices to minimize the variance of
+   <math display="inline">
+    I_g^N
+   </math>
+   , which turns out to be equivalent to minimizing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left(G(Z)^{2} \exp\left(-\boldsymbol{\mu}^{\top} \boldsymbol{Z} + \frac{1}{2} \boldsymbol{\mu}^{\top} \boldsymbol{\mu}\right)\right) \tag{39}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{Z}
+   </math>
+   here is an
+   <i>
+    n
+   </i>
+   -dimensional vector of i.i.d. standard Gaussian random variables. It is not an easy task to solve this optimization problem, but it can be tackled using Varadhan-Laplace asymptotics. The idea is to scale
+   <b>
+    Z
+   </b>
+   by
+   <math display="inline">
+    \sqrt{\epsilon}
+   </math>
+   and asymptotically estimate the expectation in equation (39) as
+   <math display="inline">
+    \epsilon \to 0
+   </math>
+   . This approach makes it simpler to find the optimal
+   <math display="inline">
+    \mu
+   </math>
+   , at least as an approximation, which is asymptotically correct in an environment of small volatility, that is,
+   <math display="inline">
+    \sigma
+   </math>
+   close to 0 in equation (15).
+  </p>
+  <p block-type="TextInlineMath">
+   Another interesting application of large deviations principles is in the context of index option pricing. Consider an index
+   <math display="inline">
+    H
+   </math>
+   composed of
+   <math display="inline">
+    m
+   </math>
+   stocks
+   <math display="inline">
+    (S_1, \ldots, S_m)
+   </math>
+   . The index at time t is computed as
+   <math display="inline">
+    H(t) = \sum_{i=1}^{m} w_i S_i
+   </math>
+   , where
+   <math display="inline">
+    w_1, \ldots, w_m
+   </math>
+   are constants.
+  </p>
+  <p block-type="Text">
+   Pricing, for instance, a European call on the index involves knowing the so-called local volatility function (see Local Volatility Model) of the index. What is proposed in
+   <math display="inline">
+    [4]
+   </math>
+   is to approximate such a function using Varadhan's principle to handle it in a simpler way, and therefore, pricing the option.
+  </p>
+  <h3>
+   <b>
+    Risk Management
+   </b>
+  </h3>
+  <p block-type="Text">
+   The use of large deviations theory for computational purposes also arises in the context of risk management. For instance, Dembo
+   <i>
+    et al.
+   </i>
+   [7] developed approximations based on large deviations theory for the tail of a loss distribution; a relevant assumption is that the individual losses are conditionally i.i.d., given the state of the economy and their identifying class (these parameters can be given by the specific industry or business line).
+  </p>
+  <h4>
+   Credit Risk
+  </h4>
+  <p block-type="TextInlineMath">
+   Typically, an important task in credit risk theory (
+   <i>
+    see
+   </i>
+   <b>
+    Credit Risk
+   </b>
+   ) involves computing the distribution of losses in a portfolio composed of several debt contracts. More precisely, in a portfolio composed of
+   <math display="inline">
+    n
+   </math>
+   obligors, the question is to calculate the tail probability of
+   <math display="inline">
+    L_n = c_1 Y_1 + \cdots + c_n Y_n
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(L_n &gt; l) \tag{40}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the
+   <math display="inline">
+    Y_i
+   </math>
+   's are Bernoulli random variables such that
+   <math display="inline">
+    P(Y_i = 1) = p_i = 1 - P(Y_i = 0)
+   </math>
+   , and indicating that the
+   <i>
+    i
+   </i>
+   obligor (for
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   ) may or may not default. The
+   <math display="inline">
+    c_i
+   </math>
+   's represent the loss resulting from the default, and
+   <math display="inline">
+    l
+   </math>
+   is a threshold. Generally, the number of obligors is large, and surpassing threshold
+   <math display="inline">
+    l
+   </math>
+   may be a rare event, which represents significant losses, in which case one may use large deviations theory to approximate the probability in equation
+   <math display="inline">
+    (40)
+   </math>
+   . In [15] such a probability is approximated under a multifactor Gaussian copula model (see Gaussian
+   <b>
+    Copula Model
+   </b>
+   ) and using large deviation theory; here we present some results that can be found in [21].
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose that the variables
+   <math display="inline">
+    Y_i
+   </math>
+   ,
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   are triggered by other variables
+   <math display="inline">
+    X_i, i = 1, \ldots, n
+   </math>
+   that might or not be related; this is done in the following way:
+   <math display="inline">
+    Y_i = 1_{\{X_i &gt; x_i\}}, i = 1, \ldots, n
+   </math>
+   and the vector
+   <math display="inline">
+    (X_1, \ldots, X_n)
+   </math>
+   is normally distributed. The parameters
+   <math display="inline">
+    x_i
+   </math>
+   are such that
+   <math display="inline">
+    P(X_i &gt; x_i) = p_i
+   </math>
+   for
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The correlations among variables
+   <math display="inline">
+    \{X_1, \ldots, X_n\}
+   </math>
+   are determined by the following single-factor model:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_i = \rho Z + \sqrt{1 - \rho^2} Z_i, i = 1, \dots, n \qquad (41)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \rho \in [0, 1)
+   </math>
+   and
+   <math display="inline">
+    Z, Z_1, \ldots, Z_n
+   </math>
+   are independent standard normal random variables (r.v's).
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    \rho = 0
+   </math>
+   , there is no correlation, and using Cramér's theorem one can find an asymptotic formula. Suppose that
+   <math display="inline">
+    p_i = p, i = 1, \ldots, n
+   </math>
+   . Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} \frac{1}{n} \log P(L_n &gt; nq) = -q \ln(q/p) \ln\left(\frac{1-q}{1-p}\right)
+   </math>
+   (42)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    l = nq
+   </math>
+   and
+   <math display="inline">
+    q \in (p, 1)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    \rho &gt; 0
+   </math>
+   , that is, there is dependence among obligors, it is also possible to derive an asymptotic result. Indeed, if
+   <math display="inline">
+    q_n = 1 - n^{-a}
+   </math>
+   with
+   <math display="inline">
+    a \in (0, 1)
+   </math>
+   , it is shown in
+   <math display="inline">
+    [21]
+   </math>
+   that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} \frac{1}{\log n} \log P(L_n &gt; nq_n) = -a \frac{1 - \rho^2}{\rho^2} \qquad (43)
+   </math>
+  </p>
+  <p block-type="Text">
+   A more elaborate model of this type is treated in [15].
+  </p>
+  <p block-type="Text">
+   We have discussed the use of large deviations theory in several computational settings, both in pricing and in risk assessment. Another application of large deviations, also in the context of risk management, arises in the theoretical analysis of risk measures.
+  </p>
+  <h2>
+   Risk Measures
+  </h2>
+  <p block-type="Text">
+   Financial institutions are constantly worried about the quantification of the risk in their portfolios of assets: stocks, bonds, credits, and options (see Risk
+   <b>
+    Exposures
+   </b>
+   ). A financial asset is generally represented by a random variable, say
+   <math display="inline">
+    X
+   </math>
+   , and characterized by the probability measure
+   <math display="inline">
+    \mu
+   </math>
+   that governs the outcome of X, that is, we write
+   <math display="inline">
+    \mathcal{L}(X) = \mu
+   </math>
+   whenever
+   <math display="inline">
+    P(X \in A) =
+   </math>
+   <math display="inline">
+    \mu(A)
+   </math>
+   . The risk associated with X is measured by means of a so-called
+   <i>
+    risk measure
+   </i>
+   <math display="inline">
+    \rho
+   </math>
+   , which is a realvalued function on the space of random variables that satisfies certain properties (such as monotonicity, subadditivity, positive homogeneity, and translation invariance); see
+   <math display="inline">
+    [2]
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Assume that it is not possible to deal with the probability measure
+   <math display="inline">
+    \mu
+   </math>
+   directly, but instead we have independent samples
+   <math display="inline">
+    X_1, \ldots, X_n
+   </math>
+   of X. Then,
+  </p>
+  <p block-type="TextInlineMath">
+   one may want to approximate
+   <math display="inline">
+    \rho(X)
+   </math>
+   by calculating
+   <math display="inline">
+    \rho(X^{(n)})
+   </math>
+   ; in this case,
+   <math display="inline">
+    X^{(n)}
+   </math>
+   is a random variable and its law
+   <math display="inline">
+    \mathcal{L}(X^{(n)})
+   </math>
+   is the empirical measure
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu_n = \frac{1}{n} \sum_{i=1}^n \delta_{X_i} \tag{44}
+   </math>
+  </p>
+  <p block-type="Text">
+   Here
+   <math display="inline">
+    \delta_X
+   </math>
+   stands for the Dirac measure at X.
+  </p>
+  <p block-type="TextInlineMath">
+   This approach generates an error, and the question suggested in [25] is to quantify the error by considering the asymptotics, as
+   <math display="inline">
+    n \to \infty
+   </math>
+   , of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P\left(\left|\rho(X) - \rho(X^{(n)})\right| &gt; \epsilon\right), \text{ for } \epsilon &gt; 0 \tag{45}
+   </math>
+  </p>
+  <p block-type="Text">
+   Then, for positive
+   <math display="inline">
+    \epsilon
+   </math>
+   and when
+   <math display="inline">
+    n \to \infty
+   </math>
+   , the previous quantity becomes small, and large deviation principles can be used to deal with this probability. An important result used for this is Sanov's theorem
+   <math display="inline">
+    [8]
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Optimal Investment
+   </b>
+  </h2>
+  <p block-type="Text">
+   We now move to investment. Maximizing revenue in investments under a certain risk profile (which could be induced by a specific set of assets types) has been a common question for financial investors. To tackle the problem, the usual approaches are the mean-variance analysis of Markowitz (see
+   <b>
+    Risk–Return Analysis
+   </b>
+   ) or the use of utility functions (see Utility Function; Expected Utility Maximization). Alternatively, a criterion can be set by considering asymptotic performance of the portfolio over long time horizons [1]. One has to decide how to measure such a performance, and one way to do this is by estimating, given a fixed investment policy, the probability of performing well [6, 12]. The optimization problem can be set as selecting the investment policy that minimizes the probability of ending up below a threshold or the one that maximizes the probability of surpassing it. Since the problem involves calculating an asymptotic probability, it is appealing to use large deviations techniques (one can find this approach in [19, 20, 23, 24]).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   As an illustration, we describe below the method described by Pham in [19, 20]. Given an investment policy
+   <math display="inline">
+    \alpha \in \mathcal{A}
+   </math>
+   (where
+   <math display="inline">
+    \mathcal{A}
+   </math>
+   is the set of admissible investment policies), we consider the rate of return of the associated wealth process (i.e., the logarithm of the value of the portfolio obtained by applying the policy
+   <math display="inline">
+    \alpha
+   </math>
+   ). We denote such a rate of return process
+  </p>
+  <p block-type="TextInlineMath">
+   by
+   <math display="inline">
+    X(\alpha) = (X_t(\alpha), t \ge 0)
+   </math>
+   . The aim is to maximize over A the probability
+   <math display="inline">
+    P(X_t(\alpha)/t \ge x)
+   </math>
+   in the long term, which is the probability of a rare event as
+   <math display="inline">
+    t \rightarrow
+   </math>
+   <math display="inline">
+    \infty
+   </math>
+   . Here, level
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   represents a benchmark that an investor wants to achieve; in [6] it is considered as a stochastic benchmark, such as an index.
+  </p>
+  <p block-type="Text">
+   It is natural to attempt using large deviations theory to find a (static) policy
+   <math display="inline">
+    \alpha^*
+   </math>
+   from
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(x, \alpha^*) := \sup_{\alpha \in \mathcal{A}} v(x, \alpha) \tag{46}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(x,\alpha) = -\lim_{t \to \infty} \frac{1}{t} \log P\left(X_t\left(\alpha\right)/t &gt; x\right) \quad (47)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Under regularity conditions on the drift and the volatility of the process
+   <math display="inline">
+    X_t(\alpha)
+   </math>
+   (for instance, if the drift and diffusion coefficients are bounded and continuously differentiable), one can evaluate
+   <math display="inline">
+    v(x)
+   </math>
+   via
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(x,a) = \sup_{\theta} (\theta x - \Gamma(\theta,\alpha)) \tag{48}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Gamma(\theta,\alpha) := \limsup_{t \to \infty} \frac{1}{t} \ln E\left(e^{\theta X_t(\alpha)}\right) \tag{49}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This approach is considered in [19]. For instance, if
+   <math display="inline">
+    X_t(\alpha) = \alpha Y(t)
+   </math>
+   where
+   <math display="inline">
+    \alpha \in \mathbb{R}
+   </math>
+   and
+   <math display="inline">
+    Y(t) = rt +
+   </math>
+   <math display="inline">
+    \sigma B(t)
+   </math>
+   with
+   <math display="inline">
+    r &gt; 0
+   </math>
+   and
+   <math display="inline">
+    B(\cdot)
+   </math>
+   is a standard Brownian motion, we have that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Gamma(\theta,\alpha) = \theta\alpha r + \frac{(\theta\alpha\sigma)^2}{2} \tag{50}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and then the problem is solved when
+   <math display="inline">
+    \alpha = x/r
+   </math>
+   [21]. More sophisticated and also explicit calculations can be found in [19].
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Algoet, P.H. &amp; Cover, T.M. (1988). Asymptotic optimality and asymptotic equipartition properties of logoptimum investment, The Annals of Probability 16(2), 876-898.
+    </li>
+    <li block-type="ListItem">
+     [2] Artzner, P., Delbaen, F., Eber, J.M. &amp; Heath, D. (1999). Coherent measures of risk, Mathematical Finance 9(3),
+     <math display="inline">
+      203 - 228
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [3] Asmussen, S. &amp; Glynn, P.W. (2007). Stochastic Simulation: Algorithms and Analysis, Springer.
+    </li>
+    <li block-type="ListItem">
+     [4] Avellaneda, M., Boyer-Olson, D., Busca, J. &amp; Friz, P. (2003). Méthodes de grandes déviations et pricing
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   d'options sur indices,
+   <i>
+    Comptes rendus de l'Academie des sciences. Paris
+   </i>
+   <b>
+    336
+   </b>
+   , 263–266.
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [5] Baldi, P., Caramellino, L. &amp; Iovino, M.G. (1999). Pricing general barrier options: a numerical approach using sharp large deviations,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      9
+     </b>
+     (4), 293–322.
+    </li>
+    <li block-type="ListItem">
+     [6] Browne, S. (1999). Beating a moving target: Optimal portfolio strategies for outperforming stochastic benchmark,
+     <i>
+      Stochastic and Finance
+     </i>
+     <b>
+      3
+     </b>
+     , 275–294.
+    </li>
+    <li block-type="ListItem">
+     [7] Dembo, A., Deuschel, J.D. &amp; Duffie, D. (2004). Large portfolio losses,
+     <i>
+      Stochastic and Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 3–16.
+    </li>
+    <li block-type="ListItem">
+     [8] Dembo, A. &amp; Zeitouni, O. (1999).
+     <i>
+      Large Deviation Techniques and Applications
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [9] Deuschel, J.-D. &amp; Strook, D.W. (1989).
+     <i>
+      Large Deviation
+     </i>
+     , AMS Chelsea Publishing.
+    </li>
+    <li block-type="ListItem">
+     [10] Dupuis, P. &amp; Ellis, R.S. (1997).
+     <i>
+      A Weak Convergence Approach to the Theory of Large Deviations
+     </i>
+     , John Wiley &amp; Sons, Inc.
+    </li>
+    <li block-type="ListItem">
+     [11] Donsker, M.D. &amp; Varadhan, S.R.S. (1983). Asymptotic evaluation of certain Markov process expectations for large time,
+     <i>
+      Communications on Pure and Applied Mathematics
+     </i>
+     ; (I (1975)
+     <b>
+      28
+     </b>
+     , 1–47); (II (1975)
+     <b>
+      28
+     </b>
+     , 279–301); (III (1976)
+     <b>
+      29
+     </b>
+     , 389–461); (IV (1983)
+     <b>
+      36
+     </b>
+     , 183–212).
+    </li>
+    <li block-type="ListItem">
+     [12] Follmer, H. &amp; Leukert, P. (1999). Quantile Hedging, ¨
+     <i>
+      Stochastics and Finance
+     </i>
+     <b>
+      3
+     </b>
+     , 251–273.
+    </li>
+    <li block-type="ListItem">
+     [13] Fournie, E., Lasry, J.M. &amp; Touzi, N. (1997). Monte ` Carlo methods for stochastic volatility models, in
+     <i>
+      Numerical Methods in Finance
+     </i>
+     , L.C.G. Rogers &amp; D. Talay, eds, Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [14] Glasserman, P., Heidelberg, P. &amp; Shahabuddin, P. (1999). Asymptotically optimal importance sampling and stratification for pricing path-dependent option,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      9
+     </b>
+     (2), 117–152.
+    </li>
+    <li block-type="ListItem">
+     [15] Glasserman, P., Kang, W. &amp; Shahabuddin, P. (2007). Large deviations in multifactor portfolio credit risk,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      17
+     </b>
+     (3), 345–379.
+    </li>
+    <li block-type="ListItem">
+     [16] Guasoni, P. &amp; Robertson, S. (2008). Optimal importance sampling with explicit formulas in continuous time,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      12
+     </b>
+     , 1–19.
+    </li>
+    <li block-type="ListItem">
+     [17] Karatzas, I. &amp; Shreve, S.E. (1998).
+     <i>
+      Brownian Motion and Stochastic Calculus
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [18] Klebaner, F. (2005).
+     <i>
+      Introduction to Stochastic Calculus with Applications
+     </i>
+     , 2nd Edition, Imperial College Press.
+    </li>
+    <li block-type="ListItem">
+     [19] Pham, H. (2003). A large deviations approach to optimal long term investment,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      7
+     </b>
+     , 169–195.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [20] Pham, H. (2003). A risk-sensitive control dual approach to a large deviations control problem,
+     <i>
+      Systems and Control Letters
+     </i>
+     <b>
+      49
+     </b>
+     , 295–309.
+    </li>
+    <li block-type="ListItem">
+     [21] Pham, H. (2008).
+     <i>
+      Some Applications and Methods of Large Deviations in Finance and Insurance
+     </i>
+     , Lectures from a Bachelier course at Institute Henri Poincare, Paris.
+    </li>
+    <li block-type="ListItem">
+     [22] Shwartz, A. &amp; Weiss, A. (1995).
+     <i>
+      Large Deviation for Performance Analysis
+     </i>
+     , Chapman &amp; Hall.
+    </li>
+    <li block-type="ListItem">
+     [23] Sornette, D. (1998). Large deviations and portfolio optimization,
+     <i>
+      Physica A
+     </i>
+     <b>
+      256
+     </b>
+     , 251–283.
+    </li>
+    <li block-type="ListItem">
+     [24] Stutzer, M. (2003). Portfolio choice with endogenous utility: a large deviations approach,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      116
+     </b>
+     , 365–386.
+    </li>
+    <li block-type="ListItem">
+     [25] Weber, S. (2007). Distribution-invariant risk measures entropy, and larger deviations,
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      44
+     </b>
+     , 16–40.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Bares, P., Cont, R., Gardiol, L., Gibson, R. &amp; Gyger, S. (2000). A large deviation approach to portfolio management,
+     <i>
+      International Journal of Theoretical and Applied Finance
+     </i>
+     <b>
+      3
+     </b>
+     , 617–639.
+    </li>
+    <li block-type="ListItem">
+     Huh, J. &amp; Kolkiewicz, A. (2006).
+     <i>
+      Efficient Computation of Multivariate Barrier Crossing Probability and its Applications in Credit Risk Models
+     </i>
+     , manuscript.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Cramer's Theorem ´
+   </b>
+   ;
+   <b>
+    Esscher Transform
+   </b>
+   ;
+   <b>
+    Implied Volatility: Large Strike Asymptotics
+   </b>
+   ;
+   <b>
+    Implied Volatility: Long Maturity Behavior
+   </b>
+   ;
+   <b>
+    Monte Carlo Simulation
+   </b>
+   ;
+   <b>
+    Rare-event Simulation
+   </b>
+   ;
+   <b>
+    SABR Model
+   </b>
+   ;
+   <b>
+    Saddlepoint Approximation
+   </b>
+   ;
+   <b>
+    Variance Reduction
+   </b>
+   .
+  </p>
+  <blockquote>
+   <p block-type="Text">
+    JOSE H. BLANCHET &amp; CARLOS G. PACHECO-GONZALEZ ´
+   </p>
+  </blockquote>
+ </body>
+</html>

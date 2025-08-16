@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Mixed Data Sampling
+   </b>
+  </h1>
+  <p block-type="Text">
+   Regression models that involve data sampled at different frequencies, or the so-called MIxed DAta Sampling (MIDAS) regression models, were introduced in both filtering and regression context in a number of recent papers, including [15, 17, 19], among others. These regressions deal with a situation often encountered in practice. For example, macroeconomic data are typically sampled at monthly or quarterly frequencies, whereas financial time series are sampled at almost any arbitrarily high frequency. Although most economic time series are not sampled at the same frequency, the typical practice of estimating econometric models involves aggregating all variables to the same (low) frequency using an equal weighting scheme.
+  </p>
+  <p block-type="Text">
+   Temporal aggregation in regression models, in contrast, is a well-studied area. The problem of temporal aggregation concerning dynamic models has been considered in the work of many authors, for example, [5, 11, 14, 21, 24, 26, 30–33, 36, 39–41].
+  </p>
+  <p block-type="Text">
+   In the first section, we draw comparisons between temporal aggregation and MIDAS. In the second section, we focus on a specific topic of special interest in finance-volatility forecasting.
+  </p>
+  <h4>
+   <b>
+    Temporal Aggregation and MIDAS
+   </b>
+  </h4>
+  <p block-type="Text">
+   MIDAS regressions not only share some features with distributed lag models but also have unique novel features. A stylized distributed lag model is a regression model of the following type:
+   <math display="inline">
+    y_t = \beta_0 + B(L)x_t + B(L)x_t
+   </math>
+   <math display="inline">
+    \varepsilon_t
+   </math>
+   , where
+   <math display="inline">
+    B(L)
+   </math>
+   is some finite or infinite lag polynomial operator, usually parameterized by a small set of hyperparameters (see, e.g., [8] for a survey on distributed lag models). In a standard MIDAS regression model, the regressor is sampled
+   <math display="inline">
+    m
+   </math>
+   times more frequently than the regressand, where the latter has a sample of
+   <math display="inline">
+    T
+   </math>
+   observations. The asymptotics are based on
+   <math display="inline">
+    T
+   </math>
+   for a given
+   <math display="inline">
+    m
+   </math>
+   . Therefore, one studies the asymptotic properties of the estimators assuming that the span of the data set
+   <math display="inline">
+    T
+   </math>
+   grows and the high-frequency sample size of the regressors would be
+   <math display="inline">
+    mT
+   </math>
+   such that when
+   <math display="inline">
+    T \rightarrow \infty
+   </math>
+   then both the low- and high-frequency samples tend to become large.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Andreou et al. [2] decompose the MIDAS regression model into two terms: the equal or flat aggregated term and a MIDAS term, which involves
+  </p>
+  <p block-type="Text">
+   weighted higher order differences of the highfrequency process. This decomposition allows one to link the MIDAS regression model with the traditional temporal aggregation literature, which omits the MIDAS term.
+  </p>
+  <p block-type="TextInlineMath">
+   Consider the mixed data sampling data
+   <math display="inline">
+    \{y_t, \mathbf{x}_{t/m}^{(m)}\}
+   </math>
+   where
+   <math display="inline">
+    \mathbf{x}_{t/m}^{(m)} = (1, x_{2,t/m}^{(m)}, \dots, x_{p,t/m}^{(m)})
+   </math>
+   is a
+   <i>
+    p
+   </i>
+   -dimensional vector of higher frequency data observed at most m time between t and
+   <math display="inline">
+    t-1
+   </math>
+   . The data are assumed to be weakly dependent. The conventional approach in empirical macroeconomics and finance employs the linear regression based on aggregated data, which are typically obtained by a pre-estimation procedure that computes simple averages to bring the high-frequency data to a common (low) frequency. In other words, the conventional approach employs the linear regression subject to the temporal aggregation restriction of an equal weighting scheme. Define the variable
+   <math display="inline">
+    \mathbf{x}_{t}^{A} = \frac{1}{m} \sum_{j=1}^{m} L^{j/m} \mathbf{x}_{t/m}^{(m)}
+   </math>
+   that temporally aggregates the covariates
+   <math display="inline">
+    \mathbf{x}_{t/m}^{(m)}
+   </math>
+   using equal weights (simple average), where
+   <math display="inline">
+    q
+   </math>
+   is the number of highfrequency lags used in the temporal aggregation of
+   <math display="inline">
+    \mathbf{x}_{t/m}^{(m)}
+   </math>
+   with
+   <math display="inline">
+    L^{j/m}
+   </math>
+   being the high-frequency lag operator. Then the conventional approach estimates by Least squares (LS) the following linear regression model:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    y_t = \mathbf{x}_t^{A'} \boldsymbol{\beta}^* + u_t^*, \quad q = 2, 3, \dots
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    E(u_t^*|\mathbf{x}_t^A) = 0
+   </math>
+   and
+   <math display="inline">
+    E(u_t^{*2}|\mathbf{x}_t^A) = \sigma^{*2}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Consider now a projection of the high-frequency data onto
+   <math display="inline">
+    y
+   </math>
+   and let the linear polynomial of the projection be
+   <math display="inline">
+    \mathbf{W}(L^{1/m};\boldsymbol{\theta})
+   </math>
+   , which is parameterized by a low-dimensional
+   <math display="inline">
+    r \times 1
+   </math>
+   vector of parameters
+   <math display="inline">
+    \theta
+   </math>
+   . Then we can define a MIDAS regression model as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    y_t = \boldsymbol{\beta}' \mathbf{x}_t(\boldsymbol{\theta}) + u_t, \quad t = 1, 2, \dots, T \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    E(u_t|\mathbf{x}_{t/m}^{(m)}) = 0
+   </math>
+   and
+   <math display="inline">
+    E(u_t^2|\mathbf{x}_{t/m}^{(m)}) = \sigma^2
+   </math>
+   where&lt;br&gt;
+   <math display="inline">
+    \mathbf{x}_t(\boldsymbol{\theta}) = \left(1, x_{2,t}^{(m_2)}(\theta_2), \dots, x_{p,t}^{(m_p)}(\theta_p)\right)'
+   </math>
+   is a nonlinear function that maps the higher frequency data into a common low frequency and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x_{k,t}^{(m)}(\theta_k) = W(L^{1/m}; \theta_k) x_{k,t/h}^{(m)}
+   </math>
+   <math display="block">
+    = \sum_{j=1}^q w_{j,k}(\theta_k) L^{j/m} x_{k,t/m}^{(m)},
+   </math>
+   <math display="block">
+    k = 2, \dots, p \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    w_{j,k}(\theta_k) \in (0, 1)
+   </math>
+   and
+   <math display="inline">
+    \sum_{j=1}^{m} w_{j,k}(\theta_k) = 1
+   </math>
+   . The latter assumption allows the identification of the slope
+  </p>
+  <p block-type="TextInlineMath">
+   coefficient vector
+   <i>
+    β.
+   </i>
+   Equation (2) is a nonlinear regression that allows both the weighting scheme of the temporal aggregation as parameterized by the vector
+   <i>
+    θ
+   </i>
+   and the slope coefficient vector
+   <i>
+    β
+   </i>
+   to be estimated from the data. Following Ghysels
+   <i>
+    et al.
+   </i>
+   [17] the lag coefficients,
+   <i>
+    wj,k(θk ),
+   </i>
+   which determine the weighting scheme used, are parsimoniously parameterized
+   <i>
+    via
+   </i>
+   exponential Almon, Almon, Beta, or step function schemes.
+  </p>
+  <p block-type="Text">
+   Andreou
+   <i>
+    et al.
+   </i>
+   [2] study regression models that involve data sampled at different frequencies and compare them with a traditional model that involves temporal aggregation for the estimation of a model at the same sampling frequency that implies an equal weighting scheme. They derive the asymptotic properties of the MIDAS nonlinear least squares (MIDAS-NLS) estimators of regression models with mixed frequencies and general weighting schemes and show that the LS estimator is always relatively less efficient than the MIDAS-NLS estimator. Our analysis reveals the effects of the aggregation horizon on the properties of the MIDAS-NLS and temporally aggregated or FLAT-LS estimators. In particular, they show that the FLAT-LS estimator is asymptotically biased and inefficient when the high-frequency regressor exhibits linear temporal dependence as in the case of AR(1), while it is only inefficient in the case of
+   <i>
+    i.i.d
+   </i>
+   . and ARCH(1) high-frequency processes. Furthermore, they propose two types of aggregation bias tests: a simple LM test and a Wu–Hausmantype test that uses the high-frequency variables as instruments.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   To conclude, it is worth discussing one particular application of regression models, namely, testing for Granger causality among variables–a topic of interest in many financial applications. Much has been written about the spurious effects temporal aggregation may have on testing for Granger causality; see, for example [4, 20, 22, 23, 27, 28, 34], among others. Ghysels and Valkanov [18] show that there are unexplored advantages in testing Granger causality in combining the data sampled at the different frequencies. They develop a set of Granger causality tests that explicitly take advantage of data sampled at different frequencies. Along similar lines, Andreou
+   <i>
+    et al.
+   </i>
+   (2009) document many predictable patterns between daily financial data and monthly and quarterly macroeconomic variables. Such patterns significantly improve macroeconomic forecasts. Recent work on this topic includes improving quarterly macroforecasts with
+  </p>
+  <p block-type="Text">
+   monthly data using MIDAS regressions [3, 7, 13, 35, 38] or improving quarterly and monthly macroeconomic predictions with daily financial data [2]; Ghysels and Wright (2008); [25, 37].
+  </p>
+  <h2>
+   <b>
+    Volatility Forecasting with MIDAS
+   </b>
+  </h2>
+  <p block-type="Text">
+   The original work on MIDAS focused on volatility predictions [1, 6, 10, 12, 15, 16], among others. The abundance of high-frequency data, combined with the desire to predict volatility over longer horizons, provides an ideal setting for applying such regressions. The original work on MIDAS was in fact a filtering and not a regression setting. Ghysels
+   <i>
+    et al.
+   </i>
+   [15] studied the risk-return trade-off—where returns were computed over longer horizons, whereas risk was measured by conditional variance over the same horizon but measured with a filter of weighted daily returns. In [16], the same approach was adopted in a regression format to predict multihorizon volatility. Chen and Ghysels [6] take this a step further and use a semiparametric MIDAS regression that related news impact curves applied to intradaily data to future realized volatility. They find that returns have significant asymmetric effects on future volatility–a topic somehow lost in the recent realized volatility literature—as originally emphasized in the context of ARCH-type models by Engle and Ng (1993). As mentioned in the previous section, this work distinguishes itself from the more standard temporal aggregation literature in the context of volatility [9, 29].
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Alper, C., Fendoglu, S. &amp; Saltoglu, B. (2008).
+     <i>
+      Forecasting Stock Market Volatilities Using MIDAS Regressions: An Application to the Emerging Markets
+     </i>
+     . MPRA Paper No. 7460.
+    </li>
+    <li block-type="ListItem">
+     [2] Andreou, E., Ghysels, E. &amp; Kourtellos, A. (2008).
+     <i>
+      Should Macroeconomic Forecasters look at Daily Financial Data?
+     </i>
+     Tech. rep., Discussion Paper, UNC and University of Cyprus.
+    </li>
+    <li block-type="ListItem">
+     [3] Andreou, E., Ghysels, E. &amp; Kourtellos, A. (2009). Regression models with mixed sampling frequencies,
+     <i>
+      Journal of Econometrics
+     </i>
+     (forthcoming).
+    </li>
+    <li block-type="ListItem">
+     [4] Armesto, M., Hernandez-Murillo, R., Owyang, M. &amp; Piger, J. (2008). Measuring the information content of the beige book: a mixed data sampling approach,
+     <i>
+      Journal of Money, Credit and Banking
+     </i>
+     forthcoming.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [5] Breitung, J. and Swanson, N. (2002). Temporal aggregation and spurious instantaneous causality in multiple time series models,
+     <i>
+      Journal of Time Series Analysis
+     </i>
+     <b>
+      23
+     </b>
+     , 651–665.
+    </li>
+    <li block-type="ListItem">
+     [6] Brewer, K. (1973). Some consequences of temporal aggregation and systematic sampling for ARMA and ARMAX models,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      1
+     </b>
+     , 133–154.
+    </li>
+    <li block-type="ListItem">
+     [7] Chen, X. &amp; Ghysels, E. (2008).
+     <i>
+      News-Good or Badand its Impact on Volatility Predictions Over Multiple Horizons
+     </i>
+     . Discussion Paper, UNC.
+    </li>
+    <li block-type="ListItem">
+     [8] Clements, M. &amp; Galvao, A. (2008). Macroeconomic ˜ forecasting with mixed frequency data: forecasting US output growth,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     <b>
+      26
+     </b>
+     , 546–554.
+    </li>
+    <li block-type="ListItem">
+     [9] Dhrymes, P. (1971).
+     <i>
+      Distributed Lags: Problems of Estimation and Formulation
+     </i>
+     , Holden-Day, San Francisco.
+    </li>
+    <li block-type="ListItem">
+     [10] Drost, F. &amp; Nijman, T. (1993). Temporal aggregation of GARCH processes,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      61
+     </b>
+     , 909–927.
+    </li>
+    <li block-type="ListItem">
+     [11] Engle, R., Ghysels, E. &amp; Sohn, B. (2008).
+     <i>
+      On the Economic Sources of Stock Market Volatility
+     </i>
+     . Discussion Paper, NYU and UNC.
+    </li>
+    <li block-type="ListItem">
+     [12] Engle, R.F. &amp; Ng, V.K. (1993). Measuring and testing the impact of news on volatility,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      48
+     </b>
+     (5), 1749–1778.
+    </li>
+    <li block-type="ListItem">
+     [13] Engle, R. &amp; Liu, T. (1972). Effects of aggregation over time on dynamic characteristics of an econometric model, in
+     <i>
+      Econometric Models of Cyclical Behaviors
+     </i>
+     , B. G. Hickman ed, National Bureau of Economic Research, Inc, Columbia, UP, Vol. 2.
+    </li>
+    <li block-type="ListItem">
+     [14] Forsberg, L. &amp; Ghysels, E. (2006). Why do absolute returns predict volatility so well?
+     <i>
+      Journal of Financial Econometrics
+     </i>
+     <b>
+      6
+     </b>
+     , 31–67.
+    </li>
+    <li block-type="ListItem">
+     [15] Galvao, A. (2006). ˜
+     <i>
+      Changes in Predictive Ability with Mixed Frequency Data
+     </i>
+     . Discussion Paper, Queen Mary University.
+    </li>
+    <li block-type="ListItem">
+     [16] Geweke, J. (1978). Temporal aggregation in the multiple regression model,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      46
+     </b>
+     , 643–661.
+    </li>
+    <li block-type="ListItem">
+     [17] Ghysels, E., Santa-Clara, P. &amp; Valkanov, R. (2005). There is a risk-return tradeoff after all,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      76
+     </b>
+     , 509–548.
+    </li>
+    <li block-type="ListItem">
+     [18] Ghysels, E., Santa-Clara, P. &amp; Valkanov, R. (2006a). Predicting volatility: getting the most out of return data sampled at different frequencies,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      131
+     </b>
+     , 59–95.
+    </li>
+    <li block-type="ListItem">
+     [19] Ghysels, E., Sinko, A. &amp; Valkanov, R. (2006b). MIDAS regressions: further results and new directions,
+     <i>
+      Econometric Reviews
+     </i>
+     <b>
+      26
+     </b>
+     , 53–90.
+    </li>
+    <li block-type="ListItem">
+     [20] Ghysels, E. &amp; Wright, J. (2007). Forecasting professional forecasters,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     forthcoming.
+    </li>
+    <li block-type="ListItem">
+     [21] Ghysels, E. &amp; Valkanov, R. (2008).
+     <i>
+      Granger Causality Tests with Mixed Data Frequencies
+     </i>
+     . Working paper, UNC and UCSD.
+    </li>
+    <li block-type="ListItem">
+     [22] Ghysels, E. &amp; Wright, J. (2009). Forecasting professional forecasters,
+     <i>
+      Journal of Business and Economic Statistics
+     </i>
+     (forthcoming).
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [23] Granger, C. (1980). Testing for causality: a personal viewpoint,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      2
+     </b>
+     , 329–352.
+    </li>
+    <li block-type="ListItem">
+     [24] Granger, C. (1987). Implications of aggregation with common factors,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      3
+     </b>
+     , 208–222.
+    </li>
+    <li block-type="ListItem">
+     [25] Granger, C. (1988). Some recent developments in a concept of causality,
+     <i>
+      Journal of Econometrics,
+     </i>
+     <b>
+      39
+     </b>
+     , 199–211.
+    </li>
+    <li block-type="ListItem">
+     [26] Granger, C. (1995). Causality in the long run,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      11
+     </b>
+     , 530–536.
+    </li>
+    <li block-type="ListItem">
+     [27] Griliches, Z. (1967). Distributed lags: a survey,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      35
+     </b>
+     , 16–49.
+    </li>
+    <li block-type="ListItem">
+     [28] Hamilton, J. (2006).
+     <i>
+      Daily Monetary Policy Shocks and the Delayed Response of New Home Sales
+     </i>
+     . Working paper, UCSD.
+    </li>
+    <li block-type="ListItem">
+     [29] Hsiao, C. (1979). Linear regression using both temporally aggregated and temporally disaggregated data,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      10
+     </b>
+     (2), 243–252.
+    </li>
+    <li block-type="ListItem">
+     [30] Lutkepohl, H. (1993). Testing for causation between ¨ two variables in higher dimensional VAR models, in
+     <i>
+      Studies in Applied Econometrics
+     </i>
+     , H. Schneeweiss &amp; K. Zimmerman, eds, Springer-Verlag, Heidelberg, p. 75.
+    </li>
+    <li block-type="ListItem">
+     [31] McCrorie, J. &amp; Chambers, M. (2006). Granger causality and the sampling of economic processes,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      132
+     </b>
+     , 311–336.
+    </li>
+    <li block-type="ListItem">
+     [32] Meddahi, N. &amp; Renault, E. (2004). Temporal aggregation of volatility models,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      119
+     </b>
+     , 355–379.
+    </li>
+    <li block-type="ListItem">
+     [33] Mundlak, Y. (1961). Aggregation over time in distributed lag models,
+     <i>
+      International Economic Review
+     </i>
+     <b>
+      2
+     </b>
+     , 154–163.
+    </li>
+    <li block-type="ListItem">
+     [34] Phillips, P. (1972). The structural estimation of a stochastic differential equation system,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      40
+     </b>
+     , 1021–1041.
+    </li>
+    <li block-type="ListItem">
+     [35] Phillips, P. (1973). The problem of identification in finite parameter continuous time models,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      1
+     </b>
+     , 351–362.
+    </li>
+    <li block-type="ListItem">
+     [36] Phillips, P. (1974). The estimation of some continuous time models,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      42
+     </b>
+     , 803–824.
+    </li>
+    <li block-type="ListItem">
+     [37] Renault, E., Sekkat, K. &amp; Szafarz, A. (1998). Testing for spurious causality in exchange rates,
+     <i>
+      Journal of Empirical Finance
+     </i>
+     <b>
+      5
+     </b>
+     , 47–66.
+    </li>
+    <li block-type="ListItem">
+     [38] Schumacher, C. &amp; Breitung, J. (2008). Real-time forecasting of German GDP based on a large factor model with monthly and quarterly data,
+     <i>
+      International Journal of Forecasting,
+     </i>
+     <b>
+      24
+     </b>
+     , 386–398.
+    </li>
+    <li block-type="ListItem">
+     [39] Sims, C. A. (1971). Discrete approximations to continuous time distributed lags in econometrics,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      39
+     </b>
+     , 545–563.
+    </li>
+    <li block-type="ListItem">
+     [40] Tay, A. (2006).
+     <i>
+      Financial Variables as Predictors of Real Output Growth
+     </i>
+     . Discussion Paper, SMU.
+    </li>
+    <li block-type="ListItem">
+     [41] Tay, A. (2007).
+     <i>
+      Mixing Frequencies: Stock Returns as a Predictor of Real Output Growth
+     </i>
+     . Discussion Paper, SMU.
+    </li>
+    <li block-type="ListItem">
+     [42] Theil, H. (1954).
+     <i>
+      Linear Aggregation of Economic Relationships
+     </i>
+     , North Holland.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [43] Tiao, G.C. &amp; Wei W.S., (1976). Effect of temporal aggregation on the dynamic relationship of two time series variables,
+     <i>
+      Biometrika
+     </i>
+     <b>
+      63
+     </b>
+     , 513–523.
+    </li>
+    <li block-type="ListItem">
+     [44] Zellner, A. &amp; Montmarquette, C. (1971). A study of some aspects of temporal aggregation problems in econometric analysis,
+     <i>
+      Review of Economic Statistics
+     </i>
+     <b>
+      53
+     </b>
+     , 335–342.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Anderson, E., Ghysels, E. &amp; Juergens, J. (2009). The impact of risk and uncertainty on expected returns,
+     <i>
+      Journal of Financial Economics
+     </i>
+     (forthcoming).
+    </li>
+    <li block-type="ListItem">
+     Chen, X., Ghysels, E. &amp; Wang, F. (2009).
+     <i>
+      The HYBRID GARCH Model, Discussion Paper UNC
+     </i>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Colacito, R., Engle, R. &amp; Ghysels, E. (2008).
+     <i>
+      A Component Model of Dynamic Correlations, Discussion Paper UNC
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     Ghysels, E., Santa-Clara, P. &amp; Valkanov, R. (2003).
+     <i>
+      The MIDAS Touch: Mixed Data Sampling Regression Models
+     </i>
+     , Working paper, UNC and UCLA.
+    </li>
+    <li block-type="ListItem">
+     Ghysels, E. Rubia, A &amp; Valkanov, R. (2009). Multi-Period Forecasts of Volatility: Direct, Iterated, and Mixed-Data Approaches,
+     <i>
+      Discussion Paper UNC
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     Ghysels, E. &amp; Sinko, A. (2009). Volatility forecasting and microstructure noise,
+     <i>
+      Journal of Econometrics
+     </i>
+     (forthcoming).
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   ERIC GHYSELS
+  </p>
+ </body>
+</html>

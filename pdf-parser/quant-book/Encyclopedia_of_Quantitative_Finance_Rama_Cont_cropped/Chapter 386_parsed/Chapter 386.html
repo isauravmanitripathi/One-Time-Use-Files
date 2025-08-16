@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Actuarial Premium
+   </b>
+   Principles
+  </h1>
+  <p block-type="Text">
+   An actuarial premium principle is a method for assigning an appropriate price for an insurance policy. This price is the amount that has to be paid by the insured for exchanging "risk" with "certainty." The agreed premium represents an equilibrium between the parties involved. In fact, individual agents look at the price they are willing to pay for hedging (partially or totally) their risks, whereas insurers take into account how much premium they should charge in order to avoid technical ruin and to guarantee the rentability of the underlying insurance portfolio. Premium principles deal with the analysis and the characterization of such equilibrium.
+  </p>
+  <p block-type="Text">
+   In the first section, we introduce basic notions, an axiomatic characterization, and a review of premium principles. Next, an economic method to interpret the relation between premium principles and market systems is described. Then, we present a unified approach based on a generalized Markov inequality for tail probabilities and show how several types of premium principles can be derived from it.
+  </p>
+  <p block-type="Text">
+   In the last section, we consider the analysis of insurance portfolios (i.e., collections of insurance contracts) traded in financial markets. In this case, portfolios are transferred either from an insurer to another insurer or from an insurer to the market (see
+   <b>
+    Securitization
+   </b>
+   ). We devote the last paragraph to the analysis of pricing such portfolios.
+  </p>
+  <p block-type="Text">
+   In this article, we focus on the main aspects of the theory of premium principles. Topics that are not covered include insurer profitability and solvency requirements (
+   <i>
+    see
+   </i>
+   <b>
+    Solvency
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   Notice that in the recent literature, premium principles are often considered as akin to risk measures (see Convex Risk Measures; Value-at-Risk; Expected Shortfall; Spectral Measures of Risk).
+  </p>
+  <h1>
+   The Axiomatic Characterization of Premium Principles
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   Classes of premium principles may be derived from sets of axioms. The introduction of such axioms is not an arbitrary or dogmatic approach but rather an essential step for defining the properties a premium
+  </p>
+  <p block-type="Text">
+   principle has to satisfy. Indeed, in case a set of axioms proposed does not suit a certain intuition of insurance risk, we could modify it properly. In this way, it is possible to justify an axiomatic characterization by showing its strengths or to criticize it by demonstrating its lack of practical importance.
+  </p>
+  <p block-type="Text">
+   The analysis of premium principles using an axiomatic characterization was introduced in the actuarial context in [20].
+  </p>
+  <p block-type="TextInlineMath">
+   Let us consider a probability space
+   <math display="inline">
+    (\Omega, F)
+   </math>
+   , where
+   <math display="inline">
+    \Omega
+   </math>
+   is the set of the scenarios equipped with a
+   <math display="inline">
+    \sigma
+   </math>
+   -algebra F. A risk is a random variable defined on
+   <math display="inline">
+    (\Omega, F)
+   </math>
+   , that is,
+   <math display="inline">
+    X : \Omega \to \mathbb{R}
+   </math>
+   is a risk if
+   <math display="inline">
+    X^{-1}((-\infty,x]) \in F
+   </math>
+   for all
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   . When X takes only positive values, that is,
+   <math display="inline">
+    X &gt; 0
+   </math>
+   , we call it a
+   <i>
+    risk
+   </i>
+   . The class of all random variables on
+   <math display="inline">
+    (\Omega, F)
+   </math>
+   is denoted by
+   <b>
+    W
+   </b>
+   . We equip the measurable space with a probability measure
+   <math display="inline">
+    P
+   </math>
+   , which we call the
+   <i>
+    base prob
+   </i>
+   ability measure.
+  </p>
+  <p block-type="Text">
+   A premium principle
+   <math display="inline">
+    \pi
+   </math>
+   is a functional that assigns a real number to any random variable
+   <math display="inline">
+    X
+   </math>
+   in
+   <math display="inline">
+    W
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The above definition may be extended to the case where risks are noninsurable, that is, when
+   <math display="inline">
+    \pi[X] =
+   </math>
+   <math display="inline">
+    +\infty
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In the following, we introduce some axioms and properties a premium principles may (or may not) satisfy. All random variables are assumed to be elements of the set
+   <math display="inline">
+    \mathbf{W}
+   </math>
+   introduced above.
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    Monotonicity
+   </i>
+   :
+   <math display="inline">
+    \pi
+   </math>
+   is monotonic if
+   <math display="inline">
+    \pi[Y] \leq \pi[X]
+   </math>
+   when
+   <math display="inline">
+    Y(\omega) &lt; X(\omega)
+   </math>
+   for all
+   <math display="inline">
+    \omega \in \Omega
+   </math>
+   .
+   <math display="inline">
+    \pi
+   </math>
+   is
+   <i>
+    P
+   </i>
+   -monotonic if
+   <math display="inline">
+    \pi[Y] \leq \pi[X]
+   </math>
+   when
+   <math display="inline">
+    Y \leq X
+   </math>
+   ,
+   <i>
+    P
+   </i>
+   -almost sure.
+  </p>
+  <p block-type="TextInlineMath">
+   Positive homogeneity (scale invariance, scale
+   <i>
+    equivariance
+   </i>
+   ):
+   <math display="inline">
+    \pi
+   </math>
+   is positively homogeneous if
+   <math display="inline">
+    \pi[aX] = a\pi[X]
+   </math>
+   for all
+   <math display="inline">
+    a &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Translation invariance (translation equivariance,
+   <i>
+    translativity, consistency
+   </i>
+   ):
+   <math display="inline">
+    \pi
+   </math>
+   is translation invariant if
+   <math display="inline">
+    \pi[X + c] = \pi[X] + c
+   </math>
+   for all real c.
+  </p>
+  <p block-type="TextInlineMath">
+   Subadditivity:
+   <math display="inline">
+    \pi
+   </math>
+   is subadditive if
+   <math display="inline">
+    \pi[X+Y] &lt;
+   </math>
+   <math display="inline">
+    \pi[X] + \pi[Y]
+   </math>
+   . If the inequality is reversed, then the property is called
+   <i>
+    superadditivity
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Additivity for independent risks:
+   <math display="inline">
+    \pi
+   </math>
+   is additive if
+   <math display="inline">
+    \pi[X+Y] = \pi[X] + \pi[Y]
+   </math>
+   for independent X,
+   <math display="inline">
+    Y \in \mathbf{W}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Comonotonic additivity:
+   <math display="inline">
+    \pi
+   </math>
+   is comonotonic additive (see Copulas in Insurance) if
+   <math display="inline">
+    \pi[X+Y] =
+   </math>
+   <math display="inline">
+    \pi[X] + \pi[Y]
+   </math>
+   whenever X and Y are comonotonic.
+  </p>
+  <p block-type="Text">
+   See [17, 23] for a review of independent and comonotonic additive premium principles and [10, 11] for an introduction to comonotonicity.
+  </p>
+  <p block-type="Text">
+   For taking in account violations of the axioms of subadditivity and positive homogeneity due to liquidity risk (see Liquidity Premium), it is possible to replace these two with the requirement by convexity. The interested reader is referred to
+   <math display="inline">
+    [1, 16, 22]
+   </math>
+   and Convex Risk Measures and also to [12].
+  </p>
+  <p block-type="TextInlineMath">
+   Convexity:
+   <math display="inline">
+    \pi
+   </math>
+   is convex if
+   <math display="inline">
+    \pi[aX + (1-a)Y] \leq
+   </math>
+   <math display="inline">
+    a\pi[X] + (1-a)\pi[Y]
+   </math>
+   for all
+   <math display="inline">
+    a \in (0, 1)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Law-invariance:
+   <math display="inline">
+    \pi
+   </math>
+   is law invariant if
+   <math display="inline">
+    \pi[X] =
+   </math>
+   <math display="inline">
+    \pi[Y]
+   </math>
+   in case
+   <math display="inline">
+    X \stackrel{d}{=} Y
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Preserving stop-loss order:
+   <math display="inline">
+    \pi
+   </math>
+   preserves stop-loss order if
+   <math display="inline">
+    \pi[X] \leq \pi[Y]
+   </math>
+   when
+   <math display="inline">
+    E[(X-d)_+] \leq E[(Y
+   </math>
+   <math display="inline">
+    d_{+}
+   </math>
+   for all
+   <math display="inline">
+    d \in \mathbb{R}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Preserving first-order stochastic dominance (
+   <i>
+    FOSD
+   </i>
+   ):
+   <math display="inline">
+    \pi
+   </math>
+   preserves first-order stochastic dominance if
+   <math display="inline">
+    \pi[X] \leq \pi[Y]
+   </math>
+   when
+   <math display="inline">
+    P[X \leq x] \geq P[Y \leq x]
+   </math>
+   for all
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   These two properties are closely linked to each other. Indeed, the latter is a direct consequence of the former. For a review on the applications of stop-loss and stochastic ordering in actuarial science, see [9].
+  </p>
+  <p block-type="TextInlineMath">
+   Positive risk loading:
+   <math display="inline">
+    \pi
+   </math>
+   induces a risk loading if
+   <math display="inline">
+    \pi[X] &gt; E[X]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Having a positive risk loading is a suitable property because without it an insurer will make a loss in the long run. We will see the relevance of this property comparing the net and the expected value principle.
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    No rip-off
+   </i>
+   (
+   <i>
+    maximal loss
+   </i>
+   ):
+   <math display="inline">
+    \pi[X] \leq ess \sup[X]
+   </math>
+   .
+   <i>
+    Not unjustified:
+   </i>
+   <math display="inline">
+    \pi
+   </math>
+   is not unjustified if
+   <math display="inline">
+    \pi[X] = c
+   </math>
+   , when
+   <math display="inline">
+    X \in \mathbf{W}
+   </math>
+   is equal to
+   <math display="inline">
+    c \ge 0
+   </math>
+   almost everywhere.
+  </p>
+  <h4>
+   <b>
+    Premium Principles: A Review
+   </b>
+  </h4>
+  <p block-type="Text">
+   In this section, we introduce several premium principles as well as their relevant properties. We also give the definition of the Dutch premium calculation principle.
+  </p>
+  <p block-type="Text">
+   Note that all the following premium principles implicitly assume the existence of a given utility function (see Utility Theory: Historical Perspectives; Utility Function). For an analysis of expected utility theory and subjective expected utility theory, the interested reader is referred to [29, 35]. For more applications of the theory of choice under uncertainty and the utility framework within actuarial science, we refer to [7].
+  </p>
+  <p block-type="Text">
+   <i>
+    Expected value principle
+   </i>
+   : The expected value principle is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi[X] = (1 + \alpha)E[X] \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \alpha \in \mathbb{R}
+   </math>
+   . In case
+   <math display="inline">
+    \alpha = 0
+   </math>
+   we find the net premium that does not load for risk. This principle is justified by the strong law of large numbers (SLLN). Given that the risk
+   <math display="inline">
+    X = \sum_{i=1}^{n} X_i
+   </math>
+   is linked to a large homogeneous portfolio, let us suppose that
+   <math display="inline">
+    X_i
+   </math>
+   are independent and identically distributed (i.i.d.) and their first moment exists and is finite,
+   <math display="inline">
+    E[X_i] = \mu &lt;
+   </math>
+   <math display="inline">
+    \infty
+   </math>
+   , for
+   <math display="inline">
+    i = 1, 2, \ldots
+   </math>
+   Thus, from the SLLN, we find that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lim_{n \to \infty} P[|n^{-1}X - \mu| &lt; \varepsilon] = 1 \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for all
+   <math display="inline">
+    \varepsilon &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The net premium principle is appropriate only in case insurers are risk-neutral. Indeed from the ruin theory (see
+   <b>
+    Ruin Theory
+   </b>
+   ), it is known that ruin will inevitably occur whenever there is no loading.
+  </p>
+  <p block-type="TextInlineMath">
+   Equivalent utility principle: The equivalent utility premium is obtained for the premium that makes the expected utility of the income
+   <math display="inline">
+    \pi[X] - X
+   </math>
+   of the insurer equal to the utility of not accepting the risk. We could assume that the utility function is subjective and the probability measure objective, if we choose the framework introduced in [35]. Otherwise, following the results in
+   <math display="inline">
+    [29]
+   </math>
+   , the probability measure is also considered to be subjective and not known.
+  </p>
+  <p block-type="TextInlineMath">
+   The minimal premium,
+   <math display="inline">
+    \pi^{-}[X]
+   </math>
+   , and the maximal premium,
+   <math display="inline">
+    \pi^+[X]
+   </math>
+   , are derived by solving
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[u(w + \pi[X] - X)] = u(w) \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[\overline{u}(\overline{w} - X)] = \overline{u}(\overline{w} - \pi[X]) \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   respectively, where
+   <math display="inline">
+    X
+   </math>
+   is a positive random variable, w a real number, and
+   <math display="inline">
+    \overline{u}
+   </math>
+   denotes the utility function of the insured and
+   <math display="inline">
+    u
+   </math>
+   the one of the insurer.
+  </p>
+  <p block-type="TextInlineMath">
+   Thus, the insurer will sell the insurance contract if and only if
+   <math display="inline">
+    \pi[X] &gt; \pi^{-}[X]
+   </math>
+   , whereas the insured will buy it when
+   <math display="inline">
+    \pi[X] \leq \pi^+[X]
+   </math>
+   . Hence, the equilibrium price lies in the interval
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    [\pi^{-}[X], \pi^{+}[X]]
+   </math>
+  </p>
+  <p block-type="Text">
+   In case both the insurer and the insured are riskaverse (see Risk Aversion), it follows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[X] \le \pi^{-}[X] \le \pi^{+}[X] \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Different specifications of the utility function yield different expressions
+   <math display="inline">
+    \pi^{-}[X]
+   </math>
+   and
+   <math display="inline">
+    \pi^{+}[X]
+   </math>
+   . It is not guaranteed that an explicit expression for
+   <math display="inline">
+    \pi^{-}[X]
+   </math>
+   or
+   <math display="inline">
+    \pi^+[X]
+   </math>
+   is obtained.
+  </p>
+  <p block-type="Text">
+   As a final remark, the difference
+   <math display="inline">
+    \pi^+[X] - \pi^-[X]
+   </math>
+   denotes the mark-up price. It is maximum in the case of insurer's monopoly, whereas in a competitive insurance market it tends to zero.
+  </p>
+  <p block-type="Text">
+   <i>
+    Distortion principle
+   </i>
+   : The distortion principle as a premium principle was introduced in [36, 37] and it can be seen as an attempt to overcome some of the shortcomings of the expected utility theory. Indeed as a consequence of the Allais paradox [3], some nonexpected utility theories were proposed. The distortion principle refers to Yaari's dual theory [38]. Yaari showed that the amount of money
+   <math display="inline">
+    \pi(v)
+   </math>
+   (certainty equivalent) that makes it indifferent to hold the lottery V or to receive the amount
+   <math display="inline">
+    \pi(v)
+   </math>
+   with certainty is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi(v) = -\int_{-\infty}^{0} (1 - g(\overline{F}_V(v))) \mathrm{d}v + \int_{0}^{+\infty} g(\overline{F}_V(v)) \mathrm{d}v \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \overline{F}_V(v) = 1 - P[V \le v]
+   </math>
+   . The function g:
+   <math display="inline">
+    [0, 1] \rightarrow [0, 1]
+   </math>
+   is known as distortion function and it is nondecreasing and it fulfills
+   <math display="inline">
+    g(0) = 0
+   </math>
+   and
+   <math display="inline">
+    g(1) = 1.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Using the distorted distribution function
+   <math display="inline">
+    F_g^*(x) =
+   </math>
+   <math display="inline">
+    1 - g(\overline{F}_V(x))
+   </math>
+   together with equation (6), we get that
+   <math display="inline">
+    \pi(v) = \int_{-\infty}^{+\infty} x dF_g^*(x)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   For an overview on distortion risk measures, the reader is referred to
+   <math display="inline">
+    [9, 13]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Proportional hazard (PH) principle: The PH principle arises as a special case of the distortion principle&lt;br&gt;when
+   <math display="inline">
+    \overline{g}(x) = x^{1/\alpha}
+   </math>
+   ,
+   <math display="inline">
+    \alpha \ge 1
+   </math>
+   , and it is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi[X] = -\int_{-\infty}^{0} \left(1 - (\overline{F}_X(x))^{1/\alpha}\right) \mathrm{d}x
+   </math>
+   <math display="block">
+    + \int_{0}^{+\infty} \left( (\overline{F}_X(x))^{1/\alpha} \right) \mathrm{d}x \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   See
+   <math display="inline">
+    [36]
+   </math>
+   for a review of the properties of this premium principle.
+  </p>
+  <p block-type="Text">
+   <i>
+    Mean value principle
+   </i>
+   : The mean value principle arises as the root
+   <math display="inline">
+    \pi
+   </math>
+   of the following equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\pi) = E[f(x)] \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    f
+   </math>
+   is a nondecreasing and nonnegative function defined on
+   <math display="inline">
+    \Re
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   <i>
+    Variance principle
+   </i>
+   : For some
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   , the variance principle is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\pi) = E[X] + \alpha \text{Var}[X] \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   <i>
+    Standard deviation principle
+   </i>
+   : For some
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   , the standard deviation principle is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\pi) = E[X] + \alpha \sqrt{\text{Var}[X]} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   The last two principles are built on the expected value by including a risk loading that is proportional to the variance or the standard deviation of the risk. Denneberg [8] suggested to replace the standard deviation with the absolute deviation. See [27, 30] for a generalization of the variance and standard deviation principles to the dynamic case.
+  </p>
+  <p block-type="Text">
+   <i>
+    Exponential principle
+   </i>
+   : The exponential principle is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi[X] = \frac{1}{\alpha} \log E[\exp(aX)] \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . The exponential principle represents a special case of the equivalent utility principle in the case of an exponential utility function; see
+   <math display="inline">
+    [17,
+   </math>
+   23, 26].
+  </p>
+  <p block-type="Text">
+   <i>
+    Esscher principle
+   </i>
+   : The Esscher premium is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi[X] = \frac{E[Xe^{aX}]}{E[e^{aX}]} \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . This premium is based on the notion of Esscher transform (see Esscher Transform), introduced by Esscher [15]. Let us consider a random variable X and a positive real number
+   <math display="inline">
+    \alpha
+   </math>
+   such that
+   <math display="inline">
+    E[e^{aX}] &lt; \infty
+   </math>
+   ; one considers a transformed distribution function:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{\tilde{X}}(x) = \int_0^x \frac{e^{\alpha X}}{E[e^{\alpha X}]} dF_X(x) \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   In this way, we obtain the Esscher measure that is mutually absolute continuous, that is, equivalent (see Equivalence of Probability Measures), with respect to the original probability measure. For a review of the characterizations of Esscher principle, we refer to
+   <math display="inline">
+    [32]
+   </math>
+   . In the last paragraph, we demonstrate the importance of Esscher transform in an insurance pricing framework.
+  </p>
+  <p block-type="Text">
+   <i>
+    Swiss principle
+   </i>
+   : The Swiss premium
+   <math display="inline">
+    \pi
+   </math>
+   is the root of the following equation in
+   <math display="inline">
+    \pi
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[w(W - p\pi)] = w((1 - p)\pi) \tag{14}
+   </math>
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Principle
+     </th>
+     <th>
+      M
+     </th>
+     <th>
+      <math>
+       \text{PH}
+      </math>
+     </th>
+     <th>
+      TI
+     </th>
+     <th>
+      SAd
+     </th>
+     <th>
+      <math>
+       \text{Ad}
+      </math>
+     </th>
+     <th>
+      IAd
+     </th>
+     <th>
+      CAd
+     </th>
+     <th>
+      С
+     </th>
+     <th>
+      SL
+     </th>
+     <th>
+      NR
+     </th>
+     <th>
+      RL
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Expected Value
+     </td>
+     <td>
+      <math>
+       \mathbf{v}
+      </math>
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      v
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Equivalent utility
+     </td>
+     <td>
+      <math>
+       \mathbf{v}
+      </math>
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      v
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Distortion
+     </td>
+     <td>
+      <math>
+       \mathbf{v}
+      </math>
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      v
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Proportional Hazard
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      v
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Mean value
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Variance
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Standard Deviation
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Exponential
+     </td>
+     <td>
+      <math>
+       \mathbf{v}
+      </math>
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Esscher
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      <math>
+       \mathbf{v}
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Swiss
+     </td>
+     <td>
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      <math>
+       \mathbf{v}
+      </math>
+     </td>
+     <td>
+      <math>
+       \mathbf{v}
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dutch
+     </td>
+     <td>
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      v
+     </td>
+     <td>
+      <math>
+       \mathbf{v}
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Orlicz
+     </td>
+     <td>
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      N
+     </td>
+     <td>
+      v
+     </td>
+     <td>
+      v
+     </td>
+     <td>
+      Y
+     </td>
+     <td>
+      Y
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   Table 1 All premiums mentioned above are law invariant. All principles are not unjustified except the expected value principle for
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+  </p>
+  <p block-type="Text">
+   M, monotonicity; PH, positive homogeneity; TI, translation invariance; SAd, subadditivity; Ad, additivity; IAd, independent additivity; Cad, comonotonic additivity; C, convexity; SL, stop-loss order; NR, no rip-off; RL, risk loading
+  </p>
+  <p block-type="TextInlineMath">
+   for a nonnegative and nondecreasing function
+   <math display="inline">
+    w
+   </math>
+   defined on
+   <math display="inline">
+    \Re
+   </math>
+   and a given parameter
+   <math display="inline">
+    0 &lt; p &lt; 1
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Both the equivalent utility principle and the mean value principle can be obtained as particular cases of the Swiss premium principle; see [20].
+  </p>
+  <p block-type="Text">
+   <i>
+    Dutch principle
+   </i>
+   : The Dutch principle is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi[X] = E[X] + \theta E[(X - \alpha E[X])_+],
+   </math>
+   <br/>
+   <math display="block">
+    \alpha \ge 1, \quad 0 &lt; \theta \le 1 \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   The Dutch premium principle was introduced in [31].
+  </p>
+  <p block-type="Text">
+   <i>
+    Orlicz principle
+   </i>
+   : The Orlicz principle is given by the root of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[\psi(X/\pi)] = 1\tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    X &gt; 0
+   </math>
+   and
+   <math display="inline">
+    \psi
+   </math>
+   is a normalized Young function on
+   <math display="inline">
+    \Re_+ \cup \{0\}
+   </math>
+   . This premium reflects a change in risk in a proportional change in premium (Table 1).
+  </p>
+  <h4>
+   The Economic Method
+  </h4>
+  <p block-type="TextInlineMath">
+   In 1980, Bühlmann derived the economic premium principle in contrast to classical premium principles that depend only on the risk to be covered; see [4]. He took into account general market conditions and proposed a premium principle based on economic arguments. In this way, the economic premium principle is a function that associates with a random variable
+   <math display="inline">
+    X
+   </math>
+   representing insurance risk and a random variable Z denoting market risk
+   <math display="inline">
+    \pi
+   </math>
+   , that is,
+   <math display="inline">
+    \n\pi: (X, Z) \to \mathbb{R}.\n
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let consider a market with
+   <math display="inline">
+    n
+   </math>
+   insurer agents. We suppose that the insurer
+   <i>
+    i
+   </i>
+   bears risk
+   <math display="inline">
+    X_i
+   </math>
+   ,
+   <math display="inline">
+    i =
+   </math>
+   <math display="inline">
+    1, 2, \ldots, n
+   </math>
+   , and that his/her risk aversion is characterized by the exponential utility function
+   <math display="inline">
+    u_i(x) =
+   </math>
+   <math display="inline">
+    \frac{1}{\alpha_i}(1 - e^{(-\alpha_i x)})
+   </math>
+   . Bühlmann obtained the following
+   <math display="inline">
+    \mathbf{r}
+   </math>
+   expression for the equilibrium pricing density for the risk
+   <math display="inline">
+    X
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi[X,Z] = \frac{E[Xe^{\alpha Z}]}{E[e^{\alpha Z}]} \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   that is, the Esscher premium; see [4]. Moreover, it can be considered as a Pareto optimal risk exchange. In the case where
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Z - X
+   </math>
+   are independent to each other, we derive the standard premium principle:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi[X, Z] = \frac{E[Xe^{\alpha X}]E[Xe^{\alpha(Z-X)}]}{E[e^{\alpha X}]E[e^{\alpha(Z-X)}]}
+   </math>
+   <math display="block">
+    = \frac{E[Xe^{\alpha Z}]}{E[e^{\alpha Z}]} = \pi[X] \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   Bühlmann derived the above result using the concept of a pricing density (pricing kernel and state price deflator). The interested reader is referred to [28].
+  </p>
+  <p block-type="Text">
+   Bühlmann generalized this result in [5], allowing for insurers with general utility functions. For an extension of the above model to the dynamic multiperiod case, see [25].
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Premium principle
+     </th>
+     <th>
+      υ(x)
+     </th>
+     <th>
+      φ(x, π )
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Mean value
+     </td>
+     <td>
+      1
+     </td>
+     <td>
+      f (x)
+      <br/>
+      f (π )
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Equivalent utility
+     </td>
+     <td>
+      1
+     </td>
+     <td>
+      u(π − x)
+      <br/>
+      u(0)
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Swiss
+     </td>
+     <td>
+      1
+     </td>
+     <td>
+      ω(x − pπ)
+      <br/>
+      ω((1 − p)π )
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Orlicz
+     </td>
+     <td>
+      1
+     </td>
+     <td>
+      ψ(x/π )
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 2
+   </b>
+   Premium principles derived from the generalized Markov inequality
+  </p>
+  <h1>
+   <b>
+    A Unified Approach by Markov Inequality for Tail Probabilities and VaR
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   A unified approach for generating premium principles based on the Markov inequality of tail probabilities has been introduced in [21]. Indeed, using two exogenous functions
+   <i>
+    υ(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   and
+   <i>
+    φ(
+   </i>
+   ·
+   <i>
+    ,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   (Table 2), an exogenous parameter
+   <i>
+    α
+   </i>
+   ≤ 1, and assuming that
+   <i>
+    υ(
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   is both nonnegative and nondecreasing and fulfills
+   <i>
+    φ(x, π )
+   </i>
+   ≥ 1{
+   <i>
+    x&gt;π
+   </i>
+   }, where 1{
+   <i>
+    x&gt;π
+   </i>
+   } =  1 if
+   <i>
+    x&gt;π
+   </i>
+   0 if
+   <i>
+    x&lt;π
+   </i>
+   , then by the generalized Markov inequality we find that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P[X &gt; \pi] \le \frac{E[\phi(X,\pi)\upsilon(X)]}{E[\upsilon(X)]} \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   Focusing on the upper bound of the above equation, if it is set to the confidence level
+   <i>
+    α
+   </i>
+   ≤ 1, we have that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P[X &gt; \pi] \le \frac{E[\phi(X,\pi)\upsilon(X)]}{E[\upsilon(X)]} = \alpha \le 1 \qquad (20)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <i>
+    α
+   </i>
+   = 1, equation (21) can be used for generating several well-known premium principles:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{E[\phi(X,\pi)\upsilon(X)]}{E[\upsilon(X)]} = 1\tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It should be remarked that this unified approach is also directly linked to the quantile-based approach. Indeed, for all
+   <i>
+    φ
+   </i>
+   ,
+   <i>
+    υ
+   </i>
+   , using the results shown above, we find that
+   <i>
+    π
+   </i>
+   ≥ inf{
+   <i>
+    x
+   </i>
+   ∈ - :
+   <i>
+    P
+   </i>
+   [
+   <i>
+    X
+   </i>
+   ≤
+   <i>
+    x
+   </i>
+   ] ≥ 1 −
+   <i>
+    α
+   </i>
+   }; see [20].
+  </p>
+  <h1>
+   <b>
+    Insurance Pricing
+   </b>
+  </h1>
+  <p block-type="Text">
+   This section is devoted to the analysis of insurance portfolios (i.e., collections of insurance contracts) traded in financial markets.
+  </p>
+  <p block-type="Text">
+   Although traditional actuarial pricing of insurance relies on economic theory of decision under uncertainty, financial pricing of contingent claims mainly relies on risk-neutral valuation, which can be justified within a no-arbitrage setting (
+   <i>
+    see
+   </i>
+   <b>
+    Arbitrage: Historical Perspectives
+   </b>
+   ;
+   <b>
+    Arbitrage Pricing Theory
+   </b>
+   ). Even if this assumption may seem unrealistic in the case of traditional insurance markets, it is suitable for insurance products traded on financial markets; see [2, 7, 33, 34]. Moreover, owing to the incompleteness of insurance markets, we will observe an infinite number of equivalent martingale measures (
+   <i>
+    see
+   </i>
+   <b>
+    Equivalence of Probability Measures
+   </b>
+   ;
+   <b>
+    Martingales
+   </b>
+   ) and hence an uncountable set of possible prices.
+  </p>
+  <p block-type="Text">
+   Insurance prices can be derived by means of the Esscher transform, as suggested by Gerber and Shiu [18, 19]. These authors defined the Esscher transform for exponential Levy processes ( ´
+   <i>
+    see
+   </i>
+   <b>
+    Levy Processes ´
+   </b>
+   ), that is, processes with independent and stationary increments. Under the Esscher transform probability measure, it is possible to establish a change of measure for a random variable. Choosing suitable Esscher parameters, discounted prices become martingales and thus no-arbitrage prices can be calculated. In the case where equivalent martingale measure is unique, it is derived by the Esscher transform. Otherwise, if it is not unique, as is usual in the case of insurance markets, the equivalent martingale measure can be derived by the Esscher transform assuming the existence of a representative agent that maximizes its expected utility to a power utility function.
+  </p>
+  <p block-type="Text">
+   The interested reader is referred to [6, 14, 24] for a review of recent developments in this topic.
+  </p>
+  <h1>
+   <b>
+    Acknowledgments
+   </b>
+  </h1>
+  <p block-type="Text">
+   The authors acknowledge the financial support of the Onderzoeksfond K.U. Leuven (GOA 2007–2011: Risk modeling and valuation of insurance and financial cash flows, with applications to pricing, provisioning, and solvency). Jan Dhaene and Marc Goovaerts also thank the financial support of Fortis (K.U. Leuven Fortis Chair in Financial and Actuarial Risk Management).
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Acerbi, C. &amp; Scandolo, G. (2008). Liquidity and coherent risk measures,
+     <i>
+      Quantitative Finance
+     </i>
+     forthcoming.
+    </li>
+    <li block-type="ListItem">
+     [2] Albrecht, P. (1992). Premium calculation without arbitrage? A note on a contribution by G. Venter,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      22
+     </b>
+     , 247–254.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    6 Actuarial Premium Principles
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [3] Allais, M. (1953). Le comportement de l'homme rationnel devant le risque: critique des postulates t axiomes de l' ecole Am ´ ericaine, ´
+     <i>
+      Econometrica
+     </i>
+     <b>
+      21
+     </b>
+     , 503–546.
+    </li>
+    <li block-type="ListItem">
+     [4] Buhlmann, H. (1980). An economic premium principle, ¨
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      14
+     </b>
+     , 13–22.
+    </li>
+    <li block-type="ListItem">
+     [5] Buhlmann, H. (1984). The general economic premium ¨ principle,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      14
+     </b>
+     , 89–101.
+    </li>
+    <li block-type="ListItem">
+     [6] Buhlmann, H., Delbaen, F., Embrechts, P. &amp; Shirayev, ¨ A.N. (1996). No arbitrage, change of measure and conditional Esscher transforms,
+     <i>
+      CWI Quarterly
+     </i>
+     <b>
+      9
+     </b>
+     , 291–317.
+    </li>
+    <li block-type="ListItem">
+     [7] Delbaen, F. &amp; Haezendonck, J. (1989). A martingale approach to premium calculation principles in an arbitrage free market,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      8
+     </b>
+     , 269–277.
+    </li>
+    <li block-type="ListItem">
+     [8] Dennenberg, D. (1990). Premium calculation: why standard deviation should be replaced by absolute deviation,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      20
+     </b>
+     , 181–190.
+    </li>
+    <li block-type="ListItem">
+     [9] Denuit, M., Dhaene, J., Goovaerts, M.J. &amp; Kaas, R. (2005).
+     <i>
+      Actuarial Theory for Dependent Risks
+     </i>
+     , Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [10] Dhaene, J., Denuit, M., Goovaerts, M.J., Kaas, R. &amp; Vyncke, D. (2002). The concept of comonotonicity in actuarial science and finance: theory,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      31
+     </b>
+     , 3–33.
+    </li>
+    <li block-type="ListItem">
+     [11] Dhaene, J., Denuit, M., Goovaerts, M.J., Kaas, R. &amp; Vyncke, D. (2002). The concept of comonotonicity in actuarial science and finance: applications,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      31
+     </b>
+     , 133–161.
+    </li>
+    <li block-type="ListItem">
+     [12] Dhaene, J., Laeven, R.J.A, Vanduffel, S., Darkiewicz, G. &amp; Goovaerts, M.J. (2008). Can a coherent risk measure be too subadditive?
+     <i>
+      Journal of Risk and Insurance
+     </i>
+     <b>
+      75
+     </b>
+     , 365–386.
+    </li>
+    <li block-type="ListItem">
+     [13] Dhaene, J., Vanduffel, S., Tang, Q., Goovaerts, M.J., Kaas, R. &amp; Vyncke, D. (2006). Risk measures and comonotonicity: a review,
+     <i>
+      Stochastic Models
+     </i>
+     <b>
+      22
+     </b>
+     , 573–606.
+    </li>
+    <li block-type="ListItem">
+     [14] Embrechts, P. (2000). Actuarial versus financial pricing of insurance,
+     <i>
+      Risk Finance
+     </i>
+     <b>
+      1
+     </b>
+     , 17–26.
+    </li>
+    <li block-type="ListItem">
+     [15] Esscher, F. (1932). On the probability function in the collective theory of risk,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     <b>
+      15
+     </b>
+     , 175–195.
+    </li>
+    <li block-type="ListItem">
+     [16] Follmer, H. &amp; Schied, A. (2002). Convex measures of risk and trading constraints,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      6
+     </b>
+     , 429–447.
+    </li>
+    <li block-type="ListItem">
+     [17] Gerber, H.U. (1974). On additive premium calculations principles,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      7
+     </b>
+     , 215–222.
+    </li>
+    <li block-type="ListItem">
+     [18] Gerber, H.U. &amp; Shiu, S.W.E. (1994). Option pricing by Esscher transform,
+     <i>
+      Transactions of the Societies of Actuaries
+     </i>
+     <b>
+      46
+     </b>
+     , 99–191.
+    </li>
+    <li block-type="ListItem">
+     [19] Gerber, H.U. &amp; Shiu, S.W.E. (1996). Actuarial bridges to dynamic hedging and option pricing,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      18
+     </b>
+     , 183–218.
+    </li>
+    <li block-type="ListItem">
+     [20] Goovaerts, M.J., De Vylder, F.E.C. &amp; Haezendonck, J. (1984).
+     <i>
+      Insurance Premiums
+     </i>
+     , North Holland Publishing, Amsterdam.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [21] Goovaerts, M.J., Kaas, R., Dhaene, J. &amp; Tang, Q. (2003). A unified approach to generate risk measures,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      33
+     </b>
+     , 173–191.
+    </li>
+    <li block-type="ListItem">
+     [22] Goovaerts, M.J., Kaas, R., Dhaene, J. &amp; Tang, Q. (2004). Some new classes of consistent risk measures,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      34
+     </b>
+     , 505–516.
+    </li>
+    <li block-type="ListItem">
+     [23] Goovaerts, M.J., Kaas, R., Dhaene, J., Laeven, R.J.A. &amp; Tang, Q. (2004). A comonotonic image of independence for additive risk measures,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      35
+     </b>
+     , 581–594.
+    </li>
+    <li block-type="ListItem">
+     [24] Goovaerts, M.J. &amp; Laeven, R.J.A. (2008). Actuarial risk measures for financial derivative pricing,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      42
+     </b>
+     , 540–547.
+    </li>
+    <li block-type="ListItem">
+     [25] Iwaki, H., Kijima, M. &amp; Morimoto, Y. (2001). An economic premium principle in a multiperiod economy,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      28
+     </b>
+     , 325–339.
+    </li>
+    <li block-type="ListItem">
+     [26] Kaas, R., Goovaerts, M.J., Dhaene, J. &amp; Denuit, M. (2001).
+     <i>
+      Modern Actuarial Risk Theory
+     </i>
+     , Kluwer Academic Publishers, Amsterdam.
+    </li>
+    <li block-type="ListItem">
+     [27] Møller, T. (2001). On transformations of actuarial valuation principles,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      28
+     </b>
+     , 281–303.
+    </li>
+    <li block-type="ListItem">
+     [28] Rubinstein, M. (1976). The valuation of uncertain income and the pricing of options,
+     <i>
+      The RAND Corporation
+     </i>
+     <b>
+      7
+     </b>
+     , 407–425.
+    </li>
+    <li block-type="ListItem">
+     [29] Savage, L.J. (1954).
+     <i>
+      The Foundations of Statistics
+     </i>
+     , Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [30] Schweizer, M. (2001). From actuarial to financial valuation principles,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      28
+     </b>
+     , 31–47.
+    </li>
+    <li block-type="ListItem">
+     [31] Van Heerwaarden, A.E. &amp; Kaas, R. (1992). The Dutch premium principle,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      11
+     </b>
+     , 129–133.
+    </li>
+    <li block-type="ListItem">
+     [32] Van Heerwaarden, A.E., Kaas, R. &amp; Goovaerts, M.J. (1989). Properties of the Esscher premium calculation principle,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      8
+     </b>
+     , 261–267.
+    </li>
+    <li block-type="ListItem">
+     [33] Venter, G.G. (1991). Premium calculation implications without arbitrage,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      21
+     </b>
+     , 223–230.
+    </li>
+    <li block-type="ListItem">
+     [34] Venter, G.G. (1992). Premium calculation implications without arbitrage Authors reply on the note by P. Albrecht,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      22
+     </b>
+     , 255–256.
+    </li>
+    <li block-type="ListItem">
+     [35] Von Neumann, J. &amp; Morgenstern, O. (1947).
+     <i>
+      Theory of Games and Economic Behavior
+     </i>
+     . Princeton university Press, Princeton.
+    </li>
+    <li block-type="ListItem">
+     [36] Wang, S.S. (1996). Premium calculation by transforming the layer premium density,
+     <i>
+      Astin Bulletin
+     </i>
+     <b>
+      26
+     </b>
+     , 71–92.
+    </li>
+    <li block-type="ListItem">
+     [37] Wang, S.S., Young, V.R. &amp; Panjer, H.H. (1997). Axiomatic characterization of insurance prices,
+     <i>
+      Insurance: Mathematics and Economics
+     </i>
+     <b>
+      21
+     </b>
+     , 173–183.
+    </li>
+    <li block-type="ListItem">
+     [38] Yaari, M.E. (1987). The dual theory of choice under risk,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      55
+     </b>
+     , 95–115.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   MARC J. GOOVAERTS, JAN DHAENE &amp; OMAR RACHEDI
+  </p>
+ </body>
+</html>

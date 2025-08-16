@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Credibility Theory
+   </b>
+  </h1>
+  <p block-type="Text">
+   Credibility originates from the insurance industry and its basic idea goes back as far as the year 1918, when Whitney [20] was confronted with the problem of estimating risk premiums in workmen compensation. For the premium of an individual contract
+   <math display="inline">
+    i
+   </math>
+   , he suggested taking a weighted mean
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{\mu_i} = \alpha \overline{X}_i + (1 - \alpha) \overline{X} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \overline{X}_i
+   </math>
+   is the observed average claim amount per volume unit for the individual contract
+   <i>
+    i
+   </i>
+   and
+   <math display="inline">
+    \overline{X}
+   </math>
+   is the corresponding overall mean of the insurance portfolio. The expression
+   <i>
+    credibility
+   </i>
+   was originally used for the weight
+   <math display="inline">
+    \alpha
+   </math>
+   in equation (1), which is a measure of reliability attached to the individual claims experience.
+  </p>
+  <p block-type="Text">
+   Since then,
+   <i>
+    credibility theory
+   </i>
+   has become an established discipline of insurance mathematics. Though mainly encountered in insurance applications, it also has the potential to be a powerful tool in the wider field of finance, where applications are found in credit risk (see Credit Risk) and in operational risk (see Operational Risk) assessments.
+  </p>
+  <p block-type="Text">
+   Credibility theory deals with the fundamental concepts of
+   <i>
+    individual risk
+   </i>
+   and
+   <i>
+    collective
+   </i>
+   or
+   <i>
+    individual
+   </i>
+   claims experience and a priori knowledge. The aim is to assess the individual risks. There are two sources of information on an individual risk: observations of the individual risk on the one hand, and a priori knowledge, gained from other similar risks in the portfolio (the collective) or from an expert opinion (personal belief), on the other.
+  </p>
+  <p block-type="Text">
+   Credibility theory can be described as follows:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     It answers the question of how one should combine the information out of the two sources to get a "best" estimate of the individual risk.
+    </li>
+    <li block-type="ListItem">
+     It is the mathematical tool to describe heterogeneous collectives.
+    </li>
+    <li block-type="ListItem">
+     It belongs mathematically to the area of Bayesian statistics.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   A concise description of credibility theory and its development seen from the perspective of its essential mathematical structure can be found in [17]. References [5, 8] are some recent textbooks on credibility.
+  </p>
+  <h2>
+   <b>
+    Credibility Estimators
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   In a simple set-up, the underlying paradigm is the "two-urn" model. The individual risk is characterized by its risk characteristic
+   <math display="inline">
+    \vartheta
+   </math>
+   , which is drawn from the first urn describing the risk structure within the collective. Hence
+   <math display="inline">
+    \vartheta
+   </math>
+   is a realization of a random variable
+   <math display="inline">
+    \Theta
+   </math>
+   . Given
+   <math display="inline">
+    \Theta = \vartheta
+   </math>
+   , the claims are drawn from the second urn with distribution
+   <math display="inline">
+    F_{\vartheta}
+   </math>
+   . The risk premium becomes a random variable
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   , which has to be estimated from the observed data
+   <math display="inline">
+    X
+   </math>
+   . The objective is to find an estimator
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   , which minimizes the quadratic loss or mean squared error (mse)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{mse}\left(\widehat{\mu\left(\Theta\right)}\right) = E\left[\widehat{\mu\left(\Theta\right)} - \mu\left(\Theta\right)\right)^{2}\right] \qquad (2)
+   </math>
+  </p>
+  <p block-type="Text">
+   The "two-urn" model formulates the problem in the language of Bayesian statistics. Essentially, this had already been done in the 1940s by Bailey [1], but it became well known only in the late 1960s, when it was set out clearly by Bühlmann in [2, 3].
+  </p>
+  <p block-type="Text">
+   The estimator minimizing equation
+   <math display="inline">
+    (2)
+   </math>
+   is the Baves estimator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu\left(\Theta\right)^{\text{Bayes}} = E\left[\mu\left(\Theta\right)|\mathbf{X}\right] \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   In many models, it is a linear function of the observations. This is, in particular, the case for the one-parametric exponential family with its natural conjugate prior [13]. A famous example is the Poisson–Gamma model, where
+   <math display="inline">
+    \Theta
+   </math>
+   is Gamma distributed and where the observations, the claim numbers, are Poisson distributed with parameter
+   <math display="inline">
+    \Theta
+   </math>
+   . This model was the actuarial basis for the construction of bonus-malus systems in third-party motor liability. The case where the Bayes estimator is a linear function of the observations is referred to as exact
+   <i>
+    credibility
+   </i>
+   . As an example, we consider the situation where we want to design a bonus-malus scheme for fleets of cars. We assume that the
+   <i>
+    a priori
+   </i>
+   expected number of claims within a given period (e.g.,
+   <math display="inline">
+    1 \text{ year}
+   </math>
+   ) for a specific fleet
+   <i>
+    i
+   </i>
+   is equal to
+   <math display="inline">
+    v_i
+   </math>
+   , which is known and can be calculated on the basis of objective tariff variables. On the other hand, we know that things like driver education might have considerable influence and that the true expected number of claims for that particular fleet is
+   <math display="inline">
+    \mu(\Theta_i) = \Theta_i \nu_i
+   </math>
+   , where
+   <math display="inline">
+    \Theta_i
+   </math>
+   is an unknown risk quality factor for that particular fleet with
+   <math display="inline">
+    E[\Theta_i] = 1
+   </math>
+   . We assume that we know from
+  </p>
+  <p block-type="Text">
+   portfolio experience of different fleets that the standard deviation of
+   <math display="inline">
+    \Theta_i
+   </math>
+   is equal to
+   <math display="inline">
+    \tau
+   </math>
+   . Now we have observed a number of
+   <math display="inline">
+    N_i
+   </math>
+   claims in the given period for fleet
+   <math display="inline">
+    i
+   </math>
+   . On the basis of the Poisson–Gamma model we then obtain the following bonus-malus factor by which the base premium is multiplied to obtain the experience-rated premium:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{\Theta_i} = 1 + \alpha_i \left( \frac{N_i}{\nu_i} - 1 \right), \text{ where } \alpha_i = \frac{\nu_i}{\nu_i + \tau^{-2}}
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   For instance, if
+   <math display="inline">
+    v_i = 20
+   </math>
+   ,
+   <math display="inline">
+    N_i = 15
+   </math>
+   , and
+   <math display="inline">
+    \tau = 20\%
+   </math>
+   , then there results a bonus-malus factor of 89%.
+  </p>
+  <p block-type="Text">
+   In general, the Bayes estimator cannot be expressed in closed analytical form. Moreover, one has to specify the family
+   <math display="inline">
+    \{F_{\vartheta}\}\
+   </math>
+   of distributions as well as the structure distribution
+   <math display="inline">
+    U
+   </math>
+   , which are both mostly not known in practice.
+  </p>
+  <p block-type="Text">
+   The basic idea behind credibility is to
+   <i>
+    restrict
+   </i>
+   the class of allowable estimator functions to those which are
+   <i>
+    linear
+   </i>
+   in the components of the observation vector
+   <b>
+    X.
+   </b>
+   Credibility estimators are therefore linear Bayes estimators, minimizing the mse within the class of linear estimators.
+  </p>
+  <p block-type="TextInlineMath">
+   The so-called normal equations play a central role, that is,
+   <math display="inline">
+    \mu(\Theta)^{\text{cred}}
+   </math>
+   is the credibility estimator of
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   based on
+   <math display="inline">
+    \mathbf{X}^T = (X_1, \dots X_n)
+   </math>
+   if and only if it satisfies the normal equations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\mu\left(\Theta\right)^{\text{cred}} - \mu(\Theta)\right] = 0, \tag{5}
+   </math>
+   <br/>
+   <math display="block">
+    \text{Cov}\left[\mu\left(\Theta\right)^{\text{cred}}, X_{j}\right] = \text{Cov}\left[\mu(\Theta), X_{j}\right]
+   </math>
+   <br/>
+   <math display="block">
+    \text{for } j = 1, 2, \dots, n \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   Hence the credibility estimator only depends on first and second moments and not on the whole underlying distributions.
+  </p>
+  <p block-type="TextInlineMath">
+   The only mathematical structure in the most general credibility set-up is the fact that one wants to estimate a random variable
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   based on a random vector
+   <math display="inline">
+    \mathbf{X}^T
+   </math>
+   . Neither
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   nor the components of
+   <math display="inline">
+    \mathbf{X}^T
+   </math>
+   are further specified, that is, the observations
+   <math display="inline">
+    X_i
+   </math>
+   can also be functions of some other original observations.
+  </p>
+  <p block-type="TextInlineMath">
+   Credibility is most elegantly understood by looking at the space
+   <math display="inline">
+    \mathcal{L}^2
+   </math>
+   of square integrable random variables.
+   <math display="inline">
+    \mathcal{L}^2
+   </math>
+   together with the inner product
+   <math display="inline">
+    \langle X, Y \rangle := E[XY]
+   </math>
+   is a Hilbert space. The corresponding norm of an X in
+   <math display="inline">
+    \mathcal{L}^2
+   </math>
+   is
+   <math display="inline">
+    ||X|| = \sqrt{\langle X, X \rangle}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The advantage of looking at credibility in this way is that we can apply our intuitive understanding of the properties of linear vector spaces to the credibility problem. The mse of an estimator
+   <math display="inline">
+    \widehat{\mu(\Theta)}
+   </math>
+   becomes
+   <math display="inline">
+    \|\widehat{\mu(\Theta)} - \mu(\Theta)\|^2
+   </math>
+   and the credibility estimator is the point in the subspace
+   <math display="inline">
+    L(\mathbf{X}, 1) :=
+   </math>
+   <math display="inline">
+    \left\{\widehat{\mu(\Theta)}:\widehat{\mu(\Theta)}=a_0+\sum_{i=1}^n a_iX_i,\quad a_0,a_1,\ldots\in\mathbb{R}\right\}
+   </math>
+   closest to
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   . Hence
+   <math display="inline">
+    \mu(\Theta)^{\text{cred}}
+   </math>
+   is the orthogonal projection of
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   on
+   <math display="inline">
+    L(\mathbf{X}, 1)
+   </math>
+   , and the normal equations
+   <math display="inline">
+    (5)
+   </math>
+   and
+   <math display="inline">
+    (6)
+   </math>
+   follow from the orthogonality property. For a historical perspective of the Hilbert space approach in the context of credibility, we refer to [9].
+  </p>
+  <h4>
+   The Bühlmann–Straub Model
+  </h4>
+  <p block-type="Text">
+   The Bühlmann-Straub (BS) [7] model is the best known credibility model that is widely used in practice. It extends the simple Bühlmann model [2] by allowing for observations with associated weights, which are very often encountered in practice such as when considering claim averages, claim frequencies, loss ratios, and so on.
+  </p>
+  <p block-type="TextInlineMath">
+   The risks are embedded in a collective of similar risks numbered
+   <math display="inline">
+    i = 1, 2, \ldots, I
+   </math>
+   , each of which is characterized by its own
+   <math display="inline">
+    \Theta_i
+   </math>
+   and has observations
+   <math display="inline">
+    \{X_{ij}: j = 1, 2, \ldots, n_i\}
+   </math>
+   with associated weights
+   <math display="inline">
+    w_{ij}
+   </math>
+   . The BS model assumes that, conditionally on
+   <math display="inline">
+    \Theta_i
+   </math>
+   , the random variables
+   <math display="inline">
+    \{X_{ij}: j = 1, 2, \ldots, n_i\}
+   </math>
+   are independent with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[X_{ij} \left|\Theta_i\right.\right] = \mu\left(\Theta_i\right) \tag{7}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{Var}\left[X_{ij} \mid \Theta_i\right] = \frac{\sigma^2(\Theta_i)}{w_{ij}} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   that the pairs
+   <math display="inline">
+    (\Theta_1, \mathbf{X}_1)
+   </math>
+   ,
+   <math display="inline">
+    (\Theta_2, \mathbf{X}_2)
+   </math>
+   , ... are independent and that
+   <math display="inline">
+    \Theta_1, \Theta_2, \ldots
+   </math>
+   are independent and identically distributed (i.i.d.).
+  </p>
+  <p block-type="Text">
+   A heterogeneous portfolio is modeled in this manner. The risks in the portfolio are different: they have different risk profiles
+   <math display="inline">
+    \Theta_i
+   </math>
+   . But the risks in the portfolio also have something in common:
+   <i>
+    a priori
+   </i>
+   , they cannot be recognized as being different, which results from the fact that the risk profiles
+   <math display="inline">
+    \Theta_i
+   </math>
+   are i.i.d.
+  </p>
+  <p block-type="Text">
+   The credibility estimator turns out to be a weighted mean
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu(\Theta_i)^{\text{cred}} = \alpha_i \overline{X}_i + (1 - \alpha_i) \,\mu \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{X}_{i} = \sum_{j} \frac{w_{ij}}{w_{i\bullet}} X_{ij}, \ w_{i\bullet} = \sum_{j} w_{ij}, \ \alpha_{i} = \frac{w_{i\bullet}}{w_{i\bullet} + \frac{\sigma^{2}}{\tau^{2}}}
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   and where
+   <math display="inline">
+    \mu
+   </math>
+   ,
+   <math display="inline">
+    \sigma^2
+   </math>
+   , and
+   <math display="inline">
+    \tau^2
+   </math>
+   are the so-called structural parameters
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu = E\left[\mu\left(\Theta_{i}\right)\right], \ \sigma^{2} = E\left[\sigma^{2}(\Theta_{i})\right],
+   </math>
+   <br/>
+   <math display="block">
+    \tau^{2} = \text{Var}\left[\mu\left(\Theta_{i}\right)\right] \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   The mse is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{mse}(\mu(\Theta_i)^{\operatorname{cred}}) = (1 - \alpha_i) \tau^2 = \alpha_i \frac{\sigma^2}{w_{i\bullet}} \qquad (12)
+   </math>
+  </p>
+  <p block-type="Text">
+   The credibility estimator
+   <math display="inline">
+    (9)
+   </math>
+   has a natural interpretation. The expected value
+   <math display="inline">
+    \mu
+   </math>
+   over the whole collective is the best estimator based only on the
+   <i>
+    a priori
+   </i>
+   knowledge and ignoring the individual observations, whereas
+   <math display="inline">
+    \overline{X}_i
+   </math>
+   is the best linear estimator when looking only at the individual observations and ignoring the
+   <math display="inline">
+    a
+   </math>
+   priori knowledge (optimally compressed data, linear sufficient statistics). The credibility estimator takes both sources of information into account and is a weighted mean of the two components with weights inversely proportional to the mse. This general intuitive principle is also valid in the more general models.
+  </p>
+  <p block-type="TextInlineMath">
+   The assumption that the risks in the portfolio are
+   <math display="inline">
+    a
+   </math>
+   <i>
+    priori
+   </i>
+   equal is rather strong and often not fulfilled in practice. Often, there are known
+   <i>
+    a priori
+   </i>
+   differences between risks, that is, instead of equation (7) we have
+   <math display="inline">
+    E[X_{ij}|\Theta_i] = a_i \mu(\Theta_i)
+   </math>
+   with known constants
+   <math display="inline">
+    a_i
+   </math>
+   . However, by a linear transformation one can transform the problem to the BS model and still apply it.
+  </p>
+  <p block-type="TextInlineMath">
+   The credibility estimator
+   <math display="inline">
+    (9)
+   </math>
+   does not depend on the observations of the other risks in the portfolio. However, the structural parameters are usually not known, in practice, and have to be estimated from the data of the collective. For the overall mean
+   <math display="inline">
+    \mu
+   </math>
+   , one can restrict the class of estimators further by allowing only linear estimators without a constant term. The best estimator out of this class is named the
+   <i>
+    homogeneous credibility estimator
+   </i>
+   ,
+   <math display="inline">
+    \mu(\Theta_i)_{\text{hom}}^{\text{cred}}
+   </math>
+   , and contains a built-in estimator for
+   <math display="inline">
+    \mu
+   </math>
+   . In the BS model it is obtained by replacing
+   <math display="inline">
+    \mu
+   </math>
+   in equation (9) by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{\mu} = \sum_{i} \frac{\alpha_{i}}{\alpha_{\bullet}} \overline{X}_{i}, \text{ where } \alpha_{\bullet} = \sum_{i} \alpha_{i} \qquad (13)
+   </math>
+  </p>
+  <p block-type="Text">
+   When replacing the structural parameters in equation (9) by their estimated values, one arrives at the empirical credibility estimator. It can be shown [16] that under rather general conditions, the empirical credibility estimator converges in probability to the credibility estimator if the size of collateral data increases.
+  </p>
+  <h3>
+   <b>
+    Hierarchical Credibility
+   </b>
+  </h3>
+  <p block-type="Text">
+   Hierarchical credibility is an extension of the BS model in the sense that it generalizes the "twourn" model to a "many-urn model". In such models, the risk characteristics of the individual risks are drawn from a collective urn whose risk characteristics are drawn from a further parent urn and so on. Such hierarchies appear naturally in many situations. For instance, in insurance pricing, one often encounters the situation that individual risks are classified according to their "tariff positions", tariff positions are grouped together into "subgroups", subgroups into "groups", groups into "main groups", which together make the total of a line of business. A hierarchical model has the advantage of leading to a well-founded, properly balanced distribution of the burden of claims, in particular, of large claims, among the individual risks.
+  </p>
+  <p block-type="Text">
+   The concept of hierarchical credibility was introduced by Jewell [14] and Taylor [19]. It is best understood when looking at credibility estimators as orthogonal projections on linear subspaces, which, as shown in [6], leads to a recursive calculation of the credibility estimators. First, a linear sufficient statistics is calculated bottom up, and then the credibility estimators are calculated top down, where the estimators on the different levels have the same structure as the ones in the BS model.
+  </p>
+  <h4>
+   <b>
+    Multidimensional Credibility
+   </b>
+  </h4>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The essence of
+   <i>
+    multidimensional credibility
+   </i>
+   is that one wants to estimate a real-valued vector
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   =
+   <math display="inline">
+    (\mu_1(\Theta), \ldots, \mu_p(\Theta))^T
+   </math>
+   as, for instance, the claims load for "normal claims" and "big claims", "claim frequency" and "claim size", the claims load in different layers, and so on. The point is that one estimates the components of
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   simultaneously on the basis of the same observation vector
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   . For instance, when estimating the claims load for big
+  </p>
+  <p block-type="Text">
+   claims, one also looks at the observed claims load for normal claims, and
+   <i>
+    vice versa
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Multidimensional credibility was introduced by Jewell [12]. A convenient way is to consider an abstract setup, where
+   <math display="inline">
+    X
+   </math>
+   has the same dimension as
+   <math display="inline">
+    \mu\left(\Theta\right)
+   </math>
+   with
+   <math display="inline">
+    E\left[\mathbf{X}\left|\Theta\right.\right] = \mu\left(\Theta\right)
+   </math>
+   and
+   <math display="inline">
+    \text{Cov}(\mathbf{X}, \mathbf{X}^{T}\left|\Theta\right.\right) =
+   </math>
+   <math display="inline">
+    \Sigma(\Theta)
+   </math>
+   . This vector
+   <b>
+    X
+   </b>
+   may be obtained by data compression from the raw data. The structure of the credibility estimator inherits its form from the simple model and becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \boldsymbol{\mu}(\Theta)^{\text{cred}} = A\,\mathbf{X} + (I - A)\,\boldsymbol{\mu} \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A = T \left(T + S\right)^{-1} \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   is the credibility matrix,
+   <math display="inline">
+    I
+   </math>
+   is the identity matrix, and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \boldsymbol{\mu} = E\left[\boldsymbol{\mu}\left(\Theta\right)\right], \ S = E\left[\boldsymbol{\Sigma}\left(\Theta\right)\right],
+   </math>
+   <br/>
+   <math display="block">
+    T = \text{Cov}\left[\boldsymbol{\mu}\left(\Theta\right), \boldsymbol{\mu}\left(\Theta\right)^{T}\right]
+   </math>
+   (16)
+  </p>
+  <p block-type="Text">
+   are the structural parameters.
+  </p>
+  <p block-type="Text">
+   Mostly, one is not primarily interested in the individual components of the vector
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   , but rather in a linear combination
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu(\Theta) := \sum_{k=1}^{p} a_k \mu_k(\Theta) = \mathbf{a}^T \boldsymbol{\mu}(\Theta) \qquad (17)
+   </math>
+  </p>
+  <p block-type="Text">
+   For the mse of
+   <math display="inline">
+    \mu
+   </math>
+   (
+   <math display="inline">
+    \Theta
+   </math>
+   ) one obtains
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{mse}(\mu(\Theta)) = \mathbf{a}^T V_2 \mathbf{a} \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_2 = (I - A) T = A S \t\t(19)
+   </math>
+  </p>
+  <p block-type="Text">
+   is the
+   <i>
+    mse matrix
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The optimal data compression to reduce the raw data to a vector
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   of the same dimension as
+   <math display="inline">
+    \mu(\Theta)
+   </math>
+   is discussed in [5] and can be expressed as an orthogonal projection on a translated subspace
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{B} = \text{Pro} \left( \boldsymbol{\mu}(\Theta) \middle| L_e^{\text{ind}} \left( \mathbf{X} \right) \right) \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    L_e^{\text{ind}}(\mathbf{X}) = \left\{ \widehat{\boldsymbol{\mu}(\Theta)} \colon \widehat{\mu_k(\Theta)} = \sum_j a_j^{(k)} X_j \right\}
+   </math>
+   <br/>
+   for
+   <math>
+    k = 1, \dots, p; E\left[ \widehat{\boldsymbol{\mu}(\Theta)} \middle| \Theta \right] = \boldsymbol{\mu}(\Theta) \right\}
+   </math>
+   (21)
+  </p>
+  <h4>
+   Credibility in the Regression Case
+  </h4>
+  <p block-type="Text">
+   The credibility regression model was introduced by Hachemeister [11] and motivated by the problem of forecasting average claim amounts for bodily injury claims in third-party auto liability for various states in the United States. In contrast to classical statistics, the regression parameters are assumed to be a random vector
+   <math display="inline">
+    \beta(\Theta)
+   </math>
+   , that is, it is assumed that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\mathbf{X}|\Theta\right] = Y \boldsymbol{\beta}(\Theta) \tag{22}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{Cov}\left(\mathbf{X}, \mathbf{X}^{T} \middle| \Theta\right) = \Sigma\left(\Theta\right) \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   is the observation vector of a particular risk, Y is the corresponding design matrix and
+   <math display="inline">
+    \beta
+   </math>
+   (
+   <math display="inline">
+    \Theta
+   </math>
+   ) the regression vector. The credibility estimator of
+   <math display="inline">
+    \beta
+   </math>
+   (
+   <math display="inline">
+    \Theta
+   </math>
+   ) is most elegantly found by making use of the multidimensional credibility result. The optimal data compression is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{B} = \left(Y^T S^{-1} Y\right)^{-1} Y^T S^{-1} \mathbf{X} \tag{24}
+   </math>
+  </p>
+  <p block-type="Text">
+   and by applying equation
+   <math display="inline">
+    (14)
+   </math>
+   one obtains
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \boldsymbol{\beta}(\Theta)^{\text{cred}} = A \, \mathbf{B} + (I - A) \, \boldsymbol{\beta} \tag{25}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A = T \left( T + \left( Y^T S^{-1} Y \right)^{-1} \right)^{-1}
+   </math>
+   <br/>
+   <math display="block">
+    \boldsymbol{\beta} = E \left[ \boldsymbol{\beta} \left( \Theta \right) \right], \quad S = E \left[ \Sigma \left( \Theta \right) \right],
+   </math>
+   <br/>
+   <math display="block">
+    T = \text{Cov} \left[ \boldsymbol{\beta} \left( \Theta \right), \boldsymbol{\beta} \left( \Theta \right)^T \right]
+   </math>
+   (26)
+  </p>
+  <p block-type="Text">
+   In many practical situations,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Sigma\left(\Theta\right) = \sigma^{2}(\Theta)W^{-1} \tag{27}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    W
+   </math>
+   is a diagonal matrix with known weights
+   <math display="inline">
+    w_i
+   </math>
+   down the diagonal. Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{B} = \left(Y^T W Y\right)^{-1} Y^T W \mathbf{X} \tag{28}
+   </math>
+   <math display="block">
+    A = T \left(T + \sigma^2 \left(Y^T W Y\right)^{-1}\right)^{-1},
+   </math>
+   <math display="block">
+    \text{where } \sigma^2 = E \left[\sigma^2(\Theta)\right] \tag{29}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   When Hachemeister applied the theory to his data on bodily injury (a case of simple regression), he
+  </p>
+  <p block-type="Text">
+   obtained some "rather strange" results for some of the states. The solution is found in [4]: one should work with an orthogonal design matrix. In the simple linear regression case, this means that one should choose the barycenter not at the origin but rather at the center of gravity of time. Then the credibility estimators for the two regression components "barycenter" and "slope" split into two one-dimensional credibility formulas of the same type as in the BS-model.
+  </p>
+  <h3>
+   <b>
+    Evolutionary Credibility Models
+   </b>
+  </h3>
+  <p block-type="Text">
+   Evolutionary credibility models are characterized by the fact that the risk parameters vary stochastically in time. Such models are closely tied to recursive credibility formulae often referred to as recursive credibility.
+  </p>
+  <p block-type="Text">
+   References
+   <math display="inline">
+    [10, 18]
+   </math>
+   are some of the early actuarial papers devoted to
+   <i>
+    evolutionary or recursive credibil
+   </i>
+   ity. A well-known recursive procedure developed in an engineering context is the Kalman Filter [15] (see also Filtering).
+  </p>
+  <p block-type="TextInlineMath">
+   In the one-dimensional evolutionary credibility
+   <i>
+    model
+   </i>
+   , a specific risk with observation vector
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   is again characterized by its individual risk profile. However, this risk profile is itself a stochastic process, that is, a sequence of random variables
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{\Theta} = \left\{ \Theta_1, \Theta_2, \dots, \Theta_j, \dots \right\} \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The components
+   <math display="inline">
+    \Theta_i
+   </math>
+   are to be understood as the risk profile in year
+   <math display="inline">
+    j
+   </math>
+   and it is assumed that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[X_j|\mathbf{\Theta}] = E[X_j|\Theta_j] = \mu(\Theta_j) \quad (31)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{Var}\left[X_{j}|\mathbf{\Theta}\right] = \operatorname{Var}\left[X_{j}|\Theta_{j}\right] = \frac{\sigma^{2}\left(\Theta_{j}\right)}{w_{j}} \quad (32)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    X_j
+   </math>
+   is the observation in year j,
+   <math display="inline">
+    w_j
+   </math>
+   an appropriate weight and
+   <math display="inline">
+    E\left[\sigma^2\left(\Theta_i\right)\right] = \sigma^2
+   </math>
+   . The aim is to find for each year
+   <math display="inline">
+    n
+   </math>
+   the credibility estimator of
+   <math display="inline">
+    \mu
+   </math>
+   (
+   <math display="inline">
+    \Theta_n
+   </math>
+   ) based on the observations
+   <math display="inline">
+    \{X_1, \ldots, X_{n-1}\}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   It is useful to split up the step from
+   <math display="inline">
+    \mu \left(\Theta_n\right)^{\text{cred}}
+   </math>
+   to
+   <math display="inline">
+    \mu \left(\Theta_{n+1}\right)^{\text{cred}}
+   </math>
+   into two steps:
+  </p>
+  <h4>
+   1. Updating
+  </h4>
+  <p block-type="Text">
+   Improve the estimation of
+   <math display="inline">
+    \mu(\Theta_n)
+   </math>
+   on the basis of the newest information
+   <math display="inline">
+    X_n
+   </math>
+   .
+  </p>
+  <h4>
+   2. Parameter movement
+  </h4>
+  <p block-type="TextInlineMath">
+   Change the estimation owing to the switch of the parameter from
+   <math display="inline">
+    \mu
+   </math>
+   (
+   <math display="inline">
+    \Theta_n
+   </math>
+   ) to
+   <math display="inline">
+    \mu(\Theta_{n+1})
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In this connection, it is suitable to introduce the terminology and notation from state space models:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu_{n|n-1} := \text{Pro} \left( \mu \left( \Theta_n \right) | L \left( 1, X_1, \dots, X_{n-1} \right) \right),
+   </math>
+   <br/>
+   <math display="block">
+    \mu_{n|n} := \text{Pro} \left( \mu \left( \Theta_n \right) | L \left( 1, X_1, \dots, X_{n-1}, X_n \right) \right),
+   </math>
+   <br/>
+   <math display="block">
+    q_{n|n} := E \left[ \left( \mu_{n|n} - \mu \left( \Theta_n \right) \right)^2 \right],
+   </math>
+   <br/>
+   <math display="block">
+    q_{n|n-1} := E \left[ \left( \mu_{n|n-1} - \mu \left( \Theta_n \right) \right)^2 \right]
+   </math>
+   <br/>
+   (33)
+  </p>
+  <p block-type="TextInlineMath">
+   Here
+   <math display="inline">
+    \mu_{n|n-1}
+   </math>
+   is just another notation for
+   <math display="inline">
+    \mu
+   </math>
+   (
+   <math display="inline">
+    \Theta_n
+   </math>
+   )&lt;sup&gt;cred&lt;/sup&gt;, which is the credibility estimator of
+   <math display="inline">
+    \mu(\Theta_n)
+   </math>
+   based on the observations
+   <math display="inline">
+    X_1, \ldots, X_{n-1}
+   </math>
+   , whereas
+   <math display="inline">
+    \mu_{n|n}
+   </math>
+   is the updated estimator of
+   <math display="inline">
+    \mu(\Theta_n)
+   </math>
+   based on the observations
+   <math display="inline">
+    X_1, \ldots, X_{n-1}, X_n
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   If the observations in different years are, on the average, conditionally uncorrelated, and if the process
+   <math display="inline">
+    \mu\left(\Theta\right)
+   </math>
+   has orthogonal increments, that is, if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[\text{Cov}\left(X_{k}, X_{j} \middle| \boldsymbol{\Theta}\right)\right] = 0 \tag{34}
+   </math>
+   <br/>
+   <math display="block">
+    \text{Pro}\left(\mu\left(\Theta_{n+1}\right) \middle| L\left(1, \mu\left(\Theta_{1}\right), \dots, \mu\left(\Theta_{n}\right)\right)\right)
+   </math>
+   <br/>
+   <math display="block">
+    = \mu\left(\Theta_{n}\right) \quad \text{for } n \ge 1 \tag{35}
+   </math>
+  </p>
+  <p block-type="Text">
+   then the credibility estimators can be calculated by the following recursive procedure ("Kalman filter notation"):
+  </p>
+  <h4>
+   1. Anchoring (Period 1)
+  </h4>
+  <p block-type="Equation">
+   <math display="block">
+    \mu_{1|0} = E \left[ \mu \left( \Theta_1 \right) \right] \quad \text{and}\n
+   </math>
+   <math display="block">
+    \nq_{1|0} = E \left[ \left( \mu_{1|0} - \mu \left( \Theta_1 \right) \right)^2 \right] \tag{36}
+   </math>
+  </p>
+  <h4>
+   2. Recursion
+   <math display="inline">
+    (n \ge 1)
+   </math>
+  </h4>
+  <p block-type="TextInlineMath">
+   (a) Updating
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu_{n|n} = \alpha_n X_n + (1 - \alpha_n) \mu_{n|n-1} \quad (37)
+   </math>
+   <br/>
+   where
+   <math>
+    \alpha_n = \frac{q_{n|n-1}}{q_{n|n-1} + \frac{\sigma^2}{w_n}},
+   </math>
+   <br/>
+   <math>
+    q_{n|n} = (1 - \alpha_n) q_{n|n-1} \quad (38)
+   </math>
+  </p>
+  <p block-type="Text">
+   (b) Change from
+   <math display="inline">
+    \mu
+   </math>
+   (
+   <math display="inline">
+    \Theta_n
+   </math>
+   ) to
+   <math display="inline">
+    \mu
+   </math>
+   (
+   <math display="inline">
+    \Theta_{n+1}
+   </math>
+   ) (parameter movement)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu_{n+1|n} = \mu_{n|n} \tag{39}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_{n+1|n} = q_{n|n} + \delta_{n+1}^2 \tag{40}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    δ
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    <sup>
+     n
+    </sup>
+   </i>
+   +
+   <sup>
+    1
+   </sup>
+   = Var[
+   <i>
+    µ(n
+   </i>
+   <sup>
+    +
+   </sup>
+   1
+   <i>
+    )
+   </i>
+   −
+   <i>
+    µ(n)
+   </i>
+   ].
+  </p>
+  <p block-type="Text">
+   The collection of models can be enlarged by allowing linear transformation on the right-hand side of equation
+   <i>
+    (
+   </i>
+   35
+   <i>
+    )
+   </i>
+   and adjusting equations
+   <i>
+    (
+   </i>
+   39
+   <i>
+    )
+   </i>
+   and
+   <i>
+    (
+   </i>
+   40
+   <i>
+    )
+   </i>
+   accordingly.
+  </p>
+  <p block-type="TextInlineMath">
+   The evolutionary model sketched here can easily be extended to the
+   <i>
+    evolutionary regression credibility model.
+   </i>
+   By an appropriate choice of the components of
+   <i>
+    β (n)
+   </i>
+   , the evolutionary regression model allows the modeling of a large number of evolutionary phenomena. In particular, one can model in this way all situations where the process
+   <i>
+    µ j
+   </i>
+   :
+   <i>
+    j
+   </i>
+   = 1
+   <i>
+    ,
+   </i>
+   2
+   <i>
+    ,...
+   </i>
+   is an autoregressive moving average (ARMA) process (
+   <i>
+    see
+   </i>
+   <b>
+    Autoregressive Moving Average (ARMA) Processes
+   </b>
+   ). Analogously, one can extend the idea to the multidimensional case and consider the
+   <i>
+    evolutionary multidimensional credibility model
+   </i>
+   . It allows to model situations where the individual risk over time depends both on specific individual factors as well as on global factors affecting all risks in the collective simultaneously (see [5] for further details). Such models might, besides insurance, also be suitable for applications in finance.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bailey, A.L. (1950). Credibility procedures, Laplace's generalization of Bayes' Rule, and the combination of collateral knowledge with observed data,
+     <i>
+      Proceedings of the Casualty Actuarial Society
+     </i>
+     <b>
+      37
+     </b>
+     , 7–23.
+    </li>
+    <li block-type="ListItem">
+     [2] Buhlmann, H. (1967). Experience rating and credibility, ¨
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      4
+     </b>
+     , 199–207.
+    </li>
+    <li block-type="ListItem">
+     [3] Buhlmann, H. (1969). Experience rating and credibility, ¨
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      5
+     </b>
+     , 157–165.
+    </li>
+    <li block-type="ListItem">
+     [4] Buhlmann, H. &amp; Gisler, A. (1997). Credibility in the ¨ regression case revisited,
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      27
+     </b>
+     , 83–98.
+    </li>
+    <li block-type="ListItem">
+     [5] Buhlmann, H. &amp; Gisler, A. (2005). ¨
+     <i>
+      A Course in Credibility Theory and its Applications
+     </i>
+     , Universitext, Springer, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [6] Buhlmann, H. &amp; Jewell, W.S. (1987). Hierarchical ¨ credibility revisited,
+     <i>
+      Bulletin of the Swiss Association of Actuaries
+     </i>
+     <b>
+      87
+     </b>
+     , 35–54.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [7] Buhlmann, H. &amp; Straub, E. (1970). Glaubw ¨ urdigkeit ¨ fur Schadens ¨ atze, ¨
+     <i>
+      Bulletin of the Swiss Association of Actuaries
+     </i>
+     <b>
+      76
+     </b>
+     , 111–133.
+    </li>
+    <li block-type="ListItem">
+     [8] Dannenburg, D.R., Kaas, R. &amp; Goovaerts, M.J. (1996).
+     <i>
+      Practical Actuarial Credibility Models
+     </i>
+     , Institute of Actuarial Science and Econometrics, Amsterdam.
+    </li>
+    <li block-type="ListItem">
+     [9] De Vylder, F. (1976). Geometrical credibility,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     <b>
+      76
+     </b>
+     , 121–149.
+    </li>
+    <li block-type="ListItem">
+     [10] Gerber, H.U. &amp; Jones, D.A. (1975). Credibility formulas of the updating type,
+     <i>
+      Transaction of the Society of Actuaries
+     </i>
+     <b>
+      27
+     </b>
+     , 39–52.
+    </li>
+    <li block-type="ListItem">
+     [11] Hachemeister, C.A. (1975). Credibility for regression models with application to trend, in
+     <i>
+      Credibility: Theory and Applications
+     </i>
+     , P.M. Kahn, ed., Academic Press, New York, pp. 129–163.
+    </li>
+    <li block-type="ListItem">
+     [12] Jewell, W.S. (1973).
+     <i>
+      Multidimensional Credibility
+     </i>
+     , Report ORC Berkeley, Operations Research Center, Berkeley.
+    </li>
+    <li block-type="ListItem">
+     [13] Jewell, W.S. (1974). Credibility means are exact Bayesian for simple exponential families,
+     <i>
+      ASTIN Bulletin
+     </i>
+     <b>
+      8
+     </b>
+     , 77–90.
+    </li>
+    <li block-type="ListItem">
+     [14] Jewell, W.S. (1975). The use of collateral data in credibility theory: a hierarchical model,
+     <i>
+      Giornale dell'Instituto Italiano degli Attuari
+     </i>
+     <b>
+      38
+     </b>
+     , 1–16.
+    </li>
+    <li block-type="ListItem">
+     [15] Kalmann, R.E. (1960). A new approach to linear filtering and prediction problems,
+     <i>
+      Transactions of ASME-Journal of Basic Engineering
+     </i>
+     <b>
+      82
+     </b>
+     , 35–45.
+    </li>
+    <li block-type="ListItem">
+     [16] Norberg, R. (1980). Empirical Bayes credibility,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     <b>
+      38
+     </b>
+     , 177–194.
+    </li>
+    <li block-type="ListItem">
+     [17] Norberg, R. (2004). Credibility theory, in
+     <i>
+      Encyclopedia of Actuarial Science
+     </i>
+     , J.L. Teugels &amp; B. Sundt, eds, Wiley, Chichester, UK, pp. 398–406.
+    </li>
+    <li block-type="ListItem">
+     [18] Sundt, B. (1981). Recursive credibility estimation,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     3–22.
+    </li>
+    <li block-type="ListItem">
+     [19] Taylor, G.C. (1979). Credibility analysis of a general hierarchical model,
+     <i>
+      Scandinavian Actuarial Journal
+     </i>
+     1–12.
+    </li>
+    <li block-type="ListItem">
+     [20] Whitney, A.W. (1918). The theory of experience rating,
+     <i>
+      Proceedings of the Casualty Actuarial Society
+     </i>
+     <b>
+      4
+     </b>
+     , 274–292.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <h4>
+   <b>
+    Credit Rating
+   </b>
+   ;
+   <b>
+    Credit Scoring
+   </b>
+   .
+  </h4>
+  <p block-type="Text">
+   ALOIS GISLER
+  </p>
+ </body>
+</html>

@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Multifractals
+  </h1>
+  <p block-type="Text">
+   Since the early work of Mandelbrot on the fluctuations of the cotton price in the early sixties, it is well known that market price variations are poorly described by the standard geometric Brownian motion [14]. Extreme events are more probable than in a Gaussian world and volatility fluctuations are well known to be of an intermittent and correlated nature. As we discuss in this article, multifractal analysis has provided new concepts and tools to analyze market fluctuations and has inspired a particularly elegant family of models that accounts for the main observed empirical properties in a parsimonious way. These models while capturing the "heteroskedastic" nature of return fluctuations, still preserve, in some sense, the nice stability property across timescales of Brownian motion. This sharply contrasts with classical econometric models that can hardly be controlled as the timescale is changed.
+  </p>
+  <h4>
+   <b>
+    Multifractal Scaling
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    p(t)
+   </math>
+   be the price of some asset at time t,
+   <math display="inline">
+    X(t) =
+   </math>
+   <math display="inline">
+    \ln[p(t)]
+   </math>
+   and
+   <math display="inline">
+    \delta_{\ell}X(t)
+   </math>
+   the log return between times t and
+   <math display="inline">
+    t + \ell
+   </math>
+   :
+   <math display="inline">
+    \delta_{\ell} X(t) = X(t + \ell) - X(t)
+   </math>
+   .&lt;sup&gt;a&lt;/sup&gt;
+   <math display="inline">
+    X(t)
+   </math>
+   will be called a
+   <i>
+    multifractal process
+   </i>
+   if, for a range of
+   <math display="inline">
+    q
+   </math>
+   , the order q absolute moment of
+   <math display="inline">
+    \delta_{\ell}X(t)
+   </math>
+   behaves as a power law when
+   <math display="inline">
+    \ell
+   </math>
+   varies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M(q,\ell) = \mathbb{E}\left[|\delta_{\ell}X|^{q}\right] \sim C_{q}\ell^{\zeta(q)}, \quad l \leq T \qquad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbb{E}
+   </math>
+   [.] stands for the mathematical expectation, the exponent
+   <math display="inline">
+    \zeta(q)
+   </math>
+   is a nonlinear concave function of
+   <math display="inline">
+    q
+   </math>
+   and
+   <math display="inline">
+    T
+   </math>
+   is a large characteristic timescale referred to as the
+   <i>
+    integral scale
+   </i>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The multifractal nature of market data is illustrated on the S&amp;P 500 index in Figure 1 using traded prices sampled every 10 min. In perfect agreement with equation (1), log-log plots of
+   <math display="inline">
+    M(q, l)
+   </math>
+   versus
+   <math display="inline">
+    \ell
+   </math>
+   show linear behavior up to a scale of the order of
+   <math display="inline">
+    T \simeq 1
+   </math>
+   year and the so-obtained
+   <math display="inline">
+    \zeta(q)
+   </math>
+   spectrum (using linear regression) turns out to be well fitted by a parabolic shape. The S&amp;P 500 future index can thus be considered, at least at this description level, as a multifractal signal. During the last decade, a lot of works have studied various market data within the framework of multifractal scaling analysis: on
+  </p>
+  <p block-type="Text">
+   FX rates, commodity markets, stock markets, future markets, and emerging markets (see [2] for a review). These studies point to multifractality as a stylized feature of financial time series.
+  </p>
+  <p block-type="TextInlineMath">
+   The scaling of return moments as a function of the timescale
+   <math display="inline">
+    \ell
+   </math>
+   is, in fact, intimately related to some selfsimilarity property of the process
+   <math display="inline">
+    X(t)
+   </math>
+   . A process
+   <math display="inline">
+    X(t)
+   </math>
+   is called
+   <i>
+    self-similar
+   </i>
+   of exponent H if it has stationary increments and if
+   <math display="inline">
+    \forall s &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_{s\ell}X(st) \underset{\text{Law}}{=} s^H \delta_{\ell}X(t) \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This means that the original process and a dilated version of it are statistically undistinguishable. In that case,
+   <math display="inline">
+    M(q, \ell) \sim \ell^{qH}
+   </math>
+   and
+   <math display="inline">
+    \zeta(q)
+   </math>
+   is a linear function of
+   <math display="inline">
+    q
+   </math>
+   . To account for multifractality (i.e., nonlinear
+   <math display="inline">
+    \zeta(q)
+   </math>
+   ), one can replace the deterministic factor
+   <math display="inline">
+    s^H
+   </math>
+   by a random one and get the stochastic self-similarity property:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta X_{s\ell}(st) \underset{\text{Law}}{=} W_s \delta X_{\ell}(t) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    W_s = e^{\omega_s}
+   </math>
+   is a positive random variable independent of the process
+   <math display="inline">
+    X
+   </math>
+   and which law is log infinitely divisible and only depends on
+   <math display="inline">
+    s
+   </math>
+   . From this equation, it is easy to show that
+   <math display="inline">
+    \zeta(q) =
+   </math>
+   <math display="inline">
+    \ln \mathbb{E}\left[e^{-q\omega_s}\right] / \ln s
+   </math>
+   . The multifractality
+   <i>
+    strength
+   </i>
+   of the process is generally characterized by the curvature of
+   <math display="inline">
+    \zeta(q)
+   </math>
+   , that is, by the so-called intermittency coefficient
+   <math display="inline">
+    \lambda^2 = -\zeta''(0)
+   </math>
+   . The simplest nonlinear case is the lognormal model that corresponds to a parabolic
+   <math display="inline">
+    \zeta(q)
+   </math>
+   (i.e.,
+   <math display="inline">
+    \omega_s
+   </math>
+   is Gaussian).
+  </p>
+  <p block-type="Text">
+   Let us point out that the stochastic self-similarity implies (i) that the smaller the
+   <math display="inline">
+    \ell
+   </math>
+   is, the
+   <i>
+    fatter
+   </i>
+   the tails of the probability distribution function (PDF) of
+   <math display="inline">
+    \delta_{\ell} X
+   </math>
+   are and (ii) that the covariance function of
+   <math display="inline">
+    \ln |\delta X_{\ell}|
+   </math>
+   is slowly decreasing (up to scale
+   <math display="inline">
+    T
+   </math>
+   ) as the logarithm of the lag. These two features are indeed observed on most financial data as illustrated on S&amp;P 500 future data in Figures 2 and 3.
+  </p>
+  <h3>
+   <b>
+    Random Cascades Models
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   Let us first note that, following an idea of Mandelbrot [14], if
+   <math display="inline">
+    \theta(t)
+   </math>
+   (referred to as the
+   <i>
+    trading time
+   </i>
+   ) is a nondecreasing multifractal process satisfying equation (3) and
+   <math display="inline">
+    B(t)
+   </math>
+   a Brownian motion that is independent of
+   <math display="inline">
+    \theta(t)
+   </math>
+   , then the process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X(t) = B\left[\theta(t)\right] \tag{4}
+   </math>
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Multifractal Analysis of S&amp;P 500 future index. Traded prices have been sampled every 10 min during the period 1988–1999. (a) Log-log plots of
+   <math display="inline">
+    M(q, l)
+   </math>
+   versus
+   <math display="inline">
+    \ell
+   </math>
+   for
+   <math display="inline">
+    q = 1, 2, 3, 4, 5
+   </math>
+   . The timescales
+   <math display="inline">
+    \ell
+   </math>
+   range from 10 min to 6 years. They display linear behavior up to a scale
+   <math display="inline">
+    T \simeq 1
+   </math>
+   year. (b)
+   <math display="inline">
+    \zeta(q)
+   </math>
+   spectrum obtained by linear regression of plots on the left. The plot in the inset is the parabolic nonlinear part of
+   <math display="inline">
+    \zeta(q)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is also multifractal with
+   <math display="inline">
+    \zeta_X(q) = \zeta_\theta(q/2)
+   </math>
+   . If we write
+   <math display="inline">
+    \theta(t) = \int_0^t d\theta(t)
+   </math>
+   , the multifractal random measure
+   <math display="inline">
+    d\theta(t)
+   </math>
+   can be seen as the instantaneous stochastic
+   <i>
+    volatility
+   </i>
+   . Consequently, multifractal models of asset returns reduce to multifractal models of volatility measures.
+  </p>
+  <p block-type="TextInlineMath">
+   Discrete multiplicative cascades were first introduced in the field of empirical finance by the pioneering work of Calvet
+   <i>
+    et al.
+   </i>
+   on exchange rates volatility [15]. Their construction is a direct translation of the self-similarity property
+   <math display="inline">
+    (3)
+   </math>
+   . In the simplest case, the construction of
+   <math display="inline">
+    \theta(t)
+   </math>
+   involves a dyadic tree in a timescale
+   <math display="inline">
+    (t, s)
+   </math>
+   half plane. The level
+   <i>
+    n
+   </i>
+   lies at scale
+   <math display="inline">
+    s_n = T2^{-n}
+   </math>
+   and has
+   <math display="inline">
+    2^n
+   </math>
+   nodes
+   <math display="inline">
+    \{p_{n,k}\}_{0 \le k \le 2^n}
+   </math>
+   , which are uniformly distributed on
+   <math display="inline">
+    [0, T]
+   </math>
+   leading to a partition made of
+   <math display="inline">
+    2^n
+   </math>
+   intervals
+   <math display="inline">
+    I_{n,k}
+   </math>
+   of size
+   <math display="inline">
+    s_n
+   </math>
+   . Moreover, i.i.d. (positive) log infinitely divisible random factors
+   <math display="inline">
+    W_{n,k}
+   </math>
+   are associated with the nodes
+   <math display="inline">
+    p_{n,k}
+   </math>
+   . The cascading process starts at the integral scale
+   <math display="inline">
+    s_0 = T
+   </math>
+   where a measure is uniformly spread on [0, T]:
+   <math display="inline">
+    d\theta_0(t) = dt
+   </math>
+   . At step
+   <math display="inline">
+    n = 1
+   </math>
+   , the measure
+   <math display="inline">
+    d\theta_1(t)
+   </math>
+   is obtained from
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    d\theta_0(t)
+   </math>
+   by multiplying its density on the interval
+   <math display="inline">
+    I_{1,0}
+   </math>
+   (respectively,
+   <math display="inline">
+    I_{1,1}
+   </math>
+   ) by the corresponding factors
+   <math display="inline">
+    W_{1,0}
+   </math>
+   (respectively,
+   <math display="inline">
+    W_{1,1}
+   </math>
+   ). At step n,
+   <math display="inline">
+    d\theta_n(t)
+   </math>
+   is obtained by multiplying
+   <math display="inline">
+    d\theta_{n-1}(t)
+   </math>
+   on each
+   <math display="inline">
+    I_{n-1,k}
+   </math>
+   by
+   <math display="inline">
+    W_{n-1,k}
+   </math>
+   leading to the representation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}\theta_n(u) = 2^{-n} \mathrm{e}^{\sum_{i=1}^n \delta \omega_{i,u_k}} \, \mathrm{d}t \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    W_{i,u_k} = e^{\delta \omega_{i,u_k}}
+   </math>
+   and
+   <math display="inline">
+    u_k
+   </math>
+   corresponds to the integer part of
+   <math display="inline">
+    u2^n
+   </math>
+   . Finally, one gets
+   <math display="inline">
+    d\theta(t) =
+   </math>
+   <math display="inline">
+    \lim_{n\to+\infty} d\theta_n(t)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Grid-bounded cascades, though simple, do not provide a satisfying solution to model volatility fluctuations: (i) they involve an arbitrary fixed scale ratio, (ii) they are not built in a causal way, and (iii) they are not stationary. In their "Poisson multifractal model", Calvet and Fisher [7] get rid of (ii) and (iii), by basically replacing, for a fixed
+   <i>
+    n
+   </i>
+   , the points
+   <math display="inline">
+    \{p_{n,k}\}_k
+   </math>
+   by random Poisson points with intensity
+   <math display="inline">
+    r(s_n) = s_n^{-1}
+   </math>
+   . Barral and Mandelbrot [5] go one step further (getting rid of (i)), by replacing the points
+   <math display="inline">
+    \{p_{n,k}\}_{n,k}
+   </math>
+   and their associated weights
+   <math display="inline">
+    \{W_{n,k}\}_{n,k}
+   </math>
+   by a nonhomogeneous spatial compound Poisson process, with the compound law W and the intensity
+   <math display="inline">
+    r(s, t) = s^{-1}
+   </math>
+   . This construction can be generalized by replacing the compound Poisson process by an arbitrary infinitely divisible random noise
+   <math display="inline">
+    d\omega(t, s)
+   </math>
+   in the half plane
+   <math display="inline">
+    (t, s)
+   </math>
+   (with density dt ds/
+   <math display="inline">
+    s^2
+   </math>
+   ). Equation (4) is replaced by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\theta_{s}(t) = e^{\int_{(s',t') \in C_{s}(t)} d\omega(t',s')} dt \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C_s(t)
+   </math>
+   is a cone-like domain (pointing at
+   <math display="inline">
+    (0, t)
+   </math>
+   and truncated below scale s). This construction [3] corresponds to the fully continuous generalization of equation (4). The limiting measure
+   <math display="inline">
+    d\theta(t) =
+   </math>
+   <math display="inline">
+    \lim_{s\to 0} d\theta_s(t)
+   </math>
+   is shown to be stochastic self-similar, with
+   <i>
+    exact
+   </i>
+   scaling
+   <math display="inline">
+    (M(q, l) = C_q l^{\zeta(q)}, \forall l \leq T)
+   </math>
+   and having none of the drawbacks
+   <math display="inline">
+    (i)
+   </math>
+   –
+   <math display="inline">
+    (iii)
+   </math>
+   . Of course, the corresponding
+   <math display="inline">
+    X(t) = B(\theta(t))
+   </math>
+   process shares exactly the same properties, it is referred to as a
+   <i>
+    multifractal
+   </i>
+   random walk (MRW).
+  </p>
+  <p block-type="TextInlineMath">
+   The "simplest" MRW model corresponds to the case W is log-normal. In that case
+   <math display="inline">
+    d\omega(t', s')
+   </math>
+   is a Gaussian white noise, and it can be shown that
+   <math display="inline">
+    \theta(t)
+   </math>
+   can be obtained directly by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \theta(t) = \lim_{\Delta \to 0} \int_0^t e^{2\omega_{\Delta}(u)} du \tag{7}
+   </math>
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Continuous deformation of increment PDF's
+   <math display="inline">
+    \delta_{\ell}X
+   </math>
+   across scales. Standardized PDF's (in logarithm scale) at large (b) to small (a) scales. Plots have been arbitrarily shifted along the vertical axis to illustrate the tails getting fatter as the scale is going smaller. (b) same S&amp;P 500 data as in Figure 1. The scales range from 10 min to 1 month. (a) MRW Model with
+   <math display="inline">
+    \lambda^2 = 0.03
+   </math>
+   ,
+   <math display="inline">
+    \Delta = 1/16
+   </math>
+   and
+   <math display="inline">
+    T = 8192
+   </math>
+   . The scales range from 16 sampling size to two integral scales. Estimation (
+   <math display="inline">
+    \circ
+   </math>
+   ) made from 500 MRW realizations of
+   <math display="inline">
+    2^{17}
+   </math>
+   sampled points. The solid line corresponds to the prediction from the largest scale using equation
+   <math display="inline">
+    (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the
+   <i>
+    magnitude process
+   </i>
+   <math display="inline">
+    \omega_{\Delta}(u)
+   </math>
+   is a stationary Gaussian process fully defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left[\omega_{\Delta}(t)\right] = -\lambda^2 \ln\left(\frac{T}{\Lambda}\right) \tag{8}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R_{\Delta}(\tau) = \begin{cases} \lambda^{2} \left( \ln \left( \frac{T}{\Delta} \right) + 1 - \frac{\tau}{\Delta} \right), &amp; \tau \leq \Delta \\ \lambda^{2} \ln \left( \frac{T}{\tau} \right), &amp; \tau \in [\Delta, T] \\ 0, &amp; \tau &gt; T \end{cases}
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    R_{\Delta}(\tau) = \mathbb{C}ov(\omega_{\Delta}(t), \omega_{\Delta}(t+\tau)).
+   </math>
+  </p>
+  <p block-type="Text">
+   Statistical issues such as parameter estimation remain to be studied (see [18]). Calvet and Fisher [7] introduced a Markov-switching version of their
+  </p>
+  <p block-type="Text">
+   cascade model that is amenable to maximum likelihood estimation. They were the first to propose a generalized method of moments (GMMs) to estimate the parameters of their model (see also [12, 13] for discrete cascades). The log-normal MRW model is fully defined by three parameters:
+   <math display="inline">
+    \sigma^2
+   </math>
+   the variance of the Brownian motion,
+   <math display="inline">
+    T
+   </math>
+   the integral scale (decorrelation timescale of the volatility), and
+   <math display="inline">
+    \lambda^2
+   </math>
+   the intermittency factor, which is involved in the nonlinear part of
+   <math display="inline">
+    \zeta_q
+   </math>
+   (equation (8)). Since, as briefly discussed below, many of statistical moments associated with the MRW model can be analytically computed, GMM can be simply devised and all these parameters can be easily estimated [11]. We observed that for both
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 3
+   </b>
+   Log-volatility covariance
+   <math display="inline">
+    C_{\omega}(\ell,\tau)
+   </math>
+   of the S&amp;P 500 future. (a)
+   <math display="inline">
+    C_{\omega}(\ell,\tau)
+   </math>
+   versus
+   <math display="inline">
+    \tau
+   </math>
+   for
+   <math display="inline">
+    \tau = 10
+   </math>
+   min. The solid line represents a fit according to the MRW model logarithmic expression. (b)
+   <math display="inline">
+    C_{\omega}(\ell,\tau)
+   </math>
+   versus
+   <math display="inline">
+    \ln(\tau)
+   </math>
+   . The MRW model predicts a linear behavior that crosses the y-axis at
+   <math display="inline">
+    \ln(\tau) = \ln(T)
+   </math>
+  </p>
+  <p block-type="Text">
+   the daily and intraday financial data, the correlation time
+   <math display="inline">
+    T
+   </math>
+   is very large (greater than one year) and the parameter
+   <math display="inline">
+    \lambda^2
+   </math>
+   lies in [0.02, 0.05].
+  </p>
+  <h3>
+   <b>
+    Properties and Risk Forecasting
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   As far as multifractal properties are concerned,
+   <math display="inline">
+    X(t)
+   </math>
+   verifies the exact stochastic self-similarity property as defined by equation
+   <math display="inline">
+    (3)
+   </math>
+   and therefore its moments behave exactly as a power law of the timescale
+   <math display="inline">
+    (\ell &lt; T)
+   </math>
+   with a parabolic multifractal spectrum
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \zeta(q) = q(1/2 + \lambda^2) - \frac{\lambda^2}{2}q^2 \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Many other scaling laws can be computed and notably those of "
+   <i>
+    p
+   </i>
+   -volatility" correlations
+   <math display="inline">
+    C_p(\ell, \ell)
+   </math>
+   <math display="inline">
+    \tau \equiv \mathbb{E} \left[ |\delta_{\ell} X(\tau)|^p |\delta_{\ell} X(0)|^p \right]
+   </math>
+   . In [17], it is shown that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_p(\ell,\tau) \sim K_p^2 \left(\frac{l}{T}\right)^{2\zeta_p} \left(\frac{\tau}{T}\right)^{-\lambda^2 p^2} \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the constant
+   <math display="inline">
+    K_p
+   </math>
+   can be computed analytically. For proofs and details, see [2, 3]. Although they did not explicitly refer to the framework of multifractal analysis, Ding and Granger [9] were the first to observe a nontrivial dependence of
+   <math display="inline">
+    C_p(\ell,\tau)
+   </math>
+   as a function of p. Note that when
+   <math display="inline">
+    p \rightarrow 0
+   </math>
+   , one recovers the logarithmic slowly decreasing of the log-volatility covariance
+   <math display="inline">
+    C_{\omega}(\ell, \tau)
+   </math>
+   as illustrated in Figure 3.
+  </p>
+  <p block-type="Text">
+   Equation (9) can be directly used to predict volatility. In [7], Calvet and Fisher have already shown that their cascade model provides better volatility forecasts as compared to
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   or Markov-switching GARCH (see also [13]). Bacry and Muzy
+   <math display="inline">
+    [2, 4]
+   </math>
+   have shown that linear volatility forecast provided by the MRW model outperforms
+   <math display="inline">
+    GARCH(1,1)
+   </math>
+   models.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Actually, the MRW model allows to estimate the full (conditional) return probability density function at all time horizons and scales. Very much like standard Brownian motion that is stable with respect to time aggregation, the self-similarity properties
+  </p>
+  <p block-type="TextInlineMath">
+   of the MRW process
+   <i>
+    X(t)
+   </i>
+   allows to control how the return probability law changes when varying the timescale. Indeed, it can be shown that, in a good approximation, when
+   <i>
+    λ
+   </i>
+   <sup>
+    2
+   </sup>
+   1, the returns of the MRW process, can be written, in law, as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_{\ell}X(t) \underset{\text{Law}}{\simeq} \epsilon_{\ell}(t) \mathrm{e}^{\Omega_{\ell}(t)} \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   (see [4] for details and for the precise meaning of the symbol ) for all
+   <i>
+    -
+   </i>
+   ≤
+   <i>
+    T
+   </i>
+   , where
+   <i>
+   </i>
+   is a Gaussian white noise of variance
+   <i>
+    σ
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+   </i>
+   and the process
+   <i>
+    -(t)
+   </i>
+   is the
+   <i>
+    renormalized magnitude
+   </i>
+   . It is a stationary Gaussian process whose mean and covariance are very similar to equation (7). In Figure 2, we see that, as observed for S&amp;P 500 data, the MRW returns PDF strongly depends on the timescale and evolves from a "quasi-Gaussian" shape at large scales (
+   <i>
+    - T
+   </i>
+   ) to PDF's with high kurtosis at small scales. Even if the precise shape of the PDF tails returns is a matter of debate, the most commonly admitted form is a power law with a tail exponent
+   <i>
+    µ
+   </i>
+   within the interval [3
+   <i>
+    ,
+   </i>
+   5] (see, e.g., [6, 10]). The MRW model allowed to point out [1, 16] that this behavior is strongly related to the choice of the asymptotics in the estimation process. The "high-frequency asymptotics" (sampling frequency going to infinity) has to be distinguished from the "long duration asymptotics" (duration of the considered time period going to infinity).
+  </p>
+  <p block-type="Text">
+   All previous considerations can be extended to conditional laws and can be of practical interest for VaR forecasting. As shown in [2, 4], MRW predictions of VaR at various time horizons can be more reliable than predictions based on a GARCH(1,1) model.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   We do not address here the modeling of intraday modulation of the data. This modulation can be removed following [8]. We consider that
+   <i>
+    δ-X(t)
+   </i>
+   is stationary and has zero mean.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bacry, E., Gloter, A., Hoffmann, M. &amp; Muzy, J.F. (2009). Multifractal analysis in a mixed asymptotic framework,
+     <i>
+      Annals of Applied Probability
+     </i>
+     Preprint, arXiv.org/math/0805.0194. To appear.
+    </li>
+    <li block-type="ListItem">
+     [2] Bacry, E., Kozhemyak, A. &amp; Muzy, J.F. (2008). Continuous cascade models for asset returns,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      32
+     </b>
+     , 156–199.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [3] Bacry, E. &amp; Muzy, J.F. (2003). Log-infinitely divisible multifractal process,
+     <i>
+      Communications in Mathematical Physics
+     </i>
+     <b>
+      236
+     </b>
+     , 449–475.
+    </li>
+    <li block-type="ListItem">
+     [4] Bacry, E., Kozhemyak, A. &amp; Muzy, J.F. (2009). Log-normal continuous cascades: aggregation properties and estimation,
+     <i>
+      Quantitative Finance
+     </i>
+     Preprint, arXiv.org/physics/0804.0185. To appear.
+    </li>
+    <li block-type="ListItem">
+     [5] Barral, J. &amp; Mandelbrot, B.B. (2002). Multifractal products of cylindrical pulses,
+     <i>
+      Probability Theory and Related Fields
+     </i>
+     <b>
+      124
+     </b>
+     , 409–430.
+    </li>
+    <li block-type="ListItem">
+     [6] Bouchaud, J.P. &amp; Potters, M. (2003).
+     <i>
+      Theory of Financial Risk and Derivative Pricing
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [7] Calvet, L. &amp; Fisher, A. (2004). How to forecast long-run volatility,
+     <i>
+      Journal of Financial Econometrics
+     </i>
+     <b>
+      2
+     </b>
+     , 49–83.
+    </li>
+    <li block-type="ListItem">
+     [8] Dacorogna, M.M., Gen¸cay, R., Muller, U.A., Olsen, R.B. ¨ &amp; Pictet, O.V. (2001).
+     <i>
+      An introduction to High Frequency Finance
+     </i>
+     , Academic Press, San Diego.
+    </li>
+    <li block-type="ListItem">
+     [9] Ding, Z. &amp; Granger, C.W.J. (1996). Modeling volatility persistence of speculative returns: a new approach,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      73
+     </b>
+     , 185–215.
+    </li>
+    <li block-type="ListItem">
+     [10] Gopikrishnam, P., Meyer, M., Amaral, L.A.N. &amp; Stanley, H.E. (1998). Inverse cubic law for the distribution of stock price variations,
+     <i>
+      The European Physical Journal B
+     </i>
+     <b>
+      3
+     </b>
+     , 139–140.
+    </li>
+    <li block-type="ListItem">
+     [11] Lastwave gnu software, (2008). www.cmap. polytechnique.fr/∼bacry/LastWave
+    </li>
+    <li block-type="ListItem">
+     [12] Lux, T. (2001). Turbulence in financial markets,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      1
+     </b>
+     , 632.
+    </li>
+    <li block-type="ListItem">
+     [13] Lux, T. (2004).
+     <i>
+      The Markov-Switching Multi-Fractal Model of Asset Returns
+     </i>
+     , Economic, University of Kiel, working paper.
+    </li>
+    <li block-type="ListItem">
+     [14] Mandelbrot, B.B. (1997).
+     <i>
+      Fractals and Scaling in Finance. Discontinuity, Concentration, Risk
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [15] Mandelbrot, B.B., Calvet, L. &amp; Fisher, A. (1997).
+     <i>
+      The Multifractal Model of Asset Returns
+     </i>
+     , Preprint, Cowles Foundation Discussion paper 1164.
+    </li>
+    <li block-type="ListItem">
+     [16] Muzy, J.F., Bacry, E. &amp; Kozhemyak, A. (2006). Extreme values and fat tails of multifractal fluctuations,
+     <i>
+      Physical Review E
+     </i>
+     <b>
+      73
+     </b>
+     , 066114.
+    </li>
+    <li block-type="ListItem">
+     [17] Muzy, J.F., Delour, J. &amp; Bacry, E. (2000). Modelling fluctuations of financial time series,
+     <i>
+      European Journal of Physics B
+     </i>
+     <b>
+      17
+     </b>
+     , 537–548.
+    </li>
+    <li block-type="ListItem">
+     [18] Ossiander, M. &amp; Waymire, E.C. (2000). Statistical estimation for multiplicative cascades,
+     <i>
+      The Annals of Statistics
+     </i>
+     <b>
+      28
+     </b>
+     , 1533–1560.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Kahane, J.P. &amp; Peyriere, J. (1976). Sur certaines martingales de ` Benoˆit Mandelbrot,
+     <i>
+      Advances in Mathematics
+     </i>
+     <b>
+      22
+     </b>
+     , 131–145.
+    </li>
+    <li block-type="ListItem">
+     Molchan, G.M. (1996). Scaling Exponents and Multifractal Dimensions for independent random cascades,
+     <i>
+      Communications in Mathematical Physics
+     </i>
+     <b>
+      179
+     </b>
+     , 681–702.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   EMMANUEL BACRY &amp; JEAN-FRAN MUZY
+  </p>
+ </body>
+</html>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Multivariate Distributions
+   </b>
+  </h1>
+  <p block-type="Text">
+   Financial risk models, whether for market or credit risks, are inherently multivariate. For instance, the value change of a portfolio of traded instruments over a fixed time horizon depends on a random vector of risk-factor changes or returns; similarly, the loss incurred by a credit portfolio depends on a random vector of losses for the individual counterparties in the portfolio. In this article, we review some multivariate distributions (models for the distribution of random vectors) that are particularly useful for financial data. Our discussion is based mainly on Chapter 3 of [5]; the closely related issue of copulas and dependence measurement is discussed in Copulas: Estimation.
+  </p>
+  <h3>
+   <b>
+    Random Vectors and Their Distributions
+   </b>
+  </h3>
+  <p block-type="Text">
+   In this section, we briefly review some key notions from multivariate statistics.
+  </p>
+  <h3>
+   Joint and Marginal Distributions
+  </h3>
+  <p block-type="TextInlineMath">
+   Consider a general
+   <math display="inline">
+    d
+   </math>
+   -dimensional random vector (think of risk-factor changes or log-returns)
+   <math display="inline">
+    X =
+   </math>
+   <math display="inline">
+    (X_1,\ldots,X_d)'
+   </math>
+   . The dependence between the components of
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   is completely described by the
+   <i>
+    joint
+   </i>
+   <math display="inline">
+    distribution
+   </math>
+   (df)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{\mathbf{X}}(\mathbf{x}) = F_{\mathbf{X}}(x_1, \dots, x_d) = P\left(\mathbf{X} \le \mathbf{x}\right)
+   </math>
+   <math display="block">
+    = P\left(X_1 \le x_1, \dots, X_d \le x_d\right) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The
+   <i>
+    marginal
+   </i>
+   distribution function of
+   <math display="inline">
+    X_i
+   </math>
+   , written as
+   <math display="inline">
+    F_{X_i}
+   </math>
+   or often simply as
+   <math display="inline">
+    F_i
+   </math>
+   , is the df of that risk factor considered individually and is easily calculated from the joint df via
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_i(x_i) = P(X_i \le x_i)
+   </math>
+   <br/>
+   =
+   <math>
+    F(\infty, \dots, \infty, x_i, \infty, \dots, \infty)
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where the last expression is understood as the limit, as the respective arguments tend to the upper boundaries of the support of the distribution. If the marginal df
+   <math display="inline">
+    F_i(x)
+   </math>
+   is absolutely continuous, then we refer to its derivative
+   <math display="inline">
+    f_i(x)
+   </math>
+   as the
+   <i>
+    marginal density
+   </i>
+   of
+   <math display="inline">
+    X_i
+   </math>
+   . The
+  </p>
+  <p block-type="Text">
+   df of a random vector
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   is said to be
+   <i>
+    absolutely
+   </i>
+   continuous if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(x_1,\ldots,x_d)
+   </math>
+   <br/>
+   =
+   <math>
+    \int_{-\infty}^{x_1} \cdots \int_{-\infty}^{x_d} f(u_1,\ldots,u_d) \, \mathrm{d}u_1 \ldots \, \mathrm{d}u_d
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   for some nonnegative function
+   <math display="inline">
+    f
+   </math>
+   integrating to one, known as the
+   <i>
+    joint density
+   </i>
+   of
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   .
+  </p>
+  <h4>
+   Conditional Distributions and Independence
+  </h4>
+  <p block-type="TextInlineMath">
+   If we have a multivariate model for risks in the form of a joint df or density, we can make conditional probability statements about the probability that certain components take certain values given that other components take other values. More precisely, partition
+   <b>
+    X
+   </b>
+   into
+   <math display="inline">
+    (\mathbf{X}'_1, \mathbf{X}'_2)'
+   </math>
+   , where
+   <math display="inline">
+    \mathbf{X}_1 = (X_1, \ldots, X_k)'
+   </math>
+   and
+   <math display="inline">
+    \mathbf{X}_2 = (X_{k+1}, \ldots, X_d)'
+   </math>
+   . Assume that
+   <b>
+    X
+   </b>
+   is absolutely continuous with density
+   <math display="inline">
+    f
+   </math>
+   and denote by
+   <math display="inline">
+    f_{\mathbf{X}_1}(\mathbf{x}_1) = \int f(\mathbf{x}_1, \mathbf{x}_2) \, \mathrm{d}\mathbf{x}_2
+   </math>
+   the density of
+   <math display="inline">
+    \mathbf{x}_1
+   </math>
+   . Then the conditional distribution of
+   <math display="inline">
+    \mathbf{X}_2
+   </math>
+   given
+   <math display="inline">
+    \mathbf{X}_1 = \mathbf{x}_1
+   </math>
+   has density
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_{\mathbf{X}_2|\mathbf{X}_1}(\mathbf{x}_2 \mid \mathbf{x}_1) = \frac{f(\mathbf{x}_1, \mathbf{x}_2)}{f_{\mathbf{X}_1}(\mathbf{x}_1)} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The components of
+   <math display="inline">
+    X
+   </math>
+   are called
+   <i>
+    mutually independent
+   </i>
+   , if and only if
+   <math display="inline">
+    F(\mathbf{x}) = \prod_{i=1}^{d} F_i(x_i)
+   </math>
+   for all
+   <math display="inline">
+    \mathbf{x} \in \mathbb{R}^d
+   </math>
+   or, in the case where
+   <b>
+    X
+   </b>
+   possesses a density,
+   <math display="inline">
+    f(\mathbf{x}) =
+   </math>
+   <math display="inline">
+    \prod_{i=1}^d f_i(x_i).
+   </math>
+  </p>
+  <h3>
+   Moments and Characteristic Function
+  </h3>
+  <p block-type="TextInlineMath">
+   The
+   <i>
+    mean vector
+   </i>
+   of
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   , when it exists, is given by
+   <math display="inline">
+    E(\mathbf{X}) := (E(X_1), \dots, E(X_d))'
+   </math>
+   ; the
+   <i>
+    covariance matrix
+   </i>
+   , when it exists, is the matrix
+   <math display="inline">
+    \Sigma = \text{cov}(\mathbf{X})
+   </math>
+   with
+   <math display="inline">
+    (i, j)
+   </math>
+   th element given by
+   <math display="inline">
+    \sigma_{ij} = \text{cov}(X_i, X_j) =
+   </math>
+   <math display="inline">
+    E(X_iX_j) - E(X_i)E(X_j)
+   </math>
+   , the ordinary pairwise covariance between
+   <math display="inline">
+    X_i
+   </math>
+   and
+   <math display="inline">
+    X_j
+   </math>
+   . The diagonal elements
+   <math display="inline">
+    \sigma_{11}, \ldots, \sigma_{dd}
+   </math>
+   are the variances of the components of
+   <math display="inline">
+    X
+   </math>
+   . Mean vectors and covariance matrices are extremely, easily manipulated under linear operations on the vector
+   <b>
+    X
+   </b>
+   . For any matrix
+   <math display="inline">
+    B \in \mathbb{R}^{k \times d}
+   </math>
+   and vector
+   <math display="inline">
+    \mathbf{b} \in \mathbb{R}^k
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(B\mathbf{X} + \mathbf{b}) = BE(\mathbf{X}) + \mathbf{b} \tag{5}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    cov(B\mathbf{X} + \mathbf{b}) = B \, cov(\mathbf{X})B' \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Covariance matrices are symmetric and positive semidefinite. In case that
+   <math display="inline">
+    \Sigma
+   </math>
+   is positive definite
+   <math display="inline">
+    (\mathbf{a}'\Sigma\mathbf{a}&gt;0 \text{ for any } \mathbf{a}\in\mathbb{R}^d\setminus\{0\}), \text{ we can use the well-}
+   </math>
+   known Cholesky factorization
+   <math display="inline">
+    \Sigma = AA'
+   </math>
+   for a lower triangular matrix
+   <math display="inline">
+    A
+   </math>
+   with positive diagonal elements known as the
+   <i>
+    Cholesky factor
+   </i>
+   ; this decomposition is very useful for simulation purposes.
+  </p>
+  <p block-type="Text">
+   An important tool for studying multivariate distributions is the
+   <i>
+    characteristic function
+   </i>
+   of a random vector (or its distribution), given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{\mathbf{X}}(\mathbf{t}) = E\left(\mathbf{e}^{it'\mathbf{X}}\right), \quad \mathbf{t} \in \mathbb{R}^d \tag{7}
+   </math>
+  </p>
+  <h3>
+   The Multivariate Normal Distribution
+  </h3>
+  <p block-type="Text">
+   The multivariate normal distribution is central to much of classical multivariate analysis and provided the starting point for attempts to model market risk via the variance-covariance method (see Market
+   <b>
+    Risk
+   </b>
+   or Chapter 2 of
+   <math display="inline">
+    [5]
+   </math>
+   ); moreover, it is an important building block for constructing more refined distributions.
+  </p>
+  <h4>
+   Definition and Basic Properties
+  </h4>
+  <p block-type="TextInlineMath">
+   A random vector
+   <math display="inline">
+    \mathbf{X} = (X_1, \dots, X_d)'
+   </math>
+   has a
+   <i>
+    multivari
+   </i>
+   ate normal or Gaussian distribution if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{X} \stackrel{\text{d}}{=} \boldsymbol{\mu} + A\mathbf{Z} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbf{Z} = (Z_1, \ldots, Z_k)'
+   </math>
+   is a vector of independent and identically distributed (iid) univariate standard normal random variables (rvs) (mean zero and variance one), and
+   <math display="inline">
+    A \in \mathbb{R}^{d \times k}
+   </math>
+   and
+   <math display="inline">
+    \boldsymbol{\mu} \in \mathbb{R}^{d}
+   </math>
+   are the matrix and vector of constants, respectively. It is easy to verify, using equations
+   <math display="inline">
+    (5)
+   </math>
+   and
+   <math display="inline">
+    (6)
+   </math>
+   , that the mean vector of this distribution is
+   <math display="inline">
+    E(\mathbf{X}) = \boldsymbol{\mu}
+   </math>
+   and the covariance matrix is
+   <math display="inline">
+    cov(\mathbf{X}) = \Sigma
+   </math>
+   , where
+   <math display="inline">
+    \Sigma = AA'
+   </math>
+   is a positive semidefinite matrix. Moreover, using the fact that the characteristic function of a standard univariate normal variate Z is
+   <math display="inline">
+    \phi_Z(t) = \exp(-t^2/2)
+   </math>
+   , the characteristic function of
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   may be calculated to be
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{\mathbf{X}}(\mathbf{t}) = E\left(\mathbf{e}^{i\mathbf{t}'\mathbf{X}}\right) = \exp\left(i\mathbf{t}'\boldsymbol{\mu} - \frac{1}{2}\mathbf{t}'\boldsymbol{\Sigma}\mathbf{t}\right), \quad \mathbf{t} \in \mathbb{R}^d
+   </math>
+   (9)
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Clearly, the distribution is characterized by its mean vector and covariance matrix, and hence a standard
+  </p>
+  <p block-type="TextInlineMath">
+   notation is
+   <math display="inline">
+    \mathbf{X} \sim N_d(\boldsymbol{\mu}, \boldsymbol{\Sigma})
+   </math>
+   . Note that the components of
+   <b>
+    X
+   </b>
+   are mutually independent if and only if
+   <math display="inline">
+    \Sigma
+   </math>
+   is diagonal. For example,
+   <math display="inline">
+    \mathbf{X} \sim N_d(\mathbf{0}, I_d)
+   </math>
+   if and only if
+   <math display="inline">
+    X_1, \ldots, X_d
+   </math>
+   are iid
+   <math display="inline">
+    N(0, 1)
+   </math>
+   , the standard univariate normal distribution.
+  </p>
+  <p block-type="TextInlineMath">
+   We concentrate on the
+   <i>
+    nonsingular case
+   </i>
+   of the multivariate normal when rank
+   <math display="inline">
+    (A) = d \leq k
+   </math>
+   . In this case, the covariance matrix
+   <math display="inline">
+    \Sigma
+   </math>
+   has full rank d and is therefore invertible (nonsingular) and positive definite. Moreover,
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   has an absolutely continuous distribution function with joint density given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}} |\Sigma|^{\frac{1}{2}}} \times \exp\left\{-\frac{(\mathbf{x} - \boldsymbol{\mu})' \Sigma^{-1} (\mathbf{x} - \boldsymbol{\mu})}{2}\right\}, \quad \mathbf{x} \in \mathbb{R}^d
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    |\Sigma|
+   </math>
+   denotes the determinant of
+   <math display="inline">
+    \Sigma
+   </math>
+   . In the singular case, the support of the distribution of
+   <math display="inline">
+    X
+   </math>
+   is a strict subspace of
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   and a joint density does not exist. The form of the density clearly shows that points with equal density lie on ellipsoids determined by equations of the form
+   <math display="inline">
+    (\mathbf{x} - \boldsymbol{\mu})' \Sigma^{-1} (\mathbf{x} - \boldsymbol{\mu}) = c
+   </math>
+   , for constants
+   <math display="inline">
+    c &gt; 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In order to generate a realization
+   <math display="inline">
+    \mathbf{X} \sim N_d(\boldsymbol{\mu}, \boldsymbol{\Sigma})
+   </math>
+   with
+   <math display="inline">
+    \Sigma
+   </math>
+   positive definite, one would proceed as follows:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. Perform a Cholesky decomposition
+     <math display="inline">
+      \Sigma = AA'
+     </math>
+     of the covariance matrix
+     <math display="inline">
+      \Sigma
+     </math>
+     (see, e.g., [6]).
+    </li>
+    <li block-type="ListItem">
+     2. Generate a vector
+     <math display="inline">
+      \mathbf{Z} = (Z_1, \ldots, Z_d)'
+     </math>
+     of independent standard normal variates and set
+     <math display="inline">
+      X =
+     </math>
+     <math display="inline">
+      \mu + AZ
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   We now summarize further useful properties of the multivariate normal that underline the attractiveness of this distribution for computational work in risk management. Linear combinations of multivariate normal random vectors are multivariate normal; if
+   <math display="inline">
+    \mathbf{X} \sim N_d(\boldsymbol{\mu}, \boldsymbol{\Sigma})
+   </math>
+   , we have for any
+   <math display="inline">
+    B \in \mathbb{R}^{k \times d}
+   </math>
+   and
+   <math display="inline">
+    \mathbf{b} \in
+   </math>
+   <math display="inline">
+    \mathbb{R}^k
+   </math>
+   that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B\mathbf{X} + \mathbf{b} \sim N_k(B\boldsymbol{\mu} + b, B\Sigma B') \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   As a special case, if
+   <math display="inline">
+    \mathbf{a} \in \mathbb{R}^d
+   </math>
+   , then
+   <math display="inline">
+    \mathbf{a}'\mathbf{X} \sim N(\mathbf{a}'\boldsymbol{\mu})
+   </math>
+   ,
+   <math display="inline">
+    \mathbf{a}'\Sigma\mathbf{a}
+   </math>
+   ), and this fact is used routinely in the variance-covariance approach to risk management. Similarly, marginal distributions of a multivariate normal random vector are univariate normal.
+  </p>
+  <p block-type="TextInlineMath">
+   Assuming
+   <math display="inline">
+    \Sigma
+   </math>
+   is positive definite, the
+   <i>
+    conditional
+   </i>
+   distributions of
+   <math display="inline">
+    X_2
+   </math>
+   given
+   <math display="inline">
+    X_1
+   </math>
+   and of
+   <math display="inline">
+    X_1
+   </math>
+   given
+   <math display="inline">
+    X_2
+   </math>
+   may also be shown to be multivariate normal. For example,
+   <math display="inline">
+    \mathbf{X}_2 \mid \mathbf{X}_1 = \mathbf{x}_1 \sim N_{d-k}(\boldsymbol{\mu}_{2.1}, \boldsymbol{\Sigma}_{22.1})
+   </math>
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \boldsymbol{\mu}_{2.1} = \boldsymbol{\mu}_2 + \Sigma_{21} \Sigma_{11}^{-1} (\mathbf{x}_1 - \boldsymbol{\mu}_1)
+   </math>
+   and
+   <br/>
+   <math>
+    \Sigma_{22.1} = \Sigma_{22} - \Sigma_{21} \Sigma_{11}^{-1} \Sigma_{12}
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   are the conditional mean vector and covariance matrix.
+  </p>
+  <h2>
+   Multivariate Normal Distributions as Model for Asset Returns
+  </h2>
+  <p block-type="Text">
+   There are numerous empirical tests of the suitability of the multivariate normal distribution as a model for log-returns (risk-factor changes) for financial data. These tests involve both testing the hypothesis that marginal log-returns are normal (univariate tests) and tests for multivariate normality; details and further references can, for instance, be found in Section
+   <math display="inline">
+    3.1.4 \text{ of } [3]
+   </math>
+   . Broadly speaking, the outcome of these tests points to three main defects of the multivariate normal distribution (at least for data over a shorter time horizon such as daily or even monthly data):
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. The tails of its univariate marginal distributions are too thin; they do not assign enough weight to
+     <i>
+      extreme
+     </i>
+     events.
+    </li>
+    <li block-type="ListItem">
+     The joint tails of the distribution do not assign 2. enough weight to
+     <i>
+      joint extreme
+     </i>
+     outcomes.
+    </li>
+    <li block-type="ListItem">
+     The distribution has a strong form of symmetry 3. known as
+     <i>
+      elliptical symmetry
+     </i>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   In the next section, we look at models that address some of these defects
+  </p>
+  <h1>
+   Variance Mixtures and Elliptical Distributions
+  </h1>
+  <h3>
+   Normal Mixture Distributions
+  </h3>
+  <p block-type="Text">
+   The random vector
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   is said to have a
+   <i>
+    multivariate
+   </i>
+   normal variance mixture distribution if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{X} \stackrel{\text{d}}{=} \boldsymbol{\mu} + \sqrt{W} A \mathbf{Z} \quad \text{where} \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <math display="inline">
+    \mathbf{Z} \sim N_k(\mathbf{0}, I_k); A \in \mathbb{R}^{d \times k}
+   </math>
+   and
+   <math display="inline">
+    \boldsymbol{\mu} \in \mathbb{R}^d
+   </math>
+   are a matrix, respectively, a vector of constants; and where
+   <math display="inline">
+    W \ge 0
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is a nonnegative, scalar-valued rv, which is independent of
+   <math display="inline">
+    \mathbf{Z}
+   </math>
+   . Such distributions are known as variance mixtures, since
+   <math display="inline">
+    \mathbf{X} \mid W = w \sim N_d(\mu, w\Sigma)
+   </math>
+   where
+   <math display="inline">
+    \Sigma = AA'
+   </math>
+   . The distribution of
+   <b>
+    X
+   </b>
+   can be considered as a composite distribution, constructed by taking a set of multivariate normal distributions with the same mean vector and with the same covariance matrix up to a multiplicative constant
+   <math display="inline">
+    w
+   </math>
+   ; the mixture distribution—which is generally not a normal distribution—is then constructed by drawing randomly from this set of component multivariate normals according to a set of "weights" determined by the distribution of
+   <math display="inline">
+    W
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Provided
+   <math display="inline">
+    W
+   </math>
+   has a finite expectation, we may easily calculate that
+   <math display="inline">
+    E(\mathbf{X}) = \boldsymbol{\mu}
+   </math>
+   and that
+   <math display="inline">
+    cov(\mathbf{X}) =
+   </math>
+   <math display="inline">
+    E(W) \Sigma
+   </math>
+   . Note that normal variance mixtures provide nice examples of models where a lack of correlation does not necessarily imply independence of the components of
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   ; indeed, it can be shown that two uncorrelated rvs
+   <math display="inline">
+    (X_1, X_2)
+   </math>
+   having a normal mixture distribution with
+   <math display="inline">
+    E(W) &lt; \infty
+   </math>
+   are independent, if and only if
+   <math display="inline">
+    W
+   </math>
+   is almost surely constant, that is, if
+   <math display="inline">
+    (X_1, X_2)
+   </math>
+   are bivariate normally distributed.
+  </p>
+  <p block-type="Text">
+   The characteristic function of a multivariate normal variance mixture is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{\mathbf{X}}(\mathbf{t}) = \exp\left(i\mathbf{t}'\boldsymbol{\mu}\right)\widehat{H}\left(\mathbf{t}'\boldsymbol{\Sigma}\mathbf{t}/2\right) \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \widehat{H}(\theta) = \int_0^\infty e^{-\theta v} \, \mathrm{d}H(v)
+   </math>
+   is the Laplace-Stieltjes transform of the df
+   <math display="inline">
+    H
+   </math>
+   of
+   <math display="inline">
+    W
+   </math>
+   . We use the notation
+   <math display="inline">
+    \mathbf{X} \sim M_d(\boldsymbol{\mu}, \boldsymbol{\Sigma}, \hat{H})
+   </math>
+   for normal variance mixtures. Assuming that
+   <math display="inline">
+    \Sigma
+   </math>
+   is positive definite and that the distribution of
+   <math display="inline">
+    W
+   </math>
+   places no point mass at zero, the density of
+   <math display="inline">
+    \mathbf{X} \sim M_d(\boldsymbol{\mu}, \Sigma, \widehat{H})
+   </math>
+   becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\mathbf{x}) = \int \frac{w^{-\frac{d}{2}}}{(2\pi)^{\frac{d}{2}} |\Sigma|^{\frac{1}{2}}} \times \exp\left\{-\frac{(\mathbf{x} - \boldsymbol{\mu})'\Sigma^{-1}(\mathbf{x} - \boldsymbol{\mu})}{2w}\right\} dH(w) \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that all such densities depend on
+   <math display="inline">
+    \mathbf{x}
+   </math>
+   only through the quadratic form
+   <math display="inline">
+    (\mathbf{x} - \boldsymbol{\mu})' \Sigma^{-1} (\mathbf{x} - \boldsymbol{\mu}).
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The most important example is provided by the
+   <i>
+    multivariate t-distribution
+   </i>
+   . Here, we take
+   <math display="inline">
+    W
+   </math>
+   in equation
+   <math display="inline">
+    (13)
+   </math>
+   to be a rv with an inverse gamma distribution
+   <math display="inline">
+    W \sim \text{Ig}(\nu/2, \nu/2)
+   </math>
+   (which is equivalent to
+  </p>
+  <p block-type="TextInlineMath">
+   saying that
+   <math display="inline">
+    \nu/W \sim \chi^2_{\nu}
+   </math>
+   ). The notation for this distribution is
+   <math display="inline">
+    \mathbf{X} \sim t_d(\nu, \boldsymbol{\mu}, \boldsymbol{\Sigma})
+   </math>
+   . Since
+   <math display="inline">
+    E(W) = \nu/(\nu - 2)
+   </math>
+   , we have
+   <math display="inline">
+    \text{cov}(\mathbf{X}) = \frac{\nu}{\nu - 2} \boldsymbol{\Sigma}
+   </math>
+   and the covariance matrix of this distribution is only defined if
+   <math display="inline">
+    \nu &gt; 2
+   </math>
+   . Using equation
+   <math display="inline">
+    (15)
+   </math>
+   , the density can be calculated to be
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\mathbf{x}) = \frac{\Gamma\left(\frac{\nu+d}{2}\right)}{\Gamma\left(\frac{\nu}{2}\right)(\pi\nu)^{\frac{d}{2}}|\Sigma|^{\frac{1}{2}}} \times \left(1 + \frac{(\mathbf{x} - \boldsymbol{\mu})'\Sigma^{-1}(\mathbf{x} - \boldsymbol{\mu})}{\nu}\right)^{-\frac{\nu+d}{2}} \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   The multivariate
+   <math display="inline">
+    t
+   </math>
+   has heavier marginal tails than the normal distribution and a more pronounced tendency to generate simultaneous extreme outcomes (
+   <i>
+    see also
+   </i>
+   Copulas: Estimation).
+  </p>
+  <p block-type="TextInlineMath">
+   Normal variance mixture distributions are easy to work with under linear operations; if
+   <math display="inline">
+    \mathbf{X} \sim M_d(\boldsymbol{\mu})
+   </math>
+   ,
+   <math display="inline">
+    \Sigma, \widehat{H}
+   </math>
+   and
+   <math display="inline">
+    \mathbf{Y} = B\mathbf{X} + \mathbf{b}
+   </math>
+   where
+   <math display="inline">
+    B \in \mathbb{R}^{k \times d}
+   </math>
+   and
+   <math display="inline">
+    \mathbf{b} \in
+   </math>
+   <math display="inline">
+    \mathbb{R}^k
+   </math>
+   , then
+   <math display="inline">
+    \mathbf{Y} \sim M_k(B\boldsymbol{\mu} + \mathbf{b}, B\Sigma B', \widehat{H})
+   </math>
+   . Thus, linear transformations of
+   <math display="inline">
+    X
+   </math>
+   remain in the subclass of mixture distributions specified by
+   <math display="inline">
+    \widehat{H}
+   </math>
+   or, equivalently, by the mixing variable W of which
+   <math display="inline">
+    \widehat{H}
+   </math>
+   is the Laplace-Stieltjes transform. For example, if
+   <math display="inline">
+    X
+   </math>
+   has a multivariate
+   <i>
+    t
+   </i>
+   distribution with
+   <math display="inline">
+    \nu
+   </math>
+   degrees of freedom, then so does any linear transformation of
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <h3>
+   <i>
+    Normal Mean–variance Mixture Distributions
+   </i>
+  </h3>
+  <p block-type="TextInlineMath">
+   The definition
+   <math display="inline">
+    (13)
+   </math>
+   can be generalized to allow for skewed distributions:
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   is said to have a multivariate normal mean-variance mixture distribution if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{X} \stackrel{\text{d}}{=} \boldsymbol{\mu} + W\boldsymbol{\gamma} + \sqrt{W}A\mathbf{Z} \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For instance, if we assume
+   <math display="inline">
+    W \sim N^-(\lambda, \chi, \psi)
+   </math>
+   (a generalized inverse Gaussian distribution), we obtain the class of (multivariate) generalized hyperbolic distributions (see Generalized Hyperbolic Models). These distributions have important applications in finance and risk management; in particular, they are infinitely divisible and therefore directly connected to Lévy processes (see Lévy Processes). Note that mean-variance mixture distributions are, in general, skewed; in particular, the density is no longer constant on ellipsoids. We refer to Section
+   <math display="inline">
+    3.2.4
+   </math>
+   of [5] for further information and further references about this class.
+  </p>
+  <h4>
+   Spherical and Elliptical Distributions
+  </h4>
+  <p block-type="TextInlineMath">
+   Many important distribution have densities that are constant on ellipsoids and thus belong to the class of elliptical distributions; this class has some theoretical properties that makes it attractive as a model for the joint distribution of risk factors. Elliptical distributions are defined as affine transformations of
+   <i>
+    spherical
+   </i>
+   random vectors. A random vector
+   <math display="inline">
+    \mathbf{X} =
+   </math>
+   <math display="inline">
+    (X_1,\ldots,X_d)'
+   </math>
+   has a spherical distribution, if, for every orthogonal map
+   <math display="inline">
+    U \in \mathbb{R}^{d \times d}
+   </math>
+   (i.e., maps satisfying
+   <math display="inline">
+    UU' = U'U = I
+   </math>
+   ), one has
+   <math display="inline">
+    UX \stackrel{\text{d}}{=} X
+   </math>
+   . Spherical random vectors are thus distributionally invariant under rotations. It can be shown that
+   <math display="inline">
+    X
+   </math>
+   is spherical if and only if one of the following properties hold:
+  </p>
+  <p block-type="Text">
+   1. There exists a function
+   <math display="inline">
+    \psi
+   </math>
+   of a scalar variable, called
+   <i>
+    characteristic generator
+   </i>
+   , such that, for all
+   <math display="inline">
+    \mathbf{t} \in \mathbb{R}^d
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi_{\mathbf{X}}(\mathbf{t}) = E\left(\mathbf{e}^{i\mathbf{t}^{\prime}\mathbf{X}}\right) = \psi\left(\mathbf{t}^{2}_{1} + \dots + t^{2}_{d}\right)
+   </math>
+   (18)
+  </p>
+  <p block-type="Text">
+   2. For every
+   <math display="inline">
+    \mathbf{a} \in \mathbb{R}^d
+   </math>
+   , one has
+   <math display="inline">
+    \mathbf{a}'\mathbf{X} \stackrel{\text{d}}{=} ||\mathbf{a}||X_1
+   </math>
+   , where
+   <math display="inline">
+    ||\mathbf{a}||^2 = \mathbf{a}'\mathbf{a} = a_1^2 + \dots + a_d^2.
+   </math>
+   <math display="inline">
+    \mathbf{X}
+   </math>
+   has an
+   <i>
+    elliptical distribution
+   </i>
+   if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{X} \stackrel{\text{d}}{=} \boldsymbol{\mu} + A\mathbf{Y} \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <b>
+    Y
+   </b>
+   is spherical and
+   <math display="inline">
+    A \in \mathbb{R}^{d \times k}
+   </math>
+   and
+   <math display="inline">
+    \boldsymbol{\mu} \in \mathbb{R}^{d}
+   </math>
+   are a matrix and vector of constants, respectively. The characteristic function can be written as
+   <math display="inline">
+    \phi_{\mathbf{X}}(\mathbf{t}) =
+   </math>
+   <math display="inline">
+    e^{it'\mu}\psi(t'\Sigma t)
+   </math>
+   , where
+   <math display="inline">
+    \psi(\cdot)
+   </math>
+   is the characteristic generator of
+   <math display="inline">
+    \mathbf{Y}
+   </math>
+   introduced in equation (18). Examples include the multivariate normal distribution and, more generally, the multivariate variance mixture distributions (13). Elliptical distributions share many properties with the multivariate normal distribution: affine transformations of elliptical random vectors and, in particular, marginal distributions remain elliptical with the same generator
+   <math display="inline">
+    \psi
+   </math>
+   ; if we condition on one or several components of an elliptical random vector, the ensuing conditional distribution is elliptical, albeit, in general, with a different generator.
+  </p>
+  <p block-type="Text">
+   An important property of elliptical distributions for risk management purposes is the fact that Value at Risk (VaR) (see Value-at-Risk) is a coherent risk
+   <i>
+    measure
+   </i>
+   (see
+   <b>
+    Convex Risk Measures
+   </b>
+   ) if restricted to the set of all linear combinations of the components of some elliptical random vector.
+  </p>
+  <h2>
+   <b>
+    Notes and Further References
+   </b>
+  </h2>
+  <p block-type="Text">
+   Much of the material from the sections "Random Vectors and Their Distributions" and "The Multivariate Normal Distribution" can be found in greater detail in standard texts on multivariate statistical analysis such as [4, 7]. There are countless possible tests of univariate normality and a good starting point is the entry on
+   <i>
+    Departures from Normality, Tests for
+   </i>
+   in volume 2 of the Encyclopedia of Statistics [3]; the latter source also contains tests for multivariate normality.
+  </p>
+  <p block-type="Text">
+   A comprehensive reference for the spherical and elliptical distributions (including a special treatment of symmetric variance mixture models) is given by Fang
+   <i>
+    et al.
+   </i>
+   [2]. A useful reference on the multivariate generalized hyperbolic distribution is Blæsild [1].
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="Text">
+   [1] Blæsild, P. (1981). The two-dimensional hyperbolic distribution and related distributions, with an application to Johannsen's bean data,
+   <i>
+    Biometrika
+   </i>
+   <b>
+    68
+   </b>
+   (1), 251–263.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Fang, K.-T., Kotz, S. &amp; Ng, K.-W. (1987).
+     <i>
+      Symmetric Multivariate and Related Distributions
+     </i>
+     , Chapman &amp; Hall, London.
+    </li>
+    <li block-type="ListItem">
+     [3] Kotz, S., Johnson, N. &amp; Read, C. (eds) (1985).
+     <i>
+      Encyclopedia of Statistical Sciences
+     </i>
+     , Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [4] Mardia, K., Kent, J. &amp; Bibby, J. (1979).
+     <i>
+      Multivariate Analysis
+     </i>
+     , Academic Press, London.
+    </li>
+    <li block-type="ListItem">
+     [5] McNeil, A., Frey, R. &amp; Embrechts, P. (2005).
+     <i>
+      Quantitative Risk Management: Concepts, Techniques and Tools
+     </i>
+     , Princeton University Press, Princeton.
+    </li>
+    <li block-type="ListItem">
+     [6] Press, W., Teukolsky, S., Vetterling, W. &amp; Flannery, B. (1992).
+     <i>
+      Numerical Recipes in C
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [7] Seber, G. (1984).
+     <i>
+      Multivariate Observations
+     </i>
+     , Wiley, New York.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Copulas: Estimation
+   </b>
+   ;
+   <b>
+    Copulas in Econometrics
+   </b>
+   ;
+   <b>
+    Correlation Risk
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   RUDIGER ¨ FREY
+  </p>
+ </body>
+</html>

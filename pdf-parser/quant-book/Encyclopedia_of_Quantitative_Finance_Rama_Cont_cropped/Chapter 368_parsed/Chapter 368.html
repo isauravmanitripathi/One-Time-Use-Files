@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Copulas in Econometrics
+   </b>
+  </h1>
+  <h2>
+   <b>
+    Copulas and Multivariate Models
+   </b>
+  </h2>
+  <p block-type="Text">
+   The knowledge of the multivariate (conditional) distribution (especially fat tails, asymmetry, positive or negative dependence) is essential in many important financial applications, including portfolio selection, option pricing, asset pricing models, Value-at-Risk (market risk, credit risk, liquidity risk) calculations, and forecasting. Copulas provide a general, flexible tool in modeling the complex dependence structure among multiple random variables and in building multivariate models from univariate models; see [6, 20, 26] for discussions and references on the applications of copulas in economics, finance, insurance, and risk management. Patton [23] provides an excellent review of copula models for financial time series.
+  </p>
+  <p block-type="Text">
+   A copula is a multivariate distribution function with uniform marginal distributions on
+   <math display="inline">
+    [0, 1]
+   </math>
+   that links together univariate distribution functions to form a multivariate distribution function. To simplify the exposition, the focus is on the bivariate case in this article. Let
+   <math display="inline">
+    X, Y
+   </math>
+   denote two scalar random variables with the joint distribution function
+   <math display="inline">
+    H
+   </math>
+   and marginal distribution functions
+   <math display="inline">
+    F, G
+   </math>
+   . The characterization theorem of Sklar [25] implies that there exists a copula
+   <math display="inline">
+    C(u, v)
+   </math>
+   :
+   <math display="inline">
+    (u, v) \in [0, 1]^2
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H(x, y) = C(F(x), G(y)) \text{ for all } (x, y) \in \mathbb{R}^2 \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Conversely, for any marginal distributions
+   <math display="inline">
+    F, G
+   </math>
+   and any copula function
+   <math display="inline">
+    C
+   </math>
+   , the function
+   <math display="inline">
+    C(F(\cdot), G(\cdot))
+   </math>
+   is a bivariate distribution function with given marginal distributions
+   <math display="inline">
+    F, G
+   </math>
+   . This theorem provides the theoretical foundation for the widespread use of copulas in generating multivariate distributions (models) from univariate distributions (models).&lt;sup&gt;a&lt;/sup&gt; The fact that the copula function
+   <math display="inline">
+    C
+   </math>
+   , the marginal distribution functions
+   <math display="inline">
+    F, G
+   </math>
+   in equation (1) are not necessarily of the same type allows the researcher a great deal of flexibility in specifying a multivariate distribution (model). For example, Chen and Fan [2] propose a general class of multivariate dynamic time series models by first modeling each individual time series by a univariate generalized autoregressive conditional heteroskedasticity (GARCH)-type model and then modeling the joint distribution of the innovations of the univariate models by a distribution with
+  </p>
+  <p block-type="Text">
+   a parametric copula and unknown marginal distributions. We refer the reader to [2] for details and related references.
+  </p>
+  <p block-type="Text">
+   Suppose that
+   <math display="inline">
+    X, Y
+   </math>
+   are continuous random variables. Then the copula function
+   <math display="inline">
+    C
+   </math>
+   in equation (1) is unique.&lt;sup&gt;b&lt;/sup&gt; It extracts the dependence information on
+   <math display="inline">
+    X, Y
+   </math>
+   from their joint distribution
+   <math display="inline">
+    H
+   </math>
+   and is sometimes referred to as the
+   <i>
+    dependence function
+   </i>
+   of
+   <math display="inline">
+    X, Y
+   </math>
+   . The copula function of
+   <math display="inline">
+    X, Y
+   </math>
+   is invariant to monotone increasing transformations of
+   <math display="inline">
+    X, Y
+   </math>
+   and most rank dependence measures can be expressed in terms of the copula alone, including Kendall's
+   <math display="inline">
+    \tau
+   </math>
+   , Spearman's
+   <math display="inline">
+    \rho
+   </math>
+   , and tail dependence coefficients; for details, see [17] and [22]. It is to be noted, however, that Pearson's linear correlation coefficient cannot be expressed in terms of the copula alone; it also depends on the marginal distributions.
+  </p>
+  <p block-type="Text">
+   Suppose that the density function of
+   <math display="inline">
+    (X, Y)
+   </math>
+   exists and is denoted by
+   <math display="inline">
+    h
+   </math>
+   . Then equation (1) implies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h(x, y) = f(x)g(y)c(F(x), G(y))
+   </math>
+   <br/>
+   <math display="block">
+    \forall (x, y) \in \mathbb{R}^2
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    f, g
+   </math>
+   are the marginal density functions and
+   <math display="inline">
+    c
+   </math>
+   is the copula density function. The decomposition of the joint density function
+   <math display="inline">
+    h
+   </math>
+   in equation (2) is the basis for the commonly used methods for estimating copula models. For a fully parametric copula model in which both the copula function and the marginal distribution functions are parameterized, both maximum likelihood (ML) method and two-step method can be used. Joe [17] and Nelsen [22] present numerous parametric copula functions including the Gaussian copula, Student's
+   <math display="inline">
+    t
+   </math>
+   copula, and Archimedean copulas. For a semiparametric copula model in which the copula function is parameterized, but the marginal distribution functions are not, both two-step method and sieve ML method have been developed; see
+   <math display="inline">
+    [15]
+   </math>
+   for details on the two-step method and [5] for details on the sieve ML method. To introduce the two-step approach and ML or sieve ML approach, suppose that we have a random sample
+   <math display="inline">
+    \{X_i, Y_i\}_{i=1}^n
+   </math>
+   from
+   <math display="inline">
+    h(x, y)
+   </math>
+   . Then equation (2) implies that the log-likelihood function is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{i=1}^{n} \ln f(X_i) + \sum_{i=1}^{n} \ln g(Y_i)
+   </math>
+   <math display="block">
+    + \sum_{i=1}^{n} \ln c(F(X_i), G(Y_i)) \qquad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the two-step approach, the marginal distribution functions
+   <math display="inline">
+    F
+   </math>
+   and
+   <math display="inline">
+    G
+   </math>
+   are estimated in the first step and the copula function is estimated in the second step. For example, for a semiparametric copula model, the marginal distribution functions are estimated in the first step by the corresponding (rescaled) empirical distribution functions denoted as
+   <math display="inline">
+    \widehat{F}(x)
+   </math>
+   ,
+   <math display="inline">
+    \widehat{G}(y)
+   </math>
+   and the copula function is estimated in the second step by maximizing
+   <math display="inline">
+    \sum_{i=1}^{n} \ln c(\widehat{F}(X_i), \widehat{G}(Y_i)).
+   </math>
+   We refer the reader to
+   <math display="inline">
+    [15]
+   </math>
+   for details on the two-step approach for random samples and [2, 3] for extensions to copula-based multivariate and univariate time series models, respectively. In the ML or sieve ML approach, the marginal distribution functions and the copula function are estimated simultaneously. For a fully parametric copula model, this is accomplished by maximum likelihood estimation (MLE) obtained from maximizing the log-likelihood function (3) with respect to parameters in both the marginal distribution functions and the copula function simultaneously, whereas for a semiparametric copula model, the maximization of the log-likelihood function (3) is carried out over respective sieve spaces approximating the spaces of marginal distribution functions
+   <math display="inline">
+    F
+   </math>
+   and
+   <math display="inline">
+    G
+   </math>
+   and the parameter space for the copula parameter; see [5] for details on sieve spaces and the sieve MLE. In general, the two-step estimator is asymptotically less efficient than the ML estimator in a parametric copula model or the sieve ML estimator in a semiparametric copula model.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In a parametric or semiparametric copula model in which the copula is parameterized, it is important to select an appropriate parametric copula and to evaluate how well the selected copula model fits the data at hand. Commonly used parametric copula families include the Gaussian copula family, Student's
+   <math display="inline">
+    t
+   </math>
+   copula family, Gumbel copula family, Clayton copula family, and Frank copula family. The latter three copula families are members of the general Archimedean copula family. These copula families have different dependence properties and are thus appropriate for modeling different dependence properties of economic and financial variables. For example, the Gaussian and Frank copula families have no tail dependence and are thus not appropriate for modeling financial variables that tend to take extreme values together. Instead, Student's
+   <math display="inline">
+    t
+   </math>
+   copula family has both lower and upper tail dependence and thus is appropriate for modeling economic or financial variables taking extremely large or small values together. On the
+  </p>
+  <p block-type="Text">
+   other hand, the Gumbel copula family has upper tail dependence and no lower tail dependence, whereas the Clayton copula family has lower tail dependence and no upper tail dependence. Chen and Fan [2, 4] developed model selection tests for copula families and [13], among others, developed goodness-of-fit tests for copulas. For applications of estimation and model selection procedures for copula-based models, the reader is referred to [4, 7]. Additional references can be found in
+   <math display="inline">
+    [23]
+   </math>
+   .
+  </p>
+  <h2>
+   The General Fréchet Problem
+  </h2>
+  <p block-type="TextInlineMath">
+   In addition to its role in building multivariate models from univariate models, copulas have also proven to be useful in finding solutions to the general Fréchet problem. Broadly speaking, the Fréchet problem concerns the problem of finding sharp bounds on the distributions of functions of random variables
+   <math display="inline">
+    X, Y
+   </math>
+   such as
+   <math display="inline">
+    X + Y
+   </math>
+   and
+   <math display="inline">
+    X - Y
+   </math>
+   when the marginal distribution functions
+   <math display="inline">
+    F
+   </math>
+   ,
+   <math display="inline">
+    G
+   </math>
+   are fixed. The reader is referred to [24, 27] for discussions and references on the general Fréchet problem and its solutions, to [20] for its applications in finance and risk management, and to
+   <math display="inline">
+    [11, 12]
+   </math>
+   for its applications in program evaluation.
+  </p>
+  <p block-type="TextInlineMath">
+   For
+   <math display="inline">
+    (u, v) \in [0, 1]^2
+   </math>
+   , let
+   <math display="inline">
+    C^L(u, v) = \max(u + v -
+   </math>
+   1, 0) and
+   <math display="inline">
+    C^{U}(u, v) = \min(u, v)
+   </math>
+   denote the Fréchet-Hoeffding lower and upper bounds for a copula, that is,
+   <math display="inline">
+    C^L(u,v) &lt; C(u,v) &lt; C^U(u,v)
+   </math>
+   . Then for any
+   <math display="inline">
+    (x, y) \in \mathbb{R}^2
+   </math>
+   , the following inequality holds:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C^{L}(F(x), G(y)) \leq H(x, y) \leq C^{U}(F(x), G(y))
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   The bivariate distribution functions
+   <math display="inline">
+    C^L(F(\cdot))
+   </math>
+   ,
+   <math display="inline">
+    G(\cdot)
+   </math>
+   and
+   <math display="inline">
+    C^U(F(\cdot), G(\cdot))
+   </math>
+   are referred to as the Fréchet-Hoeffding lower and upper bounds for bivariate distribution functions with fixed marginal distributions
+   <math display="inline">
+    F
+   </math>
+   and
+   <math display="inline">
+    G
+   </math>
+   . They are distributions of perfectly negatively dependent and perfectly positively dependent random variables respectively; see [22] for more discussions. The inequality (4) directly implies sharp bounds on the correlation coefficient between
+   <i>
+    X
+   </i>
+   and
+   <i>
+    Y
+   </i>
+   :
+   <math display="inline">
+    \rho_L \leq \rho \leq \rho_U
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho_L = \frac{\int \int [C^L(F(x), G(y)) - F(x)G(y)] \, \mathrm{d}x \, \mathrm{d}y}{\sigma_X \sigma_Y}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho_U = \frac{\int \int [C^U(F(x), G(y)) - F(x)G(y)] \, \mathrm{d}x \, \mathrm{d}y}{\sigma_X \sigma_Y} \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   in which
+   <math display="inline">
+    \sigma_X^2
+   </math>
+   and
+   <math display="inline">
+    \sigma_Y^2
+   </math>
+   are variances of X and Y, respectively. It is known that
+   <math display="inline">
+    \rho_L
+   </math>
+   and
+   <math display="inline">
+    \rho_U
+   </math>
+   are sharp; see [9, 20] for detailed discussions on this result and other properties and pitfalls of the correlation coefficient as a dependence measure.
+  </p>
+  <p block-type="TextInlineMath">
+   Although inequality (4) does not directly imply bounds on distribution functions of
+   <math display="inline">
+    X + Y
+   </math>
+   and
+   <math display="inline">
+    X - Y
+   </math>
+   <math display="inline">
+    Y
+   </math>
+   , copulas provide a useful tool in finding such bounds; see [14]. In what follows, sharp bounds on the distribution function of
+   <math display="inline">
+    X - Y
+   </math>
+   and sharp bounds on the quantile function of
+   <math display="inline">
+    X + Y
+   </math>
+   are provided and their applications pointed out.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \Delta = X - Y
+   </math>
+   .
+   <math display="inline">
+    \Delta
+   </math>
+   is referred to as the
+   <i>
+    individual
+   </i>
+   treatment effect in the literature on program evaluation. In this context,
+   <math display="inline">
+    X
+   </math>
+   is the potential outcome from treatment and
+   <math display="inline">
+    Y
+   </math>
+   is the potential outcome without treatment; see [11, 12] for details. Denote the distribution function of
+   <math display="inline">
+    \Delta
+   </math>
+   by
+   <math display="inline">
+    F_{\Delta}(\cdot)
+   </math>
+   . Given the marginals F and G, sharp bounds on the distribution of
+   <math display="inline">
+    \Delta
+   </math>
+   can be found in [27]:
+   <math display="inline">
+    F_{\Delta}^{L}(\delta) \leq F_{\Delta}(\delta) \leq F_{\Delta}^{U}(\delta)
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{\Delta}^{L}(\delta) = \sup_{y} \max(F(y) - G(y - \delta), 0),
+   </math>
+   <br/>
+   <math display="block">
+    F_{\Delta}^{U}(\delta) = 1 + \inf_{y} \min(F(y) - G(y - \delta), 0) \quad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \Lambda = X + Y
+   </math>
+   and
+   <math display="inline">
+    Q_{\Lambda}(p) \left(= F_{\Lambda}^{-1}(p) \right)
+   </math>
+   denote its generalized quantile function at quantile level
+   <math display="inline">
+    p
+   </math>
+   :
+   <math display="inline">
+    0 &lt; p &lt; 1
+   </math>
+   . Given the generalized quantile functions
+   <math display="inline">
+    F^{-1}
+   </math>
+   and
+   <math display="inline">
+    G^{-1}
+   </math>
+   , sharp bounds on
+   <math display="inline">
+    Q_{\Lambda}(p)
+   </math>
+   can be found in [20, 27]:
+   <math display="inline">
+    Q_{\Lambda}^{L}(p) \leq Q_{\Lambda}(p) \leq Q_{\Lambda}^{U}(p)
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q_{\Lambda}^{L}(p) = \inf_{u \in [p,1]} [F^{-1}(u) + G^{-1}(u-p+1)],
+   </math>
+   <br/>
+   <math display="block">
+    Q_{\Lambda}^{U}(p) = \sup_{u \in [0,p]} [F^{-1}(u) + G^{-1}(u-p)] \qquad (7)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   McNeil
+   <i>
+    et al.
+   </i>
+   [20] discuss applications of equation (7) in risk management and provide an extensive list of references.
+  </p>
+  <p block-type="Text">
+   The expressions in equations
+   <math display="inline">
+    (5)
+   </math>
+   –
+   <math display="inline">
+    (7)
+   </math>
+   share one common feature, that is, they depend only on the marginal distributions. As a result, they can be consistently estimated without requiring any dependence
+  </p>
+  <p block-type="TextInlineMath">
+   information between
+   <math display="inline">
+    X
+   </math>
+   and
+   <math display="inline">
+    Y
+   </math>
+   , provided that univariate samples from
+   <math display="inline">
+    F, G
+   </math>
+   are available. For example, consider a linear portfolio
+   <math display="inline">
+    \Lambda
+   </math>
+   of market risk X and credit risk Y. Estimation of the Value-at-Risk of
+   <math display="inline">
+    \Lambda
+   </math>
+   requires a bivariate sample from the joint distribution of
+   <math display="inline">
+    X, Y
+   </math>
+   , which may not always be available. In contrast, equation (7) implies that the smallest and largest Value-at-Risk can be estimated with univariate samples from F, G. Inference on
+   <math display="inline">
+    \rho
+   </math>
+   ,
+   <math display="inline">
+    F_{\Delta}(\delta)
+   </math>
+   , and
+   <math display="inline">
+    Q_{\Lambda}(p)
+   </math>
+   belongs to the recent, but fast-growing area in econometrics, namely, inference for partially identified parameters. The reader is referred to [10] for discussion and references.
+  </p>
+  <h4>
+   Conclusion
+  </h4>
+  <p block-type="Text">
+   This article concludes with a mention of some recent work on the construction of higher dimensional copulas and the Fréchet problem in higher dimensions. Copulas have found to be most successful in bivariate modeling, as there are numerous parametric families of bivariate copulas that the researcher can choose from; see [17, 22]. Compared with bivariate parametric copulas, the number of higher dimensional parametric copulas is rather limited. So far, most applications in higher dimensions have focused on Gaussian copulas and Student's
+   <math display="inline">
+    t
+   </math>
+   copulas. It is well known that the construction of higher dimensional copulas is very difficult. Several methods have been proposed recently, including methods for constructing higher dimensional Archimedean copulas and the general pair-copula construction approach known as
+   <i>
+    vines
+   </i>
+   ; see
+   <math display="inline">
+    [1, 19]
+   </math>
+   and the references therein.
+  </p>
+  <p block-type="Text">
+   The Fréchet problem in higher dimensions has drawn attention recently. The reader is referred to [8] for a brief account and references. Finally, the reader is referred to [21] and the associated discussions and rejoinder for a lively discussion on the value of copulas in multivariate modeling.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt; Joe [17] and Nelsen [22] provide a detailed introduction to copulas and their mathematical and statistical foundations. Kallsen and Tankov [18] present a version of Sklar's theorem that allows to construct a general multivariate Lévy process from arbitrary univariate Lévy processes and an arbitrary Lévy copula.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;b.&lt;/sup&gt; Genest and Nešlehova [16] present an excellent discussion on copulas for discrete data.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Aas, K., Czado, C. Frigessi, A. &amp; Bakken, H. (2009). Pair-copula constructions of multiple dependence,
+     <i>
+      Insurance, Mathematics, and Economics
+     </i>
+     <b>
+      44
+     </b>
+     (2), 182–198.
+    </li>
+    <li block-type="ListItem">
+     [2] Chen, X. &amp; Fan, Y. (2006). Estimation and model selection of semiparametric copula-based multivariate dynamic models under copula misspecification,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      135
+     </b>
+     , 125–154.
+    </li>
+    <li block-type="ListItem">
+     [3] Chen, X. &amp; Fan, Y. (2006). Semiparametric estimation of copula-based time series models,
+     <i>
+      Journal of Econometrics
+     </i>
+     <b>
+      130
+     </b>
+     , 307–335.
+    </li>
+    <li block-type="ListItem">
+     [4] Chen, X. &amp; Fan, Y. (2007). Model selection test for bivariate failure-time data,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      23
+     </b>
+     , 414–439.
+    </li>
+    <li block-type="ListItem">
+     [5] Chen, X., Fan, Y. &amp; Tsyrennikov, V. (2006). Efficient estimation of semiparametric multivariate copula models,
+     <i>
+      Journal of the American Statistical Association
+     </i>
+     <b>
+      101
+     </b>
+     , 1228–1240.
+    </li>
+    <li block-type="ListItem">
+     [6] Cherubini, U., Luciano, E. &amp; Vecchiato, W. (2004).
+     <i>
+      Copula Methods in Finance
+     </i>
+     , John Wiley &amp; Sons, England.
+    </li>
+    <li block-type="ListItem">
+     [7] Dias, A. &amp; Embrechts, P. (2003).
+     <i>
+      Dynamic Copula Models for Multivariate High-Frequency Data in Finance
+     </i>
+     , Mimeo.
+    </li>
+    <li block-type="ListItem">
+     [8] Embrechts, P. (2008). Copulas: a personal view, Forthcoming in
+     <i>
+      Journal of Risk and Insurance
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [9] Embrechts, P., McNeil, A. &amp; Straumann, D. (2002). Correlation and dependence properties in risk management: properties and pitfalls, in
+     <i>
+      Risk Management: Value at Risk and Beyond
+     </i>
+     , M. Dempster, ed., Cambridge University Press, pp. 176–223.
+    </li>
+    <li block-type="ListItem">
+     [10] Fan, Y. &amp; Park, S. (2007).
+     <i>
+      Confidence Sets for Some Partially Identified Parameters
+     </i>
+     , Manuscript, Vanderbilt University.
+    </li>
+    <li block-type="ListItem">
+     [11] Fan, Y. &amp; Park, S. (2009). Sharp bounds on the distribution of treatment effects and their statistical inference, Forthcoming in
+     <i>
+      Econometric Theory
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [12] Fan, Y. &amp; Wu, J. (2007).
+     <i>
+      Partial Identification of the Distribution of Treatment Effects in Switching Regimes Models and its Confidence Sets
+     </i>
+     , Manuscript, Vanderbilt University.
+    </li>
+    <li block-type="ListItem">
+     [13] Fermanian, J.-D. (2005). Goodness of fit tests for copulas,
+     <i>
+      Journal of Multivariate Analysis
+     </i>
+     <b>
+      95
+     </b>
+     , 119–152.
+    </li>
+    <li block-type="ListItem">
+     [14] Frank, M.J., Nelsen, R.B. &amp; Schweizer, B. (1987). Bestpossible bounds on the distribution of a sum – a problem of Kolmogorov,
+     <i>
+      Probability Theory and Related Fields
+     </i>
+     <b>
+      74
+     </b>
+     , 199–211.
+    </li>
+    <li block-type="ListItem">
+     [15] Genest, C., Ghoudi, K. &amp; Rivest, L. (1995). A semiparametric estimation procedure of dependence parameters in
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   multivariate families of distributions,
+   <i>
+    Biometrika
+   </i>
+   <b>
+    82
+   </b>
+   (3), 543–552.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [16] Genest, C. &amp; Neslehova, J. (2007). A primer on copulas ˇ for count data, Forthcoming in
+     <i>
+      The ASTIN Bulletin
+     </i>
+     <b>
+      37
+     </b>
+     , 475–515.
+    </li>
+    <li block-type="ListItem">
+     [17] Joe, H. (1997).
+     <i>
+      Multivariate Models and Dependence Concepts
+     </i>
+     , Chapman &amp; Hall/CRC.
+    </li>
+    <li block-type="ListItem">
+     [18] Kallsen, J. &amp; Tankov, P. (2006). Characterization of dependence of multidimensional Levy processes using ´ Levy Copulas, ´
+     <i>
+      Journal of Multivariate Analysis
+     </i>
+     <b>
+      97
+     </b>
+     , 1551–1572.
+    </li>
+    <li block-type="ListItem">
+     [19] Kurowicka, D. &amp; Cooke, R. (2006).
+     <i>
+      Uncertain Analysis with High Dimensional Dependence Modelling
+     </i>
+     , Wiley Series in Probability and Statistics, John Wiley &amp; Sons, Ltd.
+    </li>
+    <li block-type="ListItem">
+     [20] McNeil, A.J., Frey, R. &amp; Embrechts, P. (2005).
+     <i>
+      Quantitative Risk Management: Concepts, Techniques and Tools
+     </i>
+     , Princeton University Press, New Jersey.
+    </li>
+    <li block-type="ListItem">
+     [21] Mikosch, T. (2006). Copulas: tales and facts, with discussion and rejoinder,
+     <i>
+      Extremes
+     </i>
+     <b>
+      9
+     </b>
+     , 3–62.
+    </li>
+    <li block-type="ListItem">
+     [22] Nelsen, R.B. (1999).
+     <i>
+      An Introduction to Copulas
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [23] Patton, A.J. (2007). Copula-based models for financial time series, in
+     <i>
+      Handbook of Financial Time Series
+     </i>
+     , T.G. Anderson, R.A. Davis, J.-P. Kreiss &amp; T. Mikosch, eds, Springer-Verlag, pp. 767–786.
+    </li>
+    <li block-type="ListItem">
+     [24] Schweizer, B. &amp; Sklar, A. (1983).
+     <i>
+      Probabilistic Metric Spaces
+     </i>
+     , North-Holland, New York.
+    </li>
+    <li block-type="ListItem">
+     [25] Sklar, A. (1959). Fonctions de r'epartition 'a
+     <i>
+      n
+     </i>
+     dimensionset leurs marges,
+     <i>
+      Publications de l'. Institut de Statistiquede l' Universite de Paris
+     </i>
+     <b>
+      8
+     </b>
+     , 229–231.
+    </li>
+    <li block-type="ListItem">
+     [26] Trivedi, P. &amp; Zimmer, D.M. (2007). Copula modeling: an introduction for practitioners,
+     <i>
+      Foundations and Trends in Econometrics
+     </i>
+     <b>
+      1
+     </b>
+     (1), 1–110.
+    </li>
+    <li block-type="ListItem">
+     [27] Williamson, R.C. &amp; Downs, T. (1990). Probabilistic arithmetic I: numerical methods for calculating convolutions and dependency bounds,
+     <i>
+      International Journal of Approximate Reasoning
+     </i>
+     <b>
+      4
+     </b>
+     , 89–158.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Copulas in Insurance
+   </b>
+   ;
+   <b>
+    Copulas: Estimation
+   </b>
+   ;
+   <b>
+    Correlation Risk
+   </b>
+   ;
+   <b>
+    Levy Copulas ´
+   </b>
+   ;
+   <b>
+    Multivariate Distributions
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   YANQIN FAN
+  </p>
+ </body>
+</html>
