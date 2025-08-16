@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Equivalent Martingale
+   </b>
+   Measures
+  </h1>
+  <p block-type="TextInlineMath">
+   The usual setting of mathematical finance is provided by a
+   <i>
+    d
+   </i>
+   -dimensional stochastic process
+   <math display="inline">
+    S = (S_t)_{0 \le t \le T}
+   </math>
+   based on and adapted to a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, (\mathcal{F}_t)_{0 \le t \le T}, \mathbb{P}).
+   </math>
+   This process S models the price evolution of
+   <math display="inline">
+    d
+   </math>
+   risky stocks, which is random.
+  </p>
+  <p block-type="Text">
+   To alleviate notation, we assume from the very beginning that these prices are denoted in discounted terms: fix a traded asset, the "bond", as numéraire and express stock prices
+   <math display="inline">
+    S
+   </math>
+   in units of this bond. This simple and classical technique allows us to dispense with discount factors in the formulae below (compare Section 2.1 in [6] for more details).
+  </p>
+  <p block-type="Text">
+   A central topic in mathematical finance is to decide whether there is a probability measure
+   <math display="inline">
+    Q
+   </math>
+   , equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , such that S is a martingale under
+   <math display="inline">
+    Q
+   </math>
+   . This is the theme of the fundamental theorem of asset pricing (see Fundamental Theorem of Asset Pricing). Once we know that there exist equivalent martingale measures, they can be used to determine risk-neutral prices of derivative securities by taking expectations under these measures (see
+   <b>
+    Risk-neutral Pricing
+   </b>
+   ), and to replicate, respectively, sub- or superreplicate, the derivative.
+  </p>
+  <p block-type="Text">
+   In fact, we were less precise in the previous paragraph (as is usual in this context) by requiring that
+   <math display="inline">
+    S
+   </math>
+   is a
+   <i>
+    martingale
+   </i>
+   . It turns out that some technical care is needed here, involving the notions of
+   <i>
+    local martingales
+   </i>
+   and, more generally, of
+   <i>
+    sigma
+   </i>
+   martingales. This article deals precisely with these technical variants of the concept of a martingale.
+  </p>
+  <p block-type="Text">
+   We start by giving precise definitions.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   An
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued stochastic process
+   <math display="inline">
+    (S_t)_{0 \le t \le T}
+   </math>
+   based on and adapted to
+   <math display="inline">
+    (\Omega, \mathcal{F},
+   </math>
+   <math display="inline">
+    (\mathcal{F}_t)_{0 \le t \le T}
+   </math>
+   ,
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   ) is called a
+  </p>
+  <p block-type="Text">
+   (i) martingale if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[S_t|\mathcal{F}_u] = S_u, \quad 0 \le u \le t \le T \qquad (1)
+   </math>
+  </p>
+  <p block-type="Text">
+   (ii) local martingale if there exists a sequence
+   <math display="inline">
+    (\tau_n)_{n=1}^{\infty}
+   </math>
+   of
+   <math display="inline">
+    [0,T] \cup \{+\infty\}
+   </math>
+   -valued stopping times, increasing a.s. to
+   <math display="inline">
+    \infty
+   </math>
+   , such that the stopped processes
+   <math display="inline">
+    S_t^{\tau_n}
+   </math>
+   are all martingales, where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t^{\tau_n} = S_{t \wedge \tau_n}, \quad 0 \le t \le T \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   (iii) sigma-martingale if there is an
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued martingale
+   <math display="inline">
+    M = (M_t)_{0 \le t \le T}
+   </math>
+   and a predictable
+   <i>
+    M
+   </i>
+   -integrable
+   <math display="inline">
+    \mathbb{R}_+
+   </math>
+   -valued process
+   <math display="inline">
+    \varphi
+   </math>
+   such that
+   <math display="inline">
+    S = \varphi \cdot M.
+   </math>
+  </p>
+  <p block-type="Text">
+   The process
+   <math display="inline">
+    \varphi \cdot M
+   </math>
+   is defined as the stochastic integral in the sense of semimartingales. The-by now well understood—underlying theory was developed notably by the school of P.A. Meyer in Strasbourg
+   <math display="inline">
+    [10-12]
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (\varphi \cdot M)_t = \int_0^t \varphi_u \, \mathrm{d}M_u, \quad 0 \le t \le T \qquad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is not obvious, but true, that a local martingale is a sigma-martingale, so that (i)
+   <math display="inline">
+    \Rightarrow
+   </math>
+   (ii)
+   <math display="inline">
+    \Rightarrow
+   </math>
+   (iii) holds true above, while the reverse implications fail to hold true as we discuss later.
+  </p>
+  <p block-type="Text">
+   Why is it necessary to introduce these generalizations of the concept of a martingale? Let us start with a familiar example of a martingale, namely, geometric Brownian motion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_t = \exp\left[W_t - \frac{t}{2}\right], \quad t \ge 0 \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the process
+   <math display="inline">
+    (W_t)_{t&gt;0}
+   </math>
+   is a standard Brownian motion.
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly,
+   <math display="inline">
+    (M_t)_{t\geq 0}
+   </math>
+   is a martingale (with reference to its natural filtration) when t ranges in
+   <math display="inline">
+    [0, \infty[
+   </math>
+   . But what happens if we include
+   <math display="inline">
+    t = \infty
+   </math>
+   into the time set? It is straightforward to verify that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_{\infty} := \lim_{t \to \infty} M_t \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   exists a.s. and equals
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_{\infty} = 0 \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Hence we may well define the continuous process
+   <math display="inline">
+    (M_t)_{0 \le t \le \infty}
+   </math>
+   ; this process is not a martingale any more as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    1 = M_0 &gt; \mathbb{E}[M_\infty] = 0 \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In this example, the breakdown of the martingale property happens at
+   <math display="inline">
+    t = \infty
+   </math>
+   . However, it is purely formal to shift this problem to any other point
+   <math display="inline">
+    T \in ]0, \infty[
+   </math>
+   , for example,
+   <math display="inline">
+    T = 1
+   </math>
+   . Indeed, letting
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{M}_t = M_{\tan\left(\frac{t\pi}{2}\right)}, \quad 0 \le t &lt; 1\n
+   </math>
+   <math display="block">
+    \n\tilde{M}_1 = M_\infty = 0 \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   we find a process
+   <math display="inline">
+    (\tilde{M}_t)_{0 \le t \le 1}
+   </math>
+   , having a.s. continuous paths, which fails to be a martingale. However, it is intuitively clear that "locally", that is, before t assumes the value 1, the process
+   <math display="inline">
+    (\tilde{M}_t)_{0 \le t \le 1}
+   </math>
+   is "something like a martingale". The good way to formalize this intuition is to find a "localizing" sequence of stopping times as in (ii) above. The canonical choice&lt;sup&gt;a&lt;/sup&gt; is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_n = \inf\{t \in [0, 1] : |\tilde{M}_t| \ge n\} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which is a
+   <math display="inline">
+    [0, 1] \cup \{\infty\}
+   </math>
+   -valued stopping time, if we define the infimum over the empty set to be equal to
+   <math display="inline">
+    \infty
+   </math>
+   . It is straightforward to verify that
+   <math display="inline">
+    (\tau_n)_{n=1}^{\infty}
+   </math>
+   satisfies the requirements of (ii) above.
+  </p>
+  <p block-type="TextInlineMath">
+   In the above example it holds true that
+   <math display="inline">
+    (\tilde{M}_t)_{0 \le t \le 1}
+   </math>
+   is a martingale, that is, when
+   <math display="inline">
+    t
+   </math>
+   ranges in [0, 1]. In other words, the problem only arises at
+   <math display="inline">
+    t = 1
+   </math>
+   . However, there is a more subtle phenomenon in this context, where the problem not only appears at one single value of
+   <math display="inline">
+    t
+   </math>
+   , but also for all
+   <math display="inline">
+    t
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The canonical example for this phenomenon is the inverse of the three-dimensional Bessel process
+   <math display="inline">
+    ^{\rm b}
+   </math>
+   <math display="inline">
+    (R_t)_{0 \le t \le 1}
+   </math>
+   . It may be defined by
+   <math display="inline">
+    R_0 = 1
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dR_t = R_t^2 dW_t, \quad 0 \le t \le 1 \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It turns out that equation
+   <math display="inline">
+    (10)
+   </math>
+   well defines a stochastic process with continuous paths, which is a local martingale (define
+   <math display="inline">
+    (\tau_n)_{n=1}^{\infty}
+   </math>
+   as in equation (9)). However, the function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    t \to \mathbb{E}[R_t], \quad 0 \le t \le 1 \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is
+   <i>
+    strictly decreasing
+   </i>
+   on the entire interval
+   <math display="inline">
+    [0, 1]
+   </math>
+   . Intuitively speaking, this may be interpreted as
+   <math display="inline">
+    (R_t)_{0 \le t \le 1}
+   </math>
+   "losing mass in continuous time". We leave it to the reader to develop his or her own intuition for this remarkable phenomenon. In any case, this example should convince the reader that the concept of
+   <i>
+    local martingales
+   </i>
+   , involving "localizing" sequences of stopping times, is a useful and natural notion.
+  </p>
+  <p block-type="TextInlineMath">
+   To underline this claim even further, think of a diffusion process
+   <math display="inline">
+    (X_t)_{0 \le t \le 1}
+   </math>
+   satisfying the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = \sigma(X_t, t) dW_t + \mu(X_t, t) dt, \quad 0 \le t \le 1
+   </math>
+   (12)
+  </p>
+  <p block-type="Text" class="has-continuation">
+   A typical argument used, for example, in the derivation of the Black-Scholes partial differential equation (PDE) (compare Complete Markets
+  </p>
+  <p block-type="TextInlineMath">
+   or [Vol. II] [13]), goes as follows: for the drift term
+   <math display="inline">
+    \mu(X_t, t)
+   </math>
+   we have
+   <math display="inline">
+    \mu(X_t, t) \equiv 0
+   </math>
+   if and only if
+   <math display="inline">
+    (X_t)_{0 \le t \le 1}
+   </math>
+   is a martingale. This is a very useful argument. However, this argument is not quite complete, as a glance at equation
+   <math display="inline">
+    (10)
+   </math>
+   reveals where we only obtain a local martingale. The correct statement is the process
+   <math display="inline">
+    X
+   </math>
+   is a
+   <i>
+    local martingale
+   </i>
+   if and only if
+   <math display="inline">
+    \mu(X_t, t) = 0
+   </math>
+   , a.s. with respect to
+   <math display="inline">
+    d\mathbb{P} \otimes d\lambda
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Local Martingales in Finance
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   As a concrete example of a local martingale modeling a price process we consider
+   <math display="inline">
+    \tilde{S} = (\tilde{S}_t)_{0 \le t \le T} =
+   </math>
+   <math display="inline">
+    (\tilde{M}_t)_{0 \le t \le 1}
+   </math>
+   , the time-changed geometric Brownian motion defined in equation (8). We consider
+   <math display="inline">
+    \hat{S}
+   </math>
+   to be defined on
+   <math display="inline">
+    (\Omega, \mathcal{F}, (\mathcal{F}_t)_{0 \le t \le T}, \mathbb{P})
+   </math>
+   , where the filtration
+   <math display="inline">
+    (\mathcal{F}_t)_{0 \le t \le T}
+   </math>
+   is generated by
+   <math display="inline">
+    \tilde{S}
+   </math>
+   and
+   <math display="inline">
+    \mathcal{F} = \mathcal{F}_T
+   </math>
+   . We conclude that
+   <math display="inline">
+    Q = \mathbb{P}
+   </math>
+   is the unique probability measure Q on
+   <math display="inline">
+    \mathcal{F}
+   </math>
+   , which is equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   and such that
+   <math display="inline">
+    \tilde{S}
+   </math>
+   is a local martingale under
+   <math display="inline">
+    Q
+   </math>
+   . This quickly follows from the fact that
+   <math display="inline">
+    Q = \mathbb{P}
+   </math>
+   is the unique probability measure on
+   <math display="inline">
+    \mathcal{F}
+   </math>
+   , equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , such that the Brownian motion
+   <math display="inline">
+    W = (W_t)_{0 \le t &lt; \infty}
+   </math>
+   in equation (4) is a martingale under
+   <math display="inline">
+    O
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The question arises whether
+   <math display="inline">
+    \hat{S}
+   </math>
+   defines a sound, that is, arbitrage-free model of a financial market. At first glance, things seem suspicious; after all,
+   <math display="inline">
+    (S_t)_{0 \le t \le T}
+   </math>
+   , is a ridiculous stock; it starts at
+   <math display="inline">
+    \tilde{S}_0 = 1
+   </math>
+   and ends a.s. at
+   <math display="inline">
+    S_T = 0
+   </math>
+   . Hence buying a stock S and holding it up to time
+   <math display="inline">
+    T = 1
+   </math>
+   is a very "silly investment". M. Harrison and St. Pliska [8] called such an investment a
+   <i>
+    suicide
+   </i>
+   strategy. But it is not forbidden to be silly.
+  </p>
+  <p block-type="TextInlineMath">
+   A much more appealing investment strategy would be to go short in the stock at time 0, and to hold this short position up to time
+   <math display="inline">
+    T
+   </math>
+   , as this strategy yields a.s. a gain of one Euro. However, unfortunately, this is forbidden. To understand why this is the case, let us recall from Fundamental Theorem of Asset Pricing the definition of
+   <i>
+    admissibility
+   </i>
+   : a trading strategy
+   <math display="inline">
+    H =
+   </math>
+   <math display="inline">
+    (H_t)_{0 \le t \le T}
+   </math>
+   for a (general semimartingale) stock price process
+   <math display="inline">
+    S
+   </math>
+   is defined as a predictable strategy, which is S-integrable. By definition, the stochastic integral
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (H \cdot S)_t = \int_0^t (H_u, \mathrm{d}S_u), \quad 0 \le t \le T \qquad (13)
+   </math>
+  </p>
+  <p block-type="Text">
+   then is well defined. We call
+   <math display="inline">
+    H
+   </math>
+   <i>
+    admissible
+   </i>
+   , if there is a constant
+   <math display="inline">
+    C &gt; 0
+   </math>
+   such that a.s.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (H \cdot S)_t \ge -C, \quad 0 \le t \le T \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The finite credit line
+   <math display="inline">
+    C
+   </math>
+   rules out doubling strategies and similar schemes that capitalize on taking higher and higher risks. A typical representative of such a "kind of doubling strategy" is the strategy of going short in the stock
+   <math display="inline">
+    (S_t)_{0 \le t \le T}
+   </math>
+   , which corresponds to taking
+   <math display="inline">
+    H_t \equiv -1
+   </math>
+   , for
+   <math display="inline">
+    0 \le t \le T
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   We now shall convince ourselves that local martingales yield sound, arbitrage-free models of financial markets. It turns out that it does not matter whether we start with a true martingale
+   <math display="inline">
+    S = (S_t)_{0 \le t \le T}
+   </math>
+   or with a local martingale
+   <math display="inline">
+    S
+   </math>
+   , if we are only interested in the
+   <i>
+    admissible stochastic integrals
+   </i>
+   <math display="inline">
+    H \cdot S
+   </math>
+   . Indeed, it was shown by J.P. Ansel and C. Stricker [1, Corr. 3.5] that, given a local martingale
+   <math display="inline">
+    S
+   </math>
+   and an admissible integrand H, the stochastic integral
+   <math display="inline">
+    H \cdot S
+   </math>
+   is a local martingale and therefore (using once more the fact that
+   <math display="inline">
+    H \cdot S
+   </math>
+   is bounded from below) a supermartingale. In particular, the process
+   <math display="inline">
+    H \cdot S
+   </math>
+   cannot increase in expectation; but it may very well decrease in expectation as, for example, the process
+   <math display="inline">
+    \tilde{S}
+   </math>
+   above.
+  </p>
+  <p block-type="Text">
+   The following characterization of local martingales (see [4, Prop. 2.5] for more on this issue) is useful in this context.
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 1
+   </b>
+   For an
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued semimartingale S the following are equivalent.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      (i)
+     </math>
+     S is a local martingale.
+    </li>
+    <li block-type="ListItem">
+     (ii)
+     <math display="inline">
+      S = \varphi \cdot M
+     </math>
+     , where M is an
+     <math display="inline">
+      \mathbb{R}^d
+     </math>
+     -valued martingale, and
+     <math display="inline">
+      \varphi
+     </math>
+     is an
+     <math display="inline">
+      \mathbb{R}_+
+     </math>
+     -valued, M-integrable, predictable, increasing process.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   From this proposition and the trivial formula&lt;sup&gt;c&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H \cdot M = \frac{H}{\varphi} \cdot (\varphi \cdot M) = \frac{H}{\varphi} \cdot S \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which holds true for every
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued, predictable,
+   <i>
+    M
+   </i>
+   -integrable process
+   <math display="inline">
+    H = (H_t)_{0 \le t \le T}
+   </math>
+   we deduce that the family of processes, which are stochastic integrals on the local martingale
+   <math display="inline">
+    S
+   </math>
+   coincides with the family of processes, which are stochastic processes on the martingale
+   <math display="inline">
+    M
+   </math>
+   . Also note that
+   <math display="inline">
+    H
+   </math>
+   is admissible for
+   <math display="inline">
+    M
+   </math>
+   if and only if
+   <math display="inline">
+    \frac{H}{\omega}
+   </math>
+   is admissible for S.
+  </p>
+  <p block-type="TextInlineMath">
+   The bottom line of formula
+   <math display="inline">
+    (15)
+   </math>
+   is that
+   <i>
+    there is
+   </i>
+   no difference between the stock price process S and
+   <math display="inline">
+    M
+   </math>
+   in
+   <i>
+    Proposition 1
+   </i>
+   if we are only interested in the
+   <i>
+    admissible stochastic integrals
+   </i>
+   on these processes: these two families of stochastic integrals coincide.
+  </p>
+  <h2>
+   <b>
+    Sigma-martingales
+   </b>
+  </h2>
+  <p block-type="Text">
+   For continuous stock price processes
+   <math display="inline">
+    S
+   </math>
+   or, more generally, for locally bounded processes
+   <math display="inline">
+    S
+   </math>
+   , the concept of
+   <i>
+    local martingales
+   </i>
+   is sufficiently general to characterize those models that satisfy the condition of no free lunch with vanishing risk (see
+   <b>
+    Fundamental
+   </b>
+   Theorem of Asset Pricing).
+  </p>
+  <p block-type="Text">
+   However, if we pass to processes
+   <math display="inline">
+    S
+   </math>
+   that are not locally bounded any more, we still need one more step of generalization. The key concept for doing so was introduced by C. Chou [2] and M. Émery [7] under the name of "semimartingale de la classe
+   <math display="inline">
+    (\sum_{m})
+   </math>
+   ". In [4], F. Delbaen and this author took the liberty of calling these processes sigma-martingales S. The reason for this is that their relation to martingales is analogous to the relation between sigmafinite measures and finite measures, as seen from Definition 1 above. Also note the (only) difference between Definition 1 (iii) of a sigma-martingale, and the characterization of a local martingale as given in Proposition 1: in the latter the predictable,
+   <math display="inline">
+    \mathbb{R}_+
+   </math>
+   -valued process
+   <math display="inline">
+    \varphi
+   </math>
+   is supposed to be
+   <i>
+    increasing
+   </i>
+   while there is no such restriction in the former one.
+  </p>
+  <p block-type="Text">
+   Here is the illuminating example, due to M. Émery [7] (compare [4, Ex. 2.2]), of the archetypical sigmamartingale, which fails to be a local martingale.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 1
+   </b>
+   We start with an exponentially distributed random variable
+   <math display="inline">
+    \tau
+   </math>
+   and an independent Bernoulli random variable
+   <math display="inline">
+    \varepsilon
+   </math>
+   , that is,
+   <math display="inline">
+    \mathbb{P}[\varepsilon = 1] =
+   </math>
+   <math display="inline">
+    \mathbb{P}[\varepsilon=-1]=\frac{1}{2}
+   </math>
+   . These random variables are based on some probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{P})
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Define the process
+   <math display="inline">
+    M = (M_t)_{t&gt;0}
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_t = \begin{cases} 0, &amp; \text{for} \quad 0 \le t \le \tau \\ \varepsilon, &amp; \text{for} \quad \tau \le t \end{cases} \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The verbal description goes like this: the process
+   <i>
+    M
+   </i>
+   remains at zero until time
+   <math display="inline">
+    \tau
+   </math>
+   ; then a coin is flipped, independently of
+   <math display="inline">
+    \tau
+   </math>
+   , and the process
+   <i>
+    M
+   </i>
+   continues at the level
+   <math display="inline">
+    +1
+   </math>
+   or
+   <math display="inline">
+    -1
+   </math>
+   , according to the result of this coin flip.
+  </p>
+  <p block-type="TextInlineMath">
+   Denoting by
+   <math display="inline">
+    (\mathcal{F}_t)_{t\geq 0}
+   </math>
+   the filtration generated by
+   <math display="inline">
+    (M_t)_{t&gt;0}
+   </math>
+   , it is rather obvious that
+   <math display="inline">
+    (M_t)_{t&gt;0}
+   </math>
+   is a martin
+   <i>
+    gale
+   </i>
+   in this filtration
+   <math display="inline">
+    (\mathcal{F}_t)_{t&gt;0}
+   </math>
+   . To keep in line with the above notation, we only consider the finite-horizon process
+   <math display="inline">
+    (M_t)_{0 \le t \le T}
+   </math>
+   , but the example could as well be presented for the infinite horizon.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \varphi = (\varphi_t)_{0 \le t \le 1}
+   </math>
+   be the
+   <i>
+    deterministic process
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varphi_t = t^{-1}, \quad 0 \le t \le 1 \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and define the stochastic integral
+   <math display="inline">
+    S = \varphi \cdot M
+   </math>
+   , for which we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_{t} = \begin{cases} 0, &amp; \text{for } 0 \le t \le \tau \\ \tau^{-1}\varepsilon, &amp; \text{for } \tau \le t \end{cases}
+   </math>
+   (18)
+  </p>
+  <p block-type="TextInlineMath">
+   The process
+   <math display="inline">
+    S = (S_t)_{0 \le t \le 1}
+   </math>
+   is a well-defined stochastic integral (in the pointwise Stieltjes sense). The verbal description of
+   <math display="inline">
+    S
+   </math>
+   goes as follows: again
+   <math display="inline">
+    S
+   </math>
+   remains at 0 until time
+   <math display="inline">
+    \tau
+   </math>
+   and then, depending on the sign of
+   <math display="inline">
+    \varepsilon
+   </math>
+   , it jumps to
+   <math display="inline">
+    +\tau^{-1}
+   </math>
+   or
+   <math display="inline">
+    -\tau^{-1}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Is the process
+   <math display="inline">
+    S
+   </math>
+   a martingale? Morally speaking, one might think yes, as it has the same odds of jumping up or down.&lt;sup&gt;d&lt;/sup&gt; But this intuition goes wrong: indeed, the notion of martingale is based on some (conditional) expectations to be zero. When we do the calculations in the present example we end up with expressions of the form
+   <math display="inline">
+    \infty - \infty
+   </math>
+   , which creates a problem. Indeed, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[|S_t|] = \infty, \quad \text{for } 0 \le t \le 1 \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   as is easily seen from
+   <math display="inline">
+    \int_0^t u^{-1} du = \infty
+   </math>
+   , for
+   <math display="inline">
+    t &gt; 0
+   </math>
+   . In fact, it is not hard to show [7] that, for every
+   <math display="inline">
+    (\mathcal{F}_t)_{0 \le t \le 1}
+   </math>
+   —stopping time
+   <math display="inline">
+    \sigma : \Omega \to [0, 1]
+   </math>
+   , such that
+   <math display="inline">
+    \mathbb{P}[\sigma &gt; 0] &gt; 0
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[|S_{\sigma}|] = \infty \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   It follows that
+   <math display="inline">
+    S
+   </math>
+   even fails to be a local martingale. But, of course,
+   <math display="inline">
+    S
+   </math>
+   is a sigma-martingale by its very construction.
+  </p>
+  <p block-type="Text">
+   The message of the above example is that the notion of sigma-martingale is tailor-made to save the intuition that—from a "moral point of view"—the above process
+   <math display="inline">
+    S
+   </math>
+   is "something like a martingale".
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Let us turn from moral considerations to finance again: the question arises as to whether a process
+   <math display="inline">
+    S = (S_t)_{0 \le t \le T}
+   </math>
+   , which is a sigma-martingale under some measure
+   <math display="inline">
+    Q
+   </math>
+   equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , well defines a sound, that is, arbitrage-free, model of a financial market. The answer is analogous to the case of a local martingale, namely, a resounding yes. If
+   <math display="inline">
+    S =
+   </math>
+   <math display="inline">
+    \varphi \cdot M
+   </math>
+   , for some
+   <math display="inline">
+    \mathbb{R}_+
+   </math>
+   -valued predictable process
+   <math display="inline">
+    \varphi
+   </math>
+   , then again the "trivial formula"
+   <math display="inline">
+    (15)
+   </math>
+   above holds true. Hence again the families of
+   <i>
+    admissible stochastic integrals
+   </i>
+   on the processes S and M coincide. If these are the only relevant objects—as is the case for the classical approach to no-arbitrage theory as proposed by M. Harrison and S. Pliska [8]—the
+  </p>
+  <p block-type="Text">
+   processes
+   <math display="inline">
+    S
+   </math>
+   and
+   <math display="inline">
+    M
+   </math>
+   work equally well. In particular, the Ansel-Stricker Theorem carries over to sigmamartingales (see [4, Th. 5.5] for a somewhat stronger version of this result).
+  </p>
+  <p block-type="TextInlineMath">
+   It is not hard to show that a locally bounded process, which is a sigma-martingale, is already a local martingale [4, Prop. 2.5 and 2.6]. Émery's example shows that this is not the case any more if we drop the local boundedness assumption. From a financial point of view, however, the question of interest arises in a slightly different version. Is there an example of a process
+   <math display="inline">
+    S = (S_t)_{0 \le t \le T}
+   </math>
+   , which is a sigma-martingale, say under
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , but such that it
+   <i>
+    fails to
+   </i>
+   be a local martingale under any probability measure
+   <math display="inline">
+    Q
+   </math>
+   equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   ?
+  </p>
+  <p block-type="TextInlineMath">
+   Émery's original example does not provide a counterexample to this question; in this example, it is not hard to pass from
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   to
+   <math display="inline">
+    Q
+   </math>
+   such that S even becomes a
+   <math display="inline">
+    O
+   </math>
+   -martingale. However, in [4, Ex. 2.3] a variant of Émery's example has been constructed, which is a process S taking values in
+   <math display="inline">
+    \mathbb{R}^2
+   </math>
+   answering the above question negatively. It seems worth mentioning that—to the best of the author's knowledge-it is unknown whether there also is a counterexample of a process
+   <math display="inline">
+    S
+   </math>
+   , taking values only in
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   , to this question.
+  </p>
+  <h4>
+   <b>
+    Separating Measures
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   We have seen in the preceding sections that, for a process
+   <math display="inline">
+    S = (S_t)_{0 \le t \le T}
+   </math>
+   which is a sigma-martingale under some probability measure
+   <math display="inline">
+    Q
+   </math>
+   and for each admissible integrand
+   <math display="inline">
+    H
+   </math>
+   , we have the inequality
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{O}[(H \cdot S)_{T}] \le 0 \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Indeed, the theorem of Ansel-Stricker [1, Corr.
+   <math display="inline">
+    3.5
+   </math>
+   ] and its extension to sigma-martingales [4, Th. 5.5] imply that
+   <math display="inline">
+    H \cdot S
+   </math>
+   is a local martingale and, using again the boundedness from below, the process
+   <math display="inline">
+    H \cdot S
+   </math>
+   is a supermartingale.
+  </p>
+  <p block-type="TextInlineMath">
+   The notion of a separating measure introduced by Y. Kabanov in
+   <math display="inline">
+    [9]
+   </math>
+   , takes this inequality
+   <math display="inline">
+    (21)
+   </math>
+   as defining property. To formalize this idea, we assume that S is an
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued semimartingale on some filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, (\mathcal{F}_t)_{0 \le t \le T}, \mathbb{P})
+   </math>
+   . We say that a measure
+   <math display="inline">
+    Q
+   </math>
+   , equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , is a
+   <i>
+    separating measure
+   </i>
+   for
+   <math display="inline">
+    S
+   </math>
+   if, for all admissible, predictable S-integrable integrands
+   <math display="inline">
+    H
+   </math>
+   , inequality (21) holds true.
+  </p>
+  <p block-type="Text">
+   If
+   <math display="inline">
+    S
+   </math>
+   is bounded, then it is straightforward to verify that the validity of inequality (21), for all admissible
+   <math display="inline">
+    H
+   </math>
+   , is tantamount to
+   <math display="inline">
+    S
+   </math>
+   being a martingale. It follows that, if
+   <math display="inline">
+    S
+   </math>
+   is locally bounded, then the validity of inequality (21), for all admissible
+   <math display="inline">
+    H
+   </math>
+   , is tantamount to
+   <math display="inline">
+    S
+   </math>
+   being a local martingale. Hence, we do not find anything new by using the notion of
+   <i>
+    separating measure
+   </i>
+   in the context of locally bounded semimartingales
+   <math display="inline">
+    S
+   </math>
+   . However, for semimartingales
+   <math display="inline">
+    S
+   </math>
+   that are not locally bounded, we do find something new; as observed above, if
+   <math display="inline">
+    S
+   </math>
+   is a sigma-martingale under
+   <math display="inline">
+    Q
+   </math>
+   then inequality (21) holds true, for all admissible
+   <math display="inline">
+    H
+   </math>
+   . But the converse does not hold true. The difference is illustrated by the subsequent easy one-period example. To stay in line with the present notation, we write it as an example in continuous time.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 2
+   </b>
+   Let
+   <i>
+    X
+   </i>
+   be an
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   -valued random variable, defined on some probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{P})
+   </math>
+   , which is unbounded from above and from below. For example, we may choose
+   <math display="inline">
+    X
+   </math>
+   to be normally distributed.
+  </p>
+  <p block-type="TextInlineMath">
+   The process
+   <math display="inline">
+    S = (S_t)_{0 \le t \le 1}
+   </math>
+   is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = \begin{cases} 0 &amp; 0 \le t &lt; 1 \\ X &amp; t = 1 \end{cases} \tag{22}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Defining
+   <math display="inline">
+    (\mathcal{F}_t)_{0 \le t \le 1}
+   </math>
+   as the filtration generated by
+   <math display="inline">
+    S = (S_t)_{0 \le t \le 1}
+   </math>
+   , we find that the only
+   <math display="inline">
+    (\mathcal{F}_t)_{0 \le t \le 1}
+   </math>
+   predictable processes are the
+   <i>
+    constant processes
+   </i>
+   <math display="inline">
+    H =
+   </math>
+   <math display="inline">
+    (H_t)_{0 \le t \le 1}
+   </math>
+   . Among those, the only S-admissible predictable process is
+   <math display="inline">
+    H = 0
+   </math>
+   . Indeed, if
+   <math display="inline">
+    H = \text{const} \neq 0
+   </math>
+   , the process
+   <math display="inline">
+    H \cdot S
+   </math>
+   is not bounded from below in the sense of inequality
+   <math display="inline">
+    (14)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The condition (21) therefore is trivially satisfied, for
+   <i>
+    each
+   </i>
+   probability measure Q equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   . On the other hand,
+   <math display="inline">
+    S
+   </math>
+   is a martingale (or, equivalently, a local or a sigma-martingale) under
+   <math display="inline">
+    O
+   </math>
+   if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{\mathcal{Q}}[X] = \mathbb{E}_{\mathcal{Q}}[S_1] = 0 \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Hence we see that, in this easy example, the class of separating measures
+   <math display="inline">
+    Q
+   </math>
+   is strictly bigger than the class of probability measures
+   <math display="inline">
+    Q
+   </math>
+   , equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , under which
+   <math display="inline">
+    S
+   </math>
+   is a sigma-martingale.
+  </p>
+  <p block-type="Text">
+   Where does the nomenclature "separating measure" come from? This concept arises naturally as an intermediary step in the proof of
+   <b>
+    Fundamental The
+   </b>
+   orem of Asset Pricing (compare [9] for a careful analysis of the arguments in
+   <math display="inline">
+    [3]
+   </math>
+   and
+   <math display="inline">
+    [4]
+   </math>
+   and, in particular, for the introduction of the name "separating measure").
+  </p>
+  <p block-type="TextInlineMath">
+   In the context of this theorem, after surmounting some difficulties, an application of the Hahn-Banach theorem plus an exhaustion argument due to J. Yan ([15], compare also [14]) provides a
+   <math display="inline">
+    \sigma^*
+   </math>
+   -continuous, linear functional
+   <math display="inline">
+    F: L^{\infty}(\Omega, \mathcal{F}, \mathbb{P}) \to \mathbb{R}
+   </math>
+   which
+   <i>
+    stric
+   </i>
+   <math display="inline">
+    t \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (H \cdot S)_T = \int_0^T (H_t, \mathrm{d}S_t) \tag{24}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    H
+   </math>
+   runs through the admissible integrands, from
+   <math display="inline">
+    L^{\infty}_{+}(\Omega, \mathcal{F}, \mathbb{P}) \setminus \{0\}
+   </math>
+   , that is, the positive orthant with the origin 0 deleted. Normalizing the functional F by
+   <math display="inline">
+    F(\zeta) = 1
+   </math>
+   , this translates into the fact that F is of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(g) = \mathbb{E}_{\mathcal{Q}}[g], \quad g \in L^{\infty}(\Omega, \mathcal{F}, \mathbb{P}) \tag{25}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    Q
+   </math>
+   is a
+   <i>
+    separating measure
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   If the process
+   <math display="inline">
+    S
+   </math>
+   is bounded (respectively, locally bounded), it immediately follows that
+   <math display="inline">
+    S
+   </math>
+   is a martingale (respectively, a local martingale) under this separating measure
+   <math display="inline">
+    Q
+   </math>
+   , which concludes the proof of the fundamental theorem of asset pricing (see [3]).
+  </p>
+  <p block-type="TextInlineMath">
+   If, however,
+   <math display="inline">
+    S
+   </math>
+   fails to be locally bounded, then we cannot conclude that
+   <math display="inline">
+    S
+   </math>
+   is "some kind of martingale" under the separating measure
+   <math display="inline">
+    Q
+   </math>
+   , as is illustrated by Example 2 above. Some further work is needed—which was carried out in
+   <math display="inline">
+    [4]
+   </math>
+   —to pass from the separating measure
+   <math display="inline">
+    Q
+   </math>
+   to a probability measure
+   <math display="inline">
+    \tilde{Q}
+   </math>
+   , which is equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   and under which S is a sigma-martingale measure. It turns out that, in the setting of the fundamental theorem of asset pricing [4], the latter set is dense with reference to
+   <math display="inline">
+    \|\cdot\|_1
+   </math>
+   in the set of separating measures for S. In particular, this set is nonempty, provided we have found a separating measure. This argument concludes the proof of the fundamental theorem of asset pricing also in the case of a general,
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   -valued semimartingale
+   <math display="inline">
+    S
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    End Notes
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;a&lt;/sup&gt;.For
+   <i>
+    continuous
+   </i>
+   local martingales
+   <math display="inline">
+    (M_t)_{t\geq 0}
+   </math>
+   starting at
+   <math display="inline">
+    M_0 = 0
+   </math>
+   the choice of stopping times
+   <i>
+    via
+   </i>
+   equation (9) always works, that is, gives a sequence
+   <math display="inline">
+    (\tau_n)_{n=1}^{\infty}
+   </math>
+   satisfying the requirements of (ii) above. In the case of càdlàg local martingales this is not true any more and one may give examples of local martingales where equation (9) does not define a sequence of localizing stopping times.
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;b.&lt;/sup&gt;The name is derived from the following fact: let
+   <math display="inline">
+    (B_t)_{0 \le t \le 1} = (B_t^1, B_t^2, B_t^3)_{0 \le t \le 1}
+   </math>
+   be an
+   <math display="inline">
+    \mathbb{R}^3
+   </math>
+   -valued standard Brownian motion starting at
+   <math display="inline">
+    B_0 = (B_0^1, B_0^2, B_0^3) = (1, 0, 0).
+   </math>
+   Let
+   <math display="inline">
+    R_t = \|B_t\|^{-1}
+   </math>
+   where
+   <math display="inline">
+    \|.\|
+   </math>
+   denotes Euclidean norm on
+   <math display="inline">
+    \mathbb{R}^3
+   </math>
+   . Then
+   <math display="inline">
+    (R_t)_{0 \le t \le 1}
+   </math>
+   satisfies equation (10), where
+   <math display="inline">
+    (W_t)_{0 \le t \le 1}
+   </math>
+   is a one-dimensional Brownian motion adapted to the filtration generated by the three-dimensional Brownian
+   <math display="inline">
+    (B_t)_{0 \le t \le 1}
+   </math>
+   . We refer to
+   <math display="inline">
+    [11]
+   </math>
+   for a beautiful presentation of the theory of Bessel processes (compare also [5]).
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;c&lt;/sup&gt;.It is easy to verify that in Proposition 1 (as well as in Definition 1 (iii)), we may assume without loss of generality that
+   <math display="inline">
+    \varphi
+   </math>
+   takes its values in
+   <math display="inline">
+    ]0, \infty[
+   </math>
+   (or, equivalently, in
+   <math display="inline">
+    [1, \infty[
+   </math>
+   ). See [4, Prop. 2.5] for details.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;d.&lt;/sup&gt;A precise statement is that the processes
+   <math display="inline">
+    S
+   </math>
+   and
+   <math display="inline">
+    -S
+   </math>
+   have the same law, which obviously is the case.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;e&lt;/sup&gt;. To be precise, we have to consider the random variables
+   <math display="inline">
+    (H \cdot S)_T \wedge C
+   </math>
+   , where C runs through
+   <math display="inline">
+    \mathbb{R}_+
+   </math>
+   , to make sure that these random variables are in
+   <math display="inline">
+    L^{\infty}(\Omega, \mathcal{F}, \mathbb{P})
+   </math>
+   .
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Ansel, J.P. &amp; Stricker, C. (1994). Couverture des actifs [1] contingents et prix maximum, Annales de l'Institut Henri Poincaré - Probabilités et Statistiques 30, 303-315.
+    </li>
+    <li block-type="ListItem">
+     [2] Chou, C.S. (1977/78). Caractérisation d'une classe de semimartingales, in Séminaire de Probabilités XIII, Springer Lecture Notes in Mathematics, Springer, Vol. 721, pp. 250-252.
+    </li>
+    <li block-type="ListItem">
+     [3] Delbaen, F. &amp; Schachermayer, W. (1994). A general version of the fundamental theorem of asset pricing, Mathematische Annalen 300, 463-520.
+    </li>
+    <li block-type="ListItem">
+     Delbaen, F. &amp; Schachermayer, W. (1998). The funda-[4] mental theorem of asset pricing for unbounded stochastic processes, Mathematische Annalen 312, 215-250.
+    </li>
+    <li block-type="ListItem">
+     [5] Delbaen, F. &amp; Schachermayer, W. (1995). Arbitrage possibilities in Bessel processes and their relations to local martingales,
+     <i>
+      Probability Theory and Related Fields
+     </i>
+     102, 357-366.
+    </li>
+    <li block-type="ListItem">
+     Delbaen, F. &amp; Schachermayer, W. (2006). The Math-[6] ematics of Arbitrage, Springer Finance, p. 371. ISBN: 3-540-21992-7.
+    </li>
+    <li block-type="ListItem">
+     Émery, M. (1980). Compensation de processus à varia-[7] tion finie non localement intégrables, in Séminaire de Probabilités XIV, J. Azema &amp; M. Yor, eds, Springer Lecture Notes in Mathematics, Springer, Vol. 784, рр. 152-160.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Harrison, J.M. &amp; Pliska, S.R. (1981). Martingales and [8] stochastic integrals in the theory of continuous trading, Stochastic Processes and their Applications 11,
+     <math display="inline">
+      215 - 260.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Kabanov, Y.M. (1997). On the FTAP of Kreps-Delbaen-[9] Schachermayer (English), in Statistics and Control of Stochastic Processes, Y.M. Kabanov, B.L. Rozovskii &amp; A.N. Shiryaev, eds, The Liptser Festschrift. Papers from the Steklov Seminar held in Moscow, Russia, 1995–1996, World Scientific, Singapore, pp.
+     <math display="inline">
+      191 - 203
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     [10] Protter, P. (1990). Stochastic integration and differential equations. A new approach, in Applications of Mathematics, (2nd edition, 2003, corrected third printing: 2005) Springer-Verlag, Berlin, Heidelberg, New York, Vol. 21.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      [111]
+     </math>
+     Revuz, D. &amp; Yor, M. (1991). Continuous martingales and Brownian motion, in Grundlehren der Mathematischen Wissenschaften, 3rd edition, 1999, corrected third printing: 2005, Springer, Vol. 293.
+    </li>
+    <li block-type="ListItem">
+     [12] Rogers, L.C.G. &amp; Williams, D. (2000). Diffusions, Markov Processes and Martingales, Cambridge University Press, Vol. I and II.
+    </li>
+    <li block-type="ListItem">
+     [13] Shreve, S. (2004). Stochastic calculus for finance, Springer Finance I, II, 208, 550.
+    </li>
+    <li block-type="ListItem">
+     Stricker, Ch. (1990). Arbitrage et Lois de martingale, [14] Annales de l'Institut Henri Poincaré - Probabilites et Statistiques 26, 451-460.
+    </li>
+    <li block-type="ListItem">
+     [15] Yan, J.A. (1980). Caractérisation d' une classe d'ensembles convexes de
+     <math display="inline">
+      L^1
+     </math>
+     ou
+     <math display="inline">
+      H^1
+     </math>
+     , in
+     <i>
+      Séminaire de
+     </i>
+     Probabilités XIV, J. Azema &amp; M. Yor, eds, Springer Lecture Notes in Mathematics, Springer, Vol. 784, pp.
+     <math display="inline">
+      220 - 222.
+     </math>
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   Arbitrage Strategy; Complete Markets; Free Lunch; Fundamental Theorem of Asset Pricing; Martingales; Minimal Entropy Martingale Measure; Minimal Martingale Measure; Riskneutral Pricing; Second Fundamental Theorem of Asset Pricing.
+  </p>
+  <p block-type="Text">
+   WALTER SCHACHERMAYER
+  </p>
+ </body>
+</html>

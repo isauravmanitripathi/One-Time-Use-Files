@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Complete Markets
+   </b>
+  </h1>
+  <p block-type="Text">
+   According to the arbitrage pricing of derivative securities, the arbitrage price of a financial derivative is defined as the wealth of a self-financing trading strategy based on traded primary assets, which replicates the terminal payoff at maturity (or, more generally, all cash flows) from the financial derivative. Hence, an important issue arises whether any financial derivative admits a replicating strategy in a given model; if this property holds, then the market model is said to be
+   <i>
+    complete
+   </i>
+   . Completeness of a market model ensures that any derivative security can be priced by arbitrage and hedged by a dynamic trading in primary traded assets. For example, in the framework of the Cox, Ross, and Rubinstein [9] model, not only the call and put options but also any pathindependent or path-dependent contingent claim can be replicated by a dynamic trading in stock and bond. Similarly, the classic Black and Scholes [3] model enjoys the property of completeness, although a suitable technical assumption needs to be imposed on the class of considered contingent claims.
+  </p>
+  <p block-type="Text">
+   Even for an incomplete model, the class of hedgeable derivatives, formally represented by attainable contingent claims, can be sufficiently large for practical purposes. Therefore, completeness should not be seen as a necessary requirement, as opposed to the no-arbitrage property, which is an indispensable feature of any financial model used for arbitrage pricing of derivative securities.
+  </p>
+  <h3>
+   <b>
+    Finite Market Models
+   </b>
+  </h3>
+  <p block-type="TextInlineMath">
+   The issue of completeness of a
+   <i>
+    finite
+   </i>
+   market model was analyzed, among others, by Taqqu and Willinger [24]. The finiteness of a market means that the underlying probability space is finite,
+   <math display="inline">
+    \Omega = {\omega_1, \omega_2, \ldots, \omega_d}
+   </math>
+   , and trading activities may only occur at the finite set of dates, denoted as
+   <math display="inline">
+    \{0, 1, \ldots, T\}
+   </math>
+   . As a standard example of a finite market model, one may quote, for instance, the Cox, Ingersoll, and Ross [9] binomial tree model (see
+   <b>
+    Binomial Tree
+   </b>
+   ) or any its multinomial extensions.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    S^1, S^2, \ldots, S^k
+   </math>
+   be the stochastic processes describing the spot (or cash) prices of some nondividend paying financial assets. As customary, we postulate that the price process of at least one asset
+  </p>
+  <p block-type="TextInlineMath">
+   is given as a strictly positive process, so that it can be selected as a
+   <i>
+    numéraire asset
+   </i>
+   . Let us then assume that
+   <math display="inline">
+    S_t^k &gt; 0
+   </math>
+   for every
+   <math display="inline">
+    t \leq T
+   </math>
+   . To emphasize the special role of the process
+   <math display="inline">
+    \overline{S^k}
+   </math>
+   , we will sometimes write B instead of
+   <math display="inline">
+    S^k
+   </math>
+   . We assume that all assets are perfectly divisible and the market is frictionless, that is, there are no restrictions on the short-selling of assets, transaction costs, taxes, and so on.
+  </p>
+  <p block-type="TextInlineMath">
+   We consider a probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}_T, \mathbb{P}),
+   </math>
+   which is equipped with a filtration
+   <math display="inline">
+    \mathbb{F} = (\mathcal{F}_t)_{t &lt; T}
+   </math>
+   . A probability measure
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , to be interpreted as the real-life probability, is an arbitrary probability measure on
+   <math display="inline">
+    (\Omega, \mathcal{F}_T)
+   </math>
+   such that
+   <math display="inline">
+    \mathbb{P}(\omega_i) &gt; 0
+   </math>
+   for every
+   <math display="inline">
+    i =
+   </math>
+   <math display="inline">
+    1, 2, \ldots, d
+   </math>
+   . For convenience, we assume throughout that the
+   <math display="inline">
+    \sigma
+   </math>
+   -field
+   <math display="inline">
+    \mathcal{F}_0
+   </math>
+   is trivial, that is,
+   <math display="inline">
+    \mathcal{F}_0 = \{\emptyset, \Omega\}
+   </math>
+   . All processes considered in what follows are assumed to be
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -adapted.
+  </p>
+  <h2>
+   <b>
+    Trading Strategies
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   The component
+   <math display="inline">
+    \phi^i_t
+   </math>
+   of a trading strategy
+   <math display="inline">
+    \phi =
+   </math>
+   <math display="inline">
+    (\phi^1,\phi^2,\ldots,\phi^k)
+   </math>
+   represents the number of units of the
+   <math display="inline">
+    i
+   </math>
+   th security held by an investor at time
+   <math display="inline">
+    t
+   </math>
+   . In other words,
+   <math display="inline">
+    \phi_t^i S_t^i
+   </math>
+   is the amount of funds invested in the
+   <i>
+    i
+   </i>
+   th security at time
+   <i>
+    t
+   </i>
+   . Hence, the
+   <i>
+    wealth process
+   </i>
+   <math display="inline">
+    V(\phi)
+   </math>
+   of a trading strategy
+   <math display="inline">
+    \phi
+   </math>
+   is given by the equality, for
+   <math display="inline">
+    t = 0, 1, \ldots, T
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t(\phi) = \sum_{i=1}^k \phi_t^i S_t^i \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The initial wealth
+   <math display="inline">
+    V_0(\phi) = \phi_0 S_0
+   </math>
+   is also referred to as the
+   <i>
+    initial cost
+   </i>
+   of
+   <math display="inline">
+    \phi
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   A trading strategy
+   <math display="inline">
+    \phi
+   </math>
+   is said to be
+   <i>
+    self-financing
+   </i>
+   whenever it satisfies the following condition, for every
+   <math display="inline">
+    t = 0, 1, \ldots, T - 1,
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{i=1}^{k} \phi_{t}^{i} S_{t+1}^{i} = \sum_{i=1}^{k} \phi_{t+1}^{i} S_{t+1}^{i} \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   In the financial interpretation, this condition means that the portfolio
+   <math display="inline">
+    \phi
+   </math>
+   is revised at any date t in such a way that there are no infusions of external funds and no funds are withdrawn from the portfolio. We denote by
+   <math display="inline">
+    \Phi
+   </math>
+   the vector space of all self-financing trading strategies. The
+   <i>
+    gains process
+   </i>
+   <math display="inline">
+    G(\phi)
+   </math>
+   of any trading strategy
+   <math display="inline">
+    \phi
+   </math>
+   equals, for
+   <math display="inline">
+    t = 0, 1, \ldots, T
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G_t(\phi) = \sum_{u=0}^{t-1} \sum_{i=1}^k \phi_u^i (S_{u+1}^i - S_u^i)
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    G_0(\phi) = 0
+   </math>
+   . It can be checked that a trading strategy
+   <math display="inline">
+    \phi
+   </math>
+   is self-financing if and only if the equality
+   <math display="inline">
+    V_t(\phi) = V_0(\phi) + G_t(\phi)
+   </math>
+   holds for every
+   <math display="inline">
+    t =
+   </math>
+   <math display="inline">
+    0, 1, \ldots, T.
+   </math>
+  </p>
+  <h4>
+   <b>
+    Replication and Arbitrage
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   A European contingent claim
+   <math display="inline">
+    X
+   </math>
+   with maturity
+   <math display="inline">
+    T
+   </math>
+   is an arbitrary
+   <math display="inline">
+    \mathcal{F}_T
+   </math>
+   -measurable random variable. Since the space
+   <math display="inline">
+    \Omega
+   </math>
+   is assumed to be a finite set with d elements, any claim X has the representation
+   <math display="inline">
+    X =
+   </math>
+   <math display="inline">
+    (X(\omega_1), X(\omega_2), \ldots, X(\omega_d)) \in \mathbb{R}^d
+   </math>
+   . Hence, the class
+   <math display="inline">
+    \mathcal{X}
+   </math>
+   of all contingent claims that settle at
+   <math display="inline">
+    T
+   </math>
+   may be identified with the vector space
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   A
+   <i>
+    replicating strategy
+   </i>
+   for the contingent claim
+   <math display="inline">
+    X
+   </math>
+   , which settles at time
+   <math display="inline">
+    T
+   </math>
+   , is a self-financing trading strategy
+   <math display="inline">
+    \phi
+   </math>
+   such that
+   <math display="inline">
+    V_T(\phi) = X
+   </math>
+   . For any claim X, we denote by
+   <math display="inline">
+    \Phi_X
+   </math>
+   the class of all replicating strategies for
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The wealth process
+   <math display="inline">
+    V(\phi)
+   </math>
+   of an arbitrary strategy
+   <math display="inline">
+    \phi
+   </math>
+   from
+   <math display="inline">
+    \Phi_X
+   </math>
+   is called a
+   <i>
+    replicating process
+   </i>
+   of X in
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   . Finally, we say that a claim X is
+   <i>
+    attainable
+   </i>
+   in
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   if it admits at least one replicating strategy. We denote the class of all attainable claims by
+   <math display="inline">
+    \mathcal{A}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   A market model
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   is said to be complete if every claim
+   <math display="inline">
+    X \in \mathcal{X}
+   </math>
+   is attainable in
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   or, equivalently, if for every
+   <math display="inline">
+    \mathcal{F}_T
+   </math>
+   -measurable random variable
+   <math display="inline">
+    X
+   </math>
+   there exists at least one trading strategy
+   <math display="inline">
+    \phi \in \Phi
+   </math>
+   such that
+   <math display="inline">
+    V_T(\phi) = X
+   </math>
+   . In other words, a market model
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   is complete whenever
+   <math display="inline">
+    \mathcal{X} = \mathcal{A}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    X
+   </math>
+   be an arbitrary attainable claim that settles at time T. We say that X is
+   <i>
+    uniquely replicated
+   </i>
+   in
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   if it admits a unique replicating process in
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   , that is, if the equality
+   <math display="inline">
+    V_t(\phi) = V_t(\psi), t \in [0, T]
+   </math>
+   , holds for arbitrary trading strategies
+   <math display="inline">
+    \phi
+   </math>
+   ,
+   <math display="inline">
+    \psi
+   </math>
+   from
+   <math display="inline">
+    \Phi_X
+   </math>
+   . Then the process
+   <math display="inline">
+    V(\phi)
+   </math>
+   is termed the
+   <i>
+    wealth process
+   </i>
+   of X in
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   .
+  </p>
+  <h2>
+   Arbitrage Price
+  </h2>
+  <p block-type="TextInlineMath">
+   A trading strategy
+   <math display="inline">
+    \phi \in \Phi
+   </math>
+   is called an
+   <i>
+    arbitrage opportunity
+   </i>
+   if
+   <math display="inline">
+    V_0(\phi) = 0
+   </math>
+   and the terminal wealth of
+   <math display="inline">
+    \phi
+   </math>
+   satisfies
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \mathbb{P}(V_T(\phi) \ge 0) = 1
+   </math>
+   and
+   <math display="inline">
+    \mathbb{P}(V_T(\phi) &gt; 0) &gt; 0 \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   is the real-world probability measure. We say that a market
+   <math display="inline">
+    \mathcal{M} = (S, \Phi)
+   </math>
+   is arbitrage free if
+  </p>
+  <p block-type="Text">
+   there are no-arbitrage opportunities in the class
+   <math display="inline">
+    \Phi
+   </math>
+   of all self-financing trading strategies.
+  </p>
+  <p block-type="Text">
+   It can be shown that if the market model
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   is arbitrage free, then any attainable contingent claim
+   <math display="inline">
+    X
+   </math>
+   is uniquely replicated in
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   . The converse implication is not true, however, that is, the uniqueness of the wealth process of any attainable contingent claim does not imply the arbitrage-free property of a market, in general. Therefore, the existence and uniqueness of the wealth process associated with any attainable claim is insufficient to justify the term
+   <i>
+    arbitrage price.
+   </i>
+   Indeed, it is easy to give an example of a finite market in which all claims can be uniquely replicated, but there exists a strictly positive claim which can be replicated by a self-financing strategy with a negative initial cost.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 2
+   </b>
+   Let the market model
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   be arbitrage free. Then the wealth process of an attainable claim
+   <math display="inline">
+    X
+   </math>
+   is called the arbitrage price of
+   <math display="inline">
+    X
+   </math>
+   in
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   and it is denoted by
+   <math display="inline">
+    \pi_t(X)
+   </math>
+   for every
+   <math display="inline">
+    t = 0, 1, \ldots, T
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Risk-neutral Valuation Formula
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Recall that we write
+   <math display="inline">
+    S^k = B
+   </math>
+   . Let us denote by
+   <math display="inline">
+    S^*
+   </math>
+   the process of
+   <i>
+    relative prices
+   </i>
+   , which equals, for every
+   <math display="inline">
+    t = 0, 1, \ldots, T,
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t^* = (S_t^1 B_t^{-1}, S_t^2 B_t^{-1}, \dots, S_t^k B_t^{-1})
+   </math>
+   <br/>
+   =
+   <math>
+    (S_t^{*1}, S_t^{*2}, \dots, S_t^{*(k-1)}, 1)
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   where we denote
+   <math display="inline">
+    S^{*i} = S^i B^{-1}
+   </math>
+   . Recall that the probability measures
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   and
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   on
+   <math display="inline">
+    (\Omega, \mathcal{F})
+   </math>
+   are said to be
+   <i>
+    equivalent
+   </i>
+   if, for any event
+   <math display="inline">
+    A \in \mathcal{F}
+   </math>
+   , the equality
+   <math display="inline">
+    \mathbb{P}(A) = 0
+   </math>
+   holds if and only if
+   <math display="inline">
+    \mathbb{Q}(A) = 0
+   </math>
+   . Similarly,
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   is said to be
+   <i>
+    absolutely continuous
+   </i>
+   with respect to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   if, for any event
+   <math display="inline">
+    A \in \mathcal{F}
+   </math>
+   , the equality
+   <math display="inline">
+    \mathbb{P}(A) = 0
+   </math>
+   implies that
+   <math display="inline">
+    \mathbb{Q}(A) = 0
+   </math>
+   . Clearly, if the probability measures
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   and
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   are equivalent, then they are also equivalent to each other. The following concept is crucial in the so-called risk-neutral valuation approach.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 3
+   </b>
+   A probability measure
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   on
+   <math display="inline">
+    (\Omega, \mathcal{F}_T)
+   </math>
+   equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   (absolutely continuous with respect to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , respectively) is called a equivalent martingale measure for
+   <math display="inline">
+    S^*
+   </math>
+   (
+   <i>
+    a
+   </i>
+   generalized martingale measure for
+   <math display="inline">
+    S^*
+   </math>
+   , respectively) if the relative price
+   <math display="inline">
+    S^*
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   martingale with respect to the filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   An
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   -adapted, k-dimensional process
+   <math display="inline">
+    S^* =
+   </math>
+   <math display="inline">
+    (S^{*1}, S^{*2}, \ldots, S^{*k})
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   -martingale with respect to a filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   if the equality
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{\mathbb{P}^*}(S_{t+1}^{*i} \mid \mathcal{F}_t) = S_t^{*i} \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   holds for every i and
+   <math display="inline">
+    t = 0, 1, \ldots, T - 1
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   We denote by
+   <math display="inline">
+    \mathcal{P}(S^*)
+   </math>
+   and
+   <math display="inline">
+    \mathcal{Q}(S^*)
+   </math>
+   the class of all equivalent martingale measures for
+   <math display="inline">
+    S^*
+   </math>
+   and the class of all generalized martingale measures for
+   <math display="inline">
+    S^*
+   </math>
+   , respectively, so that the inclusion
+   <math display="inline">
+    \mathcal{P}(S^*) \subset \mathcal{Q}(S^*)
+   </math>
+   holds. It is not difficult to provide an example in which the class
+   <math display="inline">
+    \mathcal{P}(S^*)
+   </math>
+   is empty, whereas the class
+   <math display="inline">
+    \mathcal{Q}(S^*)
+   </math>
+   is not.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 4
+   </b>
+   A probability measure
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   on
+   <math display="inline">
+    (\Omega, \mathcal{F}_T)
+   </math>
+   equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   (absolutely continuous with respect to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , respectively) is called an equivalent martingale measure for
+   <math display="inline">
+    \mathcal{M} = (S, \Phi)
+   </math>
+   (
+   <i>
+    a
+   </i>
+   generalized martingale measure for
+   <math display="inline">
+    \mathcal{M} = (S, \Phi)
+   </math>
+   , respectively) if for every trading strategy
+   <math display="inline">
+    \phi \in \Phi
+   </math>
+   the relative wealth process
+   <math display="inline">
+    V^*(\phi) = V(\phi)B^{-1}
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   -martingale with respect to the filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   We write
+   <math display="inline">
+    \mathcal{P}(\mathcal{M})
+   </math>
+   (
+   <math display="inline">
+    \mathcal{Q}(\mathcal{M})
+   </math>
+   , respectively) to denote the class of all equivalent martingale measures (of all generalized martingale measures, respectively) for
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   . For conciseness, an equivalent martingale measure (a generalized martingale measure, respectively) is abbreviated as EMM (GMM, respectively). Note that an equivalent martingale measure is sometimes referred to as a
+   <i>
+    risk-neutral probability
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   It can be shown that a trading strategy
+   <math display="inline">
+    \phi
+   </math>
+   is self-financing if and only if the relative wealth process
+   <math display="inline">
+    V^*(\phi) = V(\phi)B^{-1}
+   </math>
+   satisfies, for every
+   <math display="inline">
+    t =
+   </math>
+   <math display="inline">
+    0, 1, \ldots, T
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t^*(\phi) = V_0^*(\phi) + \sum_{u=0}^{t-1} \sum_{i=1}^k \phi_u^i (S_{u+1}^{i*} - S_u^{i*}) \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, for any
+   <math display="inline">
+    \phi \in \Phi
+   </math>
+   and any GMM
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   the relative wealth
+   <math display="inline">
+    V^*(\phi)
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   -martingale with respect to the filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   . This leads to the following result.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Lemma 1
+   </b>
+   A probability measure
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   on
+   <math display="inline">
+    (\Omega, \mathcal{F}_T)
+   </math>
+   is a GMM for the market model
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   if and only if it is a GMM for the relative price process
+   <math display="inline">
+    S^*
+   </math>
+   , that is,
+   <math display="inline">
+    \mathcal{P}(S^*) = \mathcal{P}(\mathcal{M})
+   </math>
+   and
+   <math display="inline">
+    \mathcal{Q}(S^*) = \mathcal{Q}(\mathcal{M}).
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The next result shows that the existence of an EMM for
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   is a sufficient condition for the
+  </p>
+  <p block-type="TextInlineMath">
+   no-arbitrage property of
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   . Recall that trivially
+   <math display="inline">
+    \mathcal{P}(\mathcal{M}) \subseteq \mathcal{Q}(\mathcal{M})
+   </math>
+   so that the class
+   <math display="inline">
+    \mathcal{Q}(\mathcal{M})
+   </math>
+   is manifestly nonempty if
+   <math display="inline">
+    \mathcal{P}(\mathcal{M})
+   </math>
+   is so.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   Assume that the class
+   <math display="inline">
+    \mathcal{P}(\mathcal{M})
+   </math>
+   is nonempty. Then the market
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   is arbitrage free. Moreover, the arbitrage price process of any attainable contingent claim
+   <math display="inline">
+    X
+   </math>
+   , which settles at time
+   <math display="inline">
+    T
+   </math>
+   , is given by the risk-neutral valuation formula, for every
+   <math display="inline">
+    t = 0, 1, \ldots, T
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi_t(X) = B_t \mathbb{E}_{\mathbb{P}^*}(X B_T^{-1} \mid \mathcal{F}_t) \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   is any EMM (or GMM) for the market model
+   <math display="inline">
+    \mathcal{M}.
+   </math>
+  </p>
+  <p block-type="Text">
+   It can be checked that the binomial tree model (see
+   <b>
+    Binomial Tree
+   </b>
+   ) with deterministic interest rates is complete, whereas its extension in which the stock price is modeled by a trinomial tree is incomplete. Completeness relies, in particular, on the choice of traded primary assets. Hence, it is natural to ensure completeness of an incomplete model by adding new traded instruments (typically, plain-vanilla options).
+  </p>
+  <h2>
+   <b>
+    Completeness of a Finite Market
+   </b>
+  </h2>
+  <p block-type="Text">
+   We already know that if the set of equivalent martingale measures is nonempty, then the market model
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   is arbitrage free. It appears that this condition is also necessary for the no-arbitrage property of the market model
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 2
+   </b>
+   Suppose that the market model
+   <math display="inline">
+    M
+   </math>
+   is arbitrage free. Then the class
+   <math display="inline">
+    \mathcal{P}(\mathcal{M})
+   </math>
+   of equivalent martingale measures for
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   is nonempty.
+  </p>
+  <p block-type="Text">
+   This leads to the following version of the
+   <i>
+    first fun
+   </i>
+   damental theorem of asset pricing (the First FTAP).
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 1
+   </b>
+   A finite market model
+   <math display="inline">
+    M
+   </math>
+   is arbitrage free if and only if the class
+   <math display="inline">
+    \mathcal{P}(\mathcal{M})
+   </math>
+   is nonempty, that is, there exists at least one equivalent martingale measure for
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In the case of a finite market model, this result was established by Harrison and Pliska [13]. For a probabilistic approach to the First FTAP we refer to Taqqu and Willinger [20], who examine the case of a finite market model, and to papers by Dalang et al. [10] and Schachermayer [23], who study the case of a discrete-time model with infinite state space.
+  </p>
+  <p block-type="Text">
+   The following fundamental result provides a relationship between the completeness property of a finite market model and the uniqueness (or nonuniqueness) of an EMM. Any result of this kind is commonly referred to as the second fundamental theorem of asset pricing.
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 2
+   </b>
+   Assume that a market model
+   <math display="inline">
+    M
+   </math>
+   is arbitrage free so that the class
+   <math display="inline">
+    \mathcal{P}(\mathcal{M})
+   </math>
+   is nonempty. Then
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   is complete if and only if the uniqueness of an equivalent martingale measure for
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   holds.
+  </p>
+  <p block-type="Text">
+   If an arbitrage-free market model is incomplete, not all claims are attainable and the class
+   <math display="inline">
+    \mathcal{P}(\mathcal{M})
+   </math>
+   of equivalent martingale measures comprises more than one element. In that case, one can use the following result to determine whether a given contingent claim is attainable.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Corollary 1
+   </b>
+   A contingent claim
+   <math display="inline">
+    X \in \mathcal{X}
+   </math>
+   is attainable in an arbitrage-free market model
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   if and only if the map
+   <math display="inline">
+    \mathbb{P}^* \mapsto \mathbb{E}_{\mathbb{P}^*}(XB_T^{-1})
+   </math>
+   from
+   <math display="inline">
+    \mathcal{P}(\mathcal{M})
+   </math>
+   to
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   is constant.
+  </p>
+  <p block-type="Text">
+   It follows from this result that if a claim is attainable, so that its arbitrage price is well defined, the price can be computed using the risk-neutral valuation formula under any of (possibly several) martingale measures. In addition, if the risk-neutral valuation formula yields the same result for any choice of an EMM for the market model at hand, then a given claim is necessarily attainable.
+  </p>
+  <h1>
+   <b>
+    Multidimensional Black and Scholes
+   </b>
+   Model
+  </h1>
+  <p block-type="TextInlineMath">
+   A multidimensional Black and Scholes model is a natural extension to a multiasset setup of the classic Black and Scholes [3] options pricing model. Let
+   <math display="inline">
+    k
+   </math>
+   denote the number of primary risky assets. For any
+   <math display="inline">
+    i = 1, \ldots, k
+   </math>
+   , the price process
+   <math display="inline">
+    S^i
+   </math>
+   of the
+   <i>
+    i
+   </i>
+   th risky asset, referred to as the
+   <math display="inline">
+    i
+   </math>
+   th stock, is modeled as an Itô process (the dot
+   <math display="inline">
+    \cdot
+   </math>
+   stands for the inner product in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t^i = S_t^i(\mu_t^i dt + \sigma_t^i \cdot dW_t) \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    S_0^i &gt; 0
+   </math>
+   or, more explicitly,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}S_t^i = S_t^i \left(\mu_t^i \,\mathrm{d}t + \sum_{j=1}^d \sigma_t^{ij} \,\mathrm{d}W_t^j\right) \qquad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    W = (W^1, \ldots, W^d)
+   </math>
+   is a standard
+   <i>
+    d
+   </i>
+   -dimensional Brownian motion, defined on a filtered probability space
+   <math display="inline">
+    (\Omega, \mathbb{F}, \mathbb{P})
+   </math>
+   . We make the natural assumption that the underlying filtration
+   <math display="inline">
+    \mathbb{F}
+   </math>
+   coincides with the filtration
+   <math display="inline">
+    \mathbb{F}^W
+   </math>
+   generated by the Brownian motion W. The coefficients
+   <math display="inline">
+    \mu^i
+   </math>
+   and
+   <math display="inline">
+    \sigma^i
+   </math>
+   follow bounded progressively measurable processes on the space
+   <math display="inline">
+    (\Omega, \mathbb{F}, \mathbb{P}),
+   </math>
+   with values in
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   and
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , respectively. An important special case is obtained by postulating that for every
+   <i>
+    i
+   </i>
+   the volatility coefficient
+   <math display="inline">
+    \sigma^i
+   </math>
+   is represented by a fixed vector in
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   and the appreciation rate
+   <math display="inline">
+    \mu^i
+   </math>
+   is a real number.
+  </p>
+  <p block-type="TextInlineMath">
+   For brevity, we write
+   <math display="inline">
+    \sigma = \sigma_t
+   </math>
+   to denote the volatility matrix—that is, the time-dependent random matrix
+   <math display="inline">
+    [\sigma_t^{ij}]
+   </math>
+   , whose
+   <i>
+    i
+   </i>
+   th row specifies the volatility of the
+   <math display="inline">
+    i
+   </math>
+   th traded stock. The last primary security is the risk-free savings account
+   <math display="inline">
+    B
+   </math>
+   with the price process
+   <math display="inline">
+    S^{k+1} = B
+   </math>
+   satisfying
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}B_t = r_t B_t \,\mathrm{d}t, \quad B_0 = 1 \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for a bounded, nonnegative, progressively measurable interest rate process
+   <math display="inline">
+    r
+   </math>
+   . This means that, for every
+   <math display="inline">
+    t \in [0, T],
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B_t = \exp\left(\int_0^t r_u \, d_u\right) \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   To ensure the absence of arbitrage opportunities, we postulate the existence of a
+   <math display="inline">
+    d
+   </math>
+   -dimensional, progressively measurable process
+   <math display="inline">
+    \gamma
+   </math>
+   such that the equality
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r_t - \mu_t^i = \sum_{j=1}^d \sigma_t^{ij} \gamma_t^j = \sigma_t^i \cdot \gamma_t \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is satisfied simultaneously for every
+   <math display="inline">
+    i = 1, \ldots, k
+   </math>
+   (for Lebesgue a.e.
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   , with probability one). Note that the
+   <i>
+    market price for risk
+   </i>
+   <math display="inline">
+    \gamma
+   </math>
+   is not uniquely determined, in general. Indeed, the uniqueness of a solution
+   <math display="inline">
+    \gamma
+   </math>
+   to this equation holds only if
+   <math display="inline">
+    d \leq k
+   </math>
+   and the volatility matrix
+   <math display="inline">
+    \sigma
+   </math>
+   has the full rank for every
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   For example, if
+   <math display="inline">
+    d = k
+   </math>
+   and the volatility matrix
+   <math display="inline">
+    \sigma
+   </math>
+   is nonsingular (for Lebesgue a.e.
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   , with probability one), then, for every
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \gamma_t = \sigma_t^{-1}(r_t \mathbf{1} - \mu_t) \tag{14}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   where
+   <math display="inline">
+    1
+   </math>
+   denotes the
+   <i>
+    d
+   </i>
+   -dimensional vector with every component equal to one, and
+   <math display="inline">
+    \mu_t
+   </math>
+   is the vector with components
+   <math display="inline">
+    \mu_t^i
+   </math>
+   . For any process
+   <math display="inline">
+    \gamma
+   </math>
+   satisfying the
+  </p>
+  <p block-type="TextInlineMath">
+   above equation, we introduce a probability measure
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   on
+   <math display="inline">
+    (\Omega, \mathcal{F}_T)
+   </math>
+   by setting
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{d\mathbb{P}^*}{d\mathbb{P}} = \exp\left(\int_0^T \gamma_u \cdot dW_u - \frac{1}{2} \int_0^T \|\gamma_u\|^2 \, du\right),\tag{15}
+   </math>
+   <br/>
+   <math display="block">
+    \mathbb{P}\text{-a.s.}
+   </math>
+  </p>
+  <p block-type="Text">
+   provided that the right-hand side in the last formula is well defined. The Doléans (stochastic) exponential
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \eta_t = \exp\left(\int_0^t \gamma_u \cdot dW_u - \frac{1}{2} \int_0^t \|\gamma_u\|^2 \, \mathrm{d}u\right) \quad (16)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is known to be a strictly positive supermartingale (but not necessarily a martingale) under
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , since it may happen that
+   <math display="inline">
+    \mathbb{E}_{\mathbb{P}^*}(\eta_T) &lt; 1
+   </math>
+   . A probability measure
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   is well defined if and only if the process
+   <math display="inline">
+    \eta
+   </math>
+   follows a
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -martingale, that is, when
+   <math display="inline">
+    \mathbb{E}_{\mathbb{P}^*}(n_T) = 1.
+   </math>
+   For the last property to hold, it is enough (but not necessary) that
+   <math display="inline">
+    \gamma
+   </math>
+   is a bounded process.
+  </p>
+  <p block-type="TextInlineMath">
+   Assume that the class of martingale measures is nonempty. By virtue of the Girsanov theorem, the process
+   <math display="inline">
+    W^*
+   </math>
+   , which equals, for every
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    W_t^* = W_t - \int_0^t \gamma_u \, \mathrm{d}u \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is a
+   <math display="inline">
+    d
+   </math>
+   -dimensional standard Brownian motion on
+   <math display="inline">
+    (\Omega, \mathbb{F}, \mathbb{P}^*)
+   </math>
+   . It follows from the Itô formula that the discounted stock price
+   <math display="inline">
+    S_t^{*i} = S_t^i B_t^{-1}
+   </math>
+   satisfies under
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t^{*i} = S^{*i} \sigma_t^i \cdot dW_t^* \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for any
+   <math display="inline">
+    i = 1, \ldots, k
+   </math>
+   . This means that the discounted prices of all stocks follow local martingales under
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   , so that any probability measure described above is a martingale measure for our model and it corresponds to the choice of the savings account as the
+   <i>
+    numéraire
+   </i>
+   asset. The class of
+   <i>
+    tame strategies
+   </i>
+   relative to
+   <math display="inline">
+    B
+   </math>
+   is defined by postulating that the discounted wealth of a strategy follows a stochastic process bounded from below. The market model obtained in this way is referred to as the
+   <i>
+    multidimensional Black and Scholes
+   </i>
+   model.
+  </p>
+  <p block-type="TextInlineMath">
+   In the classic version of the multidimensional Black and Scholes model, one postulates that
+   <math display="inline">
+    d =
+   </math>
+   k, the constant volatility matrix
+   <math display="inline">
+    \sigma
+   </math>
+   is nonsingular, and the appreciation rates
+   <math display="inline">
+    \mu_i
+   </math>
+   and the continuously compounded interest rate
+   <math display="inline">
+    r
+   </math>
+   are constant. It is easily
+  </p>
+  <p block-type="Text">
+   seen that under these assumptions, the martingale measure
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   exists and is unique.
+  </p>
+  <h2>
+   <b>
+    Completeness of the Multidimensional Black and Scholes Model
+   </b>
+  </h2>
+  <p block-type="Text">
+   The completeness of the multidimensional Black and Scholes model is defined in much the same way as for a finite market model, except that certain technical restrictions need to be imposed on the class of contingent claims we wish to hedge and price. This is linked to the fact that not all self-financing trading strategies are deemed to be
+   <i>
+    admissible
+   </i>
+   . Some of them should be excluded in order to ensure the no-arbitrage property of the model (in addition to the existence of a martingale measure). Typically, one considers the class of tame strategies to play the role of admissible trading strategies.
+  </p>
+  <p block-type="TextInlineMath">
+   The multidimensional Black and Scholes model is said to be
+   <i>
+    complete
+   </i>
+   if any
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   -integrable, bounded from below contingent claim
+   <math display="inline">
+    X
+   </math>
+   is attainable, that is, if for any such claim
+   <math display="inline">
+    X
+   </math>
+   there exists an admissible trading strategy
+   <math display="inline">
+    \phi
+   </math>
+   such that
+   <math display="inline">
+    X = V_T(\phi)
+   </math>
+   . Otherwise, the market model is said to be
+   <i>
+    incomplete
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Since, by assumption, the interest rate process
+   <math display="inline">
+    r
+   </math>
+   is nonnegative and bounded, the integrability and boundedness of
+   <math display="inline">
+    X
+   </math>
+   is therefore equivalent to the integrability and boundedness of the discounted claim
+   <math display="inline">
+    X/B_T
+   </math>
+   . It is not postulated that the uniqueness of an EMM holds, and thus the
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   -integrability of X refers to any EMM for the model. The next result establishes necessary and sufficient conditions for the completeness of the Black and Scholes market.
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 3
+   </b>
+   The following are equivalent:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. the multidimensional Black and Scholes model is complete;
+    </li>
+    <li block-type="ListItem">
+     2. inequality
+     <math display="inline">
+      d \leq k
+     </math>
+     holds and the volatility matrix
+     <math display="inline">
+      \sigma
+     </math>
+     has full rank for Lebesgue a.e.
+     <math display="inline">
+      t \in
+     </math>
+     <math display="inline">
+      [0, T]
+     </math>
+     , with probability 1;
+    </li>
+    <li block-type="ListItem">
+     3. there exists a unique equivalent martingale measure
+     <math display="inline">
+      \mathbb{P}^*
+     </math>
+     for discounted stock price
+     <math display="inline">
+      S^{*i}
+     </math>
+     for
+     <math display="inline">
+      \textit{every } i = 1, \ldots, k.
+     </math>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The classic one-dimensional Black and Scholes market model introduced in
+   <math display="inline">
+    [3]
+   </math>
+   is clearly a special case of the multidimensional Black and Scholes model. Hence, the above results apply also to the classic Black and Scholes market model, in which the
+  </p>
+  <p block-type="Text">
+   martingale measure
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   is well known to be unique. We conclude that the one-dimensional Black and Scholes market model is complete, that is, any
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   integrable contingent claim is
+   <math display="inline">
+    \mathbb{P}^*
+   </math>
+   -attainable and thus it can be priced by arbitrage.
+  </p>
+  <p block-type="Text">
+   In the general semimartingale framework, the equivalence of the uniqueness of an EMM and the completeness of a market model were conjectured by Harrison and Pliska [13, 14] (see also [18]). The case of the Brownian filtration is examined in [16]. Chatelain and Stricker [7, 8] provide definitive results for the case of continuous local martingales (see also [1, 20] for related results). They focus on the important distinction between the vector and componentwise stochastic integrals.
+  </p>
+  <h4>
+   <b>
+    Local and Stochastic Volatility Models
+   </b>
+  </h4>
+  <p block-type="Text">
+   Note that we have examined the completeness of the market model in which trading was restricted to a predetermined family of primary securities. In practice, several derivative securities are also traded either on organized exchanges or over-the-counter and thus they can be used to formally complete a given market model. Let us comment briefly on two classes of models in which, for simplicity, we assume that the bond price is deterministic.
+  </p>
+  <p block-type="Text">
+   Following Dupire [12], we define the stock price as a solution to the following stochastic differential equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t(\mu(S_t, t) dt + \sigma(S_t, t) dW_t^*)
+   </math>
+   (19)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    S_0 &gt; 0
+   </math>
+   and the function
+   <math display="inline">
+    \sigma : \mathbb{R}_+ \times \mathbb{R}_+ \to \mathbb{R}
+   </math>
+   represents the so-called local volatility. In practice, the function
+   <math display="inline">
+    \sigma
+   </math>
+   is obtained by fitting the model to market quotes of traded options. Model of this form is complete and thus any derivative security with the stock price as an underlying asset can be hedged and priced by arbitrage (provided, of course, that the model is arbitrage free). Another example of a complete model in which the volatility follows a stochastic process is discussed by Hobson and Rogers [15].
+  </p>
+  <p block-type="Text">
+   In a typical stochastic volatility model, the stock price
+   <math display="inline">
+    S
+   </math>
+   is governed by the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = \mu(S_t, t) dt + \sigma_t S_t dW_t \tag{20}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the
+   <i>
+    stochastic volatility
+   </i>
+   process
+   <math display="inline">
+    \sigma
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\sigma_t = a(\sigma_t, t) dt + b(\sigma_t, t) d\hat{W}_t \qquad (21)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where W and
+   <math display="inline">
+    \widehat{W}
+   </math>
+   are (possibly correlated) onedimensional Brownian motions defined on some filtered probability space
+   <math display="inline">
+    (\Omega, \mathbb{F}, \mathbb{P})
+   </math>
+   . Owing to the presence of the Brownian motion
+   <math display="inline">
+    \widehat{W}
+   </math>
+   , stochastic volatility models are incomplete if stock and bond are the only trade primary assets. By postulating that some plain-vanilla options are traded, it is possible to complete a stochastic volatility model, however. Completeness of a model of financial market with traded call and put options and related topics, such as
+   <i>
+    static hedging
+   </i>
+   of exotic options, was examined by several authors: Bajeux-Besnainou and Rochet [2], Breeden and Litzenberger [4], Brown et al. [5], Carr et al. [6], Derman et al. [11], Madan and Milne [17], Nachman [19], Romano and Touzi [21], and Ross [22], to mention a few.
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      [1]
+     </math>
+     Artzner, P. &amp; Heath, D. (1995). Approximate completeness with multiple martingale measures, Mathematical Finance 5, 1-11.
+    </li>
+    <li block-type="ListItem">
+     [2] Bajeux-Besnainou, I. &amp; Rochet, J.-C. (1996). Dynamic spanning: are options an appropriate instrument, Mathematical Finance
+     <math display="inline">
+      6
+     </math>
+     , 1–16.
+    </li>
+    <li block-type="ListItem">
+     Black, F. &amp; Scholes, M. (1973). The pricing of options [3] and corporate liabilities, Journal of Political Economics 81. 637-654.
+    </li>
+    <li block-type="ListItem">
+     Breeden, D. &amp; Litzenberger, R. (1978). Prices of state-[4] contingent claims implicit in option prices, Journal of Business 51, 621-651.
+    </li>
+    <li block-type="ListItem">
+     Brown, H., Hobson, D. &amp; Rogers, L. (2001). Robust [5] hedging of options, Applied Mathematical Finance 5,
+     <math display="inline">
+      17 - 43
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Carr. P., Ellis, K. &amp; Gupta, V. (1998). Static hedging of [6] exotic options,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      53
+     </b>
+     , 1165–1190.
+    </li>
+    <li block-type="ListItem">
+     Chatelain, M. &amp; Stricker, C. (1994). On componentwise [7] and vector stochastic integration, Mathematical Finance 4.
+     <math display="inline">
+      57-65
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Chatelain, M. &amp; Stricker, C. (1995). Componentwise [8] and vector stochastic integration with respect to certain multi-dimensional continuous local martingales, in Seminar on Stochastic Analysis, Random Fields and Applications, E. Bolthausen, M. Dozzi, F. Russo, eds, Birkhäuser, Boston, Basel, Berlin, pp. 319-325.
+    </li>
+    <li block-type="ListItem">
+     [9] Cox, J.C., Ross, S.A. &amp; Rubinstein, M. (1979). Option pricing: a simplified approach, Journal of Financial Economics 7, 229–263.
+    </li>
+    <li block-type="ListItem">
+     [10] Dalang, R.C., Morton, A. &amp; Willinger, W. (1990). Equivalent martingale measures and no-arbitrage in
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

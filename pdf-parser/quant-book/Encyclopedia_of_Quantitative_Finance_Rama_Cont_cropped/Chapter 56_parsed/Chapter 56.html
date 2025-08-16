@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Efficient Market Hypothesis
+    <sup>
+     a
+    </sup>
+   </b>
+  </h2>
+  <p block-type="Text">
+   The topic of capital market efficiency plays a central role in introductory instruction in finance. After investigating the risk– return trade-off and the selection of optimal portfolios, instructors find it natural to go on to raise the question of what information is incorporated in the estimates of risk and expected return that underlie portfolio choices. Information that is "fully reflected" in security prices (and therefore in investors' estimates of expected return and risk) cannot be used to construct successful trading rules, which are defined as those with an abnormally high expected return for a given risk. In contrast, information that is not fully reflected in security prices can be so used. Students appear to find this material plausible and intuitive, and this is the basis of its appeal. Best of all, the idea of capital market efficiency appears not to depend on the validity of particular models, implying that students can grasp the major ideas without wading through the details of finance models.
+  </p>
+  <p block-type="Text">
+   However, those who are accustomed to relying on formal models to discipline their thinking find that capital market efficiency has the disadvantage of its advantage: the fact that market efficiency is not grounded in a particular model (unlike, e.g., portfolio theory) means that it is not so easy to determine what efficiency really means. To see this, consider the assertion of Fama [8] that capital market efficiency can only be tested in conjunction with a particular model of returns. This statement implies that there exist two independent sources of restrictions on the data that are being tested jointly: the assumed model and market efficiency. Analysts who are used to deriving all restrictions being tested from the assumed model find this puzzling: what is the additional source of information that is separate from the model?
+  </p>
+  <p block-type="Text" class="has-continuation">
+   This question was not addressed clearly in the major expositions of market efficiency offered by its proponents. One way to resolve this ambiguity is to look at the empirical tests that are interpreted as supporting or contradicting market efficiency. Most of the empirical evidence that Fama [7] interpreted as supporting market efficiency is based on a particular model: expected returns conditional on some prespecified information set are constant. For example, return autocorrelatedness is evidence against market
+  </p>
+  <p block-type="Text">
+   efficiency only if market efficiency is identified with constancy of expected returns. On this reading, the additional restriction implied by market efficiency might consist of the assumption that investors have rational expectations. The market model explains asset prices based on investors' subjective perceptions of their environment; the assumption of rational expectations is needed to connect these subjective perceptions with objective correlations. Admittedly, it is pure conjecture to assume that proponents intend this identification of market efficiency with rational expectations–as Berk [1] pointed out, there is no mention of rational expectations in [7, 8].
+  </p>
+  <p block-type="Text">
+   In many settings, conditional expected returns are constant over time when agents are risk neutral. If agents are risk averse, expected returns will generally differ across securities, as is clear from the capital asset pricing model (
+   <i>
+    see
+   </i>
+   <b>
+    Capital Asset Pricing Model
+   </b>
+   ), and will change over time according to the realizations of the conditioning variables even in stationary settings [14, 19]. Hence, if investors are risk averse, the assumption of rational expectations will not generally lead to returns that are fair games.
+  </p>
+  <p block-type="Text">
+   Analysts who understood that constancy of expected returns requires the assumption of risk neutrality (or some other even more extreme assumption, such as that growth rates of gross domestic product are independently and identically distributed over time) were skeptical about the empirical evidence offered in support of market efficiency. From the fact that high-risk assets generate higher average returns than low-risk assets—or from the fact that agents purchase insurance even at actuarially unfavorable prices, or from a variety of other considerations—we know that investors are risk averse. If so, there is no reason to expect that conditional expected returns will be constant.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   One piece of evidence offered in the 1970s, which appeared to contradict the consensus in support of market efficiency, had to do with the volatility of security prices and returns. If conditional expected returns are constant, then the volatility of stock prices depends entirely on the volatility of dividends (under some auxiliary assumptions, such as exclusion of bubbles). This observation led LeRoy and Porter [16] and Shiller [23] to suggest that bounds on the volatility of stock prices and returns can be derived from the volatility of dividends. These authors concluded that stock prices appear to be more
+  </p>
+  <p block-type="Text">
+   volatile than can be justified by the volatility of dividends. This finding corroborated the informal opinion (that was subsequently confirmed by Cutler et al. [6]) that large moves in stock prices generally cannot be convincingly associated with contemporaneous news that would materially affect expected future dividends.
+  </p>
+  <p block-type="Text">
+   Connecting the volatility of stock prices with that of dividends required a number of auxiliary econometric specifications. These were supplied differently by LeRoy-Porter and Shiller. However, both sets of specifications turned out to be controversial (see [9] for a survey of the econometric side of the variancebounds tests). Some analysts, such as Marsh and Merton [20], concluded that the appearance of excess volatility was exactly what should be expected in an efficient market, although the majority opinion was that resolving the econometric difficulties reduces but does not eliminate the excess volatility [25].
+  </p>
+  <p block-type="TextInlineMath">
+   It was understood throughout that the variance bounds were implications of the assumption that expected returns are constant. As noted, this was the same model that was implicitly assumed in the market efficiency tests summarized by Fama. The interest in the variance-bounds tests derived from the fact that the results of the two sets of tests of the same model appeared to be so different. In the late 1980s, there was a growing realization that small but persistent autocorrelations in returns could explain the excess volatility of prices [24]. This connection is particularly easy to understand if we employ the Campbell–Shiller log-linearization. Defining
+   <math display="inline">
+    r_{t+1}
+   </math>
+   as the log stock return from t to
+   <math display="inline">
+    t + 1
+   </math>
+   ,
+   <math display="inline">
+    p_t
+   </math>
+   as the log stock price at t, and
+   <math display="inline">
+    d_t
+   </math>
+   as the log dividend level, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_t \cong k + p_{dt} + p_{rt} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    p_{dt}
+   </math>
+   and
+   <math display="inline">
+    p_{rt}
+   </math>
+   are given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{dt} = E_t \left( \sum_{j=1}^{\infty} \rho^j [(1-\rho)d_{t+j}] \right) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p_{rt} = -E_t \left( \sum_{j=1}^{\infty} \rho^j r_{t+j} \right) \tag{3}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   (see [2–4]). Here, k and
+   <math display="inline">
+    \rho
+   </math>
+   are parameters associated with the log-linearization. Thus
+   <math display="inline">
+    p_{dt}
+   </math>
+   and
+   <math display="inline">
+    p_{rt}
+   </math>
+   capture price variations induced by expected dividend variations and expected return variations, respectively.
+  </p>
+  <p block-type="Text">
+   The attractive feature of the log-linearization is that expectations of future dividends and expectations of future returns appear symmetrically and additively in relation (1). Without the log-linearization, dividends would appear in the numerator of the present-value relation and returns in the denominator, rendering the analysis less tractable.
+  </p>
+  <p block-type="Text">
+   As noted, the market-efficiency tests of Fama and the variance bounds are implications of the hypothesis that
+   <math display="inline">
+    p_{rt}
+   </math>
+   is a constant. If
+   <math display="inline">
+    p_{rt}
+   </math>
+   is, in fact, random and positively correlated with
+   <math display="inline">
+    p_{dt}
+   </math>
+   , then the assumption of constancy of expected returns will bias the implied volatility of
+   <math display="inline">
+    p_t
+   </math>
+   downward. Campbell and Shiller found that if averages of future returns are regressed on current stock prices, a significant proportion of the variation can be explained, contradicting the specification that expected returns are constant.
+  </p>
+  <p block-type="Text">
+   Campbell et al. noted that as economists came to understand the connection between return autocorrelatedness and price and return volatility, the variance-bounds results seemed less controversial:
+  </p>
+  <p block-type="Text">
+   LeRoy and Porter [16] and Shiller [23] started a heated debate in the early 1980s by arguing that stock prices are too volatile to be rational forecasts of future dividends discounted at a constant rate. This controversy has since died down, partly because it is now more clearly understood that a rejection of constant-discount-rate models is not the same as a rejection of Efficient Capital Markets, and partly because regression tests have convinced many financial economists that expected stock returns are time-varying rather than constant ([2]
+   <math display="inline">
+    p. 275
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   This passage, in implying that the return autocorrelation results provide an explanation for excess stock price volatility, is a bit misleading. The log-linearized present-value relation (1) is not a theoretical model with the potential to explain price volatility. Rather, it is very close to an identity (the only respect in which equation (1) imposes substantive restrictions lies in the assumption that the infinite sums converge; this rules out bubbles). The Campbell-Shiller exercise amounts to decomposing price variation into dividend variation, return variation, and a covariance term and observing that the latter two terms are not negligible quantitatively. This, although useful, is a restatement of the variance-bounds result, not an explanation of it. Explaining excess volatility would involve accounting in economic terms for the fact that expected returns have the time structure that they do. Campbell and Shiller have not done
+  </p>
+  <p block-type="Text">
+   this—nor has anyone else. LeRoy–Porter's conclusion from the variance-bounds tests was that we do not understand why asset prices move as they do. That conclusion is no less true now than it was when the variance-bounds results were first reported.
+  </p>
+  <p block-type="Text">
+   Fama's assertion that market efficiency is testable, but only in conjunction with a model of market returns, can be given another reading. Rather than identifying market efficiency with the proposition that investors have rational expectations—alternatively, with the decision to model investors as having rational expectations—one can associate market efficiency with the proposition that asset prices behave as one would expect if security markets were entirely frictionless. In such markets, prices respond quickly to information, implying that investors cannot use publicly available information to construct profitable trading rules because that information is reflected in security prices as soon as it becomes available. In contrast, the presence of major frictions in asset markets is held to imply that prices may respond slowly to information. In that case, the frictions prevent investors from exploiting the resulting trading opportunities.
+  </p>
+  <p block-type="Text">
+   In the foregoing argument, it is presumed that trading frictions and transactions costs are analogous to adjustment costs. In the theory of investment, it is sometimes assumed that investment in capital goods induces costs that motivate firms to change quantities—in this case, physical capital—more slowly than they would otherwise. It appears natural to assume that prices are similar. For example, real estate prices are held to respond slowly to relevant information because the costs implied by the illiquidity of real estate preclude the arbitrages that would otherwise bring about rapid price adjustment.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Recent work on the valuation of assets in the presence of market frictions raises questions as to the appropriateness of the analogy between quantity adjustment and price adjustment. It is correct that, if prices respond slowly to information, investors may be unable to construct the trades that exploit the mispricing because of frictions. This, however, does not establish that markets clear in settings where prices adjust slowly. Equilibrium models that characterize asset prices in the presence of frictions suggest that in equilibrium prices respond quickly to shocks, just as in the absence of frictions. For example, Krainer [11] and Krainer and LeRoy [13] analyzed equilibrium prices of illiquid assets such
+  </p>
+  <p block-type="Text">
+   as real estate in a model that accounts explicitly for illiquidity in terms of search and matching. In a similar setting, Krainer [12] introduced economywide shocks and found that, despite the illiquidity of real estate, prices adjust instantaneously to the shocks, just as in liquid markets.
+  </p>
+  <p block-type="Text">
+   A similar result was demonstrated by Lim [17]. He considered the determination of asset prices when short sales are restricted. Lintner [18] and Miller [21], among others, proposed that short sale restrictions cause securities to trade at higher prices than they would otherwise. This is held to occur because investors with negative information may be unable to trade based on their information, whereas those with positive information can buy without restriction. Empirical evidence is held to support this result [5, 10, 22]. Lim showed that this outcome will not occur if investors have rational expectations about the extent of short sales restrictions. Under rational expectations, prices in Lim's model follow a martingale under the natural probabilities (reflecting assumed risk neutrality), just as they would in the absence of short sales restrictions.
+  </p>
+  <p block-type="Text">
+   These results were derived in settings that imposed strong restrictions, and it is not clear how general they are. However, the preliminary conclusion is that if market efficiency is defined as the absence of frictions, empirical evidence of quick adjustment of prices to information cannot necessarily be interpreted as supporting market efficiency, since that outcome would occur in the presence of frictions.
+  </p>
+  <p block-type="Text">
+   It could be objected that none of these considerations supports distinguishing between the implications of an asset pricing model and market efficiency, however defined. All testable restrictions are derived from an assumed model; so, the question is, what can be gained by identifying some of these restrictions with something called
+   <i>
+    market efficiency
+   </i>
+   ? This is particularly debatable, given the ambiguity in the usage of this term now. Berk [1] suggested dropping the term "market efficiency" from financial economics, and this might be the best course.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   An evaluation of the idea of capital market efficiency has been presented elsewhere [15]. In this essay, repetition of material found there has been avoided as much as possible.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Berk, J. (2007).
+     <i>
+      A Critique of the Efficient Capital Markets Hypothesis. Reproduced, Haas School of Business
+     </i>
+     , University of California, Berkeley.
+    </li>
+    <li block-type="ListItem">
+     [2] Campbell, J.Y., Lo, A.W. &amp; MacKinlay, A.C. (1996).
+     <i>
+      The Econometrics of Financial Markets
+     </i>
+     , Princeton University Press, Princeton, NJ, 275.
+    </li>
+    <li block-type="ListItem">
+     [3] Campbell, J.Y. &amp; Shiller, R.J. (1988). The dividendprice ratio and expectations of future dividends and discount factors,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      1
+     </b>
+     , 195–228.
+    </li>
+    <li block-type="ListItem">
+     [4] Campbell, J.Y. &amp; Shiller, R. (1988). Stock prices, earnings, and expected dividends,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      43
+     </b>
+     , 661–676.
+    </li>
+    <li block-type="ListItem">
+     [5] Cheng, J.W., Chang, E.C. &amp; Yu, Y. (2007). Short-sales constraints and price discovery: evidence from the Hong Kong market,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      62
+     </b>
+     (5), 2097–2121.
+    </li>
+    <li block-type="ListItem">
+     [6] Cutler, D., Poterba, J. &amp; Summers, L. (1989). What moves stock prices?
+     <i>
+      Journal of Portfolio Management
+     </i>
+     <b>
+      15
+     </b>
+     , 4–12.
+    </li>
+    <li block-type="ListItem">
+     [7] Fama, E.F. (1970). Efficient capital markets: a review of theory and empirical work,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      25
+     </b>
+     , 283–417.
+    </li>
+    <li block-type="ListItem">
+     [8] Fama, E.F. (1991). Efficient capital markets: II,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      46
+     </b>
+     , 1575–1617.
+    </li>
+    <li block-type="ListItem">
+     [9] Gilles, C. &amp; LeRoy, S.F. (1991). Econometric aspects of the variance-bounds tests: a survey,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      4
+     </b>
+     , 753–791.
+    </li>
+    <li block-type="ListItem">
+     [10] Jones, C. &amp; Lamont, O. (2002). Short-sale constraints and stock returns,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      66
+     </b>
+     , 207–239.
+    </li>
+    <li block-type="ListItem">
+     [11] Krainer, J. (1997).
+     <i>
+      Pricing Illiquid Assets with a Matching Model
+     </i>
+     . Reproduced, University of Minnesota.
+    </li>
+    <li block-type="ListItem">
+     [12] Krainer, J. (2001). A theory of liquidity in residential real estate markets,
+     <i>
+      Journal of Urban Economics
+     </i>
+     <b>
+      13
+     </b>
+     , 32–53.
+    </li>
+    <li block-type="ListItem">
+     [13] Krainer, J. &amp; LeRoy, S.F. (2002). Equilibrium valuation of illiquid assets,
+     <i>
+      Economic Theory
+     </i>
+     <b>
+      19
+     </b>
+     , 223–242.
+    </li>
+    <li block-type="ListItem">
+     [14] LeRoy, S.F. (1973). Risk aversion and the martingale model of stock prices,
+     <i>
+      International Economic Review
+     </i>
+     <b>
+      14
+     </b>
+     , 436–446.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [15] LeRoy, S.F. (1989). Efficient capital markets and martingales,
+     <i>
+      Journal of Economic Literature
+     </i>
+     <b>
+      27
+     </b>
+     , 1583–1621.
+    </li>
+    <li block-type="ListItem">
+     [16] LeRoy, S.F. &amp; Porter, R.D. (1981). The present value relation: tests based on implied variance bounds,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      49
+     </b>
+     , 555–574.
+    </li>
+    <li block-type="ListItem">
+     [17] Lim, B. (2007).
+     <i>
+      Short-sales Constraints and Price Bubbles
+     </i>
+     . Reproduced, University of California, Santa Barbara.
+    </li>
+    <li block-type="ListItem">
+     [18] Lintner, J. (1969). The aggregation of investors' diverse judgments and preferences in purely competitive security markets,
+     <i>
+      Journal of Financial and Quantitative Economics
+     </i>
+     <b>
+      4
+     </b>
+     (4), 347–400.
+    </li>
+    <li block-type="ListItem">
+     [19] Lucas, R.E. (1978). Asset prices in an exchange economy,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      46
+     </b>
+     , 1429–1445.
+    </li>
+    <li block-type="ListItem">
+     [20] Marsh, T.A. &amp; Merton, R.C. (1986). Dividend variability and variance bounds tests for the rationality of stock market prices,
+     <i>
+      American Economic Review
+     </i>
+     <b>
+      76
+     </b>
+     , 483–498.
+    </li>
+    <li block-type="ListItem">
+     [21] Miller, E.M. (1977). Risk, uncertainty, and divergence of opinion,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      32
+     </b>
+     (4), 1151–1168.
+    </li>
+    <li block-type="ListItem">
+     [22] Ofek, E. &amp; Richardson, M. (2003). Dotcommania: the rise and fall of internet stock prices,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      58
+     </b>
+     (3), 1113–1137.
+    </li>
+    <li block-type="ListItem">
+     [23] Shiller, R.J. (1981). Do stock prices move too much to be justified by subsequent changes in dividends?
+     <i>
+      American Economic Review
+     </i>
+     <b>
+      71
+     </b>
+     , 421–436.
+    </li>
+    <li block-type="ListItem">
+     [24] Summers, L. (1986). Does the stock market rationally reflect fundamental values,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      41
+     </b>
+     , 591–600.
+    </li>
+    <li block-type="ListItem">
+     [25] West, K.D. (1988). Bubbles, fads and stock price volatility: a partial evaluation,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      43
+     </b>
+     , 636–656.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Expectations Hypothesis
+   </b>
+   ;
+   <b>
+    Predictability of Asset Prices
+   </b>
+   ;
+   <b>
+    Risk Aversion
+   </b>
+   ;
+   <b>
+    Risk Premia
+   </b>
+   ;
+   <b>
+    Transaction Costs
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   STEPHEN F. LEROY
+  </p>
+ </body>
+</html>

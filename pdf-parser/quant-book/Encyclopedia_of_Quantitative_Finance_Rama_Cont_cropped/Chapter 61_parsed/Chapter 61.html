@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Risk Aversion
+   </b>
+  </h1>
+  <p block-type="Text">
+   An agent is risk averse if he/she dislikes the actions whose outcomes are not certain. In the following, only actions with one-dimensional final outcomes, for example, sums of money, are taken into consideration. To define risk aversion, it is necessary that a probability is associated to every possible consequence, that is, that the actions can be represented as lotteries. A lottery is
+   <i>
+    simple
+   </i>
+   if all possible consequences are final outcomes (sums of money) and it is
+   <i>
+    compound
+   </i>
+   if other lotteries are included among its consequences. An outcome coincides with a degen
+   <i>
+    erate
+   </i>
+   lottery, that is, the lottery that generates it with probability one.
+  </p>
+  <p block-type="TextInlineMath">
+   Formally, a decision-making situation under risk is represented by the quintuple
+   <math display="inline">
+    \langle S; 2^S; p; X; \mathcal{L} \rangle
+   </math>
+   , where S is a set of states of the nature;
+   <math display="inline">
+    2^S
+   </math>
+   is its power set (i.e., the set of all subsets of
+   <math display="inline">
+    S
+   </math>
+   , the empty set included); p is a probability distribution on
+   <math display="inline">
+    2^S
+   </math>
+   ; X is a set of outcomes (with
+   <math display="inline">
+    X \subseteq \mathbb{R}
+   </math>
+   if they are onedimensional); and
+   <math display="inline">
+    \mathcal{L}
+   </math>
+   is the set of lotteries. A simple lottery is represented by
+   <math display="inline">
+    \ell = (x(E), p(E))_{E \in \text{Part}(S)}
+   </math>
+   , where outcomes and probabilities are associated with the events
+   <math display="inline">
+    E \subseteq S
+   </math>
+   that form a partition
+   <math display="inline">
+    Part(S)
+   </math>
+   of
+   <i>
+    S
+   </i>
+   ; a compound lottery by
+   <math display="inline">
+    \ell = (\ell(E), p(E))_{E \in Part(S)}
+   </math>
+   , with
+   <math display="inline">
+    \ell(E) = (\ell'(E'), p(E'))_{E' \in \text{Part}(E)}
+   </math>
+   ; and a degenerate lottery by
+   <math display="inline">
+    \ell = (x, 1)
+   </math>
+   . A simple lottery is also represented by the cumulative probability function
+   <math display="inline">
+    F: X \to [0, 1]
+   </math>
+   , where
+   <math display="inline">
+    F(.)
+   </math>
+   is a nondecreasing function with range [0,1], and, if S is finite, that is,
+   <math display="inline">
+    S =
+   </math>
+   <math display="inline">
+    \{s_1, \ldots, s_m\}
+   </math>
+   , by
+   <math display="inline">
+    \ell = (x_i, p_i)_{i=1}^n
+   </math>
+   , where
+   <math display="inline">
+    p_i = p(E_i)
+   </math>
+   with
+   <math display="inline">
+    E_i = \{s_h \in S : x(s_h) = x_i\}
+   </math>
+   . An agent in a risky situation is a system of preferences
+   <math display="inline">
+    \langle \mathcal{L}, \gtrsim \rangle
+   </math>
+   over the set of lotteries. Let
+   <math display="inline">
+    \langle \mathcal{L}, \gtrsim \rangle
+   </math>
+   be regular (i.e., complete and transitive) and continuous. Moreover, let it be strongly monotone with respect to degenerate lotteries, that is,
+   <math display="inline">
+    (x, 1) \succ (x', 1)
+   </math>
+   if
+   <math display="inline">
+    x &gt; x'
+   </math>
+   . Then, preferences can be represented by a utility function
+   <math display="inline">
+    U
+   </math>
+   :
+   <math display="inline">
+    \mathcal{L} \to \mathbb{R}
+   </math>
+   , that is, such that
+   <math display="inline">
+    U(\ell) \geq U(\ell')
+   </math>
+   if and only if
+   <math display="inline">
+    \ell \gtrsim \ell'
+   </math>
+   . This function is not necessarily the expected utility function. However, if the expected utility model is introduced, then every lottery is equivalent to a simple lottery because of the
+   <i>
+    compound lottery principle
+   </i>
+   (implied by expected utility), according to which any compound lottery is indifferent to the simple (or reduced) lottery that associates to each final outcome its compound probability, and preferences are represented by the expected utility function,
+  </p>
+  <p block-type="TextInlineMath">
+   which is represented by
+   <math display="inline">
+    EU(\ell) = \int_{x_i \in X} u(x) dF(x)
+   </math>
+   if
+   <math display="inline">
+    F(.)
+   </math>
+   is differentiable or
+   <math display="inline">
+    EU(\ell) = \sum_{i=1}^{n} p_i u(x_i)
+   </math>
+   if the lottery is finite. The von Neumann-Morgenstern (or Bernoulli) utility function
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   represents the preferences over the set of degenerate lotteries, that is, over the set of outcomes.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   (
+   <i>
+    Expected Value
+   </i>
+   ). The expected value of a lottery
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   is
+   <math display="inline">
+    EV(\ell) = \int_{x \in X} x \mathrm{d}F(x)
+   </math>
+   or, if the lottery is finite,
+   <math display="inline">
+    EV(\ell) = \sum_{i=1}^{n} p_i x_i
+   </math>
+   and the function
+   <math display="inline">
+    EV: \mathcal{L} \to X
+   </math>
+   is the expected value function.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 2
+   </b>
+   (Certainty Equivalent). The certainty equivalent
+   <math display="inline">
+    CE(\ell)
+   </math>
+   of a lottery
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   is the outcome for which the individual is indifferent between this outcome and the lottery, that is,
+   <math display="inline">
+    (CE(\ell), 1) \sim \ell
+   </math>
+   , where
+   <math display="inline">
+    (CE(\ell), 1)
+   </math>
+   is the degenerate lottery with out
+   <i>
+    come
+   </i>
+   <math display="inline">
+    CE(\ell)
+   </math>
+   <i>
+    . Having
+   </i>
+   <math display="inline">
+    U(\ell) = u(CE(\ell))
+   </math>
+   <i>
+    , the certainty
+   </i>
+   equivalent function is
+   <math display="inline">
+    CE(\ell) = u^{-1}(U(\ell))
+   </math>
+   . If the system of preferences
+   <math display="inline">
+    \langle \mathcal{L}, \gtrsim \rangle
+   </math>
+   can be represented by an expected utility function, then
+   <math display="inline">
+    CE(\ell) = u^{-1}(EU(\ell)).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   (Existence and Uniqueness of the Certainty Equivalent). Let us assume that the set of outcomes is compact, that is,
+   <math display="inline">
+    X = [x, \overline{x}]
+   </math>
+   and the system of preferences
+   <math display="inline">
+    \langle \mathcal{L}, \geq \rangle
+   </math>
+   is regular (i.e., complete and transitive), continuous and such that
+   <math display="inline">
+    (\overline{x}, 1) \geq \ell \geq
+   </math>
+   <math display="inline">
+    (x, 1)
+   </math>
+   for every
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   . Then, there exists one and only one certainty equivalent
+   <math display="inline">
+    CE(\ell) \in X
+   </math>
+   for every
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The following discussion on the notion of risk aversion refers, for the sake of simplicity, to finite simple lotteries on a compact set of outcomes, where not specified differently.
+  </p>
+  <h4>
+   <b>
+    Global Risk Aversion
+   </b>
+  </h4>
+  <p block-type="Text">
+   <b>
+    Definition 3
+   </b>
+   (Risk Premium and Global Risk Aversion). The risk premium
+   <math display="inline">
+    RP(\ell)
+   </math>
+   of a lottery is the maximum sum of money that the agent is willing to pay to get the expected value of the lottery in place of the lottery. Therefore,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    RP(\ell) = EV(\ell) - CE(\ell) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   since the conditions
+   <math display="inline">
+    (EV(\ell) - RP(\ell), 1) \sim \ell
+   </math>
+   and
+   <math display="inline">
+    \ell \sim (CE(\ell), 1)
+   </math>
+   imply
+   <math display="inline">
+    EV(\ell) - RP(\ell) = CE(\ell)
+   </math>
+   . The agent denotes (global) risk aversion if his/her
+  </p>
+  <p block-type="TextInlineMath">
+   system of preferences
+   <math display="inline">
+    \langle \mathcal{L}, \geq \rangle
+   </math>
+   requires
+   <math display="inline">
+    CE(\ell) \leq
+   </math>
+   <math display="inline">
+    EV(\ell)
+   </math>
+   , so
+   <math display="inline">
+    RP(\ell) \ge 0
+   </math>
+   , for every
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   . The agent is risk loving if
+   <math display="inline">
+    RP(\ell) \leq 0
+   </math>
+   and risk neutral if
+   <math display="inline">
+    RP(\ell) =
+   </math>
+   0. He/she is strictly risk averse if
+   <math display="inline">
+    RP(\ell) &gt; 0
+   </math>
+   for every nondegenerate
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   (strictly risk loving if
+   <math display="inline">
+    RP(\ell) &lt; 0
+   </math>
+   ). An agent is globally neither risk averse nor risk loving if there is a pair
+   <math display="inline">
+    \ell, \ell' \in \mathcal{L}
+   </math>
+   for which
+   <math display="inline">
+    RP(\ell) &gt; 0
+   </math>
+   and
+   <math display="inline">
+    RP(\ell') &lt; 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Proposition 2 [5]. Let us introduce the set of the lotteries that are not preferred to the certain outcome
+   <math display="inline">
+    x
+   </math>
+   and the set of lotteries that have an expected value not higher than
+   <math display="inline">
+    x
+   </math>
+   , that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(x) = \{ \ell \in \mathcal{L} : CE(\ell) \le x \},
+   </math>
+   <br/>
+   <math display="block">
+    H(x) = \{ \ell \in \mathcal{L} : EV(\ell) \le x \}
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   The agent is risk averse if and only if
+   <math display="inline">
+    H(x) \subseteq
+   </math>
+   <math display="inline">
+    G(x)
+   </math>
+   for every
+   <math display="inline">
+    x \in X
+   </math>
+   , risk loving if and only if
+   <math display="inline">
+    H(x) \supseteq G(x)
+   </math>
+   , and risk neutral if and only if
+   <math display="inline">
+    H(x) =
+   </math>
+   <math display="inline">
+    G(x)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In the Hirshleifer-Yaari diagram, where simple lotteries with only two possible outcomes with given probabilities are represented, the certainty equivalent of a lottery
+   <math display="inline">
+    \ell^* = (x_1^*, p; x_2^*, 1-p)
+   </math>
+   is, by definition, determined as the intersection of the
+   <math display="inline">
+    45^{\circ}
+   </math>
+   line and the corresponding indifference curve. Therefore, the certainty equivalent is equal to the coordinates of this point. Moreover, the expected value of the same lottery is equal to the coordinates of the point where the
+   <math display="inline">
+    45^{\circ}
+   </math>
+   line intersects the expected value line (described by the equation
+   <math display="inline">
+    px_1 + (1 - p)x_2 = EV(\ell^*) = px_1^* + (1 - p)x_2^*
+   </math>
+   <math display="inline">
+    p)x_2^*
+   </math>
+   ). This line passes through
+   <math display="inline">
+    \ell^*
+   </math>
+   and has the slope equal to
+   <math display="inline">
+    -\frac{p}{1-p}
+   </math>
+   . Thus, the agent is risk averse if the first intersection point is not above the second one, as shown in Figures 1 and 2.
+  </p>
+  <p block-type="TextInlineMath">
+   Proposition 2 indicates that risk aversion implies
+   <math display="inline">
+    H(CE(\ell^*)) \subseteq G(CE(\ell^*))
+   </math>
+   . It means that the indifference curve and the expected value line passing through the same point on the
+   <math display="inline">
+    45^{\circ}
+   </math>
+   line do not cross and that the indifference curve is to the north-east with respect to the expected value line.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 3
+   </b>
+   If the expected utility model applies, then the agent is risk averse if and only if his/her von
+   <i>
+    Neumann–Morgenstern utility function
+   </i>
+   <math display="inline">
+    u : X \to \mathbb{R}
+   </math>
+   <i>
+    is
+   </i>
+   concave, risk loving if and only if it is convex, and risk neutral if and only if it is a linear.
+  </p>
+  <p>
+   <img src="_page_1_Figure_8.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Indifference curve of a risk averse expected utility agent
+  </p>
+  <p>
+   <img src="_page_1_Figure_10.jpeg"/>
+  </p>
+  <p>
+   Figure 2 Indifference curve of a risk averse nonexpected utility agent
+  </p>
+  <p block-type="TextInlineMath">
+   The inequality
+   <math display="inline">
+    \sum_{i=1}^{n} p_i u(x_i) \leq u \left(\sum_{i=1}^{n} p_i x_i\right)
+   </math>
+   , which is called the
+   <i>
+    Jensen inequality
+   </i>
+   , is a definition of concavity and is equivalent to
+   <math display="inline">
+    EU(\ell) \leq u(EV(\ell)).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In Figure 3 we can see how the concavity of the function
+   <math display="inline">
+    u(.)
+   </math>
+   implies risk aversion. The expected value, expected utility, and certainty equivalent are represented for the lottery
+   <math display="inline">
+    \ell = (x_1, 0.5; x_2, 0.5)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The concavity of the von Neumann–Morgenstern function
+   <math display="inline">
+    u(.)
+   </math>
+   implies the concavity of the expected utility function with respect to the outcomes. That is, if
+   <math display="inline">
+    u(\lambda x_i + (1 - \lambda)x_i') \ge \lambda u(x_i) + (1 - \lambda)u(x_i')
+   </math>
+   for every pair
+   <math display="inline">
+    x_i, x_i' \in X
+   </math>
+   and every
+   <math display="inline">
+    \lambda \in [0, 1]
+   </math>
+   ,
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 3 Risk aversion and concavity of utility function
+  </p>
+  <p block-type="TextInlineMath">
+   then
+   <math display="inline">
+    EU(\ell'') \ge \lambda EU(\ell) + (1 - \lambda)EU(\ell')
+   </math>
+   for every
+   <math display="inline">
+    \lambda \in [0, 1]
+   </math>
+   and every triplet
+   <math display="inline">
+    \ell, \ell', \ell'' \in \mathcal{L}
+   </math>
+   , with
+   <math display="inline">
+    \ell =
+   </math>
+   <math display="inline">
+    (x_i, p_i)_{i=1}^n
+   </math>
+   ,
+   <math display="inline">
+    \ell' = (x'_i, p_i)_{i=1}^n
+   </math>
+   and
+   <math display="inline">
+    \ell'' = (x''_i, p_i)_{i=1}^n
+   </math>
+   . Thus, if the agent is risk averse and the expected utility theory holds, the function
+   <math display="inline">
+    EU(.)
+   </math>
+   is concave (and, all the more so, quasiconcave) with respect to the outcomes. Consequently, the indifference curves in the Hirshleifer-Yaari diagram are convex (as described in Figure 1, but not in Figure 2, which can represent an agent who is risk averse but does not maximize expected utility).
+  </p>
+  <p block-type="TextInlineMath">
+   Proposition 4 [5]. The agent is risk averse if the certainty equivalent function
+   <math display="inline">
+    CE: \mathcal{L} \rightarrow X
+   </math>
+   is convex with respect to the probabilities. The agent is risk loving if it is concave and risk neutral if it is linear.
+  </p>
+  <p block-type="TextInlineMath">
+   The condition stated in Proposition 4 for risk aversion is sufficient, but not necessary, nor is it necessary that the certainty equivalent function
+   <math display="inline">
+    CE(.)
+   </math>
+   is quasiconvex with respect to the probabilities. However, if the expected utility theory holds and there is risk aversion, then the certainty equivalent function is convex with respect to the probabilities: in fact, in such a case, we have
+   <math display="inline">
+    CE(\ell) = u^{-1} \left( \sum_{i=1}^{n} p_i u(x_i) \right)
+   </math>
+   , where function
+   <math display="inline">
+    u(.)
+   </math>
+   is increasing and concave and function
+   <math display="inline">
+    u^{-1}
+   </math>
+   (.) is increasing and convex.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 4
+   </b>
+   (Comparison of Risk Aversion across Agents). An agent
+   <math display="inline">
+    A
+   </math>
+   is more risk averse than agent
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    B
+   </i>
+   if their systems of preferences
+   <math display="inline">
+    \langle \mathcal{L}, \geq^A \rangle
+   </math>
+   and
+   <math display="inline">
+    \langle \mathcal{L}, \geq^B \rangle
+   </math>
+   give
+   <math display="inline">
+    CE_A(\ell) \leq CE_B(\ell)
+   </math>
+   for every
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In the Hirshleifer-Yaari diagram, this definition implies that the indifference curves of the agents that go through the same point on the
+   <math display="inline">
+    45^{\circ}
+   </math>
+   line do not cross and that the indifference curve of the more risk averse agent is to the north-east with respect to the indifference curve of the less risk averse agent, as shown in Figure 4.
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 5
+   </b>
+   [7]. If agent
+   <math display="inline">
+    A
+   </math>
+   is more risk averse than agent
+   <math display="inline">
+    B
+   </math>
+   and the expected utility model applies,
+  </p>
+  <p>
+   <img src="_page_2_Figure_10.jpeg"/>
+  </p>
+  <p>
+   Figure 4 Indifference curves of two agents of whom one is more risk averse than the other
+  </p>
+  <p block-type="TextInlineMath">
+   then the von Neumann-Morgenstern utility function
+   <math display="inline">
+    u_A(.)
+   </math>
+   is a concave transformation of
+   <math display="inline">
+    u_B(.)
+   </math>
+   . That is, there exists an increasing and concave function
+   <math display="inline">
+    g
+   </math>
+   :
+   <math display="inline">
+    \mathbb{R} \to \mathbb{R}
+   </math>
+   such that
+   <math display="inline">
+    u_A(x) = g(u_B(x))
+   </math>
+   for every
+   <math display="inline">
+    x \in X
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Local Risk Aversion
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Till now, we considered
+   <i>
+    global risk aversion
+   </i>
+   , that is, the relationship
+   <math display="inline">
+    CE(\ell) \leq EV(\ell)
+   </math>
+   was introduced for every lottery
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   . Now, let us consider
+   <i>
+    local risk aversion
+   </i>
+   , by taking into account only small lotteries, that is, the lotteries that have only little differences in consequences. For this purpose, we denote the lottery
+   <math display="inline">
+    (x + tx_i, p_i)_{i=1}^n
+   </math>
+   with
+   <math display="inline">
+    x + t\ell
+   </math>
+   , where
+   <math display="inline">
+    \ell = (x_i, p_i)_{i=1}^n
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Definition 5 (Local Risk Aversion). An agent is locally risk averse, if, for every
+   <math display="inline">
+    x \in X
+   </math>
+   and
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   , there exists a
+   <math display="inline">
+    t^* &gt; 0
+   </math>
+   such that
+   <math display="inline">
+    CE(x + t\ell) &lt;
+   </math>
+   <math display="inline">
+    EV(x + t\ell)
+   </math>
+   for all
+   <math display="inline">
+    t \in [0, t^*]
+   </math>
+   . Thus, if the certainty equivalent function can be derived, then the agent is locally risk averse if
+   <math display="inline">
+    \lim_{t \to 0} \frac{\mathrm{d}}{\mathrm{d}t} (EV(x+t\ell) - CE(x+t\ell)) &gt; 0
+   </math>
+   and only if
+   <math display="inline">
+    \lim_{t \to 0} \frac{\mathrm{d}}{\mathrm{d}t} (EV(x+t\ell) - CE(x+t\ell)) \ge 0
+   </math>
+   for every
+   <math display="inline">
+    x \in X
+   </math>
+   and
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   . By analogy, the definition holds with reversed inequality signs for the local risk loving.
+  </p>
+  <p block-type="Text">
+   Although the global risk aversion requires that in the Hirshleifer-Yaari diagram the indifference curve and the expected value line passing through some point on the
+   <math display="inline">
+    45^{\circ}
+   </math>
+   line do not cross and that the indifference curve is to the north-east with respect to the expected value line, this condition needs to be satisfied only in the vicinity of the
+   <math display="inline">
+    45^{\circ}
+   </math>
+   line for the local risk aversion.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 6
+   </b>
+   If the expected utility theory holds, then the agent is locally risk averse if and only if his/her von Neumann-Morgenstern utility function
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   is concave. In other words, if the expected utility theory holds, then the conditions for local and global risk aversion (risk loving or neutrality) are the same.
+  </p>
+  <h1>
+   <b>
+    Measure of the Risk Aversion
+   </b>
+  </h1>
+  <p block-type="Text">
+   If the expected utility theory holds, then the local risk aversion can be measured by the concavity of the von Neumann–Morgenstern utility function
+   <math display="inline">
+    u(.)
+   </math>
+   . However, the second derivative of the utility function
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    u''(.)
+   </math>
+   , which is a measure of its concavity, is not invariant to increasing linear transformations of
+   <math display="inline">
+    u(.)
+   </math>
+   . An invariant measure is the
+   <i>
+    de Finetti-Arrow-Pratt
+   </i>
+   coefficient of risk aversion (due to de Finetti [3], Pratt [7], and Arrow [1]). This measure of (
+   <i>
+    absolute
+   </i>
+   ) risk
+   <i>
+    aversion
+   </i>
+   is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    r(x) = -\frac{u''(x)}{u'(x)}
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   There also exists a measure of relative risk aversion
+   <math display="inline">
+    r_r(x) = -x \frac{u''(x)}{u'(x)}
+   </math>
+   , which is important in the case of multiplicative lotteries
+   <math display="inline">
+    \ell = (\alpha_i W, p_i)_{i=1}^n
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The de Finetti-Arrow-Pratt measure can be justified in relation to the local risk premium, which is (by Definition 3)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    RP(x+t\ell) = EV(x+t\ell) - CE(x+t\ell)
+   </math>
+   <br/>
+   =
+   <math>
+    x + tEV(\ell)
+   </math>
+   <br/>
+   <math>
+    - u^{-1} \left( \sum_{i=1}^{n} p_i u(x+tx_i) \right)
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   Then, assuming that this function is differentiable with respect to t, we get
+   <math display="inline">
+    RP(x) =
+   </math>
+   0,
+   <math display="inline">
+    \frac{\partial RP(x+t\ell)}{\partial t}\Big|_{t=0} = 0
+   </math>
+   and
+   <math display="inline">
+    \frac{\partial^2 RP(x+t\ell)}{\partial t^2}\Big|_{t=0} = 0
+   </math>
+   <math display="inline">
+    -\frac{u''(x)}{u'(x)}\sigma^2(\ell)
+   </math>
+   . Therefore, in the neighborhood of the certain outcome
+   <math display="inline">
+    x
+   </math>
+   , the risk premium is proportional to the de Finetti-Arrow-Pratt measure. Nevertheless, the fact that only the second derivative of the risk premium can be different from zero at
+   <math display="inline">
+    t = 0
+   </math>
+   , while the first derivative is always equal to zero, means that the expected utility theory allows only for local risk aversion of the second order, while that of the first order is zero. Other theories (e.g., rank-dependent expected
+   <i>
+    utility
+   </i>
+   , which is discussed later) also allow for the risk aversion of the first order and can, as a result, describe the preferences that indicate more relevant types of aversion to risk (like the one presented in Allais paradox) than the risk aversion admitted by the expected utility theory and measured by the de Finetti-Arrow-Pratt index.
+  </p>
+  <p block-type="TextInlineMath">
+   Local risk aversion in the Hirshleifer-Yaari diagram is linked to the curvature of indifference curves at the point where they intersect the 45° line. In other words, it is linked to the value of the second derivative
+   <math display="inline">
+    x_2''(x_1)
+   </math>
+   at
+   <math display="inline">
+    x_1 = x
+   </math>
+   , where
+  </p>
+  <p block-type="TextInlineMath">
+   the function
+   <math display="inline">
+    x_2(x_1)
+   </math>
+   that represents the indifference curve is implicitly defined by the condition
+   <math display="inline">
+    CE(x_1, x_2) = x
+   </math>
+   . Then, if the expected utility theory holds, we get
+   <math display="inline">
+    x_2(x) = x, x_2'(x) = -\frac{p}{1-p}
+   </math>
+   and
+   <math display="inline">
+    x_2''(x) = -\frac{p}{(1-p)^2} \frac{u''(x)}{u'(x)}
+   </math>
+   , that is, the curvature of the indifference curves along the
+   <math display="inline">
+    45^{\circ}
+   </math>
+   line is proportional to the de Finetti-Arrow-Pratt measure of risk aversion.
+  </p>
+  <p block-type="TextInlineMath">
+   The dependence of the de Finetti-Arrow-Pratt index
+   <math display="inline">
+    r(x)
+   </math>
+   on x defines the decreasing absolute risk aversion if
+   <math display="inline">
+    r'(x) &lt; 0
+   </math>
+   (increasing if
+   <math display="inline">
+    r'(x) &gt; 0
+   </math>
+   ), as well as, with regard to
+   <math display="inline">
+    r_r(x)
+   </math>
+   , the decreasing relative risk aversion if
+   <math display="inline">
+    r_r'(x) &lt; 0
+   </math>
+   (increasing if
+   <math display="inline">
+    r_r'(x) &gt; 0
+   </math>
+   ).
+  </p>
+  <h4>
+   Aversion Toward Increases in Risk
+  </h4>
+  <p block-type="Text">
+   Risk aversion can also be analyzed taking into account the riskiness of lotteries, that is, considering preference for less risky lotteries. However, there does not exist a unique definition of riskiness according to which lotteries can be ordered. In the following, only two definitions of riskiness are examined. Both introduce a partial ordering criterion.
+  </p>
+  <p block-type="Text">
+   1. The first definition refers to mean preserving spreads (introduced by Rothschild and Stiglitz [10]). A lottery
+   <math display="inline">
+    \ell = (x_i, p_i)_{i=1}^n
+   </math>
+   is not less risky than lottery
+   <math display="inline">
+    \ell^* = (x_i^*, p_i^*)_{i=1}^n
+   </math>
+   if
+   <math display="inline">
+    \ell
+   </math>
+   can be obtained from
+   <math display="inline">
+    \ell^*
+   </math>
+   by mean preserving spreads. That is, if
+   <math display="inline">
+    EV(\ell) = EV(\ell^*), x_i = x_i^*
+   </math>
+   for every
+   <math display="inline">
+    i =
+   </math>
+   <math display="inline">
+    1, \ldots, n
+   </math>
+   and
+   <math display="inline">
+    p_i = p_i^*
+   </math>
+   for every
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   except for three outcomes
+   <math display="inline">
+    x_a &gt; x_b &gt; x_c
+   </math>
+   , for which we have
+   <math display="inline">
+    p_a \ge p_a^*
+   </math>
+   ,
+   <math display="inline">
+    p_b \le p_b^*
+   </math>
+   , and
+   <math display="inline">
+    p_c \ge
+   </math>
+   <math display="inline">
+    p_c^*
+   </math>
+   . For example,
+   <math display="inline">
+    \ell = (x_1, p_1; x_2, p_2; x_3, p_3)
+   </math>
+   is not less risky than
+   <math display="inline">
+    \ell^* = (x_1, p_1^*; x_2, p_2^*; x_3, p_3^*)
+   </math>
+   &lt;br&gt;if
+   <math display="inline">
+    p_2 \le p_2^*
+   </math>
+   ,
+   <math display="inline">
+    p_1 = p_1^* + \frac{x_2 - x_3}{x_1 - x_3}(p_2^* - p_2)
+   </math>
+   ,
+   <math display="inline">
+    p_3 = p_3^* + \frac{x_1 - x_2}{x_1 - x_3}(p_2^* - p_2), \text{ and } x_1 &gt; x_2 &gt;
+   </math>
+   <math display="inline">
+    x_3
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 6
+   </b>
+   (Aversion to Mean Preserving Spreads Increases in Risk). An agent is averse to the increases in risk if
+   <math display="inline">
+    CE(\ell) \leq CE(\ell^*)
+   </math>
+   for every pair of lotteries
+   <math display="inline">
+    \ell, \ell^* \in \mathcal{L}
+   </math>
+   with
+   <math display="inline">
+    \ell
+   </math>
+   not less risky than
+   <math display="inline">
+    \ell^*
+   </math>
+   (according to mean preserving spreads).
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 7
+   </b>
+   If an agent is averse to mean preserving spreads increases in risk, then he/she is also risk averse (for this reason, sometimes the aversion to mean preserving spreads increases in risk is
+  </p>
+  <p block-type="TextInlineMath">
+   called strong risk aversion and the risk aversion as introduced in Definition 3 is called weak risk aversion [2]). To be precise, if
+   <math display="inline">
+    CE(\ell) \leq CE(\ell^*)
+   </math>
+   for every pair
+   <math display="inline">
+    \ell, \ell^* \in \mathcal{L}
+   </math>
+   with
+   <math display="inline">
+    \ell
+   </math>
+   not less risky than
+   <math display="inline">
+    \ell^*
+   </math>
+   (according to mean preserving spreads), then
+   <math display="inline">
+    CE(\ell) \leq EV(\ell)
+   </math>
+   for
+   <math display="inline">
+    \text{ every } \ell \in \mathcal{L}.
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 8
+   </b>
+   If the expected utility model applies, then there is aversion toward mean preserving spreads increases in risk if and only if the von
+   <i>
+    Neumann–Morgenstern utility function
+   </i>
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   <i>
+    is
+   </i>
+   concave.
+  </p>
+  <p block-type="Text">
+   Note that the concavity of the utility function is a necessary and sufficient condition for both risk aversion and aversion to increases in risk (determined by mean preserving spreads). The equality of this condition holds in the case of expected utility theory. For other theories, we will generally have two different conditions (one for risk aversion and the other for the aversion to increases in risk).
+  </p>
+  <p block-type="Text">
+   An ordering of the lotteries according to their riskiness that is equivalent to the mean preserving spreads concept (for the lotteries that have equal expected value) is provided by the notion of the second-order stochastic dominance.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 7
+   </b>
+   (
+   <i>
+    First-order Stochastic Dominance
+   </i>
+   ). A lottery
+   <math display="inline">
+    \ell = (x_i, p_i)_{i=1}^n
+   </math>
+   , where
+   <math display="inline">
+    x_i &gt; x_{i+1}
+   </math>
+   for every
+   <math display="inline">
+    i = 1, \ldots, n - 1
+   </math>
+   , first order stochastically dominates lottery
+   <math display="inline">
+    \ell' = (x_i, p_i')_{i=1}^n
+   </math>
+   if
+   <math display="inline">
+    \sum_{h=1}^i p_h \ge \sum_{h=1}^i p_{h'}
+   </math>
+   (or, equivalently,
+   <math display="inline">
+    \sum_{h=i+1}^n p_h \le \sum_{h=i+1}^n p_{h'}
+   </math>
+   ) for every
+   <math display="inline">
+    i =
+   </math>
+   <math display="inline">
+    1, \ldots, n-1
+   </math>
+   , that is, with respect to the cumulative probability functions (introduced earlier), if
+   <math display="inline">
+    F(x) \leq
+   </math>
+   <math display="inline">
+    F'(x)
+   </math>
+   for every
+   <math display="inline">
+    x \in X
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   First-order stochastic dominance means that probabilities of the better (worse) outcomes are higher (lower) in the dominant lottery than in the dominated lottery. It implies that
+   <math display="inline">
+    EV(\ell) &gt; EV(\ell')
+   </math>
+   and, also,
+   <math display="inline">
+    CE(\ell) \geq CE(\ell')
+   </math>
+   for a rational agent.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 8
+   </b>
+   (Second-order Stochastic Dominance). A lottery
+   <math display="inline">
+    \ell = (x_i, p_i)_{i=1}^n
+   </math>
+   , where
+   <math display="inline">
+    x_i &gt; x_{i+1}
+   </math>
+   for every
+   <math display="inline">
+    i = 1, \ldots, n-1
+   </math>
+   , second order stochastically dominates lottery
+   <math display="inline">
+    \ell' = (x_i, p_i')_{i=1}^n
+   </math>
+   if
+   <math display="inline">
+    D_j(\ell, \ell') = \sum_{i=1}^{n-1}
+   </math>
+   <math display="inline">
+    (x_i - x_{i+1}) \sum_{h=1}^j (p_h - p_h') \ge 0 \text{ for every } j = 1, \ldots,
+   </math>
+   <math display="inline">
+    n-1
+   </math>
+   , that is, with respect to the cumulative probability functions in the continuous case, if
+   <math display="inline">
+    \int_{x}^{x} (F(t)  F'(t)
+   </math>
+   dt
+   <math display="inline">
+    \leq 0
+   </math>
+   for every
+   <math display="inline">
+    x \in X = [\underline{x}, \overline{x}]
+   </math>
+   . The first-order
+  </p>
+  <p>
+   <img src="_page_5_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 5 Probability mixture of two lotteries
+  </p>
+  <p block-type="Text">
+   stochastic dominance implies second-order stochastic dominance, but not vice versa.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 9
+   </b>
+   Let two lotteries
+   <math display="inline">
+    \ell
+   </math>
+   and
+   <math display="inline">
+    \ell'
+   </math>
+   have the same expected value, so that
+   <math display="inline">
+    \sum_{i=1}^{n-1} (x_i - x_{i+1})
+   </math>
+   <math display="inline">
+    \sum_{h=1}^{j} (p_h - p_h') = 0
+   </math>
+   . If the lottery
+   <math display="inline">
+    \ell'
+   </math>
+   is more risky than
+   <math display="inline">
+    \ell
+   </math>
+   (according to the mean preserving spreads criterion), then
+   <math display="inline">
+    \ell
+   </math>
+   second-order stochastically dominates
+   <math display="inline">
+    \ell'
+   </math>
+   . Conversely, if
+   <math display="inline">
+    \ell
+   </math>
+   second-order stochastically dominates
+   <math display="inline">
+    \ell'
+   </math>
+   , then
+   <math display="inline">
+    \ell'
+   </math>
+   can be obtained from
+   <math display="inline">
+    \ell
+   </math>
+   by a sequence of mean preserving spreads.
+  </p>
+  <p block-type="Text">
+   The equivalence of the second-order stochastic dominance and mean preserving spreads for the lotteries with the same expected value implies that the same conditions that determine the aversion to the increases in risk (introduced by mean preserving spreads) also determine the aversion for the lotteries that are second-order stochastically dominated (in comparison between lotteries of the same expected value).
+  </p>
+  <p block-type="Text">
+   2. The second definition of riskiness refers to
+   <i>
+    prob
+   </i>
+   ability mixtures [11]. According to this definition, a compound lottery is,
+   <i>
+    ceteris paribus
+   </i>
+   , more risky than a simple lottery. More precisely, let us define as a probability mixture of two simple lotteries
+   <math display="inline">
+    \ell_a = (x_a(s_j), p(s_j))_{j=1}^m
+   </math>
+   and
+   <math display="inline">
+    \ell_b = (x_b(s_j), p(s_j))_{j=1}^m
+   </math>
+   , where
+   <math display="inline">
+    S = \{s_1, \dots, s_m\}
+   </math>
+   is the set of the states of the nature, the two-stages lottery
+   <math display="inline">
+    \lambda \ell_a \oplus (1 - \lambda) \ell_b = (((x_a(s_i), \lambda), (x_b(s_i),
+   </math>
+   <math display="inline">
+    (1 - \lambda)
+   </math>
+   ,
+   <math display="inline">
+    p(s_j)_{j=1}^m
+   </math>
+   , where
+   <math display="inline">
+    \lambda \in [0, 1]
+   </math>
+   . Figure 5 represents the simplest case of a probability mixture.
+  </p>
+  <p block-type="TextInlineMath">
+   Definition 9 (Aversion to Probability Mixture Increases in Risk). An agent is averse to the increases in risk if
+   <math display="inline">
+    CE(\lambda \ell_a \oplus (1-\lambda)\ell_b) \le \max\{CE(\ell_a), CE(\ell_b)\}
+   </math>
+   <i>
+    for every pair of lotteries
+   </i>
+   <math display="inline">
+    \ell_a, \ell_b \in \mathcal{L}
+   </math>
+   <i>
+    and
+   </i>
+   <math display="inline">
+    \lambda \in [0, 1]
+   </math>
+   <i>
+    .
+   </i>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that the expected utility model implies neutrality toward probability mixture increases in risk, since this model satisfies the compound lottery principle, according to which
+   <math display="inline">
+    EU(\lambda \ell_a \oplus (1-\lambda)\ell_b) =
+   </math>
+   <math display="inline">
+    \lambda EU(\ell_a) + (1 - \lambda)EU(\ell_b).
+   </math>
+  </p>
+  <h1>
+   <b>
+    Risk Aversion and Aversion to
+   </b>
+   Increasing Risk with Regard to
+   <b>
+    Rank-dependent Expected Utility
+   </b>
+  </h1>
+  <p block-type="Text">
+   Let us take into consideration a generalization of expected utility theory in order to show some aspects of risk aversion and aversion to increasing risk, which appear very different from the case of expected utility.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 10
+   </b>
+   (
+   <i>
+    Rank-dependent Expected Utility [8
+   </i>
+   , 4]). The system of preferences
+   <math display="inline">
+    \langle \mathcal{L}, \gtrsim \rangle
+   </math>
+   is represented by rank-dependent expected utility
+   <math display="inline">
+    U: \mathcal{L} \to \mathbb{R}
+   </math>
+   if, for every lottery
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   with
+   <math display="inline">
+    \ell = (x_i, p_i)_{i=1}^n
+   </math>
+   and
+   <math display="inline">
+    x_i &gt; x_{i+1}
+   </math>
+   for every
+   <math display="inline">
+    i = 1, \ldots, n-1
+   </math>
+   , where
+   <math display="inline">
+    x_i \in X
+   </math>
+   with
+   <math display="inline">
+    X =
+   </math>
+   <math display="inline">
+    [x,\overline{x}] \subset \mathbb{R}
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(\ell) = u(x_n) + \sum_{i=1}^{n-1} (u(x_i) - u(x_{i+1}))\varphi\left(\sum_{h=1}^{i} p_h\right)
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   where function
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   represents the system of preferences
+   <math display="inline">
+    \langle X, \gtrsim \rangle
+   </math>
+   over the set of outcomes and function
+   <math display="inline">
+    \varphi : [0, 1] \rightarrow [0, 1]
+   </math>
+   , which is increasing, with
+   <math display="inline">
+    \varphi(0) = 0
+   </math>
+   and
+   <math display="inline">
+    \varphi(1) = 1
+   </math>
+   , distorts the decumulative probability function.
+  </p>
+  <p block-type="Text">
+   Thus, the rank-dependent expected utility model describes the agent's system of preferences by means of a utility function on outcomes and a probability distortion function (while the expected utility model requires only the first function). Note that, when
+  </p>
+  <p block-type="TextInlineMath">
+   the probability distortion function is the identity function, that is, when
+   <math display="inline">
+    \varphi(p) = p
+   </math>
+   for every
+   <math display="inline">
+    p \in [0, 1]
+   </math>
+   , then rank-dependent expected utility coincides with expected utility.
+  </p>
+  <p block-type="TextInlineMath">
+   Recalling that an agent is risk averse if
+   <math display="inline">
+    CE(\ell) \leq
+   </math>
+   <math display="inline">
+    EV(\ell)
+   </math>
+   for every
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   , that is, if the risk premium
+   <math display="inline">
+    RP(\ell) = EV(\ell) - CE(\ell)
+   </math>
+   is nonnegative for every
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   , let us split the risk premium
+   <math display="inline">
+    RP(\ell)
+   </math>
+   into two parts: first-order risk premium
+   <math display="inline">
+    RP_1(\ell) = CE_{\text{EII}}(\ell)
+   </math>
+   -
+   <math display="inline">
+    CE(\ell)
+   </math>
+   (with
+   <math display="inline">
+    CE_{\text{EU}}(\ell) = u^{-1} \left( \sum_{i=1}^{n} p_i u(x_i) \right)
+   </math>
+   ) and second-order risk premium
+   <math display="inline">
+    RP_2(\ell) = EV(\ell)
+   </math>
+   –
+   <math display="inline">
+    CE_{\text{EII}}(\ell)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 10
+   </b>
+   [6]. Let
+   <math display="inline">
+    \langle \mathcal{L}, \geq \rangle
+   </math>
+   be represented by rank-dependent expected utility. There is first-order risk aversion, that is,
+   <math display="inline">
+    RP_1(\ell) = CE_{EII}(\ell) - CE(\ell) &gt;
+   </math>
+   0 for every
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   , if and only if probability distortion function
+   <math display="inline">
+    \varphi : [0, 1] \rightarrow [0, 1]
+   </math>
+   is such that
+   <math display="inline">
+    \varphi(p) &lt; p
+   </math>
+   for every
+   <math display="inline">
+    p \in [0, 1]
+   </math>
+   . The agent exhibits second-order risk aversion, that is,
+   <math display="inline">
+    RP_2(\ell) = EV(\ell) - CE_{\text{EU}}(\ell) &gt; 0
+   </math>
+   for every
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   , if and only if the utility function
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   is concave. As a consequence, an agent is risk averse, that is,
+   <math display="inline">
+    RP(\ell) = EV(\ell) - CE(\ell) \ge
+   </math>
+   0 for every
+   <math display="inline">
+    \ell \in \mathcal{L}
+   </math>
+   , if
+   <math display="inline">
+    \varphi(p) \leq p
+   </math>
+   for every
+   <math display="inline">
+    p \in [0, 1]
+   </math>
+   and
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   is concave. In essence, the condition
+   <math display="inline">
+    \varphi(p) \leq p
+   </math>
+   means that the agent overstates the probabilities of some bad outcomes and understates the probabilities of some better outcomes. Because of the
+   <i>
+    probability distortion, rank-dependent expected utility
+   </i>
+   admits first-order risk aversion, therefore allowing for a significant risk aversion even when stakes are small, contrary to expected utility [9]. This may be relevant in finance applications when the agent's choice concerns lotteries in which a small amount of wealth is involved.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 11
+   </b>
+   Let
+   <math display="inline">
+    \langle \mathcal{L}, \gtrsim \rangle
+   </math>
+   be represented by rankdependent expected utility. The agent is locally risk averse if the probability distortion function
+   <math display="inline">
+    \varphi
+   </math>
+   :
+   <math display="inline">
+    [0, 1] \rightarrow [0, 1]
+   </math>
+   is such that
+   <math display="inline">
+    \varphi(p) &lt; p
+   </math>
+   for every
+   <math display="inline">
+    p \in
+   </math>
+   <math display="inline">
+    (0, 1)
+   </math>
+   and only if
+   <math display="inline">
+    \varphi(p) \leq p
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In other words, if the rank-dependent expected utility theory holds, then the condition for local risk aversion concerns only the probability distortion function. (As a consequence, the de Finetti-Arrow-Pratt coefficient of risk aversion, which has as its object the utility function
+   <math display="inline">
+    u(.)
+   </math>
+   , is of no importance in the case of rank-dependent expected utility.)
+  </p>
+  <p block-type="Text">
+   Another interesting point is that the firstorder derivative of risk premium
+   <math display="inline">
+    RP(x + t\ell)
+   </math>
+   with
+  </p>
+  <p>
+   <img src="_page_6_Figure_7.jpeg"/>
+  </p>
+  <p>
+   Figure 6 Risk premium function of a risk averse agent
+  </p>
+  <p>
+   <img src="_page_6_Figure_9.jpeg"/>
+  </p>
+  <p>
+   Figure 7 Indifference curve of a risk averse rankdependent expected utility agent
+  </p>
+  <p block-type="TextInlineMath">
+   respect to
+   <math display="inline">
+    t
+   </math>
+   is generally nonzero and discontinuous at
+   <math display="inline">
+    t = 0
+   </math>
+   . For example, if
+   <math display="inline">
+    n = 2
+   </math>
+   and
+   <math display="inline">
+    x_1 &gt;
+   </math>
+   uous at
+   <math display="inline">
+    t = 0
+   </math>
+   . For example, if
+   <math display="inline">
+    n = 2
+   </math>
+   and
+   <math display="inline">
+    x_1 &gt; x_2
+   </math>
+   , we get
+   <math display="inline">
+    \lim_{t \to 0^+} \frac{\partial RP(x+t\ell)}{\partial t} = (x_1 - x_2)(p_1 - \varphi(p_1))
+   </math>
+   and
+   <math display="inline">
+    \lim_{t \to 0^+} \frac{\partial RP(x+t\ell)}{\partial t} = (x_1 - x_2)(p_2 - \varphi(p_2))
+   </math>
+   . (However, the expected utility theory would yield
+   <math display="inline">
+    \lim_{t \to
+   </math>
+   a risk averse agent, where
+   <math display="inline">
+    \tan \alpha = (x_1 - x_2)(p_1  \varphi(p_1)
+   </math>
+   and
+   <math display="inline">
+    \tan \beta = (x_1 - x_2)(p_2 - \varphi(p_2))
+   </math>
+   . The curve
+   <math display="inline">
+    RP_{\text{EU}}(t)
+   </math>
+   represents the same function when the expected utility theory holds. In the Hirshleifer-Yaari diagram (Figure 7), the indifference curves have a kink at
+   <math display="inline">
+    x_1 = x_2
+   </math>
+   , with
+   <math display="inline">
+    \lim_{x_1 - x_2 \to 0^+} \frac{dx_2(x_1)}{dx_1} =
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \frac{\varphi(p_1)}{1-\varphi(p_1)}=\tan \quad \gamma \quad \text{and} \quad \lim_{x_1-x_2\to 0^-} \frac{\mathrm{d}x_2(x_1)}{\mathrm{d}x_1}=
+   </math>
+   <math display="inline">
+    \frac{\varphi(p_2)}{1-\varphi(p_2)}=\tan\delta.
+   </math>
+  </p>
+  <p block-type="Text">
+   If the expected utility theory is valid, then both risk aversion and aversion toward increases in risk (introduced with mean preserving spreads) come from the same condition, which is concavity of the von Neumann-Morgenstern utility function (Propositions 3 and 8). These conditions are different when the rankdependent expected utility theory holds. Moreover, a rank-dependent expected utility agent may exhibit aversion to probability mixture increases in risk, while the expected utility agent is always neutral.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 12
+   </b>
+   Let
+   <math display="inline">
+    \langle \mathcal{L}, \geq \rangle
+   </math>
+   be represented by rankdependent expected utility. Then, an agent is averse toward (mean preserving spreads) increases in risk if the function
+   <math display="inline">
+    \varphi : [0, 1] \rightarrow [0, 1]
+   </math>
+   is convex and the function
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   is concave. He/she is averse toward (probability mixtures) increases in risk if and only if the function
+   <math display="inline">
+    \varphi : [0, 1] \rightarrow [0, 1]
+   </math>
+   is convex.
+  </p>
+  <h1>
+   References
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Arrow, K.J. (1965). Aspects of the Theory of Risk-[1] Bearing, Yrjö Jahnssonin Sāātiö, Helsinki.
+    </li>
+    <li block-type="ListItem">
+     Cohen, M.D. (1995). Risk-aversion concepts in [2] expected- and non-expected-utility models, Geneva Papers on Risk and Insurance Theory 20, 73-91.
+    </li>
+    <li block-type="ListItem">
+     de Finetti, B. (1952). Sulla preferibilità, Giornale degli [3] Economisti NS 11, 685-709.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Machina, M.J. (1987). Choice under uncertainty: [4] problems solved and unsolved, Economic Perspectives 1, 121-154.
+    </li>
+    <li block-type="ListItem">
+     Montesano, A. (1999). Risk and uncertainty aversion on [5] certainty equivalent functions, in Beliefs, Interactions and Preferences in Decision Making, M.J. Machina &amp; B. Munier, eds, Kluwer, Dordrecht, pp. 23-52.
+    </li>
+    <li block-type="ListItem">
+     [6] Montesano, A. (1999). Risk and uncertainty aversion with reference to the theories of expected utility. rank dependent expected utility, and Choquet expected utility, in Uncertain Decisions: Bridging Theory and
+     <i>
+      Experiments
+     </i>
+     , L. Luini, ed, Kluwer, Boston, pp. 3–37.
+    </li>
+    <li block-type="ListItem">
+     [7] Pratt, J.W. (1964). Risk aversion in the small and in the large, Econometrica 32, 122-136.
+    </li>
+    <li block-type="ListItem">
+     [8] Ouiggin, J. (1982). A theory of anticipated utility, Journal of Economic Behavior and Organization 3. 323-343.
+    </li>
+    <li block-type="ListItem">
+     Rabin, M. (2000). Risk aversion and expected utility [9] theory: a calibration theorem,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      68
+     </b>
+     ,
+     <math display="inline">
+      1281 - 1292
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     [10] Rothschild, M. &amp; Stiglitz, J.E. (1970). Increasing risk: I. A definition,
+     <i>
+      Journal of Economic Theory
+     </i>
+     2, 225–243.
+    </li>
+    <li block-type="ListItem">
+     Wakker, P.P. (1994). Separating marginal utility and [11] probabilistic risk aversion, Theory and Decision 36,
+     <math display="inline">
+      1 - 44
+     </math>
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   Ambiguity: Behavioral Portfolio Selection;
+   <b>
+    Expected Utility Maximization;
+   </b>
+   Risk-Return Analysis; Utility Function.
+  </p>
+  <p block-type="Text">
+   ALDO MONTESANO
+  </p>
+ </body>
+</html>

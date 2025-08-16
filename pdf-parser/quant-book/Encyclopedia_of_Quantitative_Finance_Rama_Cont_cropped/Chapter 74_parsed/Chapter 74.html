@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Expected Utility Maximization: Duality
+   </b>
+   Methods
+  </h1>
+  <p block-type="Text">
+   Expected utility maximization has a long tradition in modern mathematical finance. It dates back to the 1950s [18] when it provided a theoretical foundation to the (Markowitz's) mean-variance asset allocation method (see Risk-Return Analysis). The objective of a rational and risk-averse agent acting is captured by a concave function, the utility
+   <math display="inline">
+    U
+   </math>
+   of the agent (see
+   <b>
+    Utility Function
+   </b>
+   ). It is typically assumed that
+   <math display="inline">
+    U
+   </math>
+   is increasing since the agent prefers more wealth to less. Given his/her U, the agent chooses the portfolio
+   <math display="inline">
+    P^*
+   </math>
+   that maximizes the agent's
+   <i>
+    expected utility
+   </i>
+   over a horizon
+   <math display="inline">
+    [0, T]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Some famous case studies are considered in [12, 13], where the agent is planning for retirement in a Black-Scholes (and thus complete) financial market (see Merton Problem). The complete market framework (see
+   <b>
+    Complete Markets
+   </b>
+   ) is a convenient mathematical idealization as any conceivable risk can be hedged by cleverly investing in the market. As a consequence, independently of the specific utility of the agent, the price of any claim is also uniquely assigned since by the no-arbitrage principle it must coincide with the initial value of the hedging portfolio.
+  </p>
+  <p block-type="Text">
+   In the more realistic situation of incomplete market, when there are, for example, intrinsic, nontraded sources of risk, both the valuation and the hedging problems become highly nontrivial issues. Expected utility maximization has also turned out to perform very well in the pricing problem in the general, incomplete market setup. The related pricing techniques are known as
+   <i>
+    pricing by marginal utility
+   </i>
+   and
+   <i>
+    indifference pricing
+   </i>
+   and are discussed briefly in this article (for more details see Utility Indifference Valuation).
+  </p>
+  <p block-type="Text">
+   The use of increasingly more complex probabilistic models of financial assets has continued to pose new mathematical challenges. If the setup is that of general non-Markovian diffusion or semimartingale models, direct methods from stochastic optimal control (as originally done by Merton and many others after him) become increasingly difficult to handle. As first suggested by Bismut [4], convex duality (see
+  </p>
+  <p block-type="Text">
+   <b>
+    Convex Duality
+   </b>
+   ) is a powerful alternative approach. In the mid-1980s, with the works of Pliska [14], He and Pearson [8], Karatzas et al. [10], and Cox and Huang [5] this new methodology started to fully develop. Relying on convex duality (see Convex Duality) and martingale (see Martingales) methods, it enables the treatment of the most general cases. The price to pay for the achieved generality is that the results obtained have a mathematical existence-uniqueness-characterization form. As is always the case, explicit calculations require the specification of a (very) tractable model.
+  </p>
+  <p block-type="Text">
+   The presentation given here is based on the convex duality approach, in a general semimartingale model. For a treatment of the same problem with martingale methods in a diffusion context, see
+   <b>
+    Expected Utility
+   </b>
+   Maximization or [9].
+  </p>
+  <h2>
+   Examples
+  </h2>
+  <p block-type="Text">
+   Consider an agent who is a price taker, that is, his/her actions do not affect market prices, and whose goal is to trade dynamically in a financial market up to a horizon
+   <math display="inline">
+    T
+   </math>
+   , in order to achieve maximum expected utility. A host of features can be taken into account, such as the initial endowment, the possibility of intertemporal consumption, and the presence of a random endowment at time
+   <math display="inline">
+    T
+   </math>
+   . A list of various situations is given in the following. The mathematical details are discussed in the next section.
+  </p>
+  <h4>
+   1. Maximizing Utility of Terminal Wealth
+  </h4>
+  <p block-type="Text">
+   The preferences of the investor are represented by a von Neumann–Morgenstern utility function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U: \mathbb{R} \to [-\infty, +\infty) \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   which must be not identical to
+   <math display="inline">
+    -\infty
+   </math>
+   , increasing, and concave.
+  </p>
+  <p block-type="TextInlineMath">
+   Typical examples are
+   <math display="inline">
+    U(x) = \ln x
+   </math>
+   ,
+   <math display="inline">
+    U(x) = \frac{1}{\alpha}x^{\alpha}
+   </math>
+   with
+   <math display="inline">
+    \alpha &lt; 1, \alpha \neq 0
+   </math>
+   , where it is intended that
+   <math display="inline">
+    U(x) =
+   </math>
+   <math display="inline">
+    -\infty
+   </math>
+   outside the domain, and
+   <math display="inline">
+    U(x) = -\frac{1}{\nu}e^{-\gamma x}
+   </math>
+   with
+   <math display="inline">
+    \nu &gt; 0.
+   </math>
+  </p>
+  <p block-type="Text">
+   No consumption occurs before time
+   <math display="inline">
+    T
+   </math>
+   . The agent has the initial endowment
+   <math display="inline">
+    x
+   </math>
+   and can invest in the financial market. The resulting optimization problem is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sup_{k \in K(x)} E[U(k)] \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    K(x)
+   </i>
+   is the set of random wealths that can be obtained at time
+   <i>
+    T
+   </i>
+   (terminal wealths) with initial wealth
+   <i>
+    x
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   The formulation of the problem with random endowment, namely, when the agent receives at T an additional cashflow
+   <i>
+    B
+   </i>
+   (say, an option), is the following:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sup_{k \in K(x)} E[U(k+B)] \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   as his/her terminal possible wealths now are of the form
+   <i>
+    k
+   </i>
+   +
+   <i>
+    B
+   </i>
+   .
+  </p>
+  <h4>
+   <b>
+    2. Maximizing Utility of Consumption
+   </b>
+  </h4>
+  <p block-type="Text">
+   Suppose that the agent is not particularly interested in consumption at the terminal time
+   <i>
+    T
+   </i>
+   , but rather he/she is willing to consume over the entire planning horizon. A consumption plan
+   <i>
+    C
+   </i>
+   for the agent is determined by its random rate of consumption
+   <i>
+    c(t)
+   </i>
+   at time
+   <i>
+    t
+   </i>
+   for all
+   <i>
+    t
+   </i>
+   ∈ [0
+   <i>
+    , T
+   </i>
+   ]. It is evident from the financial perspective that the rate
+   <i>
+    c(t)
+   </i>
+   must be nonnegative, so the consumption in the interval [
+   <i>
+    t,t
+   </i>
+   + d
+   <i>
+    t
+   </i>
+   ] increases by the quantity
+   <i>
+    c(t)
+   </i>
+   d
+   <i>
+    t
+   </i>
+   . The goal of the agent is thus the selection of the best consumption plan over [0
+   <i>
+    , T
+   </i>
+   ], starting with an initial endowment
+   <i>
+    x
+   </i>
+   ≥ 0. The utility function will now measure the degree of satisfaction with the intertemporal consumption or better with the rate of consumption. As this measure may change over the time, the utility also depends on the time parameter:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \overline{U} : [0, T] \times \mathbb{R} \to [-\infty, +\infty) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   When
+   <i>
+    t
+   </i>
+   is fixed, then
+   <i>
+    U (t,
+   </i>
+   ·
+   <i>
+    )
+   </i>
+   is a utility function with the same properties as in case (1). As the rate of consumption cannot be negative,
+   <i>
+    U (t, x)
+   </i>
+   = −∞ when
+   <i>
+    x &lt;
+   </i>
+   0. The agent may clearly benefit from the opportunity of investing in the financial market, so in general his/her position can be expressed by a consumption plan
+   <i>
+    C
+   </i>
+   and a dynamically changing portfolio
+   <i>
+    P
+   </i>
+   . If
+   <i>
+    XC,P (t)
+   </i>
+   is the total wealth of the position
+   <i>
+    (C, P )
+   </i>
+   at time
+   <i>
+    t
+   </i>
+   , then as there is no inflow of cash the variation of the wealth in [
+   <i>
+    t,t
+   </i>
+   + d
+   <i>
+    t
+   </i>
+   ] must satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX^{C,P}(t) = -c(t) dt + dV^{P}(t)
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where d
+   <i>
+    V
+    <sup>
+     P
+    </sup>
+    (t)
+   </i>
+   is the variation of the value of the portfolio
+   <i>
+    P
+   </i>
+   at time
+   <i>
+    t
+   </i>
+   due to market fluctuations. Let A
+   <i>
+    (x)
+   </i>
+   indicate the set of all such consumption plans—portfolios
+   <i>
+    (C, P )
+   </i>
+   when starting from
+  </p>
+  <p block-type="Text">
+   the wealth level
+   <i>
+    x
+   </i>
+   . The maximization is then that of the expected integrated utility from the rate of consumption:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sup_{(C,P)\in\mathcal{A}(x)} E\left[\int_0^T \overline{U}(t,c(t))\,\mathrm{d}t\right] \tag{6}
+   </math>
+  </p>
+  <h2>
+   <b>
+    3. Maximizing Utility of Terminal Wealth and Consumption
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Alternatively, the agent may wish to maximize expected utility from terminal wealth and intertemporal consumption given his/her initial wealth
+   <i>
+    x
+   </i>
+   ≥ 0. Therefore, there are two utilities,
+   <i>
+    U
+   </i>
+   and
+   <i>
+    U
+   </i>
+   , from terminal wealth and from the rate of consumption, respectively. Let A
+   <i>
+    (x)
+   </i>
+   be the set of the possible consumption plans—portfolios
+   <i>
+    (C, P )
+   </i>
+   , obtained with initial wealth
+   <i>
+    x
+   </i>
+   , and let
+   <i>
+    XC,P (T )
+   </i>
+   be the terminal wealth from the choice
+   <i>
+    (C, P )
+   </i>
+   . Then the optimal consumption–investment is the couple
+   <i>
+    (C
+   </i>
+   <sup>
+    ∗
+   </sup>
+   <i>
+    , P
+   </i>
+   <sup>
+    ∗
+   </sup>
+   <i>
+    )
+   </i>
+   that solves
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sup_{(C,P)\in\mathcal{A}(x)} \left\{ E\bigg[\int_0^T \overline{U}(t,c(t)) \,\mathrm{d}t \bigg] + E\left[U\left(X^{C,P}(T)\right)\right] \right\} \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   The case selected in the following section for the illustration of the duality technique and the main results is the first, that is, utility maximization of terminal wealth. When intertemporal consumption is taken into account, similar results can be proved. In addition, case 3 turns out to be a superposition of cases 1 and 2, as shown in Chapters 3, 6 of [9].
+  </p>
+  <h1>
+   <b>
+    Maximizing the Utility of (Discounted) Terminal Wealth
+   </b>
+  </h1>
+  <p block-type="Text">
+   An analysis of any optimization problem relies on a precise definition of the domain of optimization and the objective function. Therefore, the study of maximization (2) requires a specification of
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. the financial market model and the admissible terminal wealths;
+    </li>
+    <li block-type="ListItem">
+     2. the technical assumptions on
+     <i>
+      U
+     </i>
+     ; and
+    </li>
+    <li block-type="ListItem">
+     3. some joint condition on the market model and the utility function.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   1. The financial market model considered is frictionless and consists of
+   <i>
+    N
+   </i>
+   risky assets and one
+  </p>
+  <p block-type="TextInlineMath">
+   risk-free asset (money market account). Although it is not necessary, for the sake of convenience, it is assumed that the risk-free asset,
+   <math display="inline">
+    S^0
+   </math>
+   , is constantly equal to 1, that is, the prices are
+   <i>
+    discounted
+   </i>
+   . The N risky assets are globally indicated by
+   <math display="inline">
+    S =
+   </math>
+   <math display="inline">
+    (S^1, \ldots, S^N)
+   </math>
+   . The trading can occur continuously in [0, T].
+   <math display="inline">
+    S = (S_t)_{t \leq T}
+   </math>
+   is, in fact, an
+   <math display="inline">
+    \mathbb{R}^N
+   </math>
+   -valued, continuous-time process, defined on a filtered probability space
+   <math display="inline">
+    (\Omega, (\mathcal{F}_t)_{t \leq T}, \mathbb{P})
+   </math>
+   . Since the wealth from an investment in this market is a (stochastic) inte-
+   <math display="inline">
+    \text{grad}
+   </math>
+   , S is assumed to be a semimartingale so that the object "integral with respect to
+   <math display="inline">
+    S
+   </math>
+   " is mathematically well defined (see Stochastic Integrals). For expository reasons,
+   <math display="inline">
+    S
+   </math>
+   is a
+   <i>
+    locally bounded
+   </i>
+   semimartingale. This class of models is already very general, as all the diffusions are locally bounded semimartingales, as well as any jump-diffusion process with bounded jumps.
+  </p>
+  <p block-type="TextInlineMath">
+   The agent has an initial endowment
+   <math display="inline">
+    x
+   </math>
+   and there are no restrictions on the quantities he/she can buy, sell, or sell short.
+   <math display="inline">
+    H_t = (H_t^1, \dots H_t^N)
+   </math>
+   is the random vector with the number of shares of each risky asset that the agent holds in the infinitesimal interval
+   <math display="inline">
+    [t, t + dt]
+   </math>
+   .
+   <math display="inline">
+    B_t
+   </math>
+   represents the number of shares of the risk-free asset held in the same interval.
+   <math display="inline">
+    H = (H_t)_t
+   </math>
+   and
+   <math display="inline">
+    B = (B_t)_t
+   </math>
+   are the corresponding processes and are referred to as the
+   <i>
+    strategy
+   </i>
+   of the agent. To be technically precise,
+   <math display="inline">
+    H
+   </math>
+   must be a predictable process and
+   <math display="inline">
+    B
+   </math>
+   a semimartingale. As there is no consumption and no infusion of money in the trading period
+   <math display="inline">
+    [0, T]
+   </math>
+   , the wealth from a strategy
+   <math display="inline">
+    (H, B)
+   </math>
+   is the process X that solves
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{cases} dX_t = (H_t \, dS_t + B_t \, dS_t^0) = H_t \, dS_t \\ X_0 = x \end{cases} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   or, in integral form,
+   <math display="inline">
+    X_t = x + \int_0^t H_s \, dS_s
+   </math>
+   . This can be equivalently stated as the strategy
+   <math display="inline">
+    (H, B)
+   </math>
+   is selffinancing. Since
+   <math display="inline">
+    dS^0 = 0
+   </math>
+   , the self-financing condition enables a representation of the wealth
+   <math display="inline">
+    X
+   </math>
+   only in terms of H. This is the reason one typically refers to
+   <math display="inline">
+    H
+   </math>
+   only as the strategy.
+  </p>
+  <p block-type="TextInlineMath">
+   As usual in continuous-time trading (see Fundamental Theorem of Asset Pricing) to avoid phenomena like doubling strategies, not every self-financing
+   <math display="inline">
+    H
+   </math>
+   is allowed. A self-financing strategy
+   <math display="inline">
+    H
+   </math>
+   is said to be
+   <i>
+    admissible
+   </i>
+   only if during the trading the losses do not exceed a finite credit line. That is,
+   <math display="inline">
+    H
+   </math>
+   is admissible
+  </p>
+  <p block-type="Text">
+   if there exists some constant
+   <math display="inline">
+    c &gt; 0
+   </math>
+   such
+  </p>
+  <p block-type="Equation">
+   for all
+   <math display="block">
+    t \in [0, T]
+   </math>
+   ,
+   <math>
+    \int_0^t H_s dS_s \ge -c \quad \mathbb{P} - a.s.
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   so that for any x the wealth process
+   <math display="inline">
+    X = x +
+   </math>
+   <math display="inline">
+    \int H_{\rm s} \, \mathrm{d}S_{\rm s}
+   </math>
+   is also bounded from below. Maximizing expected utility from terminal wealth means, in fact, maximizing expected utility from the set
+   <math display="inline">
+    K(x)
+   </math>
+   of those random variables
+   <math display="inline">
+    X_T
+   </math>
+   that can be represented as
+   <math display="inline">
+    X_T = x + \int_0^T H_t \, \mathrm{d}S_t
+   </math>
+   with H admissible in the sense of equation (9).
+  </p>
+  <p block-type="Text">
+   Hereafter, the notation
+   <math display="inline">
+    E[\cdot]
+   </math>
+   indicates
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -expectation. When considering expectation under another probability
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   , the notation is explicitly
+   <math display="inline">
+    E_{\mathbb{Q}}[\cdot]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   As shown by Delbaen and Schachermayer [7] a financially relevant set of probabilities is
+   <math display="inline">
+    \mathcal{M}^e
+   </math>
+   , namely, the set of the equivalent (local) martingale probabilities for
+   <math display="inline">
+    S
+   </math>
+   . When the market is complete, this set consists of only one probability, but in the general, incomplete market case, this set is infinite. Under each probability,
+   <math display="inline">
+    \mathbb{Q} \in \mathcal{M}^e
+   </math>
+   S is a (local) martingale and thus
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   is a risk-neutral probability. This is the theoretical justification for the use of each of these
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   s as a pricing measure for any derivative claim B, with (arbitrage-free) price given by the expectation
+   <math display="inline">
+    E_{\bigcirc}[B]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   However, we need the less restrictive set
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   of the absolutely continuous (local) martingale probabilities
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   for S, as this is the set that will show up in the dual problem. The set
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   can be characterized in the following manner:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{M} = \left\{ \mathbb{Q} \ll \mathbb{P} \mid E_{\mathbb{Q}} \left[ \int_{0}^{T} H_{t} \, \mathrm{d}S_{t} \right] \leq 0 \,\,\forall \,\,\mathrm{adm.} \,\, H \right\}
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   as the set of absolutely continuous probability measures that give nonpositive expectation to the terminal wealths from admissible self-financing strategies starting with zero wealth. Therefore, given any
+   <math display="inline">
+    X_T \in K(x)
+   </math>
+   and any
+   <math display="inline">
+    \mathbb{Q} \in \mathcal{M}
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_{\mathbb{Q}}[X_T] = E_{\mathbb{Q}}\left[x + \int_0^T H_t \, \mathrm{d}S_t\right] \le x \qquad (11)
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   2. Hypothesis on
+   <math display="inline">
+    U
+   </math>
+   . As a case study, let us assume that U is finite valued on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   , that is, the wealth can become arbitrarily negative (the closest
+  </p>
+  <p block-type="TextInlineMath">
+   references are [2, 16]). A typical example is the exponential utility. The reason we prefer the exponential utility (and all the other utilities with the properties listed below) to, for example, the logarithmic or the power utilities is that the dual problem is easier to interpret. References for the case when there are constraints on the wealth (then
+   <math display="inline">
+    U
+   </math>
+   is finite only on a half-line), like
+   <math display="inline">
+    U(x) = \ln x
+   </math>
+   or
+   <math display="inline">
+    U(x) =
+   </math>
+   <math display="inline">
+    \frac{1}{\alpha}x^{\alpha}
+   </math>
+   , are [11], [17], and the bibliography contained therein.
+  </p>
+  <p block-type="Text">
+   A main difficulty the reader may encounter when comparing this literature is that the language and style in the papers differ. Very recently, Biagini and Frittelli [3] proposed a unifying approach that works both for the case of U finite on all
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   and for the case of
+   <math display="inline">
+    U
+   </math>
+   finite only on a half-line. The result there is enabled by the choice of an innovative duality (an Orlicz space duality), naturally induced by the utility function
+   <math display="inline">
+    U
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Regarding
+   <math display="inline">
+    U
+   </math>
+   , it is here required that
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      U
+     </math>
+     is strictly concave, strictly increasing, and differentiable over
+     <math display="inline">
+      (-\infty, +\infty)
+     </math>
+     and
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \lim_{x \downarrow -\infty} U'(x) = -\infty
+     </math>
+     and
+     <math display="inline">
+      \lim_{x \to +\infty} U'(x) = 0
+     </math>
+     (these are known as the Inada condition on the marginal utility
+     <math display="inline">
+      U'
+     </math>
+     ).
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   In addition,
+   <math display="inline">
+    U
+   </math>
+   must satisfy the reasonable asymptotic elasticity condition
+   <math display="inline">
+    RAE(U)
+   </math>
+   introduced in [11, 16]:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \liminf_{x \to -\infty} \frac{xU'(x)}{U(x)} &gt; 1, \quad \limsup_{x \to +\infty} \frac{xU'(x)}{U(x)} &lt; 1 \quad (12)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In the cited references, it is also shown that this condition is necessary and sufficient for the duality to work properly if
+   <math display="inline">
+    U
+   </math>
+   is fixed and one considers all possible financial markets. However, within a specific
+   <i>
+    market model
+   </i>
+   , one may state more general necessary and sufficient conditions on
+   <math display="inline">
+    U
+   </math>
+   that enable the duality approach and ensure the existence of the optimal investment. We choose to impose
+   <math display="inline">
+    RAE(U)
+   </math>
+   for it has the advantage that it can be easily verified. Note also that
+   <math display="inline">
+    RAE(U)
+   </math>
+   is already satisfied by the commonly used utility functions, for example, by the classic exponential function
+   <math display="inline">
+    U(x) = -\frac{1}{\nu}e^{-\gamma x}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   3. The convex conjugate
+   <math display="inline">
+    V
+   </math>
+   and a joint condition between preferences and the market. The conjugate
+   <math display="inline">
+    V
+   </math>
+   of
+   <math display="inline">
+    U
+   </math>
+   is the function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(y) = \sup_{x} \{U(x) - yx\} \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and, apart from some minus signs, it coincides with the Fenchel conjugate of
+   <math display="inline">
+    U
+   </math>
+   (see
+   <b>
+    Convex Duality
+   </b>
+   ). Thus,
+   <math display="inline">
+    V
+   </math>
+   is a convex function, which is identically equal to
+   <math display="inline">
+    +\infty
+   </math>
+   when
+   <math display="inline">
+    y &lt; 0
+   </math>
+   . It is also differentiable on
+   <math display="inline">
+    (0, +\infty)
+   </math>
+   and its derivative is
+   <math display="inline">
+    V' = -(U')^{-1}
+   </math>
+   . Traditionally, the inverse of the marginal utility
+   <math display="inline">
+    (U')^{-1}
+   </math>
+   is denoted by
+   <i>
+    I
+   </i>
+   . By mere definition of
+   <i>
+    V
+   </i>
+   , for all
+   <math display="inline">
+    x
+   </math>
+   ,
+   <math display="inline">
+    y
+   </math>
+   , the Fenchel inequality holds
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(x) \le xy + V(y) \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the above relation is, in fact, an equality iff
+   <math display="inline">
+    y =
+   </math>
+   <math display="inline">
+    U'(x)
+   </math>
+   or equivalently
+   <math display="inline">
+    x = (U')^{-1}(y) = I(y)
+   </math>
+   . Also note that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(x) = \inf_{y} \{xy + V(y)\} = \inf_{y&gt;0} \{xy + V(y)\} \quad (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   The typical example (and most used) is the following couple
+   <math display="inline">
+    (U, V)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(x) = -\frac{1}{\gamma} e^{-\gamma x}
+   </math>
+   <br/>
+   <math display="block">
+    V(y) = \begin{cases} \frac{1}{\gamma} (y \ln y - y) &amp; y &gt; 0\\ 0 &amp; y = 0\\ +\infty &amp; y &lt; 0 \end{cases}
+   </math>
+   (16)
+  </p>
+  <p block-type="TextInlineMath">
+   Let us recall that a probability
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   absolutely continuous with respect to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   is said to have
+   <i>
+    finite generalized
+   </i>
+   entropy (or, also, finite V-divergence), if its density
+   <math display="inline">
+    \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}
+   </math>
+   is integrable when composed with V
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E\left[V\left(\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)\right] &lt; +\infty\tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   The joint condition required between preferences and the market is actually a condition between
+   <math display="inline">
+    V
+   </math>
+   and the set of probabilities
+   <math display="inline">
+    \mathcal{M}
+   </math>
+   , which is as follows:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Condition 1
+   </b>
+   There exists a
+   <math display="inline">
+    Q^0 \in \mathcal{M}
+   </math>
+   with finite generalized entropy, that is,
+   <math display="inline">
+    E\left[V\left(\frac{\mathrm{d}Q^0}{\mathrm{d}P}\right)\right] &lt; +\infty
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Duality in Complete Market Models
+   </b>
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Suppose that the market is complete and arbitrage free. Thus, there exists a unique equivalent martingale measure
+   <math display="inline">
+    \mathbb{Q} \in \mathcal{M}^e
+   </math>
+   , which, by Condition 1, has also
+  </p>
+  <p block-type="Text">
+   finite generalized entropy. Let us restate problem (2), the
+   <i>
+    primal
+   </i>
+   problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x) := \sup_{X_T \in K(x)} E[U(X_T)] \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    u(x)
+   </math>
+   denotes the optimal level of the expected utility. It is not difficult to derive an upper bound for
+   <math display="inline">
+    u(x)
+   </math>
+   . From inequality (14), in fact, for all
+   <math display="inline">
+    X_T \in K(x)
+   </math>
+   and for all
+   <math display="inline">
+    y &gt; 0
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(X_T) \le X_T y \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}} + V\left(y\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right) \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   and taking
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -expectations on both sides
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[U(X_T)] \le xy + E\left[V\left(y\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)\right] \qquad (20)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   because
+   <math display="inline">
+    E\left[X_T \frac{d\mathbb{Q}}{d\mathbb{P}}\right] = E_{\mathbb{Q}}[X_T] \leq x
+   </math>
+   . Therefore, taking the supremum over
+   <math display="inline">
+    X_T
+   </math>
+   and the infimum over
+   <math display="inline">
+    y
+   </math>
+   ,
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    u(x)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = \sup_{X_T \in K(x)} E[U(X_T)] \le \inf_{y&gt;0} xy + E\left[V\left(y\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)\right]
+   </math>
+   (21)
+  </p>
+  <p block-type="TextInlineMath">
+   As noted by Merton, the above supremum is not necessarily reached over the restricted set of admissible terminal wealths
+   <math display="inline">
+    K(x)
+   </math>
+   . Following a wellknown procedure in the calculus of variations, a relaxation of the primal problem allows to obtain the optimal terminal wealth. Here, this means enlarging
+   <math display="inline">
+    K(x)
+   </math>
+   slightly and considering the larger set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\mathbb{Q}}(x) := \{k \in L^{1}(\mathbb{Q}) \mid E_{\mathbb{Q}}[k] \le x\}
+   </math>
+   (22)
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    K_{\mathbb{O}}(x)
+   </math>
+   is simply the set of claims that have initial price smaller or equal to the initial endowment
+   <math display="inline">
+    x
+   </math>
+   . An application of the separating hyperplane theorem gives that
+   <math display="inline">
+    K_{\mathbb{Q}}(x)
+   </math>
+   is the norm closure of
+   <math display="inline">
+    K(x)
+   </math>
+   –
+   <math display="inline">
+    L^1_{+}(\mathbb{Q})
+   </math>
+   in
+   <math display="inline">
+    L^1(\mathbb{Q})
+   </math>
+   . Then, an approximation argument shows that the optimal expected value
+   <math display="inline">
+    u(x)
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{\mathbb{Q}}(x) := \sup_{k \in K_{\mathbb{Q}}(x)} E[U(k)] \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   are, in fact, equal. The
+   <i>
+    relaxed
+   </i>
+   maximization problem over
+   <math display="inline">
+    K_{\mathbb{Q}}(x)
+   </math>
+   is much simpler than the original one over
+   <math display="inline">
+    K(x)
+   </math>
+   . The replication-with-admissible-strategies issue has been removed and there is just an inequality constraint, given by the pricing measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   . To find
+  </p>
+  <p block-type="TextInlineMath">
+   out the value
+   <math display="inline">
+    u_{\mathbb{O}}(x) = u(x)
+   </math>
+   , one can now apply the traditional Lagrange multiplier method to get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u_{\mathbb{Q}}(x) = \sup_{k \in K_{\mathbb{Q}}(x)} E[U(k)]
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \sup_{k \in L^{1}(\mathbb{Q})} \inf_{y&gt;0} \{E[U(k)] + y(x - E_{\mathbb{Q}}[k])\}
+   </math>
+   <br/>
+   (24)
+  </p>
+  <p block-type="Text">
+   The dual problem is defined by exchanging the inf and the sup in the above expression:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{y&gt;0} \sup_{k \in L^1(\mathbb{Q})} \{ E[U(k)] + y(x - E_{\mathbb{Q}}[k]) \}
+   </math>
+   (25)
+  </p>
+  <p block-type="Text">
+   From [15 Theorem 21] or from a direct computation, the inner sup is actually equal to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    xy + E\left[V\left(y\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)\right] \tag{26}
+   </math>
+  </p>
+  <p block-type="Text">
+   so that the dual problem takes the traditional form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{y&gt;0} \left\{ xy + E\left[ V\left( y \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}} \right) \right] \right\} \tag{27}
+   </math>
+  </p>
+  <p block-type="Text">
+   which is exactly the right-hand side of equation
+   <math display="inline">
+    (21)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Thanks to Condition 1, the dual problem is always finite valued and so is
+   <math display="inline">
+    u.
+   </math>
+   A priori, however, one has only the chain
+   <math display="inline">
+    u(x) = u_{\mathbb{Q}}(x) \leq
+   </math>
+   <math display="inline">
+    \inf_{y&gt;0} \left\{ xy + E \left[ V \left( y \frac{d\mathbb{Q}}{d\mathbb{P}} \right) \right] \right\}
+   </math>
+   , but under the current assumptions there is no duality gap:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x) = u_{\mathbb{Q}}(x) = \inf_{y&gt;0} \left\{ xy + E\left[ V\left(y\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right) \right] \right\} \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   the infimum is a minimum and the supremum over
+   <math display="inline">
+    K_{\mathbb{Q}}(x)
+   </math>
+   is reached. In fact, the
+   <math display="inline">
+    RAE(U)
+   </math>
+   condition on the utility function U implies that
+   <math display="inline">
+    E\left[V\left(y\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)\right] &lt;
+   </math>
+   <math display="inline">
+    +\infty \ \forall y &gt; 0
+   </math>
+   , so the infimum in (27) can be obtained by differentiation under the expectation sign. The dual minimizer
+   <math display="inline">
+    y^*
+   </math>
+   (which depends on x) is then the unique solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x + E_{\mathbb{Q}} \left[ V' \left( y \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}} \right) \right] = 0 \tag{29}
+   </math>
+  </p>
+  <p block-type="Text">
+   or, equivalently,
+   <math display="inline">
+    y^*
+   </math>
+   is the unique solution of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_{\mathbb{Q}}\left[I\left(y\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)\right] = x\tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, the (unique) optimal claim is
+   <math display="inline">
+    k^* =
+   </math>
+   <math display="inline">
+    I\left(y^*\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)
+   </math>
+   because it verifies the following:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     the balance equation
+     <math display="inline">
+      E_{\mathbb{Q}}[k^*] = x
+     </math>
+     , so
+     <math display="inline">
+      k^* \in K_{\mathbb{Q}}(x)
+     </math>
+     and
+    </li>
+    <li block-type="ListItem">
+     the Fenchel equality
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(k^*) = k^* y^* \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}} + V\left(y^* \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right) \tag{31}
+   </math>
+  </p>
+  <p block-type="Text">
+   from which, by taking the
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -expectations, we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[U(k^*)] = y^* E\left[k^* \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right] + E\left[V\left(y^* \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)\right]
+   </math>
+   <math display="block">
+    = y^* x + E\left[V\left(y^* \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)\right] \tag{32}
+   </math>
+  </p>
+  <p block-type="Text">
+   which proves the main equality (28).
+  </p>
+  <p block-type="Text">
+   By market completeness, the martingale representation theorem applies, so that
+   <math display="inline">
+    k^*
+   </math>
+   can be obtained
+   <i>
+    via
+   </i>
+   a self-financing strategy
+   <math display="inline">
+    H^*
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k^* = x + \int_0^T H_t^* \, \mathrm{d}S_t \tag{33}
+   </math>
+  </p>
+  <p block-type="Text">
+   though
+   <math display="inline">
+    H^*
+   </math>
+   is not admissible in general, that is, when optimally investing, the agent can incur arbitrarily large losses.
+  </p>
+  <p block-type="TextInlineMath">
+   Moreover, as a function of
+   <math display="inline">
+    x
+   </math>
+   , the optimal value
+   <math display="inline">
+    u(x)
+   </math>
+   is also a utility function finite on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   , with the same properties of
+   <math display="inline">
+    U
+   </math>
+   . The duality equation (28) shows that
+   <math display="inline">
+    u
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(y) = \begin{cases} E\left[V\left(y\frac{\mathrm{d}Q}{\mathrm{d}P}\right)\right] &amp; \text{if } y \ge 0\\ +\infty &amp; \text{otherwise} \end{cases} \tag{34}
+   </math>
+  </p>
+  <p block-type="Text">
+   are conjugate functions.
+  </p>
+  <p block-type="Text">
+   The relationship between the primal and dual optima can also be expressed as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}} = \frac{1}{y^*} U'(k^*) \tag{35}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which amounts to saying that
+   <math display="inline">
+    \frac{d\mathbb{Q}}{d\mathbb{P}}
+   </math>
+   is proportional to one's marginal utility from the optimal investment. Therefore, in the complete market case, pricing by taking
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -expectations coincides with the
+   <i>
+    pricing by marginal utility principle
+   </i>
+   , introduced in the option pricing context by Davis [6].
+  </p>
+  <h2>
+   <b>
+    Duality in Incomplete Market Models
+   </b>
+  </h2>
+  <p block-type="Text">
+   The same methodology applies to the incomplete market framework, but the technicalities require some more effort. The main results are (more or less intuitive) generalizations of what happens in the complete case, as summarized below (see [2, 16] for the proofs).
+  </p>
+  <p block-type="Text">
+   1. The duality relation is the natural generalization of equation
+   <math display="inline">
+    (28)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x) = \sup_{X_T \in K(x)} E[U(X_T)]
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \inf_{y&gt;0, \mathbb{Q} \in \mathcal{M}} \left\{ xy + E\left[ V\left(y\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right) \right] \right\}
+   </math>
+   (36)
+  </p>
+  <p block-type="Text">
+   and there exists a unique couple of dual minimizers
+   <math display="inline">
+    y^*, \mathbb{Q}^*
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   2. As in the complete case, the supremum of the expected utility on
+   <math display="inline">
+    K(x)
+   </math>
+   may be not reached.
+   <math display="inline">
+    K_V(x)
+   </math>
+   denotes the set of
+   <math display="inline">
+    k \in L^1(\mathbb{Q})
+   </math>
+   such that
+   <math display="inline">
+    E_{\mathbb{Q}}[k] \leq x
+   </math>
+   for all
+   <math display="inline">
+    \mathbb{Q} \in \mathcal{M}
+   </math>
+   with finite generalized entropy. Then, the supremum of the expected utility on
+   <math display="inline">
+    K_V(x)
+   </math>
+   coincides with the value
+   <math display="inline">
+    u(x)
+   </math>
+   and it is a maximum. The claim
+   <math display="inline">
+    k^* \in K_V
+   </math>
+   attaining the maximum is unique and the relationship between primal and dual optima still holds
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\mathbb{Q}^*}{\mathrm{d}\mathbb{P}} = \frac{1}{y^*} U'(k^*) \tag{37}
+   </math>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     3.
+     <math display="inline">
+      \mathbb{Q}^*
+     </math>
+     may be not equivalent to
+     <math display="inline">
+      \mathbb{P}
+     </math>
+     . However, in the case
+     <math display="inline">
+      \mathbb{Q}^* \sim \mathbb{P}, k^*
+     </math>
+     can be obtained through a selffinancing strategy
+     <math display="inline">
+      H^*
+     </math>
+     , albeit not admissible in general.
+    </li>
+    <li block-type="ListItem">
+     The optimal value
+     <math display="inline">
+      u
+     </math>
+     as a function of the initial 4 endowment
+     <math display="inline">
+      x
+     </math>
+     is a utility function, with the same properties of U. In fact, it is finite on
+     <math display="inline">
+      \mathbb{R}
+     </math>
+     , strictly concave, strictly increasing, it verifies the Inada conditions, and
+     <math display="inline">
+      RAE(u)
+     </math>
+     holds. The duality relation (36), rewritten as
+     <math display="inline">
+      u(x) = \inf_{y&gt;0} \{xy + v(y)\}\
+     </math>
+     with
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(y) = \begin{cases} \inf_{\mathbb{Q}\in\mathcal{M}} E\left[V\left(y\frac{\mathrm{d}Q}{\mathrm{d}P}\right)\right] &amp; \text{if } y \ge 0\\ +\infty &amp; \text{otherwise} \end{cases}
+   </math>
+   (38)
+  </p>
+  <p block-type="Text">
+   shows that
+   <math display="inline">
+    u
+   </math>
+   and
+   <math display="inline">
+    v
+   </math>
+   are conjugate functions (see
+   <b>
+    Convex Duality
+   </b>
+   )
+  </p>
+  <p block-type="TextInlineMath">
+   As
+   <math display="inline">
+    \mathbb{Q}^*
+   </math>
+   results from a minimax theorem, it is also known as the
+   <i>
+    minimax measure
+   </i>
+   . For the applications, it is important to know that there are easy sufficient conditions that guarantee that
+   <math display="inline">
+    \mathbb{Q}^*
+   </math>
+   is equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , such as the following: (i)
+   <math display="inline">
+    U(+\infty) = +\infty
+   </math>
+   as noted in [1] or (ii) in case
+   <math display="inline">
+    U(x) = -\frac{1}{\nu}e^{-\gamma x}
+   </math>
+   , the existence of a
+   <math display="inline">
+    \mathbb{Q} \in \mathcal{M}^e
+   </math>
+   with finite generalized entropy (see [17] for an extensive bibliography).
+  </p>
+  <p block-type="Text">
+   When
+   <math display="inline">
+    \mathbb{Q}^*
+   </math>
+   is indeed equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , its selection in the class of all risk-neutral, equivalent probabilities
+   <math display="inline">
+    \mathcal{M}^e
+   </math>
+   as
+   <i>
+    the
+   </i>
+   pricing measure is economically motivated by its proportionality to the marginal utility from the optimal investment.
+  </p>
+  <h2>
+   <b>
+    Utility Maximization with Random
+   </b>
+   Endowment
+  </h2>
+  <p block-type="Text">
+   Under all the conditions stated above (on the market, on
+   <math display="inline">
+    U
+   </math>
+   , and on both), suppose that the agent has a random endowment
+   <math display="inline">
+    B
+   </math>
+   at
+   <math display="inline">
+    T
+   </math>
+   , in addition to the initial wealth x. For example,
+   <math display="inline">
+    B
+   </math>
+   can be the payoff of a European option expiring at
+   <math display="inline">
+    T
+   </math>
+   . The agent's goal is still maximizing of expected utility from terminal wealth, which now becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x, B) := \sup_{X_T \in K(x)} E[U(B + X_T)] \qquad (39)
+   </math>
+  </p>
+  <p block-type="Text">
+   The duality results, in this case, are similar to the ones just shown. In fact,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x, B) = \min_{y&gt;0, \mathbb{Q} \in \mathcal{M}} \left\{ xy + yE_{\mathbb{Q}}[B] + E\left[V\left(y\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\right)\right]\right\}
+   </math>
+   (40)
+  </p>
+  <p block-type="TextInlineMath">
+   Note that the maximization without the claim can be seen as a particular case of the one above, with
+   <math display="inline">
+    B = 0
+   </math>
+   :
+   <math display="inline">
+    u(x, 0) = u(x)
+   </math>
+   . The solution of a utility maximization problem with random endowment is the key step to the indifference pricing technique. The (buyer's) indifference price of
+   <math display="inline">
+    B
+   </math>
+   is, in fact, the unique price
+   <math display="inline">
+    p_B
+   </math>
+   that solves
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x - p, B) = u(x, 0) \tag{41}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This means that the agent is indifferent, that is, he/she has the same (optimal expected) utility, between (i) paying
+   <math display="inline">
+    p_B
+   </math>
+   at time
+   <math display="inline">
+    t = 0
+   </math>
+   and receiving B at
+   <math display="inline">
+    T
+   </math>
+   and (ii) not entering into a deal for the claim
+   <math display="inline">
+    B
+   </math>
+   .
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Bellini, F. &amp; Frittelli, M. (2002). On the existence of [1] minimax martingale measures, Mathematical Finance 12/1. 1-21.
+    </li>
+    <li block-type="ListItem">
+     Biagini, S. &amp; Frittelli, M. (2005). Utility maximization [2] in incomplete markets for unbounded processes, Finance and Stochastics 9, 493-517.
+    </li>
+    <li block-type="ListItem">
+     Biagini, S. &amp; Frittelli, M. (2008). A unified frame-[3] work for utility maximization problems: an Orlicz space approach, Annals of Applied Probability 18/3, 929-966.
+    </li>
+    <li block-type="ListItem">
+     Bismut, J.M. (1973). Conjugate convex functions in [4] optimal stochastic control, Journal of Mathematical Analysis and Applications 44, 384–404.
+    </li>
+    <li block-type="ListItem">
+     Cox, J.C. &amp; Huang, C.F. (1989). Optimal consump-[5] tion and portfolio policies when asset prices follow a diffusion process, Journal of Economic Theory 49, 33-83.
+    </li>
+    <li block-type="ListItem">
+     Davis, M.H.A. (1997). Option pricing in incomplete [6] markets, in Mathematics of Derivative Securities, M. Dempster &amp; S.R. Pliska, eds, Cambridge University Press, pp. 216-227.
+    </li>
+    <li block-type="ListItem">
+     [7] Delbaen, F. &amp; Schachermayer, W. (1994). A general version of the fundamental theorem of asset pricing, Mathematische Annalen 300, 463-520.
+    </li>
+    <li block-type="ListItem">
+     [8] He, H. &amp; Pearson, N.D. (1991). Consumption and portfolio policies with incomplete markets and shortsale constraints: the infinite-dimensional case, Journal of Economic Theory 54, 259-304.
+    </li>
+    <li block-type="ListItem">
+     Karatzas, I. &amp; Shreve, S. (1998). Methods of Mathemat-[9] ical Finance, Springer.
+    </li>
+    <li block-type="ListItem">
+     [10] Karatzas, I., Shreve, S., Lehoczky, J. &amp; Xu, G. (1991). Martingale and duality methods for utility maximization in an incomplete market, SIAM Journal on Control and Optimization 29, 702-730.
+    </li>
+    <li block-type="ListItem">
+     [11] Kramkov, D. &amp; Schachermayer, W. (1999). The asymptotic elasticity of utility function and optimal investment in incomplete markets, Annals of Applied Probability 9/3. 904-950.
+    </li>
+    <li block-type="ListItem">
+     [12] Merton, R.C. (1969). Lifetime portfolio selection under uncertainty: the continuous-time case, The Review of Economics and Statistics
+     <math display="inline">
+      51
+     </math>
+     ,
+     <math display="inline">
+      247-257
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     [13] Merton, R.C. (1971). Optimum consumption and portfolio rules in a continuous-time model, Journal of Economic Theory 3, 373-413.
+    </li>
+    <li block-type="ListItem">
+     [14] Pliska, S.R. (1986). A stochastic calculus model of continuous trading: optimal portfolios, Mathematics of Operations Research 11, 371-382.
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

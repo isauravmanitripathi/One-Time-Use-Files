@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Utility Function
+   </b>
+  </h1>
+  <h2>
+   <b>
+    Behavior and Preferences
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Modern utility theory studies preference orderings over choice sets and their numerical representations. Consider a decision maker (DM) who has to choose among a set
+   <math display="inline">
+    X
+   </math>
+   of alternatives. The set
+   <math display="inline">
+    X
+   </math>
+   is called the DM's choice set. In the deterministic case, which is our focus here, alternatives are certain, without any uncertainty. For example, in consumer theory, the DM is a consumer and
+   <math display="inline">
+    X
+   </math>
+   is the consumption set that he/she faces, that is, a subset of
+   <math display="inline">
+    \mathbb{R}^n
+   </math>
+   whose elements
+   <math display="inline">
+    x = (x_1, \ldots, x_n)
+   </math>
+   represent the consumption bundles available to consumers. In intertemporal choice problems, X is a subset of
+   <math display="inline">
+    \mathbb{R}^{\infty}
+   </math>
+   , the space of sequences
+   <math display="inline">
+    \{x_t\}_{t=1}^{\infty}
+   </math>
+   , where
+   <math display="inline">
+    x_t
+   </math>
+   is the DM's outcome at time
+   <math display="inline">
+    t
+   </math>
+   . Alternatives become more complicated objects under uncertainty, such as random variables in one-period problems and stochastic processes in intertemporal problems. This more general case is not considered here.
+  </p>
+  <p block-type="Text">
+   DMs have some preferences over the elements of
+   <math display="inline">
+    X
+   </math>
+   ; they may like some alternatives more than others or may be indifferent among some of them. For example, in consumer theory consumers will rank consumption bundles in their consumption sets according to their tastes.
+  </p>
+  <p block-type="TextInlineMath">
+   This motivates the introduction of preference orderings
+   <math display="inline">
+    \succeq
+   </math>
+   defined on the choice set X. The ordering
+   <math display="inline">
+    \succeq
+   </math>
+   has the following interpretation: for any two vectors x and y in X, we write
+   <math display="inline">
+    x \succeq y
+   </math>
+   if the DM either strictly prefers
+   <math display="inline">
+    x
+   </math>
+   to
+   <math display="inline">
+    y
+   </math>
+   or is indifferent between the two.
+  </p>
+  <p block-type="Text">
+   The ordering
+   <math display="inline">
+    \succeq
+   </math>
+   is the basic primitive of the theory. The following two relations are derived from
+   <math display="inline">
+    \succeq
+   </math>
+   :
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. for any two vectors x and y in X, we write
+     <math display="inline">
+      x \succ y
+     </math>
+     if the DM strictly prefers x to y. Formally,
+     <math display="inline">
+      x \succ y
+     </math>
+     if
+     <math display="inline">
+      x \succeq y
+     </math>
+     , but not
+     <math display="inline">
+      y \succeq x
+     </math>
+     ;
+    </li>
+    <li block-type="ListItem">
+     2. for any two vectors
+     <math display="inline">
+      x
+     </math>
+     and
+     <math display="inline">
+      y
+     </math>
+     in
+     <math display="inline">
+      X
+     </math>
+     , we write
+     <math display="inline">
+      x \sim y
+     </math>
+     if the DM is indifferent between x and y. Formally,
+     <math display="inline">
+      x \sim y
+     </math>
+     if both
+     <math display="inline">
+      x \succeq y
+     </math>
+     and
+     <math display="inline">
+      y \succeq x
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   On the preference ordering
+   <math display="inline">
+    \succeq
+   </math>
+   , which is the theory's "raw material," some properties are considered.
+  </p>
+  <p block-type="TextInlineMath">
+   Axiom 1 (Transitivity). For any three elements x, y, and z in X, if
+   <math display="inline">
+    x \succeq y
+   </math>
+   and
+   <math display="inline">
+    y \succeq z
+   </math>
+   , then
+   <math display="inline">
+    x \succeq z
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Transitivity is a rationality assumption. Its violation generates cycles, for example,
+   <math display="inline">
+    x \succeq y \succeq z \succ x
+   </math>
+   . The most troublesome consequence of such cycles is that there might not exist a best element in the choice set X. For example, suppose that
+   <math display="inline">
+    X = \{x, y, z\}
+   </math>
+   and that
+   <math display="inline">
+    x \succ y
+   </math>
+   and
+   <math display="inline">
+    y \succ z
+   </math>
+   . If transitivity is violated, we get the cycle
+   <math display="inline">
+    x \succ y \succ z \succ x
+   </math>
+   and there is no best element in
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Axiom 2 (Completeness). For any two elements
+   <math display="inline">
+    x
+   </math>
+   and y in X,
+   <math display="inline">
+    x \succeq y
+   </math>
+   ,
+   <math display="inline">
+    y \succeq x
+   </math>
+   , or both.
+  </p>
+  <p block-type="Text">
+   This is a simple, but not innocuous, property. A DM's preference
+   <math display="inline">
+    \succeq
+   </math>
+   satisfies this property if, when faced with any two alternatives in
+   <math display="inline">
+    X
+   </math>
+   , he/she can always say which one he/she prefers. As alternatives may be very different, this might be a strong requirement (see [1, 6], for weakenings of this assumption).
+  </p>
+  <p block-type="TextInlineMath">
+   Note that Axiom 2 implies reflexivity, that is,
+   <math display="inline">
+    x \succeq
+   </math>
+   x for all
+   <math display="inline">
+    x \in X
+   </math>
+   . When
+   <math display="inline">
+    \succeq
+   </math>
+   is reflexive and transitive (e.g., when it satisfies Axioms 1 and 2), following the consumer theory terminology, we call indifference curves the equivalence classes
+   <math display="inline">
+    [x] = \{y \in X : y \sim x\}
+   </math>
+   for any
+   <math display="inline">
+    x \in X
+   </math>
+   . We denote the collection
+   <math display="inline">
+    \{ [x] : x \in X \}
+   </math>
+   X} of all indifference curves by
+   <math display="inline">
+    X/\sim
+   </math>
+   , which is a partition of X. That is, each
+   <math display="inline">
+    x \in X
+   </math>
+   belongs to one, and only one, indifference curve.
+  </p>
+  <p block-type="TextInlineMath">
+   Axioms 1 and 2 do not depend on any particular structure of the set
+   <math display="inline">
+    X
+   </math>
+   . In most applications, however, X is a subset of an ordered vector space
+   <math display="inline">
+    (V, \geq)
+   </math>
+   , that is, of a space
+   <math display="inline">
+    V
+   </math>
+   that has both a vector and an order structure. The space
+   <math display="inline">
+    \mathbb{R}^n
+   </math>
+   endowed with the natural order
+   <math display="inline">
+    &gt;
+   </math>
+   is an important example of an ordered vector space. Given any
+   <math display="inline">
+    x, y \in \mathbb{R}^n
+   </math>
+   , when the vectors x and y are regarded as consumption bundles,
+   <math display="inline">
+    x \ge y
+   </math>
+   means that the bundle
+   <math display="inline">
+    x
+   </math>
+   has at least as much of each good than the bundle
+   <math display="inline">
+    y
+   </math>
+   , while the convex combination
+   <math display="inline">
+    \alpha x + (1 - \alpha)y
+   </math>
+   is interpreted as a mix of the two vectors (implicitly we are assuming that goods are suitably divisible).
+  </p>
+  <p block-type="TextInlineMath">
+   The following axioms are based on the order and vector structures of
+   <math display="inline">
+    X
+   </math>
+   . For simplicity, we assume
+   <math display="inline">
+    X \subseteq \mathbb{R}^n
+   </math>
+   , though most of what follows holds in more general ordered vector spaces with units. Here,
+   <math display="inline">
+    x &gt; y
+   </math>
+   means
+   <math display="inline">
+    x \ge y
+   </math>
+   and
+   <math display="inline">
+    x \ne y
+   </math>
+   (i.e.,
+   <math display="inline">
+    x_i &gt; y_i
+   </math>
+   for at least some
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Axiom 3 (Monotonicity).
+   </b>
+   For any two elements
+   <math display="inline">
+    x
+   </math>
+   and y in
+   <math display="inline">
+    X \subseteq \mathbb{R}^n
+   </math>
+   , if
+   <math display="inline">
+    x &gt; y
+   </math>
+   , then
+   <math display="inline">
+    x \succ y
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   This axiom connects the order
+   <math display="inline">
+    \geq
+   </math>
+   on X and the DM's preference relation
+   <math display="inline">
+    \succeq
+   </math>
+   . In the context of consumer theory, it says that "the more, the better." In particular, given two vectors x and y with
+   <math display="inline">
+    x \ge y
+   </math>
+   , it is enough that
+   <math display="inline">
+    x
+   </math>
+   has strictly more of at least some good
+   <math display="inline">
+    i
+   </math>
+   to be strictly preferred to
+   <math display="inline">
+    y
+   </math>
+   . This means that all goods are "essential" that is, the DM pays attention to each of them. Moreover, observe that, by Axiom 3 and reflexivity,
+   <math display="inline">
+    x \geq y
+   </math>
+   implies
+   <math display="inline">
+    x \succeq y
+   </math>
+   . This is because
+   <math display="inline">
+    x \ge y
+   </math>
+   if either
+   <math display="inline">
+    x = y
+   </math>
+   or
+   <math display="inline">
+    x &gt; y
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The following two axioms rely on the vector structure of
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Axiom 4 (Archimedean). Suppose that
+   <math display="inline">
+    x
+   </math>
+   ,
+   <math display="inline">
+    y
+   </math>
+   , and
+   <i>
+    z
+   </i>
+   are any three elements of a convex
+   <math display="inline">
+    X \subseteq \mathbb{R}^n
+   </math>
+   such that
+   <math display="inline">
+    x \succ y \succ z
+   </math>
+   . Then there exist
+   <math display="inline">
+    \alpha, \beta \in (0, 1)
+   </math>
+   such that
+   <math display="inline">
+    \alpha x + (1 - \alpha)z \succ y \succ \beta x + (1 - \beta)z
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   According to this axiom, there are no infinitely preferred or infinitely despised alternatives. That is, given any pairs
+   <math display="inline">
+    x \succ y
+   </math>
+   and
+   <math display="inline">
+    y \succ z
+   </math>
+   , alternative x cannot be infinitely better than y, and alternative z cannot be infinitely worse than
+   <math display="inline">
+    y
+   </math>
+   . Indeed, we can always mix
+   <math display="inline">
+    x
+   </math>
+   and z to get better alternatives, that is,
+   <math display="inline">
+    \alpha x + (1 - \alpha)z
+   </math>
+   , or worse alternatives, that is,
+   <math display="inline">
+    \beta x + (1 - \beta)z
+   </math>
+   , than y.
+  </p>
+  <p block-type="TextInlineMath">
+   It may be useful to remember the analogous property that holds for real numbers: if
+   <math display="inline">
+    x
+   </math>
+   ,
+   <math display="inline">
+    y
+   </math>
+   , and z are real numbers with
+   <math display="inline">
+    x &gt; y &gt; z
+   </math>
+   , then there exist
+   <math display="inline">
+    \alpha, \beta \in (0, 1)
+   </math>
+   such that
+   <math display="inline">
+    \alpha x + (1 - \alpha)z &gt; y &gt; \beta x +
+   </math>
+   <math display="inline">
+    (1 - \beta)z
+   </math>
+   . This property does not hold any more if we consider
+   <math display="inline">
+    \infty
+   </math>
+   and
+   <math display="inline">
+    -\infty
+   </math>
+   , that is, the extended real line
+   <math display="inline">
+    \mathbb{R} = [-\infty, \infty]
+   </math>
+   . Specifically, let
+   <math display="inline">
+    x = \infty
+   </math>
+   or
+   <math display="inline">
+    z = -\infty
+   </math>
+   . In this case,
+   <math display="inline">
+    x
+   </math>
+   is infinitely larger than
+   <math display="inline">
+    y
+   </math>
+   ,
+   <math display="inline">
+    z
+   </math>
+   is infinitely smaller than y, and there are no
+   <math display="inline">
+    \alpha, \beta \in (0, 1)
+   </math>
+   that satisfy the previous inequality. In fact,
+   <math display="inline">
+    \alpha \infty = \infty
+   </math>
+   and
+   <math display="inline">
+    \beta(-\infty) = -\infty
+   </math>
+   for all
+   <math display="inline">
+    \alpha, \beta \in (0, 1)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Axiom 5 (Convexity). Given any two elements
+   <math display="inline">
+    x
+   </math>
+   and y of a convex set
+   <math display="inline">
+    X \subseteq \mathbb{R}^n
+   </math>
+   , if
+   <math display="inline">
+    x \sim y
+   </math>
+   then
+   <math display="inline">
+    \alpha x +
+   </math>
+   <math display="inline">
+    (1-\alpha)y \succeq x \text{ for all } \alpha \in [0,1].
+   </math>
+  </p>
+  <p block-type="Text">
+   This axiom captures a preference for mixing: given any two indifferent alternatives, the DM always prefers any of their combination to each of the original alternatives. This preference for mixing is often assumed in applications and is a convexity property of indifference curves,&lt;sup&gt;a&lt;/sup&gt; the modern counterpart of the classic assumption of diminishing marginal utility.
+  </p>
+  <p block-type="Text">
+   Summing up, we have introduced a few properties that are often assumed on the preference
+   <math display="inline">
+    \succeq
+   </math>
+   . All these axioms are behavioral, that is, they are expressed
+  </p>
+  <p block-type="Text">
+   in terms of choice behavior. In particular, their behavioral meaning is transparent and, with the exception of the Archimedean axiom, they are all behaviorally falsifiable by suitable choice patterns. For example, one can show that a DM does not satisfy the transitivity axiom by finding alternatives
+   <math display="inline">
+    x, y, z \in X
+   </math>
+   over which his/her choices exhibit the cycle
+   <math display="inline">
+    x \succeq y \succeq z \succ x
+   </math>
+   . This choice pattern would be enough to reject the hypothesis that his/her preference over
+   <math display="inline">
+    X
+   </math>
+   is transitive.
+  </p>
+  <p block-type="Text">
+   The use of preference axioms that have a transparent behavioral interpretation and that are falsifiable through choice behavior is the main methodological tenet of modern utility theory, often called the revealed preference methodology. In fact, choice behavior data are regarded as the only observable data that economic theories can rely upon.
+  </p>
+  <p block-type="Text">
+   Another important methodological feature of modern utility theory is that it adopts a weak notion of rationality, which requires only the consistency of choices without any demand on their motives. For example, transitivity is viewed as a rationality requirement in this sense because its violations would entail inconsistent patterns of choices that no DM would consciously follow, regardless of his/her motivations (see [15], for a recent discussion of this methodological issue).
+  </p>
+  <h4>
+   <b>
+    Paretian Utility Functions
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Although the preference ordering
+   <math display="inline">
+    \succsim
+   </math>
+   is the fundamental notion, for analytical convenience it is often of interest to find a numerical representation of
+   <math display="inline">
+    \succeq
+   </math>
+   . Such numerical representations are called
+   <i>
+    utility functions
+   </i>
+   ; formally, a real-valued function
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   is a (
+   <i>
+    Paretian
+   </i>
+   ) utility function if, for any pair
+   <math display="inline">
+    x, y \in X
+   </math>
+   ,
+  </p>
+  <blockquote>
+   <p block-type="TextInlineMath">
+    <math display="inline">
+     x \succeq y
+    </math>
+    if and only if
+    <math display="inline">
+     u(x) \ge u(y)
+    </math>
+    <math display="inline">
+     (1)
+    </math>
+   </p>
+  </blockquote>
+  <p block-type="TextInlineMath">
+   In particular, for the derived relations
+   <math display="inline">
+    \succ
+   </math>
+   and
+   <math display="inline">
+    \sim
+   </math>
+   it holds, respectively,
+   <math display="inline">
+    x \succ y
+   </math>
+   if and only if
+   <math display="inline">
+    u(x) &gt; u(y)
+   </math>
+   and
+   <math display="inline">
+    x \sim y
+   </math>
+   if and only if
+   <math display="inline">
+    u(x) = u(y)
+   </math>
+   . Indifference curves can thus be written in terms of utility functions as
+   <math display="inline">
+    [x] = \{y \in X : u(y) = u(x)\}.
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Utility functions are analytically very convenient, but do not have any intrinsic psychological meaning: what matters is that they numerically rank vectors in the same way as the preference ordering
+   <math display="inline">
+    \succeq
+   </math>
+   . This implies,
+   <i>
+    inter alia
+   </i>
+   , that every monotone
+  </p>
+  <p block-type="TextInlineMath">
+   transformation of a utility function is still a utility function, that is, utility functions are invariant under monotone transformations. To see why this is the case, let
+   <math display="inline">
+    u(X) = \{u(x) : x \in X\} \subseteq \mathbb{R}
+   </math>
+   be the range of u and
+   <math display="inline">
+    f: u(X) \to \mathbb{R}
+   </math>
+   a (strictly) monotone function, that is,
+   <math display="inline">
+    t &gt; s
+   </math>
+   implies
+   <math display="inline">
+    f(t) &gt; f(s)
+   </math>
+   for any scalars
+   <math display="inline">
+    t, s \in u(X)
+   </math>
+   . Clearly,
+   <math display="inline">
+    x \succeq y
+   </math>
+   if and only if
+   <math display="inline">
+    (f \circ u)(x) \ge (f \circ u)(y)
+   </math>
+   for any pair
+   <math display="inline">
+    x, y \in X
+   </math>
+   , and this shows that the transformation
+   <math display="inline">
+    f \circ u
+   </math>
+   is still a utility function.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 1
+   </b>
+   A classic utility function
+   <math display="inline">
+    u : \mathbb{R}^2_{++} \to \mathbb{R}
+   </math>
+   is the Cobb-Douglas utility function:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x, y) = x^{a}y^{1-a}
+   </math>
+   with
+   <math>
+    0 \le a \le 1
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose a preference
+   <math display="inline">
+    \succsim
+   </math>
+   is represented by a Cobb-Douglas utility function. Then,
+   <math display="inline">
+    \succeq
+   </math>
+   is also represented by the following monotone transformations of
+   <i>
+    u
+   </i>
+   :
+  </p>
+  <p block-type="Text">
+   1.
+   <math display="inline">
+    \lg(u(x, y)) = \lg(x^a y^{1-a}) = a \lg x + (1 - a)
+   </math>
+   <math display="inline">
+    \lg y;
+   </math>
+  </p>
+  <p block-type="Equation">
+   2.
+   <math display="block">
+    \sqrt{u(x, y)} = \sqrt{x^a y^{1-a}} = x^{\frac{a}{2}} y^{\frac{1-a}{2}}
+   </math>
+   ; and
+   <br/>
+   3.
+   <math>
+    u(x, y)^3 = x^{3a} y^{3(1-a)}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In view of this invariance under monotone transformations, the utility theory presented here is often called
+   <i>
+    ordinal utility theory
+   </i>
+   . Observe that in this ordinal theory, utility differences such as
+   <math display="inline">
+    u(x) - u(y)
+   </math>
+   are of no interest. This is because inequalities such as
+   <math display="inline">
+    u(x) - u(y) &gt; u(z) - u(w)
+   </math>
+   have no meaning in this setup: given any such inequality, it is easy to come up with monotone transformations
+   <math display="inline">
+    f: \mathbb{R} \to \mathbb{R}
+   </math>
+   such that
+   <math display="inline">
+    (f \circ u)(x) - (f \circ u)(y) &lt; (f \circ u)(z) - (f \circ u)(w)
+   </math>
+   . An important consequence of this observation is that incremental ratios of utility functions defined on subsets of
+   <math display="inline">
+    \mathbb{R}^n
+   </math>
+   have no interest, except for their sign. For example, the classic notion of decreasing marginal utility, which is based on properties of the partial derivatives
+   <math display="inline">
+    \partial u(x)/\partial x_k
+   </math>
+   , is thus meaningless in ordinal utility theory.
+  </p>
+  <p block-type="TextInlineMath">
+   In applications, utility functions
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   are often used in optimization problems
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \max_{x \in C} u(x) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C
+   </math>
+   is a suitable subset of the choice set
+   <math display="inline">
+    X
+   </math>
+   , determined by possible constraints that limit the DM's choices. For example, in consumer theory,
+   <math display="inline">
+    C
+   </math>
+  </p>
+  <p block-type="Text">
+   is given by the budget set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C = \left\{ x \in X : \sum_{i=1}^{n} p_i x_i \le w \right\} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where w is the consumer's wealth and each
+   <math display="inline">
+    p_i
+   </math>
+   is the price per unit of good
+   <math display="inline">
+    i
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   It is immediately seen that the solutions of the optimization problem (3) are the same, regardless of what monotone transformation of
+   <math display="inline">
+    u
+   </math>
+   is selected to make calculations. On the other hand, all these monotone transformations represent the same preference
+   <math display="inline">
+    \succeq
+   </math>
+   and the solutions reflect only the DM's basic preference
+   <math display="inline">
+    \succeq
+   </math>
+   , not the particular utility function used to represent
+   <math display="inline">
+    \succeq
+   </math>
+   . This further shows that
+   <math display="inline">
+    \succeq
+   </math>
+   is the fundamental notion. The choice of which
+   <math display="inline">
+    u
+   </math>
+   to use, among all equivalent monotone transformations, is only a matter of analytical convenience (e.g., in the Cobb-Douglas case, it is often convenient to use the logarithmic version
+   <math display="inline">
+    a \lg x + (1 - a) \lg y
+   </math>
+   ).
+  </p>
+  <p block-type="TextInlineMath">
+   The optimization problems
+   <math display="inline">
+    (3)
+   </math>
+   , which play a key role in economics, also illustrate the analytical importance of utility functions. In fact, a numerical representation of preferences allows to use the powerful methods of optimization theory to find and characterize the solutions of problem (3), which would be otherwise impossible, if we were to only rely on the preference
+   <math display="inline">
+    \succeq
+   </math>
+   . In other words, though the study of the preference
+   <math display="inline">
+    \succeq
+   </math>
+   is what gives ordinal utility theory its scientific status by making it a behaviorally founded and falsifiable theory, it is its numerical representation provided by utility functions that gives the theory its operational content.
+  </p>
+  <p block-type="Text">
+   Given the importance of utility functions, the main problem of ordinal utility theory is to establish conditions under which the preference ordering
+   <math display="inline">
+    \succsim
+   </math>
+   admits a utility representation. This is not a simple problem. We first state an existence result for the special case when the collection
+   <math display="inline">
+    X/\sim
+   </math>
+   of indifference curves is at most countable.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   A preference ordering
+   <math display="inline">
+    \succsim
+   </math>
+   defined on a choice set X with
+   <math display="inline">
+    X/\sim
+   </math>
+   at most countable satisfies Axioms 1 and 2 if and only if there exists a function
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   such that equation (1) holds.
+  </p>
+  <h3>
+   <b>
+    Proof 1
+   </b>
+   [12] page 14.
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   Matters are more complicated when the collection
+   <math display="inline">
+    X/\sim
+   </math>
+   is uncountable. It is easy to come up with examples of preferences that satisfy Axioms 1 and 2 and
+  </p>
+  <p block-type="Text">
+   do not admit a utility representation (see Example 2). We refer to
+   <math display="inline">
+    [2, 12, 18]
+   </math>
+   for general representation theorems. Here we establish an existence result for the important special case of preferences defined on
+   <math display="inline">
+    \mathbb{R}^n
+   </math>
+   . based on [3]. It is closely related to Theorems 3.3 and 3.6 of Fishburn (1970). For brevity, we omit its proof.
+  </p>
+  <p block-type="TextInlineMath">
+   Write
+   <math display="inline">
+    x \leq \infty
+   </math>
+   (respectively,
+   <math display="inline">
+    x \geq -\infty
+   </math>
+   ) when either
+   <math display="inline">
+    x \in \mathbb{R}^n
+   </math>
+   or
+   <math display="inline">
+    x_i = \infty
+   </math>
+   (respectively,
+   <math display="inline">
+    x_i = -\infty
+   </math>
+   ) for each
+   <i>
+    i
+   </i>
+   . That is,
+   <math display="inline">
+    x \leq \infty
+   </math>
+   or
+   <math display="inline">
+    x \geq -\infty
+   </math>
+   means that either each
+   <math display="inline">
+    x_i
+   </math>
+   is finite or each
+   <math display="inline">
+    x_i
+   </math>
+   is infinite. A subset of
+   <math display="inline">
+    \mathbb{R}^n
+   </math>
+   is a closed order interval if, given
+   <math display="inline">
+    -\infty \leq
+   </math>
+   <math display="inline">
+    y &lt; z \leq \infty
+   </math>
+   , it has the form
+   <math display="inline">
+    [y, z] = \{x \in \mathbb{R}^n : y \leq x \leq x \leq x \}
+   </math>
+   <math display="inline">
+    x \leq z
+   </math>
+   and is an open order interval if it has the form
+   <math display="inline">
+    (y, z) = \{x \in \mathbb{R}^n : y_i &lt; x_i &lt; z_i \text{ for each } i\}.
+   </math>
+   The half-open order intervals
+   <math display="inline">
+    [y, z)
+   </math>
+   and
+   <math display="inline">
+    (y, z]
+   </math>
+   are similarly defined. For example,
+   <math display="inline">
+    [z, \infty) = \{x \in \mathbb{R}^n :
+   </math>
+   <math display="inline">
+    x \geq z
+   </math>
+   , and so
+   <math display="inline">
+    [0, \infty) = \mathbb{R}^n_+
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   A function
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   is
+   <i>
+    monotone
+   </i>
+   if
+   <math display="inline">
+    x &gt; y
+   </math>
+   implies
+   <math display="inline">
+    u(x) &gt; u(y)
+   </math>
+   and is
+   <i>
+    quasiconcave
+   </i>
+   if its upper sets
+   <math display="inline">
+    \{x : u(x) &gt; t\}
+   </math>
+   are convex for all
+   <math display="inline">
+    t \in
+   </math>
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   [16]. Since
+   <math display="inline">
+    \{y: u(y) \ge u(x)\} = \{y: y \succeq x\}
+   </math>
+   , the quasi-concavity of
+   <math display="inline">
+    u
+   </math>
+   implies the convexity of the upper contour sets of indifference curves (cf. End Note a).
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 2
+   </b>
+   For a preference ordering
+   <math display="inline">
+    \succeq
+   </math>
+   defined on a order interval
+   <math display="inline">
+    X \subset \mathbb{R}^n
+   </math>
+   , the following conditions are
+   <i>
+    equivalent:
+   </i>
+  </p>
+  <p block-type="TextInlineMath">
+   1.
+   <math display="inline">
+    \succeq
+   </math>
+   satisfies Axioms 1–4 and
+  </p>
+  <p block-type="Text">
+   2. there exists a monotonic and continuous function
+   <math display="inline">
+    u: X \to \mathbb{R}
+   </math>
+   such that equation (1) holds.
+  </p>
+  <p block-type="Text">
+   Moreover, Axiom 5 holds if and only if u is quasiconcave.
+  </p>
+  <p block-type="Text">
+   Theorem 2 is an important result. Almost every work in economics contains a utility function, often defined on order intervals of
+   <math display="inline">
+    \mathbb{R}^n
+   </math>
+   and assumed to be monotone and quasi-concave. Theorem 2 shows the behavioral conditions that underlie this key modeling assumption.
+  </p>
+  <p block-type="TextInlineMath">
+   By Theorem 2, the convexity axiom 5 is equivalent to the quasi-concavity of the utility function
+   <math display="inline">
+    u
+   </math>
+   . This is a substantially weaker property than the concavity of u, which would require
+   <math display="inline">
+    u(\alpha x + (1  \alpha(y) \ge \alpha u(x) + (1 - \alpha)u(y)
+   </math>
+   for all
+   <math display="inline">
+    x, y \in X
+   </math>
+   and all
+   <math display="inline">
+    \alpha \in [0, 1]
+   </math>
+   . For example, any increasing function u:
+   <math display="inline">
+    \mathbb{R} \to \mathbb{R}
+   </math>
+   is automatically quasi-concave.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Since concave utility functions are often used in applications because of their remarkable properties in
+  </p>
+  <p block-type="TextInlineMath">
+   optimization problems, a natural question is whether, among all monotone transformations
+   <math display="inline">
+    f \circ u
+   </math>
+   of a quasiconcave utility function
+   <math display="inline">
+    u
+   </math>
+   , there exists a concave one and this would ensure the existence of a concave representation of a preference
+   <math display="inline">
+    \succeq
+   </math>
+   that satisfies Axiom 5. This important question was first studied by de Finetti [11], who showed that there exist quasi-concave functions that do not have any concave monotone transformation. Hence, convex indifference curves are not necessarily determined by a concave utility function (the converse is obviously true) and quasiconcavity in Theorem 2 cannot be improved to concavity. Inter
+   <i>
+    alia
+   </i>
+   , the seminal paper of de Finetti started the study of quasi-concave functions, later substantially developed by Fenchel [8], which is arguably the most important generalization of concavity.
+  </p>
+  <p block-type="Text">
+   Finally, observe that the utility function in Theorem 2 is continuous even though none of the axioms involves any topological notion. This is a remarkable consequence of the order and vector structures that the axioms use.
+  </p>
+  <p block-type="Text">
+   We close with an example of a preference that does not admit a utility representation.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 2
+   </b>
+   Lexicographic preferences are a classic example of preference orderings that do not admit a utility representation. Set
+   <math display="inline">
+    X = \mathbb{R}^2
+   </math>
+   and say that
+   <math display="inline">
+    x \succeq y
+   </math>
+   if either
+   <math display="inline">
+    x_1 &gt; y_1
+   </math>
+   or
+   <math display="inline">
+    x_1 = y_1
+   </math>
+   and
+   <math display="inline">
+    x_2 \ge y_2
+   </math>
+   . That is, the DM first looks at the first coordinate: if
+   <math display="inline">
+    x_1 &gt; y_1
+   </math>
+   , then
+   <math display="inline">
+    x \succeq y
+   </math>
+   . However, if
+   <math display="inline">
+    x_1 = y_1
+   </math>
+   , then the DM turns his/her attention to the second coordinate: if
+   <math display="inline">
+    x_2 \ge y_2
+   </math>
+   , then
+   <math display="inline">
+    x \succeq y
+   </math>
+   . This is how dictionaries order words and this motivates the name of this particular ordering. Although they satisfy Axioms
+   <math display="inline">
+    1-3
+   </math>
+   , it can be proved
+   <math display="inline">
+    (18]
+   </math>
+   , pages 24–25) that lexicographic preferences do not admit a utility representation (it is easy to check that they do not satisfy the Archimedean axiom).
+  </p>
+  <h2>
+   <b>
+    Brief Historical Remarks
+   </b>
+  </h2>
+  <p block-type="Text">
+   The early development of utility theory is surveyed in the two 1950 articles of George Stigler [24]. Here it is worth noting that originally utility functions were regarded as a primitive notion whose role was to quantify a Benthamian pain/pleasure calculus. In other words, utility functions were viewed as a measure or a quantification of an underlying physiological phenomenon. This view of utility theory is sometimes called
+   <i>
+    cardinalism
+   </i>
+   and utility
+  </p>
+  <p block-type="Text">
+   functions derived within this approach are called
+   <i>
+    cardinal utility functions
+   </i>
+   . A key feature of cardinalism is that utility differences and their ratios are meaningful notions that quantify differences in pain/pleasure that DMs experience among different quantities of the outcomes. In particular, marginal utilities measure the marginal pain/pleasure that results from choices and these played a central role in the early cardinal consumer theory.
+  </p>
+  <p block-type="Text">
+   However, the difficulty of any reliable scientific measurement of cardinal utility raised serious doubts on the scientific status of cardinalism. At the end of the nineteenth century Pareto revolutionized utility theory by showing that an ordinal approach, based on indifference curves as a primitive notion—unlike Edgeworth [7], who introduced them as level curves of an original cardinal utility function—was enough for consumer theory purposes [20]. In particular, Pareto showed that the classic consumer problem could be solved and characterized by replacing marginal utilities with marginal rates of substitutions along indifference curves. For example, the classic key assumption of diminishing marginal utilities is replaced by the convexity property (Axiom 5) of indifference curves (the latter is actually a stronger property, unless utility functions are separable).
+  </p>
+  <p block-type="Text">
+   Unlike cardinal utility functions, indifference curves and their properties can be empirically determined and tested. Pareto's insight thus represented a key methodological advance and his ordinal approach, later substantially extended by Hicks and Allen [17, 23], is today the mainstream version of consumer theory. More generally, Pareto's ordinal revolution paved the way to the modern use of preferences as the primitive notion of decision theory. In fact, the use of preferences is the natural conceptual development of Pareto's original insight of considering indifference curves as a primitive notion. The first appearance of preferences as primitive notions seems to be in [9, 13]. They earned their current central theoretical place in decision theory with the classic works [4, 9, 12].
+  </p>
+  <p block-type="Text">
+   The utility theory under certainty outlined here reached its maturity in the 1960s (see, e.g., [5]). Subsequent work on decision theory has been mainly concerned with choice under uncertainty, extending the scope of the seminal contributions [9, 10, 19, 21, 22]. We refer the reader to [14] for a thorough and updated introduction to these more recent advances.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   a
+   <i>
+    .
+   </i>
+   Observe that this convexity property of indifference curves is weaker than the convexity of their upper contour sets {
+   <i>
+    y
+   </i>
+   ∈
+   <i>
+    X
+   </i>
+   :
+   <i>
+    y x
+   </i>
+   }.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Aumann, R. (1962). Utility theory without the completeness axiom,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      30
+     </b>
+     , 445–462.
+    </li>
+    <li block-type="ListItem">
+     [2] Bridges, D.S. &amp; Mehta, G.B. (1995).
+     <i>
+      Representations of Preference Orderings
+     </i>
+     , Springer-Verlag, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [3] Cerreia-Vioglio, S., Maccheroni, F., Marinacci, M. &amp; Montrucchio, L. (2009).
+     <i>
+      Uncertainty Averse Preferences, mimeo
+     </i>
+     .
+    </li>
+    <li block-type="ListItem">
+     [4] Debreu, G. (1959).
+     <i>
+      Theory of Value
+     </i>
+     , Yale University Press.
+    </li>
+    <li block-type="ListItem">
+     [5] Debreu, G. (1964). Continuity properties of Paretian utility,
+     <i>
+      International Economic Review
+     </i>
+     <b>
+      5
+     </b>
+     , 285–293.
+    </li>
+    <li block-type="ListItem">
+     [6] Dubra, J., Maccheroni, F. &amp; Ok, E.A. (2004). Expected utility theory without the completeness axiom,
+     <i>
+      Journal of Economic Theory
+     </i>
+     <b>
+      115
+     </b>
+     , 118–133.
+    </li>
+    <li block-type="ListItem">
+     [7] Edgeworth, F.Y. (1881).
+     <i>
+      Mathematical Psychics: An Essay on the Application of Mathematics to the Moral Sciences
+     </i>
+     , Kegan Paul, London.
+    </li>
+    <li block-type="ListItem">
+     [8] Fenchel, W. (1953).
+     <i>
+      Convex Cones, Sets, and Functions
+     </i>
+     , Princeton University Press, Princeton.
+    </li>
+    <li block-type="ListItem">
+     [9] de Finetti, B. (1931). Sul significato soggettivo della probabilita,`
+     <i>
+      Fundamenta Mathematicae
+     </i>
+     <b>
+      18
+     </b>
+     , 298–329.
+    </li>
+    <li block-type="ListItem">
+     [10] de Finetti, B. (1937). La prevision: ses lois logiques, ses ´ sources subjectives,
+     <i>
+      Annales de l'Institut Henri Poincar´e
+     </i>
+     <b>
+      7
+     </b>
+     , 1–68.
+    </li>
+    <li block-type="ListItem">
+     [11] de Finetti, B. (1949). Sulle stratificazioni convesse,
+     <i>
+      Annali di Matematica Pura ed Applicata
+     </i>
+     <b>
+      30
+     </b>
+     , 173–183.
+    </li>
+    <li block-type="ListItem">
+     [12] Fishburn, P.C. (1970).
+     <i>
+      Utility Theory for Decision Making
+     </i>
+     , Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [13] Frisch, R. (1926). Sur un problem d'economie pure, ´
+     <i>
+      Norsk Matematisk Forenings Skrifter
+     </i>
+     <b>
+      1
+     </b>
+     , 1–40.
+    </li>
+    <li block-type="ListItem">
+     [14] Gilboa, I. (2009).
+     <i>
+      Theory of Decision under Uncertainty
+     </i>
+     , Cambridge University Press, Cambridge.
+    </li>
+    <li block-type="ListItem">
+     [15] Gilboa I., Maccheroni, F., Marinacci, M. &amp; Schmeidler, D. (2009). Objective and subjective rationality in a multiple priors model,
+     <i>
+      Econometrica
+     </i>
+     , forthcoming.
+    </li>
+    <li block-type="ListItem">
+     [16] Greenberg, H.J. &amp; Pierskalla, W.P. (1971). A review of quasi-convex functions,
+     <i>
+      Operations Research
+     </i>
+     <b>
+      19
+     </b>
+     , 1553–1570.
+    </li>
+    <li block-type="ListItem">
+     [17] Hicks, J.R. &amp; Allen, R.G.D. (1934). A reconsideration of the theory of value I, II,
+     <i>
+      Economica
+     </i>
+     <b>
+      1
+     </b>
+     , 52–76, 196–219.
+    </li>
+    <li block-type="ListItem">
+     [18] Kreps, D.M. (1988).
+     <i>
+      Notes on the Theory of Choice
+     </i>
+     , Westview Press, London.
+    </li>
+    <li block-type="ListItem">
+     [19] von Neumann, J. &amp; Morgenstern, O. (1947).
+     <i>
+      Theory of Games and Economic Behavior
+     </i>
+     , 2nd Edition, Princeton University Press, Princeton.
+    </li>
+    <li block-type="ListItem">
+     [20] Pareto, V. (1906).
+     <i>
+      Manuale di Economia Politica
+     </i>
+     , Societa Editrice Libraria, Milano. `
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Recursive Preferences
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   The standard additive utility model defines time
+   <i>
+    t
+   </i>
+   utility for a discrete-time consumption process {
+   <i>
+    ct
+   </i>
+   ;
+   <i>
+    t
+   </i>
+   = 1
+   <i>
+    ,...,T
+   </i>
+   } as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U_t = E_t \sum_{s=t}^{T} e^{-\beta(s-t)} u(c_s) = E_t \{ u(c_t) + e^{-\beta} U_{t+1} \}
+   </math>
+   (1)
+  </p>
+  <p block-type="Text">
+   where
+   <i>
+    Et
+   </i>
+   denotes the conditional expectation. The virtue of the model is its simplicity: only discounted probabilities and the function
+   <i>
+    u
+   </i>
+   determine preferences. However, the additive treatment of states and times precludes the model from distinguishing between aversion to variability in consumption across states and across time. In fact, the agent's preferences are entirely determined by preferences over deterministic consumption streams (see [23]). Furthermore, because agents care only about the distribution of future consumption, they do not care about the temporal resolution of uncertainty.
+  </p>
+  <p block-type="Text">
+   A more flexible preference model is obtained with Kreps and Porteus [14] recursive specification (see also [11]):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U_t = F(c_t, E_t u(U_{t+1})), \quad U_T = v(c_T) \quad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the aggregator function
+   <i>
+    F
+   </i>
+   models intertemporal substitution and
+   <i>
+    u
+   </i>
+   the aversion to risk in next period's utility. The popular Epstein and Zin [12] model is the special case characterized by scaleinvariant preferences (
+   <i>
+    Ut
+   </i>
+   homogeneous in
+   <i>
+    (ct, Ut
+   </i>
+   <sup>
+    +
+   </sup>
+   1
+   <i>
+    )
+   </i>
+   and
+   <i>
+    v(c)
+   </i>
+   =
+   <i>
+    c
+   </i>
+   ) and constant elasticity of substitution. The stochastic differential utility (SDU) formulation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U_t = E_t \left( \int_{s=t}^T b(c_s, U_s) \mathrm{d}s + \frac{1}{2} a(U_s) \mathrm{d}[U, U]_s \right) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where [·
+   <i>
+    ,
+   </i>
+   ·] denotes quadratic variation, which was obtained by Duffie and Epstein [8] as the continuoustime limit of recursive utility. Time-additive utility is the special case
+   <i>
+    b(c, U )
+   </i>
+   =
+   <i>
+    u(c)
+   </i>
+   −
+   <i>
+    βU
+   </i>
+   and
+   <i>
+    a
+   </i>
+   = 0. Skiadas [22] shows that SDU includes the robust control formulations of Anderson
+   <i>
+    et al.
+   </i>
+   [1], Hansen
+   <i>
+    et al.
+   </i>
+   [13], and Maenhout [17]. It is straightforward to show that SDU also includes the continuous-time limit of Chew [3] and Dekel [7] preferences.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In this paper, we examine the generalized SDU model, given in differential form by equation (5).
+  </p>
+  <p block-type="Text">
+   This preference model was introduced by Lazrak and Quenez [15] to unify the recursive formulation of Duffie and Epstein [8] and multiple-prior formulation of Chen and Epstein [2]. Schroder and Skiadas [19] and Skiadas [23] (see also [20] for the case with jumps) show that the more flexible form of the aggregator allows preferences to depend on the source of risk (e.g., domestic
+   <i>
+    versus
+   </i>
+   foreign), as well as first-order risk aversion (which imposes a higher penalty for small levels of risk) in addition to the standard second-order risk aversion dependence in equation (3).a
+  </p>
+  <p block-type="Text">
+   Relative to the time-additive model, the loss of tractability under generalized SDU is surprisingly small and mainly confined to the complete-markets setting. In the case of power utility, for example, once incompleteness or market constraints are imposed, the additive problem is no simpler to solve than a more general class of scale-invariant (homothetic) recursive utility. The tractability of the most popular additive utility models is obtained not from additivity but from the scale or translation invariance property. The second and third sections examine the recursive classes with these invariance properties and show that their solution essentially reduces to solving a single constrained backward stochastic differential equation.
+  </p>
+  <p block-type="Text">
+   After defining the preferences and markets in the second and third sections, the general solution to the optimal portfolio and consumption problem is presented in the fourth section. The solution is obtained by first characterizing the utility supergradient density (a generalization of marginal utility) and the stateprice density. The state-price result is useful in other asset-pricing applications because it characterizes the set of pricing operators consistent with no arbitrage in a general market setting.b The optimal consumption process is obtained by equating a supergradient density and state-price density (a generalized notion of equating marginal utility and prices). All results in this article are based on [18–20]; these references also develop more specialized and tractable formulations, based on quadratic modeling of risk aversion, and the last introduces jump risk (modeled by marked point processes).
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   All uncertainty is generated by
+   <i>
+    d
+   </i>
+   -dimensional standard Brownian motion
+   <i>
+    B
+   </i>
+   over the finite time horizon [0
+   <i>
+    , T
+   </i>
+   ], supported by a probability space
+   <i>
+    (-,
+   </i>
+   F
+   <i>
+    ,P)
+   </i>
+   . All processes dealt with in this article are assumed to be progressively measurable with respect to the augmented filtration {F
+   <i>
+    <sup>
+     t
+    </sup>
+   </i>
+   :
+   <i>
+    t
+   </i>
+   ∈ [0
+   <i>
+    , T
+   </i>
+   ]} generated
+  </p>
+  <p block-type="TextInlineMath">
+   by
+   <math display="inline">
+    B
+   </math>
+   . We define a
+   <i>
+    cash flow
+   </i>
+   as a process
+   <math display="inline">
+    x
+   </math>
+   such that
+   <math display="inline">
+    E\left[\int_0^T x_t^2 \mathrm{d}t + x_T^2\right] &lt; \infty
+   </math>
+   . We interpret
+   <math display="inline">
+    x_t
+   </math>
+   as a time-t payment rate and
+   <math display="inline">
+    x_T
+   </math>
+   as a lump-sum terminal payment. The set of all cash flows is denoted
+   <math display="inline">
+    \mathcal{H}
+   </math>
+   , which we regard as a Hilbert space under the inner product
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (x|y) = E\left[\int_0^T x_t y_t \mathrm{d}t + x_T y_T\right], \quad x, y \in \mathcal{H} \quad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The set of
+   <i>
+    consumption plans
+   </i>
+   is the convex cone
+   <math display="inline">
+    C \subseteq \mathcal{H}
+   </math>
+   . Finally, we let
+   <math display="inline">
+    S_p
+   </math>
+   ,
+   <math display="inline">
+    p = 1, 2
+   </math>
+   , denote the set of cash flows, satisfying
+   <math display="inline">
+    E\left[\left(\text{ess sup}_{t\in[0,T]}|x_t|^p\right)\right] &lt; \infty
+   </math>
+   . The qualification "almost surely" is omitted throughout. The coefficients of all the stochastic differential equations introduced will be assumed sufficiently integrable so that the equations are well defined.
+  </p>
+  <h4>
+   <b>
+    Recursive Preferences
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   We define preferences in terms of a
+   <i>
+    utility aggregator
+   </i>
+   ,
+   <math display="inline">
+    F: \Omega \times [0, T] \times \mathbb{R}^{2+d} \to \mathbb{R}
+   </math>
+   . For every consumption plan
+   <math display="inline">
+    c \in \mathcal{C}
+   </math>
+   , we assume that there is a unique solution
+   <math display="inline">
+    (U, \Sigma)
+   </math>
+   to the backward stochastic differential equation (BSDE):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}U_t &amp;= -F(t, c_t, U_t, \Sigma_t) \,\mathrm{d}t + \Sigma'_t \mathrm{d}B_t, \\ U_T &amp;= F(T, c_T) \end{aligned} \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (terminal utility depends only on
+   <math display="inline">
+    (\omega, T, c_T)
+   </math>
+   ), and we define
+   <math display="inline">
+    U(c) = U
+   </math>
+   . Throughout we assume that F is differentiable,
+   <math display="inline">
+    F(\omega, t, \cdot)
+   </math>
+   is concave, and that the range of
+   <math display="inline">
+    F_c(\omega, t, \cdot, U, \Sigma)
+   </math>
+   is
+   <math display="inline">
+    (0, \infty)
+   </math>
+   . SDU is the special case
+   <math display="inline">
+    F(\omega, t, c, U, \Sigma) = b(\omega, t, c, U) +
+   </math>
+   <math display="inline">
+    \frac{1}{2}a(\omega, t, U)\Sigma'\Sigma
+   </math>
+   , and standard additive utility corresponds to the linear aggregator
+   <math display="inline">
+    F(\omega, t, c, U, \Sigma) =
+   </math>
+   <math display="inline">
+    u(t, c) - \beta(t)U
+   </math>
+   . A multiple-priors formulation of [2] is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dU_t = -\left(b(t, c_t, U_t) - \max_{\theta \in \Theta_t} \theta' \Sigma_t\right) dt + \Sigma'_t dB_t \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some function
+   <math display="inline">
+    \Theta
+   </math>
+   from
+   <math display="inline">
+    \Omega \times [0, T]
+   </math>
+   to the set of convex compact subsets of
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Markets and the Wealth Equation
+   </b>
+  </h4>
+  <p block-type="Text">
+   The agent is endowed with initial financial wealth
+   <math display="inline">
+    w_0
+   </math>
+   and an endowment process
+   <math display="inline">
+    e \in \mathcal{H}
+   </math>
+   . The dollar value of
+  </p>
+  <p block-type="TextInlineMath">
+   the agent's position in
+   <math display="inline">
+    m
+   </math>
+   risky assets is represented by the process
+   <math display="inline">
+    \phi = (\phi^1, \dots, \phi^m)'
+   </math>
+   . The agent's financial wealth process (not including the present value of the future endowment). W, is defined in terms of the wealth aggregator
+   <math display="inline">
+    f: \Omega \times [0, T] \times \mathbb{R}^{m+1} \to \mathbb{R}
+   </math>
+   , which represents the instantaneous expected growth of the agent's portfolio. Cuoco and Cvitanić [4] propose a nonlinear wealth aggregator to model the price impact of a large investor or differential borrowing and lending rates. Trading and wealth constraints are modeled by requiring the vector
+   <math display="inline">
+    (W_t, \phi_t)
+   </math>
+   to lie in a convex set
+   <math display="inline">
+    K \subseteq \mathbb{R}^{1+m}
+   </math>
+   at all times. The returns diffusion matrix is an
+   <math display="inline">
+    \mathbb{R}^{d \times m}
+   </math>
+   -valued process
+   <math display="inline">
+    \sigma^R
+   </math>
+   . The agent's plan
+   <math display="inline">
+    (c, W, \phi)
+   </math>
+   is
+   <i>
+    feasible
+   </i>
+   if it satisfies the
+   <i>
+    budget equation
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}W_t &amp;= (f(t, W_t, \phi_t) + e_t - c_t) \mathrm{d}t + \phi'_t \sigma_t^{R'} \mathrm{d}B_t, \\ W_0 &amp;= w_0, \quad c_T = W_T + e_T, \quad (W_t, \phi_t) \in K \end{aligned} \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the integrability conditions
+   <math display="inline">
+    \int_0^t (|f(s, W_s, \phi_s)| +
+   </math>
+   <math display="inline">
+    \phi_{s}^{\prime}\sigma_{s}^{R\prime}\sigma_{s}^{R}\phi_{s}
+   </math>
+   )ds
+   <math display="inline">
+    &lt; \infty
+   </math>
+   and
+   <math display="inline">
+    (-W_{t})^{+} \in \mathcal{S}_{2}
+   </math>
+   (the latter to rule out doubling-type strategies). A consumption plan
+   <math display="inline">
+    c
+   </math>
+   is feasible if it is part of a feasible plan
+   <math display="inline">
+    (c, W, \phi).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 1 Linear Budget Equation.
+   </b>
+   Suppose that a money-market security pays interest at a rate
+   <math display="inline">
+    r_t
+   </math>
+   , and the risky assets' instantaneous excess returns relative to r are
+   <math display="inline">
+    dR_t = \mu_t^R dt + \sigma_t^{R'} dB_t
+   </math>
+   . Then we get the standard case:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\omega, t, w, \alpha) = r(\omega, t)w + \alpha' \mu^{R}(\omega, t),
+   </math>
+   <math display="block">
+    (w, \alpha) \in K \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   Example 2 Different Borrowing and Lending
+   <b>
+    Rates.
+   </b>
+   Extending Example 1, if
+   <math display="inline">
+    b
+   </math>
+   is a strictly positive process and money-market lending and borrowing occur at the rates
+   <math display="inline">
+    r_t
+   </math>
+   and
+   <math display="inline">
+    r_t + b_t
+   </math>
+   , respectively, then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\omega, t, w, \alpha) = r(\omega, t)w + \mu^{R}(\omega, t)'\alpha - b(\omega, t)
+   </math>
+   <math display="block">
+    \times (\mathbf{1}'\alpha - w)^{+}, \quad (w, \alpha) \in K \quad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   For a related analysis, see Appendix B of
+   <math display="inline">
+    [6]
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    General Solution Method
+   </b>
+  </h4>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The agent's problem is to choose an optimal consumption plan: a feasible c such that
+   <math display="inline">
+    U(c) \ge U(\tilde{c})
+   </math>
+  </p>
+  <p block-type="Text">
+   for all other feasible consumption plans
+   <math display="inline">
+    \tilde{c}
+   </math>
+   . We first show that optimality of
+   <math display="inline">
+    c
+   </math>
+   is essentially equivalent to the utility supergradient density of
+   <math display="inline">
+    U
+   </math>
+   at
+   <math display="inline">
+    c
+   </math>
+   satisfying the conditions for a state-price density, and then characterize these density equations in terms of the utility and wealth aggregators defined above. The resulting first-order conditions satisfy a constrained forward-backward stochastic differential equation (FBSDE) system.
+  </p>
+  <p block-type="Text">
+   Given the feasible consumption plan
+   <math display="inline">
+    c
+   </math>
+   , the process
+   <math display="inline">
+    \pi \in \mathcal{H}
+   </math>
+   is a state-price density at c if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (\pi | x) \le 0
+   </math>
+   <br/>
+   for all x such that
+   <math>
+    c + x
+   </math>
+   is a
+   <br/>
+   feasible consumption plan (10)
+  </p>
+  <p block-type="Text">
+   We can interpret
+   <math display="inline">
+    (\pi|x)
+   </math>
+   as the net present value of the cash flow
+   <math display="inline">
+    x
+   </math>
+   , which must be nonpositive for any feasible (i.e., affordable) incremental cash flow.
+  </p>
+  <p block-type="TextInlineMath">
+   The process
+   <math display="inline">
+    \pi \in \mathcal{H}
+   </math>
+   is a
+   <i>
+    supergradient density
+   </i>
+   of
+   <math display="inline">
+    U_0
+   </math>
+   at c if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U_0(c+x) \le U_0(c) + (\pi|x)
+   </math>
+   <br/>
+   for all x such that
+   <math>
+    c+x \in \mathcal{C}
+   </math>
+   (11)
+  </p>
+  <p block-type="Text">
+   and a
+   <i>
+    utility gradient density
+   </i>
+   of
+   <math display="inline">
+    U_0
+   </math>
+   at
+   <math display="inline">
+    c
+   </math>
+   if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (\pi|x) = \lim_{\alpha \downarrow 0} \frac{U_0(c + \alpha x) - U_0(c)}{\alpha} \quad \text{for all } x \text{ such}
+   </math>
+   <br/>
+   that
+   <math>
+    c + \alpha x \in \mathcal{C}
+   </math>
+   for some
+   <math>
+    \alpha &gt; 0
+   </math>
+   (12)
+  </p>
+  <p block-type="Text">
+   If
+   <math display="inline">
+    \pi
+   </math>
+   is a supergradient density of
+   <math display="inline">
+    U_0
+   </math>
+   at
+   <math display="inline">
+    c
+   </math>
+   and the utility gradient of
+   <math display="inline">
+    U_0
+   </math>
+   at
+   <math display="inline">
+    c
+   </math>
+   exists, then the utility gradient density is
+   <math display="inline">
+    \pi
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The general optimality result follows.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   Suppose that
+   <math display="inline">
+    (c, W, \phi)
+   </math>
+   is a feasible plan. If
+   <math display="inline">
+    \pi \in \mathcal{H}
+   </math>
+   is both a supergradient density of
+   <math display="inline">
+    U_0
+   </math>
+   at c and a state-price density at c, then the plan
+   <math display="inline">
+    (c, W, \phi)
+   </math>
+   is optimal. Conversely, if the plan
+   <math display="inline">
+    (c, W, \phi)
+   </math>
+   is optimal and
+   <math display="inline">
+    \pi \in \mathcal{H}
+   </math>
+   is a utility gradient density of
+   <math display="inline">
+    U_0
+   </math>
+   at c, then
+   <math display="inline">
+    \pi
+   </math>
+   is a state-price density at c.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   To apply Proposition 1, we obtain the dynamics of the utility supergradient and state-price densities corresponding to the utility and market models, as discussed in the sections Recursive Preferences and Markets and the Wealth Equation. Both depend on the feasible reference plan
+   <math display="inline">
+    (c, W, \phi)
+   </math>
+   and are expressed
+  </p>
+  <p block-type="Text">
+   in terms of the differential or superdifferential (in the absence of differentiability or in the presence of constraints) of the corresponding aggregator.
+  </p>
+  <p block-type="TextInlineMath">
+   The superdifferential of
+   <math display="inline">
+    f(t, \cdot)
+   </math>
+   at
+   <math display="inline">
+    (\omega, t, w, \alpha)
+   </math>
+   relative to the constraint set K is the set
+   <math display="inline">
+    \partial f(\omega, t, w, \alpha)
+   </math>
+   of all pairs
+   <math display="inline">
+    (d_w, d_\phi) \in \mathbb{R}^{1+m}
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(\omega, t, \tilde{w}, \tilde{\alpha}) - f(\omega, t, w, \alpha) \le d_w(\tilde{w} - w)
+   </math>
+   <br/>
+   +
+   <math>
+    d'_\n{\alpha}(\tilde{\alpha} - \alpha)
+   </math>
+   for all
+   <math>
+    (\tilde{w}, \tilde{\alpha}) \in K
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   Sufficient conditions for a state-price density follow.c
+  </p>
+  <p block-type="Text">
+   <b>
+    Proposition 2
+   </b>
+   <i>
+    Suppose that
+   </i>
+   <math display="inline">
+    (c, W, \phi)
+   </math>
+   <i>
+    is feasible
+   </i>
+   and
+   <math display="inline">
+    \pi \in \mathcal{H}_{++}
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\pi_t}{\pi_t} = -\zeta_t \mathrm{d}t - \eta'_t \mathrm{d}B_t, \quad (\zeta_t, \sigma_t^{R'} \eta_t) \in \partial f(t, W_t, \phi_t) \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    \pi W \in \mathcal{S}_1
+   </math>
+   . Then
+   <math display="inline">
+    \pi
+   </math>
+   is a state-price density at c.
+  </p>
+  <p block-type="TextInlineMath">
+   The process
+   <math display="inline">
+    \eta
+   </math>
+   is often called the
+   <i>
+    market price
+   </i>
+   of risk, with
+   <math display="inline">
+    \eta_t^i
+   </math>
+   representing the time-t shadow incremental expected wealth return per unit additional exposure to
+   <math display="inline">
+    dB_t^i
+   </math>
+   . The drift term
+   <math display="inline">
+    \zeta
+   </math>
+   represents the shadow incremental return per unit wealth. In the case of a linear budget equation (8) and
+   <math display="inline">
+    K = \mathbb{R}^{1+m}
+   </math>
+   (no constraints but possibly incomplete markets), we obtain the standard result
+   <math display="inline">
+    \zeta_t = r_t
+   </math>
+   and
+   <math display="inline">
+    \mu_t^R = \sigma_t^{R'} \eta_t
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 3 Collateral Constraint.
+   </b>
+   Suppose that there is a single risky asset
+   <math display="inline">
+    (m = 1)
+   </math>
+   , and, as in Example 1,
+   <math display="inline">
+    f(\omega, t, w, \alpha) = r(\omega, t)w + \mu^{R}(\omega, t)\alpha
+   </math>
+   . We consider an agent who faces the collateral constraint:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K = \{ (w, \alpha) \in \mathbb{R}^2 : w \ge \varrho |\alpha| \} \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some
+   <math display="inline">
+    \varrho \in (0, 1)
+   </math>
+   . Then condition
+   <math display="inline">
+    (\zeta, \sigma^{R'} \eta) \in
+   </math>
+   <math display="inline">
+    \partial f(W, \phi)
+   </math>
+   is equivalent to the following restrictions:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \delta_t &amp;= \zeta_t - r_t \ge 0, \quad \varepsilon_t = \mu_t^R - \Theta_t \in [-\varrho \delta_t, \varrho \delta_t] \\ (\phi_t &gt; 0 \Rightarrow \varepsilon_t = \varrho \delta_t), \quad (\phi_t &lt; 0 \Rightarrow \varepsilon_t = -\varrho \delta_t), \\ (W_t &gt; \varrho |\phi_t| \Rightarrow \delta_t = 0) \end{aligned} \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   Papers analyzing collateral constraints in a Brownian setting and additive utility include [5, 16].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Assuming differentiability of the utility aggregator
+   <math display="inline">
+    F
+   </math>
+   (nondifferentiability is accommodated by replacing
+  </p>
+  <p block-type="Text">
+   the differential with a superdifferential defined as for
+   <math display="inline">
+    f
+   </math>
+   ), we now provide sufficient conditions for a utility supergradient density.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 3
+   </b>
+   Suppose that
+   <math display="inline">
+    c \in \mathcal{C}
+   </math>
+   ,
+   <math display="inline">
+    (U, \Sigma)
+   </math>
+   solves BSDE (5),
+   <math display="inline">
+    \pi \in \mathcal{H}_{++}
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi_t = \mathcal{E}_t F_c(t, c_t, U_t, \Sigma_t) \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\mathcal{E}_{t}}{\mathcal{E}_{t}} = F_{U}(t, c_{t}, U_{t}, \Sigma_{t})\mathrm{d}t + F_{\Sigma}(t, c_{t}, U_{t}, \Sigma_{t})'\mathrm{d}B_{t}, \quad \mathcal{E}_{0} = 1 \quad (18)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and
+   <math display="inline">
+    \mathcal{E}U \in \mathcal{S}_1
+   </math>
+   . Then,
+   <math display="inline">
+    \pi
+   </math>
+   is a utility gradient density of
+   <math display="inline">
+    U_0
+   </math>
+   at c.
+  </p>
+  <p block-type="Text">
+   The supergradient density expression
+   <math display="inline">
+    (17)
+   </math>
+   is consistent with the calculations of Skiadas [2], Duffie and Skiadas [9], Chen and Epstein [10], and El_Karoui et al. [21]. All these papers assume Lipschitz-growth conditions that are violated in our setting.
+  </p>
+  <p block-type="Text">
+   We now apply Proposition 1 to characterize the first-order conditions. A key role in the solution is played by the strictly positive process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lambda_t = F_c(t, c_t, U_t, \Sigma_t) \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   computed at the optimum, which represents the derivative of time-
+   <math display="inline">
+    t
+   </math>
+   optimal utility with respect to time-
+   <math display="inline">
+    t
+   </math>
+   wealth (as in the familiar envelope result). We solve for
+   <math display="inline">
+    \mu^{\lambda}
+   </math>
+   and
+   <math display="inline">
+    \sigma^{\lambda}
+   </math>
+   in the Ito expansion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\lambda_t}{\lambda_t} = \mu_t^{\lambda} \mathrm{d}t + \sigma_t^{\lambda'} \mathrm{d}B_t \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   by applying Ito's lemma to the utility gradient density,
+   <math display="inline">
+    \pi_t = \mathcal{E}_t \lambda_t
+   </math>
+   , and matching coefficients with those of the state-price density in Proposition 2. Having solved for
+   <math display="inline">
+    \lambda
+   </math>
+   , invert equation (19) to express the consumption plan
+   <math display="inline">
+    c
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c_t = \mathcal{I}(t, \lambda_t, U_t, \Sigma_t) \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the function
+   <math display="inline">
+    \mathcal{I}: \Omega \times [0, T] \times (0, \infty) \times \mathbb{R}^{d+1}
+   </math>
+   <math display="inline">
+    \rightarrow \mathbb{R}
+   </math>
+   is defined implicitly through the following equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_c(t, \mathcal{I}(t, y, U, \Sigma), U, \Sigma) = y, \quad y \in (0, \infty) \tag{22}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Combining the dynamics of
+   <math display="inline">
+    \lambda
+   </math>
+   with the utility
+   <math display="inline">
+    BSDE(5)
+   </math>
+   , the budget equation (7), and the statepricing restriction of Proposition 2, we obtain the
+  </p>
+  <p block-type="Text">
+   optimality conditions in the form of a constrained FBSDE system:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}U &amp;= -F(\mathcal{I}(\lambda, U, \Sigma), U, \Sigma)\mathrm{d}t + \Sigma' \mathrm{d}B, \\ U_T &amp;= F(T, W_T + e_T) \\ \frac{\mathrm{d}\lambda_t}{\lambda_t} &amp;= -(\zeta + F_U + \sigma^{\lambda\prime} F_{\Sigma})\mathrm{d}t + \sigma^{\lambda\prime} \mathrm{d}B, \\ \lambda_T &amp;= F_c(T, W_T + e_T) \\ \mathrm{d}W &amp;= (f(W, \phi) + e - \mathcal{I}(\lambda, U, \Sigma))\mathrm{d}t + \phi' \sigma_t^{R\prime} \mathrm{d}B_t, \\ W_0 &amp;= w_0 \\ (\zeta, -\sigma^{R\prime} (F_{\Sigma} + \sigma^{\lambda})) \in \partial f(W, \phi), \\ (\phi, W) \in K \end{aligned} \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Given a solution
+   <math display="inline">
+    (U, \Sigma, \lambda, \sigma^{\lambda}, W, \phi)
+   </math>
+   and suitable integrability assumptions (to satisfy Propositions
+   <math display="inline">
+    1-3
+   </math>
+   ), then c in equation (21) defines an optimal consumption plan.
+  </p>
+  <h3>
+   Scale and Translation-invariant Solutions
+  </h3>
+  <p block-type="Text">
+   The first-order conditions significantly simplify when utility and wealth dynamics fall into either the scale or translation-invariant classes. The scale-invariant, or homothetic, class exhibits homogeneity of degree one in consumption (when in certainty equivalent form) and includes, as special cases, homothetic Duffie-Epstein utility and additive power and log utility. The translation-invariant class exhibits quasilinearity with respect to a reference consumption stream and generalizes additive exponential utility. In both cases, the FBSDE of the first-order conditions uncouples into a single pure backward equation for
+   <math display="inline">
+    \lambda
+   </math>
+   and a pure forward equation for wealth.
+  </p>
+  <h4>
+   Scale-invariant Class
+  </h4>
+  <p block-type="Text">
+   We assume that consumption is strictly positive, and the aggregator
+   <math display="inline">
+    F(\omega, t, \cdot)
+   </math>
+   is homogeneous of degree one, allowing the representation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(\omega, t, c, U, \Sigma) = UG\left(\omega, t, \frac{c}{U}, \frac{\Sigma}{U}\right),
+   </math>
+   <math display="block">
+    F(T, c) = c \tag{24}
+   </math>
+  </p>
+  <p block-type="Text">
+   It is easy to confirm that utility is therefore homogeneous of degree one in consumption:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(kc) = kU(c) \quad \text{for all } k \in \mathbb{R}_+ \text{ and } c \in \mathcal{C} \quad (25)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Defining
+   <math display="inline">
+    \sigma_t^U = \Sigma_t/U_t
+   </math>
+   , the BSDE (5) is equivalent to
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \sim
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}U_t}{U_t} = -G(t, c_t/U_t, \sigma_t^U)\mathrm{d}t + \sigma_t^{U'}\mathrm{d}B_t, \quad U_T = c_T \tag{26}
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 4
+   </b>
+   Schroder and Skiadas [19] show that the quasi-quadratic aggregator
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(\omega, t, x, \sigma) = g(\omega, t, x) - \frac{1}{2} \Sigma' Q(\omega, t) \Sigma \quad (27)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where Q is positive definite for all
+   <math display="inline">
+    (\omega, t)
+   </math>
+   , is particularly tractable, while allowing the modeling of source-dependent second-order risk aversion through
+   <math display="inline">
+    Q
+   </math>
+   . The continuous-time version of Epstein and Zin [11] is the special case with
+   <math display="inline">
+    Q = \gamma I
+   </math>
+   , for some constant
+   <math display="inline">
+    \gamma &gt; 0
+   </math>
+   , and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g(\omega, t, x) = \alpha + \beta \frac{x^{1-\eta} - 1}{1-\eta} \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for constants
+   <math display="inline">
+    \alpha
+   </math>
+   and
+   <math display="inline">
+    \eta
+   </math>
+   ,
+   <math display="inline">
+    \beta &gt; 0
+   </math>
+   . Additive utility corresponds to
+   <math display="inline">
+    \gamma = \eta
+   </math>
+   (the coefficient of relative risk aversion is equal to the inverse of the elasticity of intertemporal substitution).
+  </p>
+  <p block-type="TextInlineMath">
+   On the markets side, we assume that wealth is strictly positive; the endowment process,
+   <math display="inline">
+    e
+   </math>
+   , is zero; constraints are on investment proportions,
+   <math display="inline">
+    \phi_t/W_t \in
+   </math>
+   <math display="inline">
+    K^1
+   </math>
+   , for some convex set
+   <math display="inline">
+    K^1 \subset \mathbb{R}^m
+   </math>
+   ; and the wealth aggregator
+   <math display="inline">
+    f(\omega, t, \cdot)
+   </math>
+   is homogeneous of degree one. Letting
+   <math display="inline">
+    \psi_t = \phi_t / W_t
+   </math>
+   denote the vector of investment proportions, and defining
+   <math display="inline">
+    f^1(t, \cdot) = f(t, 1, \cdot)
+   </math>
+   , the budget equation
+   <math display="inline">
+    (7)
+   </math>
+   becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}W_t}{W_t} = \left(f^1(t, \psi_t) - \frac{c_t}{W_t}\right) \mathrm{d}t + \psi'_t \sigma_t^{R'} \mathrm{d}B_t,
+   </math>
+   <br/>
+   <math display="block">
+    W_0 = w_0, \quad c_T = W_T, \quad \psi_t \in K^1 \tag{29}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (in the linear budget constraint case of Example 1, we have
+   <math display="inline">
+    f^{1}(t, \psi_{t}) = r_{t} + \psi_{t}^{\prime} \mu_{t}^{R}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The state-price density condition
+   <math display="inline">
+    (\zeta_t, \sigma_t^{R'} \eta_t) \in
+   </math>
+   <math display="inline">
+    \partial f(t, W_t, \phi_t)
+   </math>
+   is then equivalent to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \zeta_t = f^1(t, \psi_t) - \psi'_t \sigma_t^{R'} \eta_t \quad \text{and} \quad \sigma_t^{R'} \eta_t \in \partial f^1(t, \psi_t)
+   </math>
+   (30)
+  </p>
+  <p block-type="Text">
+   The scale-invariance properties imply that at the optimum utility is proportional to wealth:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U_t = \lambda_t W_t \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and therefore
+   <math display="inline">
+    \sigma_t^U = \sigma_t^{\lambda} + \sigma_t^R \psi_t
+   </math>
+   . Recalling
+   <math display="inline">
+    \lambda_t =
+   </math>
+   <math display="inline">
+    G_c(t, c_t/U_t, \sigma^U_t)
+   </math>
+   , we define the inverse function
+   <math display="inline">
+    \mathcal{I}^G()
+   </math>
+   analogously to equation (22) to obtain
+   <math display="inline">
+    c_t/U_t =
+   </math>
+   <math display="inline">
+    \mathcal{I}^G(t,\lambda_t,\sigma_t^U)
+   </math>
+   . Defining the dual function of
+   <math display="inline">
+    G^*
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G^*(t,\lambda,\sigma) = G(t,\mathcal{I}^G(t,\lambda,\sigma),\sigma) - \mathcal{I}^G(t,\lambda,\sigma)\lambda
+   </math>
+   (32)
+  </p>
+  <p block-type="Text">
+   we obtain the first-order conditions (necessary and sufficient) as a constrained backward equation for
+   <math display="inline">
+    \lambda
+   </math>
+   (independent of wealth):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\lambda}{\lambda_{-}} = -\left(G^{*}(\lambda, \sigma^{\lambda} + \sigma^{R}\psi) + f^{1}(\psi) + \psi'\sigma^{R'}\sigma^{\lambda}\right)\mathrm{d}t + \sigma_{t}^{\lambda'}\mathrm{d}B_{t}, \quad \lambda_{T} = 1,
+   </math>
+   <math display="block">
+    -\sigma^{R}(G_{\sigma} + \sigma^{\lambda}) \in \partial f^{1}(\psi) \tag{33}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Given a solution
+   <math display="inline">
+    (\lambda, \sigma^{\lambda}, \psi)
+   </math>
+   and sufficient regularity, then
+   <math display="inline">
+    c_t/W_t = \lambda_t \mathcal{I}^G(t,\lambda,\sigma)
+   </math>
+   is substituted into the wealth equation to complete the solution.
+  </p>
+  <h4>
+   Translation-invariant Class
+  </h4>
+  <p block-type="Text">
+   We allow consumption to take any value in
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   and fix some strictly positive and bounded reference consumption plan
+   <math display="inline">
+    \gamma \in \mathcal{H}
+   </math>
+   . The aggregator is assumed to satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(\omega, t, c, U, \Sigma) = G\left(\omega, t, \frac{c}{\gamma(\omega, t)} - U, \Sigma\right),
+   </math>
+   <math display="block">
+    F(\omega, T, c) = \frac{c}{\gamma(\omega, T)}
+   </math>
+   (34)
+  </p>
+  <p block-type="Text">
+   which implies that U is quasilinear with respect to
+   <math display="inline">
+    \gamma
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U(c+k\gamma) = U(c) + k \quad \text{for all } k \in \mathbb{R} \text{ and } c \in \mathcal{C}
+   </math>
+   (35)
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 5
+   </b>
+   Additive exponential utility corresponds to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G(\omega, t, x, \Sigma) = \beta(\omega, t) - \exp(-x) - \frac{1}{2} \Sigma' \Sigma
+   </math>
+   (36)
+  </p>
+  <p block-type="TextInlineMath">
+   This follows because the ordinally equivalent utility
+   <math display="inline">
+    V_t = -\exp(-U_t)
+   </math>
+   satisfies (under suitable integrability restrictions)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_{t} = E_{t} \left[ \int_{t}^{T} -\exp\left(-\int_{t}^{s} \beta_{u} du - \frac{c_{s}}{\gamma_{s}}\right) ds \right]
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    -\exp\left(-\int_{t}^{T}\beta_{u}\mathrm{d}u-\frac{c_{T}}{\gamma_{T}}\right)\right] \tag{37}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   On the markets side, we assume that the reference consumption stream
+   <math display="inline">
+    \gamma
+   </math>
+   is part of the feasible plan
+   <math display="inline">
+    (\gamma, \Gamma, \Gamma \kappa)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\Gamma_{t}}{\Gamma_{t}} = \left(\mu_{t}^{\kappa} - \frac{\gamma_{t}}{\Gamma_{t}}\right) \mathrm{d}t + \kappa' \sigma_{t}^{R'} \mathrm{d}B_{t}, \quad \Gamma_{T} = \gamma_{T} \tag{38}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   That is,
+   <math display="inline">
+    \Gamma
+   </math>
+   is the price of a fund paying dividend process
+   <math display="inline">
+    \gamma
+   </math>
+   ;
+   <math display="inline">
+    \kappa \in \mathbb{R}^m
+   </math>
+   represents the investment proportions of the fund; and
+   <math display="inline">
+    \mu^{\kappa}
+   </math>
+   is the fund's instantaneous expected return process.
+  </p>
+  <p block-type="TextInlineMath">
+   For any
+   <math display="inline">
+    (w, \alpha) \in K
+   </math>
+   , we assume
+   <math display="inline">
+    (w + v, \alpha +
+   </math>
+   <math display="inline">
+    v\kappa \in K
+   </math>
+   and
+   <math display="inline">
+    f(\omega, t, w + v, \alpha + v\kappa) = f(\omega, t, \alpha)
+   </math>
+   <math display="inline">
+    w, \alpha) + v\mu^{\kappa}(\omega, t)
+   </math>
+   for all
+   <math display="inline">
+    v \in \mathbb{R}
+   </math>
+   . That is, trading in the portfolio
+   <math display="inline">
+    \kappa
+   </math>
+   is unrestricted and earns instantaneous expected return
+   <math display="inline">
+    \mu^{\kappa}
+   </math>
+   regardless of the agent's plan. For example, under the linear budget equation (Example 1), we have
+   <math display="inline">
+    \mu^{\kappa} = r + \kappa' \mu^{R}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Defining the zero-wealth constraint set, aggregator, and portfolio and consumption processes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K^{0} = \{\alpha : (0, \alpha) \in K\},\
+   </math>
+   <math display="block">
+    f^{0}(\omega, t, \alpha) = f(\omega, t, 0, \alpha),\
+   </math>
+   <math display="block">
+    \phi_{t}^{0} = \phi_{t} - W_{t}\kappa,\
+   </math>
+   <math display="block">
+    c_{t}^{0} = c_{t} - W_{t}\frac{\gamma_{t}}{\Gamma_{t}}\tag{39}
+   </math>
+  </p>
+  <p block-type="Text">
+   the budget equation
+   <math display="inline">
+    (7)
+   </math>
+   is equivalent to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}W_t &amp;= W_t \frac{\mathrm{d}\Gamma_t}{\Gamma_t} + (f^0(t, \phi_t^0) + e_t - c_t^0) \mathrm{d}t \\ &amp;+ \phi_t^{0'} \sigma_t^{R'} \mathrm{d}B_t, \\ c_T^0 &amp;= e_T, \quad \phi_t^0 \in K^0 \end{aligned} \tag{40}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   At the optimum, the quasi-linearity of utility and markets implies that there are two components to consumption and trading. The pair
+   <math display="inline">
+    (c^0, \phi^0)
+   </math>
+   depends on the investment opportunity set and the endowment, but is independent of
+   <math display="inline">
+    W
+   </math>
+   . All incremental financial wealth is invested in the portfolio
+   <math display="inline">
+    \kappa
+   </math>
+   , and the resulting dividend stream rate
+   <math display="inline">
+    \gamma
+   </math>
+   is consumed; therefore, (c –
+   <math display="inline">
+    c^0, \phi - \phi^0
+   </math>
+   ) depend only on W and the dividend yield
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \gamma/\Gamma
+   </math>
+   . Utility and marginal utility of wealth processes satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    U_t = \frac{1}{\Gamma_t} (Y_t + W_t), \quad \lambda_t = \frac{1}{\Gamma_t}
+   </math>
+   (41)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    (Y, \phi^0)
+   </math>
+   is determined by a constrained backward SDE, given below, that is independent of financial wealth.
+  </p>
+  <p block-type="TextInlineMath">
+   Defining the superdifferential notation
+   <math display="inline">
+    \partial f^0
+   </math>
+   analogously to
+   <math display="inline">
+    \partial f
+   </math>
+   , the state-price density condition
+   <math display="inline">
+    (\zeta, \sigma^{R'}n) \in \partial f(W, \phi)
+   </math>
+   is equivalent to
+   <math display="inline">
+    \zeta = \mu^{\kappa}
+   </math>
+   -
+   <math display="inline">
+    \kappa' \sigma^{R'} \eta
+   </math>
+   and
+   <math display="inline">
+    \sigma^{R'} \eta \in \partial f^0(\phi^0)
+   </math>
+   . Defining the inverse and dual functions
+   <math display="inline">
+    \mathcal{X}, G^* : \Omega \times [0, T] \times \mathbb{R}^{d+1} \to \mathbb{R}
+   </math>
+   bv
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G_{x}(\omega, t, \mathcal{X}(\omega, t, y, \Sigma), \Sigma) = y,
+   </math>
+   <br/>
+   <math display="block">
+    G^{*}(\omega, t, y, \Sigma) = G(\omega, t, \mathcal{X}(\omega, t, y, \Sigma), \Sigma)
+   </math>
+   <br/>
+   <math display="block">
+    - y\mathcal{X}(\omega, t, y, \Sigma)
+   </math>
+   <br/>
+   (42)
+  </p>
+  <p block-type="TextInlineMath">
+   the processes
+   <math display="inline">
+    (Y, \sigma^Y, \phi^0)
+   </math>
+   satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathrm{d}Y &amp;= -\left(e - Y\mu^{\kappa} + f^{0}(\phi^{0}) + \Gamma G^{*}(\delta, \Sigma) \right. \\ &amp;\quad - \Gamma \kappa' \sigma^{R'} \Sigma) \mathrm{d}t + \sigma^{Y'} \mathrm{d}B, \quad Y_{T} = e_{T} \\ \Sigma &amp;= \frac{\sigma^{Y} + (\phi^{0} - \kappa Y)' \sigma^{R}}{\Gamma}, \\ &amp;\quad - \sigma^{R'} (G_{\Sigma} - \sigma^{R} \kappa) \in \partial f^{0}(\phi^{0}), \quad \phi^{0} \in K^{0} \end{split} \tag{43}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Given the solution
+   <math display="inline">
+    (Y, \sigma^Y, \phi^0)
+   </math>
+   and sufficient regularity, the optimal wealth-independent component of consumption is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c_t^0 = \frac{\gamma_t}{\Gamma_t} Y_t + \gamma_t \mathcal{X}\left(t, \frac{\gamma_t}{\Gamma_t}, \Sigma_t\right) \quad \text{and} \quad c_T^0 = e_T \tag{44}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Substituting
+   <math display="inline">
+    (c^0, \phi^0)
+   </math>
+   into the budget equation (40), the optimal plan is
+   <math display="inline">
+    (c^0 + W\gamma/\Gamma, W, \phi^0 + W\kappa)
+   </math>
+   .
+  </p>
+  <h2>
+   Acknowledgments
+  </h2>
+  <p block-type="Text">
+   I am grateful to Costis Skiadas for many fruitful years of joint research, on which this article is based.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   See also [25], which develops the discrete-time counterpart of (5), and [24], which develops the continuous-time formulations of other notions of ambiguity aversion.
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   We define arbitrage in the constrained case as a feasible incremental cash flow (given the current portfolio of the agent) that is nonnegative and nonzero.
+  </p>
+  <p block-type="Text">
+   c
+   <i>
+    .
+   </i>
+   With some additional mild technical conditions, Schroder and Skiadas [20] show the necessity of the state-price characterization for the market settings in the scale and translation-invariant classes, which are discussed below in the text.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Anderson, E., Hansen, L. &amp; Sargent, T. (2000).
+     <i>
+      Robustness, Detection and the Price of Risk
+     </i>
+     , working paper, Department of Economics, University of Chicago.
+    </li>
+    <li block-type="ListItem">
+     [2] Chen, Z. &amp; Epstein, L. (2002). Ambiguity, risk, and asset returns in continuous time,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      70
+     </b>
+     , 1403–1443.
+    </li>
+    <li block-type="ListItem">
+     [3] Chew, S.H. (1983). A generalization of the Quasi-linear mean with applications to the measurement of inequality and decision theory resolving the allais paradox,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      51
+     </b>
+     , 1065–1092.
+    </li>
+    <li block-type="ListItem">
+     [4] Cuoco, D. &amp; Cvitanic, J. (1998). Optimal consump- ´ tion choices for a large investor,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      22
+     </b>
+     , 401–436.
+    </li>
+    <li block-type="ListItem">
+     [5] Cuoco, D. &amp; Liu, H. (2000). A martingale characterization of consumption choices and hedging costs with margin requirements,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      10
+     </b>
+     , 355–385.
+    </li>
+    <li block-type="ListItem">
+     [6] Cvitanic, J. &amp; Karatzas, I. (1992). Convex duality ´ in constrained portfolio optimization,
+     <i>
+      The Annals of Applied Probability
+     </i>
+     <b>
+      2
+     </b>
+     , 767–818.
+    </li>
+    <li block-type="ListItem">
+     [7] Dekel, E. (1986). An axiomatic characterization of preferences under uncertainty: weakening the independence axiom,
+     <i>
+      Journal of Economic Theory
+     </i>
+     <b>
+      40
+     </b>
+     , 304–318.
+    </li>
+    <li block-type="ListItem">
+     [8] Duffie, D. &amp; Epstein, L.G. (1992). Stochastic differential utility,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      60
+     </b>
+     , 353–394.
+    </li>
+    <li block-type="ListItem">
+     [9] Duffie, D. &amp; Skiadas, C. (1994). Continuous-time security pricing: a utility gradient approach,
+     <i>
+      Journal of Mathematical Economics
+     </i>
+     <b>
+      23
+     </b>
+     , 107–131.
+    </li>
+    <li block-type="ListItem">
+     [10] El Karoui, N., Peng, S. &amp; Quenez, M.-C. (2001). A dynamic maximum principle for the optimization of recursive utilities under constraints,
+     <i>
+      Annals of Applied Probability
+     </i>
+     <b>
+      11
+     </b>
+     , 664–693.
+    </li>
+    <li block-type="ListItem">
+     [11] Epstein, L.G. &amp; Zin, S.E. (1989). Substitution, risk aversion, and the temporal behavior of consumption and asset returns: a theoretical framework,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      57
+     </b>
+     , 937–969.
+    </li>
+    <li block-type="ListItem">
+     [12] Epstein, L.G. &amp; Zin, S.E. (1991). Substitution, risk aversion, and the temporal behavior of consumption
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   and asset returns: an empirical analysis,
+   <i>
+    The Journal of Political Economy
+   </i>
+   <b>
+    99
+   </b>
+   , 263–286.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [13] Hansen, L., Sargent, T., Turmuhambetova, G. &amp; Williams, N. (2001).
+     <i>
+      Robustness and Uncertainty Aversion
+     </i>
+     , working paper, Department of Economics, University of Chicago.
+    </li>
+    <li block-type="ListItem">
+     [14] Kreps, D. &amp; Porteus, E. (1978). Temporal resolution of uncertainty and dynamic choice theory,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      46
+     </b>
+     , 185–200.
+    </li>
+    <li block-type="ListItem">
+     [15] Lazrak, A. &amp; Quenez, M.C. (2003). A generalized stochastic differential utility,
+     <i>
+      Mathematics of Operations Research
+     </i>
+     <b>
+      28
+     </b>
+     , 154–180.
+    </li>
+    <li block-type="ListItem">
+     [16] Liu, J. &amp; Longstaff, F.A. (2004). Losing money on arbitrage: optimal dynamic portfolio choice in markets with arbitrage opportunities,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      17
+     </b>
+     (3), 611–641.
+    </li>
+    <li block-type="ListItem">
+     [17] Maenhout, P. (1999).
+     <i>
+      Robust Portfolio Rules and Asset Pricing
+     </i>
+     , working paper, INSEAD.
+    </li>
+    <li block-type="ListItem">
+     [18] Schroder, M. &amp; Skiadas, C. (2003). Optimal lifetime consumption-portfolio strategies under trading constraints and generalized recursive preferences,
+     <i>
+      Stochastic Processes and Their Applications
+     </i>
+     <b>
+      108
+     </b>
+     , 155–202.
+    </li>
+    <li block-type="ListItem">
+     [19] Schroder, M. &amp; Skiadas, C. (2005). Lifetime consumption-portfolio choice under trading constraints and nontradeable income,
+     <i>
+      Stochastic Processes and their Applications
+     </i>
+     <b>
+      115
+     </b>
+     , 1–30.
+    </li>
+    <li block-type="ListItem">
+     [20] Schroder, M. &amp; Skiadas, C. (2008). Optimality and state pricing in constrained financial markets with recursive utility under continuous and discontinuous information,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      18
+     </b>
+     , 199–238.
+    </li>
+    <li block-type="ListItem">
+     [21] Skiadas, C. (1992).
+     <i>
+      Advances in the Theory of Choice and Asset Pricing
+     </i>
+     , Ph.D. Thesis, Stanford University.
+    </li>
+    <li block-type="ListItem">
+     [22] Skiadas, C. (2003). Robust control and recursive utility,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      7
+     </b>
+     , 475–489.
+    </li>
+    <li block-type="ListItem">
+     [23] Skiadas, C. (2008). Dynamic portfolio choice and risk aversion, in
+     <i>
+      Handbooks in OR &amp; MS
+     </i>
+     , J.R. Birge &amp; V. Linetsky, eds, Elsevier, Vol. 15, Chapter 19, pp. 789–843.
+    </li>
+    <li block-type="ListItem">
+     [24] Skiadas, C. (2008).
+     <i>
+      Smooth Ambiguity Aversion Toward Small Risks and Continuous-Time Recursive Utility
+     </i>
+     , working paper, Kellogg School of Management, Northwestern University.
+    </li>
+    <li block-type="ListItem">
+     [25] Skiadas, C. (2009).
+     <i>
+      Asset Pricing Theory
+     </i>
+     , Princeton University Press, Princeton, NJ.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Backward Stochastic Differential Equations
+   </b>
+   ;
+   <b>
+    Utility Function
+   </b>
+   ;
+   <b>
+    Utility Theory: Historical Perspectives
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   MARK SCHRODER
+  </p>
+ </body>
+</html>

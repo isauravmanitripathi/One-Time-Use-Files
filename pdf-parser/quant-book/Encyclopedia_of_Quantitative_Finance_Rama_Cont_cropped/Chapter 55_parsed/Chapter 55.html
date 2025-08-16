@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Arbitrage Pricing Theory
+   </b>
+  </h1>
+  <p block-type="Text">
+   The arbitrage pricing theory (APT) was introduced by Ross [10] as an alternative to the capital asset pricing model (CAPM). The model derives a multibeta representation
+   <math display="inline">
+    of
+   </math>
+   expected returns relative to a set of
+   <math display="inline">
+    K
+   </math>
+   reference variables under assumptions that may be described roughly as follows:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. There exists no mean-variance arbitrage.
+    </li>
+    <li block-type="ListItem">
+     The asset returns follow a
+     <math display="inline">
+      K
+     </math>
+     -factor model. 2.
+    </li>
+    <li block-type="ListItem">
+     The reference variables and the factors are non-3. trivially correlated.&lt;sup&gt;a&lt;/sup&gt;
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The first assumption implies that there are no portfolios with arbitrarily large expected returns and unit variance. The second one assumes that the returns are a function of
+   <math display="inline">
+    K
+   </math>
+   factors common to all assets, and noise term specific to each asset. The third one identifies the sets of reference variables for which the model works.
+  </p>
+  <p block-type="Text">
+   The model predictions may have approximation errors. However, these errors are small for each portfolio that its weight on each asset is small (a welldiversified portfolio).
+  </p>
+  <p block-type="Text">
+   Early versions of the model unnecessarily assumed that the factors are equal to the reference variables. The extension of the model to arbitrary sets of reference variables comes at the cost of increasing the bound on the approximation errors by a multiplicative factor. However, when focusing on pricing of only well-diversified portfolios, this seems to be unimportant because each of the approximation error is small and a multiplicative factor does not change much the size of the error.
+  </p>
+  <h4>
+   <b>
+    Factor Representation
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Consider a finite sequence of random variables
+   <math display="inline">
+    \{Z_i; i = 1, \ldots, N\}
+   </math>
+   with finite variances that will be held fixed throughout the article. It is regarded as representing the excess&lt;sup&gt;
+   <math display="inline">
+    b
+   </math>
+   &lt;/sup&gt; returns of a given set of assets (henceforth "assets
+   <math display="inline">
+    i = 1, \ldots, N
+   </math>
+   "). Without any further assumptions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_i = b_{i,0} + \sum_{k=1}^K b_{i,k} f_k + e_i; \ i = 1, \dots, N
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    f_1, \ldots, f_K
+   </math>
+   are the first K factors in the principal component analysis (PCA) of the sequence
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \{Z_i; i = 1, \ldots, N\}
+   </math>
+   . The
+   <math display="inline">
+    b_{i,k}
+   </math>
+   are the factor loadings and the
+   <math display="inline">
+    e_i
+   </math>
+   are the residuals from projecting the
+   <math display="inline">
+    Z_i
+   </math>
+   on the factors.
+  </p>
+  <p block-type="TextInlineMath">
+   The
+   <math display="inline">
+    K + 1
+   </math>
+   largest eigenvalue of the covariance matrix of the
+   <math display="inline">
+    Z_i
+   </math>
+   , denoted by
+   <math display="inline">
+    \Lambda^2(K)
+   </math>
+   , is interpreted as a measure of the extent to which our sequence of assets has a
+   <math display="inline">
+    K
+   </math>
+   -factor representation. The PCA selects the
+   <math display="inline">
+    f_k
+   </math>
+   so that
+   <math display="inline">
+    \Lambda^2(K)
+   </math>
+   is minimized. In addition,
+   <math display="inline">
+    \Lambda^2(K)
+   </math>
+   is also the largest eigenvalue of the covariance matrix of the
+   <math display="inline">
+    e_i
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Diversified Portfolios
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    w \in R^N
+   </math>
+   be a portfolio in assets
+   <math display="inline">
+    i = 1, \ldots, N
+   </math>
+   . Its excess return is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_w = \sum_{i=1}^N w_i Z_i.
+   </math>
+  </p>
+  <p block-type="Text">
+   Its representation as a linear function of the factors is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_w = b_{w,0} + \sum_{k=1}^{K} b_{w,k} f_k + e_u
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    b_{w,k} = \sum_{i=1}^{N} w_i b_{i,k}
+   </math>
+   are the factor loadings and
+   <math display="inline">
+    e_w = \sum_{i=1}^N w_i \overline{e_i}
+   </math>
+   is the residual which satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{Var}[e_w] &lt; \Lambda^2(K) \sum_{i=1}^N w_i^2
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A portfolio
+   <math display="inline">
+    w = (w_1, \ldots)
+   </math>
+   is called an (approximate) well-diversified portfolio if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{i=1}^{N} w_i^2 \approx 0 \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   Intuitively, a well-diversified portfolio is one with a large number of assets that has a small weight in many of them, and, in addition, there is no single asset for which the weight is not small.
+  </p>
+  <p block-type="Text">
+   The variance of the residual of a well-diversified portfolio is small and thus its excess return is approximately a linear function of the factors; that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_w \approx b_{w,0} + \sum_{k=1}^K b_{w,k} f_k \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Although
+   <math display="inline">
+    \sum_{i=1}^{N} w_i^2 \approx 0
+   </math>
+   ,
+   <math display="inline">
+    Z_w
+   </math>
+   may not be small. For example, let
+   <math display="inline">
+    w_i = 1/N
+   </math>
+   , then we have
+   <math display="inline">
+    \sum_{i=1}^N w_i^2 =
+   </math>
+   <math display="inline">
+    1/N
+   </math>
+   , and
+   <math display="inline">
+    b_{w,k} = (1/N) \sum_{k=1}^{K} b_{i,k}
+   </math>
+  </p>
+  <p block-type="Text">
+   A further discussion on well-diversified portfolios can be found in
+   <math display="inline">
+    [4]
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Multibeta Representation
+   </b>
+  </h2>
+  <p block-type="Text">
+   Throughout the article we consider a fixed set of
+   <i>
+    K reference variables
+   </i>
+   {
+   <i>
+    g
+   </i>
+   1
+   <i>
+    ,...,gK
+   </i>
+   } with respect to which we derive an approximate
+   <i>
+    multibeta representation
+   </i>
+   defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[Z_i] = \sum_{k=1}^{K} B_{i,k} \lambda_k + \rho_i \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B_{i,k} = \text{Cov}(Z_i, g_k) \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   This means that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[Z_i] \approx \sum_{k=1}^{K} B_{i,k} \lambda_k \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    ρi
+   </i>
+   is the approximation error in pricing asset
+   <i>
+    i
+   </i>
+   . The sum of the squares of these approximation errors, that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{i=1}^{N} \rho_i^2 = \Omega^2 \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   determines the quality of the approximation.
+  </p>
+  <h2>
+   <b>
+    The APT Bound
+   </b>
+  </h2>
+  <p block-type="Text">
+   Huberman [3] showed that  is finite for an infinite sequence of excess returns but did not derive a bound. Such bounds were derived by Chamberlain &amp; Rothschild [1], in the case where the reference variables are the factors and by Reisman [7], in the general case. Reisman showed that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Omega \le \Lambda S \Phi \Psi V \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where 2(K) is the
+   <i>
+    K
+   </i>
+   + 1 largest eigenvalue of the covariance matrix of the
+   <i>
+    Zi
+   </i>
+   ;
+   <i>
+    S
+   </i>
+   is the lowest upper bound on expected excess return among portfolios with unit variance;
+   <sup>
+    2
+   </sup>
+   = 1 −
+   <i>
+    R
+   </i>
+   <sup>
+    2
+   </sup>
+   of the regression of the tangency portfolio on the reference variables;  is an increasing function of the largest eigenvalue of
+   <i>
+    (Gt G)
+   </i>
+   <sup>
+    −
+   </sup>
+   1, where
+   <i>
+    G
+   </i>
+   = Corr
+   <i>
+    (fn, gm)n,m
+   </i>
+   <sup>
+    =
+   </sup>
+   1
+   <i>
+    ,...,K
+   </i>
+   is the cross-correlation matrix of the factors and the reference variables; and
+   <i>
+    V
+   </i>
+   <sup>
+    2
+   </sup>
+   is a bound on the variances of the
+   <i>
+    Zi
+   </i>
+   . See [5, 8] for further details.
+  </p>
+  <p block-type="Text">
+   What is important about the bound is that neither  nor  depends on the number of assets,
+   <i>
+    N
+   </i>
+   . This means that the size of the bound depends on the number of assets
+   <i>
+    N
+   </i>
+   , only through
+   <i>
+    (K), S
+   </i>
+   , and
+   <i>
+    V
+   </i>
+   , which may be bounded as this number increases to infinity.
+  </p>
+  <h2>
+   <b>
+    The Pricing Errors
+   </b>
+  </h2>
+  <p block-type="Text">
+   The pricing error of any portfolio
+   <i>
+    w
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{k=1}^{K} w_i \rho_i = \rho_w \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |\rho_w|^2 \le \Omega \sum_{i=1}^N w_i^2 \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   Provided  is not large and
+   <i>
+    N
+   </i>
+   is large, the pricing error on each well-diversified portfolio is small. For a single asset
+   <i>
+    i
+   </i>
+   , we only get that most of the
+   <i>
+    ρi
+   </i>
+   are small. However, for a few of the assets the
+   <i>
+    ρi
+   </i>
+   may not be small.
+  </p>
+  <h2>
+   <b>
+    Example
+   </b>
+  </h2>
+  <p block-type="Text">
+   Assume that each
+   <i>
+    Zi
+   </i>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_i = a_i + b_i f + e_i
+   </math>
+  </p>
+  <p block-type="Text">
+   where the
+   <i>
+    ei
+   </i>
+   are mutually uncorrelated and have zero mean, and
+   <i>
+    f
+   </i>
+   has a zero mean and unit variance and is uncorrelated with all the
+   <i>
+    ei
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   The APT implies that every random variable
+   <i>
+    g
+   </i>
+   for which cov(
+   <i>
+    g, f
+   </i>
+   ) is not zero can serve as a reference variable. Thus there exists a constant
+   <i>
+    λ
+   </i>
+   so that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[Z_i] = \text{cov}(Z_i, gs)\lambda + \rho_i \text{ for each } i
+   </math>
+  </p>
+  <p block-type="Text">
+   In addition, for each well-diversified portfolio
+   <i>
+    w
+   </i>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[Z_w] \approx \mathrm{cov}(Z_w, g)\lambda
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In this example,  = 1
+   <i>
+    /
+   </i>
+   corr
+   <i>
+    (f, g)
+   </i>
+   2;
+   <i>
+    (
+   </i>
+   1
+   <i>
+    )
+   </i>
+   and
+   <i>
+    S
+   </i>
+   and  may take arbitrary values.
+  </p>
+  <h2>
+   <b>
+    Empirical Studies
+   </b>
+  </h2>
+  <p block-type="Text">
+   Empirical studies attempted to find the sets of reference variables for which the hypothesis that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E[Z_i] = \sum\nolimits_{k=1}^K B_{i,k} \lambda_k
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   cannot be rejected. Roll and Ross [9] identified sets of macroeconomic variables that are believed to be responsible for stock price movements and tested whether they explain expected returns in the major US markets. Trzcinka [13] applied PCA to identify the factors. He showed that a small number of factors
+  </p>
+  <p block-type="Text">
+   may explain most of the variation of the market. Then he tested the multibeta representation with these factors as reference variables.
+  </p>
+  <h2>
+   <b>
+    Equilibrium APT
+   </b>
+  </h2>
+  <p block-type="Text">
+   The CAPM implies that the market portfolio is mean–variance efficient. If the market portfolio is a well-diversified one, then it is spanned by the factors. In that case, we get that if the reference variables are the factors, then  is small, which implies that the approximation error for each asset in the sequence is small. Connor [2] and Wei [14] derived a related result which is called equilibrium APT.
+  </p>
+  <h2>
+   <b>
+    Arbitrage and APT
+   </b>
+  </h2>
+  <p block-type="Text">
+   <i>
+    S
+   </i>
+   measures the extent to which arbitrage in the meanvariance sense exists. It is equal to the maximal expected excess return per unit variance of portfolios in the
+   <i>
+    Zi
+   </i>
+   . A large
+   <i>
+    S
+   </i>
+   can be interpreted as some form of no arbitrage. However it is not an arbitrage in the standard sense as there are examples in which
+   <i>
+    S
+   </i>
+   is finite and arbitrage exists. See Reisman [6].
+  </p>
+  <h2>
+   <b>
+    Testability
+   </b>
+  </h2>
+  <p block-type="Text">
+   It was pointed out by Shanken [11, 12] that an inequality of the type given in equation (7) is a tautology. That is, it is a mathematical statement and thus cannot be rejected.
+  </p>
+  <p block-type="Text">
+   Assume that we performed statistical tests that imply that the probability that the bound in equation (7) holds, is small. Then the only explanation can be that it was a bad sample. Since equation (7) is a tautology, there is no other explanation.
+  </p>
+  <p block-type="Text">
+   Nevertheless, this does not imply that the bound is not useful. The bound translates prior beliefs on the sizes of ,
+   <i>
+    S
+   </i>
+   , and , into a prior belief on a bound on the size of the approximation error of each well-diversified portfolio.
+  </p>
+  <p block-type="Text">
+   The relationship between the sizes of ,
+   <i>
+    S
+   </i>
+   , and , and the model assumptions is illustrated in the next section.
+  </p>
+  <h2>
+   <b>
+    The APT Assumptions
+   </b>
+  </h2>
+  <p block-type="Text">
+   The model is derived under assumptions on the extent to which there exists
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. a factor structure with
+     <i>
+      K
+     </i>
+     factors;
+    </li>
+    <li block-type="ListItem">
+     2. no mean–variance arbitrage;
+    </li>
+    <li block-type="ListItem">
+     3. nontrivial correlation between our set of reference variables and the first
+     <i>
+      K
+     </i>
+     factors in the PCA.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The parameters ,
+   <i>
+    S
+   </i>
+   , and  are measures of the extent to which each of the above assumptions holds. The larger it is, the larger is the extent to which the related assumption does not hold.
+  </p>
+  <p block-type="Text">
+   What this says is that the model translates our beliefs on the extent to which the model assumptions hold to a belief on a bound on the size of the approximation errors in pricing well-diversified portfolios.
+  </p>
+  <h2>
+   <b>
+    Summary
+   </b>
+  </h2>
+  <p block-type="Text">
+   The APT implies that each (approximate) welldiversified portfolio is (approximately) priced by a set of
+   <i>
+    K
+   </i>
+   reference variables.
+  </p>
+  <p block-type="Text">
+   What distinguishes this model from the
+   <i>
+    K
+   </i>
+   -factor CAPM is the set of reference variables that is implied by each of the models.
+  </p>
+  <p block-type="Text">
+   In the CAPM, the market portfolio is mean– variance efficient and its return must be equal to a linear function of the set of reference variables.
+  </p>
+  <p block-type="Text">
+   In contrast, in the APT, the reference variables are any set that is nontrivially correlated with the common factors of the returns and it may not span the mean–variance frontier.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   The cross-correlation matrix is nonsingular.
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   The excess return is the return minus the risk-free rate.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Chamberlain, G. &amp; Rothschild, M. (1983). Arbitrage, factor structure, and mean variance analysis on large asset markets,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      51
+     </b>
+     , 1281–1304.
+    </li>
+    <li block-type="ListItem">
+     [2] Connor, G. (1984). A unified beta pricing theory,
+     <i>
+      Journal of Economic Theory
+     </i>
+     <b>
+      34
+     </b>
+     , 13–31.
+    </li>
+    <li block-type="ListItem">
+     [3] Huberman, G. (1982). A simple approach to arbitrage pricing,
+     <i>
+      Journal of Economic Theory
+     </i>
+     <b>
+      28
+     </b>
+     , 183–191.
+    </li>
+    <li block-type="ListItem">
+     [4] Ingersoll Jr J.E. (1984). Some results in the theory of arbitrage pricing,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      39
+     </b>
+     , 1021–1039.
+    </li>
+    <li block-type="ListItem">
+     [5] Nawalkha, S.K. (1997). A multibeta representation theorem for linear asset pricing theories,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      46
+     </b>
+     , 357–381.
+    </li>
+    <li block-type="ListItem">
+     [6] Reisman, H. (1988). A general approach to the Arbitrage Pricing Theory (APT),
+     <i>
+      Econometrica
+     </i>
+     <b>
+      56
+     </b>
+     , 473–476.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [7] Reisman, H. (1992). Reference variables, factor structure, and the approximate multibeta representation,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      47
+     </b>
+     , 1303–1314.
+    </li>
+    <li block-type="ListItem">
+     [8] Reisman, H. (2002). Some comments on the APT,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 378–386.
+    </li>
+    <li block-type="ListItem">
+     [9] Roll, R. &amp; Ross, S.A. (1980). An empirical investigation of the arbitrage pricing theory,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      35
+     </b>
+     , 1073–1103.
+    </li>
+    <li block-type="ListItem">
+     [10] Ross, S.A. (1976). The arbitrage theory of capital asset pricing,
+     <i>
+      Journal of Economic Theory
+     </i>
+     <b>
+      13
+     </b>
+     , 341–360.
+    </li>
+    <li block-type="ListItem">
+     [11] Shanken, J. (1982). The arbitrage pricing theory: is it testable?
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      37
+     </b>
+     , 1129–1140.
+    </li>
+    <li block-type="ListItem">
+     [12] Shanken, J. (1992). The current state of the arbitrage pricing theory,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      47
+     </b>
+     , 1569–1574.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [13] Trzcinka, C. (1986). On the number of factors in the arbitrage pricing model,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      41
+     </b>
+     , 347–368.
+    </li>
+    <li block-type="ListItem">
+     [14] Wei, K. &amp; John, C. (1988). An asset-pricing theory unifying CAPM and APT,
+     <i>
+      Journal of Finance
+     </i>
+     ,
+     <b>
+      43
+     </b>
+     , 881–892.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Capital Asset Pricing Model
+   </b>
+   ;
+   <b>
+    Correlation Risk
+   </b>
+   ;
+   <b>
+    Factor Models
+   </b>
+   ;
+   <b>
+    Risk–Return Analysis
+   </b>
+   ;
+   <b>
+    Ross, Stephen
+   </b>
+   ;
+   <b>
+    Sharpe, William F
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   HAIM REISMAN
+  </p>
+ </body>
+</html>

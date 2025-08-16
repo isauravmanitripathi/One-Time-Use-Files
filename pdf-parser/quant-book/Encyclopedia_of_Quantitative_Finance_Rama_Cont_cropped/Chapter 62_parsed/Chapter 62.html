@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Ambiguity
+   </b>
+  </h2>
+  <p block-type="Text">
+   In the literature on decision making under uncertainty,
+   <i>
+    ambiguity
+   </i>
+   is now consistently used to define those decision settings in which an economic agent perceives "[
+   <i>
+    ...
+   </i>
+   ] uncertainty about probability, created by missing information that is relevant and could be known" [17]. Other terms have been used interchangeably, notably "Knightian uncertainty," based on Knight's [32] distinction between "risk" (a context in which all the relevant "odds" are known and unanimously agreed upon) and "uncertainty" (a context in which some "odds" are not known). The term
+   <i>
+    ambiguity
+   </i>
+   , which avoids charging uncertainty with too many meanings, was introduced in [12], the paper that first showed how ambiguity represents a normative criticism to Savage's [38] subjective expected utility (SEU) model.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Ellsberg proposed two famous thought experiments involving choices on urns in which the exact distribution of ball colors is unknown (one of which was anticipated in both [29] and [32]). A variant of Ellsberg's so-called two-urn paradox is the following example, due to David Schmeidler. "Suppose that I ask you to make bets on two coins, one taken out of your pocket—a coin, which you have flipped countless times—the other taken out of my pocket. If asked to bet on 'heads' or on 'tails' on one of the two coins, would you rather bet on your coin or mine?" Most people, when posed this question, announce a mild but strict preference for betting on their own coin rather than on somebody else's,
+   <i>
+    both for heads and for tails
+   </i>
+   . The rationale is precisely that their coin has a well-understood stochastic behavior, while the other person's coin does not; that is, its behavior is
+   <i>
+    ambiguous
+   </i>
+   . The possibility that the coin be biased, although remote, cannot be dismissed altogether. This pattern of preference is called
+   <i>
+    ambiguity aversion
+   </i>
+   , and is, as suggested, very common ([6, p. 646] e.g., references many experimental replications of the "paradox".) It is easy to see that it is not compatible with the SEU model. For, suppose that a decision maker has a probabilistic prior
+   <i>
+    P
+   </i>
+   over the state space
+   <i>
+    S
+   </i>
+   = {
+   <i>
+    HH , HT, TH , TT
+   </i>
+   } (where
+   <i>
+    H T
+   </i>
+   is the state in which the familiar coin lands heads up and the unfamiliar coin lands tails up, etc.). Then, by saying that he/she prefers a bet that pays off ¤1 if the familiar coin lands heads up—that is, a bet on the event
+   <i>
+    A
+   </i>
+   = {
+   <i>
+    HH , HT
+   </i>
+   }—to the bet that pays ¤1 if
+  </p>
+  <p block-type="TextInlineMath">
+   the unfamiliar coin lands heads up—that is, a bet on the event
+   <i>
+    B
+   </i>
+   = {
+   <i>
+    HH , TH
+   </i>
+   }—an SEU decision maker reveals that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(1) P(A) + u(0) (1 - P(A)) &gt; u(1) P(B)
+   </math>
+   <br/>
+   +
+   <math>
+    u(0) (1 - P(B))
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   that is,
+   <i>
+    P (A) &gt; P (B)
+   </i>
+   . Analogously, by preferring the bet on tails on the familiar coin to the bet on tails on the unfamiliar coin, an SEU decision maker reveals that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P({TH, TT}) = P(Ac) = 1 - P(A) &gt; 1 - P(B)
+   </math>
+   <math display="block">
+    = P(Bc) = P({HT, TT})
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   that is,
+   <i>
+    P (A) &lt; P (B)
+   </i>
+   : a contradiction. Yet, few people would immediately describe these preferences as being an example of irrationality. Ellsberg reports that Savage himself chose in the manner described above, and did not feel that his choices were clearly wrong [12, p. 656]. (Indeed, Savage was aware of the issue well before Ellsberg proposed his thought experiments, for Savage wrote in the
+   <i>
+    Foundations of Statistics
+   </i>
+   (pp. 57–58) that "there seem to be some probability relations about which we feel relatively 'sure' as compared to others," adding that he did not know how to make such notion of comparatively "sure" less vague.)
+  </p>
+  <p block-type="Text">
+   Ellsberg's paper generated quite a bit of debate immediately after its publication (most of which is discussed in Ellsberg's PhD dissertation [13]), but the lack of axiomatically founded models that could encompass a concern for ambiguity while retaining most of the compelling features of the SEU model worked to douse the flames. Moreover, the so-called
+   <i>
+    Allais paradox
+   </i>
+   [2], another descriptive failure of expected utility, which predated Ellsberg's by a few years, monopolized the attention of decision theorists until the early 1980s. However, statisticians such as Good [23] and Arthur Dempster [9] did lay the foundations of statistics with sets of probabilities, providing analysis and technical results, which eventually made it into the toolbox of decision theorists.
+  </p>
+  <h2>
+   <b>
+    Models of Ambiguity-sensitive Preferences
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   The interest in ambiguity as a reason for departure from the SEU model was revived by David Schmeidler, who proposed and characterized axiomatically
+  </p>
+  <p block-type="Text">
+   two of the most successful models of decision making in the presence of ambiguity, the
+   <i>
+    Choquet expected utility (CEU)
+   </i>
+   and the
+   <i>
+    maxmin expected utility
+   </i>
+   (
+   <i>
+    MEU
+   </i>
+   ) models.
+  </p>
+  <p block-type="TextInlineMath">
+   CEU [39] "resolves" the Ellsberg paradox by allowing a decision maker's willingness to bet on an event to be represented by a set-function that is not necessarily additive; that is, a
+   <i>
+    v
+   </i>
+   , which, to disjoint events
+   <i>
+    A
+   </i>
+   and
+   <i>
+    B
+   </i>
+   , may assign
+   <i>
+    v(A
+   </i>
+   ∪
+   <i>
+    B)
+   </i>
+   -=
+   <i>
+    v(A)
+   </i>
+   +
+   <i>
+    v(B)
+   </i>
+   . More precisely, call a
+   <i>
+    capacity
+   </i>
+   any function
+   <i>
+    v
+   </i>
+   defined on a
+   <i>
+    σ
+   </i>
+   -algebra
+   <i>
+   </i>
+   of subsets of a state space
+   <i>
+    S
+   </i>
+   , which satisfies the following properties: (i)
+   <i>
+    v(
+   </i>
+   ∅
+   <i>
+    )
+   </i>
+   = 0, (ii)
+   <i>
+    v(S)
+   </i>
+   = 1, (iii) for any
+   <i>
+    A, B
+   </i>
+   ∈
+   <i>
+   </i>
+   such that
+   <i>
+    A
+   </i>
+   ⊆
+   <i>
+    B
+   </i>
+   ,
+   <i>
+    v(A)
+   </i>
+   ≤
+   <i>
+    v(B)
+   </i>
+   . (Note that a
+   <i>
+    probability (charge)
+   </i>
+   is
+   <i>
+    v
+   </i>
+   , which satisfies instead of (iii) the property
+   <i>
+    v(A
+   </i>
+   ∪
+   <i>
+    B)
+   </i>
+   =
+   <i>
+    v(A)
+   </i>
+   +
+   <i>
+    v(B)
+   </i>
+   −
+   <i>
+    v(A
+   </i>
+   ∩
+   <i>
+    B)
+   </i>
+   for any
+   <i>
+    A, B
+   </i>
+   ∈
+   <i>
+    -
+   </i>
+   .) It is simple to see that if
+   <i>
+    v
+   </i>
+   represents a decision maker's beliefs, we may observe the preferences described above in the two-coin example. Just substitute
+   <i>
+    P
+   </i>
+   in equations (1) and (2) with
+   <i>
+    v
+   </i>
+   satisfying
+   <i>
+    v(A)
+   </i>
+   =
+   <i>
+    v(Ac)
+   </i>
+   = 1
+   <i>
+    /
+   </i>
+   2 and
+   <i>
+    v(B)
+   </i>
+   =
+   <i>
+    v(Bc)
+   </i>
+   = 1
+   <i>
+    /
+   </i>
+   4. The obvious question is that of defining expectations for a notion of "belief", which is not a measure. As the model's name suggests, Schmeidler used the notion of integral for capacities, which was developed by Choquet [8]. Formally, given a capacity space
+   <i>
+    (S, -, v)
+   </i>
+   and a
+   <i>
+    -
+   </i>
+   measurable function
+   <i>
+    a
+   </i>
+   :
+   <i>
+    S
+   </i>
+   → , the
+   <i>
+    Choquet integral of a with reference to (w.r.t.) v
+   </i>
+   is given by the following formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{S} a(s) \, \mathrm{d}v(s) \equiv \int_{0}^{\infty} v(\{s \in S : a(s) \ge \alpha\}) \, \mathrm{d}\alpha
+   </math>
+   <math display="block">
+    + \int_{-\infty}^{0} [v(\{s \in S : a(s) \ge \alpha\}) - 1] \, \mathrm{d}\alpha \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This is shown to correspond to Lebesgue integration when the capacity
+   <i>
+    v
+   </i>
+   is a probability. Schmeidler provided axioms on a decision maker's preference relation , which guarantee that the latter is represented by the Choquet expectation w.r.t.
+   <i>
+    v
+   </i>
+   of a real-valued utility function
+   <i>
+    u
+   </i>
+   (on final prizes
+   <i>
+    x
+   </i>
+   ∈
+   <i>
+    X
+   </i>
+   ). Precisely, given choice options (acts)
+   <i>
+    f, g
+   </i>
+   :
+   <i>
+    S
+   </i>
+   →
+   <i>
+    X
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f \succcurlyeq g \Longleftrightarrow \int_{S} u(f(s)) \, \mathrm{d}v(s) \ge \int_{S} u(g(s)) \, \mathrm{d}v(s) \tag{4}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   That is, the decision maker prefers
+   <i>
+    f
+   </i>
+   to
+   <i>
+    g
+   </i>
+   whenever the Choquet integral of
+   <i>
+    u
+   </i>
+   °
+   <i>
+    f
+   </i>
+   is greater than that
+  </p>
+  <p block-type="Text">
+   of
+   <i>
+    u
+   </i>
+   °
+   <i>
+    g
+   </i>
+   . The interested reader is referred to Schmeidler's paper for details of the axiomatization. For our purpose, it suffices to observe that, not too surprisingly, the key axiomatic departure from SEU (in the variant due to [3]) is a relaxation of the independence axiom—or what Savage calls the
+   <i>
+    sure-thing principle
+   </i>
+   —which is the property of preferences that the Ellsberg-like preferences above violate.
+  </p>
+  <p block-type="TextInlineMath">
+   Not all capacities give rise to behavior which is averse to ambiguity, as in the above example. Schmeidler proposed the following behavioral notion of aversion to ambiguity. Assuming that the payoffs
+   <i>
+    x
+   </i>
+   can themselves be (objective and additive) lotteries over a set of certain prizes, define for any
+   <i>
+    α
+   </i>
+   ∈ [0
+   <i>
+    ,
+   </i>
+   1] the
+   <i>
+    α-mixture
+   </i>
+   of acts
+   <i>
+    f
+   </i>
+   and
+   <i>
+    g
+   </i>
+   as follows: for any
+   <i>
+    s
+   </i>
+   ∈
+   <i>
+    S
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (\alpha f + (1 - \alpha)g)(s) \equiv \alpha f(s) + (1 - \alpha)g(s) \quad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the object on the right-hand side is the lottery that pays off prize
+   <i>
+    f (s)
+   </i>
+   with probability
+   <i>
+    α
+   </i>
+   and prize
+   <i>
+    g(s)
+   </i>
+   with probability
+   <i>
+    (
+   </i>
+   1 −
+   <i>
+    α)
+   </i>
+   . Now, say that a preference satisfies
+   <i>
+    ambiguity hedging
+   </i>
+   (Schmeidler calls this property
+   <i>
+    uncertainty aversion
+   </i>
+   ) if for any
+   <i>
+    f
+   </i>
+   and
+   <i>
+    g
+   </i>
+   such that
+   <i>
+    f
+   </i>
+   ∼
+   <i>
+    g
+   </i>
+   we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha f + (1 - \alpha)g \succcurlyeq f \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for any
+   <i>
+    α
+   </i>
+   . That is, the decision maker
+   <i>
+    may
+   </i>
+   prefer to "hedge" the ambiguous returns of two indifferent acts by mixing them appropriately. This makes sense if we consider two acts whose payoff profiles are negatively correlated (over
+   <i>
+    S
+   </i>
+   ), so that the mixture has a payoff profile, which is flatter, hence less sensitive to the information on
+   <i>
+    S
+   </i>
+   , than the original acts. (Ghirardato and Marinacci [20] discuss ambiguity hedging, arguing that it captures more than just the ambiguity aversion of equations 1 and 2.) Schmeidler shows that a CEU decision maker satisfies ambiguity hedging if and only if her capacity
+   <i>
+    v
+   </i>
+   is
+   <i>
+    supermodular
+   </i>
+   ; that is, for any
+   <i>
+    A, B
+   </i>
+   ∈
+   <i>
+    -
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(A \cup B) \ge v(A) + v(B) - v(A \cap B) \qquad (7)
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Ambiguity hedging also plays a key role in the second model of ambiguity-sensitive preferences proposed by Schmeidler, the MEU model introduced alongside that of Itzhak Gilboa [21]. In MEU, the decision maker's preferences are represented by (a utility function
+   <i>
+    u
+   </i>
+   and) a
+   <i>
+    set C
+   </i>
+   of probability charges
+  </p>
+  <p block-type="TextInlineMath">
+   on
+   <math display="inline">
+    (S, \Sigma)
+   </math>
+   —which is nonempty, (weak*-)closed and
+   <math display="inline">
+    convex
+   </math>
+   —as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f \succcurlyeq g \Longleftrightarrow \min_{P \in C} \int_{S} u(f(s)) \, \mathrm{d}P(s)
+   </math>
+   <br/>
+   <math display="block">
+    \geq \min_{P \in C} \int_{S} u(g(s)) \, \mathrm{d}P(s) \qquad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Thus, the presence of ambiguity is reflected by the nonuniqueness of the prior probabilities over the set of states. In the authors' words, "the subject has too little information to form a prior. Hence, (s)he considers a
+   <i>
+    set
+   </i>
+   of priors as possible" [21, p. 142]. In the two-coin example, let
+   <math display="inline">
+    S
+   </math>
+   be the product space
+   <math display="inline">
+    \{H, T\} \times \{H, T\}
+   </math>
+   and consider the set of priors
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C \equiv \bigcup_{a \in [1/4, 3/4]} \{ \{ 1/2, 1/2 \} \times \{ a, 1 - a \} \} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is easy to see that a decision maker with such a C will "assign" to events A and
+   <math display="inline">
+    A^c
+   </math>
+   the weight
+   <math display="inline">
+    \min_{P \in C} P(A) = 1/2 = \min_{P \in C} P(A^c)
+   </math>
+   , and to events B and
+   <math display="inline">
+    B^c
+   </math>
+   the weight
+   <math display="inline">
+    \min_{P \in C} P(B) = 1/4 =
+   </math>
+   <math display="inline">
+    \min_{P \in C} P(B^c)
+   </math>
+   , thus displaying the classical Ellsberg preferences. Gilboa and Schmeidler showed that MEU is axiomatically very close to CEU. While ambiguity hedging is required (being single-handedly responsible for the "min" in the representation; see [19]), a weaker version of independence is used.
+  </p>
+  <p block-type="TextInlineMath">
+   Ambiguity hedging characterizes the intersection of the CEU and MEU models. Schmeidler [39] shows that a decision maker's preferences have both CEU and MEU representations if and only if (i) the
+   <math display="inline">
+    v
+   </math>
+   in the CEU representation is supermodular, and (ii) the lower envelope of the set
+   <math display="inline">
+    C
+   </math>
+   in the MEU representation,
+   <math display="inline">
+    C(\cdot) \equiv \min_{P \in C} P(\cdot)
+   </math>
+   , is a supermodular capacity and
+   <math display="inline">
+    C
+   </math>
+   is the set of
+   <i>
+    all
+   </i>
+   the probability charges that dominate
+   <math display="inline">
+    C
+   </math>
+   (the
+   <i>
+    core
+   </i>
+   of
+   <math display="inline">
+    C
+   </math>
+   ). On the other hand, there are CEU preferences that are not MEU (take a capacity
+   <math display="inline">
+    v
+   </math>
+   which is not supermodular), and MEU preferences that are not CEU (see [30, Example 1]).
+  </p>
+  <p block-type="Text">
+   The CEU and MEU models brought ambiguity back to the forefront of decision theoretic research, and in due course, as "applications" of such theoretical models started to appear, they were key in attracting the attention of mainstream economics and finance.
+  </p>
+  <p block-type="Text">
+   On the theoretical front, a number of alternative axiomatic models have been developed. First, there are generalizations of CEU and MEU. For instance, Maccheroni et al. [33] presented a model that they
+  </p>
+  <p block-type="Text">
+   called variational preferences, which relaxes the independence condition used in MEU while retaining the ambiguity hedging condition. An important special case of variational preferences is the so-called multiplier model of Hansen and Sargent [25], a key model in the applications literature to be discussed later. Siniscalchi [42] proposed a model that he called
+   <i>
+    vector expected utility
+   </i>
+   , in which an act is evaluated by modifying its expectation (w.r.t. a "baseline probability") by an adjustment function capturing ambiguity attitudes. Such a model is also built with applications in mind, as it (potentially) employs a smaller number of parameters than CEU and MEU.
+  </p>
+  <p block-type="Text">
+   Second, Bewley [4] (originally circulated in 1986) suggested that ambiguity might result in incompleteness of preferences, rather than in violation of independence. Under such assumptions, he found a representation in which a set of priors
+   <math display="inline">
+    C
+   </math>
+   appears in a "unanimity" sense as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f \succcurlyeq g \Longleftrightarrow \int_{S} u(f(s)) \, \mathrm{d}P(s)
+   </math>
+   <math display="block">
+    \geq \int_{S} u(g(s)) \, \mathrm{d}P(s) \text{ for all } P \in C \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   That is, the decision maker prefers
+   <math display="inline">
+    f
+   </math>
+   over
+   <math display="inline">
+    g
+   </math>
+   whenever
+   <math display="inline">
+    f
+   </math>
+   dominates
+   <math display="inline">
+    g
+   </math>
+   according to every "possible scenario" in
+   <math display="inline">
+    C
+   </math>
+   . Preferences are undecided otherwise, and Bewley suggested completing them by following an "inertia" rule: the status quo is retained if undominated by any available act. In a model that joins the two research strands just described, Ghirardato et al. [19] showed that if we drop ambiguity hedging from the MEU axioms, we can still obtain the set of priors
+   <math display="inline">
+    C
+   </math>
+   as a "unanimous" representation of a suitably defined incomplete subset of the decision maker's preference relation, which they interpreted as "unambiguous" preference (i.e., a preference that is not affected by the presence of ambiguity). This yields a model-of which both CEU and MEU are special cases—in which the decision maker evaluates act
+   <math display="inline">
+    f
+   </math>
+   via the functional
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(f) = a(f) \min_{P \in C} \int_{S} u(f(s)) \, \mathrm{d}P(s)
+   </math>
+   <math display="block">
+    + (1 - a(f)) \max_{P \in C} \int_{S} u(f(s)) \, \mathrm{d}P(s) \tag{11}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    a(f )
+   </i>
+   ∈ [0
+   <i>
+    ,
+   </i>
+   1] is the decision maker's ambiguity aversion in evaluating
+   <i>
+    f
+   </i>
+   (a generalization of the decision rule suggested by Hurwicz [27]).
+  </p>
+  <p block-type="TextInlineMath">
+   A third modeling approach relaxes the "reduction of compound lotteries" property that is built within the expected utility model. The basic idea is that the decision maker forms a "second-order" probability
+   <i>
+    µ
+   </i>
+   over the set of possible priors over
+   <i>
+    S
+   </i>
+   , and that he/she does not reduce the resulting compound probability. That is, he/she could evaluate act
+   <i>
+    f
+   </i>
+   by first calculating its expectation
+   <i>
+    EP (u
+   </i>
+   °
+   <i>
+    f )
+   </i>
+   ≡
+   <i>
+    u(f (s))
+   </i>
+   d
+   <i>
+    P (s)
+   </i>
+   with respect to each prior
+   <i>
+    P
+   </i>
+   that he/she deems possible, and then computing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{\Delta} \phi(E_P(u \circ f)) \, \mathrm{d}\mu(P) \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where  denotes the set of all possible probability charges on
+   <i>
+    (S, -)
+   </i>
+   , and
+   <i>
+    φ
+   </i>
+   :  →  is a function, which is not necessarily affine. This is the reasoning adopted by Segal [40], followed by Ergin and Gul [16], Klibanoff
+   <i>
+    et al.
+   </i>
+   [31], Nau [37], and Seo [41]. The case of SEU corresponds to
+   <i>
+    φ
+   </i>
+   being affine, while Klibanoff
+   <i>
+    et al.
+   </i>
+   [31] show that
+   <i>
+    φ
+   </i>
+   being concave corresponds intuitively to ambiguity averse preferences. That is, the "external" utility function describes ambiguity attitude, while the "internal" one describes risk attitude. An important feature of such a model is that its representation is smooth (in utility space), whereas those of MEU and CEU are generally not. For this reason, this is called the
+   <i>
+    smooth ambiguity model
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   In concluding this brief survey of decision models, it is important to stress that, owing to space constraint, the focus is on
+   <i>
+    static
+   </i>
+   models. The literature on
+   <i>
+    intertemporal
+   </i>
+   models is more recent and less developed, in part, because of the fact that non-SEU preferences often violate a property called
+   <i>
+    dynamic consistency
+   </i>
+   [18], making it hard to use the traditional dynamic programming tools. Important contributions in this area are found in [14, 22] (characterizing the so-called
+   <i>
+    recursive MEU
+   </i>
+   model) and [24, 34].
+  </p>
+  <h2>
+   <b>
+    Applications
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   As mentioned above, the CEU and MEU models were finally successful in introducing ambiguity into mainstream research in economics and finance. Many papers have been written, which assume that (some) agents have CEU or MEU preferences. The interested reader is referred to [36] for an extensive survey of
+  </p>
+  <p block-type="Text">
+   such applications, while some applications to finance are briefly discussed here.
+  </p>
+  <p block-type="Text">
+   In a seminal contribution, Dow and Werlang [10] showed that a CEU agent with supermodular capacity may display a nontrivial bid–ask spread on the price of an (ambiguous) Arrow security, even without frictions. If the price of the security falls within such an interval, the agent will not want to trade the security at all (given an initial riskless position). Epstein and Wang [15] employed the recursive MEU model to study the equilibrium of a representative agent economy
+   <i>
+    a la Lucas `
+   </i>
+   . They showed that price indeterminacy can arise in equilibrium for reasons that are closely related to Dow and Werlang's observation. Other contributions followed along this line; for example, see [7, 35, 43]. More recently, the smooth ambiguity model has also been receiving attention; see, for example, [28].
+  </p>
+  <p block-type="Text">
+   Though originally not motivated by the Ellsberg paradox and ambiguity, the "model uncertainty" literature due to Hansen
+   <i>
+    et al.
+   </i>
+   ([26], but more comprehensively found in [25]) falls squarely within the scope of the applications of ambiguity. Moreover, both decision models they employ are special cases of the models described above: the "multiplier model" is a special case of variational preferences, and the "constraint model" is a special case of MEU.
+  </p>
+  <p block-type="Text">
+   Most of the applications of ambiguity to finance—an exception being [11]—are cast in a representative agent environment, with the preferences of the representative agent satisfying in one case MEU, in another CEU, and so on. Recent work on experimental finance by Bossaerts
+   <i>
+    et al.
+   </i>
+   [5] and Ahn
+   <i>
+    et al.
+   </i>
+   [1] finds that experimental subjects, when making portfolio choices with ambiguous Arrow securities, display substantial heterogeneity in ambiguity attitudes. Because Bossaerts
+   <i>
+    et al.
+   </i>
+   [5] show that such heterogeneity may easily result in a breakdown of the representative agent result, such findings cast some doubt on the generality of a representative agent approach to financial markets equilibrium.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Ahn, D., Choi, S., Gale, D. &amp; Shachar, K. (2007).
+     <i>
+      Estimating Ambiguity Aversion in a Portfolio Choice Experiment
+     </i>
+     , UC Berkeley, Mimeo.
+    </li>
+    <li block-type="ListItem">
+     [2] Allais, M. (1953). Le comportement de l'homme rationnel devant le risque: Critique des postulats
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

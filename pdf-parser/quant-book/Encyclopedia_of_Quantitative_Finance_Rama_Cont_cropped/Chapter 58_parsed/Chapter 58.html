@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Stochastic Discount
+   </b>
+   Factors
+  </h1>
+  <p block-type="Text">
+   Economic agents make investment decisions within active and liquid financial markets. Capital is allocated today in exchange for some future income stream. If there is no uncertainty regarding the future payoff of an investment opportunity, the yield that will be asked on the investment will equal the riskfree interest rate prevailing for the time period covering the time of investment until the time of the payoff. However, in the presence of any payoff uncertainty at the time of undertaking an investment venture, economic agents will typically ask for risk compensation, and thus for some
+   <i>
+    investment-specific
+   </i>
+   yield, which will discount the expected future payoff stream. The yields that particular agents ask for depend both on their statistical views on possible future outcomes, as well as their attitudes toward risk.
+  </p>
+  <p block-type="Text">
+   Yields vary across different investment opportunities and their interrelations are difficult to explain. For the same agent, a different discounting factor has to be used for every separate valuation occasion. If, however, one is ready to accept discounting that varies randomly with the possible outcomes, and therefore accepts the concept of a
+   <i>
+    stochastic
+   </i>
+   discount factor, then a very economically consistent theory can be developed. Asset valuation becomes a matter of randomly discounting payoffs under different states of nature and weighing them according to the agent's probability structure. The advantages of this approach are obvious, since a
+   <i>
+    single
+   </i>
+   discounting mechanism suffices to describe how any asset is priced by the agent.
+  </p>
+  <p block-type="Text">
+   We discuss the theory of stochastic discount factors first in a discrete-time, finite state space and then in the more practical case of Itô-process models.
+  </p>
+  <h1>
+   <b>
+    Stochastic Discount Factors in Discrete Probability Spaces
+   </b>
+  </h1>
+  <p block-type="Text">
+   We start by introducing all relevant ideas in a very simple one-time-period framework and finite states of the world. There are plenty of textbooks with vast exposition on these and other related themes (e.g., [1] or the first chapters of
+   <math display="inline">
+    [9]
+   </math>
+   —see also
+   <math display="inline">
+    [5]
+   </math>
+   for the general state-space case).
+  </p>
+  <h2>
+   The Setup
+  </h2>
+  <p block-type="TextInlineMath">
+   Consider a very simplistic example of an economy. where there are only two dates of interest, represented by times
+   <math display="inline">
+    t = 0
+   </math>
+   (today) and
+   <math display="inline">
+    t = T
+   </math>
+   (the financialplanning horizon). There are several states of nature possible at time
+   <math display="inline">
+    T
+   </math>
+   and, for the time being, these are represented as a
+   <i>
+    finite
+   </i>
+   set
+   <math display="inline">
+    \Omega
+   </math>
+   . Only one
+   <math display="inline">
+    \omega \in \Omega
+   </math>
+   will be revealed at time
+   <math display="inline">
+    T
+   </math>
+   , but this is not known in advance today.
+  </p>
+  <p block-type="TextInlineMath">
+   In the market, there is a
+   <i>
+    baseline
+   </i>
+   asset with a price process
+   <math display="inline">
+    S^0 = (S^0)_{t=0,T}
+   </math>
+   . Here,
+   <math display="inline">
+    S_0^0
+   </math>
+   is a strictly positive constant and
+   <math display="inline">
+    S_T^0(\omega) &gt; 0
+   </math>
+   for all
+   <math display="inline">
+    \omega \in \Omega
+   </math>
+   . The process
+   <math display="inline">
+    \beta := S_{0}^{0}/S^{0}
+   </math>
+   is called the
+   <i>
+    deflator
+   </i>
+   . It is customary to regard this baseline asset as riskless, providing a simple annualized interest rate
+   <math display="inline">
+    r \in \mathbb{R}_+
+   </math>
+   for investment from today to time T; in this case,
+   <math display="inline">
+    S_0^0 = 1
+   </math>
+   and
+   <math display="inline">
+    S_T^0 = 1 + rT
+   </math>
+   . This viewpoint is
+   <i>
+    not
+   </i>
+   adapted here, since it is unnecessary.
+  </p>
+  <p block-type="TextInlineMath">
+   Together with the baseline asset, there exist
+   <math display="inline">
+    d
+   </math>
+   other liquid
+   <i>
+    traded
+   </i>
+   assets whose prices
+   <math display="inline">
+    S_0^i
+   </math>
+   ,
+   <math display="inline">
+    i = 1, \ldots, d
+   </math>
+   today are known constants, but the prices
+   <math display="inline">
+    S_T^i
+   </math>
+   ,
+   <math display="inline">
+    i =
+   </math>
+   <math display="inline">
+    1, \ldots, d
+   </math>
+   , at day T depend on the outcome
+   <math display="inline">
+    \omega \in \Omega
+   </math>
+   , that is, they are random variables.
+  </p>
+  <h1>
+   Agent Portfolio Selection via Expected Utility Maximization
+  </h1>
+  <p block-type="TextInlineMath">
+   Consider an economic agent in the market as described above. Faced with inherent uncertainty, the agent postulates some likelihood on the possible outcomes, modeled via a probability measure
+   <math display="inline">
+    P: \Omega \mapsto [0, 1]
+   </math>
+   with
+   <math display="inline">
+    \sum_{\omega \in \Omega} P[\omega] = 1
+   </math>
+   . This gives rise to a probability
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   on the subsets of
+   <math display="inline">
+    \Omega
+   </math>
+   defined
+   <i>
+    via
+   </i>
+   <math display="inline">
+    \mathbb{P}[A] = \sum_{\omega \in A} \mathsf{P}(\omega)
+   </math>
+   for all
+   <math display="inline">
+    A \subseteq \Omega
+   </math>
+   . This probability can either be
+   <i>
+    subjective
+   </i>
+   , that is, coming from views that are agent specific, or
+   <i>
+    historical
+   </i>
+   , that is, arising from statistical considerations via some estimation procedure.
+  </p>
+  <p block-type="TextInlineMath">
+   Economic agents act in the market and optimally invest to maximize their satisfaction. Each agent has some
+   <i>
+    preference structure
+   </i>
+   on the possible future random payoffs that is represented here
+   <i>
+    via
+   </i>
+   the
+   <i>
+    expected
+   </i>
+   utility paradigm.&lt;sup&gt;a&lt;/sup&gt; There exists a continuously dif
+   <i>
+    ferentiable, increasing, and strictly concave function
+   </i>
+   <math display="inline">
+    U:\mathbb{R}\mapsto\mathbb{R}
+   </math>
+   , such that the agent will prefer a random payoff
+   <math display="inline">
+    \xi : \Omega \mapsto \mathbb{R}
+   </math>
+   from another random payoff
+   <math display="inline">
+    \zeta: \Omega \mapsto \mathbb{R}
+   </math>
+   at time
+   <i>
+    T
+   </i>
+   if and only if
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[U(\zeta)] \leq
+   </math>
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[U(\xi)],
+   </math>
+   where
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}
+   </math>
+   denotes expectation with respect to the probability
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Starting with capital
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   , an economic agent chooses at day zero a strategy
+   <math display="inline">
+    \theta \equiv (\theta^1, \dots, \theta^d) \in
+   </math>
+   <math display="inline">
+    \mathbb{R}^d
+   </math>
+   , where
+   <math display="inline">
+    \theta^j
+   </math>
+   denotes the units from the
+   <i>
+    j
+   </i>
+   th asset held in the portfolio. What remains,
+   <math display="inline">
+    x - \sum_{i=1}^{d} \theta^{i} S_{0}^{i}
+   </math>
+   , is invested in the baseline asset. If
+   <math display="inline">
+    X^{(\overline{x},\theta)}
+   </math>
+   is the wealth generated starting from capital
+   <math display="inline">
+    x
+   </math>
+   and investing according to
+   <math display="inline">
+    \theta
+   </math>
+   , then
+   <math display="inline">
+    X_0^{(x,\theta)} = x
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_T^{(x;\theta)} = \left(x - \sum_{i=1}^d \theta^i S_0^i\right) \frac{S_T^0}{S_0^0} + \sum_{i=1}^d \theta^i S_T^i
+   </math>
+   <math display="block">
+    = x \frac{S_T^0}{S_0^0} + \sum_{i=1}^d \theta^i \left(S_T^i - \frac{S_T^0}{S_0^0} S_0^i\right) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   or, in deflated terms,
+   <math display="inline">
+    \beta_T X_T^{(x;\theta)} = x + \sum_{i=1}^d \theta^i
+   </math>
+   <math display="inline">
+    (\beta_T S_T^i - S_0^i)
+   </math>
+   . The agent's objective is to choose a strategy in such a way as to
+   <i>
+    maximize expected utility
+   </i>
+   , that is, find
+   <math display="inline">
+    \theta_*
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}^{\mathbb{P}}\left[U\left(X_{T}^{(x;\theta_{*})}\right)\right] = \sup_{\theta \in \mathbb{R}^{d}} \mathbb{E}^{\mathbb{P}}\left[U\left(X_{T}^{(x;\theta)}\right)\right] \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The above problem will indeed have a solution if and only if no arbitrages exist in the market. By definition, an
+   <i>
+    arbitrage
+   </i>
+   is a wealth generated by some
+   <math display="inline">
+    \theta \in \mathbb{R}^d
+   </math>
+   such that
+   <math display="inline">
+    \mathbb{P}[X_T^{(x;\theta)} \ge 0] = 1
+   </math>
+   and
+   <math display="inline">
+    \mathbb{P}[X_T^{(x;\theta)} &gt; 0] &gt; 0
+   </math>
+   . It is easy to see that arbitrages exist in the market if and only if
+   <math display="inline">
+    \sup_{\theta \in \mathbb{R}^d} \mathbb{E}^{\mathbb{P}}[U(X_T^{(x;\theta)})]
+   </math>
+   is not attained by some
+   <math display="inline">
+    \theta_* \in \mathbb{R}^d
+   </math>
+   . Assuming, then, the noarbitrage (NA) condition, concavity of the function
+   <math display="inline">
+    \mathbb{R}^d \ni \theta \mapsto \mathbb{E}^{\mathbb{P}}[U(X_T^{(x;\theta)})]
+   </math>
+   will imply that the firstorder conditions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial}{\partial \theta^{i}}\Big|_{\theta=\theta_{*}} \mathbb{E}^{\mathbb{P}}\Big[U\left(X_{T}^{(x;\theta)}\right)\Big] = 0, \quad \text{for all } i = 1, \dots, d
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   will provide the solution
+   <math display="inline">
+    \theta_*
+   </math>
+   to the problem. Since the expectation is just a finite sum, the differential operator can pass inside, and then the first-order conditions for optimality are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 = \mathbb{E}^{\mathbb{P}} \left[ \left. \frac{\partial}{\partial \theta^{i}} \right|_{\theta = \theta_{*}} U \left( X_{T}^{(x;\theta)} \right) \right]
+   </math>
+   <br/>
+   <math display="block">
+    = \mathbb{E}^{\mathbb{P}} \left[ U' \left( X_{T}^{(x;\theta_{*})} \right) \left( S_{T}^{i} - \frac{S_{T}^{0}}{S_{0}^{0}} S_{0}^{i} \right) \right],
+   </math>
+   <br/>
+   <math display="block">
+    i = 1, \dots, d \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The above is a nonlinear system of
+   <math display="inline">
+    d
+   </math>
+   equations to be solved for d unknowns
+   <math display="inline">
+    (\theta^1_*, \ldots, \theta^d_*)
+   </math>
+   . Under NA, the system 4 has a solution
+   <math display="inline">
+    \theta_*
+   </math>
+   . Actually, under a trivial nondegeneracy condition in the market, the solution is unique; even if the optimal strategy
+   <math display="inline">
+    \theta_*
+   </math>
+   is not unique, strict concavity of
+   <math display="inline">
+    U
+   </math>
+   implies that the optimal wealth
+   <math display="inline">
+    X_T^{(x;\theta_*)}
+   </math>
+   generated is unique.
+  </p>
+  <p block-type="TextInlineMath">
+   A little bit of algebra on equation (4) gives, for all
+   <math display="inline">
+    i = 1, \ldots, d,
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_0^i = \mathbb{E}^{\mathbb{P}} \left[ Y_T S_T^i \right], \text{ where}
+   </math>
+   <br/>
+   <math display="block">
+    Y_T := \frac{U' \left( X_T^{(x;\theta_*)} \right)}{\mathbb{E}^{\mathbb{P}} \left[ (S_T^0 / S_0^0) U' \left( X_T^{(x;\theta_*)} \right) \right]}
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   Observe that since
+   <math display="inline">
+    U
+   </math>
+   is continuously differentiable and strictly increasing,
+   <math display="inline">
+    U'
+   </math>
+   is a strictly positive function, and therefore
+   <math display="inline">
+    \mathbb{P}[Y_T &gt; 0] = 1
+   </math>
+   . Also, equation (5) also holds trivially for
+   <math display="inline">
+    i = 0
+   </math>
+   . Note that the random variable
+   <math display="inline">
+    Y_T
+   </math>
+   that was obtained above depends on the utility function U, the probability
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , as well as on the initial capital
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   In the model described above, a process
+   <math display="inline">
+    Y = (Y_t)_{t=0,T}
+   </math>
+   will be called a stochastic discount factor if
+   <math display="inline">
+    \mathbb{P}[Y_0=1,Y_T&gt;0]=1
+   </math>
+   and
+   <math display="inline">
+    S_0^i=\mathbb{E}^{\mathbb{P}}\left[Y_TS_T^i\right]
+   </math>
+   for all
+   <math display="inline">
+    i = 0, \ldots, d
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   If
+   <math display="inline">
+    Y
+   </math>
+   is a stochastic discount factor, using equation
+   <math display="inline">
+    (1)
+   </math>
+   , one can actually show that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}^{\mathbb{P}}\left[Y_{T}X_{T}^{(x;\theta)}\right] = x, \quad \text{for all } x \in \mathbb{R} \text{ and } \theta \in \mathbb{R}^{d}
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   In other words, the process
+   <math display="inline">
+    YX^{(x;\theta)}
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -martingale for all
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   and
+   <math display="inline">
+    \theta \in \mathbb{R}^d
+   </math>
+   .
+  </p>
+  <h4>
+   Connection with Risk-neutral Valuation
+  </h4>
+  <p block-type="TextInlineMath">
+   Since
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[S_T^0 Y_T] = S_0^0 &gt; 0
+   </math>
+   , we can define a probability mass
+   <math display="inline">
+    \mathcal{Q}
+   </math>
+   by requiring that
+   <math display="inline">
+    \mathcal{Q}(\omega) = (S_T^0(\omega)/S_0^0)
+   </math>
+   <math display="inline">
+    Y_T(\omega) \mathsf{P}(\omega)
+   </math>
+   , which defines a probability
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   on subsets of
+   <math display="inline">
+    \Omega
+   </math>
+   in the obvious way. Observe that, for any
+   <math display="inline">
+    A \subseteq \Omega
+   </math>
+   ,
+   <math display="inline">
+    \mathbb{Q}[A] &gt; 0
+   </math>
+   if and only if
+   <math display="inline">
+    \mathbb{P}[A] &gt; 0
+   </math>
+   ; we say that the probabilities
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   and
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   are
+   <i>
+    equivalent
+   </i>
+   and we denote this by
+   <math display="inline">
+    \mathbb{Q} \sim \mathbb{P}
+   </math>
+   . Now, rewrite equation (5) as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_0^i = \mathbb{E}^{\mathbb{Q}} \left[ \beta_T S_T^i \right], \quad \text{for all } i = 0, \dots, d \quad (7)
+   </math>
+  </p>
+  <p block-type="Text">
+   A probability
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   , equivalent to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , with the property prescribed in equation (7) is called
+   <i>
+    risk-neutral
+   </i>
+   or an equivalent martingale measure. In this simple framework, stochastic discount factors and risk-neutral probabilities are in one-to-one correspondence. In fact, more can be said.
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 1
+   </b>
+   [Fundamental Theorem of Asset Pricing] In the discrete model as described previously, the following three conditions are equivalent:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. There are no arbitrage opportunities.
+    </li>
+    <li block-type="ListItem">
+     2. A stochastic discount factor exists.
+    </li>
+    <li block-type="ListItem">
+     3. A risk-neutral probability measure exists.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The fundamental theorem of asset pricing was first formulated by Ross [11] and it took 20 years to reach a very general version of it in general semimartingale models that are beyond the scope of our treatment here. The interested reader can check the monograph [3], where the history of the theorem and all its proofs are presented.
+  </p>
+  <h4>
+   The Important Case of the Logarithm
+  </h4>
+  <p block-type="Text">
+   The most well-studied case of utility on the real line is
+   <math display="inline">
+    U(x) = \log(x)
+   </math>
+   , both because of its computational simplicity and for the theoretical value that it has. Since the logarithmic function is only defined on the strictly positive real line, it does not completely fall in the aforementioned framework, but it is easy to see that the described theory is still valid.
+  </p>
+  <p block-type="TextInlineMath">
+   Consider an economic agent with logarithmic utility that starts with initial capital
+   <math display="inline">
+    x = 1
+   </math>
+   . Call
+   <math display="inline">
+    X^* =
+   </math>
+   <math display="inline">
+    X^{(1;\theta_*)}
+   </math>
+   the optimal wealth corresponding to log-utility maximization. The fact that
+   <math display="inline">
+    U'(x) = 1/x
+   </math>
+   allows to define a stochastic discount factor
+   <math display="inline">
+    Y^*
+   </math>
+   via
+   <math display="inline">
+    Y_0^* = 1
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_T^* = \frac{1}{X_T^* \mathbb{E}^{\mathbb{P}} \left[ 1/(\beta_T X_T^*) \right]} \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   From
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[Y_T^*X_T^*] = 1
+   </math>
+   , it follows that
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[1/
+   </math>
+   <math display="inline">
+    (\beta_T X_T^*)
+   </math>
+   = 1 and therefore
+   <math display="inline">
+    Y^* = 1/X^*
+   </math>
+   . This simple relationship between the log-optimal wealth and the stochastic discount factor that is induced by it is one of the keys to characterize the existence of stochastic discount factors in more complicated models and their relationship with absence of free lunches. It finds good use in the section Stochastic Discount Factors for Itô Processes for the case of models using Itô processes.
+  </p>
+  <h2>
+   Arbitrage-free Prices
+  </h2>
+  <p block-type="TextInlineMath">
+   For a claim with random payoff
+   <math display="inline">
+    H_T
+   </math>
+   at time T, an
+   <i>
+    arbitrage-free
+   </i>
+   (AF) price
+   <math display="inline">
+    H_0
+   </math>
+   is a price at time zero such that the extended market that consists of the original traded assets with asset prices
+   <math display="inline">
+    S^i
+   </math>
+   ,
+   <math display="inline">
+    i = 0, \ldots, d
+   </math>
+   , augmented by the new claim, remains AF. If the claim is
+   <i>
+    perfectly replicable
+   </i>
+   , that is, if there exists
+   <math display="inline">
+    x \in \mathbb{R}
+   </math>
+   and
+   <math display="inline">
+    \theta \in \mathbb{R}^d
+   </math>
+   such that
+   <math display="inline">
+    X_T^{(x;\theta)} = H_T
+   </math>
+   , it is easily seen that the unique AF price for the claim is
+   <math display="inline">
+    x
+   </math>
+   . However, it is frequently the case that a newly introduced claim is not perfectly replicable using the existing liquid assets. In that case, there exists more than one AF price for the claim; actually, the set of all the possible AF prices is
+   <math display="inline">
+    \{\mathbb{E}^{\mathbb{P}}[Y_T H_T] \mid Y \text{ is a stochastic discount factor}\}.
+   </math>
+   To see this, first pick a stochastic discount factor
+   <math display="inline">
+    Y_T
+   </math>
+   and set
+   <math display="inline">
+    H_0 = \mathbb{E}[Y_T H_T]
+   </math>
+   ; then, Y remains a stochastic discount factor for the extended market, which therefore does not allow for any arbitrage opportunities. Conversely, if
+   <math display="inline">
+    H_0
+   </math>
+   is an AF price for the new claim, we know from Theorem 1 that there exists a stochastic discount factor
+   <math display="inline">
+    Y
+   </math>
+   for the extended market, which satisfies
+   <math display="inline">
+    H_0 = \mathbb{E}[Y_T H_T]
+   </math>
+   and is trivially a stochastic discount factor for the original market. The result we just mentioned justifies the appellation "Fundamental theorem of asset pricing" for Theorem 1.
+  </p>
+  <h2>
+   Utility Indifference Pricing
+  </h2>
+  <p block-type="Text">
+   Suppose that a new claim promising some random payoff at time
+   <math display="inline">
+    T
+   </math>
+   is issued. Depending on the claim's present traded price, an economic agent might be inclined to take a long or short position—this will depend on whether the agent considers the market price low or high, respectively. There does exist a market price level of the claim that will make the agent indifferent to going long or short on an infinitesimal&lt;sup&gt;b&lt;/sup&gt; amount of asset. This price level is called
+   <i>
+    indifference price
+   </i>
+   . In the context of claim valuation, utility indifference prices have been introduced in
+   <math display="inline">
+    [2]
+   </math>
+   ;&lt;sup&gt;c&lt;/sup&gt; however, they had been widely used previously in the science of economics. Indifference prices depend on the particular agent's views, preferences, as well as portfolio structure, and should not be confused with market prices, which are established using the forces of supply and demand.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Since the discussed preference structures are based on
+   <i>
+    expected utility
+   </i>
+   , it makes sense to try and understand quantitatively how
+   <i>
+    utility indifference prices
+   </i>
+   are
+  </p>
+  <p block-type="Text">
+   formed. Under the present setup, consider a claim with random payoff
+   <math display="inline">
+    H_T
+   </math>
+   at time T. The question we wish to answer is this: what is the indifference price
+   <math display="inline">
+    H_0
+   </math>
+   of this claim today for an economic agent?
+  </p>
+  <p block-type="Text">
+   For the time being, let
+   <math display="inline">
+    H_0
+   </math>
+   be any price set by the market for the claim. The agent will invest in the risky assets and will hold
+   <math display="inline">
+    \theta
+   </math>
+   units of them, as well as the new claim, taking a position of
+   <math display="inline">
+    \epsilon
+   </math>
+   units. Then, the agent's terminal payoff is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_T^{(x;\theta,\epsilon)} := X_T^{(x;\theta)} + \epsilon \left( H_T - \frac{S_T^0}{S_0^0} H_0 \right) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   The agent will again maximize expected utility, that is, will invest
+   <math display="inline">
+    (\theta_*, \epsilon_*) \in \mathbb{R}^d \times \mathbb{R}
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}^{\mathbb{P}}\Big[U\left(X_{T}^{(x;\theta_{*},\epsilon_{*})}\right)\Big] = \sup_{(\theta,\epsilon)\in\mathbb{R}^{d}\times\mathbb{R}}\mathbb{E}^{\mathbb{P}}\Big[U\left(X_{T}^{(x;\theta,\epsilon)}\right)\Big]
+   </math>
+   (10)
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    H_0
+   </math>
+   is the agent's indifference price, it must follow that
+   <math display="inline">
+    \epsilon_* = 0
+   </math>
+   in the above maximization problem; then, the agent's optimal decision regarding the claim would be not to buy or sell any units of the asset. In particular, the concave function
+   <math display="inline">
+    \mathbb{R} \ni
+   </math>
+   <math display="inline">
+    \epsilon \mapsto \mathbb{E}^{\mathbb{P}} \left[ U \left( \hat{X}^{(x;\theta_*,\epsilon)}_T \right) \right]
+   </math>
+   should achieve its maximum at
+   <math display="inline">
+    \epsilon = 0
+   </math>
+   . First-order conditions give that
+   <math display="inline">
+    H_0
+   </math>
+   is the agent's indifference price if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 = \frac{\partial}{\partial \epsilon} \Big|_{\epsilon=0} \mathbb{E}^{\mathbb{P}} \Big[ U \left( X_T^{(x;\theta_*,\epsilon)} \right) \Big]
+   </math>
+   <br/>
+   <math display="block">
+    = \mathbb{E}^{\mathbb{P}} \Big[ U' \left( X_T^{(x;\theta_*,0)} \right) \left( X_T - \frac{S_T^0}{S_0^0} X_0 \right) \Big] \quad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   A remark is in order before writing down the indifference-pricing formula. The strategy
+   <math display="inline">
+    \theta_*
+   </math>
+   that has been appearing above represents the optimal holding in the liquid traded assets when all assets and the claim are available—it is
+   <i>
+    not
+   </i>
+   , in general, the agent's optimal asset holdings if the claim were
+   <i>
+    not
+   </i>
+   around. Nevertheless,
+   <i>
+    if
+   </i>
+   the solution of problem
+   <math display="inline">
+    (10)
+   </math>
+   is such that the optimal holdings in the claim are
+   <math display="inline">
+    \epsilon_* = 0
+   </math>
+   ,
+   <i>
+    then
+   </i>
+   <math display="inline">
+    \theta_*
+   </math>
+   are also the agent's optimal asset holdings if there had been no claim to begin with. In other words, if
+   <math display="inline">
+    \epsilon_* = 0
+   </math>
+   ,
+   <math display="inline">
+    X_T^{(x;\theta_*,0)}
+   </math>
+   is exactly the same quantity
+   <math display="inline">
+    X_T^{(x;\theta_*)}
+   </math>
+   that appears in equation (4). Remembering the definition of the stochastic discount factor
+   <math display="inline">
+    Y_T
+   </math>
+   of
+  </p>
+  <p block-type="Text">
+   equation
+   <math display="inline">
+    (5)
+   </math>
+   , we can write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_0 = \mathbb{E}^{\mathbb{I}^p} \left[ Y_T H_T \right] \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It is important to observe that
+   <math display="inline">
+    Y_T
+   </math>
+   depends on a number of factors, namely, the probability
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , the utility U, and the initial capital x, but not on the particular claim to be valued. Thus, we need only one evaluation of the stochastic discount factor and we can use it to find indifference prices with respect to all kinds of different claims.
+  </p>
+  <h4>
+   State Price Densities
+  </h4>
+  <p block-type="TextInlineMath">
+   For a fixed
+   <math display="inline">
+    \omega \in \Omega
+   </math>
+   , consider an Arrow-Debreau security that pays off a unit of account at time
+   <math display="inline">
+    T
+   </math>
+   if the state of nature is
+   <math display="inline">
+    \omega
+   </math>
+   , and pays off nothing, otherwise. The indifference price of this security for the economic agent is
+   <math display="inline">
+    p(\omega) := Y(\omega)P(\omega)
+   </math>
+   . Since
+   <math display="inline">
+    Y
+   </math>
+   appears as the density of the "state price"
+   <math display="inline">
+    p
+   </math>
+   with respect to the probability
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , stochastic discount factors are also termed state price densities in the literature. For two states of nature
+   <math display="inline">
+    \omega
+   </math>
+   and
+   <math display="inline">
+    \omega'
+   </math>
+   of
+   <math display="inline">
+    \Omega
+   </math>
+   such that
+   <math display="inline">
+    Y(\omega) &lt; Y(\omega')
+   </math>
+   , an agent who uses the stochastic discount factor
+   <math display="inline">
+    Y
+   </math>
+   would consider
+   <math display="inline">
+    \omega'
+   </math>
+   a more unfavorable state than
+   <math display="inline">
+    \omega
+   </math>
+   and would be inclined to pay more for insurance against adverse market movements.
+  </p>
+  <h4>
+   Comparison with Real-world Valuation
+  </h4>
+  <p block-type="TextInlineMath">
+   Only for the purpose of what is presented here, assume that
+   <math display="inline">
+    S_0^0 = 1
+   </math>
+   and
+   <math display="inline">
+    S_T^0 = 1 + rT
+   </math>
+   for some
+   <math display="inline">
+    r \in \mathbb{R}_+
+   </math>
+   . Let Y be a stochastic discount factor; then, we have
+   <math display="inline">
+    1 = S_0^0 = \mathbb{E}^{\mathbb{P}}[Y_T S_T^0] = (1 + rT)\mathbb{E}^{\mathbb{P}}[Y_T].
+   </math>
+   Pick any claim with random payoff
+   <math display="inline">
+    H_T
+   </math>
+   at time T and use
+   <math display="inline">
+    H_0 = \mathbb{E}^{\mathbb{P}}[Y_T H_T]
+   </math>
+   to write
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_0 = \frac{1}{1 + rT} \mathbb{E}^{\mathbb{P}}[H_T] + \text{cov}^{\mathbb{P}}(Y_T, H_T) \qquad (13)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \text{cov}^{\mathbb{P}}(\cdot, \cdot)
+   </math>
+   is used to denote
+   <i>
+    covariance
+   </i>
+   of two random variables with respect to
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   . The first term
+   <math display="inline">
+    (1+rT)^{-1}\mathbb{E}^{\mathbb{P}}[H_T]
+   </math>
+   of the above formula describes "real-world" valuation for an agent who would be neutral under his views
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   in facing the risk coming from the random payoff
+   <math display="inline">
+    H_T
+   </math>
+   . This risk-neutral attitude is usually absent: agents require compensation for the risk they undertake, or might even feel inclined to pay more for a security that will insure them in cases of unfavorable outcomes. This is exactly mirrored by the
+  </p>
+  <p block-type="TextInlineMath">
+   correction factor
+   <math display="inline">
+    \text{cov}^{\mathbb{P}}(Y_T, H_T)
+   </math>
+   appearing in equation (13). If the covariance of
+   <math display="inline">
+    Y_T
+   </math>
+   and
+   <math display="inline">
+    H_T
+   </math>
+   is negative, the claim tends to pay more when
+   <math display="inline">
+    Y_T
+   </math>
+   is low. By the discussion in the section State Price Densities, this means that the payoff will be high in states that are not greatly feared by the agent, who will therefore be inclined to pay
+   <i>
+    less
+   </i>
+   than what the real-world valuation gives. On the contrary, if the covariance of
+   <math display="inline">
+    Y_T
+   </math>
+   and
+   <math display="inline">
+    H_T
+   </math>
+   is positive,
+   <math display="inline">
+    H_T
+   </math>
+   will pay off higher in dangerous states of nature for the agent (where
+   <math display="inline">
+    Y_T
+   </math>
+   is also high), and the agent's indifference price will be higher than the real-world valuation.
+  </p>
+  <h1>
+   Stochastic Discount Factors for Itô Processes
+  </h1>
+  <h4>
+   The Model
+  </h4>
+  <p block-type="TextInlineMath">
+   Uncertainty is modeled via a probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbf{F}, \mathbb{P}), \text{ where } \mathbf{F} = (\mathcal{F}_t)_{t \in [0,T]} \text{ is a filtration}
+   </math>
+   representing the flow of information. The market consists of a
+   <i>
+    locally
+   </i>
+   riskless savings account whose price process
+   <math display="inline">
+    S^0
+   </math>
+   satisfies
+   <math display="inline">
+    S_0^0 &gt; 0
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_t^0}{S_t^0} = r_t \mathrm{d}t, \quad t \in [0, T]
+   </math>
+   (14)
+  </p>
+  <p block-type="TextInlineMath">
+   for some
+   <b>
+    F
+   </b>
+   -adapted, positive
+   <i>
+    short-rate
+   </i>
+   process
+   <math display="inline">
+    r =
+   </math>
+   <math display="inline">
+    (r_t)_{t\in\mathbb{R}}
+   </math>
+   . It is obvious that
+   <math display="inline">
+    S_t^0 = S_0^0 \exp(\int_0^t r_u du)
+   </math>
+   for
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   . We define the deflator
+   <math display="inline">
+    \beta
+   </math>
+   via
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \beta_t = \frac{S_0^0}{S_t^0} = \exp\left(-\int_0^t r_u du\right), \quad t \in [0, T] \quad (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   The movement of
+   <math display="inline">
+    d
+   </math>
+   risky assets will be modeled
+   <i>
+    via
+   </i>
+   Itô processes:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_t^i}{S_t^i} = b_t^i \mathrm{d}t + \langle \sigma_t^{i}, \mathrm{d}W_t \rangle, \quad t \in \mathbb{R}_+, \quad i = 1, \dots, d
+   </math>
+   (16)
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    b = (b^1, \ldots, b^d)
+   </math>
+   is the
+   <b>
+    F
+   </b>
+   -adapted
+   <i>
+    d
+   </i>
+   -dimensional process of
+   <i>
+    appreciation rates
+   </i>
+   ,
+   <math display="inline">
+    W =
+   </math>
+   <math display="inline">
+    (W^1,\ldots,W^m)
+   </math>
+   is an
+   <i>
+    m
+   </i>
+   -dimensional
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -Brownian motion representing the sources of uncertainty in the market, and
+   <math display="inline">
+    \langle \cdot, \cdot \rangle
+   </math>
+   denotes the usual inner product notation:
+   <math display="inline">
+    \langle \sigma_t^{,i}, dW_t \rangle = \sum_{j=1}^m \sigma_t^{ji} dW_t^j
+   </math>
+   where
+   <math display="inline">
+    (\sigma^{ji})_{1 \le j \le m, \ 1 \le i \le d}
+   </math>
+   is the
+   <b>
+    F
+   </b>
+   -adapted
+   <math display="inline">
+    (m \times d)
+   </math>
+   -matrixvalued process whose entry
+   <math display="inline">
+    \sigma_t^{ji}
+   </math>
+   represents the impact
+  </p>
+  <p block-type="TextInlineMath">
+   of the
+   <math display="inline">
+    j
+   </math>
+   th source of uncertainty on the
+   <math display="inline">
+    i
+   </math>
+   th asset at time
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   . With "
+   <math display="inline">
+    \top
+   </math>
+   " denoting transposition,
+   <math display="inline">
+    c := \sigma^{\top} \sigma
+   </math>
+   is the
+   <math display="inline">
+    d \times d
+   </math>
+   local covariation matrix. To avoid degeneracies in the market, it is required that
+   <math display="inline">
+    c_t
+   </math>
+   has full rank for all
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   ,
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   almost surely (a.s.). This implies, in particular, that
+   <math display="inline">
+    d &lt; m
+   </math>
+   —there are more sources of uncertainty in the market than are liquid assets to hedge away the uncertainty risk. Models of this sort are classical in the quantitative finance literature—see, for example, [8].
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 2
+   </b>
+   A risk premium is any m-dimensional,
+   <b>
+    F
+   </b>
+   -adapted process
+   <math display="inline">
+    \lambda
+   </math>
+   satisfying
+   <math display="inline">
+    \sigma^{\top} \lambda = b - r \mathbf{1}
+   </math>
+   , where
+   <math display="inline">
+    \mathbf{1}
+   </math>
+   is the d-dimensional vector with all unit entries.
+  </p>
+  <p block-type="TextInlineMath">
+   The terminology "risk premium" is better explained for the case
+   <math display="inline">
+    d = m = 1
+   </math>
+   ; then
+   <math display="inline">
+    \lambda = (b
+   </math>
+   <math display="inline">
+    r/\sigma
+   </math>
+   is the premium over the risk-free rate that investors require per unit of risk associated with the (only) source of uncertainty. In the general case,
+   <math display="inline">
+    \lambda^{j}
+   </math>
+   can be interpreted as the premium required for the risk associated with the
+   <math display="inline">
+    j
+   </math>
+   th source of uncertainty, represented by the Brownian motion
+   <math display="inline">
+    W^j
+   </math>
+   . In
+   <i>
+    incomplete
+   </i>
+   markets, when
+   <math display="inline">
+    d &lt; m
+   </math>
+   , Proposition 1 shows all the different choices for
+   <math display="inline">
+    \lambda
+   </math>
+   . Each choice will parameterize the different risk attitudes of different investors. In other words, risk premia characterize the possible stochastic discount factors, as is revealed in Theorem 3.
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    m = d
+   </math>
+   , the equation
+   <math display="inline">
+    \sigma^{\top} \lambda = b - r \mathbf{1}
+   </math>
+   has only one solution:
+   <math display="inline">
+    \lambda^* = \sigma c^{-1}(b - r\mathbf{1})
+   </math>
+   . If
+   <math display="inline">
+    d &lt; m
+   </math>
+   there are many solutions, but they can be characterized using easy linear algebra.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 1
+   </b>
+   The risk premia are exactly all processes of the form
+   <math display="inline">
+    \lambda = \lambda^* + \kappa
+   </math>
+   , where
+   <math display="inline">
+    \lambda^* := \sigma c^{-1}(b - \lambda^*)
+   </math>
+   r1) and
+   <math display="inline">
+    \kappa
+   </math>
+   is any adapted process with
+   <math display="inline">
+    \sigma^{\top}\kappa = 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \lambda = \lambda^* + \kappa
+   </math>
+   in the notation of Proposition 1, then
+   <math display="inline">
+    \langle \lambda^*, \kappa \rangle = (b - r\mathbf{1})^\top c^{-1} \sigma^\top \kappa = 0
+   </math>
+   . Then,
+   <math display="inline">
+    |\lambda|^2 =
+   </math>
+   <math display="inline">
+    |\lambda^*|^2 + |\kappa|^2
+   </math>
+   , where
+   <math display="inline">
+    |\lambda^*|^2 = \langle b - r\mathbf{1}, c^{-1}(b - r\mathbf{1}) \rangle
+   </math>
+   .
+  </p>
+  <h4>
+   Stochastic Discount Factors
+  </h4>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The usual method of obtaining stochastic discount factors in continuous time is through risk-neutral measures. The fundamental theorem of asset pricing in the present Itô-process setting states that absence of free lunches with vanishing risk&lt;sup&gt;d&lt;/sup&gt; is equivalent to the existence of a probability
+   <math display="inline">
+    \mathbb{Q} \sim \mathbb{P}
+   </math>
+   such that
+   <math display="inline">
+    \beta S^i
+   </math>
+   is (only) a
+   <i>
+    local
+   </i>
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingale for all
+   <math display="inline">
+    i = 0, \ldots, d
+   </math>
+   . (For
+  </p>
+  <p block-type="TextInlineMath">
+   the definition of local martingales, check, e.g., [7].) In that case, by defining Y via
+   <math display="inline">
+    Y_t = \beta_t (d\mathbb{Q}/d\mathbb{P})|_{\mathcal{F}_t}
+   </math>
+   ,
+   <math display="inline">
+    YS^i
+   </math>
+   is a local
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -martingale for all
+   <math display="inline">
+    i = 0, \ldots, d
+   </math>
+   . The last property is taken here as the
+   <i>
+    definition
+   </i>
+   of a stochastic discount factor.
+  </p>
+  <p block-type="Text">
+   <b>
+    Definition 3
+   </b>
+   Consider the above Itô-process setup,
+   <math display="inline">
+    a
+   </math>
+   stochastic process
+   <math display="inline">
+    Y
+   </math>
+   is called a stochastic discount factor if
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      Y_0 = 1
+     </math>
+     and
+     <math display="inline">
+      Y_T &gt; 0
+     </math>
+     ,
+     <math display="inline">
+      \mathbb{P}
+     </math>
+     a.s.&lt;br&gt;•
+     <math display="inline">
+      YS^i
+     </math>
+     is a local
+     <math display="inline">
+      \mathbb{P}
+     </math>
+     -martingale for
+     <math display="inline">
+      all
+     </math>
+     <math display="inline">
+      i = 0, 1, \ldots, d.
+     </math>
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   In the case where
+   <math display="inline">
+    YS^0
+   </math>
+   is an actual martingale, that is,
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[Y_T S_T^0] = S_0^0
+   </math>
+   , a risk-neutral measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   is readily defined
+   <i>
+    via
+   </i>
+   the recipe
+   <math display="inline">
+    d\mathbb{Q} = (Y_T S_T^0 / S_0^0) d\mathbb{P}
+   </math>
+   . However, this is not always the case, as Example 1 below will show. Therefore, existence of a stochastic discount factor is a weaker notion than existence of a risk-neutral measure. For some practical applications though, these differences are unimportant. There is further discussion of this point later in the section Stochastic Discount Factors and Equivalent Martingale Measures.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 1
+   </b>
+   Let
+   <math display="inline">
+    S^0 \equiv 1
+   </math>
+   and
+   <math display="inline">
+    S^1
+   </math>
+   be a threedimensional Bessel process with
+   <math display="inline">
+    S_0^1 = 1
+   </math>
+   . If
+   <b>
+    F
+   </b>
+   is the natural filtration of
+   <math display="inline">
+    S^1
+   </math>
+   , it can be shown that the
+   <i>
+    only
+   </i>
+   stochastic discount factor is
+   <math display="inline">
+    Y = 1/S^1
+   </math>
+   , which is a
+   <i>
+    strict local martingale
+   </i>
+   in the terminology of [4].
+  </p>
+  <h4>
+   Credit Constraints on Investment
+  </h4>
+  <p block-type="Text">
+   In view of the theoretical possibility of continuous trading, to avoid so-called
+   <i>
+    doubling strategies
+   </i>
+   (and for the fundamental theorem of asset pricing to hold),
+   <i>
+    credit constraints
+   </i>
+   have to be introduced. The wealth of agents has to be bounded from below by some constant, representing the credit limit. Shifting the wealth appropriately, one can assume that the credit limit is set to zero; therefore, only positive wealth processes are allowed in the market.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Since only strictly positive processes are considered, it is more convenient to work with
+   <i>
+    proportions
+   </i>
+   of investment, rather than absolute quantities as was the case in the section Stochastic Discount Factors in Discrete Probability Spaces . Pick some F-adapted process
+   <math display="inline">
+    \pi = (\pi^1, \ldots, \pi^{\hat{d}})
+   </math>
+   . For
+   <math display="inline">
+    i = 1, \ldots, d
+   </math>
+   and
+   <math display="inline">
+    t \in
+   </math>
+   [0, T], the number
+   <math display="inline">
+    \pi_t^i
+   </math>
+   represents the
+   <i>
+    percentage
+   </i>
+   of
+  </p>
+  <p block-type="TextInlineMath">
+   capital in hand invested in asset
+   <math display="inline">
+    i
+   </math>
+   at time
+   <math display="inline">
+    t
+   </math>
+   . In that case,
+   <math display="inline">
+    \pi^0 = 1 - \sum_{i=1}^d \pi^i
+   </math>
+   will be invested in the savings account. Denote by
+   <math display="inline">
+    X^{\pi}
+   </math>
+   the wealth generated by starting from unit initial capital
+   <math display="inline">
+    (X_0^{\pi} = 1)
+   </math>
+   and invest according to
+   <math display="inline">
+    \pi
+   </math>
+   . Then,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}X_t^{\pi}}{X_t^{\pi}} = \sum_{i=0}^d \pi_t^i \frac{\mathrm{d}S_t^i}{S_t^i} = (r_t + \langle \pi_t, b_t - r_t \mathbf{1} \rangle) \,\mathrm{d}t + \langle \sigma_t \pi_t, \mathrm{d}W_t \rangle \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   To ensure that the above wealth process is well defined, we must assume that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{0}^{T} |\langle \pi_{t}, b_{t} - r_{t} \mathbf{1} \rangle| \, \mathrm{d}t &lt; +\infty \text{ and}
+   </math>
+   <math display="block">
+    \int_{0}^{T} \langle \pi_{t}, c_{t} \pi_{t} \rangle \mathrm{d}t &lt; +\infty, \; \mathbb{P} \text{ a.s} \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   The set of all
+   <math display="inline">
+    d
+   </math>
+   -dimensional,
+   <b>
+    F
+   </b>
+   -adapted processes
+   <math display="inline">
+    π
+   </math>
+   that satisfy equation (18) is denoted by Π. A simple use of the integration-by-parts formula gives the following result:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proposition 2
+   </b>
+   If
+   <math display="inline">
+    Y
+   </math>
+   is a stochastic discount factor, then
+   <math display="inline">
+    Y X^{\pi}
+   </math>
+   is a local martingale for all
+   <math display="inline">
+    \pi \in \Pi
+   </math>
+   .
+  </p>
+  <h4>
+   Connection with "No Free Lunch" Notions
+  </h4>
+  <p block-type="Text">
+   The next line of business is to obtain an existential result about stochastic discount factors in the present setting, also connecting their existence to an NA-type notion. Remember, from the section The Important Case of the Logarithm, the special stochastic discount factor that is the reciprocal of the log-optimal wealth process. We proceed somewhat heuristically to compute the analogous processes for the Itô-process model. The linear stochastic differential equation
+   <math display="inline">
+    (17)
+   </math>
+   has the following solution, expressed in logarithmic terms:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \log X^{\pi} = \int_{0}^{\cdot} \left( r_{t} + \langle \pi_{t}, b_{t} - r_{t} \mathbf{1} \rangle - \frac{1}{2} \langle \pi_{t}, c_{t} \pi_{t} \rangle \right) dt
+   </math>
+   <math display="block">
+    + \int_{0}^{\cdot} \langle \sigma_{t} \pi_{t}, dW_{t} \rangle \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Assuming that the local martingale term
+   <math display="inline">
+    \int_0^{\infty} \langle \sigma_t \pi_t \rangle
+   </math>
+   <math display="inline">
+    dW_t
+   </math>
+   in equation (19) is an actual martingale, the aim is to maximize the expectation of the drift
+  </p>
+  <p block-type="TextInlineMath">
+   term. Notice that we can actually maximize the drift
+   <i>
+    pathwise
+   </i>
+   if we choose the portfolio
+   <math display="inline">
+    \pi_* = c^{-1}(b
+   </math>
+   r1). We need to ensure that
+   <math display="inline">
+    \pi_*
+   </math>
+   is in
+   <math display="inline">
+    \Pi
+   </math>
+   . It is easy to see that the equations in
+   <math display="inline">
+    (18)
+   </math>
+   are both satisfied if and only if
+   <math display="inline">
+    \int_0^T |\lambda_t^*|^2 dt &lt; \infty \mathbb{P}
+   </math>
+   a.s., where
+   <math display="inline">
+    \lambda^* := \sigma c^{-1} (b - r \mathbf{1})
+   </math>
+   is the special risk premium of Proposition 1. Under this assumption,
+   <math display="inline">
+    \pi_* \in \Pi
+   </math>
+   . Call
+   <math display="inline">
+    X^* = X^{\pi_*}
+   </math>
+   and define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y^* := \frac{1}{X^*}
+   </math>
+   <br/>
+   =
+   <math>
+    \beta \exp\left(-\int_0^{\cdot} \langle \lambda_t^*, \mathrm{d}W_t \rangle - \frac{1}{2} \int_0^{\cdot} |\lambda_t^*|^2 \mathrm{d}t\right)
+   </math>
+   (20)
+  </p>
+  <p block-type="Text">
+   Using the integration-by-parts formula, it is rather straightforward to check that
+   <math display="inline">
+    Y^*
+   </math>
+   is a stochastic discount factor. In fact, the ability to define
+   <math display="inline">
+    Y^*
+   </math>
+   is the way to establish that a stochastic discount factor exists, as the next result shows.
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 2
+   </b>
+   For the Itô process-model considered above, the following are equivalent.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. The set of stochastic discount factors is nonemptv.
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \int_0^T |\lambda_t^*|^2 \mathrm{d}t
+     </math>
+     ,
+     <math display="inline">
+      &lt; \infty \mathbb{P}
+     </math>
+     -a.s.; in that case,
+     <math display="inline">
+      Y^*
+     </math>
+     defined 2. in equation (20) is a stochastic discount factor.
+    </li>
+    <li block-type="ListItem">
+     3. For any
+     <math display="inline">
+      \epsilon &gt; 0
+     </math>
+     , there exists
+     <math display="inline">
+      \ell = \ell(\epsilon) \in \mathbb{R}_+
+     </math>
+     such that
+     <math display="inline">
+      \mathbb{P}[X_T^{\pi} &gt; \ell] &lt; \epsilon
+     </math>
+     uniformly over all portfolios
+     <math display="inline">
+      \pi \in \Pi
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The interest reader is referred to [6], where the property of the market described in statement 3 of the above theorem is termed No Unbounded Profit with Bounded Risk.
+  </p>
+  <p block-type="Text">
+   The next structural result about the stochastic discount factors in the Itô-process setting reveals the importance of
+   <math display="inline">
+    Y^*
+   </math>
+   as a building block.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 3
+   </b>
+   Assume that
+   <math display="inline">
+    \mathbf{F}
+   </math>
+   is the filtration generated by the Brownian motion W. Then, any stochastic discount factor
+   <math display="inline">
+    Y
+   </math>
+   in the previous Itô-process model can be decomposed as
+   <math display="inline">
+    Y = Y^* N^{\kappa}
+   </math>
+   , where
+   <math display="inline">
+    Y^*
+   </math>
+   was defined in equation (20) and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N_t^{\kappa} = \exp\left(-\int_0^t \langle \kappa_u, \mathrm{d} W_u \rangle - \int_0^t |\kappa_u|^2 \mathrm{d} u\right),
+   </math>
+   <br/>
+   <math display="block">
+    \forall t \in [0, T]
+   </math>
+   (21)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \kappa
+   </math>
+   is an m-dimensional
+   <b>
+    F
+   </b>
+   -adapted process with
+   <math display="inline">
+    \sigma^{\top}\kappa = 0.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If the assumption that
+   <math display="inline">
+    \mathbf{F}
+   </math>
+   is generated by
+   <math display="inline">
+    W
+   </math>
+   is removed, one still obtains a similar result with
+   <math display="inline">
+    N^{\kappa}
+   </math>
+   being replaced by
+   <i>
+    any
+   </i>
+   positive
+   <math display="inline">
+    \mathbf{F}
+   </math>
+   -martingale
+   <math display="inline">
+    N
+   </math>
+   with
+   <math display="inline">
+    N_0 = 1
+   </math>
+   that is
+   <i>
+    strongly
+   </i>
+   orthogonal to W. The specific representation obtained in Theorem 3 comes from the
+   <i>
+    martingale representation theorem
+   </i>
+   of Brownian filtrations; see, for example, [7].
+  </p>
+  <h2>
+   Stochastic Discount Factors and Equivalent
+   <i>
+    Martingale Measures
+   </i>
+  </h2>
+  <p block-type="TextInlineMath">
+   Consider an agent who uses a stochastic discount factor
+   <math display="inline">
+    Y
+   </math>
+   for valuation purposes. There is a possibility that
+   <math display="inline">
+    YS^{i}
+   </math>
+   could be a
+   <i>
+    strict local
+   </i>
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -martingale for some
+   <math display="inline">
+    i = 0, \ldots, d
+   </math>
+   , which would mean that&lt;sup&gt;e&lt;/sup&gt;
+   <math display="inline">
+    S_0^i &gt;
+   </math>
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[Y_T S_T^i]
+   </math>
+   . The last inequality is puzzling in the sense that the agent's indifference price for the
+   <math display="inline">
+    i
+   </math>
+   th asset, which is
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[Y_T S_T^i]
+   </math>
+   , is
+   <i>
+    strictly
+   </i>
+   lower than the market price
+   <math display="inline">
+    S_0^i
+   </math>
+   . In such a case, the agent would be expected to wish to short some units of the
+   <math display="inline">
+    i
+   </math>
+   th asset. This is indeed what is happening; however, because of credit constraints, this strategy is infeasible. The following is a convincing example that establishes this fact. Before presenting the example, an important issue should be clarified. One would rush to state that such "inconsistencies" are tied to the notion of a stochastic discount factor as it appears in Definition 3, and that is
+   <i>
+    strictly
+   </i>
+   weaker than existence of a probability
+   <math display="inline">
+    \mathbb{Q} \sim \mathbb{P}
+   </math>
+   that makes all discounted processes
+   <math display="inline">
+    \beta S^i
+   </math>
+   <i>
+    local
+   </i>
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingales for
+   <math display="inline">
+    i = 0, \ldots, d
+   </math>
+   . Even if such a probability
+   <i>
+    did
+   </i>
+   exist,
+   <math display="inline">
+    \beta S^i
+   </math>
+   could be a
+   <i>
+    strict local
+   </i>
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   martingale for some
+   <math display="inline">
+    i = 1, \ldots, d
+   </math>
+   ; in that case,
+   <math display="inline">
+    S_0^i &gt;
+   </math>
+   <math display="inline">
+    \mathbb{E}^{\mathbb{Q}}[\beta_T S^i_T]
+   </math>
+   and the same mispricing problem pertains.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 2
+   </b>
+   Let
+   <math display="inline">
+    S^0 \equiv 1
+   </math>
+   ,
+   <math display="inline">
+    S^1
+   </math>
+   be the
+   <i>
+    reciprocal
+   </i>
+   of a three-dimensional Bessel process starting at
+   <math display="inline">
+    S_0^1 = 1
+   </math>
+   under
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   and
+   <b>
+    F
+   </b>
+   be the filtration generated by
+   <math display="inline">
+    S^1
+   </math>
+   . Here,
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   is the
+   <i>
+    only
+   </i>
+   equivalent local martingale measure and
+   <math display="inline">
+    1 = S_0^1 &gt; \mathbb{E}^{\mathbb{P}}[S_T^1]
+   </math>
+   for all
+   <math display="inline">
+    T &gt; 0
+   </math>
+   . This is a
+   <i>
+    complete
+   </i>
+   market—an agent can start with capital
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[S^1_T]
+   </math>
+   and invest in a way so that at time
+   <math display="inline">
+    T
+   </math>
+   the wealth generated is exactly
+   <math display="inline">
+    S_T
+   </math>
+   . Naturally, the agent would like to long as much as possible from this replicating portfolio and go as short as possible from the actual asset. However, in doing so, the possible downside risk is infinite throughout the life of the investment and the enforced credit constraints will disallow for such strategies.
+  </p>
+  <p block-type="TextInlineMath">
+   In the context of Example 2, the law of one price fails, since the asset that provides payoff
+   <math display="inline">
+    S_T^1
+   </math>
+   at time T has a market price
+   <math display="inline">
+    S_0^1
+   </math>
+   and a replication price
+   <math display="inline">
+    \mathbb{E}^{\mathbb{P}}[S_T^1] &lt; S_0^1
+   </math>
+   . Therefore, if the law of one price is to be valid in the market, one has to insist on existence of an equivalent (true) martingale measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   , where each discounted process
+   <math display="inline">
+    \beta S^i
+   </math>
+   is a
+   <i>
+    true
+   </i>
+   (and not only local)
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingale for all
+   <math display="inline">
+    i = 0, \ldots, d
+   </math>
+   . For pricing purposes then, it makes sense to ask that the stochastic discount factor
+   <math display="inline">
+    Y^{\kappa}
+   </math>
+   that is chosen according to Theorem 3 is such that
+   <math display="inline">
+    Y^{\kappa} S^{i}
+   </math>
+   is a true
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -martingale for all
+   <math display="inline">
+    i = 0, \ldots, d
+   </math>
+   . Such stochastic discount factors give rise to probabilities
+   <math display="inline">
+    \mathbb{Q}^{\kappa}
+   </math>
+   that make all deflated asset-price-process
+   <math display="inline">
+    \mathbb{O}^{\kappa}
+   </math>
+   -martingales and can be used as pricing measures.
+  </p>
+  <p block-type="TextInlineMath">
+   Let us now specialize to the important "diffusion" case where
+   <math display="inline">
+    r_t = r \in \mathbb{R}
+   </math>
+   for all
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   and
+   <math display="inline">
+    \sigma_t =
+   </math>
+   <math display="inline">
+    \eta(t, S_t)
+   </math>
+   for all
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   , where
+   <math display="inline">
+    \eta
+   </math>
+   is a nice function with values in the space of
+   <math display="inline">
+    (m \times d)
+   </math>
+   -matrices. As long as a claim written only on the traded assets is concerned, the choice of
+   <math display="inline">
+    \mathbb{Q}^{\kappa}
+   </math>
+   for pricing is irrelevant, since the asset prices under
+   <math display="inline">
+    \mathbb{Q}^{\kappa}
+   </math>
+   have dynamics
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_t^i}{S_t^i} = r_t \mathrm{d}t + \langle \sigma_t^{\cdot i}, \mathrm{d}W_t^\kappa \rangle,
+   </math>
+   <br/>
+   <math display="block">
+    \forall t \in [0, T], \quad i = 1, \dots, d \qquad (22)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    W^{\kappa}
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}^{\kappa}
+   </math>
+   -Brownian motion. However, if one is interested in pricing a claim written on a nontraded asset whose price process Z has
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -dynamics
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dZ_t = a_t dt + \langle f_t, dW_t \rangle, \quad t \in [0, T]
+   </math>
+   (23)
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <b>
+    F
+   </b>
+   -adapted
+   <i>
+    a
+   </i>
+   and
+   <math display="inline">
+    f = (f^1, \ldots, f^m)
+   </math>
+   , then the
+   <math display="inline">
+    \mathbb{Q}^{\kappa}
+   </math>
+   dynamics of
+   <math display="inline">
+    Z
+   </math>
+   are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dZ_{t} = (a_{t} - \langle f_{t}, \lambda_{t}^{*} \rangle - \langle f_{t}, \kappa_{t} \rangle) dt + \langle f_{t}, dW_{t}^{\kappa} \rangle,
+   </math>
+   <br/>
+   <math display="block">
+    \forall t \in [0, T]
+   </math>
+   (24)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The dynamics of
+   <math display="inline">
+    Z
+   </math>
+   will be independent of the choice of
+   <math display="inline">
+    \kappa
+   </math>
+   only if the volatility structure of the process Z, given by f, is in the range of
+   <math display="inline">
+    \sigma^{\top}
+   </math>
+   . This will mean that
+   <math display="inline">
+    \langle f, \kappa \rangle = 0
+   </math>
+   for all
+   <math display="inline">
+    \kappa
+   </math>
+   such that
+   <math display="inline">
+    \sigma^{\top} \kappa = 0
+   </math>
+   and that
+   <math display="inline">
+    Z
+   </math>
+   is perfectly replicable using the traded assets. As long as there is any randomness in the movement in
+   <math display="inline">
+    Z
+   </math>
+   that cannot be captured by investing in the traded assets, that is, if there exists some
+   <math display="inline">
+    \kappa
+   </math>
+   with
+   <math display="inline">
+    \sigma^{\top}\kappa = 0
+   </math>
+   and
+   <math display="inline">
+    \langle f, \kappa \rangle
+   </math>
+   not being identically zero, perfect replicability fails and pricing becomes a more complicated
+  </p>
+  <p block-type="Text">
+   issue, depending on the preferences of the particular agent as given by the choice of
+   <math display="inline">
+    \kappa
+   </math>
+   to form the stochastic discount factor.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;One can impose natural conditions on preference relations defined on the set of all possible outcomes that will lead to numerical representation of the preference relationship via expected utility maximization. This was axiomatized in [10]—see also Chapter 2 of [5] for a nice exposition.
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;b.&lt;/sup&gt;We stress "infinitesimal" because when the portfolio holdings of the agent change, the indifference prices also change; thus, for large sales or buys that will considerably change the portfolio structure, there might appear an incentive, that was not there before, to sell or buy the asset. &lt;sup&gt;c.&lt;/sup&gt;For this reason, utility indifference prices are sometimes referred to as
+   <i>
+    Davis prices
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;d&lt;/sup&gt; Free lunches with vanishing risk is the suitable generalization of the notion of arbitrages to get a version of the fundamental theorem of asset pricing in continuous time. The reader is referred to
+   <math display="inline">
+    [3]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   &lt;sup&gt;e.&lt;/sup&gt;The inequality follows because positive local martingales are supermartingales—see, for example, [7].
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Cochrane, J.H. (2001). Asset Pricing, Princeton Univer-
+     <math display="inline">
+      [1]
+     </math>
+     sity Press.
+    </li>
+    <li block-type="ListItem">
+     Davis, M.H.A. (1997). Option pricing in incomplete [2] markets, in Mathematics of Derivative Securities (Cambridge, 1995), Publications of the Newton Institute, Cambridge University Press, Cambridge, Vol. 15, pp. 216-226.
+    </li>
+    <li block-type="ListItem">
+     [3] Delbaen, F. &amp; Schachermayer, W. (2006). The Mathematics of Arbitrage, Springer Finance, Springer-Verlag, Berlin.
+    </li>
+    <li block-type="ListItem">
+     [4] Elworthy, K.D. &amp; Li, X.-M. &amp; Yor, M. (1999). The importance of strictly local martingales; applications to radial Ornstein-Uhlenbeck processes, Probability Theory and Related Fields 115, 325-355.
+    </li>
+    <li block-type="ListItem">
+     [5] Föllmer, H. &amp; Schied, A. (2004). Stochastic Finance, extended Edition, de Gruyter Studies in Mathematics, Walter de Gruyter &amp; Co., Berlin, Vol. 27.
+    </li>
+    <li block-type="ListItem">
+     [6] Karatzas, I. &amp; Kardaras, C. (2007). The numéraire portfolio in semimartingale financial models, Finance and Stochastics 11, 447-493.
+    </li>
+    <li block-type="ListItem">
+     Karatzas, I. &amp; Shreve, S.E. (1991). Brownian Motion [7] and Stochastic Calculus, 2nd Edition, Graduate Texts in Mathematics, Springer-Verlag, New York, Vol. 113.
+    </li>
+    <li block-type="ListItem">
+     [8] Karatzas, I. &amp; Shreve, S.E. (1998). Methods of Mathematical Finance, Applications of Mathematics (New York), Springer-Verlag, New York, Vol. 39.
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

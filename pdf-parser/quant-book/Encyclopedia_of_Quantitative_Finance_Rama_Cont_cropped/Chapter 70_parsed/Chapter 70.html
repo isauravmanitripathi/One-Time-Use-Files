@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Hedging
+  </h1>
+  <p block-type="Text">
+   In a complete market (see
+   <b>
+    Complete Markets
+   </b>
+   ) derivative securities are redundant in the sense that they can be replicated by the gains from trading via a self-financing admissible strategy in the underlying asset. This replicating strategy is then called the
+   <i>
+    hedging strategy
+   </i>
+   for the claim.
+  </p>
+  <p block-type="TextInlineMath">
+   More formally, we fix some filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{A}, (\mathcal{F}_t), P)
+   </math>
+   . The (discounted) price process of a risky asset is modeled by an
+   <math display="inline">
+    (\mathcal{F}_t)
+   </math>
+   -adapted semimartingale S. A claim B is an
+   <math display="inline">
+    \mathcal{F}_T
+   </math>
+   -measurable random variable, where
+   <math display="inline">
+    T
+   </math>
+   is the maturity of the claim.
+   <math display="inline">
+    B
+   </math>
+   is
+   <i>
+    attainable
+   </i>
+   if there exists a constant
+   <math display="inline">
+    c
+   </math>
+   and an admissible strategy
+   <math display="inline">
+    \vartheta
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B = c + \int_0^T \vartheta_t \, \mathrm{d}S_t \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The quintuple
+   <math display="inline">
+    (\Omega, \mathcal{A}, (\mathcal{F}_t), P, S)
+   </math>
+   models a financial market. A market is
+   <i>
+    complete
+   </i>
+   if all bounded claims are attainable. Finally, a market that is not complete is called
+   <i>
+    incomplete
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In case there exists an equivalent martingale measure (see Equivalent Martingale Measures) Q for
+   <math display="inline">
+    S
+   </math>
+   in a complete market, it must be unique according to some version of the second fundamental theorem of asset pricing (see Second Fundamental Theorem of Asset Pricing). Moreover, S has the predictable representation property (PRP) (see
+   <b>
+    Martingale Representation Theorem
+   </b>
+   ) with respect to (w.r.t.)
+   <math display="inline">
+    (Q, (\mathcal{F}_t))
+   </math>
+   , meaning that every
+   <math display="inline">
+    (Q, (\mathcal{F}_t))
+   </math>
+   martingale can be written as a sum of its initial value and a stochastic integral w.r.t. S. These facts can be used to show existence of an optimal hedging strategy as follows: we consider for each bounded claim
+   <math display="inline">
+    B
+   </math>
+   the associated
+   <math display="inline">
+    Q
+   </math>
+   -martingale
+   <math display="inline">
+    V
+   </math>
+   given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t = E_O \left[ B \, | \, \mathcal{F}_t \right], \qquad t \le T \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   By the PRP, there exists an admissible strategy
+   <math display="inline">
+    \vartheta
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t = V_0 + \int_0^t \vartheta_u \, \mathrm{d}S_u, \qquad t \le T \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In particular, for
+   <math display="inline">
+    t = T
+   </math>
+   , we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B = E_{\mathcal{Q}}[B] + \int_{0}^{T} \vartheta_{t} \, \mathrm{d}S_{t} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   To calculate
+   <math display="inline">
+    \vartheta
+   </math>
+   , note that we can express
+   <math display="inline">
+    \vartheta
+   </math>
+   as the (symbolic) differential of angle bracket processes
+   <math display="inline">
+    (w.r.t. Q),
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \vartheta_t = \frac{\mathrm{d}\left\langle V, S \right\rangle_t}{\mathrm{d}\left\langle S \right\rangle_t} \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   which then in turn can often be evaluated by assuming more specific structures for the price process
+   <math display="inline">
+    S
+   </math>
+   and the claim
+   <math display="inline">
+    B
+   </math>
+   .
+  </p>
+  <h3>
+   <b>
+    Ouadratic Risk Minimization
+   </b>
+  </h3>
+  <p block-type="Text">
+   In incomplete markets, one can in general not hedge a claim perfectly, and hence, there will always be some remaining risk which can be minimized according to various criteria. The Föllmer-Sondermann (FS) [5] approach consists in an orthogonal projection in
+   <math display="inline">
+    L^2(Q)
+   </math>
+   of a square-integrable claim B onto the subspace spanned by the constants and stochastic integrals w.r.t. the price process
+   <math display="inline">
+    S
+   </math>
+   (which we assume to be locally square-integrable). Here,
+   <math display="inline">
+    Q
+   </math>
+   is some martingale measure for
+   <math display="inline">
+    S
+   </math>
+   that has been obtained either
+   <i>
+    via
+   </i>
+   calibration or according to some optimality criterion.
+  </p>
+  <p block-type="TextInlineMath">
+   More precisely, given a claim
+   <math display="inline">
+    B \in L^2(Q, \mathcal{F}_T)
+   </math>
+   , we want to minimize
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_{Q}\left[\left(B-c-\int_{0}^{T}\vartheta_{t}\,\mathrm{d}S_{t}\right)^{2}\right] \qquad \qquad (6)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   over all constants c and all
+   <math display="inline">
+    \vartheta \in L^2(S)
+   </math>
+   , that is, predictable processes
+   <math display="inline">
+    \vartheta
+   </math>
+   , such that
+   <math display="inline">
+    E_Q \left[ \int_0^T \vartheta_t^2 \, \mathrm{d} \left[ S \right]_T \right]
+   </math>
+   <math display="inline">
+    &lt; \infty
+   </math>
+   . Hence, the goal is to project B onto the linear space
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K = \left\{ c + \int_0^T \vartheta_t \, \mathrm{d}S_t : \ c \in \mathbb{R}, \vartheta \in L^2(S) \right\} \subset L^2(Q) \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   For
+   <math display="inline">
+    \vartheta
+   </math>
+   as above we also denote
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_0 = \left\{ \int_0^T \vartheta_t \, \mathrm{d}S_t : \vartheta \in L^2(S) \right\} \subset L^2(Q) \qquad (8)
+   </math>
+  </p>
+  <p block-type="Text">
+   By its very construction, the stochastic integral yields an isometry (here, we understand
+   <math display="inline">
+    [S]
+   </math>
+   as the measure on
+   <math display="inline">
+    [0, T]
+   </math>
+   which is associated with the increasing process
+   <math display="inline">
+    [S]
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_0 \cong L^2 \left( \Omega \times [0, T], Q \otimes [S] \right) \tag{9}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_0^T \vartheta_t \, \mathrm{d}S_t \longleftrightarrow \vartheta \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   since we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_{\mathcal{Q}}\left[\left(\int_{0}^{T} \vartheta_{t} \, \mathrm{d}S_{t}\right)^{2}\right] = E_{\mathcal{Q}}\left[\int_{0}^{T} \vartheta_{t}^{2} \, \mathrm{d}\left[S\right]_{T}\right] \tag{11}
+   </math>
+  </p>
+  <p block-type="Text">
+   Hence,
+   <math display="inline">
+    K_0
+   </math>
+   is isometrically isomorphic to an
+   <math display="inline">
+    L^2
+   </math>
+   space and therefore closed. Therefore, we can apply the theorem about the orthogonal projection in the Hilbert spaces to get a decomposition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B = c^B + \int_0^T \vartheta_t^B \, \mathrm{d}S_t + L_T \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    L_T
+   </math>
+   is orthogonal to each element of
+   <math display="inline">
+    K
+   </math>
+   ; in particular,
+   <math display="inline">
+    E_0[L_T] = 0
+   </math>
+   since
+   <math display="inline">
+    1 \in K
+   </math>
+   . It follows that we have
+   <math display="inline">
+    c^{\widetilde{B}} = E_O[B]
+   </math>
+   , and
+   <math display="inline">
+    \vartheta^B
+   </math>
+   is called the FS optimal hedging strategy. As processes,
+   <math display="inline">
+    L_t :=
+   </math>
+   <math display="inline">
+    E[L_T|\mathcal{F}_t]
+   </math>
+   and S are strongly orthogonal in the sense that LS is a Q-martingale or equivalently,
+   <math display="inline">
+    \langle L, S \rangle =
+   </math>
+   0, where the predictable covariation
+   <math display="inline">
+    \langle ., . \rangle
+   </math>
+   here, refers to the measure
+   <math display="inline">
+    Q
+   </math>
+   . This implies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int \vartheta^B \, \mathrm{d}\langle V, \, S \rangle = \langle S, \, S \rangle \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    V_t := E_O[B|\mathcal{F}_t]
+   </math>
+   denotes the martingale generated by
+   <math display="inline">
+    B
+   </math>
+   . Moreover, a simple calculation yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_{\mathcal{Q}}[L_T^2] = E_{\mathcal{Q}} \bigg[ \langle V, V \rangle_T - \int_0^T (\vartheta_t^B)^2 \langle S, S \rangle_t \bigg] \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   Equation
+   <math display="inline">
+    (13)
+   </math>
+   is sometimes written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \vartheta^{B} = \frac{\mathrm{d}\langle V,\,S\rangle}{\mathrm{d}\langle S,\,S\rangle} \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   We call
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V = c^B + \int \vartheta^B \, \mathrm{d}S + L \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   the Galtchouk-Kunita-Watanabe (GKW) decomposition of
+   <math display="inline">
+    B
+   </math>
+   or rather
+   <math display="inline">
+    V
+   </math>
+   relative to
+   <math display="inline">
+    S
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In some models, one can compute the optimal (risk-minimizing) hedging strategy by solving a partial integro-differential equation [1] or by a generalized Clark-Ocone formula from Malliavin calculus [2].
+  </p>
+  <h4>
+   <b>
+    Utility-indifference Hedging
+   </b>
+  </h4>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    u
+   </math>
+   be some utility function defined on the whole real line. If there exists a number
+   <math display="inline">
+    \pi
+   </math>
+   satisfying
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sup_{\vartheta} E\left[u\left(x + \int_{0}^{T} \vartheta_{t} \, \mathrm{d}S_{t}\right)\right]
+   </math>
+   <math display="block">
+    = \sup_{\vartheta} E\left[u\left(x + \int_{0}^{T} \vartheta_{t} \, \mathrm{d}S_{t} + \pi - B\right)\right] (17)
+   </math>
+  </p>
+  <p block-type="Text">
+   then it is called
+   <i>
+    utility-indifference price
+   </i>
+   of the claim
+   <math display="inline">
+    B
+   </math>
+   . It is the threshold where the investor is indifferent whether just to maximize expected utility from a pure investment into the stock with the price process
+   <math display="inline">
+    S
+   </math>
+   or to sell in addition a claim
+   <math display="inline">
+    B
+   </math>
+   and collect a premium
+   <math display="inline">
+    \pi
+   </math>
+   for this.
+  </p>
+  <p block-type="Text">
+   The optimal strategies
+   <math display="inline">
+    \vartheta
+   </math>
+   on both sides of equation
+   <math display="inline">
+    (17)
+   </math>
+   typically differ. The difference
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \theta := \phi^B - \phi^0 \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   of the optimizers on the right- and the left-hand side respectively can be interpreted as a
+   <i>
+    utility-based
+   </i>
+   hedging strategy. It corresponds to the adjustment of the investor's portfolio made in order to account for the option.
+  </p>
+  <p block-type="Text">
+   Let us consider exponential utility
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(x) = 1 - \exp(-\alpha x) \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   . If
+   <math display="inline">
+    \theta^{\alpha}
+   </math>
+   denotes the exponential utilitybased hedging strategy corresponding to selling
+   <math display="inline">
+    \alpha
+   </math>
+   units of the claim
+   <math display="inline">
+    B
+   </math>
+   , then it turns out that under quite general conditions the associated normalized gains
+   <math display="inline">
+    \frac{1}{\alpha} \int_0^T \theta_t^{\alpha} dS_t
+   </math>
+   converge in
+   <math display="inline">
+    L^2(Q^0)
+   </math>
+   ,
+   <math display="inline">
+    Q^0
+   </math>
+   being the minimal entropy martingale measure, to
+   <math display="inline">
+    \int_0^T \vartheta_t^B dS_t
+   </math>
+   .&lt;br&gt;Here,
+   <math display="inline">
+    \vartheta^B
+   </math>
+   is the integrand coming from the GKW decomposition (12) w.r.t.
+   <math display="inline">
+    Q^0
+   </math>
+   ; see [6] and the references contained therein.
+  </p>
+  <h4>
+   <b>
+    Further Approaches to Hedging
+   </b>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   Ideally, one would like to find a hedging strategy that always allows one to superreplicate the claim
+   <math display="inline">
+    B.
+   </math>
+   Finding such a strategy is related to the optional decomposition theorem for supermartingales which are bounded from below. However, it turns out that pursuing such a
+   <i>
+    superhedging strategy
+   </i>
+   is too expensive in the sense that the corresponding price
+  </p>
+  <p block-type="TextInlineMath">
+   typically equals the highest price consistent with noarbitrage pricing, that is, it amounts to sup
+   <i>
+    <sup>
+     Q
+    </sup>
+    EQ
+   </i>
+   [
+   <i>
+    B
+   </i>
+   ], where the supremum is taken over all the equivalent martingale measures
+   <i>
+    Q
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Therefore, it has been proposed by Follmer and ¨ Leukert [3] to maximize the probability of a successful hedge given a certain amount of initial capital, a concept that they call
+   <i>
+    quantile hedging
+   </i>
+   . However, with this approach there is no protection for the worst case scenarios other than portfolio diversification, and technically, it might be difficult to implement this since it corresponds to hedging a knock-out option. The same authors [4], moreover, considered
+   <i>
+    efficient hedges
+   </i>
+   which minimize the expected shortfall weighted by some loss function. In this way, the investor may interpolate between the extremes of no hedge and a superhedge, depending on the accepted level of shortfall risk.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="Text">
+   [1] Cont R., Tankov P. &amp; Voltchkova E. (2007). Hedging with options in presence of jumps, in
+   <i>
+    Stochastic Analysis and Applications: The Abel Symposium 2005 in honor of Kiyosi Ito
+   </i>
+   , F.E. Benth, G. Di Nunno, T. Lindstrom, B. ksendal &amp; T. Zhang, eds, Springer, pp. 197–218.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Di Nunno, G. (2002). Stochastic integral representation, stochastic derivatives and minimal variance hedging,
+     <i>
+      Stochastics and Stochastics Reports
+     </i>
+     <b>
+      73
+     </b>
+     , 181–198.
+    </li>
+    <li block-type="ListItem">
+     [3] Follmer, H. &amp; Leukert, P. (1999). Quantile hedging, ¨
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      3
+     </b>
+     , 251–273.
+    </li>
+    <li block-type="ListItem">
+     [4] Follmer, H. &amp; Leukert, P. (2000). Efficient hedging: cost ¨ versus shortfall risk,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      4
+     </b>
+     , 117–146.
+    </li>
+    <li block-type="ListItem">
+     [5] Follmer, H. &amp; Sondermann, D. (1986). Hedging of non- ¨ redundant contingent claims. Contributions to mathematical economics, in
+     <i>
+      Honor of G. Debreu
+     </i>
+     , W. Hildenbrand &amp; A. Mas-Colell, eds, Elsevier Science Publications, North-Holland, pp. 205–223.
+    </li>
+    <li block-type="ListItem">
+     [6] Kallsen, J. &amp; Rheinlander, T. (2008). ¨
+     <i>
+      Asymptotic Utilitybased Pricing and Hedging for Exponential Utility
+     </i>
+     . Preprint.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Complete Markets
+   </b>
+   ;
+   <b>
+    Delta Hedging
+   </b>
+   ;
+   <b>
+    Equivalent Martingale Measures
+   </b>
+   ;
+   <b>
+    Mean–Variance Hedging
+   </b>
+   ;
+   <b>
+    Option Pricing: General Principles
+   </b>
+   ;
+   <b>
+    Second Fundamental Theorem of Asset Pricing
+   </b>
+   ;
+   <b>
+    Stochastic Integrals
+   </b>
+   ;
+   <b>
+    Superhedging
+   </b>
+   ;
+   <b>
+    Uncertain Volatility Model
+   </b>
+   ;
+   <b>
+    Utility Indifference Valuation
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   THORSTEN RHEINLANDER ¨
+  </p>
+ </body>
+</html>
