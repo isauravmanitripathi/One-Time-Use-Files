@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   Margrabe Formula
+  </h2>
+  <p block-type="TextInlineMath">
+   An exchange option gives its owner the right, but not the obligation, to exchange
+   <math display="inline">
+    b
+   </math>
+   units of one asset for
+   <math display="inline">
+    a
+   </math>
+   units of another asset at a specific point in time, that is, it is a claim that pays off
+   <math display="inline">
+    (aS_1(T)
+   </math>
+   <math display="inline">
+    bS_2(T)^+
+   </math>
+   at time T.
+  </p>
+  <p block-type="Text">
+   Outperformance option or Margrabe option are alternative names for the same payoff.
+  </p>
+  <p block-type="TextInlineMath">
+   Let us assume that the interest rate is constant
+   <math display="inline">
+    (r)
+   </math>
+   and that the underlying assets follow correlated (
+   <math display="inline">
+    dW_1 dW_2 = \rho dt
+   </math>
+   ) geometric Brownian motions under the risk-neutral measure.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_i = \mu_i S_i dt + \sigma_i S_i dW_i \quad \text{for } i = 1, 2 \quad (1)
+   </math>
+  </p>
+  <p block-type="Text">
+   Note that allowing
+   <math display="inline">
+    \mu_i
+   </math>
+   's that are different from r enables us to use resulting valuation formula for the exchange option directly in cases with nontrivial carrying costs on the underlying. This could be for futures (where the drift rate is 0), currencies (where the drift rate is the difference between domestic and foreign interest rates, see Foreign Exchange
+   <b>
+    Options
+   </b>
+   ), stocks with dividends (where the drift rate is
+   <math display="inline">
+    r
+   </math>
+   less the dividend yield), or nontraded quantities with convenience yields.
+  </p>
+  <p block-type="Text">
+   The value of the exchange option at time
+   <math display="inline">
+    t
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi^{EO}(t) = EO(T - t, aS_1(t), bS_2(t)) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the function EO is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    EO(\tau, S_1, S_2) = S_1 e^{(\mu_1 - r)\tau} \mathcal{N}(d_+) - S_2 e^{(\mu_2 - r)\tau} \mathcal{N}(d_-)
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_{\pm} = \frac{\ln(S_1/S_2) + (\mu_1 - \mu_2 \pm \sigma^2/2)\tau}{\sigma\sqrt{\tau}} \qquad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    \sigma = \sqrt{\sigma_1^2 + \sigma_2^2 - 2\sigma_1\sigma_2\rho}
+   </math>
+   ,
+   <math display="inline">
+    \mathcal{N}
+   </math>
+   denotes the standard normal distribution function and
+   <math display="inline">
+    \tau = T - t
+   </math>
+   . The formula was derived independently by Margrabe [12] and Fisher [6], but despite the two papers being published side by side in the Journal of Finance, the formula commonly bears only the former author's name. The result is most easily proven by using a
+  </p>
+  <p block-type="Text">
+   change of numeraire (see Change of Numeraire), writing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \pi^{\text{EO}}(t) = S_2(t) \mathbf{E}_t^{\mathcal{Q}^{S_2}} ((aS_1(T)/S_2(T) - b)^+) \quad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   noting that
+   <math display="inline">
+    S_1/S_2
+   </math>
+   follows a geometric Brownian motion, and reusing the Black-Scholes calculation for the mean of a truncated lognormal variable.
+  </p>
+  <p block-type="Text">
+   If the underlying asset prices are multiplied by a positive factor, then the exchange option's value changes by that same factor. This means that we can use Euler's homogeneous function theorem to read off the partial derivatives of the option value with respect to the underlying assets (the deltas) directly from the Margrabe formula (see [15] for more such tricks), specifically
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\text{dEO}}{\text{d}S_1} = \text{e}^{(\mu_1 - r)\tau} \mathcal{N}(\text{d}_+)
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   and similarly for
+   <math display="inline">
+    S_2
+   </math>
+   . If the S assets are traded, then a portfolio with these holdings (scaled by
+   <math display="inline">
+    a
+   </math>
+   and
+   <math display="inline">
+    b
+   </math>
+   ) that is made self-financing with the risk-free asset replicates the exchange option, and the Margrabe formula gives
+   <i>
+    the only
+   </i>
+   no-arbitrage price.
+  </p>
+  <p block-type="Text">
+   If the underlying assets do not pay dividends during the life of the exchange option (so that the risk-neutral drift rates are
+   <math display="inline">
+    \mu_1 = \mu_2 = r
+   </math>
+   ), then early exercise is never optimal, and the Margrabe formula holds for American options too. With nontrivial carrying costs, this is not true, but as noted by [2], a change of numeraire reduces the dimensionality of the problem so that standard one-dimensional methods for American option pricing can be used.
+  </p>
+  <p block-type="Text">
+   The Margrabe formula is still valid with stochastic interest rates, provided the factors that drive interest rates are independent of those driving the S assets.
+  </p>
+  <p block-type="Text">
+   Exchange options are most common in overthe-counter foreign exchange markets, but exchange features are embedded in many other financial contexts; mergers and acquisitions (see [12]) and indexed executive stock options (see
+   <math display="inline">
+    [9]
+   </math>
+   ) to give just two examples.
+  </p>
+  <h2>
+   Variations and Extensions
+  </h2>
+  <p block-type="Text">
+   Some variations of exchange options can be valued in closed form. In [10], a formula for a so-called traffic light option that pays
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (S_1(T) - K_1)^+(S_2(T) - K_2)^+ \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   is derived, and [4] gives a formula for the value of a compound exchange option, that is, a contract that pays
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (\pi^{\text{EO}}(T_C) - S_2(T_C))^+ \text{ at time } T_C &lt; T \qquad (8)
+   </math>
+  </p>
+  <p block-type="Text">
+   Both formulas involve the bivariate normal distribution function, and in the case of the compound exchange option a nonlinear but well-behaved equation that must be solved numerically.
+  </p>
+  <p block-type="Text">
+   For knock-in and knockout exchange options whose barriers are expressed in terms of the ratio of the two underlying assets, [7] show that the reflection-principle-based closed-form solutions (see [14]) from the Black-Scholes model carry over; this means that barrier option values can be expressed solely through the EO-function evaluated at appropriate points.
+  </p>
+  <p block-type="Text">
+   However, there are not always easy answers; in the simple case of a spread option
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (S_1(T) - S_2(T) - K)^+ \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   there is no commonly accepted closed-form solution. The reason for this is that a sum of lognormal variables is not lognormal. More generally, many financial valuation problems can be cast as follows: calculate the expected value of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(\sum_{i=1}^{n} \alpha_{i,n} X_{i,n} - K\right)^{+} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the
+   <math display="inline">
+    X_{i,n}
+   </math>
+   's are lognormally distributed. One can use generic techniques such as direct integration, numerical solution of partial differential equations, or Monte Carlo simulation, but there is an extensive literature on other approximation methods. These include
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     moment approximation, where the moments of
+     <math display="inline">
+      \sum_{i=1}^{n} \alpha_{i,n} X_{i,n}
+     </math>
+     are calculated, the variable then treated as lognormal, and the option priced by a Black-Scholes-like formula; an application to Asian options is given in
+     <math display="inline">
+      [11]
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     integration by Fourier transform techniques, which extends beyond lognormal models and works well if
+     <i>
+      n
+     </i>
+     is not too large (say
+     <math display="inline">
+      2-4
+     </math>
+     ); an application to spread options is given in
+     <math display="inline">
+      [1]
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     limiting results for
+     <math display="inline">
+      n \to \infty
+     </math>
+     as obtained in [5] and [13]; the relation to the reciprocal gamma
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   distribution has been used for Asian and basket options.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     changing to Gaussian processes as suggested in [3]; this may be suitable for commodity markets where spread contracts are popular, and it allows for the inclusion of mean reversion.
+    </li>
+    <li block-type="ListItem">
+     if the
+     <math display="inline">
+      a_{i,n}X_{i,n}
+     </math>
+     's depend monotonically on a common random variable, then Jamshidian's approach from
+     <math display="inline">
+      [8]
+     </math>
+     can be used to decompose an option on a portfolio into a portfolio of simpler options. This is used to value options on coupon-bearing bonds in one-factor interest-rate models.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Alexander, C. &amp; Scourse, A. (2004). Bivariate normal [1] mixture spread option valuation, Quantitative Finance 4, 637-648.
+    </li>
+    <li block-type="ListItem">
+     Bjerksund, P. &amp; Stensland, G. (1993). American [2] exchange options and a put-call transformation: a note, Journal of Business, Finance and Accounting 20, 761-764.
+    </li>
+    <li block-type="ListItem">
+     Carmona, R. &amp; Durrleman, V. (2003). Pricing and [3] hedging spread options, SIAM Review 45, 627-685.
+    </li>
+    <li block-type="ListItem">
+     Carr, P. (1988). The valuation of sequential exchange [4] opportunities, Journal of Finance 43, 1235-1256.
+    </li>
+    <li block-type="ListItem">
+     Dufresne, D. (2004). The log-normal approximation in [5] financial and other computations, Advances in Applied Probability 36, 747-773.
+    </li>
+    <li block-type="ListItem">
+     Fischer, S. (1978). Call option pricing when the exercise [6] price is uncertain, and the valuation of index bonds, Journal of Finance, 33, 169-176.
+    </li>
+    <li block-type="ListItem">
+     [7] Haug, E.G. &amp; Haug, J. (2002). Knock-in/out Margrabe, Wilmott Magazine 1, 38-41.
+    </li>
+    <li block-type="ListItem">
+     Jamshidian, F. (1989). An exact bond option formula, [8] Journal of Finance 44, 205-209.
+    </li>
+    <li block-type="ListItem">
+     Johnson, S.A. &amp; Tian, Y.S. (2001). Indexed execu-[9] tive stock options, Journal of Financial Economics 57, 35-64.
+    </li>
+    <li block-type="ListItem">
+     [10] Jørgensen, P.L. (2007). Traffic light options, Journal of Banking and Finance 31, 3698-3719.
+    </li>
+    <li block-type="ListItem">
+     [11] Levy, E. (1992). Pricing European average rate currency options, Journal of International Money and Finance
+     <math display="inline">
+      11(5), 474-491.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [12] Margrabe, W. (1978). The value of an option to exchange one asset for another, Journal of Finance 33, 177-186.
+    </li>
+    <li block-type="ListItem">
+     [13] Milevsky, M.A. &amp; Posner, S.E. (1998). Asian options, the sum of lognormals, and the reciprocal gamma distribution, Journal of Financial and Quantitative Analysis 33, 409-422.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [14] Poulsen, R. (2006). Barrier options and their static hedges: simple derivations and extensions,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      6
+     </b>
+     , 327–335.
+    </li>
+    <li block-type="ListItem">
+     [15] Reiss, O. &amp; Wystup, U. (2001). Efficient computation of options price sensitivities using homogeneity and other tricks,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      9
+     </b>
+     , 41–53.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <b>
+    Related Articles
+   </b>
+  </p>
+  <p block-type="Text">
+   <b>
+    Black–Scholes Formula
+   </b>
+   ;
+   <b>
+    Change of Numeraire
+   </b>
+   ;
+   <b>
+    Exchange Options
+   </b>
+   ;
+   <b>
+    Foreign Exchange Options
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ROLF POULSEN
+  </p>
+ </body>
+</html>

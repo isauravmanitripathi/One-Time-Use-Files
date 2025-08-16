@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Foreign Exchange Basket
+   </b>
+   Options
+  </h1>
+  <p block-type="Text">
+   Quite often, corporate and institutional currency managers are faced with an exposure in more than one currency. Generally, these exposures would be hedged using individual strategies for each currency. These strategies are composed of spot transactions, forwards, and, in many cases, options on a single currency. Nevertheless, there are instruments that include several currencies, and these can be used to build a multicurrency strategy that is almost always cheaper than the portfolio of the individual strategies. As a leading example, we explain basket options in detail.&lt;sup&gt;a&lt;/sup&gt;
+  </p>
+  <h4>
+   <b>
+    Basket Options
+   </b>
+  </h4>
+  <p block-type="Text">
+   Basket options are derivatives based on a common base currency, say EUR and several other risky currencies. The option is actually written on the basket of risky currencies. Basket options are European options paying the difference between the basket value and the strike, if positive, for a basket call, or the difference between strike and basket value, if positive, for a basket put, respectively, at maturity. The risky currencies have different weights in the basket to reflect the details of the exposure.
+  </p>
+  <p block-type="Text">
+   For example, a basket call on two currencies USD and JPY pays off
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \max\left(a_1\frac{S_1(T)}{S_1(0)} + a_2\frac{S_2(T)}{S_2(0)} - K; 0\right) \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   at maturity T, where
+   <math display="inline">
+    S_1(t)
+   </math>
+   denotes the exchange rate of EUR/USD and
+   <math display="inline">
+    S_2(t)
+   </math>
+   denotes the exchange rate of EUR/JPY at time t,
+   <math display="inline">
+    a_i
+   </math>
+   the corresponding weights, and
+   <math display="inline">
+    K
+   </math>
+   the strike.
+  </p>
+  <p block-type="Text">
+   A basket option protects against a drop in both currencies at the same time. Individual options on each currency cover some cases, which are not protected by a basket option (shaded triangular areas in Figure 1) and that is why they cost more than a basket.
+  </p>
+  <p block-type="Text">
+   The ellipsoids connect the points that are reached with the same probability assuming that the forward prices are at the center.
+  </p>
+  <h4>
+   <b>
+    Pricing Basket Options
+   </b>
+  </h4>
+  <p block-type="Text">
+   Basket options should be priced in a consistent way with plain vanilla options. Hence the basic model assumption is a lognormal process for the individual correlated basket components. A decomposition into uncorrelated components of the exchange rate processes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_i = \mu_i S_i dt + S_i \sum_{j=1}^N \Omega_{ij} dW_j \qquad (2)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is the basis for pricing. Here
+   <math display="inline">
+    \mu_i
+   </math>
+   denotes the difference between the foreign and the domestic interest rate of the
+   <i>
+    i
+   </i>
+   th currency pair and
+   <math display="inline">
+    dW_i
+   </math>
+   the
+   <i>
+    j
+   </i>
+   th component of independent Brownian increments. The covariance matrix is given by
+   <math display="inline">
+    C_{ij} = (\Omega \Omega^{\text{T}})_{ij} = \rho_{ij} \sigma_i \sigma_j
+   </math>
+   . Here
+   <math display="inline">
+    \sigma_i
+   </math>
+   denotes the volatility of the
+   <i>
+    i
+   </i>
+   th currency pair and
+   <math display="inline">
+    \rho_{ij}
+   </math>
+   the correlation coefficients.
+  </p>
+  <h4>
+   Exact Method
+  </h4>
+  <p block-type="Text">
+   Starting with the uncorrelated components, the pricing problem is reduced to the
+   <math display="inline">
+    N
+   </math>
+   -dimensional integration of the payoff. This method is accurate but rather slow for more than two or three basket components.
+  </p>
+  <h4>
+   A Simple Approximation
+  </h4>
+  <p block-type="TextInlineMath">
+   A simple approximation method assumes that the basket spot itself is a lognormal process with drift
+   <math display="inline">
+    \mu
+   </math>
+   and volatility
+   <math display="inline">
+    \sigma
+   </math>
+   driven by a Wiener Process
+   <math display="inline">
+    W(t)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS(t) = S(t)[\mu \, dt + \sigma \, dW(t)] \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   with solution
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S(T) = S(t)e^{\sigma W(T-t) + (\mu - 1/2\sigma^2)(T-t)}
+   </math>
+   (4)
+  </p>
+  <p block-type="Text">
+   given we know the spot
+   <math display="inline">
+    S(t)
+   </math>
+   at time t. It is a fact that the sum of lognormal processes is not lognormal itself, but as a crude approximation, it is certainly a quick method that is easy to implement. To price the basket call, the drift and the volatility of the basket spot need to be determined. This is done by matching the first and second moment of the basket spot with the first and second moment of the lognormal model for the basket spot. The moments of lognormal spot are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E(S(T)) = S(t)e^{\mu(T-t)}
+   </math>
+   <br/>
+   <math display="block">
+    E(S(T)^{2}) = S(t)^{2}e^{(2\mu+\sigma^{2})(T-t)}
+   </math>
+   (5)
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Basket-payoff and contour lines for probabilities
+  </p>
+  <p block-type="Text">
+   We solve these equations for the drift and volatility:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mu = \frac{1}{T - t} \ln\left(\frac{E(S(T))}{S(t)}\right)
+   </math>
+   <math display="block">
+    \sigma = \sqrt{\frac{1}{T - t} \ln\left(\frac{E(S(T)^{2})}{E(S(T))^{2}}\right)} \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   In these formulae we now use the moments for the basket spot:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathbf{E}(S(T)) &amp;= \sum_{i=1}^{N} \alpha_i S_i(t) \mathbf{e}^{\mu_i(T-t)} \\ \mathbf{E}(S(T)^2) &amp;= \sum_{i,j=1}^{N} \alpha_i \alpha_j S_i(t) S_j(t) \\ &amp;\quad \times \mathbf{e}^{\left(\mu_i + \mu_j + \sum_{k=1}^{N} \Omega_{ki} \Omega_{jk}\right)(T-t)} \end{split} \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   The pricing formula is the well-known Black-Scholes-Merton formula for plain vanilla call options:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \upsilon(0) &amp;= \mathsf{e}^{-r_d T} \left( F \mathbf{N}(d_+) - K \mathbf{N}(d_-) \right) \\ F &amp;= S(0) \mathsf{e}^{\mu T} \\ d_{\pm} &amp;= \frac{1}{\sigma \sqrt{T}} \left( \ln \left( \frac{F}{K} \right) \pm \frac{1}{2} \sigma^2 T \right) \end{aligned} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   Here
+   <math display="inline">
+    N
+   </math>
+   denotes the cumulative normal distribution function and
+   <math display="inline">
+    r_d
+   </math>
+   the domestic interest rate.
+  </p>
+  <h4>
+   A More Accurate and Equally Fast Approximation
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   The previous approach can be taken one step further by introducing one more term in the Itô-Taylor
+  </p>
+  <p block-type="TextInlineMath">
+   expansion of the basket spot, which results in
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \upsilon(0) &amp;= \mathsf{e}^{-r_d T} \left( F \mathbf{N}(d_1) - K \mathbf{N}(d_2) \right) \\ F &amp;= \frac{S(0)}{\sqrt{\eta}} \mathsf{e}^{\left(\mu - \lambda/2 + (\lambda \sigma^2/2(\eta))\right) T} \\ d_2 &amp;= \frac{\sigma - \sqrt{\sigma^2 + \lambda \left( (1 + (\lambda/\eta)) \sigma^2 T - 2\ln(F\sqrt{\eta}/K) \right)}}{\sqrt{T} \lambda} \\ d_1 &amp;= \sqrt{\eta} d_2 + \frac{\sigma \sqrt{T}}{\sqrt{\eta}} \end{split} \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \eta = 1 - \lambda T
+   </math>
+  </p>
+  <p block-type="Text">
+   The new parameter
+   <math display="inline">
+    \lambda
+   </math>
+   is determined by matching the third moment of the basket spot and the model spot. For details, see [1].
+  </p>
+  <p block-type="Text">
+   Most remarkably, this major improvement in the accuracy only requires a marginal additional computation effort.
+  </p>
+  <h1>
+   <b>
+    Correlation Risk
+   </b>
+  </h1>
+  <p block-type="Text">
+   Correlation coefficients between market instruments are usually not obtained easily. Either historical data analysis or implied calibrations need to be done. However, in the foreign exchange (FX) market, the cross instrument is traded as well. For instance, in the example above, USD/JPY spot and options are traded, and the correlation can be determined from this contract. In fact, denoting the volatilities as in the tetrahedron (Figure 2), we obtain formulae for the correlation coefficients in terms of known market implied volatilities:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho_{12} = \frac{\sigma_3^2 - \sigma_1^2 - \sigma_2^2}{2\sigma_1\sigma_2}
+   </math>
+   <math display="block">
+    \rho_{34} = \frac{\sigma_1^2 + \sigma_6^2 - \sigma_2^2 - \sigma_5^2}{2\sigma_3\sigma_4} \tag{10}
+   </math>
+  </p>
+  <p>
+   <img src="_page_1_Figure_20.jpeg"/>
+  </p>
+  <p>
+   Figure 2 Currency tetrahedron including cross contracts
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Table 1
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      GBP/USD
+     </td>
+     <td>
+      8.9%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      USD/JPY
+     </td>
+     <td>
+      10.1%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      GBP/JPY
+     </td>
+     <td>
+      9.8%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      EUR/USD
+     </td>
+     <td>
+      10.5%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      EUR/GBP
+     </td>
+     <td>
+      7.5%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      EUR/JPY
+     </td>
+     <td>
+      10.0%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      FX implied volatilities for three
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   month at-the-money vanilla options as of November 23, 2001.
+   <i>
+    Source
+   </i>
+   : Reuters
+  </p>
+  <p block-type="Text">
+   This method also allows hedging correlation risk by trading FX implied volatility. For details see [1].
+  </p>
+  <h1>
+   <b>
+    Practical Example
+   </b>
+  </h1>
+  <p block-type="Text">
+   To find out how much one can save using a basket option, we take EUR as a base currency and consider a basket of three currencies USD, GBP, and JPY. For the volatilities, we take the values in Table 1.
+  </p>
+  <p block-type="Text">
+   The resulting correlation coefficients are given in Table 2.
+  </p>
+  <p block-type="Text">
+   The amount of option premium one can save using a basket call rather than three individual call options is illustrated in Table 3.
+  </p>
+  <p block-type="Text">
+   The amount of premium saved essentially depends on the correlation of the currency pairs (Figure 3). In Figure 3, we take the parameters of the previous scenario, but restrict ourselves to the currencies USD and JPY.
+  </p>
+  <h1>
+   <b>
+    Upper Bound by Vanilla Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   It is actually clear that the price of the two vanilla options in the previous example is an upper bound of the basket option price. It seems intuitively clear that for a correlation of 100% the price is the same.
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Table 3
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Base currency
+     </th>
+     <th>
+      EUR
+     </th>
+     <th>
+      Interest rate
+     </th>
+     <th>
+      4.0%
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Nominal in EUR
+     </td>
+     <td>
+      39 007
+     </td>
+     <td>
+      Strike K
+     </td>
+     <td>
+      1
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Currencies
+     </td>
+     <td>
+      USD
+     </td>
+     <td>
+      JPY
+     </td>
+     <td>
+      GBP
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Nominals
+     </td>
+     <td>
+      29%
+     </td>
+     <td>
+      30%
+     </td>
+     <td>
+      41%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1/spot
+     </td>
+     <td>
+      1.1429
+     </td>
+     <td>
+      0.00919
+     </td>
+     <td>
+      1.6091
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Spot
+     </td>
+     <td>
+      0.8750
+     </td>
+     <td>
+      108.81
+     </td>
+     <td>
+      0.6215
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Strikes (in EUR)
+     </td>
+     <td>
+      1.1432
+     </td>
+     <td>
+      0.00927
+     </td>
+     <td>
+      1.5985
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Volatilities
+     </td>
+     <td>
+      10.5%
+     </td>
+     <td>
+      10.0%
+     </td>
+     <td>
+      7.5%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Interest rates
+     </td>
+     <td>
+      4.0%
+     </td>
+     <td>
+      0.5%
+     </td>
+     <td>
+      7.0%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      BS-values (in EUR)
+     </td>
+     <td>
+      235
+     </td>
+     <td>
+      227
+     </td>
+     <td>
+      233
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Basket value
+     </td>
+     <td>
+      563
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Sum of individuals
+     </td>
+     <td>
+      695
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   Comparison of a basket call with three currencies for a maturity of three months
+   <i>
+    versus
+   </i>
+   the cost of three individual call options
+  </p>
+  <p>
+   <img src="_page_2_Figure_13.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 3
+   </b>
+   Premium of basket option versus premium of option strategy depending on the correlation
+  </p>
+  <p block-type="Text">
+   Surprisingly, this is just the case if a specific relation between the strike of the individual options and their volatilities is satisfied. The basket strike has to satisfy
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K = a_1 \frac{K_1}{S_1(0)} + a_2 \frac{K_2}{S_2(0)}
+   </math>
+   (11)
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      GBP/USD (%)
+     </th>
+     <th>
+      USD/JPY (%)
+     </th>
+     <th>
+      GBP/JPY (%)
+     </th>
+     <th>
+      EUR/USD (%)
+     </th>
+     <th>
+      EUR/GBP (%)
+     </th>
+     <th>
+      EUR/JPY (%)
+     </th>
+    </tr>
+    <tr>
+     <td>
+      GBP/USD
+     </td>
+     <td>
+      100
+     </td>
+     <td>
+      −47
+     </td>
+     <td>
+      42
+     </td>
+     <td>
+      71
+     </td>
+     <td>
+      −19
+     </td>
+     <td>
+      27
+     </td>
+    </tr>
+    <tr>
+     <td>
+      USD/JPY
+     </td>
+     <td>
+      −47
+     </td>
+     <td>
+      100
+     </td>
+     <td>
+      60
+     </td>
+     <td>
+      −53
+     </td>
+     <td>
+      −18
+     </td>
+     <td>
+      45
+     </td>
+    </tr>
+    <tr>
+     <td>
+      GBP/JPY
+     </td>
+     <td>
+      42
+     </td>
+     <td>
+      60
+     </td>
+     <td>
+      100
+     </td>
+     <td>
+      10
+     </td>
+     <td>
+      −36
+     </td>
+     <td>
+      71
+     </td>
+    </tr>
+    <tr>
+     <td>
+      EUR/USD
+     </td>
+     <td>
+      71
+     </td>
+     <td>
+      −53
+     </td>
+     <td>
+      10
+     </td>
+     <td>
+      100
+     </td>
+     <td>
+      55
+     </td>
+     <td>
+      52
+     </td>
+    </tr>
+    <tr>
+     <td>
+      EUR/GBP
+     </td>
+     <td>
+      −19
+     </td>
+     <td>
+      −18
+     </td>
+     <td>
+      −36
+     </td>
+     <td>
+      55
+     </td>
+     <td>
+      100
+     </td>
+     <td>
+      40
+     </td>
+    </tr>
+    <tr>
+     <td>
+      EUR/JPY
+     </td>
+     <td>
+      27
+     </td>
+     <td>
+      45
+     </td>
+     <td>
+      71
+     </td>
+     <td>
+      52
+     </td>
+     <td>
+      40
+     </td>
+     <td>
+      100
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="TextInlineMath">
+   <b>
+    Table 2
+   </b>
+  </p>
+  <p block-type="Text">
+   FX implied three-month correlation coefficients as of Nov 23, 2001
+  </p>
+  <p block-type="Text">
+   which leads to the natural choice
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_i = K \frac{S_i(0)}{a_1 + a_2} \tag{12}
+   </math>
+  </p>
+  <p block-type="Text">
+   Each strike
+   <i>
+    Ki
+   </i>
+   satisfies the above constraint by choosing
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_i = S_i(0)e^{(\mu_i + 1/2\sigma_i^2)T + \chi \sigma_i \sqrt{T}}
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   for some arbitrary, but common
+   <i>
+    χ
+   </i>
+   for all basket components.
+  </p>
+  <h1>
+   <b>
+    Smile Adjustment
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   For the pricing method, described there is no smile considered. Given the volatility smile for vanilla options,
+   <i>
+    σ
+   </i>
+   i
+   <i>
+    (K, T )
+   </i>
+   , with the same maturity as the basket option, the implied density
+   <i>
+    P
+   </i>
+   for each currency pair in the basket can be derived from vanilla prices
+   <i>
+    V
+   </i>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(K,T) = e^{rT} \partial_{KK} V(K,\sigma_i(K,T)) \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   A mapping
+   <i>
+    ϕ(w)
+   </i>
+   can be derived that maps the Gaussian random numbers to smile-adjusted random numbers for each currency pair. The implicit construction solves the problem for the probability of the mapped Brownian to be the same as the smile-implied probability.
+  </p>
+  <p block-type="Text">
+   Using Monte Carlo simulation to price vanilla options using the mapping, it can be shown that in the limit, the derived prices are perfectly in line with the smile. The formula for the Monte Carlo simulation for a realization of a Brownian
+   <i>
+    w
+   </i>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_i(0, w) = S_i(0)e^{(\mu_i + 1/2\sigma_i^2)T + \varphi(w)\sigma_i\sqrt{T}}
+   </math>
+   (15)
+  </p>
+  <p block-type="Text">
+   To price the basket option using the smile in Monte Carlo, a sequence of independent random numbers is used. These random numbers are correlated using the square-root matrix  as above and these are fed into the individual mappings, hence generating the simulated spot at the basket maturity. Evaluating the payoff and averaging will generate a smile-adjusted price (see Table 4). Black–Scholes prices and smile-adjusted prices are shown next to each other for a direct comparison.
+  </p>
+  <h1>
+   <b>
+    Conclusion
+   </b>
+  </h1>
+  <p block-type="Text">
+   Many corporate portfolios are exposed to multicurrency risk. One way to turn this fact into an advantage
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Table 4
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Base currency
+     </th>
+     <th>
+      EUR
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Nominal in EUR
+     </td>
+     <td>
+      39 007
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Currencies
+     </td>
+     <td>
+      USD
+     </td>
+     <td>
+      JPY
+     </td>
+     <td>
+      GBP
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Nominals
+     </td>
+     <td>
+      29%
+     </td>
+     <td>
+      30%
+     </td>
+     <td>
+      41%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      RR 25d
+     </td>
+     <td>
+      −0.25%
+     </td>
+     <td>
+      −4.30%
+     </td>
+     <td>
+      1.10%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Fly 25d
+     </td>
+     <td>
+      0.30%
+     </td>
+     <td>
+      0.17%
+     </td>
+     <td>
+      0.25%
+     </td>
+    </tr>
+    <tr>
+     <td>
+      BS-values (in EUR)
+     </td>
+     <td>
+      235
+     </td>
+     <td>
+      227
+     </td>
+     <td>
+      233
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Smile values (in EUR)
+     </td>
+     <td>
+      233
+     </td>
+     <td>
+      168
+     </td>
+     <td>
+      278
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Basket smile value
+     </td>
+     <td>
+      554
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Sum of individuals (smile)
+     </td>
+     <td>
+      680
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Basket value
+     </td>
+     <td>
+      563
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Sum of individuals
+     </td>
+     <td>
+      695
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   is to use multicurrency hedge instruments. We have shown that basket options are convenient instruments protecting against exchange rates of most of the basket components changing in the
+   <i>
+    same
+   </i>
+   direction. A rather unlikely market move of half of the currencies' exchange rates in
+   <i>
+    opposite
+   </i>
+   directions is not protected by basket options, but when taking this residual risk into account, the hedging cost is reduced substantially. The smile impact on the basket value can be calculated rather easily without referring to a specific model, because the product is path-independent.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   This article is an extension of "Hakala, J. &amp; Wystup, U. (2002)
+   <i>
+    Making the most out of Multiple Currency Exposure: Protection with Basket Options
+   </i>
+   ,
+   <i>
+    The Euromoney Foreign Exchange and Treasury Management Handbook 2002
+   </i>
+   , Adrian Hornbrook."
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="Text">
+   [1] Hakala, J. &amp; Wystup, U. (2001).
+   <i>
+    Foreign Exchange Risk
+   </i>
+   , Risk Publications, London.
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Wystup, U. (2006).
+   <i>
+    FX Options and Structured Products
+   </i>
+   , Wiley.
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <h4>
+   <b>
+    Basket Options
+   </b>
+   .
+  </h4>
+  <p block-type="Text">
+   JURGEN ¨ HAKALA &amp; UWE WYSTUP
+  </p>
+ </body>
+</html>

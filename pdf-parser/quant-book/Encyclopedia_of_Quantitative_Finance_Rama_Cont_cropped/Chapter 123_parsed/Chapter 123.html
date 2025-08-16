@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   Gamma Swap
+  </h1>
+  <p block-type="Text">
+   A gamma swap on an underlying
+   <math display="inline">
+    Y
+   </math>
+   is a
+   <i>
+    weighted
+   </i>
+   variance swap (see Weighted Variance Swap) on
+   <math display="inline">
+    \log Y
+   </math>
+   , with weight function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    w(y) := y/Y_0 \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   In practice, the gamma swap monitors
+   <math display="inline">
+    Y
+   </math>
+   discretely, typically daily, for some number of periods
+   <math display="inline">
+    N
+   </math>
+   , annualizes by a factor such as
+   <math display="inline">
+    252/N
+   </math>
+   , and multiplies by notional, for a total payoff
+  </p>
+  <p block-type="Equation">
+   Notional × Annualization ×
+   <math display="block">
+    \sum_{n=1}^{N} \frac{Y_n}{Y_0} \left( \log \frac{Y_n}{Y_{n-1}} \right)^2
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   If the contract makes dividend adjustments (as typical for single-stock gamma swaps but not index gamma swaps), then the term inside the parentheses becomes
+   <math display="inline">
+    \log((Y_n + D_n)/Y_{n-1})
+   </math>
+   , where
+   <math display="inline">
+    D_n
+   </math>
+   denotes the dividend payment, if any, of the
+   <math display="inline">
+    n
+   </math>
+   th period.
+  </p>
+  <p block-type="Text">
+   Gamma swaps allow investors to acquire variance exposures proportional to the underlying level. One application is dispersion trading of a basket's volatility against its components' single-name volatilities; as a component's value increases, its proportion of the total basket value also increases and, hence, so does the desired volatility exposure of the singlename contract. This variable exposure to volatility is provided by gamma swaps, according to point 1 of the "Further Properties" below. A second application is to trade the volatility skew; for example, to express a view that the skew slopes too steeply downward, the investor can go long a gamma swap and short a variance swap, to create a weighting
+   <math display="inline">
+    y/Y_0 - 1
+   </math>
+   , which is short downside variance and long upside variance. A third application is to trade single-stock variance without the caps often embedded in variance swaps to protect the seller from crash risk; in a gamma swap, the weighting inherently dampens the downside variance, so caps are typically regarded as unnecessary.
+  </p>
+  <h3>
+   <b>
+    Model-free Replication and Valuation
+   </b>
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   The continuously monitored gamma swap admits model-free replication by a static position in options
+  </p>
+  <p block-type="Text">
+   and dynamic trading of shares, under conditions specified in
+   <b>
+    Weighted Variance Swap
+   </b>
+   , which include all positive continuous semimartingale share prices
+   <math display="inline">
+    Y
+   </math>
+   under deterministic interest rates and proportional dividends.
+  </p>
+  <p block-type="Text">
+   Explicitly, one replicates by using equation
+   <math display="inline">
+    (7)
+   </math>
+   of the above article, with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \lambda(y) = \frac{2}{Y_0} \left[ y \log(y/\kappa) - y + \kappa \right]
+   </math>
+   <math display="block">
+    = \int_0^\infty \frac{2}{Y_0 K} \text{Van}(y, K) \, \text{d}K \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \text{Van}(y, K) := (K - y)^+ \mathbb{1}_{K &lt; \kappa} + (y - K)^+ \mathbb{1}_{K &gt; \kappa}
+   </math>
+   for an arbitrary put/call separator
+   <math display="inline">
+    \kappa
+   </math>
+   . Forms of this payoff were derived in, for instance, [2, 3].
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, in the case that the interest rate equals the dividend yield (otherwise, see the weighted variance swap article), a replicating portfolio statically holds
+   <math display="inline">
+    2/(Y_0K)
+   </math>
+   dK vanilla calls or puts at each strike
+   <math display="inline">
+    K
+   </math>
+   . The gamma swap model independently has the same initial value as a claim on the time-T payoff
+   <math display="inline">
+    \lambda(Y_T) - \lambda(Y_0)
+   </math>
+   . Additionally, the replication strategy trades shares dynamically according to a "zero-vol" delta-hedge, meaning that its share holding equals the negative of what would be the European portfolio's delta under zero volatility.
+  </p>
+  <h3>
+   <b>
+    Further Properties
+   </b>
+  </h3>
+  <p block-type="Text">
+   Points
+   <math display="inline">
+    2-5
+   </math>
+   follow from equation 3. Point 1 uses only the definition 1.
+  </p>
+  <p block-type="Text">
+   1. For an index
+   <math display="inline">
+    Y_t := \sum_{j=1}^J \theta_j Y_{j,t}
+   </math>
+   , let
+   <math display="inline">
+    \alpha_{j,t} := \theta_j Y_{j,t} / Y_t
+   </math>
+   be the fraction of total index value due to the quantity
+   <math display="inline">
+    \theta_j
+   </math>
+   of the jth component
+   <math display="inline">
+    Y_{j,t}
+   </math>
+   . Define the cumulative
+   <i>
+    dispersion
+   </i>
+   <math display="inline">
+    D_t
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dD_t = \sum_{j=1}^{J} \alpha_{j,t} d[\log Y_j]_t - d[\log Y]_t \qquad (4)
+   </math>
+  </p>
+  <p block-type="Text">
+   Going long
+   <math display="inline">
+    \alpha_{i,0}
+   </math>
+   gamma swaps (non-dividendadjusted) on each
+   <math display="inline">
+    Y_i
+   </math>
+   and short a gamma swap on
+   <math display="inline">
+    Y
+   </math>
+   creates the payoff
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{j=1}^{J} \alpha_{j,0} \int_{0}^{T} \frac{Y_{j,t}}{Y_{j,0}} \, \mathrm{d}[\log Y_{j}]_{t} - \int_{0}^{T} \frac{Y_{t}}{Y_{0}} \, \mathrm{d}[\log Y]_{t}
+   </math>
+   <math display="block">
+    = \int_{0}^{T} \frac{Y_{t}}{Y_{0}} \, \mathrm{d}D_{t} \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   as noted in [2]. Hence, a static combination of gamma swaps produces cumulative indexweighted dispersion.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     2. By Corollary 2.7 in [1], if the implied volatility smile is symmetric in log-moneyness, and the dividend yield equals the interest rate
+     <math display="inline">
+      (q_t = r_t)
+     </math>
+     , and there are no discrete dividends, then a gamma swap has the same value as a variance swap.
+    </li>
+    <li block-type="ListItem">
+     3. Assuming that
+     <math display="inline">
+      Y_T = Y_t R_{t,T}
+     </math>
+     for all t, where the time-
+     <i>
+      t
+     </i>
+     conditional distribution of each
+     <math display="inline">
+      R_{t,T}
+     </math>
+     does not depend on
+     <math display="inline">
+      Y_t
+     </math>
+     , the gamma swap has time-
+     <math display="inline">
+      t
+     </math>
+     gamma equal to a discounting/ dividend-dependent factor times
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{2}{Y_0} \mathbb{E}_t \left( \frac{\partial^2}{\partial y^2} \bigg|_{y=Y_t} y R_{t,T} \log(y R_{t,T}) \right) = \frac{2 \mathbb{E}_t R_{t,T}}{Y_0 Y_t}
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \mathbb{E}
+   </math>
+   denotes expectation with respect to martingale measure. Therefore, the share gamma, defined to be
+   <math display="inline">
+    Y_t
+   </math>
+   times the gamma, does not depend on
+   <math display="inline">
+    Y_t
+   </math>
+   . This property motivates the term gamma swap.
+  </p>
+  <p block-type="Text">
+   4. Within the family of weight functions proportional to
+   <math display="inline">
+    w(y) = y^n
+   </math>
+   , the gamma swap takes
+   <math display="inline">
+    n = 1
+   </math>
+   . In that sense, the gamma swap is intermediate between the usual logarithmic variance swap (which takes
+   <math display="inline">
+    n = 0
+   </math>
+   ) and an arithmetic variance swap (which, in effect, takes
+   <math display="inline">
+    n = 2
+   </math>
+   ).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Expressed in terms of put and call holdings, the replicating portfolios in these three cases
+  </p>
+  <p block-type="TextInlineMath">
+   hold, at each strike
+   <math display="inline">
+    K
+   </math>
+   , a quantity proportional to
+   <math display="inline">
+    K^{n-2}
+   </math>
+   . The gamma swap
+   <math display="inline">
+    O(1/K)
+   </math>
+   is intermediate between logarithmic variance
+   <math display="inline">
+    O(1/K^2)
+   </math>
+   and arithmetic variance
+   <math display="inline">
+    O(1)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   5. Let F be the characteristic function of
+   <math display="inline">
+    \log Y_T
+   </math>
+   . If
+   <math display="inline">
+    \mathbb{E}Y_{T}^{p} &lt; \infty
+   </math>
+   for some
+   <math display="inline">
+    p &gt; 1
+   </math>
+   then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}Y_T \log Y_T = -iF'(-i) \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   Gamma swap valuations are therefore directly computable in continuous models for which
+   <math display="inline">
+    F
+   </math>
+   is known, such as the Heston model (see
+   <b>
+    Heston
+   </b>
+   Model).
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Carr, P. &amp; Lee, R. Put-call symmetry: extensions and applications,
+     <i>
+      Mathematical Finance
+     </i>
+     , Forthcoming,
+    </li>
+    <li block-type="ListItem">
+     [2] Mougeot, N. (2005). Variance Swaps and Beyond, BNP Paribas.
+    </li>
+    <li block-type="ListItem">
+     [3] Overhaus, M., Bermúdez, A., Buehler, H., Ferraris, A., Jordinson, C. &amp; Lamnouar, A. (2007). Equity Hybrid Derivatives, John Wiley &amp; Sons.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   Corridor Variance Swap; Delta Hedging; Realized Volatility Options; Variance Swap; Volatility Swaps: Weighted Variance Swap.
+  </p>
+  <p block-type="Text">
+   ROGER LEE
+  </p>
+ </body>
+</html>

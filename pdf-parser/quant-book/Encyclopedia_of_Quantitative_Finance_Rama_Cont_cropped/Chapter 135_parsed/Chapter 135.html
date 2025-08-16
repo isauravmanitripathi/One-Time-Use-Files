@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Discretely Monitored
+   </b>
+   Options
+  </h2>
+  <p block-type="Text">
+   Traditional pricing models for path-dependent options rely on continuously monitoring the underlying, often resulting in closed-form or analytic formulas. References include [14, 19, 20, 21] for barrier options, [6, 12, 13] for look-back options, and [11, 18] for Asian or average options. However, in practice, monitoring is performed over discrete dates (e.g., monthly, weekly, or daily), while the underlying is still assumed to follow a continuous model. In contrast to continuous monitoring, discrete monitoring rarely, if ever, leads to similarly tractable solutions and using continuous monitoring as approximation for discrete monitoring often leads to significant mispricing (cf. [5, 15, 16].) As a consequence, various approaches have been followed to arrive at practically useful computational schemes.
+  </p>
+  <p block-type="Text">
+   For illustration, we focus on a down-and-out call option, where a standard call option with strike
+   <math display="inline">
+    K
+   </math>
+   is canceled if the underlying falls below a barrier prior to expiry
+   <math display="inline">
+    T
+   </math>
+   . We first assume the traditional Black-Scholes-Merton setup with the price
+   <math display="inline">
+    \{S_t\}
+   </math>
+   of the underlying following a geometric Brownian motion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = S_0 e^{B_t} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \{B_t\}
+   </math>
+   is a Brownian motion with drift
+   <math display="inline">
+    r
+   </math>
+   –
+   <math display="inline">
+    \sigma^2/2
+   </math>
+   and standard deviation
+   <math display="inline">
+    \sigma
+   </math>
+   . Here the parameters r and
+   <math display="inline">
+    \sigma
+   </math>
+   represent the prevailing risk-free rate and the return volatility of the underlying asset, respectively. Let
+   <math display="inline">
+    H &gt; 0
+   </math>
+   be a given constant (barrier) and assume
+   <math display="inline">
+    H &lt; S_0
+   </math>
+   . With monitoring effected over a set of
+   <i>
+    m
+   </i>
+   dates
+   <math display="inline">
+    n\Delta t
+   </math>
+   (
+   <i>
+    n
+   </i>
+   =
+   <math display="inline">
+    1,\ldots,m)
+   </math>
+   such that
+   <math display="inline">
+    \Delta t = T/m
+   </math>
+   , let
+   <math display="inline">
+    U_n = X_1 + X_2 +
+   </math>
+   <math display="inline">
+    \cdots + X_n
+   </math>
+   , where the
+   <math display="inline">
+    X_i
+   </math>
+   s are independent normal random variables with mean
+   <math display="inline">
+    \mu = (r - \sigma^2/2) \Delta t
+   </math>
+   and standard deviation
+   <math display="inline">
+    \tilde{\sigma} = \sigma \sqrt{\Delta t}
+   </math>
+   . Then the call is knocked-out the first (random) time
+   <math display="inline">
+    \tau \in \{1, 2, \ldots, m\}
+   </math>
+   such that
+   <math display="inline">
+    H \geq S_{\tau}
+   </math>
+   and the time-0 price of such a call is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_m(H) = e^{-rT} E \left( S_0 e^{U_m} - K \right)^+ 1_{\{\tau &gt; m\}} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tau = \inf\{n : U_n \leq \log(H/S_0)\}\.
+   </math>
+   The main source of the evaluation of the above expectation
+  </p>
+  <p block-type="Text">
+   is the computational complexity associated with an
+   <math display="inline">
+    m
+   </math>
+   -variate normal distribution for even moderate values of
+   <math display="inline">
+    m
+   </math>
+   . For example, Monte Carlo or tree-based algorithms may take several hours or even days for common values of
+   <math display="inline">
+    m
+   </math>
+   [4]. In their paper, Broadie et al. [3] (see also [17]), opt to circumvent this hurdle by linking
+   <math display="inline">
+    V_m(H)
+   </math>
+   to the price of a continuously monitored option with a barrier shifted away from the original. More precisely, they show that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_m(H) = V\left(He^{\pm\beta\sigma\sqrt{\Delta t}}\right) + o\left(1/\sqrt{m}\right) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    V(\tilde{H})
+   </math>
+   is the price of a continuously monitored barrier option with threshold
+   <math display="inline">
+    \tilde{H}
+   </math>
+   and
+   <math display="inline">
+    \beta \approx
+   </math>
+   <math display="inline">
+    0.5826
+   </math>
+   , with + for an up option and - for a down option.
+  </p>
+  <p block-type="Text">
+   Although this approach works very well, it appears to be inaccurate when the barrier is near the initial price of the underlying. Under such circumstances, one can opt to use the recursive method of Ait-Sahlia and Lai [1], which consists in reducing an
+   <math display="inline">
+    m
+   </math>
+   -dimensional integration problem to successively evaluating
+   <math display="inline">
+    m
+   </math>
+   one-dimensional integrals. Specifically, they show that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_m(H) = \int_{\log(H/S_0)}^{\infty} \left( S_0 e^x - K \right)^+ f_m(x) \, dx \qquad (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where, for
+   <math display="inline">
+    1 \le n \le m
+   </math>
+   ,
+   <math display="inline">
+    f_n(x) dx = P\{\tau &gt; n, U_n \in
+   </math>
+   dx} for
+   <math display="inline">
+    x &gt; \log(H/S_0)
+   </math>
+   , with
+   <math display="inline">
+    f_n
+   </math>
+   defined recursively for each
+   <math display="inline">
+    n
+   </math>
+   according to the following:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_1(x) = \psi(x)
+   </math>
+   <br/>
+   <math display="block">
+    f_n(x) = \int_{\log(H/S_0)}^{\infty} f_{n-1}(y)\psi(x-y) \, dy
+   </math>
+   <br/>
+   for
+   <math>
+    2 \le n \le m
+   </math>
+   (5)
+  </p>
+  <p block-type="TextInlineMath">
+   Here
+   <math display="inline">
+    \psi(x) = \tilde{\sigma}^{-1}\phi = ((x - \mu)/\tilde{\sigma})
+   </math>
+   , with
+   <math display="inline">
+    \phi
+   </math>
+   being the density of a standard normal distribution, and
+   <math display="inline">
+    f_n(x) = 0
+   </math>
+   , for
+   <math display="inline">
+    x \leq \log(H/S_0)
+   </math>
+   and
+   <math display="inline">
+    1 \leq n \leq m
+   </math>
+   . This approach is very accurate and efficient for generally moderate values of
+   <math display="inline">
+    m
+   </math>
+   , using as little as 20 integration points.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Both the continuity correction and recursive integration methods can also be similarly applied to discretely monitored look-back options (cf. [2] and [4].) Alternatives to the above abound as well. Fusai
+   <i>
+    et al.
+   </i>
+   [10] use a Wiener-Hopf machinery to also compute hedge parameters. In the
+  </p>
+  <p block-type="Text">
+   context of a GARCH model, Duan
+   <i>
+    et al.
+   </i>
+   [7] propose a Markov chain technique that can also handle American-style exercise. Partial differential equations are used in [9, 22, 23, 24] to price average and barrier options, including when volatility is stochastic and exercise is of American style. Finally, [8] contains an approach that ultimately relies on Hilbert and Fourier transform techniques to address the situation when the underlying follows a Levy ´ process.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] AitSahlia, F. &amp; Lai, T. (1997). Valuation of discrete barrier and hindsight options,
+     <i>
+      Journal of Financial Engineering
+     </i>
+     <b>
+      6
+     </b>
+     , 169–177.
+    </li>
+    <li block-type="ListItem">
+     [2] AitSahlia, F. &amp; Lai, T. (1998). Random walk duality and the valuation of discrete lookback options,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      5
+     </b>
+     , 227–240.
+    </li>
+    <li block-type="ListItem">
+     [3] Broadie, M., Glasserman, P. &amp; Kou, S. (1997). A continuity correction for discrete barrier options,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 325–349.
+    </li>
+    <li block-type="ListItem">
+     [4] Broadie, M., Glasserman, P. &amp; Kou, S. (1999). Connecting discrete and continuous path-dependent options,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      3
+     </b>
+     , 55–82.
+    </li>
+    <li block-type="ListItem">
+     [5] Chance, D. (1994). The pricing and hedging of limited exercise caps and spreads,
+     <i>
+      Journal of Financial Research
+     </i>
+     <b>
+      17
+     </b>
+     , 561–583.
+    </li>
+    <li block-type="ListItem">
+     [6] Conze, A. &amp; Viswanathan, R. (1991). Path dependent options: the case of lookback options,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      46
+     </b>
+     , 1893–1907.
+    </li>
+    <li block-type="ListItem">
+     [7] Duan, J.C., Dudley, E., Gauthier, G. &amp; Simonato, J.G. (2003). Pricing discretely monitored barrier options by a Markov Chain,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      10
+     </b>
+     , 9–31.
+    </li>
+    <li block-type="ListItem">
+     [8] Feng, L. &amp; Linetsky, V. (2008). Pricing discretely monitored barrier options and defaultable bonds in Levy process models: a fast Hilb ´ ert transform approach,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      18
+     </b>
+     , 337–384.
+    </li>
+    <li block-type="ListItem">
+     [9] Forsyth, P.A., Vetzal, K. &amp; Zvan, R. (1999). A finite element approach to the pricing of discrete lookbacks with stochastic volatility,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      6
+     </b>
+     , 87–106.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [10] Fusai, G., Abrahams, D. &amp; Sgarra, C. (2006). An exact analytical solution for discrete barrier options,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      10
+     </b>
+     , 1–26.
+    </li>
+    <li block-type="ListItem">
+     [11] Geman, H. &amp; Yor, M. (1993). Bessel processes, Asian options and perpetuities,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      3
+     </b>
+     , 349–375.
+    </li>
+    <li block-type="ListItem">
+     [12] Goldman, M., Sosin, H. &amp; Gatto, M. (1979). Path dependent options: 'Buy at the low, sell at the high',
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      34
+     </b>
+     , 1111–1127.
+    </li>
+    <li block-type="ListItem">
+     [13] Goldman, M., Sosin, H. &amp; Shepp, L. (1979). On contingent claims that insure ex-post optimal stock market timing,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      34
+     </b>
+     , 401–414.
+    </li>
+    <li block-type="ListItem">
+     [14] Heynen, R.C. &amp; Kat, H.M. (1994). Partial barrier options,
+     <i>
+      Journal of Financial Engineering
+     </i>
+     <b>
+      3
+     </b>
+     , 253–274.
+    </li>
+    <li block-type="ListItem">
+     [15] Heynen, R.C. &amp; Kat, H.M. (1994). Lookback options with discrete and partial monitoring of the underlying price,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 273–284.
+    </li>
+    <li block-type="ListItem">
+     [16] Kat, H. &amp; Verdonk, L. (1995). Tree surgery,
+     <i>
+      Risk
+     </i>
+     <b>
+      8
+     </b>
+     , 53–56.
+    </li>
+    <li block-type="ListItem">
+     [17] Kou, S. (2003). On pricing of discrete barrier options,
+     <i>
+      Statistica Sinica
+     </i>
+     <b>
+      13
+     </b>
+     , 955–964.
+    </li>
+    <li block-type="ListItem">
+     [18] Linetsky, V. (2004). Spectral expansions for Asian (average price) options,
+     <i>
+      Operations Research
+     </i>
+     <b>
+      52
+     </b>
+     , 856–867.
+    </li>
+    <li block-type="ListItem">
+     [19] Merton, R.C. (1973). Theory of rational option pricing,
+     <i>
+      Bell Journal of Economics and Management Science
+     </i>
+     <b>
+      4
+     </b>
+     , 141–183.
+    </li>
+    <li block-type="ListItem">
+     [20] Rich, D. (1994). The mathematical foundations of barrier option pricing theory,
+     <i>
+      Advances in Futures and Options Research
+     </i>
+     <b>
+      7
+     </b>
+     , 267–312.
+    </li>
+    <li block-type="ListItem">
+     [21] Rubinstein, M. &amp; Reiner, E. (1991). Breaking down the barriers,
+     <i>
+      Risk
+     </i>
+     <b>
+      4
+     </b>
+     , 28–35.
+    </li>
+    <li block-type="ListItem">
+     [22] Vetzal, K. &amp; Forsyth, P.A. (1999). Discrete Parisian and delayed barrier options: a general numerical approach,
+     <i>
+      Advanced Futures Options Research
+     </i>
+     <b>
+      10
+     </b>
+     , 1–16.
+    </li>
+    <li block-type="ListItem">
+     [23] Zvan, R., Forsyth, P.A &amp; Vetzal, K. (1999). Discrete Asian barrier options,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      3
+     </b>
+     , 41–68.
+    </li>
+    <li block-type="ListItem">
+     [24] Zvan, R., Vetzal, K. &amp; Forsyth, P.A. (2000). PDE methods for pricing barrier options,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      24
+     </b>
+     , 1563–1590.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   FARID AITSAHLIA
+  </p>
+ </body>
+</html>

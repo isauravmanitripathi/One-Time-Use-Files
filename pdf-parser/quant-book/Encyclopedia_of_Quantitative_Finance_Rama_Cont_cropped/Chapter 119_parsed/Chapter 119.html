@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Variance Swap
+   </b>
+  </h1>
+  <h1>
+   <b>
+    Definition
+   </b>
+  </h1>
+  <p block-type="Text">
+   A variance swap is a volatility derivative that pays off on realized volatility of some underlying:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Payoff = (\sigma_R^2 - K_{\text{var}}) \times N \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    σ
+   </i>
+   <sup>
+    R
+   </sup>
+   <sup>
+    2
+   </sup>
+   is the realized variance,
+   <i>
+    K
+   </i>
+   var is the fair value of the realized variance at inception, and
+   <i>
+    N
+   </i>
+   is the notional amount, a leverage factor. The realized variance may be defined differently in different markets depending not only on the "default model" but also on specific contract specifications. One standard way for stocks [9] is to define realized variance as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{\mathsf{R}}^{2} = \frac{252}{n} \sum_{i=1}^{n} u_{i}^{2}, \quad u_{i} = \ln \left( S_{i} \big/ S_{i-1} \right) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   This requires
+   <i>
+    n
+   </i>
+   + 1 observations of the daily closing stock price
+   <i>
+    Si
+   </i>
+   . The factor 252 is the approximate number of business days in a year, which gives an annualized variance. Also note that this formula assumes the mean of the returns to be zero. This means that it is distinct from the statistical variance of the returns. The mean of returns is typically small and setting it to zero makes returns on variance swaps additive over time. Using log returns to measure variance makes this formula compatible with the standard Black–Scholes option pricing formula.
+  </p>
+  <p block-type="TextInlineMath">
+   The long position in a variance swap receives
+   <i>
+    N
+   </i>
+   dollars for every point by which the stock's realized variance
+   <i>
+    σ
+   </i>
+   <sup>
+    R
+   </sup>
+   <sup>
+    2
+   </sup>
+   has exceeded the inception fair value
+   <i>
+    K
+   </i>
+   var. See [6] for one of the earliest, but most comprehensive, references on variance swaps. In this reference, the authors discuss replication problems due to strike spacing and gapping of the underlying, for example.
+  </p>
+  <p block-type="Text">
+   It is market practice to define the variance notional in volatility terms:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{Variance Notional} = \frac{\text{VegaNotional}}{2 \times \sigma_{\text{strike}}} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where the strike volatility
+   <i>
+    σ
+   </i>
+   strike is equal to the square root of the strike variance
+   <i>
+    K
+   </i>
+   var. With this adjustment, if the realized volatility is 1 percentage point above
+  </p>
+  <p block-type="Text">
+   <i>
+    σ
+   </i>
+   strike at maturity, the payoff is approximately equal to the vega notional.
+  </p>
+  <p block-type="Text">
+   Uses of variance swaps include trading the level of volatility (variance swaps are a more pure way to do this compared to straddles), trading the realized/ implied vol spread, hedging of volatility exposures, or trading volatility on a forward basis via forward variance swaps. See [1] for more details about variance swaps, market practices, and their use in vol spread trading and correlation trading.
+  </p>
+  <h1>
+   <b>
+    Fair Value and Skew
+   </b>
+  </h1>
+  <p block-type="Text">
+   In [6], it is shown that a variance swap can be statically replicated with calls, puts, and a forward contract. The payoff for the variance swap then comes from delta hedging of this portfolio of options with the underlying. The fair value is determined by the cost of the replicating portfolio of options. The payoff in terms of realized volatility is achieved by delta hedging with the underlying. If the realized vol is exactly equal to the expected vol at inception, the hedging profits will be exactly equal to the cost of the option portfolio and the payout will be zero. As the portfolio of options (in theory) includes option of every strike, the fair value cost is affected significantly by the skew. The skew is defined to be the way the implied volatility changes as the strike changes, all else being equal.
+  </p>
+  <p block-type="Text">
+   The fair value can be derived using the volatility formula discussed in [4]. In this reference, the authors show the remarkable formula that the expected value of any smooth payoff function
+   <i>
+    f (ST )
+   </i>
+   in terms of the terminal stock price
+   <i>
+    ST
+   </i>
+   can be written in terms of stock and option prices.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E_t[f(S_T)] = f(\kappa)B_0 + f'(\kappa)[C_t(\kappa) - P_t(\kappa)]
+   </math>
+   <math display="block">
+    + \int_{-\infty}^{\kappa} f''(s)P_t(s)ds
+   </math>
+   <math display="block">
+    + \int_{\kappa}^{\infty} f''(s)C_t(s)ds \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   An application of Ito's lemma to the usual Black diffusion yields the variance differential:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    2\left[\frac{\mathrm{d}S_t}{S_t} - \mathrm{d}(\log S_t)\right] = \sigma^2 \mathrm{d}t \tag{5}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Applying equation (4) to the log contract [11] in equation (5) shows that the replicating portfolio
+  </p>
+  <p block-type="TextInlineMath">
+   consists of out-of-the-money calls and puts of all strikes K, where each option has the weight
+   <math display="inline">
+    1/K^2
+   </math>
+   plus a dynamic delta hedge using a forward contract on the stock. The fair value of the variance strike is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{var}} = \frac{2}{T} \left[ rT - \left( \frac{S_0}{S_*} e^{rT} - 1 \right) - \log \frac{S_*}{S_0} \right. \\ + \left. e^{rT} \int_0^{S_*} \frac{1}{K^2} P(K) \mathrm{d}K \right. \\ + \left. e^{rT} \int_{S_*}^{\infty} \frac{1}{K^2} C(K) \mathrm{d}K \right] \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Here,
+   <math display="inline">
+    C(K)
+   </math>
+   and
+   <math display="inline">
+    P(K)
+   </math>
+   are the prices of the call and put, respectively, with strike
+   <math display="inline">
+    K
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In [6], we find the following formulas for fair value in terms of simple skew models. For the skew that is linear in the strike,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma(K) = \sigma_{\text{ATM}} - b \frac{K - S_F}{S_F} \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   the fair value is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{var}} = \sigma_{\text{ATM}}^2 (1 + 3Tb^2 + \cdots) \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   For the skew that is linear in the delta (here
+   <math display="inline">
+    \Delta_p
+   </math>
+   is the put delta),
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma(\Delta_p) = \sigma_{\text{ATM}} + b\left(\Delta_p + \frac{1}{2}\right) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   the fair value is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{var}} = \sigma_{\text{ATM}}^2 \left( 1 + \frac{1}{\sqrt{\pi}} b \sqrt{T} + \frac{1}{12} \frac{b^2}{\sigma_{\text{ATM}}^2} + \cdots \right) \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   In [7], we have a particularly elegant formula for the fair value given directly in terms of the skew. Denote
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    z(k) = d_2 = -\frac{k}{\sigma_{\text{BS}}(k)\sqrt{T}} + \frac{\sigma_{\text{BS}}(k)\sqrt{T}}{2} \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Intuitively,
+   <math display="inline">
+    z
+   </math>
+   measures the log-moneyness of an option in implied standard deviations. Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{var}} = \int_{-\infty}^{\infty} dz \cdot N'(z) \sigma_{\text{BS}}^{2}(z) T \qquad (12)
+   </math>
+  </p>
+  <h1>
+   Market Risk
+  </h1>
+  <p block-type="Text">
+   In [5], the authors derive general results on market risk for variance swaps. Because variance is additive, a variance swap partway through its life is valued partly by realized vol (already observed) and partly by unrealized/implied vol, which is yet to be observed.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(t_0, T)(T - t_0) = \underbrace{V(t_0, t)}_{\text{Realized}} (t - t_0) + \underbrace{V(t, T)}_{\text{Unrealized}} (T - t) \quad (13)
+   </math>
+  </p>
+  <p block-type="Text">
+   It follows from this that at time
+   <math display="inline">
+    t
+   </math>
+   a variance swap with notional
+   <math display="inline">
+    N
+   </math>
+   has value
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M(t) = N e^{-rT} [\lambda (V(t_0, t) - K_0)
+   </math>
+   <br/>
+   +
+   <math>
+    (1 - \lambda)(K_t - K_0)],
+   </math>
+   <br/>
+   <math>
+    \lambda = (t - t_0)/(T - t_0)
+   </math>
+   (14)
+  </p>
+  <p block-type="Text">
+   The first piece is just the time-weighted value of realized variance against the strike. The second piece is the time-weighted difference of fair value variance strikes. The same formula can be used to decompose the daily price change into three risk components: gamma, vega, and theta:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta M(t) = M(t + \Delta t) - M(t)
+   </math>
+   <math display="block">
+    = N \left( \underbrace{\frac{1}{\tau} V(t, t + \Delta t) \Delta t}_{\text{Gamma}} + \underbrace{(1 - \lambda_{t + \Delta t}) \cdot \Delta K}_{\text{Vega}} - \underbrace{\frac{1}{\tau} K_t \Delta t}_{\text{Theta}} \right) \qquad (15)
+   </math>
+  </p>
+  <p block-type="Text">
+   The biggest independent risk is in the fair value of the strike, which we have put in the vega component. This component also entails the skew risk.
+  </p>
+  <h4>
+   <b>
+    Volatility Swaps
+   </b>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   Although variance swaps can be statically replicated, volatility swaps (see Volatility Swaps) cannot. In [3], the authors show that there is an approximate dynamic replicating strategy for volatility
+  </p>
+  <p block-type="Text">
+   swaps. Before this, volatility swap valuation had been thought to be highly model dependent [2]. See also [8, 10], where the authors give a closed formula for valuing vol swaps using a GARCH model.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bossu, S., Strasser, E. &amp; Guichard, R. (2005).
+     <i>
+      Just What You Need to Know About Variance Swaps
+     </i>
+     , JP Morgan Equity Derivatives Research Publication.
+    </li>
+    <li block-type="ListItem">
+     [2] Brockhaus, O. &amp; Long, D. (2000).
+     <i>
+      Volatility Swaps Made Simple
+     </i>
+     , RISK Magazine, pp. 92–95.
+    </li>
+    <li block-type="ListItem">
+     [3] Carr, P. &amp; Lee, R. (2008). Robust replication of volatility derivatives,
+     <i>
+      Mathematics in Finance
+     </i>
+     Working Paper #2008-3. Courant Institute of Mathematical Sciences.
+    </li>
+    <li block-type="ListItem">
+     [4] Carr, P. &amp; Madan, D. (1998). Towards a theory of volatility trading, in
+     <i>
+      Volatility
+     </i>
+     ed., R.A. Jarrow, Risk Books.
+    </li>
+    <li block-type="ListItem">
+     [5] Chriss, N. &amp; Morokoff, W. (1999).
+     <i>
+      Market Risk for Volatility and Variance Swaps
+     </i>
+     , Risk Magazine.
+    </li>
+    <li block-type="ListItem">
+     [6] Demeterfi, K., Derman, E., Kamal, M. &amp; Zou, J. (1999). A guide to volatility and variance swaps,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      6
+     </b>
+     , 9–32.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [7] Gatheral, J. (2006).
+     <i>
+      The Volatility Surface: A Practitioner's Guide
+     </i>
+     , Wiley Finance.
+    </li>
+    <li block-type="ListItem">
+     [8] Haug, E.G. (2007).
+     <i>
+      Option Pricing Formulas
+     </i>
+     , 2nd Edition, McGraw Hill.
+    </li>
+    <li block-type="ListItem">
+     [9] Hull, J. (2003).
+     <i>
+      Options, Futures, and other Derivatives
+     </i>
+     , 5th Edition, Prentice Hall.
+    </li>
+    <li block-type="ListItem">
+     [10] Javaheri, A., Wilmott, P. &amp; Haug, E.G. (2002).
+     <i>
+      Garch and Volatility Swaps
+     </i>
+     , published on Wilmott.com.
+    </li>
+    <li block-type="ListItem">
+     [11] Neuberger, A. (1994). The log contract,
+     <i>
+      The Journal of Portfolio Management
+     </i>
+     <b>
+      20
+     </b>
+     , 74–80.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Correlation Swap
+   </b>
+   ;
+   <b>
+    Corridor Variance Swap
+   </b>
+   ;
+   <b>
+    Gamma Swap
+   </b>
+   ;
+   <b>
+    Realized Volatility and Multipower Variation
+   </b>
+   ;
+   <b>
+    Realized Volatility Options
+   </b>
+   ;
+   <b>
+    Volatility
+   </b>
+   ;
+   <b>
+    Volatility Index Options
+   </b>
+   ;
+   <b>
+    Volatility Swaps
+   </b>
+   ;
+   <b>
+    Weighted Variance Swap
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ERIC LIVERANCE
+  </p>
+ </body>
+</html>

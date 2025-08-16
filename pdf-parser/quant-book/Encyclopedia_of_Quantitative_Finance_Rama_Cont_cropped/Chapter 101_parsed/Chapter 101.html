@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Foreign Exchange Smile
+   </b>
+   Interpolation
+  </h1>
+  <p block-type="Text">
+   This article provides a short introduction into the handling of FX-implied volatility market data-especially their inter- and extrapolation across delta space and time. We discuss a low-dimensional Gaussian kernel approach as the method of choice showing several advantages over usual smile interpolation methods such as cubical splines.
+  </p>
+  <h2>
+   <b>
+    FX-implied Volatility
+   </b>
+  </h2>
+  <p block-type="Text">
+   Implied volatilities for FX vanilla options are normally quoted against Black-Scholes deltas
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{\text{BS}} = e^{-r_f T} N
+   </math>
+   <math display="block">
+    \times \left( \frac{\ln(S/K) + \left( r_d - r_f + \left( \sigma^2(\Delta)/2 \right) \right) T}{\sigma(\Delta)\sqrt{T}} \right) \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   Note that these deltas are dependent on
+   <math display="inline">
+    \sigma(\Delta)
+   </math>
+   , that is, the market-given volatility should be quoted. Thus, when retrieving a volatility for a given strike, an iterative processes is needed. However, under normal circumstances, the mapping from a delta-volatility to a strike-volatility coordinate system works via a quickly converging fixed point iteration.
+  </p>
+  <h2>
+   Proposition 1 (Delta–Strike fixed point iteration).
+   <math display="inline">
+    Let
+   </math>
+  </h2>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \Delta_n: A \mapsto A, A \subset (0, 1)
+   </math>
+   be a mapping, defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_0 = \sigma_{\text{ATM}}
+   </math>
+   <math display="block">
+    \Delta_0 = \Delta(K_{\text{Call}}, \sigma_{\text{ATM}})
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \Delta_{n+1}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = e^{-r_f(T-t)} N(d_1(\Delta_n))
+   </math>
+   (2)
+   <br/>
+   <math display="block">
+    = e^{-r_f(T-t)} N \times \left( \frac{\ln(S/K) + (r_d - r_f + \sigma^2(\Delta_n)/2) (T-t)}{\sigma(\Delta_n)\sqrt{T-t}} \right)
+   </math>
+   (3)
+  </p>
+  <p block-type="TextInlineMath">
+   For sufficiently large
+   <math display="inline">
+    \sigma(\Delta_n)
+   </math>
+   and a smooth, differentiable volatility smile, the sequence converges for
+   <math display="inline">
+    n \to \infty
+   </math>
+   against the unique fixed point
+   <math display="inline">
+    \Delta^* \in A
+   </math>
+   with
+   <math display="inline">
+    \sigma^* = \sigma(\Delta^*)
+   </math>
+   , corresponding to strike K.
+  </p>
+  <p block-type="Text">
+   The usual FX smiles normally satisfy the above mentioned regularity conditions. More details concerning this proposition can be found in [5]. However, note that already smoothness is demanded here, which directly leads to the issue of an appropriate smile interpolation.
+  </p>
+  <h4>
+   Interpolation
+  </h4>
+  <p block-type="Text">
+   Before the discussion of specific interpolation methods, let us take a step backward and remember Rebonato's well-known statement of implied volatility as the wrong number in the wrong formula to obtain the right price [3]. Therefore, the explanatory power of implied volatilities for the dynamics of a stochastic process remains limited. Implied volatilities give a lattice on which marginal distributions can be constructed. However, even using many data points to generate marginal distributions, forward distributions and extremal distributions, which determine the prices of some products such as compound and barrier products, cannot be uniquely defined by implied volatilities (see [4] for a discussion of this).
+  </p>
+  <p block-type="Text">
+   The attempt to capture FX smile features can lead to two different general approaches.
+  </p>
+  <h4>
+   Parametrization
+  </h4>
+  <p block-type="Text">
+   One possibility to express smile or skew patterns is just to capture it as the calibration parameter set of an arbitrary stochastic volatility or jump diffusion model that generates the observed market implied volatilities. However, as spreads are rather narrow in liquid FX options markets, it is preferred to exactly fit the given input volatilities. This automatically leads to an interpolation approach.
+  </p>
+  <h4>
+   Pure Interpolation
+  </h4>
+  <p block-type="Text">
+   As an introduction, we would like to pose four requirements for an acceptable volatility surface interpolation:
+  </p>
+  <p block-type="Text" class="has-continuation">
+   1. Smoothness in the sense of continuous differentiability. Especially with respect to the possible
+  </p>
+  <p block-type="Text">
+   application of Dupire-style local volatility models, it is crucial to construct an interpolation that is at least
+   <math display="inline">
+    C^2
+   </math>
+   in strike and at least
+   <math display="inline">
+    C^1
+   </math>
+   in time direction. This becomes obvious when considering the expression for the local volatility in this context:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   (
+   <b>
+    Slice Kernel
+   </b>
+   ).
+   <i>
+    Let
+   </i>
+   <math display="inline">
+    (x_1, y_1), (x_2, y_2), \ldots
+   </math>
+   <math display="inline">
+    (x_n, y_n)
+   </math>
+   be n given points and
+   <math display="inline">
+    g: \mathbb{R} \mapsto \mathbb{R}
+   </math>
+   a smooth function which fulfills
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g(x_n) = y_n, \quad n = 1, \dots, n
+   </math>
+   (6)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{loc}^{2}(S,K) = \frac{\partial C(K,T)/\partial T + r_{f}C(K,T) + K(r_{d}-r_{f})\partial C(K,T)/\partial K}{(1/2)K^{2}(\partial^{2}C(K,T)/K^{2})}
+   </math>
+   <math display="block">
+    = \frac{\frac{\sigma_{i}}{T} + 2(r_{d}-r_{f})K(\partial\sigma_{i}/\partial K) + 2(\partial\sigma_{i}/\partial T)}{K^{2}\left(\frac{1}{\sigma_{i}}\left(1/(K\sqrt{T}+d_{+}\partial\sigma_{i}/\partial K)\right)^{2} + \partial^{2}\sigma_{i}/\partial K^{2} - d_{+}\sqrt{T}\left(\partial\sigma_{i}/\partial K\right)^{2}\right)}
+   </math>
+   <math display="block">
+    (4)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C(K, T)
+   </math>
+   denotes the Black-Scholes prices of a call option with strike
+   <math display="inline">
+    K
+   </math>
+   ,
+   <math display="inline">
+    \sigma_i
+   </math>
+   its corresponding implied volatility, and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_{+} = \frac{\ln\left(S/K\right) + \left(r_d - r_f + \sigma^2(\Delta)/2\right)T}{\sigma(\Delta)\sqrt{T}} \quad (5)
+   </math>
+  </p>
+  <p block-type="Text">
+   Note in addition that local volatilities can directly be extracted from delta-based FX volatility surfaces, that is, the Dupire formula can alternatively be expressed in terms of delta. See [2] for details.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     2. Absence of oscillations, which is guaranteed if the sign of the curvature of the surface does not change over different strike or delta levels.
+    </li>
+    <li block-type="ListItem">
+     3. Absence of arbitrage possibilities on single smiles of the surface as well as absence of calendar arbitrage
+    </li>
+    <li block-type="ListItem">
+     4. A reasonable extrapolation available for the interpolation method.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   A widely used classical interpolation method is cubical splines. They attempt to fit surfaces by fitting piecewise cubical polynomials to given data points. They are specified by matching their second derivatives at each intersection. Although this ensures the required smoothness by construction, it does not prevent oscillations, which directly leads to the danger of arbitrage possibilities or it does not define how to extrapolate the smile. We, therefore, introduce the concept of a slice kernel volatility surface as an alternative:
+  </p>
+  <p block-type="Text">
+   A smooth interpolation is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    g(x) := \frac{1}{\Phi_{\lambda}(x)} \sum_{i=1}^{N} \alpha_{i} K_{\lambda}(\|x - x_{i}\|) \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Phi_{\lambda}(x) := \sum_{i=1}^{N} K_{\lambda}(\|x - x_{i}\|) \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    and
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\lambda}(u) := \exp\left\{-\frac{u^2}{2\lambda^2}\right\} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   The described kernel is also called Gaussian Kernel. The interpolation reduces to determining the
+   <math display="inline">
+    \alpha_i
+   </math>
+   , which is straightforward via solving a linear equation system. Note that
+   <math display="inline">
+    \lambda
+   </math>
+   remains as a free smoothing parameter, which also affects the condition of the equation system. At the same time, it can be used to fine-tune the extrapolation behavior of the kernel.
+  </p>
+  <p block-type="Text">
+   Generally, the slice kernel produces reasonable output smiles based on a maximum of seven deltavolatility points. Then it fulfills all the abovementioned requirements. It is
+   <math display="inline">
+    \mathcal{C}^{\infty}
+   </math>
+   , does not create oscillations, passes typical no-arbitrage conditions as they are, for example, posed by Gatheral [1], and finally has an inherent extrapolation method.
+  </p>
+  <p block-type="Text">
+   In time direction, one might connect different slice kernels by linear interpolation of the variances for same deltas. This also normally ensures the absence of calendar arbitrage, for which a necessary condition
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <img src="_page_2_Figure_2.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Kernel interpolation of an FX volatility surface
+  </p>
+  <p block-type="Text">
+   is a nondecreasing variance for constant moneyness
+   <i>
+    F/K
+   </i>
+   (see also [1] for a discussion of this).
+  </p>
+  <p block-type="Text">
+   Figure 1 displays the shape of a slice kernel applied to a typical FX volatility surface constructed from 10 and 25 delta volatilities, and the ATM volatility (in this example
+   <i>
+    λ
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   25 was chosen).
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Gatheral, J. (2004).
+     <i>
+      A Parsimonious Arbitrage-free Implied Volatility Parameterization with Application to the Valuation of Volatility Derivatives
+     </i>
+     , Workshop Presentation, Madrid.
+    </li>
+    <li block-type="ListItem">
+     [2] Hakala, J. &amp; Wystup, U. (2002). Local volatility surfaces—tackling the smile,
+     <i>
+      Foreign Exchange Risk
+     </i>
+     , Risk Books.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [3] Rebonato, R. (1999).
+     <i>
+      Volatility and Correlation
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [4] Tistaert, J., Schoutens, W. &amp; Simons, E. (2004). A perfect calibration now what?
+     <i>
+      Wilmott Magazine
+     </i>
+     (March), 66–78.
+    </li>
+    <li block-type="ListItem">
+     [5] Wystup, U. (2006).
+     <i>
+      FX Options and Structured Products
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Foreign Exchange Markets
+   </b>
+   ;
+   <b>
+    Foreign Exchange Options: Delta- and At-the-money Conventions
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   UWE WYSTUP
+  </p>
+ </body>
+</html>

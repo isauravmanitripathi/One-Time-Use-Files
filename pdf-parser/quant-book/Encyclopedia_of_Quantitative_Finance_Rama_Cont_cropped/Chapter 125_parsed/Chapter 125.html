@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Himalayan Option
+   </b>
+  </h1>
+  <p block-type="Text">
+   In the late 1990s, Societe Generale introduced a series of options on baskets of assets that are now commonly referred to as
+   <i>
+    Mountain Range
+   </i>
+   options [2]. They were introduced in part to replicate certain portfolio strategies and in part to extend singlename options to portfolios. What these options share is a strong dependence on the correlation structure of the assets, brought about by their nonlinear and path-dependent payoffs. But beyond this similarity, each type has its own distinct payoff tailored to its own risk profile and usage, making each deserving a study of its own. In this second of three articles on Mountain Range options, we look at the Himalayan option. Unlike Atlas options, Himalayans are path dependent, and are usually longer dated than Atlas options.
+  </p>
+  <p block-type="Text">
+   This article is organized as follows. We first provide a description of the Himalayan option and discuss the financial motivations for and strategies of its usage. We then discuss modeling, valuation, and risk issues that Himalayan options share with all Mountain Range options, and conclude with a brief analysis of the risk profile that is unique to it. We remark that although the following discussion holds for a wide class of assets, such as foreign exchange (FX) and commodities, these options are traded mostly on baskets of stocks.
+  </p>
+  <h3>
+   <b>
+    Contract Description
+   </b>
+  </h3>
+  <p block-type="Text">
+   The payoff of the Himalayan option is best described in words. Given
+   <i>
+    n
+   </i>
+   assets and contractual times
+   <i>
+    T
+   </i>
+   1
+   <i>
+    ,...,Tn
+   </i>
+   (usually yearly), at first time
+   <i>
+    T
+   </i>
+   <sup>
+    1
+   </sup>
+   we take the best performing stock, record its performance, and then remove it from the basket. We continue until at maturity
+   <i>
+    Tn
+   </i>
+   we are left with the last stock. The payoff of the option is the sum of the performances on these
+   <i>
+    n
+   </i>
+   contractual times. In some variations, the top two or three are removed at each time.
+  </p>
+  <p block-type="Text">
+   What this option emulates is the greedy strategy of liquidating a portfolio—the best performing stocks are sold first. Since this is a derivative product, Himalayan options may offer regulatory and tax benefits compared to actual holding of a portfolio.
+  </p>
+  <h2>
+   <b>
+    Modeling
+   </b>
+  </h2>
+  <p block-type="Text">
+   As in single-name options, in the simplest of implementations, the asset price processes are modeled with lognormal processes endowed with a correlation matrix. In more sophisticated implementations, to account for the volatility smile, some versions of stochastic volatility models are often used. One may even include some form of default component in the asset price. However, in these more complex models, the modeling of correlation and its estimation become more complex as well.
+  </p>
+  <h3>
+   <b>
+    Valuation and Risk
+   </b>
+  </h3>
+  <p block-type="Text">
+   The number of assets in Mountain Range options generally ranges from a low of 4 or 5 to a high of about 20. Owing to their complex payoff and path dependency, idiosyncratic characteristics of each asset need to be taken into account. Hence one cannot assume homogeneity of assets for either small or large baskets, making any closed-form approximation (especially in light of path dependence) intractable. As a result, Mountain Range options, specially the path-dependent varieties such as the Himalayan, are calculated using Monte Carlo simulation [1]. In light of their high-dimensional payoffs due to large number of assets and time points, to speed up convergence, specially for first- and second-order Greeks, usually one or more variance-reduction techniques are employed.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The other challenge posed by these options is the correlation. Even in simple lognormal models, the sheer size of the correlation matrix can become a challenge. Since for
+   <i>
+    n
+   </i>
+   assets there can be
+   <i>
+    n(n
+   </i>
+   − 1
+   <i>
+    )/
+   </i>
+   2 distinct correlations, even for a modest basket of 10 assets, 45 distinct correlations are possible. Moreover, obtaining the pairwise correlations themselves is not straightforward. If, theoretically speaking, there existed
+   <i>
+    n(n
+   </i>
+   − 1
+   <i>
+    )/
+   </i>
+   2 traded spread options on each pair, their implied correlations could be used with the spread options as hedges. However, it is unlikely that every pair of assets in a basket would have a traded spread option. Even if they did, their sheer number would make transaction costs prohibitive, even for moderate bid–ask spreads. Hence historical correlations are more often used, even though as with all historical estimates, they are hard to hedge
+  </p>
+  <p block-type="Text">
+   and can change with macro- and microeconomic shifts. When all assets belong to the same sector, a single correlation number is commonly used. This high amount of asset interdependence makes crossgammas important, adding further to the hedging complexity.
+  </p>
+  <h3>
+   <b>
+    Risk Profile
+   </b>
+  </h3>
+  <p block-type="Text">
+   Payoffs for Himalayan options can be surprising. For simplicity, we look at a homogeneous portfolio with identical pairwise correlations given by a single number in the simple lognormal model. We look at the effects of removing the best performing assets compared to removing assets in a predetermined order. For high correlations, since basket assets move together, the effects of the "greediness" is small— removing the best performing assets leaves the portfolio with similarly performing assets. So compared to removal by some predetermined order, its effects are small. Increasing the volatility increases the dispersion, and as we next see for the case of lowcorrelation baskets, it may adversely impact the value of the option.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Assets with low correlation, on the other hand, become more disperse as time passes. Since the expected sum of assets at termination of the option is independent of correlation, removing the best
+  </p>
+  <p block-type="Text">
+   performing asset would in most scenarios leave the worse performing assets, and since no asset is given a chance to grow—it would get removed in the next cut—we are left with increasingly worse performing assets. Thus greediness would actually be a bad strategy compared to some predetermined asset-removal order. Increasing volatility increases this dispersion, further reducing the payoff of the Himalayan. We remind the reader that this simple analysis applies to a homogeneous basket. Individual volatilities, dividends, and a nonconstant correlation can affect the payoff in ways not always easily explained.
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Glasserman, P. (2004).
+     <i>
+      Monte Carlo Methods in Financial Engineering
+     </i>
+     , Springer, New York.
+    </li>
+    <li block-type="ListItem">
+     [2] Mountain Range Options, document downloadable from global-derivatives.com.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   <b>
+    Altiplano Option
+   </b>
+   ;
+   <b>
+    Atlas Option
+   </b>
+   ;
+   <b>
+    Basket Options
+   </b>
+   ;
+   <b>
+    Correlation Risk
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   REZA K. GHARAVI
+  </p>
+ </body>
+</html>

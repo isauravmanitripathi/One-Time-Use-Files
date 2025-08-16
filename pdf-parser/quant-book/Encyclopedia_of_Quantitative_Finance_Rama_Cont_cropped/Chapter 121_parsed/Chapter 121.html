@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Static Hedging
+   </b>
+  </h1>
+  <p block-type="Text">
+   Liquid traded put and call options can be used as hedge instruments for over-the-counter traded products. Barrier options are the most common exotic options, and, for these contracts, static hedging works out particularly well. In the Black–Scholes model there are simple methods (conceptually straightforward and/or closed form) for constructing replicating portfolios that do not require dynamic trading; they are set up at initiation of the barrier option, and liquidated at either knockout or expiry. They are, thus, static hedges. Inspired by Allen and Padovani [1], we describe how to find static hedges for barrier options in the Black–Scholes model in a way that encompasses both Derman's [6] intuitive calendar-spread algorithm and Carr's [4] strike-spread hedges stemming from put–call symmetry.
+  </p>
+  <h2>
+   <b>
+    Construction of Static Hedges
+   </b>
+  </h2>
+  <p block-type="Text">
+   Unless we explicitly say otherwise, we consider a Black–Scholes model throughout this article. This means that the interest rate is constant, and all options are written on some underlying asset
+   <i>
+    S
+   </i>
+   that follows a geometric Brownian motion. A zero-rebate, knockout barrier option is a contract that pays off as a plain vanilla option if
+   <i>
+    S
+   </i>
+   stays within a specified barrier for the whole life of the barrier option, but becomes worthless if the barrier is hit or crossed (
+   <i>
+    see also
+   </i>
+   <b>
+    Barrier Options
+   </b>
+   ). Recurrent examples are the downand-out call and the up-and-out call The value of a still-alive barrier option is of the form
+   <i>
+    F (St,t)
+   </i>
+   , where the function
+   <i>
+    F
+   </i>
+   solves the Black–Scholes partial differential equation with 0 as boundary condition along the barrier (
+   <i>
+    see
+   </i>
+   <b>
+    Finite Difference Methods for Barrier Options
+   </b>
+   ). This is illustrated in Figure 1, which is useful to keep in mind when the method for constructing static hedges is described in the following.
+  </p>
+  <h4>
+   <i>
+    Construction of Static Hedges
+   </i>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   A portfolio of puts and calls that (approximately) replicates the barrier option can be found as the solution to a linear system of equations, and constructing it does not require knowledge/implementation of barrier option valuation formulas. The idea
+  </p>
+  <p block-type="Text">
+   is to match the barrier option's value at expiry and along the barrier.
+  </p>
+  <p block-type="Text">
+   To illustrate, consider a down-and-out call with strike
+   <i>
+    K
+   </i>
+   , expiry
+   <i>
+    T
+   </i>
+   , and barrier
+   <i>
+    B
+   </i>
+   . (An up-and-out call is treated similarly, except strike-above-the-barrier calls are used as hedge instruments.) Let
+   <i>
+    Put
+   </i>
+   ,
+   <i>
+    Call
+   </i>
+   (spot, time | strike, expiry) denote put and call values.
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose that we have specified a grid of time points 0 =
+   <i>
+    t
+   </i>
+   <sup>
+    0
+   </sup>
+   <i>
+    &lt; t
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    &lt;...&lt;tn
+   </i>
+   =
+   <i>
+    T
+   </i>
+   , and
+   <i>
+    n
+   </i>
+   pairs of put with strikes
+   <i>
+    Kj
+   </i>
+   ≤
+   <i>
+    B
+   </i>
+   and expiries
+   <i>
+    Tj
+   </i>
+   ≤
+   <i>
+    T
+   </i>
+   . Find the solution
+   <i>
+    α
+   </i>
+   to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A\alpha + u = 0 \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    A
+   </i>
+   is an
+   <i>
+    n
+   </i>
+   ×
+   <i>
+    n
+   </i>
+   matrix with entries
+   <i>
+    Ai,j
+   </i>
+   =
+   <i>
+    P ut (B, ti
+   </i>
+   |
+   <i>
+    Kj , Tj )
+   </i>
+   and
+   <i>
+    u
+   </i>
+   is an
+   <i>
+    n
+   </i>
+   -vector with entries
+   <i>
+    Call(B, ti
+   </i>
+   |
+   <i>
+    K, T )
+   </i>
+   . A portfolio with the
+   <i>
+    (K, T )
+   </i>
+   -call and
+   <i>
+    αj
+   </i>
+   in the
+   <i>
+    (Kj , Tj )
+   </i>
+   -put then matches the barrier option's zero value at the
+   <i>
+    ti
+   </i>
+   -points along the barrier, and its expiry payoff above the barrier. So the barrier option is—to a good approximation when the match points, the
+   <i>
+    ti
+   </i>
+   's, are close —replicated buying this portfolio at time 0 and selling it either when the barrier option is knocked out (because sample paths are continuous, this can only happen if the barrier is actually hit) or when it expires. In other words, this represents a static hedge. There is freedom of choice regarding strikes and expiries of the hedge instruments. Derman [6] suggests calendarspread hedging with strikes along the barrier,that is, using
+   <i>
+    Tj
+   </i>
+   =
+   <i>
+    tj
+   </i>
+   <sup>
+    −
+   </sup>
+   <sup>
+    1
+   </sup>
+   and
+   <i>
+    Kj
+   </i>
+   =
+   <i>
+    B
+   </i>
+   . This makes the
+   <i>
+    A
+   </i>
+   matrix triangular so that we can solve for
+   <i>
+    αj
+   </i>
+   's in one easy-to-explain backward-working pass. Another choice—closely related to Carr's work [4]—is to use strike spreads, that is,
+   <i>
+    Tj
+   </i>
+   =
+   <i>
+    T
+   </i>
+   for all
+   <i>
+    j
+   </i>
+   and
+   <i>
+    Kj
+   </i>
+   's that are different and below the barrier.
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 1.
+   </b>
+   Table 1 gives a numerical comparison of the performance of different hedge portfolios for three-month barrier options; a typical lifetime of a barrier option in foreign exchange markets. Looking at the results in Table 1 for the down-and-out call, we see the appeal of using options as hedge instruments; very few options are needed in the static hedges to achieve a hedge quality that is several orders of magnitude better than usual dynamic
+   <i>
+    -
+   </i>
+   -hedging. The numbers for the up-and-out call demonstrate one problem that static hedging does not immediately solve: the up-and-out call is a
+   <i>
+    reverse
+   </i>
+   or
+   <i>
+    live-out
+   </i>
+   option meaning that the underlying call is in the money when the barrier option knocks out. This
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   The PDEs for (a) down-and-out and (b) up-and-out call options
+  </p>
+  <p>
+   Table 1 Performance of dynamic and static hedge strategies in the Black-Scholes with 15% volatility and zero interest rate and dividends. The columns show the initial price of the hedge portfolio and the standard deviation of the benchmarked discounted hedge error, that is, the value of hedge portfolio at liquidation minus barrier option payoff relative to the initial value of the barrier option. All static hedges use three options besides the
+   <math display="inline">
+    (K, T)
+   </math>
+   -call. The time points for value matching, the
+   <math display="inline">
+    t_i
+   </math>
+   s, and the expiries for the calendar spreads are from the list (0, 1/12, 2/12, 3/12). The strike spreads use calls with strikes (110,112,114) for the up-and-out case, and puts with strikes (
+   <math display="inline">
+    90.25_{=B^2/K}
+   </math>
+   ,
+   <math display="inline">
+    88.25
+   </math>
+   ,
+   <math display="inline">
+    86.25
+   </math>
+   ) for the down-and out case. The
+   <math display="inline">
+    \Delta
+   </math>
+   -hedge is adjusted daily and all portfolios are continuously monitored
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th rowspan="3">
+      Hedge method
+     </th>
+     <th colspan="4">
+      Barrier option type
+     </th>
+    </tr>
+    <tr>
+     <th colspan="2">
+      Down-and-out call
+      <br/>
+      <math>
+       K = 100, T = 1/4, B = 95
+      </math>
+     </th>
+     <th colspan="2">
+      Up-and-out call
+      <br/>
+      <math>
+       K = 100, T = 1/4, B = 110
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Cost
+     </th>
+     <th>
+      Standard deviation (%)
+     </th>
+     <th>
+      Cost
+     </th>
+     <th>
+      Standard deviation (%)
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Dynamic;
+      <math>
+       \Delta
+      </math>
+      <br/>
+      Static; strike spreads
+      <br/>
+      Static; calendar spreads
+     </td>
+     <td>
+      2.6964
+      <br/>
+      2.6964
+      <br/>
+      2.6704
+     </td>
+     <td>
+      1.0
+     </td>
+     <td>
+      1.0358
+      <br/>
+      1.0674
+      <br/>
+      1.3468
+     </td>
+     <td>
+      81
+      <br/>
+      19
+      <br/>
+      94
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   discontinuity creates a large gap risk, and hedge quality deteriorates. To alleviate this, a number of regularization techniques have been suggested, for instance [10] using singular value decomposition when solving equation
+   <math display="inline">
+    (1)
+   </math>
+   .
+  </p>
+  <h3>
+   Beyond Black-Scholes Dynamics
+  </h3>
+  <p block-type="TextInlineMath">
+   Constructing static hedges by solving linear equations like equation (1) goes well beyond the Black–Scholes model. For constant elasticity of variance (asset volatility
+   <math display="inline">
+    \sigma S_t^{\gamma-1}
+   </math>
+   ) and local volatility (asset volatility of the form
+   <math display="inline">
+    \sigma(S_t, t)
+   </math>
+   models, the system carries over verbatim; the entries of the A-matrix are just calculated with a different formula/method. For jumpdiffusion models [2], one needs to extend the grid of match points to space points beyond the barrier, and for stochastic volatility models [8], an extra
+  </p>
+  <p block-type="Text">
+   dimension is needed to match different volatility levels at knockout. By using both strike and calendar spreads, asymptotically perfect static hedges can be found in these two cases. It should be stressed that the static hedges are model and parameter dependent, but experimental and empirical evidence
+   <math display="inline">
+    [7, 9]
+   </math>
+   suggests a high degree of robustness to model risk.
+  </p>
+  <h3>
+   <b>
+    Put–Call Symmetry and Static Hedges
+   </b>
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   In a number of papers
+   <math display="inline">
+    [3-5]
+   </math>
+   , Peter Carr and coauthors have derived put-call symmetries and shown how they can be used to create static hedges for barrier options. In its basic form [4] [page 1167], the put-call symmetry states that in the zero-dividend, zero-interest rate Black-Scholes
+  </p>
+  <p block-type="Text">
+   model, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Call(S_t, t|K, T) = (K/S_t) \times Put(S_t, t|S_t^2/K, T)
+   </math>
+  </p>
+  <p block-type="Equation">
+   for all
+   <math display="block">
+    S_t
+   </math>
+   ,
+   <math>
+    t
+   </math>
+   ,
+   <math>
+    K
+   </math>
+   , and
+   <math>
+    T
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   So a down-and-out call is replicated by buying one strike-
+   <i>
+    K
+   </i>
+   call, selling
+   <i>
+    K/B
+   </i>
+   puts with strike
+   <i>
+    B
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    /K
+   </i>
+   , liquidating this position the first time that
+   <i>
+    St
+   </i>
+   =
+   <i>
+    B
+   </i>
+   , and if that does not happen, holding it until the options expire. More general symmetry relations enable one to find static hedges for such contracts as up-andout calls, barrier options with rebates, lookback options, and double barrier options ([11] is a survey). Those static hedges will typically involve a continuum of plain vanilla options. Put–call symmetries also exist in models with nonzero interest rates and dividends, and more general dynamics than geometric Brownian motion (see [5]). Note that the strikespread approach from the previous section finds the symmetry-based static hedges without explicit knowledge of closed-form results, and that the perfect replication of the down-and-out call in Table 1—where the strike-
+   <i>
+    B
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    /K
+   </i>
+   put is included as a hedge instrument—demonstrates the basic put–call symmetry.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Allen, S. &amp; Padovani, O. (2002). Risk management using quasi-static hedging,
+     <i>
+      Economic Notes
+     </i>
+     <b>
+      31
+     </b>
+     , 277–336.
+    </li>
+    <li block-type="ListItem">
+     [2] Andersen, L., Andreasen, J. &amp; Eliezer, D. (2002). Static replication of barrier options: some general results,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      5
+     </b>
+     , 1–25.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [3] Bowie, J. &amp; Carr, P. (1994). Static simplicity,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      7
+     </b>
+     (8), 44–50.
+    </li>
+    <li block-type="ListItem">
+     [4] Carr, P., Ellis, K. &amp; Gupta, V. (1998). Static hedging of exotic options,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      53
+     </b>
+     , 1165–1190.
+    </li>
+    <li block-type="ListItem">
+     [5] Carr, P. &amp; Lee, R. (2008). Put-call symmetry: extensions and applications,
+     <i>
+      Mathematical Finance
+     </i>
+     forthcoming.
+    </li>
+    <li block-type="ListItem">
+     [6] Derman, E., Ergener, D. &amp; Kani, I. (1995). Static options replication,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      2
+     </b>
+     , 78–95.
+    </li>
+    <li block-type="ListItem">
+     [7] Engelmann, B., Fengler, M., Nalholm, M. &amp; Schwendner, P. (2007). Static versus dynamic hedges: an empirical comparison for barrier options,
+     <i>
+      Review of Derivatives Research
+     </i>
+     <b>
+      9
+     </b>
+     , 239–264.
+    </li>
+    <li block-type="ListItem">
+     [8] Fink, J. (2003). An examination of the effectiveness of static hedging in the presence of stochastic volatility,
+     <i>
+      Journal of Futures Markets
+     </i>
+     <b>
+      23
+     </b>
+     , 859–890.
+    </li>
+    <li block-type="ListItem">
+     [9] Nalholm, M. &amp; Poulsen, R. (2006). Static hedging and model risk for barrier options,
+     <i>
+      Journal of Futures Markets
+     </i>
+     <b>
+      26
+     </b>
+     , 449–463.
+    </li>
+    <li block-type="ListItem">
+     [10] Nalholm, M. &amp; Poulsen, R. (2006). Static hedging of barrier options under general asset dynamics: unification and application,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      13
+     </b>
+     , 46–60.
+    </li>
+    <li block-type="ListItem">
+     [11] Poulsen, R. (2006). Barrier options and their static hedges: simple derivations and extensions,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      6
+     </b>
+     , 327–335.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Barrier Options
+   </b>
+   ;
+   <b>
+    Finite Difference Methods for Barrier Options
+   </b>
+   ;
+   <b>
+    Hedging
+   </b>
+   ;
+   <b>
+    Put–Call Parity
+   </b>
+   ;
+  </p>
+  <p block-type="Text">
+   ROLF POULSEN
+  </p>
+ </body>
+</html>

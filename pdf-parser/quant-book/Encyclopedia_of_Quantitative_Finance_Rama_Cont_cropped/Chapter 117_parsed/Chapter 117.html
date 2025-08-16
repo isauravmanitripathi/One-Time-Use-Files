@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Correlation Swap
+   </b>
+  </h1>
+  <p block-type="Text">
+   A correlation swap is a type of exotic derivative security that pays off the observed statistical correlation between the returns of several underlying assets, against a preagreed price. At the time of writing, it is traded over-the-counter (OTC) on equity and foreign exchange derivatives markets. This article focuses on equity correlation swaps, which appeared in the early
+   <math display="inline">
+    2000s
+   </math>
+   , as a means to hedge the parametric risk exposure of exotic trading desks to changes in correlation.
+  </p>
+  <h3>
+   Pavoff
+  </h3>
+  <p block-type="Text">
+   Similar to variance swaps, the correlation swap payoff involves a notional (the amount to be paid/ received per
+   <i>
+    correlation point
+   </i>
+   &lt;sup&gt;a&lt;/sup&gt;), a realized correlation component (the formula used to calculate the level of observed statistical correlation between the underlying assets), and a strike price:
+  </p>
+  <blockquote>
+   <p block-type="TextInlineMath">
+    <math display="inline">
+     Correlation \nswap \npayoff = notional
+    </math>
+    <math display="inline">
+     \times
+    </math>
+    (realized correlation – strike)
+   </p>
+  </blockquote>
+  <p block-type="Text">
+   For example, a one-year correlation swap contract on the constituents of the Dow Jones Euro Stoxx 50 index would include the following terms:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     underlying assets—each of the 50 constituent stocks denoted by
+     <math display="inline">
+      S_1, \ldots, S_N
+     </math>
+     (
+     <math display="inline">
+      N = 50
+     </math>
+     );
+    </li>
+    <li block-type="ListItem">
+     notional—€100 000 per correlation point;
+    </li>
+    <li block-type="ListItem">
+     realized correlation—
+     <math display="inline">
+      \frac{2}{N(N-1)} \sum_{1 \le i &lt; j \le N} \rho_{i,j}
+     </math>
+     , where
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \rho_{i,j} = \frac{Cov(X_i, X_j)}{\sqrt{Var(X_i) \times Var(X_j)}} \times 100 \text{ is the familiar}
+   </math>
+   pairwise coefficient of correlation between the time series
+   <math display="inline">
+    X_i
+   </math>
+   and
+   <math display="inline">
+    X_j
+   </math>
+   of daily log returns observed in the year following the trade date;
+  </p>
+  <p block-type="Text">
+   strike—52.0
+   <i>
+    correlation points
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Thus, if after one year the arithmetic average of pairwise correlation coefficients between the 50 underlying assets is equal to 58.3 correlation points, the swap seller will pay a net cash flow of €630 000 to the swap buyer.
+  </p>
+  <h2>
+   <b>
+    Realized Correlation
+   </b>
+  </h2>
+  <p block-type="Text">
+   There are mainly two types of realized correlation formulas currently found on over-the-counter (OTC) markets:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     equally weighted realized correlation—the formula used in the above example:
+    </li>
+    <li block-type="ListItem">
+     weighted realized correlation—
+     <math display="inline">
+      \frac{\sum\limits_{1 \leq i &lt; j \leq N} w_i w_j \rho_{i,j}}{\sum w_i w_j},
+     </math>
+     <math display="inline">
+      \bullet
+     </math>
+     where
+     <math display="inline">
+      w_1, \ldots, w_N
+     </math>
+     are preagreed positive weights summing to 1. In the above example, one would typically take the "index weights" as of the trade date, that is, the stock quantities that a portfolio manager would invest in to track one unit of the Dow Jones Euro Stoxx 50 index.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Several technical reports have investigated how the above weighted realized correlation (WRC) formula relates to other proxy formulas that are popular in econometrics, when the underlying assets and weights correspond to an equity index. Tierens-Anadu
+   <math display="inline">
+    [4]
+   </math>
+   give empirical evidence that in the case of the S&amp;P 500 index,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    WRC \approx \frac{\sum_{i &lt; j} w_i w_j Cov(X_i, X_j)}{\sum_{i &lt; j} w_i w_j \sqrt{Var(X_i)Var(X_j)}} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   In addition, Bossu [1, 2] derives the following limit-case proxy formula, subject to some conditions on the weights:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\sum_{i &lt; j} w_i w_j Cov(X_i, X_j)}{\sum_{i &lt; j} w_i w_j \sqrt{Var(X_i)Var(X_j)}}\n
+   </math>
+   <math display="block">
+    \n\frac{Var\left(\sum_{i=1}^N w_i X_i\right)}{\sum_{N \to \infty}^{\sim} \frac{Var\left(\sum_{i=1}^N w_i X_i\right)}{\left(\sum_{i=1}^N w_i \sqrt{Var(X_i)}\right)^2}}\n
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   The proxy formula on the right-hand side is remarkable because we can interpret the numerator as "index variance" and the denominator as "average constituent variance", which is more straightforward than the average of
+   <math display="inline">
+    N \times (N-1)/2
+   </math>
+   pairwise correlation coefficients.
+  </p>
+  <h4>
+   <b>
+    Fair Value
+   </b>
+  </h4>
+  <p block-type="Text">
+   At the time of writing, little is known about the "fair value" of correlation swaps. Owing to the typically large number of underlyings, the popular Monte Carlo engine with or without local volatility surfaces requires an
+   <math display="inline">
+    N \times N
+   </math>
+   correlation matrix as additional input parameter. There are two problems with this approach: a practical one and a theoretical one. The practical problem is that individual correlation coefficients cannot be implied from listed option markets.&lt;sup&gt;
+   <math display="inline">
+    b
+   </math>
+   &lt;/sup&gt; The theoretical problem is that, even if one could come up with a sensible implied correlation matrix, a meaningful dynamic replication strategy for the correlation swap payoff would still be missing.&lt;sup&gt;c&lt;/sup&gt;
+  </p>
+  <p block-type="Text">
+   Ongoing research (see, e.g., the working papers of Bossu [1] and Jacquier [3]) aims to identify the linkages between dispersion trading and the dynamic hedging of correlation swaps, especially when the underlying assets are the constituent stocks of an equity index. This approach exploits the proxy formulas above to rewrite the correlation swap payoff as a function of tradable variance swaps; in this framework the correlation swap becomes a multiasset volatility derivative (see Realized Volatility Options), rather than a classical multiasset derivative.
+  </p>
+  <h4>
+   <b>
+    End Notes
+   </b>
+  </h4>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;In market jargon, a
+   <i>
+    correlation point
+   </i>
+   is equal to 0.01. With this convention, the value of a correlation coefficient is comprised between
+   <math display="inline">
+    -100
+   </math>
+   and
+   <math display="inline">
+    +100
+   </math>
+   correlation points. &lt;sup&gt;b.&lt;/sup&gt;To imply the value for
+   <math display="inline">
+    \rho_{i,j}
+   </math>
+   , one needs three option prices:
+  </p>
+  <p block-type="Text">
+   a vanilla option on
+   <math display="inline">
+    S_i
+   </math>
+   , a vanilla option on
+   <math display="inline">
+    S_i
+   </math>
+   and, for
+  </p>
+  <p block-type="Text">
+   example, a vanilla option on a portfolio made of 50%
+   <math display="inline">
+    S_i
+   </math>
+   and 50%
+   <math display="inline">
+    S_i
+   </math>
+   . The former two options are listed, the latter is not
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;c&lt;/sup&gt;. For example, in a two-asset extension of the Black-Scholes model with instantaneous correlation (dln
+   <math display="inline">
+    S^1
+   </math>
+   )(dln
+   <math display="inline">
+    S_t^2 = \rho \, dt
+   </math>
+   , the forward value of an equally weighted correlation swap is simply
+   <math display="inline">
+    \rho
+   </math>
+   –
+   <i>
+    strike
+   </i>
+   , which would be hedged purely with cash!
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bossu, S. (2007). A New Approach For Modelling and Pricing Correlation Swaps, Dresdner Kleinwort Equity Derivatives report (working paper). Available at http://math.uchicago.edu/
+     <math display="inline">
+      \sim
+     </math>
+     sbossu/CorrelationSwaps7.
+     <math display="inline">
+      \text{pdf}
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [2] Bossu, S. &amp; Gu, Y. (2004). Fundamental Relationship Between an Index's Volatility and the Average Volatility and Correlation of its Components, JPMorgan Equity Derivatives report (working paper). Available at http://math.uchicago.edu/~sbossu/CorrelFundamentals.
+     <math display="inline">
+      \text{pdf}
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [3] Jacquier, A. (2007).
+     <i>
+      Variance Dispersion and Correlation
+     </i>
+     Swaps, Working paper. Available at SSRN: http://ssrn. com/abstract=998924
+    </li>
+    <li block-type="ListItem">
+     [4] Tierens, I. &amp; Anadu, M. (2004). Does it Matter Which Methodology you use to Measure Average Correlation Across Stocks? Goldman Sachs Equity Derivatives Strategy: Quantitative Insights, 13 April 2004.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   Basket Options; Correlation Risk; Dispersion Trading: Variance Swap.
+  </p>
+  <p block-type="Text">
+   Sébastien Bossu
+  </p>
+ </body>
+</html>

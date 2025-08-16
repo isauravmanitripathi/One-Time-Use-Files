@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Lookback Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   Lookback options are path-dependent options, introduced at first in [25] and [26], characterized by having their settlement based on the minimum or the maximum value of an underlying index as registered during the lifetime of the option. At maturity, the holder can "lookback" and select the most convenient price of the underlying that occurred during this period: therefore they offer investors the opportunity (at a price, of course) of buying a stock at its lowest price and selling a stock at its highest price. Since this scheme guarantees the best possible result for the option holder, he or she will never regret the option payoff. As a consequence, a lookback option is more expensive than a vanilla option with similar payoff function. However, these options do not offer a natural hedge for typical business and are used mainly by speculators. To mitigate their cost, sometimes the lookback feature is mixed with an average feature: for example, the payoff is the best or the worst of past average prices and they are offered as investment product under names such as
+   <i>
+    Everest
+   </i>
+   ,
+   <i>
+    Napoleon
+   </i>
+   , and Altiplano.
+  </p>
+  <p block-type="Text">
+   In the section Payoff Function, we describe lookback options payoff. In the section Pricing, we illustrate the pricing of these options in the Black-Scholes setting and some results on the hedging problem. Thereafter, in the section Non-Gaussian Models, we consider the pricing problem under non-Gaussian models. Finally, in the section Related Payoff, we present payoffs related to lookback options.
+  </p>
+  <h1>
+   <b>
+    Pavoff Function
+   </b>
+  </h1>
+  <p block-type="Text">
+   A lookback option can be structured as a put or call. The strike can be either fixed or floating. We now consider two lookback options written on the minimum value achieved by the underlying index during a fixed time window:
+  </p>
+  <p block-type="Text">
+   A fixed strike lookback put The payoff is given by the difference, if positive, between the strike price and the minimum price over the monitoring period. Therefore, the buyer of this option can sell the asset at the minimum price receiving the strike
+   <math display="inline">
+    K
+   </math>
+  </p>
+  <p block-type="Text">
+   A floating strike lookback call The payoff is given by the difference between the asset price at the option maturity, which represents the floating strike, and the minimum price over the monitoring period. Therefore, the buyer of this option can buy the underlying asset paying the minimum price.
+  </p>
+  <p block-type="Text">
+   Notice that floating strike options will always be exercised. Formulae for the payoffs are provided in Table 1, as well as versions involving the maximum and variants denominated
+   <i>
+    partial price
+   </i>
+   or
+   <i>
+    partial
+   </i>
+   time.
+  </p>
+  <h2>
+   Pricing
+  </h2>
+  <p block-type="Text">
+   In this section, we discuss the pricing problem under the geometric Brownian motion (GBM) assumption, that is.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS(t) = (r - q)S(t)dt + \sigma S(t)dW(t), S(0) = S_0
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    r
+   </math>
+   is the instantaneous risk-free rate;
+   <math display="inline">
+    q
+   </math>
+   is the instantaneous dividend yield;
+   <math display="inline">
+    \sigma
+   </math>
+   is the percentage volatility;
+   <math display="inline">
+    S_0
+   </math>
+   is the initial underlying price; and we are interested in the distribution of the minimum
+   <math display="inline">
+    m(T)
+   </math>
+   and maximum
+   <math display="inline">
+    M(T)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M(T) = \max_{0 \le u \le T} S(u), \text{ and } m(T) = \min_{0 \le u \le T} S(u)
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   Figure 1 illustrates a simulated path of the underlying asset according to the dynamics in equation 1 and the corresponding trajectories for the maximum and minimum price.
+  </p>
+  <h3>
+   Analytical Solution
+  </h3>
+  <p block-type="Text">
+   Under the GBM assumption, the distribution law of
+   <math display="inline">
+    m(T)
+   </math>
+   (as well as the joint density of
+   <math display="inline">
+    m(T)
+   </math>
+   and
+   <math display="inline">
+    S(T)
+   </math>
+   ) is known in closed form. This allows one to obtain an analytical solution for standard lookback options as expected value of the discounted payoff; see, for example, [25, 26], and [15]. Therefore, we obtain the following pricing formula for the floating strike lookback call:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{t,S_t} e^{-r(T-t)} (S(T) - m(T))
+   </math>
+   <br/>
+   =
+   <math>
+    S_t e^{-q(T-t)} - e^{-r(T-t)} \mathbb{E}_{t,S_t} m(T)
+   </math>
+   <br/>
+   =
+   <math>
+    S_t e^{-q(T-t)} \mathcal{N}(d_2)
+   </math>
+  </p>
+  <p>
+   &lt;table&gt;
+   <b>
+    Table 1
+   </b>
+   Lookback option payoff function
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      Generic lookbacks
+      <br/>
+      Minimum
+     </th>
+     <th>
+      Maximum
+     </th>
+     <th>
+      Range
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      <math display="block">
+       m(T) = \min_{0 &lt; u &lt; T} S(u)
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       M(T) = \max_{0 \le u \le T} S(u)
+      </math>
+     </td>
+     <td>
+      <math>
+       M(T) - m(T)
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td colspan="4">
+      Standard lookbacks
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      Floating strike
+     </td>
+     <td>
+      Fixed strike
+     </td>
+     <td>
+      Reverse strike
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Call
+     </td>
+     <td>
+      <math display="block">
+       (S(T) - m(T))^{+}
+      </math>
+     </td>
+     <td>
+      <math>
+       (M(T)-K)^+
+      </math>
+     </td>
+     <td>
+      <math>
+       (m(T)-K)^{+}
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \text{Put}
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       (M(T) - S(T))^{+}
+      </math>
+     </td>
+     <td>
+      <math>
+       (K-m(T))^{+}
+      </math>
+     </td>
+     <td>
+      <math>
+       (K-M(T))^{+}
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td colspan="4">
+      Nonstandard lookbacks
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      Partial price
+     </td>
+     <td>
+      Partial time
+     </td>
+     <td>
+      conditions
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Call
+     </td>
+     <td>
+      <math>
+       (S(T) - \lambda m(T))^{+}
+      </math>
+     </td>
+     <td>
+      <math>
+       (S(T_2) - m(T_1))^+
+      </math>
+     </td>
+     <td>
+      <math>
+       \lambda &gt; 1, T_1 &lt; T_2
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \text{Put}
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       (\gamma M(T) - S(T))^{+}
+      </math>
+     </td>
+     <td>
+      <math>
+       (M(T_1) - S(T_2))^+
+      </math>
+     </td>
+     <td>
+      <math>
+       \mu &lt; 1, T_1 &lt; T_2
+      </math>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <img src="_page_1_Figure_3.jpeg"/>
+  </p>
+  <p>
+   Figure 1 Geometric Brownian motion and its maximum and minimum to date
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} &amp; -\mathrm{e}^{-r(T-t)}m_{t}\mathcal{N}\Big(d_{2}-\sigma\sqrt{T-t}\Big) \\ &amp; + \frac{\sigma^{2}S_{t}}{2r}\bigg[\mathrm{e}^{-r(T-t)}\bigg(\frac{S_{t}}{m_{t}}\bigg)^{-2r/\sigma^{2}}\mathcal{N}(d_{3}) \\ &amp; - \mathrm{e}^{-q(T-t)}\mathcal{N}(-d_{2})\bigg] \end{aligned} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_2 = \frac{1}{\sqrt{\sigma^2(T-t)}} \left( \ln\left(\frac{S_t}{m_t}\right) + (r-q)(T-t) + \frac{1}{2}\sigma^2(T-t) \right),
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_3 = -d_2 + \frac{2(r-q)}{\sigma} \sqrt{T-t},
+   </math>
+   <br/>
+   <math display="block">
+    \mathcal{N}(x) = \int_{-\infty}^{x} e^{\frac{-u^2}{2}} du \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Notice that the formula above admits a simplification when
+   <math display="inline">
+    t = 0
+   </math>
+   : indeed, in this case, we have
+   <math display="inline">
+    S(0) = m(0)
+   </math>
+   . Formula 3 suggests that the lookback call value is given by the sum of the premium of a plain vanilla call with strike equal to the current minimum and the premium of a so-called strike bonus option. This is the expected value of the cash flows necessary to exchange the initial option position for options with successively more favorable strikes. In other words, it measures the potential decrease in the price at which the option allows its holder to buy the security, if and when the security price attains a new minimum.
+  </p>
+  <p block-type="Text">
+   For pricing the fixed strike put option, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;\mathbb{E}_{t,S_{t}} \mathrm{e}^{-r(T-t)} \left( K - m(T) \right)^{+} \\ &amp;= \mathbf{1}_{\left( K &lt; m_{t} \right)} \bigg\{ -S_{t} \mathcal{N}(-d) + \mathrm{e}^{-r(T-t)} \\ &amp;\times K \mathcal{N} \left( -d + \sigma \sqrt{T-t} \right) + \left( \frac{\sigma^{2}}{2r} \right) S_{t} \\ &amp;\times \left[ \mathrm{e}^{-r(T-t)} \bigg( \frac{S_{t}}{K} \bigg)^{-2r/\sigma^{2}} \mathcal{N} \bigg( d_{1} \bigg) - \mathcal{N}(-d) \right] \bigg\} \\ &amp;+ \mathbf{1}_{\left( K \geq m_{t} \right)} \bigg\{ \mathrm{e}^{-r(T-t)} (K - m_{t}) - S_{t} \mathcal{N}(-d_{2}) \end{split}
+   </math>
+  </p>
+  <p block-type="Text">
+   3
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    + e^{-r(T-t)} m_t \mathcal{N}\left(-d_2 + \sigma \sqrt{T-t}\right) + \left(\frac{\sigma^2}{2r}\right) S_t
+   </math>
+   <math display="block">
+    \times \left[ e^{-r(T-t)} \left(\frac{S_t}{m_t}\right)^{-2r/\sigma^2} \mathcal{N}(d_3) - \mathcal{N}(-d_2) \right] \right\} \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d = \frac{1}{\sqrt{\sigma^2(T-t)}} \left( \ln\left(\frac{S_t}{K}\right) + (r-q)(T-t) + \frac{1}{2}\sigma^2(T-t) \right),
+   </math>
+   <br/>
+   <math display="block">
+    d_1 = \frac{-d+2(r-q)}{\sigma} \sqrt{T-t} \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   Lookback options on the maximum can be priced by exploiting the relation between maximum and minimum operators.
+  </p>
+  <p block-type="Text">
+   An important feature of lookbacks is the frequency of observation of the underlying assets for the purpose of identifying the best possible value for the holder. For example, the above expressions are consistent with the assumption that the underlying asset is monitored continuously. Instead, discrete monitoring refers to updating the maximum/minimum price at fixed times (e.g., daily, weekly, or monthly). In this case, we have to replace
+   <math display="inline">
+    M(T)
+   </math>
+   and
+   <math display="inline">
+    m(T)
+   </math>
+   by
+   <math display="inline">
+    \widehat{M}(T)
+   </math>
+   and
+   <math display="inline">
+    \widehat{m}(T)
+   </math>
+   , defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{M}(T) = \max_{0 \le i \le n} S(i\,\Delta), \text{ and } \widehat{m}(T) = \min_{0 \le i \le n} S(i\,\Delta) \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    n
+   </math>
+   is the number of monitoring dates and
+   <math display="inline">
+    \Delta
+   </math>
+   is the time distance between monitoring dates; with
+   <math display="inline">
+    n\Delta = T
+   </math>
+   . Nearly all closed-form expressions available for pricing path-dependent options are based on continuous-time paths, but many traded options are based on discrete price fixings. In general, a higher maximum/lower minimum occurs as long as the number
+   <math display="inline">
+    n
+   </math>
+   of monitoring dates increases. As noted by Heynen and Kat [29] and Aitsahlia and Leung [1], the discrepancy between option prices under continuous and discrete monitoring of the reference index may have significant effect on the prices of lookback options, but does not introduce new hedging problems. Indeed, the slow convergence of the discrete scheme to the continuous one as the number
+   <math display="inline">
+    n
+   </math>
+   of monitoring dates increases is well known. This figure is quantified in an order of proportionality of approximately
+   <math display="inline">
+    1/\sqrt{n}
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   For example, setting
+   <math display="inline">
+    r = 0.1
+   </math>
+   ,
+   <math display="inline">
+    q = 0
+   </math>
+   ,
+   <math display="inline">
+    \sigma = 0.2
+   </math>
+   ,
+   <math display="inline">
+    T = 1
+   </math>
+   ,
+   <math display="inline">
+    S_0 = 100
+   </math>
+   , the continuous formula returns 19.6456. Assuming a year consists of 250 days and that 10 monitoring dates are available (i.e., monitoring occurs approximately once a month), the discrete formula gives 17.0007: a percentage difference about 15% with respect to the continuous case. Using 10 000 monitoring dates (i.e., monitoring occurs once every 36 minutes), the discrete formula returns 19.5523, a small but still appreciable difference with respect to the continuous case.
+  </p>
+  <p block-type="TextInlineMath">
+   Few papers have investigated the analytical pricing of discretely monitored lookback options. A correction to the continuously monitored formula based on the Riemann zeta function is given in [12]. The Riemann zeta function enters indeed in the computations of the moments of the discrete maximum/minimum; see, for example, [23, 27, 31, 32, 34], for different derivations and improvements of the above correction. New results for discrete options have been recently obtained exploiting the Wiener-Hopf factorization and the Spitzer's identity. For example, [5] and [27] present an exact analytical formula showing how to cast the pricing problem in terms of an integral equation of the Wiener-Hopf type. This equation can be solved in closed form in the Gaussian case. The computational cost is linear in the number of monitoring dates. A related approach based on the Spitzer's identity (the probabilistic interpretation of the solution of a Wiener-Hopf equation) has been advanced by Borovkov and Novikov [9] and by Petrella and Kou [39]. They propose an algorithm with a computational cost that is quadratic in the number of monitoring dates but has the advantages of being simply adapted to non-Gaussian models provided that they have independent identically distributed (i.i.d.) increments and the pricing formula of plain vanilla calls and puts are available.
+  </p>
+  <p block-type="Text">
+   Other approaches are mainly numerical and briefly detailed in the following subsections.
+  </p>
+  <h3>
+   Finite Difference Method
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   The numerical solution of the partial differential equation (PDE) satisfied by the lookback option price is discussed for example in [42] and a detailed treatment for the discrete case is given in [3]. Since lookback options are path-dependent options, their value
+   <math display="inline">
+    V
+   </math>
+   does not depend only on the current spot
+  </p>
+  <p block-type="TextInlineMath">
+   price and time, but also on the current realized minimum or maximum, and we can write
+   <math display="inline">
+    V =
+   </math>
+   <math display="inline">
+    V(S, m, t)
+   </math>
+   for options on the minimum (similar discussion holds for lookback on the maximum). Applying Ito's lemma and equating the expected return on the option to the return on a risk-free investment, it can be shown that
+   <math display="inline">
+    V
+   </math>
+   solves the following PDE:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V}{\partial t} + (r - q)S\frac{\partial V}{\partial S} + \frac{\sigma^2}{2}S^2\frac{\partial^2 V}{\partial S^2} = rV \qquad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which has to be solved for
+   <math display="inline">
+    S \ge m
+   </math>
+   and
+   <math display="inline">
+    T \ge t \ge 0
+   </math>
+   . The above PDE is the standard Black-Scholes PDE, with the change of the domain from
+   <math display="inline">
+    S &gt; 0
+   </math>
+   to
+   <math display="inline">
+    S &gt; m
+   </math>
+   . Here
+   <math display="inline">
+    m
+   </math>
+   appears as parameter delimiting the domain of the spot price. This implies that a boundary condition at
+   <math display="inline">
+    S = m
+   </math>
+   is needed. The important point is the observation that when the spot price is near to the running minimum, the probability that at expiry the minimum will be equal to the current minimum
+   <math display="inline">
+    m
+   </math>
+   is zero and therefore changes in
+   <math display="inline">
+    m
+   </math>
+   do not affect the option value. This allows one to set the boundary condition at
+   <math display="inline">
+    S = m
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V(S, m, t)}{\partial m} = 0 \text{ when } S = m \tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Together with the payoff condition at
+   <math display="inline">
+    t = T
+   </math>
+   , equations (8) and (9) allow us to fully characterize the lookback option premium. For discretely monitored lookback options, with monitoring at dates
+   <math display="inline">
+    t_i = i\Delta
+   </math>
+   the PDE (8) remains unchanged, while the boundary condition (9) does not apply anymore. Indeed, between monitoring dates, the spot price can freely move in
+   <math display="inline">
+    (0, +\infty)
+   </math>
+   and at monitoring dates, the solution is updated according to the rule
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(S, m, t_i^+) = V(S, \min(S, m), t_i^-) \qquad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   Equation (8) can be solved numerically using an appropriate numerical scheme such as the Crank–Nicolson one (
+   <i>
+    see
+   </i>
+   <b>
+    Crank–Nicolson Scheme
+   </b>
+   ). However, exploiting a change of numeraire, the PDE
+   <math display="inline">
+    (8)
+   </math>
+   can be simplified to a single state variable
+   <math display="inline">
+    [3]
+   </math>
+   .
+  </p>
+  <h4>
+   Monte Carlo Simulation
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   Discretely monitored lookback options can be easily priced by standard Monte Carlo (MC) simulation. The underlying price is simulated at all monitoring
+  </p>
+  <p block-type="Text">
+   dates exploiting the exact solution of the stochastic differential equation
+   <math display="inline">
+    (1)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S^{(j)}((i+1)\Delta) = S^{(j)}(i\Delta)e^{(r-0.5\sigma^2)\Delta + \sigma\sqrt{\Delta}\epsilon_i^{(j)}} \quad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \epsilon_i^{(j)}
+   </math>
+   is a standard normal random variate and
+   <math display="inline">
+    S^{(j)}(i\Delta)
+   </math>
+   is the spot price at time
+   <math display="inline">
+    t_i = i\Delta
+   </math>
+   as sampled in the
+   <math display="inline">
+    i
+   </math>
+   th simulation.
+  </p>
+  <p block-type="TextInlineMath">
+   The corresponding minimum price
+   <math display="inline">
+    m^{(j)}(i\Delta)
+   </math>
+   over the time interval
+   <math display="inline">
+    t_{(i-1)\Delta}
+   </math>
+   ,
+   <math display="inline">
+    t_{i\Delta}
+   </math>
+   is updated at each monitoring date according to the rule
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{m}^{(j)}(i\,\Delta) = \min\left(S^{(j)}(i\,\Delta), \widehat{m}^{(j)}((i-1)\Delta)\right) \quad (12)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with a starting condition
+   <math display="inline">
+    m_0^{(j)} = S_0
+   </math>
+   . The MC price for a lookback is given by the average of the discounted payoff computed over
+   <math display="inline">
+    J
+   </math>
+   simulated sample paths. For a lookback option with fixed strike
+   <math display="inline">
+    K
+   </math>
+   , the MC price is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-rt_n}\frac{1}{J}\sum_{j=1}^{J}\left(K-\widehat{m}^{(j)}(n\Delta)\right)^{+}
+   </math>
+   (13)
+  </p>
+  <p block-type="Text">
+   Similarly, for a floating strike lookback option, the MC price is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-rt_n}\frac{1}{J}\sum_{j=1}^{J}\left(S^{(n\Delta)}-\widehat{m}^{(j)}(n\Delta)\right) \qquad (14)
+   </math>
+  </p>
+  <p block-type="Text">
+   Unfortunately, the procedure cannot be immediately applied to continuously monitored options shrinking the time step
+   <math display="inline">
+    \Delta
+   </math>
+   . Indeed, owing to fact that we can only sample at discrete times, we lose information about the parts of the continuous-time path that lie between the sampling dates. This procedure will be systematically biased in the sense that the continuous minimum (maximum) will be always overestimated (underestimated). Andersen and Brotherton-Ratcliffe [4] show that for a one-year lookback with 256 discrete monitoring points this bias is around 5% of the option price and suggest a procedure to correct it.
+  </p>
+  <h4>
+   Binomial and Tree Methods
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   As for PDEs, the implementation of a tree for path-dependent options involves two state variables and the need to keep track of current extreme values will cause the number of calculations to grow substantially faster than the number of nodes. However, under the GBM assumption and exploiting
+  </p>
+  <p block-type="Text">
+   a change of numeraire, the pricing of lookback options can be reduced to one-state binomial model (having a reflecting barrier at 0); see, for instance, [6] and [14], as well as
+   <b>
+    Tree Methods
+   </b>
+   . Using such models cuts the amount of computation remarkably and also makes it straightforward to deal with the early exercise feature.
+  </p>
+  <h2>
+   <i>
+    Hedging
+   </i>
+  </h2>
+  <p block-type="TextInlineMath">
+   We conclude this section, mentioning the hedging problem of lookback options. When
+   <i>
+    r
+   </i>
+   =
+   <i>
+    q
+   </i>
+   +
+   <i>
+    σ
+   </i>
+   <sup>
+    2
+   </sup>
+   <i>
+    /
+   </i>
+   2, lookback options can be exactly replicated using a self-financing strategy based on straddles (an ordinary put plus an ordinary call) with an exercise price equal to the initial extremum (maximum or minimum) [25]. If, over the life of the option, the stock price never rises above or falls below its initial value, the initial straddle would exactly satisfy the writer's terminal obligation. When the stock price is at an extremum and then achieves a new maximum or minimum, the straddle should be sold and a new portfolio established, a straddle with exercise price equal to the new maximum (minimum). This strategy is self-financed and replicates the lookback option. However, in general, the replicating strategy requires the computation of the  coefficient, that is, units of stocks needed to replicate the contingent claim, by taking the derivative of the pricing formula with respect to the current spot price. An alternative method is put forward by the use of the Malliavin calculus approach, and the main component for this method to work is a sort of representation theorem, called the
+   <i>
+    Clark–Ocone formula
+   </i>
+   . This formula allows us to identify a formal expression for the replicating portfolio of basically any contingent claim. This has been exploited in [8] to obtain the replicating portfolio.
+  </p>
+  <p block-type="Text">
+   A different approach is taken in [30] that finds bounds on the prices of the lookback option, in terms of the (market) prices of call options. This is achieved without making explicit assumptions about the dynamics of the price process of the underlying asset, but rather by inferring information about the potential distribution of asset prices from the call prices. Thus the bounds and the associated hedging strategies are model independent and represent limits on the possible price of the lookback, which are necessary for the absence of arbitrage.
+  </p>
+  <h1>
+   <b>
+    Non-Gaussian Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   The GBM model in equation (1) is one of the most successful and widely used models in financial economics. Unfortunately, deviations between the model and empirical evidence are well known in literature and therefore offer new opportunities for the development of more-realistic models and pricing formulas for exotic options. With reference to lookback options, extensions have been obtained replacing the GBM model by the constant elasticity of variance (CEV) model (
+   <i>
+    see
+   </i>
+   <b>
+    Constant Elasticity of Variance (CEV) Diffusion Model
+   </b>
+   ) or by an exponential Levy ´ model (
+   <i>
+    see
+   </i>
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ). In the following sections we discuss such extensions.
+  </p>
+  <h2>
+   <i>
+    CEV
+   </i>
+  </h2>
+  <p block-type="Text">
+   The study of lookback options in the CEV model has started with [10] and [11]. Their approach consists in approximating the CEV process by a trinomial lattice and uses it to value barrier and lookback options numerically. A binomial tree is also used in [16]. While these approaches are purely numerical, in [20] closed-form solutions for the Laplace transforms of the probability distributions of the maximum and minimum are obtained. Lookback prices are recovered by inverting the Laplace transforms and integrating against the option payoff. An analytical inversion of the Laplace transforms for lookback options in terms of spectral expansions associated with the infinitesimal generator of the CEV diffusion is given in [36]. All these studies point out that the differences in prices of these exotic options under the CEV and geometric Brownian motion assumptions can be far more significant than the differences for standard European options.
+  </p>
+  <h3>
+   <i>
+    L´evy Processes
+   </i>
+  </h3>
+  <p block-type="Text">
+   Lookback options have been priced also under Levy ´ processes. For example, in [13] a very powerful algorithm is proposed that can be adapted for pricing discrete lookback under a jump-diffusion model. For more general Levy processes, very efficient algo- ´ rithms have been proposed in [22, 39] and [24]. An analytical expression in terms of the Laplace transform is found for continuously monitored options, under a double-exponential model, in [35].
+  </p>
+  <h2>
+   <b>
+    Related Pavoff
+   </b>
+  </h2>
+  <p block-type="Text">
+   Several exotic options can be thought of as a modification of lookback options. We have mentioned a few of them here.
+  </p>
+  <p block-type="Text">
+   In
+   <i>
+    partial lookback
+   </i>
+   options, the lookback feature is limited to only the first (for entry timing) or the last (for exit timing) part of the options' life. This product, even with a relatively short lookback periods, appears to offer a good solution to most timing problems at a reasonable price. Kat and Heynen [33] provide closed-form pricing formulas for such options. Analysis shows how the prices of such "partial lookback options" respond to a change in the monitoring period.
+  </p>
+  <p block-type="Text">
+   <i>
+    Quanto lookback
+   </i>
+   refers to a payoff structure where the terminal payoff of the quanto option depends on the realized extreme value of a stock denominated in a foreign currency but the payoff is paid in a domestic currency. These contracts have been studied in [18].
+  </p>
+  <p block-type="Text">
+   Double lookbacks or Range options include calls and puts with the underlying being the difference between the maximum and minimum prices of one asset over a certain period, and calls or puts with the underlying being the difference between the maximum prices of two correlated assets over a certain period. Analytical expressions of the joint probability distribution of the maximum and minimum values of two correlated geometric Brownian motions are derived in [28] and used in the valuation of double lookbacks. An option on the spread between the maximum and minimum price of a single stock over a given interval of time captures the idea of an option on price volatility; see, for example, the related literature on financial econometrics devoted to estimate the volatility using range estimators. Therefore, such an option might be of interest to traders who want to bet on price volatility or hedge an existing position that is sensitive to price volatility.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <i>
+    Quantile
+   </i>
+   options have a payoff at maturity depending on the order statistics of the underlying asset price. The
+   <i>
+    j
+   </i>
+   -quantile process
+   <math display="inline">
+    q(n, j)
+   </math>
+   is defined as the level at which the return process stays below for j periods out of n. In particular, we have
+   <math display="inline">
+    q(n, n) =
+   </math>
+   <math display="inline">
+    \widehat{M}(n\Delta)
+   </math>
+   and
+   <math display="inline">
+    q(n,0) = \widehat{m}(n\Delta)
+   </math>
+   . The quantile payoff is obtained replacing the extreme appearing in Table 1 by the quantile
+   <math display="inline">
+    q(n, j)
+   </math>
+   . These options can be priced by making use of what is known as the Dassios-Port-Wendel identity [19], that allows one
+  </p>
+  <p block-type="Text">
+   to write the quantile as sum
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q(n,j) \stackrel{a}{=} \widehat{m}((n-j)\,\Delta) + \widehat{M}(j\,\Delta) \qquad (15)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \stackrel{d}{=}
+   </math>
+   means equality in distribution and
+   <math display="inline">
+    \widehat{m}((n (j)\Delta
+   </math>
+   ) and
+   <math display="inline">
+    \widehat{M}(j\Delta)
+   </math>
+   are independent processes. From this identity, it follows that the density of the quantile is the convolution of the densities of
+   <math display="inline">
+    \widehat{m}((n - j)\Delta)
+   </math>
+   and
+   <math display="inline">
+    \widehat{M}(j\Delta)
+   </math>
+   and, at the issue date of the contract, the quantile price can be obtained as expected discounted payoff under the risk-neutral measure; see [5] and [19] for details. Another way of exploiting the Dassios-Port-Wendel identity consists in, conditioning on the minimum, representing the quantile option price as average of lookback option prices written on the maximum and with random strike. The average is taken with respect to the density of the discrete minimum. Finally, we remark that the pricing off the inception date is not straightforward, because the quantile process is non-Markovian. A discussion can be found in [19]. Other relevant references are [2, 38], and [7].
+  </p>
+  <p block-type="TextInlineMath">
+   A drawdown (drawup) option is defined as the drop (increase) of the asset price from its running maximum (minimum),
+   <math display="inline">
+    D(t) = M(t) - S(t)
+   </math>
+   ,
+   <math display="inline">
+    (U(t) =
+   </math>
+   <math display="inline">
+    S(t) - m(t)
+   </math>
+   ). Maximum drawdown
+   <math display="inline">
+    MDD(t)
+   </math>
+   is defined as the maximal drop of the asset price from its running maximum over a given period of time:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    MDD(t) = \max_{0 \le s \le t} D(s) \tag{16}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   In a similar manner, we can define the maximum drawup. Maximum drawdown measures the worst loss of an investor who enters the market at a certain point and leaves it at some following point within a given time period; this means that he or she buys the asset at a local maximum and sells it at the subsequent lowest point, and this drop is the largest in the given time period. A derivative contract on the maximum drawdown, introduced in [41], can serve as an important risk measure indicator: when the market is in a bubble, it is reasonable to expect that the prices of drawdown contracts would be significantly higher. On the other hand, when the market is stable, or when it exhibits mean reversion behavior, the prices of drawdown contracts would become cheaper. When the market experiences a crash, the lookback option may expire close to worthless if the final asset value is near its running maximum. Momentum traders believe
+  </p>
+  <p block-type="Text">
+   that the realized maximum drawdown (maximum drawup) will be larger than expected, and thus they are natural buyers of this contract. On the other hand, selling the (unhedged) contract is equivalent to taking the opposite strategy, namely, buying the asset when it is setting its new low. This is known as
+   <i>
+    contrarian trading
+   </i>
+   . Contrarian traders believe that the realized maximum drawdown (maximum drawup or range) will be smaller than expected, and they are natural sellers of this contract. The distribution of the maximum drawdown of Brownian motion is studied in [37].
+  </p>
+  <p block-type="Text">
+   <i>
+    Russian options
+   </i>
+   are perpetual American Options with lookback payoff, introduced in [40]. Russian options can be regarded as a kind of perpetual American fixed strike lookback option with zero strike price and their pricing can be derived by using a probability approach [21], or a PDE approach [17].
+  </p>
+  <p block-type="Text">
+   Finally, we mention the class of structures named
+   <i>
+    mountain options
+   </i>
+   , having names such as Himalaya, Everest, Altiplano and so on (
+   <i>
+    see
+   </i>
+   <b>
+    Atlas Option
+   </b>
+   ;
+   <b>
+    Himalayan Option
+   </b>
+   ;
+   <b>
+    Altiplano Option
+   </b>
+   ). Here, the extrema over a given period of a given asset is replaced by the best or the worst performer over different periods of assets in a given basket. Sometimes, a global floor on the return of the product is also introduced. It is clear that MC simulation is needed to be able to price this type of products, that, in general, are very sensible to the crosscorrelation of the assets. In addition, the Greeks of these contracts can change markedly as the trade progresses.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Aitsahlia, F. &amp; Leung, L.T. (1998). Random walk duality and the valuation of discrete lookback options,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      5
+     </b>
+     (3/4), 227–240.
+    </li>
+    <li block-type="ListItem">
+     [2] Akahori, J. (1995). Some formulae for a new type of path-dependent option,
+     <i>
+      Annals of Applied Probability
+     </i>
+     <b>
+      5
+     </b>
+     , 383–388.
+    </li>
+    <li block-type="ListItem">
+     [3] Andreasen, J. (1998). The pricing of discretely sampled Asian and lookback options: a change of numeraire approach,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      2
+     </b>
+     (1), 5–30.
+    </li>
+    <li block-type="ListItem">
+     [4] Andersen, L. &amp; Brotherton-Ratcliffe, R. (1996). Exact exotics,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      9
+     </b>
+     , 85–89.
+    </li>
+    <li block-type="ListItem">
+     [5] Atkinson, C. &amp; Fusai, G. (2007). Discrete extrema of Brownian motion and pricing of exotic options,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      10
+     </b>
+     (3), 1–43.
+    </li>
+    <li block-type="ListItem">
+     [6] Babbs, S. (2000). Binomial valuation of lookback options,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      24
+     </b>
+     (11–12), 1499–1525.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [7] Ballotta, L. &amp; Kyprianou, A. (2001). A note on the Alpha-Quantile option,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 137–144.
+    </li>
+    <li block-type="ListItem">
+     [8] Bermin, H.-P. (2000). Hedging lookback and partial lookback options using Malliavin calculus,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      39
+     </b>
+     , 75–100.
+    </li>
+    <li block-type="ListItem">
+     [9] Borovkov, K. &amp; Novikov, A. (2002). On a new approach for option pricing,
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      39
+     </b>
+     , 1–7.
+    </li>
+    <li block-type="ListItem">
+     [10] Boyle, P.P. &amp; Tian, Y. (1999). Pricing lookback and barrier options under the CEV process,
+     <i>
+      Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      34
+     </b>
+     , 241–264.
+    </li>
+    <li block-type="ListItem">
+     [11] Boyle, P.P., Tian. Y. &amp; Imai, J. (1999). Lookback options under the CEV process: a correction,
+     <i>
+      Journal of Finance and Quantitative Analysis
+     </i>
+     web site http://www.jfqa.org/. In: Notes, Comments, and Corrections.
+    </li>
+    <li block-type="ListItem">
+     [12] Broadie, M., Glasserman, P. &amp; Kou, S. (1999). Connecting discrete and continuous path-dependent options,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      3
+     </b>
+     , 55–82.
+    </li>
+    <li block-type="ListItem">
+     [13] Broadie, M. &amp; Yamamoto, Y. (2005). A doubleexponential fast Gauss transform algorithm for pricing discrete path-dependent options,
+     <i>
+      Operations Research
+     </i>
+     <b>
+      53
+     </b>
+     (5), 764–779.
+    </li>
+    <li block-type="ListItem">
+     [14] Cheuck, T.H.F. &amp; Vorst, T.C.F. (1997). Currency lookback options and observation frequency: a binomial approach,
+     <i>
+      Journal of International Money and Finance
+     </i>
+     <b>
+      16
+     </b>
+     (2), 173–187.
+    </li>
+    <li block-type="ListItem">
+     [15] Conze, A. &amp; Vishwanathan, R. (1991). Path-dependent options: the case of lookback options,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      46
+     </b>
+     , 1893–1907.
+    </li>
+    <li block-type="ListItem">
+     [16] Costabile, M. (2006). On pricing lookback options under the CEV process,
+     <i>
+      Decisions in Economics and Finance
+     </i>
+     <b>
+      29
+     </b>
+     , 139–153.
+    </li>
+    <li block-type="ListItem">
+     [17] Dai, M. (2000). A closed-form solution for perpetual American floating strike lookback options,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      4
+     </b>
+     (2), 63–68.
+    </li>
+    <li block-type="ListItem">
+     [18] Dai, M., Kwok, Y.K. &amp; Wong, H.Y. (2004). Quanto lookback options,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     (3), 445–467.
+    </li>
+    <li block-type="ListItem">
+     [19] Dassios, A. (1995). The distribution of the quantile of a Brownian motion with drift &amp; the pricing of related path-dependent options,
+     <i>
+      Annals of Applied Probability
+     </i>
+     <b>
+      5
+     </b>
+     , 389–398.
+    </li>
+    <li block-type="ListItem">
+     [20] Davydov, D. &amp; Linetsky, V. (2001). The valuation and hedging of barrier and lookback options under the CEV process,
+     <i>
+      Management Science
+     </i>
+     <b>
+      47
+     </b>
+     , 949–965.
+    </li>
+    <li block-type="ListItem">
+     [21] Duffie, D. &amp; Harrison, J.M. (1993). Arbitrage pricing of Russian options and perpetual lookback options,
+     <i>
+      The Annals of Applied Probability
+     </i>
+     <b>
+      3
+     </b>
+     (3), 641–651.
+    </li>
+    <li block-type="ListItem">
+     [22] Feng, L. &amp; Linetsky, V. (2009). Computing exponential moments of the discrete maximum of a Levy process and lookback options,
+     <i>
+      Finance and Stochastics
+     </i>
+     , available at SSRN:http://ssrn.com/abstract=1260934.
+    </li>
+    <li block-type="ListItem">
+     [23] Fusai, G., Abrahams, I.D. &amp; Sgarra, C. (2006). An exact analytical solution for discrete barrier options,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      10
+     </b>
+     (1), 1–26.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [24] Fusai, G., Marazzina, D., Marena, M. &amp; Ng, M. (2008).
+     <i>
+      Maturity Randomization and Option Pricing
+     </i>
+     . w.p. SEMeQ.
+    </li>
+    <li block-type="ListItem">
+     [25] Goldman, M.B., Sosin, H.B. &amp; Gatto, M.A. (1979). Path-dependent options: buy at the low, sell at the high,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      34
+     </b>
+     , 1111–1127.
+    </li>
+    <li block-type="ListItem">
+     [26] Goldman, M.B., Sosin, H.B. &amp; Shepp, L. (1979). On contingent claims that insure ex-post optimal stock market timing,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      34
+     </b>
+     , 401–413.
+    </li>
+    <li block-type="ListItem">
+     [27] Green, R., Fusai, G. &amp; Abrahams, I.D. (2009). The Wiener-Hopf technique &amp; discretely monitored path dependent option pricing,
+     <i>
+      Mathematical Finance
+     </i>
+     , to appear.
+    </li>
+    <li block-type="ListItem">
+     [28] He, H., Keirstead, W. &amp; Rebholz, J. (1998). Double lookbacks,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 201–228.
+    </li>
+    <li block-type="ListItem">
+     [29] Heynen, R.C. &amp; Kat, H.M. (1995). Lookback options with discrete and partial monitoring of the underlying price,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 273–284.
+    </li>
+    <li block-type="ListItem">
+     [30] Hobson, D.G. (1998). Robust hedging of the lookback option,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      2
+     </b>
+     (4), 329–347.
+    </li>
+    <li block-type="ListItem">
+     [31] Horfelt, P. (2003). Extension of the corrected bar- ¨ rier approximation by Broadie, Glasserman, and Kou,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      7
+     </b>
+     (2), 231–243.
+    </li>
+    <li block-type="ListItem">
+     [32] Howison, S. &amp; Steinberg, M. (2007). A matched asymptotic expansions approach to continuity corrections for discretely sampled options. Part 1: barrier options,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     , 63–89.
+    </li>
+    <li block-type="ListItem">
+     [33] Kat, H.M. &amp; Heynen, R.C. (1994). Selective memory.
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      7
+     </b>
+     (11), 73–76.
+    </li>
+    <li block-type="ListItem">
+     [34] Kou, S.G. (2003). On pricing of discrete barrier options,
+     <i>
+      Statistica Sinica
+     </i>
+     <b>
+      13
+     </b>
+     , 955–964.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [35] Kou, S.G. &amp; Wang, H. (2003). First passage times of a jump diffusion process,
+     <i>
+      Advances in Applied Probability
+     </i>
+     <b>
+      35
+     </b>
+     , 504–531.
+    </li>
+    <li block-type="ListItem">
+     [36] Linetsky, V. (2004). Lookback options and diffusion hitting time: a spectral expansion approach,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      8
+     </b>
+     , 373–398.
+    </li>
+    <li block-type="ListItem">
+     [37] Magdon-Ismail, M., Atiya, A., Pratap, A. &amp; Abu-Mostafa, Y. (2004). On the maximum drawdown of a Brownian motion,
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      41
+     </b>
+     (1), 147–161.
+    </li>
+    <li block-type="ListItem">
+     [38] Miura, R. (1992). A note on lookback options based on order statistics,
+     <i>
+      Hitotsubashi Journal of Commerce &amp; Management
+     </i>
+     <b>
+      27
+     </b>
+     , 15–28.
+    </li>
+    <li block-type="ListItem">
+     [39] Petrella, G. &amp; Kou, S.G. (2004). Numerical pricing of discrete barrier and lookback options via Laplace transforms,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 1–37.
+    </li>
+    <li block-type="ListItem">
+     [40] Shepp, L. &amp; Shiryaev, A.N. (1993). The Russian option: reduced regret,
+     <i>
+      Annals of Applied Probability
+     </i>
+     <b>
+      3
+     </b>
+     , 631–640.
+    </li>
+    <li block-type="ListItem">
+     [41] Vecer, J. (2006). Maximum drawdown and directional trading,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      19
+     </b>
+     (12), 88–92.
+    </li>
+    <li block-type="ListItem">
+     [42] Wilmott, P., Dewynne, J.N. &amp; Howison, S. (1993).
+     <i>
+      Option Pricing: Mathematical Models and Computation
+     </i>
+     , Oxford Financial Press.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Barrier Options
+   </b>
+   ;
+   <b>
+    Corridor Options
+   </b>
+   ;
+   <b>
+    Discretely Monitored Options
+   </b>
+   ;
+   <b>
+    Parisian Option
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   GIANLUCA FUSAI
+  </p>
+ </body>
+</html>

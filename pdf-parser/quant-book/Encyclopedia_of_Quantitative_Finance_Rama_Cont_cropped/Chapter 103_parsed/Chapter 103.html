@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Foreign Exchange Options: Delta- and At-the-money Conventions
+   </b>
+  </h1>
+  <p block-type="Text">
+   In financial markets, the value of a plain-vanilla European option is generally quoted in terms of its implied volatility, that is, the volatility that, when plugged into the Black–Scholes formula, gives the correct market price. By observation of market prices the implied volatility, however, turns out to be a function of the option's strike, thus giving rise to the so-called
+   <i>
+    volatility smile
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   In foreign exchange (FX) markets, it is common practice to quote volatilities for FX call and put options in terms of their delta sensitivities rather than in terms of their strikes or their moneyness. Volatilities and deltas are quoted by means of a table, the
+   <i>
+    volatility smile table
+   </i>
+   , consisting of rows for each FX option expiry date and columns for a number of delta values, as well as a column for the at-the-money (ATM) volatilities.
+  </p>
+  <p block-type="Text">
+   The definition and usage of a volatility smile table is complicated by the fact that FX markets have established various delta and ATM conventions. In this article, we summarize these conventions and highlight their intuition. For each delta convention, we give formulas and methods for the conversion of deltas to strikes and
+   <i>
+    vice versa
+   </i>
+   . We describe how to retrieve volatilities from the table for an arbitrary FX option that is to be priced in accordance with the information contained therein. We point out some mathematical problems and pitfalls when trying to do so and give criteria under which these problems surface.
+  </p>
+  <h1>
+   <b>
+    Definitions
+   </b>
+  </h1>
+  <h1>
+   <i>
+    FX Rate
+   </i>
+  </h1>
+  <p block-type="Text">
+   Before discussing the various delta conventions, we summarize some basic terms and definitions that we use in this article.
+  </p>
+  <p block-type="Text">
+   •
+   <i>
+    FX spot rate S(t)
+   </i>
+   : The FX spot rate
+   <i>
+    S(t)
+   </i>
+   is the
+   <i>
+    current
+   </i>
+   exchange rate at the present time
+   <i>
+    t
+   </i>
+  </p>
+  <p block-type="Text">
+   ("today") between the domestic and the foreign currency. It is specified as the number of units of domestic currency that an investor gets in exchange for one unit of foreign currency,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S(t) := \frac{\text{number of units of domestic currency}}{\text{one unit of foreign currency}}
+   </math>
+   (1)
+  </p>
+  <p block-type="Text">
+   •
+   <i>
+    FX forward rate F (t, T )
+   </i>
+   : The FX forward rate
+   <i>
+    F (t, T )
+   </i>
+   is the exchange rate between the domestic and the foreign currency at some
+   <i>
+    future
+   </i>
+   point of time
+   <i>
+    T
+   </i>
+   as observed at the present time
+   <i>
+    t (t &lt; T )
+   </i>
+   . It is again specified as the number of units of domestic currency that an investor gets in exchange for one unit of foreign currency at time
+   <i>
+    T
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Using arbitrage arguments, spot and forward FX rates are related by (see, for instance, [3]):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F(t,T) = S(t) \cdot \frac{D_{\text{for}}(t,T)}{D_{\text{dom}}(t,T)}
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    D
+   </i>
+   for :=
+   <i>
+    D
+   </i>
+   for
+   <i>
+    (t, T )
+   </i>
+   is the foreign discount factor for time
+   <i>
+    T
+   </i>
+   (observed at time
+   <i>
+    t
+   </i>
+   ) and
+   <i>
+    D
+   </i>
+   dom :=
+   <i>
+    D
+   </i>
+   dom
+   <i>
+    (t, T )
+   </i>
+   is the domestic discount factor for time
+   <i>
+    T
+   </i>
+   (observed at time
+   <i>
+    t
+   </i>
+   ).
+  </p>
+  <p block-type="Text">
+   Note that the terminology in FX transactions is always confusing. In this article, we refer to the "domestic" currency in the sense of a base currency in relation to which "foreign" amounts of money are measured (see also [4]). By definition (1), an amount
+   <i>
+    x
+   </i>
+   in foreign currency, for example, is equivalent to
+   <i>
+    x
+   </i>
+   ·
+   <i>
+    S(t)
+   </i>
+   units of domestic currency at time
+   <i>
+    t
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   In the markets, FX rates are usually quoted in a standard manner. For example, the USD–JPY exchange rate is usually quoted as the number of Japanese yen an investor receives in exchange for 1 USD. For a Japanese investor, the exchange rate would fit the earlier definition, while a US investor would either need to look at the reverse exchange rate 1
+   <i>
+    /S(t)
+   </i>
+   or think of Japanese yen as the "domestic" currency.
+  </p>
+  <h2>
+   <i>
+    Value of FX Forward Contracts
+   </i>
+  </h2>
+  <p block-type="Text">
+   When two parties agree on an FX forward contract at time
+   <i>
+    s
+   </i>
+   , they agree on the exchange of an amount of money in foreign currency at an agreed exchange rate
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    K
+   </math>
+   against an amount of money in domestic currency at time
+   <math display="inline">
+    T &gt; s
+   </math>
+   . When choosing
+   <math display="inline">
+    K = F(s, T)
+   </math>
+   , the FX forward contract has no value to either of the parties at time s.
+  </p>
+  <p block-type="Text">
+   As, in general, the forward exchange rate changes over time, at some time
+   <math display="inline">
+    t
+   </math>
+   (
+   <math display="inline">
+    s &lt; t &lt; T
+   </math>
+   ), the FX forward contract will have a nonzero value (in domestic currency) given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_f(t, T) = D_{\text{dom}} (F(t, T) - K)
+   </math>
+   <br/>
+   =
+   <math>
+    S(t)D_{\text{for}} - KD_{\text{dom}}
+   </math>
+   (3)
+  </p>
+  <h3>
+   Value of FX Options
+  </h3>
+  <p block-type="Text">
+   Upon deal inception, the holder of an FX option obtains the right to exchange a specified amount of money in domestic currency against a specified amount of money in foreign currency at an agreed exchange rate
+   <math display="inline">
+    K
+   </math>
+   . Assuming nonstochastic interest rates and the standard lognormal dynamics for the spot exchange rate, at time
+   <math display="inline">
+    t
+   </math>
+   , the domestic currency values of plain-vanilla European call and put FX options with strike
+   <math display="inline">
+    K
+   </math>
+   and expiry date
+   <math display="inline">
+    T
+   </math>
+   are given by their respective Black-Scholes formulas:
+  </p>
+  <p block-type="Equation">
+   Call option:
+   <math display="block">
+    v_c(t,T) = D_{\text{dom}} F(t,T) \mathcal{N}(d_+)
+   </math>
+   <br/>
+   -
+   <math>
+    D_{\text{dom}} K \mathcal{N}(d_-)
+   </math>
+   (4)
+  </p>
+  <p block-type="TextInlineMath">
+   Put option:
+   <math display="inline">
+    v_p(t, T) = (-1) \cdot [D_{\text{dom}} F(t, T) \mathcal{N}(-d_+)
+   </math>
+   <math display="inline">
+    - D_{\text{low}} K \mathcal{N}(-d) 1 \tag{5}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = D_{\text{dom}} \ K \ (\mathcal{N}(d_{+}) - 1)
+   </math>
+   <math display="block">
+    = D_{\text{dom}} \ K \ (\mathcal{N}(d_{-}) - 1) \ \ (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_{\pm} = \frac{\ln\left(F(t,T)/K\right) \pm 1/2\sigma^2 \tau}{\sigma\sqrt{\tau}},
+   </math>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <math display="inline">
+      K
+     </math>
+     : strike of the FX option,
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \sigma
+     </math>
+     : Black-Scholes volatility,
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \tau = T  t
+     </math>
+     : time to expiry of FX option, and
+    </li>
+    <li block-type="ListItem">
+     <math display="inline">
+      \mathcal{N}(x)
+     </math>
+     : cumulative normal distribution function (7)
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Note that
+   <math display="inline">
+    v_c(t, T)
+   </math>
+   and
+   <math display="inline">
+    v_p(t, T)
+   </math>
+   as given earlier are measured in
+   <i>
+    domestic
+   </i>
+   currency. The option position, however, may also be held in foreign currency.
+  </p>
+  <p block-type="Text">
+   We call the currency in which an option's value is measured as its
+   <i>
+    premium currency
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Also note that the present value of call and put options are related by the
+   <math display="inline">
+    put-call
+   </math>
+   parity:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_c - v_p = v_f = D_{\text{dom}} (F(t, T) - K)
+   </math>
+   (8)
+  </p>
+  <h1>
+   <b>
+    Definition of Delta Types
+   </b>
+  </h1>
+  <p block-type="Text">
+   This section summarizes the delta conventions used in FX markets and gives some of their properties. We outline the correspondence of each delta sensitivity with a particular delta hedge strategy the holder of an FX option chooses. FX options are peculiar in that the underlying coincides with the exchange rate. While, in general, it makes no sense to measure the value of an option in units of its underlying (e.g., in the number of shares of a company), the FX option position can be held either in domestic or in foreign currency. This gives rise to the premium-adjusted deltas.
+  </p>
+  <p block-type="TextInlineMath">
+   For the ease of notation, we drop the time dependency of
+   <math display="inline">
+    S(t)
+   </math>
+   and
+   <math display="inline">
+    F(t, T)
+   </math>
+   in the following and denote the spot exchange rate as of time
+   <math display="inline">
+    t
+   </math>
+   by
+   <math display="inline">
+    S
+   </math>
+   and the forward exchange rate for time
+   <math display="inline">
+    T
+   </math>
+   as observed in
+   <math display="inline">
+    t
+   </math>
+   by
+   <math display="inline">
+    F
+   </math>
+   .
+  </p>
+  <h4>
+   Unadjusted Deltas
+  </h4>
+  <h4>
+   Spot Delta.
+  </h4>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 1
+   </b>
+   For FX options, the spot delta is defined as the derivative of the option price
+   <math display="inline">
+    v_{c/p}
+   </math>
+   with respect to the FX spot rate S:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_S^{c/p} := \frac{\partial v_{c/p}}{\partial S} \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Interpretation
+   </b>
+   Spot delta is the "usual" delta sensitivity that follows from the Black-Scholes equation. It can be derived by considering an FX option position that is held and hedged in
+   <i>
+    domestic
+   </i>
+   currency (see, for instance,
+   <math display="inline">
+    [2, 3]
+   </math>
+   ).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Note that
+   <math display="inline">
+    \Delta_S
+   </math>
+   is an amount in units of foreign currency. This makes sense from the hedging perspective: an amount of money in foreign currency is needed to make up for changes in the domestic currency value of an FX option (held in domestic currency), due to changes of the exchange rate. If,
+  </p>
+  <p block-type="Text">
+   for example, an investor is long an FX call option, a decrease in the exchange rate will lead to a decrease in his option position. By having shorted
+   <math display="inline">
+    \Delta_S
+   </math>
+   units of foreign currency, the investor will make a hedge profit in domestic currency balancing his losses in the option position to first order.
+  </p>
+  <h4>
+   Properties
+  </h4>
+  <p block-type="Equation">
+   Call option:
+   <math display="block">
+    \Delta_S^c = D_{\text{for}} \mathcal{N}(d_+)
+   </math>
+   (10)
+   <br/>
+   Put option:
+   <math>
+    \Delta_S^p = D_{\text{for}} \left\{ \mathcal{N}(d_+) - 1 \right\}
+   </math>
+   <br/>
+   <math>
+    = -D_{\text{for}} \mathcal{N}(-d_+)
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    Put–call delta parity:
+   </i>
+   <math display="inline">
+    \Delta_S^c - \Delta_S^p = D_{\text{for}}
+   </math>
+   <math display="inline">
+    (12)
+   </math>
+  </p>
+  <h4>
+   <b>
+    Forward Delta
+   </b>
+  </h4>
+  <p block-type="Text">
+   <b>
+    Definition 2
+   </b>
+   The forward delta
+   <math display="inline">
+    \Delta_F
+   </math>
+   (also called driftless delta [4]) of an FX option is defined as the ratio of the option's spot delta and the delta of a long forward contract on the FX rate (where the forward price of the FX forward contract equals the strike of the
+   <math display="inline">
+    FX
+   </math>
+   option):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_F^{c/p} := \frac{\partial v_{c/p}/\partial S}{\partial v_f/\partial S} = \frac{\Delta_S^{c/p}}{\partial v_f/\partial S} \tag{13}
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Interpretation
+   </b>
+   The forward delta is not simply the derivative of the option price formula with respect to the forward FX rate
+   <math display="inline">
+    F
+   </math>
+   . The rationale for the abovementioned definition follows from the construction of a hedge portfolio using FX forward contracts as hedge instruments for the FX option position (both held in domestic currency). The forward delta gives the number of forward contracts that an investor needs to enter into to completely delta hedge his/her FX option position;
+   <math display="inline">
+    \Delta_F
+   </math>
+   , therefore, is simply a number without units.
+  </p>
+  <h4>
+   Properties
+  </h4>
+  <p block-type="Equation">
+   Call option:
+   <math display="block">
+    \Delta_F^c = \frac{D_{\text{for}} \cdot \mathcal{N}(d_+)}{D_{\text{for}}} = \mathcal{N}(d_+) \quad (14)
+   </math>
+   <br/>
+   Put option:
+   <math display="block">
+    \Delta_F^p = \frac{D_{\text{for}} \cdot (\mathcal{N}(d_+) - 1)}{D_{\text{for}}}
+   </math>
+   <math display="block">
+    = \mathcal{N}(d_+) - 1 = -\mathcal{N}(-d_+) \quad (15)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    Put–call delta parity:
+   </i>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    \Delta_F^c - \Delta_F^p = 1
+   </math>
+   <math display="inline">
+    (16)
+   </math>
+  </p>
+  <p block-type="Text">
+   <i>
+    Premium-adjusted Deltas
+   </i>
+  </p>
+  <h4>
+   Spot Delta Premium Adjusted.
+  </h4>
+  <p block-type="Text">
+   <b>
+    Definition 3
+   </b>
+   The premium-adjusted spot delta is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{S, pa}^{c/p} := S \cdot \frac{\partial}{\partial S} \left( \frac{v_{c/p}}{S} \right) = \Delta_{S}^{c/p} - \frac{v_{c/p}}{S} \tag{17}
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Interpretation
+   </b>
+   The definition of the premiumadjusted spot delta follows from an FX option position that is held in
+   <i>
+    foreign
+   </i>
+   currency, while being hedged in
+   <i>
+    domestic
+   </i>
+   currency.
+  </p>
+  <p block-type="Text">
+   While
+   <math display="inline">
+    v
+   </math>
+   is the option's value in domestic currency,
+   <math display="inline">
+    v/S(t)
+   </math>
+   is the option's value converted to foreign currency (i.e., its premium currency) at time
+   <math display="inline">
+    t
+   </math>
+   . The term
+   <math display="inline">
+    \partial (v/S(t))/\partial S \cdot dS
+   </math>
+   , thus, gives the change of the option value (measured in
+   <i>
+    foreign
+   </i>
+   currency) with the underlying exchange rate. To complete a delta hedge in
+   <i>
+    domestic
+   </i>
+   currency, the derivative needs to be multiplied by
+   <math display="inline">
+    S(t)
+   </math>
+   from where the defining equation
+   <math display="inline">
+    (17)
+   </math>
+   for the premium-adjusted spot delta follows.
+  </p>
+  <p block-type="Text">
+   Note that the delta sensitivity is equal to spot delta, adjusted for the premium effect
+   <math display="inline">
+    v/S(t)
+   </math>
+   . This is easily interpreted as a delta that is corrected by a premium amount already paid in foreign currency. Also note that
+   <math display="inline">
+    \Delta_{S, pa}
+   </math>
+   itself is denominated in units of foreign currency.
+  </p>
+  <h2>
+   Properties
+  </h2>
+  <p block-type="Text">
+   <i>
+    Call option:
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{S, pa}^{c} = D_{\text{for}} \frac{K}{F} \mathcal{N}(d_{-}) \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   Put option:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{S, pa}^{p} = D_{\text{for}} \frac{K}{F} \left\{ \mathcal{N}(d_{-}) - 1 \right\}
+   </math>
+   <math display="block">
+    = -D_{\text{for}} \frac{K}{F} \left\{ \mathcal{N}(-d_{-}) \right\} \tag{19}
+   </math>
+  </p>
+  <p block-type="Text">
+   <i>
+    Put–call delta parity:
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{S, pa}^{c} + \Delta_{S, pa}^{p} = D_{\text{for}} \frac{K}{F} \left( \mathcal{N}(d_{-}) - \mathcal{N}(-d_{-}) \right)
+   </math>
+   <math display="block">
+    = 2\Delta_{S, pa}^{c} - D_{\text{for}} \frac{K}{F} \tag{20}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{S, pa}^{c} - \Delta_{S, pa}^{p} = D_{\text{for}} \frac{K}{F}
+   </math>
+   (21)
+  </p>
+  <p block-type="TextInlineMath">
+   The defining equations for premium-adjusted deltas have interesting consequences: while put deltas are unbounded and strictly monotonous functions of
+   <math display="inline">
+    K
+   </math>
+   , call deltas are bounded (i.e.,
+   <math display="inline">
+    \Delta_{S}^{c} \in [0; \Delta_{\text{max}}]
+   </math>
+   with
+   <math display="inline">
+    \Delta_{\text{max}} &lt; 1
+   </math>
+   ) and are
+   <i>
+    not
+   </i>
+   monotonous functions of K. Thus, the relationship between call deltas and strikes
+   <math display="inline">
+    K
+   </math>
+   is not one to one.
+  </p>
+  <h1>
+   Forward Delta Premium Adjusted.
+  </h1>
+  <p block-type="Text">
+   <b>
+    Definition 4
+   </b>
+   The premium-adjusted forward delta is defined in analogy to the unadjusted delta:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{F, \, pa}^{c/p} = \frac{S \cdot \partial/\partial S \left(v_{c/p}/S\right)}{\partial \, v_f/\partial \, S} = \frac{\Delta_{S, \, pa}^{c/p}}{\partial \, v_f/\partial \, S} \quad (22)
+   </math>
+  </p>
+  <p block-type="Text">
+   <b>
+    Interpretation
+   </b>
+   The intuition behind the definition of the premium-adjusted forward delta follows from an FX option position that is held in
+   <i>
+    foreign
+   </i>
+   currency and hedged by forward FX contracts in
+   <i>
+    domestic
+   </i>
+   currency. The premium-adjusted forward delta gives the number of forward contracts that are needed for the delta hedge in
+   <i>
+    domestic
+   </i>
+   currency of an FX option held in foreign currency. The derivation of the defining equation
+   <math display="inline">
+    (22)
+   </math>
+   is similar to the one for spot delta premium adjusted (cf. the section Spot Delta Premium Adjusted). Note that
+   <math display="inline">
+    \Delta_{F, pa}
+   </math>
+   is a pure number without units.
+  </p>
+  <h1>
+   Properties
+  </h1>
+  <p block-type="Text">
+   <i>
+    Call option:
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{F,\,pa}^c = \frac{K}{F} \mathcal{N}(d_-) \tag{23}
+   </math>
+  </p>
+  <p block-type="Text">
+   Put option:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{F, pa}^{p} = \frac{K}{F} \cdot \left\{ \mathcal{N}(d_{-}) - 1 \right\} = -\frac{K}{F} \mathcal{N}(-d_{-}) \ (24)
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    Put\text{-}call\text{ delta parity:}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{F, pa}^{c} + \Delta_{F, pa}^{p} = \frac{K}{F} \left( \mathcal{N}(d_{-}) - \mathcal{N}(-d_{-}) \right)
+   </math>
+   <math display="block">
+    = 2\Delta_{F, pa}^{c} - \frac{K}{F} \tag{25}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{F, \, pa}^{c} - \Delta_{F, \, pa}^{p} = \frac{K}{F} \tag{26}
+   </math>
+  </p>
+  <p block-type="Text">
+   Also note the important remarks in the previous section on the domain, the range of values, and the relationship between call delta and option strike. They apply likewise to premium-adjusted forward deltas.
+  </p>
+  <h4>
+   <b>
+    Definition of At-the-money Types
+   </b>
+  </h4>
+  <p block-type="Text">
+   In this section, we summarize the various ATM definitions, comment on their financial interpretation, and give the relations between all relevant quantities in Table 1.
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      <math>
+       \Delta
+      </math>
+      -neutral
+     </th>
+     <th>
+      <math>
+       K_{\text{atm}} = F
+      </math>
+     </th>
+     <th>
+      <math>
+       \text{Vega/gamma} = \text{max}
+      </math>
+     </th>
+     <th>
+      <math>
+       \Delta = 50\%
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      ATM strike values
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Spot delta
+     </td>
+     <td>
+      <math>
+       F \mathrm{e}^{1/2\sigma^2\tau}
+      </math>
+     </td>
+     <td>
+      F
+     </td>
+     <td>
+      <math>
+       F \mathrm{e}^{1/2\sigma^2\tau}
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Fwd delta
+     </td>
+     <td>
+      <math>
+       F e^{1/2\sigma^2 \tau}
+      </math>
+     </td>
+     <td>
+      F
+     </td>
+     <td>
+      <math>
+       F \mathrm{e}^{1/2\sigma^2\tau}
+      </math>
+     </td>
+     <td>
+      <math>
+       F \mathrm{e}^{1/2\sigma^2\tau}
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Spot delta p.a.
+     </td>
+     <td>
+      <math>
+       F \mathrm{e}^{-1/2\sigma^2\tau}
+      </math>
+     </td>
+     <td>
+      F
+     </td>
+     <td>
+      <math>
+       F \mathrm{e}^{1/2\sigma^2 \tau}
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Fwd delta p.a.
+     </td>
+     <td>
+      <math>
+       F \mathrm{e}^{-1/2\sigma^2 \tau}
+      </math>
+     </td>
+     <td>
+      F
+     </td>
+     <td>
+      <math>
+       F e^{1/2\sigma^2 \tau}
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      ATM delta values
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Spot delta
+     </td>
+     <td>
+      <math>
+       D_{\text{for}} \mathcal{N}(0)
+      </math>
+     </td>
+     <td>
+      <math>
+       D_{\text{for}} \mathcal{N}\left(\frac{1}{2}\sigma\sqrt{\tau}\right)
+      </math>
+     </td>
+     <td>
+      <math>
+       D_{\text{for}} \mathcal{N}(0)
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Fwd delta
+     </td>
+     <td>
+      <math>
+       \mathcal{N}(0)
+      </math>
+     </td>
+     <td>
+      <math>
+       \mathcal{N}\left(\frac{1}{2}\sigma\sqrt{\tau}\right)
+      </math>
+     </td>
+     <td>
+      <math>
+       \mathcal{N}(0)
+      </math>
+     </td>
+     <td>
+      <math>
+       \mathcal{N}(0)
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Spot delta p.a.
+     </td>
+     <td>
+      <math>
+       D_{\text{for}} \text{ e}^{-1/2\sigma^2 \tau} \mathcal{N}(0)
+      </math>
+     </td>
+     <td>
+      <math>
+       D_{\text{for}} \mathcal{N}\left(-\frac{1}{2}\sigma\sqrt{\tau}\right)
+      </math>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Fwd delta p.a.
+     </td>
+     <td>
+      <math>
+       e^{-1/2\sigma^2\tau}\mathcal{N}(0)
+      </math>
+     </td>
+     <td>
+      <math>
+       \mathcal{N}\left(-\frac{1}{2}\sigma\sqrt{\tau}\right)
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       D_{\text{for}} \,\mathrm{e}^{+1/2\sigma^2\tau} \mathcal{N}\left(-\frac{1}{2}\sigma\sqrt{\tau}\right)
+      </math>
+      <math display="block">
+       \mathrm{e}^{+1/2\sigma^2\tau} \mathcal{N}\left(-\frac{1}{2}\sigma\sqrt{\tau}\right)
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   &lt;table&gt;
+
+        Table 1
+        Strike values and delta values at the ATM point for the different FX delta conventions&lt;sup&gt;(a)&lt;/sup&gt;
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;(a)&lt;/sup&gt;Note that
+   <math display="inline">
+    \mathcal{N}(0) = 1/2
+   </math>
+   . The delta values are given for call options, the corresponding values for put options can be obtained, by replacing
+   <math display="inline">
+    \mathcal{N}(x)
+   </math>
+   with
+   <math display="inline">
+    (\mathcal{N}(x) - 1)
+   </math>
+  </p>
+  <p block-type="Text">
+   ATM Definition "Delta Neutral"
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 5
+   </b>
+   The ATM point is defined as the strike
+   <math display="inline">
+    K_{\text{atm}}
+   </math>
+   , for which the delta of a call and a put option add up to zero:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{\mathbf{r}}^{c}\left(K_{\text{atm}},\sigma_{\text{atm}}\right) + \Delta_{\mathbf{r}}^{p}\left(K_{\text{atm}},\sigma_{\text{atm}}\right) = 0 \quad (27)
+   </math>
+  </p>
+  <p block-type="Text">
+   Here,
+   <math display="inline">
+    x
+   </math>
+   represents any of the delta conventions defined in the section Definition of Delta Types.
+  </p>
+  <p block-type="Text">
+   <b>
+    Interpretation
+   </b>
+   The definition follows directly from a "straddle" position where a long call and a long put option with the same strike are combined. If the strike is chosen appropriately, the change in value of the call and the put option compensate (to first order) when the underlying FX rate changes. The straddle position's value, thus, is insensitive ("delta neutral") to changes in the underlying FX rate. The reason for this choice is that traders can use straddles to hedge the vega of their position without upsetting the delta.
+  </p>
+  <p block-type="TextInlineMath">
+   Properties The ATM definition mentioned earlier for delta neutral FX options is equivalent to
+   <math display="inline">
+    \mathcal{N}(d_{+}) =
+   </math>
+   <math display="inline">
+    1/2
+   </math>
+   in case of the unadjusted delta conventions and
+   <math display="inline">
+    \mathcal{N}(d_{-}) = 1/2
+   </math>
+   in case of the premium-adjusted delta conventions. From this, the relationships of Table 1 follow in a straightforward manner.
+  </p>
+  <h3>
+   ATM Definition via Forward
+  </h3>
+  <p block-type="Text">
+   <b>
+    Definition 6
+   </b>
+   The ATM point is defined as the strike equaling the forward exchange rate:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{atm}} := F \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Interpretation
+   </b>
+   This definition reflects the view that (given the information at deal inception) an option is ATM when its strike is chosen equal to the expected exchange rate at option expiry. If the spot exchange rate, indeed, approached F as
+   <math display="inline">
+    t \rightarrow T
+   </math>
+   (as would be the case in a fully deterministic world by arbitrage arguments, cf. equation (2)), then the ATM strike would mark the dividing point between options that expire in-the-money (ITM) and out-of-the-money (OTM). From the put-call parity
+   <math display="inline">
+    (8)
+   </math>
+   , we see that this is also the strike at which put and call options have the same value. Thus, this ATM definition is also called
+   <i>
+    value parity
+   </i>
+   [4].
+  </p>
+  <p block-type="Text">
+   <b>
+    Properties
+   </b>
+   The relationships of Table 1 can again be derived in a straightforward manner from the definitions
+  </p>
+  <h4>
+   <math display="inline">
+    ATM \nDefinition "vega = max"
+   </math>
+  </h4>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 7
+   </b>
+   The ATM point is defined as the strike
+   <math display="inline">
+    K_{\text{atm}}
+   </math>
+   for which vega of the FX option is at its maximum. Vega is the sensitivity of the FX option, with respect to the implied volatility of the underlying exchange rate. It is given by (cf.
+   <math display="inline">
+    [4]
+   </math>
+   )
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    vega_{c/p} = \frac{\partial v_{c/p}}{\partial \sigma} = S \ D_{\text{for}} \ \sqrt{\tau} \ n(d_+)
+   </math>
+   (29)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    n(x)
+   </math>
+   is the normal density distribution.
+  </p>
+  <p block-type="TextInlineMath">
+   The ATM strike can be derived from
+   <math display="inline">
+    \partial
+   </math>
+   vega/
+   <math display="inline">
+    \partial K =
+   </math>
+   <math display="inline">
+    0 \text{ as}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{atm}} = F \text{ e}^{1/2\sigma^2 \tau} \tag{30}
+   </math>
+  </p>
+  <p block-type="Text">
+   Properties Table 1 again summarizes the relevant quantities for this ATM definition. Note that in case of unadjusted deltas, this ATM definition is equivalent to the delta neutral ATM definition. This is, however, not the case for adjusted deltas.
+  </p>
+  <h1>
+   ATM Definition "
+   <math display="inline">
+    \gamma = max
+   </math>
+   "
+  </h1>
+  <p block-type="Text">
+   <b>
+    Definition 8
+   </b>
+   The ATM point is defined as the strike
+   <math display="inline">
+    K_{\text{atm}}
+   </math>
+   for which the gamma sensitivity of the FX option is at its maximum.
+  </p>
+  <p block-type="Text">
+   We restrict the discussion to the case of gamma spot,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \gamma_S^{c/p} := \frac{\partial \Delta_S^{c/p}}{\partial S} = D_{\text{for}} \frac{n(d_+)}{S \sigma \sqrt{\tau}} \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   From
+   <math display="inline">
+    \partial \gamma / \partial K = 0
+   </math>
+   , the ATM strike can be derived as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{atm}} = F \text{ e}^{1/2\sigma^2 \tau} \tag{32}
+   </math>
+  </p>
+  <p block-type="Text">
+   thus revealing the equivalence to the ATM definition "vega =
+   <math display="inline">
+    max
+   </math>
+   ".&lt;sup&gt;a&lt;/sup&gt;
+  </p>
+  <h1>
+   ATM Definition "50%"
+  </h1>
+  <p block-type="Text">
+   <b>
+    Definition 9
+   </b>
+   According to this convention, the ATM point is defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta^c = 0.5 \quad and \quad |\Delta^p| = 0.5 \tag{33}
+   </math>
+  </p>
+  <p block-type="Text">
+   This condition can only be true for the forward delta convention and, thus, does not apply to any of the other delta conventions.
+  </p>
+  <h4>
+   Properties of ATM Definitions
+  </h4>
+  <p block-type="Text">
+   Table 1 summarizes the properties of the ATM point for all possible combinations of ATM definitions and delta conventions.
+  </p>
+  <p block-type="Text">
+   In this context, it is interesting to note that, beside their financial interpretation, mathematically, the various definitions of the ATM point lead to three characteristic relationships between the strike
+   <math display="inline">
+    K
+   </math>
+   and the forward exchange rate
+   <math display="inline">
+    F
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K = F \Rightarrow d_{\pm} = \pm \sigma \sqrt{\tau} \tag{34}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K = F e^{1/2\sigma^2 \tau} \Rightarrow d_+ = 0, \ d_- = -\sigma \sqrt{\tau} \qquad (35)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K = F e^{-1/2\sigma^2 \tau} \Rightarrow d_+ = \sigma \sqrt{\tau}, \ d_- = 0 \qquad (36)
+   </math>
+  </p>
+  <h1>
+   <b>
+    Converting Deltas to Strikes and Vice
+   </b>
+   Versa
+  </h1>
+  <p block-type="Text">
+   Quoting volatilities as a function of the options' deltas rather than as a function of the options' strikes brings about a problem when it comes to pricing FX options. Consider the case that we want to price a vanilla European option for a given strike
+   <math display="inline">
+    K
+   </math>
+   . To price this option, we have to find the correct volatility. As the volatility is given in terms of delta and delta itself is a function of volatility
+   <i>
+    and
+   </i>
+   strike, we have to solve an implicit problem, which, in general, has to be done numerically.
+  </p>
+  <p block-type="Text">
+   The following sections outline the algorithms that can be used to that end for the various delta conventions and directions of conversion. As the spot and forward deltas differ only by constant discount factors, we restrict the presentation to the forward versions of the adjusted and unadjusted deltas.
+  </p>
+  <h1>
+   Forward Delta
+  </h1>
+  <p block-type="Text">
+   For unadjusted deltas, there are simple one-to-one relationships between put and call deltas, the put-call delta parities
+   <math display="inline">
+    (12)
+   </math>
+   and
+   <math display="inline">
+    (16)
+   </math>
+   . PUT deltas can therefore easily be translated into the corresponding CALL deltas and it is sufficient to perform all the calculations for call deltas here.
+  </p>
+  <p block-type="Text">
+   Conversion of Forward Delta to Strike. If volatilities are given as a function of forward delta, the strike corresponding to a given forward delta
+   <math display="inline">
+    \Delta_F^c
+   </math>
+   can be calculated analytically. Let
+   <math display="inline">
+    \sigma(\Delta_F^c)
+   </math>
+   denote the volatility associated with
+   <math display="inline">
+    \Delta_F^c
+   </math>
+   ;
+   <math display="inline">
+    \sigma(\Delta_F^c)
+   </math>
+   may either be quoted or interpolated from the volatility smile table.
+  </p>
+  <p block-type="Text">
+   With
+   <math display="inline">
+    \Delta_F^c
+   </math>
+   and
+   <math display="inline">
+    \sigma(\Delta_F^c)
+   </math>
+   given, we can directly solve equation
+   <math display="inline">
+    (14)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_F^c = \mathcal{N}(d_+) = \mathcal{N}\left(\frac{\ln\left(F/K\right) + 1/2\sigma(\Delta_F^c)^2 T}{\sigma(\Delta_F^c)\sqrt{T}}\right) \tag{37}
+   </math>
+  </p>
+  <p block-type="Text">
+   for the strike
+   <math display="inline">
+    K
+   </math>
+   . We get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K = F \exp\left\{-\sigma(\Delta_F^c)\sqrt{T}\mathcal{N}^{-1}\left(\Delta_F^c\right) + \frac{1}{2}\sigma(\Delta_F^c)^2T\right\}
+   </math>
+   (38)
+  </p>
+  <p block-type="Text">
+   Conversion of Strike to Forward Delta. The reverse conversion from strikes to forward deltas is more difficult and can only be achieved numerically. The following algorithm can be shown to converge [1] and has empirically proven to be very efficient.
+  </p>
+  <p block-type="TextInlineMath">
+   In the first step, calculate a zero-order guess
+   <math display="inline">
+    \Delta_0
+   </math>
+   by using the ATM volatility
+   <math display="inline">
+    \sigma_{\text{atm}}
+   </math>
+   in equation (14):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_0 = \Delta_F^c(K, \sigma_{\text{atm}}) = \mathcal{N}\left(\frac{\ln(F/K) + 1/2\sigma_{\text{atm}}^2 T}{\sigma_{\text{atm}}\sqrt{T}}\right) \tag{39}
+   </math>
+  </p>
+  <p block-type="Text">
+   In the second step, use this zero-order guess for delta to derive a first-order guess
+   <math display="inline">
+    \sigma_1
+   </math>
+   for the volatility by
+   <b>
+    interpolating
+   </b>
+   the curve
+   <math display="inline">
+    \sigma(\Delta)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_1 = \sigma \ (\Delta_0) \tag{40}
+   </math>
+  </p>
+  <p block-type="Text">
+   Finally, calculate the corresponding first-order guess for
+   <math display="inline">
+    \Delta_F^c
+   </math>
+   in the third step:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{1} = \Delta_{F}^{c} (K, \sigma_{1}) = \mathcal{N} \left( \frac{\ln (F/K) + 1/2\sigma_{1}^{2}T}{\sigma_{1}\sqrt{T}} \right)
+   </math>
+   (41)
+  </p>
+  <p block-type="Text">
+   and repeat steps two and three until the changes in
+   <math display="inline">
+    \Delta
+   </math>
+   from one iteration to the next are below the specified accuracy.
+  </p>
+  <h4>
+   Forward Delta Premium Adjusted
+  </h4>
+  <p block-type="Text">
+   For the sake of clarity, we again restrict the discussion below to the case of call deltas. The algorithms for put deltas work analogously.
+  </p>
+  <p block-type="Text">
+   <b>
+    Conversion of Forward Delta Premium Adjusted
+   </b>
+   to Strike. The conversion from forward delta premium adjusted to an absolute strike is more complicated than in the case of an unadjusted delta and cannot be formulated in a closed-form expression. The reason is that in the equation for the premiumadjusted call delta (23),
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{F, pa}^{c} = \frac{K}{F} \mathcal{N}(d_{-})
+   </math>
+   <math display="block">
+    = \frac{K}{F} \mathcal{N}\left(\frac{\ln\left(F/K\right) - 1/2\sigma(\Delta_{F, pa}^{c})^{2}T}{\sigma(\Delta_{F, pa}^{c})\sqrt{T}}\right) \tag{42}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   the strike
+   <math display="inline">
+    K
+   </math>
+   appears inside and outside the cumulative normal distribution function so that one cannot solve directly for K. Even though both
+   <math display="inline">
+    \Delta_{F, pa}^{c}
+   </math>
+   and
+   <math display="inline">
+    \sigma(\Delta_{F, pa}^{c})
+   </math>
+   are given, the problem has to be solved numerically.
+  </p>
+  <p block-type="TextInlineMath">
+   So when converting a given call delta
+   <math display="inline">
+    \Delta_{F, pa}^c
+   </math>
+   , a root finder has to be used to solve for the correspondent strike
+   <math display="inline">
+    K
+   </math>
+   . This could, for example, be a simple bisection method where, for call deltas, the ATMstrike
+   <math display="inline">
+    K_{\text{atm}}
+   </math>
+   is the lower bound and some high (i.e., quasi infinite) value such as
+   <math display="inline">
+    100 K_{\text{atm}}
+   </math>
+   can be used as upper bound. Of course, a more elaborate root finder to solve this problem could (and should!) be used, but a discussion of the various methods lies beyond the scope of this article.
+  </p>
+  <p block-type="Text">
+   Note, however, that all these methods require that
+   <math display="inline">
+    \Delta
+   </math>
+   is a strictly monotonous function of K. We will see in section Ambiguities in the Conversion from
+   <math display="inline">
+    \Delta
+   </math>
+   to Strike for Premium-adjusted Deltas that this is not always the case.
+  </p>
+  <p block-type="Text">
+   <b>
+    Conversion of Strike to Forward Delta Premium Adjusted.
+   </b>
+   The conversion of an absolute strike to forward delta premium adjusted can be done analogously to the conversion into an unadjusted forward delta as described in section Conversion of Strike to Forward Delta.
+  </p>
+  <p block-type="Text">
+   First, use the previous guess
+   <math display="inline">
+    \Delta_{i-1}
+   </math>
+   to obtain an improved guess
+   <math display="inline">
+    \sigma_i
+   </math>
+   for the volatility by interpolating
+  </p>
+  <p block-type="Text">
+   in the
+   <math display="inline">
+    \sigma(\Delta)
+   </math>
+   curve.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_i = \sigma \left( \Delta_{i-1} \right) \tag{43}
+   </math>
+  </p>
+  <p block-type="Text">
+   In the second step, calculate the corresponding guess
+   <math display="inline">
+    \Delta_i
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{i} = \Delta_{F, pa}^{c} (K, \sigma_{i}) = \frac{K}{F} \mathcal{N} \left( \frac{\ln (F/K) - 1/2\sigma_{i}^{2} T}{\sigma_{i} \sqrt{T}} \right)
+   </math>
+   (44)
+  </p>
+  <p block-type="Text">
+   Iterate these two steps until the change in
+   <math display="inline">
+    \Delta
+   </math>
+   from one step to the next is below the specified accuracy. A good initial guess for the volatility is, of course, again the ATM-volatility
+   <math display="inline">
+    \sigma_{\text{atm}}
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Using the Volatility Smile Table
+   </b>
+  </h4>
+  <p block-type="Text">
+   In FX markets, linear combinations of plain-vanilla FX options, such as "strangles", "risk reversals", and "butterflies", are liquidly traded. These instruments are composed of ATM and OTM plain-vanilla put and call options at specific values of delta (typically,
+   <math display="inline">
+    0.25
+   </math>
+   or
+   <math display="inline">
+    0.1
+   </math>
+   ). When aggregating this market information, one obtains a scheme called the
+   <b>
+    volatility smile table
+   </b>
+   consisting of rows for each FX option expiry date, a column for ATM volatilities, and two distinct sets of columns for volatilities of OTM put and call options. We call these sets the
+   <i>
+    put and call
+   </i>
+   sides of the table.
+  </p>
+  <p block-type="Text">
+   Thus, OTM options can be priced by retrieving volatilities from the respective side of the volatility smile table, for example, OTM calls are priced using volatilities from the call side. By virtue of the put-call parity, ITM options can be priced using volatilities from the opposite side of the table, that is, ITM calls are priced using volatilities from the put side.
+  </p>
+  <p block-type="Text">
+   To exemplify this, consider the case of an option with arbitrary time to maturity and strike. The typical procedure to retrieve this option's volatility from the smile table would be the following.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. Determine the volatilities of the ATM point and the call and put sides at the option's expiry. For this, the volatilities of each delta column will, in general, have to be interpolated in time.
+    </li>
+    <li block-type="ListItem">
+     2. Decide which side of the table to use depending on the option's strike
+     <math display="inline">
+      K
+     </math>
+     : options with
+     <math display="inline">
+      K &gt;
+     </math>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    K_{\text{atm}}
+   </math>
+   are either OTM calls or ITM puts and are therefore priced using volatilities from the call side. Accordingly, options with
+   <math display="inline">
+    K &lt; K_{\text{atm}}
+   </math>
+   are priced using volatilities from the put side (cf. equation
+   <math display="inline">
+    (4)
+   </math>
+   ).
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     3. Convert the option's strike to delta. This depends on the side of the table chosen in the previous step: convert to a call delta if
+     <math display="inline">
+      K &gt; K_{\text{atm}}
+     </math>
+     , and to a put delta if
+     <math display="inline">
+      K &lt; K_{\text{atm}}
+     </math>
+     . See the section Converting Deltas to Strikes and vice versa for the details of these conversions.
+    </li>
+    <li block-type="ListItem">
+     4. Retrieve the volatility from the table by interpolating volatilities in delta.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Alternatively, one could also translate the full smile volatility table from deltas to strikes. The conversion of deltas to strikes would then be necessary for the grid points of the table only, thus, making steps 2 and 3 of the earlier listed procedure obsolete. The interpolation in step 4 would be done in strikes However, keep in mind that the strike grid points would vary from row to row.
+  </p>
+  <p block-type="TextInlineMath">
+   It is important to note that the earlier procedure is based on the assumption that delta is a strictly monotonous function of the option's strike
+   <math display="inline">
+    K
+   </math>
+   : only in this case the option's delta and strike are equivalent measures of the option's moneyness, that is, only in this case we are guaranteed the equivalence
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K &gt; K_{\text{atm}} \Longleftrightarrow \Delta^c &lt; \Delta_{\text{atm}}^c \tag{45}
+   </math>
+  </p>
+  <p block-type="Text">
+   In the following section, we will show that the assumption of monotonicity is not always true and derive the conditions under which it is violated.
+  </p>
+  <h2>
+   <b>
+    Problems and Pitfalls
+   </b>
+  </h2>
+  <h1>
+   Interpolation in Time Dimension when Delta Conventions Change
+  </h1>
+  <p block-type="Text">
+   In FX markets, it is common to switch delta conventions with an option's time to maturity. For example, volatilities for options with less than two years to maturity are often quoted in terms of spot deltas, whereas volatilities for longer expiries are usually quoted in terms of one of the forward delta conventions.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   When conventions change from one expiry
+   <math display="inline">
+    T_k
+   </math>
+   to the next one, it is
+   <i>
+    a priori
+   </i>
+   unclear how an interpolation in time on a delta-volatility table should
+  </p>
+  <p block-type="TextInlineMath">
+   be performed. Which of the two conventions shall be used for options with expiries
+   <math display="inline">
+    t
+   </math>
+   within the range
+   <math display="inline">
+    T_k &lt; t &lt; T_{k+1}
+   </math>
+   ?
+  </p>
+  <p block-type="TextInlineMath">
+   Some possibilities are as follows: convert the grid points at
+   <math display="inline">
+    T_k
+   </math>
+   into the convention used for
+   <math display="inline">
+    T_{k+1}
+   </math>
+   and do interpolation in the long-term convention or, conversely, convert the grid points at
+   <math display="inline">
+    T_{k+1}
+   </math>
+   into the convention used for
+   <math display="inline">
+    T_k
+   </math>
+   and interpolate in the shortterm convention. Another possibility would be to translate the delta grid into a strike grid and do the interpolation on strikes.
+  </p>
+  <p block-type="Text">
+   None of these approaches is
+   <i>
+    a priori
+   </i>
+   superior to the others. In real life, however, a choice has to be made. Even though the differences may be small, one should be aware that the choice is arbitrary.
+  </p>
+  <h4>
+   ATM Delta Falling in the OTM Range
+  </h4>
+  <p block-type="Text">
+   For long times to maturity, the delta of an ATM FX option may become smaller than the delta of the closest OTM option. In a sense, the ATM delta "crosses" the nearest OTM delta. In this case, it is unclear how the interpolation of volatilities (in delta) should be done or whether the ATM point or the crossed delta point should possibly be ignored.
+  </p>
+  <p block-type="Text">
+   The conditions under which this problem occurs vary with the delta and ATM types. In the following, we outline the derivation of these conditions for an exemplarily chosen combination (premium-adjusted spot deltas and forward ATM definition), summarize the results for other combinations, and finally discuss a typical numerical example for long-dated FX options.
+  </p>
+  <p block-type="TextInlineMath">
+   Exemplary Derivation. We start from equation (17) for the ATM delta using
+   <math display="inline">
+    K_{\text{atm}} = F
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{S, pa}^{c} (F, \sigma_{\text{atm}}) = D_{\text{for}} \mathcal{N} \left( -\frac{\sigma_{\text{atm}}}{2} \sqrt{T} \right) \quad (46)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Obviously, the ATM delta will decrease with decreasing values of
+   <math display="inline">
+    D_{\text{for}}
+   </math>
+   and increasing values of
+   <math display="inline">
+    \sigma_{\text{atm}}\sqrt{T}
+   </math>
+   . Small values of
+   <math display="inline">
+    D_{\text{for}}
+   </math>
+   and/or large values of
+   <math display="inline">
+    \sigma_{\text{atm}}\sqrt{T}
+   </math>
+   will therefore lead to ATM deltas that are smaller than the nearest OTM point
+   <math display="inline">
+    \Delta_1^c
+   </math>
+   (which is usually
+   <math display="inline">
+    \Delta_1^c = 0.25
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   From the expression mentioned earlier, it follows immediately that the ATM delta is larger than the first
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      ATM-type forward
+     </th>
+     <th>
+      ATM-type delta neutral
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Spot delta
+     </td>
+     <td>
+      <math>
+       D_{\text{for}} &gt; -2\Delta_1^p
+      </math>
+     </td>
+     <td>
+      <math>
+       D_{\text{for}} &gt; 2\Delta_1^c
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      <math>
+       \sigma_{\rm atm} \, \sqrt{T} \, &lt; \, 2 \mathcal{N}^{-1} \left( 1 + \frac{\Delta_1^{\, \nu}}{D_{\rm for}} \right)
+      </math>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Forward delta
+     </td>
+     <td>
+      <math>
+       \sigma_{\text{atm}}\sqrt{T} &lt; 2\mathcal{N}^{-1}\left(1 + \Delta_1^p\right)
+      </math>
+     </td>
+     <td>
+      No constraint
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Spot delta p.a.
+     </td>
+     <td>
+      <math>
+       D_{\text{for}} &gt; 2\Delta_1^c
+      </math>
+     </td>
+     <td>
+      <math>
+       D_{\text{for}} &gt; 2\Delta_1^c
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      <math>
+       \sigma_{\rm atm}\,\sqrt{T}\,&lt;\,2\mathcal{N}^{-1}\left(1-\frac{\Delta_1^c}{D_{\rm for}}\right)
+      </math>
+     </td>
+     <td>
+      <math>
+       \sigma_{\text{atm}} \, \sqrt{T} \, &lt; \, \sqrt{2 \ln \left( \frac{D_{\text{for}}}{2 \Delta_1^c} \right)}
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Forward delta p.a.
+     </td>
+     <td>
+      <math>
+       \sigma_{\text{atm}} \sqrt{T} &lt; 2\mathcal{N}^{-1} \left(1 - \Delta_1^c\right)
+      </math>
+     </td>
+     <td>
+      <math>
+       \sigma_{\text{atm}} \sqrt{T} &lt; \sqrt{2 \ln \left( \frac{1}{2 \Delta_1^c} \right)}
+      </math>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   &lt;table&gt;
+   <b>
+    Table 2
+   </b>
+   Restrictions on discount factors and ATM volatilities for various combinations
+     of delta and ATM types&lt;sup&gt;(a)&lt;/sup&gt;
+  </p>
+  <p block-type="Text">
+   (a) If these conditions are violated, the ATM point will cross the nearest OTM point. Note that the put delta
+   <math display="inline">
+    \Delta_1^p
+   </math>
+   is negative
+  </p>
+  <p block-type="TextInlineMath">
+   OTM point
+   <math display="inline">
+    \Delta_1^c
+   </math>
+   only if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{\text{atm}}\sqrt{T} &lt; -2\mathcal{N}^{-1}\left(\frac{\Delta_1^c}{D_{\text{for}}}\right) = 2\mathcal{N}^{-1}\left(1 - \frac{\Delta_1^c}{D_{\text{for}}}\right) \tag{47}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This inequality has meaningful solutions only if the right-hand side is positive, that is, only if
+   <math display="inline">
+    1 - \Delta_1^c/D_{\text{for}} &gt; 1/2
+   </math>
+   . We therefore have the additional constraint:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D_{\text{for}} &gt; 2\Delta_1^c \tag{48}
+   </math>
+  </p>
+  <p block-type="Text">
+   The derivations for all other possible combinations are analogous. Their results are summarized in Table 2.
+  </p>
+  <p block-type="TextInlineMath">
+   Numerical Example. To gain some intuition for these constraints, let us consider a numerical example for a relevant case. A typical combination of delta and ATM conventions for long-dated FX options is the ATM-type delta neutral for premiumadjusted forward deltas. Usually, the first OTM point is quoted at
+   <math display="inline">
+    \Delta_1^c = 0.25
+   </math>
+   . Inserting this value into the respective formula (see Table 2) yields the condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{\text{atm}}\,\sqrt{T} &lt; \sqrt{2\ln\left(\frac{1}{2\Delta_1^c}\right)} = \sqrt{2\ln(2)} \approx 1.1774\tag{49}
+   </math>
+  </p>
+  <p block-type="Text">
+   For a 30-year option, this condition restricts the ATM volatility to a maximum of 21.5%, a value that—
+   <i>
+    a priori
+   </i>
+   —does not seem unattainable.
+  </p>
+  <h2>
+   Ambiguities in the Conversion from
+   <math display="inline">
+    \Delta
+   </math>
+   to Strike for Premium-adjusted Deltas
+  </h2>
+  <p block-type="Text">
+   Premium-adjusted deltas can cause further complications. Recall from the section Forward Delta Premium Adjusted
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_F^c = \frac{K}{F} \mathcal{N}(d_-)
+   </math>
+   <br/>
+   where
+   <math>
+    d_- = \frac{\ln(F/K) - 1/2\sigma^2 \tau}{\sigma\sqrt{\tau}}
+   </math>
+   (50)
+  </p>
+  <p block-type="TextInlineMath">
+   and note that
+   <math display="inline">
+    \Delta_F^c
+   </math>
+   is
+   <b>
+    not
+   </b>
+   a monotonous function of the strike
+   <math display="inline">
+    K
+   </math>
+   and therefore not invertible for all strikes as illustrated by Figure 1(a). Thus, while
+   <math display="inline">
+    \Delta_F^c
+   </math>
+   can be calculated for any strike
+   <math display="inline">
+    K
+   </math>
+   , the reverse is not true: for any
+   <math display="inline">
+    \Delta_F^c &lt; \Delta_{\text{max}}
+   </math>
+   , there are two strikes
+   <math display="inline">
+    K_1 \neq K_2
+   </math>
+   with
+   <math display="inline">
+    \Delta_F^c(K_1) = \Delta_F^c(K_2)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In case
+   <math display="inline">
+    K_{\text{max}} &lt; K_{\text{atm}}
+   </math>
+   , there is no problem.
+   <math display="inline">
+    \Delta_{F, pa}^{c}(K)
+   </math>
+   is a monotone function of K for all
+   <math display="inline">
+    K &gt; K_{\text{atm}}
+   </math>
+   and is therefore directly related to the option's moneyness: the smaller a call option's delta value, the higher its strike and the deeper it is OTM. If desired, the volatility smile table defined in terms of delta can be translated uniquely into a smile table in strikes. Besides, when retrieving volatilities from the call side of the volatility
+  </p>
+  <p>
+   <img src="_page_9_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   (a) Premium adjusted (forward) call delta as a function of strike. (b) The function
+   <math display="inline">
+    f_{\alpha}(x)
+   </math>
+   as defined in equation (56) for
+   <math display="inline">
+    \alpha = 0.7
+   </math>
+   (broken line) and
+   <math display="inline">
+    \alpha = 1.1
+   </math>
+   (solid line)
+  </p>
+  <p block-type="Text">
+   smile table, this can be done by direct interpolation of the entries, possibly including the ATM point.
+  </p>
+  <p block-type="TextInlineMath">
+   In case
+   <math display="inline">
+    K_{\text{max}} &gt; K_{\text{atm}}
+   </math>
+   , however, the situation is more complicated.
+   <math display="inline">
+    \Delta_{F, pa}^{c}(K)
+   </math>
+   is no longer a monotonous function of
+   <math display="inline">
+    K
+   </math>
+   and the conversion of deltas to strikes is no longer unique for all OTM options. Thus, when translating a smile table in deltas into a smile table in strikes, particular care has to be taken. In addition, when retrieving the volatility for options with strikes
+   <math display="inline">
+    K \in (K_{\text{atm}}; K_{\text{max}})
+   </math>
+   from the volatility smile table, one has to extrapolate volatilities in delta beyond the ATM point which seems odd.
+  </p>
+  <p block-type="Text">
+   Note that the counterintuitive extrapolation in delta beyond the ATM point does not occur in case the volatility smile table in deltas is translated to a table in strikes on the grid points first (see the section Using the Smile Volatility Table) and the interpolation is done in strikes. This is possible as long as there is no crossing of the ATM point and the closest delta grid point as discussed in the section ATM Delta Falling in the OTM Range.
+  </p>
+  <p block-type="Text">
+   In the following discussion, we show that the case
+   <math display="inline">
+    K_{\text{max}} &gt; K_{\text{atm}}
+   </math>
+   can, indeed, occur. We restrict ourselves to premium adjusted forward call deltas and ATM-type delta neutral. The conditions for the ATM-type forward can be derived analogously and we summarize the results at the end of this section. Similar arguments hold for premium-adjusted spot deltas, however, it is reasonable to assume that the problems outlined in the section ATM Delta Falling in the OTM Range surface beforehand.
+  </p>
+  <p block-type="Text">
+   Starting from the expressions for the ATM strike and the call delta, see Table 1,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{atm}} = F e^{-1/2\sigma_{\text{atm}}^2 T} \tag{51}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{\text{atm}}^c = \Delta_{F, pa}^c \left( K_{\text{atm}}, \sigma_{\text{atm}}^2 \right) = \frac{1}{2} e^{-1/2\sigma_{\text{atm}}^2 T} \quad (52)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   we need to find conditions under which there is a second solution with strike
+   <math display="inline">
+    K &gt; K_{\text{atm}}
+   </math>
+   that solves
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{\text{atm}}^{c} = \Delta_{F, \, pa}^{c} \left( K, \sigma(\Delta_{F, \, pa}^{c}) \right) \tag{53}
+   </math>
+  </p>
+  <p block-type="Text">
+   This may seem a difficult problem at first glance since the delta on the right-hand side depends on the volatility, which itself is given in terms of delta. It is, however, simplified considerably by the following argument: while we do not know the strike for the point that solves equation
+   <math display="inline">
+    (53)
+   </math>
+   , we do know the delta there: it is the ATM delta. As the volatility is given in terms of delta, we also know the volatility on the right-hand side of equation
+   <math display="inline">
+    (53)
+   </math>
+   : it must be the ATMvolatility
+   <math display="inline">
+    \sigma_{\text{atm}}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Therefore, the problem can be reformulated as follows: when does
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_{\text{atm}}^{c} = \Delta_{F, \ pa}^{c} \left( K, \sigma_{\text{atm}} \right) \tag{54}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   have a second solution with
+   <math display="inline">
+    K &gt; K_{\text{atm}}
+   </math>
+   (besides the trivial one at
+   <math display="inline">
+    K = K_{\text{atm}}
+   </math>
+   ?
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Inserting the expressions for the ATM delta and the premium-adjusted forward call delta into equation
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    (54)
+   </math>
+   we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{2} e^{-1/2\sigma_{\text{atm}}^2 T} = \frac{K}{F} \mathcal{N} \left( \frac{\ln \left( F/K \right) - 1/2\sigma_{\text{atm}}^2 T}{\sigma_{\text{atm}} \sqrt{T}} \right) \tag{55}
+   </math>
+  </p>
+  <p block-type="Text">
+   With the definitions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \alpha &amp;:= \sigma_{\text{atm}} \sqrt{T} \ , \ x &amp;:= \frac{K}{F} \, \text{e}^{1/2 \sigma_{\text{atm}}^2 T} = \frac{K}{F} \, \text{e}^{\alpha^2/2} \end{split}
+   </math>
+  </p>
+  <p block-type="Text">
+   the problem is equivalent to finding the roots of
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f_{\alpha}(x) := e^{-\alpha^2/2} \left\{ \frac{1}{2} - x\mathcal{N}\left(-\frac{\ln(x)}{\alpha}\right) \right\} \quad (56)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The condition
+   <math display="inline">
+    K &gt; K_{\text{atm}}
+   </math>
+   in the previous equation corresponds to
+   <math display="inline">
+    x &gt; 1
+   </math>
+   . Plotting
+   <math display="inline">
+    f_{\alpha}(x)
+   </math>
+   for various values of
+   <math display="inline">
+    \alpha
+   </math>
+   , see Figure 1(b), we make the following observation: for small values of
+   <math display="inline">
+    \alpha
+   </math>
+   the function increases monotonically, taking on only positive values for
+   <math display="inline">
+    x &gt; 1
+   </math>
+   . For larger values of
+   <math display="inline">
+    \alpha
+   </math>
+   , the function decreases at first, thus, taking on negative values in a certain range, and then increases again, eventually reaching a second zero.
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, the question reduces further to this: under which conditions does the function
+   <math display="inline">
+    f_{\alpha}(x)
+   </math>
+   have a negative slope at
+   <math display="inline">
+    x = 1
+   </math>
+   ? The first derivative of
+   <math display="inline">
+    f_{\alpha}
+   </math>
+   can easily be calculated,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f'_{\alpha}(x) = -e^{-\alpha^2/2} \left\{ \mathcal{N}\left(-\frac{\ln(x)}{\alpha}\right) - \frac{1}{\alpha} \mathcal{N}'\left(-\frac{\ln(x)}{\alpha}\right) \right\}
+   </math>
+   (57)
+  </p>
+  <p block-type="TextInlineMath">
+   and the slope of
+   <math display="inline">
+    f_{\alpha}
+   </math>
+   at
+   <math display="inline">
+    x = 1
+   </math>
+   is now readily obtained as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f'_{\alpha}(x=1) = -e^{-\alpha^{2}/2} \left\{ \mathcal{N}(0) - \frac{1}{\alpha} \mathcal{N}'(0) \right\}
+   </math>
+   <math display="block">
+    = -e^{-\alpha^{2}/2} \left\{ \frac{1}{2} - \frac{1}{\alpha} \frac{1}{\sqrt{2\pi}} \right\} \qquad (58)
+   </math>
+  </p>
+  <p block-type="Text">
+   The constraint that it has to be positive yields the condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha = \sigma_{\text{atm}} \sqrt{T} &lt; \sqrt{\frac{2}{\pi}} \tag{59}
+   </math>
+  </p>
+  <p block-type="Text">
+   which restricts the ATM volatitity for a 30-year option to only
+   <math display="inline">
+    14.6\%
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   In other words, for a 30-year option, with ATM volatilities larger than 14.6%, the conversion between
+   <math display="inline">
+    \Delta_{F, pa}
+   </math>
+   and strikes becomes ambiguous.
+  </p>
+  <p block-type="TextInlineMath">
+   A similar condition can be derived for the forward ATM type. The major difference is that the function
+   <math display="inline">
+    f_{\alpha}(x)
+   </math>
+   takes on a different form that ultimately yields the following expression for the turnover point
+   <math display="inline">
+    \alpha
+   </math>
+   at which the conversion becomes ambiguous:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{N}\left(-\frac{\alpha}{2}\right) = \frac{1}{\alpha}\mathcal{N}'\left(-\frac{\alpha}{2}\right) \tag{60}
+   </math>
+  </p>
+  <p block-type="Text">
+   This equation can be solved numerically and vields the constraint
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha = \sigma_{\text{atm}} \sqrt{T} &lt; 1.224 \tag{61}
+   </math>
+  </p>
+  <p block-type="Text">
+   so that for a 30-year option, ATM volatilities above 22.3% will lead to ambiguities.
+  </p>
+  <h3>
+   <b>
+    End Notes
+   </b>
+  </h3>
+  <p block-type="Text">
+   &lt;sup&gt;a.&lt;/sup&gt;It should be noted that equation (32) was obtained under the assumption that the slope of the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   as a function of the strike
+   <math display="inline">
+    K
+   </math>
+   in equation (31) is 0 ATM. This is necessary as otherwise this ATM definition would become impracticable. In general, however, the volatility smile implies a nonzero slope and the maximum value of
+   <math display="inline">
+    \gamma
+   </math>
+   will not be found at the strike given by equation
+   <math display="inline">
+    (32)
+   </math>
+   .
+  </p>
+  <h3>
+   References
+  </h3>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Borowski, B. (2005). Hedgingverfahren für Foreign Exchange Barrieroptionen, Diploma Thesis, Technical University of Munich.
+    </li>
+    <li block-type="ListItem">
+     [2] Carr, P. &amp; Bandyopadhyay, A. (2000).
+     <i>
+      How to derive the
+     </i>
+     Black-Scholes Equation Correctly? http://faculty.chicagogsb.edu/akash.bandyopadhyay/research/ (accessed Mar 2000).
+    </li>
+    <li block-type="ListItem">
+     [3] Hull, J.C. (1997). Options, Futures and Other Derivative Securities, 3rd Edition, Prentice Hall, NJ.
+    </li>
+    <li block-type="ListItem">
+     [4] Wystup, U. (2006). FX Options and Structured Products, Wilev.
+    </li>
+   </ul>
+  </p>
+  <h4>
+   <b>
+    Related Articles
+   </b>
+  </h4>
+  <p block-type="Text">
+   Foreign Exchange Markets; Foreign Exchange Symmetries; Foreign Exchange Smile Interpolation.
+  </p>
+  <p block-type="Equation">
+  </p>
+ </body>
+</html>

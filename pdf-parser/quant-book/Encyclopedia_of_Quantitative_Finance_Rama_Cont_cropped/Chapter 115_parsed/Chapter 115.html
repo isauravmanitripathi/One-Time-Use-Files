@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Gamma Hedging
+   </b>
+  </h1>
+  <h2>
+   <b>
+    Why Hedging Gamma?
+   </b>
+  </h2>
+  <p block-type="Text">
+   Gamma is defined as the second derivative of a derivative product with respect to the underlying price. To understand why gamma hedging is not just the issue of annihilating a second-order term in the Taylor expansion of a portfolio, we review the profit and loss
+   <math display="inline">
+    (P\&amp;L)^a
+   </math>
+   explanation of a delta-hedged selffinancing portfolio for a monounderlying option and its link to the gamma.
+  </p>
+  <p block-type="Text">
+   Let us consider an economy described by the Black and Scholes framework, with a riskless interest rate
+   <math display="inline">
+    r
+   </math>
+   , a stock
+   <math display="inline">
+    S
+   </math>
+   with no repo or dividend whose volatility is
+   <math display="inline">
+    \sigma
+   </math>
+   , and an option O written on that stock.
+  </p>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    \Pi
+   </math>
+   be a self-financing portfolio composed at
+   <math display="inline">
+    t
+   </math>
+   of
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     the option
+     <math display="inline">
+      O_t
+     </math>
+     ;
+    </li>
+    <li block-type="ListItem">
+     its delta hedge:
+     <math display="inline">
+      -\Delta_t S_t
+     </math>
+     with
+     <math display="inline">
+      \Delta_t = \frac{\partial O}{\partial S}
+     </math>
+     ; and
+    </li>
+    <li block-type="ListItem">
+     the corresponding financing cash amount
+     <math display="inline">
+      -O_t
+     </math>
+     +
+     <math display="inline">
+      \Delta_t S_t
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   We note
+   <math display="inline">
+    \delta \Pi
+   </math>
+   the P&amp;L of the portfolio between t and
+   <math display="inline">
+    t + \delta t
+   </math>
+   and we set
+   <math display="inline">
+    \delta S = S_{t+\delta t} - S_t
+   </math>
+   . Directly, we have that the delta part of the portfolio P&amp;L is
+   <math display="inline">
+    -\Delta_t \delta S
+   </math>
+   and that the P&amp;L of the financing part is
+   <math display="inline">
+    (-O_t + \Delta_t S_t) r \delta t
+   </math>
+   . Regarding the option P&amp;L,
+   <math display="inline">
+    \delta O
+   </math>
+   , we have, by a second-order expansion,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta O \approx \frac{\partial O}{\partial t} \delta t + \frac{\partial O}{\partial S} \delta S + \frac{1}{2} \frac{\partial^2 O}{\partial^2 S} (\delta S)^2 \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   Furthermore, the option satisfies the Black and Scholes equation (see Black-Scholes Formula):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial O}{\partial t} + rS\frac{\partial O}{\partial S} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 O}{\partial^2 S} = rO \qquad (2)
+   </math>
+  </p>
+  <p block-type="Text">
+   Combining these two equations and writing the P&amp;L of the portfolio as the sum of the three terms, we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta \Pi \approx \frac{1}{2} S^2 \frac{\partial^2 O}{\partial^2 S} \left( \left( \frac{\delta S}{S} \right)^2 - \sigma^2 \delta t \right) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    \partial^2 O/\partial^2 S
+   </math>
+   is the gamma of the option part of the portfolio (in terms of definition,
+   <math display="inline">
+    S^2(\partial^2 O/\partial^2 S)
+   </math>
+   is called the
+   <i>
+    cash gamma
+   </i>
+   because it is expressed
+  </p>
+  <p block-type="Text">
+   in currency and can be summed over several stock positions, whereas the direct gamma cannot).
+  </p>
+  <p block-type="Text">
+   As no condition was put on the relation of the volatility to time and space, equation
+   <math display="inline">
+    (3)
+   </math>
+   is easily extended to a local volatility setting (see Local Volatility Model). Practitioners call this equation the breakeven relation and
+   <math display="inline">
+    \sigma\sqrt{\delta t}
+   </math>
+   the breakeven for it represents the move in performance the stock has to make in the time
+   <math display="inline">
+    \delta t
+   </math>
+   to ensure a flat P&amp;L (e.g., if we consider that a year is composed of 256 open days, a stock having an annualized volatility of 16% needs to make a move of 1%, at which the delta is rebalanced, to ensure a flat P&amp;L between two consecutive days). Figure 1 shows the portfolio P&amp;L for a position composed of an option with a positive gamma.
+  </p>
+  <p block-type="Text">
+   Equation (3) leads to two important remarks. First, it is a local relation, both in time and space, and the fact that the gamma is gearing the breakeven relation implies that the global P&amp;L of a positive gamma position, hedged according to the Black and Scholes self-financing strategy, can very well be negative if a stock makes large moves in a region where the gamma is small and makes small moves in a region where the gamma is maximum, even if the realized variance of the stock is higher than the pricing variance
+   <math display="inline">
+    \sigma^2
+   </math>
+   . Secondly, in the long run, the realized variance is usually smaller than the implied variance, which can lead practitioners to build negative gamma positions. Yet, Figure 1 shows that a positive gamma position is of finite loss and possibly infinite gain, whereas it is the opposite for a negative gamma position. Practically, this is why traders tend naturally to a gamma neutral position.
+  </p>
+  <p block-type="Text">
+   A specific aspect of the equity market is the presence of dividends. One can wonder if, on the date the stock drops by the dividend amount, a positive gamma position is easier to carry than a negative gamma position. It is, of course, linked to the dividend representation chosen in the stock modeling. It can be shown that the only consistent way of representing the dividends is the one proposed in
+   <b>
+    Dividend Modeling
+   </b>
+   , where the stock is modeled as in Black and Scholes between two consecutive dividend dates. It is the only representation in which equation (3) stands (on the dividend date, the P&amp;L term coming from the cash dividend part is offset by a term arising from the adapted Black and Scholes equation). In others, either the gamma carries a dividend part (dividend yield models) that leads to a
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   The P&amp;L of a self-financing portfolio composed of an option with a positive gamma in the interval
+   <math display="inline">
+    \delta t
+   </math>
+  </p>
+  <p block-type="Text">
+   false breakeven on the dividend date or equation (3) is not associated with the stock but with the variable that is stochastic (model in which the stock is described as a capitalized exponential martingale minus a capitalized dividend term, for example). This is why practitioners use the model proposed in
+   <b>
+    Dividend Modeling
+   </b>
+   rather than any other. This is also why it is, indeed, a general framework we put ourselves in by excluding dividends and repo (which is usually represented by a drift term whose P&amp;L impact is also offset by a term arising from the adapted Black and Scholes equation) in our analysis.
+  </p>
+  <h2>
+   <b>
+    Practical Gamma Hedging
+   </b>
+  </h2>
+  <p block-type="Text">
+   We have seen why traders usually try to build a gamma-neutral portfolio. Yet, there is no pure gamma instrument in the market, and neutralizing the gamma exposure always brings a vega exposure to the portfolio. Without trying to be exhaustive, we briefly review here some natural gamma hedging instruments.
+  </p>
+  <h4>
+   Hedging Gamma with Vanilla Options
+  </h4>
+  <p block-type="Text">
+   European calls and puts have the same gamma (and the same vega). Hence, they are equivalent hedging instruments. Figure 2 shows the gamma of a European option for two different maturities and Figure 3 shows the compared evolutions with respect to the maturity of the gamma and of the vega.
+  </p>
+  <p block-type="Text">
+   These two figures show that, to efficiently hedge his or her gamma exposure, a trader would rather use a short-term option to avoid bringing too much vega to his or her position. Moreover, the gamma of an "atthe-money" option is increasing as one gets closer to the maturity, whereas the gamma of an "out-of-themoney" option is decreasing.
+  </p>
+  <h2>
+   The Put Ratio Temptation
+  </h2>
+  <p block-type="TextInlineMath">
+   As equation
+   <math display="inline">
+    (3)
+   </math>
+   shows, the gamma and the theta (first derivative of a derivative product with respect to time) of a portfolio are of opposite signs. Moreover, in the equity market, the implied volatility is usually described by a skew, meaning that if we consider two puts
+   <math display="inline">
+    P_1
+   </math>
+   and
+   <math display="inline">
+    P_2
+   </math>
+   for the same maturity T, having two strikes
+   <math display="inline">
+    K_1
+   </math>
+   and
+   <math display="inline">
+    K_2
+   </math>
+   with
+   <math display="inline">
+    K_1 &lt; K_2
+   </math>
+   , we classically have
+   <math display="inline">
+    \sigma_{K_1} &gt; \sigma_{K_2}
+   </math>
+   . If we now build a self financing portfolio
+   <math display="inline">
+    \n\Pi\n
+   </math>
+   that is composed of
+   <math display="inline">
+    P_2 - \alpha P_1
+   </math>
+   with
+   <math display="inline">
+    \alpha = \Gamma_2/\Gamma_1
+   </math>
+   , the ratio of the two gammas, we get from equation (3) that
+   <math display="inline">
+    \delta \Pi \approx \frac{1}{2} S^2 \Gamma_2 (\sigma_{K_1}^2 - \sigma_{K_2}^2) \delta t &gt; 0.
+   </math>
+  </p>
+  <p block-type="Text">
+   This result is not in contradiction with arbitrage theory; it only demonstrates that equation
+   <math display="inline">
+    (3)
+   </math>
+   is strictly a local relation. As shown by Figure 2, to keep this relation through time, the trader would have to continuously sell the put
+   <math display="inline">
+    P_2
+   </math>
+   , as
+   <math display="inline">
+    \alpha
+   </math>
+   increases as time to maturity decreases, and, in case of a market drop down, he or she would find himself in a massive negative gamma situation. Still, practitioners commonly use put ratios to improve the breakeven of their position.
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Gamma of a European call as a function of the spot for two maturities (strike is equal to 100)
+  </p>
+  <p>
+   <img src="_page_2_Figure_3.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 3
+   </b>
+   Compared evolution of the gamma and vega of an at-the-money European call as a function of maturity (scales are different)
+  </p>
+  <h2>
+   <i>
+    Hedging Gamma with a Variance Swap or a Gamma Swap
+   </i>
+  </h2>
+  <p block-type="Text">
+   As explained in
+   <b>
+    Variance Swap
+   </b>
+   a variance swap is equivalent to a log contract. Hence, its cash gamma is constant. It is therefore an efficient gamma hedging instrument for a portfolio whose gamma is not particularly localized (as opposed to a portfolio of vanilla options whose gamma is locally described by Figure 2). Gamma swaps (
+   <i>
+    see
+   </i>
+   <b>
+    Gamma Swap
+   </b>
+   ) have the same behavior. Their specificity is to have a constant gamma.
+  </p>
+  <h4>
+   <i>
+    Extending the Definition of Gamma
+   </i>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   In the market, the implied volatility changes with the spot moves (
+   <i>
+    see
+   </i>
+   <b>
+    Implied Volatility Surface
+   </b>
+   ). It is in contradiction with the use of a Black and Scholes model whose volatility is constant, but, to avoid the multiplicity of risk sources, and to keep them observable, traders tend to rely on that model, nonetheless (and therefore hedge their vega exposure). Nevertheless, to take this dynamics into consideration, some traders incorporate a "shadow" term into their sensitivities. The shadow gamma [1]
+  </p>
+  <p block-type="Text">
+   is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial^2 O}{\partial^2 S} + \frac{\partial}{\partial S} \left( \frac{\partial O}{\partial \sigma} \frac{\partial \sigma}{\partial S} \right) \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   The second term, the shadow term, depends on the chosen dynamics of the implied volatility.
+  </p>
+  <p block-type="Text">
+   The problem with the shadow approach is that we cannot rely anymore on a self-financing strategy in the Black and Scholes framework to define the breakeven. One solution, in order to build a selffinancing strategy that incorporates volatility surface into the dynamics, is to use a stochastic volatility model (see Heston Model) instead of a Black and Scholes model. For example, one can use the following model:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS = rS dt + \sigma S dW_t^1
+   </math>
+   <br/>
+   <math display="block">
+    d\sigma = \mu dt + \nu dW_t^2
+   </math>
+   (5)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d\langle W^1, W^2\rangle_t = \rho dt
+   </math>
+  </p>
+  <p block-type="Text">
+   Using the same arguments as in the Black and Scholes framework, the P&amp;L of a delta-hedged selffinancing portfolio (now with a first-order hedge for the volatility factor using a volatility instrument like a straddle, for example) in this model is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta \Pi \approx \frac{1}{2} S^2 \frac{\partial^2 O}{\partial^2 S} \left( \left( \frac{\delta S}{S} \right)^2 - \sigma^2 \delta t \right)
+   </math>
+   <math display="block">
+    + \frac{1}{2} \frac{\partial^2 O}{\partial^2 \sigma} ((\delta \sigma)^2 - \nu^2 \delta t)
+   </math>
+   <math display="block">
+    + S \frac{\partial^2 O}{\partial S \partial \sigma} \left( \left( \frac{\delta S}{S} \right) \delta \sigma - \rho \sigma \nu \ \delta t \right) \quad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   Two other "gamma" terms appear in this equation, which proves that incorporating the dynamics of the volatility is not as simple as the addition of a shadow term in the Black and Scholes breakeven relation. It also shows that controlling the P&amp;L leads to a more complex gamma hedge, as it is now necessary to annihilate two more terms (the second and third ones, for which natural hedging instruments are strangles and risk reversals).
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Another popular way of integrating the volatility surface dynamics in the model is to use Levy processes (see Exponential Lévy Models). We do not give the P&amp;L explanation in that case, but, like in the stochastic volatility framework, it is the sum of the term presented in equation (3), for the Brownian
+  </p>
+  <p block-type="Text">
+   part, and of a term coming from the pure jump part. The hedge of the latter is very complex because it is not localized in space (one needs to use a strip of gap options, e.g., to control it).
+  </p>
+  <p block-type="Text">
+   Finally, a possible way of controlling the volatility surface dynamics is to make no assumption on the volatility except that it is bounded. This framework is known as
+   <i>
+    uncertain volatility modeling
+   </i>
+   and is presented in
+   <b>
+    Uncertain Volatility Model
+   </b>
+   . The analysis leads to the conclusion that instead of one breakeven volatility, there are, in fact, two: the upper bound for positive gamma regions and the lower bound for negative gamma ones. In that case, and supposing that the effective realized volatility stays locally between these two bounds, gamma hedging is not necessary, as the P&amp;L of the delta-hedged self financing portfolio is naturally systematically positive.
+  </p>
+  <h4>
+   <b>
+    Multiunderlying Derivatives
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   We consider a multidimensional Black and Scholes model of N stocks
+   <math display="inline">
+    S_i
+   </math>
+   with volatility
+   <math display="inline">
+    \sigma_i
+   </math>
+   .
+   <math display="inline">
+    \rho_{ij}
+   </math>
+   represents the correlation between the Brownian motions controlling the evolution of
+   <math display="inline">
+    S_i
+   </math>
+   and
+   <math display="inline">
+    S_j
+   </math>
+   . We do not discuss the issue of multicurrency (see Quanto Options) and, using the same mechanism as in the monounderlying framework, we can express the P&amp;L of a deltahedged self-financing portfolio as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta \Pi \approx \frac{1}{2} \sum_{i=1}^{N} S_i^2 \frac{\partial^2 O}{\partial^2 S_i} \left( \left( \frac{\delta S_i}{S_i} \right)^2 - \sigma_i^2 \delta t \right)
+   </math>
+   <math display="block">
+    + \sum_{i &lt; j} S_i S_j \frac{\partial^2 O}{\partial S_i \partial S_j} \left( \left( \frac{\delta S_i}{S_i} \right) \left( \frac{\delta S_j}{S_j} \right) - \rho_{ij} \sigma_i \sigma_j \delta t \right) \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   The first term can be controlled by the hedging instruments we have previously reviewed. The cross ones, which incorporate the "cross gammas", can also be controlled, using so-called correlation swaps (typically, a basket option minus the sum of the individual options).
+  </p>
+  <h3>
+   Conclusion
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   Controlling the gamma exposure of a position is one of the main concerns of traders. Hedging instruments
+  </p>
+  <p block-type="Text">
+   are common options but it is not possible to simply hedge the gamma without modifying the vega exposure of the position. Also, integrating the volatility surface dynamics in the model leads to a more complex gamma-hedging issue than in a Black and Scholes model, but it still can be addressed. Moreover, we remark that although we have considered the equity market in our study, this analysis can easily be extended to other complete markets in which there is no arbitrage and where the price process is modeled by a Brownian motion of any dimension.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   P&amp;L stands for "profit and loss" and represents the evolution of the portfolio value between two dates due to time and to the market activity between these dates.
+  </p>
+  <h2>
+   <b>
+    Reference
+   </b>
+  </h2>
+  <p block-type="Text">
+   [1] Taleb, N. (1996).
+   <i>
+    Dynamic Hedging: Managing Vanilla and Exotic Options
+   </i>
+   , John Wiley &amp; Sons, pp. 138–146.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Correlation Swap
+   </b>
+   ;
+   <b>
+    Delta Hedging
+   </b>
+   ;
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ;
+   <b>
+    Gamma Swap
+   </b>
+   ;
+   <b>
+    Heston Model
+   </b>
+   ;
+   <b>
+    Uncertain Volatility Model
+   </b>
+   ;
+   <b>
+    Variance Swap
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   CHARLES-HENRI ROUBINET
+  </p>
+ </body>
+</html>

@@ -1,0 +1,1226 @@
+{
+  "blocks": [
+    {
+      "id": "/page/0/SectionHeader/0",
+      "block_type": "SectionHeader",
+      "html": "<h1><b>Static Hedging</b></h1>",
+      "page": 468,
+      "polygon": [
+        [
+          75.15625,
+          70.9412841796875
+        ],
+        [
+          192.13621520996094,
+          70.9412841796875
+        ],
+        [
+          192.13621520996094,
+          89.371826171875
+        ],
+        [
+          75.15625,
+          89.371826171875
+        ]
+      ],
+      "bbox": [
+        75.15625,
+        70.9412841796875,
+        192.13621520996094,
+        89.371826171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Liquid traded put and call options can be used as hedge instruments for over-the-counter traded products. Barrier options are the most common exotic options, and, for these contracts, static hedging works out particularly well. In the Black–Scholes model there are simple methods (conceptually straightforward and/or closed form) for constructing replicating portfolios that do not require dynamic trading; they are set up at initiation of the barrier option, and liquidated at either knockout or expiry. They are, thus, static hedges. Inspired by Allen and Padovani [1], we describe how to find static hedges for barrier options in the Black–Scholes model in a way that encompasses both Derman's [6] intuitive calendar-spread algorithm and Carr's [4] strike-spread hedges stemming from put–call symmetry.</p>",
+      "page": 468,
+      "polygon": [
+        [
+          75.662109375,
+          110.541259765625
+        ],
+        [
+          286.4609375,
+          110.541259765625
+        ],
+        [
+          286.4609375,
+          292.6213684082031
+        ],
+        [
+          75.662109375,
+          292.6213684082031
+        ]
+      ],
+      "bbox": [
+        75.662109375,
+        110.541259765625,
+        286.4609375,
+        292.6213684082031
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/2",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Construction of Static Hedges</b></h2>",
+      "page": 468,
+      "polygon": [
+        [
+          75.517578125,
+          314.7736511230469
+        ],
+        [
+          221.6012420654297,
+          314.7736511230469
+        ],
+        [
+          221.6012420654297,
+          326.193359375
+        ],
+        [
+          75.517578125,
+          326.193359375
+        ]
+      ],
+      "bbox": [
+        75.517578125,
+        314.7736511230469,
+        221.6012420654297,
+        326.193359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/3",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">Unless we explicitly say otherwise, we consider a Black–Scholes model throughout this article. This means that the interest rate is constant, and all options are written on some underlying asset <i>S</i> that follows a geometric Brownian motion. A zero-rebate, knockout barrier option is a contract that pays off as a plain vanilla option if <i>S</i> stays within a specified barrier for the whole life of the barrier option, but becomes worthless if the barrier is hit or crossed (<i>see also</i> <b>Barrier Options</b>). Recurrent examples are the downand-out call and the up-and-out call The value of a still-alive barrier option is of the form <i>F (St,t)</i>, where the function <i>F</i> solves the Black–Scholes partial differential equation with 0 as boundary condition along the barrier (<i>see</i> <b>Finite Difference Methods</b> <b>for Barrier Options</b>). This is illustrated in Figure 1, which is useful to keep in mind when the method for constructing static hedges is described in the following.</p>",
+      "page": 468,
+      "polygon": [
+        [
+          75.517578125,
+          336.30755615234375
+        ],
+        [
+          287.0390625,
+          336.30755615234375
+        ],
+        [
+          287.0390625,
+          551.8812255859375
+        ],
+        [
+          75.517578125,
+          551.8812255859375
+        ]
+      ],
+      "bbox": [
+        75.517578125,
+        336.30755615234375,
+        287.0390625,
+        551.8812255859375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/SectionHeader/4",
+      "block_type": "SectionHeader",
+      "html": "<h4><i>Construction of Static Hedges</i></h4>",
+      "page": 468,
+      "polygon": [
+        [
+          75.734375,
+          569.1038970947266
+        ],
+        [
+          200.21498107910156,
+          569.1038970947266
+        ],
+        [
+          200.21498107910156,
+          579.3155975341797
+        ],
+        [
+          75.734375,
+          579.3155975341797
+        ]
+      ],
+      "bbox": [
+        75.734375,
+        569.1038970947266,
+        200.21498107910156,
+        579.3155975341797
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">A portfolio of puts and calls that (approximately) replicates the barrier option can be found as the solution to a linear system of equations, and constructing it does not require knowledge/implementation of barrier option valuation formulas. The idea</p>",
+      "page": 468,
+      "polygon": [
+        [
+          75.95999908447266,
+          588.6943359375
+        ],
+        [
+          286.75,
+          588.6943359375
+        ],
+        [
+          286.75,
+          644.76123046875
+        ],
+        [
+          75.95999908447266,
+          644.76123046875
+        ]
+      ],
+      "bbox": [
+        75.95999908447266,
+        588.6943359375,
+        286.75,
+        644.76123046875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/6",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">is to match the barrier option's value at expiry and along the barrier.</p>",
+      "page": 468,
+      "polygon": [
+        [
+          303.12030029296875,
+          71.8861083984375
+        ],
+        [
+          512.796875,
+          71.8861083984375
+        ],
+        [
+          512.796875,
+          93.059814453125
+        ],
+        [
+          303.12030029296875,
+          93.059814453125
+        ]
+      ],
+      "bbox": [
+        303.12030029296875,
+        71.8861083984375,
+        512.796875,
+        93.059814453125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/7",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">To illustrate, consider a down-and-out call with strike <i>K</i>, expiry <i>T</i>, and barrier <i>B</i>. (An up-and-out call is treated similarly, except strike-above-the-barrier calls are used as hedge instruments.) Let <i>Put</i>, <i>Call</i> (spot, time | strike, expiry) denote put and call values.</p>",
+      "page": 468,
+      "polygon": [
+        [
+          302.9375,
+          94.6181640625
+        ],
+        [
+          513.375,
+          94.6181640625
+        ],
+        [
+          513.375,
+          151.49951171875
+        ],
+        [
+          302.9375,
+          151.49951171875
+        ]
+      ],
+      "bbox": [
+        302.9375,
+        94.6181640625,
+        513.375,
+        151.49951171875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/8",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Suppose that we have specified a grid of time points 0 = <i>t</i><sup>0</sup> <i>&lt; t</i><sup>1</sup> <i>&lt;...&lt;tn</i> = <i>T</i> , and <i>n</i> pairs of put with strikes <i>Kj</i> ≤ <i>B</i> and expiries <i>Tj</i> ≤ <i>T</i> . Find the solution <i>α</i> to</p>",
+      "page": 468,
+      "polygon": [
+        [
+          303.119384765625,
+          152.1671142578125
+        ],
+        [
+          512.5078125,
+          152.1671142578125
+        ],
+        [
+          512.5078125,
+          196.599609375
+        ],
+        [
+          303.119384765625,
+          196.599609375
+        ]
+      ],
+      "bbox": [
+        303.119384765625,
+        152.1671142578125,
+        512.5078125,
+        196.599609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Equation/9",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">A\\alpha + u = 0 \\tag{1}</math></p>",
+      "page": 468,
+      "polygon": [
+        [
+          383.640625,
+          198.1053466796875
+        ],
+        [
+          512.796875,
+          198.1053466796875
+        ],
+        [
+          512.796875,
+          208.50115966796875
+        ],
+        [
+          383.640625,
+          208.50115966796875
+        ]
+      ],
+      "bbox": [
+        383.640625,
+        198.1053466796875,
+        512.796875,
+        208.50115966796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/TextInlineMath/10",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">where <i>A</i> is an <i>n</i> × <i>n</i> matrix with entries <i>Ai,j</i> = <i>P ut (B, ti</i>|<i>Kj</i> <i>, Tj</i> <i>)</i> and <i>u</i> is an <i>n</i>-vector with entries <i>Call(B, ti</i>|<i>K, T )</i>. A portfolio with the <i>(K, T )</i>-call and <i>αj</i> in the <i>(Kj</i> <i>, Tj</i> <i>)</i>-put then matches the barrier option's zero value at the <i>ti</i>-points along the barrier, and its expiry payoff above the barrier. So the barrier option is—to a good approximation when the match points, the <i>ti</i>'s, are close —replicated buying this portfolio at time 0 and selling it either when the barrier option is knocked out (because sample paths are continuous, this can only happen if the barrier is actually hit) or when it expires. In other words, this represents a static hedge. There is freedom of choice regarding strikes and expiries of the hedge instruments. Derman [6] suggests calendarspread hedging with strikes along the barrier,that is, using <i>Tj</i> = <i>tj</i><sup>−</sup><sup>1</sup> and <i>Kj</i> = <i>B</i>. This makes the <i>A</i>matrix triangular so that we can solve for <i>αj</i> 's in one easy-to-explain backward-working pass. Another choice—closely related to Carr's work [4]—is to use strike spreads, that is, <i>Tj</i> = <i>T</i> for all <i>j</i> and <i>Kj</i> 's that are different and below the barrier.</p>",
+      "page": 468,
+      "polygon": [
+        [
+          302.0703125,
+          219.28533935546875
+        ],
+        [
+          514.2421875,
+          219.28533935546875
+        ],
+        [
+          514.2421875,
+          470.6413879394531
+        ],
+        [
+          302.0703125,
+          470.6413879394531
+        ]
+      ],
+      "bbox": [
+        302.0703125,
+        219.28533935546875,
+        514.2421875,
+        470.6413879394531
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/0/Text/11",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Example 1.</b> Table 1 gives a numerical comparison of the performance of different hedge portfolios for three-month barrier options; a typical lifetime of a barrier option in foreign exchange markets. Looking at the results in Table 1 for the down-and-out call, we see the appeal of using options as hedge instruments; very few options are needed in the static hedges to achieve a hedge quality that is several orders of magnitude better than usual dynamic <i>-</i>-hedging. The numbers for the up-and-out call demonstrate one problem that static hedging does not immediately solve: the up-and-out call is a <i>reverse</i> or <i>live-out</i> option meaning that the underlying call is in the money when the barrier option knocks out. This</p>",
+      "page": 468,
+      "polygon": [
+        [
+          302.359375,
+          484.50390625
+        ],
+        [
+          513.953125,
+          484.50390625
+        ],
+        [
+          513.953125,
+          644.7635192871094
+        ],
+        [
+          302.359375,
+          644.7635192871094
+        ]
+      ],
+      "bbox": [
+        302.359375,
+        484.50390625,
+        513.953125,
+        644.7635192871094
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 147,
+      "polygon": [
+        [
+          77.90234375,
+          44.970178926441356
+        ],
+        [
+          170.85569620253165,
+          44.970178926441356
+        ],
+        [
+          170.85569620253165,
+          55.9609375
+        ],
+        [
+          77.90234375,
+          55.9609375
+        ]
+      ],
+      "bbox": [
+        77.90234375,
+        44.970178926441356,
+        170.85569620253165,
+        55.9609375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/FigureGroup/133",
+      "block_type": "FigureGroup",
+      "html": "<p><img src='/page/1/Figure/1'></p><p><b>Figure 1</b> The PDEs for (a) down-and-out and (b) up-and-out call options</p>",
+      "page": 147,
+      "polygon": [
+        [
+          77.93417721518988,
+          60.2592529296875
+        ],
+        [
+          501.71484375,
+          60.2592529296875
+        ],
+        [
+          501.71484375,
+          228.07763671875
+        ],
+        [
+          77.93417721518988,
+          228.07763671875
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        60.2592529296875,
+        501.71484375,
+        228.07763671875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {
+        "/page/1/Figure/1": "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"
+      }
+    },
+    {
+      "id": "/page/1/TableGroup/134",
+      "block_type": "TableGroup",
+      "html": "<p>Table 1 Performance of dynamic and static hedge strategies in the Black-Scholes with 15% volatility and zero interest rate and dividends. The columns show the initial price of the hedge portfolio and the standard deviation of the benchmarked discounted hedge error, that is, the value of hedge portfolio at liquidation minus barrier option payoff relative to the initial value of the barrier option. All static hedges use three options besides the <math display=\"inline\">(K, T)</math>-call. The time points for value matching, the <math display=\"inline\">t_i</math>s, and the expiries for the calendar spreads are from the list (0, 1/12, 2/12, 3/12). The strike spreads use calls with strikes (110,112,114) for the up-and-out case, and puts with strikes (<math display=\"inline\">90.25_{=B^2/K}</math>, <math display=\"inline\">88.25</math>, <math display=\"inline\">86.25</math>) for the down-and out case. The <math display=\"inline\">\\Delta</math>-hedge is adjusted daily and all portfolios are continuously monitored</p><table><tbody><tr><th rowspan=\"3\">Hedge method</th><th colspan=\"4\">Barrier option type</th></tr><tr><th colspan=\"2\">Down-and-out call<br/><math>K = 100, T = 1/4, B = 95</math></th><th colspan=\"2\">Up-and-out call<br/><math>K = 100, T = 1/4, B = 110</math></th></tr><tr><th>Cost</th><th>Standard deviation (%)</th><th>Cost</th><th>Standard deviation (%)</th></tr><tr><td>Dynamic; <math>\\Delta</math><br/>Static; strike spreads<br/>Static; calendar spreads</td><td>2.6964<br/>2.6964<br/>2.6704</td><td>1.0</td><td>1.0358<br/>1.0674<br/>1.3468</td><td>81<br/>19<br/>94</td></tr></tbody></table>",
+      "page": 147,
+      "polygon": [
+        [
+          77.93417721518988,
+          247.33598409542745
+        ],
+        [
+          518.578125,
+          247.33598409542745
+        ],
+        [
+          518.578125,
+          422.65234375
+        ],
+        [
+          77.93417721518988,
+          422.65234375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        247.33598409542745,
+        518.578125,
+        422.65234375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/5",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">discontinuity creates a large gap risk, and hedge quality deteriorates. To alleviate this, a number of regularization techniques have been suggested, for instance [10] using singular value decomposition when solving equation <math display=\"inline\">(1)</math>.</p>",
+      "page": 147,
+      "polygon": [
+        [
+          77.93417721518988,
+          441.796875
+        ],
+        [
+          291.0859375,
+          441.796875
+        ],
+        [
+          291.0859375,
+          498.494140625
+        ],
+        [
+          77.93417721518988,
+          498.494140625
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        441.796875,
+        291.0859375,
+        498.494140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "4": "/page/0/SectionHeader/4"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/6",
+      "block_type": "SectionHeader",
+      "html": "<h3>Beyond Black-Scholes Dynamics</h3>",
+      "page": 147,
+      "polygon": [
+        [
+          77.93417721518988,
+          512.6600397614314
+        ],
+        [
+          218.8203125,
+          512.6600397614314
+        ],
+        [
+          218.8203125,
+          523.1611328125
+        ],
+        [
+          77.93417721518988,
+          523.1611328125
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        512.6600397614314,
+        218.8203125,
+        523.1611328125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/TextInlineMath/7",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">Constructing static hedges by solving linear equations like equation (1) goes well beyond the Black–Scholes model. For constant elasticity of variance (asset volatility <math display=\"inline\">\\sigma S_t^{\\gamma-1}</math>) and local volatility (asset volatility of the form <math display=\"inline\">\\sigma(S_t, t)</math> models, the system carries over verbatim; the entries of the A-matrix are just calculated with a different formula/method. For jumpdiffusion models [2], one needs to extend the grid of match points to space points beyond the barrier, and for stochastic volatility models [8], an extra</p>",
+      "page": 147,
+      "polygon": [
+        [
+          77.93417721518988,
+          531.3976143141153
+        ],
+        [
+          290.00506329113927,
+          531.3976143141153
+        ],
+        [
+          290.00506329113927,
+          644.6552734375
+        ],
+        [
+          77.93417721518988,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        77.93417721518988,
+        531.3976143141153,
+        290.00506329113927,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/8",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">dimension is needed to match different volatility levels at knockout. By using both strike and calendar spreads, asymptotically perfect static hedges can be found in these two cases. It should be stressed that the static hedges are model and parameter dependent, but experimental and empirical evidence <math display=\"inline\">[7, 9]</math> suggests a high degree of robustness to model risk.</p>",
+      "page": 147,
+      "polygon": [
+        [
+          304.99240506329113,
+          442.20675944334
+        ],
+        [
+          517.8126582278481,
+          442.20675944334
+        ],
+        [
+          517.8126582278481,
+          521.3203125
+        ],
+        [
+          304.99240506329113,
+          521.3203125
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        442.20675944334,
+        517.8126582278481,
+        521.3203125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/6"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/SectionHeader/9",
+      "block_type": "SectionHeader",
+      "html": "<h3><b>Put–Call Symmetry and Static Hedges </b></h3>",
+      "page": 147,
+      "polygon": [
+        [
+          305.5390625,
+          553.1332007952286
+        ],
+        [
+          495.33164556962026,
+          553.1332007952286
+        ],
+        [
+          495.33164556962026,
+          563.6591796875
+        ],
+        [
+          305.5390625,
+          563.6591796875
+        ]
+      ],
+      "bbox": [
+        305.5390625,
+        553.1332007952286,
+        495.33164556962026,
+        563.6591796875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/1/Text/10",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\" class=\"has-continuation\">In a number of papers <math display=\"inline\">[3-5]</math>, Peter Carr and coauthors have derived put-call symmetries and shown how they can be used to create static hedges for barrier options. In its basic form [4] [page 1167], the put-call symmetry states that in the zero-dividend, zero-interest rate Black-Scholes</p>",
+      "page": 147,
+      "polygon": [
+        [
+          304.99240506329113,
+          577.117296222664
+        ],
+        [
+          517.8126582278481,
+          577.117296222664
+        ],
+        [
+          517.8126582278481,
+          644.6552734375
+        ],
+        [
+          304.99240506329113,
+          644.6552734375
+        ]
+      ],
+      "bbox": [
+        304.99240506329113,
+        577.117296222664,
+        517.8126582278481,
+        644.6552734375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/PageHeader/0",
+      "block_type": "PageHeader",
+      "html": "",
+      "page": 305,
+      "polygon": [
+        [
+          422.2200012207031,
+          45.49365234375
+        ],
+        [
+          512.3049926757812,
+          45.49365234375
+        ],
+        [
+          512.3049926757812,
+          56.70166015625
+        ],
+        [
+          422.2200012207031,
+          56.70166015625
+        ]
+      ],
+      "bbox": [
+        422.2200012207031,
+        45.49365234375,
+        512.3049926757812,
+        56.70166015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/1",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">model, we have</p>",
+      "page": 305,
+      "polygon": [
+        [
+          75.30078125,
+          71.88751220703125
+        ],
+        [
+          139.0390625,
+          71.88751220703125
+        ],
+        [
+          139.0390625,
+          81.60113525390625
+        ],
+        [
+          75.30078125,
+          81.60113525390625
+        ]
+      ],
+      "bbox": [
+        75.30078125,
+        71.88751220703125,
+        139.0390625,
+        81.60113525390625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/2",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\"><math display=\"block\">Call(S_t, t|K, T) = (K/S_t) \\times Put(S_t, t|S_t^2/K, T)</math></p>",
+      "page": 305,
+      "polygon": [
+        [
+          82.85956573486328,
+          90.01190185546875
+        ],
+        [
+          285.015625,
+          90.01190185546875
+        ],
+        [
+          285.015625,
+          103.3743896484375
+        ],
+        [
+          82.85956573486328,
+          103.3743896484375
+        ]
+      ],
+      "bbox": [
+        82.85956573486328,
+        90.01190185546875,
+        285.015625,
+        103.3743896484375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Equation/3",
+      "block_type": "Equation",
+      "html": "<p block-type=\"Equation\">for all <math display=\"block\">S_t</math>, <math>t</math>, <math>K</math>, and <math>T</math> (2)</p>",
+      "page": 305,
+      "polygon": [
+        [
+          147.7109375,
+          109.15545654296875
+        ],
+        [
+          290.5078125,
+          109.15545654296875
+        ],
+        [
+          290.5078125,
+          119.63409423828125
+        ],
+        [
+          147.7109375,
+          119.63409423828125
+        ]
+      ],
+      "bbox": [
+        147.7109375,
+        109.15545654296875,
+        290.5078125,
+        119.63409423828125
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/TextInlineMath/4",
+      "block_type": "TextInlineMath",
+      "html": "<p block-type=\"TextInlineMath\">So a down-and-out call is replicated by buying one strike-<i>K</i> call, selling <i>K/B</i> puts with strike <i>B</i><sup>2</sup><i>/K</i>, liquidating this position the first time that <i>St</i> = <i>B</i> , and if that does not happen, holding it until the options expire. More general symmetry relations enable one to find static hedges for such contracts as up-andout calls, barrier options with rebates, lookback options, and double barrier options ([11] is a survey). Those static hedges will typically involve a continuum of plain vanilla options. Put–call symmetries also exist in models with nonzero interest rates and dividends, and more general dynamics than geometric Brownian motion (see [5]). Note that the strikespread approach from the previous section finds the symmetry-based static hedges without explicit knowledge of closed-form results, and that the perfect replication of the down-and-out call in Table 1—where the strike-<i>B</i><sup>2</sup><i>/K</i> put is included as a hedge instrument—demonstrates the basic put–call symmetry.</p>",
+      "page": 305,
+      "polygon": [
+        [
+          75.228515625,
+          129.66729736328125
+        ],
+        [
+          286.75,
+          129.66729736328125
+        ],
+        [
+          286.75,
+          345.60125732421875
+        ],
+        [
+          75.228515625,
+          345.60125732421875
+        ]
+      ],
+      "bbox": [
+        75.228515625,
+        129.66729736328125,
+        286.75,
+        345.60125732421875
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/0/SectionHeader/2",
+        "3": "/page/1/SectionHeader/9"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/5",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>References</b></h2>",
+      "page": 305,
+      "polygon": [
+        [
+          75.87890625,
+          362.05364990234375
+        ],
+        [
+          128.48828125,
+          362.05364990234375
+        ],
+        [
+          128.48828125,
+          373.318359375
+        ],
+        [
+          75.87890625,
+          373.318359375
+        ]
+      ],
+      "bbox": [
+        75.87890625,
+        362.05364990234375,
+        128.48828125,
+        373.318359375
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/ListGroup/304",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\" class=\"has-continuation\"><ul><li block-type=\"ListItem\">[1] Allen, S. &amp; Padovani, O. (2002). Risk management using quasi-static hedging, <i>Economic Notes</i> <b>31</b>, 277–336.</li><li block-type=\"ListItem\">[2] Andersen, L., Andreasen, J. &amp; Eliezer, D. (2002). Static replication of barrier options: some general results, <i>Journal of Computational Finance</i> <b>5</b>, 1–25.</li></ul></p>",
+      "page": 305,
+      "polygon": [
+        [
+          75.951171875,
+          387.6767578125
+        ],
+        [
+          286.75,
+          387.6767578125
+        ],
+        [
+          286.75,
+          446.2271728515625
+        ],
+        [
+          75.951171875,
+          446.2271728515625
+        ]
+      ],
+      "bbox": [
+        75.951171875,
+        387.6767578125,
+        286.75,
+        446.2271728515625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/ListGroup/305",
+      "block_type": "ListGroup",
+      "html": "<p block-type=\"ListGroup\"><ul><li block-type=\"ListItem\">[3] Bowie, J. &amp; Carr, P. (1994). Static simplicity, <i>Risk</i> <i>Magazine</i> <b>7</b>(8), 44–50.</li><li block-type=\"ListItem\">[4] Carr, P., Ellis, K. &amp; Gupta, V. (1998). Static hedging of exotic options, <i>Journal of Finance</i> <b>53</b>, 1165–1190.</li><li block-type=\"ListItem\">[5] Carr, P. &amp; Lee, R. (2008). Put-call symmetry: extensions and applications, <i>Mathematical Finance</i> forthcoming.</li><li block-type=\"ListItem\">[6] Derman, E., Ergener, D. &amp; Kani, I. (1995). Static options replication, <i>Journal of Derivatives</i> <b>2</b>, 78–95.</li><li block-type=\"ListItem\">[7] Engelmann, B., Fengler, M., Nalholm, M. &amp; Schwendner, P. (2007). Static versus dynamic hedges: an empirical comparison for barrier options, <i>Review of</i> <i>Derivatives Research</i> <b>9</b>, 239–264.</li><li block-type=\"ListItem\">[8] Fink, J. (2003). An examination of the effectiveness of static hedging in the presence of stochastic volatility, <i>Journal of Futures Markets</i> <b>23</b>, 859–890.</li><li block-type=\"ListItem\">[9] Nalholm, M. &amp; Poulsen, R. (2006). Static hedging and model risk for barrier options, <i>Journal of Futures</i> <i>Markets</i> <b>26</b>, 449–463.</li><li block-type=\"ListItem\">[10] Nalholm, M. &amp; Poulsen, R. (2006). Static hedging of barrier options under general asset dynamics: unification and application, <i>Journal of Derivatives</i> <b>13</b>, 46–60.</li><li block-type=\"ListItem\">[11] Poulsen, R. (2006). Barrier options and their static hedges: simple derivations and extensions, <i>Quantitative</i> <i>Finance</i> <b>6</b>, 327–335.</li></ul></p>",
+      "page": 305,
+      "polygon": [
+        [
+          301.203125,
+          72.04296875
+        ],
+        [
+          513.6640625,
+          72.04296875
+        ],
+        [
+          513.6640625,
+          309.4859313964844
+        ],
+        [
+          301.203125,
+          309.4859313964844
+        ]
+      ],
+      "bbox": [
+        301.203125,
+        72.04296875,
+        513.6640625,
+        309.4859313964844
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/5"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/SectionHeader/17",
+      "block_type": "SectionHeader",
+      "html": "<h2><b>Related Articles</b></h2>",
+      "page": 305,
+      "polygon": [
+        [
+          301.78125,
+          327.49365234375
+        ],
+        [
+          380.984375,
+          327.49365234375
+        ],
+        [
+          380.984375,
+          338.7016296386719
+        ],
+        [
+          301.78125,
+          338.7016296386719
+        ]
+      ],
+      "bbox": [
+        301.78125,
+        327.49365234375,
+        380.984375,
+        338.7016296386719
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/17"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/18",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\"><b>Barrier Options</b>; <b>Finite Difference Methods for</b> <b>Barrier Options</b>; <b>Hedging</b>; <b>Put–Call Parity</b>;</p>",
+      "page": 305,
+      "polygon": [
+        [
+          301.4921875,
+          353.9091796875
+        ],
+        [
+          512.5078125,
+          353.9091796875
+        ],
+        [
+          512.5078125,
+          375.1812744140625
+        ],
+        [
+          301.4921875,
+          375.1812744140625
+        ]
+      ],
+      "bbox": [
+        301.4921875,
+        353.9091796875,
+        512.5078125,
+        375.1812744140625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/17"
+      },
+      "images": {}
+    },
+    {
+      "id": "/page/2/Text/19",
+      "block_type": "Text",
+      "html": "<p block-type=\"Text\">ROLF POULSEN</p>",
+      "page": 305,
+      "polygon": [
+        [
+          440.22064208984375,
+          385.80755615234375
+        ],
+        [
+          501.234375,
+          385.80755615234375
+        ],
+        [
+          501.234375,
+          395.52154541015625
+        ],
+        [
+          440.22064208984375,
+          395.52154541015625
+        ]
+      ],
+      "bbox": [
+        440.22064208984375,
+        385.80755615234375,
+        501.234375,
+        395.52154541015625
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/0",
+        "2": "/page/2/SectionHeader/17"
+      },
+      "images": {}
+    }
+  ],
+  "page_info": {
+    "0": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "1": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    },
+    "2": {
+      "bbox": [
+        0.0,
+        0.0,
+        592.0,
+        754.0
+      ],
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          592.0,
+          0.0
+        ],
+        [
+          592.0,
+          754.0
+        ],
+        [
+          0.0,
+          754.0
+        ]
+      ]
+    }
+  }
+}

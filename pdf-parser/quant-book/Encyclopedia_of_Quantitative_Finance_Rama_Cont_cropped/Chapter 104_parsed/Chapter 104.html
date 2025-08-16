@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Stochastic Volatility Models: Foreign Exchange
+   </b>
+  </h1>
+  <p block-type="Text">
+   In finance, the term
+   <i>
+    volatility
+   </i>
+   has a dilative meaning. There exists a definition in the statistical sense, which states that volatility is the standard deviation per unit time (usually per year) of the (logarithmic) asset returns. However, empirical evidence about derivatives markets shows that refinements of this definition are necessary.
+  </p>
+  <p block-type="Text">
+   First, one can observe a dependency of Black–Scholes-implied volatility on at least the strike price and time to maturity implicit in option prices. This dependency defines the
+   <b>
+    implied volatility surface
+   </b>
+   . One possibility to incorporate this dependency into a model is by using a deterministic function for the instantaneous volatility, that is, the volatility governing the changes in spot returns in infinitesimal time steps. This function of spot price and time is called
+   <i>
+    local volatility
+   </i>
+   (
+   <i>
+    see
+   </i>
+   <b>
+    Local Volatility Model
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   In addition, empirical evidence indicates that the local volatility surface is not constant over time, but is subject to changes. This is not surprising since the expectations of the market participants with respect to the future instantaneous volatility might change over time. Furthermore, for some derivative products, the dynamics of the volatility surface is crucial for a reliable valuation. A prominent example is the product class of cliquet options, which are basically a collection of forward start options with increasing forward start time. The payoff depends on the absolute or the relative performance of the underlying during the lifetime of the options. It is intuitive that an option with a forward start time of one year, for instance, depends substantially on the one-year forward volatility surface. Since this volatility is uncertain, it seems advisable to model this risk by an additional stochastic factor.
+  </p>
+  <h2>
+   <b>
+    Stochastic Volatility FX Models
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Now, we review some common procedures for incorporating a stochastic behavior of volatility into foreign exchange (FX) rate models. The first approach
+  </p>
+  <p block-type="Text">
+   is to model the FX rate
+   <i>
+    Xt
+   </i>
+   with a volatility process
+   <i>
+    vt
+   </i>
+   by a system of stochastic differential equations, like
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = \mu_t X_t dt + \sigma_t X_t dW_t^X
+   </math>
+   <br/>
+   <math display="block">
+    dv_t = \eta(v_t) dt + \zeta(v_t) dW_t^v
+   </math>
+   (1)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    vt
+   </i>
+   =
+   <i>
+    f (σt)
+   </i>
+   for a function
+   <i>
+    f
+   </i>
+   and the increments of the Brownian motions
+   <i>
+    W
+    <sup>
+     X
+    </sup>
+   </i>
+   and
+   <i>
+    W
+    <sup>
+     v
+    </sup>
+   </i>
+   are possibly correlated. Table 1 gives an overview of some common stochastic volatility models.
+  </p>
+  <p block-type="Text">
+   A general class of stochastic volatility models is formed by the affine jump diffusion models. They have been studied by Duffie
+   <i>
+    et al.
+   </i>
+   [5]. The Heston model is a special case of this kind of model.
+  </p>
+  <p block-type="TextInlineMath">
+   The second approach is inspired by the observation that higher volatility comes along with an increased trading activity and
+   <i>
+    vice versa
+   </i>
+   . This is realized by a time change in the FX rate process. For instance, consider a standard Brownian motion {
+   <i>
+    Wt
+   </i>
+   }
+   <i>
+    t
+   </i>
+   ≥
+   <sup>
+    0
+   </sup>
+   with variance
+   <i>
+    t
+   </i>
+   for
+   <i>
+    Wt
+   </i>
+   , that is, the value of the process after
+   <i>
+    t
+   </i>
+   units of physical time. Now, if the economic time elapses twice as fast as the physical time due to market activity, the process could be expressed by the deterministically time-changed process {
+   <i>
+    W
+   </i>
+   2
+   <i>
+    <sup>
+     t
+    </sup>
+   </i>
+   }
+   <i>
+    t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   0. Hence, the variance for the values of the process after
+   <i>
+    t
+   </i>
+   units of physical time would then be 2
+   <i>
+    t
+   </i>
+   . This idea can be generalized by representing the economic time as a stochastic process
+   <i>
+    Yt
+   </i>
+   , which is named
+   <i>
+    stochastic clock
+   </i>
+   . For every realization of the process {
+   <i>
+    Yt
+   </i>
+   }
+   <i>
+    t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   0, economic time must be a monotone function of physical time, that is, the process is a subordinator. Recently proposed models use a normal inverse gamma or variance gamma Levy process for representing the exchange ´ rate process and an integrated Cox– Ingersoll–Ross or Gamma–Ornstein–Uhlenbeck process for stochastic time. All these models have the common feature that the characteristic function of the logarithm of the time-changed exchange rate, ln
+   <i>
+    XYt
+   </i>
+   , can be expressed in closed form.
+  </p>
+  <p block-type="Text">
+   Besides the models mentioned here, there exist other modeling approaches. For a general overview of stochastic volatility models, see [6, 11] and for especially in the FX context see [12].
+  </p>
+  <h2>
+   <b>
+    Heston's Stochastic Volatility Model
+   </b>
+  </h2>
+  <p block-type="Text">
+   In the following, we discuss the stochastic volatility model of Heston and its option valuation applied to
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      <math>
+       f(\sigma_t)
+      </math>
+     </th>
+     <th>
+      <math>
+       \n\eta(v_t) \qquad \zeta(v_t)\n
+      </math>
+     </th>
+     <th>
+      Reference
+     </th>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      <math>
+       \sigma_t^2
+      </math>
+      <math>
+       \kappa(\theta - v_t)
+      </math>
+      <math>
+       \xi v_t
+      </math>
+      GARCH similar diffusion
+      <br/>
+      model
+      <math>
+       [11]
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      <math display="block">
+       \begin{array}{lll} \sigma_t^2 &amp; \kappa(\theta - v_t) &amp; \xi \sqrt{v_t} &amp; \text{Heston model } [ \\ \sigma_t^2 &amp; \kappa(\theta v_t - v_t^2) &amp; \xi v_t^{3/2} &amp; 3/2 \text{ model } [11] \end{array}
+      </math>
+      <br/>
+      <math>
+       \kappa(\theta - v_t) \qquad \xi \sqrt{v_t}
+      </math>
+      Heston model [9]
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      <math>
+       \ln \sigma_t^2
+      </math>
+      <math>
+       \kappa(\theta - v_t)
+      </math>
+      <math>
+       \xi
+      </math>
+      Log-volatility
+      <br/>
+      Ornstein–Uhlenbeck [11]
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Some common stochastic volatility models
+  </p>
+  <p block-type="Text">
+   an FX setting. The model is characterized by the stochastic differential equations:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}X_t &amp;= (r_d - r_f) X_t \mathrm{d}t + \sqrt{v_t} X_t \mathrm{d}W_t^X \\ \mathrm{d}v_t &amp;= \kappa (\theta - v_t) \mathrm{d}t + \sigma \sqrt{v_t} \mathrm{d}W_t^v \end{aligned} \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with
+   <math display="inline">
+    \text{Cov}\left[\text{d}W_t^X, \text{d}W_t^v\right] = \rho \text{d}t
+   </math>
+   . Here, the FX rate process
+   <math display="inline">
+    \{X_t\}_{t\geq 0}
+   </math>
+   is modeled by a process, similar to the geometric Brownian motion, but with a nonconstant instantaneous variance
+   <math display="inline">
+    v_t
+   </math>
+   . The variance process
+   <math display="inline">
+    \{v_t\}_{t&gt;0}
+   </math>
+   is driven by a mean-reverting stochastic square-root process. The increments of the two Wiener processes
+   <math display="inline">
+    \{W_t^X\}_{t&gt;0}
+   </math>
+   and
+   <math display="inline">
+    \{W_t^v\}_{t&gt;0}
+   </math>
+   are assumed to be correlated with rate
+   <math display="inline">
+    \rho
+   </math>
+   . In an FX setting, the risk-neutral drift term of the underlying process is the difference between the domestic and the foreign interest rates
+   <math display="inline">
+    r_d - r_f
+   </math>
+   . The quantities
+   <math display="inline">
+    \kappa \ge 0
+   </math>
+   and
+   <math display="inline">
+    \theta \ge 0
+   </math>
+   denote the rate of mean reversion and the longterm variance. The parameter
+   <math display="inline">
+    \sigma
+   </math>
+   is often called
+   <i>
+    vol of
+   </i>
+   vol, but it should be called volatility of instantaneous variance.
+  </p>
+  <p block-type="TextInlineMath">
+   The term
+   <math display="inline">
+    \sqrt{v_t}
+   </math>
+   in equation (2) ensures a nonnegative volatility in the FX rate process. It is known that the distribution of values of
+   <math display="inline">
+    \{v_t\}_{t\geq 0}
+   </math>
+   is given by a noncentral chi-squared distribution. Hence, the probability that the variance takes a negative value is equal to zero. Thus, if the process touches the zero bound, the stochastic part of the volatility process turns zero and the deterministic part will ensure a nonnegative volatility because of the positivity of
+   <math display="inline">
+    \kappa
+   </math>
+   and
+   <math display="inline">
+    \theta
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The Heston model is often not capable of fitting complicated structures of implied volatility surfaces. In particular, this is true if the term structure exhibits a nonmonotone form or the sign of the skew changes with increasing maturity. For a discussion of the implied volatility surface generated by this model, see [7]. One approach to tackle this limitation is to extend the original Heston model by time-dependent parameters [3, 14].
+  </p>
+  <h4>
+   Valuation of Options in the Heston Model
+  </h4>
+  <p block-type="Text">
+   For the valuation of options in the Heston model, we consider the value function of a general contingent claim
+   <math display="inline">
+    V(t, v, X)
+   </math>
+   . As shown in [8], applying Itô's lemma, the self-financing condition, and the possibility to trade in the underlying exchange rate, money market, and another option, which is dependent on time, volatility, and
+   <math display="inline">
+    X
+   </math>
+   , we arrive at Garman's partial differential equation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial V}{\partial t} + \kappa (\theta - v) \frac{\partial V}{\partial v} + (r_d - r_f) X \frac{\partial V}{\partial X} + \frac{1}{2} \sigma^2 v \frac{\partial^2 V}{\partial v^2}
+   </math>
+   <math display="block">
+    + \frac{1}{2} v X^2 \frac{\partial^2 V}{\partial X^2} + \rho \sigma v X \frac{\partial^2 V}{\partial v \partial X} - r_d V = 0
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   A solution to the above equation can be obtained by specifying appropriate boundary and exercise conditions, which depend on the contract specifications. In the case of European vanilla options, Heston [9] provided a closed-form solution, namely,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{Vanilla} = \phi \left[ e^{-r_f \tau} X_t P_1 - K e^{-r_d \tau} P_2 \right] \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \tau = T - t
+   </math>
+   is the time to maturity,
+   <math display="inline">
+    \phi = \pm 1
+   </math>
+   is the call-put indicator and
+   <math display="inline">
+    K
+   </math>
+   is the strike price. The quantities
+   <math display="inline">
+    P_1
+   </math>
+   and
+   <math display="inline">
+    P_2
+   </math>
+   define the probability that the exchange rate
+   <math display="inline">
+    X
+   </math>
+   at maturity is greater than
+   <math display="inline">
+    K
+   </math>
+   under the spot and the risk-neutral measure, respectively. The spot delta of the European vanilla option is equal to
+   <math display="inline">
+    \phi e^{-r_f \tau} P_1
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Assuming that the distribution of
+   <math display="inline">
+    \ln X_T
+   </math>
+   at time
+   <math display="inline">
+    t
+   </math>
+   under the two different measures is determined uniquely by its characteristic function
+   <math display="inline">
+    \varphi_j
+   </math>
+   , for
+   <math display="inline">
+    j =
+   </math>
+   1, 2, it is shown, in [15], that
+   <math display="inline">
+    P_1
+   </math>
+   and
+   <math display="inline">
+    P_2
+   </math>
+   can be expressed in terms of the inverse Fourier transformation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P_{j} = \frac{1}{2} + \frac{1}{\pi} \phi \int_{0}^{\infty} \Re \left[ \frac{\exp(-\mathrm{i}u \ln K) \varphi_{j}(u)}{\mathrm{i}u} \right] du \tag{5}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The integration in equation
+   <math display="inline">
+    (5)
+   </math>
+   can be done using numerical integration methods such as Gauss–Laguerre integration or fast Fourier transform approximation. In [10], it is shown that the computational time of the fast Fourier transform approach to compute vanilla option prices is higher
+  </p>
+  <p block-type="Text">
+   compared to a numerical integration method with certain caching techniques.
+  </p>
+  <p block-type="Text">
+   The characteristic function is exponentially affine and available in closed form as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \varphi_2(u) = \exp\left(B(u) + A(u)v_t + \mathrm{i}u\ln X_t\right) \quad (6)
+   </math>
+  </p>
+  <p block-type="Text">
+   The functions
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   arise as the solution of the so-called Riccati differential equations as shown in [8]. They are defined as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A(u) = -iu(1 - iu)\frac{(1 - e^{-d(u)\tau})}{\gamma(u)}
+   </math>
+   (7)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B(u) = iu(r_d - r_f)\tau
+   </math>
+   <br/>
+   +
+   <math>
+    \frac{\kappa\theta}{\sigma^2}(\kappa - iu\rho\sigma - d(u))\tau + \frac{2\kappa\theta}{\sigma^2}\ln\frac{2d(u)}{\gamma(u)}
+   </math>
+   <br/>
+   (8)
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    d(u) = \sqrt{(\rho \sigma i u - \kappa)^2 + i u \sigma^2 (1 - i u)}
+   </math>
+   and with
+   <math display="inline">
+    \gamma(u) = d(u) \left( 1 + e^{-d(u)\tau} \right) + (\kappa - iu\rho\sigma) \left( 1 - e^{-d(u)\tau} \right).
+   </math>
+   The characteristic function
+   <math display="inline">
+    \varphi_1
+   </math>
+   has the same form as the function
+   <math display="inline">
+    \varphi_2
+   </math>
+   , but with u replaced by
+   <math display="inline">
+    u - i
+   </math>
+   and multiplied by a factor
+   <math display="inline">
+    \exp(-(r_d - r_f)\tau - X_0)
+   </math>
+   . This is due to the change from the spot to the risk-neutral measure in the derivation of
+   <math display="inline">
+    \varphi_1
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   There exist several different representations of the characteristic function
+   <math display="inline">
+    \varphi
+   </math>
+   . In some formulations of
+   <math display="inline">
+    \varphi
+   </math>
+   , the characteristic function can become discontinuous if the multivalued complex logarithm contained in the integrand is restricted to the calculation of its principal branch, as is the case in many implementations. Wrong results of the value
+   <math display="inline">
+    P_i
+   </math>
+   may occur unless a rotation count algorithm is employed. For other representations of
+   <math display="inline">
+    \varphi
+   </math>
+   , stability for all choices of model parameters can be proved. Details can be found in
+   <math display="inline">
+    [1]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Besides vanilla options, closed-form solutions for exotic options have been found for the volatility option, the correlation option, the exchange option, the forward start option, the American option, the discrete barrier option, and others. Numerical pricing of exotic options in the Heston model can be carried out by using conventional numerical methods such as Monte Carlo simulation [2, 13], finite differences [8], or an exact simulation method [4].
+  </p>
+  <h4>
+   Calibration of Heston's Model
+  </h4>
+  <p block-type="Text">
+   We realize the estimation by fitting the Heston model parameters to the smile of the current vanilla option market. Thereby, the choice of the loss function to minimize the differences between the model and market Black-Scholes-implied volatilities is crucial. Here, we decide to do a least-squared error fit over absolute values of volatilities, rather than minimizing over relative volatilities or option values.
+  </p>
+  <p block-type="TextInlineMath">
+   For a fixed time to maturity
+   <math display="inline">
+    \tau
+   </math>
+   , given marketimplied volatilities
+   <math display="inline">
+    \sigma_1^{\text{market}}, \ldots, \sigma_n^{\text{market}}
+   </math>
+   and corresponding spot delta (premium unadjusted) values
+   <math display="inline">
+    \Delta_1, \ldots, \Delta_n
+   </math>
+   , the calibration is set up as follows:
+  </p>
+  <p block-type="Text">
+   1. Before starting the optimization, we determine the strikes
+   <math display="inline">
+    K_i
+   </math>
+   corresponding to
+   <math display="inline">
+    \sigma_i^{\text{market}}
+   </math>
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{i} = X_{0} \exp\left\{-\phi N^{-1} (\phi e^{r_{f}\tau} \Delta_{i}) \sigma_{i}^{\text{market}} \sqrt{\tau} + \left(r_{d} - r_{f} + \frac{1}{2} (\sigma_{i}^{\text{market}})^{2}\right) \tau\right\} \quad 1 \leq i \leq n
+   </math>
+   (9)
+  </p>
+  <p block-type="Text">
+   which requires the inversion of the cumulative normal distribution function
+   <math display="inline">
+    N
+   </math>
+   .
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     The aim is to minimize the objective function
+     <math display="inline">
+      M
+     </math>
+     2. defined below. We repeat the steps
+     <math display="inline">
+      (a)-(c)
+     </math>
+     until a certain accuracy in the optimization routine is achieved.
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       We use the analytic formula in equation a (4) to calculate the vanilla option values in the Heston model for the strikes
+       <math display="inline">
+        K_1, \ldots, K_n
+       </math>
+       :
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H_i(\kappa, \sigma, \theta, \rho, v_0)
+   </math>
+   <br/>
+   = Vanilla(
+   <math>
+    \kappa, \sigma, \theta, \rho, v_0
+   </math>
+   , market data,
+   <br/>
+   <math>
+    K_i, \phi
+   </math>
+   ) (10)
+  </p>
+  <p block-type="Text">
+   For
+   <math display="inline">
+    i = 1, \ldots, n
+   </math>
+   , we compute all option h. values
+   <math display="inline">
+    H_i
+   </math>
+   in terms of
+   <math display="inline">
+    Black-
+   </math>
+   Scholes-implied volatilities
+   <math display="inline">
+    \sigma_i^{\text{model}}(\kappa, \sigma, \theta,
+   </math>
+   <math display="inline">
+    \rho
+   </math>
+   ,
+   <math display="inline">
+    v_0
+   </math>
+   ) by applying a root search.
+  </p>
+  <p block-type="Text">
+   The objective function is given as c.
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M(\kappa, \sigma, \theta, \rho, v_0)
+   </math>
+   <br/>
+   =
+   <math>
+    \sum_{i=1}^{n} w_i \big[ \sigma_i^{\text{market}} - \sigma_i^{\text{model}}(\kappa, \sigma, \theta, \rho, v_0) \big]^2
+   </math>
+   <br/>
+   +
+   <i>
+    penalty
+   </i>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   The implementation of a penalty function
+   <math display="inline">
+    penalty
+   </math>
+   and some weights
+   <math display="inline">
+    w_i
+   </math>
+   may give the calibration routine some additional stability. There exist various choices for the penalty function. For example, in [14], it is suggested to penalize the retraction from the initial set of model parameters, but we may also use the penalty to introduce further constraints such as the condition
+   <math display="inline">
+    2\kappa\theta - \sigma^2 &gt; 0
+   </math>
+   to ensure that in subsequent simulations the volatility process cannot sojourn in zero. In addition, we could use the weights
+   <math display="inline">
+    w_i
+   </math>
+   to favor at-the-money (ATM) or out-of-the-money fits.
+  </p>
+  <p block-type="TextInlineMath">
+   For the minimization, a great variety of either local or global optimizers in multidimensions could be used. Algorithms of Levenberg-Marquardt type are frequently used, because they utilize the leastsquares form of the objective function. Since the objective function is usually not convex, there may exist many local extrema and the use of a computationally more expensive global (stochastic) algorithm, such as simulated annealing or differential evolution, in the calibration routine may be considered. From a practical point of view, taking the value of a short-dated implied volatility as an initial value for
+   <math display="inline">
+    v_0
+   </math>
+   is a good start for the calibration. In light of parameter stability, the result of the previous (the day before) calibration could be used as an initial guess for the remaining parameters. Furthermore, to enhance the speed of calibration, it is suggested in [8] to fix the model parameter
+   <math display="inline">
+    \kappa
+   </math>
+   and run the calibration in only four dimensions, since the influence of the mean reversion is often compensated by a stronger volatility of variance
+   <math display="inline">
+    \sigma
+   </math>
+   . To ensure that the correlation parameter
+   <math display="inline">
+    \rho
+   </math>
+   attains values in
+   <math display="inline">
+    [-1, 1]
+   </math>
+   , we reparametrize with the function
+   <math display="inline">
+    2 \arctan(\rho)/\pi
+   </math>
+   .
+  </p>
+  <h3>
+   Hedging
+  </h3>
+  <p block-type="Text">
+   If volatility is introduced as a stochastic factor but cannot be traded, the market is incomplete. By
+  </p>
+  <p block-type="TextInlineMath">
+   the introduction of a tradable market instrument
+   <math display="inline">
+    U(t, v, X)
+   </math>
+   , which depends on the volatility, the market can be completed and volatility risk can be hedged dynamically. In the Heston model, to make a portfolio containing the contingent claim
+   <math display="inline">
+    V(t, v, X)
+   </math>
+   instantaneously risk free, the hedge portfolio has to consist of
+   <math display="inline">
+    \Delta_X
+   </math>
+   units of the foreign currency and
+   <math display="inline">
+    \Delta_U
+   </math>
+   units of the contingent claim
+   <math display="inline">
+    U(t, v, X)
+   </math>
+   , with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_X = \frac{\partial V}{\partial X} - \Delta_U \frac{\partial U}{\partial X} \quad \text{and} \quad \Delta_U = \frac{\partial V/\partial v}{\partial U/\partial v} \quad (12)
+   </math>
+  </p>
+  <p block-type="Text">
+   Common FX market instruments applicable for market completion and hedging are, on the one hand, ATM forward plain vanilla options for different maturities. On the other hand, for most of the FX markets risk reversals (RR) and butterflies (BF) are traded for certain maturities and strikes. These instruments are defined as&lt;sup&gt;a&lt;/sup&gt;
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    RR(T, \Delta) = Call(T, K_{\Delta}) - Put(T, K_{-\Delta}) \qquad (13)
+   </math>
+   <math display="block">
+    BF(T, \Delta) = \frac{1}{2} \Big( Call(T, K_{\Delta}) + Put(T, K_{-\Delta}) \Big)
+   </math>
+   <math display="block">
+    - Call(T, K_{ATM}) \qquad (14)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    K_{\Delta}
+   </math>
+   is the strike as given in equation (9), such that the corresponding plain vanilla option has a Black–Scholes delta of
+   <math display="inline">
+    \Delta
+   </math>
+   .
+   <math display="inline">
+    K_{\text{ATM}}
+   </math>
+   denotes the ATM strike, which is often taken to be the strike generating a zero delta for a straddle in FX markets. Risk reversals and butterflies are quoted in Black-Scholesimplied volatilities instead of prices, that is, if
+   <math display="inline">
+    \nu_{\Lambda}
+   </math>
+   denotes the implied volatility of a call with strike
+   <math display="inline">
+    K_{\Delta}
+   </math>
+   (analogously,
+   <math display="inline">
+    \nu_{-\Delta}
+   </math>
+   for puts and
+   <math display="inline">
+    \nu_{\text{ATM}}
+   </math>
+   ), the FX smile quotes are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \nu_{\rm RR} = \nu_{\Delta} - \nu_{-\Delta} \quad \text{and} \quad \nu_{\rm BF} = \frac{1}{2} (\nu_{\Delta} + \nu_{-\Delta}) - \nu_{\rm ATM}
+   </math>
+   (15)
+  </p>
+  <p block-type="Text">
+   Since individual ATM options are liquidly traded, and therefore
+   <math display="inline">
+    \nu_{ATM}
+   </math>
+   is known, the volatilities
+   <math display="inline">
+    \nu_{\Delta}
+   </math>
+   and
+   <math display="inline">
+    v_{-\Delta}
+   </math>
+   can be calculated from
+   <math display="inline">
+    v_{\rm RR}
+   </math>
+   and
+   <math display="inline">
+    v_{\rm BF}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The quantities
+   <math display="inline">
+    v_{RR}
+   </math>
+   and
+   <math display="inline">
+    v_{BF}
+   </math>
+   relate to the skew and smile, respectively, of the implied volatility surface. This is schematically illustrated for
+   <math display="inline">
+    \Delta = 0.25
+   </math>
+   in Figure 1.
+  </p>
+  <p>
+   <img src="_page_4_Figure_0.jpeg"/>
+  </p>
+  <p>
+   Figure 1 The meaning of
+   <math display="inline">
+    v_{RR}
+   </math>
+   and
+   <math display="inline">
+    v_{BF}
+   </math>
+   in the context of the implied volatility curve for a fixed maturity
+  </p>
+  <h4>
+   Example
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   In this section, we give an example of the difference between Heston and Black-Scholes option prices. Thereby, we consider discrete down-and-out
+  </p>
+  <p block-type="Text">
+   put options written on the USD/JPY exchange rate. The option holder receives a vanilla put option payoff at maturity in 18 months as long as the FX rate does not fall below a given barrier
+   <math display="inline">
+    B
+   </math>
+   at the barrier fixing times in 6, 12, and 18 months. Otherwise, the option expires worthless. We compare ATM option prices for barriers of 10%, 50%, 60%, 70%, 80%, and 90% of the spot price.
+  </p>
+  <p block-type="Text">
+   For the valuation in the Heston model, we calibrate to European plain vanilla options with maturities of 1, 2, 3, 6, 9, 12, and 24 months and strikes with respect to
+   <math display="inline">
+    10\%\Delta
+   </math>
+   put,
+   <math display="inline">
+    25\%\Delta
+   </math>
+   put, ATM,
+   <math display="inline">
+    10\%\Delta
+   </math>
+   call, and
+   <math display="inline">
+    25\% \Delta
+   </math>
+   call for May 21, 2009 (Figure 2). The weights are set to 1 for ATM strikes, to 0.75 for
+   <math display="inline">
+    25\%\Delta
+   </math>
+   strikes, and to 0.25 for
+   <math display="inline">
+    10\% \Delta
+   </math>
+   strikes, since usually options with strikes far from the ATM forward are less liquidly traded. Figure
+   <math display="inline">
+    2(a)
+   </math>
+   demonstrates that the market-implied volatilities (dots) are adequately matched by the calibrated model volatilities (circles connected by lines). Figure
+   <math display="inline">
+    2(b)
+   </math>
+   shows the term structure of market-implied volatilities (dots) and calibrated implied volatilities (circles) for strikes with respect to 25%
+   <math display="inline">
+    \Delta
+   </math>
+   call, ATM, and 25%
+   <math display="inline">
+    \Delta
+   </math>
+   put (from
+  </p>
+  <p>
+   <img src="_page_4_Figure_7.jpeg"/>
+  </p>
+  <p>
+   Figure 2 Implied volatilities of the Heston model fitted to market volatilities for USD/JPY with maturities of 1, 2, 3, 6, 9, 12, and 24 months and strikes for
+   <math display="inline">
+    10\% \Delta
+   </math>
+   and
+   <math display="inline">
+    25\% \Delta
+   </math>
+   put, ATM,
+   <math display="inline">
+    10\% \Delta
+   </math>
+   , and
+   <math display="inline">
+    25\% \Delta
+   </math>
+   call. The dots show the market volatilities and the circles the calibrated volatilities. (a) The whole volatility surface. (b) The implied volatility term structure for strikes
+   <math display="inline">
+    25\%\Delta
+   </math>
+   call, ATM, and
+   <math display="inline">
+    25\%\Delta
+   </math>
+   put (from bottom to top)
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th colspan="10">
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Barrier (% of spot)
+     </th>
+     <th>
+      90
+     </th>
+     <th>
+      80
+     </th>
+     <th>
+      70
+     </th>
+     <th>
+      60
+     </th>
+     <th>
+      50
+     </th>
+     <th>
+      10
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Black–Scholes
+      <br/>
+      Heston
+     </td>
+     <td>
+      0.8752
+      <br/>
+      0.6309
+     </td>
+     <td>
+      3.7068
+      <br/>
+      1.8723
+     </td>
+     <td>
+      5.7670
+      <br/>
+      3.1830
+     </td>
+     <td>
+      6.2663
+      <br/>
+      4.3376
+     </td>
+     <td>
+      6.3000
+      <br/>
+      5.2202
+     </td>
+     <td>
+      6.3012
+      <br/>
+      6.3023
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 2
+   </b>
+   Down-and-out put values with at-the-money strike and discrete monitoring at 6, 12, and 18 months
+  </p>
+  <p block-type="Text">
+   The value of the corresponding plain vanilla put in the Heston model is given by 6.3060
+  </p>
+  <p block-type="TextInlineMath">
+   bottom to top). The resulting model parameters are given by
+   <i>
+    κ
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   2170,
+   <i>
+    θ
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   0444,
+   <i>
+    σ
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   3410,
+   <i>
+    ρ
+   </i>
+   = −0
+   <i>
+    .
+   </i>
+   5927, and
+   <i>
+    v
+   </i>
+   <sup>
+    0
+   </sup>
+   = 0
+   <i>
+    .
+   </i>
+   0228.
+  </p>
+  <p block-type="Text">
+   As mentioned in the section Valuation of Options in the Heston Model, there exists a value function in (semi-) closed form for discrete barrier options in the Heston model. The distribution of the random variables ln
+   <i>
+    Xti
+   </i>
+   at the barrier fixing times
+   <i>
+    ti
+   </i>
+   can be determined uniquely by the derivation of their joint characteristic function and with the application of Shephard's theorem given in [15] the required knock-out probabilities can be computed.
+  </p>
+  <p block-type="TextInlineMath">
+   For the valuation in the Black–Scholes model, we use the interpolated ATM forward-implied volatility for plain vanilla options with a maturity of 18 months, which is
+   <i>
+    σ
+   </i>
+   BS = 0
+   <i>
+    .
+   </i>
+   1270 in our example.
+  </p>
+  <p block-type="TextInlineMath">
+   Finally, the FX spot trades at
+   <i>
+    X
+   </i>
+   <sup>
+    0
+   </sup>
+   = 94
+   <i>
+    .
+   </i>
+   43, and the domestic and foreign interest rates for 18 months are given by
+   <i>
+    rd
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   0065 and
+   <i>
+    rf
+   </i>
+   = 0
+   <i>
+    .
+   </i>
+   0139. The resulting prices for the described options are shown in Table 2.
+  </p>
+  <p block-type="Text">
+   Comparing the prices, we can observe two effects. First, the Heston prices are lower than the corresponding Black–Scholes prices. This behavior might be in major part due to the fact that the Black–Scholes valuation uses a flat volatility, whereas the Heston model incorporates the whole volatility smile. Since the volatilities below the ATM strikes increase substantially (Figure 2), the knock-out probabilities also increase and the option prices drop. Second, the prices of Heston and Black–Scholes converge with decreasing barrier level. This appears reasonable, since the likelihood of a knock-out decreases more and more and the valuation finally results in put prices, which should be equal for both models in the case of a good calibration fit.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   There exist different definitions for risk reversals and butterflies in the literature with respect to sign and coefficients.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Albrecher, H., Mayer, P., Schoutens, W. &amp; Tistaert, J. (2007).
+     <i>
+      The Little Heston Trap
+     </i>
+     , Wilmott No. 1, pp. 83–92.
+    </li>
+    <li block-type="ListItem">
+     [2] Andersen, L. (2007).
+     <i>
+      Efficient Simulation of the Heston Stochastic Volatility Model
+     </i>
+     . Working paper. Available at SSRN: http://ssrn.com/abstract=946405
+    </li>
+    <li block-type="ListItem">
+     [3] Benhamou, E., Gobet, E. &amp; Miri, M. (2009).
+     <i>
+      Time Dependent Heston Model
+     </i>
+     . Working paper. Available at SSRN: http://ssrn.com/abstract=1367955.
+    </li>
+    <li block-type="ListItem">
+     [4] Broadie, M. &amp; Kaya, O. (2006). Exact simulation of stochastic volatility and other affine jump diffusion models,
+     <i>
+      Operations Research
+     </i>
+     <b>
+      54
+     </b>
+     (2), 217–231.
+    </li>
+    <li block-type="ListItem">
+     [5] Duffie, D., Singleton, K. &amp; Pan, J. (2000). Transform analysis and asset pricing for affine jump-diffusions,
+     <i>
+      Econometrica
+     </i>
+     <b>
+      68
+     </b>
+     , 1343–1376.
+    </li>
+    <li block-type="ListItem">
+     [6] Fouque, J.P., Papanicolaou, G. &amp; Sircar, K.R. (2000).
+     <i>
+      Derivatives in Financial Markets with Stochastic Volatility
+     </i>
+     , Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [7] Gatheral, J. (2006).
+     <i>
+      The Volatility Surface
+     </i>
+     , Wiley.
+    </li>
+    <li block-type="ListItem">
+     [8] Hakala, J. &amp; Wystup, U. (2002).
+     <i>
+      Foreign Exchange Risk
+     </i>
+     , Risk Publications.
+    </li>
+    <li block-type="ListItem">
+     [9] Heston, S.L. (1993). A closed-form solution for options with stochastic volatility with applications to bond and currency options,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      6
+     </b>
+     , 327–343.
+    </li>
+    <li block-type="ListItem">
+     [10] Kilin, F. (2007).
+     <i>
+      Accelerating the Calibration of Stochastic Volatility Models
+     </i>
+     . Working Paper. Available at SSRN: http://ssrn.com/abstract=965248
+    </li>
+    <li block-type="ListItem">
+     [11] Lewis, A.L. (2000).
+     <i>
+      Option Valuation under Stochastic Volatility
+     </i>
+     , Finance Press.
+    </li>
+    <li block-type="ListItem">
+     [12] Lipton, A. (2001).
+     <i>
+      Mathematical Methods for Foreign Exchange
+     </i>
+     , World Scientific.
+    </li>
+    <li block-type="ListItem">
+     [13] Lord, R., Koekkoek, R. &amp; van Dijk, D. (2006).
+     <i>
+      A Comparison of Biased Simulation Schemes for Stochastic Volatility Models
+     </i>
+     . &amp; Working Paper. Available at SSRN: http://ssrn.com/abstract=903116
+    </li>
+    <li block-type="ListItem">
+     [14] Nogel, U. &amp; Mikhailov, S. (2003). Heston's Stochastic ¨ Volatility Model. Implementation, Calibration and some Extensions,
+     <i>
+      Wilmott
+     </i>
+     Juli, 74–49.
+    </li>
+    <li block-type="ListItem">
+     [15] Shephard, N.G. (1991). From characteristic function to distribution function,
+     <i>
+      Econometric Theory
+     </i>
+     <b>
+      7
+     </b>
+     (4), 519–529. Cambridge University Press.
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

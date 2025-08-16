@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   Volatility Swaps
+  </h2>
+  <p block-type="Text">
+   Volatility swaps are very similar to variance swaps, both in concept and in application. Like variance swaps, volatility swaps can be used by hedge funds to speculate on volatility movements or by portfolio managers to hedge other products against volatility fluctuations. Since their introduction in 1998, they have seen rapid growth and there is currently a sizable market in both the equity and foreign exchange markets. Volatility swaps are also traded in interest rate and commodity markets.
+  </p>
+  <p block-type="Text">
+   Technically speaking, a volatility swap is not really a swap, but a forward contract on the realized volatility. At maturity, the buyer receives from the seller the difference between the realized volatility and the fixed strike amount, multiplied by the dollar notional (quoted in dollar per volatility point):
+  </p>
+  <p block-type="Equation">
+   Volatility swap = Notional
+   <math display="block">
+    \times (\sigma_{\text{realized}} - K)
+   </math>
+   (1)
+  </p>
+  <p block-type="Text">
+   while
+  </p>
+  <p block-type="Equation">
+   Variance swap = Notional
+   <math display="block">
+    \times (\sigma_{\text{realized}}^2 - K^2)
+   </math>
+   (2)
+  </p>
+  <p block-type="Text">
+   The fixed strike payment is usually referred to as the
+   <i>
+    fixed leg
+   </i>
+   of the swap and the realized volatility is referred to as the
+   <i>
+    floating leg
+   </i>
+   . The swap contract contains the detailed specifications on how the volatility is calculated. Typically, the floating leg is calculated as
+  </p>
+  <p block-type="Equation">
+   Annualization
+   <math display="block">
+    \times \sum_{1}^{N} \left( \ln \frac{S_i}{S_{i-1}} \right)^2
+   </math>
+   (3)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    S_i
+   </math>
+   should be adjusted by discrete dividends across dividend payment days. In the most accepted convention, the floating leg is reset and computed daily.
+  </p>
+  <p block-type="Text">
+   Besides variance swaps, another product closely related to volatility swaps is the VIX contract, which is written as the square root of the sum of expected future variances.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Because variance is the square of volatility, the payoff of a variance swap is convex in volatility while the payoff of a volatility swap is linear in volatility. A volatility swap is thus cheaper than the corresponding variance swap. More specifically, the fair strike for
+  </p>
+  <p block-type="Text">
+   the volatilty swap is slightly lower than that of a variance swap. The difference between the two is known as the
+   <i>
+    convexity adjustment
+   </i>
+   and gets larger as volatility of volatility gets larger. The convexity adjustment can be calculated, for example, in the Heston model.
+  </p>
+  <p block-type="Text">
+   The variance swap is preferred in the equity market due to the fact that it can be replicated with a linear combination of vanilla options and a dynamic position in futures (see Variance Swap; [2]). In other markets, the volatility swap is actually more liquid than the variance swap. Although a position in variance swap can be replicated, a position in volatility swap cannot. This means that different models that correctly calibrate to the vanilla option surface will give the same price for variance swaps but not for the volatility swaps. In other words, the price of a variance swap is model independent, but the price of volatility swap is not. In practice, the volatility swap and variance swap admit almost equal pricing for short-term maturities. Recent research also suggest that the model dependence is not as large as it is commonly believed and volatility swaps can also be approximately replicated by trading vanilla options (see Volatility Index Options; Realized Volatility
+   <b>
+    Options
+   </b>
+   ; [1]). Newer models have been developed that can price volatility derivatives including volatility swaps, while remaining consistent with the entire volatility surface [3].
+  </p>
+  <h2>
+   References
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Carr, P. &amp; Lee, R. (2007). Realised volatility and variance: option via swaps, Risk
+     <math display="inline">
+      20(5)
+     </math>
+     , 76-83.
+    </li>
+    <li block-type="ListItem">
+     [2] Demeterfi, K., Derman, E., Kamal, M. &amp; Zou, J. (1999). More than You Ever Wanted to Know About Volatility Swaps, Goldman Sachs Quantitative Strategies Research Notes
+    </li>
+    <li block-type="ListItem">
+     [3] Ren, Y., Madan, D. &amp; Qian, M. (2007). Calibrating and pricing with embedded local volatility models,
+     <math display="inline">
+      Risk\ 20(9)
+     </math>
+     ,
+     <math display="inline">
+      138 - 143
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   Corridor Variance Swap; Realized Volatility
+   <b>
+    Options; Variance Swap; Volatility Index Options;
+   </b>
+   Weighted Variance Swap.
+  </p>
+  <p block-type="Text">
+   YONG REN
+  </p>
+ </body>
+</html>

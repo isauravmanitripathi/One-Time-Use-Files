@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Model Calibration
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   The fundamental theorem of asset pricing (see Fun
+   <b>
+    damental Theorem of Asset Pricing
+   </b>
+   ) shows that, in an arbitrage-free market, market prices can be represented as (conditional) expectations with respect to a martingale measure
+   <math display="inline">
+    \mathbb{O}
+   </math>
+   : a probability measure
+   <math display="inline">
+    \mathbb{O}
+   </math>
+   on the set
+   <math display="inline">
+    \Omega
+   </math>
+   of possible trajectories
+   <math display="inline">
+    (S_t)_{t \in [0,T]}
+   </math>
+   of the underlying asset such that the asset price
+   <math display="inline">
+    S_t/N_t
+   </math>
+   discounted by the numeraire
+   <math display="inline">
+    N_t
+   </math>
+   is a martingale. The value
+   <math display="inline">
+    V_t(H_T)
+   </math>
+   of a (discounted) terminal payoff
+   <math display="inline">
+    H_T
+   </math>
+   at
+   <math display="inline">
+    T
+   </math>
+   is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t(H_T) = E^{\mathbb{Q}}[B(t,T)H_T|\mathcal{F}_t] \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    B(t, T) = N_t/N_T
+   </math>
+   is the discount factor. For example, the value under the pricing rule
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   of a call option with strike
+   <math display="inline">
+    K
+   </math>
+   and maturity
+   <math display="inline">
+    T
+   </math>
+   is given by
+   <math display="inline">
+    E^{\mathbb{Q}}[B(t,T)(S_T-K)^{+}|\mathcal{F}_t]
+   </math>
+   . However, this result does not say how to construct the pricing measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   . Given that data sets of option prices have become increasingly available, a common approach for selecting a pricing model
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   is to choose, given a set of liquidly traded derivatives with (discounted) terminal payoffs
+   <math display="inline">
+    (H^i)_{i \in I}
+   </math>
+   and market prices
+   <math display="inline">
+    (C_i)_{i \in I}
+   </math>
+   , a pricing measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   compatible with the observed market prices:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Problem 1
+   </b>
+   [Calibration Problem] Given market prices
+   <math display="inline">
+    (C_i)_{i \in I}
+   </math>
+   (say at date
+   <math display="inline">
+    t = 0
+   </math>
+   ) for a set of options with discounted terminal payoffs
+   <math display="inline">
+    (H_i)_{i \in I}
+   </math>
+   , construct a probability measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   on
+   <math display="inline">
+    \Omega
+   </math>
+   such that
+  </p>
+  <p block-type="Text">
+   the (discounted) asset price
+   <math display="inline">
+    (S_t)_{t \in [0,T]}
+   </math>
+   is a martingale under
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    T \ge t \ge u \ge 0 \Rightarrow E^{\mathbb{Q}}[S_t|\mathcal{F}_u] = S_u \quad (2)
+   </math>
+  </p>
+  <p block-type="Text">
+   the pricing rule implied by
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   is consistent with market prices
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \forall i \in I, \quad E^{\mathbb{Q}}[H_i] = C_i \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where, for ease of notation, we have set discount factors to 1 (prices are discounted) and
+   <math display="inline">
+    E[.]
+   </math>
+   denotes the conditional expectation given initial information
+   <math display="inline">
+    \mathcal{F}_0
+   </math>
+   . Thus, a pricing rule
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   is said to be calibrated to the benchmark instruments
+   <math display="inline">
+    H_i
+   </math>
+   if the value of these instruments, computed in the model, correspond to their market prices
+   <math display="inline">
+    C_i
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Option prices being evaluated as expectations, this inverse problem can also be interpreted as a (generalized) moment problem for the law
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   of riskneutral process given a finite number of option prices, it is typically an
+   <i>
+    ill-posed
+   </i>
+   problem and can have many solutions. However, the number of observed options can be large (
+   <math display="inline">
+    \simeq 100 - 200
+   </math>
+   for index options) and finding even a single solution is not obvious and requires efficient numerical algorithms.
+  </p>
+  <p block-type="Text">
+   In the Black-Scholes model (see Black-Scholes Formula), calibration amounts to picking the volatility parameter to be equal to the implied volatility of a traded option. However, if more than one option is traded, the Black-Scholes model cannot be calibrated to market prices, since in most options markets implied volatility varies across strikes and maturities; this is the
+   <i>
+    volatility smile
+   </i>
+   phenomenon. Therefore, to solve the calibration problem, we need more flexible models, some examples of which are given here.
+  </p>
+  <p block-type="Text">
+   <b>
+    Example 1
+   </b>
+   [Diffusion Model (
+   <i>
+    see
+   </i>
+   <b>
+    Local Volatility Model
+   </b>
+   )] If an asset price is modeled as a diffusion process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t[\mu \, dt + \sigma(t, S_t) \, dW_t] \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   parameterized by a local volatility function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma : (t, S) \to \sigma(t, S) \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   then the values of call options can be computed by solving the Dupire equation (see Implied Volatility Surface)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial C_0}{\partial T} + Kr \frac{\partial C_0}{\partial K} - \frac{K^2 \sigma^2(T, K)}{2} \frac{\partial^2 C_0}{\partial K^2} = 0
+   </math>
+   <br/>
+   <math display="block">
+    \forall K \ge 0, \quad C_0(T = 0, K) = (S - K)^+ \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The corresponding inverse problem is to find a (smooth) volatility function
+   <math display="inline">
+    \sigma : [0, T] \times \mathbb{R}_+ \to \mathbb{R}_+
+   </math>
+   such that
+   <math display="inline">
+    C^{\sigma}(T_i, K_i) = C^*(T_i, K_i)
+   </math>
+   where
+   <math display="inline">
+    C^{\sigma}
+   </math>
+   is the solution of equation (6) and
+   <math display="inline">
+    C^*(T_i, K_i)
+   </math>
+   are the market prices of call options.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Example 2
+   </b>
+   In an exponential-Lévy model
+   <math display="inline">
+    S_t =
+   </math>
+   <math display="inline">
+    \exp X_t
+   </math>
+   , where
+   <math display="inline">
+    X_t
+   </math>
+   is a Lévy process (see
+   <b>
+    Exponential Lévy Models
+   </b>
+   ) with diffusion coefficient
+   <math display="inline">
+    \sigma &gt; 0
+   </math>
+   and Lévy measure v, call prices
+   <math display="inline">
+    C^{\sigma,v}(t_0, S_0; T_i, K_i)
+   </math>
+   are easily computed using Fourier-based methods (see
+  </p>
+  <p block-type="Text">
+   Fourier Methods in Options Pricing). The calibration problem is to find
+   <math display="inline">
+    \sigma
+   </math>
+   ,
+   <math display="inline">
+    \nu
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \forall i \in I, \ C^{\sigma,v}(t_0, S_0; T_i, K_i) = C^*(T_i, K_i) \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   This is an example of a nonlinear inverse problem where the parameter lies in a space of measures.
+  </p>
+  <p block-type="TextInlineMath">
+   Example 3 In the LIBOR market model, a set of
+   <math display="inline">
+    N
+   </math>
+   interest rates (LIBOR rates) is modeled as a diffusion process
+   <math display="inline">
+    L_t = (L_t^i)_{i=1..N}
+   </math>
+   with constant covariance matrix
+   <math display="inline">
+    \Sigma =^t \sigma.\sigma \in Sym^+(n \times n)
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}L_t^i = \mu_t^i \,\mathrm{d}t + L_t^i \sigma_i \,\mathrm{d}W_t^j \tag{8}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This model can then be used to analytically price caps, floors, and swaptions (using a lognormal approximation), whose prices depend on the entries of the covariance matrix
+   <math display="inline">
+    \Sigma
+   </math>
+   . The calibration problem is to find a symmetric semidefinite positive matrix
+   <math display="inline">
+    \Sigma \in Sym^+(n \times n)
+   </math>
+   such that the model prices
+   <math display="inline">
+    C^{\Sigma}
+   </math>
+   match market prices
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \forall i \in I, \ C^{\Sigma}(T_i, K_i) = C^*(T_i, K_i) \tag{9}
+   </math>
+  </p>
+  <p block-type="Text">
+   This problem can be recast as a semi-definite programming problem [2].
+  </p>
+  <p block-type="Text">
+   Other examples include the construction of yield curves from bond prices (see
+   <b>
+    Bond Options
+   </b>
+   ) calibration of term structure models (see Term Structure
+   <b>
+    Models
+   </b>
+   ) to bond prices, recovering the distribution of volatility from option prices [28] calibration to American options in diffusion models [1] and recovery of portfolio default rates from market quotes of credit derivatives [16, 18].
+  </p>
+  <p block-type="Text">
+   These problems are typically ill-posed in the sense that, either solutions may not exist (model class is too narrow to reproduce observations) or solutions are not unique (if data is finite or sparse). In practice, existence of a solution is restored by formulating the problem as an optimization problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{\theta \in E} F(C^{\theta} - C) \tag{10}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    E
+   </math>
+   is the parameter space and
+   <math display="inline">
+    F
+   </math>
+   is a loss function applied to the discrepancy
+   <math display="inline">
+    C^{\theta} - C
+   </math>
+   between market prices and model prices. An algorithm is then used to retrieve
+   <i>
+    one
+   </i>
+   solution and the main issue is the
+   <i>
+    stability
+   </i>
+   of this reconstructed solution as a function of inputs (market prices).
+  </p>
+  <h2>
+   <b>
+    Inversion formulas
+   </b>
+  </h2>
+  <p block-type="Text">
+   In the theoretical situation where prices of European options are available for all strikes and maturities, the calibration problem can sometimes be explicitly solved using an inversion formula.
+  </p>
+  <p block-type="Text">
+   For the diffusion model in Example 1, the Dupire formula [25] (see
+   <b>
+    Dupire Equation
+   </b>
+   ):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma(T,K) = \sqrt{\frac{\frac{\partial C_0}{\partial T} + Kr\frac{\partial C_0}{\partial K}}{\frac{K^2}{2}\frac{\partial^2 C_0}{\partial K^2}}}
+   </math>
+   (11)
+  </p>
+  <p block-type="Text">
+   allows to invert the volatility function from call option prices. Similar formulas can be obtained in credit derivative pricing models, for inverting portfolio default rates from collateralized debt obligation (CDO) tranche spreads [16] and pure jump models with state-dependent jump intensity ("local Levy" model) [12]. No such inversion formula is available in the case of American options (see American
+   <b>
+    Options
+   </b>
+   ). The Dupire formula (11) has been widely used by practitioners for recovering the local volatility function from call/put option prices by interpolating in strike and maturity and applying equation (11). However, since equation (11) involves differentiating the inputs, it suffers from instability and sensitivity to small changes in inputs, as shown in Figure 1. This instability deters one from using inversion formulas such as equation
+   <math display="inline">
+    (6)
+   </math>
+   even in the rare cases where they exist.
+  </p>
+  <h4>
+   <b>
+    Least-squares Formulation
+   </b>
+  </h4>
+  <p block-type="Text">
+   i
+  </p>
+  <p block-type="TextInlineMath">
+   Typically, if the model is misspecified, the observed option prices may not lie within the range of prices attainable by the model. Also, option prices are defined up to a bid-ask spread: a model may generate prices compatible with the market but may not exactly fit the mid-market prices for any given
+   <math display="inline">
+    \theta \in E
+   </math>
+   . For these reasons, one often reformulates calibration as a least-squares problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{\in E} J_0(\theta), \ J_0(\theta) = \sum_{i=1}^{I} w_i |C_i(\theta) - C_i|^2 \ (12)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    C_i
+   </math>
+   are mid-market quotes and
+   <math display="inline">
+    w_i &gt; 0
+   </math>
+   are a set of weights, often chosen inversely proportional to the (squared) bid-ask spread of
+   <math display="inline">
+    C_i
+   </math>
+   .
+  </p>
+  <p>
+   <img src="_page_2_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Extreme sensitivity of Dupire formula to noise in the data. Two examples of call price function (left) and their corresponding local volatilities (right). The prices differ through IID noise ∼
+   <i>
+    UNIF(
+   </i>
+   0
+   <i>
+    ,
+   </i>
+   0
+   <i>
+    .
+   </i>
+   001
+   <i>
+    )
+   </i>
+   , representing a bid–ask spread
+  </p>
+  <p block-type="Text">
+   In most models, the call prices are computed numerically
+   <i>
+    via
+   </i>
+   Fourier transform (
+   <i>
+    see
+   </i>
+   <b>
+    Fourier Methods in Options Pricing
+   </b>
+   ) or by solving a partial differential equation (PDE) (
+   <i>
+    see
+   </i>
+   <b>
+    Partial Differential Equations
+   </b>
+   ). However, in many situations (short or long maturity, small vol–vol, etc.) approximation formulae for implied volatilities
+   <i>
+    (Ti, Ki)
+   </i>
+   of call options are available [5, 10, 11, 30] in terms of model parameters (
+   <i>
+    see
+   </i>
+   <b>
+    Implied Volatility in Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Implied Volatility: Volvol Expansion
+   </b>
+   ;
+   <b>
+    Implied Volatility: Long Maturity Behavior
+   </b>
+   ;
+   <b>
+    SABR Model
+   </b>
+   ). In these situations, parameters are calibrated by a least-squares fit to the approximate formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{\theta \in E} \sum_{i=1}^{I} w_i |\Sigma(T_i, K_i; \theta) - \Sigma^*(T_i, K_i)|^2 \qquad (13)
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   An example is the SABR model (
+   <i>
+    see
+   </i>
+   <b>
+    SABR Model
+   </b>
+   ), whose popularity is almost entirely due
+  </p>
+  <p block-type="Text">
+   to its ease of calibration using the Hagan formula [30].
+  </p>
+  <p block-type="Text">
+   In most cases, option prices
+   <i>
+    Ci(θ )
+   </i>
+   depend continuously on
+   <i>
+    θ
+   </i>
+   and
+   <i>
+    E
+   </i>
+   is a subset of a finite dimensional space (i.e., there are a finite number of bounded parameters), so the least-squares formulation always admits a solution. However, the solution of equation (12) need not be unique:
+   <i>
+    J
+   </i>
+   <sup>
+    0
+   </sup>
+   may, in fact, have several
+   <i>
+    global
+   </i>
+   minima, when the observed option prices do not uniquely identify the model. Figures 2 and 3 show examples of the function
+   <i>
+    J
+   </i>
+   <sup>
+    0
+   </sup>
+   for some popular parametric option pricing models, computed using a data set of DAX index options prices on May 11, 2001. The pricing error in the Heston stochastic volatility model (
+   <i>
+    see
+   </i>
+   <b>
+    Heston Model
+   </b>
+   ), shown in figure as a function of the "volatility of volatility" and the mean reversion rate, displays a line of local minima. The pricing error for the variance gamma model (
+   <i>
+    see
+   </i>
+   <b>
+    Variance-gamma Model
+   </b>
+   ) in Figure 3 displays a nonconvex profile, with two distinct minima in the range
+  </p>
+  <p>
+   <img src="_page_3_Figure_1.jpeg"/>
+  </p>
+  <p block-type="Text">
+   Pricing error in heston model: SP500 options data, 2000.
+  </p>
+  <p>
+   <math display="inline">
+    \textbf{Figure 2} \quad \text{Error surface for the Heston stochastic volatility model, DAX options}
+   </math>
+  </p>
+  <p>
+   <img src="_page_3_Figure_4.jpeg"/>
+  </p>
+  <p>
+   Figure 3 Error surface for variance gamma (pure jump) model, DAX options
+  </p>
+  <p block-type="Text">
+   of observed values. These examples show that, even if the number of observations (option prices) is much higher than the number of parameters, this does not imply identifiability of parameters.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Regularization methods can be used to overcome this problem [27]. A common method is to have a convex penalty term
+   <math display="inline">
+    R
+   </math>
+   , called the
+   <i>
+    regularization
+   </i>
+  </p>
+  <p block-type="Text">
+   term, to the pricing error and solve the auxiliary problem:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{\theta \in E} J_{\alpha}(\theta) \tag{14}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J_{\alpha}(\theta) = J_0(\theta) + \alpha R(\theta) \tag{15}
+   </math>
+  </p>
+  <p block-type="Text">
+   The functional (16) consists of two parts: the regularization term
+   <i>
+    αR(θ )
+   </i>
+   which is convex in its argument and the quadratic pricing error which measures the precision of calibration. The coefficient
+   <i>
+    α
+   </i>
+   , called
+   <i>
+    regularization parameter
+   </i>
+   , defines the relative importance of the two terms: it characterizes the tradeoff between prior knowledge and the information contained in option prices.
+   <i>
+    Jα(.)
+   </i>
+   is usually minimized by gradient-based methods, where the crux of the algorithm is an efficient computation of the gradient ∇
+   <i>
+    θJ
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   When parameter is a function (such as the local volatility function), the regularization term is often chosen to be a smoothness (e.g., Sobolev) norm. This method, called
+   <i>
+    Tikhonov regularization
+   </i>
+   (
+   <i>
+    see
+   </i>
+   <b>
+    Tikhonov Regularization
+   </b>
+   ) has been applied to diffusion models [1, 2, 13, 23, 26] and to exponential-Levy ´ models [19].
+  </p>
+  <p block-type="TextInlineMath">
+   Another popular choice of regularization term is the relative entropy (
+   <i>
+    see
+   </i>
+   <b>
+    Entropy-based Estimation
+   </b>
+   )
+   <i>
+    R(θ )
+   </i>
+   =
+   <i>
+    H (
+    <sup>
+     θ
+    </sup>
+   </i>
+   |
+   <i>
+    )
+   </i>
+   with respect to a prior probability measure . In continuous-time models, relative entropy can be used as regularization criterion only if the prior possesses a nonempty class of equivalent martingale measures, that is, it corresponds to an incomplete market model (
+   <i>
+    see
+   </i>
+   <b>
+    Complete Markets
+   </b>
+   ). From a calibration perspective, market incompleteness (i.e., the nonuniqueness of equivalent martingale measure) is therefore an
+   <i>
+    advantage
+   </i>
+   : it allows to conciliate compatibility with option prices and equivalence with respect to a reference probability measure. Examples are provided by jump processes (
+   <i>
+    see
+   </i>
+   <b>
+    Jump Processes
+   </b>
+   ;
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ) or reducedform credit risk models (
+   <i>
+    see
+   </i>
+   <b>
+    Reduced Form Credit Risk Models
+   </b>
+   ): one can modify the jump size distribution (Levy measure) or the default intensity while ´ preserving equivalence (
+   <i>
+    see
+   </i>
+   <b>
+    Equivalence of Probability Measures
+   </b>
+   ) of measures [18, 20]. For Levy ´ processes (
+   <i>
+    see
+   </i>
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ), the relative entropy term
+   <i>
+    H (ν)
+   </i>
+   is computable in terms of the Levy measure ´
+   <i>
+    ν
+   </i>
+   [21]. The calibration problem then takes the following form:
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Problem 2
+   </b>
+   <i>
+    Given a prior L´evy process with law
+   </i>
+   <sup>
+    0
+   </sup>
+   <i>
+    and characteristics (σ
+   </i>
+   0
+   <i>
+    , ν
+   </i>
+   0
+   <i>
+    ), find a L´evy measure ν which minimizes
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J_{\alpha}(\nu) = \alpha H(\nu) + \sum_{i=1}^{N} w_i (C_0^{\nu}(T_i, K_i) - C_0(T_i, K_i))^2
+   </math>
+   (16)
+  </p>
+  <p block-type="Text">
+   This regularized formulation has the advantage that its solution exhibits continuous dependence on market prices and with respect to the choice of the prior model [21, 22].
+  </p>
+  <p block-type="Text">
+   Simpler regularization methods can be used in settings where prices are computed using analytical transform methods. Belomestny &amp; Reiss [8] propose a spectral regularization method for calibrating exponential-Levy models. Aspremont [3] formulates ´ the calibration of LIBOR market models (Example 3) as semidefinite programming problems under constraints.
+  </p>
+  <p block-type="Text">
+   Different regularization terms select
+   <i>
+    different
+   </i>
+   solutions: Tikhonov regularization approximates the leastsquares solution with smallest norm [27] while entropy-based regularization selects the minimumentropy least-squares solution [22].
+  </p>
+  <h2>
+   <b>
+    Entropy Minimization Under Calibration Constraints
+   </b>
+  </h2>
+  <p block-type="Text">
+   An alternative approach to regularization is to select a pricing model  by minimizing the relative entropy (
+   <i>
+    see
+   </i>
+   <b>
+    Entropy-based Estimation
+   </b>
+   ) of the probability measure  with respect to a prior, under calibration constraints
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{\mathbb{Q}\sim\mathbb{P}} H(\mathbb{Q}|\mathbb{P}) \quad \text{under} \quad C_i = E^{\mathbb{Q}}[H_i] \quad \text{for } i \in I
+   </math>
+   (17)
+  </p>
+  <p block-type="Text">
+   Relative entropy being strictly convex, any solution of equation (17) is unique and can be computed in a stable manner using Lagrange multiplier (dual) methods [24] (
+   <i>
+    see
+   </i>
+   <b>
+    Convex Duality
+   </b>
+   ).
+  </p>
+  <p block-type="TextInlineMath">
+   Application of these ideas to a set of scenarios leads to the
+   <i>
+    weighted Monte Carlo algorithm
+   </i>
+   (
+   <i>
+    see
+   </i>
+   <b>
+    Weighted Monte Carlo
+   </b>
+   ) [6]: one first simulates
+   <i>
+    N
+   </i>
+   sample paths
+   <i>
+    N
+   </i>
+   = {
+   <i>
+    ω
+   </i>
+   1
+   <i>
+    , ..ωN
+   </i>
+   } from a
+   <i>
+    prior
+   </i>
+   model  and then solves the above problem (AV) using as prior the uniform distribution on
+   <i>
+    N
+   </i>
+   . The idea is to weight the paths in order to verify the calibration constraints. The weights
+   <i>
+    (
+    <sup>
+     N
+    </sup>
+    (ωi), i
+   </i>
+   = 1
+   <i>
+    ..N )
+   </i>
+   are constructed by minimizing relative entropy under calibration constraints
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{\mathbb{Q}_{N}\in\mathcal{P}(\Omega_{N})}\sum_{i=1}^{N}\mathbb{Q}_{N}(\omega_{i})\ln\frac{\mathbb{Q}_{N}(\omega_{i})}{\mathbb{P}_{N}(\omega_{i})}\text{ under}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{i=1}^{N} \mathbb{Q}_{N}(\omega_{i}) G_{j}(\omega_{i}) = C_{j}
+   </math>
+   (18)
+  </p>
+  <p block-type="Text">
+   This constrained optimization problem is solved by duality
+   <math display="inline">
+    [6, 24]
+   </math>
+   : the dual has an explicit solution, in the form of a Gibbs-Boltzmann measure [4, 6] (see
+   <b>
+    Entropy-based Estimation
+   </b>
+   ). A (discounted) payoff X is then priced using the same set of simulated paths via
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^{\mathbb{Q}_{N}}[X] = \sum_{i=1}^{N} \mathbb{Q}_{N}(\omega_{i})X(\omega_{i})
+   </math>
+   <math display="block">
+    = \frac{1}{N} \sum_{i=1}^{N} \frac{\mathbb{Q}_{N}(\omega_{i})}{\mathbb{P}_{N}(\omega_{i})}X(\omega_{i}) \qquad (19)
+   </math>
+  </p>
+  <p block-type="Text">
+   The benchmark payoffs (calibration instruments) play the role of
+   <i>
+    biased
+   </i>
+   control variates, leading to variance reduction [29]:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    E^{\mathbb{Q}_N}[X] = E^{\mathbb{Q}_N} \left[ X - \sum_{i=1}^I \alpha_i H_i \right] + \sum_{i=1}^I \alpha_i C_i \quad (20)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This method yields as a by-product, a static hedge portfolio
+   <math display="inline">
+    \alpha_i^*
+   </math>
+   , which minimizes the variance in equation (20) [3, 6, 17].
+  </p>
+  <p block-type="Text">
+   A drawback is that the martingale property is lost in this process since it would correspond to an infinite number of constraints. As a result, derivative prices computed with the weighted Monte Carlo algorithm may fail to verify arbitrage relations across maturities (e.g. calendar spread relations), especially when applied to forward-starting contracts.
+  </p>
+  <p block-type="Text">
+   These arbitrage constraints can be restored by representing
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   as a random mixture of martingales the law of random mixture being chosen via relative entropy minimization under calibration constraints [17]. This results in an arbitrage-free version of the weighted Monte Carlo approach, which is applied to recovering covariance matrices implied by index options in
+   <math display="inline">
+    [15]
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Stochastic Control Methods
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   In certain continuous-time models, the relative entropy minimization approach can be mapped, via a duality argument, into a stochastic control problem, which can then be solved using dynamic
+  </p>
+  <p block-type="Text">
+   programming techniques. Consider a Markovian model where the state variable
+   <math display="inline">
+    S_t
+   </math>
+   (asset price, interest rate,..) follows a stochastic differential equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_{t} = \mu_{\theta}(t) dt + \sigma_{\theta}(t, S_{t}) dW_{t}
+   </math>
+   <math display="block">
+    + \int \gamma_{\theta}(t, X_{t-}) \mu(dt dz) \qquad (21)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where W is a Wiener process and
+   <math display="inline">
+    \mu
+   </math>
+   a compensated Poisson random measure with intensity
+   <math display="inline">
+    \nu_{\theta}(dz)\lambda_{\theta}(t) dt
+   </math>
+   . The coefficients of the model are parameterized by some parameter
+   <math display="inline">
+    \theta \in E
+   </math>
+   ; in a nonparametric setting,
+   <math display="inline">
+    \theta
+   </math>
+   is just the coefficient itself and
+   <math display="inline">
+    E
+   </math>
+   is a functional space. Denote the law of the solution by
+   <math display="inline">
+    \mathbb{Q}^{\theta}
+   </math>
+   . Consider now the case where the calibration criterion
+   <math display="inline">
+    J(.)
+   </math>
+   can be expressed as an expected value
+   <math display="inline">
+    J(\theta) = E^{\theta} \left[ \int_0^T \phi(X_t) dt \right]
+   </math>
+   with a strictly convex function
+   <math display="inline">
+    \phi(.)
+   </math>
+   . A classical approach to solve the calibration problem
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{\theta \in E} J(\theta), \quad \text{under} \quad E^{\theta}[H_i] = C_i \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   is to introduce the Lagrangian functional
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{L}(\theta,\lambda) = J(\theta) - \sum_{i \in I} \lambda_i (E^{\theta}[H_i] - C_i)
+   </math>
+   <math display="block">
+    = E^{\theta} \left[ \int_0^T \phi(X_t) \, \mathrm{d}t - \sum_{i \in I} \lambda_i (H_i - C_i) \right]
+   </math>
+   (23)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \lambda_i
+   </math>
+   is the Lagrange multiplier associated to the calibration constraint for payoff
+   <math display="inline">
+    H_i
+   </math>
+   . The
+   <i>
+    dual
+   </i>
+   problem associated to the constrained minimization problem
+   <math display="inline">
+    (22)
+   </math>
+   is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \inf_{\theta \in E} \mathcal{L}(\theta, \lambda) = \inf_{\theta \in E} E^{\theta} \int_{0}^{T} \phi(X_{t}) dt
+   </math>
+   <math display="block">
+    - \sum_{i \in I} \lambda_{i}(H_{i} - C_{i})
+   </math>
+   <math display="block">
+    \Phi
+   </math>
+   (24)
+  </p>
+  <p block-type="TextInlineMath">
+   It can be viewed as a
+   <i>
+    stochastic control problem
+   </i>
+   (see Stochastic Control) with running cost
+   <math display="inline">
+    \phi(t, X_t)
+   </math>
+   and
+   <i>
+    terminal cost
+   </i>
+   <math display="inline">
+    \Phi
+   </math>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   This original formulation of the calibration problem was first presented by Avellaneda et al. [7] in the
+  </p>
+  <p block-type="Text">
+   context of diffusion model with unknown volatility
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = S_t \sigma(t, S_t) dW_t \tag{25}
+   </math>
+  </p>
+  <p block-type="Text">
+   The calibration criterion in
+   <math display="inline">
+    [7]
+   </math>
+   was chosen to be
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J(\sigma) = E^{\sigma} \left[ \int_0^T dt \ \eta(\sigma^2(t, X_t^{\sigma})) \right] \qquad (26)
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \eta
+   </math>
+   is a strictly convex function. Duality between
+   <math display="inline">
+    (22)
+   </math>
+   and
+   <math display="inline">
+    (24)
+   </math>
+   is not obvious in this case since the Lagrangian is not convex with respect to its argument [31]. The stochastic control approach can also be applied in the context of model calibration by relative entropy minimization for classes of models where absolute continuity is preserved under a change of parameters, such as models with jumps. Cont and Minca [18] use this approach for retrieving the default rate in a portfolio from CDO tranche spreads indexed on the portfolio.
+  </p>
+  <h4>
+   <b>
+    Stochastic Algorithms
+   </b>
+  </h4>
+  <p block-type="Text">
+   Objective functions used in calibration (with the exception of entropy-based methods) are typically nonconvex, event after regularization, leading to multiple minima and lack of convergence in gradientbased methods. Stochastic algorithms known as evolutionary algorithms, which contain simulated annealing as a special case, have been widely used for global nonconvex optimization are natural candidate for solving such problems [9].
+  </p>
+  <p block-type="Text">
+   Suppose, for instance, we want to minimize the pricing error
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    J_0(\theta) = \sum_{i=1}^{I} w_i |C_i^{\theta} - C_i|, \quad \theta \in E \qquad (27)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C_i^{\theta}
+   </math>
+   are model prices and
+   <math display="inline">
+    C_i
+   </math>
+   are observed (transaction or mid-market) prices for the benchmark options. Now define the
+   <i>
+    a priori
+   </i>
+   error level
+   <math display="inline">
+    \delta
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta = \sum_{i=1}^{I} w_i |C_i^{\text{bid}} - C_i^{\text{ask}}| \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Given the uncertainty on option values due to bid-ask spreads, one cannot meaningfully distinguish a "perfect" fit
+   <math display="inline">
+    J_0(\theta) = 0
+   </math>
+   from any other fit with
+   <math display="inline">
+    J_0(\theta) \leq \delta
+   </math>
+   . Therefore, all parameter values in the level set
+   <math display="inline">
+    G_{\delta} = \{ \theta \in E, J_0(\theta) \leq \delta \}
+   </math>
+   correspond to
+  </p>
+  <p block-type="TextInlineMath">
+   models that are compatible with the market data
+   <math display="inline">
+    (C_i^{\text{bid}}, C_i^{\text{ask}})_{i=1..I}
+   </math>
+   . An evolutionary algorithm simulates an inhomogeneous Markov chain
+   <math display="inline">
+    (X_n)_{n&gt;1}
+   </math>
+   in
+   <math display="inline">
+    E^N
+   </math>
+   which undergoes mutation-selection cycles [9] designed such that as the number of iterations
+   <math display="inline">
+    n
+   </math>
+   grows, the components
+   <math display="inline">
+    (\theta_1^N, ..., \theta_n^N)
+   </math>
+   of
+   <math display="inline">
+    X_n
+   </math>
+   converge to the
+   <math display="inline">
+    G_{\delta}
+   </math>
+   , yielding a population of points
+   <math display="inline">
+    (\theta_k)
+   </math>
+   which converges to a sample of model parameters compatible with the market data
+   <math display="inline">
+    (C_i^{\text{bid}}, C_i^{\text{ask}})_{i=1..I}
+   </math>
+   in the sense that
+   <math display="inline">
+    J_0(\theta_k) \leq \delta
+   </math>
+   . We thus obtain a population of N model parameters calibrated to market data, which can be different especially if the initial problem has multiple solutions.
+  </p>
+  <p block-type="Text">
+   Figure 4 shows a sample of local volatility functions obtained using this approach [9]. These examples illustrate that precise reconstruction of local volatility from call option prices is at best illusory; the parameter uncertainty is too important to be ignored, especially for short maturities where it does not affect the prices very much; short-term volatility hovers anywhere between 15% and 30%. These observations cast a doubt on the volatility content of very short-term options in terms of volatility and questions whether one can solely rely on short maturity asymptotics (
+   <i>
+    see SABR Model
+   </i>
+   ) in model calibration.
+  </p>
+  <h4>
+   <b>
+    Parameter Uncertainty
+   </b>
+  </h4>
+  <p block-type="Text">
+   Model calibration is usually the first step in a procedure whose ultimate purpose is the pricing and hedging of (exotic) options. Once the model parameter
+   <math display="inline">
+    \theta
+   </math>
+   is calibrated to market prices, it is used to compute a model-dependent quantity
+   <math display="inline">
+    f(\theta)
+   </math>
+   —price of an exotic option or a hedge ratio—using a numerical procedure. Given the ill-posedness of the calibration problem and the resulting uncertainty on the solution
+   <math display="inline">
+    \theta
+   </math>
+   , one question is the impact of this uncertainty on such model-dependent quantities. This aspect is often neglected in practice and many users of pricing models view the calibrated parameter as fixed, equating calibration with a curve-fitting exercise.
+  </p>
+  <p block-type="TextInlineMath">
+   Particle methods yield, as a by-product, a way to analyze model uncertainty. While calibration algorithms based on deterministic optimization yield a point estimate for model parameters, particle methods yield a
+   <i>
+    population
+   </i>
+   <math display="inline">
+    Q = \{Q_{\theta_1}, ..., Q_{\theta_k}\}
+   </math>
+   of pricing models, all of which price the benchmark options with equivalent precision
+   <math display="inline">
+    E^{\mathbb{Q}}(H_i) \in [C_i^{\text{bid}}, C_i^{\text{ask}}]
+   </math>
+   . The
+  </p>
+  <p>
+   <img src="_page_7_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Confidence intervals for local volatility : DAX options.
+  </p>
+  <p>
+   <b>
+    Figure 4
+   </b>
+   A sample of local volatility surfaces calibrated to DAX options
+  </p>
+  <p block-type="Text">
+   heterogeneity of this population reflects the uncertainty in model parameters, which are left undetermined by the benchmark options. This idea can be exploited to produce a quantitative measure of model uncertainty compatible with observed market prices of benchmark instruments [14], by considering the interval of prices
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left[\inf_{\mathbb{Q}\in\mathcal{Q}}E^{\mathbb{Q}}[X],\sup_{\mathbb{Q}\in\mathcal{Q}}E^{\mathbb{Q}}[X]\right] \tag{29}
+   </math>
+  </p>
+  <p block-type="Text">
+   for a payoff
+   <i>
+    X
+   </i>
+   in the various calibrated models. Another approach is to calibrate several different models to the same data and compare the value of the exotic option across models [14, 32]. Model uncertainty in derivative pricing is further discussed in [14].
+  </p>
+  <h2>
+   <b>
+    Relation with Pricing and Hedging
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   Calibrating a model to market prices simply ensures that model prices of benchmark instruments reflect current "mark-to-market" values. It also ensures that the cost of a static hedge (
+   <i>
+    see
+   </i>
+   <b>
+    Static Hedging
+   </b>
+   ) using these benchmark instruments is correctly reflected in model prices: if a payoff
+   <i>
+    H
+   </i>
+   can be statically hedged
+  </p>
+  <p block-type="Text">
+   with a portfolio containing
+   <i>
+    αi
+   </i>
+   units of benchmark instrument
+   <i>
+    Hi
+   </i>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    H = \alpha_0 + \sum_{i \in I} \alpha_i H_i \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   the cost
+   <i>
+    α
+   </i>
+   <sup>
+    0
+   </sup>
+   +
+   <i>
+    αiCi
+   </i>
+   of setting up the hedge is automatically equal to the model price
+   <i>
+    E
+   </i>
+   [
+   <i>
+    H
+   </i>
+   ].
+  </p>
+  <p block-type="Text">
+   Calibration does not entail that prices, hedge ratios, or risk parameters generated by the model are "correct" in any sense. This requires a correct model specification with realistic dynamics for risk factors. Indeed, many different models may calibrate the same prices of, say, a set of call options but lead to very different prices of hedge ratios for exotics [14, 32]. For example, any equity volatility smile can be reproduced by a one-factor diffusion model (see Example 1)
+   <i>
+    via
+   </i>
+   an appropriate specification of the local volatility surface, but there is ample evidence that volatility itself should be modeled as a risk factor (
+   <i>
+    see
+   </i>
+   <b>
+    Stochastic Volatility Models
+   </b>
+   ) and a one-factor diffusion may lead to an underestimation of volatility risk and unrealistic dynamics [30].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   However, a model that is
+   <i>
+    not calibrated
+   </i>
+   to market prices of liquidly traded derivatives is typically not easy to use. For example, even if a payoff can be statically hedged with traded derivatives using an initial capital
+   <i>
+    V
+   </i>
+   0, the model price will not be
+  </p>
+  <p block-type="Text">
+   equal to
+   <i>
+    V
+   </i>
+   0. Thus, model prices will, in general, be inconsistent with hedging costs if the model is not calibrated. Thus, calibration seems a necessary but not sufficient condition for choosing a model for pricing and hedging.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Achdou, Y. (2005). An inverse problem for a parabolic variational inequality arising in volatility calibration with American options,
+     <i>
+      SIAM Journal on Control and Optimization
+     </i>
+     <b>
+      43
+     </b>
+     , 1583–1615.
+    </li>
+    <li block-type="ListItem">
+     [2] Achdou, Y. &amp; Pironneau, O. (2002). Volatility smile by multilevel least square,
+     <i>
+      International Journal of Theoretical and Applied Finance
+     </i>
+     <b>
+      5
+     </b>
+     (2), 619–643.
+    </li>
+    <li block-type="ListItem">
+     [3] d'Aspremont, A. (2005). Risk-management methods for the Libor market model using semidefinite programming,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      8
+     </b>
+     (4), 77–99.
+    </li>
+    <li block-type="ListItem">
+     [4] Avellaneda, M. (1998). The minimum-entropy algorithm and related methods for calibrating asset-pricing models,
+     <i>
+      Proceedings of the International Congress of Mathematicians
+     </i>
+     , Documenta Mathematica, Berlin, Vol. III, pp. 545–563.
+    </li>
+    <li block-type="ListItem">
+     [5] Avellaneda, M., Boyer-Olson, D., Busca, J. &amp; Friz, P. (2002). Reconstructing the smile,
+     <i>
+      Risk Magazine
+     </i>
+     October.
+    </li>
+    <li block-type="ListItem">
+     [6] Avellaneda, M., Buff, R., Friedman, C., Grandchamp, N., Kruk, L. &amp; Newman, J. (2001). Weighted Monte Carlo: a new technique for calibrating asset-pricing models,
+     <i>
+      International Journal of Theoretical and Applied Finance
+     </i>
+     <b>
+      4
+     </b>
+     , 91–119.
+    </li>
+    <li block-type="ListItem">
+     [7] Avellaneda, M., Friedman, C., Holmes, R. &amp; Samperi, D. (1997). Calibrating volatility surfaces via relative entropy minimization,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      4
+     </b>
+     , 37–64.
+    </li>
+    <li block-type="ListItem">
+     [8] Belomestny, D. &amp; Reiss, M. (2006). Spectral calibration of exponential Levy Models, ´
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      10
+     </b>
+     (4), 449–474.
+    </li>
+    <li block-type="ListItem">
+     [9] Ben Hamida, S. &amp; Cont, R. (2004). Recovering volatility from option prices by evolutionary optimization,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      8
+     </b>
+     (3), 43–76.
+    </li>
+    <li block-type="ListItem">
+     [10] Berestycki, H., Busca, J. &amp; Florent, I. (2004). Computing the implied volatility in stochastic volatility models,
+     <i>
+      Communications on Pure and Applied Mathematics
+     </i>
+     <b>
+      57
+     </b>
+     (10), 1352–1373.
+    </li>
+    <li block-type="ListItem">
+     [11] Bouchouev, I., Isakov, V. &amp; Valdivia, N. (2002). Recovering a volatility coefficient by linearization,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      2
+     </b>
+     , 257–263.
+    </li>
+    <li block-type="ListItem">
+     [12] Carr P., Geman H., Madan D.B. &amp; Yor M. (2004). From local volatility to local Levy models, ´
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      4
+     </b>
+     (5), 581–588.
+    </li>
+    <li block-type="ListItem">
+     [13] Coleman, T., Li, Y. &amp; Verma, A. (1999). Reconstructing the unknown volatility function,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      2
+     </b>
+     (3), 77–102.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [14] Cont, R. (2006). Model uncertainty and its impact on the pricing of derivative instruments,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      16
+     </b>
+     (3), 519–547.
+    </li>
+    <li block-type="ListItem">
+     [15] Cont, R. &amp; Deguest, R. (2009).
+     <i>
+      What do index options imply about the dependence among stock returns?
+     </i>
+     Columbia University Financial Engineering Report 2009- 06,www.ssrn.com.
+    </li>
+    <li block-type="ListItem">
+     [16] Cont, R., Deguest, R. &amp; Kan, Y.H. (2009).
+     <i>
+      Default Intensities Implied by CDO Spreads: Inversion Formula and Model Calibration
+     </i>
+     . Columbia University Financial Engineering Report 2009-04, www.ssrn.com.
+    </li>
+    <li block-type="ListItem">
+     [17] Cont, R. &amp; Leonard, Ch. (2008). ´
+     <i>
+      A Probabilistic Approach to Inverse Problems in Option Pricing
+     </i>
+     . Working Paper.
+    </li>
+    <li block-type="ListItem">
+     [18] Cont, R. &amp; Minca, A. (2008).
+     <i>
+      Recovering Portfolio Default Intensities Implied by CDO Tranches
+     </i>
+     . Financial Engineering Report 2008-01, Columbia University.
+    </li>
+    <li block-type="ListItem">
+     [19] Cont, R. &amp; Rouis, M. (2006).
+     <i>
+      Recovering L´evy Processes from Option Prices by Tikhonov Regularization
+     </i>
+     . Working Paper.
+    </li>
+    <li block-type="ListItem">
+     [20] Cont, R. &amp; Tankov, P. (2004).
+     <i>
+      Financial Modelling with Jump Processes
+     </i>
+     , Chapman and Hall/CRC Press, Boca Raton.
+    </li>
+    <li block-type="ListItem">
+     [21] Cont, R. &amp; Tankov, P. (2004). Nonparametric calibration of jump-diffusion option pricing models,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      7
+     </b>
+     (3), 1–49.
+    </li>
+    <li block-type="ListItem">
+     [22] Cont, R. &amp; Tankov, P. (2005). Recovering Levy pro- ´ cesses from option prices: regularization of an ill-posed inverse problem,
+     <i>
+      SIAM Journal on Control and Optimization
+     </i>
+     <b>
+      45
+     </b>
+     (1), 1–25.
+    </li>
+    <li block-type="ListItem">
+     [23] Crepey, S. (2003). Calibration of the local volatility in ´ a trinomial tree using Tikhonov regularization,
+     <i>
+      Inverse Problems
+     </i>
+     <b>
+      19
+     </b>
+     , 91–127.
+    </li>
+    <li block-type="ListItem">
+     [24] Csiszar, I. (1975). I-divergence geometry of probability ´ distributions and minimization problems,
+     <i>
+      The Annals of Probability
+     </i>
+     <b>
+      3
+     </b>
+     , 146–158.
+    </li>
+    <li block-type="ListItem">
+     [25] Dupire, B. (1994). Pricing with a smile,
+     <i>
+      Risk
+     </i>
+     <b>
+      7
+     </b>
+     , 18–20.
+    </li>
+    <li block-type="ListItem">
+     [26] Engl, H. &amp; Egger, H. (2005). Tikhonov regularization applied to the inverse problem of option pricing: convergence analysis and rates,
+     <i>
+      Inverse Problems
+     </i>
+     <b>
+      21
+     </b>
+     , 1027–1045.
+    </li>
+    <li block-type="ListItem">
+     [27] Engl, H.W., Hanke, M. &amp; Neubauer, A. (1996).
+     <i>
+      Regularization of Inverse Problems
+     </i>
+     , Mathematics and its Applications, Kluwer Academic Publishers, Dordrecht, The Netherlands, Vol. 375.
+    </li>
+    <li block-type="ListItem">
+     [28] Friz, P. &amp; Gatheral, J. (2005).
+     <i>
+      Valuing Volatility Derivatives as an Inverse Problem, Quantitative Finance
+     </i>
+     , December 2005.
+    </li>
+    <li block-type="ListItem">
+     [29] Glasserman, P. &amp; Yu, B. (2005). Large sample properties of weighted Monte Carlo estimators,
+     <i>
+      Operations Research
+     </i>
+     <b>
+      53
+     </b>
+     (2), 298–312.
+    </li>
+    <li block-type="ListItem">
+     [30] Hagan, P., Kumar, D., Lesniewski, A.S. &amp; Woodward, D.E. Managing smile risk,
+     <i>
+      Wilmott Magazine
+     </i>
+     September, 84–108.
+    </li>
+    <li block-type="ListItem">
+     [31] Samperi, D. (2002). Calibrating a diffusion model with uncertain volatility,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      12
+     </b>
+     , 71–87.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   [32] Schoutens, W., Simons, E. &amp; Tistaert, J. (2004). A perfect calibration! Now what?
+   <i>
+    Wilmott Magazine
+   </i>
+   March.
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Biagini, S. &amp; Cont, R. (2006). Model-free representation of pricing rules as conditional expectations, in
+     <i>
+      Stochastic Processes and Applications to Mathematical Finance
+     </i>
+     , J. Akahori, S. Ogawa and S. Watanabe, eds, World Scientific, Singapore, pp. 53–66.
+    </li>
+    <li block-type="ListItem">
+     Harrison, J.M. &amp; Pliska, S.R. (1981). Martingales and stochastic integrals in the theory of continuous trading,
+     <i>
+      Stochastic Processes and their Applications
+     </i>
+     <b>
+      11
+     </b>
+     , 215–260.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Black–Scholes Formula
+   </b>
+   ;
+   <b>
+    Convex Duality
+   </b>
+   ;
+   <b>
+    Dupire Equation
+   </b>
+   ;
+   <b>
+    Entropy-based Estimation
+   </b>
+   ;
+   <b>
+    Exponential Levy Models ´
+   </b>
+   ;
+   <b>
+    Implied Volatility in Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Implied Volatility: Large Strike Asymptotics
+   </b>
+   ;
+   <b>
+    Jump Processes
+   </b>
+   ;
+   <b>
+    Local Volatility Model
+   </b>
+   ;
+   <b>
+    Markov Functional Models
+   </b>
+   ;
+   <b>
+    SABR Model
+   </b>
+   ;
+   <b>
+    Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Weighted Monte Carlo
+   </b>
+   ;
+   <b>
+    Yield Curve Construction
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   RAMA CONT
+  </p>
+ </body>
+</html>

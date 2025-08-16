@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Put–Call Parity
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   Put-call parity means that one may switch between call and put positions by selling or buying the underlying forward: "long call, short put is long forward contract" or
+   <math display="inline">
+    \mathbf{c} - \mathbf{p} \equiv \mathbf{f}
+   </math>
+   . In other words, one may replicate a put contract by buying a call of identical characteristics (underlying asset, strike, maturity) and selling the underlying asset forward
+   <math display="inline">
+    (\mathbf{p} \equiv \mathbf{c} - \mathbf{f})
+   </math>
+   , and one may replicate a call by buying a put and the underlying forward (
+   <math display="inline">
+    \mathbf{c} \equiv \mathbf{p} + \mathbf{f}
+   </math>
+   ). This is shown in the three payoff diagrams (Figures
+   <math display="inline">
+    1-3
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   A logical proof of the third instance
+   <math display="inline">
+    (c \equiv p + f)
+   </math>
+   is as follows: a rational investor will exercise a call option whenever the asset price
+   <math display="inline">
+    S
+   </math>
+   at maturity is above the strike
+   <math display="inline">
+    K
+   </math>
+   ; this is equivalent to promising to buy the asset at
+   <math display="inline">
+    K
+   </math>
+   and having the option to sell it at that level, which a rational investor will exercise whenever
+   <math display="inline">
+    S
+   </math>
+   falls below
+   <math display="inline">
+    K
+   </math>
+  </p>
+  <p block-type="Text">
+   Put-call parity is often referred to as
+   <i>
+    option syn
+   </i>
+   thetics by practitioners and holds only for European options.&lt;sup&gt;a&lt;/sup&gt; It does not require any assumption other than the ability to buy or sell the asset forward, but it is worth noting that this may not always be the case: to sell forward, either a futures market must exist or one must be able to short-sell the asset.
+  </p>
+  <p block-type="TextInlineMath">
+   Put-call parity must not be confused with "put-call symmetry" (see Foreign Exchange Symmetries) in foreign exchange, which states that a call struck at
+   <math display="inline">
+    K
+   </math>
+   on a given exchange rate
+   <math display="inline">
+    S
+   </math>
+   (e.g., dollars per leuro) is identical to a put struck at
+   <math display="inline">
+    1/K
+   </math>
+   on the reverse rate
+   <math display="inline">
+    1/S
+   </math>
+   (euros per 1 dollar), after the
+   <i>
+    ad hoc
+   </i>
+   numeraire conversions:
+   <math display="inline">
+    c(S, K)/S \equiv
+   </math>
+   <math display="inline">
+    K \ p(1/S, 1/K).
+   </math>
+  </p>
+  <h4>
+   <b>
+    Price Relationship
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   Assuming no arbitrage, the synthetic relationship immediately translates into the well-known price relationship: "call minus put equals forward" or
+   <math display="inline">
+    c_t - p_t = f_t
+   </math>
+   . Note that here
+   <math display="inline">
+    f_t
+   </math>
+   denotes the price of a forward contract struck at
+   <math display="inline">
+    K
+   </math>
+   , that is, the present value (p.v.) of the gap between the forward price
+   <math display="inline">
+    F_t
+   </math>
+   and the strike price
+   <math display="inline">
+    K
+   </math>
+   (see Forwards and Futures). Denoting the price of the zero-coupon bond maturing
+  </p>
+  <p block-type="Text">
+   at T by
+   <math display="inline">
+    B_t
+   </math>
+   and rearranging terms, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{call} + \text{p.v. of strike price}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    =
+   </math>
+   put
+   <math display="inline">
+    +
+   </math>
+   p.v. of forward price (1)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c_t + K \cdot B_t = p_t + F_t \cdot B_t \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For all investment assets where short selling is feasible, the forward price can be further expressed as a function of the spot price
+   <math display="inline">
+    S_t
+   </math>
+   and the revenue or cost of carry until maturity
+   <math display="inline">
+    T
+   </math>
+   (see Forwards and
+   <b>
+    Futures
+   </b>
+   ). For example, the forward price of a stock with continuous dividend rate q satisfies
+   <math display="inline">
+    F_t = S_t/B_t
+   </math>
+   .
+   <math display="inline">
+    \exp(-q(T-t))
+   </math>
+   , and put-call parity simplifies to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c_t + K \cdot B_t = p_t + S_t \cdot e^{-q(T-t)} \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   In practice, Kamara and Miller [5] give empirical evidence that while put-call parity has many small violations, almost half of the arbitrages would result in a loss when execution delays are accounted for.
+  </p>
+  <h4>
+   <b>
+    Basic Implications
+   </b>
+  </h4>
+  <p block-type="Text">
+   or
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     For trading purposes, puts and calls are identical instruments (up to a directional position in the underlying asset).
+    </li>
+    <li block-type="ListItem">
+     . At-the-money-forward calls and puts must have the same value. (An at-the-money-forward option has its strike set at the forward price of the underlying asset.)
+    </li>
+    <li block-type="ListItem">
+     In the absence of revenue or cost of carry, . the deltas (see Black-Scholes Formula; Delta
+     <b>
+      Hedging
+     </b>
+     ) of a call and put must add up to 1 (in absolute value).
+    </li>
+    <li block-type="ListItem">
+     Puts and calls must have the same gamma and vega (see Black-Scholes Formula; Gamma Hedging).
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   In volatility modeling, put-call parity implies that calls and puts of identical characteristics must have the same
+   <b>
+    implied volatility
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   In exotic option pricing, Carr and Lee [1] put forward the idea of a generalized American option that may be indefinitely exercised until maturity to lock-in the intrinsic value and switch between call and put styles. The authors show that this option may be replicated by holding onto a European
+  </p>
+  <p>
+   <img src="_page_1_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <img src="_page_1_Figure_2.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1 c − p ≡ f
+   </b>
+  </p>
+  <p>
+   <img src="_page_1_Figure_4.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2 p ≡ c − f
+   </b>
+  </p>
+  <p block-type="Text">
+   vanilla call and subsequently selling and buying the forward contract at every exercise. This strategy is a straightforward illustration of how put–call parity may be exploited to alternate between call and put positions by only trading in the forward contract.
+  </p>
+  <p>
+   <img src="_page_1_Figure_7.jpeg"/>
+  </p>
+  <h2>
+   <b>
+    History
+   </b>
+  </h2>
+  <p block-type="Text">
+   Haug [3] traces put–call parity as far back as the seventeenth century, but its formulation was then "diffuse". According to the author, an early formulation of put–call parity "as we know it" can be found in the work by Higgins [4], who wrote in 1902:
+  </p>
+  <p block-type="Text">
+   It can be shown that the adroit dealer in options can convert a 'put' into a 'call', a 'call' into a 'put' [
+   <i>
+    ...
+   </i>
+   ] by dealing against it in the stock.
+  </p>
+  <p block-type="Text">
+   Derman and Taleb [2] argue that the Black–Scholes– Merton formulas could have been established earlier than 1973
+   <i>
+    via
+   </i>
+   put–call parity instead of the dynamic replication argument. Specifically, the authors cite similar formulas published in the 1960s, all of which "involved unknown risk premiums that would have been determined to be zero had [
+   <i>
+    ...
+   </i>
+   ] the put–call replication argument" been used.
+  </p>
+  <p block-type="Text">
+   Put–call parity can fail when there are restrictions on short selling, when the underlying asset is hard to borrow or illiquid, or in the case of corporate events such as leveraged buyouts.
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   a
+   <i>
+    .
+   </i>
+   The reason put–call parity fails with American options is best seen in the first instance (
+   <b>
+    c − p ≡ f
+   </b>
+   ), whereby an
+  </p>
+  <p block-type="Text">
+   agent attempts to replicate a forward contract by buying a call and selling a put. If the put is American, it may be exercised against the agent before maturity, thus breaking the replication strategy.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Carr, P. &amp; Lee, R. (2002).
+     <i>
+      Hyper Options
+     </i>
+     . Working paper, Courant Institute and Stanford University, December 2002.
+    </li>
+    <li block-type="ListItem">
+     [2] Derman, E. &amp; Taleb, N.N. (2005). The illusions of dynamic replication,
+     <i>
+      Quantitative Finance
+     </i>
+     <b>
+      5
+     </b>
+     (4), 323–326.
+    </li>
+    <li block-type="ListItem">
+     [3] Haug, E. (2007).
+     <i>
+      Derivatives: Models on Models
+     </i>
+     . Wiley.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [4] Higgins, L.R. (1902).
+     <i>
+      The Put-and-Call
+     </i>
+     . E. Wilson, London.
+    </li>
+    <li block-type="ListItem">
+     [5] Kamara, A. &amp; Miller, T.W. (1995). Daily and intradaily tests of European put-call parity,
+     <i>
+      Journal of Financial and Quantitative Analysis
+     </i>
+     <b>
+      30
+     </b>
+     , 519–539.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Black–Scholes Formula
+   </b>
+   ;
+   <b>
+    Call Options
+   </b>
+   ;
+   <b>
+    Forwards and Futures
+   </b>
+   ;
+   <b>
+    Option Pricing: General Principles
+   </b>
+   ;
+   <b>
+    Options: Basic Definitions
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   SEBASTIEN ´ BOSSU
+  </p>
+ </body>
+</html>

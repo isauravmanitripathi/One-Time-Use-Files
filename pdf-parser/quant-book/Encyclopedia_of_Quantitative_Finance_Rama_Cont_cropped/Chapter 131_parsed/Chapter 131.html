@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Equity Swaps
+   </b>
+  </h1>
+  <p block-type="Text">
+   A swap contract is a bilateral agreement between two parties, known as counterparties, to exchange cash flows at regularly scheduled dates in the future. In an equity swap, some of the cash flows are determined by the return on a stock or an equity index. Typically, one of the parties pays to the other the total return of a stock or an equity index. In exchange, he or she receives from the other a cash flow determined by a fixed or floating rate or the return of another stock or equity index. Equity swaps are also known as
+   <i>
+    equity-linked swaps
+   </i>
+   and
+   <i>
+    equity-indexed swaps
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Equity swaps are not traded on an exchange but are privately negotiated. They are referred to as over-the-counter (OTC) contracts. One of the firstknown equity swap agreements was offered by the Bankers Trust in 1989. Since then, the market for equity swaps and other equity-linked derivatives has grown rapidly. There are no exact figures on the size of the market. However, the Bank for International Settlements (BIS) provides market size estimates. According to BIS, the estimate of the worldwide total notional amounts outstanding of equity swaps and equity forwards was over $300 trillion as of December 2007.
+  </p>
+  <p block-type="Text">
+   Equity swaps provide means to get exposure to the underlying stock or index without making a direct investment. Because equity swaps are OTCcontracts, they can be tailor-made to specific needs. The contracts have been used to circumvent barriers for direct investments in particular markets, bypass various taxes, and minimize transaction costs.
+  </p>
+  <h1>
+   <b>
+    Defining Equity Swaps
+   </b>
+  </h1>
+  <p block-type="Text">
+   Let {
+   <i>
+    T
+   </i>
+   0
+   <i>
+    , T
+   </i>
+   1
+   <i>
+    ,...,TM
+   </i>
+   } be a sequence of dates. This is the
+   <i>
+    tenor structure
+   </i>
+   and we denote it by T. For a given day-count convention, we specify a sequence of year fractions
+   <sup>
+    a
+   </sup>
+   {
+   <i>
+    δ
+   </i>
+   1
+   <i>
+    , δ
+   </i>
+   2
+   <i>
+    ,...,δM
+   </i>
+   } to
+   <sup>
+    T
+   </sup>
+   . We denote the counterparties by
+   <i>
+    A
+   </i>
+   and
+   <i>
+    B
+   </i>
+   .
+  </p>
+  <h3>
+   <b>
+    Definition 1 A generic equity swap
+   </b>
+  </h3>
+  <p block-type="TextInlineMath" class="has-continuation">
+   <i>
+    An equity swap with tenor structure
+   </i>
+   T
+   <i>
+    is a contract that starts at time T
+   </i>
+   <sup>
+    0
+   </sup>
+   <i>
+    and has payment dates T
+   </i>
+   1
+   <i>
+    , T
+   </i>
+   2
+   <i>
+    , ... , TM . At each payment date Ti for i
+   </i>
+   = 1
+   <i>
+    ,
+   </i>
+   2
+   <i>
+    , ...M, the two counterparties A and B exchange payments. At least one of the payments will be based
+   </i>
+  </p>
+  <p block-type="Text">
+   <i>
+    on the return of a stock or an equity index over the period
+   </i>
+   [
+   <i>
+    Ti
+   </i>
+   <sup>
+    −
+   </sup>
+   1
+   <i>
+    , Ti
+   </i>
+   ]
+   <i>
+    .
+   </i>
+  </p>
+  <p block-type="Text">
+   In general, the cash flows are specified in such a way that the initial value, at time
+   <i>
+    T
+   </i>
+   0, of the swap equals zero. Usually the equity swap pays out the total return of the underlying stock or equity index including dividends. However, there are also variants where the dividend is excluded.
+  </p>
+  <p block-type="Text">
+   A swap contract has a notional principal.
+   <sup>
+    b
+   </sup>
+   It is a currency amount specified in the swap contract that determines the size of the payments expressed in currency units. While the notional principal of a bond, for instance, is paid out at maturity, the notional principal of a swap contract is, in general, never exchanged. Equity swaps can be classified into two categories depending on whether the notional principal is constant or varies over the lifetime of the swap. We focus on the former case, which is considered in the next section.
+  </p>
+  <h2>
+   <i>
+    Contracts with Fixed Notional Principal
+   </i>
+  </h2>
+  <p block-type="TextInlineMath">
+   Let
+   <i>
+    N
+   </i>
+   denote the fixed notional principal. Let {
+   <i>
+    Z(t)
+   </i>
+   } denote the price process of a stock or an equity index. Define the
+   <i>
+    period return R(Ti, Ti
+   </i>
+   <sup>
+    +
+   </sup>
+   1
+   <i>
+    )
+   </i>
+   over the interval [
+   <i>
+    Ti, Ti
+   </i>
+   +1] for asset
+   <i>
+    Z
+   </i>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R(T_i, T_{i+1}) = \frac{Z(T_{i+1})}{Z(T_i)} - 1 \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Definition 2 A generic equity-for-fixed-rate swap
+   </b>
+  </p>
+  <p block-type="Text">
+   <i>
+    An equity-for-fixed-rate swap, with tenor structure
+   </i>
+   T
+   <i>
+    , which is written on the equity Z will have a predetermined swap rate K and will give rise to the following payments between the counterparties A and B at each payment date Ti:
+   </i>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <i>
+      A pays to B the amount: NR(Ti
+     </i>
+     <sup>
+      −
+     </sup>
+     1
+     <i>
+      , Ti).
+     </i>
+    </li>
+    <li block-type="ListItem">
+     <i>
+      B pays to A the amount: NδiK.
+     </i>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   In general, the swap rate is chosen such that the initial value of the swap at time
+   <i>
+    T
+   </i>
+   <sup>
+    0
+   </sup>
+   equals zero.
+  </p>
+  <p block-type="Text">
+   In its most simple form, this contract is referred to as a
+   <i>
+    plain vanilla equity swap
+   </i>
+   . The period return is then determined by a domestic asset or index and the nominal amount is expressed in units of the domestic currency. Examples can be found in [5] and [8].
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Some equity swaps are structured so that instead of a fixed swap rate they pay a floating interest rate,
+  </p>
+  <p block-type="TextInlineMath">
+   usually a LIBOR rate. Let
+   <math display="inline">
+    L(T_i, T_{i+1})
+   </math>
+   denote the simple spot rate over the period
+   <math display="inline">
+    [T_i, T_{i+1}]
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    Definition 3 A generic equity-for-floating-rate
+   </b>
+   swap
+  </h2>
+  <p block-type="Text">
+   An equity-for-floating-rate swap, with tenor structure
+   <math display="inline">
+    T
+   </math>
+   , which is written on the equity Z will give rise to the following payments between the counterparties A and B at each payment date
+   <math display="inline">
+    T_i
+   </math>
+   :
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     A pays to B the amount:
+     <math display="inline">
+      NR(T_{i-1}, T_i)
+     </math>
+     . .
+    </li>
+    <li block-type="ListItem">
+     B pays to A the amount:
+     <math display="inline">
+      N\delta_i
+     </math>
+     <math display="inline">
+      (L(T_{i-1}, T_i) + s)
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    s
+   </math>
+   is a constant rate such that the initial value of the swap at time
+   <math display="inline">
+    T_0
+   </math>
+   equals zero.
+  </p>
+  <p block-type="Text">
+   An equity-for-floating swap can be decomposed into an equity-for-fixed swap and a suitably chosen interest rate swap (see LIBOR Rate and [2]).
+  </p>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    R_1
+   </math>
+   and
+   <math display="inline">
+    R_2
+   </math>
+   denote the return of assets
+   <math display="inline">
+    Z_1
+   </math>
+   and
+   <math display="inline">
+    Z_2
+   </math>
+   , respectively.
+  </p>
+  <h4>
+   <b>
+    Definition 4 A generic equity-for-equity swap
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   An equity-for-equity swap, with tenor structure T, which is written on the equities
+   <math display="inline">
+    Z_1
+   </math>
+   and
+   <math display="inline">
+    Z_2
+   </math>
+   , will give rise to the following payments between the counterparties A and B at each payment date
+   <math display="inline">
+    T_i
+   </math>
+   :
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     A pays to B the amount:
+     <math display="inline">
+      NR_1(T_{i-1}, T_i)
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+     B pays to A the amount:
+     <math display="inline">
+      N(R_2(T_{i-1}, T_i) + s\delta_i)
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   where s is the constant rate such that the initial value of the swap at time
+   <math display="inline">
+    T_0
+   </math>
+   equals zero.
+  </p>
+  <p block-type="Text">
+   The equity-for-equity swap is also referred to as a two-way equity swap. The simplest contract of this type is a domestic equity-for-equity swap where both returns are based on domestic indices or assets.
+  </p>
+  <p block-type="Text">
+   So far, we have only considered domestic equity indices and assets. However, all of the three equity swaps mentioned above have versions where one or both cash flows are based on a foreign equity return or interest rate. They are so called
+   <i>
+    cross-currency swaps
+   </i>
+   .
+  </p>
+  <p block-type="Text" class="has-continuation">
+   To illustrate a cross-currency equity swap, suppose that the United States is the domestic market. Let the notional principal be expressed in US dollars. Let
+   <math display="inline">
+    Z_1
+   </math>
+   be a foreign equity index such as, for instance, the NIKKEI, while
+   <math display="inline">
+    Z_2
+   </math>
+   is a domestic equity index such as the S&amp;P 500. The period return
+   <math display="inline">
+    R_1
+   </math>
+   is based on a foreign equity index, while the nominal amount is in domestic units. There is a currency mismatch in the cash flow that
+   <math display="inline">
+    A
+   </math>
+   pays (but none in the cash
+  </p>
+  <p block-type="Text">
+   flow that
+   <math display="inline">
+    B
+   </math>
+   pays). This type of contract is referred to as a
+   <i>
+    quanto
+   </i>
+   swap (see also
+   <b>
+    Quanto Options
+   </b>
+   ). Quanto swaps are more complicated to price than other swaps. Quanto contracts have been considered in
+   <math display="inline">
+    [3, 4]
+   </math>
+   and
+   <math display="inline">
+    [7]
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   From a pricing and hedging perspective, the simplest cross-currency swaps are the ones that are currency adjusted. Consider a cross-currency equityfor-equity swap with currency-adjusted returns. Let
+   <math display="inline">
+    Z_1
+   </math>
+   be a foreign equity, while
+   <math display="inline">
+    Z_2
+   </math>
+   is a domestic equity. Let
+   <math display="inline">
+    X(t)
+   </math>
+   denote the exchange rate expressed as the number of domestic currency units per foreign currency unit. Then the currency-adjusted period return over the interval
+   <math display="inline">
+    [T_i, T_{i+1}]
+   </math>
+   for the asset
+   <math display="inline">
+    Z_1
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R_1(T_i, T_{i+1}) = \frac{X(T_{i+1})Z_1(T_{i+1})}{X(T_i)Z_1(T_i)} - 1 \qquad (2)
+   </math>
+  </p>
+  <p block-type="Text">
+   While the unit of
+   <math display="inline">
+    Z_1(t)
+   </math>
+   is foreign currency, the unit of
+   <math display="inline">
+    Z_1(t)X(t)
+   </math>
+   is domestic currency. Regarding the underlying index as the foreign asset times the exchange rate,
+   <math display="inline">
+    R_1
+   </math>
+   can be treated as the return on a domestic index. A cross-currency equity-for-equity swap that is currency adjusted is, from a valuation point of view, equal to a domestic equity-for-equity swap.
+  </p>
+  <h4>
+   Contracts with Variable Notional Principal
+  </h4>
+  <p block-type="Text">
+   Some equity swaps are constructed with a variable notional principal. A variable notional principal changes over time according to changes in the referenced equity index.
+  </p>
+  <p block-type="Text">
+   Consider an equity-for-fixed-rate swap. It can essentially be regarded as a leveraged position in the underlying equity. If the notional principal is constant, the realized returns from the equity index are withdrawn in each period, resulting in a position that is rebalanced periodically. If the notional principal is variable, the realized returns in each period are reinvested.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    N_i
+   </math>
+   denote the variable notional principal, which determines the size of the payments at time
+   <math display="inline">
+    T_i
+   </math>
+   for
+   <math display="inline">
+    i = 1, 2, ..., M
+   </math>
+   . Let
+   <math display="inline">
+    N_1 = 1
+   </math>
+   and
+   <math display="inline">
+    N_i =
+   </math>
+   <math display="inline">
+    Z(T_{i-1})/Z(T_0)
+   </math>
+   for
+   <math display="inline">
+    i = 2, 3, ..., M
+   </math>
+   . Thus, for instance, at the third payment date
+   <math display="inline">
+    T_3
+   </math>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <i>
+      A
+     </i>
+     pays to
+     <i>
+      B
+     </i>
+     the amount:
+     <math display="inline">
+      \frac{Z(T_2)}{Z(T_0)}R(T_2, T_3)
+     </math>
+     .&lt;br&gt;
+     <i>
+      B
+     </i>
+     pays to
+     <i>
+      A
+     </i>
+     the amount:
+     <math display="inline">
+      \frac{Z(T_2)}{Z(T_0)}\delta_3 K
+     </math>
+     .
+    </li>
+    <li block-type="ListItem">
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Equity swaps with variable notional principals are treated in [2, 6] and [9].
+  </p>
+  <h2>
+   <i>
+    More Equity Swaps &amp; Strategies
+   </i>
+  </h2>
+  <p block-type="Text">
+   There can be many variations of the equity swaps listed so far. For instance, there can be more than one tenor structure, that is, the payments made by
+   <i>
+    A
+   </i>
+   and
+   <i>
+    B
+   </i>
+   can have different periodicity. It is also possible to make forward agreements to enter into a swap contract in the future. Such contracts are known as
+   <i>
+    forward swaps
+   </i>
+   or
+   <i>
+    deferred swaps
+   </i>
+   . There are also equity swaps with option features like
+   <i>
+    capped equity swaps
+   </i>
+   and
+   <i>
+    barrier equity swaps
+   </i>
+   . Further examples are
+   <i>
+    blended index swaps
+   </i>
+   and
+   <i>
+    outperformance swaps
+   </i>
+   (see [2, 6] and [8]).
+  </p>
+  <p block-type="Text">
+   We conclude by providing an example of how equity swaps were used in the United States during the 1990s to circumvent taxes. The executive equity swap strategies were developed for large single stock shareholders, for instance, a founder of a company. The swap was constructed so that the shareholder made payments based on the return of the stock to the swap contractor. In exchange, the shareholder received either a fixed interest rate or the return of a large equity index such as S&amp;P 500. By entering into such a contract, the stockholder could keep the stocks and the voting rights, but still reduce the risk of the total portfolio and avoid capital gains taxes. As a result, the tax regulation was changed. The new regulation states that taxpayers should recognize that transactions that are essentially equivalent to a sale should be treated as such and thus be taxed. For a more detailed description on this topic, see [1] and [8].
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   For instance, if the convention "Actual/365" is used,
+   <i>
+    δ
+   </i>
+   <sup>
+    1
+   </sup>
+   is equal to the number of days between the dates
+   <i>
+    T
+   </i>
+   <sup>
+    0
+   </sup>
+   and
+   <i>
+    T
+   </i>
+   1, divided by 365.
+  </p>
+  <p block-type="Text">
+   b
+   <i>
+    .
+   </i>
+   Sometimes called
+   <i>
+    face value
+   </i>
+   .
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bolster, P., Chance, D. &amp; Rich, D. (1996). Executive equity swaps and corporate insider holdings,
+     <i>
+      Financial Managment
+     </i>
+     <b>
+      25
+     </b>
+     (2), 14–24.
+    </li>
+    <li block-type="ListItem">
+     [2] Chance, D. &amp; Rich, D. (1998). The pricing of equity swaps and swaptions,
+     <i>
+      The Journal of Derivatives
+     </i>
+     <b>
+      5
+     </b>
+     , 19–31.
+    </li>
+    <li block-type="ListItem">
+     [3] Chung, S. &amp; Yang, H. (2005). Pricing quanto equity swaps in a stochastic interest rate economy,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      12
+     </b>
+     (2), 121–146.
+    </li>
+    <li block-type="ListItem">
+     [4] Hinnerich, M. (2007).
+     <i>
+      Derivatives Pricing and Term Structure Modeling
+     </i>
+     . PhD Thesis, Stockholm School of Economics, EFI, The Economic Research Institute, Stockholm.
+    </li>
+    <li block-type="ListItem">
+     [5] Jarrow, R. &amp; Turnbull, S. (1996).
+     <i>
+      Derivative Securities
+     </i>
+     , South-Western Publishing, Cincinnati.
+    </li>
+    <li block-type="ListItem">
+     [6] Kijima, M. &amp; Muromachi, Y. (2001). Pricing equity swaps in a stochastic interest rate economy,
+     <i>
+      The Journal of Derivatives
+     </i>
+     <b>
+      8
+     </b>
+     , 19–35.
+    </li>
+    <li block-type="ListItem">
+     [7] Liao, M. &amp; Wang, M. (2003). Pricing models of equity swaps,
+     <i>
+      The Journal of Futures Markets
+     </i>
+     <b>
+      23
+     </b>
+     (8), 121–146, 751–772.
+    </li>
+    <li block-type="ListItem">
+     [8] Marshall, J. &amp; Yuyuenyonwatana, R. (2000). Equity swaps: structures, uses, and pricing, In
+     <i>
+      Handbook of Equity Derivatives
+     </i>
+     , Jack C. Francis, William W. Toy, &amp; J.G. Whittaker, eds, Wiley, New York.
+    </li>
+    <li block-type="ListItem">
+     [9] Wu, T. &amp; Chen, S. (2007). Equity swaps in a libor market model,
+     <i>
+      The Journal of Futures Markets
+     </i>
+     <b>
+      27
+     </b>
+     (9), 893–920.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="Text">
+   Chance, D. (2004). Equity swaps and equity investing,
+   <i>
+    The Journal of Alternative Investing
+   </i>
+   <b>
+    7
+   </b>
+   , 75–97.
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Equity Default Swaps
+   </b>
+   ;
+   <b>
+    Forwards and Futures
+   </b>
+   ;
+   <b>
+    LIBOR Rate
+   </b>
+   ;
+   <b>
+    Quanto Options
+   </b>
+   ;
+   <b>
+    Total Return Swap
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   MIA HINNERICH
+  </p>
+ </body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Barrier Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   Barrier options are vanilla options with path-dependent payoffs, that is, the payoff is not only a function of stock level relative to option strike but also dependent upon whether or not the stock reaches certain prespecified barrier level before maturity. An example will illustrate the idea. Suppose an investor is long an up-and-in at-the-money call option on the S&amp;P 500 index with barrier level at 110% of the initial S&amp;P 500 index level. Before maturity, if the index never reaches 110% of the initial index level, the option never gets knocked in. The investor receives nothing at maturity. However, if the index level reaches 110% at some point before maturity, the investor receives a payoff identical to a vanilla at-themoney call option at maturity. In the latter scenario, the option is "knocked in" on the day when the index reaches 110% level.
+  </p>
+  <p block-type="Text">
+   There are many types of barrier options. We discuss two common ones, that is, knock-out and knockin barrier options. For knock-out barrier options, the option will be knocked out and become worthless if the underlying asset crosses a prespecified barrier level. For knock-in barrier options, the barrier option will be knocked in and become a vanilla option only if the underlying asset crosses the prespecified level before maturity. The example used earlier is a knockin barrier option.
+  </p>
+  <p block-type="Text">
+   Depending upon the barrier level relative to the initial underlying asset level, we can have an "up" barrier or a "down" barrier. If the barrier is above the initial underlying asset level, it is called an
+   <i>
+    up barrier
+   </i>
+   . If the barrier is below the initial underlying asset level, it is called a
+   <i>
+    down barrier
+   </i>
+   . Together, we can have four different variations of barrier options, that is, up-and-in, up-and-out, down-and-in, and downand-out options. Table 1 shows these four variations schematically.
+  </p>
+  <h1>
+   <b>
+    Basic Features
+   </b>
+  </h1>
+  <h1>
+   <i>
+    Up-and-in Call/Up-and-in Put
+   </i>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   This is the first kind of knock-in barrier options. The up-and-in barrier option has a knock-in barrier level, which is higher than the initial underlying asset level. Before maturity, if the underlying asset goes above
+  </p>
+  <p block-type="Text">
+   the barrier level, the barrier option will be knocked in and become a vanilla option. Otherwise, the barrier option will expire worthless at maturity. Up-and-in calls are more common. This is because, when the underlying asset increases to knock-in barrier level, it would most likely stay above the initial underlying asset level. Therefore, call options will be more likely be in the money at maturity than put options. Bullish investors can buy up-and-in call options and pay a lower premium than that on the vanilla call options. This makes the on up-and-in calls more leveraged than vanilla calls.
+  </p>
+  <h1>
+   <i>
+    Down-and-in Call/Down-and-in Put
+   </i>
+  </h1>
+  <p block-type="Text">
+   The down-and-in barrier option has a knock-in barrier level, which is below the initial underlying asset level. Before the maturity, if the underlying asset goes below the barrier level the barrier option will be knocked in and become a vanilla option. Otherwise, the barrier option will expire worthless at maturity. Down-and-in puts are more common in this case. Bearish investors can buy down-and-in puts and pay a lower premium than that on the vanilla put options.
+  </p>
+  <h1>
+   <i>
+    Up-and-out Call/Up-and-out Put
+   </i>
+  </h1>
+  <p block-type="Text">
+   This is the first kind of knock-out barrier options. The up-and-out barrier option has a knock-out barrier level above the initial underlying asset level. Before maturity, if the underlying asset crosses the barrier level, the option will be knocked out and become worthless. Otherwise, the barrier option will just be a vanilla option. A bearish investor would buy up-andout puts to achieve more leverage by paying a lower premium than that on vanilla puts.
+  </p>
+  <h1>
+   <i>
+    Down-and-out Call/Down-and-out Put
+   </i>
+  </h1>
+  <p block-type="Text">
+   The down-and-out barrier option has a knock-out barrier level below the initial underlying asset level. Before maturity, if the underlying asset goes below the barrier level, the option will be knocked out and become worthless. A bullish investor would buy down-and-out calls to achieve more leverage by paying a lower premium than that on vanilla calls.
+  </p>
+  <h1>
+   <b>
+    Some Variations
+   </b>
+  </h1>
+  <p block-type="Text">
+   With increased popularity of barrier options and growth of its market, some other features are being
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+     </th>
+     <th>
+      Knock in
+     </th>
+     <th>
+      Knock out
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Up barrier
+     </td>
+     <td>
+      Up-and-in call
+     </td>
+     <td>
+      Up-and-out call
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      Up-and-in put
+     </td>
+     <td>
+      Up-and-out put
+     </td>
+    </tr>
+    <tr>
+     <td rowspan="2">
+      Down barrier
+     </td>
+     <td>
+      Down-and-in call
+     </td>
+     <td>
+      Down-and-out call
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Down-and-in put
+     </td>
+     <td>
+      Down-and-out put
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Common barrier types
+  </p>
+  <p block-type="Text">
+   introduced to better meet investors' needs. In the following, we discuss briefly some of the most popular variations to basic knock-in/knock-out barrier options.
+  </p>
+  <h1>
+   <i>
+    Rebates
+   </i>
+  </h1>
+  <p block-type="Text">
+   It is fairly common that a knock-out barrier option pays a rebate on a knock-out event to compensate the investor for the loss of the option. The rebate is typically a small amount and paid either immediately or deferred to the maturity. For knock-in barrier options, a rebate will be paid out at maturity if the barrier is never knocked in.
+  </p>
+  <h1>
+   <i>
+    Double Barrier
+   </i>
+  </h1>
+  <p block-type="Text">
+   A double barrier option is another variation that has two barriers, typically one up barrier and the other a down barrier. For example, investors seeking high leverage would consider double knock-out barrier options if they believe changes in the underlying asset level would be within a narrow range. The double knock-out barrier option would become worthless if the underlying asset drops below the down barrier or rises above the up barrier before maturity. Because of that, the double knock-out barrier option costs less than the single knock-out barrier option and thus provides more leverage.
+  </p>
+  <p block-type="Text">
+   Another popular variation of double barrier is the knock-in option with a knock-out barrier. The knockin barrier option can be knocked out either before or after the option is knocked in. If the option can be knocked out even before the option is knocked in, this is called
+   <i>
+    knock-out dominant barrier option
+   </i>
+   . Again, this type of double barrier options provides more leverage than a single barrier option because it costs less than the single knock-in barrier option.
+  </p>
+  <h1>
+   <i>
+    Discrete Barrier
+   </i>
+  </h1>
+  <p block-type="Text">
+   The barrier specification varies from contract to contract. Many barrier options have the so-called continuous barrier or intraday barrier. This means that the barrier event can be triggered any time during intraday trading hours. However, some barrier options only allow the barrier event to be triggered by the end-of-day closing price. This is called
+   <i>
+    discrete barrier
+   </i>
+   . More generally, a discrete barrier is defined as any barrier type other than the continuous barrier.
+  </p>
+  <h1>
+   <i>
+    American Style Exercise
+   </i>
+  </h1>
+  <p block-type="Text">
+   Although it is not very common, there are a few types of barrier options that have American exercise feature. One example would be a six-month at-themoney call option with installment premium, that is, the premium would be paid monthly instead of a lump sum upfront. The knock-out barrier is at 90% of the initial underlying asset level. The option will be knocked out if the underlying asset drops below the knock-out barrier level before maturity. In addition, the option would be terminated automatically if the investor stops paying the installment premium on monthly reset dates. This installment feature provides more flexible financing for investors because they pay the premium over a period of time instead of paying the lump sum up front. It also allows investors to re-evaluate the market condition and decide if it is optimal to continue the knock-out option or terminate it.
+  </p>
+  <h1>
+   <b>
+    Valuation of Barrier Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   Barrier options are less expensive than vanilla options because of the possibility that the barrier option would be knocked out or knocked in. There are many publications on how to price barrier options (see [2, 7] for a good summary). In general, the valuation of barrier options needs to take into account stock-level dependency of volatility dynamics, that is, local volatility surface. This requires using numerical methods like partial differential equations (
+   <i>
+    see
+   </i>
+   <b>
+    Finite Difference Methods for Barrier Options
+   </b>
+   ) or Monte Carlo simulation. In certain situations, the barrier options can be priced by using the static replication method (see [3, 4]).
+  </p>
+  <h1>
+   <i>
+    In–Out Parity
+   </i>
+  </h1>
+  <p block-type="Text">
+   Similar to put–call parity for the vanilla options, there is an interesting relationship between knockin and knock-out barrier option. Using call options as example, an up-and-out call is complimentary to an up-and-in call if both have the same strike and barrier level. A portfolio of one up-and-in call and one up-and-out call will have the same payoff at maturity as a vanilla call option. The reason is simple. If the underlying asset stays below the barrier level before maturity, the up-and-in call will become worthless and the up-and-out call will become a vanilla call. On the other hand, if the underlying asset rises above the barrier level, the up-and-out call will become worthless and the up-and-in call will become a vanilla call. Therefore, for any given scenario of the underlying asset path before maturity, the portfolio will always have the same payoff as a vanilla call. The sum of an up-and-in call and an up-and-out call is the same as a vanilla call. This is so-called in–out parity for barrier options and applies to both the put and call options in the absence of rebates.
+  </p>
+  <h1>
+   <i>
+    Constant Volatility
+   </i>
+  </h1>
+  <p block-type="Text">
+   In the limit of constant volatility, Merton [5] provided the first analytical formula for a down-and-out call option. Later on, Reiner and Rubinstein [6] extended the formula for all eight combinations of barriers (
+   <i>
+    see
+   </i>
+   <b>
+    Pricing Formulae for Foreign Exchange Options
+   </b>
+   ).
+  </p>
+  <h1>
+   <i>
+    Adjustment for Discrete Barrier
+   </i>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   Often, the barrier option has a discrete barrier schedule but the exact valuation is only available for the case of continuous barrier. In the constant volatility
+  </p>
+  <p block-type="TextInlineMath">
+   case, Broadie
+   <i>
+    et al.
+   </i>
+   [1] proposed that, by adjusting the barrier level in the continuous barrier option valuation, one would obtain a good approximation of the discrete barrier option value. The adjustment to the barrier level is prescribed by the following formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{\text{adj}} = X e^{\alpha \sigma} \sqrt{T/m} \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    α
+   </i>
+   is 0.5826 for an "up" barrier and −0.5826 for a "down" barrier,
+   <i>
+    m
+   </i>
+   is the number of discrete samples of the underlying asset price over the term
+   <i>
+    T
+   </i>
+   of the barrier option, and
+   <i>
+    σ
+   </i>
+   is the constant volatility.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Broadie, M., Glasserman, P. &amp; Kou, S.G. (1997). A continuity correction for discrete barrier options,
+     <i>
+      Journal of Mathematical Finance
+     </i>
+     <b>
+      7
+     </b>
+     , 325–349.
+    </li>
+    <li block-type="ListItem">
+     [2] Briys, E., Bellalah, M., Mai, H.M. &amp; de Varenne, F. (1998).
+     <i>
+      Options, Futures and Exotic Derivatives—Theory, Application and Practice
+     </i>
+     , Wiley Frontiers in Finance.
+    </li>
+    <li block-type="ListItem">
+     [3] Carr, P. &amp; Chou, A. (1997). Breaking barriers,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      10
+     </b>
+     , 139–144.
+    </li>
+    <li block-type="ListItem">
+     [4] Derman, E., Ergener, D. &amp; Kani, I. (1997). Static options replication, in
+     <i>
+      Frontiers in Derivatives
+     </i>
+     , Irwin Professional Publishing.
+    </li>
+    <li block-type="ListItem">
+     [5] Merton, R. (1971). Theory of rational option pricing,
+     <i>
+      Bell Journal of Economics and Management
+     </i>
+     <b>
+      4
+     </b>
+     , 141–183.
+    </li>
+    <li block-type="ListItem">
+     [6] Reiner, E. &amp; Rubinstein, M. (1991). Breaking down barriers,
+     <i>
+      Risk Magazine
+     </i>
+     <b>
+      4
+     </b>
+     , 28–35.
+    </li>
+    <li block-type="ListItem">
+     [7] Wilmott, P. (1998).
+     <i>
+      Derivatives—The Theory and Practice of Financial Engineering
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Finite Difference Methods for Barrier Options
+   </b>
+   ;
+   <b>
+    Pricing Formulae for Foreign Exchange Options
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   MICHAEL QIAN
+  </p>
+ </body>
+</html>

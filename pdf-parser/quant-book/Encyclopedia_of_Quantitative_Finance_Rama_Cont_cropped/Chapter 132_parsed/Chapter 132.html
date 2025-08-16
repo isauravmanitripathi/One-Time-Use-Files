@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Volatility Index Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   Volatility index options are options on a volatility index. Volatility index options enable one to take a pure volatility exposure without the need to take positions in the index itself and without the need to delta-hedge. These features make these options very interesting for pure volatility trades and bets. They also allow one to trade the spread between realized and implied volatility, or to hedge the volatility exposure of other positions or businesses, without being contaminated by the index price dependence like in the standard index options. This explains their popularity among traders and hedge funds.
+  </p>
+  <p block-type="Text">
+   Originally, volatility index options were traded over the counter (OTC), and a large part is still traded OTC, through volatility and variance swaps (
+   <i>
+    see
+   </i>
+   <b>
+    Variance Swap
+   </b>
+   ). In February 2006, the Chicago board option exchange (CBOE) realized the interest in the financial community for exchanged standardized volatility index options and started offering standardized options first on the VIX (which is the CBOE volatility index) and later on the Russel 2000 volatility index. In Europe, although the major exchanges have already developed volatility on the major indexes (and futures on these) like the VDAX, FTSE 100 volatility index, VSTOXX, VCAC, or VSMI, they still do not offer any options on these indexes.
+  </p>
+  <h2>
+   <b>
+    Volatility Index
+   </b>
+  </h2>
+  <p block-type="Text">
+   The underlying volatility index is computed from option prices to capture information from the options market by some means. The overall idea of index volatility is to provide a good estimate of the socalled implied volatility extracted from the options market, as opposed to the historical volatility. More precisely, the aim is to estimate the risk-neutral market's expectation of the future volatility. In the specific case of the VIX, the formula is public and weights the various options as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma^2 = \sum_i \frac{2\Delta K_i}{T_i K_i^2} e^{RT} Q(K_i) - \frac{1}{T_i} \left(\frac{F}{K_0} - 1\right)^2 \quad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    σ
+   </i>
+   is the
+   <i>
+    VIX/
+   </i>
+   100, or equivalently,
+   <i>
+    VIX
+   </i>
+   = 100
+   <i>
+    σ
+   </i>
+   ,
+   <i>
+    Ti
+   </i>
+   the time to expiration of the
+   <i>
+    i
+   </i>
+   th option,
+   <i>
+    F
+   </i>
+  </p>
+  <p block-type="TextInlineMath">
+   the forward index level derived from option prices,
+   <i>
+    K
+   </i>
+   <sup>
+    0
+   </sup>
+   the highest strike just below the forward index level,
+   <i>
+    F
+   </i>
+   ,
+   <i>
+    Ki
+   </i>
+   the strike price of the
+   <i>
+    i
+   </i>
+   th option: a call if
+   <i>
+    Ki &gt; K
+   </i>
+   0, a put if
+   <i>
+    Ki &lt; K
+   </i>
+   <sup>
+    0
+   </sup>
+   and both call and put for
+   <i>
+    Ki
+   </i>
+   =
+   <i>
+    K
+   </i>
+   0,
+   <i>
+    -Ki
+   </i>
+   the interval between strike prices,
+   <i>
+    R
+   </i>
+   the risk-free rate to expiration, and
+   <i>
+    Q(Ki)
+   </i>
+   the midpoint of the bid–ask spread for each options with strike
+   <i>
+    Ki
+   </i>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The CBOE calculates and publishes minute-tominute the VIX using real-time bid–ask market quotes of options on S &amp; P500 index (SPX) with nearby and second nearby maturities and applying the multiplier of $100. Overall, the VIX reflects market's view of the future short term volatility. A high value of the index indicates a more volatile market, while a low value indicates a less volatile environment. Often referred to as the
+   <i>
+    fear index
+   </i>
+   , it represents one measure of the market's expectation of volatility over the next 30-day period. In short term, bias can explain some key differences between the VIX and the overall market sentiment. This is particularly true at times when the most liquid options are in the range of 2–6 months to expiration. Therefore, VIX tries to quantify the market volatility, mainly focusing on short term, being unable to completely explain the market volatility, which is a complex concept.
+  </p>
+  <p block-type="Text">
+   It is worth noting that VIX is computed to be the square root of the par variance swap rate (
+   <i>
+    see
+   </i>
+   <b>
+    Variance Swap
+   </b>
+   ), and not the volatility swap rate (
+   <i>
+    see
+   </i>
+   <b>
+    Volatility Swaps
+   </b>
+   ). This is because variance swap can be perfectly, statically replicated through vanilla puts and calls, whereas volatility swap requires dynamic hedging [1]. We will discuss this point later in the section on pricing.
+  </p>
+  <p block-type="Text">
+   VIX options are European call and put options on the VIX index, with strikes ranging from 10 to 65 (with interval of 1 and 2.5 points for liquid and 5 points for less liquid points), while maturities are up to 6 months. Like many other listed options, VIX options are quoted with a multiplier of $100. The expiration date is roughly speaking the third Wednesday of the expiry month. More details can be found on the CBOE website [3].
+  </p>
+  <h1>
+   <b>
+    Pricing Models
+   </b>
+  </h1>
+  <p block-type="Text">
+   In terms of pricing, roughly speaking there are two methods to price index volatility options:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     a model-dependent approach that assumes a model for the index volatility diffusion and provides a closed-form formula of call and put options;
+    </li>
+    <li block-type="ListItem">
+     a model-free approach that computes the cost of the static hedge to replicate the volatility index option.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Historically, the model-dependent approach has been the first to emerge. Successively, among others, Whaley [11], Grunbichler and Longstaff [6], Howison
+   <i>
+    et al.
+   </i>
+   [7], and Elliott
+   <i>
+    et al.
+   </i>
+   [5], and lately Sepp [9, 10], presented the model-dependent approaches to price volatility index options. They all assume an underlying stochastic process for the index volatility (or the index volatility futures) and explicitly compute the price of the call and put options.
+  </p>
+  <p block-type="Text">
+   The first model-dependent approach presented by Whaley [11] assumed a log normal diffusion for the VIX cash index and the VIX futures leading to a standard Black–Scholes formula for the VIX call options as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(T, F, K) = D_T \left[ FN(d_+) - KN(d_-) \right] \quad (2)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_{\pm} = \frac{\ln\frac{F}{K} \pm \frac{1}{2}T\sigma^2}{\sqrt{T}\sigma} \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <i>
+    C(T , F , K)
+   </i>
+   stands for the value of the call option with expiry time
+   <i>
+    T
+   </i>
+   , strike
+   <i>
+    K
+   </i>
+   , and forward
+  </p>
+  <p block-type="Text">
+   price
+   <i>
+    F
+   </i>
+   , and where
+   <i>
+    σ
+   </i>
+   is the volatility of the futures price,
+   <i>
+    DT
+   </i>
+   is the discount factor expiring at time
+   <i>
+    T
+   </i>
+   , and
+   <i>
+    N (x)
+   </i>
+   is the cumulative normal distribution up to
+   <i>
+    x
+   </i>
+   . A straightforward drawback of the Whaley approach was the strong log normal underlying assumption. This motivated further research and led to many works. Grunbichler and Longstaff [6] proposed a mean-reverting square root process for the volatility process. Following the popularity of stochastic volatility, Howison [7] and Elliot [5] suggested to use stochastic volatility model for the index volatility to capture the risk of volatility for the index volatility. Moreover, because it is well known that index volatility is upward sloping, the stochastic volatility approach, which can cope with this important feature, was an appealing modeling choice. Figure 1, for instance, gives the VIX smile for 27 July 2009.
+  </p>
+  <p block-type="Text">
+   Lately, Sepp [9, 10] argued in favor of adding jumps to the stochastic volatility model to get a more realistic diffusion for the index volatility. This was supported by the econometric works that confirmed the evidence of jumps for the volatility index.
+  </p>
+  <p block-type="Text">
+   To sum up, the model-dependent approach aims at modeling the index volatility evolution as accurately as possible and providing a very consistent framework for pricing any type of option on index volatility. The strength is the flexibility in terms of pricing as there is no limitation for the types of options. The
+  </p>
+  <p>
+   <img src="_page_1_Figure_11.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   VIX Smile
+  </p>
+  <p block-type="Text">
+   weakness is the strong assumption of a specific model and distribution for the index volatility.
+  </p>
+  <p block-type="Text">
+   Another approach initiated by Neuberger [8], Demeter
+   <i>
+    et al.
+   </i>
+   [4], Carr and Lee [1], and Carr and Wu [2] is to exhibit a static hedge and compute in a model free way the price of this hedge using call and put options on the index itself. In a very insightful paper, Demeter
+   <i>
+    et al.
+   </i>
+   [4] showed that a static portfolio of call and puts options on the volatility index can replicate a variance swap. Lately, Carr and Lee [1] and Carr and Wu [2] extended the closed form formula to the case of both the variance and the volatility swap. The starting point is to assume a pure diffusion given as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = \mu_t S_t dt + \sigma(t, \ldots) S_t dW_t \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    µ
+   </i>
+   is the drift term and
+   <i>
+    σ (t, . . .)
+   </i>
+   is a very general volatility function (that can be assumed to be a local volatility for the clarity of the explanation). A trivial application of the Ito lemma on log ˆ
+   <i>
+    (St)
+   </i>
+   provides the main intuition and leads to the fact that one can relate the volatility to a log contract as follows:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_t}{S_t} - \mathrm{d}\log(S_t) = \frac{1}{2}\sigma^2(t,\ldots)\,\mathrm{d}t\tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   Like any function of the underlying asset, the log contract can be replicated by a series of call and put options. This leads, in particular, to the Par swap rate of a variance swap as follows (referred in the literature as the replication variance swap price):
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K_{\text{Var}} = \frac{2}{T} \left[ rT - \left( \frac{S_0}{S_*} e^{rT} - 1 \right) - \log \left( \frac{S_*}{S_0} \right) \right. \\ + e^{rT} \int_0^{S_*} \frac{1}{K^2} P(K) \, \mathrm{d}K \\ + e^{rT} \int_{S_*}^{S_*} + \infty \frac{1}{K^2} C(K) \, \mathrm{d}K \right] \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    P (K)
+   </i>
+   and
+   <i>
+    C(K)
+   </i>
+   , respectively, denote the current fair value of a put and call option of strike
+   <i>
+    K
+   </i>
+   ,
+   <i>
+    r
+   </i>
+   is the risk free rate,
+   <i>
+    T
+   </i>
+   is the maturity of the variance swap,
+   <i>
+    S
+   </i>
+   <sup>
+    0
+   </sup>
+   is the initial spot value of the underlying asset, and
+   <i>
+    S
+   </i>
+   <sup>
+    ∗
+   </sup>
+   is an arbitrary point to do the split between the liquid call and put options. It is often chosen to be the forward value.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Unlike the previous model-dependent approaches, the model-free approach replicates the variance and
+  </p>
+  <p block-type="Text">
+   the volatility swaps using market prices of volatility options as inputs. The resulting pricing consists in numerically computing the cost of the hedging strategy with the series of options as shown by the integrals of equation (6).
+  </p>
+  <p block-type="Text">
+   The obvious strength of this approach is to avoid any assumption on the underlying distribution of the index volatility. Primarily, the weaknesses are that the replication methods do not work for very specific index volatility options and that the discretization bias due to the lack of reliable liquid quotes for call and put options at any strikes can be of the same order of the magnitude as the misspecification of the index volatility distribution.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Carr, P. &amp; Lee, R. (2007). Realized volatility and variance: Options via swaps,
+     <i>
+      Risk
+     </i>
+     May, 76–83.
+    </li>
+    <li block-type="ListItem">
+     [2] Carr, P. &amp; Wu, L. (2009). Variance risk premiums,
+     <i>
+      Review of Financial Studies
+     </i>
+     <b>
+      22
+     </b>
+     , 1311–1341.
+    </li>
+    <li block-type="ListItem">
+     [3] CBOE (2009).
+     <i>
+      Vix Options CBOE
+     </i>
+     . www.cboe.com.
+    </li>
+    <li block-type="ListItem">
+     [4] Demeterfi, K., Derman, E., Kamal, M. &amp; Zou, J. (1999).
+     <i>
+      More than You Ever wanted to know about Volatility Swaps
+     </i>
+     , Goldman Sachs Quantitative Strategies, March 1999.
+    </li>
+    <li block-type="ListItem">
+     [5] Elliott, R., Siu, T. &amp; Chan, L. (2004). Pricing volatility swaps under heston's stochastic volatility model with regime switching,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     (1), 41–62.
+    </li>
+    <li block-type="ListItem">
+     [6] Grunbichler, A. &amp; Longstaff, F. (1996). Valuing futures and options on volatility,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      20
+     </b>
+     , 985–1001.
+    </li>
+    <li block-type="ListItem">
+     [7] Howison, S., Rafailidis, A. &amp; Rasmussen, H. (2004). On the pricing and hedging of volatility derivatives,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      11
+     </b>
+     (4), 317–346.
+    </li>
+    <li block-type="ListItem">
+     [8] Neuberger, A. (1994). The log contract: a new instrument to hedge volatility,
+     <i>
+      Journal of Portfolio Management
+     </i>
+     <b>
+      20
+     </b>
+     (2), 74–80.
+    </li>
+    <li block-type="ListItem">
+     [9] Sepp, A. (2008). Pricing options on realized variance in the heston model with jumps in returns and volatility,
+     <i>
+      Journal of Computational Finance
+     </i>
+     <b>
+      11
+     </b>
+     (4), 33–70.
+    </li>
+    <li block-type="ListItem">
+     [10] Sepp, A. (2008). Vix option pricing in a jump-diffusion model,
+     <i>
+      Risk
+     </i>
+     April, 84–89.
+    </li>
+    <li block-type="ListItem">
+     [11] Whaley, R. (1993). Derivatives on market volatility: hedging tools long overdue,
+     <i>
+      Journal of Derivatives
+     </i>
+     <b>
+      1
+     </b>
+     , 71–84.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Further Reading
+   </b>
+  </h2>
+  <p block-type="Text">
+   Bergomi, L. (2008). Dynamic properties of smile models, in R. Cont ed.
+   <i>
+    Frontiers in Quantitative Finance: Volatility and Credit Risk Modeling
+   </i>
+   , Wiley, Chapter 3.
+  </p>
+  <p block-type="Text">
+   Cont, R. and Kokholm, T. (2009).
+   <i>
+    A Consistent Pricing Model for Index Options and Volatility Derivatives
+   </i>
+   . Available at SSRN: http://ssrn.com/abstract = 1474691.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   <b>
+    Call Options
+   </b>
+   ;
+   <b>
+    Corridor Variance Swap
+   </b>
+   ;
+   <b>
+    Gamma Swap
+   </b>
+   ;
+   <b>
+    Heston Model
+   </b>
+   ;
+   <b>
+    Implied Volatility Surface
+   </b>
+   ;
+  </p>
+  <p block-type="Text">
+   <b>
+    Realized Volatility and Multipower Variation
+   </b>
+   ;
+   <b>
+    Realized Volatility Options
+   </b>
+   ;
+   <b>
+    Stochastic Volatility Models
+   </b>
+   ;
+   <b>
+    Variance Swap
+   </b>
+   ;
+   <b>
+    Weighted Variance Swap
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ERIC BENHAMOU &amp; MARIAN CIUCA
+  </p>
+ </body>
+</html>
