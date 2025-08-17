@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Black–Scholes Formula
+   </b>
+  </h1>
+  <p block-type="Text">
+   "If options are correctly priced in the market, it should not be possible to make sure profits by creating portfolios of long and short positions in options and their underlying stocks. Using this principle, a theoretical valuation formula for options is derived." These sentences, from the abstract of the great paper [2] by Fischer Black and Myron Scholes, encapsulate the basic idea that—with the asset price model they employ—insisting on absence of
+   <b>
+    arbitrage
+   </b>
+   is enough to obtain a unique value for a call option on the asset. The resulting formula, equation (6) below, is the most famous formula in financial economics. and, in fact, that whole subject splits decisively into the pre-Black-Scholes and post-Black-Scholes eras.
+  </p>
+  <p block-type="Text">
+   This article aims to give a self-contained derivation of the formula, some discussion of the hedge parameters, and some extensions of the formula, and to indicate why a formula based on a stylized mathematical model, which is known not to be a particularly accurate representation of real asset prices, has nevertheless proved so effective in the world of option trading. The section The Model and Formula formulates the model and states and proves the formula. As is well known, the formula can equally well be stated in the form of a partial differential equation (PDE); this is equation
+   <math display="inline">
+    (9)
+   </math>
+   below. The next section discusses the PDE aspects of Black-Scholes. The section Hedge Parameters summarizes information about the option 'greeks', while the sections The Black 'Forward' Option Formula and A Universal Black Formula introduce what is actually a more useful form of Black-Scholes, usually known as the Black formula. Finally, the section Implied Volatility and Market Trading discusses the applications of the formula in market trading. We define the
+   <i>
+    implied volatility
+   </i>
+   and demonstrate a "robustness" property of Black-Scholes, which implies that effective hedging can be achieved even if the "true" price process is substantially different from Black and Scholes' stylized model.
+  </p>
+  <h3>
+   The Model and Formula
+  </h3>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Let
+   <math display="inline">
+    (\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in \mathbb{R}^+}, \mathbb{P})
+   </math>
+   be a
+   <b>
+    probability space
+   </b>
+   with a given filtration
+   <math display="inline">
+    (\mathcal{F}_t)
+   </math>
+   representing the flow of
+  </p>
+  <p block-type="TextInlineMath">
+   information in the market. Traded asset prices are
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   -adapted stochastic processes on
+   <math display="inline">
+    (\Omega, \mathcal{F}, \mathbb{P})
+   </math>
+   . We assume that the market is
+   <i>
+    frictionless
+   </i>
+   ; assets may be held in arbitrary amount, positive and negative, the interest rate for borrowing and lending is the same, and there are no transaction costs (i.e., the
+   <math display="inline">
+    bid-ask
+   </math>
+   spread is 0). While there may be many traded assets in the market, we fix attention on two of them. First, there is a "risky" asset whose price process
+   <math display="inline">
+    (S_t, t \in \mathbb{R}^+)
+   </math>
+   is assumed to satisfy the
+   <b>
+    stochastic dif
+   </b>
+   ferential equation (SDE)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = \mu S_t dt + \sigma S_t dw_t \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with given
+   <i>
+    drift
+   </i>
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <i>
+    volatility
+   </i>
+   <math display="inline">
+    \sigma
+   </math>
+   . Here
+   <math display="inline">
+    (w_t, t \in \mathbb{R}^+)
+   </math>
+   is an
+   <math display="inline">
+    (\mathcal{F}_t)
+   </math>
+   -Brownian motion. Equation (1) has a unique solution: if
+   <math display="inline">
+    S_t
+   </math>
+   satisfies equation (1), then by the Itô formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d \log S_t = \left(\mu - \frac{1}{2}\sigma^2\right) dt + \sigma dw_t \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   so that
+   <math display="inline">
+    S_t
+   </math>
+   satisfies equation (1) if and only if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = S_0 \exp\left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma w_t\right) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Asset
+   <math display="inline">
+    S_t
+   </math>
+   is assumed to have a constant dividend yield
+   <math display="inline">
+    q
+   </math>
+   , that is, the holder receives a dividend payment
+   <math display="inline">
+    qS_t
+   </math>
+   dt in the time interval [t, t + dt]. Secondly, there is a riskless asset paying interest at a fixed continuously compounding rate
+   <math display="inline">
+    r
+   </math>
+   . The exact form of this asset is unimportant—it could be a moneymarket account in which
+   <math display="inline">
+    1
+   </math>
+   deposited at time
+   <i>
+    s
+   </i>
+   grows to
+   <math display="inline">
+    e^{r(t-s)}
+   </math>
+   at time t, or it could be a zero-coupon bond maturing with a value of
+   <math display="inline">
+    1
+   </math>
+   at some time
+   <math display="inline">
+    T
+   </math>
+   , so that its value at
+   <math display="inline">
+    t \leq T
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    B_t = \exp(-r(T - t)) \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   This grows, as required, at rate
+   <math display="inline">
+    r
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}B_t = r\,B_t\,\mathrm{d}t\tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   Note that equation
+   <math display="inline">
+    (5)
+   </math>
+   does not depend on the final maturity
+   <math display="inline">
+    T
+   </math>
+   (the same growth rate is obtained from any zero-coupon bond) and the choice of
+   <math display="inline">
+    T
+   </math>
+   is a matter of convenience.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   A European call option on
+   <math display="inline">
+    S_t
+   </math>
+   is a contract, entered at time
+   <math display="inline">
+    0
+   </math>
+   and specified by two parameters
+   <math display="inline">
+    (K, T)
+   </math>
+   , which gives the holder the right, but not the obligation, to purchase 1 unit of the risky asset at price K at time
+   <math display="inline">
+    T &gt; 0
+   </math>
+   . (In the frictionless market setting, an option to buy
+   <math display="inline">
+    N
+   </math>
+   units of stock is equivalent
+  </p>
+  <p block-type="TextInlineMath">
+   to
+   <math display="inline">
+    N
+   </math>
+   options on a single unit, so we do not need to include quantity as a parameter.) If
+   <math display="inline">
+    S_T \leq K
+   </math>
+   the option is worthless and will not be exercised. If
+   <math display="inline">
+    S_T &gt; K
+   </math>
+   the holder can exercise his option, buying the asset at price
+   <math display="inline">
+    K
+   </math>
+   , and then immediately selling it at the prevailing market price
+   <math display="inline">
+    S_T
+   </math>
+   , realizing a profit of
+   <math display="inline">
+    S_T
+   </math>
+   – K. Thus, the exercise value of the option is
+   <math display="inline">
+    [S_T  K^+ = \max(S_T - K, 0)
+   </math>
+   . Similarly, the exercise value of a
+   <i>
+    European put option
+   </i>
+   , conferring on the holder the right to
+   <i>
+    sell
+   </i>
+   at a fixed price K, is
+   <math display="inline">
+    [K - S_T]^+
+   </math>
+   . In either case, the exercise value is nonnegative and, in the above model, is strictly positive with positive probability, so the option buyer should pay the writer a premium to acquire it. Black and Scholes [2] showed that there is a unique arbitrage-free value for this premium.
+  </p>
+  <h4>
+   Theorem 1
+  </h4>
+  <p block-type="Text">
+   1. In the above model, the unique arbitrage-free value at time
+   <math display="inline">
+    t &lt; T
+   </math>
+   when
+   <math display="inline">
+    S_t = S
+   </math>
+   of the call
+   <math display="inline">
+    option \nmatrix at \ntime T with \n
+    <del>
+     strike
+    </del>
+    K is
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(t, S) = e^{-q(T-t)} SN(d_1) - e^{-r(T-t)} KN(d_2)
+   </math>
+   (6)
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    N(\cdot)
+   </math>
+   denotes the cumulative standard normal distribution function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{x} e^{-\frac{1}{2}y^2} dy \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_1 = \frac{\log(S/K) + (r + \sigma^2/2)(T - t)}{\sigma\sqrt{T - t}}
+   </math>
+   <math display="block">
+    d_2 = d_1 - \sigma\sqrt{T - t} \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   2. The function
+   <math display="inline">
+    C(t, S)
+   </math>
+   may be characterized as the unique
+   <math display="inline">
+    C^{1,2}
+   </math>
+   solution&lt;sup&gt;a&lt;/sup&gt; of the Black–Scholes PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial C}{\partial t} + rS\frac{\partial C}{\partial S} + \frac{1}{2}\sigma^2 S_t^2 \frac{\partial^2 C}{\partial S^2} - rC = 0 \qquad (9)
+   </math>
+  </p>
+  <p block-type="Text">
+   solved backward in time with the terminal boundary condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(T, S) = [S - K]^{+} \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   3. The value of the put option with exercise time
+   <math display="inline">
+    T
+   </math>
+   and strike
+   <math display="inline">
+    K
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t, S) = e^{-r(T-t)} K N(-d_2)
+   </math>
+   <math display="block">
+    - e^{-q(T-t)} SN(-d_1) \qquad (11)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   To prove the theorem, we are going to show that the call option value can be replicated by a dynamic trading strategy investing in the asset
+   <math display="inline">
+    S_t
+   </math>
+   and in the zero-coupon bond
+   <math display="inline">
+    B_t = e^{-r(T-t)}
+   </math>
+   . A trading strategy is specified by an initial capital
+   <math display="inline">
+    x
+   </math>
+   and a pair of adapted processes
+   <math display="inline">
+    \alpha_t
+   </math>
+   ,
+   <math display="inline">
+    \beta_t
+   </math>
+   representing the number of units of
+   <math display="inline">
+    S, B
+   </math>
+   respectively held at time
+   <math display="inline">
+    t
+   </math>
+   ; the portfolio value at time t is then
+   <math display="inline">
+    X_t = \alpha_t S_t + \beta_t B_t
+   </math>
+   , and by definition
+   <math display="inline">
+    x = \alpha_0 S_0 + \beta_0 B_0
+   </math>
+   . The trading strategy
+   <math display="inline">
+    (x, \alpha, \beta)
+   </math>
+   is admissible if
+  </p>
+  <p block-type="Equation">
+   (i)
+   <math display="block">
+    \int_0^T \alpha_t^2 S_t^2 dt &lt; \infty \text{ a.s.}
+   </math>
+   <br/>
+   (ii)
+   <math display="block">
+    \int_0^T |\beta_t| dt &lt; \infty \text{ a.s.}
+   </math>
+  </p>
+  <p block-type="Text">
+   (iii) There exists a constant
+   <math display="inline">
+    L \ge 0
+   </math>
+   such that
+   <math display="inline">
+    X_t \geq -L
+   </math>
+   for all t, a.s.
+  </p>
+  <p block-type="Equation">
+  </p>
+  <p block-type="Text">
+   The
+   <i>
+    gain from trade
+   </i>
+   in
+   <math display="inline">
+    [s, t]
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_s^t \alpha_u \, \mathrm{d}S_u + \int_s^t \beta_u \, \mathrm{d}B_u + \int_s^t q \alpha_u S_u \, \mathrm{d}u
+   </math>
+  </p>
+  <p block-type="Text">
+   where the first integral is an Itô stochastic integral. This is the sum of the accumulated capital gains/losses in the two assets plus the total dividend received. The trading strategy is
+   <i>
+    self-financing
+   </i>
+   if
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \alpha_t S_t + \beta_t B_t - \alpha_s S_s - \beta_s B_s
+   </math>
+   <br/>
+   =
+   <math>
+    \int_s^t \alpha_u \, \mathrm{d}S_u + \int_s^t q \alpha_u S_u \, \mathrm{d}u + \int_s^t \beta_u \, \mathrm{d}B_u \quad (13)
+   </math>
+  </p>
+  <p block-type="Text">
+   implying that the change in value over any interval in portfolio value is entirely due to gains from trade (the accumulated increments in the value of the assets in the portfolio plus the total dividend received).
+  </p>
+  <p block-type="TextInlineMath">
+   We can always create self-financing strategies by fixing
+   <math display="inline">
+    \alpha
+   </math>
+   , the investment in the risky asset, and investing all residual wealth in the bond. Indeed, the value of the risky asset holding at time
+   <math display="inline">
+    t
+   </math>
+   is
+   <math display="inline">
+    \alpha_t S_t
+   </math>
+   , so if the total portfolio value is
+   <math display="inline">
+    X_t
+   </math>
+   we take
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \beta_t = (X_t - \alpha_t S_t)/B_t
+   </math>
+   . The portfolio value process is then defined implicitly as the solution of the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}X_t &amp;= \alpha_t \,\mathrm{d}S_t + q\alpha_t S_t \,\mathrm{d}t + \beta_t \,\mathrm{d}B_t \\ &amp;= \alpha_t \,\mathrm{d}S_t + q\alpha_t S_t \,\mathrm{d}t + (X_t - \alpha_t S_t)r \,\mathrm{d}t \\ &amp;= rX_t \,\mathrm{d}t + \alpha_t S_t \sigma(\theta \,\mathrm{d}t + \mathrm{d}w_t) \end{aligned} \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \theta = (\mu - r + q)/\sigma
+   </math>
+   . This strategy is always self-financing since
+   <math display="inline">
+    X_t
+   </math>
+   is, by definition, the gains from trade process, while the value is
+   <math display="inline">
+    \alpha S + \beta B = X
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proof of Theorem
+   </b>
+   (1) The key step is to put the "wealth equation"
+   <math display="inline">
+    (14)
+   </math>
+   into a more convenient form by
+   <b>
+    change
+   </b>
+   of
+   <b>
+    measure
+   </b>
+   . Define a measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   , the so-called
+   <i>
+    risk-neutral measure
+   </i>
+   on
+   <math display="inline">
+    (\Omega, \mathcal{F}_T)
+   </math>
+   by the Radon-Nikodým derivative
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}} = \exp\left(-\theta w_T - \frac{1}{2}\theta^2 T\right) \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (The right-hand side has expectation 1, since
+   <math display="inline">
+    w_T \sim
+   </math>
+   <math display="inline">
+    N(0, T)
+   </math>
+   .) Expectation with respect to
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   will be denoted
+   <math display="inline">
+    \mathbb{E}_{\mathbb{Q}}
+   </math>
+   . By the Girsanov theorem,
+   <math display="inline">
+    \check{w} = w_t + \theta t
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -Brownian motion, so that from equation (1) the SDE satisfied by
+   <math display="inline">
+    S_t
+   </math>
+   under
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = (r - q)S_t dt + \sigma S_t d\check{w}_t \tag{16}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   so that for
+   <math display="inline">
+    t &lt; T
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_T = S_t \exp\left(\left(r - q - \frac{1}{2}\sigma^2\right)(T - t) + \sigma(\check{w}_T - \check{w}_t)\right)
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   Applying the Itô formula and equation (14) we find that, with
+   <math display="inline">
+    \tilde{X}_t = e^{-rt} X_t
+   </math>
+   and
+   <math display="inline">
+    \tilde{S}_t = e^{-rt} S_t
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}\tilde{X}_t = \alpha_t \tilde{S}_t \sigma \, \mathrm{d}\check{w}_t \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Thus
+   <math display="inline">
+    e^{-rt}X_t
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -local martingale under condition (12)(i). Let
+   <math display="inline">
+    h(S) = [S - K]^+
+   </math>
+   and suppose there exists a replicating strategy, that is, a strategy
+   <math display="inline">
+    (x, \alpha, \beta)
+   </math>
+   with value process
+   <math display="inline">
+    X_t
+   </math>
+   constructed as in equation (14) such that
+   <math display="inline">
+    X_T = h(S_T)
+   </math>
+   a.s. Suppose also that
+   <math display="inline">
+    \alpha_t
+   </math>
+   satisfies the stronger condition
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}_{\mathbb{Q}} \int_0^T \alpha_t^2 S_t^2 \, \mathrm{d}t &lt; \infty \tag{19}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then
+   <math display="inline">
+    \tilde{X}_t
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingale, and hence for
+   <math display="inline">
+    t &lt; T
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = e^{-r(T-t)} \mathbb{E}_{\mathbb{Q}}[h(S_T)|\mathcal{F}_t]
+   </math>
+   (20)
+  </p>
+  <p block-type="Text">
+   and in particular
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x = e^{-rT} \mathbb{E}_{\mathbb{Q}}[h(S_T)] \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Now
+   <math display="inline">
+    S_t
+   </math>
+   is a
+   <b>
+    Markov process
+   </b>
+   , so the conditional expectation in equation (20) is a function of
+   <math display="inline">
+    S_t
+   </math>
+   , and indeed we see from equation (17) that
+   <math display="inline">
+    S_T
+   </math>
+   is a function of
+   <math display="inline">
+    S_t
+   </math>
+   and the increment
+   <math display="inline">
+    (\check{w}_T - \check{w}_t)
+   </math>
+   , which is independent of
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   . Writing
+   <math display="inline">
+    (\check{w}_T - \check{w}_t) = Z\sqrt{T-t}
+   </math>
+   where
+   <math display="inline">
+    Z \sim N(0, 1)
+   </math>
+   , the expectation is simply a one-dimensional integral with respect to the normal distribution. Hence,
+   <math display="inline">
+    X_t = C(t, S_t)
+   </math>
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(t, S) = \frac{\mathrm{e}^{-r(T-t)}}{\sqrt{2\pi}} \int_{-\infty}^{\infty} h(S \exp((r-q-\sigma^2/2) \times (T-t) - \sigma x \sqrt{T-t})) \mathrm{e}^{-1/2x^2} \mathrm{d}x \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   Straightforward calculations show that this integral is equal to the closed-form expression in equation (6).
+  </p>
+  <p block-type="TextInlineMath">
+   The argument so far shows that if there is a replicating strategy, the initial capital required must be
+   <math display="inline">
+    x = C(0, S_0)
+   </math>
+   where C is defined by equation (22). It remains to identify the strategy
+   <math display="inline">
+    (x, \alpha, \beta)
+   </math>
+   and to show that it is admissible. Let us temporarily take for
+   <math display="inline">
+    \alpha
+   </math>
+   granted the assertions of part (2) of the theorem; these will be proved in Theorem 3 below, where we also show that
+   <math display="inline">
+    (\partial C/\partial S)(t, S) = e^{-q(T-t)}N(d_1)
+   </math>
+   , so that in particular
+   <math display="inline">
+    0 &lt; \partial C/\partial S &lt; 1
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The replicating strategy is
+   <math display="inline">
+    \mathcal{A} = (x, \alpha, \beta)
+   </math>
+   defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x = C(0, S_0), \quad \alpha_t = \frac{\partial C}{\partial S}(t, S_t)
+   </math>
+   <math display="block">
+    \beta_t = \frac{1}{rB_t} \left( \frac{\partial C}{\partial t} + \frac{1}{2} \sigma^2 S_t^2 \frac{\partial^2 C}{\partial S^2} - qS_t \frac{\partial C}{\partial S} \right) \tag{23}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Indeed, using the PDE (9) we find that
+   <math display="inline">
+    X_t = \alpha_t S_t +
+   </math>
+   <math display="inline">
+    \beta_t B_t = C(t, S_t)
+   </math>
+   , so that A is replicating and also
+   <math display="inline">
+    X_t \ge 0
+   </math>
+   , so that condition (12)(iii) is satisfied. From equation
+   <math display="inline">
+    (17)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t^2 = S_0^2 \exp((2r - 2q - \sigma^2)t + 2\sigma \check{w}_t) \qquad (24)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   so that
+   <math display="inline">
+    \mathbb{E}_{\mathbb{Q}}[S_t^2] = \exp((2r - 2q + \sigma^2)t)
+   </math>
+   . Since
+   <math display="inline">
+    |e^{-r(T-t)}\partial C/\partial S| &lt; 1
+   </math>
+   , this shows that
+   <math display="inline">
+    \mathbb{E}_{\mathbb{Q}}\int_{0}^{T}\alpha_{t}^{2}S_{t}^{2}
+   </math>
+   <math display="inline">
+    dt &lt; \infty
+   </math>
+   , that is, condition (19) is satisfied. Since
+   <math display="inline">
+    \beta_t
+   </math>
+   is, almost surely (a. s.), a continuous function of
+   <math display="inline">
+    t
+   </math>
+   it
+  </p>
+  <p block-type="Text">
+   satisfies equation (12)(ii). Thus
+   <math display="inline">
+    \mathcal{A}
+   </math>
+   is admissible. The gain from trade in an interval
+   <math display="inline">
+    [s, t]
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;\int_{s}^{t} \alpha_{u} \, \mathrm{d}S_{u} + \int_{s}^{t} q \alpha_{u} S_{u} \, \mathrm{d}u + \int_{s}^{t} \beta_{u} \, \mathrm{d}B_{u} \\ &amp;= \int_{s}^{t} \frac{\partial C}{\partial S} \, \mathrm{d}S + \int_{s}^{t} \left( \frac{\partial C}{\partial t} + \frac{1}{2} \sigma^{2} S_{t}^{2} \frac{\partial^{2} C}{\partial S^{2}} \right) \, \mathrm{d}u \\ &amp;= \int_{s}^{t} \, \mathrm{d}C \\ &amp;= C(t, S_{t}) - C(s, S_{s}) \end{split} \tag{25}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (We obtain the first equality from the definition of
+   <math display="inline">
+    \alpha
+   </math>
+   ,
+   <math display="inline">
+    \beta
+   </math>
+   , and it turns out to be just the Itô formula applied to the function
+   <math display="inline">
+    C
+   </math>
+   .) This confirms the self-financing property and completes the proof.
+  </p>
+  <p block-type="TextInlineMath">
+   Finally, part (3) of the theorem follows from the model-free
+   <b>
+    put-call parity
+   </b>
+   relation
+   <math display="inline">
+    C - P =
+   </math>
+   <math display="inline">
+    e^{-q(T-t)}S - e^{-r(\bar{T}-t)}K
+   </math>
+   and symmetry of the normal distribution:
+   <math display="inline">
+    N(-x) = 1 - N(x)
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   The replicating strategy derived above is known as
+   <b>
+    delta hedging
+   </b>
+   : the number of units of the risky asset held in the portfolio is equal to the Black-Scholes delta,
+   <math display="inline">
+    \Delta = \partial C / \partial S
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   So far, we have concentrated entirely on the hedging of call options. We conclude this section by showing that, with the class of trading strategies we have defined, there are no arbitrage opportunities in the Black-Scholes model.
+  </p>
+  <p block-type="Text">
+   <b>
+    Theorem 2
+   </b>
+   There is no admissible trading strategy in a single asset and the zero-coupon bond that generates an arbitrage opportunity, in the Black–Scholes model.
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proof
+   </b>
+   Suppose
+   <math display="inline">
+    X_t
+   </math>
+   is the portfolio value process corresponding to an admissible trading strategy
+   <math display="inline">
+    (x, \alpha, \beta)
+   </math>
+   . There is an arbitrage opportunity if
+   <math display="inline">
+    x = 0
+   </math>
+   and, for some t,
+   <math display="inline">
+    X_t \ge 0
+   </math>
+   a.s. and
+   <math display="inline">
+    \mathbb{P}[X_t &gt; 0] &gt; 0
+   </math>
+   , or equivalently
+   <math display="inline">
+    \mathbb{E}[X_t] &gt; 0
+   </math>
+   . This is the
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   -expectation, but
+   <math display="inline">
+    \mathbb{E}[X_t] &gt; 0 \Leftrightarrow \mathbb{E}_{\mathbb{Q}}[\tilde{X}_t] &gt; 0
+   </math>
+   since
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   and
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   are equivalent measures and
+   <math display="inline">
+    e^{-rt} &gt; 0
+   </math>
+   . From equation (18),
+   <math display="inline">
+    \tilde{X}_t
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -local martingale which, by the definition of admissibility, is bounded below by a constant
+   <math display="inline">
+    -L
+   </math>
+   . It follows that
+   <math display="inline">
+    \tilde{X}_t
+   </math>
+   is a
+   <b>
+    supermartingale
+   </b>
+   , so if
+   <math display="inline">
+    x = 0
+   </math>
+   , then
+   <math display="inline">
+    \mathbb{E}_{\mathbb{Q}}[\tilde{X}_t] \leq 0
+   </math>
+   for any t. So no arbitrage can arise from the strategy
+   <math display="inline">
+    (0, \alpha, \beta)
+   </math>
+   .
+   <math display="inline">
+    \Box
+   </math>
+  </p>
+  <h1>
+   The Black-Scholes Partial Differential Equation
+  </h1>
+  <h4>
+   Theorem 3
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1. The Black-Scholes PDE (9) with boundary condition (10) has a unique
+     <math display="inline">
+      C^{1,2}
+     </math>
+     solution, given by equation (6).
+    </li>
+    <li block-type="ListItem">
+     2. The Black-Scholes "delta",
+     <math display="inline">
+      \Delta(t, S)
+     </math>
+     , is given by
+    </li>
+   </ul>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta(t, S) = \frac{\partial}{\partial S} C(t, S) = e^{-q(T-t)} N(d_1) \quad (26)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Proof
+   </b>
+   It can—with some pain—be directly checked that
+   <math display="inline">
+    C(t, S)
+   </math>
+   defined by equation (6) does satisfy the Black-Scholes PDE (9), (10), and a further calculation (not quite as simple as it appears) gives the formula (26) for the Black-Scholes delta. It is, however, enlightening to take the original route of Black and Scholes and relate the equation (9) to a simpler equation, the
+   <i>
+    heat equation
+   </i>
+   . Note from the explicit expression
+   <math display="inline">
+    (17)
+   </math>
+   for the price process under the risk-neutral measure that, given the starting point
+   <math display="inline">
+    S_t
+   </math>
+   , there is a one-to-one relation between
+   <math display="inline">
+    S_T
+   </math>
+   and the Brownian increment
+   <math display="inline">
+    \check{w}_T - \check{w}_t
+   </math>
+   . We can therefore always express things interchangeably in "S coordinates" or in "
+   <math display="inline">
+    \check{w}
+   </math>
+   coordinates". In fact, we already made use of this in deriving the integral price expression
+   <math display="inline">
+    (22)
+   </math>
+   . Here we proceed as follows.
+  </p>
+  <p block-type="TextInlineMath">
+   For fixed parameters
+   <math display="inline">
+    S_0, r, q, \sigma
+   </math>
+   , define the functions
+   <math display="inline">
+    \phi: \mathbb{R}^+ \times \mathbb{R} \to \mathbb{R}^+
+   </math>
+   and
+   <math display="inline">
+    u: [0, T] \times \mathbb{R} \to \mathbb{R}^+
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \phi(t,x) = S_0 \exp\left(\left(r - q - \frac{1}{2}\sigma^2\right)t + \sigma x\right) \tag{27}
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = C(t,\phi(t,x)) \tag{28}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that the inverse function
+   <math display="inline">
+    \psi(t,s) = \phi^{-1}(t,s)
+   </math>
+   (i.e., the solution for x of the equation
+   <math display="inline">
+    s = \phi(t, x)
+   </math>
+   ) is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \psi(t,s) = \frac{1}{\sigma} \left( \log \left( \frac{s}{S_0} \right) - \left( r - q - \frac{1}{2} \sigma^2 \right) t \right) \tag{29}
+   </math>
+  </p>
+  <p block-type="Text">
+   A direct calculation shows that
+   <math display="inline">
+    C
+   </math>
+   satisfies equation
+   <math display="inline">
+    (9)
+   </math>
+   if and only if u satisfies the heat equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial u}{\partial t} + \frac{1}{2} \frac{\partial^2 u}{\partial x^2} - r u = 0 \tag{30}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    W_t
+   </math>
+   is Brownian motion on some probability space and u is a
+   <math display="inline">
+    C^{1,2}
+   </math>
+   function, then an application of the Itô formula shows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{d}(\mathbf{e}^{-rt}u(t,W_t)) = \mathbf{e}^{-rt} \left(\frac{\partial u}{\partial t} + \frac{1}{2}\frac{\partial^2 u}{\partial x^2} - ru\right) \mathbf{d}t
+   </math>
+   <math display="block">
+    + \mathbf{e}^{-rt} \frac{\partial u}{\partial x} \mathbf{d}W_t \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    u
+   </math>
+   satisfies equation (30) with boundary condition
+   <math display="inline">
+    u(T, x) = g(x)
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\int_{0}^{T}\left(\frac{\partial u}{\partial x}(t, W_{t})\right)^{2} \mathrm{d}t &lt; \infty \tag{32}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   then the process
+   <math display="inline">
+    t \mapsto e^{-rt}u(t, W_t)
+   </math>
+   is a martingale so that, with
+   <math display="inline">
+    \mathbb{E}_{t,x}
+   </math>
+   denoting the conditional expectation given
+   <math display="inline">
+    W_t = x
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathbf{e}^{-rt}u(t,x) &amp;= \mathbb{E}_{t,x}[\mathbf{e}^{-rT}u(T,W_T)] \\ &amp;= \mathbb{E}_{t,x}[\mathbf{e}^{-rT}g(W_T)] \end{aligned} \tag{33}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <math display="inline">
+    W_T \sim N(x, T - t)
+   </math>
+   , this shows that
+   <i>
+    u
+   </i>
+   is given bv
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,x) = \frac{e^{-r(T-t)}}{\sqrt{2\pi(T-t)}} \int_{-\infty}^{\infty} g(y) e^{-\frac{(y-x)^2}{2(T-t)}} dy \quad (34)
+   </math>
+  </p>
+  <p block-type="Text">
+   A sufficient condition for equation
+   <math display="inline">
+    (32)
+   </math>
+   is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{1}{\sqrt{2\pi T}}\int_{-\infty}^{\infty}g^2(y)e^{-y^2/2T}\,dy&lt;\infty\qquad(35)
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   In our case, the boundary condition is
+   <math display="inline">
+    g(x) =
+   </math>
+   <math display="inline">
+    [\phi(t,x)-K]^+ &lt; \phi(t,x)
+   </math>
+   and this condition is easily checked. Hence, equation
+   <math display="inline">
+    (30)
+   </math>
+   with this boundary condition has unique
+   <math display="inline">
+    \hat{C}^{1,2}
+   </math>
+   solution (34), implying that the inverse function
+   <math display="inline">
+    C(t, S) = u(t, \psi(t, S))
+   </math>
+   given by
+  </p>
+  <p block-type="TextInlineMath">
+   equation (22) is the unique
+   <math display="inline">
+    C^{1,2}
+   </math>
+   , solution of equation
+   <math display="inline">
+    (9)
+   </math>
+   as claimed.
+   <math display="inline">
+    \Box
+   </math>
+  </p>
+  <h2>
+   <b>
+    Hedge Parameters
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Bringing in all the parameters, the Black-Scholes formula (6) is a six-parameter function
+   <math display="inline">
+    C(t, S) =
+   </math>
+   <math display="inline">
+    \mathcal{C}(\tau, S, K, r, q, \sigma)
+   </math>
+   , where
+   <math display="inline">
+    \tau = T - t
+   </math>
+   is the time to maturity. For risk-management purposes, it is important to know the sensitivities of the option value to changes in the parameters. The conventional hedge parameters or "greeks" are given in Table 1. There are slight notational problems in that "vega" is not the name of a Greek letter (here we have used uppercase upsilon, but this is not necessarily a conventional choice) and upper-case rho coincides with Latin P, so this parameter is usually written
+   <math display="inline">
+    \rho
+   </math>
+   , risking confusion with correlation parameters. The expressions in the right-hand column are readily obtained from the sensitivity parameters (42) and (43) of the "universal" Black Formula introduced below.
+  </p>
+  <p block-type="TextInlineMath">
+   Delta is, of course, the Black–Scholes hedge ratio. Gamma measures the convexity of
+   <math display="inline">
+    C
+   </math>
+   and is at its maximum when the option is close to being at the money. Since gamma is the rate of change of delta, frequent rebalancing of the hedge portfolio will be required in areas of high gamma. Theta is defined as
+   <math display="inline">
+    -\partial \mathcal{C}/\partial \tau
+   </math>
+   and is generally negative (as can be seen from the table, it is always negative for a call option on an asset with no dividends). It represents the "time decay" in the option value as the maturity time is reduced, that is, real time advances. As regards rho, it is not immediately obvious, without doing the calculation, what its sign will be: on one hand, increasing
+   <math display="inline">
+    r
+   </math>
+   increases the forward price, pushing a call option further into the money, while on the other hand increased
+   <math display="inline">
+    r
+   </math>
+   implies heavier discounting, reducing option value. As can be seen from the table,
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Table 1
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+      Black–Scholes risk parameters
+     </th>
+    </tr>
+   </tbody>
+  </table>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Delta
+     </th>
+     <th>
+     </th>
+     <th>
+      <math>
+       \frac{\partial \mathcal{C}}{\partial S}
+      </math>
+     </th>
+     <th>
+      <math>
+       e^{-q\tau}N(d_1)
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Gamma
+     </td>
+     <td>
+     </td>
+     <td>
+      <math>
+       \frac{\partial^2 \mathcal{C}}{\partial S^2}
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       \frac{\mathrm{e}^{-q\tau}N'(\mathrm{d}_1)}{S\sigma\sqrt{\tau}}
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Theta
+     </td>
+     <td>
+      Θ
+     </td>
+     <td>
+      <math>
+       \frac{\partial \mathcal{C}}{\partial \tau}
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       \frac{e^{-q\tau}SN'(\mathbf{d}_1)\sigma}{2\sqrt{\tau}} + q\,e^{-q\tau}SN(\mathbf{d}_1) - r\,Ke^{-r\tau}N(\mathbf{d}_2)
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Rho
+     </td>
+     <td>
+      Ρ
+     </td>
+     <td>
+      <math>
+       \frac{\partial \mathcal{C}}{\partial r}
+      </math>
+     </td>
+     <td>
+      <math>
+       K\tau e^{-r\tau}N(d_2)
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Vega
+     </td>
+     <td>
+      Υ
+     </td>
+     <td>
+      <math>
+       \frac{\partial \mathcal{C}}{\partial \sigma}
+      </math>
+     </td>
+     <td>
+      <math>
+       e^{-q\tau} S \sqrt{\tau} N'(d_1)
+      </math>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   the first effect wins: rho is always positive. Vega is in some ways the most important parameter, since a key risk in managing books of traded options is "vega risk", and in Black–Scholes this is completely "outside the model". Bringing it back inside the model is the subject of
+   <b>
+    stochastic volatility
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   An extensive discussion of the risk parameters and their uses can be found in Hull [6].
+  </p>
+  <h4>
+   The Black "Forward" Option Formula
+  </h4>
+  <p block-type="TextInlineMath">
+   The six-parameter representation
+   <math display="inline">
+    C(\tau, S, K, r, q, \sigma)
+   </math>
+   is not the best parameterization of Black-Scholes. For the asset
+   <math display="inline">
+    S_t
+   </math>
+   with dividend yield
+   <math display="inline">
+    q
+   </math>
+   , the forward
+   <i>
+    price
+   </i>
+   at time t for delivery at time T is
+   <math display="inline">
+    F(t, T) =
+   </math>
+   <math display="inline">
+    S_t e^{(r-q)(T-t)}
+   </math>
+   (this is a model-free result, not related to the Black-Scholes model). We can trivially reexpress the price formula
+   <math display="inline">
+    (6)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C(t, S_t) = B(t, T)(F(t, T)N(d_1) - KN(d_2)) \quad (36)
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_1 = \frac{\log(F(t,T)/K) + \frac{1}{2}\sigma^2(T-t)}{\sigma\sqrt{T-t}}
+   </math>
+   <br/>
+   <math display="block">
+    d_2 = d_1 - \sigma\sqrt{T-t}
+   </math>
+   (37)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    B(t, T) = e^{-r(T-t)}
+   </math>
+   is the zero-coupon bond value or "discount factor" from
+   <math display="inline">
+    T
+   </math>
+   to
+   <math display="inline">
+    t
+   </math>
+   . There is, however, far more to this than just a change of notation. First, the continuously compounding rate
+   <math display="inline">
+    r
+   </math>
+   is not market data. The market data at time
+   <math display="inline">
+    t
+   </math>
+   is the set of discount factors
+   <math display="inline">
+    B(t, t')
+   </math>
+   for
+   <math display="inline">
+    t' &gt; t
+   </math>
+   . We see from equation (36) that "
+   <math display="inline">
+    r
+   </math>
+   " plays two distinct roles in Black-Scholes: it appears in the computation of the forward price
+   <math display="inline">
+    F
+   </math>
+   and the discount factor
+   <math display="inline">
+    B
+   </math>
+   . But both of these are more fundamental than
+   <math display="inline">
+    r
+   </math>
+   itself and are, in fact, market data which, as equation (36) shows, can be used directly. A further advantage is that the exact mechanism of dividend payment is not important, as long as there is an unambiguously defined forward price.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Formula (36) is known as the Black formula and is the most useful version of Black-Scholes, being widely applied in connection with FX (foreign exchange) and interest-rate options as well as dividend-paying equities. Fundamentally, it relates to a price model in which the price is expressed in the
+  </p>
+  <p block-type="TextInlineMath">
+   risk-neutral measure as
+   <math display="inline">
+    S_t = F(0, t)M_t
+   </math>
+   where
+   <math display="inline">
+    M_t
+   </math>
+   is the exponential martingale
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_t = \exp\left(\sigma \, \dot{w}_t - \frac{1}{2} \sigma^2 t\right) \tag{38}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which is equivalent to equation
+   <math display="inline">
+    (17)
+   </math>
+   . This model accords with the general fact that, in a world of deterministic interest rates, the forward price is the expected price in the risk-neutral measure, that is, the ratio
+   <math display="inline">
+    S_t/F(0, t)
+   </math>
+   is a positive martingale with expectation 1. The exponential martingale
+   <math display="inline">
+    (38)
+   </math>
+   is the simplest continuous-path process with these properties.
+  </p>
+  <h1>
+   A Universal Black Formula
+  </h1>
+  <p block-type="TextInlineMath">
+   The parameterization of Black-Scholes can be further compressed as follows. First, note that
+   <math display="inline">
+    \sigma
+   </math>
+   and
+   <math display="inline">
+    \tau = (T - t)
+   </math>
+   do not appear separately, but only in the combination
+   <math display="inline">
+    a = \sigma \sqrt{T - t}
+   </math>
+   , where
+   <math display="inline">
+    a^2
+   </math>
+   is sometimes known as the
+   <i>
+    operational time
+   </i>
+   . Next, define the "moneyness" m as
+   <math display="inline">
+    m(t,T) = K/F(t,T)
+   </math>
+   , and define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d(a,m) = \frac{a}{2} - \frac{\log m}{a} \tag{39}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   (so that
+   <math display="inline">
+    d_1 = d(\sigma\sqrt{T-t}, K/F(t, T))
+   </math>
+   ). Then the Black formula (36) becomes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C = BF \ f(a, m) \tag{40}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(a,m) = N(d(a,m)) - mN(d(a,m) - a) \quad (41)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Now
+   <math display="inline">
+    BF
+   </math>
+   is the price of a zero-strike call, or equivalently the price to be paid at time
+   <math display="inline">
+    t
+   </math>
+   for delivery of the asset at time T. Formula (40) says that the price of the
+   <math display="inline">
+    K
+   </math>
+   -strike call is the (model-free) price of the zero-strike call modified by a factor
+   <math display="inline">
+    f
+   </math>
+   that depends only on the moneyness and operational time. We call
+   <math display="inline">
+    f
+   </math>
+   the
+   <i>
+    universal Black–Scholes function
+   </i>
+   , and a graph of it is shown in Figure 1. With
+   <math display="inline">
+    N' = dN/dx
+   </math>
+   and
+   <math display="inline">
+    d = d(a, m)
+   </math>
+   we find that
+   <math display="inline">
+    mN'(d - a) = N'(d)
+   </math>
+   and hence obtain the following very simple expressions for the first-order derivatives:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f}{\partial a}(a,m) = N'(d) \tag{42}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f}{\partial m}(a,m) = -N(d-a) \tag{43}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In particular,
+   <math display="inline">
+    \partial f/\partial a &gt; 0
+   </math>
+   and
+   <math display="inline">
+    \partial f/\partial m &lt; 0
+   </math>
+   for all
+   <math display="inline">
+    a, m
+   </math>
+   .
+  </p>
+  <p>
+   <img src="_page_6_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Figure 1 The universal Black–Scholes function
+  </p>
+  <p block-type="Text">
+   This minimal parameterization of Black-Scholes is used in studies of stochastic volatility; see, for example,
+   <b>
+    Gatheral
+   </b>
+   [5].
+  </p>
+  <h4>
+   <b>
+    Implied Volatility and Market Trading
+   </b>
+  </h4>
+  <p block-type="Text">
+   So far, our discussion has been entirely within the Black-Scholes model. What happens if we attempt to use Black-Scholes delta hedging in real market trading? This question has been considered by several authors, including El Karoui et al. [3] and Fouque et al. [4], though neither of these discusses the effect of jumps in the price process.
+  </p>
+  <p block-type="TextInlineMath">
+   In the universal price formula
+   <math display="inline">
+    (40)
+   </math>
+   , the parameters
+   <math display="inline">
+    B, F, m
+   </math>
+   are market data, so we can regard the formula as a mapping
+   <math display="inline">
+    a \mapsto p = BFf(a,m)
+   </math>
+   from a to price
+   <math display="inline">
+    p \in [B(F - K]^+, BF)
+   </math>
+   . In a traded options market,
+   <math display="inline">
+    p
+   </math>
+   is market data (but must lie in the stated interval, else there is a static arbitrage opportunity). In view of equation (42),
+   <math display="inline">
+    f(a, m)
+   </math>
+   is strictly increasing in a and hence there is a unique value
+   <math display="inline">
+    a = \hat{a}(p)
+   </math>
+   such that
+   <math display="inline">
+    p = BFf(\hat{a}(p), m)
+   </math>
+   . The implied volatility is
+   <math display="inline">
+    \hat{\sigma}(p) =
+   </math>
+   <math display="inline">
+    \hat{a}(p)/\sqrt{T-t}
+   </math>
+   . If the underlying price process
+   <math display="inline">
+    S_t
+   </math>
+   actually were geometric Brownian motion (1), then
+   <math display="inline">
+    \hat{\sigma}
+   </math>
+   would be the same, and equal to the volatility
+   <math display="inline">
+    \sigma
+   </math>
+   , for call options of all strikes and maturities. Of course, this is never the case in practice—see
+   <math display="inline">
+    [5]
+   </math>
+   for
+  </p>
+  <p block-type="Text">
+   a discussion. Here, we restrict ourselves to examining what happens if we naïvely apply the Black-Scholes delta-hedge when in reality the underlying process is
+   <i>
+    not
+   </i>
+   geometric Brownian motion, taking
+   <math display="inline">
+    q = 0
+   </math>
+   for simplicity. Specifically, we assume that the "true" price model, under measure
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = S_0 + \int_0^t \eta_t S_{t-} \mathrm{d}t + \int_0^t \kappa_t S_{t-} \mathrm{d}W_t
+   </math>
+   <math display="block">
+    + \int_{[0,t] \times \mathbb{R}} S_{t-} v_t(z) \mu(\mathrm{d}t, \mathrm{d}z) \tag{44}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \mu
+   </math>
+   is a finite-activity
+   <i>
+    Poisson random measure
+   </i>
+   , so that there is a finite measure
+   <math display="inline">
+    \nu
+   </math>
+   on
+   <math display="inline">
+    \mathbb{R}
+   </math>
+   such that
+   <math display="inline">
+    \mu([0, t] \times A) - \nu(A)t \equiv (\mu - \pi)([0, t] \times A)
+   </math>
+   is a martingale for each
+   <math display="inline">
+    A \in \mathcal{B}(\mathbb{R})
+   </math>
+   .
+   <math display="inline">
+    \eta, \kappa, \nu
+   </math>
+   are predictable processes. Assume that
+   <math display="inline">
+    \eta
+   </math>
+   ,
+   <math display="inline">
+    \kappa
+   </math>
+   and
+   <math display="inline">
+    \nu
+   </math>
+   are such that the solution to the SDE (44) is well defined and, moreover, that
+   <math display="inline">
+    v_t(z) &gt; -1
+   </math>
+   so
+   <math display="inline">
+    S_t &gt; 0
+   </math>
+   almost surely. This is a very general model including path-dependent coefficients, stochastic volatility, and jumps. Readers unfamiliar with jump-diffusion models can set
+   <math display="inline">
+    \mu = \nu = \pi = 0
+   </math>
+   below, and refer to the last paragraph of this section for comments on the effect of jumps.
+  </p>
+  <p block-type="TextInlineMath">
+   Consider the scenario of selling at time
+   <math display="inline">
+    0
+   </math>
+   a European call option at implied volatility
+   <math display="inline">
+    \hat{\sigma}
+   </math>
+   , that is, for the price
+   <math display="inline">
+    p = \mathcal{C}(T, S_0, K, r, \hat{\sigma})
+   </math>
+   and then following a Black-Scholes delta-hedging trading strategy based on constant volatility
+   <math display="inline">
+    \hat{\sigma}
+   </math>
+   until the option expires at time T. As usual, we shall denote
+   <math display="inline">
+    C(t, s) =
+   </math>
+   <math display="inline">
+    \mathcal{C}(T-t, s, K, r, \hat{\sigma})
+   </math>
+   , so that the hedge portfolio, with value process
+   <math display="inline">
+    X_t
+   </math>
+   , is constructed by holding
+   <math display="inline">
+    \alpha_t :=
+   </math>
+   <math display="inline">
+    \partial_S C(t, S_{t-})
+   </math>
+   units of the risky asset S, and the remainder
+   <math display="inline">
+    \beta_t := \frac{1}{B_t}(X_{t-} - \alpha_t S_{t-})
+   </math>
+   units in the riskless asset
+   <math display="inline">
+    B
+   </math>
+   (a unit notional zero-coupon bond). This portfolio, initially funded by the option sale (so
+   <math display="inline">
+    X_0 =
+   </math>
+   <math display="inline">
+    p
+   </math>
+   ), defines a self-financing trading strategy. Hence, the portfolio value process
+   <math display="inline">
+    X
+   </math>
+   satisfies the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_{t} = p + \int_{0}^{t} \partial_{S}C(u, S_{u-})\eta_{u}S_{u-}du
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} \partial_{S}C(u, S_{u-})\kappa_{u}S_{u-}dW_{u}
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{[0,t]\times\mathbb{R}} \partial_{S}C(u, S_{u-})S_{u-}v_{u}(z)\mu(\mathrm{d}u, \mathrm{d}z)
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} (X_{u} - \partial_{S}C(u, S_{u-})S_{u})r\mathrm{d}u \qquad (45)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Now define
+   <math display="inline">
+    Y_t = C(t, S_t)
+   </math>
+   , so that, in particular,
+   <math display="inline">
+    Y_0 =
+   </math>
+   <math display="inline">
+    p
+   </math>
+   . Applying the Itô formula (Lemma 4.4.6 of [1]) gives
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Y_{t} = p + \int_{0}^{t} \partial_{t} C(u, S_{u-}) du
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} \partial_{s} C(u, S_{u-}) \eta_{u} S_{u-} du
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{0}^{t} \partial_{s} C(u, S_{u-}) \kappa_{u} S_{u-} du
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \frac{1}{2} \int_{0}^{t} \partial_{sS}^{2} C(u, S_{u-}) \kappa_{u}^{2} S_{u-}^{2} du
+   </math>
+   <br/>
+   +
+   <math display="block">
+    \int_{[0,t] \times \mathbb{R}} \left( C(u, S_{u-}(1+v_{u}(z))) - C(u, S_{u-}) \right) \mu(dt, dz) \tag{46}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Thus the 'hedging error' process defined by
+   <math display="inline">
+    Z_t :=
+   </math>
+   <math display="inline">
+    X_t - Y_t
+   </math>
+   satisfies the SDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_{t} = \int_{0}^{t} rX_{u} du - \int_{0}^{t} \left( rS_{u-}\partial_{S}C(u, S_{u-}) \right) du
+   </math>
+   <br/>
+   +
+   <math>
+    \partial_{t}C(u, S_{u-}) + \frac{1}{2}\kappa_{u}^{2}S_{u-}^{2}\partial_{SS}^{2}C(u, S_{u-})\right) du
+   </math>
+   <br/>
+   -
+   <math>
+    \int_{[0,t]\times\mathbb{R}} \left( C(u, S_{u-}(1+v_{u}(z))) - C(u, S_{u-}) \right)
+   </math>
+   <br/>
+   -
+   <math>
+    \partial_{S}C(u, S_{u-})S_{u-}v_{u}(z) \mu(du, dz)
+   </math>
+   <br/>
+   =
+   <math>
+    \int_{0}^{t} rZ_{u} du + \frac{1}{2} \int_{0}^{t} \Gamma(u, S_{u-})S_{u-}^{2}(\hat{\sigma}^{2} - \kappa_{u}^{2}) du
+   </math>
+   <br/>
+   -
+   <math>
+    \int_{[0,t]\times\mathbb{R}} \left( C(u, S_{u-}(1+v_{u}(z))) \right)
+   </math>
+   <br/>
+   -
+   <math>
+    C(u, S_{u-}) - \partial_{S}C(u, S_{u-})S_{u-}v_{u}(z) \mu(du, dz)
+   </math>
+   <br/>
+   (47)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \Gamma(t, S_t) = \partial_{SS}^2 C(t, S_t)
+   </math>
+   , and the last equality follows from the Black-Scholes PDE. Therefore, the final difference between the hedging strategy and the required option payout is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z_T = X_T - [S_T - K]^+
+   </math>
+   <br/>
+   =
+   <math>
+    \frac{1}{2} \int_0^T e^{r(T-t)} S_{t-}^2 \Gamma(t, S_{t-}) (\hat{\sigma}^2 - \kappa_t^2) dt
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    - \int_{[0,T]\times\mathbb{R}} \mathrm{e}^{r(T-t)} \bigg( \int_0^1 \int_0^{\epsilon} \Gamma(t, S_{t-}(1+\epsilon' v_t(z))) \times v_t^2(z) S_{u-}^2 \mathrm{d}\epsilon' \mathrm{d}\epsilon \bigg) \pi(\mathrm{d}t, \mathrm{d}z) - M_T \tag{48}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    M_T
+   </math>
+   is the terminal value of the martingale
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_{t} = \int_{[0,T]\times\mathbb{R}} \mathrm{e}^{r(T-t)} \bigg( \int_{0}^{1} \int_{0}^{\epsilon} \Gamma(t, S_{t-}(1+\epsilon' v_{t}(z))) \times v_{t}^{2}(z) S_{u-}^{2} \mathrm{d}\epsilon' \mathrm{d}\epsilon \bigg) (\mu - \pi) (\mathrm{d}t, \mathrm{d}z) \tag{49}
+   </math>
+  </p>
+  <p block-type="Text">
+   Equation
+   <math display="inline">
+    (48)
+   </math>
+   is a key formula, as it shows that successful hedging is quite possible even under significant model error. Without some "robustness" property of this kind, it is hard to imagine that the derivatives industry could exist at all, since hedging under realistic conditions would be impossible.
+  </p>
+  <p block-type="TextInlineMath">
+   Consider first the case
+   <math display="inline">
+    \mu \equiv 0
+   </math>
+   , where
+   <math display="inline">
+    S_t
+   </math>
+   has continuous sample paths and the last two terms in equation (48) vanish. Then, successful hedging depends entirely on the relationship between the implied volatility
+   <math display="inline">
+    \hat{\sigma}
+   </math>
+   and the true "local volatility"
+   <math display="inline">
+    \kappa_t
+   </math>
+   . Note from Table 1 that
+   <math display="inline">
+    \Gamma_t &gt; 0
+   </math>
+   . If we, as option writers, are lucky and
+   <math display="inline">
+    \hat{\sigma}^2 \geq \beta_t^2
+   </math>
+   a.s. for all t, then the hedging strategy makes a profit with probability
+   <math display="inline">
+    1
+   </math>
+   even though the true price model is substantially different from the assumed model as in equation (1). On the other hand, if we underestimate the volatility, we will consistently make a loss. The magnitude of the profit or loss depends on the option convexity
+   <math display="inline">
+    \Gamma
+   </math>
+   . If
+   <math display="inline">
+    \Gamma
+   </math>
+   is small, then hedging error is small even if the volatility has been grossly misestimated.
+  </p>
+  <p block-type="TextInlineMath">
+   For the option writer, jumps in either direction are unambiguously bad news. Since
+   <math display="inline">
+    C
+   </math>
+   is convex,
+   <math display="inline">
+    \Delta C &gt; (\partial C/\partial S)\Delta S
+   </math>
+   , so the last term in equation
+   <math display="inline">
+    (47)
+   </math>
+   is monotone decreasing: the hedge profit takes a hit every time there is a jump, either upward or downward, in the underlying price. However, there is some recourse: in equation (48),
+   <math display="inline">
+    M_T
+   </math>
+   has expectation
+   <math display="inline">
+    0
+   </math>
+   while the penultimate term is negative. By increasing
+   <math display="inline">
+    \hat{\sigma}
+   </math>
+   we increase
+   <math display="inline">
+    \mathbb{E}[Z_T]
+   </math>
+   , so we could arrive at a situation where
+   <math display="inline">
+    \mathbb{E}[Z_T] &gt; 0
+   </math>
+   , although in this case there is no possibility of with probability
+   <math display="inline">
+    l
+   </math>
+   profit because of the martingale term. All of this reinforces the trader's intuition that one can offset additional hedge costs by charging more upfront (i.e.,
+  </p>
+  <p block-type="Text">
+   increasing
+   <i>
+    σ
+   </i>
+   ˆ ) and hedging at the higher level of implied volatility.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   A two-parameter function is
+   <i>
+    C
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    ,
+   </i>
+   <sup>
+    2
+   </sup>
+   if it is once (twice) continuously differentiable in the first (second) argument.
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="Text">
+   [1] Applebaum, D. (2004).
+   <i>
+    L´evy Processes and Stochastic Calculus
+   </i>
+   , Cambridge University Press.
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [2] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities,
+     <i>
+      Journal of Political Economy
+     </i>
+     <b>
+      81
+     </b>
+     , 637–654.
+    </li>
+    <li block-type="ListItem">
+     [3] El Karoui, N., Jeanblanc-Picque, M. &amp; Shreve, S.E. ´ (1998). Robustness of the Black and Scholes formula,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 93–126.
+    </li>
+    <li block-type="ListItem">
+     [4] Fouque, J.-P., Papanicolaou, G. &amp; Sircar, K.R. (2000).
+     <i>
+      Derivatives in Financial Markets with Stochastic Volatility
+     </i>
+     , Cambridge University Press.
+    </li>
+    <li block-type="ListItem">
+     [5] Gatheral, J. (2006).
+     <i>
+      The Volatility Surface
+     </i>
+     , Wiley.
+    </li>
+    <li block-type="ListItem">
+     [6] Hull, J.C. 2005.
+     <i>
+      Options, Futures and Other Derivatives
+     </i>
+     , 6th Edition, Prentice Hall.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   MARK H.A. DAVIS
+  </p>
+ </body>
+</html>

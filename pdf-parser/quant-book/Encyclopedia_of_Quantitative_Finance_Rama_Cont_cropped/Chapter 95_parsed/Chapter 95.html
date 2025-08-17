@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Currency Forward Contracts
+   </b>
+  </h1>
+  <h1>
+   <b>
+    Executive Summary
+   </b>
+  </h1>
+  <p block-type="Text">
+   Structured forwards use combinations of options to replicate forwards like payout profiles. The main use of structured forwards is for corporate and institutional clients trying to hedge their foreign exchange exposures. While standard forwards lock in a fixed exchange rate, structured forwards give the user the advantage of the possibility of an improved exchange rate, while still guaranteeing a worstcase rate. As standard forwards, structured forwards usually have no upfront premium requirements (zerocost strategies). Having the chance of an improved exchange rate for no upfront premium suggests that structured forwards must have a guaranteed worstcase exchange rate that is worse than the prevailing forward rate. This is the risk involved when entering into structured forward transactions.
+  </p>
+  <h1>
+   <b>
+    Forward Contract
+   </b>
+  </h1>
+  <p block-type="Text">
+   A foreign exchange forward transaction involves two parties, who enter into a contract, whereby one counterparty agrees to sell a specified amount of a currency A in exchange for a specified amount of another currency B on a specified date. The other counterparty agrees to buy the specified amount of that currency A in exchange of the other currency B.
+  </p>
+  <h4>
+   <i>
+    The Characteristics of Forward Contracts
+   </i>
+  </h4>
+  <p block-type="Text">
+   Both counterparties have the obligation to fulfill the contract (as opposed to an option transaction where only one of the parties has the obligation, the option seller, while the other counterparty, the option buyer, has the right, but no obligation). As both currency amounts are fixed on the day the contract is entered into, the exchange rate between the two currencies is fixed. Hence, the parties to the contract know from the beginning at what exchange rate they are obliged to buy or sell the specified currency.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   For corporate and institutional clients, this can be a useful information, as they can use this exchange rate to calculate the cost of production of a given product
+  </p>
+  <p block-type="Text">
+   or service. Another positive feature of forwards is that there is no upfront premium to be paid by either party. As both parties to the contract have an obligation to deliver and the contract is struck at the prevailing market forward rate, the transaction is by definition a zero-cost strategy. This is because the definition of the market forward rate is a future exchange rate of two currencies at a rate that demands no upfront payment from either party.
+  </p>
+  <p block-type="Text">
+   How can one calculate this market forward rate and what are the influencing factors?
+  </p>
+  <h4>
+   <i>
+    Calculating the Market Forward Rate
+   </i>
+  </h4>
+  <p block-type="Text">
+   The following example helps to determine the forward exchange rate of a given currency pair.
+  </p>
+  <h4>
+   <b>
+    Market Information.
+   </b>
+  </h4>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Company X: London-based manufacturer exporting to the United States.
+    </li>
+    <li block-type="ListItem">
+     The importing company: New York-based company importing from the United Kingdom.
+    </li>
+    <li block-type="ListItem">
+     The bank: it is the other counterparty to the forward transaction.
+    </li>
+    <li block-type="ListItem">
+     Company X sells its goods to the importing company. The sale is agreed in USD, and the payment of USD 100 000 is expected six months after the contract is signed. Therefore, the London-based company X has a foreign exchange exposure, as the change in the foreign exchange rate has an effect on its income in GBP.
+    </li>
+    <li block-type="ListItem">
+     Current GBP/USD exchange rate: 2.0000. This means that 1 GBP is worth 2 USD.
+    </li>
+    <li block-type="ListItem">
+     Current GBP interest rate: 6% per annum. This is the interest rate company X can borrow and lend in GBP.
+    </li>
+    <li block-type="ListItem">
+     Current USD interest rate: 3% per annum. This is the interest rate company X can borrow and lend in USD.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   What can company X do to eliminate its foreign exchange exposure? We know that company X will receive USD 100 000 in six months time. In fact they could already sell this USD 100 000 at the prevailing market rate (spot rate), but they don't have it yet. The solution is to go to the bank and borrow the USD 100 000. To be precise, they need to borrow less than USD 100 000, because they need to pay interest on the loan to the bank. So the exact amount to borrow
+  </p>
+  <p block-type="Text">
+   is the net present value (NPV) of USD 100 000. To calculate this, we use the following formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    NPV = \frac{N}{1 + r^* d/dc} \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     <i>
+      N
+     </i>
+     is the amount for which one wants to calculate the NPV. In this example, it is USD 100 000.
+    </li>
+    <li block-type="ListItem">
+     <i>
+      r
+     </i>
+     is the interest rate, expressed as percentage per annum, for the currency in which
+     <i>
+      N
+     </i>
+     is denominated.
+    </li>
+    <li block-type="ListItem">
+     <i>
+      d
+     </i>
+     is the duration of the deposit or loan in days. In this example, it is 180 days (i.e., six months).
+    </li>
+    <li block-type="ListItem">
+     <i>
+      dc
+     </i>
+     is the day-count fraction. This is usually 360, except for GBP deposits or loans where it is 365.
+    </li>
+   </ul>
+  </p>
+  <p block-type="TextInlineMath">
+   We are now able to calculate the amount company X has to borrow: USD 100 000/
+   <i>
+    (
+   </i>
+   1 + 0
+   <i>
+    .
+   </i>
+   03 × 180
+   <i>
+    /
+   </i>
+   360
+   <i>
+    )
+   </i>
+   = USD 98,522.17. If they borrow this money, they have to pay back exactly USD 100 000 in six months time including the interest charge. This is the amount company X is due to receive in six months time from the sales of its goods to the importing company.
+  </p>
+  <p block-type="Text">
+   If company X now sells the borrowed USD in the spot market and buys GBP, they receive GBP 49 261.08. This is calculated by dividing the borrowed USD amount by the current GBP/USD exchange rate (2.0000 in this example).
+  </p>
+  <p block-type="TextInlineMath">
+   Company X now has the GBP and has eliminated the foreign exchange exposure. They can take GBP and deposit it with their bank at the current interest rate (6% in this example). The amount they get back after six months is equal to GBP 50 718.67—this is calculated as follows: GBP 49 261
+   <i>
+    .
+   </i>
+   08 ×
+   <i>
+    (
+   </i>
+   1 + 0
+   <i>
+    .
+   </i>
+   06 × 180
+   <i>
+    /
+   </i>
+   365
+   <i>
+    )
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   After these series of transactions company X is left with no cash position at the beginning of the transaction. They receive GBP 50 718.67 after six months and have to pay USD 100 000 in exchange. The exchange rate that is implied from the abovementioned two amounts is 1.9717 (calculated as USD 100 000 divided by GBP 50 718.67).
+  </p>
+  <p block-type="Text">
+   What happens when a forward transaction is entered into? Exactly the same:
+  </p>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     At the beginning of the transaction:
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       company X has no cash position;
+      </li>
+     </ul>
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       company X agrees to sell USD 100 000 for GBP at the market forward rate.
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     At the end of the transaction:
+     <ul>
+      <li block-type="ListItem" class="list-indent-1">
+       company X pays USD 100 000 for the GBP amount exchanged at the agreed forward rate.
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Because the two approaches described earlier have the same outcome, the GBP amount received for the USD 100 000 has to be the same; otherwise there would be an arbitrage opportunity. Therefore, the market forward rate in this example has to be 1.9717.
+  </p>
+  <p block-type="Text">
+   Generally, the forward rate can be calculated with a single and easy formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_{\text{GBP/USD}} = S_{\text{GBP/USD}^*} \frac{1 + r_{\text{USD}^*} d/dc_{\text{USD}}}{1 + r_{\text{GBP}^*} d/dc_{\text{GBP}}}
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    F
+   </i>
+   GBP
+   <i>
+    /
+   </i>
+   USD, forward rate for GBP/USD;
+   <i>
+    S
+   </i>
+   GBP
+   <i>
+    /
+   </i>
+   USD, spot exchange rate for GBP/USD;
+   <i>
+    r
+   </i>
+   USD, USD interest rate expressed in percentage per annum;
+   <i>
+    r
+   </i>
+   GBP, GBP interest rate expressed in percentage per annum;
+   <i>
+    d
+   </i>
+   , duration of the deposit or loan in days;
+   <i>
+    dc
+   </i>
+   USD, day-count fraction for USD (360); and
+   <i>
+    dc
+   </i>
+   GBP, day-count fraction for GBP (365).
+  </p>
+  <p block-type="Text">
+   As the formula suggests, the market forward rate is a function of only the current (spot) exchange rate and the interest rates of the two currencies for the specified forward period. Hence, it is not market expectations, or any other factor that determines the arbitrage-free forward rate.
+  </p>
+  <h2>
+   <b>
+    Structured Forwards
+   </b>
+  </h2>
+  <p block-type="Text">
+   The previous section helped us to understand how a foreign exchange exposure resulting from a crossborder transaction can be eliminated and hedged through a forward transaction. It showed that the forward exchange rate was fixed right at the beginning of the contract and hence the uncertainty about exchange rate movements was turned into a known rate with which companies can calculate their cost of production. The example also demonstrated that there is no cash flow at the beginning of a forward transaction and there is no premium or any other fee associated with it. A forward transaction is by definition a zero-cost strategy.
+  </p>
+  <h3>
+   <i>
+    The Difference between Forwards and Structured Forwards
+   </i>
+  </h3>
+  <p block-type="Text" class="has-continuation">
+   The disadvantage of forwards is that favorable exchange rate moves are also eliminated when the
+  </p>
+  <p block-type="Text">
+   exchange rate is fixed. In the previous example, the forward rate was calculated to be 1.9717. This is the rate at which company X has to buy GBP and sell the USD. If in six months time the GBP/USD exchange rate falls below 1.9717, company X would be better off without hedging the GBP purchase through a forward.
+  </p>
+  <p block-type="Text">
+   Structured forwards allow just this. They are more flexible, because favorable exchange rate moves, and, in fact, any market view can be incorporated into the transaction to enhance the rate at which a currency is exchanged for another.
+  </p>
+  <p block-type="Text">
+   As with forwards, structured forwards offer the worst-case exchange rate. This rate is fixed at the beginning of the contract and similar to a regular forward, it offers the benefit of certainty about the exchange rate that can be used for financial planning.
+  </p>
+  <p block-type="Text">
+   Similar to standard forward contracts, most structured forward contracts are zero-cost strategies, that is, no upfront premium is required.
+  </p>
+  <p block-type="Text">
+   We all know that there is no such a thing as a "free lunch". Therefore, to have the benefit of an improved exchange rate, a fixed worst-case rate, and a zerocost strategy, the company entering into a structured forward transaction needs to take on certain risks. This risk is usually structured so that the guaranteed worst-case exchange rate is set at a rate that is worse than the prevailing market forward rate. The hedging counterparty accepts this worse guaranteed rate for the chance of receiving a better rate, in case a predefined condition is met. As the examples in the following section demonstrate, these predefined conditions can take many forms and may incorporate the market view of the counterparty entering into the structured forward transaction.
+  </p>
+  <h4>
+   <i>
+    Examples of Structured Forwards
+   </i>
+  </h4>
+  <p block-type="Text" class="has-continuation">
+   As mentioned in the previous section, structured forwards offer the possibility to incorporate one's market view into a forward transaction. This view might be the appreciation or depreciation of a currency or even the view that a currency pair remains in a certain range over a given period of time. The following examples demonstrate how these different market views can be expressed with currency options that can be structured into the forward transaction. As a reminder: all examples follow the basic assumptions that the structured forward has a worst-case buying
+  </p>
+  <p block-type="Text">
+   (or selling) rate and no upfront premium must enter into the transaction.
+  </p>
+  <p block-type="Text">
+   <b>
+    Forward Plus.
+   </b>
+   The forward plus is the simplest of all structured forwards. It offers the possibility to take advantage of favorable market movements up to a certain point, while still having a certain worst-case hedged rate.
+  </p>
+  <p block-type="Text">
+   How does it work: by accepting a worst-case hedge rate that is less favorable than the prevailing market forward rate, we create excess cash. Remember, trading at the market forward rate is zero cost by definition. If one trades on a rate that is worse than the market rate, one can expect some compensation. The cash generated is used to buy an option that pays out, if the underlying currency pair moves favorably. To make this a zero-cost strategy, we need to introduce a barrier, or knockout. This has the effect that options cease to exist (are knocked out) if the barrier is reached. For our strategy, it means that we can participate in a favorable market move, but only up to a certain point, namely, the predefined barrier level. If the barrier is reached we are locked into a forward transaction with a rate equal to the worst-case rate.
+  </p>
+  <p block-type="Text">
+   Let us continue the previous example with company X: We calculated the market forward rate to purchase GBP against USD in six months time to be 1.9717. A forward plus could have a worst-case buying rate of 1.9850. This rate is 0.0133 worse than the market forward rate. As compensation for accepting this hedge rate, company X has the opportunity to buy GBP at the prevailing spot rate in six months time as long as the barrier of 1.8875 is not reached or breached during the life of the contract. As the barrier is observed continuously during the entire life of the transaction, we call this barrier an American style barrier (this is not to be confused with an American style option that is exercisable during the life of the option). So what does this right to buy the GBP at the prevailing market spot rate in six months time give to company X? Imagine that the barrier was never reached and the spot rate in six months time is at 1.9000. In this case, company X may buy the GBP at 1.9000 and it will outperform the forward transaction that would have forced it to buy the GBP at 1.9717. However, if the spot rate ever trades at or below the barrier of 1.8875, company X has to buy the GBP at the worst-case rate of 1.9850.
+  </p>
+  <p block-type="Text">
+   Table 1 and Figure 1 demonstrate possible scenarios with assumed spot rates after six months.
+  </p>
+  <h2>
+   <b>
+    4 Currency Forward Contracts
+   </b>
+  </h2>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th colspan="2">
+      Forward plus buying rate
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Spot rate in six months time
+     </th>
+     <th>
+      Barrier never reached
+     </th>
+     <th>
+      Barrier reached
+     </th>
+     <th>
+      Market forward rate
+     </th>
+    </tr>
+    <tr>
+     <td>
+      2.0200
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0100
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0000
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9900
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9750
+     </td>
+     <td>
+      1.9750
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9700
+     </td>
+     <td>
+      1.9700
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9650
+     </td>
+     <td>
+      1.9650
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9600
+     </td>
+     <td>
+      1.9600
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9550
+     </td>
+     <td>
+      1.9550
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9500
+     </td>
+     <td>
+      1.9500
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9450
+     </td>
+     <td>
+      1.9450
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9400
+     </td>
+     <td>
+      1.9400
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9350
+     </td>
+     <td>
+      1.9350
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9300
+     </td>
+     <td>
+      1.9300
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9250
+     </td>
+     <td>
+      1.9250
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9200
+     </td>
+     <td>
+      1.9200
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9150
+     </td>
+     <td>
+      1.9150
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9100
+     </td>
+     <td>
+      1.9100
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9050
+     </td>
+     <td>
+      1.9050
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9000
+     </td>
+     <td>
+      1.9000
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.8950
+     </td>
+     <td>
+      1.8950
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.8876
+     </td>
+     <td>
+      1.8876
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.8875
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.8800
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.8750
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.8700
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Table 1
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+      Forward plus scenario analysis
+     </th>
+     <th>
+     </th>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <img src="_page_3_Figure_3.jpeg"/>
+  </p>
+  <p>
+   Forward plus (barrier not reached), forward plus (barrier reached), market forward rate
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Forward plus scenario analysis
+  </p>
+  <p block-type="Text">
+   As Figure 1 demonstrates, the forward plus outperforms the market forward rate, if the barrier is never reached and the GBP/USD spot rate at maturity is below 1.9717.
+  </p>
+  <p block-type="Text">
+   If we set the worst-case scenario even higher than 1.9850, we can set the barrier further down. Taking advantage of this flexibility, each company entering into a forward plus can create a product that suits its risk appetite.
+  </p>
+  <p block-type="Text">
+   <b>
+    Range Forward.
+   </b>
+   The following example uses another market view to try to outperform the forward rate. In this case, we expect the underlying currency pair to trade within a predefined range during the life of the contract.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Like with the forward plus (and with nearly all other structured forwards), the worst-case hedge rate is less favorable than the prevailing market forward rate. The generated excess cash is spent on an option
+  </p>
+  <p block-type="Text">
+   that pays out if the range holds. The payout of the option is then used to improve the worst-case rate.
+  </p>
+  <p block-type="Text">
+   Here is an example: we calculated the market forward rate to purchase GBP against USD in six months time to be 1.9717. A range forward could have a worst-case buying rate of 1.9850. This rate is 0.0133 worse than the market forward rate. In compensation for accepting this hedge rate, company X can buy GBP at 1.8850 (0.0867 better than the forward rate), if the GBP/USD exchange rate remains within the 2.0700–1.9400 range during the entire sixmonth period. If at any time during the life of the contract, the underlying currency pair trades outside the range, company X has to buy the GBP at the worst-case rate of 1.9850.
+  </p>
+  <p block-type="Text">
+   Table 2 and Figure 2 demonstrate possible scenarios with assumed spot rates after six months.
+  </p>
+  <p block-type="Text">
+   As Figure 2 demonstrates, the range forward outperforms the market forward rate, if the range holds, even if spot rate closes above the forward rate.
+  </p>
+  <p>
+   <b>
+    Table 2
+   </b>
+   Range forward scenario analysis
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th rowspan="2">
+      Spot rate in six months time
+     </th>
+     <th>
+      Range forward buying rate
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Barriers never reached
+     </th>
+     <th>
+      Barrier reached
+     </th>
+     <th>
+      Market forward rate
+     </th>
+    </tr>
+    <tr>
+     <td>
+      2.1000
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0700
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0699
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0500
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0300
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0250
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0200
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0150
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0100
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0050
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2.0000
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9950
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9900
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9800
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9750
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9700
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9650
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9600
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9550
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9500
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9450
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9401
+     </td>
+     <td>
+      1.8850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9400
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9300
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9250
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1.9200
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9850
+     </td>
+     <td>
+      1.9717
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <img src="_page_5_Figure_1.jpeg"/>
+  </p>
+  <p>
+   Range forward (barrier not reached), range forward (barrier reached), market forward rate
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Range forward scenario analysis
+  </p>
+  <p block-type="Text">
+   If we set the worst-case scenario even higher than 1.9850, we can widen the range or improve the best-case buying rate. Taking advantage of this flexibility, each company entering into a range forward can create a product that suits its risk appetite.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [1] Wystup, U. (2006).
+     <i>
+      FX Options and Structured Products
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [2] Weithers, T. (2006).
+     <i>
+      A Practical Guide to the FX Markets
+     </i>
+     , John Wiley &amp; Sons.
+    </li>
+    <li block-type="ListItem">
+     [3] Villanueva, O.M. (2007). Spot-forward cointegration, structural breaks and FX market unbiasedness
+     <i>
+      Journal of International Financial Markets Institutions &amp; Money
+     </i>
+     <b>
+      17
+     </b>
+     , 58–78.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   [4] Chisholm, A.M. (2004).
+   <i>
+    Derivatives Demystified: A Stepby-Step Guide to Forwards, Futures, Swaps and Options
+   </i>
+   , John Wiley &amp; Sons.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <h4>
+   <b>
+    Barrier Options
+   </b>
+   ;
+   <b>
+    Forwards and Futures
+   </b>
+   ;
+   <b>
+    Pricing Formulae for Foreign Exchange Options
+   </b>
+   .
+  </h4>
+  <p block-type="Text">
+   TAMAS´ KORCHMAROS ´
+  </p>
+ </body>
+</html>

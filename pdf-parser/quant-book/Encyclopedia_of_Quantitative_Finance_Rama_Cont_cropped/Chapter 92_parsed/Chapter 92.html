@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Average Strike Options
+   </b>
+  </h2>
+  <p block-type="Text">
+   An average strike option is also known as an
+   <i>
+    Asian option
+   </i>
+   with floating strike. These options have a payoff based on the difference between the terminal asset price and the average of an underlying asset price over a specified time period. The other type of Asian option is the fixed-strike option, where the payoff is determined by the average of an underlying asset price and a fixed strike set in advance (
+   <i>
+    see
+   </i>
+   <b>
+    Asian Options
+   </b>
+   ).
+  </p>
+  <p block-type="Text">
+   If the average is computed using a finite sample of asset price observations taken at a set of regularly spaced time points, we have a discrete average strike option. A continuous time option is obtained by computing the average
+   <i>
+    via
+   </i>
+   the integral of the price path over an interval of time. The average itself can be defined to be geometric or arithmetic. As for the fixed strike Asian option, when the geometric average is used, the average strike option has a closedform solution for the price, whereas the option with arithmetic average does not have a known closedform solution.
+  </p>
+  <p block-type="Text">
+   We concentrate on the continuous time, average strike option of European style with arithmetic averaging. A discussion of the uses and rationale for introducing Asian contracts is given in
+   <b>
+    Asian Options
+   </b>
+   . Average strike options are closely related to these options, but are less commonly used in practice.
+  </p>
+  <p block-type="Text">
+   Consider the standard Black–Scholes economy with a risky asset (stock) and a money market account. We also assume the existence of a riskneutral probability measure
+   <i>
+    Q
+   </i>
+   (equivalent to the real-world measure
+   <i>
+    P
+   </i>
+   ) under which discounted asset prices are martingales. We denote expectation under measure
+   <i>
+    Q
+   </i>
+   by
+   <i>
+    E
+   </i>
+   , and the stock price follows
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S_t}{S_t} = (r - \delta) \,\mathrm{d}t + \sigma \,\mathrm{d}W_t \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <i>
+    r
+   </i>
+   is the constant continuously compounded interest rate,
+   <i>
+    δ
+   </i>
+   is a continuous dividend yield,
+   <i>
+    σ
+   </i>
+   is the instantaneous volatility of asset return, and
+   <i>
+    W
+   </i>
+   is a
+   <i>
+    Q
+   </i>
+   -Brownian motion. The reader is referred to
+   <b>
+    Black–Scholes Formula
+   </b>
+   for details on the Black–Scholes model and
+   <b>
+    Risk-neutral Pricing
+   </b>
+   for a discussion of risk-neutral pricing.
+  </p>
+  <p block-type="Text">
+   We consider a contract that is based on the value
+   <i>
+    AT
+   </i>
+   , where
+   <i>
+    (At)t
+   </i>
+   <sup>
+    ≥
+   </sup>
+   <i>
+    t
+   </i>
+   <sup>
+    0
+   </sup>
+   is the arithmetic average
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_{t} = \frac{1}{t - t_{0}} \int_{t_{0}}^{t} S_{u} du, \quad t &gt; t_{0}
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   and by continuity, we define
+   <i>
+    At
+   </i>
+   <sup>
+    0
+   </sup>
+   =
+   <i>
+    St
+   </i>
+   <sup>
+    0
+   </sup>
+   . The corresponding geometric average
+   <i>
+    Gt
+   </i>
+   is defined as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    G_t = \exp\left(\frac{1}{t - t_0} \int_{t_0}^t \ln S_u \, \mathrm{d}u\right) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The contract is written at time 0 (with 0 ≤
+   <i>
+    t
+   </i>
+   0) and expires at
+   <i>
+    T &gt;t
+   </i>
+   0. It is of interest to calculate the price of the option at the current time
+   <i>
+    t
+   </i>
+   , where 0 ≤
+   <i>
+    t
+   </i>
+   ≤
+   <i>
+    T
+   </i>
+   . The position of
+   <i>
+    t
+   </i>
+   compared to the start of the averaging,
+   <i>
+    t
+   </i>
+   <sup>
+    0
+   </sup>
+   may vary, as described in
+   <b>
+    Asian Options
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   The payoff of an average strike call with arithmetic averaging is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (S_T - A_T)^+ \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   and the payoff of an average strike put with arithmetic averaging is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (A_T - S_T)^+ \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   Average strike option payoffs with geometric averaging are identical, with
+   <i>
+    AT
+   </i>
+   replaced by
+   <i>
+    GT
+   </i>
+   . The buyer of an average strike call is able to exchange the terminal asset price for the average of the asset price over a given period. For this reason, it is sometimes referred to as a
+   <i>
+    lookback
+   </i>
+   on the average (
+   <i>
+    see
+   </i>
+   <b>
+    Lookback Options
+   </b>
+   for a discussion of the lookback option).
+  </p>
+  <p block-type="Text">
+   By standard arbitrage arguments, the time-
+   <i>
+    t
+   </i>
+   price of the average strike call is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-r(T-t)}\mathbb{E}[(S_T - A_T)^{+}|\mathcal{F}_t] \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   and the price of the put is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-r(T-t)}\mathbb{E}[(A_T - S_T)^{+}|\mathcal{F}_t] \tag{7}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   It turns out that we need to consider only the case
+   <i>
+    t
+   </i>
+   ≥
+   <i>
+    t
+   </i>
+   0, where the option is "in progress". The forward starting case (
+   <i>
+    t&lt;t
+   </i>
+   0) can be rewritten as a modified option with averaging starting at
+   <i>
+    t
+   </i>
+   , today. This is in contrast to the Asian option with fixed strike, where the difficult case was when the option was forward
+  </p>
+  <p block-type="Text">
+   starting. As for the Asian option, the average strike option satisfies a put–call parity; see [1] for details.
+  </p>
+  <p block-type="Text">
+   The average strike option is an exotic pathdependent option, as the price depends on the path of the underlying asset
+   <i>
+    via
+   </i>
+   the average. The distribution of the average
+   <i>
+    AT
+   </i>
+   is not lognormal, if the asset price is lognormal, and pricing is difficult because the joint law of
+   <i>
+    AT
+   </i>
+   and
+   <i>
+    ST
+   </i>
+   is needed. This is in contrast to the Asian option, which required only the law of the average. Perhaps because of this increased complexity, or their lesser popularity in practice, fewer methods exist for the pricing of average strike options. Just as for the Asian option, there are no closed-form solutions for the price of the average strike option.
+  </p>
+  <p block-type="Text">
+   Many of the methods that we discuss here for pricing are similar to those used to price the Asian option. An early technique to give an approximate price for the average strike option was to replace the arithmetic average
+   <i>
+    AT
+   </i>
+   with the geometric average
+   <i>
+    GT
+   </i>
+   . Since
+   <i>
+    GT
+   </i>
+   has a lognormal distribution, the (approximate) pricing problem becomes (for a call)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-r(T-t)}\mathbb{E}[(S_T - G_T)^{+}|\mathcal{F}_t] \tag{8}
+   </math>
+  </p>
+  <p block-type="Text">
+   We recognize that this is exactly an exchange option (
+   <i>
+    see
+   </i>
+   <b>
+    Exchange Options
+   </b>
+   ), which can be priced
+   <i>
+    via
+   </i>
+   a change of measure, as in [9]. Levy and Turnbull [8] mentioned this connection to exchange options, but it was Conze and Viswanathan [3] who presented the results of this computation.
+  </p>
+  <p block-type="Text">
+   Other analytical approximations can be obtained by approximating the true joint distribution of the arithmetic average and asset price using an approximate distribution, usually jointly lognormal with appropriate parameters. Chung
+   <i>
+    et al.
+   </i>
+   [2] extended the linear approximations of Bouaziz
+   <i>
+    et al.
+   </i>
+   [1], Levy [7], and Ritchken
+   <i>
+    et al.
+   </i>
+   [10] (approximating distribution of {
+   <i>
+    AT , ST
+   </i>
+   } by joint lognormal) to include quadratic terms. Their approximation is no longer based on a geometric-type approximation.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Recently, symmetries of a similar style to that of the put-call symmetry have been found between fixed strike Asian options and average strike options. For forward starting average strike options, Henderson
+   <i>
+    et al.
+   </i>
+   [4] gave a symmetry with a starting Asian option. If the average strike option is starting, the special case of Henderson and Wojakowski [5] is recovered. If the average strike option is in progress, it cannot be rewritten as an Asian option, and Henderson
+   <i>
+    et al.
+   </i>
+   [4] derived an upper bound for the
+  </p>
+  <p block-type="Text">
+   price of the average strike option. This bound is in terms of an Asian option with fixed strike and a vanilla option. The method gives an "exact" bound for forward starting and starting options and when expiry is reached.
+  </p>
+  <p block-type="Text">
+   Numerical methods can be used to price the average strike option. The discussion of Monte Carlo simulation in
+   <b>
+    Asian Options
+   </b>
+   is also relevant here, as simulation is often used as a benchmark price. Ingersoll [6] was the first to recognize that it is possible to reduce the dimension of the pricing problem for the average strike option using a transformation of variables. Despite the value of the average strike option at
+   <i>
+    t
+   </i>
+   depending on the current asset price, current value of the average, and time to expiry, a one-dimensional partial differential equation (PDE) can be derived by using Ingersoll's reduction of variables. However, the drawback is that the Dirac delta function appears as a coefficient of the PDE, making it prone to instabilities. Vecer's [12] PDE method for Asian options with fixed strike also applies to average strike options and gives a stable one-dimensional PDE. Some testing of this method for the average strike option is given in [11].
+  </p>
+  <p block-type="Text">
+   To conclude, research into pricing the average strike option is ongoing, with current PDE and bound methods being very efficient.
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Bouaziz, L., Briys, E. &amp; Crouhy, M. (1994). The pricing of forward starting asian options,
+     <i>
+      Journal of Banking and Finance
+     </i>
+     <b>
+      18
+     </b>
+     (5), 823–839.
+    </li>
+    <li block-type="ListItem">
+     [2] Chung, S., Shackleton, M. &amp; Wojakowski, R. (2003). Efficient quadratic approximation of floating strike Asian option values,
+     <i>
+      Finance
+     </i>
+     <b>
+      24
+     </b>
+     (1), 49–62.
+    </li>
+    <li block-type="ListItem">
+     [3] Conze, A. &amp; Viswanathan, R. (1991). European path dependent options: the case of geometric averages,
+     <i>
+      Finance
+     </i>
+     <b>
+      12
+     </b>
+     (1), 7–22.
+    </li>
+    <li block-type="ListItem">
+     [4] Henderson, V., Hobson, D., Shaw, W. &amp; Wojakowski, R. (2007). Bounds for in-progress floating-strike Asian options using symmetry,
+     <i>
+      Annals of Operations Research
+     </i>
+     <b>
+      151
+     </b>
+     , 81–98.
+    </li>
+    <li block-type="ListItem">
+     [5] Henderson, V. &amp; Wojakowski, R. (2002). On the equivalence of fixed and floating-strike Asian options,
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      39
+     </b>
+     (2), 391–394.
+    </li>
+    <li block-type="ListItem">
+     [6] Ingersoll, J. (1987).
+     <i>
+      Theory of Financial Decision Making
+     </i>
+     , Rowman and Littlefield Publishers, New Jersey.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [7] Levy, E. (1992). Pricing European average rate currency options,
+     <i>
+      Journal of International Money and Finance
+     </i>
+     <b>
+      11
+     </b>
+     (5), 474–491.
+    </li>
+    <li block-type="ListItem">
+     [8] Levy, E. &amp; Turnbull, S. (1992). Average intelligence,
+     <i>
+      Risk
+     </i>
+     <b>
+      5
+     </b>
+     , 2.
+    </li>
+    <li block-type="ListItem">
+     [9] Margrabe, W. (1978). The value of an option to exchange one asset for another,
+     <i>
+      Journal of Finance
+     </i>
+     <b>
+      33
+     </b>
+     , 177–186.
+    </li>
+    <li block-type="ListItem">
+     [10] Ritchken, P., Sankarasubramanian, L. &amp; Vijh, A.M. (1993). The valuation of path-dependent contracts on the average,
+     <i>
+      Management Science
+     </i>
+     <b>
+      39
+     </b>
+     (10), 1202–1213.
+    </li>
+    <li block-type="ListItem">
+     [11] Shiuan, Y.J. (2001).
+     <i>
+      Pricing Floating-Strike Asian Options
+     </i>
+     . MSc dissertation, University of Warwick.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   [12] Vecer, J. (2001). A new pde approach for pricing arithmetic average Asian options,
+   <i>
+    Journal of Computational Finance
+   </i>
+   <b>
+    4
+   </b>
+   (4), 105–113.
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Asian Options
+   </b>
+   ;
+   <b>
+    Black–Scholes Formula
+   </b>
+   ;
+   <b>
+    Exchange Options
+   </b>
+   ;
+   <b>
+    Lookback Options
+   </b>
+   ;
+   <b>
+    Risk-neutral Pricing
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   VICKY HENDERSON
+  </p>
+ </body>
+</html>

@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Foreign Exchange Markets
+   </b>
+  </h1>
+  <p block-type="Text">
+   The foreign exchange (FX) market has two major functionalities, one related to hedging and the other to investment.
+  </p>
+  <p block-type="Text">
+   In the age of globalization, it is essential for corporates and multinationals to hedge their FX exposure due to export/import activities. In addition, fund managers (institutional) need to hedge their FX risk in stocks or bonds if the stocks/bonds are quoted in a foreign currency. With hedging instruments, the FX exposure can be reduced and one can even benefit from certain market scenarios. This kind of participation brings us to the important class of investor-oriented products where the coupon depends on an FX rate or, at maturity, the pay-off (amount, currency) will be determined by an FX rate. This kind of product can be issued as a note, certificate, or bond.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   For the major currencies such as USD, EUR, JPY, GBP, CHF, AUD, CAD, and NZD, the market has become more transparent over the last few years. For plain vanilla options, market data, especially volatilities for maturities below 1 year, are published by brokers or banks and are shown on Reuters pages (e.g., TTKLINDEX10, ICAPFXOP, GFIVOLS). For exotic products, new pricing tools, such as Superderivatives, LPA, Bloomberg, ICY, Fenics, and so on, are available for users, but the premium of the option will depend on the pricing model and the adjustments used. For the emerging market currencies such as PLN (Polish zloty), HUF (Hungarian forint), ZAR (South African rand), and so on, which are freely tradable but less liquid, the market data are less transparent. Currencies that are not freely tradable (the currency cannot be cash-settled offshore) such as BRL (Brazilian real) or CNY (Chinese yuan renmimbi) can be traded as a nondeliverable forward (NDF) or as a nondeliverable option (NDO) against a tradable currency. The NDF is a cash-settled product without exchange of notionals, which means that the intrinsic value at maturity will be paid in the free tradable currency based on a fixing source. The underlying of an NDO is the NDF, meaning that exercising the NDO results in an NDF, which will also be cash-settled. Another class of currencies is that of the fully cash-settled pegged ones, which means that their
+  </p>
+  <p block-type="Text">
+   exchange rate is 100% correlated to a major currency, mostly the USD. If one expects that this peg will continue, hedges should be done in the correlated major currency. In the case of SAR (Saudi riyal) or AED (United Arab Emirates dirham), discussion has been ongoing about depegging the currencies. In case this is done, there could be an increasing interest in SARor AED-linked investments. This opens an increasing interest in SAR- or AED-linked investments to participate in the case that these currencies are depegged. For the "more exotic currencies" such as the GHC (Ghanaian cedi), there is no options market.
+  </p>
+  <h1>
+   <b>
+    Quotation
+   </b>
+  </h1>
+  <p block-type="Text">
+   The exchange rate can be defined as the amount of domestic currency one gets if one sells one unit of foreign currency. If we take a look at an example of the EUR/USD exchange rate, the default quotation is EUR-USD, where USD is the domestic currency and EUR is the foreign currency. The terms
+   <i>
+    domestic
+   </i>
+   and
+   <i>
+    foreign
+   </i>
+   are not related to the location of the trader or any country, but it is more a question of the definition. Domestic and base are synonyms as are foreign and underlying. The common way is to denote the currency pair with a slash (/) and the quotation with a dash (−). The slash (/) does not mean a division.
+  </p>
+  <p block-type="Text">
+   For example, the currency pair EUR/USD can be quoted either in EUR-USD, which means how many USD one gets for selling one EUR, or in USD-EUR, which then means how many EUR one gets for selling one USD. There are certain market standard quotations; some of them are listed in Table 1.
+  </p>
+  <p block-type="Text">
+   In the FX market, two currencies are involved, which means that one needs to specify on which currency a particular call or put option is written. For
+  </p>
+  <p>
+   <b>
+    Table 1
+   </b>
+   Market convention of some major currency pairs with sample spot price
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Currency pair
+     </th>
+     <th>
+      Quotation
+     </th>
+     <th colspan="2">
+      Quote
+     </th>
+    </tr>
+    <tr>
+     <td>
+      EUR/USD
+     </td>
+     <td>
+      EUR-USD
+     </td>
+     <td>
+      1.4400
+     </td>
+    </tr>
+    <tr>
+     <td>
+      GBP/USD
+     </td>
+     <td>
+      GBP-USD
+     </td>
+     <td>
+      1.9800
+     </td>
+    </tr>
+    <tr>
+     <td>
+      USD/JPY
+     </td>
+     <td>
+      USD-JPY
+     </td>
+     <td>
+      114.00
+     </td>
+    </tr>
+    <tr>
+     <td>
+      USD/CHF
+     </td>
+     <td>
+      USD-CHF
+     </td>
+     <td>
+      1.1500
+     </td>
+    </tr>
+    <tr>
+     <td>
+      EUR/CHF
+     </td>
+     <td>
+      EUR-CHF
+     </td>
+     <td>
+      1.6600
+     </td>
+    </tr>
+    <tr>
+     <td>
+      EUR/JPY
+     </td>
+     <td>
+      EUR-JPY
+     </td>
+     <td>
+      165.00
+     </td>
+    </tr>
+    <tr>
+     <td>
+      EUR/GBP
+     </td>
+     <td>
+      EUR-GBP
+     </td>
+     <td>
+      0.7300
+     </td>
+    </tr>
+    <tr>
+     <td>
+      USD/CAD
+     </td>
+     <td>
+      USD-CAD
+     </td>
+     <td>
+      0.9800
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   instance, in the currency pair EUR/USD, there can be a EUR call, which is equivalent to a USD put, or a EUR put, which is equivalent to a USD call.
+  </p>
+  <h4>
+   <b>
+    FX Terminology
+   </b>
+  </h4>
+  <p block-type="Text">
+   In the FX market, a million is called a
+   <math display="inline">
+    buck
+   </math>
+   and a billion a
+   <i>
+    vard
+   </i>
+   . This is because the word "billion" has different meanings in different languages. In French and German, it represents
+   <math display="inline">
+    10^{12}
+   </math>
+   and in English it stands for
+   <math display="inline">
+    10^9
+   </math>
+  </p>
+  <p block-type="Text">
+   Certain currency pairs have their own names in the market. For instance, GBP/USD is called a
+   <i>
+    cable
+   </i>
+   , because the exchange rate information used to be sent between England and America through a telephone cable in the Atlantic Ocean. EUR/JPY is called the cross, because it is the cross rate of the more liquidly traded USD/JPY and EUR/USD.
+  </p>
+  <p block-type="Text">
+   Some currency pairs also have their own names to make them short and unique in communication. New Zealand dollar, which is NZD/USD, is called Kiwi, and the Australian dollar, which is AUD/USD, is called Aussie. Among the Scandinavian currencies, NOK (Norwegian krone) is called Noki, SEK (Swedish krona) is called Stoki, and in combination with DKK (Danish krone) the three are called Scandies.
+  </p>
+  <p block-type="Text">
+   The exchange rates are usually quoted in five relevant figures, for example, in EUR-USD we would get a quote of
+   <math display="inline">
+    1.4567
+   </math>
+   . Sometimes one can get a quote up to six figures, but for the time being we focus on five figures. The last digit "7" is called the
+   <i>
+    pip
+   </i>
+   and the middle digit "5" is called the
+   <i>
+    big figure
+   </i>
+   , because the interbank spot trading tools show this digit in bigger size since it is the most important information. The figure to the left of the big figure is known anyway and the pips to the right of the big figures are sometimes "negligible". For example, a rise of EUR-JPY 165.00 by 40 pips is 165.40 or a rise by 3 big figures would be 168.00.
+  </p>
+  <h4>
+   <b>
+    Quotation of Option Prices
+   </b>
+  </h4>
+  <p block-type="Text">
+   Plain vanilla option prices are usually quoted in terms of implied volatility. If an option is priced in volatility, a delta exchange is necessary. The advantage is that the volatility does not usually move as quickly as the spot rate and one has the chance to
+  </p>
+  <p>
+   Table 2 Standard market quotation types for option premiums
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Symbol
+     </th>
+     <th>
+      Description of symbol
+     </th>
+     <th>
+      Result of example
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       d
+      </math>
+      pips
+     </td>
+     <td>
+      Domestic per unit
+      <br/>
+      foreign
+     </td>
+     <td>
+      208.42 USD pips
+      <br/>
+      per EUR
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       f
+      </math>
+      pips
+     </td>
+     <td>
+      Foreign per unit
+      <br/>
+      domestic
+     </td>
+     <td>
+      97.17 EUR pips
+      <br/>
+      per USD
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \% f
+      </math>
+     </td>
+     <td>
+      Foreign per unit
+      <br/>
+      foreign
+     </td>
+     <td>
+      1.4575% EUR
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \%d
+      </math>
+     </td>
+     <td>
+      Domestic per unit
+      <br/>
+      domestic
+     </td>
+     <td>
+      1.3895% USD
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+      Domestic amount
+      <br/>
+      Foreign amount
+     </td>
+     <td>
+      20 842 USD
+      <br/>
+      14 575 EUR
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   Foreign = EUR. domestic = USD.
+   <math display="inline">
+    S_0 = 1.4300
+   </math>
+   ,
+   <math display="inline">
+    r_d = 5.0\%
+   </math>
+   .
+   <math display="inline">
+    r_f = 4.5\%
+   </math>
+   , volatility = 8.0%,
+   <math display="inline">
+    K = 1.5000
+   </math>
+   ,
+   <math display="inline">
+    T = 365
+   </math>
+   days,
+   <math display="inline">
+    EUR \text{ call } USD \text{ put, notional} = 1\,000\,000 \text{ EUR} = 1\,500\,000
+   </math>
+   <math display="inline">
+    USD
+   </math>
+  </p>
+  <p block-type="Text">
+   compare the prices, especially in the broker market. On the basis of the spot rate on which the delta exchange is done, the premium of the plain vanilla option is calculated
+   <i>
+    via
+   </i>
+   the Black-Scholes formula. For exotic options, a price in volatility is not possible because each bank has its own pricing model for these.
+  </p>
+  <p block-type="Text">
+   The premium, value, or prices of options can be quoted in six different ways (Table 2). The Black-Scholes formula quotes in domestic pips per one unit of foreign notional. The others can be retrieved in the following manner:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d \text{ pips } \xrightarrow{\times \frac{1}{SK}} f \text{ pips } \xrightarrow{\times K} \%f \xrightarrow{\times \frac{S}{K}} \%d \qquad (1)
+   </math>
+  </p>
+  <h4>
+   <b>
+    Delta and Premium Convention
+   </b>
+  </h4>
+  <p block-type="TextInlineMath">
+   The spot delta of a plain vanilla option can be retrieved in a straightforward way by using the Black-Scholes formula. It is called the raw spot
+   <i>
+    delta
+   </i>
+   ,
+   <math display="inline">
+    \delta_{raw}
+   </math>
+   . One retrieves it in percentage of the foreign currency, but the delta in the second involved currency
+   <math display="inline">
+    \delta_{raw}^{opposite}
+   </math>
+   can be computed in the following manner:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_{\text{raw}}^{\text{opposite}} = -\frac{S}{K} \delta_{\text{raw}} \tag{2}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   The delta multiplied with the corresponding notional determines the amount that has to be bought
+  </p>
+  <p block-type="Text">
+   or sold to hedge the spot risk of the option up to the first order.
+  </p>
+  <p block-type="Text">
+   An important question is whether the premium of the option needs to be included in the delta or not? An example, EUR-USD, for investigation is considered here. In this quotation, USD is the domestic currency and EUR is the foreign one. The Black-Scholes formula calculates the premium in domestic per 1 unit foreign currency, which in our example is in USD per 1 EUR. This premium is denoted by
+   <math display="inline">
+    p
+   </math>
+   . If the premium is paid in EUR, which means in the foreign currency, it includes an FX risk. The premium
+   <math display="inline">
+    p
+   </math>
+   in USD is equivalent to
+   <math display="inline">
+    \frac{p}{S}EUR
+   </math>
+   , which means that the amount of EUR that has to be bought to hedge the option needs to be reduced by this EUR premium and is given as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_{\text{raw}} - \frac{p}{S} E U R \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   We denoted USD as domestic currency and EUR as foreign currency, but do all banks or trading places have this notion? What is the notional currency of the option and what is the premium currency? In the interbank market, there exists a fixed notion of the delta of the currency pair. Normally, it is the LHS delta in Fenics&lt;sup&gt;a&lt;/sup&gt; if the option is traded in the LHS premium, which is mostly used, for example, for EUR/USD, USD/JPY, and EUR/JPY, and the RHS delta if it is the RHS premium, for example, for GBP/USD and AUD/USD. Most of the options traded in the market are out-of-the-money; therefore, the premium does not create a critical FX risk for the trader.
+  </p>
+  <p block-type="Text">
+   For the banks where the base currency is considered the risk-free currency, the market value of the option is in the base currency, and if the premium is in the risky currency, the premium needs to be included in the hedge. If the premium is in the risk-free (or the base) currency, the premium will be offset by the market value of the option. In the opposite case, where the risk-free currency is the underlying currency, if the premium is in the risky currency, the premium will be offset by the market value of the option. Only in the case of premium in risk-free currency, the amount needs to be included in the hedge.
+  </p>
+  <p block-type="Text">
+   Therefore, the delta hedge is invariant with respect to the risky currency notion of the bank; for example, for both banks, one is based in USD and the other in EUR, and the delta is the same.
+  </p>
+  <p>
+   <b>
+    Table 3
+   </b>
+   One-year EUR call USD put, the strike is 1.4300 for a EUR-based bank
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Delta
+      <br/>
+      currency
+     </th>
+     <th>
+      Premium
+      <br/>
+      currency
+     </th>
+     <th>
+      Fenics
+     </th>
+     <th>
+      Hedge
+     </th>
+     <th>
+      Delta
+     </th>
+    </tr>
+    <tr>
+     <td>
+      %EUR
+     </td>
+     <td>
+      EUR
+     </td>
+     <td>
+      LHS
+     </td>
+     <td>
+      <math>
+       \delta_{raw} - P
+      </math>
+     </td>
+     <td>
+      48.35
+     </td>
+    </tr>
+    <tr>
+     <td>
+      %EUR
+     </td>
+     <td>
+      USD
+     </td>
+     <td>
+      RHS
+     </td>
+     <td>
+      <math>
+       \delta_{raw}
+      </math>
+     </td>
+     <td>
+      51.64
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \%
+      </math>
+      USD
+     </td>
+     <td>
+      EUR
+     </td>
+     <td>
+      <math>
+       RHS + F4
+      </math>
+     </td>
+     <td>
+      <math>
+       -(\delta_{raw} - P)
+      </math>
+     </td>
+     <td>
+      <math>
+       -48.35
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      S/K
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \%
+      </math>
+      USD
+     </td>
+     <td>
+      <math>
+       \text{USD}
+      </math>
+     </td>
+     <td>
+      <math>
+       LHS + F4
+      </math>
+     </td>
+     <td>
+      <math>
+       -\delta_{\text{raw}}S/K
+      </math>
+     </td>
+     <td>
+      <math>
+       -51.64
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      <math>
+       S = 1.4300
+      </math>
+      ,
+      <math>
+       r_d = 5.0\%
+      </math>
+      ,
+      <math>
+       r_f = 4.5\%
+      </math>
+      , volatility = 8.0\%,
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       K = 1.4300
+      </math>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 4
+   </b>
+   One-year EUR call USD put, the strike is 1.5000 for a EUR-based bank
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Delta
+      <br/>
+      currency
+     </th>
+     <th>
+      Premium
+      <br/>
+      currency
+     </th>
+     <th>
+      Fenics
+     </th>
+     <th>
+      Hedge
+     </th>
+     <th>
+      Delta
+     </th>
+    </tr>
+    <tr>
+     <td>
+      %EUR
+     </td>
+     <td>
+      EUR
+     </td>
+     <td>
+      LHS
+     </td>
+     <td>
+      <math>
+       \delta_{raw} - P
+      </math>
+     </td>
+     <td>
+      28.22
+     </td>
+    </tr>
+    <tr>
+     <td>
+      %EUR
+     </td>
+     <td>
+      USD
+     </td>
+     <td>
+      RHS
+     </td>
+     <td>
+      <math>
+       \delta_{raw}
+      </math>
+     </td>
+     <td>
+      29.69
+     </td>
+    </tr>
+    <tr>
+     <td>
+      %USD
+     </td>
+     <td>
+      EUR
+     </td>
+     <td>
+      <math>
+       RHS + F4
+      </math>
+     </td>
+     <td>
+      <math>
+       -(\delta_{raw} - P)
+      </math>
+     </td>
+     <td>
+      <math>
+       -26.91
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      S/K
+     </td>
+     <td>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \%
+      </math>
+      USD
+     </td>
+     <td>
+      <math>
+       \text{USD}
+      </math>
+     </td>
+     <td>
+      <math>
+       LHS + F4
+      </math>
+     </td>
+     <td>
+      <math>
+       -\delta_{\text{raw}}S/K
+      </math>
+     </td>
+     <td>
+      <math>
+       -28.30
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       K = 1.5000
+      </math>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+      <math>
+       S = 1.4300, r_d = 5.0\%, r_f = 4.5\%,
+      </math>
+      volatility = 8.0\%,
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h4>
+   Examples
+  </h4>
+  <p block-type="Text">
+   To see the different deltas used in practice, consider two examples discussed in Tables 3 and 4.
+  </p>
+  <h1>
+   Implied Volatility and Delta for a Given Strike
+  </h1>
+  <p block-type="Text">
+   Implied volatility is not constant across strikes (see
+   <b>
+    Foreign Exchange Smiles
+   </b>
+   ). The volatility
+   <math display="inline">
+    \sigma
+   </math>
+   depends on the corresponding delta of the option, but the delta depends on the price of the option and therefore on the used volatility. How can we retrieve the correct volatility for a given strike? For sure it is an iterative process. Initially, one uses the at-the-money (ATM) volatility
+   <math display="inline">
+    \sigma_0
+   </math>
+   and calculates the delta
+   <math display="inline">
+    \Delta_1
+   </math>
+   . On the basis of
+   <math display="inline">
+    \Delta_1
+   </math>
+   , a new volatility
+   <math display="inline">
+    \sigma_1
+   </math>
+   can be retrieved from the volatility matrix. This new volatility leads to a new delta and so on. Now one can define a convergence criterion to stop the iteration. In practice, a fixed number of iterations is used, usually five steps.
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+    <tr>
+     <th>
+      Mat/
+     </th>
+     <th>
+      50%
+     </th>
+     <th>
+      45%
+     </th>
+     <th>
+      40%
+     </th>
+     <th>
+      35%
+     </th>
+     <th>
+      30%
+     </th>
+     <th>
+      25%
+     </th>
+     <th>
+      20%
+     </th>
+     <th>
+      15%
+     </th>
+     <th>
+      10%
+     </th>
+     <th>
+      5%
+     </th>
+    </tr>
+    <tr>
+     <td>
+      O/N
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.01
+     </td>
+     <td>
+      0.01
+     </td>
+     <td>
+      0.01
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1W
+     </td>
+     <td>
+      0.06
+     </td>
+     <td>
+      0.06
+     </td>
+     <td>
+      0.05
+     </td>
+     <td>
+      0.05
+     </td>
+     <td>
+      0.05
+     </td>
+     <td>
+      0.04
+     </td>
+     <td>
+      0.04
+     </td>
+     <td>
+      0.03
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.01
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1M
+     </td>
+     <td>
+      0.11
+     </td>
+     <td>
+      0.11
+     </td>
+     <td>
+      0.11
+     </td>
+     <td>
+      0.10
+     </td>
+     <td>
+      0.10
+     </td>
+     <td>
+      0.09
+     </td>
+     <td>
+      0.08
+     </td>
+     <td>
+      0.07
+     </td>
+     <td>
+      0.05
+     </td>
+     <td>
+      0.03
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2M
+     </td>
+     <td>
+      0.16
+     </td>
+     <td>
+      0.16
+     </td>
+     <td>
+      0.15
+     </td>
+     <td>
+      0.15
+     </td>
+     <td>
+      0.14
+     </td>
+     <td>
+      0.13
+     </td>
+     <td>
+      0.11
+     </td>
+     <td>
+      0.09
+     </td>
+     <td>
+      0.07
+     </td>
+     <td>
+      0.04
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3M
+     </td>
+     <td>
+      0.20
+     </td>
+     <td>
+      0.02
+     </td>
+     <td>
+      0.19
+     </td>
+     <td>
+      0.19
+     </td>
+     <td>
+      0.17
+     </td>
+     <td>
+      0.16
+     </td>
+     <td>
+      0.14
+     </td>
+     <td>
+      0.12
+     </td>
+     <td>
+      0.09
+     </td>
+     <td>
+      0.05
+     </td>
+    </tr>
+    <tr>
+     <td>
+      6M
+     </td>
+     <td>
+      0.28
+     </td>
+     <td>
+      0.28
+     </td>
+     <td>
+      0.27
+     </td>
+     <td>
+      0.26
+     </td>
+     <td>
+      0.25
+     </td>
+     <td>
+      0.23
+     </td>
+     <td>
+      0.20
+     </td>
+     <td>
+      0.17
+     </td>
+     <td>
+      0.13
+     </td>
+     <td>
+      0.07
+     </td>
+    </tr>
+    <tr>
+     <td>
+      9M
+     </td>
+     <td>
+      0.33
+     </td>
+     <td>
+      0.33
+     </td>
+     <td>
+      0.33
+     </td>
+     <td>
+      0.32
+     </td>
+     <td>
+      0.30
+     </td>
+     <td>
+      0.28
+     </td>
+     <td>
+      0.24
+     </td>
+     <td>
+      0.20
+     </td>
+     <td>
+      0.15
+     </td>
+     <td>
+      0.09
+     </td>
+    </tr>
+    <tr>
+     <td>
+      1Y
+     </td>
+     <td>
+      0.38
+     </td>
+     <td>
+      0.38
+     </td>
+     <td>
+      0.38
+     </td>
+     <td>
+      0.37
+     </td>
+     <td>
+      0.35
+     </td>
+     <td>
+      0.32
+     </td>
+     <td>
+      0.28
+     </td>
+     <td>
+      0.24
+     </td>
+     <td>
+      0.18
+     </td>
+     <td>
+      0.10
+     </td>
+    </tr>
+    <tr>
+     <td>
+      2Y
+     </td>
+     <td>
+      0.51
+     </td>
+     <td>
+      0.51
+     </td>
+     <td>
+      0.51
+     </td>
+     <td>
+      0.50
+     </td>
+     <td>
+      0.48
+     </td>
+     <td>
+      0.44
+     </td>
+     <td>
+      0.40
+     </td>
+     <td>
+      0.33
+     </td>
+     <td>
+      0.25
+     </td>
+     <td>
+      0.15
+     </td>
+    </tr>
+    <tr>
+     <td>
+      3Y
+     </td>
+     <td>
+      0.60
+     </td>
+     <td>
+      0.60
+     </td>
+     <td>
+      0.60
+     </td>
+     <td>
+      0.60
+     </td>
+     <td>
+      0.57
+     </td>
+     <td>
+      0.54
+     </td>
+     <td>
+      0.48
+     </td>
+     <td>
+      0.40
+     </td>
+     <td>
+      0.31
+     </td>
+     <td>
+      0.18
+     </td>
+    </tr>
+    <tr>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+     <td>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 5
+   </b>
+   Vega matrix for standard maturities and delta values, expressed in percent of foreign notional
+  </p>
+  <p block-type="Text">
+   The matrix shows, for example, that 2Y EUR call USD put 35 delta can be hedged with two times 6M EUR call USD put 30 delta
+  </p>
+  <h1>
+   <b>
+    Mapping of Delta on Vega
+   </b>
+  </h1>
+  <p block-type="TextInlineMath">
+   From the Black–Scholes formula, it is clear that for a fixed delta, the vega
+   <i>
+    Pσ
+   </i>
+   does not depend on volatility or
+   <i>
+    rd
+   </i>
+   , and
+   <i>
+    Pσ
+   </i>
+   is therefore a function of only
+   <i>
+    rf
+   </i>
+   , maturity, and delta. This gives the trader the advantage of a moderately stable vega matrix. Such a matrix is shown in Table 5, with
+   <i>
+    rf
+   </i>
+   = 4
+   <i>
+    .
+   </i>
+   5%.
+  </p>
+  <h1>
+   <b>
+    FX Smile
+   </b>
+  </h1>
+  <p block-type="Text">
+   The FX smile surface has a different setup or construction in comparison to equity.
+  </p>
+  <p block-type="Text">
+   Plain vanilla options with different maturities have different implied volatilities. This is called the
+   <i>
+    term structure
+   </i>
+   of a currency pair.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Plain vanilla options are quoted in terms of volatility for a given delta. The smile curve is usually set up on some fixed pillars and the points between these pillars are interpolated to get a smooth surface. In the direction of the term structure, the easiest way is to interpolate linearly in the variance. In addition, weights are introduced to highlight or lower the importance of some dates, for example, the release of nonfarm payrolls, local holiday, or a day before or after a weekend. In the direction of the moneyness or delta, one method of interpolation is the cubic spline. The pillars in that direction are 10-delta put, 25-delta put, ATM, 25-delta call, and 10-delta call. Sometimes the 35-delta put and 35-delta call are also used. Unlike equity, in the FX market, the smile surface is decomposed into the symmetric part by using butterflies or strangles and the skew part by using the risk reversals for the fixed deltas. This is
+  </p>
+  <p block-type="Text">
+   because of the liquidity of these products in the FX market.
+  </p>
+  <h4>
+   <i>
+    Risk Reversal (RR)
+   </i>
+  </h4>
+  <p block-type="Text">
+   For instance, a 25-delta risk reversal is a combination of buying a 25-delta call and selling a 25-delta put. The payout profile is shown in Figure 1.
+  </p>
+  <h4>
+   <i>
+    Butterfly (BF)
+   </i>
+  </h4>
+  <p block-type="Text">
+   In the case of a 25-delta butterfly, it is the combination of buying 25-delta put, buying 25-delta call, selling ATM put, and selling ATM put (alternatively, 25-delta strangle is a 25-delta put and a 25-delta call). Payout profiles are shown in Figure 2.
+  </p>
+  <p block-type="Text">
+   The decomposition of a smile curve inspired by these products is shown in Figure 3.
+  </p>
+  <p>
+   <img src="_page_3_Figure_16.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Payout profile of a risk reversal
+  </p>
+  <p>
+   <img src="_page_4_Figure_1.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Payout profile of a butterfly
+  </p>
+  <p>
+   <img src="_page_4_Figure_3.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 3
+   </b>
+   Decomposition of a smile curve
+  </p>
+  <p block-type="TextInlineMath">
+   If we denote the ATM volatillity by
+   <i>
+    σ
+   </i>
+   0, the 25 delta put volatility by
+   <i>
+    σ
+   </i>
+   −, and the 25-delta call volatility by
+   <i>
+    σ
+   </i>
+   +, we get the following relationships:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    RR = \sigma_{+} - \sigma_{-} \tag{4}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    BF = \frac{1}{2}(\sigma_{+} + \sigma_{-}) - \sigma_{0} \tag{5}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{+} = ATM + BF + \frac{1}{2}RR \tag{6}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma_{-} = ATM + BF - \frac{1}{2}RR \tag{7}
+   </math>
+  </p>
+  <p block-type="Text">
+   It should be noted that the values RR and BF given above have nothing to do with the prices of actual risk reversal and butterfly contracts: rather they provide a convenient representation of the implied volatility smile in terms of its level (
+   <i>
+    σ
+   </i>
+   0), convexity
+   <i>
+    (BF )
+   </i>
+   , and skewness
+   <i>
+    (RR)
+   </i>
+   .
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Table 6
+     </th>
+     <th>
+      EUR/USD 25-delta risk reversal (in %)
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+     <th>
+     </th>
+    </tr>
+   </tbody>
+  </table>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Date
+     </th>
+     <th>
+      1 month
+     </th>
+     <th>
+      3 months
+     </th>
+     <th>
+      1 year
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Dec 3, 2007
+     </td>
+     <td>
+      −0.6
+     </td>
+     <td>
+      −0.6
+     </td>
+     <td>
+      −0.6
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 4, 2007
+     </td>
+     <td>
+      −0.525
+     </td>
+     <td>
+      −0.55
+     </td>
+     <td>
+      −0.525
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 5, 2007
+     </td>
+     <td>
+      −0.525
+     </td>
+     <td>
+      −0.55
+     </td>
+     <td>
+      −0.525
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 6, 2007
+     </td>
+     <td>
+      −0.525
+     </td>
+     <td>
+      −0.55
+     </td>
+     <td>
+      −0.525
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 7, 2007
+     </td>
+     <td>
+      −0.6
+     </td>
+     <td>
+      −0.6
+     </td>
+     <td>
+      −0.6
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 10, 2007
+     </td>
+     <td>
+      −0.6
+     </td>
+     <td>
+      −0.6
+     </td>
+     <td>
+      −0.6
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p>
+   <b>
+    Table 7
+   </b>
+   EUR/USD 25-delta butterfly (in %)
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Date
+     </th>
+     <th>
+      1 month
+     </th>
+     <th>
+      3 months
+     </th>
+     <th>
+      1 year
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Dec 3, 2007
+     </td>
+     <td>
+      0.225
+     </td>
+     <td>
+      0.425
+     </td>
+     <td>
+      0.460
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 4, 2007
+     </td>
+     <td>
+      0.225
+     </td>
+     <td>
+      0.425
+     </td>
+     <td>
+      0.460
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 5, 2007
+     </td>
+     <td>
+      0.225
+     </td>
+     <td>
+      0.425
+     </td>
+     <td>
+      0.460
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 6, 2007
+     </td>
+     <td>
+      0.225
+     </td>
+     <td>
+      0.425
+     </td>
+     <td>
+      0.460
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 7, 2007
+     </td>
+     <td>
+      0.227
+     </td>
+     <td>
+      0.425
+     </td>
+     <td>
+      0.463
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Dec 10, 2007
+     </td>
+     <td>
+      0.227
+     </td>
+     <td>
+      0.425
+     </td>
+     <td>
+      0.463
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   Table 6 shows the 25-delta risk reversal in EUR/USD on different trading dates and the corresponding butterflies are listed in Table 7.
+  </p>
+  <p block-type="Text">
+   For the setup of the smile surface in a risk management or pricing tool, it is important to know which convention is used for a certain currency pair in the option market to define the notion of ATM.
+  </p>
+  <h1>
+   <b>
+    At-the-money Definition
+   </b>
+  </h1>
+  <p block-type="Text">
+   There exist several definitions of ATM:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     ATM spot: Strike is equal to the spot.
+    </li>
+    <li block-type="ListItem">
+     ATM forward: Strike is equal to the forward.
+    </li>
+    <li block-type="ListItem">
+     Delta parity: The absolute value of the delta call is equal to the absolute value of the delta put.
+    </li>
+    <li block-type="ListItem">
+     Fifty delta: Put delta is 50% and the call delta is 50%.
+    </li>
+    <li block-type="ListItem">
+     Value parity: The premium of the delta put is equal to the delta call.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   The most widely used one in the interbank market is the delta parity up to 1 year for the most liquid currencies. In emerging markets, (at-the-moneyforward) (ATMF) is used. For long-term options such as USD/JPY 15 years, the ATMF convention is used, but since this results in a delta position, a forward delta exchange will be done.
+  </p>
+  <h1>
+   <b>
+    End Notes
+   </b>
+  </h1>
+  <p block-type="Text">
+   a
+   <i>
+    .
+   </i>
+   Fenics is an FX option pricing tool owned by the broker GFI and used in the interbank market (www.fenics.com).
+  </p>
+  <h1>
+   <b>
+    Further Reading
+   </b>
+  </h1>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Hakala, J. &amp; Wystup, U. (2002).
+     <i>
+      Foreign Exchange Risk
+     </i>
+     , Risk Publications, London.
+    </li>
+    <li block-type="ListItem">
+     Reiswich, D. &amp; Wystup, U. (2009).
+     <i>
+      FX Volatility Smile Construction
+     </i>
+     , Research Report, Frankfurt School of Finance &amp; Management, September 2009.
+    </li>
+    <li block-type="ListItem">
+     Wystup, U. (2006).
+     <i>
+      FX Options and Structured Products
+     </i>
+     , Wiley Finance.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text">
+   <b>
+    Black–Scholes Formula
+   </b>
+   ;
+   <b>
+    Exchange Options
+   </b>
+   ;
+   <b>
+    Foreign Exchange Options
+   </b>
+   ;
+   <b>
+    Foreign Exchange Options: Delta- and At-the-money Conventions
+   </b>
+   ;
+   <b>
+    Foreign Exchange Smiles
+   </b>
+   ;
+   <b>
+    Foreign Exchange Smile Interpolation
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   MICHAEL BRAUN
+  </p>
+ </body>
+</html>

@@ -1,0 +1,5585 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Exchange Options
+   </b>
+  </h1>
+  <h1>
+   <b>
+    Definition and Examples
+   </b>
+  </h1>
+  <p block-type="Text">
+   A European exchange option is a contract that gives the buyer the right to exchange two (possibly dividend-paying) assets
+   <i>
+    A
+   </i>
+   and
+   <i>
+    B
+   </i>
+   at a fixed expiration time
+   <i>
+    T
+   </i>
+   , say, to receive
+   <i>
+    A
+   </i>
+   and deliver (or pay)
+   <i>
+    B
+   </i>
+   ; thus, the option payoff is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    (A_T - B_T)^+ := \max(A_T - B_T, 0) \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   (American and Bermudan exchange options are complicated by early optimal exercise and not discussed here.) An ordinary (European) call or put on an asset struck at
+   <i>
+    K
+   </i>
+   can be viewed, as in [9], as an option to exchange the asset with the
+   <i>
+    T
+   </i>
+   -maturity zero-coupon bond of principal
+   <i>
+    K
+   </i>
+   . More generally, a call or put on an
+   <i>
+    s
+   </i>
+   -maturity forward contract (
+   <i>
+    s
+   </i>
+   ≥
+   <i>
+    T
+   </i>
+   ) on a zero-dividend asset is equivalent to an option to exchange the asset at time
+   <i>
+    T
+   </i>
+   with an
+   <i>
+    s
+   </i>
+   -maturity zero-coupon bond. Options to exchange two stocks or commodities provide good hypothetical examples but are not prevalent in the market place.
+  </p>
+  <p block-type="TextInlineMath">
+   Exchange options are related to spread options with time-
+   <i>
+    T
+   </i>
+   payoffs of the form
+   <i>
+    (X
+   </i>
+   −
+   <i>
+    Y )
+   </i>
+   <sup>
+    +
+   </sup>
+   , given two prescribed time-
+   <i>
+    T
+   </i>
+   observables
+   <i>
+    X
+   </i>
+   and
+   <i>
+    Y
+   </i>
+   . A common structure is a CMS spread option, with
+   <i>
+    X
+   </i>
+   and
+   <i>
+    Y
+   </i>
+   , say, the 20-year and the 2-year spot swap rates at time
+   <i>
+    T
+   </i>
+   . A spread option can be viewed as an exchange option when there exist (or can be replicated) two zero-dividend assets
+   <i>
+    A
+   </i>
+   and
+   <i>
+    B
+   </i>
+   such that
+   <i>
+    AT
+   </i>
+   =
+   <i>
+    X
+   </i>
+   and
+   <i>
+    BT
+   </i>
+   =
+   <i>
+    Y
+   </i>
+   . In the CMS case,
+   <i>
+    A
+   </i>
+   and
+   <i>
+    B
+   </i>
+   can be taken as the coupon cash flows of two CMS bonds or swaps. In practice, exchange options on dividend-paying assets are reduced to the zero-dividend case in a similar way.
+  </p>
+  <p block-type="Text">
+   Interest-rate swaptions, including caplets and floorlets as one-period special cases, can be viewed both as ordinary call or put options struck at par on coupon bonds and more directly as options to exchange the fixed and floating cash flow legs of a swap. The latter is the standard as it imposes the classical assumption of a lognormal ratio
+   <i>
+    AT /BT
+   </i>
+   on the forward swap rate (a swap-curve concept) rather than on the forward coupon bond price.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   An exchange option is related to its reverse by parity:
+   <i>
+    (Y
+   </i>
+   −
+   <i>
+    X)
+   </i>
+   <sup>
+    +
+   </sup>
+   =
+   <i>
+    (X
+   </i>
+   −
+   <i>
+    Y )
+   </i>
+   <sup>
+    +
+   </sup>
+   +
+   <i>
+    Y
+   </i>
+   −
+   <i>
+    X.
+   </i>
+   (Hence, an
+  </p>
+  <p block-type="Text">
+   American option to exchange two fixed zero-dividend assets is not exercised early.)
+  </p>
+  <h1>
+   <b>
+    Pricing and Hedging Approaches
+   </b>
+  </h1>
+  <p block-type="Text">
+   The exchange option is a special case of a
+   <i>
+    pathindependent
+   </i>
+   contingent claim with payoff being a
+   <i>
+    homogeneous function
+   </i>
+   of the underlying asset prices at expiration. It is governed by the same general theory (
+   <i>
+    see
+   </i>
+   <b>
+    Option Pricing: General Principles
+   </b>
+   ). One makes sure that the underlying assets are arbitrage free, which implies that there are no free lunches in a strong sense. If the payoff can be attained by a sufficiently regular self-financing trading strategy (SFTS) (e.g., a bounded number of shares or "deltas"), then the law of one price holds and the option price at each time is defined as the value of the self-financing portfolio. Otherwise, arbitrage-free pricing is not unique. We do not discuss this case, but only mention that one approach then chooses a linear pricing kernel (e.g., the minimal measure) among the many then available and another is nonlinear based on expected utility maximization.
+  </p>
+  <p block-type="Text">
+   Payoff replication by an SFTS is a question of predictable representation. As the payoff in this case is a path-independent function of the underliers, it seems natural that the option price as well as deltas be functions of time and the underliers at that time. This has been the traditional Markovian approach, beginning with Black and Scholes [1] and immediate extension by Merton [9] (
+   <i>
+    see
+   </i>
+   <b>
+    Black–Scholes Formula
+   </b>
+   ). Their simple choice of a geometric Brownian motion for the underlying asset in [1] and more generally of a deterministic-volatility forward price process in [9] meant that the underlying SDE and the associated PDE had constant coefficients (in log-state). Ito's formula was applied to construct a ˆ riskless hedge, with the deltas (hedge ratios) simply given by partial derivatives of the unique solution to the PDE.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Black and Scholes constructed an SFTS for a call option struck at
+   <i>
+    K
+   </i>
+   by dynamically rebalancing long positions on the underlying asset
+   <i>
+    A
+   </i>
+   financed by shorting the riskless money market asset
+   <i>
+    B
+   </i>
+   <sup>
+    ∗
+   </sup>
+   =
+   <i>
+    (
+   </i>
+   e
+   <i>
+    rt)
+   </i>
+   , post an initial investment equal to the option price. Merton's extension to stochastic interest rate
+   <i>
+    r
+   </i>
+   treated the call as an option
+   <i>
+    C
+   </i>
+   to exchange the asset
+   <i>
+    A
+   </i>
+   with the
+   <i>
+    T
+   </i>
+   -maturity zero-coupon bond
+   <i>
+    B
+   </i>
+   of principal
+   <i>
+    K
+   </i>
+   . The Black–Scholes model corresponded to a
+  </p>
+  <p block-type="Text">
+   deterministic bond price
+   <math display="inline">
+    B_t = e^{-r(T-t)}K
+   </math>
+   , but now, in general,
+   <math display="inline">
+    B
+   </math>
+   had infinite variation. The former's simplicity was nonetheless recaptured by exploiting the homogeneous symmetry of the option payoff to reduce dimensionality by
+   <math display="inline">
+    1
+   </math>
+   —in effect, a projective transformation that hedged the forward option contract
+   <math display="inline">
+    F := C/B
+   </math>
+   with trades in the forward asset
+   <math display="inline">
+    X :=
+   </math>
+   <math display="inline">
+    A/B
+   </math>
+   . The relevant volatility was accordingly the forward price volatility. An SFTS in the two assets and Itô's formula led to a PDE for the homogeneous option price function
+   <math display="inline">
+    C(t, A, B)
+   </math>
+   and an equivalent PDE for the forward option price function
+   <math display="inline">
+    F(t, X)
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   Margrabe [8] extended the theory in [9] to an option to exchange any two correlated assets assuming constant volatilities (see Margrabe Formula). He observed akin to [9] that the self-financing equation with
+   <math display="inline">
+    \partial C/\partial A
+   </math>
+   and
+   <math display="inline">
+    \partial C/\partial B
+   </math>
+   as deltas is, by Itô's formula, equivalent to
+   <math display="inline">
+    C(t, A, B)
+   </math>
+   satisfying a PDE with no first-order terms in
+   <math display="inline">
+    A, B
+   </math>
+   . Choosing
+   <math display="inline">
+    C
+   </math>
+   as the homogenized Black-Scholes function, it followed by Euler's formula for homogeneous functions that
+   <math display="inline">
+    \partial C/\partial A
+   </math>
+   and
+   <math display="inline">
+    \partial C/\partial B
+   </math>
+   in fact formed an SFTS. The result demonstrated that (in this case) the exchange option is replicated by dynamically going long in
+   <math display="inline">
+    A
+   </math>
+   and short in
+   <math display="inline">
+    B
+   </math>
+   , with no trades in any other asset. (This fails in general, e.g., a bond exchange option in a
+   <math display="inline">
+    k \ge 3
+   </math>
+   factor non-Gaussian short-rate model.) "
+   <i>
+    Taking
+   </i>
+   asset two as numéraire," Margrabe [8] also presented (acknowledging Stephen Ross) a key financial invariance argument as a heuristic alternative to the PDE algebraic proof of [9], reducing to a call on
+   <math display="inline">
+    A/B
+   </math>
+   struck at 1 in the Black-Scholes model with zero interest rate.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   Martingale theory leads to a conceptual as well as computationally practical representation of solutions to the PDEs that describe option prices as a conditional expectation of terminal payoff. Harrison and Kreps [5] and Harrison and Pliska [6] developed, in related papers, an equivalent martingale measure framework that not only made this fruitful representation of the option price available but also laid a more general and probabilistic formulation of the notion of a dynamic hedge, or its mirror image, a replicating SFTS (see Risk-neutral Pricing). Their arbitrage-free semimartingale approach does permit path dependency, yet accommodates Markovian SDE/PDE models even better. They took the money market asset
+   <math display="inline">
+    B^*
+   </math>
+   as a tradable entering any hedge, giving it a general stochastic form
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    B_{r}^{*} = e^{\int_{0}^{t} r_{s} ds}
+   </math>
+   for discounting payoffs before expectation. In concert with Black-Scholes but in contrast to Merton and Margrabe, the finite variation asset
+   <math display="inline">
+    B^*
+   </math>
+   was their exclusive choice of numéraire.
+  </p>
+  <p block-type="TextInlineMath">
+   With the advent of the forward measure sometime later (see Forward and Swap Measures), it was evident that Merton's choice of an infinite variation zero-coupon bond
+   <math display="inline">
+    B
+   </math>
+   as the financing hedge instrument fitted equivalent martingale measure theory perfectly well, and it led to quicker derivations of concrete pricing formulae than
+   <math display="inline">
+    B^*
+   </math>
+   , as discounting is conveniently performed outside the expectation [4, 7]. Another useful numéraire was the one by Neuberger [10] to price interest-rate swaptions. Viewed as an option to exchange the fixed and floating swap cash flows, the assets' ratio
+   <math display="inline">
+    A/B
+   </math>
+   represents the forward swap rate here. The assumption in [10] that the ratio has deterministic volatility yielded a model that has since served as industry standard to quote swaption-implied volatilities (see Swap Mar
+   <b>
+    ket Models
+   </b>
+   ). Here, it is noteworthy that the ratio
+   <math display="inline">
+    A/B
+   </math>
+   has deterministic volatility but
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   themselves decidedly do not. In time, El-Karoui et al. [4] showed that one can basically change numéraire to any asset
+   <math display="inline">
+    B
+   </math>
+   and associate with it an equivalent measure under which
+   <math display="inline">
+    A/B
+   </math>
+   is a martingale for every other asset A (see Change of Numeraire).
+  </p>
+  <p block-type="TextInlineMath">
+   Today, option pricing and hedging theory has advanced farther and in many directions. Especially relevant to our discussion of exchange options is the principle of numéraire invariance and arbitrage-free modeling. For in-depth studies of these and related topics, we refer the reader to
+   <math display="inline">
+    [3]
+   </math>
+   and
+   <math display="inline">
+    [2]
+   </math>
+   , among other excellent books. Our approach is to concentrate on the modeling in "projective coordinate"
+   <math display="inline">
+    X := A/B
+   </math>
+   , and impose for the most part conditions that are invariant under the transformation
+   <math display="inline">
+    X \mapsto 1/X
+   </math>
+   .
+  </p>
+  <h1>
+   The Deterministic-volatility and
+   <b>
+    Exponential-Poisson Models
+   </b>
+  </h1>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The option to exchange two assets with a
+   <i>
+    deterministic volatility
+   </i>
+   <math display="inline">
+    \sigma(t)
+   </math>
+   of the asset price ratio
+   <math display="inline">
+    X = A/B
+   </math>
+   is celebrated as the simplest nontrivial example in option pricing theory. Its classical Black-Scholes/Merton option price function and explicit representation of the "deltas" ("hedge ratios") illustrate the principles that underline options in many assets with arbitrary homogeneous payoffs and more
+  </p>
+  <p block-type="Text">
+   general dynamics. There is another concrete albeit less known example with simple jumps in
+   <math display="inline">
+    X
+   </math>
+   involving the Poisson rather than the normal distribution. The pattern is similar, with the main difference being that the deltas are the partial differences rather than the partial derivatives of the option price function.
+  </p>
+  <p block-type="TextInlineMath">
+   We fix, throughout, a stochastic basis
+   <math display="inline">
+    (\Omega, (\mathcal{F}_t), \mathcal{F}_t)
+   </math>
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   ) with time horizon
+   <math display="inline">
+    t \in [0, T]
+   </math>
+   ,
+   <math display="inline">
+    T &gt; 0
+   </math>
+   . In this section, we fix two
+   <i>
+    zero-dividend
+   </i>
+   assets with price processes
+   <math display="inline">
+    A = (A_t)
+   </math>
+   and
+   <math display="inline">
+    B = (B_t)
+   </math>
+   .
+  </p>
+  <h4>
+   The Exchange Option Price Process
+  </h4>
+  <p block-type="TextInlineMath">
+   When
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are semimartingales, we call a pair
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   of (locally) bounded predictable processes a (locally)
+   <i>
+    bounded SFTS
+   </i>
+   (see, more generally, the section Self-financing Trading Strategies) if
+   <math display="inline">
+    C =
+   </math>
+   <math display="inline">
+    C_0 + \int \delta^A \mathrm{d}A + \int \delta^B \mathrm{d}B
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C = \delta^A A + \delta^B B \tag{2}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly, C is then a semimartingale,
+   <math display="inline">
+    \Delta C =
+   </math>
+   <math display="inline">
+    \delta^A \Delta A + \delta^B \Delta B
+   </math>
+   , and hence
+   <math display="inline">
+    C_- = \delta^A A_- + \delta^B B_-
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The differential form of the self-financing equation is often handy:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dC = \delta^A dA + \delta^B dB \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   SFTSs form a linear space. If there exists a unique
+   <i>
+    bounded
+   </i>
+   SFTS
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_T = (A_T - B_T)^+ \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   then it is justified to call
+   <math display="inline">
+    C
+   </math>
+   the exchange option price
+   <i>
+    process
+   </i>
+   and
+   <math display="inline">
+    \delta^A
+   </math>
+   and
+   <math display="inline">
+    \delta^B
+   </math>
+   the
+   <i>
+    deltas
+   </i>
+   .
+  </p>
+  <p block-type="Text">
+   Assume now that the semimartingales
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are positive and have positive left limits.
+  </p>
+  <p block-type="TextInlineMath">
+   The numéraire invariance principle (see the section Numéraire Invariance and more comprehensively the section The Invariance Principle) states that if
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   is a locally bounded SFTS, then
+   <math display="inline">
+    C = \delta^A A + \delta^B B
+   </math>
+   satisfies
+   <math display="inline">
+    d\left(\frac{C}{B}\right) = \delta^A d\left(\frac{A}{B}\right)
+   </math>
+   (similarly by symmetry with A as numéraire). This is useful for uniqueness. Numéraire invariance also states the converse: if
+   <math display="inline">
+    C
+   </math>
+   is a semimartingale and
+   <math display="inline">
+    \delta^A
+   </math>
+   a locally bounded predictable process such that
+   <math display="inline">
+    d\left(\frac{C}{B}\right) = \delta^A d\left(\frac{A}{B}\right)
+   </math>
+   , then
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   is an SFTS and equations (2) and (3) hold, where
+   <math display="inline">
+    \delta^B = \frac{C_-}{R} - \delta^A \frac{A_-}{R}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   This reduces existence to finding an
+   <math display="inline">
+    F_0
+   </math>
+   and
+   <math display="inline">
+    \delta^A
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(\frac{A_T}{B_T} - 1\right)^+ = F_0 + \int_0^T \delta_t^A \mathrm{d}\left(\frac{A_t}{B_t}\right) \qquad (5)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   The exchange option price process is then the semimartingale
+   <math display="inline">
+    C = B\left(F_0 + \int \delta^A d\left(\frac{A}{B}\right)\right)
+   </math>
+   .&lt;br&gt;Numéraire invariance in effect reduces general
+  </p>
+  <p block-type="Text">
+   option pricing and hedging to a market where one of the asset price processes equals 1 identically. The remaining task is to find the above "projective" predictable representation of the ratio payoff against the ratio process.
+  </p>
+  <h4>
+   Deterministic-volatility Exchange Option Model
+  </h4>
+  <p block-type="Text">
+   Let
+   <math display="inline">
+    \sigma(t) &gt; 0
+   </math>
+   be a continuous positive function. Define the
+   <i>
+    Black–Scholes/Merton
+   </i>
+   projective option price function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t,x) := x\delta_A(t,x) + \delta_B(t,x) \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for
+   <math display="inline">
+    t \leq T
+   </math>
+   ,
+   <math display="inline">
+    x &gt; 0
+   </math>
+   , where
+   <math display="inline">
+    \delta_A(T, x) := 1_{x &gt; 1}
+   </math>
+   ,
+   <math display="inline">
+    \delta_B
+   </math>
+   <math display="inline">
+    (T, x) := -1_{x&gt;1}
+   </math>
+   , and for
+   <math display="inline">
+    t &lt; T
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_A(t,x) := N\left(\frac{\log x}{\sqrt{\nu_t}} + \frac{\sqrt{\nu_t}}{2}\right),
+   </math>
+   <br/>
+   <math display="block">
+    \delta_B(t,x) := -N\left(\frac{\log x}{\sqrt{\nu_t}} - \frac{\sqrt{\nu_t}}{2}\right) \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    v_t := \int_t^T \sigma^2(s) ds
+   </math>
+   and
+   <math display="inline">
+    N(\cdot)
+   </math>
+   is the normal distribution function. The function
+   <math display="inline">
+    f(t, x)
+   </math>
+   is continuous, and on
+   <math display="inline">
+    t &lt; T
+   </math>
+   is
+   <math display="inline">
+    C^1
+   </math>
+   in t and analytic in x. In addition,
+   <math display="inline">
+    -1 \leq \delta_B \leq 0 \leq \delta_A \leq 1
+   </math>
+   , and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(T,x) = (x-1)^{+}, \quad \frac{\partial f}{\partial x}(t,x) = \delta_A(t,x) \quad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   As is well known and seen in the sections Deterministic-volatility Model Uniqueness and Projective Continuous SDE SFTS, the function
+   <math display="inline">
+    f(t, x)
+   </math>
+   is the unique
+   <math display="inline">
+    C^{1,2}
+   </math>
+   (on
+   <math display="inline">
+    t &lt; T
+   </math>
+   ) solution with bounded partial derivative
+   <math display="inline">
+    \frac{\partial f}{\partial x}(t, x)
+   </math>
+   subject to
+   <math display="inline">
+    f(T, x) = (x  1)^+
+   </math>
+   of the PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f}{\partial t}(t,x) + \frac{1}{2}\sigma^2(t)x^2\frac{\partial^2 f}{\partial x^2}(t,x) = 0\tag{9}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Assume now
+   <math display="inline">
+    A = BX
+   </math>
+   for some positive continuous semimartingale
+   <math display="inline">
+    X &gt; 0
+   </math>
+   satisfying
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d[\log X]_t = \sigma^2(t)dt, \quad (A = BX) \quad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   Under this assumption, one traditionally defines the exchange option price process
+   <math display="inline">
+    C
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C := BF, \quad F = (F_t), \quad F_t := f(t, X_t)
+   </math>
+   (11)
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly,
+   <math display="inline">
+    C_T = (A_T - B_T)^+
+   </math>
+   . The definition is justified using the continuous semimartingales
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_t^A := \delta_A(t, X_t) = \frac{\partial f}{\partial x}(t, X_t),
+   </math>
+   <br/>
+   <math display="block">
+    \delta_t^B := \delta_B(t, X_t) = F_t - \delta_t^A X_t \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly,
+   <math display="inline">
+    C = \delta^A A + \delta^B B
+   </math>
+   , and the deltas are bounded:
+   <math display="inline">
+    0 \le \delta^A \le 1
+   </math>
+   and
+   <math display="inline">
+    -1 \le \delta^B \le 0
+   </math>
+   . Since
+   <math display="inline">
+    f(t, x)
+   </math>
+   satisfies the PDE (9) (as directly verified) and
+   <math display="inline">
+    \frac{\partial f}{\partial x}(t, X_t) = \delta_t^A
+   </math>
+   , by Itô's formula, the continuous semimartingale
+   <math display="inline">
+    F := (f(t, X_t))
+   </math>
+   satisfies the predictable representation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF = \delta^A dX \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If, at this stage, we assume that
+   <math display="inline">
+    B
+   </math>
+   is a semimartingale, then
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    C
+   </math>
+   are semimartingales too, and by the invariance principle discussed next,
+   <math display="inline">
+    dC =
+   </math>
+   <math display="inline">
+    \delta^A dA + \delta^B dB
+   </math>
+   and
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   is a bounded SFTS.
+  </p>
+  <h4>
+   Numéraire Invariance
+  </h4>
+  <p block-type="TextInlineMath">
+   Let X and F be two semimartingales and
+   <math display="inline">
+    \delta^A
+   </math>
+   be a locally bounded predictable process such that
+   <math display="inline">
+    dF = \delta^A dX
+   </math>
+   . Set
+   <math display="inline">
+    \delta^B = F - \delta^A X
+   </math>
+   . Clearly
+   <math display="inline">
+    \delta^B = F_- - \delta^A X
+   </math>
+   .
+   <math display="inline">
+    \delta^A X_-
+   </math>
+   since
+   <math display="inline">
+    \Delta F = \delta^A \Delta X
+   </math>
+   . Let B be any semimartingale. Set
+   <math display="inline">
+    A = BX
+   </math>
+   ,
+   <math display="inline">
+    C = BF
+   </math>
+   . Clearly
+   <math display="inline">
+    C = \delta^A A +
+   </math>
+   <math display="inline">
+    \delta^B B
+   </math>
+   . We claim
+   <math display="inline">
+    dC = \delta^A dA + \delta^B dB
+   </math>
+   , so
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   is an SFTS.
+  </p>
+  <p block-type="TextInlineMath">
+   Indeed, this follows by applying Itô's product rule to BF, then substituting
+   <math display="inline">
+    dF = \delta^A dX
+   </math>
+   and
+   <math display="inline">
+    F_{-} =
+   </math>
+   <math display="inline">
+    \delta^B + \delta^A X_-\,
+   </math>
+   , followed by Itô's product rule on BX:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dC = d(BF) = B_{-}dF + F_{-}dB + d[B, F]
+   </math>
+   <br/>
+   =
+   <math>
+    B_{-}\delta^{A}dX + (\delta^{B} + \delta^{A}X_{-})dB + \delta^{A}d[B, X]
+   </math>
+   <br/>
+   =
+   <math>
+    \delta^{A}d(BX) + \delta^{B}dB = \delta^{A}dA + \delta^{B}dB
+   </math>
+   (14)
+  </p>
+  <p block-type="TextInlineMath">
+   Conversely, if
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are semimartingales with
+   <math display="inline">
+    B, B_{-} &gt; 0
+   </math>
+   and
+   <math display="inline">
+    (\delta^{A}, \delta^{B})
+   </math>
+   is an SFTS, then
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    d\left(\frac{C}{B}\right) = \delta^A d\left(\frac{A}{B}\right)
+   </math>
+   , where
+   <math display="inline">
+    C = \delta^A A + \delta^B B
+   </math>
+   . (See the section The Invariance Principle for a more lucid treatment.)
+  </p>
+  <h4>
+   Exponential-Poisson Exchange Option Model
+  </h4>
+  <p block-type="TextInlineMath">
+   Assume that the two zero-dividend asset price processes A and B satisfy
+   <math display="inline">
+    A = BX
+   </math>
+   , where X is a semimartingale satisfying
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = X_0 e^{\beta P_t - (e^{\beta} - 1)\lambda t} \tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some constants
+   <math display="inline">
+    \beta \neq 0
+   </math>
+   ,
+   <math display="inline">
+    \lambda &gt; 0
+   </math>
+   and semimartingale P such that
+   <math display="inline">
+    [P] = P
+   </math>
+   and
+   <math display="inline">
+    P_0 = 0
+   </math>
+   (Thus,
+   <math display="inline">
+    P_t =
+   </math>
+   <math display="inline">
+    \sum_{s\leq t} 1_{\Delta P_s\neq 0}
+   </math>
+   ). Define the projective option price function
+   <math display="inline">
+    f(t, x)
+   </math>
+   ,
+   <math display="inline">
+    x &gt; 0
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t,x) := \sum_{n=0}^{\infty} (x e^{\beta n - (e^{\beta} - 1)\lambda(T - t)} - 1)^{+}
+   </math>
+   <math display="block">
+    \times \frac{\lambda^{n}}{n!} (T - t)^{n} e^{-\lambda(T - t)} \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   and exchange option price process by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C := BF, \quad F = (F_t), \quad F_t := f(t, X_t)
+   </math>
+   (17)
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly
+   <math display="inline">
+    f(T, x) = (x - 1)^{+}
+   </math>
+   and
+   <math display="inline">
+    C_{T} = (A_{T} - B_{T})^{+}
+   </math>
+   . One has the predictable representation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF = \delta^A dX \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   as shown shortly, where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_t^A := \delta_A(t, X_{t-}), \quad \delta_A(t, x) := \frac{f(t, e^{\beta}x) - f(t, x)}{(e^{\beta} - 1)x}
+   </math>
+   (19)
+  </p>
+  <p block-type="TextInlineMath">
+   Thus by numéraire invariance,
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   is an SFTS if
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are semimartingales, where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta^B := F - \delta^A X = F_- - \delta^A X_- \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Moreover, it is bounded. Indeed, since
+   <math display="inline">
+    |(e^{\beta}y  1)^+ - (y - 1)^+ \le |e^{\beta} - 1|y \text{ for any } y &gt; 0,
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 \le \delta_A(t, x) \le \sum_{n=0}^{\infty} e^{\beta n - (e^{\beta} - 1)\lambda(T - t)}
+   </math>
+   <math display="block">
+    \times \frac{\lambda^n}{n!} (T - t)^n e^{-\lambda(T - t)} = 1 \tag{21}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Hence,
+   <math display="inline">
+    0 \le \delta^A \le 1
+   </math>
+   . Similarly,
+   <math display="inline">
+    -1 \le \delta^B \le 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   We note that
+   <math display="inline">
+    f(t, x)
+   </math>
+   is not
+   <math display="inline">
+    C^1
+   </math>
+   in x (though convex, absolutely continuous, and piecewise analytic in
+   <math display="inline">
+    x
+   </math>
+   ). We also caution that this model is arbitrage free only when
+   <math display="inline">
+    \mathbb{P}\{P_t = n\} &gt; 0
+   </math>
+   for all
+   <math display="inline">
+    t &gt; 0
+   </math>
+   and
+   <math display="inline">
+    n \in \mathbb{N}
+   </math>
+   , for example, when
+   <math display="inline">
+    P
+   </math>
+   is a Poisson process under an equivalent measure.
+  </p>
+  <h2>
+   Derivation of the Predictable Representation
+  </h2>
+  <p block-type="TextInlineMath">
+   To show
+   <math display="inline">
+    dF = \delta^A dX
+   </math>
+   (equation (18)), we first note that
+   <math display="inline">
+    [P]^c = 0
+   </math>
+   since
+   <math display="inline">
+    [P] = P
+   </math>
+   ; hence,
+   <math display="inline">
+    (\Delta P)^2 = \Delta P
+   </math>
+   and
+   <math display="inline">
+    P_t = [P]_t = \sum_{s \le t} \Delta P_s
+   </math>
+   . If
+   <math display="inline">
+    v(p), p \in \mathbb{R}
+   </math>
+   , is any function, then clearly
+   <math display="inline">
+    V = (v(P_t))
+   </math>
+   is a semimartingale and we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \Delta V_t &amp;= v(P_t) - v(P_{t-}) = (v(P_t) - v(P_{t-})) \Delta P_t \\ &amp;= (v(P_{t-} + 1) - v(P_{t-})) \Delta P_t \end{aligned} \tag{22}
+   </math>
+  </p>
+  <p block-type="Text">
+   Hence, as
+   <math display="inline">
+    V
+   </math>
+   is clearly the sum of its jumps,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_t - v(0) = \sum_{s \le t} \Delta V_s
+   </math>
+   <br/>
+   =
+   <math>
+    \sum_{s \le t} (v(P_{s-} + 1) - v(P_{s-})) \Delta P_s
+   </math>
+   <br/>
+   =
+   <math>
+    \int_0^t (v(P_{s-} + 1) - v(P_{s-})) dP_s
+   </math>
+   (23)
+  </p>
+  <p block-type="TextInlineMath">
+   Likewise,
+   <math display="inline">
+    (u(t, P_t))
+   </math>
+   is a semimartingale for any
+   <math display="inline">
+    C^1
+   </math>
+   in t function
+   <math display="inline">
+    u(t, p), p \in \mathbb{R}
+   </math>
+   , and one has
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    du(t, P_t) = \frac{\partial u}{\partial t}(t, P_{t_-})dt + (u(t, P_{t_-} + 1) - u(t, P_{t_-}))dP_t
+   </math>
+   (24)
+  </p>
+  <p block-type="Text">
+   Now, define the function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x(t, p) := X_0 e^{\beta p - (e^{\beta} - 1)\lambda t} \quad (p \in \mathbb{R})
+   </math>
+   (25)
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly
+   <math display="inline">
+    X_t = x(t, P_t)
+   </math>
+   . Applying equation (24) to the function
+   <math display="inline">
+    x(t, p)
+   </math>
+   and using that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial x}{\partial t}(t, p) = -x(t, p)(e^{\beta} - 1)\lambda,
+   </math>
+   <br/>
+   <math display="block">
+    x(t, p+1) - x(t, p) = x(t, p)(e^{\beta} - 1) \qquad (26)
+   </math>
+  </p>
+  <p block-type="Text">
+   (or alternatively applying Itô's formula to
+   <math display="inline">
+    x(t, P_t)
+   </math>
+   and simplifying) yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = X_{t-}(e^{\beta} - 1)d(P_t - \lambda t) \tag{27}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Next, define the function of
+   <math display="inline">
+    t &lt; T
+   </math>
+   and
+   <math display="inline">
+    p \in \mathbb{R}
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t, p) := f(t, x(t, p))
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \sum_{n=0}^{\infty} (X_0 e^{\beta(p+n) - (e^{\beta} - 1)\lambda T} - 1)^+
+   </math>
+   <math display="block">
+    \times \frac{\lambda^n}{n!} (T - t)^n e^{-\lambda (T - t)} \qquad (28)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly,
+   <math display="inline">
+    u(t, P_t) = F_t
+   </math>
+   . One readily verifies that
+   <math display="inline">
+    u(t, p)
+   </math>
+   satisfies the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial u}{\partial t}(t, p) + \lambda(u(t, p+1) - u(t, p)) = 0 \qquad (29)
+   </math>
+  </p>
+  <p block-type="Text">
+   Hence by equation
+   <math display="inline">
+    (24)
+   </math>
+   we have,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF_t = (u(t, P_{t_-} + 1) - u(t, P_{t_-}))d(P_t - \lambda t) \quad (30)
+   </math>
+  </p>
+  <p block-type="Text">
+   Combining this with equation
+   <math display="inline">
+    (27)
+   </math>
+   and the fact that clearly
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t, p+1) - u(t, p) = f(t, e^{\beta}x(t, p)) - f(t, x(t, p)) \quad (31)
+   </math>
+  </p>
+  <p block-type="Text">
+   we conclude that, as desired,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF_t = \frac{f(t, e^{\beta} X_{t-}) - f(t, X_{t-})}{(e^{\beta} - 1)X_{t-}} dX_t \tag{32}
+   </math>
+  </p>
+  <h4>
+   The Homogeneous Option Price Function
+  </h4>
+  <p block-type="Text">
+   There is an alternative derivation of the self-financing equation
+   <math display="inline">
+    dC = \delta^A dA + \delta^B dB
+   </math>
+   much along that in [9] and [8] that does not employ numéraire invariance. It is related to a family of two-dimensional PDEs satisfied by the Merton/Margrabe homogeneous option
+   <i>
+    price function
+   </i>
+   <math display="inline">
+    c(t, a, b)
+   </math>
+   below.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    f(t, x)
+   </math>
+   ,
+   <math display="inline">
+    x &gt; 0
+   </math>
+   , be any
+   <math display="inline">
+    C^{1,2}
+   </math>
+   function, for example, as in equation (6). Define the homogenized function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c(t, a, b) := bf\left(t, \frac{a}{b}\right) \quad (a, b &gt; 0) \tag{33}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then
+   <math display="inline">
+    c(t, a, b)
+   </math>
+   is homogeneous of degree 1 in
+   <math display="inline">
+    (a, b)
+   </math>
+   , and hence by Euler's formula
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c(t,a,b) = \frac{\partial c}{\partial a}(t,a,b)a + \frac{\partial c}{\partial b}(t,a,b)b \qquad (34)
+   </math>
+  </p>
+  <p block-type="Text">
+   A laborious repeated application of the chain rule on equation
+   <math display="inline">
+    (33)
+   </math>
+   gives
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    a^{2} \frac{\partial^{2} c}{\partial a^{2}}(t, a, b) = b^{2} \frac{\partial^{2} c}{\partial b^{2}}(t, a, b)
+   </math>
+   <math display="block">
+    = -ab \frac{\partial^{2} c}{\partial a \partial b}(t, a, b)
+   </math>
+   <math display="block">
+    = bx^{2} \frac{\partial^{2} f}{\partial x^{2}}(t, x), \quad x := \frac{a}{b} \quad (35)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \sigma(t)
+   </math>
+   ,
+   <math display="inline">
+    \sigma_A(t, a, b)
+   </math>
+   ,
+   <math display="inline">
+    \sigma_B(t, a, b)
+   </math>
+   ,
+   <math display="inline">
+    \sigma_{AB}(t, a, b)
+   </math>
+   be any functions
+   <math display="inline">
+    (a, b &gt; 0)
+   </math>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sigma^{2}(t) = \sigma_{A}^{2}(t, a, b) + \sigma_{B}^{2}(t, a, b) - 2\sigma_{AB}(t, a, b)
+   </math>
+   (36)
+  </p>
+  <p block-type="TextInlineMath">
+   Using equations (35), (36), and
+   <math display="inline">
+    \frac{\partial c}{\partial t}(t, a, b) =
+   </math>
+   <math display="inline">
+    b\frac{\partial f}{\partial t}\left(t,\frac{a}{b}\right)
+   </math>
+   , we see that
+   <math display="inline">
+    c(t,a,b)
+   </math>
+   satisfies the PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial c}{\partial t} + \frac{1}{2}\sigma_A^2(t, a, b)a^2 \frac{\partial^2 c}{\partial a^2} + \frac{1}{2}\sigma_B^2(t, a, b)b^2 \frac{\partial^2 c}{\partial b^2}
+   </math>
+   <math display="block">
+    + \sigma_{AB}(t, a, b)ab \frac{\partial^2 c}{\partial a\partial b} = 0 \tag{37}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   if and only if
+   <math display="inline">
+    f(t,x)
+   </math>
+   satisfies the PDE (9):
+   <math display="inline">
+    \frac{\partial f}{\partial t}
+   </math>
+   +
+   <math display="inline">
+    \frac{1}{2}\sigma^2(t)x^2\frac{\partial^2 f}{\partial x^2} = 0.
+   </math>
+   &lt;br&gt;The PDE (9) was utilized in [1] and [9] (but not
+  </p>
+  <p block-type="TextInlineMath">
+   in [8]), and Merton [9] stated its equivalence to the PDE (37) (assuming
+   <math display="inline">
+    \sigma_A
+   </math>
+   , etc., depend only on t). As noted in [9] and expounded in [8], if
+   <math display="inline">
+    d[\log A]_t =
+   </math>
+   <math display="inline">
+    \sigma_A^2(t)dt
+   </math>
+   , d[log B]&lt;sub&gt;t&lt;/sub&gt; =
+   <math display="inline">
+    \sigma_B^2(t)dt
+   </math>
+   and d[log A, log B]&lt;sub&gt;t&lt;/sub&gt; =
+   <math display="inline">
+    \sigma_{AB}(t)dt
+   </math>
+   , then Itô's formula and equation (37) imply at once
+   <math display="inline">
+    \mathrm{d}c(t, A_t, B_t) = \delta_t^A \mathrm{d}A_t + \delta_t^B \mathrm{d}B_t
+   </math>
+   , with
+   <math display="inline">
+    \delta^A
+   </math>
+   and
+   <math display="inline">
+    \delta^B
+   </math>
+   as in equation (40), and thus
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   is an SFTS with price process
+   <math display="inline">
+    c(t, A, B)
+   </math>
+   by Euler's formula (34).
+  </p>
+  <p block-type="TextInlineMath">
+   Let us expand on this (see also the sections Self-financing Trading Strategies and Homogeneous Continuous Markovian SFTS). Let
+   <math display="inline">
+    \sigma(t)
+   </math>
+   &gt; 0 be a continuous function, and
+   <math display="inline">
+    f(t, x)
+   </math>
+   be the Black–Scholes/Merton function (6). Set
+   <math display="inline">
+    c(t, a, b) :=
+   </math>
+   <math display="inline">
+    bf(t, a/b)
+   </math>
+   . Clearly,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial c}{\partial a}(t, a, b) = \frac{\partial f}{\partial x}\left(t, \frac{a}{b}\right) = \delta_A\left(t, \frac{a}{b}\right) \tag{38}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This combined with Euler's formula (34) and the definition (6)
+   <math display="inline">
+    f := \delta_A x + \delta_B
+   </math>
+   give
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial c}{\partial b}(t, a, b) = \delta_B\left(t, \frac{a}{b}\right) \tag{39}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Assume that
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are positive semimartingales with positive left limits and
+   <math display="inline">
+    X := A/B
+   </math>
+   has deterministic volatility
+   <math display="inline">
+    \sigma(t)
+   </math>
+   :
+   <math display="inline">
+    d[X]_t = X_t^2 \sigma^2(t) dt
+   </math>
+   . Using equation (12), the deltas are conveniently the sensitivities of the homogeneous Merton/Margrabe function:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_t^A = \frac{\partial c}{\partial a}(t, A_t, B_t), \quad \delta_t^B = \frac{\partial c}{\partial b}(t, A_t, B_t) \quad (40)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <i>
+    X
+   </i>
+   is continuous, we also have
+   <math display="inline">
+    \delta_t^A = \frac{\partial C}{\partial a}(t, A_{t-}, B_{t-})
+   </math>
+   and similarly
+   <math display="inline">
+    \delta_t^B
+   </math>
+   . The section Deterministic-Volatility Exchange Option Model yields
+   <math display="inline">
+    dC = \delta^A dA + \delta^B dB
+   </math>
+   with
+   <math display="inline">
+    C_t = B_t f(t, X_t) =
+   </math>
+   <math display="inline">
+    c(t, A_t, B_t)
+   </math>
+   . Therefore, by equation (40) and Itô's formula,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial c}{\partial t}dt + \frac{1}{2}\frac{\partial^2 c}{\partial a^2}d[A]_t^c + \frac{1}{2}\frac{\partial^2 c}{\partial b^2}d[B]_t^c + \frac{\partial^2 c}{\partial a\partial b}d[A, B]_t^c = 0 \tag{41}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where the partial derivatives are evaluated at
+   <math display="inline">
+    (t, A_{t-}, B_{t-})
+   </math>
+   and
+   <math display="inline">
+    [\cdot]^c
+   </math>
+   is the bracket continuous part. (The jump term in Itô's formula vanishes as it equals
+   <math display="inline">
+    \sum_{s &lt; t} (\Delta C_s - \delta_s^A \Delta A_s - \delta_s^B \Delta B_s) = 0.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Returning to the approach of Merton [9], assume now that
+   <math display="inline">
+    d[\log A]_t = \sigma_A^2(t, A_t, B_t) dt
+   </math>
+   for some function
+   <math display="inline">
+    \sigma_A
+   </math>
+   and similarly d[log B] =
+   <math display="inline">
+    \sigma_B^2 dt
+   </math>
+   and
+   <math display="inline">
+    d[\log A, \log B] = \sigma_{AB} dt
+   </math>
+   . Then equation (36) holds using
+   <math display="inline">
+    \log X = \log A - \log B
+   </math>
+   . Since
+   <math display="inline">
+    f(t, x)
+   </math>
+   satisfies the PDE (9), the PDE (37) follows as before by the chain rule. However, equation (37) implies equation (41), which by Itô's formula in turn implies the selffinancing equation
+   <math display="inline">
+    dC = \delta^A dA + \delta^B dB
+   </math>
+   with
+   <math display="inline">
+    \delta^A
+   </math>
+   and
+   <math display="inline">
+    \delta^B
+   </math>
+   given by equation (40).
+  </p>
+  <h4>
+   Change of Numéraire
+  </h4>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The solution
+   <math display="inline">
+    c(t, a, b)
+   </math>
+   to the PDE (37) subject to
+   <math display="inline">
+    c(T, a, b) = (a - b)^{+}
+   </math>
+   can be expressed in a form
+   <math display="inline">
+    \mathbb{E}(X - Y)^{+}
+   </math>
+   for some random variables X and
+   <math display="inline">
+    Y &gt; 0
+   </math>
+   with means
+   <math display="inline">
+    a
+   </math>
+   and
+   <math display="inline">
+    b
+   </math>
+   . Expectations of this form often become more tractable by a change of measure as in
+  </p>
+  <p block-type="TextInlineMath">
+   [4]. Define the equivalent probability measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   by
+   <math display="inline">
+    \frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}} := \frac{Y}{\mathbb{F}\mathbf{V}}.
+   </math>
+   Clearly,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}^{\mathbb{Q}}\left(\frac{X}{Y}\right) = \frac{\mathbb{E}(X)}{\mathbb{E}(Y)} \quad \left(\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}} := \frac{Y}{\mathbb{E}(Y)}\right) \tag{42}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Replacing X by
+   <math display="inline">
+    (X - Y)^+
+   </math>
+   in equation (42) and using the homogeneity to factor out
+   <math display="inline">
+    Y
+   </math>
+   , we get
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}\left(X-Y\right)^{+} = \mathbb{E}(Y)\mathbb{E}^{\mathbb{Q}}\left(\frac{X}{Y}-1\right)^{+} \tag{43}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    X/Y
+   </math>
+   is
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -lognormally distributed then equation
+   <math display="inline">
+    (43)
+   </math>
+   together with equation
+   <math display="inline">
+    (42)
+   </math>
+   readily yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}(X - Y)^{+} = \mathbb{E}(X)N\left(\frac{\log(\mathbb{E}X/\mathbb{E}Y)}{\sqrt{\nu^{\mathbb{Q}}}} + \frac{\sqrt{\nu^{\mathbb{Q}}}}{2}\right) - \mathbb{E}(Y)N\left(\frac{\log(\mathbb{E}X/\mathbb{E}Y)}{\sqrt{\nu^{\mathbb{Q}}}} - \frac{\sqrt{\nu^{\mathbb{Q}}}}{2}\right)
+   </math>
+   (44)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    \nu^{\mathbb{Q}} := \text{var}^{\mathbb{Q}}[\log(X/Y)]
+   </math>
+   . When X and Y are bivariately lognormally distributed, it is not difficult to show that
+   <math display="inline">
+    X/Y
+   </math>
+   is lognormally distributed in both
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   and
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   with the same log-variance
+   <math display="inline">
+    \nu^{\mathbb{Q}} = \nu :=
+   </math>
+   <math display="inline">
+    \text{var}[\log(X/Y)].
+   </math>
+   Then
+   <math display="inline">
+    \nu^{\mathbb{Q}}
+   </math>
+   can be replaced with
+   <math display="inline">
+    \nu
+   </math>
+   in equation (44). This occurs when the functions
+   <math display="inline">
+    \sigma_A
+   </math>
+   ,
+   <math display="inline">
+    \sigma_B
+   </math>
+   and
+   <math display="inline">
+    \sigma_{AB}
+   </math>
+   in equation (37) are independent of
+   <i>
+    a
+   </i>
+   and
+   <i>
+    b
+   </i>
+   , as in
+   <math display="inline">
+    [8, 9]
+   </math>
+   .
+  </p>
+  <h4>
+   Uniqueness
+  </h4>
+  <p block-type="TextInlineMath">
+   Assume that
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are positive semimartingales with positive left limits such that
+   <math display="inline">
+    X := A/B
+   </math>
+   is square-integrable martingale under an equivalent probability measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   and
+   <math display="inline">
+    d\langle X\rangle_t^{\mathbb{Q}} = X_t^2 \sigma_t^2 dt
+   </math>
+   for some nowhere zero process
+   <math display="inline">
+    \sigma
+   </math>
+   , where
+   <math display="inline">
+    \langle X \rangle^{\mathbb{Q}}
+   </math>
+   is the
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -compensator of
+   <math display="inline">
+    [X]
+   </math>
+   . (Of course,
+   <math display="inline">
+    \langle X \rangle^{\mathbb{Q}} = [X]
+   </math>
+   if X is continuous.) Let
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   be an SFTS and set
+   <math display="inline">
+    C := \delta^A A + \delta^B B
+   </math>
+   . We claim that
+   <math display="inline">
+    \delta^A = \delta^B = 0
+   </math>
+   if
+   <math display="inline">
+    C_T = 0
+   </math>
+   and
+   <math display="inline">
+    \delta^A
+   </math>
+   is bounded.
+  </p>
+  <p block-type="TextInlineMath">
+   Indeed, set
+   <math display="inline">
+    F := C/B
+   </math>
+   . By numéraire invariance,
+   <math display="inline">
+    dF = \delta^A dX
+   </math>
+   . Hence, F is a Q-square-integrable martingale since X is and
+   <math display="inline">
+    \delta^A
+   </math>
+   is bounded. Thus,
+   <math display="inline">
+    F = 0
+   </math>
+   since
+   <math display="inline">
+    F_T = C_T/B_T = 0
+   </math>
+   . Hence,
+   <math display="inline">
+    0 = d\langle F \rangle^{\mathbb{Q}} =
+   </math>
+   <math display="inline">
+    (\delta^A)^2 X_{-}^2 \sigma^2 dt
+   </math>
+   . However,
+   <math display="inline">
+    X_{-}^2 \sigma^2 &gt; 0
+   </math>
+   . Thus,
+   <math display="inline">
+    \delta^A = 0
+   </math>
+   and
+   <math display="inline">
+    \delta^B = F - \delta^A X = 0.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In general, since
+   <math display="inline">
+    F := C/B
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingale, we have the following pricing formula:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_t = B_t \mathbb{E}^{\mathbb{Q}}[C_T/B_T \mid \mathcal{F}_t] \tag{45}
+   </math>
+  </p>
+  <h4>
+   Deterministic-volatility Model Uniqueness
+  </h4>
+  <p block-type="TextInlineMath">
+   Assume that
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are positive semimartingales with positive left limits and
+   <math display="inline">
+    X := A/B
+   </math>
+   is an Itô process following
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}X_t}{X_t} = \mu_t \mathrm{d}t + \sigma_t \mathrm{d}Z_t, \quad \left(X := \frac{A}{B}\right) \tag{46}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where Z is a Brownian motion and
+   <math display="inline">
+    \mu
+   </math>
+   and
+   <math display="inline">
+    \sigma &gt;
+   </math>
+   0 are predictable processes with
+   <math display="inline">
+    \sigma
+   </math>
+   bounded and
+   <math display="inline">
+    \mathbb{E}\big[e^{1/2\int_0^T(\mu_t/\sigma_t)^2\mathrm{d}t}\big] &lt; \infty. \text{ Let } (\delta^A, \delta^B) \text{ be an SFTS}
+   </math>
+   with
+   <math display="inline">
+    \delta^A
+   </math>
+   bounded. Set
+   <math display="inline">
+    C := \delta^A A + \delta^B B
+   </math>
+   . We claim that
+   <math display="inline">
+    \delta^A = \delta^B = 0
+   </math>
+   if
+   <math display="inline">
+    C_T = 0
+   </math>
+   . Indeed, the process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M := \mathcal{E}\left(-\int \frac{\mu}{\sigma} \mathrm{d}Z\right) = \mathrm{e}^{-\int \frac{\mu}{\sigma} \mathrm{d}Z - \frac{1}{2} \int \left(\frac{\mu}{\sigma}\right)^2 \mathrm{d}t} \tag{47}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is then a positive martingale with
+   <math display="inline">
+    M_0 = 1
+   </math>
+   . Define the equivalent probability measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   by
+   <math display="inline">
+    d\mathbb{Q} = M_T d\mathbb{P}
+   </math>
+   . The process
+   <math display="inline">
+    W := Z + \int \frac{\mu}{\sigma} dt
+   </math>
+   is a Q-Brownian motion because
+   <math display="inline">
+    [W]_t = t
+   </math>
+   and W is
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -local martingale as
+   <math display="inline">
+    MW
+   </math>
+   is a local martingale using Itô's product rule:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathsf{d}(MW) - W \mathsf{d}M &amp;= M \mathsf{d}W + \mathsf{d}[W, M] \\ &amp;= M \left( \mathsf{d}Z + \frac{\mu}{\sigma} \mathsf{d}t \right) - M \frac{\mu}{\sigma} \mathsf{d}[Z] \\ &amp;= M \mathsf{d}Z \end{aligned} \tag{48}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Moreover,
+   <math display="inline">
+    dX = X \sigma dW
+   </math>
+   by equation (46). Therefore, X is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -square integrable martingale since
+   <math display="inline">
+    \sigma
+   </math>
+   is bounded. The claim, thus, follows by the section Uniqueness.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Assume now that
+   <math display="inline">
+    \sigma_t
+   </math>
+   is
+   <i>
+    deterministic
+   </i>
+   . The results of the section Deterministic-Volatility Exchange Option Model hold since
+   <math display="inline">
+    d[\log X] = \sigma_t^2 dt
+   </math>
+   . However, we can now derive them more conceptually. Indeed, both conditioned on
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   and unconditionally,
+   <math display="inline">
+    X_T/X_t
+   </math>
+   is
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   lognormally distributed with mean 1 and log-variance
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \int_t^T \sigma_s^2 \text{d}s
+   </math>
+   since
+   <math display="inline">
+    X_T = X_t e^{\int_t^T \sigma_s \text{d}W_s - 1/2 \int_t^T \sigma_s^2 \text{d}s}
+   </math>
+   . Hence, bv equation
+   <math display="inline">
+    (45)
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t, X_t) = \mathbb{E}^{\mathbb{Q}}[(X_T - 1)^+ | \mathcal{F}_t] \quad \text{where}
+   </math>
+   <math display="block">
+    f(t, x) := \mathbb{E}^{\mathbb{Q}}\left(x\frac{X_T}{X_t} - 1\right)^+ \tag{49}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   which function readily equals the Black-Scholes/ Merton option price function (6). Thus,
+   <math display="inline">
+    F :=
+   </math>
+   <math display="inline">
+    (f(t, X_t))
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingale. Therefore, Itô's formula implies that
+   <math display="inline">
+    f(t, x)
+   </math>
+   satisfies the PDE (9) and d
+   <math display="inline">
+    F = \delta^A
+   </math>
+   d
+   <math display="inline">
+    X
+   </math>
+   where
+   <math display="inline">
+    \delta^A := \frac{\partial f}{\partial x}(t, X_t)
+   </math>
+   . Numéraire invariance now yields that the pair
+   <math display="inline">
+    (\delta^A, \delta^B) := F  \delta^A X
+   </math>
+   ) is an SFTS. Clearly,
+   <math display="inline">
+    C_T = (A_T - B_T)^+
+   </math>
+   where
+   <math display="inline">
+    C := \delta^A A + \delta^B B = BF.
+   </math>
+  </p>
+  <h3>
+   Exponential-Poisson Model Uniqueness
+  </h3>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \beta \neq 0
+   </math>
+   be a constant and
+   <math display="inline">
+    \kappa
+   </math>
+   and
+   <math display="inline">
+    \lambda
+   </math>
+   be positive continuous adapted processes such that
+   <math display="inline">
+    \lambda
+   </math>
+   is bounded and
+   <math display="inline">
+    \mathbb{E} e^{\int_0^T \left(\frac{\lambda_t}{\kappa_t} - 1\right)^2 \kappa_t dt} &lt; \infty. \text{ Let } P \text{ be semimartingale sat-}
+   </math>
+   isfying
+   <math display="inline">
+    [P] = P
+   </math>
+   with
+   <math display="inline">
+    P_0 = 0
+   </math>
+   and compensator
+   <math display="inline">
+    \int \kappa dt
+   </math>
+   . Assume that
+   <math display="inline">
+    A
+   </math>
+   and
+   <math display="inline">
+    B
+   </math>
+   are positive semimartingales with positive left limits and
+   <math display="inline">
+    X := \frac{A}{B}
+   </math>
+   satisfies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t = X_{t-}(e^{\beta} - 1)(dP_t - \lambda_t dt) \tag{50}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Using
+   <math display="inline">
+    de^{\beta P} = (e^{\beta} - 1)e^{\beta P} dP
+   </math>
+   or as in the section Derivation of the Predictable Representation, this is equivalent to the integrated form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t = X_0 e^{\beta P_t - (e^{\beta} - 1) \int_0^t \lambda_s \mathrm{d}s} \tag{51}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   be an SFTS with
+   <math display="inline">
+    \delta^A
+   </math>
+   bounded. Set
+   <math display="inline">
+    C := \delta^A A + \delta^B B
+   </math>
+   . We claim that
+   <math display="inline">
+    \delta^A = \delta^B =
+   </math>
+   <math display="inline">
+    0 \text{ if } C_T = 0. \quad \text{Indeed, } \quad \mathbb{E} \left\langle \int \left( \frac{\lambda}{K} - 1 \right)^{(\mathrm{d}P - \kappa \, \mathrm{d}t)} \right\rangle_T = \mathbb{E}
+   </math>
+   <math display="inline">
+    e^{\int_0^T \left(\frac{\lambda_t}{\kappa_t} - 1\right)^2 \kappa_t dt} &lt; \infty
+   </math>
+   , so the positive local martingale
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M := \mathcal{E}\left(\int \left(\frac{\lambda}{\kappa} - 1\right) (\mathrm{d}P - \kappa \mathrm{d}t) \right)
+   </math>
+   <br/>
+   =
+   <math>
+    \mathrm{e}^{-\int (\lambda - \kappa) \mathrm{d}t} \prod_{s \leq \cdot} \left(1 + \left(\frac{\lambda_s}{\kappa_s} - 1\right) \Delta P_s\right)
+   </math>
+   (52)
+  </p>
+  <p block-type="TextInlineMath">
+   is a martingale. Define the equivalent probability measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   by
+   <math display="inline">
+    \mathrm{d}\mathbb{Q} = M_T \mathrm{d}\mathbb{P}
+   </math>
+   . Then
+   <math display="inline">
+    N := P - \int \lambda \mathrm{d}t
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -local martingale as
+   <i>
+    MN
+   </i>
+   is a local martingale by Itô's product rule:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} \mathrm{d}(MN) - N_{-}\mathrm{d}M &amp;= M_{-}\mathrm{d}N + \mathrm{d}[M,N] \\ &amp;= M_{-}(dP - \lambda \mathrm{d}t) \\ &amp;+ M_{-} \left(\frac{\lambda}{\kappa} - 1\right) \mathrm{d}P \\ &amp;= M_{-} \frac{\lambda}{\kappa} (\mathrm{d}P - \kappa \mathrm{d}t) \end{aligned} \tag{53}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Therefore, by equation (50), X is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -squareintegrable martingale (in fact, in
+   <math display="inline">
+    \mathcal{H}^p(\mathbb{Q})
+   </math>
+   for all
+   <math display="inline">
+    p &gt; 0
+   </math>
+   ) since
+   <math display="inline">
+    \lambda
+   </math>
+   is bounded. Thus, by the section Uniqueness,
+   <math display="inline">
+    \delta^A = \delta^B = 0
+   </math>
+   if
+   <math display="inline">
+    C_T = 0
+   </math>
+   , as claimed.
+  </p>
+  <p block-type="TextInlineMath">
+   Assume now that
+   <math display="inline">
+    \lambda
+   </math>
+   is a positive constant. By equation
+   <math display="inline">
+    (51)
+   </math>
+   we have a special case of the exponential-Poisson model. Further,
+   <math display="inline">
+    P
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -Poisson process with intensity
+   <math display="inline">
+    \lambda
+   </math>
+   since
+   <math display="inline">
+    [P] = P
+   </math>
+   . We now have uniqueness, but additionally, the previous results follow more conceptually as follows.
+  </p>
+  <p block-type="TextInlineMath">
+   Conditioned on
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   ,
+   <math display="inline">
+    P_T - P_t
+   </math>
+   is Q-Poisson distributed with mean
+   <math display="inline">
+    \lambda(T-t)
+   </math>
+   . Its unconditional
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   distribution is identical. Thus, the
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   - conditional and the unconditional
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -distribution of
+   <math display="inline">
+    X_T/X_t
+   </math>
+   are identical and are exponentially Poisson distributed with mean 1. Hence, by equation
+   <math display="inline">
+    (45)
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t, X_t) = \mathbb{E}^{\mathbb{Q}}[(X_T - 1)^+ | \mathcal{F}_t] \quad \text{where}
+   </math>
+   <br/>
+   <math display="block">
+    f(t, x) := \mathbb{E}^{\mathbb{Q}}\left(x\frac{X_T}{X_t} - 1\right)^+
+   </math>
+   (54)
+  </p>
+  <p block-type="TextInlineMath">
+   which function readily equals that defined in equation (16). Thus,
+   <math display="inline">
+    F := (f(t, X_t))
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingale. Using this and equation
+   <math display="inline">
+    (24)
+   </math>
+   , one shows that
+   <math display="inline">
+    F
+   </math>
+   satisfies equation (32) and with it that the pair
+   <math display="inline">
+    (\delta^A, \delta^B)
+   </math>
+   as defined in equation
+   <math display="inline">
+    (19)
+   </math>
+   , equation
+   <math display="inline">
+    (20)
+   </math>
+   is a bounded SFTS for the exchange option.
+  </p>
+  <h2>
+   Extension to Dividends
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Consider two assets with positive price processes
+   <math display="inline">
+    \hat{A}
+   </math>
+   and
+   <math display="inline">
+    \hat{B}
+   </math>
+   and continuous dividend yields
+   <math display="inline">
+    y_t^A
+   </math>
+   and
+   <math display="inline">
+    y_t^B
+   </math>
+   . When there exist traded or replicable zero-dividend assets A and B such that
+   <math display="inline">
+    A_T = \hat{A}_T
+   </math>
+   and
+   <math display="inline">
+    B_T = \hat{B}_T
+   </math>
+   (if not, there is little hope of replication), it is natural to
+  </p>
+  <p block-type="TextInlineMath">
+   define the price process of the option to exchange
+   <math display="inline">
+    \hat{A}
+   </math>
+   and
+   <math display="inline">
+    \hat{B}
+   </math>
+   to be that of the option to exchange A and B. If
+   <math display="inline">
+    y^A
+   </math>
+   and
+   <math display="inline">
+    y^B
+   </math>
+   are deterministic, then consistent with the treatment of dividends in [9],
+   <math display="inline">
+    A
+   </math>
+   (and similarly
+   <math display="inline">
+    B
+   </math>
+   ) is simply given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_t := a\tilde{A}_t = e^{-\int_t^T y_s^A ds} \hat{A}_t,
+   </math>
+   <br/>
+   <math display="block">
+    \tilde{A}_t := e^{\int_0^t y_s^A ds} \hat{A}_t, \quad a := e^{-\int_0^T y_t^A dt}
+   </math>
+   (55)
+  </p>
+  <p block-type="TextInlineMath">
+   Note
+   <math display="inline">
+    A/B
+   </math>
+   is a semimartingale if and only if
+   <math display="inline">
+    \hat{A}/\hat{B}
+   </math>
+   is, in which case
+   <math display="inline">
+    \lceil \log A/B \rceil = \lceil \log \hat{A}/\hat{B} \rceil
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   In general,
+   <math display="inline">
+    \tilde{A}_t
+   </math>
+   is the price of the zero-dividend asset that initially buys one share of
+   <math display="inline">
+    \hat{A}
+   </math>
+   and thereon continually reinvests all dividends in
+   <math display="inline">
+    \hat{A}
+   </math>
+   itself. What is required is that the four zero-dividend assets
+   <math display="inline">
+    A
+   </math>
+   ,
+   <math display="inline">
+    \tilde{A}
+   </math>
+   . B, and
+   <math display="inline">
+    \tilde{B}
+   </math>
+   be arbitrage free in relation to one another (see the section Arbitrage-free Semimartingales and Uniqueness).
+  </p>
+  <p block-type="TextInlineMath">
+   For instance, say
+   <math display="inline">
+    \hat{A}
+   </math>
+   and
+   <math display="inline">
+    \hat{B}
+   </math>
+   are the yen/dollar and yen/Euro exchange rates viewed as yen-denominated dividend assets. Then
+   <math display="inline">
+    A
+   </math>
+   is the yen-value of the US
+   <math display="inline">
+    T
+   </math>
+   maturity zero-coupon bond and
+   <math display="inline">
+    \tilde{A}
+   </math>
+   is the yen-value of the US money market asset. This exchange option is equivalent to a Euro-denominated call struck at 1 on the Euro/dollar exchange rate
+   <math display="inline">
+    \hat{A}/\hat{B}
+   </math>
+   . The ratio
+   <math display="inline">
+    A/B
+   </math>
+   is the
+   <i>
+    forward
+   </i>
+   Euro/dollar exchange rate. If it has deterministic volatility, we are as in a setting of [7], which yields the same pricing formula as that from the section Deterministic-volatility Exchange Option Model.
+  </p>
+  <h1>
+   <b>
+    Pricing and Hedging Options with Homogeneous Payoffs
+   </b>
+  </h1>
+  <p block-type="TextInlineMath" class="has-continuation">
+   We took some shortcuts to quickly present the main results for two of the simplest and among the most interesting examples. A better understanding of the principles at work requires generalization to contingent claims
+   <math display="inline">
+    C
+   </math>
+   on many assets with price processes
+   <math display="inline">
+    A = (A^1, \cdots, A^m) &gt; 0
+   </math>
+   and a path-independent payoff
+   <math display="inline">
+    C_T = h(A_T)
+   </math>
+   given as a homogeneous function
+   <math display="inline">
+    h(a)
+   </math>
+   ,
+   <math display="inline">
+    a \in \mathbb{R}^m_+
+   </math>
+   , of the asset prices
+   <math display="inline">
+    A_T
+   </math>
+   at expiration time T. Combined with an underlying SDE and the resulting PDE, such a Markovian setting utilizes the invariance principle and equivalent martingale measures to derive unique pricing and construct an SFTS that
+  </p>
+  <p block-type="TextInlineMath">
+   replicates the given payoff
+   <math display="inline">
+    h(A_T)
+   </math>
+   in general. The construction is explicit in the multivariate extensions of the deterministic-volatility and exponential-Poisson models.
+  </p>
+  <p block-type="TextInlineMath">
+   The homogeneity of the payoff function
+   <math display="inline">
+    h(a)
+   </math>
+   implies
+   <math display="inline">
+    h(A_T) = A_T^m g(X_T)
+   </math>
+   where
+   <math display="inline">
+    g(x) := h(x, 1)
+   </math>
+   ,
+   <math display="inline">
+    x \in \mathbb{R}^n_+, \quad n := m-1, \quad \text{and} \quad X := \left(\frac{A^1}{A^m}, \cdots, \frac{A^n}{A^m}\right).
+   </math>
+   Once a predictable representation
+   <math display="inline">
+    F = F_0 + \delta'
+   </math>
+   .
+   <math display="inline">
+    X
+   </math>
+   ,
+   <math display="inline">
+    F_T = g(X_T)
+   </math>
+   is found, then by numéraire invariance
+   <math display="inline">
+    \delta := (\delta', \delta^m)
+   </math>
+   will be an SFTS with payoff
+   <math display="inline">
+    h(A_T)
+   </math>
+   , where
+   <math display="inline">
+    \delta^m := F_- - \sum_{i=1}^n \delta^i X_- =
+   </math>
+   <math display="inline">
+    F - \sum_{i=1}^{n} \delta^{i} X
+   </math>
+   . Uniqueness of pricing requires boundedness of partial derivatives (or differences) of
+   <math display="inline">
+    h(a)
+   </math>
+   (or
+   <math display="inline">
+    g(x)
+   </math>
+   ) and that A be arbitrage free, meaning
+   <math display="inline">
+    X
+   </math>
+   is a martingale under an equivalent measure. Arbitrage freedom holds "generically" when the matrix (
+   <math display="inline">
+    (X^i, X^j)
+   </math>
+   ) is nonsingular, basically a "noredundant-asset" condition. Then the SFTS is also unique.
+  </p>
+  <p block-type="Text">
+   Libor and swap derivatives are among contingent claims with homogeneous payoffs.
+  </p>
+  <h2>
+   Self-financing Trading Strategies
+  </h2>
+  <p block-type="TextInlineMath">
+   By an SFTS we mean a pair
+   <math display="inline">
+    (\delta, A)
+   </math>
+   of an mdimensional semimartingale
+   <math display="inline">
+    A = (A^1, \ldots, A^m)
+   </math>
+   and an A-integrable predictable vector process
+   <math display="inline">
+    \delta =
+   </math>
+   <math display="inline">
+    (\delta^1,\ldots,\delta^m)
+   </math>
+   such that (with
+   <math display="inline">
+    \delta\cdot A
+   </math>
+   denoting the
+   <i>
+    m
+   </i>
+   dimensional stochastic integral)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \sum_{i=1}^{m} \delta^{i} A^{i} = \sum_{i=1}^{m} \delta^{i}_{0} A^{i}_{0} + \delta \cdot A \tag{56}
+   </math>
+  </p>
+  <p block-type="Text">
+   We then say
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for A. This is equivalent to saying that the SFTS
+   <i>
+    price process
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C := \sum_{i=1}^{m} \delta^{i} A^{i} \tag{57}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   satisfies
+   <math display="inline">
+    C = C_0 + \delta \cdot A
+   </math>
+   . Clearly, C is then a semimartingale,
+   <math display="inline">
+    \Delta C = \sum_i \delta^i \Delta A_i
+   </math>
+   , and hence
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_{-} = \sum_{i=1}^{m} \delta^{i} A_{-}^{i} \tag{58}
+   </math>
+  </p>
+  <p block-type="Text" class="has-continuation">
+   If
+   <math display="inline">
+    \delta^i
+   </math>
+   are bounded (say by b) and
+   <math display="inline">
+    A^i
+   </math>
+   are martingales, then the SFTS price process
+   <math display="inline">
+    C
+   </math>
+   is a martingale
+  </p>
+  <p block-type="Text">
+   because
+   <math display="inline">
+    C
+   </math>
+   is then a local martingale that is dominated by a martingale
+   <math display="inline">
+    M
+   </math>
+   :
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    |C_{t}| \leq b \sum_{i} |A_{t}^{i}| = b \sum_{i} |\mathbb{E}[A_{T}^{i} | \mathcal{F}_{t}]|
+   </math>
+   <br/>
+   <math display="block">
+    \leq b \sum_{i} \mathbb{E}[|A_{T}^{i}| | \mathcal{F}_{t}] =: M_{t}
+   </math>
+   <br/>
+   (59)
+  </p>
+  <p block-type="Text">
+   As suggested by the case of a locally bounded
+   <math display="inline">
+    \delta
+   </math>
+   , we often use the differential form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dC = \sum_{i=1}^{m} \delta^{i} dA^{i} \tag{60}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   of the equation
+   <math display="inline">
+    C = C_0 + \delta \cdot A
+   </math>
+   as a convenient symbolic equivalent in calculations. One interprets
+   <math display="inline">
+    A^{i}
+   </math>
+   as prices of
+   <i>
+    m
+   </i>
+   zero-dividend assets and
+   <math display="inline">
+    \delta^{i}
+   </math>
+   as the number of shares invested in them at time
+   <math display="inline">
+    t
+   </math>
+   . Then
+   <math display="inline">
+    C_t
+   </math>
+   indicates the resultant self-financing portfolio price by equation
+   <math display="inline">
+    (57)
+   </math>
+   , and equation
+   <math display="inline">
+    (60)
+   </math>
+   is the selffinancing equation, implying that the change
+   <math display="inline">
+    dC
+   </math>
+   in the portfolio price is only due to the changes
+   <math display="inline">
+    dA^{i}
+   </math>
+   in the asset prices with no financing from outside.
+  </p>
+  <p block-type="TextInlineMath">
+   Assume for the remainder of this subsection as a way of motivation that A is continuous and
+   <math display="inline">
+    C_t =
+   </math>
+   <math display="inline">
+    c(t, A_t)
+   </math>
+   for some
+   <math display="inline">
+    C^{1,2}
+   </math>
+   function
+   <math display="inline">
+    c(t, a)
+   </math>
+   .&lt;sup&gt;a&lt;/sup&gt; Then by equation (60) and Itô's formula, we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial c}{\partial t}(t, A_t) dt + \frac{1}{2} \sum_{i,j=1}^{m} \frac{\partial^2 c}{\partial a_i \partial a_j}(t, A_t) d[A^i, A^j]_t
+   </math>
+   <math display="block">
+    = \sum_{i=1}^{m} \left(\delta^i_t - \frac{\partial c}{\partial a_i}(t, A_t)\right) dA^i_t \quad (61)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   In particular, if
+   <math display="inline">
+    \delta_t^i = \frac{\partial c}{\partial a_i}(t, A_t)
+   </math>
+   for all
+   <i>
+    i
+   </i>
+   then
+   <math display="inline">
+    c(t, A_t) = \sum_i \frac{\partial c}{\partial a_t}(t, A_t) A_t^i
+   </math>
+   by equation (57) and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial c}{\partial t}(t, A_t)dt + \frac{1}{2} \sum_{i,j=1}^{m} \frac{\partial^2 c}{\partial a_i \partial a_j}(t, A_t) d[A^i, A^j]_t = 0
+   </math>
+   (62)
+  </p>
+  <p block-type="TextInlineMath">
+   In general,
+   <math display="inline">
+    \sum_{i,j} \left( \delta^i - \frac{\partial c}{\partial a_i} \right) \left( \delta^j - \frac{\partial c}{\partial a_j} \right) d[A^i,
+   </math>
+   <math display="inline">
+    A^{j}
+   </math>
+   = 0 since the (left) right-hand side of equation
+  </p>
+  <p block-type="TextInlineMath">
+   (61) has finite variation. Thus, if
+   <math display="inline">
+    [A^i]
+   </math>
+   are absolutely continuous and the
+   <math display="inline">
+    m \times m
+   </math>
+   matrix
+   <math display="inline">
+    (d/dt[A^i, A^j])
+   </math>
+   is nonsingular, then
+   <math display="inline">
+    \delta^i_t = \partial c/\partial a_i(t, A_t)
+   </math>
+   , so equation (62) holds and
+   <math display="inline">
+    c(t, A_t) = \sum_i \partial c / \partial a_i(t, A_t) A_t^i
+   </math>
+   . If further the support of
+   <math display="inline">
+    A_t
+   </math>
+   is a cone, it follows
+   <math display="inline">
+    c(t, a)
+   </math>
+   is homogeneous of degree 1 in a on that cone.
+  </p>
+  <p block-type="TextInlineMath">
+   Assume that
+   <math display="inline">
+    M^{i} := e^{-\int r dt} A^{i}
+   </math>
+   are local martingales under an equivalent measure for some locally bounded predictable process r. Then
+   <math display="inline">
+    dA^{i} = rA^{i}dt +
+   </math>
+   <math display="inline">
+    e^{\int r dt} dM^{i}
+   </math>
+   ; thus, by equations (61) and (57)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial c}{\partial t}(t, A_t) dt + \frac{1}{2} \sum_{i,j=1}^{m} \frac{\partial^2 c}{\partial a_i \partial a_j}(t, A_t) d[A^i, A^j]_t
+   </math>
+   <math display="block">
+    = r_t \left( C_t - \sum_{i=1}^{m} \frac{\partial c}{\partial a_i}(t, A_t) A_t^i \right) dt \tag{63}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Hence, if
+   <math display="inline">
+    c(t, a)
+   </math>
+   is homogeneous (in a), then by Euler's formula equation (62) holds (yet
+   <math display="inline">
+    \delta^i
+   </math>
+   may differ from
+   <math display="inline">
+    \partial c/\partial a_i(t, A_t)
+   </math>
+   if there are redundancies, for then a regular replicating SFTS is not unique).
+  </p>
+  <p block-type="TextInlineMath">
+   Given a homogeneous payoff function
+   <math display="inline">
+    h(a)
+   </math>
+   , the section Homogeneous Continuous Markovian SFTS constructs under suitable assumptions a homogeneous solution
+   <math display="inline">
+    c(t, a)
+   </math>
+   to equation (62) with
+   <math display="inline">
+    c(T, a) =
+   </math>
+   <math display="inline">
+    h(a)
+   </math>
+   . Clearly then, by Euler and Itô formulae,
+   <math display="inline">
+    (\partial c/\partial a_i(t, A_t))
+   </math>
+   is an SFTS for A (as observed in [9] and highlighted in [8], see the section The Homogeneous Option Price Function). To this end, we first factor out the homogeneous symmetry of
+   <math display="inline">
+    h(a)
+   </math>
+   next.
+  </p>
+  <h4>
+   The Invariance Principle
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    (\delta, A)
+   </math>
+   be an SFTS and S a (scalar) semimartingale such that
+   <math display="inline">
+    \delta
+   </math>
+   is
+   <math display="inline">
+    SA := (SA^1, \cdots, SA^m)
+   </math>
+   -integrable. Then
+   <math display="inline">
+    (\delta, SA)
+   </math>
+   is an SFTS. Consequently,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d(SC) = \sum_{i=1}^{m} \delta^{i} d(SA^{i}) \tag{64}
+   </math>
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    C := \sum_i \delta^i A^i = C_0 + \delta \cdot A
+   </math>
+   , that is,
+   <math display="inline">
+    SC =
+   </math>
+   <math display="inline">
+    S_0C_0 + \delta \cdot (SA)
+   </math>
+   . Indeed, by Itô's product rule, then substituting for
+   <math display="inline">
+    dC
+   </math>
+   and
+   <math display="inline">
+    C_{-}
+   </math>
+   and regrouping, followed
+  </p>
+  <p block-type="Text">
+   by Itô's product rule again,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d(SC) = S_{-}dC + C_{-}dS + d[S, C]
+   </math>
+   <br/>
+   =
+   <math>
+    S_{-}\sum_{i=1}^{m} \delta^{i} dA^{i} + \sum_{i=1}^{m} \delta^{i} A^{i}_{-} dS + \sum_{i=1}^{m} \delta^{i} d[S, A^{i}]
+   </math>
+   <br/>
+   =
+   <math>
+    \sum_{i=1}^{m} \delta^{i} (S_{-}dA^{i} + A^{i}_{-}dS + d[S, A^{i}])
+   </math>
+   <br/>
+   =
+   <math>
+    \sum_{i=1}^{m} \delta^{i} d(SA^{i})
+   </math>
+   (65)
+  </p>
+  <p block-type="Text">
+   Interpreting
+   <math display="inline">
+    S
+   </math>
+   as an exchange rate, this result [3, 4, 8], called
+   <i>
+    numéraire invariance
+   </i>
+   , means that the self-financing property is independent of the base currency. (To the best of our knowledge, the term was coined in the 1992 edition of
+   <math display="inline">
+    [3]
+   </math>
+   , where a similar proof is given.)
+  </p>
+  <p block-type="TextInlineMath">
+   If S,
+   <math display="inline">
+    S_{-} &gt; 0
+   </math>
+   , then applied to the semimartingale
+   <math display="inline">
+    1/S
+   </math>
+   we see that
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for A if and only if it is one for SA. Thus, if equation (57) holds, then equations
+   <math display="inline">
+    (60)
+   </math>
+   and
+   <math display="inline">
+    (64)
+   </math>
+   are equivalent.
+  </p>
+  <p block-type="TextInlineMath">
+   Assume now that
+   <math display="inline">
+    A^m
+   </math>
+   ,
+   <math display="inline">
+    A^m_- &gt; 0
+   </math>
+   and
+   <math display="inline">
+    m \ge 2
+   </math>
+   . Define the
+   <math display="inline">
+    n := m - 1
+   </math>
+   dimensional semimartingale
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X := \left(\frac{A^{1}}{A^{m}}, \dots, \frac{A^{n}}{A^{m}}\right), \quad n := m - 1 \tag{66}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Taking
+   <math display="inline">
+    S = 1/A^m
+   </math>
+   , it follows that
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for A if and only if it is an SFTS for
+   <math display="inline">
+    A/A^m = (X, 1)
+   </math>
+   , that is, if and only if
+   <math display="inline">
+    F := C/A^m
+   </math>
+   satisfies
+   <math display="inline">
+    F = F_0 +
+   </math>
+   <math display="inline">
+    \delta' \cdot X
+   </math>
+   where
+   <math display="inline">
+    \delta' := (\delta^1, \dots, \delta^n)
+   </math>
+   . Clearly in this case,
+   <math display="inline">
+    F = \sum_{i=1}^n \delta^i X^i + \delta^m
+   </math>
+   and
+   <math display="inline">
+    F_- = \sum_{i=1}^n \delta^i X_-^i + \delta^m
+   </math>
+   as
+   <math display="inline">
+    \Delta F = \dot{\delta}' \cdot \Delta X
+   </math>
+   . Thus,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta^{m} = F - \sum_{i=1}^{n} \delta^{i} X^{i} = F_{-} - \sum_{i=1}^{n} \delta^{i} X_{-}^{i}, \ \left( F := \frac{C}{A^{m}} \right)
+   </math>
+   (67)
+  </p>
+  <p block-type="TextInlineMath">
+   (When
+   <math display="inline">
+    m = 1
+   </math>
+   , a similar argument shows that
+   <math display="inline">
+    \delta
+   </math>
+   must be a constant, as intuitively obvious.)
+  </p>
+  <p block-type="TextInlineMath">
+   Conversely, suppose that
+   <math display="inline">
+    \delta'
+   </math>
+   is an X-integrable process and F is a process such that
+   <math display="inline">
+    F = F_0 + \delta' \cdot X
+   </math>
+   . Define
+   <math display="inline">
+    \delta^m
+   </math>
+   by either of the above formulas—the other then holds as before. Obviously then
+   <math display="inline">
+    \delta = (\delta', \delta^m)
+   </math>
+   is an SFTS for
+   <math display="inline">
+    (X, 1)
+   </math>
+   with price process F. Hence by
+  </p>
+  <p block-type="TextInlineMath">
+   numéraire invariance,
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for A with price process
+   <math display="inline">
+    C = A^m F
+   </math>
+   , provided
+   <math display="inline">
+    \delta
+   </math>
+   is A-integrable.
+  </p>
+  <p block-type="TextInlineMath">
+   Thus, numéraire invariance shows that in order to find an SFTS with a given time-T payoff
+   <math display="inline">
+    C_T
+   </math>
+   it is sufficient to find processes
+   <math display="inline">
+    \delta'
+   </math>
+   and F such that
+   <math display="inline">
+    F = F_0 + \delta' \cdot X
+   </math>
+   and
+   <math display="inline">
+    F_T = C_T / A_T^m
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <math display="inline">
+    \delta^m = F - \sum_{i=1}^n \delta^i X^i
+   </math>
+   , the
+   <i>
+    m
+   </i>
+   th delta
+   <math display="inline">
+    \delta^m
+   </math>
+   is like F determined by
+   <math display="inline">
+    \delta'
+   </math>
+   and
+   <math display="inline">
+    F_0
+   </math>
+   . As such, one interprets the
+   <math display="inline">
+    m
+   </math>
+   -th asset as the "numéraire asset" chosen to finance an otherwise arbitrary trading strategy
+   <math display="inline">
+    \delta'
+   </math>
+   in the other assets, post an initial investment of
+   <math display="inline">
+    C_0 = A_0^m F_0.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We often use the differential form
+   <math display="inline">
+    dF = \sum_{i=1}^{n} \delta^{i}
+   </math>
+   <math display="inline">
+    \mathrm{d}X^i
+   </math>
+   of the equation
+   <math display="inline">
+    F = F_0 + \delta' \cdot X
+   </math>
+   .
+  </p>
+  <h3>
+   Arbitrage-free Semimartingales and Uniqueness
+  </h3>
+  <p block-type="TextInlineMath">
+   We call a semimartingale
+   <math display="inline">
+    A = (A^1, \dots, A^m), m &gt; 2,
+   </math>
+   <i>
+    arbitrage free
+   </i>
+   if there exists a positive semimartingale S with
+   <math display="inline">
+    S_{-} &gt; 0
+   </math>
+   such that
+   <math display="inline">
+    SA^{i}
+   </math>
+   are martingales for all
+   <math display="inline">
+    i
+   </math>
+   . Such a process S is called a
+   <i>
+    state price density
+   </i>
+   or
+   <i>
+    deflator
+   </i>
+   for A. The
+   <i>
+    law of one price
+   </i>
+   (with bounded deltas) justifies the terminology:
+  </p>
+  <p block-type="TextInlineMath">
+   If A is arbitrage free and
+   <math display="inline">
+    \delta
+   </math>
+   is a bounded SFTS for A, then SC is a martingale where
+   <math display="inline">
+    C := \sum_{i=1}^{m} \delta^{i} A^{i}
+   </math>
+   ; consequently,
+   <math display="inline">
+    C = 0
+   </math>
+   if
+   <math display="inline">
+    C_T = 0
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Indeed, by numéraire invariance
+   <math display="inline">
+    \delta
+   </math>
+   is then an SFTS for
+   <math display="inline">
+    SA
+   </math>
+   with price process
+   <math display="inline">
+    SC
+   </math>
+   . Hence by the section Self-financing Trading Strategies, SC is a martingale, implying
+   <math display="inline">
+    SC = 0
+   </math>
+   if
+   <math display="inline">
+    C_T = 0
+   </math>
+   , and with it
+   <math display="inline">
+    C = 0
+   </math>
+   , as claimed.
+  </p>
+  <p block-type="TextInlineMath">
+   A simple and well-known argument yields that if
+   <math display="inline">
+    A^m, A^m &gt; 0
+   </math>
+   , then A is arbitrage free if and only if there exists an equivalent probability measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   such that X is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingale, where
+   <math display="inline">
+    X :=
+   </math>
+   <math display="inline">
+    \left(\frac{A^1}{A^m}, \cdots \frac{A^n}{A^m}\right)
+   </math>
+   ,
+   <math display="inline">
+    n := m - 1
+   </math>
+   .&lt;sup&gt;b&lt;/sup&gt; Numéraire invariance then implies that
+   <math display="inline">
+    C/A^m
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingale for the price process
+   <math display="inline">
+    C := \sum_i \delta^i A^i
+   </math>
+   of any bounded SFTS
+   <math display="inline">
+    \delta
+   </math>
+   , and hence
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    C_t = A_t^m \mathbb{E}^{\mathbb{Q}} \left[ \frac{C_T}{A_T^m} \, | \, \mathcal{F}_t \right] \tag{68}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Indeed, by numéraire invariance,
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for
+   <math display="inline">
+    A/A^m
+   </math>
+   with price process
+   <math display="inline">
+    C/A^m
+   </math>
+   . Hence,
+   <math display="inline">
+    C/A^m
+   </math>
+   is a Q-martingale by the section Self-Financing Trading Strategies since
+   <math display="inline">
+    A/A^m
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingale and
+   <math display="inline">
+    \delta
+   </math>
+   is bounded.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   Suppose that
+   <math display="inline">
+    X
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -square-integrable martingale and
+   <math display="inline">
+    \delta^i
+   </math>
+   are bounded for
+   <math display="inline">
+    i \leq n
+   </math>
+   . Then
+   <math display="inline">
+    F := C/A^m
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -square-integrable martingale
+  </p>
+  <p block-type="TextInlineMath">
+   since
+   <math display="inline">
+    dF = \sum_{i=1}^{n} \delta^{i} dX^{i}
+   </math>
+   by numéraire invariance.&lt;br&gt;Moreover,
+   <math display="inline">
+    d\langle F \rangle^{\mathbb{Q}} = \sum_{ij=1}^{n} \delta^{i} \delta^{j} d\langle X^{i}, X^{j} \rangle^{\mathbb{Q}}
+   </math>
+   . Thus,
+   <i>
+    if
+   </i>
+   <math display="inline">
+    (X^i)^{\mathbb{Q}}
+   </math>
+   are absolutely continuous and the
+   <math display="inline">
+    n \times n
+   </math>
+   matrix
+   <math display="inline">
+    (\mathrm{d}/\mathrm{d}t\langle X^i,X^j\rangle^{\mathbb{Q}})
+   </math>
+   is nonsingular, then given any random variable
+   <math display="inline">
+    R
+   </math>
+   , there exists at most one SFTS
+   <math display="inline">
+    \delta
+   </math>
+   for A such that
+   <math display="inline">
+    \sum_{i=1}^{m} \delta^{i}_{T} A^{i}_{T} = R
+   </math>
+   and
+   <math display="inline">
+    \delta^{i}
+   </math>
+   are bounded for
+   <math display="inline">
+    i &lt; n
+   </math>
+   .
+  </p>
+  <h2>
+   Projective Continuous Markovian SFTS
+  </h2>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    X = (X^1, \dots, X^n)
+   </math>
+   be a continuous vector martingale. In this, subsection
+   <math display="inline">
+    x \in \mathbb{R}^n_+
+   </math>
+   if
+   <math display="inline">
+    X &gt; 0
+   </math>
+   (the main case of interest); otherwise,
+   <math display="inline">
+    x \in \mathbb{R}^n
+   </math>
+   . Let
+   <math display="inline">
+    g(x)
+   </math>
+   be a Borel function of linear growth (so
+   <math display="inline">
+    \mathbb{E}|g(X_T)| &lt; \infty
+   </math>
+   ), and
+   <math display="inline">
+    f(t, x)
+   </math>
+   be a continuous function,
+   <math display="inline">
+    C^{1,2}
+   </math>
+   on
+   <math display="inline">
+    t &lt; T
+   </math>
+   . Set
+   <math display="inline">
+    m := n + 1
+   </math>
+   and define the
+   <math display="inline">
+    C^1
+   </math>
+   functions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_i(t,x) := \frac{\partial f}{\partial x_i}(t,x), \ i \le n,
+   </math>
+   <br/>
+   <math display="block">
+    \delta_m(t,x) := f(t,x) - \sum_{i=1}^n \delta_i(t,x)x_i \qquad (69)
+   </math>
+  </p>
+  <p block-type="Text">
+   and the continuous vector process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta = (\delta^1, \dots, \delta^m), \quad \delta^i_t := \delta_i(t, X_t) \tag{70}
+   </math>
+  </p>
+  <p block-type="Text">
+   First suppose that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t, X_t) = \mathbb{E}[g(X_T) | \mathcal{F}_t]
+   </math>
+   (71)
+  </p>
+  <p block-type="TextInlineMath">
+   Then the process
+   <math display="inline">
+    F := (f(t, X_t))
+   </math>
+   is a martingale, and since
+   <math display="inline">
+    X^i
+   </math>
+   are also martingales, Itô's formula yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF_t = \sum_{i=1}^n \frac{\partial f}{\partial x_i}(t, X_t) dX_t^i, \qquad (72)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f}{\partial t}(t, X_t) \mathrm{d}t + \frac{1}{2} \sum_{i, j=1}^n \frac{\partial^2 f}{\partial x_i \partial x_j}(t, X_t) \mathrm{d}[X^i, X^j]_t = 0 \tag{73}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly,
+   <math display="inline">
+    F_T = g(X_T)
+   </math>
+   and equation (72) imply
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for
+   <math display="inline">
+    (X, 1)
+   </math>
+   with price process F.
+  </p>
+  <p block-type="TextInlineMath">
+   Conversely, suppose that
+   <math display="inline">
+    f(t, x)
+   </math>
+   satisfies equation (73) or equivalently, by Itô's formula, equation (72). By equation (72),
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for
+   <math display="inline">
+    (X, 1)
+   </math>
+   with price process
+   <math display="inline">
+    F := f(t, X_t)
+   </math>
+   . Thus by the section Self-financing Trading Strategies, if
+   <math display="inline">
+    \delta_i(t, x)
+   </math>
+   are bounded then
+   <math display="inline">
+    F
+   </math>
+   is a martingale and if further
+   <math display="inline">
+    f(T, x) = g(x)
+   </math>
+   then equation (71) holds. Moreover, as in the section Arbitrage-free Semimartingales and Uniqueness,
+   <math display="inline">
+    \delta
+   </math>
+   given by equation (70) is then the
+  </p>
+  <p block-type="TextInlineMath">
+   <i>
+    unique
+   </i>
+   bounded SFTS for
+   <math display="inline">
+    (X, 1)
+   </math>
+   with payoff
+   <math display="inline">
+    g(X_T)
+   </math>
+   , provided
+   <math display="inline">
+    d[X^i, X^j] = X^i X^j \sigma^{ij} dt
+   </math>
+   for some nonsingular matrix process
+   <math display="inline">
+    (\sigma_t^{ij})
+   </math>
+   .
+  </p>
+  <h2>
+   Example: Projective Deterministic Volatility
+  </h2>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    X = (X^1, \ldots, X^n) &gt; 0
+   </math>
+   be a continuous
+   <i>
+    n
+   </i>
+   dimensional martingale such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d[X^i, X^j]_t = X^i_t X^j_t \sigma_{ij}(t) dt \tag{74}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   for some
+   <math display="inline">
+    n^2
+   </math>
+   deterministic continuous functions
+   <math display="inline">
+    \sigma_{ii}(t)
+   </math>
+   . So,
+   <math display="inline">
+    d[\log X^i, \log X^j]_t = \sigma_{ii}(t)dt
+   </math>
+   . Conditioned on
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   and unconditionally,
+   <math display="inline">
+    X_T/X_t
+   </math>
+   is then
+   <i>
+    multivariately
+   </i>
+   lognormally distributed, with mean
+   <math display="inline">
+    (1, \dots, 1)
+   </math>
+   and log-covariance matrix
+   <math display="inline">
+    (\int_t^T \sigma_{ij}(s) ds)
+   </math>
+   . Let
+   <math display="inline">
+    P(t, T, z)
+   </math>
+   denote its distribution function. Let
+   <math display="inline">
+    g(x)
+   </math>
+   be a Borel function of linear growth. Define the function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t,x) := \mathbb{E}\left[g\left(x_1\frac{X_T^1}{X_t^1},\ldots,x_n\frac{X_T^n}{X_t^n}\right)\right] \tag{75}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Obviously,
+   <math display="inline">
+    f(T, x) = g(x)
+   </math>
+   . Clearly,
+   <math display="inline">
+    f(t, x)
+   </math>
+   can also be represented in two other ways as
+  </p>
+  <p block-type="Text">
+   í
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t,x) = \int_{\mathbb{R}^n_+} g(x_1 z_1, \dots, x_n z_n) P(t, T, dz)
+   </math>
+   <math display="block">
+    = \mathbb{E}\left[g\left(x_1 \frac{X_T^1}{X_t^1}, \dots, x_n \frac{X_T^n}{X_t^n}\right) \mid \mathcal{F}_t\right] \tag{76}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Equation (71) holds by the second equality, and
+   <math display="inline">
+    f(t, x)
+   </math>
+   is
+   <math display="inline">
+    C^1
+   </math>
+   in t and smooth (even analytic) in x on
+   <math display="inline">
+    t &lt; T
+   </math>
+   as seen by changing variable in the integral to
+   <math display="inline">
+    y^i = x^i z^i
+   </math>
+   and differentiating under the integral sign in the first equality. Therefore by equation
+   <math display="inline">
+    (73)
+   </math>
+   ,
+   <math display="inline">
+    f(t, x)
+   </math>
+   satisfies the PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f}{\partial t} + \frac{1}{2} \sum_{i,j=1}^{n} \sigma_{ij}(t) x_i x_j \frac{\partial^2 f}{\partial x_i \partial x_j} = 0 \qquad (77)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   on the support of X, equation (72) holds, and
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for
+   <math display="inline">
+    (X, 1)
+   </math>
+   with price process
+   <math display="inline">
+    F := (f(t, X_t)),
+   </math>
+   a martingale by equation (71). If
+   <math display="inline">
+    g(x)
+   </math>
+   is dx-absolutely continuous with bounded partial derivatives
+   <math display="inline">
+    \frac{\partial g}{\partial x_i}
+   </math>
+   (as
+   <math display="inline">
+    L^1
+   </math>
+   functions), then
+   <math display="inline">
+    g(x)
+   </math>
+   has linear growth,
+   <math display="inline">
+    \mathbb{E}|g(X_T)|^p &lt; \infty
+   </math>
+   for
+   <math display="inline">
+    p &gt; 0
+   </math>
+   , and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f}{\partial x_i}(t,x) = \mathbb{E}\left[\frac{X_T^i}{X_t^i}\frac{\partial g}{\partial x_i}\left(x_1\frac{X_T^1}{X_t^1},\dots,x_n\frac{X_T^n}{X_t^n}\right)\right] \tag{78}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Thus,
+   <math display="inline">
+    \delta_i(t, x) = \frac{\partial f}{\partial x_i}(t, x)
+   </math>
+   are bounded. If
+   <math display="inline">
+    g(x)
+   </math>
+   –
+   <math display="inline">
+    \sum \frac{\partial g}{\partial x_i} x_i
+   </math>
+   is bounded, then so is
+   <math display="inline">
+    \delta_m(t, x)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_m(t,x) = \mathbb{E}\left[g\left(x\frac{X_T}{X_t}\right) - \sum_{i=1}^n \frac{\partial g}{\partial x_i} \left(x\frac{X_T}{X_t}\right) \frac{X_T^i}{X_t^i}\right] \tag{79}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   It further follows that if
+   <math display="inline">
+    f(t, x)
+   </math>
+   is any
+   <math display="inline">
+    C^{1,2}
+   </math>
+   function with bounded partials
+   <math display="inline">
+    \frac{\partial f}{\partial x_i}(t, x)
+   </math>
+   satisfying
+   <math display="inline">
+    f(T, x) = 0
+   </math>
+   for all
+   <math display="inline">
+    x
+   </math>
+   and the PDE (77), then
+   <math display="inline">
+    F :=
+   </math>
+   <math display="inline">
+    (f(t, X_t)) = 0
+   </math>
+   . Indeed, equation (72) then holds by PDE (77) and Itô's formula, implying
+   <math display="inline">
+    F
+   </math>
+   is a squareintegrable martingale. Thus
+   <math display="inline">
+    F = 0
+   </math>
+   since
+   <math display="inline">
+    F_T = 0
+   </math>
+   . As such,
+   <math display="inline">
+    f(t, x) = 0
+   </math>
+   identically if the support of
+   <math display="inline">
+    X_t
+   </math>
+   equals
+   <math display="inline">
+    \mathbb{R}^n_+
+   </math>
+   for every t. This is so if the matrix
+   <math display="inline">
+    (\sigma_{ii}(t))
+   </math>
+   is nonsingular at least near 0, and it is "generically" so even when the matrix has rank 1 but is time dependent.
+  </p>
+  <h4>
+   Projective Continuous SDE SFTS
+  </h4>
+  <p block-type="TextInlineMath">
+   Continuous Markovian positive martingales
+   <math display="inline">
+    X =
+   </math>
+   <math display="inline">
+    (X^1,\cdots,X^n)
+   </math>
+   often arise as solutions to an SDE system of the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}X_t^i = X_t^i \sum_{j=1}^k \varphi_{ij}(t, X_t) \mathrm{d}W_t^j \tag{80}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    W^1, \cdots, W^k
+   </math>
+   are independent Brownian motions and
+   <math display="inline">
+    \varphi_{ij}(t, x)
+   </math>
+   ,
+   <math display="inline">
+    x \in \mathbb{R}^n_+
+   </math>
+   , are continuous bounded functions. As is well known, for each
+   <math display="inline">
+    s \leq T
+   </math>
+   and
+   <math display="inline">
+    x \in \mathbb{R}^n_+
+   </math>
+   , there is a unique continuous semimartingale
+   <math display="inline">
+    X^{s,x} = (X^{s,x}_t)
+   </math>
+   on
+   <math display="inline">
+    [s,T]
+   </math>
+   with
+   <math display="inline">
+    X^{s,x}_s =
+   </math>
+   x satisfying this SDE; moreover,
+   <math display="inline">
+    X^{s,x}
+   </math>
+   is a positive square-integrable martingale (in fact in all
+   <math display="inline">
+    \mathcal{H}^p
+   </math>
+   ) since
+   <math display="inline">
+    \varphi_{ij}(t, x)
+   </math>
+   are bounded. Fixing an
+   <math display="inline">
+    X_0 \in \mathbb{R}^n_+
+   </math>
+   , the solution on
+   <math display="inline">
+    [0, T]
+   </math>
+   starting at
+   <math display="inline">
+    X_0
+   </math>
+   at time 0 is denoted as
+   <math display="inline">
+    X = X^{0, X_0}
+   </math>
+   . The Markov property holds: for any Borel function
+   <math display="inline">
+    g(x)
+   </math>
+   of linear growth,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}[g(X_T) | \mathcal{F}_t] = f(t, X_t) \quad \text{where}
+   </math>
+   <math display="block">
+    f(t, x) := \mathbb{E} g(X_T^{t, x}) \tag{81}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly
+   <math display="inline">
+    f(T, x) = g(x)
+   </math>
+   . (Intuitively,
+   <math display="inline">
+    f(t, x) =
+   </math>
+   <math display="inline">
+    \mathbb{E}[g(X_T) | X_t = x].
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Thus if we assume that
+   <math display="inline">
+    \varphi_{ij}(t, x)
+   </math>
+   are sufficiently regular so that
+   <math display="inline">
+    f(t, x)
+   </math>
+   is
+   <math display="inline">
+    C^{1,2}
+   </math>
+   on
+   <math display="inline">
+    t &lt; T
+   </math>
+   for every
+  </p>
+  <p block-type="Text">
+   bounded (hence of linear growth) Borel function
+   <math display="inline">
+    g(x)
+   </math>
+   , then the assumptions of the section Projective Continuous Markovian SFTS are satisfied and the conclusions hold. In particular, equation (72) then holds, and since
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d[X^{i}, X^{j}] = X^{i}X^{j}\sigma_{ij}(t, X)dt \text{ where}
+   </math>
+   <br/>
+   <math display="block">
+    \sigma_{ij}(t, x) := \sum_{l=1}^{k} \varphi_{il}(t, x)\varphi_{jl}(t, x) \qquad (82)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   it follows from equation
+   <math display="inline">
+    (73)
+   </math>
+   that, at least on the support of X,
+   <math display="inline">
+    f(t, x)
+   </math>
+   satisfies the PDE
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial f}{\partial t}(t,x) + \frac{1}{2} \sum_{i,j=1}^{n} x_i x_j \sigma_{ij}(t,x) \frac{\partial^2 f}{\partial x_i \partial x_j}(t,x) = 0
+   </math>
+   (83)
+  </p>
+  <p block-type="TextInlineMath">
+   In the deterministic-volatility case, the functions
+   <math display="inline">
+    \varphi_{ij}
+   </math>
+   and hence
+   <math display="inline">
+    \sigma_{ij}
+   </math>
+   are independent of x and simply
+   <math display="inline">
+    X_T^{i,x} = xX_T/X_t
+   </math>
+   , explaining why in this special case
+   <math display="inline">
+    f(t, x)
+   </math>
+   is also given by equation (73).
+  </p>
+  <p block-type="Text">
+   In general, if
+   <math display="inline">
+    g(x)
+   </math>
+   is absolutely continuous with bounded derivatives and the probability transition function of
+   <math display="inline">
+    X
+   </math>
+   is sufficiently regular, one shows, as in the deterministic volatility case, that the
+   <math display="inline">
+    x
+   </math>
+   -partial derivatives of
+   <math display="inline">
+    f
+   </math>
+   (the deltas) are bounded and thereby concludes uniqueness.
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <math display="inline">
+    \sigma_{ii}(t, x)
+   </math>
+   are homogeneous of degree 0 in x, then (assumed) uniqueness and symmetry of PDE (73) under dilation in x imply that
+   <math display="inline">
+    f(t, x)
+   </math>
+   is homogeneous of degree 1 in x if
+   <math display="inline">
+    g(x)
+   </math>
+   is so. By Euler's formula then
+   <math display="inline">
+    \delta_m(t,x) = 0
+   </math>
+   in equation (69), implying
+   <math display="inline">
+    (\delta^1,\cdots,\delta^n)
+   </math>
+   is an SFTS for
+   <math display="inline">
+    X
+   </math>
+   .
+  </p>
+  <h4>
+   Homogeneous Continuous Markovian SFTS
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    A = (A^1, \dots, A^m)
+   </math>
+   be a semimartingale with
+   <math display="inline">
+    A, A_{-} &gt; 0
+   </math>
+   such that
+   <math display="inline">
+    X^{i} := A^{i}/A^{m}
+   </math>
+   are Itô processes following
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t^i = X_t^i \sum_{j=1}^k \varphi_t^{ij} (dZ_t^j + \phi^j dt)
+   </math>
+   <br/>
+   (
+   <i>
+    i
+   </i>
+   = 1, ...,
+   <i>
+    n
+   </i>
+   :=
+   <i>
+    m
+   </i>
+   - 1) (84)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   where
+   <math display="inline">
+    Z^j
+   </math>
+   are independent Brownian motions and
+   <math display="inline">
+    \phi^j
+   </math>
+   ,
+   <math display="inline">
+    \varphi^{ij}
+   </math>
+   are locally bounded predictable processes with
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    \varphi^{ij}
+   </math>
+   bounded and
+   <math display="inline">
+    \mathbb{E} e^{1/2 \sum_j \int_0^T (\phi_t^j)^2 dt} &lt; \infty
+   </math>
+   . Define the martingale
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M := \mathcal{E}\left(-\sum_{j=1}^{k} \int \phi^{j} \mathrm{d}Z^{j}\right)
+   </math>
+   <math display="block">
+    = \mathrm{e}^{-\sum_{j=1}^{k} \left(\int \phi^{j} \mathrm{d}Z^{j} + \frac{1}{2} \int (\phi^{i})^{2} \mathrm{d}t\right)} \tag{85}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   and the measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   by
+   <math display="inline">
+    d\mathbb{Q} = M_T d\mathbb{P}
+   </math>
+   . Then
+   <math display="inline">
+    W^i :=
+   </math>
+   <math display="inline">
+    Z^{i} + \int \phi^{i} dt
+   </math>
+   are Q-Brownian motions and are Qindependent since
+   <math display="inline">
+    [W^k, W^l] = 0
+   </math>
+   for
+   <math display="inline">
+    k \neq l
+   </math>
+   . Hence,
+   <math display="inline">
+    X^i
+   </math>
+   are
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -square-integrable martingales as
+   <math display="inline">
+    dX^i =
+   </math>
+   <math display="inline">
+    X^i \sum_{j=1}^k \varphi^{ij} \mathrm{d}W^j
+   </math>
+   and
+   <math display="inline">
+    \varphi^{ij}
+   </math>
+   are bounded. Thus, A is arbitrage free.
+  </p>
+  <p block-type="TextInlineMath">
+   Now let
+   <math display="inline">
+    h(a)
+   </math>
+   ,
+   <math display="inline">
+    a \in \mathbb{R}^m_+ &gt; 0
+   </math>
+   , be a homogeneous function of linear growth. Define
+   <math display="inline">
+    g(x) := h(x, 1)
+   </math>
+   ,
+   <math display="inline">
+    x \in \mathbb{R}^n_+
+   </math>
+   . Assume further that
+   <math display="inline">
+    \varphi_t^{ij} = \varphi_{ij}(t, X_t)
+   </math>
+   for some continuous bounded functions
+   <math display="inline">
+    \varphi_{ij}(t, x)
+   </math>
+   . Then equation (80) holds, and hence the section Projective Continuous SDE SFTS applied under measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   shows that X is
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -Markovian in that
+   <math display="inline">
+    \mathbb{E}^{\mathbb{Q}}[g(X_T) | \mathcal{F}_t] := f(t, X_t)
+   </math>
+   where
+   <math display="inline">
+    f(t, x) =
+   </math>
+   <math display="inline">
+    \mathbb{E}^{\mathbb{Q}}g(X^{t,x}_T)
+   </math>
+   , as in equation (81). Thus, by the section Projective Continuous SDE SFTS, equations (72) and (73) hold and
+   <math display="inline">
+    \delta
+   </math>
+   as defined in equation (70) is an SFTS for
+   <math display="inline">
+    (X, 1)
+   </math>
+   . Therefore by numéraire invariance,
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for A with price process
+   <math display="inline">
+    C = A^m F
+   </math>
+   . The homogeneity of
+   <math display="inline">
+    h(a)
+   </math>
+   further implies
+   <math display="inline">
+    C_T = A_T^m g(X_T) = h(A_T).
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We have thus constructed an SFTS with the given
+   <i>
+    payoff
+   </i>
+   <math display="inline">
+    h(A_T)
+   </math>
+   . As in the section Example: Projective Deterministic Volatility or Projective Continuous SDE SFTS, we ensure its boundedness by requiring the x-partial derivatives of
+   <math display="inline">
+    g(x)
+   </math>
+   or equivalently
+   <i>
+    a
+   </i>
+   -partial derivatives of
+   <math display="inline">
+    h(a)
+   </math>
+   (as
+   <math display="inline">
+    L^1_{loc}
+   </math>
+   functions) be bounded and thereby get unique pricing. For (very) low dimensions
+   <math display="inline">
+    n
+   </math>
+   , the PDE (83) is suitable for numerical valuation in the absence of a closed-form solution.
+  </p>
+  <p block-type="Text">
+   Although the option price process and the deltas are already found, let us also consider the homogeneous option price function referred to in the section Self-financing Trading Strategies, and now naturally defined by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    c(t,a) := a_m f\left(t, \frac{a^1}{a^m}, \dots, \frac{a^n}{a^m}\right) \tag{86}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Then
+   <math display="inline">
+    C_t = c(t, A_t)
+   </math>
+   . Agreeably,
+   <math display="inline">
+    \delta_t^i = \frac{\partial c}{\partial a_i}(t, A_t)
+   </math>
+   by equation (69). (For
+   <math display="inline">
+    i = m
+   </math>
+   use Euler's formula for
+   <math display="inline">
+    c(t, a)
+   </math>
+   .) By the continuity of X and equation (69),
+   <math display="inline">
+    \delta_t^i = \frac{\partial c}{\partial a_i}(t, A_{t-})
+   </math>
+   too. Therefore by Itô's formula,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial c}{\partial t}(t, A_{t-})dt + \frac{1}{2} \sum_{i,j=1}^{m} \frac{\partial^{2} c}{\partial a_{i} \partial a_{j}}(t, A_{t-}) d[A^{i}, A^{j}]_{t}^{c} = 0
+   </math>
+   (87)
+  </p>
+  <p block-type="TextInlineMath">
+   (The term for the sum of jumps in Itô's formula vanishes since
+   <math display="inline">
+    \Delta C = \sum \delta^i \Delta A^i
+   </math>
+   .) This yields the PDE
+   <math display="inline">
+    \frac{\partial c}{\partial t} + \frac{1}{2} \sum_{i,j} a_i a_j \sigma_{ij}^A(t,a) \frac{\partial^2 c}{\partial a_i \partial a_j} = 0 \text{ for the special}
+   </math>
+   case
+   <math display="inline">
+    d[A^i, A^j]_t = A^i_t A^j_t \sigma^A_{ii}(t, A_t) dt
+   </math>
+   for some functions
+   <math display="inline">
+    \sigma_{ij}^{A}(t, a)
+   </math>
+   . The quotient-space PDE (83) is more fundamental for it holds in general (even when
+   <math display="inline">
+    A
+   </math>
+   is discontinuous) and has one lower dimension. Change of variable
+   <math display="inline">
+    L^{i} = \frac{X^{i}}{X^{i+1}} - 1
+   </math>
+   <math display="inline">
+    (i &lt; n), L^{n} = X^{n} - 1,
+   </math>
+   transforms equation
+   <math display="inline">
+    (83)
+   </math>
+   to the Libor market model PDE.
+  </p>
+  <h3>
+   Multivariate Poisson Predictable Representation
+  </h3>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    P = (P^1, \dots, P^k)
+   </math>
+   be a vector of independent Poisson processes
+   <math display="inline">
+    P^i
+   </math>
+   with intensities
+   <math display="inline">
+    \lambda_i &gt; 0
+   </math>
+   . For any
+   <math display="inline">
+    C^1
+   </math>
+   in t function
+   <math display="inline">
+    u(t, p)
+   </math>
+   ,
+   <math display="inline">
+    p \in \mathbb{R}^k
+   </math>
+   , the process
+   <math display="inline">
+    u(t, P) = (u(t, P_t))
+   </math>
+   is a finite activity semimartingale, and using
+   <math display="inline">
+    [P^i, P^j] = 0
+   </math>
+   , one has
+   <math display="inline">
+    \Delta u(t, P) =
+   </math>
+   <math display="inline">
+    \sum_i \Delta_i u(t, P_-) \Delta P^i
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \Delta_i u(t, p) := u(t, p_1, \dots, p_i + 1, \dots, p_n) - u(t, p)
+   </math>
+   (88)
+  </p>
+  <p block-type="Text">
+   denotes the
+   <i>
+    i
+   </i>
+   th forward partial difference of
+   <math display="inline">
+    u(t, p)
+   </math>
+   in
+   <math display="inline">
+    p
+   </math>
+   . This in turn readily implies
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathrm{d}u(t,\,P) = \frac{\partial u}{\partial t}(t,\,P_{-})\mathrm{d}t + \sum_{i=1}^{k} \Delta_{i}u(t,\,P_{-})\mathrm{d}P^{i} \tag{89}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    v(p)
+   </math>
+   ,
+   <math display="inline">
+    p \in \mathbb{R}^k
+   </math>
+   be a function of exponential linear growth. Define the function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t,p) := \sum_{q_1,\dots,q_k=0}^{\infty} v(p+q)
+   </math>
+   <math display="block">
+    \times \prod_{i=1}^{k} \frac{\lambda_i^{q_i}}{q_i!} (T-t)^{q_i} e^{-\lambda_i (T-t)} \quad (p \in \mathbb{R}^k)
+   </math>
+   (90)
+  </p>
+  <p block-type="TextInlineMath">
+   Clearly,
+   <math display="inline">
+    u(T, p) = v(p)
+   </math>
+   . Since the unconditional distribution of
+   <math display="inline">
+    P_{T-t}
+   </math>
+   is Poisson and is the same as the distribution of
+   <math display="inline">
+    P_T - P_t
+   </math>
+   conditioned on
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   , we have
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    u(t, p) = \mathbb{E}[v(p + P_T - P_t)]
+   </math>
+   <br/>
+   =
+   <math display="block">
+    \mathbb{E}[v(p + P_T - P_t) | \mathcal{F}_t]
+   </math>
+   (91)
+  </p>
+  <p block-type="TextInlineMath">
+   Hence,
+   <math display="inline">
+    u(t, P_t) = \mathbb{E}[v(P_T) | \mathcal{F}_t].
+   </math>
+   (Intuitively,
+   <math display="inline">
+    u(t, p) = \mathbb{E}[v(P_T) | P_t = p].
+   </math>
+   Thus, the process
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F = (F_t), \quad F_t := u(t, P_t) = \mathbb{E}[v(P_T) \mid \mathcal{F}_t] \quad (92)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is a martingale. But so are
+   <math display="inline">
+    P^j - \lambda_i t
+   </math>
+   . Therefore in view of equation
+   <math display="inline">
+    (89)
+   </math>
+   , it follows that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF = \sum_{i=1}^{k} \Delta_i u(t, P_-) d(P^i - \lambda_i t) \qquad (93)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+   <math display="inline">
+    u(t, p)
+   </math>
+   satisfies the equation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial u}{\partial t}(t, P_{t-}) + \sum_{i=1}^{k} \lambda_i \Delta_i u(t, P_{t-}) = 0 \qquad (94)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <math display="inline">
+    F_T = v(P_T)
+   </math>
+   and
+   <math display="inline">
+    F_0 = u(0, 0)
+   </math>
+   , combining equations (90) and (93) yields the following representation:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(P_T) = \sum_{q_1,\dots,q_k=0}^{\infty} v(q_1,\dots,q_k) \prod_{i=1}^{k} \frac{\lambda_i^{q_i}}{q_i!} T^{q_i} e^{-\lambda_i T}
+   </math>
+   <math display="block">
+    + \sum_{i=1}^{k} \int_0^T \Delta_i u(t,P_{t-}) \mathrm{d}(P_t^i - \lambda_i t) \quad (95)
+   </math>
+  </p>
+  <h4>
+   Projective Exponential-Poisson SFTS
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    P = (P^1, \dots, P^k)
+   </math>
+   be a vector of independent Poisson processes
+   <math display="inline">
+    P^j
+   </math>
+   with intensities
+   <math display="inline">
+    \lambda_j &gt; 0
+   </math>
+   . Let
+   <math display="inline">
+    X_0 \in \mathbb{R}^n_+, n \geq k
+   </math>
+   , and
+   <math display="inline">
+    \beta = (\beta_{ij})
+   </math>
+   be an
+   <math display="inline">
+    n \times k
+   </math>
+   matrix such that the
+   <math display="inline">
+    n \times k
+   </math>
+   matrix
+   <math display="inline">
+    (e^{\beta_{ij}} - 1)
+   </math>
+   has full rank. Then the processes
+   <math display="inline">
+    X^i := (x_i(t, P_t)), i = 1, \dots, n
+   </math>
+   , are square-integrable martingales (in fact in all
+   <math display="inline">
+    \mathcal{H}^p
+   </math>
+   ), where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    x_i(t, p) := X_0^i \exp\left(\sum_{j=1}^k (\beta_{ij} p_j - (\mathrm{e}^{\beta_{ij}} - 1)\lambda_j t)\right)
+   </math>
+   <math display="block">
+    (p \in \mathbb{R}^k) \tag{96}
+   </math>
+  </p>
+  <p block-type="Text">
+   Since
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial x_i}{\partial t}(t, p) = -x_i(t, p) \sum_{j=1}^k (e^{\beta_{ij}} - 1)\lambda_j,
+   </math>
+   <br/>
+   <math display="block">
+    \Delta_j x_i(t, p) = x_i(t, p)(e^{\beta_{ij}} - 1) \tag{97}
+   </math>
+  </p>
+  <p block-type="Text">
+   it follows from equation (89) (or easily also from Itô's formula) that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX^{i} = X^{i}_{-} \sum_{j=1}^{k} (e^{\beta_{ij}} - 1)
+   </math>
+   <math display="block">
+    \times d(P^{j} - \lambda_{j}t) \quad (X^{i}_{t} := x_{i}(t, P_{t})) \tag{98}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    \alpha = (\alpha_{ij})
+   </math>
+   be any
+   <math display="inline">
+    n \times k
+   </math>
+   matrix such that
+   <math display="inline">
+    \sum_{i} (e^{\beta_{il}} - 1)\alpha_{ij} = \delta_{jl}
+   </math>
+   , all
+   <math display="inline">
+    1 \leq j, l \leq k
+   </math>
+   . Then
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d(P^j - \lambda_j t) = \sum_{i=1}^n \alpha_{ij} \frac{dX^i}{X^i_-}
+   </math>
+   (99)
+  </p>
+  <p block-type="TextInlineMath">
+   Now let
+   <math display="inline">
+    g(x)
+   </math>
+   ,
+   <math display="inline">
+    x \in \mathbb{R}^n_+
+   </math>
+   , be a function of linear growth; define the function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(p) := g(x_1(T, p), \dots, x_n(T, p)), \quad (p \in \mathbb{R}^n)
+   </math>
+   (100)
+  </p>
+  <p block-type="TextInlineMath">
+   and the function
+   <math display="inline">
+    u(t, p)
+   </math>
+   by equation (90). By the section Multivariate Possion Predictable Representation,
+   <math display="inline">
+    F := (u(t, P_t))
+   </math>
+   is a martingale with
+   <math display="inline">
+    F_T = v(P_T) = g(X_T)
+   </math>
+   and is represented as equation
+   <math display="inline">
+    (93)
+   </math>
+   . Substituting equation
+   <math display="inline">
+    (99)
+   </math>
+   into equation
+   <math display="inline">
+    (93)
+   </math>
+   yields
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dF = \sum_{i=1}^{n} \delta^{i} dX^{i} \tag{101}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_t^i := \frac{1}{X_{t-}^i} \sum_{j=1}^k \alpha_{ij} \Delta_j u(t, P_{t-}) \qquad (102)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Thus,
+   <math display="inline">
+    \delta = (\delta^1, \dots, \delta^m)
+   </math>
+   is an SFTS for
+   <math display="inline">
+    (X, 1)
+   </math>
+   where
+   <math display="inline">
+    m := n + 1
+   </math>
+   and
+   <math display="inline">
+    \delta^m := F - \sum_{i=1}^n \delta^i X^i
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   It is more desirable to express
+   <math display="inline">
+    \delta
+   </math>
+   in terms of X. One has
+   <math display="inline">
+    u(t, p) = f(t, x(t, p))
+   </math>
+   , where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(t,x) := \mathbb{E}\left[g\left(x\frac{X_T}{X_t}\right)\right] = \mathbb{E}\left[g\left(x\frac{X_T}{X_t}\right) \mid \mathcal{F}_t\right]
+   </math>
+   <br/>
+   <math display="block">
+    = \sum_{q_1,\cdots,q_n=0}^{\infty} g\left(x_1 e^{\sum_{j=1}^n (\beta_{1j}q_j - (e^{\beta_{1j}} - 1)\lambda_j(T-t))}, \ldots, x_n e^{\sum_{j=1}^n (\beta_{nj}q_j - (e^{\beta_{nj}} - 1)\lambda_j(T-t))}\right) \prod_{i=1}^n \frac{\lambda_i^{q_i}}{q_i!} (T-t)^{q_i} e^{-\lambda_i(T-t)}
+   </math>
+   <br/>
+   (103)
+  </p>
+  <p block-type="TextInlineMath">
+   The equalities follow from the definition of
+   <math display="inline">
+    v(p)
+   </math>
+   above and of
+   <math display="inline">
+    u(t, p)
+   </math>
+   in equation (90) together with the two formulae following it.&lt;sup&gt;c&lt;/sup&gt; We clearly have
+   <math display="inline">
+    f(T, x) = g(x)
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    F_t := u(t, P_t) = f(t, X_t) = \mathbb{E}[g(X_T) | \mathcal{F}_t] \quad (104)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Since
+   <math display="inline">
+    u(t, p) = f(t, x(t, p))
+   </math>
+   , the deltas in equation (102) are given by partial differences of
+   <math display="inline">
+    f(t, x)
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \delta_t^i = \delta_i(t, X_{t-}) \quad \text{where}
+   </math>
+   <br/>
+   <math display="block">
+    \delta_i(t, x) := \frac{1}{x_i} \sum_{j=1}^k \alpha_{ij} (f(t, e^{\beta_{1j}} x_1, \dots, e^{\beta_{nj}} x_n) - f(t, x)) \tag{105}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We have unique pricing since
+   <math display="inline">
+    (X, 1)
+   </math>
+   is arbitrage free (as
+   <math display="inline">
+    X^i
+   </math>
+   are martingales). Specifically, if
+   <math display="inline">
+    \hat{\delta}
+   </math>
+   is another SFTS for
+   <math display="inline">
+    (X, 1)
+   </math>
+   with payoff
+   <math display="inline">
+    \hat{F}_T = g(X_T)
+   </math>
+   , then
+   <math display="inline">
+    \hat{F} := \sum_{i=1}^{n} \hat{\delta}^{i} X^{i} + \hat{\delta}^{m} = F
+   </math>
+   provided that either all
+   <math display="inline">
+    \hat{\delta}^i
+   </math>
+   ,
+   <math display="inline">
+    i \leq n
+   </math>
+   are bounded or all
+   <math display="inline">
+    \hat{\delta}^i - \delta^i
+   </math>
+   ,
+   <math display="inline">
+    i \leq n
+   </math>
+   are bounded.
+  </p>
+  <p block-type="TextInlineMath">
+   Indeed, then
+   <math display="inline">
+    \hat{F} = \hat{F}_0 + \hat{\delta}' \cdot X
+   </math>
+   is a martingale, since
+   <math display="inline">
+    X
+   </math>
+   is square integrable (in the second case, also use that F is a martingale). Hence,
+   <math display="inline">
+    \hat{F} = F
+   </math>
+   as
+   <math display="inline">
+    \hat{F}_T = F_T
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   Moreover, if
+   <math display="inline">
+    k = n
+   </math>
+   we have unique hedging, that is,
+   <math display="inline">
+    \hat{\delta} = \delta
+   </math>
+   for any bounded SFTS
+   <math display="inline">
+    \hat{\delta}
+   </math>
+   for
+   <math display="inline">
+    (X, 1)
+   </math>
+   with
+   <i>
+    payoff
+   </i>
+   <math display="inline">
+    \hat{F}_T = g(X_T)
+   </math>
+   . Indeed,
+   <math display="inline">
+    \hat{F} = F
+   </math>
+   , as before; thus, setting
+   <math display="inline">
+    \theta^i := \hat{\delta}^i - \delta^i
+   </math>
+   gives
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    0 = \mathrm{d}\langle \hat{F} - F \rangle = \sum_{i,j=1}^{n} \theta^{i} \theta^{j} \mathrm{d}\langle X^{i}, X^{j} \rangle
+   </math>
+   <math display="block">
+    = \sum_{i,j=1}^{n} \theta^{i} \theta^{j} X_{-}^{i} X_{-}^{j} \sum_{l=1}^{n} (\mathrm{e}^{\beta_{il}} - 1)(\mathrm{e}^{\beta_{jl}} - 1)\lambda_{l} \mathrm{d}t \tag{106}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   the last equality following from equation (98). However, the
+   <math display="inline">
+    n \times n
+   </math>
+   matrix
+   <math display="inline">
+    \left(\sum_{l=1}^{n} (e^{\beta_{il}} - 1) (e^{\beta_{jl}} - 1)\right)
+   </math>
+   <math display="inline">
+    (1)\lambda_l^n_{i,i=1}
+   </math>
+   is nonsingular. Therefore,
+   <math display="inline">
+    \theta^i = 0
+   </math>
+   , that is,
+   <math display="inline">
+    \hat{\delta}^i = \delta^i
+   </math>
+   for
+   <math display="inline">
+    i \leq n
+   </math>
+   , implying
+   <math display="inline">
+    \hat{\delta}^m = \delta^m
+   </math>
+   too as
+   <math display="inline">
+    \hat{F} = F
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   One shows, as in the section Exponential-Poisson Exchange Option Model, that the processes
+   <math display="inline">
+    \delta^i
+   </math>
+   are bounded if
+   <math display="inline">
+    \gamma_i(x)
+   </math>
+   are bounded, where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \gamma_i(x) := \frac{1}{x_i} \sum_{j=1}^k \alpha_{ij} (g(e^{\beta_{1j}} x_1, \dots, e^{\beta_{nj}} x_n) - g(x)),
+   </math>
+   <br/>
+   <math display="block">
+    \gamma_m(x) := g(x) - \sum_{i=1}^n \gamma_i(x) x_i
+   </math>
+   (107)
+  </p>
+  <h4>
+   Homogeneous Exponential-Poisson SFTS
+  </h4>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    A &gt; 0
+   </math>
+   be an
+   <i>
+    m
+   </i>
+   -dimensional semimartingale with
+   <math display="inline">
+    A_{-} &gt; 0
+   </math>
+   and set
+   <math display="inline">
+    X := (A^{i}/A^{m})_{i=1}^{n}, n := m-1
+   </math>
+   , as before. Assume that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dX_t^i = X_{t-}^i \sum_{j=1}^k (e^{\beta_{ij}} - 1)(dP_t^j - \lambda_t^j dt) \qquad (108)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    1 \leq k \leq n
+   </math>
+   ,
+   <math display="inline">
+    \beta_{ij}
+   </math>
+   are constants with the
+   <math display="inline">
+    n \times
+   </math>
+   k matrix
+   <math display="inline">
+    (e^{\beta_{ij}}-1)
+   </math>
+   of full rank,
+   <math display="inline">
+    \lambda^j&gt;0
+   </math>
+   are bounded predictable processes, and
+   <math display="inline">
+    P^{j}
+   </math>
+   are semimartingales with
+   <math display="inline">
+    [P^j, P^l] = 0
+   </math>
+   for
+   <math display="inline">
+    j \neq l
+   </math>
+   such that
+   <math display="inline">
+    [P^j] = P^j
+   </math>
+   ,
+   <math display="inline">
+    P_0^j = 0
+   </math>
+   , and
+   <math display="inline">
+    P^j - \int \kappa^j dt
+   </math>
+   are local martingales for some locally bounded predictable processes
+   <math display="inline">
+    \kappa^j &gt; 0
+   </math>
+   . Assume further that
+   <math display="inline">
+    \mathbb{E} \exp\left(\sum_{j=1}^k \int_0^T \left(\frac{\lambda_t^j}{\kappa_t^j} - 1\right)^2 \kappa_t^j \mathrm{d}t\right) &lt; \infty.
+   </math>
+  </p>
+  <p block-type="Text">
+   Owing to the above growth condition, the positive local martingale
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M := \mathcal{E}\left(\sum_{j=1}^{k} \int \left(\frac{\lambda^{j}}{\kappa^{j}} - 1\right) (\mathrm{d}P^{j} - \kappa^{j} \mathrm{d}t)\right)
+   </math>
+   <math display="block">
+    = \mathrm{e}^{-\sum_{j=1}^{k} \int (\lambda^{j} - \kappa^{j}) \mathrm{d}t} \prod_{s \leq \cdot} (1 + \sum_{j=1}^{n} \left(\frac{\lambda_{s}^{j}}{\kappa_{s}^{j}} - 1\right) \Delta P_{s}^{j}) \tag{109}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is a martingale. Define the measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   by
+   <math display="inline">
+    d\mathbb{Q} =
+   </math>
+   <math display="inline">
+    M_T d\mathbb{P}
+   </math>
+   . As in the section Exponential-Poisson Model Uniqueness,
+   <math display="inline">
+    \int \lambda^j dt
+   </math>
+   are the
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -compensator of
+   <math display="inline">
+    P^j
+   </math>
+   . This, equation (108), and boundedness of
+   <math display="inline">
+    \lambda^j
+   </math>
+   imply that
+   <math display="inline">
+    X^i
+   </math>
+   are
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -square integrable martingales. Thus, A is arbitrage free. As before, the SDE
+   <math display="inline">
+    (108)
+   </math>
+   integrates to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    X_t^i = X_0^i e^{\sum_{j=1}^k \beta_{ij} P_t^j - (e^{\beta_{ij}} - 1) \int_0^t \lambda_s^j ds}
+   </math>
+   (110)
+  </p>
+  <p block-type="TextInlineMath">
+   Now assume
+   <math display="inline">
+    \lambda^j
+   </math>
+   are constant. Then
+   <math display="inline">
+    P^j
+   </math>
+   are
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -Poisson processes with intensities
+   <math display="inline">
+    \lambda^j
+   </math>
+   and are independent since
+   <math display="inline">
+    [P^j, P^l] = 0, j \neq l
+   </math>
+   . Let
+   <math display="inline">
+    h(a), a \in
+   </math>
+   <math display="inline">
+    \mathbb{R}^m_+
+   </math>
+   , be a homogeneous function of linear growth. Define
+   <math display="inline">
+    g(x) := h(x, 1), x \in \mathbb{R}^n_+
+   </math>
+   . The section Projective Exponential-Poisson SFTS applied under
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   implies that
+   <math display="inline">
+    \delta
+   </math>
+   given by equation (105) (with
+   <math display="inline">
+    \delta^m =
+   </math>
+   <math display="inline">
+    F - \sum_{i=1}^{n} \delta^{i} X^{i}
+   </math>
+   is an SFTS for
+   <math display="inline">
+    (X, 1)
+   </math>
+   with price process
+   <math display="inline">
+    F = (f(t, X_t))
+   </math>
+   satisfying
+   <math display="inline">
+    F_T = g(X_T)
+   </math>
+   , where
+   <math display="inline">
+    f(t, x)
+   </math>
+   is defined explicitly by equation (103), or equivalently,
+   <math display="inline">
+    f(t,x) = \mathbb{E}^{\mathbb{Q}} g(xX_T/X_t)
+   </math>
+   . Therefore, by numéraire invariance,
+   <math display="inline">
+    \delta
+   </math>
+   is an SFTS for A with price process
+   <math display="inline">
+    C := A^m F
+   </math>
+   satisfying
+   <math display="inline">
+    C_T =
+   </math>
+   <math display="inline">
+    A^m g(X_T) = h(A_T)
+   </math>
+   by homogeneity.
+  </p>
+  <p block-type="TextInlineMath">
+   Assume finally that the payoff function
+   <math display="inline">
+    h(a)
+   </math>
+   is such that the functions
+   <math display="inline">
+    \gamma_i(x)
+   </math>
+   defined in equation (107) are bounded (e.g.,
+   <math display="inline">
+    h(a) = \max(a^1, \dots, a^m)
+   </math>
+   ). By the section Projective Exponential-Poisson SFTS, if
+   <math display="inline">
+    k = n
+   </math>
+   , then
+   <math display="inline">
+    \delta
+   </math>
+   is the unique bounded SFTS for A with payoff
+   <math display="inline">
+    C_T = h(A_T)
+   </math>
+   . In general, since A is arbitrage free,
+   <math display="inline">
+    \hat{C} = C
+   </math>
+   for any other bounded SFTS
+   <math display="inline">
+    \hat{\delta}
+   </math>
+   for A with payoff
+   <math display="inline">
+    \hat{C}_T = h(A_T)
+   </math>
+   , where
+   <math display="inline">
+    \hat{C} :=
+   </math>
+   <math display="inline">
+    \sum_i \hat{\delta}^i A^i
+   </math>
+   .
+  </p>
+  <h2>
+   <b>
+    End Notes
+   </b>
+  </h2>
+  <p block-type="TextInlineMath" class="has-continuation">
+   &lt;sup&gt;a&lt;/sup&gt;. Clearly, then the restriction of (any such)
+   <math display="inline">
+    c(t, a)
+   </math>
+   to the support of A is unique, and if
+   <math display="inline">
+    \hat{c}(t, a)
+   </math>
+   is any function that equals
+   <math display="inline">
+    c(t, a)
+   </math>
+   on the support of A, then
+   <math display="inline">
+    C_t = \hat{c}(t, A_t)
+   </math>
+   too.
+  </p>
+  <p block-type="TextInlineMath">
+   If the support of
+   <math display="inline">
+    A_t
+   </math>
+   is a proper surface, for example, if
+   <math display="inline">
+    m = 2
+   </math>
+   and
+   <math display="inline">
+    A^2
+   </math>
+   is deterministic as in the Black-Scholes model or
+   <math display="inline">
+    A_t^2 = a_2(t, A_t^1)
+   </math>
+   as in Markovian short-rate models, then obviously there exist infinitely many nonhomogeneous functions
+   <math display="inline">
+    \hat{c}(t, a)
+   </math>
+   such that
+   <math display="inline">
+    C_t = \hat{c}(t, A_t)
+   </math>
+   . (Such a homogeneous function also exists under some assumptions as in the section Homogeneous Continuous Markovian SFTS.)
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;b.&lt;/sup&gt;Indeed, first assume that
+   <math display="inline">
+    A
+   </math>
+   is arbitrage free and let
+   <math display="inline">
+    S
+   </math>
+   be a state price density. The martingale
+   <math display="inline">
+    M := \frac{S A^m}{\mathbb{E}[S_0 A_0^m]}
+   </math>
+   clearly satisfies
+   <math display="inline">
+    \mathbb{E} M_T = 1
+   </math>
+   . Hence, the equivalent measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   defined by
+   <math display="inline">
+    d\mathbb{Q} = M_T d\mathbb{P}
+   </math>
+   is a probability measure. Since
+   <math display="inline">
+    MX^i = \frac{SA^i}{\mathbb{E}[S_0A_0^m]}
+   </math>
+   is a martingale,
+   <math display="inline">
+    X^i
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   martingale by Bayes' rule. Conversely, assume that
+   <math display="inline">
+    X^i
+   </math>
+   are
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingales for some
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   . Define
+   <math display="inline">
+    M_t := \mathbb{E}\left[\frac{\mathrm{d}\mathbb{Q}}{\mathrm{d}\mathbb{P}}\mid \mathcal{F}_t\right] &gt;
+   </math>
+   0. Then (the right continuous version of)
+   <math display="inline">
+    \stackrel{\text{L}}{M} = (M_t)
+   </math>
+   is a martingale (so
+   <math display="inline">
+    M_{-} &gt; 0
+   </math>
+   ). By Bayes' rule
+   <math display="inline">
+    MX^{i}
+   </math>
+   are martingales since
+   <math display="inline">
+    X^i
+   </math>
+   are
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   -martingales. Set
+   <math display="inline">
+    S := M/A^m
+   </math>
+   . Then
+   <math display="inline">
+    S, S_{-} &gt; 0
+   </math>
+   and
+   <math display="inline">
+    SA^{i} = MX^{i}
+   </math>
+   . Thus S is a deflator, as desired. Further, since
+   <math display="inline">
+    SC
+   </math>
+   is a martingale for any bounded SFTS
+   <math display="inline">
+    \delta
+   </math>
+   , by the Bayes' rule
+   <math display="inline">
+    SC/M = C/A^m
+   </math>
+   is a
+   <math display="inline">
+    \mathbb{O}
+   </math>
+   -martingale.
+  </p>
+  <p block-type="TextInlineMath">
+   &lt;sup&gt;c&lt;/sup&gt;. The projective option price function
+   <math display="inline">
+    f(t, x) :=
+   </math>
+   <math display="inline">
+    \mathbb{E}\left[g\left(x\frac{X_T}{X_t}\right)\right]
+   </math>
+   , also encountered for the log-Gaussian case in equation (75), satisfies
+   <math display="inline">
+    f(t, X_t) = \mathbb{E}[g(X_T) | \mathcal{F}_t]
+   </math>
+   in general when
+   <math display="inline">
+    X
+   </math>
+   is the exponential of any
+   <math display="inline">
+    n
+   </math>
+   -dimensional process of independent increments (inhomogeneous Lévy
+   <i>
+    process
+   </i>
+   ), but we no longer have hedging in general.
+  </p>
+  <h4>
+   References
+  </h4>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     Black, F. &amp; Scholes, M. (1973). The pricing of options [1] and corporate liabilities, Journal of Political Economics 81. 637-659.
+    </li>
+    <li block-type="ListItem">
+     [2] Delbaen, F. &amp; Schachermayer, W. (2006). The Mathematics of Arbitrage, Springer.
+    </li>
+    <li block-type="ListItem">
+     Duffie, D. (2001). Dynamic Asset Pricing Theory, 3rd [3] Edition, Princeton University Press.
+    </li>
+    <li block-type="ListItem">
+     [4] El-Karoui, N., Geman, H. &amp; Rochet, J.C. (1995). Change of numeraire, change of probability measure, and option pricing, Journal of Applied Probability 32,
+     <math display="inline">
+      443 - 458
+     </math>
+    </li>
+    <li block-type="ListItem">
+     Harrison, M.J. &amp; Kreps, D.M. (1979). Martingales and [5] arbitrage in multiperiod securities markets, Journal of Economic Theory 20, 381-408.
+    </li>
+    <li block-type="ListItem">
+     Harrison, M.J. &amp; Pliska, S. (1981). Martingales and [6] stochastic integrals in the theory of continuous trading, Stochastic Processes and their Applications 11, 215-260.
+    </li>
+    <li block-type="ListItem">
+     [7] Jamshidian, F. (1993). Options and futures evaluation with deterministic volatilities, Mathematical Finance
+     <math display="inline">
+      3(2), 149-159.
+     </math>
+    </li>
+    <li block-type="ListItem">
+     [8] Margrabe, W. (1978). The value of an option to exchange one asset for another, Journal of Finance 33,
+     <math display="inline">
+      177 - 186.
+     </math>
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [9] Merton, R. (1973). Theory of rational option pricing,
+     <i>
+      Bell Journal of Economics
+     </i>
+     <b>
+      4
+     </b>
+     (1), 141–183.
+    </li>
+    <li block-type="ListItem">
+     [10] Neuberger, A. (1990).
+     <i>
+      Pricing Swap Options Using the Forward Swap Market
+     </i>
+     , IFA Preprint.
+    </li>
+   </ul>
+  </p>
+  <h1>
+   <b>
+    Related Articles
+   </b>
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   <b>
+    Arbitrage Strategy
+   </b>
+   ;
+   <b>
+    Caps and Floors
+   </b>
+   ;
+   <b>
+    CMS Spread Products
+   </b>
+   ;
+   <b>
+    Equivalent Martingale Measures
+   </b>
+   ;
+   <b>
+    For-
+   </b>
+  </p>
+  <p block-type="Text">
+   <b>
+    eign Exchange Options
+   </b>
+   ;
+   <b>
+    Forward–Backward Stochastic Differential Equations (SDEs)
+   </b>
+   ;
+   <b>
+    Hedging
+   </b>
+   ;
+   <b>
+    Ito's Formula ˆ
+   </b>
+   ;
+   <b>
+    Markov Processes
+   </b>
+   ;
+   <b>
+    Martingales
+   </b>
+   ;
+   <b>
+    Poisson Process
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   FARSHID JAMSHIDIAN
+  </p>
+ </body>
+</html>

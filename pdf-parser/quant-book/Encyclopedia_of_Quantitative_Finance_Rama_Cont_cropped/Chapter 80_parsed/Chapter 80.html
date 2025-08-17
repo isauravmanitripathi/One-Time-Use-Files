@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h2>
+   <b>
+    Minimal Martingale
+   </b>
+   Measure
+  </h2>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    S = (S_t)
+   </math>
+   be a stochastic process on a filtered probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, (\mathcal{F}_t), P)
+   </math>
+   that models the discounted prices of primary traded assets in a financial market. An equivalent local martingale measure (ELMM) for S is a probability measure
+   <math display="inline">
+    Q
+   </math>
+   equivalent to the original (historical) measure
+   <math display="inline">
+    P
+   </math>
+   such that
+   <math display="inline">
+    S
+   </math>
+   is a local
+   <math display="inline">
+    Q
+   </math>
+   -martingale (see
+   <b>
+    Equivalent Martingale Measures
+   </b>
+   ). If
+   <math display="inline">
+    S
+   </math>
+   is a nonnegative
+   <math display="inline">
+    P
+   </math>
+   -semimartingale, the fundamental theorem of asset pricing says that an ELMM
+   <math display="inline">
+    Q
+   </math>
+   for
+   <math display="inline">
+    S
+   </math>
+   exists if and only if
+   <math display="inline">
+    S
+   </math>
+   satisfies the no-arbitrage condition (NFLVR), that is, admits no free lunch with vanishing risk (see
+   <b>
+    Fundamental
+   </b>
+   Theorem of Asset Pricing). By Girsanov's theorem,
+   <math display="inline">
+    S
+   </math>
+   is then under
+   <math display="inline">
+    P
+   </math>
+   a semimartingale with a decomposition
+   <math display="inline">
+    S = S_0 + M + A
+   </math>
+   into a local
+   <i>
+    P
+   </i>
+   -martingale
+   <math display="inline">
+    M
+   </math>
+   and an adapted process
+   <math display="inline">
+    A
+   </math>
+   of finite variation. If S is special under
+   <math display="inline">
+    P
+   </math>
+   , then A can be chosen predictable and the resulting canonical decomposition of
+   <math display="inline">
+    S
+   </math>
+   is unique. We say that
+   <math display="inline">
+    S
+   </math>
+   satisfies the structure condition (SC) if
+   <math display="inline">
+    M
+   </math>
+   is locally
+   <math display="inline">
+    P
+   </math>
+   -square-integrable and A has the form
+   <math display="inline">
+    A = \int d\langle M \rangle \lambda
+   </math>
+   for a predictable process
+   <math display="inline">
+    \lambda
+   </math>
+   such that the increasing process
+   <math display="inline">
+    \int \lambda' d\langle M \rangle \lambda
+   </math>
+   is finite-valued. In an Itô process model where S is given by a stochastic differential equation
+   <math display="inline">
+    dS_t =
+   </math>
+   <math display="inline">
+    S_t((\mu_t - r_t) dt + \sigma_t dW_t)
+   </math>
+   , the latter process is given by
+   <math display="inline">
+    \int \left( (\mu_t - r_t) / \sigma_t \right)^2 dt
+   </math>
+   , the integrated squared instantaneous Sharpe ratio of
+   <math display="inline">
+    S
+   </math>
+   (see
+   <b>
+    Sharpe Ratio
+   </b>
+   ).
+  </p>
+  <p block-type="TextInlineMath">
+   Definition 1 Suppose S satisfies (SC). An ELMM
+   <math display="inline">
+    \widehat{P}
+   </math>
+   for S with P-square-integrable density
+   <math display="inline">
+    d\widehat{P}/dP
+   </math>
+   is called minimal martingale measure
+   <math display="inline">
+    (MMM)
+   </math>
+   (for S) if
+   <math display="inline">
+    \widehat{P} = P
+   </math>
+   on
+   <math display="inline">
+    \mathcal{F}_0
+   </math>
+   and if every local P-martingale L that is locally P-square integrable and strongly Porthogonal to M is also a local
+   <math display="inline">
+    \widehat{P}
+   </math>
+   -martingale. We call
+   <math display="inline">
+    \widehat{P}
+   </math>
+   orthogonality preserving if L is also strongly
+   <math display="inline">
+    \widehat{P}
+   </math>
+   -orthogonal to S.
+  </p>
+  <p block-type="Text">
+   The basic idea for the MMM first appeared in [46] in a more specific model, where it was used as an auxiliary technical tool in the context of local risk-minimization (see also Hedging for an overview of key ideas on hedging and Mean-Variance Hedging for an alternative quadratic approach). More precisely, the so-called
+  </p>
+  <p block-type="Text">
+   locally risk-minimizing strategy for a given contingent claim
+   <math display="inline">
+    H
+   </math>
+   was obtained there (under some specific assumptions) as the integrand from the classical Galtchouk-Kunita-Watanabe decomposition of H under
+   <math display="inline">
+    \widehat{P}
+   </math>
+   . However, the introduction of
+   <math display="inline">
+    \widehat{P}
+   </math>
+   in [46] and also in [47] was still somewhat
+   <i>
+    ad hoc
+   </i>
+   . The above definition was given in [18] where the main results presented here can also be found. In particular,
+   <math display="inline">
+    [18]
+   </math>
+   showed that for continuous S, the
+   <math display="inline">
+    Galtchouk-Kunita-Watanabe
+   </math>
+   decomposition of
+   <math display="inline">
+    H
+   </math>
+   under the MMM
+   <math display="inline">
+    \widehat{P}
+   </math>
+   provides (under very mild integrability conditions) the so-called Föllmer-Schweizer decomposition of
+   <math display="inline">
+    H
+   </math>
+   under the original measure
+   <math display="inline">
+    P
+   </math>
+   , and this in turn immediately gives the locally riskminimizing strategy for
+   <math display="inline">
+    H
+   </math>
+   . We emphasize that this is no longer true, in general, if
+   <math display="inline">
+    S
+   </math>
+   has jumps. The MMM subsequently found various other applications and uses and has become fairly popular, especially in models with continuous price processes.
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose now
+   <math display="inline">
+    S
+   </math>
+   satisfies (SC). For every ELMM Q for S with
+   <math display="inline">
+    dQ/dP \in L^2(P)
+   </math>
+   , the density process then takes the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Z^{\mathcal{Q}} := \frac{\mathrm{d}\mathcal{Q}}{\mathrm{d}P}\bigg|_{\mathit{I\!F}} = Z_0^{\mathcal{Q}} \mathcal{E}\bigg(-\int \lambda \,\mathrm{d}M + L^{\mathcal{Q}}\bigg) \qquad (1)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   with some locally
+   <math display="inline">
+    P
+   </math>
+   -square-integrable local
+   <math display="inline">
+    P
+   </math>
+   martingale
+   <math display="inline">
+    L^Q
+   </math>
+   . If the MMM
+   <math display="inline">
+    \widehat{P}
+   </math>
+   exists, then it has
+   <math display="inline">
+    \widehat{Z}_0 = 1
+   </math>
+   and
+   <math display="inline">
+    L^{\widehat{P}} \equiv 0
+   </math>
+   , and its density process is thus given by the stochastic exponential (see Stochastic
+   <b>
+    Exponential
+   </b>
+   )
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \widehat{Z} = \mathcal{E}\left(-\int \lambda \, \mathrm{d}M\right)
+   </math>
+   <math display="block">
+    = \exp\left(-\int \lambda \, \mathrm{d}M - \frac{1}{2} \int \lambda' \, \mathrm{d}[M] \,\lambda\right)
+   </math>
+   <math display="block">
+    \times \prod (1 - \lambda' \Delta M) \exp\left(\lambda' \Delta M + \frac{1}{2} (\lambda' \Delta M)^2\right) \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   The advantage of this explicit representation is that it allows to determine the MMM
+   <math display="inline">
+    \widehat{P}
+   </math>
+   and its density process
+   <math display="inline">
+    \widehat{Z}
+   </math>
+   directly from the ingredients
+   <i>
+    M
+   </i>
+   and
+   <math display="inline">
+    \lambda
+   </math>
+   of the canonical decomposition of
+   <math display="inline">
+    S
+   </math>
+   . Conversely, one can start with the above expression for
+   <math display="inline">
+    \widehat{Z}
+   </math>
+   to define a candidate for the density process of the MMM. This gives existence of the MMM under the following conditions:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     1.
+     <math display="inline">
+      \widehat{Z}
+     </math>
+     is strictly positive; this happens if and only if
+     <math display="inline">
+      \lambda' \Delta M &lt; 1
+     </math>
+     , that is, all the jumps of
+     <math display="inline">
+      \int \lambda \, dM
+     </math>
+     are strictly below 1.
+    </li>
+    <li block-type="ListItem">
+     The local
+     <i>
+      P
+     </i>
+     -martingale
+     <math display="inline">
+      \widehat{Z}
+     </math>
+     is a true
+     <i>
+      P
+     </i>
+     -martingale. 2.
+    </li>
+    <li block-type="ListItem">
+     3.
+     <math display="inline">
+      \overline{Z}
+     </math>
+     is
+     <i>
+      P
+     </i>
+     -square-integrable.
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Condition 1 automatically holds (on any finite time interval) if S, hence also
+   <math display="inline">
+    M
+   </math>
+   , is continuous; it typically fails in models where
+   <math display="inline">
+    S
+   </math>
+   has jumps. Conditions 2 and 3 can fail even if 1 holds and even if there exists some ELMM for
+   <math display="inline">
+    S
+   </math>
+   with
+   <math display="inline">
+    P
+   </math>
+   -square-integrable density; see [45] or [15] for a counterexample.
+  </p>
+  <p block-type="TextInlineMath">
+   The above explicit formula for
+   <math display="inline">
+    \widehat{Z}
+   </math>
+   shows that
+   <math display="inline">
+    \widehat{P}
+   </math>
+   is minimal in the sense that its density process contains the smallest number of symbols among all ELMMs
+   <math display="inline">
+    Q
+   </math>
+   . More seriously, the original idea was that
+   <math display="inline">
+    \widehat{P}
+   </math>
+   should turn S into a (local) martingale while having a minimal impact on the overall martingale structure of our setting. This is captured and made precise by the definition. If
+   <math display="inline">
+    S
+   </math>
+   is continuous, one can show that
+   <math display="inline">
+    \widehat{P}
+   </math>
+   is even orthogonality preserving; see [18] for this, and note that this usually fails if
+   <math display="inline">
+    S
+   </math>
+   has iumps.
+  </p>
+  <p block-type="Text">
+   To some extent, the naming of the "minimal" martingale measure is misleading since
+   <math display="inline">
+    \widehat{P}
+   </math>
+   was not originally defined as the minimizer of a particular functional on ELMMs. However, if
+   <math display="inline">
+    S
+   </math>
+   is continuous, Föllmer and Schweizer [18] have proved that
+   <math display="inline">
+    \hat{P}
+   </math>
+   minimizes
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    Q \mapsto H(Q|P) - E_Q \left[ \int_0^\infty \lambda'_u \, \mathrm{d}\langle M \rangle_u \lambda u \right] \qquad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   over all ELMMs
+   <math display="inline">
+    Q
+   </math>
+   for
+   <math display="inline">
+    S
+   </math>
+   ; see also [49]. Moreover, Schweizer [50] has shown that if
+   <math display="inline">
+    S
+   </math>
+   is continuous, then
+   <math display="inline">
+    \widehat{P}
+   </math>
+   minimizes the reverse relative entropy
+   <math display="inline">
+    H(P|Q)
+   </math>
+   over all ELMMs Q for S; this no longer holds if
+   <math display="inline">
+    S
+   </math>
+   has jumps. Under more restrictive assumptions, other minimality properties for
+   <math display="inline">
+    \widehat{P}
+   </math>
+   have been obtained by several authors. However, a general result under the sole assumption (SC) is not available so far.
+  </p>
+  <p block-type="Text">
+   There is a large amount of literature related to the MMM. In fact, a Google Scholar search for "minimal martingale measure" (enclosed in quotation marks) produced in April 2008 a list of well over 400 hits. As a first category, this contains papers where the MMM is studied
+   <i>
+    per se
+   </i>
+   or used as in the original approach of local risk-minimization. In terms of topics, the following areas of related work can be found in that category:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Properties, characterization results, and general-. izations for the MMM:
+     <math display="inline">
+      [1, 4, 9-11, 14, 19, 33,
+     </math>
+     36, 37, 49, 51];
+    </li>
+    <li block-type="ListItem">
+     Convergence results for option prices (computed under the MMM): [25, 32, 42, 44];
+    </li>
+    <li block-type="ListItem">
+     Applications to hedging: [7, 39, 47, 48] (see also Hedging).
+    </li>
+    <li block-type="ListItem">
+     Uses for option pricing:
+     <math display="inline">
+      [8, 13, 55]
+     </math>
+     , to name only a very a few; comparison results for option prices are given in [22, 24, 34] (see also Riskneutral Pricing).
+    </li>
+    <li block-type="ListItem">
+     Problems and counterexamples: [15, 16, 43, 45, 521.
+    </li>
+    <li block-type="ListItem">
+     Equilibrium justifications for using the MMM: [26, 40].
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   A second category of papers contains those where the MMM has (sometimes unexpectedly) come up in connection with various other problems and topics in mathematical finance. Examples include the following:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Classical utility maximization and utility indifference valuation [3, 20, 21, 23, 35, 41, 53, 54]: the MMM here often appears because the special structure of a given model implies that
+     <math display="inline">
+      \widehat{P}
+     </math>
+     has a particular optimality property (see also
+     <b>
+      Expected Utility Maximiza
+     </b>
+     tion; Expected Utility Maximization: Duality Methods; Utility Indifference Valuation; and Minimal Entropy Martingale Measure).
+    </li>
+    <li block-type="ListItem">
+     The numeraire portfolio and growth-optimal investment
+     <math display="inline">
+      [2, 12]
+     </math>
+     : this is related to the minimization of the reverse relative entropy
+     <math display="inline">
+      H(P|\cdot)
+     </math>
+     over ELMMs (see also
+     <b>
+      Kelly Problem
+     </b>
+     ).
+    </li>
+    <li block-type="ListItem">
+     The concept of value preservation
+     <math display="inline">
+      [28-30]
+     </math>
+     : here the link seems to come up because value preservation is, like local risk-minimization, a local optimality criterion.
+    </li>
+    <li block-type="ListItem">
+     Good deal bounds in incomplete markets [5, 6]: the MMM naturally shows up here because good deal bounds are formulated via instantaneous quadratic restrictions on the pricing kernel (ELMM) to be chosen (see also Good-deal Bounds; Sharpe Ratio; Market Price of Risk).
+    </li>
+    <li block-type="ListItem">
+     Local utility maximization [27]; again, the link here is due to the local nature of the criterion that is used.
+    </li>
+    <li block-type="ListItem">
+     Risk-sensitive control [17, 31, 38]; this is an . area where the connection to the MMM seems
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   not yet well understood. See also
+   <b>
+    Risk-sensitive Asset Management
+   </b>
+   .
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Arai, T. (2001). The relations between minimal martingale measure and minimal entropy martingale measure,
+     <i>
+      Asia-Pacific Financial Markets
+     </i>
+     <b>
+      8
+     </b>
+     , 137–177.
+    </li>
+    <li block-type="ListItem">
+     [2] Becherer, D. (2001). The numeraire portfolio for unbounded semimartingales,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      5
+     </b>
+     , 327–341.
+    </li>
+    <li block-type="ListItem">
+     [3] Berrier, F., Rogers, L.C.G. &amp; Tehranchi, M. (2008).
+     <i>
+      A Characterization of Forward Utility Functions
+     </i>
+     ,
+     <i>
+      preprint
+     </i>
+     , http://www.statslab.cam.ac.uk/∼mike/forward -utilities.pdf.
+    </li>
+    <li block-type="ListItem">
+     [4] Biagini, F. &amp; Pratelli, M. (1999). Local risk minimization and numeraire,
+     <i>
+      Journal of Applied Probability
+     </i>
+     <b>
+      36
+     </b>
+     , 1126–1139.
+    </li>
+    <li block-type="ListItem">
+     [5] Bjork, T. &amp; Slinko, I. (2006). Towards a general ¨ theory of good-deal bounds,
+     <i>
+      The Review of Finance
+     </i>
+     <b>
+      10
+     </b>
+     , 221–260.
+    </li>
+    <li block-type="ListItem">
+     [6] Cern ˇ y, A. (2003). Generalised Sharpe ratios and asset ´ pricing in incomplete markets,
+     <i>
+      European Finance Review
+     </i>
+     <b>
+      7
+     </b>
+     , 191–233.
+    </li>
+    <li block-type="ListItem">
+     [7] Cern ˇ y, A. &amp; Kallsen, J. (2007). On the structure of ´ general mean-variance hedging strategies,
+     <i>
+      The Annals of Probability
+     </i>
+     <b>
+      35
+     </b>
+     , 1479–1531.
+    </li>
+    <li block-type="ListItem">
+     [8] Chan, T. (1999). Pricing contingent claims on stocks driven by Levy processes, ´
+     <i>
+      The Annals of Applied Probability
+     </i>
+     <b>
+      9
+     </b>
+     , 504–528.
+    </li>
+    <li block-type="ListItem">
+     [9] Choulli, T. &amp; Stricker, C. (2005). Minimal entropy-Hellinger martingale measure in incomplete markets,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      15
+     </b>
+     , 465–490.
+    </li>
+    <li block-type="ListItem">
+     [10] Choulli, T. &amp; Stricker, C. (2006). More on minimal entropy-Hellinger martingale measure,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      16
+     </b>
+     , 1–19.
+    </li>
+    <li block-type="ListItem">
+     [11] Choulli, T., Stricker, C. &amp; Li, J. (2007). Minimal Hellinger martingale measures of order
+     <i>
+      q
+     </i>
+     ,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      11
+     </b>
+     , 399–427.
+    </li>
+    <li block-type="ListItem">
+     [12] Christensen, M.M. &amp; Larsen, K. (2007). No arbitrage and the growth optimal portfolio,
+     <i>
+      Stochastic Analysis and Applications
+     </i>
+     <b>
+      25
+     </b>
+     , 255–280.
+    </li>
+    <li block-type="ListItem">
+     [13] Colwell, D.B. &amp; Elliott, R.J. (1993). Discontinuous asset prices and non-attainable contingent claims,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      3
+     </b>
+     , 295–308.
+    </li>
+    <li block-type="ListItem">
+     [14] Delbaen, F., Grandits, P., Rheinlander, T., Samperi, D., ¨ Schweizer, M. &amp; Stricker, C. (2002). Exponential hedging and entropic penalties,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      12
+     </b>
+     , 99–123.
+    </li>
+    <li block-type="ListItem">
+     [15] Delbaen, F. &amp; Schachermayer, W. (1998). A simple counterexample to several problems in the theory of asset pricing,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 1–11.
+    </li>
+    <li block-type="ListItem">
+     [16] Elliott, R.J. &amp; Madan, D.B. (1998). A discrete time equivalent martingale measure,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      8
+     </b>
+     , 127–152.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [17] Fleming, W.H. &amp; Sheu, S.J. (2002). Risk-sensitive control and an optimal investment model II,
+     <i>
+      The Annals of Applied Probability
+     </i>
+     <b>
+      12
+     </b>
+     , 730–767.
+    </li>
+    <li block-type="ListItem">
+     [18] Follmer, H. &amp; Schweizer, M. (1991). Hedging of con- ¨ tingent claims under incomplete information, in
+     <i>
+      Applied Stochastic Analysis
+     </i>
+     ,
+     <i>
+      Stochastics Monographs
+     </i>
+     , M.H.A. Davis &amp; R.J. Elliott eds, Gordon and Breach, London, Vol. 5, pp. 389–414.
+    </li>
+    <li block-type="ListItem">
+     [19] Grandits, P. (2000). On martingale measures for stochastic processes with independent increments,
+     <i>
+      Theory of Probability and its Applications
+     </i>
+     <b>
+      44
+     </b>
+     , 39–50.
+    </li>
+    <li block-type="ListItem">
+     [20] Grasselli, M. (2007). Indifference pricing and hedging for volatility derivatives,
+     <i>
+      Applied Mathematical Finance
+     </i>
+     <b>
+      14
+     </b>
+     , 303–317.
+    </li>
+    <li block-type="ListItem">
+     [21] Henderson, V. (2002). Valuation of claims on nontraded assets using utility maximization,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      12
+     </b>
+     , 351–373.
+    </li>
+    <li block-type="ListItem">
+     [22] Henderson, V. (2005). Analytical comparisons of option prices in stochastic volatility models,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      15
+     </b>
+     , 49–59.
+    </li>
+    <li block-type="ListItem">
+     [23] Henderson, V. &amp; Hobson, D.G. (2002). Real options with constant relative risk aversion,
+     <i>
+      Journal of Economic Dynamics and Control
+     </i>
+     <b>
+      27
+     </b>
+     , 329–355.
+    </li>
+    <li block-type="ListItem">
+     [24] Henderson, V. &amp; Hobson, D.G. (2003). Coupling and option price comparisons in a jump-diffusion model,
+     <i>
+      Stochastics and Stochastics Reports
+     </i>
+     <b>
+      75
+     </b>
+     , 79–101.
+    </li>
+    <li block-type="ListItem">
+     [25] Hong, D. &amp; Wee, I.S. (2003). Convergence of jumpdiffusion models to the Black-Scholes model,
+     <i>
+      Stochastic Analysis and Applications
+     </i>
+     <b>
+      21
+     </b>
+     , 141–160.
+    </li>
+    <li block-type="ListItem">
+     [26] Jouini, E. &amp; Napp, C. (1999).
+     <i>
+      Continuous Time Equilibrium Pricing of Nonredundant Assets
+     </i>
+     ,
+     <i>
+      Leonard N. Stern School Finance Department Working Paper 99-008
+     </i>
+     , New York University, http://w4.stern.nyu.edu/finance/ research.cfm?doc id=1216, http://www.stern.nyu.edu/ fin/workpapers/papers99/wpa99008.pdf.
+    </li>
+    <li block-type="ListItem">
+     [27] Kallsen, J. (2002). Utility-based derivative pricing in incomplete markets, in
+     <i>
+      Mathematical Finance— Bachelier Congress 2000
+     </i>
+     , H. Geman, D. Madan, S.R. Pliska &amp; T. Vorst, eds, Springer-Verlag, Berlin, Heidelberg, New York, pp. 313–338.
+    </li>
+    <li block-type="ListItem">
+     [28] Korn, R. (1998). Value preserving portfolio strategies and the minimal martingale measure,
+     <i>
+      Mathematical Methods of Operations Research
+     </i>
+     <b>
+      47
+     </b>
+     , 169–179.
+    </li>
+    <li block-type="ListItem">
+     [29] Korn, R. (2000). Value preserving strategies and a general framework for local approaches to optimal portfolios,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      10
+     </b>
+     , 227–241.
+    </li>
+    <li block-type="ListItem">
+     [30] Korn, R. &amp; Schal, M. (1999). On value preserving ¨ and growth optimal portfolios,
+     <i>
+      Mathematical Methods of Operations Research
+     </i>
+     <b>
+      50
+     </b>
+     , 189–218.
+    </li>
+    <li block-type="ListItem">
+     [31] Kuroda, K. &amp; Nagai, H. (2002). Risk-sensitive portfolio optimization on infinite time horizon,
+     <i>
+      Stochastics and Stochastics Reports
+     </i>
+     <b>
+      73
+     </b>
+     , 309–331.
+    </li>
+    <li block-type="ListItem">
+     [32] Lesne, J.-P., Prigent, J.-L. &amp; Scaillet, O. (2000). Convergence of discrete time option pricing models under stochastic interest rates,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      4
+     </b>
+     , 81–93.
+    </li>
+    <li block-type="ListItem">
+     [33] Mania, M. &amp; Tevzadze, R. (2003). A unified characterization of
+     <i>
+      q
+     </i>
+     -optimal and minimal entropy martingale
+    </li>
+   </ul>
+  </p>
+ </body>
+</html>

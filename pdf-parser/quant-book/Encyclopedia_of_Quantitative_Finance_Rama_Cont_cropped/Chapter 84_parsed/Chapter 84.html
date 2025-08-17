@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Option Pricing: General
+   </b>
+   Principles
+  </h1>
+  <p block-type="Text">
+   <b>
+    Option contracts
+   </b>
+   are financial assets that involve an element of choice for the owner. Depending on an event, the holder of an option contract can exercise his/her options stated in the contract, that is, to undertake certain specified actions. The typical example of an option contract gives the holder the right to buy a specific stock at a contracted price and time in the future. The contracted price is called the
+   <i>
+    strike price
+   </i>
+   , whereas the exercise time is when the option may be executed. Such contracts are known as
+   <i>
+    call options
+   </i>
+   , and the event that triggers the execution of the option is that the underlying stock price is above the strike. There is a plethora of different options traded in today's modern financial markets, where the financial events may include credit, weather related situations, and so on. One usually refers to derivatives or claims as being financial assets whose values are dependent on other financial assets.
+  </p>
+  <p block-type="Text">
+   There are two fundamental questions that the option pricing theory tries to answer. First, what is the fair price of a claim, and second, how can one replicate the claim. The second question immediately implies the answer to the first, since if we can find an investment strategy in the market that replicates the claim, the cost of this replication should be the fair price. This replication strategy is frequently called the
+   <b>
+    hedging strategy
+   </b>
+   of the claim. The key financial concepts in pricing and replication are arbitrage (or rather the absence of such) and completeness. A mathematical concept related to these is the equivalent martingale measure, also known as the riskneutral probability.
+  </p>
+  <h2>
+   <b>
+    Explaining the Basic Concepts
+   </b>
+  </h2>
+  <p block-type="Text">
+   To understand the concepts used, it is informative to consider a very simple (and highly unrealistic) oneperiod
+   <b>
+    binomial model
+   </b>
+   . Suppose that we have a stock with value $100 today and two possible outcomes in one year. Either the stock price can increase to $110 or it can remain unchanged. The interest rate earned on bank deposits is set to 5% yearly and considered the risk-free investment in the market
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose that we wish to find a fair price of a call option with strike $105 in one year. This option will effectively pay out $5 if the stock increases, whereas the holder will not exercise it if the stock value is $100. Consider now an investment today in
+   <math display="inline">
+    a = 0.5
+   </math>
+   number of stocks and
+   <math display="inline">
+    b = -\$50/1.05 \approx
+   </math>
+   <math display="inline">
+    -$47.62
+   </math>
+   deposited in the bank. A simple calculation reveals that this investment yields exactly the same as holding the option. In fact, this is the only investment in the stock and bank that perfectly replicates the option payoff and we, therefore, call it the
+   <i>
+    replicating
+   </i>
+   strategy of the option. The cost of replication is
+   <math display="inline">
+    P = \$50/21 \approx \$2.38.
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We argue that the fair price of the option should be the same as the costs
+   <math display="inline">
+    P
+   </math>
+   of buying the replicating strategy. If the price would be higher, say
+   <math display="inline">
+    \widetilde{P} &gt; P
+   </math>
+   , then one could do the following. Sell
+   <math display="inline">
+    n
+   </math>
+   options for that price and buy
+   <math display="inline">
+    n
+   </math>
+   of the replicating strategy. At exercise, any claims from the options sold will be covered exactly by the replicating strategies bought. However, we have received the cash amount of
+   <math display="inline">
+    n \times \widetilde{P}
+   </math>
+   for selling the options and paid out the amount
+   <math display="inline">
+    n \times P
+   </math>
+   for replication, thus leaving us with a profit. There is no risk attached with this investment proposition, and we can make the profit arbitrarily high by simply increasing
+   <math display="inline">
+    n
+   </math>
+   . This is what is known as an
+   <b>
+    arbitrage
+   </b>
+   opportunity, and in efficient markets, this should not be possible (or at least be ruled out quickly). If
+   <math display="inline">
+    P &lt; P
+   </math>
+   , we reverse the positions above to create an arbitrage. The definition of a fair price is the price for which no arbitrage possibility exists. Thus, the option price in our example must be
+   <math display="inline">
+    P = $50/21 \approx $2.38
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   We note that the probability of a stock price increase did not enter into our analysis. The fair price is unaffected by this probability, since the hedging strategy is the same no matter how likely the stock price is to increase to $110. The price of the option does not depend on the expected return of the stock, but only on the spread in the two possible outcomes of the stock price at exercise time, or, in other words, the volatility.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   One may ask if the price of an option can be stated as the present expected value of the payoff at exercise. From the above derivations, we see that this is, in general, not the case since the price is not a function of the probability of a stock price increase. Hence, a present value price of the option would lead to arbitrage possibilities. However, we may rephrase the question and ask whether
+   <i>
+    there exists
+   </i>
+   a probability
+   <math display="inline">
+    q
+   </math>
+   for price increase such that the fair price can be
+  </p>
+  <p block-type="Text">
+   expressed as a present value? Letting
+   <math display="inline">
+    q = 0.5
+   </math>
+   , we can easily convince ourselves that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P = \frac{1}{1.05} \{q \times 5 + (1 - q) \times 0\}
+   </math>
+   <math display="block">
+    = \frac{1}{1.05} \mathbb{E}_q[\text{option payoff}] \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    \mathbb{E}_q
+   </math>
+   is the expectation with respect to the probability
+   <math display="inline">
+    q
+   </math>
+   . This probability of a stock price increase is
+   <i>
+    not
+   </i>
+   the probability for a price increase observed in the market, but a
+   <i>
+    constructed
+   </i>
+   probability for which the option price can be expressed as a present expected value.
+  </p>
+  <p block-type="Text">
+   The probability
+   <math display="inline">
+    q
+   </math>
+   has an interesting property that actually defines it. The present expected value of the stock price is equal to today's value,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    100 = \frac{1}{1.05} \mathbb{E}_q[\text{stock price}] \tag{2}
+   </math>
+  </p>
+  <p block-type="Text">
+   Hence, the discounted stock price is a
+   <b>
+    martingale
+   </b>
+   with respect to the probability
+   <math display="inline">
+    q
+   </math>
+   . Further, the return on an investment in the stock coincides with the riskfree rate under
+   <math display="inline">
+    q
+   </math>
+   , defending the name "risk-neutral probability" often assigned to
+   <math display="inline">
+    q
+   </math>
+   .
+  </p>
+  <h4>
+   <b>
+    Option Pricing in Continuous Time
+   </b>
+  </h4>
+  <p block-type="Text">
+   Our binomial one-period example basically contains the main concepts for pricing of options and claims in more general and realistic market models. Moving to a stock price that evolves dynamically in time with stochastic marginal changes, the principles of option pricing remain basically the same, however, introducing interesting technical challenges. We now look at the case when the stock price follows a
+   <b>
+    geometric Brownian motion
+   </b>
+   (GBM), that is,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\mathrm{d}S(t)}{S(t)} = \mu \,\mathrm{d}t + \sigma \,\mathrm{d}B(t) \tag{3}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   defined on a probability space
+   <math display="inline">
+    (\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \ge 0}, \mathbb{P})
+   </math>
+   with the filtration
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   generated by the Brownian motion modeling the information flow. The GBM model indicates that returns (or more precisely, logarithmic returns) are independent and normally distributed, with mean
+   <math display="inline">
+    \mu
+   </math>
+   dt and volatility
+   <math display="inline">
+    \sigma\sqrt{dt}
+   </math>
+   . The model was first proposed for stock price dynamics by Samuelson [7] and later used by Black and
+   <b>
+    Scholes
+   </b>
+   [1] and
+   <b>
+    Merton
+   </b>
+   [6] in their derivation of the
+  </p>
+  <p block-type="Text">
+   famous option pricing formula. We suppose that the market is frictionless in the sense that there are no transaction costs incurred when we trade in the stock or the bank, and there are no restrictions on short or long positions. Further, the interest rate is the same whether we borrow or lend money, and the market is perfectly liquid.
+  </p>
+  <p block-type="TextInlineMath">
+   The main difference from the one-period model is that we can invest in the underlying stock at all times up to maturity of the claim. Obviously, we can also do the same with the bank deposit, which is now assumed to yield a continuously compounding interest rate
+   <math display="inline">
+    r
+   </math>
+   . An investment strategy will consist of
+   <math display="inline">
+    a(t)
+   </math>
+   shares of the stock and
+   <math display="inline">
+    b(t)
+   </math>
+   invested in the bank at time
+   <math display="inline">
+    t
+   </math>
+   . Since investors cannot foresee the future, the investment decisions at time
+   <math display="inline">
+    t
+   </math>
+   can only be based upon the available market information, which is contained in the filtration
+   <math display="inline">
+    \mathcal{F}_t
+   </math>
+   . The value at time
+   <math display="inline">
+    t
+   </math>
+   of the portfolio is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V(t) = a(t)S(t) + b(t)R(t) \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    R(t) = \exp(rt)
+   </math>
+   , the value of an initial bank deposit of 1. Further, since we are interested in creating strategies that are replicating an option, we wish to rule out any external funding or withdrawal of money in the portfolio we are setting up. This leads to the so-called
+   <b>
+    self-financing
+   </b>
+   hypothesis, saying that any change in portfolio value comes from a change in the underlying stock price and bank deposit. Mathematically, we can formulate this condition as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dV(t) = a(t) dS(t) + b(t) dR(t)
+   </math>
+   (5)
+  </p>
+  <p block-type="Text">
+   Note that
+   <b>
+    Itô's formula
+   </b>
+   implies a dynamics
+   <math display="inline">
+    V(t)
+   </math>
+   where the differentials of
+   <math display="inline">
+    a(t)
+   </math>
+   and
+   <math display="inline">
+    b(t)
+   </math>
+   appear. The self-financing hypothesis indicates that these differentials are zero.
+  </p>
+  <p block-type="Text">
+   For the one-period binomial model, we recall the existence of an
+   <b>
+    equivalent martingale measure
+   </b>
+   for which the discounted stock price is a martingale. Applying the Girsanov theorem, we find a probability measure
+   <math display="inline">
+    \mathbb{Q}
+   </math>
+   equivalent to the market probability
+   <math display="inline">
+    \mathbb{P}
+   </math>
+   , for which the process
+   <math display="inline">
+    W(t)
+   </math>
+   with differential
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dW(t) = \frac{\mu - r}{\sigma} dt + dB(t) \tag{6}
+   </math>
+  </p>
+  <p block-type="Text">
+   is a Brownian motion. By a direct calculation, we find
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d(e^{-rt}S(t)) = \sigma(e^{-rt}S(t)) dW(t)
+   </math>
+   (7)
+  </p>
+  <p block-type="TextInlineMath">
+   which is a
+   <b>
+    martingale
+   </b>
+   under . Furthermore, by discounting the portfolio process
+   <i>
+    V (t)
+   </i>
+   and applying the self-financing hypothesis, we find
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d(e^{-rt}V(t)) = \sigma a(t)(e^{-rt}S(t)) dW(t) \qquad (8)
+   </math>
+  </p>
+  <p block-type="Text">
+   Hence, the discounted portfolio process is also a martingale under .
+  </p>
+  <p block-type="TextInlineMath">
+   Consider a claim with maturity at time
+   <i>
+    T
+   </i>
+   and a payoff represented by the random variable
+   <i>
+    X
+   </i>
+   , where F
+   <i>
+    <sup>
+     T
+    </sup>
+   </i>
+   is measurable and integrable with respect . The (for the moment unknown) price at time
+   <i>
+    t
+   </i>
+   of the claim is denoted by
+   <i>
+    P (t)
+   </i>
+   . Suppose that the discounted price of the claim is a martingale with respect to  and that we have a self-financing portfolio consisting of investments in the stock, the bank notes, and the claim. Further, we construct the investment such that the initial price is zero. The discounted value process of this portfolio will then (by the same reasoning as above) give a martingale process under , and hence the expectation with respect to  of the portfolio value at any future time must be the same as the initial investment, namely, zero. Thus, under , there is a positive probability of having a negative portfolio value, which implies by equivalence of  with
+   <i>
+   </i>
+   that we cannot have any arbitrage opportunities in this market. On the other hand, if the market does not allow for any arbitrage, one can show that e
+   <sup>
+    −
+   </sup>
+   <i>
+    rtP (t)
+   </i>
+   must be a -martingale. We refer to [3] for the connection between no-arbitrage and existence of equivalent martingale measures. It is a financially reasonable condition to assume that the market is arbitrage free.
+  </p>
+  <p block-type="TextInlineMath">
+   By the
+   <b>
+    martingale representation theorem
+   </b>
+   , there exists an
+   <b>
+    adapted
+   </b>
+   stochastic process
+   <i>
+    φ(t)
+   </i>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d(e^{-rt} P(t)) = \phi(t) dW(t)
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath">
+   whenever exp
+   <i>
+    (
+   </i>
+   −
+   <i>
+    rt)P (t)
+   </i>
+   is square-integrable with respect to . By defining
+   <i>
+    a(t)
+   </i>
+   =
+   <i>
+    φ(t)/σ
+   </i>
+   exp
+   <i>
+    (
+   </i>
+   −
+   <i>
+    rt)S(t)
+   </i>
+   and
+   <i>
+    b(t)
+   </i>
+   = exp
+   <i>
+    (
+   </i>
+   −
+   <i>
+    rt)(P (t)
+   </i>
+   −
+   <i>
+    a(t)S(t))
+   </i>
+   , the portfolio
+   <i>
+    V (t)
+   </i>
+   given by the investment strategy
+   <i>
+    (a, b)
+   </i>
+   is selffinancing. Moreover,
+   <i>
+    V (T )
+   </i>
+   =
+   <i>
+    P (T )
+   </i>
+   =
+   <i>
+    X
+   </i>
+   , implying that it is a replicating strategy for the claim. Furthermore the market becomes
+   <b>
+    complete
+   </b>
+   , meaning that there exists a replicating strategy for all claims,
+   <i>
+    X
+   </i>
+   being square-integrable with respect to .
+  </p>
+  <p block-type="TextInlineMath">
+   Now, again appealing to the -martingale property of e
+   <sup>
+    −
+   </sup>
+   <i>
+    rtP (t)
+   </i>
+   , we find by definition that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P(t) = e^{-r(T-t)} \mathbb{E}_{\mathbb{Q}} \left[ X \mid \mathcal{F}_t \right] \tag{10}
+   </math>
+  </p>
+  <p block-type="Text">
+   Thus, as a natural generalization of the binomial one-period model case, any claim has a price given as the expected present value, where the expectation is taken with respect to the risk-neutral probability. Note that
+   <i>
+    S
+   </i>
+   does not depend on its expected return
+   <i>
+    µ
+   </i>
+   under , and therefore the price
+   <i>
+    P (t)
+   </i>
+   is independent of this. The volatility
+   <i>
+    σ
+   </i>
+   is, however, a crucial parameter for the determination of price.
+  </p>
+  <p block-type="TextInlineMath">
+   If we let
+   <i>
+    X
+   </i>
+   be the payoff of a call option written on
+   <i>
+    S
+   </i>
+   , one can calculate the conditional expectation in equation (10) to derive the famous
+   <b>
+    Black–Scholes formula
+   </b>
+   . Further, the process
+   <i>
+    φ(t)
+   </i>
+   is in this case explicitly known, and it turns out that the investment strategy
+   <i>
+    a(t)
+   </i>
+   is the derivative of the price
+   <i>
+    P (t)
+   </i>
+   with respect to
+   <i>
+    S(t)
+   </i>
+   . This derivative is known as the delta of the call option. Moreover, the strategy given by
+   <i>
+    a(t)
+   </i>
+   is called
+   <i>
+    delta-hedging
+   </i>
+   .
+  </p>
+  <h3>
+   <b>
+    Option Pricing in Incomplete Markets
+   </b>
+  </h3>
+  <p block-type="Text">
+   Recall that we have assumed a frictionless market. In practice, transaction costs are normally incurred when buying and selling shares. Hence, since a deltahedging strategy
+   <i>
+    (a, b)
+   </i>
+   involves incessant trading, it will become infinitely costly if implemented. In addition, there are practical limits to how big a short position we can take (e.g., due to credit limits and collaterals). Theoretically, there exists only
+   <i>
+    one
+   </i>
+   replicating strategy since the martingale representation theorem prescribes a unique integrand process
+   <i>
+    φ(t)
+   </i>
+   . Introducing frictions such as transaction costs or short-selling limits in the market rules out the possibility to replicate claims in general, and the market is said to be
+   <b>
+    incomplete
+   </b>
+   . We remark that in an incomplete market, there still exists claims that can be replicated, and by the no-arbitrage principle, the price of these is characterized by the cost of replication, as we have argued above. However, a natural question arises: what can we say about pricing and hedging of claims where no replicating strategy exists?
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   One approach suggests to look at
+   <b>
+    super- and sub-replicating strategies
+   </b>
+   . A super(sub-)replicating strategy is a self-financing portfolio of stock and bank deposit, which at least(most) has the same value as the claim at maturity. Letting
+   <i>
+    P
+   </i>
+   max
+   <i>
+    (P
+   </i>
+   min
+   <i>
+    )
+   </i>
+   be the infimum (supremum) over all prices of such super(sub-)replicating strategies, it follows that any price
+   <i>
+    P
+   </i>
+   in the interval
+   <i>
+    (P
+   </i>
+   min
+   <i>
+    , P
+   </i>
+   max
+   <i>
+    )
+   </i>
+   is arbitrage
+  </p>
+  <p block-type="Text">
+   free. Furthermore, any self-financing strategy that costs less than
+   <i>
+    P
+   </i>
+   max will always have a positive probability of having a value lower than the claim at maturity, and thus full replication is impossible. This leaves the issuer of the claim with some unhedgable risk. An acceptable or fair price of the claim will reflect the compensation the issuer demands for taking on this risk.
+  </p>
+  <p block-type="Text">
+   A change in the stock price dynamics gives another source of incompleteness in the market. The GBM model is rather unnatural from an empirical point of view, since observed stock price returns on the marketplace are frequently far from being normally distributed nor are they independent. Stock price models including
+   <b>
+    stochastic volatility
+   </b>
+   and/or stochastic drivers other than Brownian motion have been proposed. For instance, on the basis of empirics, the returns may be modeled by a heavy-tailed distribution, which gives rise to a
+   <b>
+    Levy process ´
+   </b>
+   in the geometric dynamics of the stock price. A consequence of such a seemingly innocent change in the structure is that there exists a continuum (in general) of
+   <b>
+    equivalent martingale measures
+   </b>
+   such that the discounted stock price is a martingale. The complicating implication of this is the absence of martingale representations when it becomes impossible to find an investment strategy replicating the claim. As for markets with frictions, we have no possibility of replication, but an interval of possible arbitragefree prices. In addition, in this case, the issuer of the claim needs to accept a certain unhedgable risk.
+  </p>
+  <p block-type="Text" class="has-continuation">
+   To price claims in incomplete markets, one must resort to methods that take into account the risk posed on the issuer. Popular approaches include minimalvariance hedging, where the strategy minimizing the variance (that is, the risk) is sought for. The price of the claim is the cost of buying the minimalvariance strategy [8] plus a compensation for the unhedged risk. Another possibility that has gained a lot of attention in the option pricing literature is
+   <b>
+    indifference pricing
+   </b>
+   (see also the seminal work of Hodges and Neuberger [5]). Here, one considers an investor who has two opportunities. Either he/she can invest his/her funds in the market, or he/she can sell a claim and invest his/her funds along with claim price. In the latter case, he/she has more funds for investment, but on the other hand, he/she faces a claim at maturity. By optimizing his/her expected
+  </p>
+  <p block-type="Text">
+   utility from the two investment scenarios, the
+   <i>
+    indifference price
+   </i>
+   of the claim is defined as the price that makes one indifferent between the two opportunities. The choice of an exponential utility function leads to prices where the singular case of zero risk aversion coincides with the price defined by the
+   <b>
+    minimal entropy martingale measure
+   </b>
+   [4]. This price lends itself to the interpretation of being the price that is equally desirable for both the issuer and the buyer in the case when both parties have zero risk aversion. For all other risk aversions, the seller will charge higher prices, and the buyer will demand lower. The difference of the two optimal investment strategies obtained from utility maximization becomes the hedging strategy. This and other similar approaches have gained a lot of academic attention in the recent years.
+  </p>
+  <p block-type="Text">
+   Another path to pricing in incomplete markets is to try to complete the market by adding options. The required number of options to complete the market is closely linked to the number of sources of uncertainty and the number of assets. For example, considering a GBM with a stochastic volatility following the Heston model gives two random sources and one asset. Following the analysis in [2], one call option is sufficient to complete the market. In [2], the necessary and sufficient conditions to complete markets are given in the case when the filtration is spanned by more Brownian motions than there are traded assets.
+  </p>
+  <h3>
+   <b>
+    References
+   </b>
+  </h3>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Black, F. &amp; Scholes, M. (1973). The pricing of options and corporate liabilities,
+     <i>
+      Journal of Political Economy
+     </i>
+     <b>
+      81
+     </b>
+     , 637–654.
+    </li>
+    <li block-type="ListItem">
+     [2] Davis, M. &amp; Obloj, J. (2008). Market completion using options, in
+     <i>
+      Advances in Mathematics of Finance
+     </i>
+     , L. Stettner, ed., Banach Center Publications, pp. 49–60, Vol. 43.
+    </li>
+    <li block-type="ListItem">
+     [3] Delbaen, F. &amp; Schachermayer, W. (1994). A general version of the fundamental theorem of asset pricing,
+     <i>
+      Matematische Annalen
+     </i>
+     <b>
+      300
+     </b>
+     , 463–520.
+    </li>
+    <li block-type="ListItem">
+     [4] El Karoui, N. &amp; Rouge, R. (2000). Pricing via utility maximization and entropy,
+     <i>
+      Mathematical Finance
+     </i>
+     <b>
+      10
+     </b>
+     (2), 259–276.
+    </li>
+    <li block-type="ListItem">
+     [5] Hodges, S. &amp; Neuberger, A. (1989). Optimal replication of contingent claims under transaction costs,
+     <i>
+      Review of Futures Markets
+     </i>
+     <b>
+      8
+     </b>
+     , 222–239.
+    </li>
+    <li block-type="ListItem">
+     [6] Merton, R. (1973). Theory of rational option pricing,
+     <i>
+      Bell Journal of Economics and Management Science
+     </i>
+     <b>
+      4
+     </b>
+     , 141–183.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [7] Samuelson, P.A. (1965). Proof that properly anticipating prices fluctuate randomly,
+     <i>
+      Industrial Management Reviews
+     </i>
+     <b>
+      6
+     </b>
+     , 41–49.
+    </li>
+    <li block-type="ListItem">
+     [8] Schweizer, M. (2001). A guided tour through quadratic hedging approaches, in
+     <i>
+      Option Pricing, Interest Rates, and Risk Management
+     </i>
+     , E. Jouini, J. Cvitanic &amp; M. Musiela, eds, Cambridge University Press, pp. 538–574.
+    </li>
+   </ul>
+  </p>
+  <h3>
+   <b>
+    Related Articles
+   </b>
+  </h3>
+  <p block-type="Text">
+   <b>
+    Binomial Tree
+   </b>
+   ;
+   <b>
+    Black–Scholes Formula
+   </b>
+   ;
+   <b>
+    Hedging
+   </b>
+   ;
+   <b>
+    Option Pricing Theory: Historical Perspectives
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   FRED E. BENTH
+  </p>
+ </body>
+</html>

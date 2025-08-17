@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Binomial Tree
+   </b>
+  </h1>
+  <p block-type="Text">
+   This model, introduced by Cox
+   <i>
+    et al.
+   </i>
+   [1] in 1979, has played a decisive role in the development of the derivatives industry. Its simple structure and easy implementation gave analysts the ability to price a huge range of financial derivatives in an almost routine way. Nowadays its value is largely pedagogical, in that the whole theory of arbitrage pricing in complete markets can be explained in a couple of pages in the context of the binomial model. The model is covered in every mathematical finance textbook, but we mention in particular [4], which is entirely devoted to the binomial model, and [2] for a careful treatment of American options.
+  </p>
+  <h2>
+   <b>
+    The One-period Model
+   </b>
+  </h2>
+  <p block-type="TextInlineMath">
+   Suppose we have an asset whose price is
+   <i>
+    S
+   </i>
+   today and whose price tomorrow can only be one of two known values
+   <i>
+    S
+   </i>
+   0,
+   <i>
+    S
+   </i>
+   <sup>
+    1
+   </sup>
+   (we take
+   <i>
+    S
+   </i>
+   <sup>
+    0
+   </sup>
+   <i>
+    &gt; S
+   </i>
+   1); see Figure 1. This apparently highly artificial situation is the kernel of the binomial model. We also suppose there is a bank account paying a daily rate of interest
+   <i>
+    r
+   </i>
+   1, so that $1 today is worth $
+   <i>
+    R
+   </i>
+   = $
+   <i>
+    (
+   </i>
+   1 +
+   <i>
+    r
+   </i>
+   1
+   <i>
+    )
+   </i>
+   tomorrow. We assume that borrowing is possible from the bank at the same rate of interest
+   <i>
+    r
+   </i>
+   1, and that the risky asset can also be borrowed (sold short, in the usual financial terminology). The only other assumption is that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_1 &lt; RS &lt; S_0 \tag{1}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   If
+   <i>
+    RS
+   </i>
+   ≤
+   <i>
+    S
+   </i>
+   1, we could borrow $
+   <i>
+    B
+   </i>
+   from the bank and buy
+   <i>
+    B/S
+   </i>
+   shares of the risky asset. Tomorrow these will be worth at least
+   <i>
+    S
+   </i>
+   1
+   <i>
+    B/S
+   </i>
+   , while only
+   <i>
+    RB
+   </i>
+   has to be repaid to the bank, leaving a profit of either
+   <i>
+    B(S
+   </i>
+   <sup>
+    1
+   </sup>
+   −
+   <i>
+    RS)/S
+   </i>
+   or
+   <i>
+    B(S
+   </i>
+   <sup>
+    0
+   </sup>
+   −
+   <i>
+    RS)/S
+   </i>
+   .Both of these are nonnegative and at least one is strictly positive. This is an
+   <i>
+    arbitrage opportunity
+   </i>
+   : no initial investment, no loss and the chance of a positive profit at the end
+  </p>
+  <p>
+   <img src="_page_0_Figure_6.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   One-period binomial tree
+  </p>
+  <p block-type="Text">
+   (
+   <i>
+    see
+   </i>
+   <b>
+    Arbitrage Strategy
+   </b>
+   ). There is also an arbitrage opportunity if
+   <i>
+    RS &gt; S
+   </i>
+   0, realized by short-selling the risky asset.
+  </p>
+  <p block-type="Text">
+   A
+   <i>
+    derivative security
+   </i>
+   ,
+   <i>
+    contingent claim
+   </i>
+   , or
+   <i>
+    option
+   </i>
+   is a contract that pays tomorrow an amount that depends only on tomorrow's asset price. Thus any such claim can only have values, say
+   <i>
+    O
+   </i>
+   <sup>
+    0
+   </sup>
+   and
+   <i>
+    O
+   </i>
+   <sup>
+    1
+   </sup>
+   corresponding to "underlying" prices
+   <i>
+    S
+   </i>
+   0,
+   <i>
+    S
+   </i>
+   1, as shown in Figure 1.
+  </p>
+  <p block-type="TextInlineMath">
+   Suppose we form a portfolio today consisting of
+   <i>
+    N
+   </i>
+   shares of the risky asset and $
+   <i>
+    B
+   </i>
+   in the bank (either of both of
+   <i>
+    N
+   </i>
+   ,
+   <i>
+    B
+   </i>
+   could be negative). The value today of this portfolio is
+   <i>
+    p
+   </i>
+   =
+   <i>
+    B
+   </i>
+   +
+   <i>
+    NS
+   </i>
+   and its value tomorrow will be
+   <i>
+    RB
+   </i>
+   +
+   <i>
+    NS
+   </i>
+   <sup>
+    0
+   </sup>
+   or
+   <i>
+    RB
+   </i>
+   +
+   <i>
+    NS
+   </i>
+   1. Now choose
+   <i>
+    B
+   </i>
+   ,
+   <i>
+    N
+   </i>
+   such that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    RB + NS_0 = O_0
+   </math>
+   <br/>
+   <math display="block">
+    RB + NS_1 = O_1
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   There is a unique solution as long as
+   <i>
+    S
+   </i>
+   <sup>
+    1
+   </sup>
+   -=
+   <i>
+    S
+   </i>
+   0, given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N^* = \frac{O_0 - O_1}{S_0 - S_1}, \quad B^* = \frac{1}{R}(O_0 - NS_0) \quad (3)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   With these choices, the portfolio value tomorrow exactly coincides with the derivative security payoff, whichever way the price moves. If the derivative security is offered today for any price other than
+   <i>
+    p
+   </i>
+   =
+   <i>
+    RB
+   </i>
+   <sup>
+    ∗
+   </sup>
+   +
+   <i>
+    N
+   </i>
+   <sup>
+    ∗
+   </sup>
+   there is an arbitrage opportunity (realized by "borrowing the portfolio" and buying the option or conversely). Thus "arbitrage pricing" reduces to the solution of a pair of simultaneous linear equations.
+  </p>
+  <p block-type="TextInlineMath">
+   It is easily checked that
+   <i>
+    p
+   </i>
+   =
+   <i>
+    (q
+   </i>
+   0
+   <i>
+    O
+   </i>
+   <sup>
+    0
+   </sup>
+   +
+   <i>
+    q
+   </i>
+   1
+   <i>
+    O
+   </i>
+   1
+   <i>
+    )/R
+   </i>
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_0 = \frac{RS - S_1}{S_0 - S_1}, \quad q_1 = \frac{S_0 - RS}{S_0 - S_1} \tag{4}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   We see that
+   <i>
+    q
+   </i>
+   0
+   <i>
+    , q
+   </i>
+   <sup>
+    1
+   </sup>
+   depend only on the underlying market parameters, not on
+   <i>
+    O
+   </i>
+   <sup>
+    0
+   </sup>
+   or
+   <i>
+    O
+   </i>
+   1, that
+   <i>
+    q
+   </i>
+   <sup>
+    0
+   </sup>
+   +
+   <i>
+    q
+   </i>
+   <sup>
+    1
+   </sup>
+   = 1 and that
+   <i>
+    q
+   </i>
+   0
+   <i>
+    , q
+   </i>
+   <sup>
+    1
+   </sup>
+   <i>
+    &gt;
+   </i>
+   0 if and only if the no-arbitrage condition (1) holds. Thus under this condition
+   <i>
+    q
+   </i>
+   0
+   <i>
+    , q
+   </i>
+   <sup>
+    1
+   </sup>
+   define a probability measure
+   <i>
+    Q
+   </i>
+   and we can write the price of the derivative as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    p = E_{\mathcal{Q}}\left(\frac{1}{R}O\right) \tag{5}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Note that
+   <math display="inline">
+    Q
+   </math>
+   , the so-called
+   <i>
+    risk-neutral
+   </i>
+   measure, emerges from the "no-arbitrage" argument. We said nothing in formulating the model about the probability of an upward or downward move and the above argument does not imply that this probability has to be given by
+   <math display="inline">
+    O
+   </math>
+   . A further feature of
+   <math display="inline">
+    O
+   </math>
+   is that if we compute the expected price tomorrow under
+   <math display="inline">
+    Q
+   </math>
+   we find that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S = \frac{1}{R}(q_0 S_0 + q_1 S_1) \tag{6}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   showing that the discounted price process is a
+   <math display="inline">
+    O
+   </math>
+   martingale. This is summarized as follows:
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     Under condition
+     <math display="inline">
+      (1)
+     </math>
+     there is a unique arbitragefree price for the contingent claim.
+    </li>
+    <li block-type="ListItem">
+     Condition
+     <math display="inline">
+      (1)
+     </math>
+     is equivalent to the existence of a unique probability measure
+     <math display="inline">
+      O
+     </math>
+     under which the discounted asset price is a martingale.
+    </li>
+    <li block-type="ListItem">
+     The contingent claim value is obtained by computing the discounted expectation of its exercise value with respect to a certain probability measure
+     <math display="inline">
+      Q
+     </math>
+     .
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   Much of the classic theory of mathematical finance (see Fundamental Theorem of Asset Pricing; Risk
+   <b>
+    neutral Pricing
+   </b>
+   ) is concerned with identifying conditions under which these three statements hold for the more general price models. They hold in particular for the multiperiod models discussed below.
+  </p>
+  <h2>
+   The Multiperiod Model
+  </h2>
+  <p block-type="TextInlineMath">
+   More realistic models can be obtained by generalizing the binomial model to
+   <math display="inline">
+    n
+   </math>
+   periods. We consider a discrete-time price process
+   <math display="inline">
+    S(i)
+   </math>
+   ,
+   <math display="inline">
+    i = 0, \ldots, n
+   </math>
+   such that, at each time i,
+   <math display="inline">
+    S(i)
+   </math>
+   takes one of
+   <math display="inline">
+    i + 1
+   </math>
+   values
+   <math display="inline">
+    S_{i0} &gt; S_{i1} &gt; \ldots &gt; S_{ii}
+   </math>
+   . While we could consider general values for these constants, the most useful case is that in which the price moves "up" by a factor
+   <math display="inline">
+    u
+   </math>
+   or "down" by a factor
+   <math display="inline">
+    d = 1/u
+   </math>
+   , giving a recombining&lt;br&gt;tree with
+   <math display="inline">
+    S_{ij} = Su^{i-2j}
+   </math>
+   where
+   <math display="inline">
+    S = S(0)
+   </math>
+   ; see Figure 2 for the two-period case. We can define a probability measure Q by specifying that
+   <math display="inline">
+    P[S(i + 1)] =
+   </math>
+   <math display="inline">
+    uS(i)|S(i)| = q_0
+   </math>
+   and
+   <math display="inline">
+    P[S(i + 1) = dS(i)|S(i)] = q_1
+   </math>
+   where
+   <math display="inline">
+    q_0
+   </math>
+   and
+   <math display="inline">
+    q_1
+   </math>
+   are given by equation (4) above; in this case,
+   <math display="inline">
+    q_0 = (Ru - 1)/(u^2 - 1), q_1 = 1 - q_0.
+   </math>
+   Thus
+   <math display="inline">
+    S(i)
+   </math>
+   is a discrete-time Markov process under
+   <math display="inline">
+    Q
+   </math>
+   with homogeneous transition probabilities. Specifically, it is a
+   <i>
+    multiplicative random walk
+   </i>
+   in that each
+  </p>
+  <p>
+   <img src="_page_1_Figure_10.jpeg"/>
+  </p>
+  <p>
+   Figure 2 Two-period binomial tree
+  </p>
+  <p block-type="Text">
+   successive value is obtained from the previous one by multiplication by an independent positive random factor.
+  </p>
+  <p block-type="TextInlineMath">
+   Consider the two-period case of Figure 2 and a contingent claim with exercise value
+   <math display="inline">
+    O
+   </math>
+   at time 2 where
+   <math display="inline">
+    O = O_0
+   </math>
+   ,
+   <math display="inline">
+    O_1
+   </math>
+   ,
+   <math display="inline">
+    O_2
+   </math>
+   in the three states as shown. By the one-period argument, the no-arbitrage price for the claim at time 1 is
+   <math display="inline">
+    v_{1,0} = (q_0 O_0 + q_1 O_1)/R
+   </math>
+   if the price is
+   <math display="inline">
+    uS
+   </math>
+   and
+   <math display="inline">
+    v_{1,1} = (q_0O_1 + q_1O_2)/R
+   </math>
+   if the price is dS. However, now our contingent claim is equivalent to a one-period claim with payoff
+   <math display="inline">
+    v_{1,0}
+   </math>
+   ,
+   <math display="inline">
+    v_{1,1}
+   </math>
+   , so its value at time 0 is just
+   <math display="inline">
+    (q_0v_{1,0} + q_1v_{1,1})/R
+   </math>
+   , which is equal to
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_{0,0} = E_{\mathcal{Q}} \left[ \frac{1}{R^2} O \right] \tag{7}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Generalizing to
+   <math display="inline">
+    n
+   </math>
+   periods and a claim that pays amounts
+   <math display="inline">
+    O_0, \ldots, O_n
+   </math>
+   at time n, the value at time 0 is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_{0,0} = E_Q \left[ \frac{1}{R^n} O \right] = \frac{1}{R_n} \sum_{j=0}^n C_j^n q_0^{n-j} q_1^j O_j \qquad (8)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    C_i^n
+   </math>
+   is the binomial coefficient
+   <math display="inline">
+    C_i^n = n!/j!
+   </math>
+   <math display="inline">
+    (n - j)!
+   </math>
+   . From equation (3) the initial hedge ratio (the number
+   <math display="inline">
+    N
+   </math>
+   of shares is the hedging portfolio at
+   <math display="inline">
+    time 0) is
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    N = \frac{v_{1,0} - v_{1,1}}{uS - dS}
+   </math>
+   <br/>
+   =
+   <math>
+    \frac{1}{SR^{n-1}(u - d)} \sum_{j=0}^{n-1} C_j^{n-1} q_0^{j} (O_j - O_{j+1})
+   </math>
+   (9)
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   For example, suppose
+   <math display="inline">
+    S = 100
+   </math>
+   ,
+   <math display="inline">
+    R = 1.001
+   </math>
+   ,
+   <math display="inline">
+    u =
+   </math>
+   1.04,
+   <math display="inline">
+    n = 25
+   </math>
+   , and O is a call option with strike
+   <math display="inline">
+    K =
+   </math>
+   100, so that
+   <math display="inline">
+    O_j = [Su^{n-2j} - K]^+
+   </math>
+   . The option value
+  </p>
+  <p block-type="TextInlineMath">
+   is
+   <math display="inline">
+    v_{0.0} = 9.086
+   </math>
+   and
+   <math display="inline">
+    N = 0.588
+   </math>
+   . The initial holding in the bank is therefore
+   <math display="inline">
+    v_{0.0} - NS = -49.72
+   </math>
+   . This is the typical situation: hedging involves leverage (borrowing from the bank to invest in shares).
+  </p>
+  <h4>
+   Scaling the Binomial Model
+  </h4>
+  <p block-type="TextInlineMath">
+   Now let us consider scaling the binomial model to a continuous limit. Take a fixed time horizon T and think of the price
+   <math display="inline">
+    S(i)
+   </math>
+   above, now written
+   <math display="inline">
+    S_n(i)
+   </math>
+   , as the price at time
+   <math display="inline">
+    iT/n = i\Delta t
+   </math>
+   . Suppose the continuously compounding rate of interest is
+   <math display="inline">
+    r
+   </math>
+   , so that
+   <math display="inline">
+    R = e^{r\Delta t}
+   </math>
+   . Finally, define
+   <math display="inline">
+    h = \log u
+   </math>
+   and
+   <math display="inline">
+    X(i) =
+   </math>
+   <math display="inline">
+    \log(S(i)/S(0))
+   </math>
+   ; then
+   <math display="inline">
+    X(i)
+   </math>
+   is a random walk on the lattice
+   <math display="inline">
+    \{\ldots -2h, -h, 0, h, \ldots\}
+   </math>
+   with right and left probabilities
+   <math display="inline">
+    q_0
+   </math>
+   ,
+   <math display="inline">
+    q_1
+   </math>
+   as defined earlier and
+   <math display="inline">
+    X(0) = 0
+   </math>
+   . If we now take
+   <math display="inline">
+    h = \sigma \sqrt{\Delta t}
+   </math>
+   for some constant
+   <math display="inline">
+    \sigma
+   </math>
+   , we find that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    q_0, q_1 = \frac{1}{2} \pm \frac{h}{2\sigma^2} \left( r - \frac{1}{2}\sigma^2 \right) + O(h^2) \qquad (10)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Thus
+   <math display="inline">
+    Z(i) := X(i) - X(i-1)
+   </math>
+   are independent random variables with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    EZ(i) = \frac{h^2}{\sigma^2} \left( r - \frac{1}{2}\sigma^2 \right) + O(h^3)
+   </math>
+   <math display="block">
+    = \left( r - \frac{1}{2}\sigma^2 \right) \Delta t + O(n^{-3/2}) \quad (11)
+   </math>
+  </p>
+  <p block-type="Text">
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \operatorname{var}(Z(i)) = \sigma^2 \Delta t + O(n^{-2}) \tag{12}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Hence
+   <math display="inline">
+    X_n(T) := X(n) = \sum_{i=1}^n Z(i)
+   </math>
+   has mean
+   <math display="inline">
+    \mu_n
+   </math>
+   and variance
+   <math display="inline">
+    V_n
+   </math>
+   such that
+   <math display="inline">
+    \overline{\mu_n} \rightarrow (r - \sigma^2/2)T
+   </math>
+   and
+   <math display="inline">
+    V_n \to \sigma^2 T
+   </math>
+   as
+   <math display="inline">
+    n \to \infty
+   </math>
+   . By the central limit theorem, the distribution of
+   <math display="inline">
+    X_n(T)
+   </math>
+   converges weakly to the normal distribution with the limiting mean and variance. If the contingent claim payoff is a continuous bounded function
+   <math display="inline">
+    O = h(S_n(n))
+   </math>
+   , then the option value converges to a normal expectation that can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_0(S) = \frac{e^{-rT}}{\sqrt{2\pi}} \int_{-1}^1 h\left(S \exp\left(r - \frac{1}{2}\sigma^2\right)T + \sigma\sqrt{T}x\right) e^{-\frac{1}{2}x^2} \mathrm{d}x \tag{13}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This is the Black-Scholes formula. It can be given in more explicit terms when, for example,
+   <math display="inline">
+    h(S) = [S - K]^+
+   </math>
+   , the standard call option (see Black-Scholes Formula).
+  </p>
+  <h4>
+   <b>
+    American Options
+   </b>
+  </h4>
+  <p block-type="Text">
+   In the multiperiod binomial model, the basic computational step is the backward recursion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_{i-1,j} = \frac{1}{R}(q_0 v_{i,j} + q_1 v_{i,j+1}) \tag{14}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   defining the values at time step
+   <math display="inline">
+    i - 1
+   </math>
+   from those at time
+   <math display="inline">
+    i
+   </math>
+   by discounted conditional expectation, starting with the exercise values
+   <math display="inline">
+    v_{n,j} = O_j
+   </math>
+   at the final time
+   <math display="inline">
+    n
+   </math>
+   . In an American option, we have the right to exercise at any time, the exercise value at time
+   <math display="inline">
+    i
+   </math>
+   being some given function
+   <math display="inline">
+    h(i, S_i)
+   </math>
+   , for example,
+   <math display="inline">
+    h(i, S_i) =
+   </math>
+   <math display="inline">
+    [K-S_i]^+
+   </math>
+   for an American put. The exercise value at node
+   <math display="inline">
+    (i, j)
+   </math>
+   in the binomial tree is therefore
+   <math display="inline">
+    \tilde{h}(i, j) =
+   </math>
+   <math display="inline">
+    h(i, Su^{i-2j})
+   </math>
+   . In this case, it is natural to replace equation
+   <math display="inline">
+    (14)
+   </math>
+   by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_{i-1,j} = \max\{v_{k-1,j}^c, h(i-1,j)\}\tag{15}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    v_{i-1,i}^c
+   </math>
+   is given by the right-hand side of equation (14). At each node
+   <math display="inline">
+    (i - 1, j)
+   </math>
+   , we compare the "continuation value"
+   <math display="inline">
+    v_{i-1,j}^c
+   </math>
+   with the "immediate exercise" value
+   <math display="inline">
+    \tilde{h}(i-1, j)
+   </math>
+   and take the larger value. This intuition is correct, and the value
+   <math display="inline">
+    v_{0,0}
+   </math>
+   obtained by applying equation (15) for
+   <math display="inline">
+    i = n, n - 1, \ldots, 1
+   </math>
+   with starting condition
+   <math display="inline">
+    v_{n,j} = \hat{h}(n, j)
+   </math>
+   is the unique arbitrage-free value of the American option at time 0.
+  </p>
+  <p block-type="TextInlineMath" class="has-continuation">
+   The reader should refer to American Options for a complete treatment, but, in outline, the argument establishing the above claim is as follows. The algorithm divides the set of nodes into two, the stop
+   <i>
+    ping set
+   </i>
+   <math display="inline">
+    S = \{(i, j) : v_{i, j} = \tilde{h}(i, j)\}
+   </math>
+   and the complementary
+   <i>
+    continuation set
+   </i>
+   <math display="inline">
+    C
+   </math>
+   . By definition,
+   <math display="inline">
+    (n, j) \in S
+   </math>
+   for
+   <math display="inline">
+    j = 0, \ldots, n
+   </math>
+   . Let
+   <math display="inline">
+    \tau^*
+   </math>
+   be the stopping time
+   <math display="inline">
+    \tau^* =
+   </math>
+   <math display="inline">
+    \min\{i: S_i \in \mathcal{S}\}\.
+   </math>
+   Then
+   <math display="inline">
+    \tau^*
+   </math>
+   is the optimal time at which the holder of the option should exercise. The process
+   <math display="inline">
+    V_i = v_{i, S_i}/R^i
+   </math>
+   is a supermartingale, while the stopped process
+   <math display="inline">
+    V_{i \wedge \tau^*}
+   </math>
+   is a martingale with the property that
+   <math display="inline">
+    V_{i \wedge \tau^*} \ge h(i \wedge \tau^*, S_{i \wedge \tau^*})/R^i
+   </math>
+   . These facts follow from the general theory of optimal stopping, but are not hard to establish directly in the present case. The value
+   <math display="inline">
+    V_{i \wedge \tau^*}
+   </math>
+   can be replicated by trading in the underlying asset (using the basic hedging strategy (3)
+  </p>
+  <p block-type="TextInlineMath">
+   derived for the one-period model). It follows that this strategy (call it
+   <math display="inline">
+    SR
+   </math>
+   ) is the
+   <i>
+    cheapest superreplicating strategy
+   </i>
+   , that is,
+   <math display="inline">
+    x = v_{0,0}
+   </math>
+   is the minimum capital required to construct a trading strategy with value
+   <math display="inline">
+    X_i
+   </math>
+   at time
+   <i>
+    i
+   </i>
+   with the property that
+   <math display="inline">
+    X_i \ge h(i, S_i)
+   </math>
+   for all
+   <i>
+    i
+   </i>
+   almost surely. If the seller of the option is paid more than
+   <math display="inline">
+    v_{0,0}
+   </math>
+   , then he or she can put the excess in the bank and employ the trading strategy
+   <math display="inline">
+    SR
+   </math>
+   , which is guaranteed to cover his or her obligation to the buyer whenever he or she chooses to exercise. Conversely, if the seller will accept
+   <math display="inline">
+    p &lt; v_{0,0}
+   </math>
+   for the option then the buyer should short
+   <math display="inline">
+    SR
+   </math>
+   , obtaining an initial value
+   <math display="inline">
+    v_{0,0}
+   </math>
+   of which p is paid to the seller and
+   <math display="inline">
+    v_{0,0} - p
+   </math>
+   placed in (for clarity) a second bank account. The short strategy has value
+   <math display="inline">
+    -X_i
+   </math>
+   and the buyer exercises at
+   <math display="inline">
+    \tau
+   </math>
+   *, receiving from the seller the exercise value
+   <math display="inline">
+    h(\tau^*, S_{\tau^*}) = X_{\tau^*},
+   </math>
+   which is equal and opposite to the value of the short hedge at
+   <math display="inline">
+    \tau^*
+   </math>
+   . Thus, there is an arbitrage opportunity for one party or the other unless the price is
+   <math display="inline">
+    v_{0,0}
+   </math>
+   .
+  </p>
+  <p block-type="Text">
+   The impact of the binomial model as introduced by
+   <math display="inline">
+    \text{Cox } et al.
+   </math>
+   [1] is largely due to the fact that the European option pricer can be turned into an American option pricer by a trivial one-line modification of the code. Pricing American options in (essentially) the Black-Scholes model was recognized as a free-boundary problem in partial differential equations (PDE) by McKean [3] in 1965, but the only computational techniques were PDE methods (see Finite Difference Methods for Early Exercise Op
+   <b>
+    tions
+   </b>
+   ) generally designed for much more complicated problems.
+  </p>
+  <h4>
+   <b>
+    Computations in the Binomial Model
+   </b>
+  </h4>
+  <p block-type="Text">
+   Nowadays the binomial model is rarely, if ever, used for practical problems, largely because it is comprehensively outperformed by the trinomial tree (see Tree Methods).
+  </p>
+  <p block-type="TextInlineMath">
+   First, the form of the tree given above is probably not the best if we want to regard the tree as an approximation to the Black-Scholes model. We see from equation
+   <math display="inline">
+    (10)
+   </math>
+   that the risk-neutral probabilities
+   <math display="inline">
+    q_0, q_1
+   </math>
+   depend on r, so if we want to calibrate the model to the market yield curve we will need timevarying
+   <math display="inline">
+    q_0, q_1
+   </math>
+   . This can be avoided if we write the Black-Scholes model as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_t = F_{0,t} M_t \tag{16}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    F_{0,t}
+   </math>
+   is the forward price quoted at time 0 for exchange at time
+   <math display="inline">
+    t
+   </math>
+   and
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_t = \exp\left(\sigma W_t - \frac{1}{2}\sigma^2 t\right) \tag{17}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   is the exponential martingale with Brownian motion
+   <math display="inline">
+    W_t
+   </math>
+   . See
+   <b>
+    Black–Scholes Formula
+   </b>
+   for this representation.
+   <math display="inline">
+    F_{0,t}
+   </math>
+   only depends on the spot price
+   <math display="inline">
+    S_0
+   </math>
+   and the yield curve (and the dividend yield, if any), so the only stochastic modeling required relates to the Brownian motion
+   <math display="inline">
+    \sigma W_t
+   </math>
+   . Here we can use a standard "symmetric random walk" approximation: divide the time interval [0, T] into n intervals of length
+   <math display="inline">
+    \delta = T/n
+   </math>
+   and take a space step of length
+   <math display="inline">
+    h = \sigma \sqrt{\delta}
+   </math>
+   . At each discrete time point, the random walk (denoted
+   <math display="inline">
+    X_i
+   </math>
+   ) takes a step of
+   <math display="inline">
+    \pm h
+   </math>
+   with probability 1/2 each—this is just a binomial tree with equal up and down probabilities. For a single step
+   <math display="inline">
+    Z = X_i - X_{i-1} = \pm h
+   </math>
+   we have
+   <math display="inline">
+    E[e^Z] = \cosh h
+   </math>
+   , so if we define
+   <math display="inline">
+    \alpha = \log(\cosh h)
+   </math>
+   then
+   <math display="inline">
+    M_i^{(n)} = \exp(X_i - \alpha i)
+   </math>
+   is a positive discrete-time martingale with
+   <math display="inline">
+    E[M_i^{(n)}] = 1
+   </math>
+   . It is a standard result that the sequence
+   <math display="inline">
+    M^{(n)}
+   </math>
+   (suitably interpreted) converges weakly to
+   <i>
+    M
+   </i>
+   given by equation (17) as
+   <math display="inline">
+    n \to \infty
+   </math>
+   . This gives us a discrete-time model
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    S_i^{(n)} = F_{0,i\delta} M_i^{(n)} \tag{18}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   such that
+   <math display="inline">
+    E[S_i^{(n)}] = F_{0,i\delta}
+   </math>
+   holds
+   <i>
+    exactly
+   </i>
+   at each
+   <i>
+    i
+   </i>
+   . At node
+   <math display="inline">
+    (i, j)
+   </math>
+   in the tree the corresponding price is
+   <math display="inline">
+    F_{0,i\delta} \exp((n-j)h - i\alpha)
+   </math>
+   . Essentially, we have replaced the original multiplicative random walk representing the price
+   <math display="inline">
+    S(t)
+   </math>
+   by an additive random walk representing the return process
+   <math display="inline">
+    \log S(t)
+   </math>
+   . The advantages of this are (i) all the yield curve aspects are bundled up in the model-free function
+   <math display="inline">
+    F
+   </math>
+   , and (ii) the stochastic model is "universal" (and very simple).
+  </p>
+  <p block-type="Text">
+   The decisive drawback of any binomial model is the absolute inflexibility with respect to volatility: it is impossible to maintain a recombining tree while allowing time-varying volatility. This means that the model cannot be calibrated to more than a single option price, making it useless for real pricing applications. The trinomial tree gets around this: we can adjust the local volatility by changing the transition probabilities while maintaining the tree geometry (i.e., the constant spatial step
+   <math display="inline">
+    h
+   </math>
+   ).
+  </p>
+  <h2>
+   <b>
+    References
+   </b>
+  </h2>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [4] Shreve, S.E. (2005).
+     <i>
+      Stochastic Calculus for Finance, Vol 1: The Binomial Asset Pricing Model
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [1] Cox, J., Ross, S. &amp; Rubinstein, M. (1979). Option pricing, a simplified approach,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      7
+     </b>
+     , 229–263.
+    </li>
+    <li block-type="ListItem">
+     [2] Elliott, R.J. &amp; Kopp, P.E. (2005).
+     <i>
+      Mathematics of Financial Markets
+     </i>
+     , 2nd Edition, Springer.
+    </li>
+    <li block-type="ListItem">
+     [3] McKean, H.P. (1965). Appendix to P.A. Samuelson, rational theory of warrant pricing,
+     <i>
+      Industrial Management Review
+     </i>
+     <b>
+      6
+     </b>
+     , 13–31.
+    </li>
+    <li block-type="ListItem">
+     <b>
+      Related Articles
+     </b>
+    </li>
+   </ul>
+  </p>
+  <p block-type="Text">
+   <b>
+    Black–Scholes Formula
+   </b>
+   ;
+   <b>
+    Quantization Methods
+   </b>
+   ;
+   <b>
+    Tree Methods
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   MARK H.A. DAVIS
+  </p>
+ </body>
+</html>

@@ -1,0 +1,2565 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <body>
+  <h1>
+   <b>
+    Pricing Formulae for Foreign Exchange Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   The foreign exchange options market is highly competitive, even for products beyond vanilla call and put options. This means that pricing and risk management systems always need to have the fastest possible method to compute values and sensitivities for all the products in the book. Only then can a trader or risk manager know the current position and risk of his book. The ideal solution is to use pricing formulae in closed form. However, this is often only possible in the Black-Scholes model.
+  </p>
+  <h1>
+   <b>
+    General Model Assumptions and
+   </b>
+   Abbreviations
+  </h1>
+  <p block-type="Text">
+   Throughout this article, we denote the current value of the spot
+   <math display="inline">
+    S_t
+   </math>
+   by x and use the abbreviations listed in Table 1.
+  </p>
+  <p block-type="TextInlineMath">
+   The pricing follows the usual procedures of Arbitrage pricing theory and the Fundamental theorem of asset pricing. In a foreign exchange market, this means that we model the underlying exchange rate by a geometric Brownian motion
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    dS_t = (r_d - r_f)S_t dt + \sigma S_t dW_t \tag{1}
+   </math>
+  </p>
+  <p block-type="Text">
+   where
+   <math display="inline">
+    r_d
+   </math>
+   denotes the domestic interest rate,
+   <math display="inline">
+    \sigma
+   </math>
+   the volatility, and
+   <math display="inline">
+    W_t
+   </math>
+   the standard Brownian motion; see Foreign Exchange Symmetries for details. Most importantly, we note that there is a foreign interest rate
+   <math display="inline">
+    r_f
+   </math>
+   . As in
+   <b>
+    Option Pricing: General Princi
+   </b>
+   ples, one can compute closed-form solutions for many options types with payoff
+   <math display="inline">
+    F(S_T)
+   </math>
+   at maturity
+   <math display="inline">
+    T
+   </math>
+   directly
+   <i>
+    via
+   </i>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t,x) = e^{-r_d T} \mathbb{E}[F(S_T)|S_t = x]
+   </math>
+   <br/>
+   =
+   <math>
+    e^{-r_d T} \mathbb{E}\left[F\left(x e^{(r_d - r_f - \frac{1}{2}\sigma^2)\tau + \sigma\sqrt{\tau}Z}\right)\right]
+   </math>
+   (2)
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    v(t, x)
+   </math>
+   denotes the value of the derivative with payoff
+   <math display="inline">
+    F
+   </math>
+   at time
+   <math display="inline">
+    t
+   </math>
+   if the spot is at
+   <math display="inline">
+    x
+   </math>
+   . The random variable
+   <math display="inline">
+    Z
+   </math>
+   represents the continuous returns, which are modeled as standard normal in the Black-Scholes
+   <b>
+    model
+   </b>
+   . In this model, we can proceed as
+  </p>
+  <p block-type="Text">
+   &lt;table&gt;
+   <b>
+    Table 1
+   </b>
+   Abbreviations used for the pricing formulae of
+   <math display="inline">
+    FX
+   </math>
+   options
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      <math>
+       \tau \stackrel{\Delta}{=} T - t
+      </math>
+     </th>
+     <th>
+      <math>
+       \theta_{\pm} \triangleq \frac{r_d - r_f}{\sigma} \pm \frac{\sigma}{2}
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       D_d \stackrel{\Delta}{=} e^{-r_d \tau}
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       d_{\pm} \triangleq \frac{\ln\left(\frac{x}{K}\right) + \sigma\theta_{\pm}\tau}{\sigma_{2}\sqrt{\tau}}
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       D_f \stackrel{\Delta}{=} \mathrm{e}^{-r_f \tau}
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       x_{\pm} \triangleq \frac{\ln\left(\frac{x}{B}\right) + \sigma\theta_{\pm}\tau}{\sqrt{-}}
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       n(t) \stackrel{\Delta}{=} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}}
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       z_{\pm} \stackrel{\Delta}{=} \frac{\ln\left(\frac{B^2}{xK}\right) + \sigma\theta_{\pm}\tau}{\sigma_{\pm}/\tau}
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \mathcal{N}(x) \stackrel{\Delta}{=} \int_{-\infty}^{x} n(t) \, \mathrm{d}t
+      </math>
+     </td>
+     <td>
+      <math display="block">
+       y_{\pm} \triangleq \frac{\ln\left(\frac{B}{x}\right) + \sigma\theta_{\pm}\tau}{\ln\sqrt{1 - \frac{B}{\tau}}}
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       \phi = +1
+      </math>
+      for call options
+     </td>
+     <td>
+      <math>
+       \phi = -1
+      </math>
+      for put options
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       t
+      </math>
+      : current time
+     </td>
+     <td>
+      <math>
+       T
+      </math>
+      : maturity time
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       K
+      </math>
+      : strike
+     </td>
+     <td>
+      <math>
+       B, L, H
+      </math>
+      : barriers
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    v(t,x)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = e^{-r_d \tau} \int_{-\infty}^{+\infty} F\left(x e^{(r_d - r_f - \frac{1}{2}\sigma^2)\tau + \sigma\sqrt{\tau}z}\right) n(z) dz
+   </math>
+   <math display="block">
+    = D_d \int_{-\infty}^{+\infty} F\left(x e^{\sigma\theta_{-}\tau + \sigma\sqrt{\tau}z}\right) n(z) dz \tag{3}
+   </math>
+  </p>
+  <p block-type="Text">
+   The rest is working out the integration. In other models, one would replace the normal density by another density function such as a
+   <math display="inline">
+    t
+   </math>
+   -density. However, in many other models densities are not explicitly known, or even if they are, the integration becomes cumbersome.
+  </p>
+  <p block-type="Text">
+   For the resulting pricing formulae, there are many sources, for example, [7, 11, 17]. Many general books on
+   <b>
+    Option Pricing
+   </b>
+   also contain formulae in a context outside the foreign exchange, for example, [8, 18]. Obviously, we cannot cover all possible formulae in this section. We give an overview of several relevant examples and refer to Foreign Exchange Basket Options; Margrabe Formula; Quanto Options for more. FX vanilla options are covered in Foreign
+   <b>
+    Exchange Symmetries.
+   </b>
+  </p>
+  <h2>
+   <b>
+    Barrier Options
+   </b>
+  </h2>
+  <p block-type="Text">
+   We consider the payoff for single-barrier knock-out options
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} [\phi(S_T - K)]^+ \mathbf{I}_{\{\eta S_t &gt; \eta B, 0 \le t \le T\}} \\ &amp;= [\phi(S_T - K)]^+ \mathbf{I}_{\{\min_{t \in [0, T]} (\eta S_t) &gt; \eta B\}} \end{aligned} \tag{4}
+   </math>
+  </p>
+  <p block-type="Text">
+   where the binary variable
+   <math display="inline">
+    \eta
+   </math>
+   takes the value +1 if the barrier
+   <math display="inline">
+    B
+   </math>
+   is approached from above (down-andout) and
+   <math display="inline">
+    -1
+   </math>
+   if the barrier is approached from below (up-and-out).
+  </p>
+  <p block-type="Text">
+   To price knock-in options paying
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    [\phi(S_T - K)]^+ \mathbb{I}_{\{\min_{t \in [0,T]} (\eta S_t) \le \eta B\}} \tag{5}
+   </math>
+  </p>
+  <p block-type="Text">
+   we use the fact that
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{knock-in} + \text{knock-out} = \text{vanilla}
+   </math>
+   (6)
+  </p>
+  <p block-type="TextInlineMath">
+   Computing the value of a barrier option in the Black-Scholes model boils down to knowing the joint density
+   <math display="inline">
+    f(x, y)
+   </math>
+   for a Brownian motion with drift and its running extremum
+   <math display="inline">
+    (\eta = +1
+   </math>
+   for a minimum and
+   <math display="inline">
+    \eta = -1
+   </math>
+   for a maximum),
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \left(W(T) + \theta_{-}T, \eta \min_{0 \le t \le T} \left[\eta(W(t) + \theta_{-}t)\right]\right) \quad (7)
+   </math>
+  </p>
+  <p block-type="Text">
+   which is derived, for example, in [15], and can be written as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    f(x, y) = -\eta e^{\theta_{-}x - \frac{1}{2}\theta_{-}^{2}T} \frac{2(2y - x)}{T\sqrt{2\pi T}} \exp\left\{-\frac{(2y - x)^{2}}{2T}\right\}, \quad (8)
+   </math>
+   <math display="block">
+    \eta y \leq \min(0, \eta x)
+   </math>
+  </p>
+  <p block-type="Text">
+   Using the density (8), the value of a barrier option can be written as the following integral
+  </p>
+  <p block-type="Equation">
+   barrier
+   <math display="block">
+    (S_0, \sigma, r_d, r_f, K, B, T)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = e^{-r_d T} \mathbb{E} \left[ \left[ \phi(S_T - K) \right]^+ \mathbb{I}_{\{\eta S_t &gt; \eta B, 0 \le t \le T\}} \right] \quad (9)
+   </math>
+   <math display="block">
+    = e^{-r_d T} \int_{x = -\infty}^{x = +\infty} \int_{\eta y \le \min(0, \eta x)} \left[ \phi(S_0 e^{\sigma x} - K) \right]^+ \times \mathbb{I}_{\left\{\eta y &gt; \eta \frac{1}{\sigma} \ln \frac{B}{S_0} \right\}} f(x, y) \, \mathrm{d}y \, \mathrm{d}x \quad (10)
+   </math>
+  </p>
+  <p block-type="Text">
+   Further details on how to evaluate this integral can be found in [15]. It results in four terms. We provide the four terms and summarize, in Table 2, how they are used to find the value function (see also [13] or [14]).
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_1 = \phi x D_f \mathcal{N}(\phi d_+) - \phi K D_d \mathcal{N}(\phi d_-) \tag{11}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_2 = \phi x D_f \mathcal{N}(\phi x_+) - \phi K D_d \mathcal{N}(\phi x_-) \tag{12}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    A_{3} = \phi \left(\frac{B}{x}\right)^{\frac{2\theta_{-}}{\sigma}}
+   </math>
+   <math display="block">
+    \times \left[xD_{f}\left(\frac{B}{x}\right)^{2}\mathcal{N}(\eta z_{+}) - KD_{d}\mathcal{N}(\eta z_{-})\right] \tag{13}
+   </math>
+   <math display="block">
+    A_{4} = \phi \left(\frac{B}{x}\right)^{\frac{2\theta_{-}}{\sigma}}
+   </math>
+   <math display="block">
+    \times \left[xD_{f}\left(\frac{B}{x}\right)^{2}\mathcal{N}(\eta y_{+}) - KD_{d}\mathcal{N}(\eta y_{-})\right] \tag{14}
+   </math>
+  </p>
+  <p>
+   <b>
+    Table 2
+   </b>
+   The summands for the value of single barrier options
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Option type
+     </th>
+     <th>
+      <math>
+       \phi
+      </math>
+     </th>
+     <th>
+      <math>
+       \eta
+      </math>
+     </th>
+     <th>
+      In/Out
+     </th>
+     <th>
+      Reverse
+     </th>
+     <th>
+      Combination
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Standard up-and-in call
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      in
+     </td>
+     <td>
+      K &gt; B
+     </td>
+     <td>
+      <math>
+       A_1
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Reverse up-and-in call
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      in
+     </td>
+     <td>
+      K &lt; B
+     </td>
+     <td>
+      <math>
+       A_2 - A_3 + A_4
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Reverse up-and-in put
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      in
+     </td>
+     <td>
+      K &gt; B
+     </td>
+     <td>
+      <math>
+       A_1 - A_2 + A_4
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Standard up-and-in put
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      in
+     </td>
+     <td>
+      <math>
+       K \leq B
+      </math>
+     </td>
+     <td>
+      <math>
+       A_3
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Standard down-and-in call
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      in
+     </td>
+     <td>
+      K &gt; R
+     </td>
+     <td>
+      <math>
+       A_3
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Reverse down-and-in call
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      in
+     </td>
+     <td>
+      <math>
+       K \leq B
+      </math>
+     </td>
+     <td>
+      <math>
+       A_1 - A_2 + A_4
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Reverse down-and-in put
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      in
+     </td>
+     <td>
+      K &gt; B
+     </td>
+     <td>
+      <math>
+       A_2 - A_3 + A_4
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Standard down-and-in put
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      in
+     </td>
+     <td>
+      K &lt; B
+     </td>
+     <td>
+      <math>
+       A_1
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Standard up-and-out call
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      out
+     </td>
+     <td>
+      K &gt; R
+     </td>
+     <td>
+      0
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Reverse up-and-out call
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      out
+     </td>
+     <td>
+      K &lt; B
+     </td>
+     <td>
+      <math>
+       A_1 - A_2 + A_3 - A_4
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Reverse up-and-out put
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      out
+     </td>
+     <td>
+      K &gt; B
+     </td>
+     <td>
+      <math>
+       A_2 - A_4
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Standard up-and-out put
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      out
+     </td>
+     <td>
+      <math>
+       K \leq B
+      </math>
+     </td>
+     <td>
+      <math>
+       A_1 - A_3
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Standard down-and-out call
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      out
+     </td>
+     <td>
+      K &gt; B
+     </td>
+     <td>
+      <math>
+       A_1 - A_3
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Reverse down-and-out call
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      out
+     </td>
+     <td>
+      K &lt; B
+     </td>
+     <td>
+      <math>
+       A_2 - A_4
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Reverse down-and-out put
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      out
+     </td>
+     <td>
+      K &gt; B
+     </td>
+     <td>
+      <math>
+       A_1 - A_2 + A_3 - A_4
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      Standard down-and-out put
+     </td>
+     <td>
+      <math>
+       -1
+      </math>
+     </td>
+     <td>
+      <math>
+       +1
+      </math>
+     </td>
+     <td>
+      out
+     </td>
+     <td>
+      <math>
+       K \leq B
+      </math>
+     </td>
+     <td>
+      0
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h1>
+   <b>
+    Digital and Touch Options
+   </b>
+  </h1>
+  <p block-type="Text">
+   Digital Options
+  </p>
+  <p block-type="Text">
+   Digital options have a payoff
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(T, S_T) = I_{\{\phi S_T \ge \phi K\}}
+   </math>
+   domestic paying (15)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    w(T, S_T) = S_T \mathbb{I}_{\{\phi S_T &gt; \phi K\}}
+   </math>
+   foreign paying (16)
+  </p>
+  <p block-type="Text">
+   In the domestic paying case, the payment of the fixed amount is in domestic currency, whereas in the foreign paying case the payment is in foreign currency. We obtain for the value functions
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t,x) = D_d \mathcal{N}(\phi d_-) \tag{17}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    w(t, x) = x D_f \mathcal{N}(\phi d_+) \tag{18}
+   </math>
+  </p>
+  <p block-type="Text">
+   of the digital options paying one unit of domestic and paying one unit of foreign currency, respectively.
+  </p>
+  <h4>
+   One-touch Options
+  </h4>
+  <p block-type="Text">
+   The payoff of a one-touch is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R\,I\!I_{\{\tau_B\leq T\}}\tag{19}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_B \stackrel{\Delta}{=} \inf\{t \ge 0 : \eta S_t \le \eta B\} \tag{20}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   This type of option pays a domestic cash amount
+   <math display="inline">
+    R
+   </math>
+   if a barrier
+   <math display="inline">
+    B
+   </math>
+   is hit any time before the expiration time. We use the binary variable
+   <math display="inline">
+    \eta
+   </math>
+   to describe whether B is a lower barrier
+   <math display="inline">
+    (\eta = 1)
+   </math>
+   or an upper barrier
+   <math display="inline">
+    (\eta = -1)
+   </math>
+   . The stopping time
+   <math display="inline">
+    \tau_B
+   </math>
+   is called the first hitting time. In FX markets, an option with this payoff is usually called a one-touch (option), onetouch-digital, or hit option. The modified payoff of a
+   <i>
+    no-touch
+   </i>
+   (
+   <i>
+    option
+   </i>
+   ),
+   <math display="inline">
+    RI_{\{\tau_R&gt;T\}}
+   </math>
+   describes a rebate, which is paid if a knock-in-option is not knocked-in by the time it expires and can be valued similarly by exploiting the identity
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    R\mathbf{I}_{\{\tau_B \le T\}} + R\mathbf{I}_{\{\tau_B &gt; T\}} = R \tag{21}
+   </math>
+  </p>
+  <p block-type="Text">
+   Furthermore, we distinguish the time at which the rebate is paid and let
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \omega = 0
+   </math>
+   , if the rebate is paid at first hitting time
+   <math>
+    \tau_B
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \omega = 1
+   </math>
+   , if the rebate is paid at maturity time T
+  </p>
+  <p block-type="Equation">
+  </p>
+  <p block-type="TextInlineMath">
+   where the former is also called instant one-touch and the latter is the default in FX options markets. It is important to mention that the payoff is one unit of the domestic currency. For a payment in the foreign currency EUR, one needs to exchange
+   <math display="inline">
+    r_d
+   </math>
+   and
+   <math display="inline">
+    r_f
+   </math>
+   , replace x and B by their reciprocal values, and change the sign of
+   <math display="inline">
+    \eta
+   </math>
+   ; see Foreign Exchange Symmetries.
+  </p>
+  <p block-type="Text">
+   For the one-touch, we use the abbreviations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \vartheta_{-} \stackrel{\Delta}{=} \sqrt{\theta_{-}^{2} + 2(1 - \omega)r_{d}} \quad \text{and}
+   </math>
+   <math display="block">
+    e_{\pm} \stackrel{\Delta}{=} \frac{\pm \ln \frac{x}{B} - \sigma \vartheta_{-} \tau}{\sigma \sqrt{\tau}} \tag{24}
+   </math>
+  </p>
+  <p block-type="Text">
+   The theoretical value of the one-touch turns out to be
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t,x) = Re^{-\omega r_d \tau}
+   </math>
+   <math display="block">
+    \times \left[ \left(\frac{B}{x}\right)^{\frac{\theta_- + \theta_-}{\sigma}} \mathcal{N}(-\eta e_+) + \left(\frac{B}{x}\right)^{\frac{\theta_- - \theta_-}{\sigma}} \mathcal{N}(\eta e_-) \right]
+   </math>
+   (25)
+  </p>
+  <p block-type="TextInlineMath">
+   Note that
+   <math display="inline">
+    \vartheta_- = |\theta_-|
+   </math>
+   for rebates paid-at-end (
+   <math display="inline">
+    \omega = 1
+   </math>
+   ).
+  </p>
+  <p block-type="Text">
+   The risk-neutral probability of knocking out is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{I}\!\!P[\tau_B \le T] = \mathbb{I}\!\!E\left[\mathbb{I}\!\!I_{\{\tau_B \le T\}}\right] = \frac{1}{R} e^{r_d T} v(0, S_0) \quad (26)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   Properties of the First Hitting Time
+   <math display="inline">
+    \tau_B
+   </math>
+   . As derived, for example, in [15], the first hitting time
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{\tau} \stackrel{\Delta}{=} \inf\{t \ge 0 : \theta t + W(t) = x\} \tag{27}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   of a Brownian motion with drift
+   <math display="inline">
+    \theta
+   </math>
+   and hit level
+   <math display="inline">
+    x &gt; 0
+   </math>
+   has the density
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{aligned} &amp;IP[\tilde{\tau} \in \mathrm{d}t] \\ &amp;= \frac{x}{t\sqrt{2\pi t}} \exp\left\{-\frac{(x-\theta t)^2}{2t}\right\} \mathrm{d}t, \quad t &gt; 0 \quad (28) \end{aligned}
+   </math>
+  </p>
+  <p block-type="Text">
+   the cumulative distribution function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} \mathit{IP}[\tilde{\tau} \leq t] &amp;= \mathcal{N}\bigg(\frac{\theta t - x}{\sqrt{t}}\bigg) \\ &amp;+ \mathrm{e}^{2\theta x} \mathcal{N}\bigg(\frac{-\theta t - x}{\sqrt{t}}\bigg), \quad t &gt; 0 \quad (29) \end{split}
+   </math>
+  </p>
+  <p block-type="Text">
+   the Laplace transform
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbb{E}e^{-\alpha\tilde{\tau}} = \exp\left\{x\theta - x\sqrt{2\alpha + \theta^2}\right\}, \quad \alpha &gt; 0, \quad x &gt; 0
+   </math>
+   (30)
+  </p>
+  <p block-type="Text">
+   and the property
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathit{IP}[\tilde{\tau} &lt; \infty] = \begin{cases} 1 &amp; \text{if } \theta \ge 0 \\ e^{2\theta x} &amp; \text{if } \theta &lt; 0 \end{cases} \tag{31}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   For upper barriers
+   <math display="inline">
+    B &gt; S_0
+   </math>
+   , we can now rewrite the first passage time
+   <math display="inline">
+    \tau_B
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_B = \inf\{t \ge 0 : S_t = B\}
+   </math>
+   <math display="block">
+    = \inf\left\{t \ge 0 : W_t + \theta_- t = \frac{1}{\sigma} \ln\left(\frac{B}{S_0}\right)\right\} \quad (32)
+   </math>
+  </p>
+  <p block-type="Text">
+   The density of
+   <math display="inline">
+    \tau_B
+   </math>
+   is hence
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    IP[\tilde{\tau_B} \in dt] = \frac{\frac{1}{\sigma} \ln\left(\frac{B}{S_0}\right)}{t\sqrt{2\pi t}}
+   </math>
+   <math display="block">
+    \times \exp\left\{-\frac{\left(\frac{1}{\sigma} \ln\left(\frac{B}{S_0}\right) - \theta_{-t}\right)^2}{2t}\right\}, \quad t &gt; 0
+   </math>
+   (33)
+  </p>
+  <p block-type="TextInlineMath">
+   Derivation of the value function. Using the density (33), the value of the paid-at-end (
+   <math display="inline">
+    \omega = 1
+   </math>
+   ) upper rebate (
+   <math display="inline">
+    \eta = -1
+   </math>
+   ) option can be written as the following integral:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(T, S_0) = Re^{-r_d T} \mathbb{E} \left[ \mathbb{I}_{\{\tau_B \le T\}} \right]
+   </math>
+   <br/>
+   <math display="block">
+    = Re^{-r_d T} \int_0^T \frac{\frac{1}{\sigma} \ln \left(\frac{B}{S_0}\right)}{t \sqrt{2\pi t}}
+   </math>
+   <br/>
+   <math display="block">
+    \times \exp \left\{ -\frac{\left(\frac{1}{\sigma} \ln \left(\frac{B}{S_0}\right) - \theta_{-t}\right)^2}{2t} \right\} dt \quad (34)
+   </math>
+  </p>
+  <p block-type="Text">
+   To evaluate this integral, we introduce the notation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathbf{e}_{\pm}(t) \triangleq \frac{\pm \ln \frac{S_0}{B} - \sigma \theta_{-} t}{\sigma \sqrt{t}} \tag{35}
+   </math>
+  </p>
+  <p block-type="Text">
+   and list the properties
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e_{-}(t) - e_{+}(t) = \frac{2}{\sqrt{t}} \frac{1}{\sigma} \ln\left(\frac{B}{S_0}\right)
+   </math>
+   (36)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    n(\mathbf{e}_{+}(t)) = \left(\frac{B}{S_{0}}\right)^{-\frac{2\theta_{-}}{\sigma}} n(\mathbf{e}_{-}(t)) \quad (37)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \frac{\partial \mathbf{e}_{\pm}(t)}{\partial t} = \frac{\mathbf{e}_{\mp}(t)}{2t} \tag{38}
+   </math>
+  </p>
+  <p block-type="Text">
+   We evaluate the integral in equation
+   <math display="inline">
+    (34)
+   </math>
+   by rewriting the integrand in such a way that the coefficients of the exponentials are the inner derivatives of the exponentials using properties
+   <math display="inline">
+    (36)
+   </math>
+   –
+   <math display="inline">
+    (38)
+   </math>
+   .
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{split} &amp;\int_{0}^{T} \frac{\frac{1}{\sigma} \ln\left(\frac{B}{S_{0}}\right)}{t\sqrt{2\pi t}} \exp\left\{-\frac{\left(\frac{1}{\sigma} \ln\left(\frac{B}{S_{0}}\right) - \theta_{-}t\right)^{2}}{2t}\right\} dt \\ &amp;= \frac{1}{\sigma} \ln\left(\frac{B}{S_{0}}\right) \int_{0}^{T} \frac{1}{t^{(3/2)}} n(\mathbf{e}_{-}(t)) dt \\ &amp;= \int_{0}^{T} \frac{1}{2t} n(\mathbf{e}_{-}(t)) [\mathbf{e}_{-}(t) - \mathbf{e}_{+}(t)] dt \\ &amp;= -\int_{0}^{T} n(\mathbf{e}_{-}(t)) \frac{\mathbf{e}_{+}(t)}{2t} + \left(\frac{B}{S_{0}}\right)^{\frac{2\theta_{-}}{\sigma}} n(\mathbf{e}_{+}(t)) \frac{\mathbf{e}_{-}(t)}{2t} dt \\ &amp;= \left(\frac{B}{S_{0}}\right)^{\frac{2\theta_{-}}{\sigma}} \mathcal{N}(\mathbf{e}_{+}(T)) + \mathcal{N}(-\mathbf{e}_{-}(T)) \end{split} \tag{39}
+   </math>
+  </p>
+  <p block-type="Text">
+   The computation for lower barriers (
+   <math display="inline">
+    \eta = 1
+   </math>
+   ) is similar.
+  </p>
+  <h3>
+   Double-no-touch Options
+  </h3>
+  <p block-type="Text">
+   A double-no-touch with payoff function
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    I_{\{L &lt; \min_{t \in [0,T]} S_t \le \max_{t \in [0,T]} S_t &lt; H\}}
+   </math>
+   (40)
+  </p>
+  <p block-type="Text" class="has-continuation">
+   pays one unit of domestic currency at maturity
+   <math display="inline">
+    T
+   </math>
+   , if the spot never touches any of the two barriers, where the lower barrier is denoted by
+   <math display="inline">
+    L
+   </math>
+   , the higher
+  </p>
+  <p block-type="Text">
+   barrier by
+   <math display="inline">
+    H
+   </math>
+   . A
+   <i>
+    double-one-touch
+   </i>
+   pays one unit of domestic currency at maturity, if the spot either touches or crosses any of the lower or higher barrier at least once between inception of the trade and maturity. This means that a portfolio of a doubleone-touch and a double-no-touch is equivalent to a certain payment of one unit of domestic currency at maturity.
+  </p>
+  <p block-type="Text">
+   To compute the value, let us introduce the stopping time
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tau_{L,H} \stackrel{\Delta}{=} \min \{ \inf \{ t \in [0,T] | S_t = L \text{ or } S_t = H \}, T \}
+   </math>
+   (41)
+  </p>
+  <p block-type="Text">
+   and the notation
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{h} \stackrel{\Delta}{=} \frac{1}{\sigma} \ln \frac{H}{S_t} \tag{42}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{l} \triangleq \frac{1}{\sigma} \ln \frac{L}{S_t} \tag{43}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \tilde{\theta}_{\pm} \stackrel{\Delta}{=} \theta_{\pm} \sqrt{\tau} \tag{44}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h \stackrel{\Delta}{=} \tilde{h}/\sqrt{\tau} \tag{45}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    l \stackrel{\Delta}{=} \tilde{l}/\sqrt{\tau} \tag{46}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \epsilon_{\pm} \stackrel{\Delta}{=} \epsilon_{\pm}(j) = 2j(h-l) - \tilde{\theta}_{\pm} \n
+   </math>
+   (47)
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    n_T(x) \triangleq \frac{1}{\sqrt{2\pi T}} \exp\left(-\frac{x^2}{2T}\right) \tag{48}
+   </math>
+  </p>
+  <p block-type="Text">
+   At any time
+   <math display="inline">
+    t &lt; \tau_{L,H}
+   </math>
+   , the value of the double-notouch is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t) = I\!E^{t} \left[ D_{d} I\!I_{\{L &lt; \min_{t \in [0,T]} S_{t} \le \max_{t \in [0,T]} S_{t} &lt; H\}} \right]
+   </math>
+   (49)
+  </p>
+  <p block-type="TextInlineMath">
+   and for
+   <math display="inline">
+    t \in [\tau_{L,H}, T]
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t) = D_d \, \mathbf{I}_{\{L &lt; \min_{t \in [0,T]} S_t \le \max_{t \in [0,T]} S_t &lt; H\}} \tag{50}
+   </math>
+  </p>
+  <p block-type="Text">
+   The joint distribution of the maximum and the minimum of a Brownian motion can be taken from
+   <math display="inline">
+    [12]
+   </math>
+   and is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathit{IP}\left[\tilde{l} &lt; \min_{[0,T]} W_t \le \max_{[0,T]} W_t &lt; \tilde{h}\right] = \int_{\tilde{l}}^{\tilde{h}} k_T(x) \, \mathrm{d}x \tag{51}
+   </math>
+  </p>
+  <p block-type="Text">
+   with
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k_T(x) = \sum_{j=-\infty}^{\infty} \left[ n_T(x+2j(\tilde{h}-\tilde{l})) - n_T(x-2\tilde{h}+2j(\tilde{h}-\tilde{l})) \right]
+   </math>
+   (52)
+  </p>
+  <p block-type="TextInlineMath">
+   One can use Girsanov's theorem (see
+   <b>
+    Equivalent
+   </b>
+   Martingale Measures) to deduce that the joint density of the maximum and the minimum of a Brownian motion with drift
+   <math display="inline">
+    \theta
+   </math>
+   ,
+   <math display="inline">
+    W_t^{\theta} \stackrel{\Delta}{=} W_t + \theta t
+   </math>
+   , is then given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    k_T^{\theta}(x) \stackrel{\Delta}{=} k_T(x) \exp\left\{\theta x - \frac{1}{2}\theta^2 T\right\} \tag{53}
+   </math>
+  </p>
+  <p block-type="Text">
+   We obtain for the value of the double-no-touch at any time
+   <math display="inline">
+    t &lt; \tau_{L,H}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t, S_{t}) = D_{d} \mathbb{E} \mathbb{I} \left\{_{L &lt; \min_{u \in [t, T]} S_{u} \le \max_{u \in [t, T]} S_{u} &lt; H} \right\}
+   </math>
+   <br/>
+   <math display="block">
+    = D_{d} \mathbb{E} \mathbb{I} \left\{_{\tilde{l} &lt; \min_{u \in [t, T]} W_{u}^{\theta_{-}} \le \max_{u \in [t, T]} W_{u}^{\theta_{-}} &lt; \tilde{h}} \right\}
+   </math>
+   <br/>
+   <math display="block">
+    = D_{d} \int_{\tilde{l}}^{\tilde{h}} k_{(T - t)}^{\theta_{-}}(x) dx
+   </math>
+   <br/>
+   <math display="block">
+    = D_{d} \cdot \sum_{j = -\infty}^{\infty} \left[ e^{-2j\tilde{\theta}_{-}(h - l)} \times \left\{ \mathcal{N}(h + \epsilon_{-}) - \mathcal{N}(l + \epsilon_{-}) \right\} - e^{-2j\tilde{\theta}_{-}(h - l) + 2\tilde{\theta}_{-} h} \times \left\{ \mathcal{N}(h - 2h + \epsilon_{-}) - \mathcal{N}(l - 2h + \epsilon_{-}) \right\} \right]
+   </math>
+   <br/>
+   (54)
+  </p>
+  <p block-type="TextInlineMath">
+   and for
+   <math display="inline">
+    t \in [\tau_{L,H}, T]
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t, S_t) = D_d \, \mathbb{I}_{\{L &lt; \min_{u \in [t,T]} S_u \le \max_{u \in [t,T]} S_t &lt; H\}} \tag{55}
+   </math>
+  </p>
+  <p block-type="Text">
+   Of course, the value of the double-one-touch is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    D_d - v(t, S_t) \tag{56}
+   </math>
+  </p>
+  <p block-type="Text">
+   To obtain a formula for a double-no-touch paying foreign currency, see Foreign Exchange Symmetries.
+  </p>
+  <h2>
+   <b>
+    Lookback Options
+   </b>
+  </h2>
+  <p block-type="Text" class="has-continuation">
+   <b>
+    Lookback
+   </b>
+   options are path dependent. At expiration, the holder of the option can "look back" over the lifetime of the option and exercise based upon the optimal underlying value (extremum) achieved during
+  </p>
+  <p block-type="Text">
+   that period. Thus, lookback options (like Asian
+   <b>
+    options
+   </b>
+   ) avoid the problem of European options that the underlying performed favorably throughout most of the option's lifetime but moves into a nonfavorable direction toward maturity. Moreover, (unlike American Options) lookback options optimize the market timing, because the investor gets, by definition, the most favorable underlying price. As summarized in Table 3,
+   <b>
+    lookback
+   </b>
+   options can be structured in two different types with the extremum representing either the strike price or the underlying value. Figure 1 shows the development of the payoff of lookback options depending on a sample price path. In detail, we define
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    M_T \stackrel{\Delta}{=} \max_{0 \le u \le T} S(u) \quad \text{and} \quad m_T \stackrel{\Delta}{=} \min_{0 \le u \le T} S(u) \quad (57)
+   </math>
+  </p>
+  <p block-type="Text">
+   Variations of lookback options include
+   <i>
+    partial
+   </i>
+   lookback options, where the monitoring period for the underlying is shorter than the lifetime of the option. Conze and Viswanathan [2] present further variations like
+   <i>
+    limited risk
+   </i>
+   and
+   <i>
+    American lookback
+   </i>
+   options.
+  </p>
+  <p block-type="Text">
+   In theory, Garman pointed out in [4], that lookback options can also add value for risk managers, because floating (fixed) strike lookback options are good means to solve the timing problem of market entries (exits) (see [9]). For instance, a minimum strike call is suitable for avoiding missing the best
+  </p>
+  <p>
+   <b>
+    Table 3
+   </b>
+   Types of lookback options. The contract parameters
+   <math display="inline">
+    T
+   </math>
+   and
+   <math display="inline">
+    X
+   </math>
+   are the time to maturity and the strike price, respectively, and
+   <math display="inline">
+    S_T
+   </math>
+   denotes the spot price at expiration time. Fixed strike lookback options are also called
+   <i>
+    hindsight
+   </i>
+   options
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Payoff
+     </th>
+     <th>
+      Lookback type
+     </th>
+     <th>
+      Parameter used below
+      <br/>
+      in valuation
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       M_T - S_T
+      </math>
+     </td>
+     <td>
+      Floating strike put
+     </td>
+     <td>
+      <math>
+       \phi = -1, \bar{\eta} = +1
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       S_T - m_T
+      </math>
+     </td>
+     <td>
+      Floating strike call
+     </td>
+     <td>
+      <math>
+       \phi = +1, \bar{\eta} = +1
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       (M_T - X)^+
+      </math>
+     </td>
+     <td>
+      Fixed strike call
+     </td>
+     <td>
+      <math>
+       \phi = +1, \bar{\eta} = -1
+      </math>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       (X-m_T)^+
+      </math>
+     </td>
+     <td>
+      Fixed strike put
+     </td>
+     <td>
+      <math>
+       \phi = -1, \bar{\eta} = -1
+      </math>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   exchange rate in currency-linked security issues. However, this right is very expensive. Since one buys a guarantee for the best possible exchange rate ever, lookback options are generally too expensive and hardly ever trade. Exceptions are performance notes, where lookback and average features are mixed, for example, performance notes paying say
+   <math display="inline">
+    50\%
+   </math>
+   of the best of 36 monthly average gold price returns.
+  </p>
+  <h4>
+   Valuation
+  </h4>
+  <p block-type="Text">
+   We consider the example of the floating strike lookback call. Again, the value of the option is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(0, S_0) = \mathbb{E} \left[ e^{-r_d T} (S_T - m_T) \right]
+   </math>
+   <br/>
+   =
+   <math>
+    S_0 e^{-r_f T} - e^{-r_d T} \mathbb{E} \left[ m_T \right]
+   </math>
+   (58)
+  </p>
+  <p>
+   <img src="_page_5_Figure_11.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 1
+   </b>
+   Payoff profile of lookback calls (sample underlying price path,
+   <math display="inline">
+    m = 20
+   </math>
+   trading days)
+  </p>
+  <p block-type="Text">
+   In the standard Black-Scholes model (1), the value can be derived using the reflection principle and results in
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t,x) = \phi \left\{ x D_f \mathcal{N}(\phi d_+) - K D_d \mathcal{N}(\phi d_-) \right.
+   </math>
+   <math display="block">
+    \left. + \frac{1-\eta}{2} \phi D_d [\phi (R-X)]^+ \right.
+   </math>
+   <math display="block">
+    \left. + \eta x D_d \frac{1}{h} \left[ \left(\frac{x}{K}\right)^{-h} \mathcal{N}(-\eta \phi (d_+ - h\sigma \sqrt{\tau})) \right] \right\}
+   </math>
+   (59)
+  </p>
+  <p block-type="Text">
+   This value function has a removable discontinuity at
+   <math display="inline">
+    h = 0
+   </math>
+   where it turns out to be
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(t,x) = \phi \left\{ x D_f \mathcal{N}(\phi d_+) - K D_d \mathcal{N}(\phi d_-) \right.
+   </math>
+   <math display="block">
+    \left. + \frac{1-\eta}{2} \phi D_d [\phi (R-X)]^+ \right.
+   </math>
+   <math display="block">
+    \left. + \eta x D_d \sigma \sqrt{\tau} \left[ -d_+ \mathcal{N}(-\eta \phi d_+) \right] \right\}
+   </math>
+   (60)
+  </p>
+  <p block-type="Text">
+   The abbreviations we use are
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    h \triangleq \frac{2(r_d - r_f)}{\sigma^2} \tag{61}
+   </math>
+  </p>
+  <p block-type="Text">
+   <math display="inline">
+    R \stackrel{\Delta}{=}
+   </math>
+   running extremum: extremum observed
+  </p>
+  <p block-type="Text">
+   until valuation time
+   <math display="inline">
+    (62)
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    K \stackrel{\Delta}{=} \begin{cases} R &amp; \text{floating strike lookback} \\ -\phi \min(-\phi X, -\phi R) &amp; \text{fixed strike lookback} \end{cases} \tag{63}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \eta \triangleq \begin{cases}\n+1 &amp; \text{floating strike lookback} \\
+-1 &amp; \text{fixed strike lookback}\n\end{cases} \tag{64}
+   </math>
+  </p>
+  <p block-type="Text">
+   Note that this formula basically consists of that for a
+   <b>
+    call option
+   </b>
+   (the first two terms) plus another term. Conze and Viswanathan also show closed-form solutions for fixed strike lookback options and the variations mentioned above in [2]. Heynen and Kat develop equations for
+   <i>
+    partial fixed and floating strike
+   </i>
+  </p>
+  <p>
+   Table 4 Sample values for lookback options. For the input data, we used spot
+   <math display="inline">
+    S_0 = 0.9800, r_d = 3\%, r_f = 6\%,
+   </math>
+   <math display="inline">
+    \sigma = 10\%, \tau = 1/12
+   </math>
+   , running min
+   <math display="inline">
+    R = 0.9500
+   </math>
+   , running max
+   <math display="inline">
+    R = 0.9900
+   </math>
+   , and number of equidistant fixings
+   <math display="inline">
+    m = 22
+   </math>
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+      Payoff sampled
+     </th>
+     <th>
+      Discretely sampled
+      <br/>
+      Equations
+      <math>
+       (67)
+      </math>
+      <br/>
+      and
+      <math>
+       (68)
+      </math>
+     </th>
+     <th>
+      Continuously
+      <br/>
+      Equations
+      <math>
+       (59)
+      </math>
+      <br/>
+      or
+      <math>
+       (60)
+      </math>
+     </th>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       M_T - S_T
+      </math>
+     </td>
+     <td>
+      0.0231
+     </td>
+     <td>
+      0.0255
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       S_T - m_T
+      </math>
+     </td>
+     <td>
+      0.0310
+     </td>
+     <td>
+      0.0320
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       (M_T - 0.99)^+
+      </math>
+     </td>
+     <td>
+      0.0107
+     </td>
+     <td>
+      0.0131
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <math>
+       (0.97 - m_T)^+
+      </math>
+     </td>
+     <td>
+      0.0235
+     </td>
+     <td>
+      0.0246
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <p block-type="Text">
+   <i>
+    lookback options
+   </i>
+   in [10]. We list some sample results in Table 4.
+  </p>
+  <h3>
+   Discrete Sampling
+  </h3>
+  <p block-type="Text">
+   In practice, one cannot take the average over a continuum of exchange rates. The standard is to specify a fixing calendar and take only a finite number of fixings into account. Suppose there are
+   <math display="inline">
+    m
+   </math>
+   equidistant sample points left until expiration at which we evaluate the extremum. In this case, the value function
+   <math display="inline">
+    v_m
+   </math>
+   can be determined by an approximation described by Broadie et al. [1]. We set
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \begin{array}{l} \beta \stackrel{\Delta}{=} -\zeta(1/2)/\sqrt{2\pi} \\ \\ = 0.5826 \quad (\zeta \text{ being Riemann's } \zeta\text{-function}) \quad (65) \\ \\ \alpha \stackrel{\Delta}{=} e^{\phi\beta\sigma}\sqrt{\tau/m} \quad (66) \end{array}
+   </math>
+  </p>
+  <p block-type="Text">
+   and obtain for fixed strike lookback options
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_m(t, x, r_d, r_f, \sigma, R, X, \phi, \eta)
+   </math>
+   <br/>
+   =
+   <math>
+    v(t, x, r_d, r_f, \sigma, \alpha R, \alpha X, \phi, \eta)/\alpha
+   </math>
+   (67)
+  </p>
+  <p block-type="Text">
+   and for floating strike lookback options
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v_m(t, x, r_d, r_f, \sigma, R, X, \phi, \eta)
+   </math>
+   <br/>
+   =
+   <math>
+    av(t, x, r_d, r_f, \sigma, R/\alpha, X, \phi, \eta) - \phi(\alpha - 1)xD_f
+   </math>
+   <br/>
+   (68)
+  </p>
+  <h3>
+   <b>
+    Forward Start Options
+   </b>
+  </h3>
+  <h4>
+   Product Definition
+  </h4>
+  <p block-type="TextInlineMath">
+   A forward start vanilla option is just like a vanilla option, except that the strike is fixed on some future date
+   <math display="inline">
+    t_f \in (0, T)
+   </math>
+   , specified in the contract. The strike is fixed as
+   <math display="inline">
+    \alpha S_{t_{\ell}}
+   </math>
+   , where
+   <math display="inline">
+    \alpha &gt; 0
+   </math>
+   is some contractually defined factor (very common one) and
+   <math display="inline">
+    S_{t_f}
+   </math>
+   is the spot at time
+   <math display="inline">
+    t_f
+   </math>
+   . It pays off
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    [\phi(S_T - \alpha S_{t_f})]^+ \tag{69}
+   </math>
+  </p>
+  <p block-type="Text">
+   The Value of Forward Start Options
+  </p>
+  <p block-type="Text">
+   Using the abbreviations
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_{\pm}(x) \triangleq \frac{\ln \frac{x}{K} + \sigma \theta_{\pm}(T - t_f)}{\sigma \sqrt{T - t_f}} \tag{70}
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    d_{\pm}^{\alpha} \stackrel{\Delta}{=} \frac{-\ln\alpha + \sigma\theta_{\pm}(T - t_f)}{\sigma\sqrt{T - t_f}} \tag{71}
+   </math>
+  </p>
+  <p block-type="Text">
+   we recall the value of a vanilla option with strike
+   <math display="inline">
+    K
+   </math>
+   at time
+   <math display="inline">
+    t_f
+   </math>
+   as
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \text{vanilla}(t_f, x; K, T, \phi)
+   </math>
+   <br/>
+   =
+   <math>
+    \phi \left[ x e^{-r_f(T - t_f)} \mathcal{N}(\phi d_+(x)) - K e^{-r_d(T - t_f)} \mathcal{N}(\phi d_-(x)) \right]
+   </math>
+   <br/>
+   (72)
+  </p>
+  <p block-type="Text">
+   For the value of a forward start vanilla option, we obtain
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    v(0, S_0)
+   </math>
+   <br/>
+   =
+   <math>
+    e^{-r_d t_f} \mathbb{I} \mathbb{E} \left[ \text{vanilla}(t_f, S_{t_f}; K = \alpha S_{t_f}, T, \phi) \right]
+   </math>
+   <br/>
+   =
+   <math>
+    \phi S_0 \left[ e^{-r_f T} \mathcal{N}(\phi d_+^{\alpha}) - \alpha e^{(r_d - r_f) t_f} e^{-r_d T} \mathcal{N}(\phi d_-^{\alpha}) \right]
+   </math>
+   <br/>
+   (73)
+  </p>
+  <p block-type="Text">
+   Noticeably, the value computation is easy here, because the strike
+   <math display="inline">
+    K
+   </math>
+   is set as a
+   <i>
+    multiple
+   </i>
+   of the future spot. If we were to choose to set the strike as a constant
+   <i>
+    difference
+   </i>
+   of the future spot, the integration would not work in closed form, and we would have to use numerical integration.
+  </p>
+  <p>
+   Table 5 Value of a forward start vanilla in USD on EUR/USD—spot of 0.9000,
+   <math display="inline">
+    \alpha = 99\%
+   </math>
+   ,
+   <math display="inline">
+    \sigma = 12\%
+   </math>
+   ,
+   <math display="inline">
+    r_d = 2\%
+   </math>
+   ,
+   <math display="inline">
+    r_f = 3\%
+   </math>
+   , maturity
+   <math display="inline">
+    T = 186
+   </math>
+   days, and strike set at
+   <math display="inline">
+    t_f = 90
+   </math>
+   days
+  </p>
+  <table>
+   <tbody>
+    <tr>
+     <th>
+     </th>
+     <th>
+      Call
+     </th>
+     <th>
+      Put
+     </th>
+    </tr>
+    <tr>
+     <td>
+      Value
+     </td>
+     <td>
+      0.0251
+     </td>
+     <td>
+      0.0185
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h4>
+   Example
+  </h4>
+  <p block-type="Text">
+   We consider an example in Table 5.
+  </p>
+  <h3>
+   <b>
+    Compound and Instalment Options
+   </b>
+  </h3>
+  <p block-type="Text">
+   An instalment call option allows the holder to pay the premium of the
+   <b>
+    call option
+   </b>
+   in instalments spread over time. A first payment is made at the inception of the trade. On the following payment days, the holder of the instalment call can decide to prolong the contract, in which case, he has to pay the second instalment of the premium, or to terminate the contract by simply not paying any more. After the last instalment payment, the contract turns into a plain vanilla call.
+  </p>
+  <h4>
+   Valuation in the Black–Scholes Model
+  </h4>
+  <p block-type="TextInlineMath">
+   The intention of this section is to obtain a closedform formula for the
+   <math display="inline">
+    n
+   </math>
+   -variate instalment option in the
+   <b>
+    Black–Scholes model
+   </b>
+   . For the cases
+   <math display="inline">
+    n = 1
+   </math>
+   and
+   <math display="inline">
+    n = 2
+   </math>
+   , the Black-Scholes formula and Geske's compound option formula (see [5]) are well-known special cases.
+  </p>
+  <p block-type="TextInlineMath">
+   Let
+   <math display="inline">
+    t_0 = 0
+   </math>
+   be the instalment option inception date and
+   <math display="inline">
+    t_1, t_2, \ldots, t_n = T
+   </math>
+   a schedule of decision dates in the contract on which the option holder has to pay the premiums
+   <math display="inline">
+    k_1, k_2, \ldots, k_{n-1}
+   </math>
+   to keep the option alive. To compute the price of the instalment option, which is the upfront payment
+   <math display="inline">
+    V_0
+   </math>
+   at
+   <math display="inline">
+    t_0
+   </math>
+   to enter into the contract, we begin with the option payoff at maturity
+   <math display="inline">
+    T
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_n(s) \stackrel{\Delta}{=} [\phi_n(s-k_n)]^+ \stackrel{\Delta}{=} \max[\phi_n(s-k_n), 0] \tag{74}
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    s = S_T
+   </math>
+   is the price of the underlying asset at T and as usual
+   <math display="inline">
+    \phi_n = +1
+   </math>
+   for a call option,
+   <math display="inline">
+    \phi_n = -1
+   </math>
+   for a put option.
+  </p>
+  <p block-type="TextInlineMath">
+   At time
+   <math display="inline">
+    t_i
+   </math>
+   , the option holder can either terminate the contract or pay
+   <math display="inline">
+    k_i
+   </math>
+   to continue. This means that the instalment option can be viewed as an option with strike
+   <math display="inline">
+    k_1
+   </math>
+   on an option with strike
+   <math display="inline">
+    k_2 \cdots
+   </math>
+   on an option with strike
+   <math display="inline">
+    k_n
+   </math>
+   . Therefore, by the
+   <b>
+    risk-neutral pricing
+   </b>
+   theory, the holding value is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    e^{-r_d(t_{i+1}-t_i)} \mathbb{I}E[V_{i+1}(S_{t_{i+1}}) | S_{t_i} = s],
+   </math>
+   <br/>
+   for
+   <math>
+    i = 0, \dots, n-1
+   </math>
+   (75)
+  </p>
+  <p block-type="Text">
+   where
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_i(s) = \begin{cases} \left[ e^{-r_d(t_{i+1}-t_i)} \middle| E[V_{i+1}(S_{t_{i+1}}) \middle| S_{t_i} = s] - k_i \right]^+ \\ \text{for } i = 1, \dots, n-1 \\ V_n(s) \quad \text{for } i = n \end{cases}
+   </math>
+   (76)
+  </p>
+  <p block-type="Text">
+   Then the unique arbitrage-free time-zero value is
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    P \stackrel{\Delta}{=} V_0(s) = e^{-r_d(t_1 - t_0)} \mathbb{I} E[V_1(S_{t_1}) \mid S_{t_0} = s] \quad (77)
+   </math>
+  </p>
+  <p block-type="Text">
+   Figure 2 illustrates this context.
+  </p>
+  <p block-type="Text">
+   One way of pricing this instalment option is to evaluate the nested expectations through multiple numerical integration of the payoff functions via backward iteration. Alternatively, one can derive a solution in closed form in terms of the
+   <math display="inline">
+    n
+   </math>
+   -variate cumulative normal, which is described in the following.
+  </p>
+  <h1>
+   The Curnow and Dunnett Integral Reduction Technique
+  </h1>
+  <p block-type="Text" class="has-continuation">
+   Denote the
+   <math display="inline">
+    n
+   </math>
+   -dimensional multivariate normal integral with upper limits
+   <math display="inline">
+    h_1, \ldots, h_n
+   </math>
+   and correlation
+  </p>
+  <p block-type="TextInlineMath">
+   matrix
+   <math display="inline">
+    R_n \stackrel{\Delta}{=} (\rho_{ij})_{i,j=1,\ldots,n}
+   </math>
+   by
+   <math display="inline">
+    \mathcal{N}_n(h_1,\ldots,h_n;R_n)
+   </math>
+   .&lt;br&gt;Let the correlation matrix be nonsingular and
+   <math display="inline">
+    \rho_{11} = 1.
+   </math>
+  </p>
+  <p block-type="Text">
+   Under these conditions, Curnow and Dunnett [3] derived the following reduction formula for multivariate normal integrals:
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \mathcal{N}_{n}(h_{1},\cdots,h_{n};R_{n})
+   </math>
+   <math display="block">
+    = \int_{-\infty}^{h_{1}} \mathcal{N}_{n-1} \left(\frac{h_{2}-\rho_{21}y}{(1-\rho_{21}^{2})^{1/2}},\cdots,\frac{h_{n}-\rho_{n1}y}{(1-\rho_{n1}^{2})^{1/2}};R_{n-1}^{*}\right) n(y) \, \mathrm{d}y,
+   </math>
+   <math display="block">
+    R_{n-1}^{*} \triangleq (\rho_{ij}^{*})_{i,j=2,\ldots,n},
+   </math>
+   <math display="block">
+    \rho_{ij}^{*} \triangleq \frac{\rho_{ij}-\rho_{i1}\rho_{j1}}{(1-\rho_{i1}^{2})^{1/2}(1-\rho_{j1}^{2})^{1/2}} \tag{78}
+   </math>
+  </p>
+  <p block-type="Text">
+   For example, to go from dimension 1 to dimension 2, this takes the form
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{-\infty}^{x} \mathcal{N}(az+B)n(z) dz
+   </math>
+   <br/>
+   =
+   <math>
+    \mathcal{N}_{2}\left(x, \frac{B}{\sqrt{1+a^{2}}}; \frac{-a}{\sqrt{1+a^{2}}}\right)
+   </math>
+   (79)
+  </p>
+  <p block-type="Text">
+   or more generally,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \int_{-\infty}^{x} e^{Az} \mathcal{N}(az+B)n(z) dz
+   </math>
+   <br/>
+   =
+   <math>
+    e^{\frac{A^2}{2}} \mathcal{N}_2 \left(x-A, \frac{aA+B}{\sqrt{1+a^2}}; \frac{-a}{\sqrt{1+a^2}}\right)
+   </math>
+   (80)
+  </p>
+  <p>
+   <img src="_page_8_Figure_18.jpeg"/>
+  </p>
+  <p>
+   <b>
+    Figure 2
+   </b>
+   Lifetime of the options
+   <math display="inline">
+    V_i
+   </math>
+  </p>
+  <h1>
+   A Closed-form Solution for the Value of an Instalment Option
+  </h1>
+  <p block-type="TextInlineMath">
+   Heuristically, the formula which is given in the Theorem 1 has the structure of the
+   <b>
+    Black–Scholes formula
+   </b>
+   in higher dimensions, namely,
+   <math display="inline">
+    S_0\mathcal{N}_n(\cdot)
+   </math>
+   –
+   <math display="inline">
+    k_n \mathcal{N}_n(\cdot)
+   </math>
+   minus the later premium payments
+   <math display="inline">
+    k_i \mathcal{N}_i(\cdot)
+   </math>
+  </p>
+  <p block-type="TextInlineMath">
+   <b>
+    Theorem 1
+   </b>
+   Let
+   <math display="inline">
+    \mathbf{k} = (k_1, \ldots, k_n)
+   </math>
+   be the strike price
+   <i>
+    vector
+   </i>
+   ,
+   <math display="inline">
+    \mathbf{t} = (t_1, \ldots, t_n)
+   </math>
+   <i>
+    the vector of the exercise
+   </i>
+   dates of an n-variate instalment option and
+   <math display="inline">
+    \boldsymbol{\phi} =
+   </math>
+   <math display="inline">
+    (\phi_1,\ldots,\phi_n)
+   </math>
+   the vector of the put/call-indicators of
+   <math display="inline">
+    \text{these } n \text{ options.}
+   </math>
+  </p>
+  <p block-type="Text">
+   The value function of an n-variate instalment option is given by
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    V_n(S_0, \mathbf{k}, \mathbf{t}, \boldsymbol{\phi})
+   </math>
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    = e^{-r_{f}t_{n}} S_{0}\phi_{1} \cdots \phi_{n} \times \mathcal{N}_{n} \left[ \phi_{1} \frac{\ln \frac{S_{0}}{S_{1}^{*}} + \sigma\theta_{+}t_{1}}{\sigma\sqrt{t_{1}}}, \phi_{2} \frac{\ln \frac{S_{0}}{S_{2}^{*}} + \sigma\theta_{+}t_{2}}{\sigma\sqrt{t_{2}}}, \ldots, \phi_{n} \frac{\ln \frac{S_{0}}{S_{n}^{*}} + \sigma\theta_{+}t_{n}}{\sigma\sqrt{t_{n}}}; R_{n} \right]
+   </math>
+   <math display="block">
+    -e^{-r_{d}t_{n}} k_{n} \phi_{1} \cdots \phi_{n} \times \mathcal{N}_{n} \left[ \phi_{1} \frac{\ln \frac{S_{0}}{S_{1}^{*}} + \sigma\theta_{-}t_{1}}{\sigma\sqrt{t_{1}}}, \phi_{2} \frac{\ln \frac{S_{0}}{S_{2}^{*}} + \sigma\theta_{-}t_{2}}{\sigma\sqrt{t_{2}}}, \ldots, \phi_{n} \frac{\ln \frac{S_{0}}{S_{n}^{*}} + \sigma\theta_{-}t_{n}}{\sigma\sqrt{t_{n}}}; R_{n} \right]
+   </math>
+   <math display="block">
+    -e^{-r_{d}t_{n}} k_{n} \phi_{1} \cdots \phi_{n} \times \mathcal{N}_{n} \left[ \phi_{1} \frac{\ln \frac{S_{0}}{S_{1}^{*}} + \sigma\theta_{-}t_{1}}{\sigma\sqrt{t_{1}}}, \phi_{2} \frac{\ln \frac{S_{0}}{S_{2}^{*}} + \sigma\theta_{-}t_{2}}{\sigma\sqrt{t_{2}}}, \ldots, \phi_{n} \frac{\ln \frac{S_{0}}{S_{n}^{*}} + \sigma\theta_{-}t_{n}}{\sigma\sqrt{t_{n}}}; R_{n} \right]
+   </math>
+   <math display="block">
+    \vdots
+   </math>
+   <math display="block">
+    -e^{-r_{d}t_{n-1}} k_{n-1} \phi_{1} \cdots \phi_{n-1} \times \mathcal{N}_{n-1} \left[ \phi_{1} \frac{\ln \frac{S_{0}}{S_{1}^{*}} + \sigma\theta_{-}t_{1}}{\sigma\sqrt{t_{1}}}, \phi_{2} \frac{\ln \frac{S_{0}}{S_{2}^{*}} + \sigma\theta_{-}t_{2}}{\sigma\sqrt{t_{2}}}, \ldots, \phi_{n-1} \frac{\ln \frac{S_{0}}{S_{n-}^{*}} + \sigma\theta_{-}t_{n-1}}{\sigma\sqrt{t_{n-1}}}; R_{n-1} \right]
+   </math>
+   <math display="block">
+    \vdots
+   </math>
+   <math display="block">
+    -e^{-r_{d}t_{2}} k_{2} \phi_{1} \phi_{2} \mathcal{N}_{2} \left[ \phi_{1} \frac{\ln \frac{S_{0}}{S_{1}^{*}} + \sigma\theta_{-}t_{1}}{\sigma\sqrt{t_{1}}}, \phi_{2} \frac{\ln \frac{S_{0}}{S_{2}^{*}} + \sigma\theta_{-}t_{2}}{\sigma\sqrt{t_{2}}}; \rho_{12} \right]
+   </math>
+   <math display="block">
+    -e^{-r_{d}t_{1}} k_{1} \phi_{1} \mathcal{N} \left[ \phi_{1} \frac{\ln \frac{S_{0}}{S_{1}^{*}} + \sigma\theta_{-}t_{1}}{\sigma\sqrt{t_{1}}} \right]
+   </math>
+   (81)
+  </p>
+  <p block-type="TextInlineMath">
+   <math display="inline">
+    (i = 1, \ldots, n-1)
+   </math>
+   . This structure is a result of the integration of the vanilla option payoff, which is again integrated minus the next instalment, which in turn is integrated with the following instalment and so forth. By this iteration, the vanilla payoff is integrated with respect to the normal density function
+   <math display="inline">
+    n
+   </math>
+   times and the
+   <i>
+    i
+   </i>
+   th payment is integrated
+   <i>
+    i
+   </i>
+   times for
+   <math display="inline">
+    i = 1, \ldots, n-1.
+   </math>
+  </p>
+  <p block-type="Text">
+   The correlation coefficients
+   <math display="inline">
+    \rho_{ij}
+   </math>
+   of these normal distribution functions contained in the formula arise from the overlapping increments of the Brownian motion, which models the price process of the underlying
+   <math display="inline">
+    S_t
+   </math>
+   at the particular exercise dates
+   <math display="inline">
+    t_i
+   </math>
+   and
+   <math display="inline">
+    t_i
+   </math>
+   .
+  </p>
+  <p block-type="TextInlineMath">
+   where
+   <math display="inline">
+    S_i^*
+   </math>
+   <math display="inline">
+    (i = 1, ..., n)
+   </math>
+   is to be determined as the spot price
+   <math display="inline">
+    S_t
+   </math>
+   for which the payoff of the corresponding
+   <i>
+    i-variate instalment option
+   </i>
+   <math display="inline">
+    (i = 1, ..., n)
+   </math>
+   <i>
+    is equal to
+   </i>
+   0, that is,
+   <math display="inline">
+    V_i(S_i^*, \mathbf{k}, \mathbf{t}, \boldsymbol{\phi}) = 0
+   </math>
+   . This has to be done numerically by a zero search.
+  </p>
+  <p block-type="Text">
+   The correlation coefficients in
+   <math display="inline">
+    R_i
+   </math>
+   of the
+   <i>
+    i
+   </i>
+   -variate normal distribution function can be expressed through the exercise dates
+   <math display="inline">
+    t_i
+   </math>
+   ,
+  </p>
+  <p block-type="Equation">
+   <math display="block">
+    \rho_{ij} = \sqrt{t_i/t_j} \text{ for } i, j = 1, ..., n \text{ and } i &lt; j
+   </math>
+   (82)
+  </p>
+  <p block-type="Text">
+   The proof is established with equation (78). Formula
+   <math display="inline">
+    (81)
+   </math>
+   has been independently derived by Thomassen and Wouve in [16] and Griebsch et al. in [6].
+  </p>
+  <h1>
+   <b>
+    References
+   </b>
+  </h1>
+  <p block-type="ListGroup" class="has-continuation">
+   <ul>
+    <li block-type="ListItem">
+     [1] Broadie, M. Glasserman, P. &amp; Kou, S.G. (1999). Connecting discrete and continuous path-dependent options,
+     <i>
+      Finance and Stochastics
+     </i>
+     <b>
+      3
+     </b>
+     (1), 55–82.
+    </li>
+    <li block-type="ListItem">
+     [2] Conze, A. &amp; Viswanathan, R. (1991). Path dependent options: the case of lookback options,
+     <i>
+      The Journal of Finance
+     </i>
+     ,
+     <b>
+      XLVI
+     </b>
+     (5), 1893–1907.
+    </li>
+    <li block-type="ListItem">
+     [3] Curnow, R.N. &amp; Dunnett, C.W. (1962). The numerical evaluation of certain multivariate normal integrals,
+     <i>
+      Annals of Mathematical Statistics
+     </i>
+     <b>
+      33
+     </b>
+     , 571–579.
+    </li>
+    <li block-type="ListItem">
+     [4] Garman, M. (1989). Recollection in tranquillity,, reedited version, in
+     <i>
+      From Black Scholes to Black Holes
+     </i>
+     , Originally in Risk Publications, London, pp. 171–175.
+    </li>
+    <li block-type="ListItem">
+     [5] Geske, R. (1979). The valuation of compound options,
+     <i>
+      Journal of Financial Economics
+     </i>
+     <b>
+      7
+     </b>
+     , 63–81.
+    </li>
+    <li block-type="ListItem">
+     [6] Griebsch, S.A. Kuhn, C. &amp; Wystup, U. (2008). Instal- ¨ ment options: a closed-form solution and the limiting case, in Contribution to
+     <i>
+      Mathematical Control Theory and Finance
+     </i>
+     , A. Sarychev, A. Shiryaev, M. Guerra, &amp; M.R. Grossinho, eds, Springer, pp. 211–229.
+    </li>
+    <li block-type="ListItem">
+     [7] Hakala, J. &amp; Wystup, U. (2002).
+     <i>
+      Foreign Exchange Risk
+     </i>
+     , Risk Publications, London.
+    </li>
+    <li block-type="ListItem">
+     [8] Haug, E.G. (1997).
+     <i>
+      Option Pricing Formulas
+     </i>
+     , McGraw Hill.
+    </li>
+    <li block-type="ListItem">
+     [9] Heynen, R. &amp; Kat, H. (1994). Selective memory: reducing the expense of lookback options by limiting their memory, re-edited version, in
+     <i>
+      Over the Rainbow: Developments in Exotic Options and Complex Swaps
+     </i>
+     , Risk Publications, London.
+    </li>
+   </ul>
+  </p>
+  <p block-type="ListGroup">
+   <ul>
+    <li block-type="ListItem">
+     [10] Heynen, R. &amp; Kat, H. (1994). Crossing barriers,
+     <i>
+      Risk
+     </i>
+     <b>
+      7
+     </b>
+     (6), 46–51.
+    </li>
+    <li block-type="ListItem">
+     [11] Lipton, A. (2001).
+     <i>
+      Mathematical Methods for Foreign Exchange
+     </i>
+     , World Scientific, Singapore.
+    </li>
+    <li block-type="ListItem">
+     [12] Revuz, D. &amp; Yor, M. (1995).
+     <i>
+      Continuous Martingales and Brownian Motion
+     </i>
+     , 2nd Edition, Springer.
+    </li>
+    <li block-type="ListItem">
+     [13] Rich, D. (1994). The mathematical foundations of barrier option pricing theory,
+     <i>
+      Advances in Futures and Options Research
+     </i>
+     <b>
+      7
+     </b>
+     , 267–371.
+    </li>
+    <li block-type="ListItem">
+     [14] Reiner, E. &amp; Rubinstein, M. (1991). Breaking down the barriers,
+     <i>
+      Risk
+     </i>
+     <b>
+      4
+     </b>
+     (8), 28–35.
+    </li>
+    <li block-type="ListItem">
+     [15] Shreve, S.E. (2004).
+     <i>
+      Stochastic Calculus for Finance I+II
+     </i>
+     , Springer.
+    </li>
+    <li block-type="ListItem">
+     [16] Thomassen, L. &amp; van Wouve, M. (2002).
+     <i>
+      A Sensitivity Analysis for the N-fold Compound Option
+     </i>
+     , Research Paper, Faculty of Applied Economics, University of Antwerpen.
+    </li>
+    <li block-type="ListItem">
+     [17] Wystup, U. (2006).
+     <i>
+      FX Options and Structured Products
+     </i>
+     , Wiley Finance Series.
+    </li>
+    <li block-type="ListItem">
+     [18] Zhang, P.G. (1998).
+     <i>
+      Exotic Options
+     </i>
+     , 2nd Edition, World Scientific, London.
+    </li>
+   </ul>
+  </p>
+  <h2>
+   <b>
+    Related Articles
+   </b>
+  </h2>
+  <p block-type="Text">
+   <b>
+    Barrier Options
+   </b>
+   ;
+   <b>
+    Black–Scholes Formula
+   </b>
+   ;
+   <b>
+    Discretely Monitored Options
+   </b>
+   ;
+   <b>
+    Foreign Exchange Markets
+   </b>
+   ;
+   <b>
+    Foreign Exchange Options
+   </b>
+   ;
+   <b>
+    Foreign Exchange Symmetries
+   </b>
+   ;
+   <b>
+    Lookback Options
+   </b>
+   .
+  </p>
+  <p block-type="Text">
+   ANDREAS WEBER &amp; UWE WYSTUP
+  </p>
+ </body>
+</html>
