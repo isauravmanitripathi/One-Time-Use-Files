@@ -20,7 +20,7 @@ from pathlib import Path
 import glob
 
 class LocalMarkerParser:
-    def __init__(self, server_url="https://aahpvhx4bohsok-8888.proxy.runpod.net"):
+    def __init__(self, server_url="https://ueig4rheybsvxk-8888.proxy.runpod.net/"):
         self.server_url = server_url.rstrip('/')
         self.upload_url = f"{self.server_url}/upload"
         self.status_url = f"{self.server_url}/status"
@@ -552,7 +552,7 @@ Examples:
     input_group.add_argument('--folder', help='Path to folder containing PDF files to process')
     
     parser.add_argument('--server', 
-                       default='https://aahpvhx4bohsok-8888.proxy.runpod.net',
+                       default='https://ueig4rheybsvxk-8888.proxy.runpod.net/',
                        help='Marker server URL (default: your RunPod server)')
     parser.add_argument('--format', 
                        default='markdown',
