@@ -1,0 +1,31 @@
+## Drawing lines in Cauvery waters
+
+Resolution of dispute between Karnataka and Tamil Nadu can pave the way for addressing interstate river water conflicts
+
+![](_page_0_Picture_2.jpeg)
+
+THE CAUVERY DISPUTE has flared up again, the first time after 2018 when the Supreme Court (SC) re-adjudicated the dispute after a tribunal gave its award. The Court also directed the creation of the Cauvery Water Management Authority (CWMA) to implement the decision. Has it helped? If it has, how? If not, what are the policymaking lessons?
+
+The current round of contestation began when Tamil Nadu approached the apex court in August, seeking directions to Karnataka to release Cauvery waters at the rate of 24,000 cusecs towards its due share. Karnataka contested it stating unfavourable rainfall. Eventually, the directions to Kamataka last week, asking it to begin release at the rate of 3,000 cusecs, led to widespread protests in the state. The Bengaluru Bandh on September 26, and the statewide bandh on September 29 led to the arrest of hundreds of persons, several cancelled flights and a halted economy.
+
+Though the dispute spans a couple of centuries, it has had frequent flare-ups since the Cauvery Water Disputes Tribunal (CWDT) began adjudicating in 1990. There have been several episodes of escalation, invariably during distress years.
+
+These episodes often lead to civic unrest and violence, in addition to causing significant economic losses. According to the AS-SOCHAM, the previous flare-up in 2016 had caused a loss of Rs 25,000 crore to Karnataka alone. The 2016 episode had also turned into an unseemly national spectacle with the two states haggling almost every day for the release of Cauvery waters
+
+The Supreme Court's landmark order in December that year asserted its appellate jurisdiction over the dispute – its eventual decision in 2018 modified the CWDT award. If the two states and the nation could find a modus vivendi, it would offer useful lessons for addressing these challenges. This year's flareup is a first after these decisions of the Supreme Court.
+
+A key difference between the earlier escalations and the current one is the positive<br>impact of CWMA. The authority is the first permanent interstate institutional mechanism of its kind to be created to resolve adversarial positions on river water disputes amongst states since 1980 - when Section 6A of the Interstate River Water Disputes Act 1956 (IRWDA) was inserted through an amendment to empower the Centre to constitute a mechanism to implement tribunal awards. Section 6A was used to create the other permanent mechanism, the Narmada Control Authority (NCA). The Narmada Water Disputes Tribunal could achieve a consensus among the party states for constituting the NCA. In contrast, the CWMA emerges from the adversarial proceedings of the Supreme Court's 2018 Cauvery decision. The CWMA, assisted by its technical
+
+arm, the Cauvery Water Regulatory
+
+Committee (CWRC), has been coordinating the implementation of the Cauvery decision. This year's distress conditions are putting this mechanism to the test. Given the sequence of events so far, observers agree that the CWMA made a perceptible difference. The existence of a formal interstate coordination mechanism helped in reducing the scale and intensity of escalation. On earlier occasions, the politically and emotionally charged posturing and brinkmanship had accentuated problems, and not offered solutions. While political equations and configurations matter, the CWMA as a dedicated institutional avenue for objective exchange and deliberation appears to have made an impact.
+
+It may be premature to pronounce the mechanism a success. However, it is an opportunity to recognise the critical importance of interstate institutional mechanisms in river-water disputes and reflect on how to sort them out. There are at least two reasons for this. One, episodes of escalation bust the myth of a permanent resolution of interstate river water disputes. The emerging understanding is that the binaries of conflict and cooperation are no longer valid. In a transboundary watersharing context, conflict and cooperation coexist. We must supplement legal adjudication with institutional responses that sustain cooperation and mitigate conflict. wo, we need to reflect on how institutions like the CWMA can be improved, depending on the way this episode pans out. We have models like the NCA that evolved out of consensus and the CWMA that was created on Supreme Court directives. A renewed emphasis on consensus building may be needed.
+
+The second policy shift that is being tested is that around the SC's unprecedented assertion of its appellate jurisdiction over interstate river water disputes, and the eventual re-adjudication of the dispute. The episode proves that the Court's adjudication made no difference. Disputes recur and escalate, irrespective of whether adjudicated by the Court or a tribunal. We must accept the nature of interstate river water disputes and acknowledge the wisdom of constitution framers in this respect. Article 262 bars he jurisdiction of courts over interstate river vater disputes. Using this provision, the nterstate River Water Disputes Act 1956 pars the jurisdiction of the courts, including hat of the Supreme Court
+
+The Court's decision of 2016 contradicts a long history of its own decisions. In more than 40 decisions, extending to those of Constitution Review Benches, the Court consistently maintained that it had no jurisdiction over interstate river water disputes. Yet, n 2016, it insisted on its appellate jurisdic-<br>ion and took it upon itself to re-adjudicate he dispute. It did so with an apparent hope that states would comply if the decision
+
+were to come from the apex court.<br>This episode of escalation proves the contrary and may even lead to an embarrassing debunking of the whole rationale. This is a moment of reckoning not only for the Court but also for the amendment to the Interstates River Water Disputes Act which is under Parliament's consideration.
+
+The writer is with the Centre for Policy Research, New Delhi. Views are personal

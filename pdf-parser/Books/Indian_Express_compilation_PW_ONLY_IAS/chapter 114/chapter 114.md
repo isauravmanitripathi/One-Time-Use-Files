@@ -1,0 +1,31 @@
+## The investment reality check
+
+## GDP growth, geopolitical scenario make India's economic rise a compelling narrative. Yet, FDI has been falling
+
+![](_page_0_Picture_2.jpeg)
+
+THE INDIAN ECONOMY grew at 7.8 per cent in the first quarter of the ongoing financial year. Forecasts by most analysts, including those by the RBI, indicate that the country is likely to grow at around 6-6.5 per cent over the full year. Medium-term assessments, such as those by the IMF, peg<br>growth at roughly 6 per cent between 2023 and 2028. Such projections only affirm India's growth prospects, and raise expectations of its contribution to global growth perhaps rivalling that of China in the coming years. Alongside, the country is also said to have emerged as a prominent investment destination for multinationals looking for an alternative to China. More so, with the geopolitical scenario seemingly shifting in its favour. All these make India one of the most compelling growth stories in the world today.
+
+Yet, for all the exuberance over the country's prospects, foreign direct investment (FDI) has been falling. In 2022-23, FDI inflows (including reinvested earnings and other capital) stood at \$71.3 billion, down 16 per cent from \$84.8 billion in 2021-22. Flows in 2022-23 were, in fact, below levels seen in 2019-20. Worryingly, the decline has continued in the ongoing financial year as well - in the first four months (April-July), gross FDI inflows were at \$21.9 billion, down 26 per cent from \$29.6 billion over the same period last year.
+
+The disaggregated data shows that much of the fall during this period has been in fresh equity flows. Equity flows dropped from roughly \$59.6 billion in 2021-22 to around \$47.6 billion in 2022-23, and, in the first four months of the ongoing year, plunged to \$13.9 billion from \$22 billion last year. Over the same period, investments through the reinvested earnings route have held steady, though repatriation/disinvestment has picked up. Does this indicate that the reluctance to invest in the country is more among those sitting on the sidelines, the uncommitted? Or are the existing wellestablished players, who are possibly better able to navigate the system, equally hesitant
+
+This drop in FDI is not just concentrated in the tech space. Between 2021-22 and 2022-23, FDI fell not only in the computer software and hardware sector, but also in the automobile industry, construction (infrastructure activities), and metallurgical industries
+
+While interest rates, which do tend to influence investment decisions, have risen sharply across developed economies during this period, compared to the steep fall seen in India, FDI flows into countries such as Vietnam and Indonesia, which are India's<br>competitors in the "China plus one" play, are holding steady. During January-August this year, FDI in Vietnam stood at around \$18 billion, up roughly 8 per cent over the same period last year. The disbursed volume is also up 1.3 per cent to \$13 billion. In
+
+the case of Indonesia, flows stood at around \$10 billion during January-June this year, roughly similar to levels seen last year.
+
+The decline in FDI is, however, not an indictment of India's prospects. After all, companies in the Apple ecosystem like Foxconn and some others are indeed taking a huge bet on India by ramping up their investments in the country. And, foreign portfolio investors (FPI), who represent a different type of capital, have upped up their investments in the country: Since January, FPIs have poured in around \$15 billion in the Indian markets, after withdrawing \$16.5 billion in 2022 (calendar year).
+
+But, this does raise the question: If India is indeed the alternative for companies looking to diversify away from China, if the country is the "one" in the China plus one strategy, if the PLI scheme of the government serves as a strong enough incentive to draw in investments, and if the growth forecasts projecting its rise over the coming decades do rest on solid foundations, then shouldn't every category of investor be long India? Or, does this decline reflect something deeper?
+
+Is it the case that certain sections of foreign capital are perhaps more comfortable playing the India story, not directly, but indirectly through investments in the larger domestic companies who are better able to manage the environment? And, that some of those diversifying away from China consider other countries - some for electronics, others for textiles  $-$  a more attractive proposition?
+
+Several possible reasons could explain the reluctance among multinationals, and also the hesitation among domestic firms to invest in India - but along with the wellknown impediments to investments, investors now also have to contend with policy uncertainty. After all, an uncertain business environment, an uneven playing field, and the fear of the rules of the game being arbitrarily changed midway, act as powerful deterrents.
+
+Another possible explanation now could be the absence of the country from<br>major trading blocks. While India has signed and is currently negotiating a few bilateral free trade agreements, it does not have a trade agreement with the European Union, nor is it part of RCEP, the trade agreement between the 10 member states of ASEAN and their free trade agreement partners - Australia, China, Japan, New Zealand and Korea. And as economic integration between these countries, which are at the centre of manufacturing supply chains, will deepen further with RCEP, not being part of such<br>agreements and the supply chains that run through these regions places India at a further disadvantage in this manufacturing ecosystem.
+
+FDI flows are more likely to gravitate towards countries with broader and deeper trade agreements. After all, lower tariffs, among other benefits, negotiated through FTAs incentivise foreign investment. It is thus possible that the fall in FDI flows to India reflects this.
+
+This would suggest that while India may well be a compelling story, it is not the only one. This calls for a more sober assessment of the country's prospects.

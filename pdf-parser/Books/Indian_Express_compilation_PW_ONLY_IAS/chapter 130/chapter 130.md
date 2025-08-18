@@ -1,0 +1,3 @@
+## Telangana govt launches breakfast scheme in schools Hyderabad: The Telangana Government Friday launched the Chief Minister's Breakfast Scheme aimed at government school students from Class 1 to 10. As per the govt, 23 lakh students across the state would be served nutritious breakfast, Monday to Saturday, 45 minutes before the classes start.
+
+Speaking after the launch, Minister for IT and Industries Rama Rao said the scheme will be implemented throughout 27,147 government schools across the state at an additional cost of 400 crore he said. **ENS**

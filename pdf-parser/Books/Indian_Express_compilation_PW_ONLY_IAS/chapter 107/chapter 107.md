@@ -1,0 +1,3 @@
+## Govt hikes windfall tax on domestic crude
+
+THE GOVERNMENT has increased windfall tax on petroleum crude while reducing it on aviation turbine fuel and diesel. The windfall tax on petroleum crude will be raised to ₹12,100 per ton from ₹10,000 rupees, effective Sept. 30. The levy has been cut on aviation turbine fuel to ₹2.50 per litre from ₹3.50 per litre, while on diesel to ₹5 per litre from ₹5.50. **REUTERS**

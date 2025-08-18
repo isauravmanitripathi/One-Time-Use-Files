@@ -1,0 +1,39 @@
+## It's not just nine months
+
+![](_page_0_Picture_1.jpeg)
+
+A woman's assessment of her ability to continue with her pregnancy should be given primacy. It wasn't
+
+## IN 2021, INDIA revised the upper gestational
+
+limit for legal abortion to 24 weeks for specific categories of "vulnerable women", removing them altogether in case of substantial foetal abnormalities diagnosed by a medical board. This amendment came in the backdrop of several writ petitions seeking judicial authorisation for termination of pregnancy filed before the Supreme Court and High Courts, Earlier, the Medical Termination of Pregnancy Act 1971 allowed registered medical practitioners (RMP) to terminate pregnancies on the permitted grounds up to 20 weeks of gestation.
+
+Even after the 2021 amendment, women continue to approach the courts in case of breach of the new gestational limits or denial of abortion care by providers. On Monday, the SC rejected a petition for termination of pregnancy at 26 weeks filed by a married woman, whose pregnancy went undetected due to lactational amenorrhea. The petitioner's last pregnancy was a year ago and she is undergoing treatment for postpartum psychosis. A bench comprising Justices Hima Kohli and BV Nagarathna had earlier allowed her petition, directing AIIMS to carry out the procedure.
+
+Studies prior to the 2021 amendment, indicate that in most cases women approached the courts upon crossing the 20-week gestational barrier. In its report analysing MTP cases decided by HCs between May 2019 and August 2020, Pratigya Campaign notes that 74 per cent of the 243 cases studied were filed post-20 weeks (42 between 25-28 weeks, 8 after 28 weeks).
+
+In an overwhelming majority of these cases (96 per cent), abortion was sought on grounds of foetal abnormalities or rape. A possible reason for this is "pre-screening" of the petition by stakeholders assisting the woman (such as doctors/lawyers), to assess its chances of obtaining a favourable opinion from the medical board or judges. In our field work, we learnt that since courts are more likely to grant permission to minor rape victims or in case of certain foetal abnormalities, such petitions were readily filed, whereas "borderline cases" were not sent to courts to avoid "adverse precedents" and "corruption of jurisprudence".
+
+But women may need a late-term abor tion in several other circumstances, including structural barriers to accessing abortion at early stages; vulnerable situations (domestic violence, sexual assault, prisons); changes in Justice Nagarathna, in the divided opinion delivered in the recent case, invoked X to bring the focus back to the primary consideration in the case - women's right to life and reproductive autonomy. She emphasised that an unwanted pregnancy, irrespective of the woman's circumstances, has the 'same consequence' - she does not wish to continue the pregnancy. She held that forcing a woman to continue a pregnancy endangering her health would be violative of Articles 21 and 15 (3).
+
+circumstances post-pregnancy (including partner support, financial situation, education and employment); physical and mental health conditions; and late detection of pregnancy due to lactational amenorrhea or menopause, among others. The 2021 amendment secures abortion access for only some women who qualify under the prescribed categories (or can be interpreted as such) subject to the gestational limit.
+
+While an RMP can terminate a woman's pregnancy at any time if it is immediately necessary to save her life, fear of criminal prosecution often deters from providing abortion care, leading women to approach the courts as a "last resort" for lawful abortion. Women who do not wish to or are unable to approach. the courts end up carrying the pregnancy to term or avail unlawful and unsafe abortion.
+
+For those who can cross the initial hurdles to accessing courts and file a petition, the journey through the legal and medical systems is often arduous, frustrating and dehumanising. Women must undergo medical examination by a panel of doctors even when multiple medical reports are appended to the petition. Repeated medical examinations (including psychiatric/psychological evaluations) are not uncommon when the medical opinion is vague or becomes dated during the proceedings. In the courtroom, lawyers often resort to graphic descriptions to help the judges visualise the seriousness of their client's situation. Last week's conversations in the SC circling around the petitioner's mental illness claims and repeated suggestions for counselling exemplify this. Despite putting themselves up for public scrutiny, fear and apprehensions about uncertainties of the outcome remain.
+
+While it is true that Indian law is more liberal in comparison to other countries, it does not reflect the international human rights standards and recent best practices on abortion. Last year, in the landmark decision of a vs Principal Secretary, Health and Family Welfan Department, Government of NCT, the SC ac knowledged that the MTP Act is a provider centric legislation, where the opinion of the RMP on whether the grounds specified under the Act are satisfied is "decisive" and in case of denial of abortion services, women are compelled to approach courts or seek abor tion in unsafe conditions".
+
+In its latest guidelines on abortion care, the WHO recommends that States fully decrimi nalise abortion and remove grounds-based
+
+regulation and gestational limits to abortion amongst others) to ensure non-discriminatory and equal abortion care to all. The guidelines recommend clinical best practices for safely terminating a pregnancy at any gestational age. The WHO considers grounds-based control and gestational limits on abortion as 'medically unnecessary policy barriers" which are not evidence based.
+
+ $\ln X$ , the SC gave a purposive interpretation to the MTP Rules, allowing unmarried omen to access abortion up to 24 we ks.lt adopted a rights-based approach and drew<br>attention to "social realities" and lived experiences of women, structural and legal barriers to abortion, objects and purposes of the MTP Act. constitutional guarantees, and India's obligations under the international human rights law.
+
+Justice Nagarathna, in the divided opinion delivered in the recent case, invoked X to bring the focus back to the primary consideration in the case - women's right to life and reproductive autonomy. She emphasised that an unwanted pregnancy, irrespective of the woman's circumstances, has the "same conse quence" - she does not wish to continue the pregnancy. She held that forcing a woman to continue a pregnancy endangering her health would be violative of Articles 21 and 15 (3).
+
+But ultimately, this petitioner has failed to receive a treatment like X. While in X, the Court had acknowledged the "deleterious" impact of an unwanted pregnancy on the physical and mental health of a woman, here it is treated as a mere nine-month episode which an unwilling woman can and must endure. The petitioner's assessment of her ability to continue with the pregnancy ("her reality" has been substituted with the court's and medical board's opinion of her circumstances.
+
+The disproportionate impact of groundsbased regulation and gestational limits to abortion became apparent during the hearings in this case. At several points, judges and the State tried to distinguish the case from  $X$ (an unmarried woman), or one involving a minor rape victim, or substantial foetal abnormality. Are some reasons for seeking abortion more "valid" than others? In attempting to pigeon-hole this case into one of the grounds, the courtroom discourse has created "artificial distinctions" much like the one  $struct down in X$ 
+
+The writer teaches at NLSIU, Bengaluru
