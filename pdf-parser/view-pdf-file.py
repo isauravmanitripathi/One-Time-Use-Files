@@ -24,7 +24,7 @@ class PDFEPUBViewer:
         self.file_type = None  # 'pdf' or 'epub'
         
         # Custom base directory for output folders
-        self.base_output_directory = "/Volumes/hard-drive/miscellaneous-files/pdf-parser/quant-book"
+        self.base_output_directory = "/Volumes/hard-drive/miscellaneous-files/pdf-parser/Books"
         
         # Cropping variables
         self.crop_start_page = None
