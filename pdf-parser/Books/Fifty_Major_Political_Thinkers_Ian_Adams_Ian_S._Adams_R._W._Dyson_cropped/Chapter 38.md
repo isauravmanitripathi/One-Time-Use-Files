@@ -1,0 +1,37 @@
+# **Sir Isaiah Berlin (1909-97)**
+
+Isaiah Mendelevich Berlin was born in Riga, Latvia. His father was a prosperous timbermerchant, but fled to Russia with his family when the Germans invaded Riga in 1915. The family moved to England in 1920, and settled in London. Enough of the family fortune had been rescued to enable the young Berlin to be sent to private schools. He went up to Corpus Christi College, Oxford, in 1928, and took a First in Greats in 1931 and in Philosophy, Politics and Economics in 1932. He intended to read for the Bar, but was offered, and accepted, a lectureship at New College. In 1957 he succeeded G.D.H. Cole as Chichele Professor of Social and Political Theory, and in 1966 became President of Wolfson College, the new postgraduate foundation. He held this post until his retirement in 1971. Most of Berlin's writing, like that of his contemporary Michael Oakeshott, has been in the form of essays, collected into several volumes between 1978 and 2000. When Berlin was appointed to the Order of Merit in 1971, his friend Maurice Bowra said of him: *Though, like our Lord and Socrates, he does not publish much, he thinks and says a great deal, and has had an enormous influence on our times.*
+
+## *(obituary notice, Independent, 7 November 1997)*
+
+It is with his inaugural lecture as Chichele Professor, 'Two Concepts of Liberty', that students of political thought are most familiar. This famous *pièce d'occasion* has been anthologised several times, and is printed in his book Four Essays on Liberty (1969).
+
+Berlin's early interests were in philosophy, and especially the philosophy of science. Like Sir Karl Popper, he was a critic of logical positivism, believing that verification is not a sufficient criterion of truth or meaning for many types of statement. After the war, influenced especially by the Russian radical Alexander Herzen, Berlin's interests shifted from philosophy to the history of ideas (he had already published a book called *Karl Marx: His Life and Environment* in 1939). Especially through the study of Machiavelli, Vico and Herder, Berlin came to hold the Romantic, anti-Enlightenment view that there is not, and cannot be, one unitary, architectonic view of the human good. This is the belief with which he is most often associated. The world in which we live, he holds, is one in which there exists an indeterminate number of different values. We have to accept, as a fact of moral epistemology, that values are often incommensurable and irreconcilable.
+
+If, as I believe, the ends of men are many and not all of them are in principle compatible with one another, then the possibility of conflict and of tragedy can never wholly be eliminated from human life, either personal or social. The necessity of choosing between absolute claims is . . . an inescapable characteristic of the human condition.
+
+### ('Two Concepts of Liberty')
+
+This is true at the level of the individual, the culture or the nation. No rational criterion exists by which any one version of the good life can be shown to be better than any other; life has no single goal that reason can identify. The choices that, as moral beings, we have to make, are often difficult and sometimes agonising. It may be that we cannot have both liberty and equality, justice and mercy, candour and kindness. Our moral beliefs are ultimately personal and non-rational. Precisely because they are, we can never be justified in forcing them on others, no matter how passionately we hold them. The belief that any doctrine or ideology
+
+can offer a blanket solution to humanity's problems is fallacious and, because of the things so often done in the name of such solutions, pernicious.
+
+The practical upshot of these observations is the kind of pluralism that Berlin advocates in 'Two Concepts of Liberty'. It is in this essay that he expounds his famous distinction between 'positive' and 'negative' freedom (although the terms 'positive' and 'negative' freedom were coined, not by Berlin, but by T.H. Green). 'Positive' freedom is freedom defined as the achievement of self-mastery or self-realisation, and self-realisation in itself is a chooseable good, if by it we mean the willing actualisation by individuals of what they perceive to be their highest potentialities. The problem, however, is the one which twentieth-century history so readily discloses: the ease with which 'self-realisation' can be defined in terms devised, and often forcibly imposed, by those convinced that there is indeed one true goal and that 'true' freedom is attained only when the collective effort of the nation, or even of the whole 'species-being' of humanity, is dedicated to its attainment. The belief that there is such a goal has, Berlin supposes, been productive of much misery. In particular, he deprecates the notion (associated with the British idealist philosopher Bernard Bosanquet) that we have a 'higher' or spiritual self and a 'lower' or empirical self, and the associated suggestion that one's higher self might be set free by coercing one's merely empirical self. Freedom properly understood must, Berlin thinks, take account of the ultimately personal and non-rational nature of moral choice. It must be 'negative' freedom: freedom to adopt and follow one's own preferences without obstruction or interference by others. 'By being free in this sense, I mean not being interfered with by others. The wider the area of non-interference, the wider my freedom.'
+
+It is obvious from the obituary notices which appeared after his death in 1997 that Sir Isaiah Berlin (he was knighted in 1957) inspired great affection and respect in those who knew him. Much given to self-effacement, he did not regard himself as having made any great contribution to the stock of human ideas. His thought, like Karl Popper's, is very much that of someone who experienced at first-hand the world wars of the twentieth century. His work remains relatively little appreciated, partly because of the breadth of his interests, partly because so much of it took the form of essays written for various occasions and partly because of his determined refusal to be associated with any particular doctrine. The judgement of his obituarist and editor Henry Hardy is succinct and just: *His account [of positive and negative freedom] has remained an indispensable reference point for thought about freedom ever since, and permeates all subsequent informed discussion of the subject; nevertheless, perhaps partly because of the unassertive and deliberately unsystematic nature of his ideas, and his rejection of panaceas of any kind, he did not (to his relief) in any narrow sense acquire disciples or found a school of thought.*
+
+*(Independent, 7 November 1997)* 
+
+## *Further reading*
+
+### *Primary sources*
+
+- Sir Isaiah Berlin *Four Essays on Liberty* (Oxford: Oxford University Press, 1969).
+- Sir Isaiah Berlin *Vico and Herder* (London: Hogarth Press, 1976).
+- Sir Isaiah Berlin *Against the Current: Essays in the History of Ideas* (London: Hogarth Press, 1979).
+- Sir Isaiah Berlin *Karl Marx: His Life and Environment* (London: Fontana, 1995).
+
+#### *Secondary sources*
+
+- Galipeau, C. J. : *Isaiah Berlin's Liberalisms* (Oxford: Clarendon Press, 1994).
+- Gray, J. : *Isaiah Berlin* (London: HarperCollins, 1995).
