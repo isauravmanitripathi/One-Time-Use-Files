@@ -1,0 +1,39 @@
+## A win-win partnership on AI
+
+It's not practical to keep foundational technology in the hands of a few corporations in Silicon Valley. Embracing an open approach to AI technologies can turbocharge India's digital economy
+
+![](_page_0_Picture_2.jpeg)
+
+## NICK CLEGG
+
+INDIANTALENT HAS shaped the digital technologies that have transformed the world in recent decades. And today, Indian engineers are building many of the tools that will power the next great technological advance generative AI. But while India remains a hotbed of tech talent, many of the big companies with the vast computing power to build new AI models are based in Silicon Valley, not Mumbai or Delhi - for now, at least. So, how can we ensure these foundational technologies serve India's unique needs?
+
+A big debate in policy circles around the world in recent months has been about whether big tech companies should keep their AI models in-house or make them avail able more openly. As the debate has rumbled on, the case for openness has grown. This is in part because of practicality - it's not sustainable to keep foundational technology in the hands of just a few large corporations and also because of the proven track record of open sourcing. The infrastructure of the internet runs on open-source code, as do web browsers and many of the apps that billions use every day.
+
+Embracing an open approach to Al technologies can turbocharge India's digital economy. There's already a huge appetite for open-source technology in India. The government has put AI at the heart of its vision for the Indian "techade" and declared its intention to make India a global powerhouse for AL And, it has accompanied rhetoric with action - for example, by supporting open source repositories like Bhashini, which uses AI and natural language processing (NLP
+
+thnologies for speech and text translation.<br>Meta has a long history of openly sharing Al technologies. We've released more than 1,000 AI models, libraries and data sets for researchers. And last week, we announced that we are opening access to our latest large language model, Llama 2, in partnership with Microsoft, including model weights and starting code for pre-trained versions as well as conversational fine-tuned versions.
+
+I have been in India this week, meeting Indian leaders, start-ups and others to discuss how we can collaborate in the field of Al by researching India-specific challenges and partnering with leading Indian academic institutions. And it's no coincidence that India is the first place I have travelled to since last week's announcement. I believe that Meta's open approach to innovation goes hand in glove with India's leadership on digital issues
+
+At Meta, we've seen firsthand the demand for AI technologies from Indian researchers, start-ups and developers. We have seen huge demand for access to our Llama research model from Indian researchers. Fintech platform Yubi created its opensource language model YubiBERT, which understands 13 Indian languages, with code using the NLP architecture RoBERTa, which was trained by Meta. IndicTrans, a neural machine translation model developed by Indian esearchers from Al4Bharat, has used Meta' semantic search infrastructure, FAISS. IF Madras is developing a speech-to-text mode
+
+![](_page_0_Picture_10.jpeg)
+
+using Meta's No Language Left Behind (NLLB) model to enable speech-to-text translations in regional Indian languages.
+
+Meta views India with a very special lens. It's home to some of our largest communities on Facebook, WhatsApp and Instagram. India was one of the first countries to test and launch Reels on Instagram, the first place we launched the Reels tab, and it's where we launched the first end-to-end shopping experience with JioMart on WhatsApp. And, its talent base and rapid digital adoption make it the perfect place for us to invest in emerging. technologies, for example, our \$3 million investment in India's extended reality industry through our XR Programs and Research Fund.
+
+Open innovation in AI needs to be done responsibly. Like all foundational technologies - from radio transmitters to internet operating systems - there will be a multitude of uses for AI models, some predictable and some not. And like every technology, AI will be used for both good and bad ends by good and bad people. While we can't eliminate the potential risks, we can help mitigate them. That starts with openness from those developing these technologies. Tech companies should be transparent about how their systems work. For example, Meta released 22 'system cards" for Facebook and Instagram, which give people insight into the AI behind how content is ranked and recommended in a way that is accessible without deep technical knowledge
+
+Tech companies should also share the details of their work publicly as they iterate, be it through academic papers and public announcements, open discussion of the benefits and risks, and, where appropriate, making the technology itself available for both research and product development. And Al. systems should be stress tested. Ahead of releasing Llama 2, Meta undertook a process called "red teaming". Teams take on the role of adversaries to probe the integrity of systems by hunting for flaws and unintended consequences
+
+A common but mistaken assumption is that releasing source code or model weights A common but mistaken assumption is that releasing source code or model weights makes systems more vulnerable. On the contrary, it means thousands of developers and researchers can identify and solve potential problems that teams holed up inside company siloes would take much longer to do. By seeing how these tools are used by others, in-house teams can learn from them and fix vulnerabilities.
+
+makes systems more vulnerable. On the contrary, it means thousands of developers and researchers can identify and solve potential problems that teams holed up inside company siloes would take much longer to do. By seeing how these tools are used by others, in-house teams can learn from them and fix vulnerabilities. Researchers tested Meta's earlier large language model, BlenderBot 2, and found ways it could be tricked into remembering misinformation. As a result, BlenderBot 3 was more resistant to it.
+
+This openness should be accompanied by collaboration across industry, government, academia and civil society. For example. Meta is a founding member of the Partnership on AI, and is participating in its<br>Framework for Collective Action on Synthetic Media, an important step in ensuring guardrails are established around Al-generated content.
+
+Meta's commitment to openness isn't altruistic. Open innovation leads to better products, faster innovation and a flourishing market, which benefits Meta as it does many others. And it doesn't mean every model can or should be open-sourced. There's a role for both proprietary and open AI models. But ultimately, openness is the best way to spread the benefits of AI, which is why it must remain at the heart of India's approach to technology.
+
+Openness and collaboration is as important for governments as it is for tech companies. This year, India has the presidency of the Global Partnership on Artificial Intelligence (GPAI), which brings together leaders and experts from across science, industry, civil society, international organisations and government. Coupled with its presidency of the G20, India is in a unique position to shape the way emerging technologies are harnessed for years to come. Supporting open innovation in Al during this crucial early stage in the development of these technologies could prove to be transformative for India and the world.

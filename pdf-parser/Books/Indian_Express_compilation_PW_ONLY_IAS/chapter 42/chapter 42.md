@@ -1,0 +1,31 @@
+![](_page_0_Picture_0.jpeg)
+
+## New laws, same system
+
+Proposed criminal justice codes could extend colonial legacy – not expand liberty
+
+## Sidharth Luthra
+
+THE UNION Home Minister recently introduced three comprehensive Criminal Justice Codes on procedure, evidence, and offences before Parliament. Portrayed as game changers, they seek to represent an Indianised version of criminal justice and a break from the colonial past, from laws which were tools of foreign rulers to subjugate us.
+
+Criminal law practitioners, academics, and even judges have talked of revisiting the three Codes that form the bedrock of India's criminal justice administration. The Penal Code remains the law in 34 nations even today. It has broadly remained untouched since 1860, with some additions, including that of sedition, cruelty to women and dowry death, and a few deletions
+
+The new avatar of the Penal Code, Bharatiya Nyaya Sanhita (BNS), introduces community service (a laudable addition, but open prisons remain excluded) and adds offences such as fake news terrorism, organised crime, and corruption. However, it fails to repeal existing special laws that cover these offences. While adding terrorism, organised crime, and corruption, there is no corresponding amendment in the new Bharativa Sakshya Sanhita (Evidence Code) to bring in the reverse burden/presumptions that exist in special laws on terrorism, corruption, and organised crime offences. The enhancement of sentences for rash and negligent acts causing death ignores the distinctive treatment of rashness and negligence adopted by Singapore, and heightens exposure of medical professionals. And there is no explicable
+
+## GS 2: Polity
+
+reason why punishment for mob lynching (an interesting addition) is not in line with murder or intentional culpable homicide. The reorganisation of provisions and reduction in numbers by compiling definitions, updating illustrations and clubbing similar provisions is laudable, but does little to change the core<br>of the 1860 Code. While sedition is repealed Section 124A IPC), it is reintroduced as Section 150 BNS, where intention is made an element. This is reminiscent of sedition and still raises concerns about freedom of speech and possible misuse against dissent. There is enough in existing laws such as IPC/UAPA to deal with what is sought to be addressed. Do we need a relic from the era of monarchs in a democratic republic? And I wonder if going forward, S150 BNS will be applied sparingly and only in exceptional cases as mandated for sedition by the Supreme Court in Kedar Nath Singh (1962).
+
+The right to life and liberty (Article 21) is the bulwark of an individual's protection against state action. The 1973 Criminal Procedure Code, with its restrictions on arrest, right to seek bail, and other procedural safeguards is Article 21 in action. An improved version of the 1898 Code, the 1973 Procedure Code still drew its core from the older Codes. The new law, the Bharatiya Nagarik Suraksha Sanhita (BNSS), enables video conference trials (a much-needed reform) and makes subtle changes of e-filing FIRs (but to be signed within 3 days), yet goes little further in providing "suraksha" to detenues. Unfortunately. the plea bargaining chapter remains untouched and limited to sentence bargaining, which ought to have introduced the ability to plead guilty to a lesser offence.
+
+Increasing police options to seek custody PC) for  $40/60$  days negates the right to bail. Enhancing options to exercise the 15-day PC mandate does not sit well with the philosophy of breaking from the colonial past, nor with BNSS's avowed objective of promoting advanced forensics and scientific investigations for qualitatively superior and speedier investigations. This inches the law closer to existing provisions meant to curtail the heinous offences of organised crime and terrorism. The government ought to have considered reducing the 15-day PC period. By enhancing police options to seek remand, BNSS negates Article 21. Even our colonial masters who introduced it frowned on this 15-day PC period and pre-independence Lahore (Punjab) High Court Rules, (still applicable to Delhi, Punjab, Haryana, Chandigarh and HP) mandate the shortest possible PC and never to obtain a confession.
+
+Bharatiya Sakshya Adhiniyam, the new evdence law, brings in certain principles evolved by courts and seeks to fine-tune provisions relating to digital and electronic means, update and Indianise illustrations, but that's about all.
+
+The introduction of these three laws promised much but they are a regurgitation of existing colonial-era laws. Increased criminalisation, harsher sentences and greater police powers do not further the constitutional objectives of our nation. For a nation with a liberty-oriented Constitution, a break from the colonial past should have meant compiling and rationalising all central laws and creating offences, laws of evidence, and criminal procedure, in three substantive codes to enhance its functionality for investigators, practitioners and the judiciary. It would facilitate justice delivery with reformation as its ultimate objective.
+
+Rationalising the laws is a step forward but a break from the colonial past will only be made when we have a coherent philosophical approach to criminal justice. We need to rationalise provisions, decriminalise (where necessary), introduce criminality (where essential for newer forms of criminality), regulate powers of arrest, introduce bail and sentencing guidelines to guide discretion, while ensuring coherence with the fundamental rights chapter. Victims' rights too are a part of Article 2 The break from the colonial past will be achieved by reinforcing the presumption of innocence and right to fair trial of an accused. while securing participatory rights of victims.
+
+In 1950, we gave ourselves a Constitution with paramountcy to the right to life and liberty. Enhanced sentences, stricter procedures, and vaster police powers are a continuation of the colonial legacy. The nation's hopes are on the Standing Committee tasked with reviewing these proposed legislation to undertake deep study, keeping in mind that the criminal law touches all of us in our daily lives, in one form or another.
+
+> The writer is Senior Advocate, Supreme Court of India

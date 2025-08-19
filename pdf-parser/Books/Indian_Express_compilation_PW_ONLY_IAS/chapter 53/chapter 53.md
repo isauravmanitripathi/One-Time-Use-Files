@@ -1,0 +1,31 @@
+## With strings attached
+
+Government departments and organisations are increasingly turning to global consulting firms for advice. That can be a problem
+
+![](_page_0_Picture_2.jpeg)
+
+THE AREA of human resources - amongst the most mishandled and underappreciated areas of development in India - has seen the Centre, the states and public sector units floundering on independently developing rules, regulating, identifying trends, and delivering on declared objectives. Consequently, government departments and organisations are increasingly turning to global consulting firms for advice. The outcomes and consequences of outsourcing "thinking" do not become clear for years and are difficult to quantify, further undermining the state's capacity to analyse, strategise and govern. That it can be detrimental to the nation's interests is explained by Mariana Francesca Mazzucato and Rosie Collington in The Big Con. The ill-fated farm laws were a demonstrable failure of agency and capacity.
+
+In the US, the rules of the Sarbanes-Oxley Act of 2002 prohibit accounting firms from providing management consulting services to companies they audit. Now more nations are pushing back. In 2016, Germany estab lished its public sector consulting firm Recently, PwC has been embroiled in a con troversy in Australia and government agen cies are reportedly reviewing contracts with the firm. China is clamping down on multinational consulting firms, accusing them of indulging in corporate espionage on behalf of their non-Chinese clients. In 2017, the
+
+Danish government concluded that the transfer of responsibility for its public sector IT to outside agencies had adversely affected its ability to govern - it established an in-house public sector body.
+
+In India, this problem is evident with regard to Aadhaar data and its hosting issues. The Ministry of Agriculture and Farmer Welfare is using the World Economic Forum to design the digitalisation of the agricultural landscape with AGRISTACK. Astonishingly, we are increasingly outsourcing the development of rules and frameworks to market actors who will be affected or governed by them. As dependence on contractors increases, governments and the public sector become incapable of making independent decisions or even changing the contracted firms.
+
+Punjab is hiring the Boston Consulting Group to diversify agriculture while ignoring the wealth of state-level expertise. It is similar to the last government in the state engaging J-PAL to reduce groundwater withdrawal. Deloitte has been engaged by Littar Pradesh to make a roadmap to turn the state into a trillion-dollar economy in five years - it will require an annual growth rate over 30 per cent when the country is growing at a rate of around 6 per cent. Philanthropists and donor organisations with deep pockets like the Bill and Melinda Gates Foundation have been accused of giving advice and influencing policy by contributing resources with a pre-set agenda.
+
+There is also a conflict of interest when the advice is anything but neutral. Unfortunately, there are no regulations to compel consulting firms to reveal information about who they work for. Some of these consultancies are known to provide services free or for a fee that is far below the cost to the government because this paves the way for profitable contracts in the future. They use their access to the top echelons of the government to influence and shape policyrecommending actions that actually benefit private sector clients. Many reports are proven cut-paste jobs from global sources.
+
+The Ministry of Agriculture and Farmer Velfare used Grant Thornton to develop the 10,000 Farmer Producer Organisations. The programme is failing.
+
+As consultancies flourish, the risks of their flawed advice or any other harm they cause are never reckoned with. Nor are the officers who retire, after having hired a consultancy, held accountable. Inevitably, the costs end up much higher than if the government had invested in capacity-building and improving processes.
+
+It is not that consultancies are incapable of giving good advice. However, very often senior functionaries in the administration work in their respective silos and are unable to extract the full value from the contracted engagement. They end up using the deployed personnel as glorified assistants and for preparing jargon-filled presentations.
+
+Often while inviting consultants, several public sector and government departments set "qualifying" conditions that make it nearly impossible for local Indian companies to even qualify for bidding. Such conditions include a very high annual turnover threshold, a high number of full-time employees and a large number of offices in India and outside India. It's common to find toplevel retired bureaucrats with lucrative advisory retainerships or their family members employed with such global firms. I am not one to believe in conspiracies, but Michael Forsyth and Walt Bogdanich's When McKinsey Comes to Town is a convincing exposé of McKinsey's hidden influence on the world
+
+Rebuilding of capabilities must begin with recognising the government as a value creator in the economy - not an inefficient value extractor. The solution is building ca acity within the organisations with support from local firms that are more grounded in local realities and can deliver on national objectives. One would have hoped that the NITI Aayog would have become the flagbearer of this approach.
+
+To establish accountability, every senior civil servant may be asked to provide an annual (confidential) disclosure if any of their close family members are employed by any multinational advisory firm. If such a firm is being considered to be engaged by their department, then this disclosure should be made public. Finally, at the end of every such consulting engagement, the CAG or another suitable agency must audit the "outcomes" of very high-value contracts (say a threshold of Rs 10 crore per project). There seems to be no light at the end of this long tunnel.
+
+> The writer is chairman. **Bharat Krishak Samai**

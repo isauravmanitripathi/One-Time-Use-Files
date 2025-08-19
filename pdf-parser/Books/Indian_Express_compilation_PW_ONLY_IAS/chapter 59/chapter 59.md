@@ -1,0 +1,25 @@
+## SEEDS FOR GROWTH
+
+New technologies offer significant advantages for sustainable agriculture
+
+## MALAVIKA DADLANI
+
+EVEN AS INDIA has achieved food security with the production of foodgrains reaching 330 MT, demand for coarse cereals, pulses oilseeds and vegetables is not fully met. They are also not affordable for a large part of the population, leading to a high proportion of under/malnourished population, with a sizable percentage of child wasting (19.3 per cent).
+
+India needs to close the gap between potential and achievable productivity in most grain crops and vegetables, reduce cost of production, promote cultivation and consumption of nutritionally-rich crops like millets, and focus on the quality of the produce. Therefore, it's imperative that focus be given to ensuring the availability of quality seeds and maximising the performance value of every seed.
+
+The Indian seed industry was built on a strong foundation in the 1960s with the establishment of the National Seeds Corporation and further boosted with enabling policies and regulatory support from the late '80s. The introduction of the Protection of Plant Varieties & Farmers Rights Act, 2001, and the release of Bt cotton hybrids for commercial cultivation in 2002 were important milestones towards the era of a technology-driven seed sector, which boosted the industry and helped Indian farmers with better productivity. The focus of the seed industry should also be to promote varieties and technologies to combat the serious threats posed by climate change.
+
+Being nutrient-rich, hardy and grown in a short cycle, millets are well-suited for sustainMost of these technologies are in commercial use globally, and some have been introduced in India. A robust regulatory mechanism covering quality seedlings and planting materials is needed under the newly proposed 'Clean Green Mission' by the Government of India as part of its G20 commitment to 'Green Development'.
+
+able agriculture. India is the global leader in millet production. By producing quality-assured seeds of improved varieties of millets. especially minor millets, it has the potential to capture the global market. Advancements in seed technology can maximise the availability and quality of seeds and help them perform well under a range of conditions. Seed technology today must combine genetic advancement with applied technologies to provide quality-enhanced seeds of improved varieties having higher productivity, high input use efficiency and the ability to withstand a range of biotic and abiotic stressors
+
+The costs of inputs such as seeds, fertilisers, and pesticides, besides land, labour and water, are the major determinants of profitability in agriculture. The cost of seed is typically around 3-6 per cent of the total cost of produc-<br>tion, though it can contribute up to 15-20 per cent yield advantage over and above the g netic potential under different conditions. The use of farm-saved seed is reducing considerably as farmers realise the advantages of using quality-assured seeds of improved varieties and are willing to invest in them. Sustainable seed technologies can further boost the planting value of seeds. R&D efforts of the public and private sectors can complement each other in developing environment-friendly, better-performing seeds at affordable costs.
+
+These technologies would comprise: Genetic manipulation in variety development; priming or physiological advancement protocols; film coating, pelleting with or without ac tive formulations: seed treatments with biologicals, or chemical pesticides having contact or systemic mode of action; bio-stimulants and nutrients for higher germination and faster seedling establishments and others.
+
+Priming and enhancement technologies are emerging as an essential package of practices to ensure that seeds perform well under a wide range of growing conditions. These are especially beneficial in agro-eco-regions that frequently experience moisture, temperature, and other abiotic stressors, or are prone to diseases and pest damages. Such treatments can work independently or complement the genotype of the seed in a manner that enhances its overall performance. Incorporation of pesticidal formulations through film coating on seed can reduce the amount and cost substantially and provide better protection during germination and vegetative growth stages
+
+Most of these technologies are in commercial use globally, and some have been introduced in India. A robust regulatory mechanism covering quality seedlings and planting materials is needed under the Centre's newly proosed Clean Green Mission, New seed technologies supported by scientific validation and enabling regulatory mechanisms offer signifcant advantages for sustainable agriculture at little additional cost.
+
+The writer is former joint director (Research), ICAR-Indian Agricultural Research Institute

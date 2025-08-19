@@ -1,0 +1,27 @@
+![](_page_0_Picture_0.jpeg)
+
+## MINDING THE RESEARCH GAP
+
+National Research Foundation will require overhaul of funding, regulations
+
+## M S SANTHANAM
+
+PARLIAMENT RECENTLY PASSED the Anusandhan National Research Foundation (ANRF-2023) Bill. It aims to provide "highlevel strategic direction for research, innovation and entrepreneurship", and enhance "India's national research infrastructure. knowledge enterprise, and innovation potential, for scientific pursuit". Such good intentions notwithstanding, its impact will depend on implementation details and how effectively it addresses long-standing issues of funding and processes.
+
+The publicly-funded research ecosystem fights battles on two fronts. The first is inadequate funding, and the second, the inflexible rules and regulations. Gross expenditure on R&D (GERD) at 2 per cent of GDP is recognised as the ideal benchmark to maintain a competitive advantage, though Israel, South Korea the US, Germany and a few other nations invest more than 3 per cent annually. In contrast India's GERD stagnated at about 0.7 per cent of GDP in the last two decades.
+
+Once ANRF is created, the government intends to invest Rs 50,000 crore in the next five years. Unless this adds to the budget allocation for the science and technology ministry, Rs 16,361 crore in 2023, effective funding will decline sharply. Even if added together, GERD will not touch the 2 per cent benchmark. To bridge this gap, the ANRF-2023 Bill plans to seek significant private sector contributions. In the US and UK, more than 50 per cent of GERD comes from industry, whereas in India it stands at 35 per cent. This is an opportunity for synergy with the industry, but there are challenges. Though the Corporate Social Responsibility (CSR) rules allow contributions
+
+For decades, scientists have complained about the bureaucratic labyrinth and its impact on the research environment. The Science, Technology, and Innovation Policy 2020 (STIP-2020) has flagged this issue by proposing to measure if 'the research activities are adequately funded, are less bureaucratic and accountability is in both directions, the donor and the receiver'. The central issue is about timely allocation and flexibility to utilise research grants.
+
+towards scientific research, they can only support projects for up to one year. The CSR mode might be viable if rules can be amended to raise a corpus and allow a 3-5 year rollover of funds committed for research purposes. Rules apart, the idea that private sources can fund basic and applied research through CSR or endowments awaits broader acceptance in India. Philanthropy-funded research centres are emerging, though fewer in number. Moreover, the share of state governments and the public sector to GERD is about 10 per cent, which must also increase substantially.
+
+For decades, scientists have complained about the bureaucratic labyrinth and its impact on the research environment. The Science, Technology, and Innovation Policy 2020(STIP-2020) has flagged this issue by proposing to measure if "the research activities are adequately funded, are less bureaucratic and accountability is in both directions, the donor and the receiver". The central issue is about timely allocation and flexibility to utilise grants. The STIP-2020 does recognise that 'General Financial Rules will be required to be amended for funding of R&D projects to facilitate ease of doing research". Yet, since 2020, administrative overheads have increased.
+
+Restrictions on procurement of research equipment costing up to Rs 200 crore were introduced to prioritise domestic industry, but its implementation has added to the delays. Often, funds are delayed even for approved research projects and salaries of research students, and staff. To get a perspective, we must understand the global research environment. In the semiconductor industry, the capacity of integrated circuits doubles every 18
+
+months, called Moore's Law. New supercomputers followed this trend until a decade ago. With procedural delays lasting more than a year, new supercomputers were often outdated even on arrival in the Indian labs. Stanford University's status report on Artificial Intelligence, AI Index (2019), states that critical machine learning tasks that took three hours to compute in 2017 had reduced to just 88 seconds in 2019 due to faster computers and better algorithms. In 2016, the first cloudbased quantum computer with 5-qubits was unveiled for public access. By 2022, it has grown in size by a whopping 8,600 per cent. The transition from research labs to market is happening faster than ever, at least in the hightech segments. We must overhaul the administrative palimpsest of rules and regulations to remain competitive.
+
+Addressing the Indian Science Congress in 2015, Prime Minister Narendra Modi wanted scientists and researchers to explore the myseries of science and not of government proredures... application requirements for scientific projects should not be more complex han research". This is where definitive reforms are long overdue, and ANRF must take a fresh look. In 1966, Vikram Sarabhai wrote to the then Prime Minister Indira Gandhi calling for "change of policy, administrative practices and, what is most difficult, attitudes". The administrative structures under ANRF must help recalibrate our practices and attitudes to capitalise on India's research potential.
+
+The writer is a professor of physics at Indian Institute of Science Education and Research, Pune. Views are personal
