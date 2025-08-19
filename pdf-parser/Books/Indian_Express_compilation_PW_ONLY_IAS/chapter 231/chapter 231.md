@@ -1,0 +1,3 @@
+## INDONESIA Govt and rebels agree to resume dialogue to end decades-old war
+
+Jakarta: The Philippine government and the country's rebels have agreed to resume talks aimed at ending decades of armed conflict, one of Asia's longest, Norwegian mediators announced Tuesday. High-ranking delegations from both sides met in Oslo last week and agreed to a "common vision for peace" that sought to address key obstacles, according to Norway's foreign ministry. Norwegian Foreign Minister said the deal was signed at "an important signing ceremony" on Thursday but was only made public Tuesday. AP

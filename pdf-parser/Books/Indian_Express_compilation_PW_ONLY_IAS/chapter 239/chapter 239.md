@@ -1,0 +1,17 @@
+## SC: Governor can't send re-adopted Bill...
+
+it was pointed out that the TN Governor had withheld assent but not returned the Bills to the Assembly and referred them for the consideration of the President after the Assembly re-enacted them. "There are three options for the Governor under the substantive part of Article 200 (which deals with the Governor's power to deal with a Bill presented by the Assembly). He can assent to the Bill or he can withhold assent or he can reserve the Bill for the consideration of the President. They are all alternatives. In this case... Governor... withholds assent. Once he withholds assent, there is no question of again referring it to the President," the bench said.
+
+AG Venkataramani said, "That will be an open question. Probably one will have to look into that question." The CII said, "He (Governor) can't. He has to follow one of the three options... When he withholds assent, he can't then say I am referring it to the President. Once he withholds assent, he can't stall the Bill there... The proviso (to Article 200) does not give him a fourth option."
+
+"Otherwise, what will happen is this. The moment he withholds assent and he says he is not bound to send it to the Assembly, he can then stultify the Bill completely at the level of the Governor," he said.
+
+"The President holds an elected office and, therefore, a much wider power is conferred on the President very, very advisably by the Constitution. The Governor, as a nominee of the Union government, must exercise one of the options specified in the substantive part of Article 200. In this case, the Governor said, I withhold the assent. One he withholds assent... it's not your case that the Assembly session (which re-enacted the Bills) was not correctly held. Once the Assembly then passes the Bill, then you can't say now I am reserving it for the President," the CII said.
+
+Venkataramani contended it "need not to be so...Where the Governor thinks he has some message to be sent to the Assembly, he is not withholding his assent at all. He is giving a message, he is making a recommendation: please consider the Bill with these recommendations".
+
+"The House says we disregard your recommendation, we don't accept your recommendation.
+
+Then the Bill comes back to th Governor. Then he has no option This is not a case where he is ask ing the Assembly to consider recommendation or a message He simply said, I am withholdin my assent. When assent is with held, the Bill is not technically ser back to the Assembly for recon sideration," the AG said.
+
+The bench said it will examin his contention when it hears th matter next. Senior Advocat Abhishek Manu Singhvi, appear ing for the TN government, said "This is actually flagrant. Unde Your Lordship's proceedings, how can the Governor think of doin it? This is constitutional obstinac of the worst kind while the matte is pending." With the bench fix ing the matter for further hearing he said the Bills should not b processed by the President's offic in the meantime. "They shoul not create a situation of referrin it to the President and th President passes an order an then again we have to amend (th petition)... Let it not be processe in the President's office," Singhy urged the bench. The bench, how ever, declined to pass any direct tion on the request.

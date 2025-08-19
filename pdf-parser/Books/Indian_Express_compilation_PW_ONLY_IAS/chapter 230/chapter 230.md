@@ -1,0 +1,29 @@
+![](_page_0_Picture_0.jpeg)
+
+## An agenda for the CJI
+
+All is not well with the judicial system. A long list of issues awaits his attention
+
+CHIEF JUSTICE OF India DY Chandrachud has been among the most visible CIIs. The media reports with fanfare not only his judgments but also oral observations in the Court. The CII gives public lectures which are also covered widely. He has often articulated his views about the role of judges and the judiciary. The CII has succeeded in generating considerable interest in the judiciary among the public.
+
+But what has the CJI accomplished one year into his tenure? This needs deeper examination. After all, the role of the judiciary is to dispense justice.
+
+Statistics available on the National Judicial Data Grid, maintained by the Supreme Court, show that 4,43,03,449 civil and criminal cases are pending in various courts. Of them, as many as 69,88,278 cases have been pending for 5-10 years; 32,42,441 cases are pending for over 10-20 years, 4,97,627 cases pending for 20-30 years and 93,770 cases for over 30 years. As many as 15,69,281 applications are pending for execution in civil cases (published on 17.11.2023). In October alone, 16,14,349 cases were instituted. While it is true that as many as 12,24,972 cases were disposed of in that month, at this rate of disposal, given the pending cases and cases be ing filed afresh, it will take a long time to dis pense justice. The Supreme Court alone has 79,361 pending cases and data shows that 4,915 were instituted in one month as against disposal of 4,466 cases.
+
+Lakhs of citizens are waiting to get justice from our courts. But many may never get it during their lifetimes. It is a sad commentary on our judiciary when a litigant dies before he can secure justice.
+
+Prison Statistics India, 2021, published by the National Crime Records Bureau, Ministr of Home Affairs, shows that as many as 81,55 convicted prisoners are in our central jails. As many as 1,54,447 undertrials are languishing in central jails across the country. In other prisons, the number of undertrial prisoner is as high as 4,27,165. They are imprisoned for a period ranging from three months to five ears and more. They may be released some day, pending trial, or they may even die. Mos of them may even be acquitted. The conviction rate in criminal cases in India is low. Clearly, the administration of justice pays little heed to the fundamental rights of citizens.
+
+In 1977, the Supreme Court declared that "The basic rule may perhaps be tersely put as bail, not jail", except where there are circumstances suggestive of fleeing from justice or thwarting the course of justice or creating other trouble in the shape of repeat offences. In 1980, the Court held that "When the even flow of life becomes turbid, the police can be called upon to inquire into charges arising out of political antagonism. The powerful processes of criminal law can then be perverted for achieving extraneous ends... The foul deed is done when an adversary is exposed to social ridicule and obloguy. no matter when and whether a conviction is secured or is at all possible." Therefore, it declared that the provisions for anticipatory bail were provided and posed a question: "How can the court, even if it had a third eye, assess the blatantness of corruption at the stage of anticipatory bail? And will it be correct to say that blatantness of the accusation will suffice for rejecting bail, if the applicant's conduct is painted in colours too lurid to be true?" "A person seeking anticipatory bail is still a free man entitled to the presumption of innocence," said the Court and directed that the power must be exercised liberally. All this is forgotten today and day in and day out, anticipatory bail or bail is denied contrary to settled principles.
+
+All is not well even in the Supreme Court. The constitution of benches and allocation of cases has left a lot to be desired. As a result, justice is sometimes skewed. The CII and every judge appointed under the Collegium System must remember that the independence of the judiciary is a part of the basic structure of the Constitution, and is essential for the preservation of the democratic sys tem as was held in the Second Judge's case. If the power derived by the Collegium is a constitutional purpose to be served as per the said judgment, the solemn duty "is to select the best from among those available for ap
+
+pointment as the judges of the superior judiciary". The idea was to eliminate political influence at the stage of appointment.
+
+Today, aspects of India's democracy are under siege. The functioning of constitutional institutions and bodies is far from satisfactory. Attacks on Opposition parties across the country are increasing under one pretext or another. No one can condone corruption and it must be dealt with strictly but only in accordance with law. Most of all, it must be dealt with evenly as corruption is not the forte of the opposition alone.
+
+The Constitution of India is itself threatened as freedoms contained therein are hardly extended to all citizens in letter and spirit. The separation of powers and their limitations under the most well-drafted Constitution are getting blurred. Most of all, serious violations of human rights and values are taking place in full view of the country. People have been arrested for agitating for their rights and expressing their opinions or their political beliefs. Hundreds of citizens have been killed in "encounters".
+
+It is not too late for the CJI to turn more of his attention to these issues. He has the capacity, vision, ability, intellect and experience and most of all, the time  $-$  to make a change.
+
+The writer is a senior advocate before the Supreme Court and former president of the Supreme Court Bar Association

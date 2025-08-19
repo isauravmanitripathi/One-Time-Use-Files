@@ -1,0 +1,29 @@
+## Restoring the balance
+
+SC verdict in Adani-Hindenburg case is a reaffirmation of strength and resilience of India's regulatory and judicial frameworks
+
+![](_page_0_Picture_2.jpeg)
+
+THE START OF 2023 witnessed a seismic event in India's financial sector, triggered by Hindenburg Research's allegations against the Adani Group. This event not only shook the stock market but also raised serious questions about the integrity of corporate governance and regulatory oversight in India. The Supreme Court's ruling on this matter has become a landmark in India's legal and financial governance, highlighting the resilience of the country's institutional frameworks against manufactured sensationalism and unsubstantiated reports.
+
+Hindenburg Research, known for its activist-investment approach, released a report accusing the Adani Group of various financial misdeeds. The report quickly captured media attention, leading to a tumultuous response in the financial markets. The dramatic fall in stock prices and the ensuing public outcry led to multiple petitions being filed in the Supreme Court, prompting the formation of an Expert Committee to investigate these claims thoroughly.
+
+In a landmark judgment, the Supreme Court of India demonstrated a commendable degree of judicial restraint in regulatory affairs. The Court consciously chose not to encroach upon the functions of the Securities and Exchange Board of India (SEBI), underlining its respect for the autonomy of this vital regulatory body. This approach not only reaffirms the robustness of India's financial regulatory structures but also sets a precedent for the separation of powers, reinforcing the principle that regulatory bodies are best equipped to handle their specific domains. The Court upheld the integrity of SEBI's regulatory framework, cementing its role as a guardian of India's financial stability.
+
+Further, the Court's verdict resonated with a clear endorsement of SEBI's recent amendments concerning Foreign Portfolio Investments (FPI) and Listing Obligations and Disclosure Requirements (LODR) regulations. By finding these amendments sound and valid, the Supreme Court strengthened the foundation of trust in India's regulatory mechanisms.
+
+This affirmation speaks to the rigorous standards and forward-thinking approach that SEBI has adopted in its regulatory practices. Additionally, the Court's decision to <br>maintain SEBI's investigative authority, rather than shifting it to a Special Investigation Team (SIT), reflects a significant vote of confidence in SEBI's investigative acumen and its ability to handle complex financial inquiries with diligence and precision.
+
+The ruling also showcased a critical stance on the use of third-party reports in
+
+legal proceedings. The Supreme Court deemed the reliance on external reports. such as those by OCCRP (Organised Crime and Corruption Reporting Project), as insufficient grounds for contesting SEBI's findings. This emphasises the necessity for relying on verified and credible sources in legal investigations, a standard that upholds the sanctity of judicial processes. Moreover, the dismissal of allegations of bias within the Expert Committee appointed by the Court underscores the Committee's objectivity and meticulous approach to the investigation. In addition, the Supreme Court urged both the government and SEBI to consider the recommendations put forth by the Committee. These suggestions are aimed at bolstering investor protection and examining the legal dimensions of Hindenburg's report, thereby ensuring the safeguarding<br>of market integrity and investor interests.
+
+The Hindenburg case is a textbook example of how sensationalism, driven by unverified and potentially biased reporting, can wreak havoc in financial markets. The report's timing, coinciding with India's increasing prominence on the global stage. notably during its G20 presidency, suggests deliberate attempt to undermine the na tion's growing international stature. Such tactics not only mislead investors but also<br>unfairly damage the reputation of established corporations.
+
+India's response to this episode, particularly through its judiciary and regulatory bodies, has been exemplary. By prioritising methodical investigation over sensational claims, these institutions have demonstrated their commitment to procedural integrity and factual accuracy. The Supreme Court's ruling, in particular, stands as a bulwark against the trend of using unverified reports to influence market perceptions and legal outcomes.
+
+The handling of the Hindenburg crisis has broader implications for India's image on the world stage. The country's ability to manage such a crisis internally, with a transparent and robust legal process, sends a strong message about its commitment to just and transparent governance. It reassures international investors and global partners of the reliability and maturity of India's financial and legal systems.
+
+The Supreme Court of India's verdict in the Adani-Hindenburg case is more than a legal judgment; it is a reaffirmation of the strength and resilience of India's regulatory and judicial frameworks. In an era where sensationalism and unverified reporting are increasingly used to manipulate markets and public opinion, this verdict serves as a reminder of the importance of basing decisions on solid evidence and thorough investigation. As India continues to rise on the global stage, its ability to uphold the principles of justice and transparency in the face of baseless accusations will be crucial to shaping its future economic and political trajectory.
+
+The writer is Managing Partner, Parinam Law Associates and Vice President, Mumbai BIP

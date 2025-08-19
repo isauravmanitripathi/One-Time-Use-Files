@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Enhanced Local Marker PDF Parser CLI Tool - Complete Implementation
+Enhanced Local Marker PDF Parser CLI Tool - Complete Implementation with Skip Logic and Retry System
 Features:
 - Session management and tracking
 - Smart batch processing with parallel uploads/downloads
@@ -8,6 +8,8 @@ Features:
 - Real-time monitoring dashboard
 - Download tracking and auto-cleanup integration
 - Resume capability for interrupted processing
+- Smart skip logic for already processed files
+- Failed job retry system
 
 Usage Examples:
   # Basic processing
@@ -56,14 +58,17 @@ class JobInfo:
     processing_time: Optional[int] = None
     file_count: Optional[int] = None
     download_count: int = 0
+    retry_count: int = 0
+    failure_stage: Optional[str] = None  # 'upload', 'processing', 'download'
 
 class EnhancedMarkerParser:
-    def __init__(self, server_url="https://ezyf1jyjfcgzcw-8888.proxy.runpod.net/"):
+    def __init__(self, server_url="https://pjavwu4ljbpcdc-8888.proxy.runpod.net/"):
         self.server_url = server_url.rstrip('/')
         self.session_id = None
         self.active_jobs = {}  # job_id -> JobInfo
         self.completed_jobs = {}  # job_id -> JobInfo
         self.failed_jobs = {}  # job_id -> JobInfo
+        self.skipped_jobs = {}  # pdf_path -> reason for skip
         
         # API endpoints
         self.upload_url = f"{self.server_url}/upload"
@@ -79,12 +84,98 @@ class EnhancedMarkerParser:
         self.max_concurrent_downloads = 5
         self.poll_interval = 3  # seconds
         self.dashboard_refresh = 5  # seconds
+        self.max_retries = 2  # Maximum retry attempts per file
         
         # Session state file for resume capability
         self.state_file = Path.cwd() / ".marker_cli_session.json"
         
         print(f"🔗 Enhanced Marker CLI initialized")
         print(f"📡 Server: {self.server_url}")
+    
+    def check_already_processed(self, pdf_path: Path, output_format: str, download_all: bool) -> Tuple[bool, str]:
+        """
+        Enhanced check for already processed files
+        Returns: (is_processed, reason)
+        """
+        pdf_name = pdf_path.stem
+        pdf_parent = pdf_path.parent
+        
+        if download_all:
+            # Check for output folder
+            output_folder = pdf_parent / pdf_name
+            if output_folder.exists() and output_folder.is_dir():
+                # Check if folder has content (not just empty)
+                contents = list(output_folder.iterdir())
+                if contents:
+                    return True, f"Output folder exists: {output_folder.name}/ ({len(contents)} files)"
+        
+        # Check for single format output
+        if output_format == "markdown":
+            output_file = pdf_path.with_suffix('.md')
+        elif output_format == "json":
+            output_file = pdf_path.with_suffix('.json')
+        else:
+            output_file = pdf_path.with_suffix(f'.{output_format}')
+        
+        if output_file.exists():
+            file_size = output_file.stat().st_size
+            if file_size > 0:  # Ensure file is not empty
+                return True, f"Output file exists: {output_file.name} ({file_size/1024:.1f} KB)"
+        
+        return False, ""
+    
+    def scan_and_categorize_pdfs(self, folder: Path, output_format: str, download_all: bool) -> Dict[str, List[Path]]:
+        """
+        Scan folder and categorize PDFs into processed, unprocessed, and invalid
+        """
+        print(f"🔍 Scanning folder: {folder}")
+        
+        # Find all PDF files
+        pdf_files = self._find_pdf_files(folder)
+        
+        if not pdf_files:
+            return {
+                'all_pdfs': [],
+                'unprocessed': [],
+                'already_processed': [],
+                'invalid': []
+            }
+        
+        print(f"📄 Found {len(pdf_files)} PDF file(s)")
+        print("🔍 Checking processing status...")
+        
+        unprocessed = []
+        already_processed = []
+        invalid = []
+        
+        for pdf_path in pdf_files:
+            try:
+                # Check if file is readable
+                if not pdf_path.exists() or pdf_path.stat().st_size == 0:
+                    invalid.append(pdf_path)
+                    continue
+                
+                # Check if already processed
+                is_processed, reason = self.check_already_processed(pdf_path, output_format, download_all)
+                
+                if is_processed:
+                    already_processed.append(pdf_path)
+                    self.skipped_jobs[str(pdf_path)] = reason
+                    print(f"   ⏭️  SKIP: {pdf_path.name} - {reason}")
+                else:
+                    unprocessed.append(pdf_path)
+                    print(f"   📝 TODO: {pdf_path.name} ({pdf_path.stat().st_size / (1024*1024):.1f} MB)")
+                    
+            except Exception as e:
+                print(f"   ❌ ERROR checking {pdf_path.name}: {e}")
+                invalid.append(pdf_path)
+        
+        return {
+            'all_pdfs': pdf_files,
+            'unprocessed': unprocessed,
+            'already_processed': already_processed,
+            'invalid': invalid
+        }
     
     def start_session(self) -> str:
         """Start a new server session"""
@@ -115,8 +206,18 @@ class EnhancedMarkerParser:
                     'job_id': job.job_id,
                     'pdf_path': str(job.pdf_path),
                     'status': job.status,
-                    'upload_time': job.upload_time.isoformat() if job.upload_time else None
+                    'upload_time': job.upload_time.isoformat() if job.upload_time else None,
+                    'retry_count': job.retry_count,
+                    'failure_stage': job.failure_stage
                 } for jid, job in self.active_jobs.items()},
+                'failed_jobs': {jid: {
+                    'job_id': job.job_id,
+                    'pdf_path': str(job.pdf_path),
+                    'status': job.status,
+                    'error_message': job.error_message,
+                    'retry_count': job.retry_count,
+                    'failure_stage': job.failure_stage
+                } for jid, job in self.failed_jobs.items()},
                 'last_update': datetime.now().isoformat()
             }
             
@@ -148,12 +249,26 @@ class EnhancedMarkerParser:
                     job_id=job_data['job_id'],
                     pdf_path=Path(job_data['pdf_path']),
                     status=job_data['status'],
-                    upload_time=datetime.fromisoformat(job_data['upload_time']) if job_data['upload_time'] else None
+                    upload_time=datetime.fromisoformat(job_data['upload_time']) if job_data['upload_time'] else None,
+                    retry_count=job_data.get('retry_count', 0),
+                    failure_stage=job_data.get('failure_stage')
                 )
                 self.active_jobs[job.job_id] = job
             
-            if self.active_jobs:
-                print(f"📋 Resumed session {self.session_id} with {len(self.active_jobs)} active jobs")
+            # Restore failed jobs
+            for job_data in state.get('failed_jobs', {}).values():
+                job = JobInfo(
+                    job_id=job_data['job_id'],
+                    pdf_path=Path(job_data['pdf_path']),
+                    status=job_data['status'],
+                    error_message=job_data.get('error_message'),
+                    retry_count=job_data.get('retry_count', 0),
+                    failure_stage=job_data.get('failure_stage')
+                )
+                self.failed_jobs[job.job_id] = job
+            
+            if self.active_jobs or self.failed_jobs:
+                print(f"📋 Resumed session {self.session_id} with {len(self.active_jobs)} active and {len(self.failed_jobs)} failed jobs")
                 return True
             
             return False
@@ -378,6 +493,17 @@ class EnhancedMarkerParser:
         print(f"📄 PROCESSING: {pdf_path.name}")
         print(f"{'='*60}")
         
+        # Check if already processed
+        is_processed, reason = self.check_already_processed(
+            pdf_path, 
+            kwargs.get('output_format', 'markdown'), 
+            kwargs.get('download_all', False)
+        )
+        
+        if is_processed:
+            print(f"⏭️  SKIPPED: {reason}")
+            return None
+        
         try:
             # Step 1: Upload
             job_id = self.upload_pdf(pdf_path, **kwargs)
@@ -487,45 +613,40 @@ class EnhancedMarkerParser:
                 print(f"⚠️  Error checking status: {e}")
                 time.sleep(self.poll_interval * 2)
     
-    def process_folder_smart(self, folder_path: str, auto_mode: bool = False, **kwargs):
-        """Smart batch processing with parallel uploads and downloads"""
+    def process_folder_smart_with_retry(self, folder_path: str, auto_mode: bool = False, **kwargs):
+        """Smart batch processing with retry system for failed jobs"""
         
         folder = Path(folder_path)
         if not folder.exists() or not folder.is_dir():
             raise ValueError(f"Invalid folder: {folder_path}")
         
-        # Find PDF files
-        print(f"🔍 Scanning folder: {folder}")
-        pdf_files = self._find_pdf_files(folder)
+        # Step 1: Scan and categorize PDFs
+        categorized = self.scan_and_categorize_pdfs(
+            folder, 
+            kwargs.get('output_format', 'markdown'), 
+            kwargs.get('download_all', False)
+        )
         
-        if not pdf_files:
-            print("❌ No PDF files found")
-            return
+        unprocessed_files = categorized['unprocessed']
+        already_processed = categorized['already_processed']
+        invalid_files = categorized['invalid']
         
-        print(f"✅ Found {len(pdf_files)} PDF file(s)")
+        # Show scan results
+        print(f"\n📊 SCAN RESULTS:")
+        print(f"   📄 Total PDFs found: {len(categorized['all_pdfs'])}")
+        print(f"   ✅ Already processed: {len(already_processed)}")
+        print(f"   📝 Need processing: {len(unprocessed_files)}")
+        print(f"   ❌ Invalid/unreadable: {len(invalid_files)}")
         
-        # Check for already processed files
-        download_all = kwargs.get('download_all', False)
-        unprocessed_files = []
-        already_processed = []
-        
-        for pdf_path in pdf_files:
-            if self._is_already_processed(pdf_path, kwargs.get('output_format', 'markdown'), download_all):
-                already_processed.append(pdf_path)
-            else:
-                unprocessed_files.append(pdf_path)
-        
-        print(f"📊 Status: {len(unprocessed_files)} unprocessed, {len(already_processed)} already processed")
-        
-        if already_processed:
-            print(f"\n📁 Already processed (will skip):")
-            for pdf_path in already_processed[:5]:  # Show first 5
-                print(f"   ⏭️  {pdf_path.name}")
-            if len(already_processed) > 5:
-                print(f"   ... and {len(already_processed) - 5} more")
+        if invalid_files:
+            print(f"\n❌ Invalid files found:")
+            for pdf_path in invalid_files[:5]:
+                print(f"   ❌ {pdf_path.name}")
+            if len(invalid_files) > 5:
+                print(f"   ... and {len(invalid_files) - 5} more")
         
         if not unprocessed_files:
-            print(f"\n🎉 All PDFs have already been processed!")
+            print(f"\n🎉 All valid PDFs have already been processed!")
             return
         
         # Ask for processing mode if not auto
@@ -533,20 +654,27 @@ class EnhancedMarkerParser:
             auto_mode = self._ask_processing_mode()
         
         if auto_mode:
-            print(f"\n⚡ AUTOMATIC BATCH PROCESSING")
+            print(f"\n⚡ AUTOMATIC BATCH PROCESSING WITH RETRY SYSTEM")
             print(f"🚀 Processing {len(unprocessed_files)} PDFs with smart batching...")
             print("="*60)
         
         try:
-            # Smart batch processing
-            self._smart_batch_process(unprocessed_files, auto_mode, **kwargs)
+            # Step 2: Process unprocessed files with smart batching
+            failed_pdfs = self._smart_batch_process_with_retry(unprocessed_files, auto_mode, **kwargs)
+            
+            # Step 3: Retry failed PDFs if any
+            if failed_pdfs:
+                self._retry_failed_pdfs(failed_pdfs, **kwargs)
+            
+            # Step 4: Final comprehensive summary
+            self._show_comprehensive_summary(categorized, invalid_files)
             
         except KeyboardInterrupt:
             print(f"\n❌ Batch processing interrupted by user")
-            self._show_batch_summary()
+            self._show_comprehensive_summary(categorized, invalid_files)
     
-    def _smart_batch_process(self, pdf_files: List[Path], auto_mode: bool, **kwargs):
-        """Process PDFs with intelligent sequential batching (upload 3, process, download, repeat)"""
+    def _smart_batch_process_with_retry(self, pdf_files: List[Path], auto_mode: bool, **kwargs) -> List[Path]:
+        """Process PDFs with intelligent sequential batching and collect failed ones"""
         
         print(f"📊 Processing strategy: Sequential batches of 3 PDFs")
         print(f"   📝 Strategy: Upload 3 → Wait for completion → Download → Repeat")
@@ -555,7 +683,7 @@ class EnhancedMarkerParser:
         batch_size = 3
         total_files = len(pdf_files)
         completed_count = 0
-        failed_count = 0
+        failed_pdfs = []  # Collect failed PDFs for retry
         
         # Process files in batches of 3
         for batch_start in range(0, total_files, batch_size):
@@ -570,6 +698,7 @@ class EnhancedMarkerParser:
             # Phase 1: Upload current batch
             print(f"📤 Uploading batch {batch_num}...")
             uploaded_jobs = []
+            upload_failed_pdfs = []
             
             for i, pdf_path in enumerate(current_batch, 1):
                 size_mb = pdf_path.stat().st_size / (1024 * 1024)
@@ -581,63 +710,47 @@ class EnhancedMarkerParser:
                     print(f"      ✅ Job created: {job_id}")
                 else:
                     print(f"      ❌ Upload failed")
-                    failed_count += 1
+                    upload_failed_pdfs.append(pdf_path)
+                    # Mark as failed with upload stage
+                    fake_job_id = f"upload_failed_{int(time.time())}_{i}"
+                    job = JobInfo(
+                        job_id=fake_job_id,
+                        pdf_path=pdf_path,
+                        status="failed",
+                        error_message="Upload failed",
+                        failure_stage="upload"
+                    )
+                    self.failed_jobs[fake_job_id] = job
                 
                 # Small delay between uploads to prevent overwhelming server
                 if i < len(current_batch):
                     time.sleep(1)
             
+            # Add upload failed PDFs to main failed list
+            failed_pdfs.extend(upload_failed_pdfs)
+            
             if not uploaded_jobs:
                 print(f"❌ No files uploaded successfully in batch {batch_num}")
-                failed_count += len(current_batch)
                 continue
             
             print(f"✅ Batch {batch_num}: {len(uploaded_jobs)}/{len(current_batch)} files uploaded successfully")
             
             # Phase 2: Wait for all jobs in this batch to complete
             print(f"⏳ Waiting for batch {batch_num} to complete...")
-            self._wait_for_batch_completion(uploaded_jobs)
+            batch_failed_pdfs = self._wait_for_batch_completion_with_tracking(uploaded_jobs)
+            failed_pdfs.extend(batch_failed_pdfs)
             
             # Phase 3: Download all completed jobs in this batch
             print(f"📥 Downloading batch {batch_num} results...")
+            download_failed_pdfs = self._download_batch_results(uploaded_jobs, **kwargs)
+            failed_pdfs.extend(download_failed_pdfs)
             
-            for job_id in uploaded_jobs:
-                if job_id in self.active_jobs:
-                    job_info = self.active_jobs[job_id]
-                    
-                    # Check if job completed successfully
-                    status = self.check_job_status(job_id)
-                    if status and status.get('status') == 'completed':
-                        print(f"   📥 Downloading: {job_info.pdf_path.name}")
-                        
-                        output_file = self.download_job_result(
-                            job_id, job_info.pdf_path,
-                            kwargs.get('output_format', 'markdown'),
-                            kwargs.get('download_all', False),
-                            kwargs.get('keep_alive', False)
-                        )
-                        
-                        if output_file:
-                            completed_count += 1
-                            job_info.status = "completed"
-                            job_info.completion_time = datetime.now()
-                            job_info.output_file = output_file
-                            self.completed_jobs[job_id] = job_info
-                            del self.active_jobs[job_id]
-                            print(f"      ✅ Completed: {job_info.pdf_path.name}")
-                        else:
-                            failed_count += 1
-                            print(f"      ❌ Download failed: {job_info.pdf_path.name}")
-                    else:
-                        failed_count += 1
-                        status_msg = status.get('status', 'unknown') if status else 'unknown'
-                        error_msg = status.get('error_message', '') if status else ''
-                        print(f"      ❌ Job failed: {job_info.pdf_path.name} (status: {status_msg}) {error_msg}")
+            # Count completed jobs
+            batch_completed = len([job_id for job_id in uploaded_jobs if job_id in self.completed_jobs])
+            completed_count += batch_completed
             
             # Show batch summary
-            batch_completed = len([job_id for job_id in uploaded_jobs if job_id in self.completed_jobs])
-            batch_failed = len(uploaded_jobs) - batch_completed
-            
+            batch_failed = len(current_batch) - batch_completed
             print(f"📊 Batch {batch_num} summary: {batch_completed} completed, {batch_failed} failed")
             
             # Brief pause before next batch (except for last batch)
@@ -645,36 +758,33 @@ class EnhancedMarkerParser:
                 print(f"⏸️  Pausing 3 seconds before next batch...")
                 time.sleep(3)
         
-        # Final summary
+        # Initial processing summary
+        total_failed = len(failed_pdfs)
         print(f"\n{'='*60}")
-        print("📊 SEQUENTIAL BATCH PROCESSING SUMMARY")
+        print("📊 INITIAL PROCESSING SUMMARY")
         print(f"{'='*60}")
-        print(f"📄 Total PDFs: {total_files}")
+        print(f"📄 Total PDFs processed: {total_files}")
         print(f"✅ Successfully completed: {completed_count}")
-        print(f"❌ Failed: {failed_count}")
+        print(f"❌ Failed (will retry): {total_failed}")
         print(f"📊 Success rate: {(completed_count/total_files)*100:.1f}%")
         
-        if self.completed_jobs:
-            print(f"\n📁 Completed files:")
-            for job_id, job in list(self.completed_jobs.items())[:10]:
-                if job.output_file:
-                    processing_time = ""
-                    if job.upload_time and job.completion_time:
-                        total_time = (job.completion_time - job.upload_time).total_seconds()
-                        processing_time = f" ({total_time:.0f}s total)"
-                    print(f"   ✅ {job.pdf_path.name} → {job.output_file.name}{processing_time}")
-            
-            if len(self.completed_jobs) > 10:
-                print(f"   ... and {len(self.completed_jobs) - 10} more")
+        if failed_pdfs:
+            print(f"\n❌ Failed files (will be retried):")
+            for pdf_path in failed_pdfs[:10]:
+                print(f"   ❌ {pdf_path.name}")
+            if len(failed_pdfs) > 10:
+                print(f"   ... and {len(failed_pdfs) - 10} more")
         
         print(f"{'='*60}")
+        
+        return failed_pdfs
     
-    def _wait_for_batch_completion(self, job_ids: List[str]):
-        """Wait for all jobs in a batch to complete"""
+    def _wait_for_batch_completion_with_tracking(self, job_ids: List[str]) -> List[Path]:
+        """Wait for all jobs in a batch to complete and track failed ones"""
         
         pending_jobs = set(job_ids)
         completed_jobs = set()
-        failed_jobs = set()
+        failed_pdfs = []
         
         print(f"   👁️  Monitoring {len(pending_jobs)} jobs in this batch...")
         
@@ -701,11 +811,18 @@ class EnhancedMarkerParser:
                     
                     elif job_status == 'failed':
                         pending_jobs.remove(job_id)
-                        failed_jobs.add(job_id)
                         if job_id in self.active_jobs:
                             job_info = self.active_jobs[job_id]
                             error_msg = status.get('error_message', 'Unknown error')
                             print(f"      ❌ {job_info.pdf_path.name} failed: {error_msg}")
+                            
+                            # Mark for retry
+                            failed_pdfs.append(job_info.pdf_path)
+                            job_info.status = "failed"
+                            job_info.error_message = error_msg
+                            job_info.failure_stage = "processing"
+                            self.failed_jobs[job_id] = job_info
+                            del self.active_jobs[job_id]
                 
                 # Show progress update every 15 seconds
                 current_time = time.time()
@@ -738,186 +855,247 @@ class EnhancedMarkerParser:
                 print(f"\n❌ Batch monitoring interrupted by user")
                 break
         
-        print(f"   ✅ Batch completed: {len(completed_jobs)} successful, {len(failed_jobs)} failed")
+        print(f"   ✅ Batch completed: {len(completed_jobs)} successful, {len(failed_pdfs)} failed")
+        return failed_pdfs
     
-    def _upload_batch(self, pdf_paths: List[Path], **kwargs) -> List[str]:
-        """Upload multiple PDFs in parallel"""
+    def _download_batch_results(self, job_ids: List[str], **kwargs) -> List[Path]:
+        """Download results for completed jobs and track download failures"""
         
-        def upload_single(pdf_path):
-            try:
-                return self.upload_pdf(pdf_path, **kwargs)
-            except Exception as e:
-                print(f"❌ Upload failed for {pdf_path.name}: {e}")
-                return None
+        download_failed_pdfs = []
         
-        job_ids = []
-        with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_concurrent_uploads) as executor:
-            future_to_pdf = {executor.submit(upload_single, pdf): pdf for pdf in pdf_paths}
-            
-            for future in concurrent.futures.as_completed(future_to_pdf):
-                pdf_path = future_to_pdf[future]
-                try:
-                    job_id = future.result()
-                    if job_id:
-                        job_ids.append(job_id)
-                        print(f"   ✅ {pdf_path.name} → {job_id}")
+        for job_id in job_ids:
+            if job_id in self.active_jobs:
+                job_info = self.active_jobs[job_id]
+                
+                # Check if job completed successfully
+                status = self.check_job_status(job_id)
+                if status and status.get('status') == 'completed':
+                    print(f"   📥 Downloading: {job_info.pdf_path.name}")
+                    
+                    output_file = self.download_job_result(
+                        job_id, job_info.pdf_path,
+                        kwargs.get('output_format', 'markdown'),
+                        kwargs.get('download_all', False),
+                        kwargs.get('keep_alive', False)
+                    )
+                    
+                    if output_file:
+                        job_info.status = "completed"
+                        job_info.completion_time = datetime.now()
+                        job_info.output_file = output_file
+                        self.completed_jobs[job_id] = job_info
+                        del self.active_jobs[job_id]
+                        print(f"      ✅ Completed: {job_info.pdf_path.name}")
                     else:
-                        print(f"   ❌ Failed: {pdf_path.name}")
-                except Exception as e:
-                    print(f"   ❌ Error uploading {pdf_path.name}: {e}")
+                        print(f"      ❌ Download failed: {job_info.pdf_path.name}")
+                        download_failed_pdfs.append(job_info.pdf_path)
+                        job_info.status = "failed"
+                        job_info.error_message = "Download failed"
+                        job_info.failure_stage = "download"
+                        self.failed_jobs[job_id] = job_info
+                        del self.active_jobs[job_id]
         
-        return job_ids
+        return download_failed_pdfs
     
-    def _monitor_and_download_parallel(self, job_ids: List[str], **kwargs):
-        """Monitor multiple jobs and download as they complete"""
+    def _retry_failed_pdfs(self, failed_pdfs: List[Path], **kwargs):
+        """Retry processing failed PDFs one by one"""
         
-        pending_jobs = set(job_ids)
-        completed_jobs = set()
-        failed_jobs = set()
+        if not failed_pdfs:
+            return
         
-        print(f"👁️  Monitoring {len(pending_jobs)} jobs...")
+        print(f"\n🔄 RETRY PHASE: Processing {len(failed_pdfs)} failed PDFs")
+        print("="*60)
+        print("📝 Strategy: Process failed PDFs one by one with detailed monitoring")
+        print("="*60)
         
-        # Create download executor
-        download_executor = concurrent.futures.ThreadPoolExecutor(max_workers=self.max_concurrent_downloads)
-        download_futures = {}
+        retry_completed = 0
+        retry_still_failed = 0
         
-        last_status_update = time.time()
-        
-        while pending_jobs or download_futures:
+        for i, pdf_path in enumerate(failed_pdfs, 1):
+            print(f"\n🔄 RETRY {i}/{len(failed_pdfs)}: {pdf_path.name}")
+            print("-" * 40)
+            
+            # Check if it was processed successfully since the failure (edge case)
+            is_processed, reason = self.check_already_processed(
+                pdf_path, 
+                kwargs.get('output_format', 'markdown'), 
+                kwargs.get('download_all', False)
+            )
+            
+            if is_processed:
+                print(f"   ✅ Already processed: {reason}")
+                retry_completed += 1
+                continue
+            
             try:
-                # Check status of pending jobs
-                newly_completed = []
-                newly_failed = []
+                # Find the existing failed job info for retry count
+                existing_job = None
+                for job_id, job_info in self.failed_jobs.items():
+                    if job_info.pdf_path == pdf_path:
+                        existing_job = job_info
+                        break
                 
-                for job_id in list(pending_jobs):
-                    status = self.check_job_status(job_id)
-                    if not status:
-                        continue
+                retry_count = existing_job.retry_count + 1 if existing_job else 1
+                max_retries = self.max_retries
+                
+                print(f"   🔄 Retry attempt {retry_count}/{max_retries}")
+                if existing_job and existing_job.failure_stage:
+                    print(f"   ❌ Previous failure at: {existing_job.failure_stage}")
+                if existing_job and existing_job.error_message:
+                    print(f"   💬 Previous error: {existing_job.error_message}")
+                
+                # Process with detailed monitoring
+                result = self._process_single_pdf_with_retry_tracking(pdf_path, retry_count, **kwargs)
+                
+                if result:
+                    retry_completed += 1
+                    print(f"   🎉 RETRY SUCCESS: {pdf_path.name}")
                     
-                    job_status = status.get('status')
+                    # Remove from failed jobs if it was there
+                    if existing_job:
+                        for job_id in list(self.failed_jobs.keys()):
+                            if self.failed_jobs[job_id].pdf_path == pdf_path:
+                                del self.failed_jobs[job_id]
+                                break
+                else:
+                    retry_still_failed += 1
+                    print(f"   ❌ RETRY FAILED: {pdf_path.name}")
                     
-                    if job_status == 'completed':
-                        newly_completed.append(job_id)
-                        pending_jobs.remove(job_id)
-                        
-                        # Submit download task
-                        if job_id in self.active_jobs:
-                            job_info = self.active_jobs[job_id]
-                            future = download_executor.submit(
-                                self._download_job_async, 
-                                job_id, job_info.pdf_path, **kwargs
-                            )
-                            download_futures[future] = job_id
-                    
-                    elif job_status == 'failed':
-                        newly_failed.append(job_id)
-                        pending_jobs.remove(job_id)
-                        failed_jobs.add(job_id)
-                        
-                        error_msg = status.get('error_message', 'Unknown error')
-                        if job_id in self.active_jobs:
-                            job_info = self.active_jobs[job_id]
-                            print(f"❌ {job_info.pdf_path.name} failed: {error_msg}")
+                    # Update retry count
+                    if existing_job:
+                        existing_job.retry_count = retry_count
                 
-                # Handle completed downloads
-                completed_downloads = []
-                for future in list(download_futures.keys()):
-                    if future.done():
-                        job_id = download_futures[future]
-                        completed_downloads.append(future)
-                        
-                        try:
-                            output_file = future.result()
-                            if output_file:
-                                completed_jobs.add(job_id)
-                                if job_id in self.active_jobs:
-                                    job_info = self.active_jobs[job_id]
-                                    job_info.status = "completed"
-                                    job_info.completion_time = datetime.now()
-                                    job_info.output_file = output_file
-                                    self.completed_jobs[job_id] = job_info
-                                    del self.active_jobs[job_id]
-                                    print(f"✅ Downloaded: {job_info.pdf_path.name}")
-                            else:
-                                failed_jobs.add(job_id)
-                                if job_id in self.active_jobs:
-                                    job_info = self.active_jobs[job_id]
-                                    print(f"❌ Download failed: {job_info.pdf_path.name}")
-                        except Exception as e:
-                            failed_jobs.add(job_id)
-                            if job_id in self.active_jobs:
-                                job_info = self.active_jobs[job_id]
-                                print(f"❌ Download error for {job_info.pdf_path.name}: {e}")
-                
-                # Clean up completed download futures
-                for future in completed_downloads:
-                    del download_futures[future]
-                
-                # Show progress update every 10 seconds
-                current_time = time.time()
-                if current_time - last_status_update > 10:
-                    total_jobs = len(job_ids)
-                    completed_count = len(completed_jobs)
-                    failed_count = len(failed_jobs)
-                    pending_count = len(pending_jobs)
-                    downloading_count = len(download_futures)
-                    
-                    print(f"📊 Progress: {completed_count}/{total_jobs} completed, {failed_count} failed, {pending_count} processing, {downloading_count} downloading")
-                    last_status_update = current_time
-                
-                time.sleep(self.poll_interval)
-                
-            except KeyboardInterrupt:
-                print(f"\n❌ Monitoring interrupted by user")
-                download_executor.shutdown(wait=False)
-                break
+            except Exception as e:
+                retry_still_failed += 1
+                print(f"   ❌ RETRY ERROR: {pdf_path.name} - {e}")
+            
+            # Brief pause between retries
+            if i < len(failed_pdfs):
+                print(f"   ⏸️  Brief pause before next retry...")
+                time.sleep(2)
         
-        download_executor.shutdown(wait=True)
+        # Retry summary
+        print(f"\n{'='*60}")
+        print("📊 RETRY PHASE SUMMARY")
+        print(f"{'='*60}")
+        print(f"🔄 Total retries attempted: {len(failed_pdfs)}")
+        print(f"✅ Successfully recovered: {retry_completed}")
+        print(f"❌ Still failed: {retry_still_failed}")
+        if failed_pdfs:
+            print(f"📊 Retry success rate: {(retry_completed/len(failed_pdfs))*100:.1f}%")
+        print(f"{'='*60}")
+    
+    def _process_single_pdf_with_retry_tracking(self, pdf_path: Path, retry_count: int, **kwargs) -> Optional[Path]:
+        """Process a single PDF with retry tracking"""
         
-        # Final summary
-        self._show_batch_summary()
+        try:
+            print(f"      📤 Uploading...")
+            job_id = self.upload_pdf(pdf_path, **kwargs)
+            if not job_id:
+                return None
+            
+            print(f"      ⏳ Monitoring processing...")
+            if not self.wait_for_completion(job_id):
+                return None
+            
+            print(f"      📥 Downloading...")
+            output_file = self.download_job_result(
+                job_id, pdf_path, 
+                kwargs.get('output_format', 'markdown'),
+                kwargs.get('download_all', False),
+                kwargs.get('keep_alive', False)
+            )
+            
+            if output_file:
+                # Update job tracking
+                if job_id in self.active_jobs:
+                    job = self.active_jobs[job_id]
+                    job.status = "completed"
+                    job.completion_time = datetime.now()
+                    job.output_file = output_file
+                    job.retry_count = retry_count
+                    self.completed_jobs[job_id] = job
+                    del self.active_jobs[job_id]
+                
+                return output_file
+            else:
+                return None
+                
+        except Exception as e:
+            print(f"      ❌ Exception during retry: {e}")
+            return None
     
-    def _download_job_async(self, job_id: str, pdf_path: Path, **kwargs) -> Optional[Path]:
-        """Async wrapper for download job result"""
-        return self.download_job_result(
-            job_id, pdf_path,
-            kwargs.get('output_format', 'markdown'),
-            kwargs.get('download_all', False),
-            kwargs.get('keep_alive', False)
-        )
-    
-    def _show_batch_summary(self):
-        """Show final batch processing summary"""
+    def _show_comprehensive_summary(self, categorized: Dict, invalid_files: List[Path]):
+        """Show comprehensive final summary"""
+        
+        total_pdfs = len(categorized['all_pdfs'])
+        already_processed = len(categorized['already_processed'])
         total_completed = len(self.completed_jobs)
         total_failed = len(self.failed_jobs)
-        total_active = len(self.active_jobs)
+        total_invalid = len(invalid_files)
+        total_skipped = already_processed
         
-        print(f"\n{'='*60}")
-        print("📊 BATCH PROCESSING SUMMARY")
-        print(f"{'='*60}")
-        print(f"✅ Successfully completed: {total_completed}")
-        print(f"❌ Failed: {total_failed}")
-        print(f"🔄 Still active: {total_active}")
+        print(f"\n{'='*70}")
+        print("📊 COMPREHENSIVE PROCESSING SUMMARY")
+        print(f"{'='*70}")
+        print(f"📄 Total PDFs found: {total_pdfs}")
+        print(f"✅ Already processed (skipped): {total_skipped}")
+        print(f"❌ Invalid/unreadable: {total_invalid}")
+        print(f"📝 Attempted processing: {total_pdfs - total_skipped - total_invalid}")
+        print("")
+        print(f"🎉 Successfully completed: {total_completed}")
+        print(f"❌ Finally failed: {total_failed}")
         
+        if total_pdfs - total_skipped - total_invalid > 0:
+            success_rate = (total_completed / (total_pdfs - total_skipped - total_invalid)) * 100
+            print(f"📊 Processing success rate: {success_rate:.1f}%")
+        
+        # Show skipped files summary
+        if self.skipped_jobs:
+            print(f"\n⏭️  SKIPPED FILES ({len(self.skipped_jobs)}):")
+            for pdf_path, reason in list(self.skipped_jobs.items())[:5]:
+                filename = Path(pdf_path).name
+                print(f"   ⏭️  {filename} - {reason}")
+            if len(self.skipped_jobs) > 5:
+                print(f"   ... and {len(self.skipped_jobs) - 5} more")
+        
+        # Show completed files
         if self.completed_jobs:
-            print(f"\n📁 Completed files:")
-            for job_id, job in list(self.completed_jobs.items())[:10]:  # Show first 10
+            print(f"\n✅ COMPLETED FILES ({len(self.completed_jobs)}):")
+            for job_id, job in list(self.completed_jobs.items())[:10]:
                 if job.output_file:
                     processing_time = ""
                     if job.upload_time and job.completion_time:
                         total_time = (job.completion_time - job.upload_time).total_seconds()
                         processing_time = f" ({total_time:.0f}s total)"
-                    print(f"   ✅ {job.pdf_path.name} → {job.output_file.name}{processing_time}")
+                    
+                    retry_info = f" [retry #{job.retry_count}]" if job.retry_count > 0 else ""
+                    print(f"   ✅ {job.pdf_path.name} → {job.output_file.name}{processing_time}{retry_info}")
             
             if len(self.completed_jobs) > 10:
                 print(f"   ... and {len(self.completed_jobs) - 10} more")
         
+        # Show finally failed files
         if self.failed_jobs:
-            print(f"\n❌ Failed files:")
-            for job_id, job in list(self.failed_jobs.items())[:5]:  # Show first 5
-                print(f"   ❌ {job.pdf_path.name}: {job.error_message or 'Unknown error'}")
+            print(f"\n❌ FINALLY FAILED FILES ({len(self.failed_jobs)}):")
+            for job_id, job in list(self.failed_jobs.items())[:10]:
+                retry_info = f" [tried {job.retry_count + 1} times]" if job.retry_count > 0 else ""
+                failure_info = f" at {job.failure_stage}" if job.failure_stage else ""
+                error_info = f": {job.error_message}" if job.error_message else ""
+                print(f"   ❌ {job.pdf_path.name}{retry_info} - Failed{failure_info}{error_info}")
+            
+            if len(self.failed_jobs) > 10:
+                print(f"   ... and {len(self.failed_jobs) - 10} more")
         
-        print(f"{'='*60}")
+        # Show invalid files
+        if invalid_files:
+            print(f"\n🚫 INVALID FILES ({len(invalid_files)}):")
+            for pdf_path in invalid_files[:5]:
+                print(f"   🚫 {pdf_path.name}")
+            if len(invalid_files) > 5:
+                print(f"   ... and {len(invalid_files) - 5} more")
+        
+        print(f"{'='*70}")
     
     def monitor_dashboard(self):
         """Real-time monitoring dashboard"""
@@ -1108,18 +1286,9 @@ class EnhancedMarkerParser:
         return sorted(list(set(pdf_files)))
     
     def _is_already_processed(self, pdf_path: Path, output_format: str, download_all: bool) -> bool:
-        """Check if PDF has already been processed"""
-        if download_all:
-            output_folder = pdf_path.parent / pdf_path.stem
-            return output_folder.exists() and output_folder.is_dir()
-        else:
-            if output_format == "markdown":
-                output_file = pdf_path.with_suffix('.md')
-            elif output_format == "json":
-                output_file = pdf_path.with_suffix('.json')
-            else:
-                output_file = pdf_path.with_suffix(f'.{output_format}')
-            return output_file.exists()
+        """Legacy method - use check_already_processed instead"""
+        is_processed, _ = self.check_already_processed(pdf_path, output_format, download_all)
+        return is_processed
     
     def _ask_processing_mode(self) -> bool:
         """Ask user for processing mode"""
@@ -1164,24 +1333,22 @@ class EnhancedMarkerParser:
                 print("❌ Invalid choice. Please enter 'y', 'n', 's', or 'q'")
     
     def process_folder_interactive(self, folder_path: str, **kwargs):
-        """Interactive folder processing"""
+        """Interactive folder processing with enhanced skip logic"""
         
         folder = Path(folder_path)
-        pdf_files = self._find_pdf_files(folder)
         
-        if not pdf_files:
-            print("❌ No PDF files found")
-            return
+        # Scan and categorize PDFs
+        categorized = self.scan_and_categorize_pdfs(
+            folder, 
+            kwargs.get('output_format', 'markdown'), 
+            kwargs.get('download_all', False)
+        )
         
-        # Filter unprocessed files
-        download_all = kwargs.get('download_all', False)
-        unprocessed_files = [
-            pdf for pdf in pdf_files 
-            if not self._is_already_processed(pdf, kwargs.get('output_format', 'markdown'), download_all)
-        ]
+        unprocessed_files = categorized['unprocessed']
         
         if not unprocessed_files:
             print("🎉 All PDFs have already been processed!")
+            self._show_comprehensive_summary(categorized, categorized['invalid'])
             return
         
         print(f"\n🎛️  INTERACTIVE PROCESSING MODE")
@@ -1192,6 +1359,7 @@ class EnhancedMarkerParser:
         skipped_count = 0
         failed_count = 0
         skip_all_remaining = False
+        failed_pdfs = []
         
         for i, pdf_path in enumerate(unprocessed_files, 1):
             try:
@@ -1225,6 +1393,7 @@ class EnhancedMarkerParser:
                         print(f"✅ Successfully processed: {pdf_path.name}")
                     else:
                         failed_count += 1
+                        failed_pdfs.append(pdf_path)
                         print(f"❌ Failed to process: {pdf_path.name}")
                     
                     print(f"\n{'='*30}")
@@ -1237,6 +1406,7 @@ class EnhancedMarkerParser:
             except Exception as e:
                 print(f"\n❌ Failed to process {pdf_path.name}: {e}")
                 failed_count += 1
+                failed_pdfs.append(pdf_path)
                 
                 # Ask if user wants to continue
                 while True:
@@ -1249,15 +1419,33 @@ class EnhancedMarkerParser:
                     else:
                         print("❌ Invalid choice. Please enter 'y' or 'n'")
         
+        # Retry failed PDFs if any
+        if failed_pdfs:
+            print(f"\n🔄 Found {len(failed_pdfs)} failed PDFs. Would you like to retry them?")
+            while True:
+                retry_choice = input("🤔 Retry failed PDFs? (y)es / (n)o: ").lower().strip()
+                if retry_choice in ['y', 'yes']:
+                    self._retry_failed_pdfs(failed_pdfs, **kwargs)
+                    break
+                elif retry_choice in ['n', 'no']:
+                    print("⏭️  Skipping retry phase")
+                    break
+                else:
+                    print("❌ Invalid choice. Please enter 'y' or 'n'")
+        
         # Final summary
         print(f"\n{'='*60}")
         print("📊 INTERACTIVE PROCESSING SUMMARY")
         print(f"{'='*60}")
-        print(f"📄 Total PDFs found: {len(pdf_files)}")
-        print(f"✅ Successfully processed: {processed_count}")
-        print(f"⏭️  Skipped: {skipped_count}")
+        print(f"📄 Total PDFs found: {len(categorized['all_pdfs'])}")
+        print(f"✅ Already processed: {len(categorized['already_processed'])}")
+        print(f"📝 Attempted: {len(unprocessed_files)}")
+        print(f"🎉 Successfully processed: {processed_count}")
+        print(f"⏭️  Manually skipped: {skipped_count}")
         print(f"❌ Failed: {failed_count}")
         print(f"{'='*60}")
+        
+        self._show_comprehensive_summary(categorized, categorized['invalid'])
 
 def setup_signal_handlers(parser_instance):
     """Setup signal handlers for graceful shutdown"""
@@ -1277,11 +1465,11 @@ def setup_signal_handlers(parser_instance):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Enhanced Marker PDF Parser CLI with session management and smart batching",
+        description="Enhanced Marker PDF Parser CLI with smart skip logic and retry system",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Enhanced Examples:
-  # Basic processing with auto-cleanup
+  # Basic processing with auto-skip
   python enhanced_marker_cli.py document.pdf
   
   # Custom retention and storage
@@ -1290,7 +1478,7 @@ Enhanced Examples:
   # Keep files on server permanently
   python enhanced_marker_cli.py document.pdf --retention never
   
-  # Smart batch processing with immediate cleanup
+  # Smart batch processing with skip logic and retry
   python enhanced_marker_cli.py --folder ./pdfs --auto --retention immediate
   
   # Batch with session cleanup at end
@@ -1305,7 +1493,7 @@ Enhanced Examples:
   # Resume interrupted session
   python enhanced_marker_cli.py --resume
   
-  # Interactive folder processing
+  # Interactive folder processing with smart skip
   python enhanced_marker_cli.py --folder ./pdfs --interactive
         """
     )
@@ -1324,7 +1512,7 @@ Enhanced Examples:
     mode_group.add_argument('--interactive', action='store_true', help='Interactive processing (folder mode)')
     
     # Server and format options
-    parser.add_argument('--server', default='https://ezyf1jyjfcgzcw-8888.proxy.runpod.net/',
+    parser.add_argument('--server', default='https://pjavwu4ljbpcdc-8888.proxy.runpod.net/',
                        help='Enhanced Marker server URL')
     parser.add_argument('--format', default='markdown', choices=['markdown', 'json'],
                        help='Output format: markdown or json')
@@ -1446,7 +1634,7 @@ Enhanced Examples:
                 if args.interactive:
                     pdf_parser.process_folder_interactive(args.folder, **process_kwargs)
                 else:
-                    pdf_parser.process_folder_smart(args.folder, auto_mode=args.auto, **process_kwargs)
+                    pdf_parser.process_folder_smart_with_retry(args.folder, auto_mode=args.auto, **process_kwargs)
                     
             else:
                 # Single file processing mode

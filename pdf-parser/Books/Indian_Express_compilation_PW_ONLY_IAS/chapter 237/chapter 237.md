@@ -1,0 +1,31 @@
+## Not another COP-out
+
+COP28 challenge is to move a stalled climate action forward. That requires all stakeholders to do better
+
+![](_page_0_Picture_2.jpeg)
+
+THE STAGE IS SET for global leaders to come together in Dubai, a city in the UAE, which is part of the Gulf Cooperation Council. It is rich in natural resources, relying heavily on natural gas and oil for electricity and energy generation (95.7 per cent of energy is sourced from fossil fuels and renewable energy accounts for less than one per cent of actual consumption in the UAE). Even with recent efforts to transition to sustainable energy production, the region will continue to depend heavily on oil and gas as prime sources of energy according to projections for 2035.
+
+The UAE's annual per capita consumption of electric energy is 12,963 kWh. (11,695.27 kWh in the US), crude oil is 33.391 bbl (22.498 in the US), natural gas is 7,811.66 m3 (2,572.98 in the US), and Co2 emissions in 2020 were 20.25t (12.96t in the US)
+
+Welcome to the world of great expectations and endless efforts to arrive at a consensus on who is guilty and who should repent. Welcome to the 28th edition of the Conference of Parties where the world remains divided between the historically responsible and the contemporary accused who believe they are being asked to pay. Welcome to the complexities of climate action and the inherent irony of the energydriven process of economic growth. There couldn't be a more appropriate venue.
+
+All this in the backdrop of an unprece lented case in the European Court of Human Rights where six youth (aged 11 to 24) from Portugal have sued 32 countries alleging that their governments have "runed childhoods" due to inadequate climate change responses, rendering their right to life ineffective and void. Backed by the Global Legal Action Network, the youth have presented evidence that policies adopted by these nations will not yield enough emission cuts and would actually cause global temperatures to rise by three degrees Celsius, in violation of the goal of 2/1.5 degrees Celsius agreed upon unde the Paris Agreement. If successful, the judg ment might result in significant global con equences for climate justice.
+
+The clamour for climate action is louder than ever, and so is the yearning for economic growth. The principle of "common but differentiated responsibilities" thread that binds the confirmed and potential culprits -- is in knots. There would be few things in the world where the collaboration on action is inversely proportionate to the consensus on its magnitude. The data on continuing emissions, the cumulative cornering of the carbon budget, the energy intensity of GDP growth, and the aggregate impact of NDCs on containing the temperature rise are matters of facts and scientific analysis. What ought to be a matter of concern are the factors behind the drift in climate action that forced the UN Secretary-General to describe global warming as "global boiling".
+
+This drift is on account of multiple
+
+deficits -- of trust, resources, capacity and unequivocal commitment.
+
+The trust deficit stems from the nonulfilment of the commitment to provide new and additional finance" amounting o \$100 billion by Annex II countries as per the 1994 Kyoto Protocol. They were re quired to "take all practicable steps" to pro mote the development and transfer of en vironmentally friendly technologies and provide financial resources to enable de eloping countries to undertake emission reduction activities and adapt to the ad verse effects of climate change. These vul-<br>nerable countries continue to wait for the promised "investment, insurance and technology transfer" and the "special consideration on account of their limited capacity to respond to climate change" ever three decades after the 1992 Rio Earth Summit and the setting up of the UNFCCC Climate change, desertification and biodiversity loss continue unabated, while the Green Climate Fund described on its web site as "the world's largest climate fund" set up "to accelerate transformative climate action in developing countries" has<br>so far committed \$12.7 billion and disbursed \$3.8 billion.
+
+The resource deficit is real on account of the gap between requirement and availability. It exemplifies the trust deficit. The International Monetary Fund's Global<br>Financial Stability Report estimates an annual global gross climate mitigation invest ment of about \$5 trillion by 2030 to achieve net-zero greenhouse gas emissions by 2050. According to the International Energ agency, about 40 per cent of this will be in emerging markets and developing economies, excluding China, implying more than tripling the annual clean energ nvestments from \$770 billion in 2022 in ese countries
+
+Additionally, countries need to bridge the capacity deficit characterised by their inability to conceptualise impactful projects. Their NDCs, even if aspirationally deficient, need to be converted into an implementation plan and an actionable agenda. This requires enormous capacity to analyse their NDC pathways, formulate effective policies and projects, and credibly monitor and evaluate to avoid greenwashing.
+
+Finally, the vulnerable countries where the climate change battle will be "won or lost" need to get over their commitment deficit as they continue to be bogged down by the debate on climate justice and helplessly, often zealously, follow the conventional path to economic growth with selfjustified impunity due to historical wrongs. These countries must unequive cally realise that the elusive "additional fi nance" will not save them from the catas trophe that is enveloping them. The pursuit to look for reparation from those guilty of setting their house on fire might continue to haunt them, not help them' be" from "not to be"
+
+While the stage is set in Dubai, the triflion-dollar question is whether COP28 will succeed in catching the conscience of those who rule the world by showing them the ghost of the plundered planet or will they end up a "paralysed force" making "gesture without motion" leaving a shadow "between the emotion and the response".
+
+The writer is former finance secretary & environment secretary who led the official Indian delegation at COP21 in Paris

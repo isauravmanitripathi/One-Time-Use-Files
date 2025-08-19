@@ -1,0 +1,27 @@
+![](_page_0_Picture_0.jpeg)
+
+## CLOSING THE TAX GAP
+
+Expansion of taxpayer base should translate to higher revenues for government
+
+## SURANJALI TANDON
+
+OVER THE PAST few years, a lot has transpired in the field of tax policy in India, such as the implementation of the goods and services tax, and the introduction of faceless assessments. There have been exogenous events such as Covid-19 that have adversely countered these policy measures. Tax statistics provide some insights into the impact of tax policy and the economic slowdown
+
+A common complaint about India's tax system has been that too few individuals are paying taxes. This is changing as the number of taxpayers increased by 64 per cent between 2014 and 2022, and now stands at 93.7 million. A substantial increase has been observed across different categories individuals firms and companies. A peculiar feature of the Indian tax system is that not all taxpayers file returns, and a perennial gap remains. However, in the previous five years more taxpayers are filing returns. There can be different motivations for doing so – from the necessity of furnishing returns for travel and loans, to a growing preference to claim taxes deducted to the formalisation of the economy
+
+An increase in returns filed is however not an end in itself. It must lead to higher revenues. Therefore, some view this growth in taxpayers as insufficient as the number of tax returns associated with nil taxes has also increased and were 66 percent in 2020-21. Despite this increase, in three of the past five years, growth in direct tax collections has surpassed the previous decade's average as well the growth in GDP. In fact, a tax With the emphasis on compliance, India has made significant gains in terms of taxpayers and return filers alongside a rise in average incomes. The economic slowdown and lower corporate tax rates mitigated some of these gains as there were visible distributional and revenue consequences of the pandemic. As revenues rebound and the simplified tax regime, with a narrower incentive base and lower rates, becomes more widely applicable, trends in tax collections may align better with those in incomes.
+
+## buoyancy of 2.52 also suggests that there have been noticeable gains in compliance.
+
+The growth in direct taxes is explained not just by the increase in taxpayers but also by average incomes reported in returns. In 2020-21, close to a fourth of the returns reported gross incomes, before exemptions and deductions, in the range of Rs 5,50,000 to Rs 9,50,000. This is a marked shift from 2015-16 when a third of the gross incomes reported in returns were between Rs 2,50,000 to 3,50,000 - these now form only a tenth. While this is indicative of increasing levels of income, the design of the tax structure can have a bearing on collections.
+
+It was expected that the economic slowdown during Covid-19 would dampen tax collections. However, the duration of the impact was felt over two financial years. This may be attributed to the slowdown in business incomes leading to accumulation of losses carried forward to set off against profits in subsequent years. This is observed to be the case as there was a significant increase in the set-off losses claimed between 2019 and 2021 by all categories of tax filers. Therefore, taxes paid for business incomes and overall tax collections declined between 2019 and 2021, even though gross incomes increased.
+
+The impact of the slowdown has not been evenly distributed across income groups and categories. In 2019-20, the number of returns and incomes reported under the category of salary and business, though overall resilient, contracted for specific income categories. For example, salary incomes below Rs 5.5 lakh
+
+and above Rs 5 crore declined in 2019-20, whereas business incomes below Rs 2.5 lakh and those between Rs 5-25 crore declined. In 2020-21, even as salaried incomes recovered for most categories, business incomes declined in the range of Rs 9,50,000 to Rs 5 crore by 0.93 per cent. It is possible that incomes within the range may have been lower or claimed previous years' losses or would have availed the new low tax regime thus lowering their tax liability and resulting in lower overall tax collections in 2020-21. Such distributional changes seem to have animpact on the tax collections. In 2021-22, business incomes picked up sharply with companies and firms reporting a 23.5 per cent and 8.8 per cent growth, respectively. Gains from the rise in income are visible in the high double-digit growth in overall direct tax collections.
+
+With the emphasis on compliance, India has made significant gains in terms of taxpayers and return filers alongside a rise in average incomes. The economic slowdown and lower corporate tax rates mitigated some of these gains as there were visible distributional and revenue consequences of the pandemic. As revenues rebound and the simplified tax regime, with a narrower incentive base and lower rates, becomes more widely applicable, trends in tax collections may align better with those in incomes. It is hoped that the growth in India's taxpayer base delivered by policy translates into a sustained increase<br>in tax revenues.
+
+The writer is assistant professor, NIPFP

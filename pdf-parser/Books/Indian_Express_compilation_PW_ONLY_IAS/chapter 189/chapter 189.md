@@ -1,0 +1,33 @@
+## India, US and the AI bridge
+
+![](_page_0_Picture_1.jpeg)
+
+Prospect of Beijing's dominance in AI use for economic, military purposes will be centre stage at  $2+2$  dialogue
+
+AS THE FOREIGN and defence ministers of India and the US gather in Delhi this week to review and advance the defence and security partnership, cooperation in artificial intelligence ought to loom large in the discussion. Two developments last week underline the urgency for an intensified and comprehensive India-US discussion on Al. One is the executive Order on AI issued by President Joe Biden, and the other is the release of the Pentagon's updated strategy for AI adoption by the US armed forces.
+
+While Biden's Executive Order deals with ecuring the use of Al in various civilian uses the Pentagon strategy highlights the impor tance of integrating the rapid developments of Al into military doctrine and operations The two initiatives deal with a fundamental tension between the simultaneous need to stay on top of a technology that could significantly alter the global power structure and prevent the dangers of this technology from spinning out of control. Al is not the first technology to present this kind of tension. Its potential for misuse and social consequences are far more sweeping.
+
+The two initiatives also underline the central geopolitical faultline in the world today the deepening rivalry between the US and China. The prospect of Beijing getting ahead in using AI for economic and military purposes is of deep concern to both the US and India. Biden's Executive Order seeks to establish "new standards for safety and security, protects Americans' privacy, advances equity and civil rights, stands up for consumers and workers, promotes innovation and competition, advances American leadership around the world". While the Order covers a wide ground, it does not refer to defence. That link was provided a couple of days later by a senior official of the Pentagon who unveiled an outline of the US strategy to integrate Al into its armed forces.
+
+Kathleen Hicks, US Deputy Secretary of Defence, reminded the world that the Pentagon is not new to AI and has been among the earliest funders of AI research and has deThe bilateral defence innovation bridge announced during PM Modi's visit to Washington in June has begun to produce results. Two weeks ago, the US Space Force signed R&D agreements with two Indian startups. This is the first time the US armed forces have offered research contracts to foreign entities. One of them, 114AI, is developing AI for space domain awareness. We are hopefully at the very beginning of a productive India-US defence partnership in AI.
+
+veloped military uses for AI over the last six decades. The last few years have seen an intensification of the US investments in AI for defence. The main objective in developing AI for defence, according to Hicks, is to build on the<br>"decision advantage" that it offers the US armed forces. "From the standpoint of deterring and defending against aggression, AI-enabled systems can help accelerate the speed of commanders' decisions and improve the quality and accuracy of those decisions which can be decisive in deterring a fight, and in winning a fight", Hicks said. As the US embeds "Al in many aspects of our mission - from battlespace awareness, cyber, and reconnais sance, to logistics, force support, and other back office functions, Hicks said, "We are mindful of Al's potential dangers, and determined to avoid them".
+
+Meanwhile, China has been talking about deploying AI to develop an "intelligentized" military (moving beyond the goal of "informatization" proclaimed two decades ago) as part of its ambition to make PLA a world-class armed force in the next two decades. China has made major strides in the development and adoption of AI by both its industry and military. The capacity of the Chinese state to drive resources into specific sectors and its "civil-military fusion" has given many advantages to Beijing in the AI race.
+
+That brings us back to the India-US engagement and the fifth round of the 2+2 dialogue in Delhi this week. Four imperatives stand out.
+
+First, advanced technology cooperation has been put at the very heart of the India-US partnership with the launch of the Initiative on Critical and Emerging Technologies in January this year. Expanding cooperation in Al figured in the joint statement issued by Prime Minister Narendra Modi and President Joe Biden in Washington in June. However, the development and adoption of AI have advanced at a rapid clip since then, and the four ministers need to bring the India-US cooperation up to speed.
+
+Second, the foreign and defence minis-
+
+ters of the two countries should also elevate cooperation in AI to a higher level in the bilateral defence partnership. As India and the US seek to build a stable balance of power system in the Indo-Pacific. AI will acquire an ever larger role in their respective national defence strategies. Both countries are looking to AI to redress their growing vulnerabilities vis a vis the growing size and sophistication of China's military power.
+
+The bilateral defence innovation bridge announced during PM Modi's visit to Washington in June has begun to produce results. Two weeks ago, the US Space Force igned R&D agreements with two Indian startups. This is the first time the US armed forces have offered research contracts to foreign entities. One of them, 114Al, is developing AI for space domain awareness. We are hopefully at the very beginning of a productive India-US defence partnership in AL
+
+Third, the biggest constraint on the US need to accelerate AI development is the shortage of scientists, technologists and engineers. India has a natural talent pool to meet this demand. While India must invest in expanding the quality and quantity of its AI talent, the US can provide solid support - through collaborations in education, research, and training. The framework for such cooperation already exists unler the iCET, and it needs to be expanded and intensified in the AI domain.
+
+Fourth, one of the essential features of the Biden Executive Order and the Pentagon strategy is the emphasis on the "responsible" development and use of Al. The range of issues covered under the two documents are also relevant for the Indian economy, society, democracy, and defence. India-US collaboration on promoting sensible domestic and global governance of AI is critical for separating the use and abuse of this powerful technology that is evolving at a rapid pace.
+
+The writer is a senior fellow at the Asia Society Policy Institute and a contributing editor on international affairs for The Indian Express

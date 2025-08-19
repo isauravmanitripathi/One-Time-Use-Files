@@ -1,0 +1,47 @@
+## The revival of the tiger
+
+Its near extinction in 1973 was a pivotal moment in India's conservation history. Now, Corbett has the highest density of wild tigers in the world
+
+![](_page_0_Picture_3.jpeg)
+
+DHEERAJ PANDEY
+
+INDIA HAS HAD a long and varied history of forest and wildlife conservation. The manag ment of tiger reserves is based on the Tiger Conservation Plan which includes a detailed<br>plan for core and buffer zones. At Corbett Tiger<br>Reserve (CTR), both these zones, together span large swathes of land, 1288.31 sq.km to be precise, covering three districts of Uttarakhand Just four years ago, CTR recorded 231 tigers.<br>According to the 2022 report, the reserve now records the highest density of wild tigers in<br>the world, with a figure of 260 tigers. This indicates a healthy forest and ecology.
+
+CTR has a richly-forested, highly-biodiverse landscape. The variety of birds and wildlife at the reserve, attract bird-specialists, environmentalists, wildlife enthusiasts, researchers, conservation biologists and tourists in large numbers. Many a veteran visitor would vouch for the eco-spiritual experience of the wilderness. A glimpse of the peerless king of the jungle in all his majesty is truly captivating; the dread and danger lurking in the treacherous gaze of a stalking tiger, an unforgettable sight. However, embedded within this wilderness story narrated by globalised voices that recognise and vocalise their resolve to maintain the delicate ecological balance for survival of all life forms, are other heroic tales of everyday sustenance, survival and stewardship. These include stories of villagers, who live in close proximity to wild animals, in areas surrounding the reserve and of forest staff. including foot-soldiers, mahouts and forest guards, whose heroism might seldom be chronicled in the narrative of global environmental conservation, but who are in fact, an undeniable part of the reserve's ecosystem.
+
+The peerless forest staff, armed with their tireless resolve and a keen and instinctive eye, devote their lives to the protection, betterment and maintenance of the reserve. Their splitsecond decisions lead them into or away from danger. Patrolling the forest comes at great risk, often at the hands of a stalking tiger or a herd of "gentle giants", or an occasional makhana, a lone male pachyderm, infamous for its aggression. Clearly, an adequate number of field staff is crucial to protect and manage the forest. Their safety and security are paramount. In this regard, the steps taken lately include timely payment of wages, regular rations, weapons<br>for defence and emergency medical help. Moreover, an engagement and dialogue with senior forest officials facilitates experiencesharing, including discussions regarding human-wildlife conflicts, challenges and problems faced on-field and help to re-strategise management practices and re-shape policy in a productive and meaningful manner.
+
+Forest and wildlife management are mutifaceted and inter-linked areas. A healthy forest ecology entails a delicate balance of forest flora and fauna. Tigers can only breed if they and their habitat are well-protected. At CTR, there are 27 different kinds of grasslands Grassland management and protection are vital for the breeding of cheetal, sambhar and other ungulates, which constitute the chief prey-base for the apex predator. Thus, a multipronged and integrated approach towards grassland and water management, is followed. Palatable grasses are developed and restored for the consumption of wildlife, while invasive weed species are eradicated. To serve the vital water requirement of wild animals, particularly during the pinch period, land-
+
+![](_page_0_Picture_9.jpeg)
+
+## scape management practices like strategically placed solar-pump fed interlinked waterholes are followed.
+
+Strategic wildlife corridors are vital for the gene pool exchange of tigers and they are prescribed in consonance with the provisions, aspirations and recommendations of the Tiger Conservation Plan. Tigers and elephants, flagship species of the reserve are long-ranging terrestrial animals. Their movement is crucial for the sustainable management of existing forest patches These corridors are also pivotal to a healthy gene pool exchange for both tigers and elephants, reducing the chances of inbreeding amongst these animals. Moreover, when tiger numbers rise, the risk and scope of human-tiger conflict increases. In the absence of a sufficient number of corridors due to habitat fragmentation, a growing number of tigers, now also breeding in buffer zones, soon starts moving to fringe forest areas, which are situated close to villages Additionally, privately owned land and construction activities limit the movement of animals, specially tigers and elephants. Therefore, underpasses, overbridges, ele vated roads and corridors, and proper urban planning are key to ensuring an unhindered movement of these wild animals.
+
+The rising incidence of human-elephant and tiger-human conflict poses a formidable challenge to park management. Milch and domestic animals, from villages and fringe forest areas tend to stray into forest areas and become "easy prey" for the tiger, whose population is on the rise. This behavioural conditioning of the tiger towards "easy prey" often snowballs into tiger attacks on unsuspecting village women, who may, on occasion, forage too deep into the buffer forest area, for their everyday material needs.
+
+The forest department has taken robust steps towards the protection of wildlife at the reserve. As a result, poaching activities have been completely obliterated, especially in the highly sensitive-southern boundary of the reserve. Intensive patrolling is carried out by foot soldiers. Digital patrolling has been instituted in the form of the electronic-eye under the gis of the project E-eye
+
+Over the years, the human-wildlife conflict problem has proved to be a "wicked problem". Given its nature and scope, every wildlife-human problem is unique, every attempt at a solution is significant and there is no easy or final solution. The only way ahead is by enjoining forest conservation upon all local stakeholders, a concern voiced by the leg-
+
+![](_page_0_Picture_15.jpeg)
+
+## AN EXPRESS SERIES
+
+INSTITUTION LEADERS REFLECT ON THE OPPORTUNITY - AND CHALLENGE
+
+In the absence of a sufficient number of corridors due to habitat fragmentation, a growing number of tigers, now also breeding in buffer zones, soon starts moving to fringe forest areas, which are situated close to villages. Additionally, privately owned land and construction activities limit the movement of animals, specially tigers and elephants. Therefore, underpasses, overbridges, elevated roads and corridors, and proper urban planning are key to ensuring an unhindered movement of these wild animals.
+
+C R Sasikumar
+
+endary ornithologist Salim Ali when he championed a realistic, grassroots strategy involving "willing cooperation" from the v
+
+Arguably, community benefit must accrue to villagers with houses in fringe forest areas, whose lives and livelihoods are affected by the tiger. Ramnagar, a district outlying the reserve, is largely dependent on the tiger for its economy. Hundreds of resorts and local homestays cater to ecotourism around the tiger's habitat and generate employment for villagers as nature-guides-cum-naturalists, Cypsy<br>guides, cooks, hotel staff, etc. Paradoxically, their lives are risked and crops raided by wild animals. This means that for the forest department, any attempt at gamering "willing cooperation" from villagers, starts from its role recognised not only as advisory, managerial and regulatory, but also collaborative, engaging and socio-culturally-sensitive.
+
+Public initiatives by the department are an attempt towards mutual support and cooperation. Our beenive-fencing project involves<br>the strategic placing of beenives along the in-<br>terface of village-forest border areas, to guard crops against wild elephants; the outcome,<br>the brand "Corbee Honey" is managed by local Eco Development Committees (EDCs) aimed at creating an economic hook based on cooptation and cooperation by and for local stakeholders. Started as a pilot project, we hope to scale it in future.
+
+Similarly, we have fostered the "Living with Tigers" initiative in villages and schools around the peripheral area of the reserve.<br>This involves activism around **behavioural** and response awareness amongst schoo children and villagers around humanwildlife conflict issues and the patterns of behaviour they must cultivate, practice and propagate in order to stay safe.
+
+In India, the tiger is a significant part of re-<br>igious and mythological iconography. It also has a historic significance, mythopoetically woven into the stories of and by the hunterturned-conservationist Jim Corbett. That is why the tiger's near-extinction in 1973 was votal moment in the conservation history of India. The revival of the tiger since then has also meant a cultural renaissance and revival of our conservation ethics and values. Today,<br>CTR is part of our spatial imaginary, straddling across several discourses – historical, cultural, political, anthropological, sociological, legal and democratic. The future of CTR, its wildlife and its people are inextricably interlinked.

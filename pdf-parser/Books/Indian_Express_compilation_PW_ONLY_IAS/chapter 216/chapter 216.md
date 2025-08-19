@@ -1,0 +1,15 @@
+## Cyber security agency out of public's right to know
+
+the CERT-In from the RTI Act.
+
+"The Right to Information Act. 2005 is administered by the Department of Personnel and Training, which has apprised that a proposal of the Ministry of Electronics and Information Technology for exemption of the Indian Computer Emergency Response Team (CERT-In) from the said Act by way of inclusion of CERT-In in the Second Schedule to the Act, was received and the procedure of inter-departmental consultation, including with the Ministry of Law and Justice was undertaken in respect of the same," Chandrasekhar said in written reply to a question asked by BID member Amar Patnaik.
+
+With inclusion in the Second Schedule of the RTI Act, the CERT-In now joins the list of 26 other intelligence and security organisations, which are already exempted from the purview of the Act. These 26 intelligence and security organisations are: Intelligence Bureau; R&AW including its technical wing namely, the Aviation Research
+
+Centre of the Cabinet Secretariat: DRI: Central Economic Intelligence Bureau; Directorate of Enforcement: Narcotics Control Bureau; Special Frontier Force: Border Security Force: Central Reserve Police Force: Indo-Tibetan Border Police: Central Industrial Security Force: National Security Guards: Assam Rifles; Sashtra Seema Bal; Directorate General of Incometax (Investigation); National Technical Research Organisation: Financial Intelligence Unit, India; Special Protection Group; DRDO; Border Road Development Board; National Security Council Secretariat; CBI; NIA; National Intelligence Grid; and Strategic Forces Command.
+
+Under Section 24 of the RTI Act, certain organisations are exempted from the law.
+
+"Nothing contained in this Act shall apply to the intelligence and security organisations specified in the Second Schedule, being organisations established by the Central Government or any information furnished by such organisations to that Government: Provided that the information pertaining to the allegations of corruption and human rights violations shall not be excluded under this sub-section: Provided further that in the case of information sought for is in respect of allegations of violation of human rights. the information shall only be provided after the approval of the Central Information Commission. and notwithstanding anything contained in Section 7, such information shall be provided within forty-five days from the date of the receipt of request," states Sub-section 1 of Section 24.
+
+The RTI law empowers the Centre to amend Second Schedule by including therein any other intelligence or security organisation established by it or omitting therefrom any organisation already specified therein. The Centre can amend the Second Schedule through a notification in the Official Gazette, Such notification shall be laid before each House of Parliament.

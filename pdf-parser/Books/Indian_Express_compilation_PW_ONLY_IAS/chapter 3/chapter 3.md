@@ -1,0 +1,1 @@
+The Rajasthan Platform Based Gig Workers (Registration and Welfare) Bill extends certain "rights" to gig workers, such as being registered with the state, having access to general and specific social security schemes, and having an opportunity to be heard for any grievances, among others.
