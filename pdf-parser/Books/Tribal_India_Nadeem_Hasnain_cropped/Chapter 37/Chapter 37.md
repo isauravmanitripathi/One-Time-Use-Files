@@ -1,0 +1,5 @@
+## Tribal Languages
+
+Abar Adi, Agaria, Aimol, Aka/ Hrusso,Anal,Andamanese\*, Angami, Ao, Asuri, Banjari/Labhani, Beriya\*, Bhili, Bhumji, Birjia/Brijia, Binjhia, Bodo Boro, Chang-Naga, Chiru, Chote, Dafla, Deori, Dimaea, Gadaba, Garo, Gondi, Hakkipikki\*, Halam, Hengna\*, Hmar, Ho, Jatapu\*, Juang, Knbui, Kachn Naga, Kanauri, Kharia, Khasi, Kisan, Koch, Koda, Kora, Kolami, Korn, Konda, Konyak, Korku, Korwa, Kota, Koya, Kui, Kuki (unspecified), Kuruk / Oraon, Lakhar, Lalung, Lambadi, Lamkang, Lepeha, Lhota (Naga), Lushai / Mizo, Makware, Mao, Maram, Maring, Mikir, Mcithei (Manipuri), Miri, Mishmi, Mru, Munda (mundari), Naga (unspecified), Nicobarese, Noct, Onge\*, Paite, Paraja, Parji, Pawai, Phom, Pochury, Purum, Rabha, Ralte, Rangkhol, Rengma, Santali, Savara (Snora), Serna (Naga), Shompen\*, Simta (Naga), Singpho, Tangkhul, Tangsa, Thado, Toda, Tripuri, Uchai\*, Vaiphei, Vagdi, Wancho, Yimchungre, Zemi Naga.
+
+\* These mother tongues though considered unclassifiable are presumed to be tribal.

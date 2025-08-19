@@ -1,0 +1,82 @@
+# **ANNEXURE-7**
+
+# Role of Naxal Management Division\*
+
+#### **iNtrOductiON**
+
+- Naxalites have been operating in various parts of the Country since the early seventies. At different points in time different areas of the Country have been relatively more seriously affected in terms of overt violence by different naxalite groups.
+- The aim of the naxalites is to destroy the State legitimacy, and to create a mass base, with certain degree of acceptability, with the ultimate object of attaining political power by violent means. The naxalites predominantly attack the police and the police establishments. They also attack certain types of infrastructure, like rail and road transport and power transmission, and also forcibly oppose execution of development works, like critical road construction. Naxalite activity is also manifesting itself through various civil society and front organizations, on issues such as SEZ policy, land reforms, land acquisition, displacement, etc., with the objectives of expanding their mass base and acquiring support of some intellectual elite.
+- While impeding development works and challenging State authority, the naxalites simultaneously try to derive benefit from overall under-development and from sub-normal functioning of field institutions like police stations, tehsils, development blocks, schools, primary health centres and anganwadi centres, which administer and provide services at the ground level and also reflect the State presence and writ. Therefore, issues of good governance, development, regular functioning of critical field institutions and public awareness become essential in dealing with naxalite activities, in addition to core policing requirements. Government's approach, accordingly, is to deal with naxalite activities in a holistic manner, in the arenas of security, development, administration and public perception.
+
+\*Source – Ministry of Home Affairs, Government of India
+
+#### **Over View**
+
+The position of naxalite violence in the period 2004 to 2008 was as below.
+
+|                                       | 2004 | 2005 | 2006 | 2007 | 2008 |
+|---------------------------------------|------|------|------|------|------|
+| No. of incidents:                     | 1533 | 1608 | 1509 | 1565 | 1591 |
+| No. of casualties in security forces: | 100  | 153  | 157  | 236  | 231  |
+| No. of naxalites killed:              | 87   | 524  | 274  | 141  | 199  |
+
+## **Policy and Approach of the Government to Deal with Naxalite Activities**
+
+- Government remains committed to deal strongly with naxalites indulging in crime and violence.
+- The overall objective being to uphold the law of the land, provide security of life and property and provide a secure environment for development and economic growth, Government's approach is to deal with naxalite activities in a holistic manner, in the arenas of security, development, administration and public perception management.
+- Considering the inter-State ramifications of naxalite activities, the need for inter-State coordination and cooperation is self-evident, both in terms of uniformity in approach and in terms of ground-level joint police action, with the intent to enforce the law of the land and to deal with naxalite crime and violence in accordance with the law established.
+- The States should further improve the police response and pursue effective and sustained police action against naxalites, individually and jointly.
+- There should be no peace dialogue by the States with naxalite groups unless they give up crime, violence and arms.
+- The States should formulate and implement effective surrender and rehabilitation policies for naxalites who shun crime, violence and arms. Mass media should be extensively used to highlight the futility of naxal ideology and violence and loss of life and property caused by it in the affected areas.
+- States are being assisted in, and requested for, steps as are important in dealing with naxalite activities, that is, essentials for effective policing, like:
+- 1. Providing secure police station buildings, trained personnel, basic amenities for the personnel deployed and specialised equipment, weaponry and vehicles at the police station level.
+- 2. Strengthening of the State Intelligence set-ups, for enhancing capabilities for collecting, sharing and using actionable intelligence.
+- 3. Optimal utilisation of existing training capacity and creation of additional training capacity.
+- 4. Raising specialised units/task forces, trained in counter-insurgency and jungle-warfare, for anti-naxalite operations.
+
+- 5. Expeditious filling up of the vacancies in the State police forces.
+- 6. Improvement in the police population ratio, in consonance with the law and order requirements.
+- 7. Adequate provisions for equipment, weaponry, mobility, communication, training, police buildings and housing and forensic science in the State police budget.
+- 8. Expeditious investigation and prosecution of naxalite crimes.
+  - All-round development of affected areas, with qualitative implementation of Central and State development schemes, and with fair deal to deprived segments. other aspects relevant to naxalism, such as :
+- 1. Fair and firm revenue (land) administration, with attention on elements like proper maintenance of land records, expeditious recording of mutations and fair disposal of land disputes, without undue delay.
+- 2. Appropriate mechanisms for grievance redressal, public contact and public awareness, for creating an overall positive environment and confidence of the people in the State administrative machinery.
+- 3. The Central Government will continue to supplement the efforts and resources of the affected States on both the security and the development fronts and to bring about greater coordination between the States for effectively dealing with the problem.
+
+It is necessary that a well-considered uniform approach and strategy to counter the naxalite activities is followed by all States. With this in view, various institutional mechanisms have been established. These include:
+
+## **Policy and Approach of the Government to Deal with Naxalite Activities**
+
+- A Task Force on inter-State coordination headed by Special Secretary, Internal Security.
+- An Inter Ministerial Group in the Ministry of Home Affairs to review the implementation of development programmes in naxalite affected areas.
+- A high-level Task Force under Cabinet Secretary has been formed for promoting coordinated efforts across a range of development and security measures.
+
+These institutional mechanisms, and the interactions that have taken place, have, inter alia, helped to generate a degree of consensus among the States about the need to pursue a coordinated strategy.
+
+• In dealing with this decades old problem, it has been felt appropriate, after various high-level deliberations and interactions with the State Governments concerned, that an integrated approach aimed at the relatively more affected areas would give surer results. With this in view, a
+
+#### **A7.4 Annexure-7 • Role of Naxal Management Division**
+
+detailed analysis of the spread and trends in respect of naxalite violence has been made and 34 affected districts in 8 States have been taken up for special attention on planning, implementation and monitoring of development schemes. Within these 34 districts, 8 most affected districts in 4 States, Bihar, Chhattisgarh, Jharkhand and Orissa, have been taken up for implementation of integrated security and development action plans, an approach that can be replicated in other affected districts also.
+
+• Focused attention is being provided to meeting the security deficits in these districts, in terms of adequacy of infrastructure, police deployment, weaponry, equipment, etc. Cogent steps are also being taken by the various development Ministries.
+
+## **Measures Taken by the Central Government to Assist the Affected States**
+
+- Police and public order being State subjects, action with respect to maintenance of law and order lies primarily in the domain of the concerned State Governments, who deal with the various issues related to naxalite activities in the States. The Central Government also closely monitors the situation and supplements their efforts in several ways.
+- Support extended by the Central Government: This includes deployment of Central paramilitary forces (CPMFs) to assist the State Police; sanctioning of India Reserve (IR) battalions; assistance for modernisation and upgradation of the State Police and Intelligence agencies through the Scheme for Modernization of State Police Forces (MPF scheme); re-imbursement of security-related expenditure under the Security Related Expenditure (SRE) Scheme; assistance in training of State Police through Ministry of Defence, Central Police Organisations and Bureau of Police Research and Development; sharing of Intelligence; facilitating inter-State coordination; and assistance in development works through a range of schemes of different Ministries.
+- CPMFs: 37 battalions of CPMFs are currently deployed on long term basis for assisting the State Police in States of Andhra Pradesh 4; Bihar 4; Chhattisgarh 16; Jharkhand 6; Madhya Pradesh 1, Orissa 4; Uttar Pradesh 1 and West Bengal 1. Recently three additional battalions of CPMFs consisting of two battalions of CRPF and one battalion of BSF have been deployed in Lalgarh and adjoining areas of West Midnapur, Purulia and Bankura districts of West Bengal for anti-naxal operations.
+- COBRA battalions: 10 Battalions of Specialized Force trained and equipped for counter-insurgency and jungle-warfare operations, named as Commando Battalions for Resolute Action (CoBRA) are being raised as a part of the Central Reserve Police Force (CRPF). In the first phase, key location points of 2 Battalions have been raised at Jagdalpur in Chhattisgarh and Koraput in Orissa, and the remaining Battalions will be established in other naxal affected States over the next two years. 9 teams
+
+each of 201 and 202 CoBRA battalions have been trained and deployed for operational duties on 15th May 2009. Remaining 9 teams each of 201 and 202 battalions have commenced their training on 4th May 2009 and are likely to complete the training by Ist week of August 2009.
+
+- CAIT Schools: 20 Counter Insurgency and Anti-Terrorist (CIAT) Schools, four per State, are being set up to impart specialised training to State police personnel in respect of counter insurgency, jungle warfare and terrorism in Assam, Bihar, Chhattisgarh, Orissa and Jharkhand. Of these, 7 CIAT schools in 4 naxal affected States of Bihar 1, Chhattisgarh 2, Jharkhand 2 and Orissa 2, have been sanctioned and Rs. 10.50 crore have been released.
+- IR Battalions: 37 India Reserve (IR) battalions have been sanctioned to 9 States of Andhra Pradesh 8, Bihar 3, Chhattisgarh 7, Jharkhand 5, Madhya Pradesh 1, Maharashtra 3, Orissa 6, Uttar Pradesh 2 and West Bengal 2. 24 IR battalions have been raised so far. A provision has also been made for raising 2 coys per battalion as commando units/specialised forces for which additional financial assistance of Rs. 6 crore is given over and above the Rs. 27.75 crore being provided by the Central Government for each IR Battalion. States are requested to raise the remaining Battalions in a time bound manner.
+- MPF scheme: Under the Scheme for Modernization of State Police Forces (MPF scheme), assistance is being provided for equipment, weaponry, mobility, communication, training, police infrastructure and buildings, forensic science facilities, etc. In 2008-09, a Central share of Rs. 515.08 crore have been allocated, Entire amount has been released to the 9 affected States of Andhra Pradesh, Bihar, Chhattisgarh, Jharkhand, Madhya Pradesh, Maharashtra, Orissa, Uttar Pradesh and West Bengal.
+- SRE scheme: (i) Under the Security Related Expenditure (SRE) scheme, assistance is provided for recurring expenditure relating to insurance, training and operational needs of security forces, as also for naxalite cadres who surrender in accordance with the surrender and rehabilitation policy of the concerned State Government, community policing, security-related infrastructure by village defence committees and publicity material. During 2008-09, against budgetary estimates of Rs. 80 crore, the entire amount has been released to the States. Detailed release of funds is in Annexure 4. (ii) Considering the operational requirements, Chhattisgarh, Jharkhand, Maharashtra and Orissa have been authorised to hire helicopters for anti-naxal operations, with expenditure reimbursable under this scheme. Four helicopters are being procured by MHA, to be deployed and located in Jharkhand and Chhattisgarh. (iii) Chhattisgarh and Jharkhand were permitted earlier to engage 3500 and 3400 SPOs respectively. Appointment of 6666 SPOs by Andhra Pradesh, Bihar, Orissa and Uttar Pradesh has been permitted. (iv) Eight new districts i.e. Khunti and Ramgarh in Jharkhand, Nizamabad in Andhra Pradesh, Deogarh, Jajpur, Kondhamal, Dhenkanal & Nayagarh of Orissa have been recently included under the scheme.
+
+#### **A7.6 Annexure-7 • Role of Naxal Management Division**
+
+- Scheme for special infrastructure: Based on detailed study and analysis of the fundamental requirements in the field, a new scheme aimed at filling critical infrastructure gaps in left wing extremism affected States has been implemented. The scheme is aimed at filling critical infrastructure gaps not covered under existing schemes of the Central Government including MPF and SRE schemes. An outlay of Rs.500 crore has been provided for this purpose in the XI plan period, with a provision of Rs. 100 crore made for 2008-09. An amount of Rs. 9999.92 lakh has been released to the States of Andhra Pradesh, Bihar, Chhattisgarh, Jharkhand, Madhya Pradesh, Maharashtra, Uttar Pradesh and Orissa. Detailed release of funds is at Annexure 5. Rs 100 crore has been provided under the scheme for the year 2009-10.
+- Technical support: Certain basic requirements of the police forces are also being looked into. Having regard to the frequent use of IEDs and landmines by the naxalites, Ministry of Home Affairs prepared a core group report on countering IED threats through tactical and technical support systems for use of State and Central Police forces. Similarly, having regard to frequent attacks on police stations and police establishments, a comprehensive check-list for in-depth security audit of police stations/outposts and other police establishments in naxal affected areas was prepared as a ready reference for security reviews by the State Police.
+- Development and other measures: Special attention on planning, implementation and monitoring of development schemes is being emphasised. Under the Backward Districts Initiative, which covered 147 districts, an amount of Rs. 45 crore per district had been allocated on a non-lapsable basis. This has now been replaced by the Backward Regions Grant Fund, in 250 districts. National Rural Employment Guarantee Programme, which was originally being implemented in 200 districts, and was extended to 330 districts in April 2007, has now being extended to all districts in the Country, having regard to the need to universalise this demand-driven programme for wage-employment. These schemes are in addition to various income-generating, public-utility and social-security schemes of Ministries like Rural Development, Agriculture, Health and Family Welfare, Youth Affairs and Sports, Panchayati Raj and Tribal Affairs. In totality, these provide ample opportunity to address the development aspects relevant to naxalism, provided the implementation is done in a systematic and qualitative manner. Another step has been the Scheduled Tribes and other Traditional Forest Dwellers (Recognition of Forest Rights) Act, 2006, which seeks to recognise and vest the forest rights and occupation in forest land in forest dwelling scheduled tribes and other traditional forest dwellers who have been residing in such forests for generations but whose rights could not be recorded. The Rules have been notified on 01.01.2008. Special attention is being given for the effective implementation of this Act in the States, so that its aims and objects are fully achieved.

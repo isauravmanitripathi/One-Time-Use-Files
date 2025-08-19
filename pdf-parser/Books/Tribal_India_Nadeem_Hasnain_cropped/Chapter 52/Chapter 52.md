@@ -1,0 +1,91 @@
+# The Scheduled Tribes and Other Traditional Forest Dwellers (Recognition of Forest Rights) Act, 2006
+
+## Background
+
+FOR many tribal people and other forest communities, forests the source of livelihood, identitj^ Customs and traditions. The forest dwelling scheduled tribes and other traditional forest dwellers inhabiting forests for generations were in occupation of the forest land for centuries. However, their rights on their ancestral lands and their habitats had not been adequately recognized despite them being integral to the very survival and sustainability of the forest eco-system. The traditional rights and interests of forest dwelling scheduled tribes and other traditional forest dwellers on forest lands were left unrecognized and unrecorded through faulty reservation process during consolidation of State forests, in the past. are
+
+THE forest dwelling tribal people and the forests are inseparable, a factor that also ensures conservation of ecological stemming from the very ethos of tribal life. The conservation processes for creating wildemsss and forest areas for production forestry somehow ignored the bonafide interests of the tribal community from the point of view of legislative framework in the regions where tribal communities primarily inhabited. The simplicity of tribes and their general ignorance of modern regulatory frameworks precluded them from asserting their genuine claims to resources in areas where they belonged and depended upon. The modem conservation approaches also advocated exclusion rather than integration. It was much later that forest management regimes initiated action to recognize the occupation and other rights of the forest dwellers and integrated them in designs of management. Insecurity of tenure and fear of eviction from the lands where they had lived and thrived for generations were perhaps the biggest resources
+
+#### TRIBALINDIA 615
+
+reasons why tribal communities felt emotionally as well as physically alienated from forests and forest lands. This historical injustice needed correction and, therefore, the Government enacted the Scheduled Tribes and Other traditional Forest Dwellers (Recognition of Forest Rights) Act, 2006, which is commonly known as Forest Rights Act (FRA). The Act came into operation with the notification of Rules 01-01-2008 for carding out the provisions of the Act. on
+
+The Act also goes beyond the "recognition" of forests rights and also empowers the forest rights holders. Gram Sabhas and local level institutions with the right to protect, re-generate, conserve and manage any community forest resource. This marks a decisive step forward in resource governance itself. Hailed rightly as a milestone in the history of tribal peoples' and forest dwellers' movements, the Act endeavors to facilitate their political empowerment to govern the forests for sustainable use and conservation. Precisely for these reasons, it becomes important to take firm proactive steps to make the necessary paradigm shift, particularly by the State Governments.
+
+## Salient Features of the Forest Rights Act
+
+THE Salient features of the Act are given as under:
+
+- (1) Section 3 of the Act lists the rights which shall be the forest rights of the forest dwelling Scheduled Tribes and Other Traditional Forest Dwellers. These forest rights are:
+  - (a) right to hold and live in the forest land under the individual or common occupation for habitation or for self-cultivation for livelihood by a member of members of a forest dwelling Scheduled Tribe or other traditional forest dweller;
+  - (b) community rights such as nistar, by whatever name called, including those used in erstwhile Princely States, Zamindari or such intermediary regimes;
+  - (c) right of ownership, access to collect, use, and dispose of minor forest produce which has been traditionally collected within or outside village boundaries;
+  - (d) other community rights of uses or entitlements such fish and other products of water bodies, grazing (both settled or transhumant) and traditional seasonal resource access of nomadic or pastoralist communities; as
+
+(e) rights including community tenures of habitat and habitation for primitive tribal groups and preagricultural communities;
+
+V.
+
+- (f) rights in or over disputed lands under any nomcr.rlature in any State where claims are disputed;
+- (g) rights for conversion of Pattas or leases or grants issued by any local authority or any State Government On forest lands to titles;
+- (h) rights of settlement and conversion of all forest villages, old habitation, unsurveyed villages and ;other villages in forests, whether recorded, notified or not into revenue villages;
+- (i) right to protect, re-generate or conserve or manage , any community forest resource which they have been traditionally protecting and conserving for sustainable use;
+  - 0) rights which are recognized under any State law or laws of any Autonomous District Council or Autonomous Regional Council or which are accepted as rights of tribals under any traditional or customary law. of the concerned tribes of any State;
+  - (k) right of access to biodiversity and community right to intellectual property arid traditional knowledge related to biodiversity and cultural diversity;
+  - (1) any other traditional right customarily enjoyed by the forest dwellirig Scheduled Tribes or other traditional forest dwellers, as the case may be which are not mentioned in clause (a) to (k) but excluding the traditional right of hunting or trapping or extracting a part of the body of any species of wild animal;
+
+(m) right to in situ rehabilitation including alternative land in cases where the Scheduled Tribes and other Traditional forest dwellers have been illegally evicted or displaced from forest land of any description without receiving their legal entitlement to ' rehabilitation prior^io the 13\* day of December, 2005.
+
+(2) Section 3(2) of the Adt provides for diversion of forest land for certain facilities managed, by the Government notwithstanding anything contained in the Forest Conservation Act, 1980 and which involved felling of trees not exceeding seventy five trees per hectare and the forest land to be diverted for the purpose is less than one hectare and the clearance of such development project is recommended by the Gram Sabha.
+
+- Section 4(1) of the Act recognizes and vests forest rights in forest dwelling Scheduled Tribes and Other Traditional For^t Dwellers notwithstanding anything contained in any other law for the time being in force. (3)
+- Section 4(2) of the Act provides for modification or resettlement of forest rights in critical wildlife habitats of National Parks and Sanctuaries for the purpose of creating inviolate areas for wildlife conservation subject fulfillment of conditions such as process of recognition of rights is complete in all the areas under consideration, other reasonable option exists, it has been established that the activities or the impact of the present right holders will cause irreversible damage and threaten the existence of wildlife and their habitat, free and informed consent of the concerned Gram Sabhas has been obtained, resettlement or alternative package has been prepared and communicated that provided a secure livelihood for the affected individuals and communities and fulfils the requirements of such affected families and communities given in the relevant laws and policy of the Central Government, and the resettlement should take place only after the facilities and land allocation at the resettlement location are complete. It is also provided that critical wildlife habitats from which right holders are relocated shall not be subsequently diverted for other users. no (4)
+  - Section 4(3) of the Act subjects the recognition and vesting of »he forest rights to the condition that the forest dwelling Scheduled Tribes or Other Traditional Forest Dwellers had occupied the forest land before the 13''' day of December, 2005. Section 4(4) stipulates that the rights conferred under this Act shall be heritable but not alienable or transferable and shall be registered jointly in the name of both the spouses in case of married persons. (5)
+  - (6) A very important and crucial safeguard has been provided to the forest right holders vide Section 4(5) which mandates that no forest dwelling Scheduled Tribes and Other Traditional Forest Dwellers shall be evicted or removed from the forest land under his occupation till recognition and verification procedure is complete.
+  - (7) The right to hold and live in the forest land under the individual or common occupation for habitation and for
+
+#### 618 TRIBAL INDIA
+
+self-cultivation for livelihood by a member or members of a forest dwelling Scheduled Tribes or Other Traditional Forest Dwellers shall be restricted to area under actual occupation and shall in no case exceed an area of four hec^s as per Section 4(6) of the Act Section 4(7) of the Act provides that forest rights shall be conferred free from all encumbrances and procedural requirements.
+
+- (8) The forest rights recognized and vested under this Act includes the right of land to forest dwelling Scheduled Tribes and Other Traditional Forest Dwellers who can establish that they were displaced from their dwelling and cultivation without land compensation due to State development interventions and where the land has not been used for the purpose for which it was acquired within five years of the said acquisition as per Section 4(8) of the Act.
+- (9) Section 5 of the Act empowers the holders of forest rights, the Gram Sabha and the village level institutions to (a) protect the wildlife, forest and bio-divesity (b) ensure that adjoining catchment area, water sources and other ecological sensitive areas are adequately protected (c) ensure that the habitat of forest dwelling Scheduled Tribes and other traditional forest dwellers is preserved from any form of destructive practices affecting their cultural and natural heritage and (d) ensure that the decisions taken in the Gram Sabha to regulate access to community forest resources and stop any activity which adversely affects the wild animals, forest and the bio- . diversity are complied with.
+
+(10) Section 6 (Chapter IV) of the Act deals with the authorities and procedures to vest forest rights in forest dwelling Scheduled Tribes and other traditional forest dwellers. There is a three tier structure of authorities to vest forest rights. The Gram Sabha is the initiating authority for determining the nature and extent of individual or community forest rights or both that may be given tp the forest dwelling Scheduled Tribes and other traditional forest dwellers. The Sub Divisional Level Committee (SDLC) examines the resolution passed by the Gram Sabha and forwards it to the District Level Committee (DLC) for the final decision. Any person
+
+### TRIBAL INDIA\_ 619
+
+aggrieved by the resolution of the Gram Sabha may prefer a petition to the Sub-Divisional Level Committee and any person aggrieved by the decision of the Sub-Divisional Level Committee may prefer a petition to the District Level Committee. The decision of the District Level Committee on the record of forest rights is final and binding. There is a State Level Monitoring Committee (SLMC) to monitor the process of recognition and vesting of forest rights and to submit to the nodal agency such returns and reports as may be called by that agency.
+
+- (11) Section 7 of the Act has a provision for punishment of any authority or officer for contravention of any provision of this Act or any rule made thereunder.
+- (12) The Ministry of Tribal Affairs, Government of India is the nodal agency for the. implementation of this Act as per Section 11 of the Act
+- (13) Section 12 empowers the Central Government to issue directions to the authorities referred to in Chapter IV of the Act.
+- (14) As per Section 13 of the Act the provisions of this Act shall be in addition to and not in derogation of the provisions of any other law for the time being in force.
+
+# Status of Implementation of the Act
+
+AS ON 30-11-2016, the total number of claims filed under FRA is 42,43,668 out of which 36,88.859 claims have been disposed off and 17,30,729 titles have been issued. Odisha has the distinction of Issuing highest number of titles which is 4,05,509 (3,99,996 individual titles and 5,513 community titles). Madhya Pradesh has the distinction of having highest forest area over which titles have been issued under this Act. The total forest area over which title has been issued in Madhya Pradesh Is 21,10,991.87 acres. Statement showing percentage of titles distributed over number of claims (Statewise) under the Act as on 30.11.2016 is given in Annexure-7.
+
+Initiatives taken by the Ministry during the year THE Ministry of Tribal Affairs has integrated all the thematic aspects of project execution in respect of legal and procedural challenges in implementation of FRA. The Ministry has also been continuously attempting to provide clarifications and directions to resolve these challenges. This year the focus has been on dissemination and outreach of these efforts to the remotest areas. Moreover, the Ministry
+
+#### 620 TRIBAL INDIA
+
+has also beon attempting to strengthen the monitoring of the implementation procedure, analyzing the intervention areas and extending support to over lapses. Following actions have been taken in this direction:
+
+- ❖ The Ministry maintains a regular monitoring of the progress in the distribution of title deeds across all States. A regular update is sought from all States in the form of Monthly Progress Report (MRR) which is also published on the website of the Ministry eveiy month. The MPR also helps identifying the high / low performing States and the need for interventions.
+- ❖ The Ministry had. conducted an analysis of the. performance of all Stdt^ based on MPRs collected for a spectrum of past 3 years. The results in terms, of pendency rate, rate of rejection and proportional collection of claims were eye opening. Through this analysis, nine States have been identified as low performing States and this Ministry has written to the Principal Secretaries of these States seeking Justification of their current status. The letter has also sought to undertake review of rejected claims to ensure that no wrongful rejections are made.
+- ❖ A joint review meeting under the chairmanship of Secretary, Ministry of Tribal Affairs and Additional Secretaiy, Ministry of Home Affairs was undertaken on 26-05-2016 through video conferencing with the Principal Secretaries / Secretaries of States of the 29 worst affected LWE districts on status of FRA Implementation..
+
+❖ Again a video conference was held by the Additional Secretaiy (LWE) on.23-08-2016 with the Representatives of the LWE affected States along with the Ministiy of Tribal Affairs to review the progress of distribution of title deeds under Forest Rights Act, 2006 across 35 most LWE affected areas which sought to achieve a separate reporting over progress in distribution of title deeds in LWE areas, reasons of rejection of claims, suo-moto review of rejected claims and guidelines for better use of distributed lartdsjjn these areas.
+
+❖ Ministry of Tribal Affairs has written to the Chief Secretaries of the State Governments where the Rate of Rejection of FRA claims is very high. FRA provides a reasonable opportuiii^ to the claimant for presenting his case in case of Rejwtion. Considering the accessibility of legal services to the tribal, this is a suo-moto action and the State Governments have been directed to mandatorily review the? ^lejected claims since 1\*' April 2014 if the same has nci| undergone reconsideration through means of re-app^ in either of decisive body. Review of the claims rejected prior to the said date is subject to the discretion of the State Government.
+
+❖ A workshop was organized on 26-08-2016 under the chairmanship of Joint Secretary, MoTA for operationalization of MIS" system developed to monitor the progress of implementation of FRA. State Nodal Officers and Technical persons from the States attended the workshop.
+
+❖ The Hon'ble Prime Minister inaugurated the first National Tribal Carnival on 25\* October 2016 which was followed by thematic seminars in different domain including Forest Rights Act. The seminar was chaired by the Hon'ble Minister of Tribal Affairs; other dignitaries included Ministers from States, Member of Parliament, Members of State/Legislature, Joint Secretary, MoTA, DIG, MoEFCC and experts fipm academia. There was a panel / discussion fallowed by questions by the communities and civil society. A Tribal Diary depicting the cultural diversity of major tribal communities in India was also released by the Hon'ble Minister of Tribal Affairs.
+
+❖ Section 5 of FRA recognizes that the forest dwellers integral to the very survival and sustainability of the forest ecosystem. Under the FR Rule 4(1 )(e), the Gram Sabha is required to constitute Committees for the protection of wildlife, forest and biodiversity which shall prepare a conservation and management plan for community forest resources in order to sustainably and equitably manage community forest resources. MoTA, in consultation with MoEFCC, has developed Guidelines to provide an enabling framework within which the Gram Sabha, through the Committee under Rule 4(1) (e) can meet its responsibilities under the provisions of the Act to protect, regenerate conserve and manage the community forest resource. are
+
+### 622 \_ TRIBAL INDIA
+
+❖ In order to achieve effective results in implementation of the Forest Rights Act, 2006, the Ministiy is running a project titled 'Stren^hening the National Capacity in Tribal Areas' in association with United Nations Development Program (UNDP). Under the project, several consultations and workshops are held and literature is being produced for dissemination of information. In the current year following documents were generated and circulated.

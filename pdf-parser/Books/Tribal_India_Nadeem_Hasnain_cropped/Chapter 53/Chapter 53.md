@@ -1,0 +1,24 @@
+## Codification of Customs and Customary Laws of Tribal Communities
+
+The tribals in India present a variety of socio-cultural practices and customs. Many of the tribals are already exposed to non-tribal communities for a very long period and this may have influenced the original rigidity of customs of the tribals. In general, the tribal communities are largely covered by their own traditions in social conduct. The tribal customs in regard to marriage, divorce, inheritance, administration of justice in the community, particularly in regard to trial of minor offence etc. continue to guide the tribal communities' behaviour. Study of the customary laws of the tribal communities is, therefore, useful for our understanding of tribal societies and necessary for better administration for these areas and people. It is with this aim in view that codification of customary tribal laws was first mooted as early as in 1982. Attempts were made through some State Governments, Tribal Research Institutes and the Anthropological Survey of India. It may, however, be noted that the ASI or the TRIs are not equipped for studies relevant to legal needs. The studies are mainly based on ethnographical interest and cannot serve the purpose of law. This limitation was recognised by the Working Group of the 7th Five Year Plan which made the following recommendations:
+
+"Penetration into the heart of a custom or tradition is essential to determine its binding charter on the tribal community. Any wrong judgement on the part of the officerin-charge of such compilation may lead to serious consequences. In this background, to dub such compilations as "customary law" and publish them under the auspices of a State Government or Government of India may be risky, particularly when recognised tribal institutions are no longer extant in many cases from whom a confirmation as to the
+
+accuracy of such \*\*customaiy laws", could be obtained. Such compilations may perhaps, should be captioned as "Some Traditional Tribal Customs" rather than as "customaiy laws". This may leave the way open for further improving such compilations, if need be".
+
+It also listed the customs that-would be of particular interest to the State i.e. ownership of property and inheritance, family and kinship, traditional tribal village offices and other institutions and succession to such offices.
+
+- 2. The progress made so far indicates that from the States of Andhra Pradesh, Gujarat, Kerala, Maharashtra, Rajasthan, Uttar Pradesh, Tripura and Himachal Pradesh information on a few aspects of tribal customs of 41 communities have been collected. The Anthropological Survey of India has covered 55 tribal communities in their survey of tribal customs. The ASI is contemplating a publication based on their studies.
+- 3. The Law Research Centre, Northern Region in the Guwahati High Court has taken up a scheme to codify/compile the customs and customary laws of tribals in Five North-Eastern States. The Ministry of Welfare has requested six major tribal States, namely Andhra Pradesh, Bihar, Gujarat, Madhya Pradesh, Orissa and Rajasthan to entrust this work to the Tribal Research Institutes. Progress in this work is yet to pick up.
+- 4. The approach of the Working Group for the 7th Five Year Plan should be retained during the 8th Plan. However, if the basic objectives of better understanding for better administration is to be achieved, then the plecemea compilation attempts made so far needs to be modified. The Working Group made the following recommendations for the 8th Plan
+  - (i) Complete compilation of the main customs, namely ownership of .property and inheritance, family and kinship, traditional tribal offices and other institutions of a particular tribe should be done instead of covering some customs with wider coverage of tribes. This would give an integrated picture of the entire tribe,
+  - (ii) Compilation could be taken up as a fully funded Central Scheme drawn up by the States having Tribal Research Institutes, to take up the task through the Tribal Research Institutes within a specific time schedule,
+  - (iii) The compilation could also be done through a legal cell in the Law Departments of the Tribal Sub-Plan States,
+
+## 630 TRIBAL INDIA
+
+on the lines of the L aw Research Centre in the Guwahati High Court,
+
+(iv) The Anthropological Survey of India should be in overall charge of these compilations and devise suitable mechanism for monitoring and reviewing of the progress in consultation with the Tribal Research Institutes and the Law Departments of the States.
+
+(Source: Report of the Working Group on Development and Welfare of Scheduled Tribes During Eighth Five Year Plan, 1989)

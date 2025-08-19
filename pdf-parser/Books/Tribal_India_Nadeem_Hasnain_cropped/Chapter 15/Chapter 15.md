@@ -1,0 +1,48 @@
+# DEVELOPMENTAL POLICIES, TRIBAL DISPLACEMENT & PROBLEMS OF REHABILITATION
+
+![](_page_0_Picture_1.jpeg)
+
+![](_page_0_Picture_2.jpeg)
+
+DEVELOPMENT has become a nightmare for many in the Third World Countries because it continues in such a way that the so called 'target group\* or beneficiary becomes 'victims' of progress and development. Though it is an established fact that throughout histoiy, rearrangement in human settlement patterns have been "a companion of development" but the process should be just, humane and as voluntary as possible.
+
+DEVELOPMENT involves changes in land and water use patterns, and in some instances, these changes require that people be displaced. But, as Michel Cemea puts it, involuntary displacement must be avoided or minimised as much as possible. If involuntary displacements are, to a certain extent, inevitable they must be carried out in a way that will protect the livelihoods of the displaced people. If this is not done, then some people will share the gains, while others only in the pains, of development. We have to adopt a 'people centered\* resettlement approach in dealing with the displaced. "Anthropologists were the first to document the disruptive social impact of forcible displacement. As a research theme with practical significance involuntary resettlement has long enjoyed great popularity among other social scientists as well. Many studies have lately been sponsored by planning agencies. Non-governmental organizations (NGOs) and even social activists have carried out their own studies of the displaced, enriching the existing knowledge on the subject" (H.N. Mathur, 1995).
+
+SINCE independence, development projects of the five year plans have displaced lakhs of persons each year primarily as a direct consequence of administrative land acquisition. This does not include displacement by non-plan projects, changes in land use pattern, acquisition for urban growth, and loss of livelihood caused by environmental degradation and pollution. Hydro-electric and irrigation projects are the largest source of displacement and destruction of habitat. Other major sources are mines, super thermal and nuclear power plants, industrial complexes as well as military installations, weapons testing grounds, railways and roads, expansion of reserved forest areas, sanctuaries and parks and
+
+#### TRIBAL INDIA 277
+
+technological interventions which cause the large scale displacement of traditional fisherfolk and handloom weavers. Thus, artisan communities are also badly hit.
+
+IN THE scenario of development and displacement the majority of the affected are obviously tribals and other economically morginal rural populations who have historically been dependent on the natural resource base for their subsistence. A significant point to be noted here is that the tribal communities are roughly 8% of the total population of the country, yet over 50% of those displaced belong to this section of our population. The implication is obvious - the tribal people are disproportionately affected by our 'developmental' policies and the resultant displacement. The 29th Report of the Commissioner of Scheduled Castes and Scheduled Tribes and the Report of the Working Group on Development and Welfare of Scheduled Tribes During the Eighth Five Year Plan (1990-95) testify to this fact.
+
+IN MOST of the cases people's consciousness and awareness of tribal displacement and impoverishment awakes largely when they come across news about the struggles and movements of the affected people. Among the major struggles at present in the Chotanagpur tribal belt are those against the Netarhat Pilot Project Test Firing Range (the case now suspended because of the fierce opposition from the affected people) in Gumla and Palamau districts which threatens to displace about three lakh people, the Koel Karo dams in Ranchi and Gumla districts threatening to displace about one lac people, coal mines in the North Karanpura Valley of Palamau district that may cause displacement of about a lakh of people, and the Subarnrekha dams in Singbhum district threatening to displace another one lakh tribals. Prevailing conditions in other states point towards the similar trend. Agitation against the Narmada Dam is now known internationally. The Palavaram dam in Andhra Pradesh shall be displacing an estimated three lacs people majority of them being tribals. In Karnataka, resistance is building up against the Nagarahole wildlife sanctuary. Agitations have been there in Orissa against the Gandhmardhan bauxite mines and the Chilika project.
+
+## Impact of Displacement and Rehabilitation:
+
+WHEN we look into various aspects of displacement, the displaced persons or the 'oustees' may be categorised on the basis of the degree of impact of displacement. L.K. Mahapatra (1994) divides them into the following categories:
+
+## 278\_TRIBAL INDIA
+
+- (a) people who lose their house, homestead land, and their fanning land or other productive assets in full,
+- (b) people who lose their house and homestead and their fann land or other productive assets in part,
+- (c) people who lose their house and homestead only,
+- (d) people who lose farm land only in full or in significant part,
+- (e) people who lose their base for plying their arts and crafts selling/bartering their specialised services or skills, or
+- (f) people who lose their base for earning their livelihood front the local forest or other eco-system including fishing in the river,
+- (g) people who lose their base for earning their livelihood through wage labour,
+- (h) people who lose their house or land or both for making for constructing the township to house the project employees or for construction of the canals or ancillary structures for completion or maintenance of the project. room
+
+"BUT, unfortunately, in India as also in many developing countries, the 'oustees' are normally considered to properly cover a few categories - (a), (b) and (c) - but all the other categories - (d) to (h) - are not included under 'oustees' legally in order to stake their claims for compensation or rehabilitation".
+
+IN most cases, the only legislation that is applied is the Land Acquisition Act, 1894 (amended in 1984) which only makes the state liable for cash compensation, in the process legitimising the gross injustice and social violence in reducing rights and interests into claims and complex systems into monetary compensation. Significantly the Act only recognises individual and not collective or community rights. Much of the land attempted to be taken away from the tribals is Common Property Resources (CPRs). If it is a forest land, the law gives no rights whatsoever to the people even though they might have used it as their livelihood for several pnerations. Traditionally no compensation has been paid for it. Besides, most tribals live in regions that have been administratively neglected and are considered backward. They cannot, therefore, hope to get a remunerative price for it and the compensation offered to them for the little individual land they own is very low. Besides, the tribals have traditionally lived within a self sufficient, subsistence economy that depended on the natural resources. They had relatively
+
+### TRIBAL INDIA\_279
+
+little exposure to the economy outside their region. Except in the North-East arid parts of Chota Nagpur, literacy among them is extremely low. As a result they cannot hope to get many jobs in the new project" (Walter Fernandes, 1995).
+
+STUDIES by several anthropologists have shown multiple effects of displacement. Involuntary resettlement leads to increased stress, both psychological and socio-cultural and also heightens morbidity and mortality. Another unfortunate outcome is a feeling of alienation, helplessness and powerlessness. "Moving away to new places is just unthinkable to the tribal people as they are deeply attached to their ancestral lands. The word 'resettlement' does not exist in many tribal languages" (H.M. Mathur, ibid). The widespread consequences of displacement include "dismantling of production systems, desecration of ancestral sacred zones or graves and temples, scattering of kinship groups and family systems, disorganization of informal social network that provide mutual support, weakening of self management and social control, disruption of trade and market links, etc. "(Lokayan Bulletin, 1995). Further, these patterns have been equated with national progress where public purpose and national interest have been used interchangeably, it is this mindset that justifies the labelling of those who criticise these projects as not only anti-project or anti development but also anti-national.
+
+THE more unfortunate part of the story is the case of multiple displacements. It has also happened that several tribal groups after having made the painful transition and settling into a new life style were again uprooted and displaced. The case of Singraull in Uttar Pradesh and New Mangalore Port are the examples. If displacement is inevitable, resettlement must include reconstruction of production systems, raising standards of living and minimising the conflict with host community. "The commitment therefore has to be not just for resettlement but for rehabilitation which should be an entitlement and not an act of reluctant generosity" (Smitu Kothari, 1995). Moreover, the cost of project should always include the cost to be incurred on resettlement and rehabilitation. All these projects should be open for public debate. Implementation of any project which does not include satisfactory arrangement for resettlement and rehabilitation.
+
+![](_page_4_Picture_4.jpeg)
