@@ -2,6 +2,7 @@
 """
 Markdown to PDF Book Generator
 Converts chapter markdown files to a professional PDF with LaTeX
+Also exports clean text versions of all chapters
 """
 
 import os
@@ -271,6 +272,95 @@ def markdown_to_latex(content: str, use_numbers: bool) -> str:
     content = re.sub(r'\n\n+', '\n\n\\\\par\n\\\\vspace{0.5em}\n', content)
     
     return content
+
+def clean_markdown_to_text(content: str) -> str:
+    """
+    Convert markdown content to clean plain text by removing all markdown formatting.
+    """
+    # Remove code blocks first
+    content = re.sub(r'```[\s\S]*?```', '', content)
+    
+    # Remove inline code
+    content = re.sub(r'`([^`]+)`', r'\1', content)
+    
+    # Remove headers (keep the text, remove the # symbols)
+    content = re.sub(r'^#+\s*(.+)$', r'\1', content, flags=re.MULTILINE)
+    
+    # Remove bold and italic formatting
+    content = re.sub(r'\*\*\*(.+?)\*\*\*', r'\1', content)  # Bold italic
+    content = re.sub(r'\*\*(.+?)\*\*', r'\1', content)      # Bold
+    content = re.sub(r'\*(.+?)\*', r'\1', content)          # Italic
+    content = re.sub(r'__(.+?)__', r'\1', content)          # Alternative bold
+    content = re.sub(r'_(.+?)_', r'\1', content)            # Alternative italic
+    
+    # Remove strikethrough
+    content = re.sub(r'~~(.+?)~~', r'\1', content)
+    
+    # Remove links but keep the text
+    content = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', content)  # [text](url)
+    content = re.sub(r'<([^>]+)>', r'\1', content)               # <url>
+    
+    # Remove images
+    content = re.sub(r'!\[([^\]]*)\]\([^\)]+\)', r'\1', content)
+    
+    # Convert lists to simple text
+    content = re.sub(r'^\s*[-*+]\s+', '• ', content, flags=re.MULTILINE)  # Bullet lists
+    content = re.sub(r'^\s*\d+\.\s+', '• ', content, flags=re.MULTILINE)  # Numbered lists
+    
+    # Remove horizontal rules
+    content = re.sub(r'^[-*_]{3,}$', '', content, flags=re.MULTILINE)
+    
+    # Remove blockquotes
+    content = re.sub(r'^>\s*', '', content, flags=re.MULTILINE)
+    
+    # Remove tables (simple approach - remove table formatting)
+    content = re.sub(r'\|', ' ', content)  # Remove pipe characters
+    content = re.sub(r'^[-\s:]+$', '', content, flags=re.MULTILINE)  # Remove table separators
+    
+    # Clean up excessive whitespace
+    content = re.sub(r'\n\s*\n\s*\n+', '\n\n', content)  # Multiple blank lines to double
+    content = re.sub(r'[ \t]+', ' ', content)             # Multiple spaces to single
+    content = re.sub(r'^\s+', '', content, flags=re.MULTILINE)  # Leading whitespace
+    content = re.sub(r'\s+$', '', content, flags=re.MULTILINE)  # Trailing whitespace
+    
+    # Remove any remaining markdown artifacts
+    content = re.sub(r'\\(.)', r'\1', content)  # Remove escaped characters
+    
+    return content.strip()
+
+def save_chapters_as_text(chapters_data: List[Tuple[str, str]], base_path: Path, folder_name: str):
+    """
+    Save all chapters as clean text files in a separate folder.
+    """
+    # Create the text chapters folder
+    text_folder = base_path / f"{folder_name}_chapters_text"
+    text_folder.mkdir(exist_ok=True)
+    
+    print(f"\n📝 Saving chapters as text files in: {text_folder}")
+    
+    for i, (chapter_title, content) in enumerate(chapters_data, 1):
+        if content:
+            # Clean the markdown content to plain text
+            clean_text = clean_markdown_to_text(content)
+            
+            # Create a safe filename
+            safe_chapter_name = re.sub(r'[^\w\s-]', '', chapter_title.lower())
+            safe_chapter_name = re.sub(r'[-\s]+', '_', safe_chapter_name)
+            
+            # Add chapter number for ordering
+            text_filename = f"chapter_{i:02d}_{safe_chapter_name}.txt"
+            text_file_path = text_folder / text_filename
+            
+            # Write the clean text to file
+            with open(text_file_path, 'w', encoding='utf-8') as f:
+                f.write(f"{chapter_title}\n")
+                f.write("=" * len(chapter_title) + "\n\n")
+                f.write(clean_text)
+            
+            print(f"  ✅ {text_filename}")
+    
+    print(f"📁 Text chapters saved to: {text_folder}")
+    return text_folder
 
 def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool, include_subsections: bool) -> str:
     """
@@ -553,6 +643,15 @@ def main():
         print(f"✍️  Author: {author_name}")
         print(f"🔢 Numbering: {'Enabled' if use_numbers else 'Disabled'}")
         print(f"📑 Subsections in TOC: {'Enabled' if include_subsections else 'Disabled'}")
+        
+        # Save chapters as text files
+        text_folder = save_chapters_as_text(chapters_data, folder_path, safe_title)
+        
+        print(f"\n✨ All files generated:")
+        print(f"   📕 PDF: {output_pdf}")
+        print(f"   📄 LaTeX: {latex_file}")
+        print(f"   📁 Text chapters: {text_folder}")
+        
     else:
         print("\n❌ Failed to generate PDF. Check the LaTeX source for errors.")
         print(f"📄 You can manually compile the LaTeX file: {latex_file}")
