@@ -36,7 +36,45 @@ def get_chapter_folders(root_path: Path) -> List[Path]:
     chapter_folders.sort(key=lambda x: natural_sort_key(x.name))
     return chapter_folders
 
-def read_markdown_file(chapter_path: Path) -> Tuple[str, str]:
+def get_user_preferences():
+    """
+    Get user preferences for book generation.
+    """
+    print("\n" + "="*50)
+    print("📚 BOOK GENERATION SETUP")
+    print("="*50)
+    
+    # Get book title
+    book_title = input("📖 Enter the book title: ").strip()
+    if not book_title:
+        book_title = "Generated Book"
+    
+    # Get author name
+    author_name = input("✍️  Enter the author name: ").strip()
+    if not author_name:
+        author_name = "Unknown Author"
+    
+    # Get numbering preference
+    print("\n🔢 Do you want to include numbers in chapters and sections?")
+    print("   • With numbers: 'Chapter 1', '1.1 Introduction', etc.")
+    print("   • Without numbers: Just the title text, no numbering")
+    
+    while True:
+        numbering_choice = input("Include numbering? (y/n): ").strip().lower()
+        if numbering_choice in ['y', 'yes', 'n', 'no']:
+            use_numbers = numbering_choice in ['y', 'yes']
+            break
+        print("Please enter 'y' for yes or 'n' for no.")
+    
+    print(f"\n✅ Configuration:")
+    print(f"   📖 Title: {book_title}")
+    print(f"   ✍️  Author: {author_name}")
+    print(f"   🔢 Numbering: {'Yes' if use_numbers else 'No'}")
+    print()
+    
+    return book_title, author_name, use_numbers
+
+def read_markdown_file(chapter_path: Path, use_numbers: bool) -> Tuple[str, str]:
     """
     Read the markdown content from final_article.md in the chapter folder.
     Returns tuple of (chapter_title, content)
@@ -49,13 +87,25 @@ def read_markdown_file(chapter_path: Path) -> Tuple[str, str]:
     with open(md_file, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # Extract chapter number for title
-    chapter_match = re.search(r'Chapter\s+(\d+)', chapter_path.name, re.IGNORECASE)
-    if chapter_match:
-        chapter_num = chapter_match.group(1)
-        chapter_title = f"Chapter {chapter_num}"
+    # Extract chapter title based on user preference
+    if use_numbers:
+        chapter_match = re.search(r'Chapter\s+(\d+)', chapter_path.name, re.IGNORECASE)
+        if chapter_match:
+            chapter_num = chapter_match.group(1)
+            chapter_title = f"Chapter {chapter_num}"
+        else:
+            chapter_title = chapter_path.name
     else:
-        chapter_title = chapter_path.name
+        # Extract just the text without "Chapter X" prefix
+        # Look for the first heading in the markdown content
+        lines = content.split('\n')
+        chapter_title = "Untitled Chapter"
+        for line in lines:
+            line = line.strip()
+            if line.startswith('#'):
+                # Remove markdown heading syntax and use as title
+                chapter_title = re.sub(r'^#+\s*', '', line).strip()
+                break
     
     return chapter_title, content
 
@@ -85,7 +135,7 @@ def escape_latex(text: str) -> str:
     
     return text
 
-def markdown_to_latex(content: str) -> str:
+def markdown_to_latex(content: str, use_numbers: bool) -> str:
     """
     Convert markdown formatting to LaTeX.
     """
@@ -110,18 +160,34 @@ def markdown_to_latex(content: str) -> str:
     for line in lines:
         if not line.startswith('<<<CODEBLOCK_'):
             # Headers (before escaping to preserve the # symbol for processing)
-            if line.startswith('######'):
-                line = re.sub(r'^######\s+(.+)$', r'\\subparagraph{\1}', line)
-            elif line.startswith('#####'):
-                line = re.sub(r'^#####\s+(.+)$', r'\\paragraph{\1}', line)
-            elif line.startswith('####'):
-                line = re.sub(r'^####\s+(.+)$', r'\\subsubsection{\1}', line)
-            elif line.startswith('###'):
-                line = re.sub(r'^###\s+(.+)$', r'\\subsection{\1}', line)
-            elif line.startswith('##'):
-                line = re.sub(r'^##\s+(.+)$', r'\\section{\1}', line)
-            elif line.startswith('#'):
-                line = re.sub(r'^#\s+(.+)$', r'\\section{\1}', line)
+            if use_numbers:
+                # With numbers - use standard sectioning
+                if line.startswith('######'):
+                    line = re.sub(r'^######\s+(.+)$', r'\\subparagraph{\1}', line)
+                elif line.startswith('#####'):
+                    line = re.sub(r'^#####\s+(.+)$', r'\\paragraph{\1}', line)
+                elif line.startswith('####'):
+                    line = re.sub(r'^####\s+(.+)$', r'\\subsubsection{\1}', line)
+                elif line.startswith('###'):
+                    line = re.sub(r'^###\s+(.+)$', r'\\subsection{\1}', line)
+                elif line.startswith('##'):
+                    line = re.sub(r'^##\s+(.+)$', r'\\section{\1}', line)
+                elif line.startswith('#'):
+                    line = re.sub(r'^#\s+(.+)$', r'\\section{\1}', line)
+            else:
+                # Without numbers - use starred versions (no numbering)
+                if line.startswith('######'):
+                    line = re.sub(r'^######\s+(.+)$', r'\\subparagraph*{\1}', line)
+                elif line.startswith('#####'):
+                    line = re.sub(r'^#####\s+(.+)$', r'\\paragraph*{\1}', line)
+                elif line.startswith('####'):
+                    line = re.sub(r'^####\s+(.+)$', r'\\subsubsection*{\1}', line)
+                elif line.startswith('###'):
+                    line = re.sub(r'^###\s+(.+)$', r'\\subsection*{\1}', line)
+                elif line.startswith('##'):
+                    line = re.sub(r'^##\s+(.+)$', r'\\section*{\1}', line)
+                elif line.startswith('#'):
+                    line = re.sub(r'^#\s+(.+)$', r'\\section*{\1}', line)
             
             # Only escape if it's not a LaTeX command we just added
             if not line.startswith('\\'):
@@ -189,7 +255,7 @@ def markdown_to_latex(content: str) -> str:
     
     return content
 
-def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path) -> str:
+def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool) -> str:
     """
     Create a complete LaTeX document from chapters data.
     """
@@ -215,7 +281,7 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
     bottom=2.5cm,
     left=3cm,
     right=2.5cm,
-    headheight=15pt
+    headheight=28pt
 }
 
 % Headers and footers
@@ -226,7 +292,10 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
 \fancyhead[RE]{\leftmark}
 \renewcommand{\headrulewidth}{0.4pt}
 
-% Chapter formatting
+% Chapter formatting'''
+
+    if use_numbers:
+        latex_doc += r'''
 \titleformat{\chapter}[display]
 {\normalfont\huge\bfseries}
 {\chaptertitlename\ \thechapter}
@@ -245,44 +314,67 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
 {\thesubsection}
 {1em}
 {}
+'''
+    else:
+        latex_doc += r'''
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}
+{}
+{20pt}
+{\Huge}
 
+% Section formatting (without numbers)
+\titleformat{\section}
+{\normalfont\Large\bfseries}
+{}
+{1em}
+{}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries}
+{}
+{1em}
+{}
+'''
+
+    latex_doc += f'''
 % Table of contents formatting
-\renewcommand{\cftchapfont}{\bfseries}
-\renewcommand{\cftsecfont}{\normalfont}
-\renewcommand{\cftsubsecfont}{\normalfont}
+\\renewcommand{{\\cftchapfont}}{{\\bfseries}}
+\\renewcommand{{\\cftsecfont}}{{\\normalfont}}
+\\renewcommand{{\\cftsubsecfont}}{{\\normalfont}}
 
 % Hyperref setup
-\hypersetup{
+\\hypersetup{{
     colorlinks=true,
     linkcolor=black,
     filecolor=black,
     urlcolor=blue,
-    pdftitle={Generated Book},
-    pdfauthor={Book Generator},
+    pdftitle={{{book_title}}},
+    pdfauthor={{{author_name}}},
     bookmarks=true,
     bookmarksopen=true,
     bookmarksnumbered=true,
-    pdfstartview={FitH},
-    pdfpagemode={UseOutlines}
-}
+    pdfstartview={{FitH}},
+    pdfpagemode={{UseOutlines}}
+}}
 
 % Start document
-\begin{document}
+\\begin{{document}}
 
 % Title page
-\begin{titlepage}
-    \centering
-    \vspace*{5cm}
-    {\Huge\bfseries Generated Book\par}
-    \vspace{2cm}
-    {\Large Compiled from Markdown Chapters\par}
-    \vfill
-    {\large \today\par}
-\end{titlepage}
+\\begin{{titlepage}}
+    \\centering
+    \\vspace*{{5cm}}
+    {{\\Huge\\bfseries {book_title}\\par}}
+    \\vspace{{2cm}}
+    {{\\Large by {author_name}\\par}}
+    \\vfill
+    {{\\large \\today\\par}}
+\\end{{titlepage}}
 
 % Table of contents
-\tableofcontents
-\clearpage
+\\tableofcontents
+\\clearpage
 
 % Main content
 '''
@@ -290,8 +382,13 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
     # Add each chapter
     for chapter_title, content in chapters_data:
         if content:
-            latex_content = markdown_to_latex(content)
-            latex_doc += f"\n\\chapter{{{chapter_title}}}\n"
+            latex_content = markdown_to_latex(content, use_numbers)
+            if use_numbers:
+                latex_doc += f"\n\\chapter{{{chapter_title}}}\n"
+            else:
+                latex_doc += f"\n\\chapter*{{{chapter_title}}}\n"
+                # Add to TOC manually for unnumbered chapters
+                latex_doc += f"\\addcontentsline{{toc}}{{chapter}}{{{chapter_title}}}\n"
             latex_doc += latex_content
             latex_doc += "\n\\clearpage\n"
     
@@ -352,67 +449,78 @@ def main():
     """
     Main function to orchestrate the PDF generation.
     """
+    # Get user preferences
+    book_title, author_name, use_numbers = get_user_preferences()
+    
     # Get the folder path from user
     if len(sys.argv) > 1:
         folder_path = Path(sys.argv[1])
     else:
-        folder_path = Path(input("Enter the path to the folder containing chapters: ").strip())
+        folder_path = Path(input("📁 Enter the path to the folder containing chapters: ").strip())
     
     # Validate path
     if not folder_path.exists():
-        print(f"Error: Path '{folder_path}' does not exist")
+        print(f"❌ Error: Path '{folder_path}' does not exist")
         return
     
     if not folder_path.is_dir():
-        print(f"Error: '{folder_path}' is not a directory")
+        print(f"❌ Error: '{folder_path}' is not a directory")
         return
     
-    print(f"\nProcessing chapters in: {folder_path}")
+    print(f"\n🔍 Processing chapters in: {folder_path}")
     
     # Get and sort chapter folders
     chapter_folders = get_chapter_folders(folder_path)
     
     if not chapter_folders:
-        print("No chapter folders found!")
+        print("❌ No chapter folders found!")
         return
     
-    print(f"Found {len(chapter_folders)} chapters:")
+    print(f"📚 Found {len(chapter_folders)} chapters:")
     for folder in chapter_folders:
         print(f"  - {folder.name}")
     
     # Read all markdown files
-    print("\nReading markdown files...")
+    print("\n📖 Reading markdown files...")
     chapters_data = []
     for chapter_folder in chapter_folders:
-        title, content = read_markdown_file(chapter_folder)
+        title, content = read_markdown_file(chapter_folder, use_numbers)
         if content:
             chapters_data.append((title, content))
-            print(f"  ✓ {title}")
+            print(f"  ✅ {title}")
         else:
-            print(f"  ✗ Skipped {chapter_folder.name} (no content)")
+            print(f"  ❌ Skipped {chapter_folder.name} (no content)")
     
     if not chapters_data:
-        print("No valid chapters found!")
+        print("❌ No valid chapters found!")
         return
     
     # Create LaTeX document
-    print("\nGenerating LaTeX document...")
-    output_pdf = folder_path / "generated_book.pdf"
-    latex_content = create_latex_document(chapters_data, output_pdf)
+    print("\n🔧 Generating LaTeX document...")
+    
+    # Create filename based on book title
+    safe_title = re.sub(r'[^\w\s-]', '', book_title.lower())
+    safe_title = re.sub(r'[-\s]+', '_', safe_title)
+    output_pdf = folder_path / f"{safe_title}.pdf"
+    latex_file = folder_path / f"{safe_title}.tex"
+    
+    latex_content = create_latex_document(chapters_data, output_pdf, book_title, author_name, use_numbers)
     
     # Save LaTeX source (optional, for debugging)
-    latex_file = folder_path / "generated_book.tex"
     with open(latex_file, 'w', encoding='utf-8') as f:
         f.write(latex_content)
-    print(f"LaTeX source saved to: {latex_file}")
+    print(f"📄 LaTeX source saved to: {latex_file}")
     
     # Compile to PDF
-    print("\nCompiling to PDF...")
+    print("\n⚙️  Compiling to PDF...")
     if compile_latex_to_pdf(latex_content, output_pdf):
-        print(f"\n✓ Success! PDF generated at: {output_pdf}")
+        print(f"\n🎉 Success! PDF generated at: {output_pdf}")
+        print(f"📖 Title: {book_title}")
+        print(f"✍️  Author: {author_name}")
+        print(f"🔢 Numbering: {'Enabled' if use_numbers else 'Disabled'}")
     else:
-        print("\n✗ Failed to generate PDF. Check the LaTeX source for errors.")
-        print(f"You can manually compile the LaTeX file: {latex_file}")
+        print("\n❌ Failed to generate PDF. Check the LaTeX source for errors.")
+        print(f"📄 You can manually compile the LaTeX file: {latex_file}")
 
 if __name__ == "__main__":
     main()
