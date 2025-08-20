@@ -66,13 +66,30 @@ def get_user_preferences():
             break
         print("Please enter 'y' for yes or 'n' for no.")
     
+    # Get table of contents subsection preference
+    print("\n📑 Do you want to include subsections in the table of contents?")
+    if use_numbers:
+        print("   • With subsections: Shows '1.1 Introduction', '1.2 Overview', etc. in TOC")
+        print("   • Without subsections: Shows only chapter titles in TOC")
+    else:
+        print("   • With subsections: Shows 'Introduction', 'Overview', etc. in TOC")
+        print("   • Without subsections: Shows only chapter titles in TOC")
+    
+    while True:
+        subsections_choice = input("Include subsections in table of contents? (y/n): ").strip().lower()
+        if subsections_choice in ['y', 'yes', 'n', 'no']:
+            include_subsections = subsections_choice in ['y', 'yes']
+            break
+        print("Please enter 'y' for yes or 'n' for no.")
+    
     print(f"\n✅ Configuration:")
     print(f"   📖 Title: {book_title}")
     print(f"   ✍️  Author: {author_name}")
     print(f"   🔢 Numbering: {'Yes' if use_numbers else 'No'}")
+    print(f"   📑 Subsections in TOC: {'Yes' if include_subsections else 'No'}")
     print()
     
-    return book_title, author_name, use_numbers
+    return book_title, author_name, use_numbers, include_subsections
 
 def read_markdown_file(chapter_path: Path, use_numbers: bool) -> Tuple[str, str]:
     """
@@ -255,7 +272,7 @@ def markdown_to_latex(content: str, use_numbers: bool) -> str:
     
     return content
 
-def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool) -> str:
+def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool, include_subsections: bool) -> str:
     """
     Create a complete LaTeX document from chapters data.
     """
@@ -291,6 +308,10 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
 \fancyhead[LO]{\rightmark}
 \fancyhead[RE]{\leftmark}
 \renewcommand{\headrulewidth}{0.4pt}
+
+% Fix header to show chapter names instead of "CONTENTS"
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\chaptername\ \thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 
 % Chapter formatting'''
 
@@ -335,10 +356,21 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
 {}
 {1em}
 {}
+
+% Fix headers for unnumbered chapters
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
 '''
+
+    # Table of contents depth control
+    if include_subsections:
+        toc_depth = "2"  # Show chapters, sections, and subsections
+    else:
+        toc_depth = "0"  # Show only chapters
 
     latex_doc += f'''
 % Table of contents formatting
+\\setcounter{{tocdepth}}{{{toc_depth}}}
 \\renewcommand{{\\cftchapfont}}{{\\bfseries}}
 \\renewcommand{{\\cftsecfont}}{{\\normalfont}}
 \\renewcommand{{\\cftsubsecfont}}{{\\normalfont}}
@@ -389,6 +421,8 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
                 latex_doc += f"\n\\chapter*{{{chapter_title}}}\n"
                 # Add to TOC manually for unnumbered chapters
                 latex_doc += f"\\addcontentsline{{toc}}{{chapter}}{{{chapter_title}}}\n"
+                # Mark the chapter for headers
+                latex_doc += f"\\markboth{{\\MakeUppercase{{{chapter_title}}}}}{{\\MakeUppercase{{{chapter_title}}}}}\n"
             latex_doc += latex_content
             latex_doc += "\n\\clearpage\n"
     
@@ -450,7 +484,7 @@ def main():
     Main function to orchestrate the PDF generation.
     """
     # Get user preferences
-    book_title, author_name, use_numbers = get_user_preferences()
+    book_title, author_name, use_numbers, include_subsections = get_user_preferences()
     
     # Get the folder path from user
     if len(sys.argv) > 1:
@@ -504,7 +538,7 @@ def main():
     output_pdf = folder_path / f"{safe_title}.pdf"
     latex_file = folder_path / f"{safe_title}.tex"
     
-    latex_content = create_latex_document(chapters_data, output_pdf, book_title, author_name, use_numbers)
+    latex_content = create_latex_document(chapters_data, output_pdf, book_title, author_name, use_numbers, include_subsections)
     
     # Save LaTeX source (optional, for debugging)
     with open(latex_file, 'w', encoding='utf-8') as f:
@@ -518,6 +552,7 @@ def main():
         print(f"📖 Title: {book_title}")
         print(f"✍️  Author: {author_name}")
         print(f"🔢 Numbering: {'Enabled' if use_numbers else 'Disabled'}")
+        print(f"📑 Subsections in TOC: {'Enabled' if include_subsections else 'Disabled'}")
     else:
         print("\n❌ Failed to generate PDF. Check the LaTeX source for errors.")
         print(f"📄 You can manually compile the LaTeX file: {latex_file}")
