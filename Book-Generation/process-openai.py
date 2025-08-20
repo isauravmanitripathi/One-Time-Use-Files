@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Simple Content Generation System - Single API Key Version
-Processes JSON files with one API key sequentially.
-Enhanced with detailed error reporting and diagnostics.
+File-Level Multi-API Key Content Generation System
+Each worker takes one complete JSON file and processes it fully (outline + content) with one API key.
+Parallel processing at the file level, sequential processing within each file.
 """
 import json
 import os
 import argparse
 import time
 import random
-import gc
 from typing import Dict, List, Any, Optional, Tuple
 from pathlib import Path
 from datetime import datetime
@@ -18,6 +17,10 @@ import sys
 import traceback
 import re
 import sqlite3
+import threading
+import concurrent.futures
+from dataclasses import dataclass
+import uuid
 
 try:
     from openai import OpenAI
@@ -58,36 +61,77 @@ def print_progress(current: int, total: int, item: str = "items"):
     percentage = (current / total * 100) if total > 0 else 0
     print(f"Progress: {current}/{total} ({percentage:.1f}%) {item}")
 
-# === Simple Database Logger ===
-class SimpleLogger:
-    """Basic SQLite logging for tracking progress"""
+# === Data Classes ===
+@dataclass
+class FileTask:
+    """Represents a complete file processing task"""
+    task_id: str
+    file_path: Path
+    output_folder: Path
+    model_name: str
+    
+    def __post_init__(self):
+        if not self.task_id:
+            self.task_id = f"file_{uuid.uuid4().hex[:8]}"
+
+@dataclass
+class APIKeyStats:
+    """Statistics for an API key"""
+    key_name: str
+    total_files: int = 0
+    successful_files: int = 0
+    failed_files: int = 0
+    total_requests: int = 0
+    successful_requests: int = 0
+    failed_requests: int = 0
+    active_files: int = 0
+    last_used: float = 0
+    
+    @property
+    def success_rate(self) -> float:
+        if self.total_files == 0:
+            return 100.0
+        return (self.successful_files / self.total_files) * 100
+    
+    @property
+    def load_score(self) -> float:
+        """Lower score = better choice for assignment"""
+        return self.active_files * 1000 + self.failed_files * 100 + self.total_files
+
+# === Database Logger ===
+class DatabaseLogger:
+    """Thread-safe SQLite logging for tracking progress"""
     
     def __init__(self, db_path: Path):
         self.db_path = db_path
         self.connection = self._init_database()
+        self.lock = threading.Lock()
     
     def _init_database(self) -> sqlite3.Connection:
         """Initialize the SQLite database"""
-        conn = sqlite3.connect(self.db_path)
+        conn = sqlite3.connect(self.db_path, check_same_thread=False)
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         
-        # Simple files table
+        # Files table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS Files (
                 file_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 file_path TEXT UNIQUE NOT NULL,
                 filename TEXT NOT NULL,
                 status TEXT DEFAULT 'pending',
+                api_key_used TEXT,
                 total_sections INTEGER,
                 processed_sections INTEGER DEFAULT 0,
                 failed_sections INTEGER DEFAULT 0,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                completed_at TIMESTAMP
+                started_at TIMESTAMP,
+                completed_at TIMESTAMP,
+                processing_time REAL,
+                error_message TEXT
             )
         ''')
         
-        # Simple sections table
+        # Sections table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS Sections (
                 section_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -104,131 +148,118 @@ class SimpleLogger:
             )
         ''')
         
+        # API Usage table
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS APIUsage (
+                usage_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                api_key_name TEXT NOT NULL,
+                file_id INTEGER,
+                request_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                success BOOLEAN,
+                response_time REAL,
+                error_message TEXT
+            )
+        ''')
+        
         conn.commit()
         return conn
     
     def register_file(self, file_path: str, filename: str, total_sections: int) -> int:
-        """Register a new file"""
-        cursor = self.connection.cursor()
-        cursor.execute("""
-            INSERT OR IGNORE INTO Files (file_path, filename, total_sections)
-            VALUES (?, ?, ?)
-        """, (file_path, filename, total_sections))
-        
-        cursor.execute("SELECT file_id FROM Files WHERE file_path = ?", (file_path,))
-        file_id = cursor.fetchone()['file_id']
-        self.connection.commit()
-        return file_id
+        """Register a new file and return file_id"""
+        with self.lock:
+            cursor = self.connection.cursor()
+            cursor.execute("""
+                INSERT OR IGNORE INTO Files (file_path, filename, total_sections)
+                VALUES (?, ?, ?)
+            """, (file_path, filename, total_sections))
+            
+            cursor.execute("SELECT file_id FROM Files WHERE file_path = ?", (file_path,))
+            file_id = cursor.fetchone()['file_id']
+            self.connection.commit()
+            return file_id
     
-    def log_section_start(self, file_id: int, section_number: str, section_name: str, stage: str):
-        """Log section processing start"""
-        cursor = self.connection.cursor()
-        cursor.execute("""
-            INSERT OR REPLACE INTO Sections 
-            (file_id, section_number, section_name, stage, status, started_at)
-            VALUES (?, ?, ?, ?, 'processing', ?)
-        """, (file_id, section_number, section_name, stage, datetime.now()))
-        self.connection.commit()
+    def start_file_processing(self, file_id: int, api_key: str):
+        """Mark file as started"""
+        with self.lock:
+            cursor = self.connection.cursor()
+            cursor.execute("""
+                UPDATE Files 
+                SET status = 'processing', api_key_used = ?, started_at = ?
+                WHERE file_id = ?
+            """, (api_key, datetime.now(), file_id))
+            self.connection.commit()
     
-    def log_section_success(self, file_id: int, section_number: str, stage: str):
-        """Log successful section completion"""
-        cursor = self.connection.cursor()
-        cursor.execute("""
-            UPDATE Sections 
-            SET status = 'completed', completed_at = ?
-            WHERE file_id = ? AND section_number = ? AND stage = ?
-        """, (datetime.now(), file_id, section_number, stage))
-        self.connection.commit()
-    
-    def log_section_failure(self, file_id: int, section_number: str, stage: str, error: str):
-        """Log section failure"""
-        cursor = self.connection.cursor()
-        cursor.execute("""
-            UPDATE Sections 
-            SET status = 'failed', completed_at = ?, error_message = ?
-            WHERE file_id = ? AND section_number = ? AND stage = ?
-        """, (datetime.now(), error, file_id, section_number, stage))
-        self.connection.commit()
-    
-    def update_file_progress(self, file_id: int, processed: int, failed: int):
-        """Update file processing progress"""
-        cursor = self.connection.cursor()
-        cursor.execute("""
-            UPDATE Files 
-            SET processed_sections = ?, failed_sections = ?
-            WHERE file_id = ?
-        """, (processed, failed, file_id))
-        self.connection.commit()
-    
-    def complete_file(self, file_id: int, status: str):
+    def complete_file_processing(self, file_id: int, status: str, processing_time: float, 
+                               processed: int, failed: int, error_msg: str = None):
         """Mark file as completed"""
-        cursor = self.connection.cursor()
-        cursor.execute("""
-            UPDATE Files 
-            SET status = ?, completed_at = ?
-            WHERE file_id = ?
-        """, (status, datetime.now(), file_id))
-        self.connection.commit()
+        with self.lock:
+            cursor = self.connection.cursor()
+            cursor.execute("""
+                UPDATE Files 
+                SET status = ?, completed_at = ?, processing_time = ?, 
+                    processed_sections = ?, failed_sections = ?, error_message = ?
+                WHERE file_id = ?
+            """, (status, datetime.now(), processing_time, processed, failed, error_msg, file_id))
+            self.connection.commit()
+    
+    def log_section_processing(self, file_id: int, section_number: str, section_name: str, 
+                             stage: str, status: str, error_msg: str = None):
+        """Log section processing result"""
+        with self.lock:
+            cursor = self.connection.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO Sections 
+                (file_id, section_number, section_name, stage, status, completed_at, error_message)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (file_id, section_number, section_name, stage, status, datetime.now(), error_msg))
+            self.connection.commit()
+    
+    def log_api_usage(self, api_key: str, file_id: int, success: bool, 
+                     response_time: float = None, error_msg: str = None):
+        """Log API usage"""
+        with self.lock:
+            cursor = self.connection.cursor()
+            cursor.execute("""
+                INSERT INTO APIUsage (api_key_name, file_id, success, response_time, error_message)
+                VALUES (?, ?, ?, ?, ?)
+            """, (api_key, file_id, success, response_time, error_msg))
+            self.connection.commit()
     
     def should_process_file(self, file_path: str) -> bool:
         """Check if file should be processed"""
-        cursor = self.connection.cursor()
-        cursor.execute("SELECT status FROM Files WHERE file_path = ?", (file_path,))
-        result = cursor.fetchone()
-        return not result or result['status'] != 'completed'
-    
-    def get_completed_sections(self, file_id: int, stage: str) -> set:
-        """Get completed sections for a file and stage"""
-        cursor = self.connection.cursor()
-        cursor.execute("""
-            SELECT section_number FROM Sections 
-            WHERE file_id = ? AND stage = ? AND status = 'completed'
-        """, (file_id, stage))
-        return {row['section_number'] for row in cursor.fetchall()}
+        with self.lock:
+            cursor = self.connection.cursor()
+            cursor.execute("SELECT status FROM Files WHERE file_path = ?", (file_path,))
+            result = cursor.fetchone()
+            return not result or result['status'] != 'completed'
     
     def close(self):
         """Close database connection"""
         self.connection.close()
 
-# === Simple Content Processor ===
-class SimpleContentProcessor:
-    """Simple content processor with single API key"""
+# === File Processor (Worker) ===
+class FileProcessor:
+    """Processes a complete file with single API key"""
     
-    def __init__(self, model_name: str = "gpt-5-mini", logger: SimpleLogger = None):
+    def __init__(self, api_key: str, key_name: str, model_name: str, logger: DatabaseLogger):
+        self.api_key = api_key
+        self.key_name = key_name
         self.model_name = model_name
         self.logger = logger
         
-        # Initialize single API key
-        self.api_key = self._get_api_key()
-        self.client = self._initialize_client()
+        # Initialize OpenAI client
+        try:
+            self.client = OpenAI(api_key=api_key)
+        except Exception as e:
+            raise Exception(f"Failed to initialize OpenAI client for {key_name}: {e}")
         
-        # Statistics
+        # Statistics for this processor
         self.stats = {
             'total_requests': 0,
             'successful_requests': 0,
             'failed_requests': 0,
-            'total_processing_time': 0
+            'processing_time': 0
         }
-        
-        print_success(f"Initialized Simple Content Processor with model: {model_name}")
-    
-    def _get_api_key(self) -> str:
-        """Get single API key from environment"""
-        api_key = os.getenv('OPENAI_API_KEY')
-        if not api_key:
-            raise ValueError("OPENAI_API_KEY environment variable not found")
-        return api_key
-    
-    def _initialize_client(self) -> OpenAI:
-        """Initialize OpenAI client"""
-        if not OpenAI:
-            raise Exception("OpenAI library not available")
-        
-        try:
-            client = OpenAI(api_key=self.api_key)
-            return client
-        except Exception as e:
-            raise Exception(f"Failed to initialize OpenAI client: {e}")
     
     def _generate_outline_prompt(self, paper_title: str, chapter_name: str, 
                                 section_name: str, section_content: str) -> str:
@@ -312,7 +343,7 @@ Take the given outline and carefully expand it into a detailed, well-structured 
                 )
                 
                 response_time = time.time() - start_time
-                self.stats['total_processing_time'] += response_time
+                self.stats['processing_time'] += response_time
                 
                 if response.choices[0].message.content:
                     content = response.choices[0].message.content.strip()
@@ -336,7 +367,6 @@ Take the given outline and carefully expand it into a detailed, well-structured 
                             last_error = f"JSON Parse Error: {json_err}"
                             if attempt == retries:
                                 self.stats['failed_requests'] += 1
-                                print_error(f"JSON Parse Failed: {last_error}")
                                 return False, last_error, response_time
                     else:
                         self.stats['successful_requests'] += 1
@@ -345,33 +375,23 @@ Take the given outline and carefully expand it into a detailed, well-structured 
                     last_error = "Empty response from OpenAI API"
                     if attempt == retries:
                         self.stats['failed_requests'] += 1
-                        print_error(f"Empty Response: {last_error}")
                         return False, last_error, response_time
                 
             except Exception as e:
                 last_error = f"API Error: {type(e).__name__}: {str(e)}"
                 if "rate_limit" in str(e).lower():
-                    print_warning(f"Rate Limit Hit (attempt {attempt + 1}): {e}")
                     if attempt < retries:
-                        time.sleep(random.uniform(5, 10))
+                        time.sleep(random.uniform(5, 15))
                         continue
                 elif "invalid" in str(e).lower() and "model" in str(e).lower():
                     self.stats['failed_requests'] += 1
-                    print_error(f"Invalid Model Error: {e}")
-                    print_error(f"Model used: {self.model_name}")
-                    print_info("Check OpenAI documentation for current valid models")
                     return False, last_error, time.time() - start_time
-                elif "authentication" in str(e).lower() or "api_key" in str(e).lower():
+                elif "authentication" in str(e).lower():
                     self.stats['failed_requests'] += 1
-                    print_error(f"Authentication Error: {e}")
-                    print_info("Tip: Check your OPENAI_API_KEY environment variable")
                     return False, last_error, time.time() - start_time
-                else:
-                    print_error(f"API Error (attempt {attempt + 1}): {e}")
                 
                 if attempt == retries:
                     self.stats['failed_requests'] += 1
-                    print_error(f"Final API Error: {last_error}")
                     return False, last_error, time.time() - start_time
             
             if attempt < retries:
@@ -381,91 +401,376 @@ Take the given outline and carefully expand it into a detailed, well-structured 
         self.stats['failed_requests'] += 1
         return False, last_error or "Unknown error after all retries", time.time() - start_time
     
-    def process_section_outline(self, file_id: int, section: Dict, chapter_name: str) -> bool:
-        """Process outline for a single section"""
-        section_number = section.get('section_number')
-        section_name = section.get('section_name', '')
-        content = section.get('generated_section_content_md', '')
+    def process_complete_file(self, task: FileTask) -> bool:
+        """Process a complete file (outline + content stages)"""
+        file_path = task.file_path
+        output_folder = task.output_folder
         
-        if self.logger:
-            self.logger.log_section_start(file_id, section_number, section_name, 'outline')
+        print_info(f"[{self.key_name}] Starting file: {file_path.name}")
         
-        print_info(f"Processing outline for section {section_number}: {section_name}")
-        
+        # Load input data
         try:
-            prompt = self._generate_outline_prompt(chapter_name, chapter_name, section_name, content)
-            success, result, response_time = self._call_openai_api(prompt, "json", retries=3, temperature=0.5)
+            with open(file_path, 'r', encoding='utf-8') as f:
+                input_data = json.load(f)
             
-            if success:
-                section['section_outline_response'] = result
-                if self.logger:
-                    self.logger.log_section_success(file_id, section_number, 'outline')
-                print_success(f"Outline completed for section {section_number}")
-                return True
-            else:
-                if self.logger:
-                    self.logger.log_section_failure(file_id, section_number, 'outline', str(result))
-                print_error(f"Outline failed for section {section_number}: {result}")
+            if not isinstance(input_data, list):
+                print_error(f"[{self.key_name}] Invalid JSON format in {file_path.name}")
                 return False
                 
         except Exception as e:
-            error_msg = f"Exception in outline processing: {e}"
-            if self.logger:
-                self.logger.log_section_failure(file_id, section_number, 'outline', error_msg)
-            print_error(f"Outline exception for section {section_number}: {error_msg}")
-            return False
-    
-    def process_section_content(self, file_id: int, section: Dict, chapter_name: str) -> bool:
-        """Process content for a single section"""
-        section_number = section.get('section_number')
-        section_name = section.get('section_name', '')
-        outline = section.get('section_outline_response')
-        
-        if not outline or (isinstance(outline, dict) and outline.get('error')):
-            print_warning(f"Skipping content for section {section_number}: No valid outline")
+            print_error(f"[{self.key_name}] Failed to load {file_path.name}: {e}")
             return False
         
-        if self.logger:
-            self.logger.log_section_start(file_id, section_number, section_name, 'content')
+        # Filter valid sections
+        valid_sections = [s for s in input_data if s.get("generated_section_content_md", "").strip()]
+        if not valid_sections:
+            print_warning(f"[{self.key_name}] No valid sections in {file_path.name}")
+            return False
         
-        print_info(f"Processing content for section {section_number}: {section_name}")
+        # Register file and start processing
+        file_id = self.logger.register_file(str(file_path.resolve()), file_path.name, len(valid_sections))
+        self.logger.start_file_processing(file_id, self.key_name)
+        
+        start_time = time.time()
+        chapter_name = valid_sections[0].get('chapter_name', file_path.stem)
         
         try:
-            prompt = self._generate_content_prompt(chapter_name, chapter_name, section_name, outline)
-            success, result, response_time = self._call_openai_api(prompt, "text", retries=3, temperature=0.7)
+            # Create output folder for this file
+            file_output_folder = output_folder / file_path.stem
+            file_output_folder.mkdir(parents=True, exist_ok=True)
             
-            if success:
-                section['enhanced_section_content_md'] = result
-                if self.logger:
-                    self.logger.log_section_success(file_id, section_number, 'content')
-                print_success(f"Content completed for section {section_number}")
-                return True
-            else:
-                if self.logger:
-                    self.logger.log_section_failure(file_id, section_number, 'content', str(result))
-                print_error(f"Content failed for section {section_number}: {result}")
-                return False
+            outline_success = 0
+            outline_failed = 0
+            content_success = 0
+            content_failed = 0
+            
+            # Stage 1: Process outlines
+            print_info(f"[{self.key_name}] Processing outlines for {file_path.name}")
+            for section in valid_sections:
+                section_number = section.get('section_number')
+                section_name = section.get('section_name', '')
+                content = section.get('generated_section_content_md', '')
                 
+                # Generate outline
+                prompt = self._generate_outline_prompt(chapter_name, chapter_name, section_name, content)
+                success, result, response_time = self._call_openai_api(prompt, "json", retries=3, temperature=0.5)
+                
+                # Log API usage
+                self.logger.log_api_usage(self.key_name, file_id, success, response_time, 
+                                        str(result) if not success else None)
+                
+                if success:
+                    section['section_outline_response'] = result
+                    outline_success += 1
+                    self.logger.log_section_processing(file_id, section_number, section_name, 
+                                                     'outline', 'completed')
+                else:
+                    outline_failed += 1
+                    self.logger.log_section_processing(file_id, section_number, section_name, 
+                                                     'outline', 'failed', str(result))
+                
+                # Small delay between requests
+                time.sleep(0.5)
+            
+            # Save after outline stage
+            outline_path = file_output_folder / "outline.json"
+            with open(outline_path, 'w', encoding='utf-8') as f:
+                json.dump(input_data, f, indent=2, ensure_ascii=False)
+            
+            # Stage 2: Process content
+            print_info(f"[{self.key_name}] Processing content for {file_path.name}")
+            for section in valid_sections:
+                section_number = section.get('section_number')
+                section_name = section.get('section_name', '')
+                outline = section.get('section_outline_response')
+                
+                if not outline or (isinstance(outline, dict) and outline.get('error')):
+                    content_failed += 1
+                    self.logger.log_section_processing(file_id, section_number, section_name, 
+                                                     'content', 'failed', 'No valid outline')
+                    continue
+                
+                # Generate content
+                prompt = self._generate_content_prompt(chapter_name, chapter_name, section_name, outline)
+                success, result, response_time = self._call_openai_api(prompt, "text", retries=3, temperature=0.7)
+                
+                # Log API usage
+                self.logger.log_api_usage(self.key_name, file_id, success, response_time, 
+                                        str(result) if not success else None)
+                
+                if success:
+                    section['enhanced_section_content_md'] = result
+                    content_success += 1
+                    self.logger.log_section_processing(file_id, section_number, section_name, 
+                                                     'content', 'completed')
+                else:
+                    content_failed += 1
+                    self.logger.log_section_processing(file_id, section_number, section_name, 
+                                                     'content', 'failed', str(result))
+                
+                # Small delay between requests
+                time.sleep(0.5)
+            
+            # Save final outputs
+            content_path = file_output_folder / "content.json"
+            with open(content_path, 'w', encoding='utf-8') as f:
+                json.dump(input_data, f, indent=2, ensure_ascii=False)
+            
+            # Assemble final article
+            enhanced_sections = [s.get('enhanced_section_content_md', '') 
+                               for s in input_data 
+                               if s.get('enhanced_section_content_md')]
+            
+            if enhanced_sections:
+                final_article = "\n\n---\n\n".join(enhanced_sections)
+                final_path = file_output_folder / "final_article.md"
+                with open(final_path, 'w', encoding='utf-8') as f:
+                    f.write(final_article)
+            
+            # Save metadata
+            metadata = {
+                "source_file": file_path.name,
+                "processed_at": datetime.now().isoformat(),
+                "api_key_used": self.key_name,
+                "total_sections": len(valid_sections),
+                "successful_outlines": outline_success,
+                "successful_content": content_success,
+                "failed_outlines": outline_failed,
+                "failed_content": content_failed,
+                "output_files": {
+                    "outline": "outline.json",
+                    "content": "content.json", 
+                    "final_article": "final_article.md"
+                }
+            }
+            metadata_path = file_output_folder / "processing_metadata.json"
+            with open(metadata_path, 'w', encoding='utf-8') as f:
+                json.dump([metadata], f, indent=2, ensure_ascii=False)
+            
+            # Determine final status
+            processing_time = time.time() - start_time
+            total_processed = outline_success + content_success
+            total_failed = outline_failed + content_failed
+            
+            if total_failed == 0:
+                status = 'completed'
+                print_success(f"[{self.key_name}] Completed {file_path.name} ({total_processed} sections)")
+            else:
+                status = 'partial'
+                print_warning(f"[{self.key_name}] Partial completion {file_path.name} ({total_processed} success, {total_failed} failed)")
+            
+            # Log completion
+            self.logger.complete_file_processing(file_id, status, processing_time, 
+                                               total_processed, total_failed)
+            
+            return status == 'completed'
+            
         except Exception as e:
-            error_msg = f"Exception in content processing: {e}"
-            if self.logger:
-                self.logger.log_section_failure(file_id, section_number, 'content', error_msg)
-            print_error(f"Content exception for section {section_number}: {error_msg}")
+            processing_time = time.time() - start_time
+            error_msg = f"Exception processing file: {e}"
+            self.logger.complete_file_processing(file_id, 'failed', processing_time, 0, 0, error_msg)
+            print_error(f"[{self.key_name}] Exception in {file_path.name}: {error_msg}")
             return False
     
     def get_stats(self) -> Dict:
-        """Get processing statistics"""
+        """Get processor statistics"""
         success_rate = (self.stats['successful_requests'] / self.stats['total_requests'] * 100) if self.stats['total_requests'] > 0 else 100
-        avg_time = (self.stats['total_processing_time'] / self.stats['total_requests']) if self.stats['total_requests'] > 0 else 0
-        
         return {
+            'key_name': self.key_name,
             'total_requests': self.stats['total_requests'],
             'successful_requests': self.stats['successful_requests'],
             'failed_requests': self.stats['failed_requests'],
             'success_rate': success_rate,
-            'average_response_time': avg_time,
-            'total_processing_time': self.stats['total_processing_time']
+            'processing_time': self.stats['processing_time']
         }
+
+# === Main Manager ===
+class FileManagerSystem:
+    """Main system that manages multiple API keys and distributes files"""
+    
+    def __init__(self, input_folder: str, output_folder: str, model_name: str = "gpt-5-mini"):
+        self.input_folder = Path(input_folder)
+        self.output_folder = Path(output_folder)
+        self.output_folder.mkdir(parents=True, exist_ok=True)
+        self.model_name = model_name
+        
+        # Initialize database logger
+        db_path = self.output_folder / "file_manager_processing.db"
+        self.logger = DatabaseLogger(db_path)
+        
+        # Discover API keys
+        self.api_keys = self._discover_api_keys()
+        
+        # API key statistics
+        self.api_stats = {
+            f"key_{i+1}": APIKeyStats(f"key_{i+1}") 
+            for i in range(len(self.api_keys))
+        }
+        
+        self.lock = threading.Lock()
+        
+        print_success(f"Initialized File Manager with {len(self.api_keys)} API keys")
+    
+    def _discover_api_keys(self) -> List[str]:
+        """Discover all available OpenAI API keys"""
+        api_keys = []
+        
+        # Primary key
+        primary_key = os.getenv('OPENAI_API_KEY')
+        if primary_key:
+            api_keys.append(primary_key)
+        
+        # Numbered keys
+        i = 1
+        while True:
+            key = os.getenv(f'OPENAI_API_KEY_{i}')
+            if key:
+                api_keys.append(key)
+                i += 1
+            else:
+                break
+        
+        if not api_keys:
+            raise ValueError("No OpenAI API keys found in environment variables")
+        
+        return api_keys
+    
+    def discover_files(self) -> List[Path]:
+        """Discover JSON files to process"""
+        try:
+            json_files = list(self.input_folder.glob("*.json"))
+            valid_files = []
+            
+            for file_path in sorted(json_files):
+                if self.logger.should_process_file(str(file_path)):
+                    valid_files.append(file_path)
+                else:
+                    print_warning(f"{file_path.name}: Already completed, skipping")
+            
+            return valid_files
+        except Exception as e:
+            print_error(f"Error discovering files: {e}")
+            return []
+    
+    def process_all_files(self, max_workers: int = None) -> bool:
+        """Process all files using multiple workers"""
+        
+        print_header("File Manager Content Generation System")
+        print(f"Model: {self.model_name}")
+        print(f"API Keys: {len(self.api_keys)}")
+        print(f"Input Folder: {self.input_folder}")
+        print(f"Output Folder: {self.output_folder}")
+        
+        # Discover files
+        files_to_process = self.discover_files()
+        if not files_to_process:
+            print_error("No files to process")
+            return False
+        
+        print_success(f"Found {len(files_to_process)} files to process")
+        
+        # Set max workers (default to number of API keys)
+        max_workers = max_workers or len(self.api_keys)
+        max_workers = min(max_workers, len(self.api_keys))  # Can't exceed number of keys
+        
+        print_info(f"Using {max_workers} workers")
+        
+        # Create file tasks
+        tasks = []
+        for file_path in files_to_process:
+            task = FileTask(
+                task_id="",
+                file_path=file_path,
+                output_folder=self.output_folder,
+                model_name=self.model_name
+            )
+            tasks.append(task)
+        
+        # Process files in parallel
+        successful_files = 0
+        failed_files = 0
+        
+        try:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+                # Create processors (one per worker)
+                processors = []
+                for i in range(max_workers):
+                    api_key = self.api_keys[i % len(self.api_keys)]
+                    key_name = f"key_{(i % len(self.api_keys)) + 1}"
+                    processor = FileProcessor(api_key, key_name, self.model_name, self.logger)
+                    processors.append(processor)
+                
+                # Submit tasks
+                future_to_task = {}
+                for i, task in enumerate(tasks):
+                    processor = processors[i % len(processors)]
+                    future = executor.submit(processor.process_complete_file, task)
+                    future_to_task[future] = (task, processor)
+                
+                # Collect results
+                for future in concurrent.futures.as_completed(future_to_task):
+                    task, processor = future_to_task[future]
+                    try:
+                        success = future.result()
+                        if success:
+                            successful_files += 1
+                        else:
+                            failed_files += 1
+                            
+                        # Update API stats
+                        with self.lock:
+                            key_name = processor.key_name
+                            if key_name in self.api_stats:
+                                stats = self.api_stats[key_name]
+                                stats.total_files += 1
+                                if success:
+                                    stats.successful_files += 1
+                                else:
+                                    stats.failed_files += 1
+                                
+                                # Update request stats
+                                proc_stats = processor.get_stats()
+                                stats.total_requests += proc_stats['total_requests']
+                                stats.successful_requests += proc_stats['successful_requests']
+                                stats.failed_requests += proc_stats['failed_requests']
+                        
+                        print_progress(successful_files + failed_files, len(tasks), "files")
+                        
+                    except Exception as e:
+                        print_error(f"Exception processing {task.file_path.name}: {e}")
+                        failed_files += 1
+            
+            # Show final summary
+            self._show_final_summary(successful_files, failed_files)
+            
+            return failed_files == 0
+            
+        finally:
+            self.logger.close()
+    
+    def _show_final_summary(self, successful_files: int, failed_files: int):
+        """Show final processing summary"""
+        print_header("Final Processing Summary")
+        
+        print_section("File Processing Results")
+        print(f"Successfully processed: {successful_files} files")
+        print(f"Failed: {failed_files} files")
+        print(f"Total files: {successful_files + failed_files}")
+        
+        print_section("API Key Performance")
+        for key_name, stats in self.api_stats.items():
+            if stats.total_files > 0:
+                print(f"{key_name:8} | Files: {stats.total_files:3} | Success: {stats.successful_files:3} | "
+                      f"Failed: {stats.failed_files:2} | Rate: {stats.success_rate:5.1f}% | "
+                      f"Requests: {stats.total_requests:4}")
+        
+        print_section("Output Information")
+        print(f"Output Directory: {self.output_folder}")
+        print("Each file processed into its own subfolder containing:")
+        print("  - outline.json (after outline stage)")
+        print("  - content.json (after content stage)")
+        print("  - final_article.md (assembled final content)")
+        print("  - processing_metadata.json (processing details)")
 
 # === Utility Functions ===
 def load_json_file(file_path: str) -> Optional[List[Dict]]:
@@ -485,347 +790,56 @@ def load_json_file(file_path: str) -> Optional[List[Dict]]:
         print_error(f"Could not load JSON file: {file_path}\n{e}")
     return None
 
-def save_json_file(data: List[Dict], file_path: str):
-    """Save data to JSON file"""
-    try:
-        Path(file_path).parent.mkdir(parents=True, exist_ok=True)
-        temp_file_path = Path(file_path).with_suffix(f"{Path(file_path).suffix}.tmp")
-        with open(temp_file_path, 'w', encoding='utf-8') as file:
-            json.dump(data, file, indent=2, ensure_ascii=False)
-        os.replace(temp_file_path, file_path)
-    except Exception as e:
-        print_error(f"Could not save JSON file: {file_path}\n{e}")
-
-def save_text_file(content: str, file_path: str):
-    """Save text content to file"""
-    try:
-        Path(file_path).parent.mkdir(parents=True, exist_ok=True)
-        temp_file_path = Path(file_path).with_suffix(f"{Path(file_path).suffix}.tmp")
-        with open(temp_file_path, 'w', encoding='utf-8') as file:
-            file.write(content)
-        os.replace(temp_file_path, file_path)
-    except Exception as e:
-        print_error(f"Could not save text file: {file_path}\n{e}")
-
-def discover_json_files(folder_path: Path) -> List[Path]:
-    """Discover JSON files in folder"""
-    try:
-        json_files = list(folder_path.glob("*.json"))
-        return sorted(json_files)
-    except Exception as e:
-        print_error(f"Error discovering files: {e}")
-        return []
-
-# === Main Content System ===
-class SimpleContentSystem:
-    """Main content processing system - simplified version"""
-    
-    def __init__(self, input_folder: str, output_folder: str, model_name: str = "gpt-5-mini"):
-        self.input_folder = Path(input_folder)
-        self.output_folder = Path(output_folder)
-        self.output_folder.mkdir(parents=True, exist_ok=True)
-        self.model_name = model_name
-        
-        # Initialize logger
-        db_path = self.output_folder / "simple_processing.db"
-        self.logger = SimpleLogger(db_path)
-        
-        # Initialize processor
-        self.processor = SimpleContentProcessor(model_name, self.logger)
-        
-        print_success("Simple Content System initialized")
-    
-    def show_startup_info(self):
-        """Display startup information"""
-        print_header("Simple Content Generation System")
-        
-        print(f"Model: {self.model_name}")
-        print(f"Input Folder: {self.input_folder}")
-        print(f"Output Folder: {self.output_folder}")
-        print(f"Database: {self.output_folder / 'simple_processing.db'}")
-        
-        print_success("System ready to start processing")
-        return True
-    
-    def discover_and_validate_files(self) -> List[Path]:
-        """Discover and validate JSON files"""
-        json_files = discover_json_files(self.input_folder)
-        
-        if not json_files:
-            print_error(f"No JSON files found in {self.input_folder}")
-            return []
-        
-        print_success(f"Found {len(json_files)} JSON files to process")
-        
-        # Validate file structures
-        valid_files = []
-        for file_path in json_files:
-            if not self.logger.should_process_file(str(file_path)):
-                print_warning(f"{file_path.name}: Already completed, skipping")
-                continue
-                
-            data = load_json_file(str(file_path))
-            if data:
-                sections_with_content = [s for s in data if s.get("generated_section_content_md", "").strip()]
-                if sections_with_content:
-                    valid_files.append(file_path)
-                    print_success(f"{file_path.name}: {len(sections_with_content)} sections with content")
-                else:
-                    print_warning(f"{file_path.name}: No sections with content found")
-            else:
-                print_error(f"{file_path.name}: Invalid JSON structure")
-        
-        return valid_files
-    
-    def process_single_file(self, file_path: Path) -> bool:
-        """Process a single JSON file"""
-        filename = file_path.name
-        file_stem = file_path.stem
-        
-        # Create individual folder for this file
-        file_output_folder = self.output_folder / file_stem
-        file_output_folder.mkdir(parents=True, exist_ok=True)
-        
-        # Setup output paths
-        stage1_output_path = file_output_folder / "outline.json"
-        stage2_output_path = file_output_folder / "content.json"
-        final_article_path = file_output_folder / "final_article.md"
-        
-        # Load input data
-        input_data = load_json_file(str(file_path))
-        if not input_data:
-            print_error(f"Failed to load {filename}")
-            return False
-        
-        # Get valid sections
-        valid_sections = [s for s in input_data if s.get("generated_section_content_md", "").strip()]
-        if not valid_sections:
-            print_warning(f"No valid sections found in {filename}")
-            return False
-        
-        # Register file
-        file_id = self.logger.register_file(str(file_path.resolve()), filename, len(valid_sections))
-        
-        print_section(f"Processing file: {filename} (ID: {file_id})")
-        print_info(f"Output folder: {file_output_folder}")
-        print_info(f"Found {len(valid_sections)} sections to process")
-        
-        try:
-            # Get chapter name from first section
-            chapter_name = valid_sections[0].get('chapter_name', filename)
-            
-            # Stage 1: Process outlines sequentially
-            print_section("Stage 1: Generating Outlines")
-            outline_success = 0
-            outline_failed = 0
-            
-            completed_outlines = self.logger.get_completed_sections(file_id, 'outline')
-            
-            for i, section in enumerate(valid_sections, 1):
-                section_number = section.get('section_number')
-                if section_number in completed_outlines:
-                    print_info(f"Outline {section_number}: Already completed")
-                    outline_success += 1
-                    continue
-                
-                print_progress(i, len(valid_sections), "outline sections")
-                success = self.processor.process_section_outline(file_id, section, chapter_name)
-                
-                if success:
-                    outline_success += 1
-                else:
-                    outline_failed += 1
-                
-                # Update progress
-                self.logger.update_file_progress(file_id, outline_success, outline_failed)
-                
-                # Small delay to avoid rate limits
-                time.sleep(0.5)
-            
-            print_info(f"Outline stage: {outline_success} successful, {outline_failed} failed")
-            
-            if outline_failed > 0:
-                print_warning(f"Some outlines failed. Continuing with content generation for successful ones.")
-            
-            # Save after outline stage
-            save_json_file(input_data, str(stage1_output_path))
-            
-            # Stage 2: Process content sequentially
-            print_section("Stage 2: Generating Content")
-            content_success = 0
-            content_failed = 0
-            
-            completed_content = self.logger.get_completed_sections(file_id, 'content')
-            
-            for i, section in enumerate(valid_sections, 1):
-                section_number = section.get('section_number')
-                if section_number in completed_content:
-                    print_info(f"Content {section_number}: Already completed")
-                    content_success += 1
-                    continue
-                
-                print_progress(i, len(valid_sections), "content sections")
-                success = self.processor.process_section_content(file_id, section, chapter_name)
-                
-                if success:
-                    content_success += 1
-                else:
-                    content_failed += 1
-                
-                # Update progress
-                self.logger.update_file_progress(file_id, content_success, content_failed)
-                
-                # Small delay to avoid rate limits
-                time.sleep(0.5)
-            
-            print_info(f"Content stage: {content_success} successful, {content_failed} failed")
-            
-            # Save final outputs
-            save_json_file(input_data, str(stage2_output_path))
-            
-            # Assemble final article
-            print_info("Assembling final article...")
-            enhanced_sections = [s.get('enhanced_section_content_md', '') 
-                               for s in input_data 
-                               if s.get('enhanced_section_content_md')]
-            
-            if enhanced_sections:
-                final_article = "\n\n---\n\n".join(enhanced_sections)
-                save_text_file(final_article, str(final_article_path))
-            
-            # Save metadata
-            metadata = {
-                "source_file": filename,
-                "processed_at": datetime.now().isoformat(),
-                "total_sections": len(valid_sections),
-                "successful_outlines": outline_success,
-                "successful_content": content_success,
-                "output_files": {
-                    "outline": "outline.json",
-                    "content": "content.json", 
-                    "final_article": "final_article.md"
-                }
-            }
-            metadata_path = file_output_folder / "processing_metadata.json"
-            save_json_file([metadata], str(metadata_path))
-            
-            # Mark file as completed
-            final_status = 'completed' if (outline_failed == 0 and content_failed == 0) else 'partial'
-            self.logger.complete_file(file_id, final_status)
-            
-            if final_status == 'completed':
-                print_success(f"Successfully completed {filename}")
-            else:
-                print_warning(f"Partially completed {filename}")
-            
-            print_info(f"All outputs saved in: {file_output_folder}")
-            return final_status == 'completed'
-            
-        except Exception as e:
-            print_error(f"Error processing {filename}: {e}")
-            self.logger.complete_file(file_id, 'failed')
-            return False
-    
-    def show_final_summary(self):
-        """Display final processing summary"""
-        stats = self.processor.get_stats()
-        
-        print_header("Final Processing Summary")
-        
-        print_section("API Usage Summary")
-        print(f"Total API Requests: {stats['total_requests']}")
-        print(f"Successful Requests: {stats['successful_requests']}")
-        print(f"Failed Requests: {stats['failed_requests']}")
-        print(f"Success Rate: {stats['success_rate']:.1f}%")
-        print(f"Average Response Time: {stats['average_response_time']:.2f}s")
-        print(f"Total Processing Time: {stats['total_processing_time']:.2f}s")
-        print(f"Output Directory: {self.output_folder}")
-    
-    def process_all_files(self, force_rerun: bool = False) -> bool:
-        """Process all files in the input folder"""
-        
-        # Show startup info
-        if not self.show_startup_info():
-            return False
-        
-        # Discover and validate files
-        valid_files = self.discover_and_validate_files()
-        if not valid_files:
-            return False
-        
-        # Process each file
-        processed_files = 0
-        failed_files = 0
-        
-        try:
-            for i, file_path in enumerate(valid_files, 1):
-                try:
-                    print_progress(i, len(valid_files), "files")
-                    success = self.process_single_file(file_path)
-                    
-                    if success:
-                        processed_files += 1
-                    else:
-                        failed_files += 1
-                        
-                except KeyboardInterrupt:
-                    print_warning("Process interrupted by user")
-                    return False
-                    
-                except Exception as e:
-                    print_error(f"Critical error processing {file_path.name}: {e}")
-                    failed_files += 1
-                    continue
-            
-            # Show final summary
-            self.show_final_summary()
-            
-            print_section("File Processing Summary")
-            print(f"Successfully processed: {processed_files} files")
-            print(f"Failed: {failed_files} files")
-            
-            return failed_files == 0
-            
-        finally:
-            # Ensure logger is properly closed
-            self.logger.close()
-
 # === Main Entry Point ===
 def main():
     """Main entry point"""
     load_dotenv()
     
     parser = argparse.ArgumentParser(
-        description='Simple Content Generation System - Single API Key Version',
+        description='File-Level Multi-API Key Content Generation System',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   python script.py /path/to/json/folder
   python script.py /path/to/json/folder --model gpt-5-mini
-  python script.py /path/to/json/folder --output-folder /path/to/output
+  python script.py /path/to/json/folder --workers 4
 
 Environment Variables:
-  OPENAI_API_KEY      - Your OpenAI API key (required)
+  OPENAI_API_KEY      - Primary API key  
+  OPENAI_API_KEY_1    - Additional API key 1
+  OPENAI_API_KEY_2    - Additional API key 2
+  ... and so on
+
+How It Works:
+  - Each worker gets assigned one complete JSON file
+  - Worker processes the entire file (outline + content) with one API key
+  - Parallel processing at file level, sequential within each file
+  - Each file gets its own output subfolder with all results
 
 Features:
-  - Simple single API key processing
-  - Sequential processing (no parallel workers)
   - Perfect resume functionality with SQLite logging
-  - Two-stage processing: Outline Generation → Content Enhancement
-  - Individual output folders for each processed file
+  - Load balancing across multiple API keys
+  - File-level parallelization (cleaner than section-level)
+  - Complete isolation: one API key = one file at a time
+  - Detailed progress tracking and statistics
 
-Common Issues & Solutions:
-  1. Invalid Model: Use 'gpt-5-mini' or 'gpt-4o' or other valid OpenAI models
-  2. Rate Limits: Built-in delays between requests
-  3. API Key: Ensure OPENAI_API_KEY environment variable is set
-  4. Authentication: Check OpenAI account has sufficient credits
+Output Structure:
+  output_folder/
+    ├── file1_name/
+    │   ├── outline.json
+    │   ├── content.json
+    │   ├── final_article.md
+    │   └── processing_metadata.json
+    ├── file2_name/
+    │   └── ... (same structure)
+    └── file_manager_processing.db
         """
     )
     
     parser.add_argument('input_folder', help='Path to folder containing JSON files')
     parser.add_argument('--output-folder', help='Output folder (default: input_folder/results)')
     parser.add_argument('--model', default='gpt-5-mini', help='OpenAI model to use (default: gpt-5-mini)')
-    parser.add_argument('--force-rerun', action='store_true', help='Force rerun of already completed files')
+    parser.add_argument('--workers', type=int, help='Maximum number of parallel workers (default: number of API keys)')
     
     args = parser.parse_args()
     
@@ -844,13 +858,13 @@ Common Issues & Solutions:
     
     # Initialize and run system
     try:
-        system = SimpleContentSystem(
+        system = FileManagerSystem(
             input_folder=str(input_folder),
             output_folder=output_folder,
             model_name=args.model
         )
         
-        success = system.process_all_files(force_rerun=args.force_rerun)
+        success = system.process_all_files(max_workers=args.workers)
         
         sys.exit(0 if success else 1)
         
