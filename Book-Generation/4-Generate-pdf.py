@@ -421,39 +421,43 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 '''
 
-    # Add watermark configuration if requested
+    # Add watermark configuration if requested - FIXED SPACING
     if add_watermark:
         latex_doc += f'''
 
 % Watermark configuration
 \\newcommand{{\\watermarktext}}{{{author_name}}}
 
-% Create the watermark with multiple instances
+% Create the watermark with proper spacing to avoid overlap
 \\AddToShipoutPictureBG{{%
     \\AtPageLowerLeft{{%
         \\begin{{tikzpicture}}[remember picture, overlay]
             % Define watermark style
             \\tikzset{{
                 watermark/.style={{
-                    color=gray!34,  % Reduced by 15% (was 40%, now 34%)
-                    font=\\fontsize{{14}}{{16}}\\selectfont\\bfseries,  % Smaller font to fit more
-                    opacity=0.5  % Slightly reduced opacity (was 0.6, now 0.5)
+                    color=gray!30,
+                    font=\\fontsize{{12}}{{14}}\\selectfont\\bfseries,
+                    opacity=0.4
                 }}
             }}
             
-            % Create a grid of horizontal watermarks across the page
-            % Triple the rows with better spacing to avoid overlap
-            % Staggered pattern for better coverage without overlap
-            \\foreach \\x in {{1,4,7,10,13,16,19}} {{
-                \\foreach \\y in {{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28}} {{
+            % Calculate proper spacing based on text width
+            % Each watermark needs about 4cm width minimum to avoid overlap
+            % Page is about 21cm wide, so we can fit 4-5 watermarks horizontally
+            % Page is about 29.7cm tall, so we can fit 7-8 watermarks vertically
+            
+            % Horizontal watermarks with proper spacing
+            \\foreach \\x in {{2, 6.5, 11, 15.5}} {{
+                \\foreach \\y in {{2, 4.5, 7, 9.5, 12, 14.5, 17, 19.5, 22, 24.5, 27}} {{
                     \\node[watermark, rotate=0] at (\\x cm, \\y cm) {{\\watermarktext}};
                 }}
             }}
             
-            % Add offset rows for better coverage (staggered pattern)
-            \\foreach \\x in {{2.5,5.5,8.5,11.5,14.5,17.5}} {{
-                \\foreach \\y in {{1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,23.5,24.5,25.5,26.5,27.5}} {{
-                    \\node[watermark, rotate=0] at (\\x cm, \\y cm) {{\\watermarktext}};
+            % Add diagonal watermarks for better coverage (optional)
+            % Offset pattern with diagonal rotation for additional protection
+            \\foreach \\x in {{4.25, 8.75, 13.25}} {{
+                \\foreach \\y in {{3.25, 5.75, 8.25, 10.75, 13.25, 15.75, 18.25, 20.75, 23.25, 25.75}} {{
+                    \\node[watermark, rotate=15] at (\\x cm, \\y cm) {{\\watermarktext}};
                 }}
             }}
         \\end{{tikzpicture}}
