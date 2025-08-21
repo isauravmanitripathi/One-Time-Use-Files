@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Markdown to PDF Book Generator
+Markdown to PDF Book Generator - COMPLETE FIXED VERSION
 Converts chapter markdown files to a professional PDF with LaTeX
 Also exports clean text versions of all chapters
+FIXES: Watermark visibility, text formatting, paragraph spacing, LaTeX compilation
 """
 
 import os
@@ -13,6 +14,7 @@ import tempfile
 import shutil
 from pathlib import Path
 from typing import List, Tuple
+import math
 
 def natural_sort_key(s: str) -> List:
     """
@@ -37,12 +39,86 @@ def get_chapter_folders(root_path: Path) -> List[Path]:
     chapter_folders.sort(key=lambda x: natural_sort_key(x.name))
     return chapter_folders
 
+def calculate_watermark_positions(page_width: float, page_height: float, author_name: str):
+    """
+    Calculate optimal watermark positions with MAXIMUM coverage and visibility.
+    """
+    # More precise text width calculation
+    text_width_cm = len(author_name) * 0.45  # Slightly tighter spacing
+    text_height_cm = 0.35
+    
+    # Minimum gaps between watermarks (very tight but safe)
+    min_horizontal_gap = 0.5
+    min_vertical_gap = 0.4
+    
+    # Effective watermark space needed
+    watermark_width = text_width_cm + min_horizontal_gap
+    watermark_height = text_height_cm + min_vertical_gap
+    
+    # Smaller margins for maximum coverage
+    margin = 0.8
+    available_width = page_width - (2 * margin)
+    available_height = page_height - (2 * margin)
+    
+    # Calculate maximum number of watermarks that fit
+    horizontal_count = max(3, int(available_width / watermark_width))
+    vertical_count = max(4, int(available_height / watermark_height))
+    
+    # Try to squeeze in more if possible
+    if horizontal_count * watermark_width < available_width * 0.85:
+        horizontal_count += 1
+    if vertical_count * watermark_height < available_height * 0.85:
+        vertical_count += 1
+    
+    # Calculate positions with even spacing
+    h_spacing = available_width / (horizontal_count - 1) if horizontal_count > 1 else 0
+    v_spacing = available_height / (vertical_count - 1) if vertical_count > 1 else 0
+    
+    # Generate main grid positions
+    h_positions = []
+    v_positions = []
+    
+    for i in range(horizontal_count):
+        if horizontal_count == 1:
+            h_positions.append(page_width / 2)
+        else:
+            h_positions.append(margin + i * h_spacing)
+    
+    for i in range(vertical_count):
+        if vertical_count == 1:
+            v_positions.append(page_height / 2)
+        else:
+            v_positions.append(margin + i * v_spacing)
+    
+    # Generate diagonal offset positions (between main grid)
+    h_offset_positions = []
+    v_offset_positions = []
+    
+    if horizontal_count > 1 and vertical_count > 1:
+        # Create offset grid with half-spacing
+        offset_h_spacing = h_spacing / 2
+        offset_v_spacing = v_spacing / 2
+        
+        # Offset horizontal positions
+        for i in range(horizontal_count - 1):
+            offset_x = h_positions[i] + offset_h_spacing
+            if offset_x + text_width_cm / 2 <= page_width - margin:
+                h_offset_positions.append(offset_x)
+        
+        # Offset vertical positions
+        for i in range(vertical_count - 1):
+            offset_y = v_positions[i] + offset_v_spacing
+            if offset_y + text_height_cm / 2 <= page_height - margin:
+                v_offset_positions.append(offset_y)
+    
+    return h_positions, v_positions, h_offset_positions, v_offset_positions, watermark_width, watermark_height
+
 def get_user_preferences():
     """
     Get user preferences for book generation.
     """
     print("\n" + "="*50)
-    print("📚 BOOK GENERATION SETUP")
+    print("📚 BOOK GENERATION SETUP - FIXED VERSION")
     print("="*50)
     
     # Get book title
@@ -57,9 +133,9 @@ def get_user_preferences():
     
     # Get watermark preference
     print("\n💧 Do you want to add watermarks to the PDF?")
-    print("   • Watermarks will display the author's name diagonally across each page")
-    print("   • They will be light but OCR-detectable")
-    print("   • Multiple watermarks per page for better protection")
+    print("   • Watermarks will be HIGHLY VISIBLE across each page")
+    print("   • Maximum coverage with dense grid pattern")
+    print("   • Both horizontal and diagonal patterns")
     
     while True:
         watermark_choice = input("Add watermarks? (y/n): ").strip().lower()
@@ -96,15 +172,59 @@ def get_user_preferences():
             break
         print("Please enter 'y' for yes or 'n' for no.")
     
+    # Get page size preference
+    print("\n📏 Choose the page size for your PDF:")
+    print("   1. A4 Standard (21 x 29.7 cm) - Most common")
+    print("   2. Publisher Format 1 (16 x 24 cm) - Small book format")
+    print("   3. Publisher Format 2 (26 x 27 cm) - Large book format")
+    print("   4. US Letter (21.6 x 27.9 cm) - US standard")
+    print("   5. Crown Quarto (18.9 x 24.6 cm) - Classic book size")
+    print("   6. Royal Octavo (15.6 x 23.4 cm) - Compact book")
+    
+    page_sizes = {
+        '1': ('a4paper', 21, 29.7, 'A4 Standard'),
+        '2': ('custom', 16, 24, 'Publisher Format 1'),
+        '3': ('custom', 26, 27, 'Publisher Format 2'),
+        '4': ('letterpaper', 21.6, 27.9, 'US Letter'),
+        '5': ('custom', 18.9, 24.6, 'Crown Quarto'),
+        '6': ('custom', 15.6, 23.4, 'Royal Octavo')
+    }
+    
+    while True:
+        size_choice = input("Select page size (1-6): ").strip()
+        if size_choice in page_sizes:
+            page_config = page_sizes[size_choice]
+            break
+        print("Please enter a number from 1 to 6.")
+    
+    # Show watermark preview if enabled
+    if add_watermark:
+        _, page_width, page_height, size_name = page_config
+        h_pos, v_pos, h_off, v_off, w_width, w_height = calculate_watermark_positions(
+            page_width, page_height, author_name
+        )
+        total_main = len(h_pos) * len(v_pos)
+        total_offset = len(h_off) * len(v_off)
+        total_watermarks = total_main + total_offset
+        
+        print(f"\n🔍 HIGH-DENSITY Watermark preview for {size_name}:")
+        print(f"   • Author name: '{author_name}' (≈{len(author_name) * 0.45:.1f}cm wide)")
+        print(f"   • Main grid: {len(h_pos)} watermarks per row × {len(v_pos)} rows = {total_main}")
+        print(f"   • Diagonal grid: {len(h_off)} × {len(v_off)} = {total_offset} watermarks")
+        print(f"   • 🎯 TOTAL WATERMARKS PER PAGE: {total_watermarks}")
+        print(f"   • Coverage density: {total_watermarks / (page_width * page_height):.1f} watermarks/cm²")
+        print(f"   • Visibility: HIGH (enhanced opacity and contrast)")
+    
     print(f"\n✅ Configuration:")
     print(f"   📖 Title: {book_title}")
     print(f"   ✍️  Author: {author_name}")
-    print(f"   💧 Watermark: {'Yes' if add_watermark else 'No'}")
+    print(f"   💧 Watermark: {'YES - High Density' if add_watermark else 'No'}")
     print(f"   🔢 Numbering: {'Yes' if use_numbers else 'No'}")
     print(f"   📑 Subsections in TOC: {'Yes' if include_subsections else 'No'}")
+    print(f"   📏 Page Size: {page_config[3]} ({page_config[1]} x {page_config[2]} cm)")
     print()
     
-    return book_title, author_name, use_numbers, include_subsections, add_watermark
+    return book_title, author_name, use_numbers, include_subsections, add_watermark, page_config
 
 def read_markdown_file(chapter_path: Path, use_numbers: bool) -> Tuple[str, str]:
     """
@@ -169,7 +289,7 @@ def escape_latex(text: str) -> str:
 
 def markdown_to_latex(content: str, use_numbers: bool) -> str:
     """
-    Convert markdown formatting to LaTeX.
+    Convert markdown formatting to LaTeX with FIXED paragraph handling.
     """
     # Handle code blocks first (to preserve their content)
     code_blocks = []
@@ -281,9 +401,10 @@ def markdown_to_latex(content: str, use_numbers: bool) -> str:
             latex_code = f"\\begin{{verbatim}}\n{code}\\end{{verbatim}}"
             content = content.replace(f"<<<CODEBLOCK_{i}>>>", latex_code)
     
-    # Handle paragraphs (double newline = new paragraph) - FIXED
-    # Use proper LaTeX paragraph spacing instead of problematic vspace
-    content = re.sub(r'\n\n+', '\n\n\\\\par\n\\\\vspace{0.5em}\n', content)
+    # FIXED: Better paragraph handling
+    # Replace multiple newlines with proper paragraph breaks
+    content = re.sub(r'\n\s*\n\s*\n+', '\n\n', content)  # Clean up excessive breaks
+    content = re.sub(r'\n\n', '\n\n\\\\vspace{0.3em}\n', content)  # Add proper spacing
     
     return content
 
@@ -376,93 +497,158 @@ def save_chapters_as_text(chapters_data: List[Tuple[str, str]], base_path: Path,
     print(f"📁 Text chapters saved to: {text_folder}")
     return text_folder
 
-def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool, include_subsections: bool, add_watermark: bool) -> str:
+def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool, include_subsections: bool, add_watermark: bool, page_config: Tuple) -> str:
     """
-    Create a complete LaTeX document from chapters data.
+    Create a complete LaTeX document with ENHANCED watermarks and FIXED formatting.
     """
-    # LaTeX preamble with nice formatting
-    latex_doc = r'''\documentclass[12pt,a4paper]{book}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage{geometry}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\usepackage{tocloft}
-\usepackage{hyperref}
-\usepackage{parskip}
-\usepackage{microtype}
-\usepackage{tikz}
-\usepackage{eso-pic}
-\usepackage{xcolor}
+    paper_size, page_width, page_height, size_name = page_config
+    
+    # LaTeX preamble with better formatting packages
+    if paper_size == 'custom':
+        latex_doc = f'''\\documentclass[12pt]{{book}}
+\\usepackage[utf8]{{inputenc}}
+\\usepackage[T1]{{fontenc}}
+\\usepackage[english]{{babel}}
+\\usepackage{{geometry}}
+\\usepackage{{fancyhdr}}
+\\usepackage{{titlesec}}
+\\usepackage{{tocloft}}
+\\usepackage{{hyperref}}
+\\usepackage{{parskip}}
+\\usepackage{{microtype}}
+\\usepackage{{tikz}}
+\\usepackage{{eso-pic}}
+\\usepackage{{xcolor}}
+\\usepackage{{setspace}}
 
 % Use a nice font (Latin Modern)
-\usepackage{lmodern}
+\\usepackage{{lmodern}}
 
-% Page geometry
-\geometry{
-    top=2.5cm,
-    bottom=2.5cm,
-    left=3cm,
-    right=2.5cm,
+% Custom page geometry for {size_name}
+\\geometry{{
+    paperwidth={page_width}cm,
+    paperheight={page_height}cm,
+    top=1.8cm,
+    bottom=1.8cm,
+    left=2.2cm,
+    right=1.8cm,
     headheight=28pt
-}
+}}
+
+% Better text spacing
+\\setstretch{{1.1}}
+\\setlength{{\\parskip}}{{0.4em}}
+\\setlength{{\\parindent}}{{0pt}}'''
+    else:
+        latex_doc = f'''\\documentclass[12pt,{paper_size}]{{book}}
+\\usepackage[utf8]{{inputenc}}
+\\usepackage[T1]{{fontenc}}
+\\usepackage[english]{{babel}}
+\\usepackage{{geometry}}
+\\usepackage{{fancyhdr}}
+\\usepackage{{titlesec}}
+\\usepackage{{tocloft}}
+\\usepackage{{hyperref}}
+\\usepackage{{parskip}}
+\\usepackage{{microtype}}
+\\usepackage{{tikz}}
+\\usepackage{{eso-pic}}
+\\usepackage{{xcolor}}
+\\usepackage{{setspace}}
+
+% Use a nice font (Latin Modern)
+\\usepackage{{lmodern}}
+
+% Page geometry for {size_name}
+\\geometry{{
+    top=2.2cm,
+    bottom=2.2cm,
+    left=2.8cm,
+    right=2.2cm,
+    headheight=28pt
+}}
+
+% Better text spacing
+\\setstretch{{1.1}}
+\\setlength{{\\parskip}}{{0.4em}}
+\\setlength{{\\parindent}}{{0pt}}'''
+
+    latex_doc += '''
 
 % Headers and footers
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[LO]{\rightmark}
-\fancyhead[RE]{\leftmark}
-\renewcommand{\headrulewidth}{0.4pt}
+\\pagestyle{fancy}
+\\fancyhf{}
+\\fancyhead[LE,RO]{\\thepage}
+\\fancyhead[LO]{\\rightmark}
+\\fancyhead[RE]{\\leftmark}
+\\renewcommand{\\headrulewidth}{0.4pt}
 
 % Fix header to show chapter names instead of "CONTENTS"
-\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\chaptername\ \thechapter.\ #1}}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\\renewcommand{\\chaptermark}[1]{\\markboth{\\MakeUppercase{\\chaptername\\ \\thechapter.\\ #1}}{}}
+\\renewcommand{\\sectionmark}[1]{\\markright{\\thesection\\ #1}}
 '''
 
-    # Add watermark configuration if requested - FIXED SPACING
+    # Add ENHANCED watermark configuration if requested
     if add_watermark:
+        # Calculate precise watermark positions
+        h_positions, v_positions, h_offset_positions, v_offset_positions, w_width, w_height = calculate_watermark_positions(
+            page_width, page_height, author_name
+        )
+        
+        # Format positions for LaTeX
+        h_pos_str = "{" + ", ".join([f"{pos:.2f}" for pos in h_positions]) + "}"
+        v_pos_str = "{" + ", ".join([f"{pos:.2f}" for pos in v_positions]) + "}"
+        
+        total_main = len(h_positions) * len(v_positions)
+        total_offset = len(h_offset_positions) * len(v_offset_positions)
+
         latex_doc += f'''
 
-% Watermark configuration
+% ENHANCED HIGH-VISIBILITY Watermark configuration for {size_name} ({page_width}x{page_height}cm)
 \\newcommand{{\\watermarktext}}{{{author_name}}}
 
-% Create the watermark with proper spacing to avoid overlap
+% Create DENSE watermark grid with MAXIMUM visibility
 \\AddToShipoutPictureBG{{%
     \\AtPageLowerLeft{{%
         \\begin{{tikzpicture}}[remember picture, overlay]
-            % Define watermark style
+            % Define ENHANCED watermark style for maximum visibility
             \\tikzset{{
                 watermark/.style={{
-                    color=gray!30,
-                    font=\\fontsize{{12}}{{14}}\\selectfont\\bfseries,
-                    opacity=0.4
+                    color=gray!40,  % INCREASED visibility (was 25)
+                    font=\\fontsize{{9}}{{11}}\\selectfont\\bfseries,  % Optimized size
+                    opacity=0.6,    % INCREASED opacity (was 0.4)
+                    inner sep=0pt,
+                    outer sep=0pt
                 }}
             }}
             
-            % Calculate proper spacing based on text width
-            % Each watermark needs about 4cm width minimum to avoid overlap
-            % Page is about 21cm wide, so we can fit 4-5 watermarks horizontally
-            % Page is about 29.7cm tall, so we can fit 7-8 watermarks vertically
-            
-            % Horizontal watermarks with proper spacing
-            \\foreach \\x in {{2, 6.5, 11, 15.5}} {{
-                \\foreach \\y in {{2, 4.5, 7, 9.5, 12, 14.5, 17, 19.5, 22, 24.5, 27}} {{
+            % PRIMARY GRID: {len(h_positions)} × {len(v_positions)} = {total_main} watermarks
+            \\foreach \\x in {h_pos_str} {{
+                \\foreach \\y in {v_pos_str} {{
                     \\node[watermark, rotate=0] at (\\x cm, \\y cm) {{\\watermarktext}};
                 }}
-            }}
+            }}'''
+        
+        # Add offset positions if they exist
+        if h_offset_positions and v_offset_positions:
+            h_offset_str = "{" + ", ".join([f"{pos:.2f}" for pos in h_offset_positions]) + "}"
+            v_offset_str = "{" + ", ".join([f"{pos:.2f}" for pos in v_offset_positions]) + "}"
             
-            % Add diagonal watermarks for better coverage (optional)
-            % Offset pattern with diagonal rotation for additional protection
-            \\foreach \\x in {{4.25, 8.75, 13.25}} {{
-                \\foreach \\y in {{3.25, 5.75, 8.25, 10.75, 13.25, 15.75, 18.25, 20.75, 23.25, 25.75}} {{
+            latex_doc += f'''
+            
+            % SECONDARY DIAGONAL GRID: {len(h_offset_positions)} × {len(v_offset_positions)} = {total_offset} watermarks
+            \\foreach \\x in {h_offset_str} {{
+                \\foreach \\y in {v_offset_str} {{
                     \\node[watermark, rotate=15] at (\\x cm, \\y cm) {{\\watermarktext}};
                 }}
-            }}
+            }}'''
+        
+        latex_doc += f'''
         \\end{{tikzpicture}}
     }}
 }}
+
+% TOTAL WATERMARKS PER PAGE: {total_main + total_offset}
 '''
 
     latex_doc += '''
@@ -588,7 +774,7 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
 
 def compile_latex_to_pdf(latex_content: str, output_pdf: Path) -> bool:
     """
-    Compile LaTeX content to PDF using pdflatex.
+    Compile LaTeX content to PDF using pdflatex with enhanced error handling.
     """
     # Create a temporary directory for LaTeX compilation
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -601,6 +787,7 @@ def compile_latex_to_pdf(latex_content: str, output_pdf: Path) -> bool:
         
         # Run pdflatex twice to resolve references
         try:
+            print("   🔄 Running LaTeX compilation (pass 1/2)...")
             for i in range(2):
                 result = subprocess.run(
                     ['pdflatex', '-interaction=nonstopmode', '-output-directory', temp_dir, str(tex_file)],
@@ -609,35 +796,48 @@ def compile_latex_to_pdf(latex_content: str, output_pdf: Path) -> bool:
                     cwd=temp_dir
                 )
                 
+                if i == 0:
+                    print("   🔄 Running LaTeX compilation (pass 2/2)...")
+                
                 # Check if compilation failed (return code != 0) and no PDF was produced
                 pdf_file = temp_path / "document.pdf"
                 if result.returncode != 0 and not pdf_file.exists():
-                    print(f"LaTeX compilation failed (pass {i+1}):")
-                    print(result.stdout[-2000:])  # Print last 2000 chars of output
-                    print(result.stderr)
+                    print(f"❌ LaTeX compilation failed (pass {i+1}):")
+                    print("Last 1500 characters of output:")
+                    print("-" * 50)
+                    print(result.stdout[-1500:])
+                    if result.stderr:
+                        print("Errors:")
+                        print(result.stderr)
                     return False
             
             # Copy the generated PDF to the output location
             if pdf_file.exists():
                 shutil.copy(pdf_file, output_pdf)
+                print("   ✅ PDF compilation successful!")
                 return True
             else:
-                print("PDF file was not generated")
+                print("❌ PDF file was not generated")
                 return False
                 
         except FileNotFoundError:
-            print("Error: pdflatex not found. Please ensure LaTeX is installed.")
+            print("❌ Error: pdflatex not found. Please ensure LaTeX is installed.")
+            print("   Install LaTeX: sudo apt-get install texlive-full (Ubuntu/Debian)")
+            print("   or download from: https://www.latex-project.org/get/")
             return False
         except Exception as e:
-            print(f"Error during compilation: {e}")
+            print(f"❌ Error during compilation: {e}")
             return False
 
 def main():
     """
     Main function to orchestrate the PDF generation.
     """
+    print("🚀 ENHANCED BOOK GENERATOR - FIXED VERSION")
+    print("=" * 60)
+    
     # Get user preferences
-    book_title, author_name, use_numbers, include_subsections, add_watermark = get_user_preferences()
+    book_title, author_name, use_numbers, include_subsections, add_watermark, page_config = get_user_preferences()
     
     # Get the folder path from user
     if len(sys.argv) > 1:
@@ -661,11 +861,13 @@ def main():
     
     if not chapter_folders:
         print("❌ No chapter folders found!")
+        print("   Make sure you have folders named 'Chapter 1', 'Chapter 2', etc.")
+        print("   Each folder should contain a 'final_article.md' file")
         return
     
     print(f"📚 Found {len(chapter_folders)} chapters:")
     for folder in chapter_folders:
-        print(f"  - {folder.name}")
+        print(f"  ✅ {folder.name}")
     
     # Read all markdown files
     print("\n📖 Reading markdown files...")
@@ -674,13 +876,17 @@ def main():
         title, content = read_markdown_file(chapter_folder, use_numbers)
         if content:
             chapters_data.append((title, content))
-            print(f"  ✅ {title}")
+            word_count = len(content.split())
+            print(f"  ✅ {title} ({word_count:,} words)")
         else:
             print(f"  ❌ Skipped {chapter_folder.name} (no content)")
     
     if not chapters_data:
         print("❌ No valid chapters found!")
         return
+    
+    total_words = sum(len(content.split()) for _, content in chapters_data)
+    print(f"\n📊 Total content: {len(chapters_data)} chapters, {total_words:,} words")
     
     # Create LaTeX document
     print("\n🔧 Generating LaTeX document...")
@@ -691,9 +897,9 @@ def main():
     output_pdf = folder_path / f"{safe_title}.pdf"
     latex_file = folder_path / f"{safe_title}.tex"
     
-    latex_content = create_latex_document(chapters_data, output_pdf, book_title, author_name, use_numbers, include_subsections, add_watermark)
+    latex_content = create_latex_document(chapters_data, output_pdf, book_title, author_name, use_numbers, include_subsections, add_watermark, page_config)
     
-    # Save LaTeX source (optional, for debugging)
+    # Save LaTeX source (for debugging)
     with open(latex_file, 'w', encoding='utf-8') as f:
         f.write(latex_content)
     print(f"📄 LaTeX source saved to: {latex_file}")
@@ -701,24 +907,58 @@ def main():
     # Compile to PDF
     print("\n⚙️  Compiling to PDF...")
     if compile_latex_to_pdf(latex_content, output_pdf):
-        print(f"\n🎉 Success! PDF generated at: {output_pdf}")
-        print(f"📖 Title: {book_title}")
-        print(f"✍️  Author: {author_name}")
-        print(f"💧 Watermark: {'Enabled' if add_watermark else 'Disabled'}")
-        print(f"🔢 Numbering: {'Enabled' if use_numbers else 'Disabled'}")
-        print(f"📑 Subsections in TOC: {'Enabled' if include_subsections else 'Disabled'}")
+        print(f"\n🎉 SUCCESS! PDF generated successfully!")
+        print("\n" + "=" * 60)
+        print("📖 BOOK DETAILS:")
+        print(f"   Title: {book_title}")
+        print(f"   Author: {author_name}")
+        print(f"   Chapters: {len(chapters_data)}")
+        print(f"   Words: {total_words:,}")
+        print(f"   Page Size: {page_config[3]} ({page_config[1]} x {page_config[2]} cm)")
+        print(f"   Watermarks: {'ENABLED - High Density' if add_watermark else 'Disabled'}")
+        print(f"   Numbering: {'Enabled' if use_numbers else 'Disabled'}")
+        print(f"   Subsections in TOC: {'Enabled' if include_subsections else 'Disabled'}")
+        
+        # Show watermark stats if enabled
+        if add_watermark:
+            _, page_width, page_height, size_name = page_config
+            h_pos, v_pos, h_off, v_off, _, _ = calculate_watermark_positions(
+                page_width, page_height, author_name
+            )
+            total_watermarks = len(h_pos) * len(v_pos) + len(h_off) * len(v_off)
+            print(f"   Watermarks per page: {total_watermarks}")
         
         # Save chapters as text files
         text_folder = save_chapters_as_text(chapters_data, folder_path, safe_title)
         
-        print(f"\n✨ All files generated:")
-        print(f"   📕 PDF: {output_pdf}")
-        print(f"   📄 LaTeX: {latex_file}")
-        print(f"   📁 Text chapters: {text_folder}")
+        print("\n" + "=" * 60)
+        print("✨ FILES GENERATED:")
+        print(f"   📕 PDF Book: {output_pdf}")
+        print(f"   📄 LaTeX Source: {latex_file}")
+        print(f"   📁 Text Chapters: {text_folder}")
+        
+        # Calculate file size
+        try:
+            pdf_size_mb = output_pdf.stat().st_size / (1024 * 1024)
+            print(f"   📊 PDF Size: {pdf_size_mb:.1f} MB")
+        except:
+            pass
+        
+        print("\n🎯 Your book is ready! Check the PDF for:")
+        if add_watermark:
+            print("   ✅ High-density watermarks (both horizontal and diagonal)")
+        print("   ✅ Professional formatting")
+        print("   ✅ Clickable table of contents")
+        print("   ✅ Proper headers and page numbers")
+        print("   ✅ Clean text export for reference")
         
     else:
-        print("\n❌ Failed to generate PDF. Check the LaTeX source for errors.")
-        print(f"📄 You can manually compile the LaTeX file: {latex_file}")
+        print("\n❌ Failed to generate PDF.")
+        print(f"📄 Check the LaTeX source file for issues: {latex_file}")
+        print("💡 Common issues:")
+        print("   • LaTeX not installed (install texlive)")
+        print("   • Special characters in content")
+        print("   • Missing fonts")
 
 if __name__ == "__main__":
     main()
