@@ -55,6 +55,19 @@ def get_user_preferences():
     if not author_name:
         author_name = "Unknown Author"
     
+    # Get watermark preference
+    print("\n💧 Do you want to add watermarks to the PDF?")
+    print("   • Watermarks will display the author's name diagonally across each page")
+    print("   • They will be light but OCR-detectable")
+    print("   • Multiple watermarks per page for better protection")
+    
+    while True:
+        watermark_choice = input("Add watermarks? (y/n): ").strip().lower()
+        if watermark_choice in ['y', 'yes', 'n', 'no']:
+            add_watermark = watermark_choice in ['y', 'yes']
+            break
+        print("Please enter 'y' for yes or 'n' for no.")
+    
     # Get numbering preference
     print("\n🔢 Do you want to include numbers in chapters and sections?")
     print("   • With numbers: 'Chapter 1', '1.1 Introduction', etc.")
@@ -86,11 +99,12 @@ def get_user_preferences():
     print(f"\n✅ Configuration:")
     print(f"   📖 Title: {book_title}")
     print(f"   ✍️  Author: {author_name}")
+    print(f"   💧 Watermark: {'Yes' if add_watermark else 'No'}")
     print(f"   🔢 Numbering: {'Yes' if use_numbers else 'No'}")
     print(f"   📑 Subsections in TOC: {'Yes' if include_subsections else 'No'}")
     print()
     
-    return book_title, author_name, use_numbers, include_subsections
+    return book_title, author_name, use_numbers, include_subsections, add_watermark
 
 def read_markdown_file(chapter_path: Path, use_numbers: bool) -> Tuple[str, str]:
     """
@@ -362,7 +376,7 @@ def save_chapters_as_text(chapters_data: List[Tuple[str, str]], base_path: Path,
     print(f"📁 Text chapters saved to: {text_folder}")
     return text_folder
 
-def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool, include_subsections: bool) -> str:
+def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool, include_subsections: bool, add_watermark: bool) -> str:
     """
     Create a complete LaTeX document from chapters data.
     """
@@ -378,6 +392,9 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
 \usepackage{hyperref}
 \usepackage{parskip}
 \usepackage{microtype}
+\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{xcolor}
 
 % Use a nice font (Latin Modern)
 \usepackage{lmodern}
@@ -402,7 +419,49 @@ def create_latex_document(chapters_data: List[Tuple[str, str]], output_path: Pat
 % Fix header to show chapter names instead of "CONTENTS"
 \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\chaptername\ \thechapter.\ #1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+'''
 
+    # Add watermark configuration if requested
+    if add_watermark:
+        latex_doc += f'''
+
+% Watermark configuration
+\\newcommand{{\\watermarktext}}{{{author_name}}}
+
+% Create the watermark with multiple instances
+\\AddToShipoutPictureBG{{%
+    \\AtPageLowerLeft{{%
+        \\begin{{tikzpicture}}[remember picture, overlay]
+            % Define watermark style
+            \\tikzset{{
+                watermark/.style={{
+                    color=gray!34,  % Reduced by 15% (was 40%, now 34%)
+                    font=\\fontsize{{14}}{{16}}\\selectfont\\bfseries,  % Smaller font to fit more
+                    opacity=0.5  % Slightly reduced opacity (was 0.6, now 0.5)
+                }}
+            }}
+            
+            % Create a grid of horizontal watermarks across the page
+            % Triple the rows with better spacing to avoid overlap
+            % Staggered pattern for better coverage without overlap
+            \\foreach \\x in {{1,4,7,10,13,16,19}} {{
+                \\foreach \\y in {{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28}} {{
+                    \\node[watermark, rotate=0] at (\\x cm, \\y cm) {{\\watermarktext}};
+                }}
+            }}
+            
+            % Add offset rows for better coverage (staggered pattern)
+            \\foreach \\x in {{2.5,5.5,8.5,11.5,14.5,17.5}} {{
+                \\foreach \\y in {{1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,23.5,24.5,25.5,26.5,27.5}} {{
+                    \\node[watermark, rotate=0] at (\\x cm, \\y cm) {{\\watermarktext}};
+                }}
+            }}
+        \\end{{tikzpicture}}
+    }}
+}}
+'''
+
+    latex_doc += '''
 % Chapter formatting'''
 
     if use_numbers:
@@ -574,7 +633,7 @@ def main():
     Main function to orchestrate the PDF generation.
     """
     # Get user preferences
-    book_title, author_name, use_numbers, include_subsections = get_user_preferences()
+    book_title, author_name, use_numbers, include_subsections, add_watermark = get_user_preferences()
     
     # Get the folder path from user
     if len(sys.argv) > 1:
@@ -628,7 +687,7 @@ def main():
     output_pdf = folder_path / f"{safe_title}.pdf"
     latex_file = folder_path / f"{safe_title}.tex"
     
-    latex_content = create_latex_document(chapters_data, output_pdf, book_title, author_name, use_numbers, include_subsections)
+    latex_content = create_latex_document(chapters_data, output_pdf, book_title, author_name, use_numbers, include_subsections, add_watermark)
     
     # Save LaTeX source (optional, for debugging)
     with open(latex_file, 'w', encoding='utf-8') as f:
@@ -641,6 +700,7 @@ def main():
         print(f"\n🎉 Success! PDF generated at: {output_pdf}")
         print(f"📖 Title: {book_title}")
         print(f"✍️  Author: {author_name}")
+        print(f"💧 Watermark: {'Enabled' if add_watermark else 'Disabled'}")
         print(f"🔢 Numbering: {'Enabled' if use_numbers else 'Disabled'}")
         print(f"📑 Subsections in TOC: {'Enabled' if include_subsections else 'Disabled'}")
         
