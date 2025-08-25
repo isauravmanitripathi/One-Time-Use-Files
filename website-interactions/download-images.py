@@ -4,7 +4,8 @@ import os
 from urllib.parse import urlparse
 from io import BytesIO
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True  # Fix for truncated images
 import concurrent.futures
 import queue
 import shutil
@@ -76,7 +77,7 @@ def download_images_with_gui():
     
     current_index = 0
     current_photo = None  # To keep reference
-    fetch_queue = queue.Queue()  # Changed to regular Queue for FIFO, as priority might not be needed if prefetch is controlled
+    fetch_queue = queue.Queue()  # Regular queue
     preloaded = {}  # Store preloaded results by index
     
     # Create temp folder in the script's directory
@@ -86,7 +87,7 @@ def download_images_with_gui():
         os.makedirs(temp_dir)
     
     # Thread pool for concurrent downloads
-    executor = concurrent.futures.ThreadPoolExecutor(max_workers=5)  # Reduced workers to avoid overload
+    executor = concurrent.futures.ThreadPoolExecutor(max_workers=10)  # Adjust workers as needed
     
     def fetch_image_in_thread(url, index):
         try:
@@ -116,12 +117,16 @@ def download_images_with_gui():
     
     def prefetch_images(start_index, count):
         for i in range(start_index, min(start_index + count, len(urls))):
-            executor.submit(fetch_image_in_thread, urls[i], i)
+            if i not in preloaded:
+                executor.submit(fetch_image_in_thread, urls[i], i)
     
     def update_gui_from_queue():
+        nonlocal current_index  # Move nonlocal to the very beginning
+        updated = False
         while not fetch_queue.empty():
             index, temp_path, info = fetch_queue.get()
             preloaded[index] = (temp_path, info)
+            updated = True
         
         if current_index in preloaded:
             temp_path, info = preloaded[current_index]
@@ -130,10 +135,12 @@ def download_images_with_gui():
                 progress_label.config(text=f"Image {current_index + 1}/{len(urls)}: {urls[current_index]} ({info})")
                 dim_label.config(text="Dimensions: N/A")
                 image_label.config(image=None)
-                # Auto-skip if discarded
-                if "Discarded" in info:
-                    handle_decision(False)  # Skip automatically
-                return True  # Ready
+                if "Discarded" in info or "Error" in info:  # Auto-skip discarded or errors
+                    del preloaded[current_index]
+                    current_index += 1
+                    show_next_image()
+                    return False  # Not ready, but skipped
+                return True  # Ready for user on error
             else:
                 # Success
                 dimensions = info
@@ -148,11 +155,11 @@ def download_images_with_gui():
                 image_label.config(image=current_photo)
                 return True  # Ready
         
-        return False  # Not ready yet
+        return updated
     
     def check_queue():
         if update_gui_from_queue():
-            # Ready, stop checking until next image
+            # Ready
             pass
         else:
             root.after(100, check_queue)  # Check again if not ready
