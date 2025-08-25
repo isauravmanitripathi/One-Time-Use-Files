@@ -89,7 +89,7 @@ class BulletPointClusterTask:
 class EnhancedAPIKeyManager:
     """Enhanced API key manager with better load balancing and monitoring"""
     
-    def __init__(self, model_name: str = "gpt-4o-mini"):
+    def __init__(self, model_name: str = "gpt-5-mini"):
         self.model_name = model_name
         self.api_keys = self.discover_api_keys()
         self.clients = self.initialize_clients()
@@ -186,7 +186,7 @@ class ClusterMCQGenerator:
     Modified to work with bullet_points structure from Wikipedia Enhancement System
     """
     
-    def __init__(self, folder_path: str, model_name: str = "gpt-4o-mini", 
+    def __init__(self, folder_path: str, model_name: str = "gpt-5-mini", 
                  cluster_size: int = 3, max_workers: int = None):
         self.folder_path = Path(folder_path)
         self.model_name = model_name
@@ -628,9 +628,7 @@ Return ONLY the JSON, no other text:"""
                 messages=[
                     {"role": "system", "content": system_message},
                     {"role": "user", "content": user_prompt}
-                ],
-                temperature=0.3,
-                max_tokens=4000  # Increased for cluster processing
+                ]
             )
             
             if response.choices and response.choices[0].message:
@@ -1201,7 +1199,7 @@ def main():
         epilog="""
 Examples:
   python cluster_mcq_generator.py /path/to/bullet_points/folder
-  python cluster_mcq_generator.py /path/to/bullet_points/folder --model gpt-4o-mini
+  python cluster_mcq_generator.py /path/to/bullet_points/folder --model gpt-5-mini
   python cluster_mcq_generator.py /path/to/bullet_points/folder --cluster-size 2 --workers 6
 
 Environment Variables:
@@ -1222,7 +1220,7 @@ Features:
     )
     
     parser.add_argument('folder_path', help='Path to folder containing JSON files with bullet_points')
-    parser.add_argument('--model', default='gpt-4o-mini', help='OpenAI model to use (default: gpt-4o-mini)')
+    parser.add_argument('--model', default='gpt-5-mini', help='OpenAI model to use (default: gpt-5-mini)')
     parser.add_argument('--cluster-size', type=int, default=3, choices=[2, 3], help='Bullet points per cluster (2-3, default: 3)')
     parser.add_argument('--workers', type=int, help='Maximum number of parallel workers (default: API keys * 2)')
     
