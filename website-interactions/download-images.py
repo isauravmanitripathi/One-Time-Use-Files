@@ -35,19 +35,25 @@ def download_images_with_gui():
     # Set up GUI
     root = tk.Tk()
     root.title("Image Downloader")
-    root.geometry("800x600")
+    root.geometry("800x700")  # Fixed larger window
+    root.resizable(False, False)  # Disable resizing to keep buttons fixed
     
     # Progress label
     progress_label = tk.Label(root, text="Loading first image...")
     progress_label.pack(pady=10)
     
-    # Image display label
-    image_label = tk.Label(root)
-    image_label.pack(expand=True)
+    # Fixed frame for image to prevent resizing
+    image_frame = tk.Frame(root, width=800, height=500, bg="gray")
+    image_frame.pack_propagate(False)  # Prevent frame from shrinking
+    image_frame.pack()
     
-    # Buttons
+    # Image display label inside frame (centered)
+    image_label = tk.Label(image_frame)
+    image_label.place(relx=0.5, rely=0.5, anchor="center")
+    
+    # Buttons frame (fixed at bottom)
     button_frame = tk.Frame(root)
-    button_frame.pack(pady=10)
+    button_frame.pack(pady=10, fill=tk.X)
     
     yes_button = tk.Button(button_frame, text="Yes (Download)", command=lambda: handle_decision(True))
     yes_button.pack(side=tk.LEFT, padx=10)
@@ -70,22 +76,32 @@ def download_images_with_gui():
             return
         
         url = urls[current_index]
-        progress_label.config(text=f"Image {current_index + 1}/{len(urls)}: {url}")
         
+        dimensions = "Unknown"
         try:
             # Fetch image for preview
             response = requests.get(url, stream=True)
             response.raise_for_status()
             
-            # Open and resize for display
+            # Open image
             img = Image.open(BytesIO(response.content))
-            img.thumbnail((800, 600))  # Resize to fit window
+            
+            # Get dimensions
+            width, height = img.size
+            dimensions = f"{width}x{height}"
+            print(f"Image dimensions for {url}: {dimensions}")  # Print to console for debugging
+            
+            # Update progress label with dimensions
+            progress_label.config(text=f"Image {current_index + 1}/{len(urls)}: {url} ({dimensions})")
+            
+            # Resize to fit frame (max 800x500)
+            img.thumbnail((800, 500))
             current_photo = ImageTk.PhotoImage(img)
             image_label.config(image=current_photo)
         except Exception as e:
             print(f"Failed to load preview for {url}: {e}")
             image_label.config(image=None)
-            progress_label.config(text=f"Error loading {url}. Use keys/buttons to decide.")
+            progress_label.config(text=f"Image {current_index + 1}/{len(urls)}: {url} ({dimensions}). Use keys/buttons to decide.")
     
     def handle_decision(download):
         nonlocal current_index
