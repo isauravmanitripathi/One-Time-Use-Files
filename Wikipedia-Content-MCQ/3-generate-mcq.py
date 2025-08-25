@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Cluster-Based Wikipedia MCQ Question Generator - Modified for Bullet Points Compatibility
-Processes bullet points in clusters of 2-3 for efficiency, generating 4 questions per cluster
-Compatible with the bullet point structure created by the Wikipedia Enhancement System
+Per-File Dynamic Cluster MCQ Generator - Improved Strategy
+Calculates cluster size per file based on total bullet points, then clusters section-by-section
+Enhanced logging and progress tracking for the new cluster strategy
 """
 
 import json
@@ -38,6 +38,21 @@ except ImportError:
     RICH_AVAILABLE = False
 
 @dataclass
+class FileAnalysis:
+    """Analysis of a single file's bullet point distribution"""
+    file_path: Path
+    total_bullet_points: int
+    sections_count: int
+    cluster_size: int
+    estimated_clusters: int
+    estimated_questions: int
+    sections_info: List[Dict] = None
+
+    def __post_init__(self):
+        if self.sections_info is None:
+            self.sections_info = []
+
+@dataclass
 class SectionCompletion:
     """Track completion status of a specific chapter-section"""
     chapter_name: str
@@ -66,6 +81,11 @@ class ProcessingStats:
     total_questions_generated: int = 0
     start_time: Optional[str] = None
     api_keys_used: int = 0
+    cluster_size_distribution: Dict[int, int] = None
+
+    def __post_init__(self):
+        if self.cluster_size_distribution is None:
+            self.cluster_size_distribution = {}
 
 @dataclass
 class BulletPointClusterTask:
@@ -76,6 +96,7 @@ class BulletPointClusterTask:
     section_name: str
     section_index: int
     bullet_point_cluster: List[Tuple[int, str]]  # [(index, text), (index, text), ...]
+    cluster_size: int
     cluster_id: str = ""
 
     def __post_init__(self):
@@ -83,7 +104,7 @@ class BulletPointClusterTask:
         self.cluster_id = f"{self.chapter_name}_{self.section_number}_cluster_{'_'.join(indices)}"
 
     @property
-    def cluster_size(self) -> int:
+    def actual_cluster_size(self) -> int:
         return len(self.bullet_point_cluster)
 
 class EnhancedAPIKeyManager:
@@ -180,17 +201,15 @@ class EnhancedAPIKeyManager:
                 'total_errors': sum(self.errors.values())
             }
 
-class ClusterMCQGenerator:
+class PerFileClusterMCQGenerator:
     """
-    Cluster-based MCQ generator that processes bullet points in batches
-    Modified to work with bullet_points structure from Wikipedia Enhancement System
+    Per-file dynamic cluster MCQ generator with enhanced logging
+    Calculates cluster size based on total bullet points per file, clusters section-by-section
     """
     
-    def __init__(self, folder_path: str, model_name: str = "gpt-5-mini", 
-                 cluster_size: int = 3, max_workers: int = None):
+    def __init__(self, folder_path: str, model_name: str = "gpt-5-mini", max_workers: int = None):
         self.folder_path = Path(folder_path)
         self.model_name = model_name
-        self.cluster_size = max(2, min(cluster_size, 3))  # Limit 2-3
         
         # Initialize enhanced API manager
         try:
@@ -208,8 +227,8 @@ class ClusterMCQGenerator:
         for dir_path in [self.output_dir, self.logs_dir, self.backups_dir]:
             dir_path.mkdir(parents=True, exist_ok=True)
         
-        # Setup minimal logging
-        self.setup_minimal_logging()
+        # Setup enhanced logging
+        self.setup_enhanced_logging()
         
         # Initialize statistics
         self.stats = ProcessingStats()
@@ -219,25 +238,99 @@ class ClusterMCQGenerator:
         # Thread-safe data structures
         self.data_lock = threading.Lock()
         
-    def setup_minimal_logging(self):
-        """Setup minimal logging - detailed logs to file, minimal to console"""
-        log_format = '%(asctime)s - %(levelname)s - %(message)s'
+    def setup_enhanced_logging(self):
+        """Setup enhanced logging with detailed file and cluster tracking"""
+        log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         
-        self.logger = logging.getLogger('ClusterMCQGenerator')
+        self.logger = logging.getLogger('PerFileClusterMCQGen')
         self.logger.setLevel(logging.INFO)
         self.logger.handlers.clear()
         
-        # File handler for detailed logs
-        file_handler = logging.FileHandler(self.logs_dir / 'cluster_mcq_generation.log')
+        # Detailed file handler
+        file_handler = logging.FileHandler(self.logs_dir / 'per_file_cluster_generation.log')
         file_handler.setFormatter(logging.Formatter(log_format))
         file_handler.setLevel(logging.DEBUG)
-        self.logger.addHandler(file_handler)
         
-        # Console handler only for errors
+        # Cluster analysis handler
+        cluster_handler = logging.FileHandler(self.logs_dir / 'cluster_analysis.log')
+        cluster_handler.setFormatter(logging.Formatter(log_format))
+        cluster_handler.setLevel(logging.INFO)
+        
+        # Console handler for errors only
         console_handler = logging.StreamHandler()
-        console_handler.setFormatter(logging.Formatter('[ERROR] %(message)s'))
+        console_handler.setFormatter(logging.Formatter('[%(levelname)s] %(message)s'))
         console_handler.setLevel(logging.ERROR)
+        
+        self.logger.addHandler(file_handler)
+        self.logger.addHandler(cluster_handler)
         self.logger.addHandler(console_handler)
+        
+        self.logger.info("Enhanced per-file cluster logging system initialized")
+    
+    def calculate_cluster_size_for_file(self, total_bullet_points: int) -> int:
+        """Calculate optimal cluster size based on total bullet points in file"""
+        if total_bullet_points < 40:
+            return 3
+        elif total_bullet_points <= 100:
+            return 5
+        else:
+            return 7
+    
+    def analyze_file_structure(self, file_path: Path) -> Optional[FileAnalysis]:
+        """Analyze file structure and determine optimal cluster strategy"""
+        try:
+            data = self.load_json_file(file_path)
+            if not data:
+                return None
+            
+            total_bullets = 0
+            sections_info = []
+            
+            for section_index, section in enumerate(data):
+                chapter_name = section.get('chapter_name', 'Unknown Chapter')
+                section_number = section.get('section_number', f'section_{section_index}')
+                section_name = section.get('section_name', 'Untitled Section')
+                bullet_points = section.get('bullet_points', [])
+                
+                section_bullets = len(bullet_points)
+                total_bullets += section_bullets
+                
+                sections_info.append({
+                    'index': section_index,
+                    'chapter_name': chapter_name,
+                    'section_number': section_number,
+                    'section_name': section_name,
+                    'bullet_count': section_bullets
+                })
+            
+            # Calculate cluster size for this file
+            cluster_size = self.calculate_cluster_size_for_file(total_bullets)
+            estimated_clusters = (total_bullets + cluster_size - 1) // cluster_size  # Ceiling division
+            estimated_questions = estimated_clusters * 5
+            
+            analysis = FileAnalysis(
+                file_path=file_path,
+                total_bullet_points=total_bullets,
+                sections_count=len(data),
+                cluster_size=cluster_size,
+                estimated_clusters=estimated_clusters,
+                estimated_questions=estimated_questions,
+                sections_info=sections_info
+            )
+            
+            # Log detailed analysis
+            self.logger.info(f"FILE ANALYSIS: {file_path.name}")
+            self.logger.info(f"  Total bullets: {total_bullets}")
+            self.logger.info(f"  Sections: {len(data)}")
+            self.logger.info(f"  Calculated cluster size: {cluster_size}")
+            self.logger.info(f"  Estimated clusters: {estimated_clusters}")
+            self.logger.info(f"  Estimated questions: {estimated_questions}")
+            
+            return analysis
+            
+        except Exception as e:
+            self.logger.error(f"Failed to analyze file structure for {file_path}: {e}")
+            return None
     
     def validate_questions(self, questions: List[Dict]) -> bool:
         """Validate that questions are complete and properly formatted"""
@@ -275,15 +368,14 @@ class ClusterMCQGenerator:
         
         return True
     
-    def create_bullet_point_clusters(self, missing_bullets: List[int], bullet_points: List[str]) -> List[List[Tuple[int, str]]]:
+    def create_section_clusters(self, missing_bullets: List[int], bullet_points: List[str], cluster_size: int) -> List[List[Tuple[int, str]]]:
         """
-        Group missing bullet points into clusters of 2-3
-        Returns clusters with (index, content) tuples
+        Group missing bullet points into clusters using the file's determined cluster size
         """
         clusters = []
         
-        for i in range(0, len(missing_bullets), self.cluster_size):
-            cluster_indices = missing_bullets[i:i + self.cluster_size]
+        for i in range(0, len(missing_bullets), cluster_size):
+            cluster_indices = missing_bullets[i:i + cluster_size]
             cluster_content = []
             
             for idx in cluster_indices:
@@ -305,21 +397,17 @@ class ClusterMCQGenerator:
         
         return clusters
     
-    def analyze_section_completion(self, original_file_data: List[Dict], question_file_path: Path) -> Dict[str, SectionCompletion]:
+    def analyze_section_completion(self, original_data: List[Dict], question_file_path: Path) -> Dict[str, SectionCompletion]:
         """
         Analyze completion status for each chapter-section combination
-        Modified to work with bullet_points structure from first code
         """
         completion_map = {}
         
-        # Scan original file to establish baseline - now expects direct list structure
-        sections = original_file_data
-        
-        for section_index, section in enumerate(sections):
+        # Scan original file to establish baseline
+        for section_index, section in enumerate(original_data):
             chapter_name = section.get('chapter_name', 'Unknown Chapter')
             section_number = section.get('section_number', f'section_{section_index}')
             section_name = section.get('section_name', 'Untitled Section')
-            # Modified to look for bullet_points instead of openai_summarised_points
             bullet_points = section.get('bullet_points', [])
             
             # Create unique key for this chapter-section
@@ -371,68 +459,22 @@ class ClusterMCQGenerator:
         
         return completion_map
     
-    def show_resume_info(self, completion_maps: Dict[str, Dict[str, SectionCompletion]]):
-        """Show clear resume information across all files"""
-        total_sections = 0
-        completed_sections = 0
-        total_bullets = 0
-        completed_bullets = 0
-        
-        for file_name, completion_map in completion_maps.items():
-            for section_completion in completion_map.values():
-                total_sections += 1
-                total_bullets += section_completion.total_bullets
-                completed_bullets += len(section_completion.completed_bullets)
-                
-                if section_completion.is_complete():
-                    completed_sections += 1
-        
-        remaining_bullets = total_bullets - completed_bullets
-        estimated_clusters = (remaining_bullets + self.cluster_size - 1) // self.cluster_size  # Ceiling division
-        
-        # Update global stats
-        self.stats.total_sections = total_sections
-        self.stats.completed_sections = completed_sections
-        self.stats.total_bullet_points = total_bullets
-        self.stats.completed_bullet_points = completed_bullets
-        self.stats.remaining_bullet_points = remaining_bullets
-        
-        if total_bullets > 0:
-            if RICH_AVAILABLE:
-                resume_panel = Panel.fit(
-                    f"[bold]Cluster Resume Analysis[/bold]\n\n"
-                    f"[green]Sections:[/green] {completed_sections}/{total_sections} complete\n"
-                    f"[green]Bullet Points:[/green] {completed_bullets}/{total_bullets} complete\n"
-                    f"[yellow]Remaining:[/yellow] {remaining_bullets} bullet points\n"
-                    f"[cyan]Estimated Clusters:[/cyan] {estimated_clusters} clusters to process\n"
-                    f"[magenta]Cluster Size:[/magenta] {self.cluster_size} bullet points per cluster\n"
-                    f"[blue]Questions per Cluster:[/blue] 4 questions\n"
-                    f"[cyan]Overall Progress:[/cyan] {completed_bullets/total_bullets*100:.1f}%",
-                    title="Resume Status",
-                    border_style="green" if remaining_bullets == 0 else "yellow"
-                )
-                console.print(resume_panel)
-            else:
-                print("="*70)
-                print("Cluster Resume Analysis")
-                print("="*70)
-                print(f"Sections: {completed_sections}/{total_sections} complete")
-                print(f"Bullet Points: {completed_bullets}/{total_bullets} complete")
-                print(f"Remaining: {remaining_bullets} bullet points")
-                print(f"Estimated Clusters: {estimated_clusters} clusters to process")
-                print(f"Cluster Size: {self.cluster_size} bullet points per cluster")
-                print(f"Questions per Cluster: 4 questions")
-                print(f"Overall Progress: {completed_bullets/total_bullets*100:.1f}%")
-                print("="*70)
-    
-    def create_cluster_tasks_from_completion_map(self, file_path: Path, original_data: List[Dict], completion_map: Dict[str, SectionCompletion]) -> List[BulletPointClusterTask]:
-        """Create cluster tasks ONLY for missing bullet points - modified for bullet_points structure"""
+    def create_cluster_tasks_for_file(self, file_analysis: FileAnalysis, completion_map: Dict[str, SectionCompletion]) -> List[BulletPointClusterTask]:
+        """Create cluster tasks for a file using per-file cluster size, section-by-section"""
         tasks = []
         
-        # Work directly with the list structure from first code
-        sections = original_data
+        # Load file data
+        original_data = self.load_json_file(file_analysis.file_path)
+        if not original_data:
+            return tasks
         
-        for section_index, section in enumerate(sections):
+        # Use the file's determined cluster size for ALL sections in this file
+        cluster_size = file_analysis.cluster_size
+        
+        self.logger.info(f"CREATING CLUSTERS for {file_analysis.file_path.name}: cluster_size={cluster_size}")
+        
+        # Process each section with the file's cluster size
+        for section_index, section in enumerate(original_data):
             chapter_name = section.get('chapter_name', 'Unknown Chapter')
             section_number = section.get('section_number', f'section_{section_index}')
             section_name = section.get('section_name', 'Untitled Section')
@@ -440,30 +482,34 @@ class ClusterMCQGenerator:
             
             if section_key in completion_map:
                 missing_bullets = completion_map[section_key].missing_bullets
-                # Modified to look for bullet_points instead of openai_summarised_points
                 bullet_points = section.get('bullet_points', [])
                 
                 if missing_bullets:
-                    # Create clusters from missing bullet points
-                    clusters = self.create_bullet_point_clusters(missing_bullets, bullet_points)
+                    # Create clusters from missing bullet points using file's cluster size
+                    clusters = self.create_section_clusters(missing_bullets, bullet_points, cluster_size)
                     
-                    for cluster in clusters:
+                    self.logger.info(f"  SECTION {section_key}: {len(missing_bullets)} missing bullets → {len(clusters)} clusters")
+                    
+                    for cluster_idx, cluster in enumerate(clusters):
                         if cluster:  # Only create task if cluster has content
-                            tasks.append(BulletPointClusterTask(
-                                file_path=file_path,
+                            task = BulletPointClusterTask(
+                                file_path=file_analysis.file_path,
                                 chapter_name=chapter_name,
                                 section_number=section_number,
                                 section_name=section_name,
                                 section_index=section_index,
-                                bullet_point_cluster=cluster
-                            ))
+                                bullet_point_cluster=cluster,
+                                cluster_size=cluster_size
+                            )
+                            tasks.append(task)
+                            
+                            self.logger.debug(f"    Cluster {cluster_idx + 1}: {len(cluster)} bullets, IDs: {[bp[0] for bp in cluster]}")
         
         return tasks
     
     def discover_json_files(self) -> List[Path]:
-        """Discover JSON files with bullet points in the input folder - modified to find any JSON files"""
+        """Discover JSON files with bullet points in the input folder"""
         try:
-            # Look for any JSON files that might contain bullet_points
             json_files = []
             for json_file in self.folder_path.glob("*.json"):
                 # Quick check if file contains bullet_points structure
@@ -486,7 +532,7 @@ class ClusterMCQGenerator:
             return []
     
     def load_json_file(self, file_path: Path) -> Optional[List[Dict]]:
-        """Load and validate JSON file structure - modified for bullet_points structure"""
+        """Load and validate JSON file structure"""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
@@ -501,6 +547,79 @@ class ClusterMCQGenerator:
         except Exception as e:
             self.logger.error(f"Error reading {file_path}: {e}")
             return None
+    
+    def show_file_analyses(self, file_analyses: List[FileAnalysis]):
+        """Display detailed file analysis with cluster size distribution"""
+        if not file_analyses:
+            return
+        
+        # Calculate distribution
+        cluster_size_counts = {}
+        total_bullets = 0
+        total_estimated_questions = 0
+        
+        for analysis in file_analyses:
+            size = analysis.cluster_size
+            cluster_size_counts[size] = cluster_size_counts.get(size, 0) + 1
+            total_bullets += analysis.total_bullet_points
+            total_estimated_questions += analysis.estimated_questions
+            
+            # Update stats
+            self.stats.cluster_size_distribution[size] = self.stats.cluster_size_distribution.get(size, 0) + 1
+        
+        if RICH_AVAILABLE:
+            # Create detailed table
+            table = Table(title="Per-File Cluster Size Analysis")
+            table.add_column("File", style="cyan")
+            table.add_column("Bullets", style="green", justify="right")
+            table.add_column("Sections", style="blue", justify="right")
+            table.add_column("Cluster Size", style="magenta", justify="center")
+            table.add_column("Est. Clusters", style="yellow", justify="right")
+            table.add_column("Est. Questions", style="red", justify="right")
+            
+            for analysis in file_analyses:
+                table.add_row(
+                    analysis.file_path.name[:30] + ("..." if len(analysis.file_path.name) > 30 else ""),
+                    str(analysis.total_bullet_points),
+                    str(analysis.sections_count),
+                    str(analysis.cluster_size),
+                    str(analysis.estimated_clusters),
+                    str(analysis.estimated_questions)
+                )
+            
+            console.print(table)
+            
+            # Summary panel
+            summary_panel = Panel.fit(
+                f"[bold]Per-File Dynamic Cluster Analysis[/bold]\n\n"
+                f"[green]Total Files:[/green] {len(file_analyses)}\n"
+                f"[green]Total Bullet Points:[/green] {total_bullets}\n"
+                f"[yellow]Cluster Size Distribution:[/yellow]\n"
+                + "\n".join([f"  Size {size}: {count} files" for size, count in sorted(cluster_size_counts.items())]) +
+                f"\n\n[cyan]Estimated Total Questions:[/cyan] {total_estimated_questions}",
+                title="Strategy Overview",
+                border_style="blue"
+            )
+            console.print(summary_panel)
+        else:
+            print("\n" + "="*80)
+            print("Per-File Cluster Size Analysis")
+            print("="*80)
+            print(f"{'File':<35} {'Bullets':<8} {'Sections':<8} {'Size':<6} {'Clusters':<9} {'Questions'}")
+            print("-"*80)
+            
+            for analysis in file_analyses:
+                print(f"{analysis.file_path.name[:34]:<35} {analysis.total_bullet_points:<8} "
+                      f"{analysis.sections_count:<8} {analysis.cluster_size:<6} "
+                      f"{analysis.estimated_clusters:<9} {analysis.estimated_questions}")
+            
+            print(f"\nTotal Files: {len(file_analyses)}")
+            print(f"Total Bullet Points: {total_bullets}")
+            print("Cluster Size Distribution:")
+            for size, count in sorted(cluster_size_counts.items()):
+                print(f"  Size {size}: {count} files")
+            print(f"Estimated Total Questions: {total_estimated_questions}")
+            print("="*80)
     
     def randomize_question_options(self, question_data: Dict) -> Dict:
         """Randomly shuffle options and update correct index and explanations"""
@@ -545,7 +664,7 @@ class ClusterMCQGenerator:
         
         system_message = """You are an expert question setter for UPSC Civil Services Examination and other prestigious government competitive exams in India. You specialize in creating analytical, application-based multiple-choice questions that test deep understanding and critical thinking across related topics."""
         
-        cluster_size = len(task.bullet_point_cluster)
+        actual_cluster_size = len(task.bullet_point_cluster)
         
         user_prompt = f"""Context Information:
 CHAPTER: {task.chapter_name}
@@ -554,12 +673,12 @@ SECTION: {task.section_name} (Section {task.section_number})
 BULLET POINTS CLUSTER:
 {self.format_bullet_cluster(task.bullet_point_cluster)}
 
-Create exactly 4 high-quality UPSC-style multiple-choice questions based on the {cluster_size} bullet points above.
+Create exactly 5 high-quality UPSC-style multiple-choice questions based on the {actual_cluster_size} bullet points above.
 
 CRITICAL REQUIREMENTS:
 
 1. CLUSTER PROCESSING:
-   - Generate exactly 4 questions total for the entire cluster
+   - Generate exactly 5 questions total for the entire cluster
    - Draw insights from ALL bullet points in the cluster
    - Create questions that synthesize information across bullet points
    - Ensure questions complement each other and cover different aspects
@@ -570,16 +689,16 @@ CRITICAL REQUIREMENTS:
    - Prioritize analytical and application-based questions over factual recall
 
 3. UPSC EXAMINATION PATTERN:
-   - Use phrases like: "Which of the following statements is/are correct?", "The most appropriate explanation...", "In the context of...", "Consider the following statements..."
    - Test analytical ability, logical reasoning, and application of concepts
    - Create scenario-based questions requiring synthesis of the knowledge
    - Avoid direct factual recall questions
 
-4. QUESTION TYPES (vary across the 4 questions):
+4. QUESTION TYPES (vary across the 5 questions), any questions can be of anytype, up to you. 
    - Analytical reasoning and cause-effect relationships
    - Application scenarios and policy implications  
    - Comparative analysis across the bullet points
    - Conceptual understanding and synthesis
+   - Critical evaluation of concepts or policies
 
 5. OPTION QUALITY:
    - All 4 options must be plausible and well-researched
@@ -592,12 +711,6 @@ CRITICAL REQUIREMENTS:
    - Connect explanations back to the original bullet points
    - Include additional context that enhances learning
    - Reference specific bullet points when relevant
-
-EXAMPLE APPROACH:
-- Question 1: Focus primarily on bullet point 1 concepts
-- Question 2: Combine insights from bullet points 1 and 2
-- Question 3: Analyze bullet point 2 in broader context
-- Question 4: Synthesize all bullet points or focus on bullet point 3
 
 Return ONLY a JSON structure with this exact format:
 {{
@@ -644,9 +757,9 @@ Return ONLY the JSON, no other text:"""
                     if 'questions' in questions_data and isinstance(questions_data['questions'], list):
                         questions = questions_data['questions']
                         
-                        # Validate each question and ensure we have exactly 4
+                        # Validate each question and ensure we have exactly 5
                         valid_questions = []
-                        for q in questions[:4]:  # Take only first 4 questions
+                        for q in questions[:5]:  # Take only first 5 questions
                             if (isinstance(q, dict) and 
                                 'question' in q and 'options' in q and 'correct' in q and 'explanations' in q and
                                 isinstance(q['options'], list) and len(q['options']) == 4 and
@@ -654,7 +767,7 @@ Return ONLY the JSON, no other text:"""
                                 isinstance(q['explanations'], dict) and len(q['explanations']) == 4):
                                 valid_questions.append(q)
                         
-                        if len(valid_questions) == 4:  # Must have exactly 4 valid questions
+                        if len(valid_questions) == 5:  # Must have exactly 5 valid questions
                             self.api_manager.release_client(key_name, success=True)
                             return valid_questions, key_name
                     
@@ -671,7 +784,9 @@ Return ONLY the JSON, no other text:"""
             return None, key_name
     
     def process_cluster_task(self, task: BulletPointClusterTask) -> Tuple[bool, List[Dict], str]:
-        """Process a cluster task to generate 4 questions for the cluster"""
+        """Process a cluster task to generate 5 questions for the cluster"""
+        
+        self.logger.info(f"PROCESSING CLUSTER: {task.cluster_id} - {len(task.bullet_point_cluster)} bullets, target size: {task.cluster_size}")
         
         # Call OpenAI API with retries
         questions = None
@@ -681,16 +796,19 @@ Return ONLY the JSON, no other text:"""
         for attempt in range(max_retries):
             try:
                 questions, api_key_used = self.call_openai_api(task)
-                if questions and len(questions) == 4:
+                if questions and len(questions) == 5:
                     break
                 else:
+                    self.logger.warning(f"Attempt {attempt + 1}/{max_retries}: Invalid response for {task.cluster_id}")
                     if attempt < max_retries - 1:
                         time.sleep(2 ** attempt)
             except Exception as e:
+                self.logger.warning(f"Attempt {attempt + 1}/{max_retries} failed for {task.cluster_id}: {e}")
                 if attempt < max_retries - 1:
                     time.sleep(2 ** attempt)
         
-        if not questions or len(questions) != 4:
+        if not questions or len(questions) != 5:
+            self.logger.error(f"FAILED: {task.cluster_id} - Could not generate 5 valid questions")
             self.stats.failed_bullet_points += len(task.bullet_point_cluster)
             return False, [], api_key_used
         
@@ -702,7 +820,7 @@ Return ONLY the JSON, no other text:"""
         
         # Create results for each bullet point in the cluster
         cluster_results = []
-        questions_per_bullet = 4 / len(task.bullet_point_cluster)  # Distribute questions
+        questions_per_bullet = 5 / len(task.bullet_point_cluster)  # Distribute questions
         
         # Assign questions to bullet points (simple distribution)
         question_index = 0
@@ -730,29 +848,33 @@ Return ONLY the JSON, no other text:"""
                         'options_randomized': True,
                         'api_key_used': api_key_used,
                         'cluster_id': task.cluster_id,
-                        'cluster_size': len(task.bullet_point_cluster),
+                        'file_cluster_size': task.cluster_size,
+                        'actual_cluster_size': len(task.bullet_point_cluster),
                         'chapter_name': task.chapter_name,
                         'section_number': task.section_number,
-                        'processing_method': 'cluster'
+                        'processing_method': 'per_file_cluster'
                     }
                 }
                 cluster_results.append(result)
 
         # Update stats
         self.stats.completed_bullet_points += len(task.bullet_point_cluster)
-        self.stats.total_questions_generated += 4  # Always 4 questions per cluster
+        self.stats.total_questions_generated += 5  # Always 5 questions per cluster
         self.stats.total_clusters_processed += 1
+        
+        self.logger.info(f"SUCCESS: {task.cluster_id} - Generated 5 questions for {len(task.bullet_point_cluster)} bullets")
         
         return True, cluster_results, api_key_used
     
-    def create_clean_progress_display(self, current: int, total: int, chapter: str, section: str, cluster_size: int, api_key: str, status: str):
-        """Create clean, minimal progress display for clusters"""
+    def create_enhanced_progress_display(self, current: int, total: int, task: BulletPointClusterTask, api_key: str, status: str):
+        """Create enhanced progress display showing file cluster strategy"""
         progress_pct = (current / total * 100) if total > 0 else 0
         
         # Truncate long names
-        chapter_short = chapter[:18] + "..." if len(chapter) > 21 else chapter
-        section_short = f"Sec {section}" if len(section) <= 8 else f"Sec {section[:5]}..."
-        cluster_info = f"[{cluster_size}bp]"  # Show bullet points in cluster
+        file_short = task.file_path.stem[:20] + "..." if len(task.file_path.stem) > 23 else task.file_path.stem
+        chapter_short = task.chapter_name[:15] + "..." if len(task.chapter_name) > 18 else task.chapter_name
+        section_short = f"S{task.section_number}"
+        cluster_info = f"[{task.actual_cluster_size}/{task.cluster_size}]"  # actual/target
         
         if RICH_AVAILABLE:
             status_color = {
@@ -764,15 +886,16 @@ Return ONLY the JSON, no other text:"""
             console.print(f"[{status_color}]{status.upper():<9}[/{status_color}] "
                          f"[cyan]{current:3d}/{total:<3d}[/cyan] "
                          f"[magenta]{progress_pct:5.1f}%[/magenta] "
-                         f"[blue]{chapter_short:<21}[/blue] "
-                         f"[green]{section_short:<12}[/green] "
-                         f"[white]{cluster_info:<6}[/white] "
-                         f"[yellow]{api_key}[/yellow]")
+                         f"[white]{file_short:<23}[/white] "
+                         f"[blue]{chapter_short:<18}[/blue] "
+                         f"[green]{section_short:<8}[/green] "
+                         f"[yellow]{cluster_info:<8}[/yellow] "
+                         f"[cyan]{api_key}[/cyan]")
         else:
             print(f"{status.upper():<9} {current:3d}/{total:<3d} {progress_pct:5.1f}% "
-                  f"{chapter_short:<21} {section_short:<12} {cluster_info:<6} {api_key}")
+                  f"{file_short:<23} {chapter_short:<18} {section_short:<8} {cluster_info:<8} {api_key}")
     
-    def save_updated_file(self, file_path: Path, new_results: List[Dict], original_metadata: Dict):
+    def save_updated_file(self, file_path: Path, new_results: List[Dict], file_analysis: FileAnalysis):
         """Save or update the question file with new cluster results"""
         try:
             output_file = self.output_dir / f"questions_{file_path.stem}.json"
@@ -862,19 +985,24 @@ Return ONLY the JSON, no other text:"""
                     'completion_percentage': (len(completed_bullets) / max(section.get('total_bullet_points', 1), 1) * 100)
                 }
             
-            # Create final structure
+            # Create final structure with enhanced metadata
             final_data = {
                 'generation_info': {
                     'source_file': file_path.name,
                     'generation_timestamp': datetime.now().isoformat(),
                     'openai_model': self.model_name,
-                    'processing_method': 'cluster',
-                    'cluster_size': self.cluster_size,
-                    'questions_per_cluster': 4,
+                    'processing_method': 'per_file_cluster',
+                    'file_analysis': {
+                        'total_bullet_points': file_analysis.total_bullet_points,
+                        'calculated_cluster_size': file_analysis.cluster_size,
+                        'sections_count': file_analysis.sections_count,
+                        'estimated_clusters': file_analysis.estimated_clusters,
+                        'estimated_questions': file_analysis.estimated_questions
+                    },
+                    'questions_per_cluster': 5,
                     'total_sections': total_sections,
                     'total_bullet_points': total_bullet_points,
                     'total_questions_generated': total_questions,
-                    'source_metadata': original_metadata,
                     'completion_status': completion_status
                 },
                 'sections': all_sections
@@ -888,29 +1016,34 @@ Return ONLY the JSON, no other text:"""
             # Atomic rename
             temp_file.rename(output_file)
             
+            self.logger.info(f"SAVED: {output_file.name} - {total_questions} questions from {len(new_results)} bullet points")
+            
         except Exception as e:
             self.logger.error(f"Failed to save updated file: {e}")
     
-    def process_file_with_cluster_resume(self, file_path: Path) -> bool:
-        """Process a file using cluster-based resume system"""
+    def process_file_with_enhanced_strategy(self, file_analysis: FileAnalysis) -> bool:
+        """Process a file using the enhanced per-file cluster strategy"""
+        
+        self.logger.info(f"PROCESSING FILE: {file_analysis.file_path.name}")
+        self.logger.info(f"  Strategy: {file_analysis.total_bullet_points} bullets → cluster size {file_analysis.cluster_size}")
         
         # Load original file
-        original_data = self.load_json_file(file_path)
+        original_data = self.load_json_file(file_analysis.file_path)
         if original_data is None:
             return False
         
         # Analyze completion status
-        question_file_path = self.output_dir / f"questions_{file_path.stem}.json"
+        question_file_path = self.output_dir / f"questions_{file_analysis.file_path.stem}.json"
         completion_map = self.analyze_section_completion(original_data, question_file_path)
         
-        # Create cluster tasks only for missing bullet points
-        cluster_tasks = self.create_cluster_tasks_from_completion_map(file_path, original_data, completion_map)
+        # Create cluster tasks using the enhanced strategy
+        cluster_tasks = self.create_cluster_tasks_for_file(file_analysis, completion_map)
         
         if not cluster_tasks:
             if RICH_AVAILABLE:
-                console.print(f"[green]✓ {file_path.name}: All bullet points already completed[/green]")
+                console.print(f"[green]✓ {file_analysis.file_path.name}: All bullet points already completed[/green]")
             else:
-                print(f"✓ {file_path.name}: All bullet points already completed")
+                print(f"✓ {file_analysis.file_path.name}: All bullet points already completed")
             self.stats.completed_files += 1
             return True
         
@@ -919,19 +1052,21 @@ Return ONLY the JSON, no other text:"""
         
         # Show file processing header
         if RICH_AVAILABLE:
-            console.print(f"\n[bold blue]Processing: {file_path.name}[/bold blue]")
-            console.print(f"[cyan]Found {len(cluster_tasks)} clusters with {total_cluster_bullets} bullet points[/cyan]")
-            console.print(f"[magenta]Each cluster generates exactly 4 questions[/magenta]")
-            console.print("-" * 95)
-            console.print(f"{'STATUS':<9} {'PROGRESS':<7} {'%':<6} {'CHAPTER':<21} {'SECTION':<12} {'CLSTR':<6} {'API'}")
-            console.print("-" * 95)
+            console.print(f"\n[bold blue]Processing: {file_analysis.file_path.name}[/bold blue]")
+            console.print(f"[cyan]Strategy: {file_analysis.total_bullet_points} bullets → cluster size {file_analysis.cluster_size}[/cyan]")
+            console.print(f"[yellow]Found {len(cluster_tasks)} clusters with {total_cluster_bullets} bullet points[/yellow]")
+            console.print(f"[magenta]Each cluster generates exactly 5 questions[/magenta]")
+            console.print("-" * 105)
+            console.print(f"{'STATUS':<9} {'PROGRESS':<7} {'%':<6} {'FILE':<23} {'CHAPTER':<18} {'SECT':<8} {'CLSTR':<8} {'API'}")
+            console.print("-" * 105)
         else:
-            print(f"\nProcessing: {file_path.name}")
+            print(f"\nProcessing: {file_analysis.file_path.name}")
+            print(f"Strategy: {file_analysis.total_bullet_points} bullets → cluster size {file_analysis.cluster_size}")
             print(f"Found {len(cluster_tasks)} clusters with {total_cluster_bullets} bullet points")
-            print(f"Each cluster generates exactly 4 questions")
-            print("-" * 95)
-            print(f"{'STATUS':<9} {'PROGRESS':<7} {'%':<6} {'CHAPTER':<21} {'SECTION':<12} {'CLSTR':<6} {'API'}")
-            print("-" * 95)
+            print(f"Each cluster generates exactly 5 questions")
+            print("-" * 105)
+            print(f"{'STATUS':<9} {'PROGRESS':<7} {'%':<6} {'FILE':<23} {'CHAPTER':<18} {'SECT':<8} {'CLSTR':<8} {'API'}")
+            print("-" * 105)
         
         # Process cluster tasks in parallel
         processed_count = 0
@@ -951,46 +1086,41 @@ Return ONLY the JSON, no other text:"""
                     
                     if success:
                         all_completed_results.extend(cluster_results)
-                        self.create_clean_progress_display(
-                            processed_count, total_tasks,
-                            task.chapter_name, task.section_number,
-                            len(task.bullet_point_cluster), api_key, 'success'
+                        self.create_enhanced_progress_display(
+                            processed_count, total_tasks, task, api_key, 'success'
                         )
                     else:
-                        self.create_clean_progress_display(
-                            processed_count, total_tasks,
-                            task.chapter_name, task.section_number,
-                            len(task.bullet_point_cluster), api_key, 'failed'
+                        self.create_enhanced_progress_display(
+                            processed_count, total_tasks, task, api_key, 'failed'
                         )
                         
                 except Exception as e:
                     processed_count += 1
-                    self.create_clean_progress_display(
-                        processed_count, total_tasks,
-                        task.chapter_name, task.section_number,
-                        len(task.bullet_point_cluster), 'error', 'failed'
+                    self.create_enhanced_progress_display(
+                        processed_count, total_tasks, task, 'error', 'failed'
                     )
                     self.logger.error(f"Cluster task failed: {e}")
                 
-                # Save progress periodically (every 5 clusters)
-                if len(all_completed_results) > 0 and processed_count % 5 == 0:
-                    self.save_updated_file(file_path, all_completed_results, {})
+                # Save progress periodically (every 10 clusters)
+                if len(all_completed_results) > 0 and processed_count % 10 == 0:
+                    self.save_updated_file(file_analysis.file_path, all_completed_results, file_analysis)
         
         # Final save with all results
         if all_completed_results:
-            self.save_updated_file(file_path, all_completed_results, {})
+            self.save_updated_file(file_analysis.file_path, all_completed_results, file_analysis)
         
         self.stats.completed_files += 1
         return True
     
-    def create_master_question_bank(self, processed_files: List[Path]):
-        """Create master question bank with all questions"""
+    def create_master_question_bank(self, processed_files: List[FileAnalysis]):
+        """Create master question bank with all questions and enhanced metadata"""
         all_sections = []
         total_questions = 0
         total_clusters = 0
+        cluster_size_stats = {}
         
-        for file_path in processed_files:
-            question_file = self.output_dir / f"questions_{file_path.stem}.json"
+        for file_analysis in processed_files:
+            question_file = self.output_dir / f"questions_{file_analysis.file_path.stem}.json"
             if question_file.exists():
                 try:
                     with open(question_file, 'r', encoding='utf-8') as f:
@@ -999,16 +1129,22 @@ Return ONLY the JSON, no other text:"""
                     sections = data.get('sections', [])
                     all_sections.extend(sections)
                     
-                    # Count questions and estimate clusters
+                    # Count questions and track cluster sizes
+                    file_questions = 0
+                    file_clusters = 0
                     for section in sections:
                         for bp in section.get('bullet_points', []):
                             questions = bp.get('questions', [])
-                            total_questions += len(questions)
-                            # Each cluster generates 4 questions, estimate clusters
+                            file_questions += len(questions)
                             if len(questions) > 0:
-                                metadata = bp.get('generation_metadata', {})
-                                if metadata.get('processing_method') == 'cluster':
-                                    total_clusters += 1
+                                file_clusters += 1
+                    
+                    total_questions += file_questions
+                    total_clusters += file_clusters
+                    
+                    # Track cluster size distribution
+                    cluster_size = file_analysis.cluster_size
+                    cluster_size_stats[cluster_size] = cluster_size_stats.get(cluster_size, 0) + 1
                     
                 except Exception as e:
                     self.logger.error(f"Error reading question file {question_file}: {e}")
@@ -1020,9 +1156,17 @@ Return ONLY the JSON, no other text:"""
                     'total_sections': len(all_sections),
                     'total_questions': total_questions,
                     'total_clusters_processed': total_clusters,
-                    'processing_method': 'cluster',
-                    'cluster_size': self.cluster_size,
-                    'questions_per_cluster': 4,
+                    'processing_method': 'per_file_cluster',
+                    'cluster_strategy': {
+                        'description': 'Dynamic cluster sizing per file',
+                        'rules': {
+                            'small_files': '< 40 bullets → cluster size 3',
+                            'medium_files': '40-100 bullets → cluster size 5',
+                            'large_files': '> 100 bullets → cluster size 7'
+                        },
+                        'cluster_size_distribution': cluster_size_stats
+                    },
+                    'questions_per_cluster': 5,
                     'source_folder': str(self.folder_path),
                     'openai_model': self.model_name
                 },
@@ -1034,79 +1178,98 @@ Return ONLY the JSON, no other text:"""
                 json.dump(master_data, f, indent=2, ensure_ascii=False)
             
             if RICH_AVAILABLE:
-                console.print(f"[green]✓ Master question bank created with {total_questions} questions from {total_clusters} clusters[/green]")
+                console.print(f"[green]✓ Master question bank created: {total_questions} questions from {total_clusters} clusters[/green]")
             else:
-                print(f"✓ Master question bank created with {total_questions} questions from {total_clusters} clusters")
+                print(f"✓ Master question bank created: {total_questions} questions from {total_clusters} clusters")
     
     def show_api_usage_summary(self):
-        """Display clean API usage summary"""
+        """Display enhanced API usage summary"""
         usage_summary = self.api_manager.get_usage_summary()
         
         if RICH_AVAILABLE:
-            console.print("\n" + "="*70)
-            console.print("[bold]API Usage Summary[/bold]")
-            console.print("="*70)
+            console.print("\n" + "="*80)
+            console.print("[bold]Enhanced API Usage Summary[/bold]")
+            console.print("="*80)
             
             table = Table()
             table.add_column("API Key", style="cyan")
             table.add_column("Clusters", style="green", justify="right")
             table.add_column("Errors", style="red", justify="right")
             table.add_column("Success Rate", style="yellow", justify="right")
+            table.add_column("Questions", style="magenta", justify="right")
             
             for i, (key_name, requests) in enumerate(usage_summary['usage_stats'].items()):
                 errors = usage_summary['error_counts'][key_name]
                 success_rate = ((requests - errors) / requests * 100) if requests > 0 else 0
+                est_questions = (requests - errors) * 5
                 
                 table.add_row(
                     key_name,
                     str(requests),
                     str(errors),
-                    f"{success_rate:.1f}%"
+                    f"{success_rate:.1f}%",
+                    str(est_questions)
                 )
             
             console.print(table)
-            console.print(f"[bold]Total Cluster API Calls:[/bold] {usage_summary['total_requests']}")
+            
+            # Show cluster size distribution
+            if self.stats.cluster_size_distribution:
+                console.print(f"\n[bold]Cluster Size Distribution:[/bold]")
+                for size, count in sorted(self.stats.cluster_size_distribution.items()):
+                    console.print(f"  Size {size}: {count} files")
+            
+            console.print(f"\n[bold]Total Cluster API Calls:[/bold] {usage_summary['total_requests']}")
             console.print(f"[bold]Total Errors:[/bold] {usage_summary['total_errors']}")
-            console.print(f"[bold]Estimated Questions:[/bold] {usage_summary['total_requests'] * 4}")
-            console.print("="*70)
+            console.print(f"[bold]Total Questions Generated:[/bold] {self.stats.total_questions_generated}")
+            console.print("="*80)
         else:
-            print("\n" + "="*70)
-            print("API Usage Summary")
-            print("="*70)
+            print("\n" + "="*80)
+            print("Enhanced API Usage Summary")
+            print("="*80)
             for key_name, requests in usage_summary['usage_stats'].items():
                 errors = usage_summary['error_counts'][key_name]
                 success_rate = ((requests - errors) / requests * 100) if requests > 0 else 0
-                print(f"{key_name}: {requests} clusters, {errors} errors, {success_rate:.1f}% success")
+                est_questions = (requests - errors) * 5
+                print(f"{key_name}: {requests} clusters, {errors} errors, {success_rate:.1f}% success, ~{est_questions} questions")
+            
+            if self.stats.cluster_size_distribution:
+                print("\nCluster Size Distribution:")
+                for size, count in sorted(self.stats.cluster_size_distribution.items()):
+                    print(f"  Size {size}: {count} files")
+            
             print(f"Total Cluster API Calls: {usage_summary['total_requests']}")
             print(f"Total Errors: {usage_summary['total_errors']}")
-            print(f"Estimated Questions: {usage_summary['total_requests'] * 4}")
-            print("="*70)
+            print(f"Total Questions Generated: {self.stats.total_questions_generated}")
+            print("="*80)
     
     def run_generation(self) -> bool:
-        """Main method to run the cluster-based MCQ generation process"""
+        """Main method to run the enhanced per-file cluster MCQ generation process"""
         
         # Show startup info
         if RICH_AVAILABLE:
             startup_panel = Panel.fit(
-                f"[bold]Cluster-Based UPSC MCQ Generator[/bold]\n"
+                f"[bold]Per-File Dynamic Cluster UPSC MCQ Generator[/bold]\n"
                 f"Model: [cyan]{self.model_name}[/cyan]\n"
                 f"API Keys: [green]{len(self.api_manager.api_keys)}[/green]\n"
                 f"Workers: [yellow]{self.max_workers}[/yellow]\n"
-                f"Cluster Size: [magenta]{self.cluster_size} bullet points[/magenta]\n"
-                f"Questions per Cluster: [blue]4 questions[/blue]",
-                title="Configuration",
+                f"Strategy: [magenta]Dynamic cluster sizing per file[/magenta]\n"
+                f"Rules: [blue]<40→size 3, 40-100→size 5, >100→size 7[/blue]\n"
+                f"Questions per Cluster: [red]5 questions[/red]",
+                title="Enhanced Configuration",
                 border_style="blue"
             )
             console.print(startup_panel)
         else:
-            print("="*60)
-            print("Cluster-Based UPSC MCQ Generator")
+            print("="*70)
+            print("Per-File Dynamic Cluster UPSC MCQ Generator")
             print(f"Model: {self.model_name}")
             print(f"API Keys: {len(self.api_manager.api_keys)}")
             print(f"Workers: {self.max_workers}")
-            print(f"Cluster Size: {self.cluster_size} bullet points")
-            print(f"Questions per Cluster: 4 questions")
-            print("="*60)
+            print("Strategy: Dynamic cluster sizing per file")
+            print("Rules: <40→size 3, 40-100→size 5, >100→size 7")
+            print("Questions per Cluster: 5 questions")
+            print("="*70)
         
         # Discover files
         json_files = self.discover_json_files()
@@ -1117,23 +1280,29 @@ Return ONLY the JSON, no other text:"""
                 print("✗ No JSON files with bullet_points found to process")
             return False
         
-        # Analyze completion status across all files
-        completion_maps = {}
+        # Analyze all files first
+        file_analyses = []
         for file_path in json_files:
-            original_data = self.load_json_file(file_path)
-            if original_data:
-                question_file_path = self.output_dir / f"questions_{file_path.stem}.json"
-                completion_maps[file_path.name] = self.analyze_section_completion(original_data, question_file_path)
+            analysis = self.analyze_file_structure(file_path)
+            if analysis:
+                file_analyses.append(analysis)
         
-        # Show resume info
-        self.show_resume_info(completion_maps)
+        if not file_analyses:
+            if RICH_AVAILABLE:
+                console.print("[red]✗ Failed to analyze any files[/red]")
+            else:
+                print("✗ Failed to analyze any files")
+            return False
         
-        # Process files
+        # Show detailed file analyses
+        self.show_file_analyses(file_analyses)
+        
+        # Process files using enhanced strategy
         processed_files = []
-        for file_path in json_files:
+        for file_analysis in file_analyses:
             try:
-                if self.process_file_with_cluster_resume(file_path):
-                    processed_files.append(file_path)
+                if self.process_file_with_enhanced_strategy(file_analysis):
+                    processed_files.append(file_analysis)
             except KeyboardInterrupt:
                 if RICH_AVAILABLE:
                     console.print("\n[yellow]⚠ Process interrupted. All progress saved automatically.[/yellow]")
@@ -1141,89 +1310,136 @@ Return ONLY the JSON, no other text:"""
                     print("\n⚠ Process interrupted. All progress saved automatically.")
                 return False
             except Exception as e:
-                self.logger.error(f"Critical error processing {file_path}: {e}")
+                self.logger.error(f"Critical error processing {file_analysis.file_path}: {e}")
                 continue
         
         # Create master question bank
         if processed_files:
             if RICH_AVAILABLE:
-                console.print("\n[blue]Creating master question bank...[/blue]")
+                console.print("\n[blue]Creating enhanced master question bank...[/blue]")
             else:
-                print("\nCreating master question bank...")
+                print("\nCreating enhanced master question bank...")
             self.create_master_question_bank(processed_files)
         
-        # Show final summary
+        # Show final summaries
         self.show_api_usage_summary()
         self.print_final_summary()
         
         return True
     
     def print_final_summary(self):
-        """Print comprehensive final summary"""
+        """Print comprehensive final summary with enhanced metrics"""
         if RICH_AVAILABLE:
             summary_panel = Panel.fit(
-                f"[bold green]✓ Cluster-Based UPSC MCQ Generation Complete[/bold green]\n\n"
+                f"[bold green]✓ Per-File Dynamic Cluster MCQ Generation Complete[/bold green]\n\n"
                 f"[bold]Files Processed:[/bold] {self.stats.completed_files}\n"
-                f"[bold]Sections Completed:[/bold] {self.stats.completed_sections}\n"
-                f"[bold]Bullet Points Processed:[/bold] {self.stats.completed_bullet_points}\n"
+                f"[bold]Total Bullet Points:[/bold] {self.stats.completed_bullet_points}\n"
                 f"[bold]Clusters Processed:[/bold] {self.stats.total_clusters_processed}\n"
-                f"[bold]Failed Bullet Points:[/bold] {self.stats.failed_bullet_points}\n"
-                f"[bold]UPSC Questions Generated:[/bold] {self.stats.total_questions_generated}\n"
-                f"[bold]Efficiency:[/bold] ~{self.stats.total_questions_generated/max(self.stats.total_clusters_processed,1):.1f} questions per API call\n\n"
+                f"[bold]Questions Generated:[/bold] {self.stats.total_questions_generated}\n"
+                f"[bold]Failed Bullet Points:[/bold] {self.stats.failed_bullet_points}\n\n"
+                f"[bold]Strategy Efficiency:[/bold]\n"
+                f"• Average questions per cluster: 5.0\n"
+                f"• Questions per API call: ~5.0\n"
+                f"• Adaptive cluster sizing: ✓\n\n"
                 f"[bold]Output Location:[/bold] {self.output_dir}",
-                title="Final Summary",
+                title="Final Enhanced Summary",
                 border_style="green"
             )
             console.print(summary_panel)
         else:
-            print("\n" + "="*60)
-            print("✓ Cluster-Based UPSC MCQ Generation Complete")
-            print("="*60)
+            print("\n" + "="*70)
+            print("✓ Per-File Dynamic Cluster MCQ Generation Complete")
+            print("="*70)
             print(f"Files Processed: {self.stats.completed_files}")
-            print(f"Sections Completed: {self.stats.completed_sections}")
-            print(f"Bullet Points Processed: {self.stats.completed_bullet_points}")
+            print(f"Total Bullet Points: {self.stats.completed_bullet_points}")
             print(f"Clusters Processed: {self.stats.total_clusters_processed}")
+            print(f"Questions Generated: {self.stats.total_questions_generated}")
             print(f"Failed Bullet Points: {self.stats.failed_bullet_points}")
-            print(f"UPSC Questions Generated: {self.stats.total_questions_generated}")
-            print(f"Efficiency: ~{self.stats.total_questions_generated/max(self.stats.total_clusters_processed,1):.1f} questions per API call")
-            print(f"Output Location: {self.output_dir}")
-            print("="*60)
+            print("\nStrategy Efficiency:")
+            print("• Average questions per cluster: 5.0")
+            print("• Questions per API call: ~5.0")
+            print("• Adaptive cluster sizing: ✓")
+            print(f"\nOutput Location: {self.output_dir}")
+            print("="*70)
 
 def main():
-    """Main entry point"""
+    """Main entry point with enhanced argument parsing"""
     load_dotenv()
     
     parser = argparse.ArgumentParser(
-        description='Cluster-Based UPSC MCQ Question Generator - Compatible with bullet_points structure',
+        description='Per-File Dynamic Cluster UPSC MCQ Question Generator',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Examples:
-  python cluster_mcq_generator.py /path/to/bullet_points/folder
-  python cluster_mcq_generator.py /path/to/bullet_points/folder --model gpt-5-mini
-  python cluster_mcq_generator.py /path/to/bullet_points/folder --cluster-size 2 --workers 6
+ENHANCED CLUSTERING STRATEGY:
+  The system now uses per-file dynamic cluster sizing based on total bullet points:
+  
+  Small files  (< 40 bullets):   cluster size 3 → efficient for small datasets
+  Medium files (40-100 bullets): cluster size 5 → balanced approach
+  Large files  (> 100 bullets):  cluster size 7 → maximum efficiency
+  
+  Each cluster generates exactly 5 UPSC-style questions.
 
-Environment Variables:
+EXAMPLES:
+  # Basic usage - automatic cluster sizing
+  python3 enhanced_cluster_mcq.py /path/to/bullet_points/folder
+  
+  # With custom model
+  python3 enhanced_cluster_mcq.py /path/to/folder --model gpt-5-mini
+  
+  # With custom worker count
+  python3 enhanced_cluster_mcq.py /path/to/folder --workers 12
+
+ENVIRONMENT VARIABLES:
   OPENAI_API_KEY      - Primary API key  
   OPENAI_API_KEY_1    - Additional API key 1
   OPENAI_API_KEY_2    - Additional API key 2
-  ... and so on (no limit)
+  ... and so on (unlimited)
 
-Features:
-  - Processes bullet points in clusters of 2-3 for efficiency  
-  - Generates exactly 4 questions per cluster
-  - Compatible with bullet_points structure from Wikipedia Enhancement System
-  - Robust chapter-section based resume functionality
-  - UPSC-style analytical questions with randomized options
-  - Smart load balancing across multiple API keys
-  - Perfect resume from any interruption point
+ENHANCED FEATURES:
+  ✓ Per-file dynamic cluster sizing (3/5/7 bullets per cluster)
+  ✓ Section-by-section clustering within each file
+  ✓ Enhanced logging with detailed cluster analysis
+  ✓ Improved progress tracking and resume capability
+  ✓ 5 questions per cluster for better coverage
+  ✓ Smart load balancing across multiple API keys
+  ✓ Comprehensive metadata and statistics
+
+PROCESSING FLOW:
+  1. Analyze each file → count total bullet points
+  2. Calculate optimal cluster size for that file
+  3. Process sections within file using calculated cluster size
+  4. Generate 5 questions per cluster
+  5. Save results with enhanced metadata
+
+OUTPUT STRUCTURE:
+  question_bank/
+  ├── questions_filename1.json    # Individual file outputs
+  ├── questions_filename2.json
+  ├── master_question_bank.json   # Combined question bank
+  └── logs/
+      ├── per_file_cluster_generation.log  # Detailed processing logs
+      └── cluster_analysis.log             # Cluster strategy logs
         """
     )
     
-    parser.add_argument('folder_path', help='Path to folder containing JSON files with bullet_points')
-    parser.add_argument('--model', default='gpt-5-mini', help='OpenAI model to use (default: gpt-5-mini)')
-    parser.add_argument('--cluster-size', type=int, default=3, choices=[2, 3], help='Bullet points per cluster (2-3, default: 3)')
-    parser.add_argument('--workers', type=int, help='Maximum number of parallel workers (default: API keys * 2)')
+    parser.add_argument(
+        'folder_path', 
+        help='Path to folder containing JSON files with bullet_points structure'
+    )
     
+    parser.add_argument(
+        '--model', 
+        default='gpt-5-mini', 
+        help='OpenAI model to use (default: gpt-5-mini)'
+    )
+    
+    parser.add_argument(
+        '--workers', 
+        type=int, 
+        help='Maximum number of parallel workers (default: API keys × 2, max 8)'
+    )
+    
+    # Parse arguments
     args = parser.parse_args()
     
     # Validate folder path
@@ -1236,7 +1452,7 @@ Features:
         console.print(f"[red]❌ Error: Path is not a directory: {folder_path}[/red]")
         sys.exit(1)
     
-    # Check for JSON files with bullet_points
+    # Check for JSON files with bullet_points structure
     json_files = []
     for json_file in folder_path.glob("*.json"):
         try:
@@ -1252,25 +1468,40 @@ Features:
     if not json_files:
         console.print(f"[red]❌ Error: No JSON files with bullet_points found in {folder_path}[/red]")
         console.print("[yellow]Expected: JSON files containing sections with bullet_points field[/yellow]")
+        console.print("[blue]Tip: Run the bullet point generator first to create compatible files[/blue]")
         sys.exit(1)
+    
+    # Show initial file discovery
+    if RICH_AVAILABLE:
+        console.print(f"[green]✓ Found {len(json_files)} compatible JSON files[/green]")
+    else:
+        print(f"✓ Found {len(json_files)} compatible JSON files")
     
     # Initialize generator and run
     try:
-        generator = ClusterMCQGenerator(
+        generator = PerFileClusterMCQGenerator(
             folder_path=str(folder_path),
             model_name=args.model,
-            cluster_size=getattr(args, 'cluster_size', 3),
             max_workers=args.workers
         )
         
         success = generator.run_generation()
+        
+        if success:
+            if RICH_AVAILABLE:
+                console.print("\n[bold green]🎉 Enhanced cluster MCQ generation completed successfully![/bold green]")
+            else:
+                print("\n🎉 Enhanced cluster MCQ generation completed successfully!")
+        
         sys.exit(0 if success else 1)
         
     except KeyboardInterrupt:
-        console.print("\n[yellow]⚠️ Process interrupted by user[/yellow]")
+        console.print("\n[yellow]⚠️ Process interrupted by user. All progress has been saved.[/yellow]")
+        console.print("[blue]💡 Resume by running the same command again.[/blue]")
         sys.exit(1)
     except Exception as e:
         console.print(f"[red]❌ Critical error: {e}[/red]")
+        console.print("[blue]💡 Check the logs in question_bank/logs/ for detailed error information.[/blue]")
         sys.exit(1)
 
 if __name__ == "__main__":
