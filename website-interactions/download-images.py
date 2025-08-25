@@ -87,11 +87,11 @@ def download_images_with_gui():
         os.makedirs(temp_dir)
     
     # Thread pool for concurrent downloads
-    executor = concurrent.futures.ThreadPoolExecutor(max_workers=10)  # Adjust workers as needed
+    executor = concurrent.futures.ThreadPoolExecutor(max_workers=15)  # Increased workers
     
     def fetch_image_in_thread(url, index):
         try:
-            response = requests.get(url, stream=True)
+            response = requests.get(url, stream=True, timeout=10)
             response.raise_for_status()
             
             # Save to temp file
@@ -103,17 +103,22 @@ def download_images_with_gui():
                 for chunk in response.iter_content(chunk_size=8192):
                     f.write(chunk)
             
-            # Open to get size
-            with Image.open(temp_path) as img:
-                width, height = img.size
-                if width < 100 or height < 100 or (width <= 64 and height <= 64):
-                    os.remove(temp_path)
-                    fetch_queue.put((index, None, "Discarded (small image)"))  # Signal discard
-                else:
-                    dimensions = f"{width}x{height}"
-                    fetch_queue.put((index, temp_path, dimensions))
+            # Verify it's a valid image and get size
+            try:
+                with Image.open(temp_path) as img:
+                    width, height = img.size
+                    if width < 100 or height < 100 or (width <= 64 and height <= 64):
+                        os.remove(temp_path)
+                        fetch_queue.put((index, None, "Discarded (small image)"))  # Signal discard
+                    else:
+                        dimensions = f"{width}x{height}"
+                        fetch_queue.put((index, temp_path, dimensions))
+            except Exception as img_error:
+                # Image is corrupted or invalid
+                os.remove(temp_path)
+                fetch_queue.put((index, None, f"Invalid image: {str(img_error)[:50]}"))
         except Exception as e:
-            fetch_queue.put((index, None, str(e)))
+            fetch_queue.put((index, None, f"Download error: {str(e)[:50]}"))
     
     def prefetch_images(start_index, count):
         for i in range(start_index, min(start_index + count, len(urls))):
@@ -142,18 +147,32 @@ def download_images_with_gui():
                     return False  # Not ready, but skipped
                 return True  # Ready for user on error
             else:
-                # Success
+                # Success - but verify image can be opened
                 dimensions = info
                 progress_label.config(text=f"Image {current_index + 1}/{len(urls)}: {urls[current_index]}")
                 dim_label.config(text=f"Dimensions: {dimensions}")
                 
-                # Load preview from temp file
-                img = Image.open(temp_path)
-                img.thumbnail((800, 500))
-                global current_photo
-                current_photo = ImageTk.PhotoImage(img)
-                image_label.config(image=current_photo)
-                return True  # Ready
+                try:
+                    # Load preview from temp file with error handling
+                    img = Image.open(temp_path)
+                    img.thumbnail((800, 500))
+                    global current_photo
+                    current_photo = ImageTk.PhotoImage(img)
+                    image_label.config(image=current_photo)
+                    return True  # Ready
+                except Exception as e:
+                    # Image file is corrupted or invalid
+                    print(f"Error opening image {temp_path}: {e}")
+                    progress_label.config(text=f"Image {current_index + 1}/{len(urls)}: {urls[current_index]} (Corrupted image)")
+                    dim_label.config(text="Dimensions: N/A")
+                    image_label.config(image=None)
+                    # Clean up the bad file
+                    if os.path.exists(temp_path):
+                        os.remove(temp_path)
+                    del preloaded[current_index]
+                    current_index += 1
+                    show_next_image()
+                    return False  # Not ready, but skipped
         
         return updated
     
@@ -177,7 +196,7 @@ def download_images_with_gui():
         image_label.config(image=None)
         
         # Prefetch more if needed
-        prefetch_images(current_index, 10)  # Fetch current and next 9
+        prefetch_images(current_index, 25)  # Fetch current and next 24 (increased buffer)
         
         # Start checking queue
         check_queue()
@@ -206,7 +225,7 @@ def download_images_with_gui():
         show_next_image()
     
     # Initial prefetch
-    prefetch_images(0, 10)  # Start with first 10
+    prefetch_images(0, 25)  # Start with first 25 (increased buffer)
     
     # Start with first image
     show_next_image()
