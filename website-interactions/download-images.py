@@ -98,6 +98,14 @@ def download_images_with_gui():
                     data['final_path']
                 ])
     
+    def count_remaining():
+        """Count how many images are still pending"""
+        return sum(1 for data in urls_data if data['user_decision'] == 'pending')
+    
+    def count_processed():
+        """Count how many images have been processed (accepted, rejected, or auto-skipped)"""
+        return sum(1 for data in urls_data if data['user_decision'] != 'pending')
+    
     # Find starting index (first pending item)
     start_index = 0
     for i, data in enumerate(urls_data):
@@ -108,13 +116,22 @@ def download_images_with_gui():
         print("All images have been processed!")
         return
     
-    print(f"Resuming from image {start_index + 1}")
+    remaining_count = count_remaining()
+    processed_count = count_processed()
+    print(f"Resuming from image {start_index + 1} - {remaining_count} images remaining, {processed_count} already processed")
     
     # Set up GUI
     root = tk.Tk()
     root.title("Image Downloader with Progress Tracking")
-    root.geometry("800x750")
+    root.geometry("800x780")  # Slightly taller to accommodate counter
     root.resizable(False, False)
+    
+    # Counter label (prominent display)
+    counter_frame = tk.Frame(root, bg="darkgreen", padx=15, pady=8)
+    counter_frame.pack(pady=5, fill=tk.X)
+    counter_label = tk.Label(counter_frame, text="", font=("Arial", 14, "bold"), 
+                           bg="darkgreen", fg="white")
+    counter_label.pack()
     
     # Progress label (for URL and index)
     progress_label = tk.Label(root, text="Loading...")
@@ -162,6 +179,16 @@ def download_images_with_gui():
     current_photo = None
     fetch_queue = queue.Queue()
     preloaded = {}
+    
+    def update_counter():
+        """Update the counter display"""
+        remaining = count_remaining()
+        total = len(urls_data)
+        processed = count_processed()
+        percentage = (processed / total * 100) if total > 0 else 0
+        
+        counter_text = f"{remaining} images remaining out of {total} total ({processed} processed - {percentage:.1f}% complete)"
+        counter_label.config(text=counter_text)
     
     # Thread pool for concurrent downloads
     executor = concurrent.futures.ThreadPoolExecutor(max_workers=15)
@@ -254,6 +281,7 @@ def download_images_with_gui():
                 if "Discarded" in info or "Error" in info or "Invalid" in info:
                     del preloaded[current_index]
                     urls_data[current_index]['user_decision'] = 'auto_skipped'
+                    update_counter()  # Update counter when auto-skipping
                     current_index = find_next_pending(current_index + 1)
                     show_next_image()
                     return False
@@ -284,6 +312,7 @@ def download_images_with_gui():
                     del preloaded[current_index]
                     urls_data[current_index]['user_decision'] = 'auto_skipped'
                     urls_data[current_index]['temp_downloaded'] = 'corrupted'
+                    update_counter()  # Update counter when auto-skipping
                     current_index = find_next_pending(current_index + 1)
                     show_next_image()
                     return False
@@ -307,6 +336,7 @@ def download_images_with_gui():
         nonlocal current_index
         if current_index >= len(urls_data):
             print("All images reviewed.")
+            counter_label.config(text="🎉 All images completed! 🎉")
             save_progress()
             root.quit()
             return
@@ -316,6 +346,7 @@ def download_images_with_gui():
         status_label.config(text=f"Status: {url_data['temp_downloaded']} | Decision: {url_data['user_decision']}")
         dim_label.config(text="Dimensions: Fetching...")
         image_label.config(image=None)
+        update_counter()  # Update counter each time we show a new image
         
         # Check if already processed
         if url_data['user_decision'] != 'pending':
@@ -360,6 +391,9 @@ def download_images_with_gui():
             
             del preloaded[current_index]
         
+        # Update counter after decision
+        update_counter()
+        
         # Save progress periodically (every 10 decisions)
         if (current_index + 1) % 10 == 0:
             save_progress()
@@ -380,6 +414,9 @@ def download_images_with_gui():
         root.destroy()
     
     root.protocol("WM_DELETE_WINDOW", on_closing)
+    
+    # Initial counter update
+    update_counter()
     
     # Initial prefetch
     prefetch_images(current_index, 25)
