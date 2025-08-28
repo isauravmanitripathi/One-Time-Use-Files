@@ -157,7 +157,7 @@ def analyze_book_structure(markdown_files: List[Path]) -> List[Dict]:
     return chapters_data
 
 def get_user_input():
-    """Get book title and author from user."""
+    """Get book title, author, and page size from user."""
     print("\n" + "="*50)
     print("FRONT MATTER GENERATOR")
     print("="*50)
@@ -172,6 +172,33 @@ def get_user_input():
         print("Author name is required!")
         sys.exit(1)
     
+    # Page size selection
+    print("\nChoose page size for your PDF:")
+    print("   1. A4 Standard (21 x 29.7 cm) - Most common")
+    print("   2. Publisher Format 1 (16 x 24 cm) - Small book format")
+    print("   3. Publisher Format 2 (26 x 27 cm) - Large book format")
+    print("   4. US Letter (21.6 x 27.9 cm) - US standard")
+    print("   5. Crown Quarto (18.9 x 24.6 cm) - Classic book size")
+    print("   6. Royal Octavo (15.6 x 23.4 cm) - Compact book")
+    
+    page_sizes = {
+        '1': ('a4paper', 21, 29.7, 'A4 Standard'),
+        '2': ('custom', 16, 24, 'Publisher Format 1'),
+        '3': ('custom', 26, 27, 'Publisher Format 2'),
+        '4': ('letterpaper', 21.6, 27.9, 'US Letter'),
+        '5': ('custom', 18.9, 24.6, 'Crown Quarto'),
+        '6': ('custom', 15.6, 23.4, 'Royal Octavo')
+    }
+    
+    while True:
+        size_choice = input("Select page size (1-6): ").strip()
+        if size_choice in page_sizes:
+            page_config = page_sizes[size_choice]
+            break
+        print("Please enter a number from 1 to 6.")
+    
+    print(f"Selected: {page_config[3]} ({page_config[1]} x {page_config[2]} cm)")
+    
     # Check for API key
     api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
@@ -180,7 +207,7 @@ def get_user_input():
         sys.exit(1)
     
     print("API key loaded from .env file")
-    return book_title, author_name, api_key
+    return book_title, author_name, api_key, page_config
 
 def create_enhanced_claude_prompt(book_data: Dict) -> str:
     """Create enhanced prompt for detailed front matter generation."""
@@ -343,10 +370,12 @@ def convert_markdown_to_latex(text: str) -> str:
     
     return text
 
-def create_front_matter_pdf(front_matter: Dict, book_title: str, author_name: str, output_dir: Path):
-    """Create PDF with just the front matter content."""
+def create_front_matter_pdf(front_matter: Dict, book_title: str, author_name: str, output_dir: Path, page_config: tuple):
+    """Create PDF with just the front matter content in selected page size."""
     safe_title = re.sub(r'[^\w\s-]', '', book_title.lower())
     safe_title = re.sub(r'[-\s]+', '_', safe_title)
+    
+    paper_size, page_width, page_height, size_name = page_config
     
     # Convert all content to LaTeX
     quote_text = convert_markdown_to_latex(front_matter['quote']['text'])
@@ -358,7 +387,9 @@ def create_front_matter_pdf(front_matter: Dict, book_title: str, author_name: st
     clean_title = escape_for_latex(book_title)
     clean_author = escape_for_latex(author_name)
     
-    latex_doc = f'''\\documentclass[12pt,a4paper]{{article}}
+    # Create LaTeX document with custom page size
+    if paper_size == 'custom':
+        latex_doc = f'''\\documentclass[12pt]{{article}}
 \\usepackage[T1]{{fontenc}}
 \\usepackage[utf8]{{inputenc}}
 \\usepackage[english]{{babel}}
@@ -370,10 +401,33 @@ def create_front_matter_pdf(front_matter: Dict, book_title: str, author_name: st
 \\usepackage{{lmodern}}
 \\usepackage{{setspace}}
 
+% Custom page geometry for {size_name}
 \\geometry{{
-    top=3cm, bottom=3cm,
-    left=3cm, right=3cm
-}}
+    paperwidth={page_width}cm,
+    paperheight={page_height}cm,
+    top=2cm, bottom=2cm,
+    left=2.5cm, right=2cm
+}}'''
+    else:
+        latex_doc = f'''\\documentclass[12pt,{paper_size}]{{article}}
+\\usepackage[T1]{{fontenc}}
+\\usepackage[utf8]{{inputenc}}
+\\usepackage[english]{{babel}}
+\\usepackage{{geometry}}
+\\usepackage{{fancyhdr}}
+\\usepackage{{titlesec}}
+\\usepackage{{hyperref}}
+\\usepackage{{parskip}}
+\\usepackage{{lmodern}}
+\\usepackage{{setspace}}
+
+% Page geometry for {size_name}
+\\geometry{{
+    top=2.5cm, bottom=2.5cm,
+    left=3cm, right=2.5cm
+}}'''
+
+    latex_doc += f'''
 
 \\setstretch{{1.2}}
 \\setlength{{\\parskip}}{{0.6em}}
@@ -426,8 +480,8 @@ def create_front_matter_pdf(front_matter: Dict, book_title: str, author_name: st
 \\end{{document}}'''
 
     # Save and compile
-    tex_file = output_dir / f"{safe_title}_front_matter.tex"
-    pdf_file = output_dir / f"{safe_title}_front_matter.pdf"
+    tex_file = output_dir / f"{safe_title}_front_matter_{size_name.lower().replace(' ', '_')}.tex"
+    pdf_file = output_dir / f"{safe_title}_front_matter_{size_name.lower().replace(' ', '_')}.pdf"
     
     with open(tex_file, 'w', encoding='utf-8', errors='replace') as f:
         f.write(latex_doc)
@@ -518,7 +572,7 @@ def main():
     print(f"   Total Headings: {total_headings}")
     
     # Get user input
-    book_title, author_name, api_key = get_user_input()
+    book_title, author_name, api_key, page_config = get_user_input()
     
     # Prepare data for Claude
     book_data = {
@@ -547,7 +601,7 @@ def main():
     
     # Create PDF with front matter only
     print(f"\nCreating front matter PDF...")
-    success, tex_file, pdf_file = create_front_matter_pdf(front_matter, book_title, author_name, folder_path)
+    success, tex_file, pdf_file = create_front_matter_pdf(front_matter, book_title, author_name, folder_path, page_config)
     
     if success:
         file_size_kb = pdf_file.stat().st_size / 1024
@@ -557,6 +611,7 @@ def main():
         print(f"   JSON Response: {json_file}")
         print(f"   PDF (3 pages): {pdf_file} ({file_size_kb:.0f} KB)")
         print(f"   LaTeX Source: {tex_file}")
+        print(f"   Page Size: {page_config[3]} ({page_config[1]} x {page_config[2]} cm)")
         
         print(f"\nPDF Contents:")
         print(f"   Page 1: Quote")
