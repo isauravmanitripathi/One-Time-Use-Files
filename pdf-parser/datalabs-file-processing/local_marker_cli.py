@@ -62,7 +62,7 @@ class JobInfo:
     failure_stage: Optional[str] = None  # 'upload', 'processing', 'download'
 
 class EnhancedMarkerParser:
-    def __init__(self, server_url="https://gvoedgl2w4aah2-8888.proxy.runpod.net/"):
+    def __init__(self, server_url="https://h0n0vnpk5d1zn2-8888.proxy.runpod.net/"):
         self.server_url = server_url.rstrip('/')
         self.session_id = None
         self.active_jobs = {}  # job_id -> JobInfo
@@ -1512,7 +1512,7 @@ Enhanced Examples:
     mode_group.add_argument('--interactive', action='store_true', help='Interactive processing (folder mode)')
     
     # Server and format options
-    parser.add_argument('--server', default='https://gvoedgl2w4aah2-8888.proxy.runpod.net/',
+    parser.add_argument('--server', default='https://h0n0vnpk5d1zn2-8888.proxy.runpod.net/',
                        help='Enhanced Marker server URL')
     parser.add_argument('--format', default='markdown', choices=['markdown', 'json'],
                        help='Output format: markdown or json')
