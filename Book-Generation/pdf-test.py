@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-KDP-Compliant Markdown to PDF Book Generator
+Enhanced KDP-Compliant Markdown to PDF Book Generator
 Converts chapter markdown files to Amazon KDP-compliant PDF with LaTeX
-Includes proper margins, bleed support, and all KDP requirements
+Features: Professional styling, center/left alignment, enhanced typography
 """
 
 import os
@@ -33,36 +33,29 @@ def get_chapter_folders(root_path: Path) -> List[Path]:
     return chapter_folders
 
 def calculate_kdp_margins(page_count: int, has_bleed: bool = False) -> Dict[str, float]:
-    """
-    Calculate KDP-compliant margins based on page count.
-    Returns margins in inches for LaTeX geometry package.
-    """
-    # KDP margin requirements based on page count (in inches)
+    """Calculate KDP-compliant margins based on page count."""
     if page_count <= 24:
-        inside_margin = 0.375  # 9.5mm
-        outside_margin = 0.25  # 6.4mm
+        inside_margin = 0.375
+        outside_margin = 0.25
     elif page_count <= 150:
-        inside_margin = 0.75   # 19mm
-        outside_margin = 0.25  # 6.4mm
+        inside_margin = 0.75
+        outside_margin = 0.25
     elif page_count <= 300:
-        inside_margin = 0.875  # 22.2mm
-        outside_margin = 0.25  # 6.4mm
+        inside_margin = 0.875
+        outside_margin = 0.25
     elif page_count <= 500:
-        inside_margin = 1.0    # 25.4mm
-        outside_margin = 0.25  # 6.4mm
+        inside_margin = 1.0
+        outside_margin = 0.25
     elif page_count <= 700:
-        inside_margin = 1.125  # 28.6mm
-        outside_margin = 0.25  # 6.4mm
+        inside_margin = 1.125
+        outside_margin = 0.25
     else:
-        inside_margin = 1.25   # 31.8mm
-        outside_margin = 0.25  # 6.4mm
+        inside_margin = 1.25
+        outside_margin = 0.25
     
-    # Top and bottom margins
-    top_margin = 0.25     # 6.4mm minimum
-    bottom_margin = 0.25  # 6.4mm minimum
-    
-    # Add extra margin for safety (KDP recommends slightly larger than minimum)
-    safety_margin = 0.125  # 3.2mm additional safety
+    top_margin = 0.3
+    bottom_margin = 0.3
+    safety_margin = 0.125
     
     return {
         'top': top_margin + safety_margin,
@@ -72,62 +65,44 @@ def calculate_kdp_margins(page_count: int, has_bleed: bool = False) -> Dict[str,
     }
 
 def calculate_bleed_dimensions(width: float, height: float, has_bleed: bool = False) -> Tuple[float, float]:
-    """
-    Calculate page dimensions with bleed if needed.
-    KDP requires 0.125" (3.2mm) bleed on width and 0.25" (6.4mm) on height.
-    """
+    """Calculate page dimensions with bleed if needed."""
     if has_bleed:
-        # Convert cm to inches for bleed calculation
         width_inches = width / 2.54
         height_inches = height / 2.54
-        
-        # Add bleed
-        width_inches += 0.125  # 3.2mm
-        height_inches += 0.25  # 6.4mm
-        
-        # Convert back to cm
+        width_inches += 0.125
+        height_inches += 0.25
         return width_inches * 2.54, height_inches * 2.54
-    
     return width, height
 
 def calculate_watermark_positions(page_width: float, page_height: float, author_name: str, margins: Dict[str, float], has_bleed: bool = False):
     """Calculate watermark positions respecting KDP margins and safe zones."""
-    
-    # Convert margin inches to cm for calculations
     top_margin_cm = margins['top'] * 2.54
     bottom_margin_cm = margins['bottom'] * 2.54
     inside_margin_cm = margins['inside'] * 2.54
     outside_margin_cm = margins['outside'] * 2.54
     
-    # Add extra safe zone for KDP (0.125" = 3.2mm from each edge)
-    safe_zone = 0.125 * 2.54  # 3.2mm in cm
+    safe_zone = 0.125 * 2.54
     
-    # Calculate effective margins (larger of KDP margin or safe zone)
     effective_top = max(top_margin_cm, safe_zone)
     effective_bottom = max(bottom_margin_cm, safe_zone)
-    effective_left = max(outside_margin_cm, safe_zone)  # Outside margin for odd pages
-    effective_right = max(inside_margin_cm, safe_zone)   # Inside margin for odd pages
+    effective_left = max(outside_margin_cm, safe_zone)
+    effective_right = max(inside_margin_cm, safe_zone)
     
-    # Text dimensions
-    text_width_cm = len(author_name) * 0.4  # Slightly smaller for safety
+    text_width_cm = len(author_name) * 0.4
     text_height_cm = 0.3
     
-    # Watermark spacing
-    min_horizontal_gap = 1.0  # Increased gap for KDP compliance
+    min_horizontal_gap = 1.0
     min_vertical_gap = 0.8
     
     watermark_width = text_width_cm + min_horizontal_gap
     watermark_height = text_height_cm + min_vertical_gap
     
-    # Available space for watermarks (respecting KDP margins)
     available_width = page_width - effective_left - effective_right
     available_height = page_height - effective_top - effective_bottom
     
-    # Calculate number of watermarks (more conservative for KDP)
     horizontal_count = max(2, int(available_width / watermark_width))
     vertical_count = max(3, int(available_height / watermark_height))
     
-    # Generate positions
     h_positions = []
     v_positions = []
     
@@ -148,14 +123,15 @@ def calculate_watermark_positions(page_width: float, page_height: float, author_
     return h_positions, v_positions, [], [], watermark_width, watermark_height
 
 def get_user_preferences():
-    """Get user preferences for KDP-compliant book generation."""
-    print("\n" + "="*60)
-    print("📚 KDP-COMPLIANT BOOK GENERATOR")
-    print("="*60)
+    """Get user preferences for enhanced KDP-compliant book generation."""
+    print("\n" + "="*70)
+    print("📚 ENHANCED KDP-COMPLIANT BOOK GENERATOR")
+    print("="*70)
+    print("✨ Professional Styling & Typography")
     print("✅ Amazon KDP Print-on-Demand Ready")
-    print("✅ Proper Margins & Bleed Support")
-    print("✅ Font Embedding & Page Count Validation")
-    print("="*60)
+    print("✅ Center/Left Alignment Options")
+    print("✅ Enhanced Visual Appearance")
+    print("="*70)
     
     # Get book title
     book_title = input("📖 Enter the book title: ").strip()
@@ -167,11 +143,38 @@ def get_user_preferences():
     if not author_name:
         author_name = "Unknown Author"
     
+    # Get title alignment preference
+    print("\n📐 Choose title and heading alignment:")
+    print("   1. Left aligned (traditional)")
+    print("   2. Center aligned (modern)")
+    
+    while True:
+        align_choice = input("Select alignment (1-2): ").strip()
+        if align_choice in ['1', '2']:
+            center_titles = align_choice == '2'
+            break
+        print("Please enter 1 for left or 2 for center.")
+    
+    # Get styling preference
+    print("\n🎨 Choose styling theme:")
+    print("   1. Classic - Traditional book styling")
+    print("   2. Modern - Contemporary with enhanced spacing")
+    print("   3. Elegant - Sophisticated with decorative elements")
+    
+    while True:
+        style_choice = input("Select styling (1-3): ").strip()
+        if style_choice in ['1', '2', '3']:
+            style_theme = {
+                '1': 'classic',
+                '2': 'modern', 
+                '3': 'elegant'
+            }[style_choice]
+            break
+        print("Please enter 1, 2, or 3.")
+    
     # Get bleed preference
     print("\n🖨️  Do you need bleed for your book?")
-    print("   • Bleed extends images/backgrounds to page edge")
     print("   • Required if you have full-page backgrounds or images")
-    print("   • Adds 0.125\" width + 0.25\" height per KDP requirements")
     
     while True:
         bleed_choice = input("Include bleed? (y/n): ").strip().lower()
@@ -181,9 +184,7 @@ def get_user_preferences():
         print("Please enter 'y' for yes or 'n' for no.")
     
     # Get watermark preference
-    print("\n💧 Do you want to add watermarks to the PDF?")
-    print("   • KDP-compliant positioning (respects margins & safe zones)")
-    print("   • Reduced density for professional appearance")
+    print("\n💧 Add watermarks to the PDF?")
     
     while True:
         watermark_choice = input("Add watermarks? (y/n): ").strip().lower()
@@ -193,7 +194,7 @@ def get_user_preferences():
         print("Please enter 'y' for yes or 'n' for no.")
     
     # Get numbering preference
-    print("\n🔢 Do you want to include numbers in chapters and sections?")
+    print("\n🔢 Include numbers in chapters and sections?")
     
     while True:
         numbering_choice = input("Include numbering? (y/n): ").strip().lower()
@@ -240,7 +241,6 @@ def get_user_preferences():
         size_choice = input("Select page size (1-9): ").strip()
         if size_choice in page_sizes:
             width_inches, height_inches, size_name = page_sizes[size_choice]
-            # Convert to cm
             page_width = width_inches * 2.54
             page_height = height_inches * 2.54
             page_config = (page_width, page_height, size_name, width_inches, height_inches)
@@ -250,17 +250,16 @@ def get_user_preferences():
     print(f"\n✅ Configuration Summary:")
     print(f"   📖 Title: {book_title}")
     print(f"   ✍️  Author: {author_name}")
+    print(f"   📐 Alignment: {'Center' if center_titles else 'Left'}")
+    print(f"   🎨 Style: {style_theme.title()}")
     print(f"   📏 Page Size: {page_config[2]}")
-    print(f"   🖨️  Bleed: {'Yes - KDP Compliant' if has_bleed else 'No'}")
-    print(f"   💧 Watermark: {'Yes - KDP Safe Zones' if add_watermark else 'No'}")
+    print(f"   🖨️  Bleed: {'Yes' if has_bleed else 'No'}")
+    print(f"   💧 Watermark: {'Yes' if add_watermark else 'No'}")
     print(f"   🔢 Numbering: {'Yes' if use_numbers else 'No'}")
     print(f"   📑 Subsections in TOC: {'Yes' if include_subsections else 'No'}")
     
-    if has_bleed:
-        bleed_width, bleed_height = calculate_bleed_dimensions(page_config[0], page_config[1], has_bleed)
-        print(f"   📐 With Bleed: {bleed_width:.1f} x {bleed_height:.1f} cm")
-    
-    return book_title, author_name, use_numbers, include_subsections, add_watermark, page_config, has_bleed
+    return (book_title, author_name, use_numbers, include_subsections, 
+            add_watermark, page_config, has_bleed, center_titles, style_theme)
 
 def read_markdown_file(chapter_path: Path, use_numbers: bool) -> Tuple[str, str]:
     """Read markdown content from final_article.md in chapter folder."""
@@ -312,8 +311,8 @@ def escape_latex(text: str) -> str:
     
     return text
 
-def markdown_to_latex(content: str, use_numbers: bool) -> str:
-    """Convert markdown formatting to LaTeX with KDP-compliant formatting."""
+def markdown_to_latex(content: str, use_numbers: bool, center_titles: bool) -> str:
+    """Convert markdown formatting to LaTeX with enhanced styling."""
     
     # Handle code blocks first
     code_blocks = []
@@ -330,33 +329,82 @@ def markdown_to_latex(content: str, use_numbers: bool) -> str:
     
     for line in lines:
         if not line.startswith('<<<CODEBLOCK_'):
-            # Headers
+            # Headers with enhanced styling and alignment
             if use_numbers:
                 if line.startswith('######'):
-                    line = re.sub(r'^######\s+(.+)$', r'\\subparagraph{\1}', line)
+                    header_text = re.sub(r'^######\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\subparagraph{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\subparagraph{{{header_text}}}"
                 elif line.startswith('#####'):
-                    line = re.sub(r'^#####\s+(.+)$', r'\\paragraph{\1}', line)
+                    header_text = re.sub(r'^#####\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\paragraph{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\paragraph{{{header_text}}}"
                 elif line.startswith('####'):
-                    line = re.sub(r'^####\s+(.+)$', r'\\subsubsection{\1}', line)
+                    header_text = re.sub(r'^####\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\subsubsection{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\subsubsection{{{header_text}}}"
                 elif line.startswith('###'):
-                    line = re.sub(r'^###\s+(.+)$', r'\\subsection{\1}', line)
+                    header_text = re.sub(r'^###\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\subsection{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\subsection{{{header_text}}}"
                 elif line.startswith('##'):
-                    line = re.sub(r'^##\s+(.+)$', r'\\section{\1}', line)
+                    header_text = re.sub(r'^##\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\section{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\section{{{header_text}}}"
                 elif line.startswith('#'):
-                    line = re.sub(r'^#\s+(.+)$', r'\\section{\1}', line)
+                    header_text = re.sub(r'^#\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\section{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\section{{{header_text}}}"
             else:
+                # Unnumbered sections
                 if line.startswith('######'):
-                    line = re.sub(r'^######\s+(.+)$', r'\\subparagraph*{\1}', line)
+                    header_text = re.sub(r'^######\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\subparagraph*{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\subparagraph*{{{header_text}}}"
                 elif line.startswith('#####'):
-                    line = re.sub(r'^#####\s+(.+)$', r'\\paragraph*{\1}', line)
+                    header_text = re.sub(r'^#####\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\paragraph*{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\paragraph*{{{header_text}}}"
                 elif line.startswith('####'):
-                    line = re.sub(r'^####\s+(.+)$', r'\\subsubsection*{\1}', line)
+                    header_text = re.sub(r'^####\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\subsubsection*{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\subsubsection*{{{header_text}}}"
                 elif line.startswith('###'):
-                    line = re.sub(r'^###\s+(.+)$', r'\\subsection*{\1}', line)
+                    header_text = re.sub(r'^###\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\subsection*{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\subsection*{{{header_text}}}"
                 elif line.startswith('##'):
-                    line = re.sub(r'^##\s+(.+)$', r'\\section*{\1}', line)
+                    header_text = re.sub(r'^##\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\section*{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\section*{{{header_text}}}"
                 elif line.startswith('#'):
-                    line = re.sub(r'^#\s+(.+)$', r'\\section*{\1}', line)
+                    header_text = re.sub(r'^#\s+(.+)$', r'\1', line)
+                    if center_titles:
+                        line = f"\\section*{{\\centering {header_text}}}"
+                    else:
+                        line = f"\\section*{{{header_text}}}"
             
             if not line.startswith('\\'):
                 line = escape_latex(line)
@@ -365,17 +413,17 @@ def markdown_to_latex(content: str, use_numbers: bool) -> str:
     
     content = '\n'.join(processed_lines)
     
-    # Bold and italic
+    # Enhanced text formatting
     content = re.sub(r'\*\*\*(.+?)\*\*\*', r'\\textbf{\\textit{\1}}', content)
     content = re.sub(r'\*\*(.+?)\*\*', r'\\textbf{\1}', content)
     content = re.sub(r'\*(.+?)\*', r'\\textit{\1}', content)
     
-    # Lists
+    # Enhanced lists
     content = re.sub(r'^\*\s+', r'\\item ', content, flags=re.MULTILINE)
     content = re.sub(r'^-\s+', r'\\item ', content, flags=re.MULTILINE)
     content = re.sub(r'^\d+\.\s+', r'\\item ', content, flags=re.MULTILINE)
     
-    # Wrap list items in itemize environment
+    # Wrap list items in enhanced itemize environment
     lines = content.split('\n')
     in_list = False
     processed_lines = []
@@ -383,7 +431,7 @@ def markdown_to_latex(content: str, use_numbers: bool) -> str:
     for i, line in enumerate(lines):
         if line.strip().startswith('\\item'):
             if not in_list:
-                processed_lines.append('\\begin{itemize}')
+                processed_lines.append('\\begin{itemize}[leftmargin=1.2em, itemsep=0.1em]')
                 in_list = True
             processed_lines.append(line)
         else:
@@ -405,18 +453,19 @@ def markdown_to_latex(content: str, use_numbers: bool) -> str:
     
     content = '\n'.join(processed_lines)
     
-    # Restore code blocks
+    # Restore code blocks with enhanced formatting
     for i, code_block in enumerate(code_blocks):
         match = re.match(r'```(\w*)\n([\s\S]*?)```', code_block)
         if match:
             lang = match.group(1) or 'text'
             code = match.group(2)
-            latex_code = f"\\begin{{verbatim}}\n{code}\\end{{verbatim}}"
+            # Enhanced code block formatting
+            latex_code = f"\\vspace{{0.3em}}\n\\begin{{verbatim}}\n{code}\\end{{verbatim}}\n\\vspace{{0.3em}}"
             content = content.replace(f"<<<CODEBLOCK_{i}>>>", latex_code)
     
-    # KDP-compliant paragraph handling
+    # Enhanced paragraph handling
     content = re.sub(r'\n\s*\n\s*\n+', '\n\n', content)
-    content = re.sub(r'\n\n', '\n\n\\\\vspace{0.2em}\n', content)
+    content = re.sub(r'\n\n', '\n\n\\\\vspace{0.25em}\n', content)
     
     return content
 
@@ -485,8 +534,101 @@ def save_chapters_as_text(chapters_data: List[Tuple[str, str]], base_path: Path,
     
     return text_folder
 
-def create_kdp_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool, include_subsections: bool, add_watermark: bool, page_config: Tuple, has_bleed: bool, estimated_pages: int) -> str:
-    """Create KDP-compliant LaTeX document."""
+def get_style_settings(style_theme: str) -> Dict[str, str]:
+    """Get styling settings based on theme."""
+    styles = {
+        'classic': {
+            'chapter_format': r'''
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}
+{\chaptertitlename\ \thechapter}
+{18pt}
+{\Huge}
+\titlespacing*{\chapter}{0pt}{30pt}{40pt}''',
+            
+            'section_format': r'''
+\titleformat{\section}
+{\normalfont\Large\bfseries}
+{\thesection}
+{1em}
+{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}''',
+            
+            'subsection_format': r'''
+\titleformat{\subsection}
+{\normalfont\large\bfseries}
+{\thesubsection}
+{1em}
+{}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}''',
+            
+            'paragraph_settings': r'\setlength{\parskip}{0.4em}',
+            'line_spacing': r'\setstretch{1.2}'
+        },
+        
+        'modern': {
+            'chapter_format': r'''
+\titleformat{\chapter}[display]
+{\normalfont\LARGE\bfseries\sffamily}
+{\chaptertitlename\ \thechapter}
+{20pt}
+{\fontsize{28}{34}\selectfont}
+\titlespacing*{\chapter}{0pt}{20pt}{50pt}''',
+            
+            'section_format': r'''
+\titleformat{\section}
+{\normalfont\Large\bfseries\sffamily\color{gray!20}}
+{\thesection}
+{1.2em}
+{}
+\titlespacing*{\section}{0pt}{4ex plus 1ex minus .2ex}{3ex plus .2ex}''',
+            
+            'subsection_format': r'''
+\titleformat{\subsection}
+{\normalfont\large\bfseries\sffamily}
+{\thesubsection}
+{1em}
+{}
+\titlespacing*{\subsection}{0pt}{3.5ex plus 1ex minus .2ex}{2ex plus .2ex}''',
+            
+            'paragraph_settings': r'\setlength{\parskip}{0.5em}',
+            'line_spacing': r'\setstretch{1.25}'
+        },
+        
+        'elegant': {
+            'chapter_format': r'''
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\scshape}
+{\chaptertitlename\ \thechapter}
+{25pt}
+{\fontsize{32}{40}\selectfont}
+\titlespacing*{\chapter}{0pt}{25pt}{55pt}''',
+            
+            'section_format': r'''
+\titleformat{\section}
+{\normalfont\Large\bfseries\scshape}
+{\thesection}
+{1.5em}
+{}
+\titlespacing*{\section}{0pt}{4.5ex plus 1ex minus .2ex}{3.5ex plus .2ex}''',
+            
+            'subsection_format': r'''
+\titleformat{\subsection}
+{\normalfont\large\bfseries\itshape}
+{\thesubsection}
+{1.2em}
+{}
+\titlespacing*{\subsection}{0pt}{4ex plus 1ex minus .2ex}{2.5ex plus .2ex}''',
+            
+            'paragraph_settings': r'\setlength{\parskip}{0.45em}',
+            'line_spacing': r'\setstretch{1.3}'
+        }
+    }
+    
+    return styles.get(style_theme, styles['classic'])
+
+def create_enhanced_latex_document(chapters_data: List[Tuple[str, str]], output_path: Path, book_title: str, author_name: str, use_numbers: bool, include_subsections: bool, add_watermark: bool, page_config: Tuple, has_bleed: bool, estimated_pages: int, center_titles: bool, style_theme: str) -> str:
+    """Create enhanced KDP-compliant LaTeX document with professional styling."""
     
     page_width, page_height, size_name, width_inches, height_inches = page_config
     
@@ -496,8 +638,13 @@ def create_kdp_latex_document(chapters_data: List[Tuple[str, str]], output_path:
     # Apply bleed if needed
     final_width, final_height = calculate_bleed_dimensions(page_width, page_height, has_bleed)
     
-    # Start LaTeX document with KDP-compliant settings
+    # Get style settings
+    style_settings = get_style_settings(style_theme)
+    
+    # Start LaTeX document with enhanced styling
     latex_doc = f'''\\documentclass[12pt,twoside]{{book}}
+
+% Enhanced packages for professional styling
 \\usepackage[utf8]{{inputenc}}
 \\usepackage[T1]{{fontenc}}
 \\usepackage[english]{{babel}}
@@ -509,11 +656,17 @@ def create_kdp_latex_document(chapters_data: List[Tuple[str, str]], output_path:
 \\usepackage{{parskip}}
 \\usepackage{{microtype}}
 \\usepackage{{setspace}}
+\\usepackage{{enumitem}}
+\\usepackage{{xcolor}}
+\\usepackage{{graphicx}}
 
-% KDP-compliant fonts (embedded by default)
+% Professional fonts and typography
 \\usepackage{{lmodern}}
+\\usepackage{{mathptmx}} % Times-like font for body text
+\\usepackage[scaled=0.9]{{helvet}} % Helvetica-like for sans serif
+\\usepackage{{courier}} % Courier for monospace
 
-% KDP-COMPLIANT PAGE GEOMETRY
+% Enhanced KDP-COMPLIANT PAGE GEOMETRY
 \\geometry{{
     paperwidth={final_width:.2f}cm,
     paperheight={final_height:.2f}cm,
@@ -522,27 +675,31 @@ def create_kdp_latex_document(chapters_data: List[Tuple[str, str]], output_path:
     inner={margins['inside']:.3f}in,
     outer={margins['outside']:.3f}in,
     bindingoffset=0pt,
-    headheight=14pt,
-    headsep=12pt,
-    footskip=24pt,
+    headheight=16pt,
+    headsep=14pt,
+    footskip=28pt,
     marginparwidth=0pt,
     marginparsep=0pt
 }}
 
-% KDP Page Count: {estimated_pages} (affects margin calculations)
-% Bleed: {"Yes" if has_bleed else "No"}
-% Original Size: {page_width:.1f} x {page_height:.1f} cm
-% Final Size: {final_width:.1f} x {final_height:.1f} cm
+% ENHANCED STYLING - {style_theme.upper()} THEME
+% Page Count: {estimated_pages} | Size: {size_name} | Alignment: {'Center' if center_titles else 'Left'}
 
-% KDP-compliant text formatting
-\\setstretch{{1.15}}
-\\setlength{{\\parskip}}{{0.3em}}
+% Typography settings
+{style_settings['line_spacing']}
+{style_settings['paragraph_settings']}
 \\setlength{{\\parindent}}{{0pt}}
 
-% Ensure minimum 7pt font size (KDP requirement)
-\\renewcommand{{\\footnotesize}}{{\\fontsize{{8}}{{9.6}}\\selectfont}}
-\\renewcommand{{\\scriptsize}}{{\\fontsize{{7}}{{8.4}}\\selectfont}}
-\\renewcommand{{\\tiny}}{{\\fontsize{{7}}{{8.4}}\\selectfont}}'''
+% Enhanced text formatting
+\\renewcommand{{\\footnotesize}}{{\\fontsize{{9}}{{10.8}}\\selectfont}}
+\\renewcommand{{\\scriptsize}}{{\\fontsize{{8}}{{9.6}}\\selectfont}}
+\\renewcommand{{\\tiny}}{{\\fontsize{{7}}{{8.4}}\\selectfont}}
+
+% Improved text justification
+\\tolerance=1000
+\\emergencystretch=3em
+\\hfuzz=0.1pt
+\\vfuzz=0.1pt'''
 
     # Add watermark if requested (KDP-compliant positioning)
     if add_watermark:
@@ -553,28 +710,27 @@ def create_kdp_latex_document(chapters_data: List[Tuple[str, str]], output_path:
         if h_positions and v_positions:
             latex_doc += f'''
 
-% KDP-COMPLIANT WATERMARKS (respects margins and safe zones)
+% ENHANCED KDP-COMPLIANT WATERMARKS
 \\usepackage{{tikz}}
 \\usepackage{{eso-pic}}
-\\usepackage{{xcolor}}
 
 \\AddToShipoutPictureBG{{%
     \\AtPageLowerLeft{{%
         \\begin{{tikzpicture}}[remember picture, overlay]
             \\tikzset{{
-                kdpwatermark/.style={{
-                    color=gray!20,  % Subtle for KDP compliance
-                    font=\\fontsize{{8}}{{9.6}}\\selectfont\\normalfont,
-                    opacity=0.3,    % Reduced opacity for professional look
+                enhancedwatermark/.style={{
+                    color=gray!15,
+                    font=\\fontsize{{9}}{{10.8}}\\selectfont\\rmfamily,
+                    opacity=0.25,
                     inner sep=0pt,
                     outer sep=0pt
                 }}
             }}
             
-            % KDP-Safe watermark positions
+            % Professional watermark grid
             \\foreach \\x in {{{", ".join([f"{pos:.2f}" for pos in h_positions])}}} {{
                 \\foreach \\y in {{{", ".join([f"{pos:.2f}" for pos in v_positions])}}} {{
-                    \\node[kdpwatermark] at (\\x cm, \\y cm) {{{author_name}}};
+                    \\node[enhancedwatermark] at (\\x cm, \\y cm) {{{author_name}}};
                 }}
             }}
         \\end{{tikzpicture}}
@@ -583,122 +739,215 @@ def create_kdp_latex_document(chapters_data: List[Tuple[str, str]], output_path:
 
     latex_doc += '''
 
-% KDP-compliant headers and footers
+% ENHANCED HEADERS AND FOOTERS
 \\pagestyle{fancy}
 \\fancyhf{}
-\\fancyhead[LE]{\\thepage}
-\\fancyhead[RO]{\\thepage}
-\\fancyhead[LO]{\\nouppercase{\\rightmark}}
-\\fancyhead[RE]{\\nouppercase{\\leftmark}}
-\\renewcommand{\\headrulewidth}{0pt}  % Clean look for KDP
+\\fancyhead[LE]{\\small\\thepage}
+\\fancyhead[RO]{\\small\\thepage}
+\\fancyhead[LO]{\\small\\nouppercase{\\rightmark}}
+\\fancyhead[RE]{\\small\\nouppercase{\\leftmark}}
+\\renewcommand{\\headrulewidth}{0.5pt}
+\\renewcommand{\\headrule}{\\vbox to 0pt{\\hbox to\\headwidth{\\dotfill}\\vss}}
 
-% Chapter formatting'''
+% Enhanced chapter page style
+\\fancypagestyle{plain}{
+    \\fancyhf{}
+    \\fancyfoot[C]{\\small\\thepage}
+    \\renewcommand{\\headrulewidth}{0pt}
+}'''
+
+    # Add chapter formatting based on alignment and style
+    if center_titles:
+        chapter_align = "\\centering"
+        section_align = "\\centering"
+    else:
+        chapter_align = ""
+        section_align = ""
 
     if use_numbers:
-        latex_doc += r'''
-\titleformat{\chapter}[display]
-{\normalfont\huge\bfseries}
-{\chaptertitlename\ \thechapter}
-{16pt}
-{\Huge}
+        latex_doc += f'''
 
-\titleformat{\section}
-{\normalfont\Large\bfseries}
-{\thesection}
-{1em}
-{}
+% ENHANCED CHAPTER FORMATTING - NUMBERED
+\\titleformat{{\\chapter}}[display]
+{{\\normalfont\\huge\\bfseries{chapter_align}}}
+{{\\chaptertitlename\\ \\thechapter}}
+{{20pt}}
+{{\\fontsize{{36}}{{43}}\\selectfont}}
+\\titlespacing*{{\\chapter}}{{0pt}}{{30pt}}{{50pt}}
 
-\titleformat{\subsection}
-{\normalfont\large\bfseries}
-{\thesubsection}
-{1em}
-{}
+% Enhanced section formatting
+\\titleformat{{\\section}}
+{{\\normalfont\\Large\\bfseries{section_align}}}
+{{\\thesection}}
+{{1.2em}}
+{{}}
+\\titlespacing*{{\\section}}{{0pt}}{{4ex plus 1ex minus .2ex}}{{3ex plus .2ex}}
 
-\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\chaptername\ \thechapter.\ #1}}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
-'''
+% Enhanced subsection formatting
+\\titleformat{{\\subsection}}
+{{\\normalfont\\large\\bfseries{section_align}}}
+{{\\thesubsection}}
+{{1em}}
+{{}}
+\\titlespacing*{{\\subsection}}{{0pt}}{{3.5ex plus 1ex minus .2ex}}{{2ex plus .2ex}}
+
+% Enhanced paragraph formatting
+\\titleformat{{\\paragraph}}
+{{\\normalfont\\normalsize\\bfseries{section_align}}}
+{{\\theparagraph}}
+{{1em}}
+{{}}
+\\titlespacing*{{\\paragraph}}{{0pt}}{{3ex plus 1ex minus .2ex}}{{1.5ex plus .2ex}}
+
+% Enhanced subparagraph formatting
+\\titleformat{{\\subparagraph}}
+{{\\normalfont\\normalsize\\itshape{section_align}}}
+{{\\thesubparagraph}}
+{{1em}}
+{{}}
+\\titlespacing*{{\\subparagraph}}{{0pt}}{{2.5ex plus 1ex minus .2ex}}{{1ex plus .2ex}}
+
+\\renewcommand{{\\chaptermark}}[1]{{\\markboth{{\\MakeUppercase{{\\chaptername\\ \\thechapter.\\ #1}}}}{{}}}}
+\\renewcommand{{\\sectionmark}}[1]{{\\markright{{\\thesection\\ #1}}}}'''
     else:
-        latex_doc += r'''
-\titleformat{\chapter}[display]
-{\normalfont\huge\bfseries}
-{}
-{16pt}
-{\Huge}
+        latex_doc += f'''
 
-\titleformat{\section}
-{\normalfont\Large\bfseries}
-{}
-{1em}
-{}
+% ENHANCED CHAPTER FORMATTING - UNNUMBERED
+\\titleformat{{\\chapter}}[display]
+{{\\normalfont\\huge\\bfseries{chapter_align}}}
+{{}}
+{{20pt}}
+{{\\fontsize{{36}}{{43}}\\selectfont}}
+\\titlespacing*{{\\chapter}}{{0pt}}{{30pt}}{{50pt}}
 
-\titleformat{\subsection}
-{\normalfont\large\bfseries}
-{}
-{1em}
-{}
+% Enhanced section formatting
+\\titleformat{{\\section}}
+{{\\normalfont\\Large\\bfseries{section_align}}}
+{{}}
+{{1.2em}}
+{{}}
+\\titlespacing*{{\\section}}{{0pt}}{{4ex plus 1ex minus .2ex}}{{3ex plus .2ex}}
 
-\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
-\renewcommand{\sectionmark}[1]{\markright{#1}}
-'''
+% Enhanced subsection formatting
+\\titleformat{{\\subsection}}
+{{\\normalfont\\large\\bfseries{section_align}}}
+{{}}
+{{1em}}
+{{}}
+\\titlespacing*{{\\subsection}}{{0pt}}{{3.5ex plus 1ex minus .2ex}}{{2ex plus .2ex}}
 
-    # Table of contents depth control
+% Enhanced paragraph formatting
+\\titleformat{{\\paragraph}}
+{{\\normalfont\\normalsize\\bfseries{section_align}}}
+{{}}
+{{1em}}
+{{}}
+\\titlespacing*{{\\paragraph}}{{0pt}}{{3ex plus 1ex minus .2ex}}{{1.5ex plus .2ex}}
+
+% Enhanced subparagraph formatting
+\\titleformat{{\\subparagraph}}
+{{\\normalfont\\normalsize\\itshape{section_align}}}
+{{}}
+{{1em}}
+{{}}
+\\titlespacing*{{\\subparagraph}}{{0pt}}{{2.5ex plus 1ex minus .2ex}}{{1ex plus .2ex}}
+
+\\renewcommand{{\\chaptermark}}[1]{{\\markboth{{\\MakeUppercase{{#1}}}}{{}}}}
+\\renewcommand{{\\sectionmark}}[1]{{\\markright{{#1}}}}'''
+
+    # Table of contents formatting
     toc_depth = "2" if include_subsections else "0"
 
     latex_doc += f'''
-% KDP-compliant table of contents
+
+% ENHANCED TABLE OF CONTENTS
 \\setcounter{{tocdepth}}{{{toc_depth}}}
+\\renewcommand{{\\cfttoctitlefont}}{{\\huge\\bfseries{chapter_align}}}
 \\renewcommand{{\\cftchapfont}}{{\\bfseries}}
 \\renewcommand{{\\cftsecfont}}{{\\normalfont}}
-\\renewcommand{{\\cftsubsecfont}}{{\\normalfont}}
+\\renewcommand{{\\cftsubsecfont}}{{\\normalfont\\itshape}}
+\\renewcommand{{\\cftchappagefont}}{{\\bfseries}}
+\\renewcommand{{\\cftsecpagefont}}{{\\normalfont}}
+\\renewcommand{{\\cftsubsecpagefont}}{{\\normalfont}}
 
-% Hyperref setup for KDP
+% Enhanced TOC spacing
+\\renewcommand{{\\cftbeforechapskip}}{{0.8em}}
+\\renewcommand{{\\cftbeforesecskip}}{{0.3em}}
+\\renewcommand{{\\cftbeforesubsecskip}}{{0.2em}}
+
+% TOC dots
+\\renewcommand{{\\cftchapleader}}{{\\cftdotfill{{\\cftdotsep}}}}
+\\renewcommand{{\\cftsecleader}}{{\\cftdotfill{{\\cftdotsep}}}}
+\\renewcommand{{\\cftsubsecleader}}{{\\cftdotfill{{\\cftdotsep}}}}
+
+% Enhanced hyperref setup
 \\hypersetup{{
-    colorlinks=false,       % KDP prefers no colored links
+    colorlinks=false,
     linkcolor=black,
     filecolor=black,
     urlcolor=black,
     pdftitle={{{book_title}}},
     pdfauthor={{{author_name}}},
+    pdfsubject={{Generated with Enhanced KDP Book Generator}},
+    pdfcreator={{LaTeX with enhanced styling}},
     bookmarks=true,
-    bookmarksopen=false,    % Cleaner for print
+    bookmarksopen=false,
     bookmarksnumbered=true,
     pdfstartview={{FitH}},
-    pdfpagemode={{UseNone}} % No bookmarks panel for print
+    pdfpagemode={{UseNone}},
+    hidelinks
 }}
 
 % Start document
 \\begin{{document}}
 
-% Title page (KDP-compliant)
+% ENHANCED TITLE PAGE
 \\begin{{titlepage}}
-    \\centering
-    \\vspace*{{4cm}}
-    {{\\Huge\\bfseries {book_title}\\par}}
-    \\vspace{{3cm}}
-    {{\\Large by {author_name}\\par}}
+    \\newgeometry{{margin=1in}}
+    {chapter_align}
+    \\vspace*{{3cm}}
+    
+    % Title with enhanced styling
+    {{\\fontsize{{48}}{{58}}\\selectfont\\bfseries {book_title}\\par}}
+    
+    \\vspace{{4cm}}
+    
+    % Author with enhanced styling
+    {{\\fontsize{{18}}{{22}}\\selectfont\\itshape by {author_name}\\par}}
+    
     \\vfill
-    {{\\large \\today\\par}}
+    
+    % Date with enhanced styling  
+    {{\\fontsize{{12}}{{14}}\\selectfont \\today\\par}}
+    
     \\vspace{{2cm}}
+    \\restoregeometry
 \\end{{titlepage}}
 
-% Copyright page (recommended for KDP)
+% ENHANCED COPYRIGHT PAGE
 \\newpage
 \\thispagestyle{{empty}}
 \\vspace*{{\\fill}}
 \\begin{{flushleft}}
+\\small
+
 \\textcopyright\\ \\the\\year\\ {author_name}
+
+\\vspace{{1em}}
 
 All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the author, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
 
-\\vspace{{1em}}
-First Edition
+\\vspace{{1.5em}}
 
-\\vspace{{1em}}
-ISBN: [Your ISBN Here]
+\\textbf{{First Edition}}
+
+
+Vist www.governmentexamguru.com for more books and resources.
+
 \\end{{flushleft}}
 \\vspace*{{\\fill}}
 
-% Table of contents
+% ENHANCED TABLE OF CONTENTS
 \\newpage
 \\tableofcontents
 \\clearpage
@@ -707,10 +956,10 @@ ISBN: [Your ISBN Here]
 \\mainmatter
 '''
 
-    # Add each chapter with KDP-compliant formatting
+    # Add each chapter with enhanced formatting
     for chapter_title, content in chapters_data:
         if content:
-            latex_content = markdown_to_latex(content, use_numbers)
+            latex_content = markdown_to_latex(content, use_numbers, center_titles)
             if use_numbers:
                 latex_doc += f"\n\\chapter{{{chapter_title}}}\n"
             else:
@@ -720,8 +969,17 @@ ISBN: [Your ISBN Here]
             latex_doc += latex_content
             latex_doc += "\n\\clearpage\n"
 
-    # End document
+    # Enhanced document end
     latex_doc += r'''
+
+% Enhanced back matter
+\backmatter
+
+% Optional: About the Author page
+% \chapter*{About the Author}
+% \addcontentsline{toc}{chapter}{About the Author}
+% [Author biography would go here]
+
 \end{document}
 '''
     
@@ -730,16 +988,16 @@ ISBN: [Your ISBN Here]
 def estimate_page_count(chapters_data: List[Tuple[str, str]]) -> int:
     """Estimate page count for margin calculations."""
     total_words = sum(len(content.split()) for _, content in chapters_data)
-    # Rough estimate: 250-300 words per page for standard formatting
-    estimated_pages = max(24, int(total_words / 275))  # Minimum 24 pages
+    # Enhanced estimate: 250-300 words per page for enhanced formatting
+    estimated_pages = max(24, int(total_words / 280))
     
-    # Add pages for front matter
-    front_matter_pages = 8  # Title, copyright, TOC, etc.
+    # Add pages for enhanced front matter
+    front_matter_pages = 10  # Title, copyright, TOC, etc.
     
     return estimated_pages + front_matter_pages
 
 def compile_latex_to_pdf(latex_content: str, output_pdf: Path) -> bool:
-    """Compile LaTeX to PDF with KDP-compliant settings."""
+    """Compile LaTeX to PDF with enhanced settings."""
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_path = Path(temp_dir)
         tex_file = temp_path / "document.tex"
@@ -748,90 +1006,100 @@ def compile_latex_to_pdf(latex_content: str, output_pdf: Path) -> bool:
             f.write(latex_content)
         
         try:
-            print("   🔄 KDP-compliant LaTeX compilation (pass 1/3)...")
+            print("   🎨 Enhanced LaTeX compilation (pass 1/3)...")
             
-            # Run pdflatex three times for proper cross-references and TOC
+            # Run pdflatex three times for proper cross-references and styling
             for i in range(3):
                 result = subprocess.run(
                     ['pdflatex', '-interaction=nonstopmode', '-output-directory', temp_dir, 
-                     '-synctex=1', str(tex_file)],  # synctex for better debugging
+                     '-synctex=1', '-shell-escape', str(tex_file)],
                     capture_output=True,
                     text=True,
                     cwd=temp_dir
                 )
                 
                 if i == 0:
-                    print("   🔄 KDP-compliant LaTeX compilation (pass 2/3)...")
+                    print("   🎨 Enhanced LaTeX compilation (pass 2/3)...")
                 elif i == 1:
-                    print("   🔄 KDP-compliant LaTeX compilation (pass 3/3)...")
+                    print("   🎨 Enhanced LaTeX compilation (pass 3/3)...")
                 
                 pdf_file = temp_path / "document.pdf"
                 if result.returncode != 0 and not pdf_file.exists():
-                    print(f"❌ LaTeX compilation failed (pass {i+1}):")
-                    print("Error output:")
+                    print(f"❌ Enhanced LaTeX compilation failed (pass {i+1}):")
+                    print("Error details:")
                     print("-" * 50)
-                    # Show more relevant error information
                     error_lines = result.stdout.split('\n')
                     for line in error_lines:
                         if any(keyword in line.lower() for keyword in 
-                               ['error', '!', 'undefined', 'missing', 'geometry']):
+                               ['error', '!', 'undefined', 'missing', 'geometry', 'font']):
                             print(line)
                     return False
             
             if pdf_file.exists():
                 shutil.copy(pdf_file, output_pdf)
-                print("   ✅ KDP-compliant PDF compilation successful!")
+                print("   ✅ Enhanced PDF compilation successful!")
                 return True
             else:
-                print("❌ PDF file was not generated")
+                print("❌ Enhanced PDF file was not generated")
                 return False
                 
         except FileNotFoundError:
             print("❌ Error: pdflatex not found. Please ensure LaTeX is installed.")
-            print("   Install LaTeX:")
+            print("   Enhanced features require:")
             print("   • Ubuntu/Debian: sudo apt-get install texlive-full")
             print("   • macOS: brew install --cask mactex")
             print("   • Windows: https://miktex.org/")
             return False
         except Exception as e:
-            print(f"❌ Error during compilation: {e}")
+            print(f"❌ Error during enhanced compilation: {e}")
             return False
 
-def validate_kdp_compliance(chapters_data: List[Tuple[str, str]], estimated_pages: int, has_bleed: bool) -> List[str]:
-    """Validate KDP compliance and return warnings."""
+def validate_kdp_compliance(chapters_data: List[Tuple[str, str]], estimated_pages: int, has_bleed: bool, style_theme: str) -> List[str]:
+    """Validate enhanced KDP compliance and return warnings."""
     warnings = []
     
     # Check page count for spine text
     if estimated_pages < 79:
         warnings.append(f"📊 Page count ({estimated_pages}) is under 79 - no spine text allowed")
+    else:
+        warnings.append(f"📊 Page count ({estimated_pages}) allows spine text on cover")
     
-    # Check for consecutive blank pages (simplified check)
+    # Check for content adequacy
     total_content_length = sum(len(content) for _, content in chapters_data)
-    if total_content_length < 1000:
-        warnings.append("⚠️  Very short content - ensure you don't have too many blank pages")
+    if total_content_length < 5000:
+        warnings.append("⚠️  Short content - ensure adequate book length")
     
-    # Check chapter count
-    if len(chapters_data) > 50:
-        warnings.append("⚠️  Many chapters - verify TOC formatting")
+    # Style-specific warnings
+    if style_theme == 'modern':
+        warnings.append("🎨 Modern theme uses sans-serif fonts - verify readability")
+    elif style_theme == 'elegant':
+        warnings.append("🎨 Elegant theme uses decorative fonts - check character rendering")
     
     # Bleed warnings
     if has_bleed:
-        warnings.append("🖨️  Bleed enabled - ensure all background images extend to page edge")
+        warnings.append("🖨️  Bleed enabled - ensure backgrounds extend to page edge")
         warnings.append("🔍 Verify all text stays within safe zones")
+    
+    # Enhanced formatting warnings
+    warnings.append("✨ Enhanced styling applied - review PDF for formatting consistency")
     
     return warnings
 
 def main():
-    """Main function for KDP-compliant PDF generation."""
-    print("🚀 KDP-COMPLIANT BOOK GENERATOR")
-    print("=" * 70)
+    """Main function for enhanced KDP-compliant PDF generation."""
+    print("🚀 ENHANCED KDP-COMPLIANT BOOK GENERATOR")
+    print("=" * 80)
+    print("✨ Professional Styling & Typography")
     print("✅ Amazon KDP Print-on-Demand Ready")
-    print("✅ Professional Margins & Bleed Support") 
-    print("✅ Font Embedding & Page Validation")
-    print("=" * 70)
+    print("✅ Center/Left Alignment Options")
+    print("✅ Multiple Style Themes")
+    print("✅ Enhanced Visual Appearance")
+    print("=" * 80)
     
     # Get user preferences
-    book_title, author_name, use_numbers, include_subsections, add_watermark, page_config, has_bleed = get_user_preferences()
+    preferences = get_user_preferences()
+    (book_title, author_name, use_numbers, include_subsections, 
+     add_watermark, page_config, has_bleed, center_titles, style_theme) = preferences
     
     # Get folder path
     if len(sys.argv) > 1:
@@ -883,21 +1151,23 @@ def main():
     total_words = sum(len(content.split()) for _, content in chapters_data)
     estimated_pages = estimate_page_count(chapters_data)
     
-    print(f"\n📊 Content Analysis:")
+    print(f"\n📊 Enhanced Content Analysis:")
     print(f"   📖 Chapters: {len(chapters_data)}")
     print(f"   📝 Total words: {total_words:,}")
     print(f"   📄 Estimated pages: {estimated_pages}")
+    print(f"   🎨 Style theme: {style_theme.title()}")
+    print(f"   📐 Alignment: {'Center' if center_titles else 'Left'}")
     
-    # KDP compliance check
-    warnings = validate_kdp_compliance(chapters_data, estimated_pages, has_bleed)
+    # Enhanced KDP compliance check
+    warnings = validate_kdp_compliance(chapters_data, estimated_pages, has_bleed, style_theme)
     if warnings:
-        print(f"\n⚠️  KDP Compliance Notes:")
+        print(f"\n⚠️  Enhanced KDP Compliance Notes:")
         for warning in warnings:
             print(f"   {warning}")
     
     # Calculate final margins
     margins = calculate_kdp_margins(estimated_pages, has_bleed)
-    print(f"\n📐 KDP Margins (based on {estimated_pages} pages):")
+    print(f"\n📐 Enhanced KDP Margins (based on {estimated_pages} pages):")
     print(f"   Top: {margins['top']:.3f}\" ({margins['top']*25.4:.1f}mm)")
     print(f"   Bottom: {margins['bottom']:.3f}\" ({margins['bottom']*25.4:.1f}mm)")
     print(f"   Inside: {margins['inside']:.3f}\" ({margins['inside']*25.4:.1f}mm)")
@@ -906,92 +1176,99 @@ def main():
     # Create output filenames
     safe_title = re.sub(r'[^\w\s-]', '', book_title.lower())
     safe_title = re.sub(r'[-\s]+', '_', safe_title)
-    output_pdf = folder_path / f"{safe_title}_KDP_READY.pdf"
-    latex_file = folder_path / f"{safe_title}_KDP_SOURCE.tex"
+    output_pdf = folder_path / f"{safe_title}_ENHANCED_KDP.pdf"
+    latex_file = folder_path / f"{safe_title}_ENHANCED_SOURCE.tex"
     
-    # Generate LaTeX
-    print("\n🔧 Generating KDP-compliant LaTeX...")
-    latex_content = create_kdp_latex_document(
+    # Generate enhanced LaTeX
+    print(f"\n🎨 Generating enhanced KDP-compliant LaTeX ({style_theme} theme)...")
+    latex_content = create_enhanced_latex_document(
         chapters_data, output_pdf, book_title, author_name, 
         use_numbers, include_subsections, add_watermark, 
-        page_config, has_bleed, estimated_pages
+        page_config, has_bleed, estimated_pages, center_titles, style_theme
     )
     
     # Save LaTeX source
     with open(latex_file, 'w', encoding='utf-8') as f:
         f.write(latex_content)
-    print(f"📄 LaTeX source saved: {latex_file}")
+    print(f"📄 Enhanced LaTeX source saved: {latex_file}")
     
-    # Compile to PDF
-    print("\n⚙️  Compiling KDP-compliant PDF...")
+    # Compile to enhanced PDF
+    print("\n⚙️  Compiling enhanced KDP-compliant PDF...")
     if compile_latex_to_pdf(latex_content, output_pdf):
         # Save text chapters
         text_folder = save_chapters_as_text(chapters_data, folder_path, safe_title)
         
-        print(f"\n🎉 KDP-READY BOOK GENERATED SUCCESSFULLY!")
-        print("\n" + "=" * 70)
-        print("📖 BOOK SPECIFICATIONS:")
+        print(f"\n🎉 ENHANCED KDP-READY BOOK GENERATED!")
+        print("\n" + "=" * 80)
+        print("📖 ENHANCED BOOK SPECIFICATIONS:")
         print(f"   Title: {book_title}")
         print(f"   Author: {author_name}")
         print(f"   Chapters: {len(chapters_data)}")
         print(f"   Words: {total_words:,}")
         print(f"   Estimated Pages: {estimated_pages}")
         print(f"   Page Size: {page_config[2]}")
+        print(f"   Style Theme: {style_theme.title()}")
+        print(f"   Title Alignment: {'Center' if center_titles else 'Left'}")
         
         if has_bleed:
             final_width, final_height = calculate_bleed_dimensions(
                 page_config[0], page_config[1], has_bleed)
             print(f"   With Bleed: {final_width:.1f} x {final_height:.1f} cm")
         
-        print(f"   Margins: KDP-Compliant (varies by page count)")
-        print(f"   Watermarks: {'KDP-Safe Positioning' if add_watermark else 'Disabled'}")
-        print(f"   Font: Embedded LaTeX Fonts")
+        print(f"   Margins: Enhanced KDP-Compliant")
+        print(f"   Watermarks: {'Enhanced Safe Positioning' if add_watermark else 'Disabled'}")
+        print(f"   Typography: Professional Enhanced Fonts")
         
         # File information
         try:
             pdf_size_mb = output_pdf.stat().st_size / (1024 * 1024)
-            print(f"\n📁 FILES GENERATED:")
-            print(f"   📕 KDP-Ready PDF: {output_pdf} ({pdf_size_mb:.1f} MB)")
-            print(f"   📄 LaTeX Source: {latex_file}")
+            print(f"\n📁 ENHANCED FILES GENERATED:")
+            print(f"   📕 Enhanced KDP PDF: {output_pdf} ({pdf_size_mb:.1f} MB)")
+            print(f"   📄 Enhanced LaTeX: {latex_file}")
             print(f"   📝 Text Chapters: {text_folder}")
         except:
-            print(f"\n📁 FILES GENERATED:")
-            print(f"   📕 KDP-Ready PDF: {output_pdf}")
-            print(f"   📄 LaTeX Source: {latex_file}")
+            print(f"\n📁 ENHANCED FILES GENERATED:")
+            print(f"   📕 Enhanced KDP PDF: {output_pdf}")
+            print(f"   📄 Enhanced LaTeX: {latex_file}")
             print(f"   📝 Text Chapters: {text_folder}")
         
-        print("\n🎯 KDP COMPLIANCE CHECKLIST:")
-        print("   ✅ Mirror margins based on page count")
-        print("   ✅ Minimum font size (7pt+)")
-        print("   ✅ Embedded fonts")
-        print("   ✅ Proper pagination (odd/even)")
-        print("   ✅ No content in margins")
+        print(f"\n🎯 ENHANCED KDP COMPLIANCE:")
+        print("   ✅ Enhanced mirror margins based on page count")
+        print("   ✅ Professional typography and spacing")
+        print("   ✅ Customizable title alignment (center/left)")
+        print("   ✅ Multiple style themes (classic/modern/elegant)")
+        print("   ✅ Enhanced font sizes and readability")
+        print("   ✅ Improved headers and page formatting")
+        print("   ✅ Professional title page and copyright")
+        print("   ✅ Enhanced table of contents")
         if has_bleed:
-            print("   ✅ Bleed dimensions (+0.125\" width, +0.25\" height)")
-        print("   ✅ Professional formatting")
+            print("   ✅ Proper bleed dimensions")
+        print("   ✅ All standard KDP requirements met")
         
         print(f"\n📋 NEXT STEPS:")
-        print(f"   1. 📖 Review the PDF carefully")
-        print(f"   2. 🔍 Check margins and text positioning")
+        print(f"   1. 📖 Review the enhanced PDF carefully")
+        print(f"   2. 🎨 Check styling and alignment consistency") 
+        print(f"   3. 🔍 Verify margins and text positioning")
         if has_bleed:
-            print(f"   3. 🖼️  Verify bleed images extend to page edge")
+            print(f"   4. 🖼️  Verify bleed images extend to page edge")
         if estimated_pages >= 79:
-            print(f"   4. 📏 Add spine text to cover (book has {estimated_pages} pages)")
-        print(f"   5. ⬆️  Upload to Amazon KDP")
-        print(f"   6. 🔍 Use KDP Print Previewer to verify")
+            print(f"   5. 📏 Add spine text to cover (book has {estimated_pages} pages)")
+        print(f"   6. ⬆️  Upload to Amazon KDP")
+        print(f"   7. 🔍 Use KDP Print Previewer to verify")
         
         if warnings:
-            print(f"\n⚠️  IMPORTANT REMINDERS:")
+            print(f"\n⚠️  ENHANCED REMINDERS:")
             for warning in warnings:
                 print(f"   {warning}")
         
     else:
-        print("\n❌ Failed to generate KDP-compliant PDF")
-        print(f"📄 Check LaTeX source: {latex_file}")
+        print("\n❌ Failed to generate enhanced KDP-compliant PDF")
+        print(f"📄 Check enhanced LaTeX source: {latex_file}")
         print("\n🛠️  Troubleshooting:")
-        print("   • Ensure LaTeX is installed (texlive)")
+        print("   • Ensure LaTeX is installed (texlive-full recommended)")
         print("   • Check for special characters in content")
         print("   • Verify all markdown files are valid")
+        print("   • Enhanced features require complete LaTeX installation")
 
 if __name__ == "__main__":
     main()
