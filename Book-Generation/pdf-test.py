@@ -213,39 +213,37 @@ def get_user_preferences():
             break
         print("Please enter 'y' for yes or 'n' for no.")
     
-    # Get page size preference (KDP-compliant sizes)
+    # Updated page size preferences with your specified sizes
     print("\n📏 Choose KDP-compliant page size:")
-    print("   1. 5\" x 8\" (12.7 x 20.3 cm) - Popular fiction")
-    print("   2. 5.25\" x 8\" (13.3 x 20.3 cm) - Standard fiction") 
-    print("   3. 5.5\" x 8.5\" (14.0 x 21.6 cm) - Large fiction")
-    print("   4. 6\" x 9\" (15.2 x 22.9 cm) - Non-fiction standard")
-    print("   5. 6.14\" x 9.21\" (15.6 x 23.4 cm) - A5 size")
-    print("   6. 6.69\" x 9.61\" (17.0 x 24.4 cm) - Large format")
-    print("   7. 7\" x 10\" (17.8 x 25.4 cm) - Textbook")
-    print("   8. 7.5\" x 9.25\" (19.1 x 23.5 cm) - Square-ish")
-    print("   9. 8.5\" x 11\" (21.6 x 27.9 cm) - US Letter")
+    print("   1. 5.06\" x 7.81\" (12.85 x 19.84 cm)")
+    print("   2. 6.14\" x 9.21\" (15.6 x 23.39 cm)")
+    print("   3. 6.69\" x 9.61\" (16.99 x 24.4 cm)")
+    print("   4. 7\" x 10\" (17.78 x 25.4 cm)")
+    print("   5. 7.44\" x 9.69\" (18.9 x 24.61 cm)")
+    print("   6. 7.5\" x 9.25\" (19.05 x 23.5 cm)")
+    print("   7. 8\" x 10\" (20.32 x 25.4 cm)")
+    print("   8. 8.5\" x 11\" (21.59 x 27.94 cm)")
     
     page_sizes = {
-        '1': (5.0, 8.0, '5" x 8" Fiction'),
-        '2': (5.25, 8.0, '5.25" x 8" Standard Fiction'),
-        '3': (5.5, 8.5, '5.5" x 8.5" Large Fiction'),
-        '4': (6.0, 9.0, '6" x 9" Non-fiction'),
-        '5': (6.14, 9.21, '6.14" x 9.21" A5'),
-        '6': (6.69, 9.61, '6.69" x 9.61" Large'),
-        '7': (7.0, 10.0, '7" x 10" Textbook'),
-        '8': (7.5, 9.25, '7.5" x 9.25" Square'),
-        '9': (8.5, 11.0, '8.5" x 11" Letter')
+        '1': (5.06, 7.81, '5.06" x 7.81" (12.85 x 19.84 cm)'),
+        '2': (6.14, 9.21, '6.14" x 9.21" (15.6 x 23.39 cm)'),
+        '3': (6.69, 9.61, '6.69" x 9.61" (16.99 x 24.4 cm)'),
+        '4': (7.0, 10.0, '7" x 10" (17.78 x 25.4 cm)'),
+        '5': (7.44, 9.69, '7.44" x 9.69" (18.9 x 24.61 cm)'),
+        '6': (7.5, 9.25, '7.5" x 9.25" (19.05 x 23.5 cm)'),
+        '7': (8.0, 10.0, '8" x 10" (20.32 x 25.4 cm)'),
+        '8': (8.5, 11.0, '8.5" x 11" (21.59 x 27.94 cm)')
     }
     
     while True:
-        size_choice = input("Select page size (1-9): ").strip()
+        size_choice = input("Select page size (1-8): ").strip()
         if size_choice in page_sizes:
             width_inches, height_inches, size_name = page_sizes[size_choice]
             page_width = width_inches * 2.54
             page_height = height_inches * 2.54
             page_config = (page_width, page_height, size_name, width_inches, height_inches)
             break
-        print("Please enter a number from 1 to 9.")
+        print("Please enter a number from 1 to 8.")
     
     print(f"\n✅ Configuration Summary:")
     print(f"   📖 Title: {book_title}")
@@ -924,28 +922,6 @@ def create_enhanced_latex_document(chapters_data: List[Tuple[str, str]], output_
     \\restoregeometry
 \\end{{titlepage}}
 
-% ENHANCED COPYRIGHT PAGE
-\\newpage
-\\thispagestyle{{empty}}
-\\vspace*{{\\fill}}
-\\begin{{flushleft}}
-\\small
-
-\\textcopyright\\ \\the\\year\\ {author_name}
-
-\\vspace{{1em}}
-
-All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the author, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-
-\\vspace{{1.5em}}
-
-\\textbf{{First Edition}}
-
-
-Vist www.governmentexamguru.com for more books and resources.
-
-\\end{{flushleft}}
-\\vspace*{{\\fill}}
 
 % ENHANCED TABLE OF CONTENTS
 \\newpage
