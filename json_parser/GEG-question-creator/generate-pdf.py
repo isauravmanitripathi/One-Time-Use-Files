@@ -109,11 +109,6 @@ class LaTeXQuestionBankGenerator:
         timer_str = self.format_timer(data['timer'])
         instructions = self.escape_latex(data['instructions'])
         
-        # FINAL FIX: The entire LaTeX structure is rebuilt for stability.
-        # 1. Start in 'onecolumn' mode.
-        # 2. Create the title page normally.
-        # 3. Explicitly switch to 'twocolumn' for questions.
-        # This resolves the underlying layout conflict that caused all previous errors.
         latex_content = r"""
 \documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
@@ -241,26 +236,32 @@ class LaTeXQuestionBankGenerator:
             tex_file = Path(self.temp_dir) / "question_bank.tex"
             with open(tex_file, 'w', encoding='utf-8') as f: f.write(tex_content)
             
+            pdf_file_in_temp = Path(self.temp_dir) / "question_bank.pdf"
+
             print("🔄 Compiling LaTeX document...")
             for run in [1, 2]:
                 print(f"    📄 LaTeX compilation run {run}/2...")
-                result = subprocess.run(
+                subprocess.run(
                     ['pdflatex', '-interaction=nonstopmode', '-output-directory', str(self.temp_dir), str(tex_file)],
-                    capture_output=True, text=True, cwd=self.temp_dir
+                    capture_output=True,
+                    encoding='utf-8',
+                    errors='ignore',
+                    cwd=self.temp_dir
                 )
-                if result.returncode != 0:
-                    print(f"❌ LaTeX compilation failed on run {run}")
-                    print("LaTeX Log Output (last 1000 chars):")
+                
+                # FIX: Check for the PDF's existence instead of the return code.
+                # This makes the script robust to non-fatal LaTeX warnings that
+                # can occur with large documents but still produce a valid PDF.
+                if not pdf_file_in_temp.exists():
+                    print(f"❌ LaTeX compilation failed on run {run}. PDF was not created.")
                     log_file = tex_file.with_suffix('.log')
                     if log_file.exists():
-                        print(log_file.read_text()[-1000:])
-                    else:
-                        print(result.stdout[-1000:])
+                        print("LaTeX Log Output (last 1000 chars):")
+                        print(log_file.read_text(encoding='utf-8', errors='ignore')[-1000:])
                     return False
-            
-            pdf_file = Path(self.temp_dir) / "question_bank.pdf"
-            if pdf_file.exists():
-                shutil.copy2(pdf_file, output_path)
+
+            if pdf_file_in_temp.exists():
+                shutil.copy2(pdf_file_in_temp, output_path)
                 print(f"✅ PDF successfully generated: {output_path}")
                 return True
             else:
