@@ -102,7 +102,7 @@ class LaTeXQuestionBankGenerator:
         
         return result
     
-    def create_latex_document(self, data: Dict) -> str:
+    def create_latex_document(self, data: Dict, explanation_level: str) -> str:
         """Create the complete LaTeX document"""
         questions = data['questions']
         question_count = len(questions)
@@ -217,12 +217,14 @@ class LaTeXQuestionBankGenerator:
 \\par\\textcolor{{darkgreen}}{{\\textbf{{Why {correct_letter} is correct:}}}} {self.escape_latex(explanations.get(str(correct_index), "N/A"))}
 """
             
-            for opt_idx in range(4):
-                if opt_idx != correct_index:
-                    wrong_letter = chr(65 + opt_idx)
-                    wrong_explanation = explanations.get(str(opt_idx), "N/A")
-                    escaped_explanation = self.escape_latex(wrong_explanation)
-                    latex_content += f"""\\par\\textcolor{{darkred}}{{\\textbf{{Why {wrong_letter} is wrong:}}}} {escaped_explanation}"""
+            # Conditionally add explanations for wrong answers based on user choice
+            if explanation_level == 'b':
+                for opt_idx in range(4):
+                    if opt_idx != correct_index:
+                        wrong_letter = chr(65 + opt_idx)
+                        wrong_explanation = explanations.get(str(opt_idx), "N/A")
+                        escaped_explanation = self.escape_latex(wrong_explanation)
+                        latex_content += f"""\\par\\textcolor{{darkred}}{{\\textbf{{Why {wrong_letter} is wrong:}}}} {escaped_explanation}"""
             
             latex_content += "\\vspace{15pt}\n"
         
@@ -249,7 +251,7 @@ class LaTeXQuestionBankGenerator:
                     cwd=self.temp_dir
                 )
                 
-                # FIX: Check for the PDF's existence instead of the return code.
+                # Check for the PDF's existence instead of the return code.
                 # This makes the script robust to non-fatal LaTeX warnings that
                 # can occur with large documents but still produce a valid PDF.
                 if not pdf_file_in_temp.exists():
@@ -340,8 +342,15 @@ class LaTeXQuestionBankGenerator:
         
         output_path = self.get_output_path(file_path)
         
+        # Get user preference for explanation detail
+        print("\n⚙️  Explanation Options:")
+        explanation_level = input("    Show explanations for [c]orrect only, or [b]oth correct and wrong? (c/b): ").strip().lower()
+        while explanation_level not in ['c', 'b']:
+            print("    ❌ Invalid choice. Please enter 'c' for correct only or 'b' for both.")
+            explanation_level = input("    Show explanations for [c]orrect only, or [b]oth correct and wrong? (c/b): ").strip().lower()
+
         print("\n📝 Generating LaTeX document...")
-        latex_content = self.create_latex_document(data)
+        latex_content = self.create_latex_document(data, explanation_level)
         
         if self.compile_latex(latex_content, output_path):
             print("\n✅ SUCCESS!")
